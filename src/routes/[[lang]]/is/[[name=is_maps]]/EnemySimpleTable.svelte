@@ -1,11 +1,5 @@
 <script lang="ts">
-	import parseStats from '$lib/functions/parseStats';
-	import { statMods } from './stores.js';
-
 	export let enemies;
-
-	let statModsValue;
-	statMods.subscribe((value) => (statModsValue = value));
 
 	let tableHeaders = [
 		{ key: 'enemy', show: true },
@@ -22,7 +16,6 @@
 		{ key: 'remarks', show: true }
 	];
 	$: filteredTableHeaders = tableHeaders.filter(({ key, show }) => show);
-	$: moddedEnemies = parseStats(enemies, statModsValue);
 </script>
 
 <div class="">
@@ -42,7 +35,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						{#each moddedEnemies as enemy, index}
+						{#each enemies as enemy, index}
 							<tr class={`${index % 2 === 1 ? ' bg-[#333333]' : ''}`}>
 								{#each filteredTableHeaders as { key }}
 									{#if key === 'enemy'}
