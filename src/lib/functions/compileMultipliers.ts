@@ -93,8 +93,10 @@ const difficultyMods = [
 	}
 ];
 
-export default function updateStatMods(relics, difficulty, floor) {
-	const statMods = {
+import type { StatMods } from '../../routes/[[lang]]/is/[name=is_maps]/types';
+
+export default function updateStatMods(relics, difficulty: number, floor: number) {
+	const statMods: StatMods = {
 		ALL: {
 			hp: 1,
 			atk: 1,
@@ -109,7 +111,7 @@ export default function updateStatMods(relics, difficulty, floor) {
 	const floorMultiplier = (1 + 0.01 * difficulty) ** floor;
 	statMods.ALL.hp *= floorMultiplier;
 	statMods.ALL.atk *= floorMultiplier;
-	
+
 	for (const relic of relics) {
 		compileStatMods(statMods, relic.effects);
 	}
@@ -122,7 +124,7 @@ export default function updateStatMods(relics, difficulty, floor) {
 	return statMods;
 }
 
-const compileStatMods = (statMods, effects) => {
+const compileStatMods = (statMods:StatMods, effects) => {
 	effects.forEach((effect) => {
 		for (const target of effect.targets) {
 			if (!statMods[target]) {

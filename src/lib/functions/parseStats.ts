@@ -1,8 +1,9 @@
 /* takes in a list of enemies and statMods and returns enemy with modifiers applied */
+import type { Enemy, StatMods,Mods } from '../../routes/[[lang]]/is/[name=is_maps]/types';
 
 const STATS = ['hp', 'atk', 'aspd', 'range', 'def', 'res', 'weight', 'ms', 'lifepoint'];
 
-export default function parseStats(enemies, statMods) {
+export default function parseStats(enemies: Enemy[], statMods: StatMods) {
 	return enemies.map((enemy) => {
 		return { ...enemy, stats: applyMods(enemy, statMods) };
 	});
@@ -13,7 +14,7 @@ ALL + others -> distill into enemy ID
 */
 
 //returns enemy 'stats' object with modded stats
-const applyMods = (enemy, statMods, row = 0) => {
+const applyMods = (enemy: Enemy, statMods: StatMods, row = 0) => {
 	const mods = getEnemyStatMods(enemy, statMods, row);
 	const enemy_stats = {};
 	for (const stat of STATS) {
@@ -29,13 +30,13 @@ const applyMods = (enemy, statMods, row = 0) => {
 };
 
 //returns object with statMods to be used for calculateModdedStat
-const getEnemyStatMods = (enemy, statMods, row) => {
+const getEnemyStatMods = (enemy: Enemy, statMods: StatMods, row: number) => {
 	const { format } = enemy;
-	const statMod = { ...statMods.ALL };
+	const enemyStatMod = { ...statMods.ALL };
 	for (const target of Object.keys(statMods)) {
 		if (target !== 'ALL') {
 			if (isTarget(enemy, target)) {
-				distillMods(statMod, statMods[target]);
+				distillMods(enemyStatMod, statMods[target]);
 			}
 		}
 	}
@@ -45,28 +46,33 @@ const getEnemyStatMods = (enemy, statMods, row) => {
 			case 'prisoner':
 				if (row === 0) {
 					//imprisoned debuffs
-					distillMods(statMod, enemy.imprisoned.mods);
+					distillMods(enemyStatMod, enemy.imprisoned.mods);
 				} else {
 					//released buffs
-					distillMods(statMod, enemy.released.mods);
+					distillMods(enemyStatMod, enemy.released.mods);
 				}
 				break;
 
 			case 'powerup':
 				if (row === 1) {
-					distillMods(statMod, enemy.powerup.mods);
+					distillMods(enemyStatMod, enemy.powerup.mods);
 				}
 				break;
 			case 'multiform':
-				distillMods(statMod, enemy.stats.forms[row].mods);
+				distillMods(enemyStatMod, enemy.stats.forms[row].mods);
 				break;
 		}
 	}
 	// console.log(enemy.id, statMod);
-	return statMod;
+	return enemyStatMod;
 };
 
-const calculateModdedStat = (base_stat, stat, multiplier, fixed_value) => {
+const calculateModdedStat = (
+	base_stat: number,
+	stat: string,
+	multiplier: number,
+	fixed_value: number
+) => {
 	base_stat += fixed_value;
 	if (!multiplier) return base_stat;
 	switch (stat) {
@@ -85,29 +91,29 @@ const calculateModdedStat = (base_stat, stat, multiplier, fixed_value) => {
 	}
 };
 
-const distillMods = (statMods, mods) => {
+const distillMods = (enemyStatMod:Mods, mods:Mods) => {
 	for (const stat in mods) {
 		const value = mods[stat];
-		if (!statMods.hasOwnProperty(stat)) {
-			statMods[stat] = value;
+		if (!enemyStatMod.hasOwnProperty(stat)) {
+			enemyStatMod[stat] = value;
 		} else if (stat.includes('fixed')) {
-			statMods[stat] += value;
+			enemyStatMod[stat] += value;
 		} else {
 			switch (stat) {
 				case 'res':
 				case 'weight':
-					statMods[stat] += value;
+					enemyStatMod[stat] += value;
 					break;
 				default:
-					statMods[stat] *= value;
+					enemyStatMod[stat] *= value;
 					break;
 			}
 		}
 	}
-	return statMods;
+	return enemyStatMod;
 };
 
-const isTarget = (enemy, target) => {
+const isTarget = (enemy:Enemy, target:string) => {
 	const { id, type } = enemy;
 	switch (target) {
 		case 'ranged':
