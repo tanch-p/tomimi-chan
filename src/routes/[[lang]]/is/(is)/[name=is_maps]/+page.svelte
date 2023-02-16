@@ -15,6 +15,11 @@
 	$: moddedEnemies = parseStats(data.enemies, statModsValue);
 </script>
 
+<svelte:head>
+	<title>{data.mapConfig[`name_${language}`]}</title>
+	<meta name="description" content={data.mapConfig[`name_${language}`]} />
+</svelte:head>
+
 <h1>{data.mapConfig[`name_${language}`]}</h1>
 <FloorSelect />
 <DifficultySelect />
