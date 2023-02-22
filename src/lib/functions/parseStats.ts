@@ -1,5 +1,5 @@
 /* takes in a list of enemies and statMods and returns enemy with modifiers applied */
-import type { Enemy, StatMods,Mods } from '../../routes/[[lang]]/is/[name=is_maps]/types';
+import type { Enemy, StatMods, Mods } from '../../routes/(is)/[name=is_maps]/types';
 
 const STATS = ['hp', 'atk', 'aspd', 'range', 'def', 'res', 'weight', 'ms', 'lifepoint'];
 
@@ -59,7 +59,7 @@ const getEnemyStatMods = (enemy: Enemy, statMods: StatMods, row: number) => {
 				}
 				break;
 			case 'multiform':
-				distillMods(enemyStatMod, enemy.stats.forms[row].mods);
+				distillMods(enemyStatMod, enemy.forms[row].mods);
 				break;
 		}
 	}
@@ -91,7 +91,7 @@ const calculateModdedStat = (
 	}
 };
 
-const distillMods = (enemyStatMod:Mods, mods:Mods) => {
+const distillMods = (enemyStatMod: Mods, mods: Mods) => {
 	for (const stat in mods) {
 		const value = mods[stat];
 		if (!enemyStatMod.hasOwnProperty(stat)) {
@@ -113,7 +113,7 @@ const distillMods = (enemyStatMod:Mods, mods:Mods) => {
 	return enemyStatMod;
 };
 
-const isTarget = (enemy:Enemy, target:string) => {
+const isTarget = (enemy: Enemy, target: string) => {
 	const { id, type } = enemy;
 	switch (target) {
 		case 'ranged':
