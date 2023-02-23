@@ -20,7 +20,7 @@
 	<meta name="description" content={data.mapConfig[`name_${'cn'}`]} />
 </svelte:head>
 
-<div class="w-[100vw] md:w-full max-w-5xl mx-auto">
+<div class="w-[100vw] md:w-full max-w-7xl mx-auto">
 	<h1>{data.mapConfig[`name_${'cn'}`]}</h1>
 	<FloorSelect />
 	<DifficultySelect />

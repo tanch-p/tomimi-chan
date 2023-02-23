@@ -49,7 +49,9 @@ export interface Enemy {
 	stats: Stats[];
 	special?: string[];
 	forms?: EnemyFormType[];
-	released?: EnemyFormType[];
+	powerup?: EnemyFormType;
+	imprisoned?: EnemyFormType;
+	released?: EnemyFormType;
 	status_immune: StatusImmune[];
 	normal_attack?: {
 		atk_type: [AttackType, AttackAttribute];

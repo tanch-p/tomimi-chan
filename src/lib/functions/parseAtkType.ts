@@ -1,5 +1,4 @@
 import type { Enemy } from '../../routes/(is)/[name=is_maps]/types';
-import translations from '$lib/translations.json';
 
 export const getAtkType = (enemy: Enemy, row: number) => {
 	switch (enemy.format) {
@@ -12,20 +11,15 @@ export const getAtkType = (enemy: Enemy, row: number) => {
 	}
 };
 
-export const parseAtkType = (normal_attack, language: string) => {
-	const { atk_type, hits } = normal_attack;
-	if (atk_type[0] === 'raw') {
-		return '';
+export const getAtkEleHighlight = (atkElement: string) => {
+	switch (atkElement) {
+		case 'phys':
+			return 'text-phys-hl';
+		case 'arts':
+			return 'text-arts-hl';
+		case 'true':
+			return 'text-true-hl';
+		case 'heal':
+			return 'text-heal-hl';
 	}
-	const numHits = hits === 1 ? '' : ` x ${hits}`;
-	const atkType = '('.concat(
-		atk_type
-			.map((ele, index) => {
-				const separator = language === 'en' ? '/' : '・';
-				return (index !== 0 ? separator : '') + translations[language][ele];
-			})
-			.join(''),
-		')'
-	);
-	return numHits.concat(' ', atkType);
 };

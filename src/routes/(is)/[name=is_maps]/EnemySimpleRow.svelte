@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Enemy } from './types';
-	import { parseAtkType, getAtkType } from '$lib/functions/parseAtkType';
+	import RemarksContainer from './RemarksContainer.svelte';
+	import AtkType from './AtkType.svelte';
 	export let enemy: Enemy, index: number, filteredTableHeaders;
 	const { format } = enemy;
 	const maxRowSpan =
@@ -65,23 +66,21 @@
 					</td>
 				{/if}
 			{:else if key === 'remarks'}
-				<td class={`border border-gray-400 h-[65px] ${textAlign(key)}`}>Special</td>
+				<td class={`border border-gray-400 h-[65px] ${textAlign(key)}`}
+					><RemarksContainer {enemy} language="en" {row} /></td
+				>
 			{:else if !(row !== 0 && getRowSpan(format, key, maxRowSpan) > 1)}
 				<td
 					class={`border border-gray-400 h-[65px] ${textAlign(key)}`}
 					rowspan={getRowSpan(format, key, maxRowSpan)}
 				>
-					<div class="whitespace-nowrap">
-						{#if key === 'atk'}
-							<p>
-								{enemy.stats[key]}
-								<span>
-									{parseAtkType(getAtkType(enemy, row), 'en')}
-								</span>
-							</p>
-						{:else}
+					<div>
+						<p>
 							{enemy.stats[key]}
-						{/if}
+							{#if key === 'atk'}
+								<AtkType {enemy} language="en" />
+							{/if}
+						</p>
 						<!-- {parseSpecial(
                             enemy,
                             format,

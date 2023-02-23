@@ -1,4 +1,4 @@
-import stagesList from '$lib/data/stages/is_stages_list.json';
+import stagesList from '$lib/data/stages/is_stages_list.json' assert { type: 'json' };
 
 export default function findStage(stageName: string) {
 	return stagesList.find((stage) => {

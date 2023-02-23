@@ -1,9 +1,9 @@
-import type { PageServerLoad } from './$types';
+import type { PageLoad } from './$types';
 import type { ISMapConfig, Enemy } from './types';
 import enemyDatabase from '$lib/data/enemy/enemy_database.json';
 import findStage from '$lib/functions/findStage';
 
-export const load = (async ({ params }) => {
+export const load = (({ params }) => {
 	const mapConfig: ISMapConfig = findStage(params.name);
 	const enemies = mapConfig.enemies.map(({ id, level, overwrittenData }) => {
 		const enemy: Enemy = { ...enemyDatabase[id] };
@@ -19,4 +19,4 @@ export const load = (async ({ params }) => {
 		mapConfig,
 		enemies,
 	};
-}) satisfies PageServerLoad;
+}) satisfies PageLoad;

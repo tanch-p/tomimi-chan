@@ -8,7 +8,8 @@ module.exports = {
 				'ph-bg': '#131313',
 				'phys-hl': '#f56a14',
 				'arts-hl': '#2467ed',
-				'true-hl': '#9b23db'
+				'true-hl': '#9b23db',
+				'heal-hl': '#00A300'
 			}
 		}
 	},
