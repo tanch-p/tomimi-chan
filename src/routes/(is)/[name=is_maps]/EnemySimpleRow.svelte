@@ -48,7 +48,7 @@
 					<td class={`border border-gray-400 w-[75px] ${textAlign(key)}`} rowspan={maxRowSpan}>
 						<img
 							class="select-none"
-							src={`/src/lib/images/enemy_icons/${enemy.key}.webp`}
+							src={enemy.img}
 							height="75px"
 							width="75px"
 							alt={enemy[`name_cn`]}

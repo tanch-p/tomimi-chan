@@ -44,6 +44,7 @@ type EnemyFormType = {
 export interface Enemy {
 	id: string;
 	key: string;
+	img: string;
 	[key: `name_${string}`]: string;
 	format: string;
 	stats: Stats[];
