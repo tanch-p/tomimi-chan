@@ -36,11 +36,11 @@
 	};
 </script>
 
-{@debug enemy}
+<!-- {@debug enemy} -->
 
-{#each new Array(maxRowSpan) as _blank, row}
+{#each new Array(maxRowSpan) as _blank, row (enemy.key.concat('-',row))}
 	<tr class={`${index % 2 === 1 ? ' bg-[#333333]' : 'bg-neutral-800'}`}>
-		{#each filteredTableHeaders as { key }}
+		{#each filteredTableHeaders as { key } (enemy.key.concat('-',key,'-',row))}
 			{#if key === 'enemy'}
 				{#if row === 0}
 					<td class={`border border-gray-400 w-[75px] ${textAlign(key)}`} rowspan={maxRowSpan}>

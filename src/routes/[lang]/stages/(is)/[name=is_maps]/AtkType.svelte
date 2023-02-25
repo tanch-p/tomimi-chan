@@ -4,7 +4,7 @@
 	import translations from '$lib/translations.json';
 	export let enemy: Enemy, row: number, language: string;
 	const { atk_type, hits } = getAtkType(enemy, row);
-	const separator = language === 'en' ? '/' : '・';
+	$: separator = language === 'en' ? '/' : '・';
 	const hasAtkElement = atk_type[0] !== 'raw' && atk_type[0] !== 'no_attack';
 </script>
 

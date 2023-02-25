@@ -11,7 +11,7 @@
 	};
 </script>
 
-<a href={`/${language}/stages/${stageUrl}`}>
+<a data-sveltekit-reload href={`/${language}/stages/${stageUrl}`}>
 	<div class={`hover:text-sky-400  md:h-full mx-2 my-3 md:my-1 text-center hover:cursor-pointer`}>
 		{stageName}
 	</div>

@@ -8,7 +8,7 @@ export const load = (async ({ params }) => {
 	const mapConfig: ISMapConfig = findStage(params.name);
 	const enemies = mapConfig.enemies.map(({ id, level, overwrittenData }) => {
 		const enemy: Enemy = { ...enemyDatabase[id] };
-		enemy.stats = enemyDatabase[id].stats[level];
+		enemy.stats = { ...enemyDatabase[id].stats[level] };
 		if (overwrittenData) {
 			for (const statKey in overwrittenData) {
 				enemy.stats[statKey] = overwrittenData[statKey];
@@ -18,7 +18,9 @@ export const load = (async ({ params }) => {
 	});
 	for (const enemy of enemies) {
 		enemy.img = (
-			await import(`../../../../../lib/images/enemy_icons/enemy${enemy.key.replace('enemy', '')}.webp`)
+			await import(
+				`../../../../../lib/images/enemy_icons/enemy${enemy.key.replace('enemy', '')}.webp`
+			)
 		).default;
 	}
 	return {

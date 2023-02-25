@@ -12,7 +12,7 @@
 	statMods.subscribe((value) => (statModsValue = value));
 
 	export let data: PageData;
-	const { language } = data;
+	$: language = data.language;
 	$: moddedEnemies = parseStats(data.enemies, statModsValue);
 </script>
 
