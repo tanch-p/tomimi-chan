@@ -22,7 +22,7 @@
 	</h1>
 
 	<h2>
-		<a href="/mizuki"> try editing <strong>src/routes/+page.svelte</strong></a>
+		<a data-sveltekit-reload href="/mizuki"> try editing <strong>src/routes/+page.svelte</strong></a>
 	</h2>
 
 	<Counter />

@@ -3,9 +3,27 @@ import type { Enemy, StatMods, Mods } from '../../routes/(is)/[name=is_maps]/typ
 
 const STATS = ['hp', 'atk', 'aspd', 'range', 'def', 'res', 'weight', 'ms', 'lifepoint'];
 
+export const getMaxRowSpan = (enemy: Enemy) => {
+	const { format } = enemy;
+	return format === 'powerup' || format === 'prisoner'
+		? 2
+		: format === 'multiform'
+		? enemy.forms.length
+		: 1;
+};
+
+// enemy stats type is being changed from {} to [{}] here
 export default function parseStats(enemies: Enemy[], statMods: StatMods) {
 	return enemies.map((enemy) => {
-		return { ...enemy, stats: applyMods(enemy, statMods) };
+		const maxRowSpan = getMaxRowSpan(enemy);
+		const moddedStats = [];
+		for (let i = 0; i < maxRowSpan; i++) {
+			moddedStats.push(applyMods(enemy, statMods, i));
+		}
+		return {
+			...enemy,
+			stats: moddedStats
+		};
 	});
 }
 
@@ -14,7 +32,7 @@ ALL + others -> distill into enemy ID
 */
 
 //returns enemy 'stats' object with modded stats
-const applyMods = (enemy: Enemy, statMods: StatMods, row = 0) => {
+const applyMods = (enemy: Enemy, statMods: StatMods, row: number) => {
 	const mods = getEnemyStatMods(enemy, statMods, row);
 	const enemy_stats = {};
 	for (const stat of STATS) {
@@ -25,7 +43,6 @@ const applyMods = (enemy: Enemy, statMods: StatMods, row = 0) => {
 			mods?.[`fixed_${stat}`] ?? 0
 		);
 	}
-	// console.log(enemy.id, enemy_stats);
 	return enemy_stats;
 };
 
@@ -63,7 +80,6 @@ const getEnemyStatMods = (enemy: Enemy, statMods: StatMods, row: number) => {
 				break;
 		}
 	}
-	// console.log(enemy.id, statMod);
 	return enemyStatMod;
 };
 
@@ -83,7 +99,6 @@ const calculateModdedStat = (
 			return Math.round((base_stat / multiplier) * 100) / 100;
 		case 'range':
 			return Math.round(base_stat * multiplier * 100) / 100;
-		case 'res':
 		case 'weight':
 			return Math.min(Math.max((base_stat += multiplier), 0), 100);
 		default:

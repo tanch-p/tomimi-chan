@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+	export let language: string;
 	import StageNavButton from './StageNavButton.svelte';
 	let floor1 = ['蓄水池', '虫群横行', '射手部队', '共生'];
 	let floor2 = ['无声呼号', '海神的信者', '病症', '回溯', '征兆', '除暴安良'];
@@ -18,67 +19,67 @@
 	<div class="bg-gradient-to-b from-blue-200 to-cyan-500">
 		<div class="flex flex-wrap justify-center">
 			{#each floor1 as stageName}
-				<StageNavButton stageName={stageName} language={"cn"}/>
+				<StageNavButton {stageName} {language} />
 			{/each}
 		</div>
 	</div>
 	<div class="bg-sky-400">
 		<div class="flex flex-wrap justify-center">
 			{#each floor2 as stageName}
-				<StageNavButton stageName={stageName} language={"cn"} />
+				<StageNavButton {stageName} {language} />
 			{/each}
 		</div>
 	</div>
 	<div class="bg-slate-700">
 		<div class="flex flex-wrap justify-center">
 			{#each floor3 as stageName}
-				<StageNavButton stageName={stageName} language={"cn"} />
+				<StageNavButton {stageName} {language} />
 			{/each}
 		</div>
 		<div class="flex flex-wrap justify-center">
 			{#each floor3b as stageName}
-				<StageNavButton stageName={stageName} language={"cn"} />
+				<StageNavButton {stageName} {language} />
 			{/each}
 		</div>
 		<div class="flex flex-wrap justify-center">
 			{#each floor3b2 as stageName}
-				<StageNavButton stageName={stageName} language={"cn"} />
+				<StageNavButton {stageName} {language} />
 			{/each}
 		</div>
 	</div>
 	<div class="bg-cyan-800">
 		<div class="flex flex-wrap justify-center">
 			{#each floor4 as stageName}
-				<StageNavButton stageName={stageName} language={"cn"} />
+				<StageNavButton {stageName} {language} />
 			{/each}
 		</div>
 	</div>
 	<div class="bg-sky-900">
 		<div class="flex flex-wrap justify-center">
 			{#each floor5 as stageName}
-				<StageNavButton stageName={stageName} language={"cn"} />
+				<StageNavButton {stageName} {language} />
 			{/each}
 		</div>
 		<div class="flex flex-wrap justify-center">
 			{#each floorEX as stageName}
-				<StageNavButton stageName={stageName} language={"cn"} />
+				<StageNavButton {stageName} {language} />
 			{/each}
 		</div>
 		<div class="flex flex-wrap justify-center">
 			{#each floor5b as stageName}
-				<StageNavButton stageName={stageName} language={"cn"} />
+				<StageNavButton {stageName} {language} />
 			{/each}
 		</div>
 	</div>
 	<div class="bg-gray-800">
 		<div class="flex flex-wrap justify-center">
 			{#each floor6 as stageName}
-				<StageNavButton stageName={stageName} language={"cn"} />
+				<StageNavButton {stageName} {language} />
 			{/each}
 		</div>
 		<div class="flex flex-wrap justify-center">
 			{#each floor6b as stageName}
-				<StageNavButton stageName={stageName} language={"cn"} />
+				<StageNavButton {stageName} {language} />
 			{/each}
 		</div>
 	</div>

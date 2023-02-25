@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { Enemy } from './types';
 	import EnemySimpleRow from './EnemySimpleRow.svelte';
-	export let enemies: Enemy[];
-
+	export let enemies: Enemy[], language: string;
 	let tableHeaders = [
 		{ key: 'enemy', show: true },
 		{ key: 'type', show: true },
@@ -40,7 +39,7 @@
 					</thead>
 					<tbody>
 						{#each enemies as enemy, index}
-							<EnemySimpleRow {enemy} {filteredTableHeaders} {index} />
+							<EnemySimpleRow {enemy} {filteredTableHeaders} {index} {language}/>
 						{/each}
 					</tbody>
 				</table>

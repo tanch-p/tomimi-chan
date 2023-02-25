@@ -4,6 +4,7 @@ import enemyDatabase from '$lib/data/enemy/enemy_database.json';
 import findStage from '$lib/functions/findStage';
 
 export const load = (async ({ params }) => {
+	const language = params.lang;
 	const mapConfig: ISMapConfig = findStage(params.name);
 	const enemies = mapConfig.enemies.map(({ id, level, overwrittenData }) => {
 		const enemy: Enemy = { ...enemyDatabase[id] };
@@ -17,11 +18,12 @@ export const load = (async ({ params }) => {
 	});
 	for (const enemy of enemies) {
 		enemy.img = (
-			await import(`../../../lib/images/enemy_icons/enemy${enemy.key.replace('enemy', '')}.webp`)
+			await import(`../../../../../lib/images/enemy_icons/enemy${enemy.key.replace('enemy', '')}.webp`)
 		).default;
 	}
 	return {
 		mapConfig,
-		enemies
+		enemies,
+		language
 	};
 }) satisfies PageLoad;

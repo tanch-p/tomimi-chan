@@ -2,14 +2,10 @@
 	import type { Enemy } from './types';
 	import RemarksContainer from './RemarksContainer.svelte';
 	import AtkType from './AtkType.svelte';
-	export let enemy: Enemy, index: number, filteredTableHeaders;
+	import { getMaxRowSpan } from '$lib/functions/parseStats';
+	export let enemy: Enemy, index: number, filteredTableHeaders, language: string;
 	const { format } = enemy;
-	const maxRowSpan =
-		format === 'powerup' || format === 'prisoner'
-			? 2
-			: format === 'multiform'
-			? enemy.forms.length
-			: 1;
+	const maxRowSpan = getMaxRowSpan(enemy);
 
 	let textAlign = function (statKey: string) {
 		switch (statKey) {
@@ -40,6 +36,8 @@
 	};
 </script>
 
+{@debug enemy}
+
 {#each new Array(maxRowSpan) as _blank, row}
 	<tr class={`${index % 2 === 1 ? ' bg-[#333333]' : 'bg-neutral-800'}`}>
 		{#each filteredTableHeaders as { key }}
@@ -67,7 +65,7 @@
 				{/if}
 			{:else if key === 'remarks'}
 				<td class={`border border-gray-400 h-[65px] ${textAlign(key)}`}
-					><RemarksContainer {enemy} language="en" {row} /></td
+					><RemarksContainer {enemy} {language} {row} /></td
 				>
 			{:else if !(row !== 0 && getRowSpan(format, key, maxRowSpan) > 1)}
 				<td
@@ -76,9 +74,9 @@
 				>
 					<div>
 						<p>
-							{enemy.stats[key]}
+							{enemy.stats[row][key]}
 							{#if key === 'atk'}
-								<AtkType {enemy} language="en" />
+								<AtkType {enemy} {language} {row} />
 							{/if}
 						</p>
 						<!-- {parseSpecial(

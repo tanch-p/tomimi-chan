@@ -9,7 +9,7 @@ const difficultyMods = [
 			{
 				targets: ['ALL'],
 				mods: {
-					res: 10
+					fixed_res: 10
 				}
 			}
 		]
@@ -69,7 +69,7 @@ const difficultyMods = [
 			{
 				targets: ['ALL'],
 				mods: {
-					res: 10
+					fixed_res: 10
 				}
 			}
 		]
@@ -93,7 +93,7 @@ const difficultyMods = [
 	}
 ];
 
-import type { StatMods } from '../../routes/[[lang]]/is/[name=is_maps]/types';
+import type { StatMods } from '../../routes/(is)/[name=is_maps]/types';
 
 export default function updateStatMods(relics, difficulty: number, floor: number) {
 	const statMods: StatMods = {
@@ -120,11 +120,10 @@ export default function updateStatMods(relics, difficulty: number, floor: number
 			compileStatMods(statMods, mod.effects);
 		}
 	}
-	console.log(statMods);
 	return statMods;
 }
 
-const compileStatMods = (statMods:StatMods, effects) => {
+const compileStatMods = (statMods: StatMods, effects) => {
 	effects.forEach((effect) => {
 		for (const target of effect.targets) {
 			if (!statMods[target]) {
@@ -146,7 +145,7 @@ const compileStatMods = (statMods:StatMods, effects) => {
 					} else if (key === 'res' || key === 'weight') {
 						statMods[target][key] += effect.mods[key];
 					} else if (key.includes('fixed')) {
-						statMods[target][key] = effect.mods[key];
+						statMods[target][key] += effect.mods[key];
 					} else {
 						statMods[target][key] *= effect.mods[key];
 					}
