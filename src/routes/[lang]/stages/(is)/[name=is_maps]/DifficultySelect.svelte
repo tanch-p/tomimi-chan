@@ -1,6 +1,10 @@
 <script lang="ts">
-	import { difficulty } from './stores.js';
+	import { difficulty, cookiesEnabled } from './stores.js';
 	import { spring } from 'svelte/motion';
+	import translations from '$lib/translations.json';
+	import { browser } from '$app/environment';
+	export let language: string;
+
 	function updateDifficulty(n: number) {
 		if (n < 0 || n > 15) {
 			return;
@@ -11,6 +15,9 @@
 	difficulty.subscribe((value) => {
 		selectedDifficulty = value;
 	});
+	$: if (browser && cookiesEnabled) {
+		localStorage.setItem('difficulty', selectedDifficulty.toString());
+	}
 	const displayed_count = spring();
 	$: displayed_count.set(selectedDifficulty);
 	$: offset = modulo($displayed_count, 1);
@@ -41,7 +48,7 @@
 </script>
 
 <div>
-	Difficulty
+	{translations[language].difficulty}
 	<div class="counter">
 		<button
 			on:mousedown={() => startDecrement(initialTimeout)}
@@ -92,7 +99,7 @@
 		justify-content: center;
 		border: 0;
 		background-color: transparent;
-		touch-action: manipulation;	
+		touch-action: manipulation;
 		font-size: 2rem;
 	}
 

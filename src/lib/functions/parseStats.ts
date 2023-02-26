@@ -1,5 +1,5 @@
 /* takes in a list of enemies and statMods and returns enemy with modifiers applied */
-import type { Enemy, StatMods, Mods } from '../../routes/(is)/[name=is_maps]/types';
+import type { Enemy, StatMods, Mods } from '../../routes/[lang]/stages/(is)/[name=is_maps]/types';
 
 const STATS = ['hp', 'atk', 'aspd', 'range', 'def', 'res', 'weight', 'ms', 'lifepoint'];
 
@@ -98,6 +98,7 @@ const calculateModdedStat = (
 			}
 			return Math.round((base_stat / multiplier) * 100) / 100;
 		case 'range':
+		case 'ms':
 			return Math.round(base_stat * multiplier * 100) / 100;
 		case 'weight':
 			return Math.min(Math.max((base_stat += multiplier), 0), 100);

@@ -3,6 +3,8 @@
 	export let enemy: Enemy, row: number, language: string;
 	import Remark from './Remark.svelte';
 	import translations from '$lib/translations.json';
+	import { getEnemySkills } from '$lib/functions/getEnemySkills';
+	$: skills = getEnemySkills(enemy, row);
 	const { format } = enemy;
 </script>
 
@@ -14,23 +16,10 @@
 	{:else if format === 'multiform' && row !== 0 && language !== 'en'}
 		<div>{translations[language].multiform_suffix.replace('#', row + 1)}</div>
 	{/if}
-	{#if format === 'prisoner' && row === 0}
-		{#each enemy.imprisoned.special as skill}
-			<Remark {skill} {language} />
-		{/each}
-	{:else if format === 'prisoner' && row === 1}
-		{#each enemy.released.special as skill}
-			<Remark {skill} {language} />
-		{/each}
-	{:else if format === 'multiform'}
-		{#each enemy.forms[row].special as skill}
-			<Remark {skill} {language} />
-		{/each}
-	{:else}
-		{#each enemy.special as skill}
-			<Remark {skill} {language} />
-		{/each}
-	{/if}
+
+	{#each skills as skill}
+		<Remark {skill} {language} />
+	{/each}
 </div>
 
 <style>

@@ -4,7 +4,9 @@
 </script>
 
 <div>
-	{enemySkills[skill].tooltip.simple[language]}
+	{#each enemySkills[skill].tooltip[language]  as line}
+		<p>{line}</p>
+	{/each}
 </div>
 
 <style>

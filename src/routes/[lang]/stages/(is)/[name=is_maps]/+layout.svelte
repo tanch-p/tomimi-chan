@@ -5,8 +5,9 @@
 
 	export let data: LayoutData;
 
-	const {language,mapConfig} = $page.data;
-    const pathname = data.url.url.pathname;
+	$: mapConfig = $page.data.mapConfig;
+	$: language = $page.data.language;
+	const pathname = data.url.url.pathname;
 </script>
 
 <header class="w-[100vw]  md:w-full transition-none">

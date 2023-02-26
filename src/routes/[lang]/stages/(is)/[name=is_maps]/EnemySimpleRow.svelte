@@ -1,8 +1,12 @@
 <script lang="ts">
 	import type { Enemy } from './types';
-	import RemarksContainer from './RemarksContainer.svelte';
-	import AtkType from './AtkType.svelte';
 	import { getMaxRowSpan } from '$lib/functions/parseStats';
+	import { getNormalAtk } from '$lib/functions/parseAtkType';
+	import { getEnemySkills } from '$lib/functions/getEnemySkills';
+	import RemarksContainer from './RemarksContainer.svelte';
+	import AtkSuffix from '$lib/components/AtkSuffix.svelte';
+	import StatSkills from '$lib/components/StatSkills.svelte';
+
 	export let enemy: Enemy, index: number, filteredTableHeaders, language: string;
 	$: maxRowSpan = getMaxRowSpan(enemy);
 
@@ -48,7 +52,7 @@
 							src={enemy.img}
 							height="75px"
 							width="75px"
-							alt={enemy[`name_cn`]}
+							alt={enemy[`name_zh`]}
 						/>
 					</td>
 				{/if}
@@ -72,22 +76,18 @@
 					rowspan={getRowSpan(enemy.format, key, maxRowSpan)}
 				>
 					<div>
-						<p>
+						<p class="whitespace-nowrap">
 							{enemy.stats[row][key]}
 							{#if key === 'atk'}
-								<AtkType {enemy} {language} {row} />
+								<AtkSuffix attack={getNormalAtk(enemy, row)} {language} />
 							{/if}
 						</p>
-						<!-- {parseSpecial(
-                            enemy,
-                            format,
-                            stat,
-                            stats,
-                            moddedStats[stat],
-                            row,
-                            specialMods,
-                            language
-							)} -->
+						<StatSkills
+							skills={getEnemySkills(enemy, row)}
+							stat={key}
+							statValue={enemy.stats[row][key]}
+							{language}
+						/>
 					</div>
 				</td>
 			{/if}

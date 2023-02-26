@@ -1,4 +1,4 @@
-import type { Enemy } from '../../routes/(is)/[name=is_maps]/types';
+import type { Enemy } from '../../routes/[lang]/stages/(is)/[name=is_maps]/types';
 
 export const getNormalAtk = (enemy: Enemy, row: number) => {
 	switch (enemy.format) {

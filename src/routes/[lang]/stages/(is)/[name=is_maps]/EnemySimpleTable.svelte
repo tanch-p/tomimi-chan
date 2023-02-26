@@ -12,7 +12,7 @@
 		{ key: 'def', show: true },
 		{ key: 'res', show: true },
 		{ key: 'weight', show: true },
-		{ key: 'ms', show: false },
+		{ key: 'ms', show: true },
 		{ key: 'lifepoint', show: true },
 		{ key: 'remarks', show: true }
 	];

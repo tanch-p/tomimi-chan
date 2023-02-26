@@ -17,12 +17,12 @@
 </script>
 
 <svelte:head>
-	<title>{data.mapConfig[`name_${'cn'}`]}</title>
-	<meta name="description" content={data.mapConfig[`name_${'cn'}`]} />
+	<title>{data.mapConfig[`name_${'zh'}`]}</title>
+	<meta name="description" content={data.mapConfig[`name_${'zh'}`]} />
 </svelte:head>
 
 <div class="w-[100vw] md:w-full max-w-7xl mx-auto">
-	<h1>{data.mapConfig[`name_${'cn'}`]}</h1>
+	<h1>{data.mapConfig[`name_${'zh'}`]}</h1>
 	<FloorSelect />
 	<DifficultySelect {language} />
 	<EnemySimpleTable enemies={moddedEnemies} {language} />
