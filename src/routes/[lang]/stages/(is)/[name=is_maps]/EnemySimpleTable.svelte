@@ -38,7 +38,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						{#each enemies as enemy, index}
+						{#each enemies as enemy, index (enemy.key)}
 							<EnemySimpleRow {enemy} {filteredTableHeaders} {index} {language}/>
 						{/each}
 					</tbody>

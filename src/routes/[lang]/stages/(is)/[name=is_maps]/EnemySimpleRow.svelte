@@ -4,8 +4,7 @@
 	import AtkType from './AtkType.svelte';
 	import { getMaxRowSpan } from '$lib/functions/parseStats';
 	export let enemy: Enemy, index: number, filteredTableHeaders, language: string;
-	const { format } = enemy;
-	const maxRowSpan = getMaxRowSpan(enemy);
+	$: maxRowSpan = getMaxRowSpan(enemy);
 
 	let textAlign = function (statKey: string) {
 		switch (statKey) {
@@ -38,9 +37,9 @@
 
 <!-- {@debug enemy} -->
 
-{#each new Array(maxRowSpan) as _blank, row (enemy.key.concat('-',row))}
+{#each new Array(maxRowSpan) as _blank, row (enemy.key.concat('-', row.toString()))}
 	<tr class={`${index % 2 === 1 ? ' bg-[#333333]' : 'bg-neutral-800'}`}>
-		{#each filteredTableHeaders as { key } (enemy.key.concat('-',key,'-',row))}
+		{#each filteredTableHeaders as { key }}
 			{#if key === 'enemy'}
 				{#if row === 0}
 					<td class={`border border-gray-400 w-[75px] ${textAlign(key)}`} rowspan={maxRowSpan}>
@@ -67,10 +66,10 @@
 				<td class={`border border-gray-400 h-[65px] ${textAlign(key)}`}
 					><RemarksContainer {enemy} {language} {row} /></td
 				>
-			{:else if !(row !== 0 && getRowSpan(format, key, maxRowSpan) > 1)}
+			{:else if !(row !== 0 && getRowSpan(enemy.format, key, maxRowSpan) > 1)}
 				<td
 					class={`border border-gray-400 h-[65px] ${textAlign(key)}`}
-					rowspan={getRowSpan(format, key, maxRowSpan)}
+					rowspan={getRowSpan(enemy.format, key, maxRowSpan)}
 				>
 					<div>
 						<p>

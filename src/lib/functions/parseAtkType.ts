@@ -1,6 +1,6 @@
 import type { Enemy } from '../../routes/(is)/[name=is_maps]/types';
 
-export const getAtkType = (enemy: Enemy, row: number) => {
+export const getNormalAtk = (enemy: Enemy, row: number) => {
 	switch (enemy.format) {
 		case 'prisoner':
 			return row === 0 ? enemy.normal_attack : enemy.released.normal_attack;
@@ -11,7 +11,7 @@ export const getAtkType = (enemy: Enemy, row: number) => {
 	}
 };
 
-export const getAtkEleHighlight = (atkElement: string) => {
+export const getDmgEleHighlight = (atkElement: string) => {
 	switch (atkElement) {
 		case 'phys':
 			return 'text-phys-hl';
