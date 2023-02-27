@@ -1,59 +1,47 @@
-<script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
+<script lang="ts">
+	import type { PageData } from './$types';
+	import banner_mizuki from '$lib/images/banner_mizuki_800px.png';
+	import banner_phantom from '$lib/images/banner_phantom_800px.png';
+	import translations from '$lib/translations.json';
+
+	export let data: PageData;
+
+	$: language = data.language;
+	const is_banners = [
+		{ alt: 'rogue_mizuki', src: banner_mizuki, href: 'mizuki' },
+		{ alt: 'rogue_phantom', src: banner_phantom, href: 'phantom' }
+	];
 </script>
 
 <svelte:head>
 	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<meta name="description" content="tomimi.dev - tool/helper for arknights" />
 </svelte:head>
 
 <section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
-		</span>
-
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		<a data-sveltekit-reload href="/mizuki"> try editing <strong>src/routes/+page.svelte</strong></a>
-	</h2>
-
-	<Counter />
+	<div class="h-[10vh]" />
+	<div class="flex mx-auto gap-4">
+		<div class="grow">
+			<p class="">Integrated Strategies</p>
+			<div class="flex flex-wrap w-[512px] mx-auto">
+				{#each is_banners as { alt, src, href }}
+					<a class="w-fit" href={`/${language}/${href}`}>
+						<img
+							class="select-none mx-auto py-2"
+							{src}
+							width="512"
+							decoding="async"
+							alt={translations[language][alt]}
+						/></a
+					>
+				{/each}
+			</div>
+		</div>
+	</div>
 </section>
 
 <style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
-	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
+	p {
+		text-align: center;
 	}
 </style>

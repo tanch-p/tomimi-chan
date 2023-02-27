@@ -52,6 +52,7 @@
 							src={enemy.img}
 							height="75px"
 							width="75px"
+							decoding="async"
 							alt={enemy[`name_zh`]}
 						/>
 					</td>

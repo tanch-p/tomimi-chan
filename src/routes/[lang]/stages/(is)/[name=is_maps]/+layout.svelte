@@ -7,11 +7,14 @@
 
 	$: mapConfig = $page.data.mapConfig;
 	$: language = $page.data.language;
-	const pathname = data.url.url.pathname;
+	const pathname = data.url.pathname;
 </script>
 
-<header class="w-[100vw]  md:w-full transition-none">
-	<LanguageSwitcher {language} {mapConfig} {pathname} />
+<header class="w-[100vw] md:w-full transition-none">
+	<div class="flex justify-between max-w-7xl mx-auto">
+		<a href={`/${language}`}>Home</a>
+		<LanguageSwitcher {language} {mapConfig} {pathname} />
+	</div>
 </header>
 
 <main>
