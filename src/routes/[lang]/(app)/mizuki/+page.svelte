@@ -7,6 +7,11 @@
 	$: language = data.language;
 </script>
 
+<svelte:head>
+	<title>Mizuki & Caerula Arbor</title>
+	<meta name="description" content="tomimi.dev - tool/helper for arknights" />
+</svelte:head>
+
 <div>
 	<div class="py-4">
 		<img

@@ -71,16 +71,19 @@ type mapConfigEnemy = {
 	overwrittenData: overwrittenData;
 };
 
-export interface ISMapConfig {
+export interface MapConfig {
 	id: string;
 	levelId: string;
 	tags: string[];
 	initialCost: number;
 	costIncreaseTime: number;
+	floors: number[] | null;
+	routes: [] | null;
 	code: string;
 	[key: `name_${string}`]: string;
 	[key: `description_${string}`]: string;
 	[key: `eliteDesc_${string}`]: string;
+	hard_mods: Mods | null;
 	enemies: mapConfigEnemy[];
 }
 

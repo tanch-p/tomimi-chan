@@ -1,4 +1,4 @@
-const difficultyMods = [
+const DIFFICULTY_MODS = [
 	{
 		difficulty: 1,
 		effects: []
@@ -93,19 +93,20 @@ const difficultyMods = [
 	}
 ];
 
-import type { StatMods } from '../../routes/(is)/[name=is_maps]/types';
+import type { StatMods } from '../../routes/[lang]/stages/(is)/[name=is_maps]/types';
 
-export default function updateStatMods(relics, difficulty: number, floor: number) {
+export default function updateStatMods(relics, difficulty: number, floor: number, hardMods) {
 	const statMods: StatMods = {
 		ALL: {
 			hp: 1,
 			atk: 1,
 			def: 1,
-			res: 0,
+			res: 1,
 			aspd: 1,
 			ms: 1,
 			range: 1,
-			weight: 0
+			weight: 1,
+			lifepoint: 1
 		}
 	};
 	const floorMultiplier = (1 + 0.01 * difficulty) ** floor;
@@ -115,10 +116,13 @@ export default function updateStatMods(relics, difficulty: number, floor: number
 	for (const relic of relics) {
 		compileStatMods(statMods, relic.effects);
 	}
-	for (const mod of difficultyMods) {
+	for (const mod of DIFFICULTY_MODS) {
 		if (difficulty >= mod.difficulty) {
 			compileStatMods(statMods, mod.effects);
 		}
+	}
+	if (hardMods) {
+		compileStatMods(statMods, hardMods);
 	}
 	return statMods;
 }

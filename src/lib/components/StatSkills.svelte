@@ -24,7 +24,7 @@
 </script>
 
 {#each skillsToParse as skill}
-	<p>
+	<p class="whitespace-nowrap">
 		{skill.value}
 		{'('}{#if stat === 'atk' && skill.hits > 1}{`x ${skill.hits}`}{/if}{skill.suffix[
 			language

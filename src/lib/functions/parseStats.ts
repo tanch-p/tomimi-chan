@@ -90,7 +90,7 @@ const calculateModdedStat = (
 	fixed_value: number
 ) => {
 	base_stat += fixed_value;
-	if (!multiplier) return base_stat;
+	if (!multiplier) console.log(stat);
 	switch (stat) {
 		case 'aspd':
 			if (multiplier < 1) {
@@ -101,7 +101,8 @@ const calculateModdedStat = (
 		case 'ms':
 			return Math.round(base_stat * multiplier * 100) / 100;
 		case 'weight':
-			return Math.min(Math.max((base_stat += multiplier), 0), 100);
+		case 'res':
+			return Math.min(Math.max((base_stat *= multiplier), 0), 100);
 		default:
 			return Math.round(base_stat * multiplier);
 	}

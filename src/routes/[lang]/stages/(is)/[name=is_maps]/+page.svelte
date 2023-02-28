@@ -1,19 +1,16 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import type { StatMods } from './types';
 	import { statMods } from './stores.js';
 	import EnemySimpleTable from './EnemySimpleTable.svelte';
 	import DifficultySelect from './DifficultySelect.svelte';
 	import FloorSelect from './FloorSelect.svelte';
 	import MizukiNav from '../../../(app)/mizuki/MizukiNav.svelte';
+	import HardModeToggle from './HardModeToggle.svelte';
 	import parseStats from '$lib/functions/parseStats';
-
-	let statModsValue: StatMods;
-	statMods.subscribe((value) => (statModsValue = value));
 
 	export let data: PageData;
 	$: language = data.language;
-	$: moddedEnemies = parseStats(data.enemies, statModsValue);
+	$: moddedEnemies = parseStats(data.enemies, $statMods);
 </script>
 
 <svelte:head>
@@ -25,6 +22,9 @@
 	<h1>{data.mapConfig[`name_${'zh'}`]}</h1>
 	<FloorSelect />
 	<DifficultySelect {language} />
+	{#if data.mapConfig.hard_mods}
+		<HardModeToggle mapHardMods={data.mapConfig.hard_mods} />
+	{/if}
 	<EnemySimpleTable enemies={moddedEnemies} {language} />
 	<div class="mt-4">
 		{#if data.mapConfig.tags.includes('rogue_mizuki')}

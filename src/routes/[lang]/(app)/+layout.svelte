@@ -1,9 +1,8 @@
 <script lang="ts">
-	import type { LayoutData } from './$types';
-	export let data: LayoutData;
-
-	$: language = data.params.lang;
+	import { page } from '$app/stores';
 	import Header from './Header.svelte';
+
+	$: language = $page.params.lang;
 </script>
 
 <div class="app">
