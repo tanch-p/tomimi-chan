@@ -12,7 +12,6 @@
 			} else if (browerLang.includes('zh')) {
 				language = 'zh';
 			}
-			console.log(language);
 			await goto(`/${language}`);
 		}
 	});

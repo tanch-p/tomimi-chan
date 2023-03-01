@@ -18,11 +18,11 @@ if (browser && cookiesEnabled) {
 export const relics = writable([]);
 export const difficulty = writable(storedDifficulty);
 export const floor = writable(1);
-export const hardMods = writable(null);
+export const eliteMods = writable(null);
 export const floorEffects = writable([]);
 
 export const statMods = derived(
-	[relics, difficulty, floor, hardMods],
-	([$relics, $difficulty, $floor, $hardMods]) =>
-		updateStatMods($relics, $difficulty, $floor, $hardMods)
+	[relics, difficulty, floor, eliteMods],
+	([$relics, $difficulty, $floor, $eliteMods]) =>
+		updateStatMods($relics, $difficulty, $floor, $eliteMods)
 );

@@ -95,7 +95,7 @@ const DIFFICULTY_MODS = [
 
 import type { StatMods } from '../../routes/[lang]/stages/(is)/[name=is_maps]/types';
 
-export default function updateStatMods(relics, difficulty: number, floor: number, hardMods) {
+export default function updateStatMods(relics, difficulty: number, floor: number, eliteMods) {
 	const statMods: StatMods = {
 		ALL: {
 			hp: 1,
@@ -121,8 +121,8 @@ export default function updateStatMods(relics, difficulty: number, floor: number
 			compileStatMods(statMods, mod.effects);
 		}
 	}
-	if (hardMods) {
-		compileStatMods(statMods, hardMods);
+	if (eliteMods) {
+		compileStatMods(statMods, eliteMods);
 	}
 	return statMods;
 }

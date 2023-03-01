@@ -5,7 +5,8 @@
 	import DifficultySelect from './DifficultySelect.svelte';
 	import FloorSelect from './FloorSelect.svelte';
 	import MizukiNav from '../../../(app)/mizuki/MizukiNav.svelte';
-	import HardModeToggle from './HardModeToggle.svelte';
+	import MapInfo from './MapInfo.svelte';
+	import EliteToggle from './EliteToggle.svelte';
 	import parseStats from '$lib/functions/parseStats';
 
 	export let data: PageData;
@@ -19,11 +20,12 @@
 </svelte:head>
 
 <div class="w-[100vw] md:w-full max-w-7xl mx-auto">
-	<h1>{data.mapConfig[`name_${'zh'}`]}</h1>
 	<FloorSelect />
+	<h1>{data.mapConfig[`name_${'zh'}`]}</h1>
+	<MapInfo mapConfig={data.mapConfig} />
 	<DifficultySelect {language} />
-	{#if data.mapConfig.hard_mods}
-		<HardModeToggle mapHardMods={data.mapConfig.hard_mods} />
+	{#if data.mapConfig.elite_mods}
+		<EliteToggle mapEliteMods={data.mapConfig.elite_mods} />
 	{/if}
 	<EnemySimpleTable enemies={moddedEnemies} {language} />
 	<div class="mt-4">
