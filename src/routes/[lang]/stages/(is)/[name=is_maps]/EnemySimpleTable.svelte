@@ -26,7 +26,7 @@
 		<div class="">
 			<div id="table-wrapper" class="overflow-x-auto md:overflow-visible w-screen md:w-full">
 				<table
-					class="border border-gray-400 border-collapse bg-neutral-800 text-white w-max md:w-full"
+					class="border border-gray-400 border-collapse bg-neutral-800 text-near-white w-max md:w-full"
 				>
 					<thead>
 						<tr>

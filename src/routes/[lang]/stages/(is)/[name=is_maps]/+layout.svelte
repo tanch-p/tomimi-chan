@@ -14,6 +14,6 @@
 	</div>
 </header>
 
-<main class="bg-neutral-800 text-white pb-16 pt-24 md:py-24">
+<main class="bg-neutral-800 text-near-white pb-16 pt-24 md:py-24">
 	<slot />
 </main>

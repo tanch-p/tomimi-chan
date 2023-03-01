@@ -12,10 +12,15 @@
 		en: 'text-sm w-[100px] py-1',
 		cn: 'text-base w-[100px]'
 	};
+	
 </script>
 
 <a href={`/${language}/stages/${stageUrl}`}>
-	<div class={`hover:text-sky-400  md:h-full mx-2 my-3 md:my-1 text-center hover:cursor-pointer`}>
+	<div class={`hover:text-sky-400 md:h-full mx-2 py-2 md:my-1 text-center hover:cursor-pointer`}>
 		{stageName}
 	</div>
 </a>
+
+<style>
+	
+</style>

@@ -15,8 +15,8 @@
 	//max per row = 4
 </script>
 
-<div class="flex flex-col max-w-4xl mx-auto">
-	<div class="bg-[#258CD0]">
+<div class="flex flex-col max-w-4xl mx-auto mt-8 text-near-white">
+	<div class="bg-[#258CD0] ">
 		<div class="flex flex-wrap justify-center">
 			{#each floor1 as stageName}
 				<StageNavButton {stageName} {language} />
@@ -84,3 +84,7 @@
 		</div>
 	</div>
 </div>
+
+<style>
+
+</style>
