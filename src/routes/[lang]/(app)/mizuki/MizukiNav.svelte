@@ -16,21 +16,21 @@
 </script>
 
 <div class="flex flex-col max-w-4xl mx-auto">
-	<div class="bg-gradient-to-b from-blue-200 to-cyan-500">
+	<div class="bg-[#258CD0]">
 		<div class="flex flex-wrap justify-center">
 			{#each floor1 as stageName}
 				<StageNavButton {stageName} {language} />
 			{/each}
 		</div>
 	</div>
-	<div class="bg-sky-400">
+	<div class="bg-[#2B7EB6]">
 		<div class="flex flex-wrap justify-center">
 			{#each floor2 as stageName}
 				<StageNavButton {stageName} {language} />
 			{/each}
 		</div>
 	</div>
-	<div class="bg-slate-700">
+	<div class="bg-[#164664]">
 		<div class="flex flex-wrap justify-center">
 			{#each floor3 as stageName}
 				<StageNavButton {stageName} {language} />
@@ -47,14 +47,14 @@
 			{/each}
 		</div>
 	</div>
-	<div class="bg-cyan-800">
+	<div class="bg-[#0A2A5E]">
 		<div class="flex flex-wrap justify-center">
 			{#each floor4 as stageName}
 				<StageNavButton {stageName} {language} />
 			{/each}
 		</div>
 	</div>
-	<div class="bg-sky-900">
+	<div class="bg-[#061A37]">
 		<div class="flex flex-wrap justify-center">
 			{#each floor5 as stageName}
 				<StageNavButton {stageName} {language} />
@@ -71,7 +71,7 @@
 			{/each}
 		</div>
 	</div>
-	<div class="bg-gray-800">
+	<div class="bg-[#020912]">
 		<div class="flex flex-wrap justify-center">
 			{#each floor6 as stageName}
 				<StageNavButton {stageName} {language} />
