@@ -1,4 +1,5 @@
 import ISStagesList from './data/stages/is_stages_list.json' assert { type: 'json' };
+
 const LANGUAGES = ['en', 'jp'];
 const PAGES = ['about', 'credits', 'mizuki', 'phantom'];
 

@@ -15,14 +15,14 @@ let storedDifficulty = 0;
 if (browser && cookiesEnabled) {
 	storedDifficulty = parseInt(localStorage.getItem('difficulty') ?? '0');
 }
-export const relics = writable([]);
+export const selectedRelics = writable([]);
 export const difficulty = writable(storedDifficulty);
 export const floor = writable(1);
 export const eliteMods = writable(null);
 export const floorEffects = writable([]);
 
 export const statMods = derived(
-	[relics, difficulty, floor, eliteMods],
-	([$relics, $difficulty, $floor, $eliteMods]) =>
-		updateStatMods($relics, $difficulty, $floor, $eliteMods)
+	[selectedRelics, difficulty, floor, eliteMods],
+	([$selectedRelics, $difficulty, $floor, $eliteMods]) =>
+		updateStatMods($selectedRelics, $difficulty, $floor, $eliteMods)
 );

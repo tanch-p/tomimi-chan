@@ -1,10 +1,17 @@
 <script lang="ts">
 	import LanguageSwitcher from '$lib/components/LanguageSwitcher.svelte';
+	import FooterBar from './FooterBar.svelte';
 	import { page } from '$app/stores';
 
 	$: mapConfig = $page.data.mapConfig;
 	$: language = $page.data.language;
 	const pathname = $page.url.pathname;
+
+	$: rogueTopic = mapConfig.tags.includes('rogue_mizuki')
+		? 'mizuki'
+		: mapConfig.tags.includes('rogue_phantom')
+		? 'phantom'
+		: null;
 </script>
 
 <header class="w-[100vw] md:w-full transition-none">
@@ -14,6 +21,10 @@
 	</div>
 </header>
 
-<main class="bg-neutral-800 text-near-white pb-16 pt-24 md:py-24">
+<main class="bg-neutral-800 text-near-white pb-32 pt-24 md:pb-28">
 	<slot />
 </main>
+
+{#if rogueTopic}
+	<FooterBar {language} {rogueTopic} />
+{/if}
