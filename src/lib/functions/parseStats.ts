@@ -90,11 +90,11 @@ const calculateModdedStat = (
 	fixed_value: number
 ) => {
 	base_stat += fixed_value;
-	if (!multiplier) console.log(stat);
+	if (!multiplier) console.error(stat);
 	switch (stat) {
 		case 'aspd':
 			if (multiplier < 1) {
-				return Math.round(base_stat * (1 + multiplier) * 100) / 100;
+				return Math.round(base_stat * (1 + (1 - multiplier)) * 100) / 100;
 			}
 			return Math.round((base_stat / multiplier) * 100) / 100;
 		case 'range':
