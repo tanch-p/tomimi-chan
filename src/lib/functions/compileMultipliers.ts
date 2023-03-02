@@ -95,6 +95,7 @@ const DIFFICULTY_MODS = [
 
 import type { StatMods } from '../../routes/[lang]/stages/(is)/[name=is_maps]/types';
 
+//values without fixed = multipliers
 export default function updateStatMods(relics, difficulty: number, floor: number, eliteMods) {
 	const statMods: StatMods = {
 		ALL: {
@@ -135,11 +136,11 @@ const compileStatMods = (statMods: StatMods, effects) => {
 					hp: 1,
 					atk: 1,
 					def: 1,
-					res: 0,
+					res: 1,
 					aspd: 1,
 					ms: 1,
 					range: 1,
-					weight: 0
+					weight: 1
 				};
 			}
 			for (const key in effect.mods) {

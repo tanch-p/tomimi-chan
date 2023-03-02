@@ -89,14 +89,14 @@ const calculateModdedStat = (
 	multiplier: number,
 	fixed_value: number
 ) => {
-	base_stat += fixed_value;
-	if (!multiplier) console.error(stat);
+	let aspd = 100;
+	if (stat !== 'aspd') {
+		base_stat += fixed_value;
+	}
 	switch (stat) {
 		case 'aspd':
-			if (multiplier < 1) {
-				return Math.round(base_stat * (1 + (1 - multiplier)) * 100) / 100;
-			}
-			return Math.round((base_stat / multiplier) * 100) / 100;
+			aspd += fixed_value;
+			return Math.round((base_stat / ((aspd * multiplier) / 100)) * 100) / 100;
 		case 'range':
 		case 'ms':
 			return Math.round(base_stat * multiplier * 100) / 100;
@@ -116,15 +116,7 @@ const distillMods = (enemyStatMod: Mods, mods: Mods) => {
 		} else if (stat.includes('fixed')) {
 			enemyStatMod[stat] += value;
 		} else {
-			switch (stat) {
-				case 'res':
-				case 'weight':
-					enemyStatMod[stat] += value;
-					break;
-				default:
-					enemyStatMod[stat] *= value;
-					break;
-			}
+			enemyStatMod[stat] *= value;
 		}
 	}
 	return enemyStatMod;

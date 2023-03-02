@@ -14,7 +14,7 @@
 		: null;
 </script>
 
-<header class="w-[100vw] md:w-full transition-none">
+<header class="fixed top-0 w-[100vw] md:w-full transition-none bg-neutral-800 text-near-white">
 	<div class="flex justify-between max-w-7xl mx-auto">
 		<a href={`/${language}`}>Home</a>
 		<LanguageSwitcher {language} {mapConfig} {pathname} />
