@@ -3,6 +3,8 @@ import type { Enemy, StatMods, Mods } from '../../routes/[lang]/stages/(is)/[nam
 
 const STATS = ['hp', 'atk', 'aspd', 'range', 'def', 'res', 'weight', 'ms', 'lifepoint'];
 
+const NOT_BOSSES = ['MK', 'JAK'];
+
 export const getMaxRowSpan = (enemy: Enemy) => {
 	const { format } = enemy;
 	return format === 'powerup' || format === 'prisoner'
@@ -132,8 +134,11 @@ const isTarget = (enemy: Enemy, target: string) => {
 			return type.includes(target);
 		// case "phcs_boss":
 		// 	return PHCS_BOSSES.includes(id);
-		// case "not_phcs_boss":
-		// 	return !PHCS_BOSSES.includes(id);
+		case 'NOT_BOSS':
+			if (type.includes('BOSS')) {
+				return NOT_BOSSES.includes(id);
+			}
+			return true;
 		default:
 			return target === id;
 	}

@@ -47,7 +47,7 @@ const DIFFICULTY_MODS = [
 			{
 				targets: ['ALL'],
 				mods: {
-					aspd: 1.15
+					fixed_aspd: 15
 				}
 			}
 		]
@@ -96,7 +96,13 @@ const DIFFICULTY_MODS = [
 import type { StatMods } from '../../routes/[lang]/stages/(is)/[name=is_maps]/types';
 
 //values without fixed = multipliers
-export default function updateStatMods(relics, difficulty: number, floor: number, eliteMods) {
+export default function updateStatMods(
+	relics,
+	difficulty: number,
+	floor: number,
+	eliteMods,
+	floorEffects
+) {
 	const statMods: StatMods = {
 		ALL: {
 			hp: 1,
@@ -124,6 +130,9 @@ export default function updateStatMods(relics, difficulty: number, floor: number
 	}
 	if (eliteMods) {
 		compileStatMods(statMods, eliteMods);
+	}
+	for (const { effects } of floorEffects) {
+		compileStatMods(statMods, effects);
 	}
 	return statMods;
 }

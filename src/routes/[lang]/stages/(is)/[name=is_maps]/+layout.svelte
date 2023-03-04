@@ -1,6 +1,7 @@
 <script lang="ts">
 	import LanguageSwitcher from '$lib/components/LanguageSwitcher.svelte';
 	import FooterBar from './FooterBar.svelte';
+	import FloorTitle from './FloorTitle.svelte';
 	import { page } from '$app/stores';
 
 	$: mapConfig = $page.data.mapConfig;
@@ -14,9 +15,14 @@
 		: null;
 </script>
 
-<header class="fixed top-0 w-[100vw] md:w-full transition-none bg-neutral-800 text-near-white">
-	<div class="flex justify-between max-w-7xl mx-auto">
+<header class="fixed top-0 w-[100vw] md:w-full transition-none bg-neutral-800 text-near-white py-4">
+	<div class="grid grid-cols-3 max-w-7xl mx-auto">
 		<a href={`/${language}`}>Home</a>
+		{#if rogueTopic}
+			<FloorTitle stageFloors={mapConfig.floors} {language}/>
+		{:else}
+			<div />
+		{/if}
 		<LanguageSwitcher {language} {mapConfig} {pathname} />
 	</div>
 </header>
