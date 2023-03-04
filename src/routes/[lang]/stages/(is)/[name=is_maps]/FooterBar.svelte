@@ -15,11 +15,11 @@
 	$: promise = getRelics(rogueTopic);
 </script>
 
-<div class="fixed overflow-hidden bottom-0 w-full select-none">
+<div class="fixed overflow-hidden bottom-0 w-full select-none z-[2]">
 	{#await promise then relics}
 		<RelicsOverlay {openOverlay} {language} {relics} />
 	{/await}
-	<div class="shadow-2xl shadow-gray-400 bg-neutral-900 w-full mt-4 fixed bottom-0 py-2 z-[30]">
+	<div class="shadow-2xl shadow-gray-400 bg-neutral-900 w-full mt-4 fixed bottom-0 py-2">
 		<div class="max-w-7xl mx-auto px-2 md:px-4">
 			<div class="relative flex items-center justify-between h-16 ">
 				<div

@@ -23,8 +23,7 @@
 			<p class="font-medium text-lg text-[#b43b3b] text-center">
 				大群的呼唤 <span class="font-normal text-base text-near-white">Max 2</span>
 			</p>
-			<hr class="my-2 border-gray-600"/>
-			<div class="flex flex-col gap-y-4">
+			<div class="flex flex-col gap-y-4 mt-2">
 				{#each options as option}
 					<FloorEffect effect={option} {language} />
 				{/each}
