@@ -3,7 +3,6 @@
 	import { statMods } from './stores.js';
 	import EnemySimpleTable from './EnemySimpleTable.svelte';
 	import DifficultySelect from './DifficultySelect.svelte';
-	import FloorSelect from './FloorSelect.svelte';
 	import MizukiNav from '../../../(app)/mizuki/MizukiNav.svelte';
 	import MapInfo from './MapInfo.svelte';
 	import EliteToggle from './EliteToggle.svelte';
@@ -20,7 +19,6 @@
 </svelte:head>
 
 <div class="w-[100vw] md:w-full max-w-7xl mx-auto">
-	<FloorSelect />
 	<h1>{data.mapConfig[`name_${'zh'}`]}</h1>
 	<MapInfo mapConfig={data.mapConfig} />
 	<DifficultySelect {language} />

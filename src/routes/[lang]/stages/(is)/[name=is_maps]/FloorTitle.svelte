@@ -8,10 +8,13 @@
 
 	const FLOOR_ROMAN_NUMERALS = ['I', 'II', 'III', 'IV', 'V', 'VI'];
 
-	$: if (!stageFloors.includes($selectedFloor)) {
-		console.log('running');
-		selectedFloor.set(Math.min(...stageFloors));
+	function updateFloor(floors: number[]) {
+		if (!floors.includes($selectedFloor)) {
+			console.log('running');
+			selectedFloor.set(Math.min(...stageFloors));
+		}
 	}
+	$: updateFloor(stageFloors);
 </script>
 
 <div use:clickOutside on:outclick={() => (optionsOpen = false)} class="mx-auto select-none">

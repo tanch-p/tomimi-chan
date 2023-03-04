@@ -1,6 +1,7 @@
 <script lang="ts">
 	import mizukiOptions from '$lib/data/floor_effects_mizuki.json';
 	import FloorEffect from './FloorEffect.svelte';
+	import FloorSelect from './FloorSelect.svelte';
 
 	export let optionsOpen: boolean, language: string;
 
@@ -19,8 +20,10 @@
 			optionsOpen ? 'opacity-90 translate-y-0' : 'invisible opacity-0 -translate-y-10'
 		}`}
 	>
+		<FloorSelect />
 		<div class="mx-auto mt-3 px-2 md:px-8">
-			<p class="font-medium text-lg text-[#b43b3b] text-center">
+			<hr class="border-neutral-600"/>
+			<p class="mt-4 font-medium text-lg text-[#b43b3b] text-center">
 				大群的呼唤 <span class="font-normal text-base text-near-white">Max 2</span>
 			</p>
 			<div class="flex flex-col gap-y-4 mt-2">
