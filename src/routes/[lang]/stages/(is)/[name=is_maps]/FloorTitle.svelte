@@ -17,7 +17,6 @@
 
 	function updateFloor(floors: number[]) {
 		if (!floors.includes($selectedFloor)) {
-			console.log('running');
 			selectedFloor.set(Math.min(...stageFloors));
 		}
 	}
