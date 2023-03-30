@@ -16,6 +16,7 @@
 				return 'text-center px-3';
 			case 'type':
 			case 'atk':
+			case "def":
 				return 'text-left px-3 py-1.5';
 			case 'remarks':
 				return 'text-left px-2 py-2';

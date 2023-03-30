@@ -7,6 +7,14 @@
 			"zh": []
 		}
 	},
+	"stealth_fast": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Stealth (fast) - regains stealth 0s after not being blocked"],
+			"jp": ["ステルス（即）→ブロックされなくなる0秒後ステルス状態になる"],
+			"zh": ["隐匿（速）→解除阻挡0秒后恢复"]
+		}
+	},
 	"resist": {
 		"type": "others",
 		"tooltip": {
@@ -49,6 +57,40 @@
 			"zh": []
 		}
 	},
+	"despawn_30": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Automatically defeated after 30s"],
+			"jp": ["出現から30秒後、撤退する"],
+			"zh": ["出场30s后自动死亡"]
+		}
+	},
+	"despawn_90": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Automatically defeated after 90s"],
+			"jp": ["出現から90秒後、撤退する"],
+			"zh": ["出场90s后自动死亡"]
+		}
+	},
+	"target_ground_only": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Targets only ground units"],
+			"jp": ["地上の味方のみを攻撃する"],
+			"zh": []
+		}
+	},
+	"target_priority_lower_hp": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Prioritizes attacking the target with the current lowest HP percentage within attack range"
+			],
+			"jp": ["攻撃範囲内のHP割合が最も低い対象を優先的に攻撃する"],
+			"zh": []
+		}
+	},
 	"avenger_100": {
 		"type": "atk",
 		"suffix": { "en": "HP↓50%", "jp": "HP50%以下", "zh": "HP50%以下" },
@@ -83,6 +125,14 @@
 			"en": ["HP↓50%→Atk power x 2.8"],
 			"jp": ["HP50%以下→攻撃力2.8倍"],
 			"zh": []
+		}
+	},
+	"attack_stun_4": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Attacks stun target for 4s"],
+			"jp": ["攻撃が相手を４秒スタンする"],
+			"zh": ["近战攻击使目标晕眩4秒"]
 		}
 	},
 	"crusher_stun": {
@@ -208,14 +258,6 @@
 			"zh": [
 				"攻击范围内全体敌方单位（不含自身）防御力增加200，每秒恢复200生命值，不可叠加（可被沉默） "
 			]
-		}
-	},
-	"drone_flying_time": {
-		"type": "others",
-		"tooltip": {
-			"en": ["Automatically defeated after 30s"],
-			"jp": ["出現から30秒後、撤退する"],
-			"zh": ["出场30s后自动死亡"]
 		}
 	},
 	"mcv4_def_buff": {
@@ -417,6 +459,14 @@
 			"zh": []
 		}
 	},
+	"ice_pick_175": {
+		"type": "others",
+		"tooltip": {
+			"en": ["ATK is increased to 175% when attacking frozen units"],
+			"jp": ["【❄凍結】状態の対象を攻撃する時に攻撃力が175%まで上昇"],
+			"zh": []
+		}
+	},
 	"ice_pick_200": {
 		"type": "others",
 		"tooltip": {
@@ -586,6 +636,14 @@
 		"tooltip": {
 			"en": ["HP↓50% - Final Damage dealt increased by 1.5 times"],
 			"jp": ["HP50％以下 - 最終ダメージ+50％"],
+			"zh": []
+		}
+	},
+	"syskad_hp_50_rage_150": {
+		"type": "others",
+		"tooltip": {
+			"en": ["HP↓50% - Final Damage dealt increased by 1.5 times", "Carried over to 2nd form"],
+			"jp": ["HP50％以下 - 最終ダメージ+50％", "第二形態に継続される"],
 			"zh": []
 		}
 	},
@@ -821,11 +879,154 @@
 			"zh": ["普通攻击附带自身攻击力40%的神经损伤"]
 		}
 	},
+	"corrosion_20": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Attack deals 20% of ATK as Corrosion damage"],
+			"jp": ["攻撃で攻撃力の20%の侵蝕ダメージを与える"],
+			"zh": []
+		}
+	},
 	"corrosion_35": {
 		"type": "others",
 		"tooltip": {
 			"en": ["Attack deals 35% of ATK as Corrosion damage"],
 			"jp": ["攻撃で攻撃力の35%の侵蝕ダメージを与える"],
+			"zh": []
+		}
+	},
+	"corrosion_50": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Attack deals 50% of ATK as Corrosion damage"],
+			"jp": ["攻撃で攻撃力の50%の侵蝕ダメージを与える"],
+			"zh": []
+		}
+	},
+	"corrosion_60": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Attack deals 60% of ATK as Corrosion damage"],
+			"jp": ["攻撃で攻撃力の60%の侵蝕ダメージを与える"],
+			"zh": []
+		}
+	},
+	"sy2_attackdef": {
+		"type": "def",
+		"suffix": { "en": "skill", "jp": "スキル中", "zh": "技能中" },
+		"hits": 1,
+		"multiplier": 1,
+		"fixed_inc": 300,
+		"initial": 0,
+		"cost": 0,
+		"tooltip": {
+			"en": ["When attacking for the first time, stops moving and gains 300 DEF for 20s."],
+			"jp": [""],
+			"zh": [""]
+		}
+	},
+	"atk_summon_sy4": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Attacks summon a 注亡拟嗣 on the tile occupied by the target"],
+			"jp": [],
+			"zh": []
+		}
+	},
+	"syboy_atk_summon": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Every 3rd attack summons a SY6 if there are less than 8 SY6 on the field"],
+			"jp": [],
+			"zh": []
+		}
+	},
+	"syboys_hp": {
+		"type": "others",
+		"tooltip": {
+			"en": ["On spawn, set its HP% to its summoner's HP%"],
+			"jp": [],
+			"zh": []
+		}
+	},
+	"syboys_atk_summon": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Every 3rd attack summons a SY6 if there are less than 12 SY6 on the field"],
+			"jp": [],
+			"zh": []
+		}
+	},
+	"syboy_dmg_summon": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Every 10 damage instances taken, summons a SY6 if there are less than 8 SY6 on the field",
+				"On defeat, clears all SY6"
+			],
+			"jp": [],
+			"zh": []
+		}
+	},
+	"tile_type": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Tile Type Enemy - Cannot be attacked. Does not block/move"],
+			"jp": [],
+			"zh": []
+		}
+	},
+	"syrott_effect": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"If occupied, the allied unit receives 100% of ATK as True damage every 3s",
+				"If not occupied by allied units, restores 25SP for Islar-mla the Corrupted Heart every 3s",
+				"Note: Allied unit must be able to receive damage if not it will restore SP instead (no seaborn, landmines etc)"
+			],
+			"jp": [],
+			"zh": []
+		}
+	},
+	"syskad_heal": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Normal attack can heal the unit blocking it or damaged enemy units, up to 3 targets"],
+			"jp": [],
+			"zh": []
+		}
+	},
+	"syskad_transform": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Transform - Initial SP: 0, Cost:120",
+				"Records current HP and transits to 2nd form, and removes all Tears of Ishar-mla on field"
+			],
+			"jp": [],
+			"zh": []
+		}
+	},
+	"syskad_summon_tears": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Summon Tears - Initial SP: 8, Cost: 30",
+				"Summons a Tear of Ishar-mla on a ground tile near allied units.",
+				"HP↓50% - Summons 2 Tears and immediately uses skill"
+			],
+			"jp": [],
+			"zh": []
+		}
+	},
+	"syskad_revert": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"On defeat - reverts back to 1st form and heals 2% of Max HP",
+				"Records current HP and transits to 2nd form, and removes all Tears of Ishar-mla on field"
+			],
+			"jp": [],
 			"zh": []
 		}
 	},
@@ -854,8 +1055,8 @@
 		"value": 0.2,
 		"tooltip": {
 			"en": [
-				"Standby→Does not attack, switches to Combat Ready mode when HP below 99.99%",
-				"Combat Ready→Movement Speed is increased by 500% and loses 4% max HP every second. Deals 20% of ATK as Nervous Impairment to all allied units in a 2.5 tile radius (ignores camouflage)."
+				"Standby - Does not attack, switches to Combat Ready mode when HP below 99.99%",
+				"Combat Ready - Movement Speed is increased by 500% and loses 4% max HP every second. Deals 20% of ATK as Nervous Impairment to all allied units in a 2.5 tile radius (ignores camouflage)."
 			],
 			"jp": [
 				"【待機状態】→攻撃しない、HPが99.99%未満になると【臨戦態勢】に移行",
@@ -877,7 +1078,7 @@
 		"skill_regen": "attack",
 		"tooltip": {
 			"en": [
-				"Skill→Initial SP: 10, Cost:20",
+				"Skill - Initial SP: 10, Cost:20",
 				"Attacks up to 5 times, dealing 60% of ATK as Physical damage and Nervous Impairment",
 				"While using skill, does not move and becomes invulnerable, "
 			],
@@ -976,11 +1177,18 @@
 			"zh": ["折射：法术抗性增加70（可被沉默）"]
 		}
 	},
-	"dublinn_hover": {
+	"hover": {
 		"type": "others",
 		"tooltip": {
-			"en": ["Becomes ground unit after Stun, Sleep, Frozen"],
-			"jp": ["スタン/睡眠/凍結を受けると飛行が解除される"],
+			"en": [
+				"Hover - cannot be blocked, can only be affected by ranged attacks",
+				"becomes ground unit when affected by stun/sleep/frozen",
+				"and normal attack becomes melee"
+			],
+			"jp": [
+				"低空浮揚→ブロック不可、近接攻撃の対象にならない",
+				"スタン/睡眠/凍結を受けると解除されて、通常攻撃が近接攻撃になる"
+			],
 			"zh": [""]
 		}
 	},
@@ -1193,7 +1401,7 @@
 		"type": "others",
 		"tooltip": {
 			"en": [
-				"AOE (range 2)→ does 80% ATK phys dmg & 20% ATK Nervous Impairment to all units within range. CD10s"
+				"AOE (range 2) - does 80% ATK phys dmg & 20% ATK Nervous Impairment to all units within range. CD10s"
 			],
 			"jp": [
 				"範囲攻撃（半径2）→範囲内の全味方に攻撃力80％の物理ダメージと攻撃力20%の神経ダメージを与える　CD10秒"
@@ -1275,7 +1483,7 @@
 		"type": "others",
 		"tooltip": {
 			"en": [
-				"Skill → Uses chains to disable units (deals 35% of ATK as Arts dmg/s for 20s, only used once per battle)"
+				"Skill - Uses chains to disable units (deals 35% of ATK as Arts dmg/s for 20s, only used once per battle)"
 			],
 			"jp": [
 				"スキル→20秒間味方ユニット1体を束縛し、1秒当たり攻撃力35%分の継続術ダメージを与える",
@@ -1415,7 +1623,7 @@
 	"guerilla_fighter_buff": {
 		"type": "others",
 		"tooltip": {
-			"en": ["Special Buff→Inc ms 30%"],
+			"en": ["Special Buff - Inc ms 30%"],
 			"jp": ["特殊強化→移動速度＋30％"],
 			"zh": []
 		}
@@ -1423,7 +1631,7 @@
 	"guerilla_sniper_buff": {
 		"type": "others",
 		"tooltip": {
-			"en": ["Special Buff→Targets 2 units"],
+			"en": ["Special Buff - Targets 2 units"],
 			"jp": ["特殊強化→2体攻撃"],
 			"zh": []
 		}
@@ -1432,7 +1640,7 @@
 		"type": "others",
 		"tooltip": {
 			"en": [
-				"Buff→Inc all enemies atk10% def100, stacks with other Heralds",
+				"Buff - Inc all enemies atk10% def100, stacks with other Heralds",
 				"Activates special abilities of Guerilla Squad"
 			],
 			"jp": ["バフ→ 敵全体の攻撃力10%＆防御力100上昇（重複する）", "遊撃隊に特殊強化"],
@@ -1479,7 +1687,7 @@
 		"multiplier": 1,
 		"fixed_inc": 130,
 		"tooltip": {
-			"en": ["Blocked→DEF+130"],
+			"en": ["Blocked - DEF+130"],
 			"jp": ["ブロック→防御力+130"],
 			"zh": []
 		}
@@ -1494,7 +1702,7 @@
 		"multiplier": 1,
 		"fixed_inc": 200,
 		"tooltip": {
-			"en": ["Blocked→DEF+200"],
+			"en": ["Blocked - DEF+200"],
 			"jp": ["ブロック→防御力+200"],
 			"zh": []
 		}
@@ -1546,7 +1754,7 @@
 		"name": "civ_death",
 		"type": "others",
 		"tooltip": {
-			"en": ["Friendly Unit→Reduces lifepoint by 1 when defeated", "Cannot be healed"],
+			"en": ["Friendly Unit - Reduces lifepoint by 1 when defeated", "Cannot be healed"],
 			"jp": ["要介護ユニット→死亡すると耐久値減る", "回復受け付けない"],
 			"zh": []
 		}
@@ -1554,7 +1762,7 @@
 	"pompeii_aspd_inc": {
 		"type": "others",
 		"tooltip": {
-			"en": ["HP↓50%→ASPD+40"],
+			"en": ["HP↓50% - ASPD+40"],
 			"jp": ["HP↓50%→攻撃速度+40"],
 			"zh": ["HP↓50%→攻撃速度+40"]
 		}
@@ -1588,7 +1796,7 @@
 		"fixed_inc": 0,
 		"tooltip": {
 			"en": [
-				"Skill→Plants bomb on 2 units, CD21s",
+				"Skill - Plants bomb on 2 units, CD21s",
 				"HP↓50%:plants bomb on 3 units, uses skill immediately"
 			],
 			"jp": [
@@ -1608,7 +1816,7 @@
 		"fixed_inc": 0,
 		"tooltip": {
 			"en": [
-				"Skill→Plants bomb on 2 units, CD21s",
+				"Skill - Plants bomb on 2 units, CD21s",
 				"HP↓50%:plants bomb on 3 units, uses skill immediately"
 			],
 			"jp": [
@@ -1626,7 +1834,7 @@
 		"start": 13,
 		"skill": 13,
 		"tooltip": {
-			"en": ["Rock Throw→stuns unit for 25 sec, does not target stunned units. CD13s"],
+			"en": ["Rock Throw - stuns unit for 25 sec, does not target stunned units. CD13s"],
 			"jp": ["石投げ→25秒スタンする、CD13秒 (スタンしてるユニットは無視）"],
 			"zh": []
 		}
@@ -1668,7 +1876,7 @@
 				"CD45s, during shield active cooldown proceeds"
 			],
 			"jp": [
-				"バリア→最大HP15％のダメージを吸収する",
+				"バリア - 最大HP15％のダメージを吸収する",
 				"バリア使用中→通常攻撃しない、敵全体移動速度＋200％",
 				"CD45秒, クールタイムは使用中でもカウントされる"
 			],
@@ -1743,7 +1951,7 @@
 		"can_silence": false,
 		"tooltip": {
 			"en": [
-				"Buff→Dublinn Phalanx within 1.5 tile range DEF+200, stacks with other Dublinn Phalanx",
+				"Buff - Dublinn Phalanx within 1.5 tile range DEF+200, stacks with other Dublinn Phalanx",
 				"cannot be Silenced"
 			],
 			"jp": [
@@ -1884,7 +2092,7 @@
 		"can_silence": true,
 		"tooltip": {
 			"en": [
-				"Skill→Initial SP: 3, Cost:5, Attack Recovery, can be Silenced",
+				"Skill - Initial SP: 3, Cost:5, Attack Recovery, can be Silenced",
 				"Deals 100% of ATK as Arts damage to the target",
 				"and deals 30% ATK as arts damage every second which increases by 30% every 4s for 20s"
 			],
@@ -1973,7 +2181,7 @@
 		"can_silence": false,
 		"tooltip": {
 			"en": [
-				"Skill→Initial SP: 5, Cost:15",
+				"Skill - Initial SP: 5, Cost:15",
 				"Grants Stealth to all enemy units (excluding self) within 2 tile radius for 3s"
 			],
 			"jp": [
@@ -1992,7 +2200,7 @@
 		"fixed_inc": 0,
 		"tooltip": {
 			"en": [
-				"Skill (Map AOE) → Initial SP: 10, Cost: 20",
+				"Skill (Map AOE) - Initial SP: 10, Cost: 20",
 				"Targets all allied units, dealing 80% ATK as Arts damage to target and 4 tiles surrounding target"
 			],
 			"jp": [
@@ -2007,7 +2215,7 @@
 		"can_silence": false,
 		"tooltip": {
 			"en": [
-				"Skill (Single Target) → Initial SP: 0, Cost: 20",
+				"Skill (Single Target) - Initial SP: 0, Cost: 20",
 				"Casts a $infinite duration$ debuff on an operator:",
 				"Reduces ASPD by 50%,",
 				"Deals 4% of Target's Max HP as Arts damage every second,",
@@ -2066,13 +2274,49 @@
 			"zh": []
 		}
 	},
-	"shaman_bleed": {
+	"bleed_true_60": {
+		"type": "others",
+		"tags": ["true_damage"],
+		"tooltip": {
+			"en": ["Takes 60 True damage every second"],
+			"jp": ["毎秒60の確定ダメージを受ける"],
+			"zh": ["自身每秒受到60真实伤害"]
+		}
+	},
+	"bleed_true_100": {
+		"type": "others",
+		"tags": ["true_damage"],
+		"tooltip": {
+			"en": ["Takes 100 True damage every second"],
+			"jp": ["毎秒100の確定ダメージを受ける"],
+			"zh": ["自身每秒受到100真实伤害"]
+		}
+	},
+	"bleed_true_350": {
+		"type": "others",
+		"tags": ["true_damage"],
+		"tooltip": {
+			"en": ["Takes 350 True damage every second"],
+			"jp": ["毎秒350の確定ダメージを受ける"],
+			"zh": ["自身每秒受到350真实伤害"]
+		}
+	},
+	"bleed_true_400": {
 		"type": "others",
 		"tags": ["true_damage"],
 		"tooltip": {
 			"en": ["Takes 400 True damage every second"],
 			"jp": ["毎秒400の確定ダメージを受ける"],
-			"zh": []
+			"zh": ["自身每秒受到400真实伤害"]
+		}
+	},
+	"bleed_true_500": {
+		"type": "others",
+		"tags": ["true_damage"],
+		"tooltip": {
+			"en": ["Takes 500 True damage every second"],
+			"jp": ["毎秒500の確定ダメージを受ける"],
+			"zh": ["自身每秒受到500真实伤害"]
 		}
 	},
 	"shaman_explode": {
@@ -2105,6 +2349,61 @@
 			"zh": []
 		}
 	},
+	"ltmob_add_arts": {
+		"type": "others",
+		"tags": [],
+		"tooltip": {
+			"en": [
+				"When attacking targets outside of Realigned Flux, deals additional 40% ATK as Arts damage"
+			],
+			"jp": ["指揮光線を受けていない味方に攻撃する時、追加で攻撃力の40%の術ダメージを与える"],
+			"zh": ["攻击未处于重整束流上的目标时，攻击额外造成一次攻击力40%的法术伤害"]
+		}
+	},
+	"sarks_performance": {
+		"type": "atk",
+		"dmg_element": "phys",
+		"suffix": { "en": "🎷", "jp": "🎷", "zh": "🎷" },
+		"multiplier": 1.5,
+		"hits": 1,
+		"fixed_inc": 0,
+		"tooltip": {
+			"en": [
+				"Skill - Initial SP: 10, Cost:20",
+				"Fires projectiles in all 4 directions, dealing 150% ATK as Physical damage to first allied unit hit"
+			],
+			"jp": [
+				"【全力演奏】→（自然回復スキル/初期SP10/必要SP20）",
+				"十字方向にに射程無限の光弾を発射し、触れた最初の味方に攻撃力の150%の物理ダメージを与える"
+			],
+			"zh": [
+				"全力吹奏→初始10SP，消耗20",
+				"向自身四方向发射弹道，对第一个触碰到的我方单位造成攻击力150%的物理普通伤害。"
+			]
+		}
+	},
+	"dublinn_companion_guard": {
+		"type": "others",
+		"tags": [],
+		"tooltip": {
+			"en": [
+				"When Companion Shadowblade is within 1.4 tile radius of self, decreases ASPD of all allied units within a 1.1 tile radius by 30"
+			],
+			"jp": ["半径1.4以内にダブリンヘタイロイ影刃系がいる場合、半径1.1以内の全味方の攻撃速度-30"],
+			"zh": ["自身1.4半径范围内存在深池伙友影刃时，使自身半径1.1范围内所有我方单位攻击速度减少30"]
+		}
+	},
+	"dublinn_companion_shadowblade": {
+		"type": "others",
+		"tags": [],
+		"tooltip": {
+			"en": [
+				"When Companion Guard is within a 1.4 tile radius of self, self's ATK interval is decreased by 1.3s"
+			],
+			"jp": ["半径1.4以内にダブリンヘタイロイ衛兵系がいる場合、自身の攻撃間隔-1.3"],
+			"zh": ["自身1.4半径范围内存在深池伙友卫队/深池伙友卫队精英时，自身攻击间隔减少1.3s"]
+		}
+	},
 	"reduce_phys_arts_90": {
 		"type": "others",
 		"tags": [],
@@ -2120,15 +2419,6 @@
 		"tooltip": {
 			"en": ["Units blocking this gains +1 Block (up to max +6)"],
 			"jp": ["ブロックされうとブロックしたユニットのブロック数上限+1（最大+6まで）"],
-			"zh": []
-		}
-	},
-	"bleed_true_60": {
-		"type": "others",
-		"tags": ["true_damage"],
-		"tooltip": {
-			"en": ["Takes 60 True damage every second"],
-			"jp": ["毎秒60の確定ダメージを受ける"],
 			"zh": []
 		}
 	},
@@ -2173,7 +2463,7 @@
 		"tags": [],
 		"tooltip": {
 			"en": [
-				"Recharge Cannon→Stops attacking and grants 1SP to Londinium Artillery every second",
+				"Recharge Cannon - Stops attacking and grants 1SP to Londinium Artillery every second",
 				"If interrupted, Londinium Artillery loses 15SP",
 				"Can only be used once"
 			],
@@ -2189,7 +2479,7 @@
 		"tags": [],
 		"tooltip": {
 			"en": [
-				"[Military Training]→ gains 80% Physical/Arts evasion",
+				"[Military Training] - gains 80% Physical/Arts evasion",
 				"When hit by Londinium Artillery, lose this effect for 30s and become stunned for 8s"
 			],
 			"jp": [
@@ -2204,7 +2494,7 @@
 		"tags": [],
 		"tooltip": {
 			"en": [
-				"[Focus]→ When attacking the same target, ASPD+60, max 5 stacks",
+				"[Focus] - When attacking the same target, ASPD+60, max 5 stacks",
 				" All stacks are cleared when switching targets or if 6s passes without attacking"
 			],
 			"jp": [
@@ -2302,6 +2592,67 @@
 				"ダブリン焼滅者系を即死させ、脆い石柱を破壊する（無効化可能）"
 			],
 			"zh": []
+		}
+	},
+	"doq_freeze_armor": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"When taking damage, apply 2s Chill to the damage source.",
+				"HP↓50% - Chill duration increased to 4s.",
+				"This effect ignores camouflage and invisibility",
+				"effect continues in 2nd form"
+			],
+			"jp": [
+				"ダメージを受けるとき、ダメージ源に2秒の寒冷を与える",
+				"HP↓50%→寒冷が4秒になる",
+				"この効果は迷彩やステルスを無視する",
+				"第二形態でも機能継続する"
+			],
+			"zh": [
+				"受到伤害时，对伤害来源施加2s寒冷",
+				"生命值低于50%时寒冷时间延长至4s",
+				"该效果无视隐匿与迷彩"
+			]
+		}
+	},
+	"doq_revive": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"When defeated, releases next wave of enemies and revives over 30s restoring to 25% of Max HP"
+			],
+			"jp": ["倒されたとき、次の敵ウェーブを放て、30秒かけて最大HPの25%を回復する"],
+			"zh": ["首次被击倒后，释放当前波次，进行持续30s的重生，重生恢复25%生命值"]
+		}
+	},
+	"doq_invincible": {
+		"type": "others",
+		"tooltip": {
+			"en": ["After resurrecting, gains 2s of invulnerability"],
+			"jp": ["2秒間無敵"],
+			"zh": ["重生结束后获得2s无敌"]
+		}
+	},
+	"doq_charge": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Charging Mode - movespeed is decreased by 50% and cannot be blocked"],
+			"jp": ["突撃形態→移動速度が-50%、ブロックされなくなる"],
+			"zh": ["冲锋形态→自身移动速度-50%，无法被阻挡"]
+		}
+	},
+	"doq_bone": {
+		"type": "def",
+		"suffix": { "en": "relic", "jp": "骨", "zh": "骨血" },
+		"multiplier": 0.2,
+		"fixed_inc": 0,
+		"tooltip": {
+			"en": [
+				"While in possession of the relic - 'Bone and Blood of the Knight', DEF is lowered by 80%"
+			],
+			"jp": ["秘宝【騎士の血骨】所持しているとき、防御力が80%減少する"],
+			"zh": ["持有收藏品【骑士骨血】时，防御力最终降低80%"]
 		}
 	}
 }
