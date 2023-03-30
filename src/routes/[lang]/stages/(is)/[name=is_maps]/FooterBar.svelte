@@ -6,20 +6,11 @@
 	export let language: string, rogueTopic: string;
 	let openOverlay = false;
 
-	async function getRelics(rogueTopic: string) {
-		let relics = (await import(`../../../../../lib/data/relics_${rogueTopic}.json`)).default;
-		for (const relic of relics) {
-			relic.src = (await import(`../../../../../lib/images/relics/r_${relic.img}.webp`)).default;
-		}
-		return relics;
-	}
-	$: promise = getRelics(rogueTopic);
+	
 </script>
 
 <div class="fixed overflow-hidden bottom-0 w-full select-none z-[2]">
-	{#await promise then relics}
-		<RelicsOverlay {openOverlay} {language} {relics} />
-	{/await}
+	<RelicsOverlay {openOverlay} {language} {rogueTopic}/>
 	<div class="shadow-2xl shadow-gray-400 bg-neutral-900 w-full mt-4 fixed bottom-0 py-2">
 		<div class="max-w-7xl mx-auto px-2 md:px-4">
 			<div class="relative flex items-center justify-between h-16 ">
