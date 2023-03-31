@@ -642,8 +642,8 @@
 	"syskad_hp_50_rage_150": {
 		"type": "others",
 		"tooltip": {
-			"en": ["HP↓50% - Final Damage dealt increased by 1.5 times", "Carried over to 2nd form"],
-			"jp": ["HP50％以下 - 最終ダメージ+50％", "第二形態に継続される"],
+			"en": ["HP↓50% - ATK+50%", "Carried over to 2nd form"],
+			"jp": ["HP50％以下→攻撃力+50％", "第二形態に継続される"],
 			"zh": []
 		}
 	},
@@ -664,6 +664,8 @@
 		"type": "atk",
 		"dmg_element": "arts",
 		"suffix": { "en": "🌪", "jp": "竜巻", "zh": "🌪" },
+		"multiplier": null,
+		"fixed_inc": null,
 		"fixed_value": 70,
 		"hits": 1,
 		"tooltip": {
@@ -884,7 +886,7 @@
 		"tooltip": {
 			"en": ["Attack deals 20% of ATK as Corrosion damage"],
 			"jp": ["攻撃で攻撃力の20%の侵蝕ダメージを与える"],
-			"zh": []
+			"zh": ["攻击附加相当于攻击力20%的侵蚀损伤 "]
 		}
 	},
 	"corrosion_35": {
@@ -892,7 +894,7 @@
 		"tooltip": {
 			"en": ["Attack deals 35% of ATK as Corrosion damage"],
 			"jp": ["攻撃で攻撃力の35%の侵蝕ダメージを与える"],
-			"zh": []
+			"zh": ["攻击附加相当于攻击力35%的侵蚀损伤 "]
 		}
 	},
 	"corrosion_50": {
@@ -900,7 +902,7 @@
 		"tooltip": {
 			"en": ["Attack deals 50% of ATK as Corrosion damage"],
 			"jp": ["攻撃で攻撃力の50%の侵蝕ダメージを与える"],
-			"zh": []
+			"zh": ["攻击附加相当于攻击力50%的侵蚀损伤 "]
 		}
 	},
 	"corrosion_60": {
@@ -908,7 +910,7 @@
 		"tooltip": {
 			"en": ["Attack deals 60% of ATK as Corrosion damage"],
 			"jp": ["攻撃で攻撃力の60%の侵蝕ダメージを与える"],
-			"zh": []
+			"zh": ["攻击附加相当于攻击力60%的侵蚀损伤"]
 		}
 	},
 	"sy2_attackdef": {
@@ -921,40 +923,44 @@
 		"cost": 0,
 		"tooltip": {
 			"en": ["When attacking for the first time, stops moving and gains 300 DEF for 20s."],
-			"jp": [""],
-			"zh": [""]
+			"jp": ["初回攻撃するとき、20秒動きを止め防御力+300"],
+			"zh": ["首次攻击后20s内防御力+300且不再移动"]
 		}
 	},
 	"atk_summon_sy4": {
 		"type": "others",
 		"tooltip": {
 			"en": ["Attacks summon a 注亡拟嗣 on the tile occupied by the target"],
-			"jp": [],
-			"zh": []
+			"jp": ["攻撃対象のマスに「注亡拟嗣」を召喚する"],
+			"zh": ["攻击目标时在目标所在格内随机位置召唤1只注亡拟嗣"]
 		}
 	},
 	"syboy_atk_summon": {
 		"type": "others",
 		"tooltip": {
-			"en": ["Every 3rd attack summons a SY6 if there are less than 8 SY6 on the field"],
-			"jp": [],
-			"zh": []
+			"en": ["Every 3rd attack summons a 分形 if there are less than 8 分形 on the field"],
+			"jp": ["分形が8体以下時、攻撃3回の度に、次の攻撃が分形を召喚する"],
+			"zh": [
+				"若场上塑路者分形数量<8，则额外在距离自身最近的可通行地块内随机位置以自身路径召唤1只塑路者分形"
+			]
 		}
 	},
 	"syboys_hp": {
 		"type": "others",
 		"tooltip": {
 			"en": ["On spawn, set its HP% to its summoner's HP%"],
-			"jp": [],
-			"zh": []
+			"jp": ["出現時に自分のHP％を召喚者と同じHP%に設置する"],
+			"zh": ["出场时，重设自身生命百分比为召唤者生命百分比"]
 		}
 	},
 	"syboys_atk_summon": {
 		"type": "others",
 		"tooltip": {
-			"en": ["Every 3rd attack summons a SY6 if there are less than 12 SY6 on the field"],
-			"jp": [],
-			"zh": []
+			"en": ["Every 3rd attack summons a 分形 if there are less than 12 分形 on the field"],
+			"jp": ["分形が12体以下場合、攻撃3回の度に、次の攻撃が分形を召喚する"],
+			"zh": [
+				"若场上塑路者分形数量<12，则额外在距离自身最近的可通行地块内范围内随机位置以自身路径召唤1只塑路者分形"
+			]
 		}
 	},
 	"syboy_dmg_summon": {
@@ -964,15 +970,38 @@
 				"Every 10 damage instances taken, summons a SY6 if there are less than 8 SY6 on the field",
 				"On defeat, clears all SY6"
 			],
-			"jp": [],
-			"zh": []
+			"jp": [
+				"攻撃10回受ける度に、分形が8体以下場合、分形を召喚する",
+				"倒された時、戦場上全部の分形をクリアする"
+			],
+			"zh": [
+				"每受到10次伤害，若场上塑路者分形数量<8，则在距离自身最近的可通行地块内随机位置以自身路径召唤1只塑路者分形",
+				"退场时，清除场上所有塑路者分形"
+			]
+		}
+	},
+	"syboy_dmg_summon2": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Every 5 damage instances taken, summons a SY6 if there are less than 8 SY6 on the field",
+				"On defeat, clears all SY6"
+			],
+			"jp": [
+				"攻撃5回受ける度に、分形が8体以下場合、分形を召喚する",
+				"倒された時、戦場上全部の分形をクリアする"
+			],
+			"zh": [
+				"每受到5次伤害，若场上塑路者分形数量<8，则在距离自身最近的可通行地块内随机位置以自身路径召唤1只塑路者分形",
+				"退场时，清除场上所有塑路者分形"
+			]
 		}
 	},
 	"tile_type": {
 		"type": "others",
 		"tooltip": {
 			"en": ["Tile Type Enemy - Cannot be attacked. Does not block/move"],
-			"jp": [],
+			"jp": ["床系敵→ブロック、移動しない、攻撃されない"],
 			"zh": []
 		}
 	},
@@ -984,16 +1013,22 @@
 				"If not occupied by allied units, restores 25SP for Islar-mla the Corrupted Heart every 3s",
 				"Note: Allied unit must be able to receive damage if not it will restore SP instead (no seaborn, landmines etc)"
 			],
-			"jp": [],
-			"zh": []
+			"jp": [
+				"味方（※無敵のユニット（シーボーン、地雷等）はNG）がマス上にいる時、3秒毎攻撃力100%の確定ダメージを与える",
+				"いない時は3秒毎Ishar-mlaにSP25回復する"
+			],
+			"zh": [
+				"自身所在地块上的默认类我方单位每3秒受到攻击力100%的真实伤害(无视不可选中)",
+				"每3s，若自身所在地块不存在默认类的我方单位，则为伊莎玛拉，腐化之心回复25点技力 "
+			]
 		}
 	},
 	"syskad_heal": {
 		"type": "others",
 		"tooltip": {
 			"en": ["Normal attack can heal the unit blocking it or damaged enemy units, up to 3 targets"],
-			"jp": [],
-			"zh": []
+			"jp": ["通常攻撃はブロックしてる味方や傷ついてる敵を回復する、最大3体"],
+			"zh": ["普通攻击为治疗，可治疗生命值未满的敌方单位，最大目标数为3"]
 		}
 	},
 	"syskad_transform": {
@@ -1001,10 +1036,16 @@
 		"tooltip": {
 			"en": [
 				"Transform - Initial SP: 0, Cost:120",
-				"Records current HP and transits to 2nd form, and removes all Tears of Ishar-mla on field"
+				"Records current HP and transits to 2nd form with full HP, and removes all Tears of Ishar-mla on field"
 			],
-			"jp": [],
-			"zh": []
+			"jp": [
+				"変身→初期SP0，必要SP120",
+				"変身する時、フィールド上のIshar-mlaの涙を消して、今のHPを記録して、100%のHPで第二形態に移行する"
+			],
+			"zh": [
+				"变身→初始0SP，消耗120SP",
+				"进入变身形态时，恢复自身100%生命值、且清空所有伊莎玛拉之泪"
+			]
 		}
 	},
 	"syskad_summon_tears": {
@@ -1015,19 +1056,24 @@
 				"Summons a Tear of Ishar-mla on a ground tile near allied units.",
 				"HP↓50% - Summons 2 Tears and immediately uses skill"
 			],
-			"jp": [],
-			"zh": []
+			"jp": [
+				"抗争の涙→初期SP8，必要SP30",
+				"味方に近い地上マスに涙を召喚する",
+				"HP50%以下→即時2個の涙を召喚する"
+			],
+			"zh": [
+				"抗争之泪→初始8SP，消耗30SP",
+				"在最靠近友方的地面召唤1个伊莎玛拉之泪",
+				"HP低于50%时，立刻召唤2个伊莎玛拉之泪"
+			]
 		}
 	},
 	"syskad_revert": {
 		"type": "others",
 		"tooltip": {
-			"en": [
-				"On defeat - reverts back to 1st form and heals 2% of Max HP",
-				"Records current HP and transits to 2nd form, and removes all Tears of Ishar-mla on field"
-			],
-			"jp": [],
-			"zh": []
+			"en": ["On defeat - reverts back to 1st form and heals 2% of Max HP"],
+			"jp": ["倒された時、第一形態に戻って、最大HPの2%を回復する"],
+			"zh": ["该形态下被击败后重生，持续5s，恢复2%生命值。重生结束后清空自身sp，切换至初始形态"]
 		}
 	},
 	"egg_stab": {
