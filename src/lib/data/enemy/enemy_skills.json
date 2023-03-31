@@ -290,8 +290,8 @@
 	"drone_frost_debuff": {
 		"type": "others",
 		"tooltip": {
-			"en": ["Debuff→operators with ranged aspd down", "Can be silenced"],
-			"jp": ["バフ→ 攻撃範囲内の", "無効化可能"],
+			"en": ["Debuff→operators with ranged aspd down (can be silenced)"],
+			"jp": ["攻撃範囲内の味方の攻撃速度-50（無効化可能）"],
 			"zh": []
 		}
 	},
@@ -348,7 +348,23 @@
 		"tooltip": {
 			"en": ["Normal Attack targets 2 units (or if only 1 unit within range, deals 2 hits)"],
 			"jp": ["2体同時攻撃（射程内1体のみいるの場合は2回連続攻撃）"],
-			"zh": []
+			"zh": ["普通攻击进行2次多重攻击（优先攻击不同目标，可攻击同一目标）"]
+		}
+	},
+	"target_3_multi_alt": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Normal Attack targets 3 units (or if only 1 unit within range, deals 3 hits)"],
+			"jp": ["3体同時攻撃（射程内1体のみいるの場合は3回連続攻撃）"],
+			"zh": ["普通攻击进行3次多重攻击（优先攻击不同目标，可攻击同一目标）"]
+		}
+	},
+	"target_5_multi_alt": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Normal Attack targets 5 units (or if only 1 unit within range, deals 5 hits)"],
+			"jp": ["5体同時攻撃（射程内1体のみいるの場合は5回連続攻撃）"],
+			"zh": ["普通攻击进行5次多重攻击（优先攻击不同目标，可攻击同一目标）"]
 		}
 	},
 	"def_down_10": {
@@ -356,7 +372,7 @@
 		"tooltip": {
 			"en": ["Attacks decreases operator's def by 10, lasts indefinitely until operator retreats"],
 			"jp": ["攻撃1回につき相手のDEF10低下", "(蓄積する、撤退まで永続)"],
-			"zh": []
+			"zh": [""]
 		}
 	},
 	"def_down_15": {
@@ -451,12 +467,21 @@
 			"zh": []
 		}
 	},
+	"freeze_attack_5": {
+		"name": "freeze_hit",
+		"type": "others",
+		"tooltip": {
+			"en": ["Normal attacks apply Cold to the target for 5s"],
+			"jp": ["通常攻撃で対象に5秒間の【寒冷】効果を付与する"],
+			"zh": ["普通攻击时对目标施加持续5秒的寒冷"]
+		}
+	},
 	"ice_pick_150": {
 		"type": "others",
 		"tooltip": {
 			"en": ["ATK is increased to 150% when attacking frozen units"],
 			"jp": ["【❄凍結】状態の対象を攻撃する時に攻撃力が150%まで上昇"],
-			"zh": []
+			"zh": ["攻击持有冻结的单位时攻击力提高至150%"]
 		}
 	},
 	"ice_pick_175": {
@@ -464,7 +489,7 @@
 		"tooltip": {
 			"en": ["ATK is increased to 175% when attacking frozen units"],
 			"jp": ["【❄凍結】状態の対象を攻撃する時に攻撃力が175%まで上昇"],
-			"zh": []
+			"zh": ["攻击持有冻结的单位时攻击力提高至175%"]
 		}
 	},
 	"ice_pick_200": {
@@ -472,7 +497,7 @@
 		"tooltip": {
 			"en": ["ATK is increased to 200% when attacking frozen units"],
 			"jp": ["【❄凍結】状態の対象を攻撃する時に攻撃力が200%まで上昇"],
-			"zh": []
+			"zh": ["攻击持有冻结的单位时攻击力提高至200%"]
 		}
 	},
 	"ice_pick_250": {
@@ -480,7 +505,15 @@
 		"tooltip": {
 			"en": ["ATK is increased to 250% when attacking frozen units"],
 			"jp": ["【❄凍結】状態の対象を攻撃する時に攻撃力が250%まで上昇"],
-			"zh": []
+			"zh": ["攻击持有冻结的单位时攻击力提高至250%"]
+		}
+	},
+	"ice_pick_300": {
+		"type": "others",
+		"tooltip": {
+			"en": ["ATK is increased to 300% when attacking frozen units"],
+			"jp": ["【❄凍結】状態の対象を攻撃する時に攻撃力が300%まで上昇"],
+			"zh": ["攻击持有冻结的单位时攻击力提高至300%"]
 		}
 	},
 	"atk_arts_change": {
@@ -497,6 +530,42 @@
 			"en": ["Recovers 150 hp/s"],
 			"jp": ["毎秒HP150回復する"],
 			"zh": []
+		}
+	},
+	"invincible_5s": {
+		"type": "others",
+		"tags": [],
+		"tooltip": {
+			"en": ["Invincible for 5s"],
+			"jp": ["5秒間無敵"],
+			"zh": ["获得5s无敌效果"]
+		}
+	},
+	"invincible_30s": {
+		"type": "others",
+		"tags": [],
+		"tooltip": {
+			"en": ["Invincible for 30s"],
+			"jp": ["30秒間無敵"],
+			"zh": ["获得30s无敌效果"]
+		}
+	},
+	"invincible_60s": {
+		"type": "others",
+		"tags": [],
+		"tooltip": {
+			"en": ["Invincible for 60s"],
+			"jp": ["60秒間無敵"],
+			"zh": ["获得60s无敌效果"]
+		}
+	},
+	"invincible_80s": {
+		"type": "others",
+		"tags": [],
+		"tooltip": {
+			"en": ["Invincible for 80s"],
+			"jp": ["80秒間無敵"],
+			"zh": ["获得80s无敌效果"]
 		}
 	},
 	"cs_blink": {
@@ -538,6 +607,110 @@
 			"en": ["Buff→All enemies on field gains +30% aspd (Does not stack)"],
 			"jp": ["バフ→敵全体攻撃速度+30％（重複しない）"],
 			"zh": []
+		}
+	},
+	"rsh_arrow": {
+		"type": "atk",
+		"dmg_element": "arts",
+		"suffix": { "en": "skill", "jp": "スキル", "zh": "技能" },
+		"multiplier": 3,
+		"hits": 1,
+		"fixed_inc": 0,
+		"tooltip": {
+			"en": [
+				"Skill (Initial SP: 0, Cost:18)",
+				"Fires a special bolt that deals 300% of ATK as Arts damage."
+			],
+			"jp": ["スキル→初期SP0、必要SP18", "攻撃力300%の術ダメージを与える特殊な矢を放つ"],
+			"zh": [
+				"技能（初始0SP，消耗18SP）",
+				"释放特殊弩箭进行攻击，造成相当于攻击力300%的法术普通伤害"
+			]
+		}
+	},
+	"fzm_nova": {
+		"type": "atk",
+		"dmg_element": "arts",
+		"suffix": { "en": "nova", "jp": "氷環", "zh": "冰环" },
+		"multiplier": 1.3,
+		"hits": 1,
+		"fixed_inc": 0,
+		"tooltip": {
+			"en": [
+				"Ice Nova (Initial SP: 12, Cost:12)",
+				"Deals 130% of ATK as Arts damage to all allied units in a 2.6 tile radius and applies Cold for 10s",
+				"Damage increased to 260% against Frozen targets."
+			],
+			"jp": [
+				"スキル→初期SP12、必要SP12",
+				"自分周囲半径2.6マスへ攻撃力130%の術ダメージと10秒間の【寒冷】効果を与える",
+				"【凍結】している相手にはスキル攻撃力が2倍になる"
+			],
+			"zh": [
+				"技能（初始12SP，消耗12SP）",
+				"对半径2.6范围内所有我方单位造成相当于攻击力130%的法术溅射伤害并施加持续10秒的寒冷",
+				"对持有冻结的目标造成的伤害提升至260% "
+			]
+		}
+	},
+	"fzm_nova_nodescript": {
+		"type": "atk",
+		"dmg_element": "arts",
+		"suffix": { "en": "nova", "jp": "氷環", "zh": "冰环" },
+		"multiplier": 1.3,
+		"hits": 1,
+		"fixed_inc": 0,
+		"tooltip": {
+			"en": [],
+			"jp": [],
+			"zh": []
+		}
+	},
+	"fzm_freeze_redeploy": {
+		"type": "others",
+		"tooltip": {
+			"en": ["If an allied unit is retreated while Frozen, their redeployment time is doubled."],
+			"jp": [
+				"自身が戦場に存在する限り、【凍結】状態で撤退したオペレーターの再配置時間を2倍に増加させる"
+			],
+			"zh": ["在场时，处于冻结状态下死亡/撤退的我方单位，其当次再部署时间翻倍"]
+		}
+	},
+	"fzm_trap": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Every 75s, summons Originium Ice Crystals at target locations"],
+			"jp": ["75秒毎戦場の源石氷晶を起動させる"],
+			"zh": ["每75秒，在预设位置召唤源石冰晶"]
+		}
+	},
+	"gst_grenade": {
+		"type": "atk",
+		"dmg_element": "phys",
+		"suffix": { "en": "ranged", "jp": "遠", "zh": "远" },
+		"multiplier": 0.4,
+		"hits": 1,
+		"fixed_inc": 0,
+		"tooltip": {
+			"en": [
+				"Uses ranged attacks when not blocked, dealing 40% of ATK as Physical damage to the target and the 8 surrounding tiles."
+			],
+			"jp": ["非ブロック時、通常攻撃で榴弾射撃（遠距離範囲物理攻撃）を行う"],
+			"zh": ["未被阻挡时会进行远程攻击，远程攻击对目标及其周围八格造成攻击力40%的物理伤害"]
+		}
+	},
+	"gst_shield": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Shield (Initial SP: 10, Cost:30)",
+				"Refreshes shield effect. Shield can absorb all damage types, up to 10% of max HP."
+			],
+			"jp": ["スキル→初期SP10、必要SP30", "自身の最大HPの10%に相当するシールドを自身に付与する"],
+			"zh": [
+				"技能（初始10SP，消耗30SP）",
+				"刷新自身屏障、屏障可吸收相当于自身最大生命值10%的全类型伤害 "
+			]
 		}
 	},
 	"corrupted_knight_charge_atk": {
@@ -845,6 +1018,15 @@
 			"zh": []
 		}
 	},
+	"nervous_impair_2": {
+		"type": "others",
+		"value": 0.1,
+		"tooltip": {
+			"en": ["Attacks deal 2% ATK Nervous Impairment"],
+			"jp": ["攻撃時、攻撃力の2%の神経ダメージを与える"],
+			"zh": ["普通攻击附带自身攻击力2%的神经损伤"]
+		}
+	},
 	"nervous_impair_10": {
 		"type": "others",
 		"value": 0.1,
@@ -1136,6 +1318,84 @@
 			"zh": []
 		}
 	},
+	"brandguider": {
+		"type": "def",
+		"multiplier": 4,
+		"fixed_inc": 0,
+		"suffix": {
+			"en": "HP↓50%",
+			"jp": "HP50%以下",
+			"zh": "HP50%以下"
+		},
+		"tooltip": {
+			"en": [
+				"HP↓50% - generates 'Nethersea Brand' on the tiles it passes over (can be silenced)",
+				"and DEF +300%, Block count +1"
+			],
+			"jp": [
+				"HP50%以下→自身が存在するマスに溟痕が発生する（無効化可能）",
+				"また防御力+300%、必要ブロック数+1"
+			],
+			"zh": [
+				"生命值低于50%时，在自身经过的地块生成“溟痕”（可被沉默）",
+				"且自身防御力提升300%，占用阻挡数+1 "
+			]
+		}
+	},
+	"predator_evasion": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Gains 80% Physical/Arts dodge",
+				"(disabled when under the effects of Stun/Sleep/Frozen/Levitate/Bind/Silence)"
+			],
+			"jp": [
+				"物理・術回避率+80%",
+				"能力無効化・スタン・睡眠・凍結・浮遊・バインド中は無効化される"
+			],
+			"zh": ["获得80%的物理/法术闪避", "（处于晕眩/冻结/沉睡/浮空/束缚/沉默时失效）"]
+		}
+	},
+	"predator_brand_noblock": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Cannot be blocked when atop of 'Nethersea Brand'"],
+			"jp": ["溟痕上ではブロック不可"],
+			"zh": ["位于“溟痕”时获得不可阻挡"]
+		}
+	},
+	"spewer_brand_target": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Can attack and prioritises all targets atop of 'Nethersea Brand' from any range"],
+			"jp": ["溟痕上の味方に対しては、優先かつどこからでも攻撃可能"],
+			"zh": ["优先攻击位于“溟痕”上的目标且无视攻击距离"]
+		}
+	},
+	"highmore_aspd_down_1": {
+		"type": "others",
+		"tooltip": {
+			"en": ["All allied units within range have their ASPD reduced by 60"],
+			"jp": ["攻撃範囲内の味方の攻撃速度-60"],
+			"zh": ["攻击范围内的所有我方单位(包括装置类)攻击速度-60"]
+		}
+	},
+	"highmore_aspd_down_2": {
+		"type": "others",
+		"tooltip": {
+			"en": ["All allied units within range have their ASPD reduced by 80"],
+			"jp": ["攻撃範囲内の味方の攻撃速度-80"],
+			"zh": ["攻击范围内的所有我方单位(包括装置类)攻击速度-80"]
+		}
+	},
+	"highmore_revive": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Regains Hover after transiting to 2nd form"],
+			"jp": ["第二形態移行後、低空浮揚状態になる"],
+			"zh": ["进入第二形态时，重置自身近地悬浮效果"]
+		}
+	},
 	"lazurite_power_strike": {
 		"type": "atk",
 		"dmg_element": "phys",
@@ -1235,7 +1495,7 @@
 				"低空浮揚→ブロック不可、近接攻撃の対象にならない",
 				"スタン/睡眠/凍結を受けると解除されて、通常攻撃が近接攻撃になる"
 			],
-			"zh": [""]
+			"zh": ["近地悬浮"]
 		}
 	},
 	"dublinn_fireball": {
@@ -2575,15 +2835,6 @@
 				"Normal attacks does 100% ATK Phys & 50% Arts damage and grants the Londinium Artillery 6 SP"
 			],
 			"jp": ["通常攻撃は攻撃力の100%の物理と50%の術ダメージを与え", "攻撃の度に、副砲のSPを+6する"],
-			"zh": []
-		}
-	},
-	"invincible_5s": {
-		"type": "others",
-		"tags": [],
-		"tooltip": {
-			"en": ["Invincible for 5s"],
-			"jp": ["5秒間無敵"],
 			"zh": []
 		}
 	},

@@ -14,7 +14,7 @@
 				if (fixed_value) {
 					value = fixed_value;
 				} else {
-					value = value * (multiplier ?? 1) + (fixed_inc ?? 0);
+					value = Math.floor(value * (multiplier ?? 1) + (fixed_inc ?? 0));
 				}
 				return { suffix, value, hits: hits ?? 0, dmgEle: dmg_element ?? '' };
 			}
