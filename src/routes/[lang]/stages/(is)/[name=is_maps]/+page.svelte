@@ -20,7 +20,7 @@
 
 <div class="w-[100vw] md:w-full max-w-7xl mx-auto">
 	<h1>{data.mapConfig[`name_${'zh'}`]}</h1>
-	<MapInfo mapConfig={data.mapConfig} />
+	<MapInfo mapConfig={data.mapConfig} {language} />
 	<DifficultySelect {language} />
 	{#if data.mapConfig.elite_mods}
 		<EliteToggle mapEliteMods={data.mapConfig.elite_mods} />
