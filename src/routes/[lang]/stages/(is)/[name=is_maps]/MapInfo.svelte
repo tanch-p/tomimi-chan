@@ -8,7 +8,9 @@
 <div class="mt-2 text-xl mx-auto ">
 	{#if mapConfig.routes}
 		<MapRoutes routes={mapConfig.routes} {language} />
-	{:else}{/if}
+	{:else}
+	
+	{/if}
 	<div class="w-[100vw] md:w-full">
 		{#if mapConfig.sp_enemy}
 			<SpEnemy spEnemyInfo={mapConfig.sp_enemy} />

@@ -2,6 +2,7 @@
 	import DLD from '$lib/images/enemy_icons/enemy_2001_duckmi.webp';
 	import GPN from '$lib/images/enemy_icons/enemy_2002_bearmi.webp';
 	import THF from '$lib/images/enemy_icons/enemy_2034_sythef.webp';
+	import DOQ from '$lib/images/enemy_icons/enemy_2038_sydonq.webp';
 	import boss_icon from '$lib/images/is/boss_icon.webp';
 	import combat_ops_icon from '$lib/images/is/combat_icon.webp';
 	import emergency_ops_icon from '$lib/images/is/emergency_icon.webp';
@@ -9,12 +10,13 @@
 	import translations from '$lib/translations.json';
 	import VideoPlayer, { stopAll } from './VideoPlayer.svelte';
 
-	export let routes: [], language;
+	export let routes: [], language: string;
 
 	const icons = [
 		{ title: 'duck', src: DLD },
 		{ title: 'gpn', src: GPN },
 		{ title: 'thf', src: THF },
+		{ title: 'doq', src: DOQ },
 		{ title: 'lumen', src: lumen },
 		{ title: 'boss', src: boss_icon },
 		{ title: 'combat_ops', src: combat_ops_icon },
@@ -54,7 +56,7 @@
 								selected !== index ? 'opacity-30' : ''
 							}`}
 						>
-							{translations[language][title]}
+							{translations[language][route.title]}
 						</span>
 					{/if}
 				</li>
@@ -63,7 +65,15 @@
 	{/if}
 	{#each routes as route, index}
 		<div class={`${selected === index ? '' : 'hidden'}`}>
-			<VideoPlayer {route} />
+			{#if route.title === 'doq'}
+				<img
+					src={`https://res.cloudinary.com/dbqz7mebk/image/upload/v1680366257/tomimi.dev/mizuki/doq/${route.id}.webp`}
+					alt={route.title}
+					class="aspect-[1062/600] w-screen max-h-max sm:aspect-auto sm:w-[40rem] sm:h-[360px]"
+				/>
+			{:else}
+				<VideoPlayer {route} />
+			{/if}
 		</div>
 	{/each}
 </div>

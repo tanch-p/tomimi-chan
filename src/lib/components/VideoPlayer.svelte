@@ -33,7 +33,7 @@
 <style>
 	iframe {
 		width: 100vw;
-		height: 240px;
+		aspect-ratio: 1062/600;
 	}
 
 	@media only screen and (min-width: 768px) {

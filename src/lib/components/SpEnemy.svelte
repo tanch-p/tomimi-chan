@@ -7,7 +7,7 @@
 	export let spEnemyInfo;
 </script>
 
-<div class="flex justify-center items-center gap-x-1 my-4">
+<div class="flex justify-center items-center gap-x-1 mt-6 mb-4">
 	<img
 		src={DLDGPN}
 		height="75px"
