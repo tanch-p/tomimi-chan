@@ -1642,6 +1642,44 @@
 			]
 		}
 	},
+	"cannot": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Invulnerable, does not attack/block"],
+			"jp": ["無敵、攻撃/ブロックしない"],
+			"zh": ["无敌，无法阻挡，不进行攻击"]
+		}
+	},
+	"cannot_spray_potion": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Skill (Initial SP: 0, Cost:23)", "Randomly activates one of the effects below:"],
+			"jp": ["スキル→初期SP0、必要SP23", "以下の効果から一つ発動する"],
+			"zh": ["技能（初始0SP，消耗23SP）", "以下效果触发随机其一"]
+		}
+	},
+	"cannot_potion_effect_1": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Effect 1 - Puts all enemy units on the field who are not sleep immune to sleep for 10s, during which they recover 4% max HP/s"
+			],
+			"jp": ["効果①→敵全体を10秒睡眠状態に与え、毎秒最大HPの4%を回復する"],
+			"zh": ["1.使场上所有不免疫睡眠的敌方单位睡眠10s，期间每秒受到4%最大生命值的治疗"]
+		}
+	},
+	"cannot_potion_effect_2": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Grants at random 2 enemy units on the field unkillable (HP will not fall below 1) for 12s, and ATK +100%, ASPD +100"
+			],
+			"jp": [
+				"効果②→敵2体に12秒「致命的なダメージを受けてもHPが１残る」状態を与え、さらに攻撃力+100%、攻撃速度+100"
+			],
+			"zh": ["2.使场上2名敌方单位获得12s不死+攻击力提升100%+攻击速度增加100"]
+		}
+	},
 	"lazurite_power_strike": {
 		"type": "atk",
 		"dmg_element": "phys",
@@ -1678,7 +1716,9 @@
 				"Glimmering Touch - after charging for 7s does 250% dmg to units within skill's range, CD20s"
 			],
 			"jp": ["微光の蝕 - 攻撃半径内のユニットに7秒間チャージしたあと範囲攻撃を行う、CD20秒"],
-			"zh": []
+			"zh": [
+				"微光之触：锁定2.2半径范围内一名我方单位所在位置，蓄力约7s后（蓄力期间隐匿效果失效）向该位置发射光弹，光弹对范围内所有我方单位造成250%的法术普通伤害"
+			]
 		}
 	},
 	"nightzmora_slash": {
@@ -1744,6 +1784,14 @@
 			"zh": ["近地悬浮"]
 		}
 	},
+	"dublinn_evocator": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Has no normal attack, summons Fireball"],
+			"jp": ["通常攻撃しない、火球を召喚する"],
+			"zh": ["不进行普通攻击，使用净浊之焰"]
+		}
+	},
 	"dublinn_fireball": {
 		"name": "fireball",
 		"type": "atk",
@@ -1756,10 +1804,13 @@
 				"Fireball's ATK decreases over distance travelled"
 			],
 			"jp": [
-				"炎は地上にいる味方に触れると爆発、半径1.8内に術と灼熱ダメージを与える",
-				"時間経過で炎の攻撃力が減少する"
+				"火球は地上にいる味方に触れると爆発、半径1.8内に術と灼熱ダメージを与える",
+				"時間経過で火球の攻撃力が減少する"
 			],
-			"zh": []
+			"zh": [
+				"【净浊之焰】：在10s内线性降低至30%，移动速度2.5，在生成10秒后或到达路径终点后自动消失",
+				"爆炸对以净浊之焰为中心半径1.8范围内所有我方单位造成攻击力100%法术普通伤害和攻击力100%灼燃损伤，随后自身消失"
+			]
 		}
 	},
 	"dublinn_fireball2": {
@@ -3028,13 +3079,49 @@
 			"zh": ["自身1.4半径范围内存在深池伙友卫队/深池伙友卫队精英时，自身攻击间隔减少1.3s"]
 		}
 	},
+	"durwar_evasion_hp50": {
+		"type": "others",
+		"tags": [],
+		"tooltip": {
+			"en": ["When HP falls below 50%, gains 100% Physical evasion for 10s (can be silenced)"],
+			"jp": ["初めてHPが50%以下になると、10秒間、物理回避率+100%（無効化可能）"],
+			"zh": ["首次生命值降至50%后，获得100%物理闪避，持续10s（可被沉默）"]
+		}
+	},
+	"durwar2_evasion_hp50": {
+		"type": "others",
+		"tags": [],
+		"tooltip": {
+			"en": ["When HP falls below 50%, gains 100% Physical evasion for 20s (can be silenced)"],
+			"jp": ["初めてHPが50%以下になると、20秒間、物理回避率+100%（無効化可能）"],
+			"zh": ["首次生命值降至50%后，获得100%物理闪避，持续20s（可被沉默）"]
+		}
+	},
+	"noblock_reduce_phys_arts_50": {
+		"type": "others",
+		"tags": [],
+		"tooltip": {
+			"en": ["When not blocked, takes 50% reduced Phys/Arts damage"],
+			"jp": ["未ブロック時、受ける物理と術ダメージが50%減少"],
+			"zh": ["未被阻挡时，受到的物理与法术伤害降低50%"]
+		}
+	},
+	"noblock_reduce_phys_arts_75": {
+		"type": "others",
+		"tags": [],
+		"tooltip": {
+			"en": ["When not blocked, takes 75% reduced Phys/Arts damage"],
+			"jp": ["未ブロック時、受ける物理と術ダメージが75%減少"],
+			"zh": ["未被阻挡时，受到的物理与法术伤害降低75%"]
+		}
+	},
 	"reduce_phys_arts_90": {
 		"type": "others",
 		"tags": [],
 		"tooltip": {
 			"en": ["Takes 90% reduced Phys/Arts damage"],
 			"jp": ["受ける物理と術ダメージが90%減少"],
-			"zh": []
+			"zh": ["受到的物理与法术伤害降低90%"]
 		}
 	},
 	"creation_add_block_1": {

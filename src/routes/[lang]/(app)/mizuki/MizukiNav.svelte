@@ -12,6 +12,9 @@
 	let floor5b = ['认知即重担', '“命运的宠儿”'];
 	let floor6 = ['水火相容', '深度认知'];
 	let floor6b = ['大群所向'];
+	let du = ['犹豫不决', '监工现场', '拳拳到肉', '抱头狗窜', '鸭本运作'];
+	let sp = ['真相', '狂信如火', '“喜”从箱来', '竭泽而渔', '图穷匕见'];
+
 	//max per row = 4
 </script>
 
@@ -83,8 +86,19 @@
 			{/each}
 		</div>
 	</div>
+	<div class="bg-[#404750]">
+		<div class="flex flex-wrap justify-center">
+			{#each du as stageName}
+				<StageNavButton {stageName} {language} />
+			{/each}
+		</div>
+		<div class="flex flex-wrap justify-center">
+			{#each sp as stageName}
+				<StageNavButton {stageName} {language} />
+			{/each}
+		</div>
+	</div>
 </div>
 
 <style>
-
 </style>
