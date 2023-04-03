@@ -64,7 +64,7 @@
 		</ul>
 	{/if}
 	{#each routes as route, index}
-		<div class={`${selected === index ? '' : 'hidden'}`}>
+		<div class={`${selected !== index ? 'invisible pointer-events-none h-0 w-0' : ''}`}>
 			{#if route.title === 'doq'}
 				<img
 					src={`https://res.cloudinary.com/dbqz7mebk/image/upload/v1680366257/tomimi.dev/mizuki/doq/${route.id}.webp`}
