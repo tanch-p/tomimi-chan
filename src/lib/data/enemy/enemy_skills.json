@@ -65,6 +65,14 @@
 			"zh": ["出场30s后自动死亡"]
 		}
 	},
+	"despawn_40": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Automatically defeated after 40s"],
+			"jp": ["出現から40秒後、撤退する"],
+			"zh": ["出场40s后自动死亡"]
+		}
+	},
 	"despawn_90": {
 		"type": "others",
 		"tooltip": {
@@ -209,6 +217,24 @@
 			]
 		}
 	},
+	"summon_scrap_modelU": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Once per battle, after 2s summons Scrap Model-U to target's position when target present within attack range",
+				"Can be cancelled by stun/sleep/freeze/pull"
+			],
+			"jp": [
+				"攻撃範囲内に標的発見時、1回だけ2秒後標的の位置に「破片タイプU」を向かわせる",
+				"スタン/睡眠/凍結/強制移動で中断できる"
+			],
+			"zh": [
+				"攻击范围内存在目标时触发",
+				"以目标所在地块为空援地点，延迟2s后在<可移动战术机库>0.4边长正方形范围内随机位置召唤破片U型",
+				"※此技能仅触发一次"
+			]
+		}
+	},
 	"summon_scrap_war_phantom": {
 		"type": "others",
 		"tooltip": {
@@ -219,6 +245,16 @@
 			]
 		}
 	},
+	"summon_scrap_legend_war_phantom": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Once per battle, summons Scrap Model-U before executing first attack"],
+			"jp": ["初回攻撃直前に、攻撃対象の位置に「破片タイプU」を向かわせる"],
+			"zh": [
+				"首次攻击成功时，以目标所在地块为空援地点，在<可移动战术机库>0.4边长正方形范围内随机位置召唤破片U型"
+			]
+		}
+	},
 	"summon_anvil": {
 		"type": "others",
 		"tooltip": {
@@ -226,6 +262,16 @@
 			"jp": ["HPが初回50%以下になった時、自身の位置に「鉄砧」を向かわせる"],
 			"zh": [
 				"生命值首次降至一半以下时，以自身所在地块为空援地点，延迟2s后在<可移动战术机库>0.4边长正方形范围内随机位置召唤铁砧"
+			]
+		}
+	},
+	"summon_anvil_modelB": {
+		"type": "others",
+		"tooltip": {
+			"en": ["When HP drops below 50% for the first time, summons Anvil Model-B to own position."],
+			"jp": ["HPが初回50%以下になった時、自身の位置に「鉄砧タイプB」を向かわせる"],
+			"zh": [
+				"生命值首次降至一半以下时，以自身所在地块为空援地点，延迟2s后在<可移动战术机库>0.4边长正方形范围内随机位置召唤铁砧B型"
 			]
 		}
 	},
@@ -257,6 +303,21 @@
 			],
 			"zh": [
 				"攻击范围内全体敌方单位（不含自身）防御力增加200，每秒恢复200生命值，不可叠加（可被沉默） "
+			]
+		}
+	},
+	"anvil_modelB_healing_aura": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"All enemy units within attack range (excluding self) gains 300 DEF and restores 250HP/s",
+				"(does not stack, can be silenced)"
+			],
+			"jp": [
+				"自分を除く攻撃範囲内の敵は、防御力+300、HPが毎秒250回復する (重複しない、無効化できる)"
+			],
+			"zh": [
+				"攻击范围内全体敌方单位（不含自身）防御力增加300，每秒恢复250生命值，不可叠加（可被沉默） "
 			]
 		}
 	},
@@ -370,7 +431,7 @@
 	"def_down_10": {
 		"type": "others",
 		"tooltip": {
-			"en": ["Attacks decreases operator's def by 10, lasts indefinitely until operator retreats"],
+			"en": ["Attacks decreases target's def by 10, lasts indefinitely"],
 			"jp": ["攻撃1回につき相手のDEF10低下", "(蓄積する、撤退まで永続)"],
 			"zh": [""]
 		}
@@ -378,9 +439,9 @@
 	"def_down_15": {
 		"type": "others",
 		"tooltip": {
-			"en": ["Attacks decreases operator's def by 15, lasts indefinitely until operator retreats"],
+			"en": ["Attacks decreases target's def by 15, lasts indefinitely"],
 			"jp": ["攻撃1回につき相手のDEF15低下", "(蓄積する、撤退まで永続)"],
-			"zh": []
+			"zh": ["每次攻击使目标的防御力减少15（可无限叠加）（可被沉默） "]
 		}
 	},
 	"ignore_def_40": {
@@ -568,12 +629,50 @@
 			"zh": ["获得80s无敌效果"]
 		}
 	},
+	"erosion_immune": {
+		"type": "others",
+		"tags": [],
+		"tooltip": {
+			"en": ["Immune to Erosion"],
+			"jp": ["水蝕無効"],
+			"zh": ["免疫水蚀"]
+		}
+	},
 	"cs_blink": {
 		"type": "others",
 		"tooltip": {
 			"en": ["When blocked, teleports past unit. CD15s"],
 			"jp": ["ブロックされた時、ユニットの背後に回り込む　CD15秒"],
 			"zh": []
+		}
+	},
+	"diver_underwater": {
+		"type": "atk",
+		"dmg_element": null,
+		"suffix": { "en": "underwater", "jp": "水中", "zh": "水中" },
+		"multiplier": 1.4,
+		"hits": 1,
+		"fixed_inc": 0,
+		"tooltip": {
+			"en": ["While in water, gains increased ATK and Stealth"],
+			"jp": ["水中にいる時、攻撃力+40%。ステルス状態になる"],
+			"zh": ["在水中时：攻击力提升40%，未被阻挡时获得隐匿效果"]
+		}
+	},
+	"delinquent_evasion": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Gains 40% Physical evasion when not blocked"],
+			"jp": ["未ブロック時、物理回避率+40%"],
+			"zh": ["未被阻挡时获得40%物理闪避"]
+		}
+	},
+	"tidal_caster_speedboat_defeat": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Upon defeat, spawns a Tidal Caster"],
+			"jp": ["死亡すると、同じ場所に造波術師が出現"],
+			"zh": ["死亡后召唤1个控潮术师"]
 		}
 	},
 	"prisoner_atk_release": {
@@ -1095,6 +1194,14 @@
 			"zh": ["攻击附加相当于攻击力60%的侵蚀损伤"]
 		}
 	},
+	"corrosion_80": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Attack deals 80% of ATK as Corrosion damage"],
+			"jp": ["攻撃で攻撃力の80%の侵蝕ダメージを与える"],
+			"zh": ["攻击附加相当于攻击力80%的侵蚀损伤"]
+		}
+	},
 	"sy2_attackdef": {
 		"type": "def",
 		"suffix": { "en": "skill", "jp": "スキル中", "zh": "技能中" },
@@ -1342,6 +1449,22 @@
 			]
 		}
 	},
+	"swarmcaller": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Has no normal attack",
+				"Deals 100% of ATK as Arts damage and 5% of ATK as Nervous Impairment every second to all allied units within range"
+			],
+			"jp": [
+				"通常攻撃しない、攻撃半径内の味方全員に、攻撃力の100%の術ダメージ、攻撃力の2%の神経ダメージを与える"
+			],
+			"zh": [
+				"不进行普通攻击",
+				"每秒对攻击范围内所有我方单位造成攻击力5%的神经损伤和攻击力100%的无类型法术伤害"
+			]
+		}
+	},
 	"predator_evasion": {
 		"type": "others",
 		"tooltip": {
@@ -1394,6 +1517,129 @@
 			"en": ["Regains Hover after transiting to 2nd form"],
 			"jp": ["第二形態移行後、低空浮揚状態になる"],
 			"zh": ["进入第二形态时，重置自身近地悬浮效果"]
+		}
+	},
+	"carmen_ammo_3": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Has initial and max Ammo of 3"],
+			"jp": ["弾薬上限数3"],
+			"zh": ["初始技力/技力上限为3"]
+		}
+	},
+	"carmen_ammo_1": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Has initial and max Ammo of 1"],
+			"jp": ["弾薬上限数1"],
+			"zh": ["初始技力/技力上限为1"]
+		}
+	},
+	"carmen_handgun": {
+		"type": "atk",
+		"dmg_element": "phys",
+		"suffix": { "en": "Gun", "jp": "拳銃", "zh": "手炮" },
+		"hits": 1,
+		"multiplier": 2,
+		"fixed_inc": 0,
+		"tooltip": {
+			"en": ["Handgun - Deals 200% of ATK as Phys damage"],
+			"jp": ["弾薬数1以上なら、通常攻撃時に弾薬を1消費し、攻撃力の200%の物理ダメージを与える"],
+			"zh": ["手炮 - 对攻击范围内一名我方单位造成200%物理普通伤害"]
+		}
+	},
+	"carmen_ammocheck": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Checks Ammo amount every 35s. If Ammo bar is empty, enters Reload Mode."],
+			"jp": ["35秒毎弾薬数を確認し、残弾なしの場合リロードを行う"],
+			"zh": ["每35s检查自身技力，若技力为空，则切换至装弹模式"]
+		}
+	},
+	"carmen_reload": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Reload - Does not attack or move, recovers 1 Ammo every 2s.",
+				"If this skill is interrupted, exits Reload Mode and becomes stunned for 10s"
+			],
+			"jp": [
+				"リロード→移動、攻撃しなくなる。2秒毎弾薬数1回復する",
+				"中断（スタン等）された場合、10秒スタンされる"
+			],
+			"zh": [
+				"装弹模式: 不攻击，无法移动，2s后回复1点技力",
+				"若技能被打断则切换至攻击模式并获得10s晕眩"
+			]
+		}
+	},
+	"sev_revive": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Upon defeat, enters Fake Death state",
+				"Fake Death - becomes invulnerable, does not attack/move/block",
+				"recovers 5% HP/s and revives when HP is full",
+				"truly dies when connected 接潮蔑死体 or 接潮斥亡体 is also under Fake Death or leaves the battlefield"
+			],
+			"jp": [
+				"倒された時、【仮死】状態に入る",
+				"【仮死】→無敵、攻撃/移動/ブロックしない",
+				"毎秒HP5%回復する、HP全快時復活する",
+				"接続してる＜接潮蔑死体＞か＜接潮斥亡体＞が仮死に入るや戦場から離脱された時、真の死を迎える"
+			],
+			"zh": [
+				"生命值变为0时进入【假死】",
+				"【假死】：无敌，不进行攻击，不可阻挡，无法移动",
+				"与之关联的接潮蔑死体或接潮斥亡体处于【假死】状态或到达路径终点时立刻死亡",
+				"否则每秒治疗自身5%最大生命值的生命值，生命值回复至100%时退出假死状态 "
+			]
+		}
+	},
+	"smf_revive": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Upon defeat, enters Fake Death state",
+				"Fake Death - becomes invulnerable, does not attack/move/block",
+				"recovers 5% HP/s and revives when HP is full",
+				"truly dies when connected 接潮主教 is also under Fake Death or leaves the battlefield"
+			],
+			"jp": [
+				"倒された時、仮死状態に入る",
+				"仮死→無敵、攻撃/移動/ブロックしない",
+				"毎秒HP5%回復する、HP全快時復活する",
+				"接続してる＜接潮主教＞が仮死に入るや戦場から離脱された時、真の死を迎える"
+			],
+			"zh": [
+				"生命值变为0时进入【假死】",
+				"【假死】：无敌，不进行攻击，不可阻挡，无法移动",
+				"与之关联的接潮主教处于【假死】状态或到达路径终点时立刻死亡",
+				"否则每秒治疗自身5%最大生命值的生命值，生命值回复至100%时退出假死状态 "
+			]
+		}
+	},
+	"sms_revive": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Upon defeat, enters Fake Death state",
+				"Fake Death - becomes invulnerable, does not attack/move/block",
+				"recovers 10% HP/s and revives when HP is full",
+				"truly dies when connected 接潮主教 is also under Fake Death or leaves the battlefield"
+			],
+			"jp": [
+				"倒された時、仮死状態に入る",
+				"仮死→無敵、攻撃/移動/ブロックしない",
+				"毎秒HP10%回復する、HP全快時復活する",
+				"接続してる＜接潮主教＞が仮死に入るや戦場から離脱された時、真の死を迎える"
+			],
+			"zh": [
+				"生命值变为0时进入【假死】",
+				"【假死】：无敌，不进行攻击，不可阻挡，无法移动",
+				"与之关联的接潮主教处于【假死】状态或到达路径终点时立刻死亡",
+				"否则每秒治疗自身10%最大生命值的生命值，生命值回复至100%时退出假死状态 "
+			]
 		}
 	},
 	"lazurite_power_strike": {
@@ -1723,12 +1969,20 @@
 			"zh": []
 		}
 	},
-	"mutant_spawn_1": {
+	"mutant_spawn_2": {
 		"type": "others",
 		"tooltip": {
 			"en": ["On death, this unit will spawn 2 Originiutant Excrescence.", "Can be silenced."],
 			"jp": ["死亡時、変異腫瘍を2体召喚する", "無効化可能"],
 			"zh": ["死亡后召唤2个畸变赘生物（可被沉默）"]
+		}
+	},
+	"mutant_spawn_3": {
+		"type": "others",
+		"tooltip": {
+			"en": ["On death, this unit will spawn 3 Originiutant Excrescence.", "Can be silenced."],
+			"jp": ["死亡時、変異腫瘍を3体召喚する", "無効化可能"],
+			"zh": ["死亡后召唤3个畸变赘生物（可被沉默）"]
 		}
 	},
 	"redmark_melee": {
@@ -1929,17 +2183,41 @@
 	"guerilla_fighter_buff": {
 		"type": "others",
 		"tooltip": {
-			"en": ["Special Buff - Inc ms 30%"],
-			"jp": ["特殊強化→移動速度＋30％"],
-			"zh": []
+			"en": ["Special buff - movespeed +30%"],
+			"jp": ["特殊強化→移動速度+30％"],
+			"zh": ["收到战术命令时，移动速度提升30%"]
 		}
 	},
 	"guerilla_sniper_buff": {
 		"type": "others",
 		"tooltip": {
-			"en": ["Special Buff - Targets 2 units"],
-			"jp": ["特殊強化→2体攻撃"],
-			"zh": []
+			"en": ["Special buff - Targets 2 units"],
+			"jp": ["特殊強化→同時2体攻撃になる"],
+			"zh": ["收到战术命令时，能够同时攻击两个目标"]
+		}
+	},
+	"guerilla_siegebreaker_buff": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Special buff - ATK +50%"],
+			"jp": ["特殊強化→攻撃力+50%"],
+			"zh": ["收到战术命令时，攻击力提升50%"]
+		}
+	},
+	"guerilla_siegebreaker_leader_buff": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Special buff - ATK +80%"],
+			"jp": ["特殊強化→攻撃力+80%"],
+			"zh": ["收到战术命令时，攻击力提升80%"]
+		}
+	},
+	"guerilla_mortar_buff": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Special buff - ASPD +50"],
+			"jp": ["特殊強化→攻撃速度+50"],
+			"zh": ["收到战术命令时，攻击速度提升50"]
 		}
 	},
 	"guerilla_herald_buff": {
@@ -1950,7 +2228,7 @@
 				"Activates special abilities of Guerilla Squad"
 			],
 			"jp": ["バフ→ 敵全体の攻撃力10%＆防御力100上昇（重複する）", "遊撃隊に特殊強化"],
-			"zh": []
+			"zh": ["在场时，所有敌军获得战术命令，同时提升10%攻击力并增加100防御力"]
 		}
 	},
 	"lower_target_priority": {
@@ -1969,6 +2247,14 @@
 			"zh": ["嘲讽"]
 		}
 	},
+	"atk_priority_low_def": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Prioritizes attacking the target with the lowest DEF"],
+			"jp": ["防御力の最も低い味方を優先して狙う"],
+			"zh": ["优先攻击防御力最低的我方单位"]
+		}
+	},
 	"sarkaz_guerilla_fighter": {
 		"type": "others",
 		"tooltip": {
@@ -1982,9 +2268,9 @@
 	"scout_anti_stealth": {
 		"type": "others",
 		"tooltip": {
-			"en": ["Removes nearby operators' stealth"],
-			"jp": ["範囲内の味方のステルス効果を解除"],
-			"zh": []
+			"en": ["Removes nearby operators' stealth/camouflage"],
+			"jp": ["3.3半径内の味方のステルスと迷彩効果を解除"],
+			"zh": ["自身3.3半径范围内所有我方单位的隐匿/迷彩效果失效"]
 		}
 	},
 	"blocked_def_up_130": {
@@ -1995,7 +2281,18 @@
 		"tooltip": {
 			"en": ["Blocked - DEF+130"],
 			"jp": ["ブロック→防御力+130"],
-			"zh": []
+			"zh": ["被阻挡后防御力增加130"]
+		}
+	},
+	"blocked_def_up_180": {
+		"type": "def",
+		"suffix": { "en": "blocked", "jp": "ブロック中", "zh": "被阻挡时" },
+		"multiplier": 1,
+		"fixed_inc": 180,
+		"tooltip": {
+			"en": ["Blocked - DEF+180"],
+			"jp": ["ブロック→防御力+180"],
+			"zh": ["被阻挡后防御力增加180"]
 		}
 	},
 	"blocked_def_up_200": {
@@ -2010,7 +2307,7 @@
 		"tooltip": {
 			"en": ["Blocked - DEF+200"],
 			"jp": ["ブロック→防御力+200"],
-			"zh": []
+			"zh": ["被阻挡后防御力增加200"]
 		}
 	},
 	"croc_staffstrike": {
@@ -2045,7 +2342,10 @@
 				"ブロックされている時、ブロック相手以外からダメージを受けない",
 				"自身と相手の防御力を70%下げる"
 			],
-			"zh": []
+			"zh": [
+				"被阻挡时，自身防御力最终下降70%,嘲讽等级减少一级",
+				"阻挡者的防御力最终下降70%，自身只会受到来源于阻挡者的伤害"
+			]
 		}
 	},
 	"ursus_civ_attack": {
@@ -2598,6 +2898,24 @@
 			"zh": ["自身每秒受到100真实伤害"]
 		}
 	},
+	"bleed_true_250": {
+		"type": "others",
+		"tags": ["true_damage"],
+		"tooltip": {
+			"en": ["Takes 250 True damage every second"],
+			"jp": ["毎秒250の確定ダメージを受ける"],
+			"zh": ["自身每秒受到250真实伤害"]
+		}
+	},
+	"bleed_true_330": {
+		"type": "others",
+		"tags": ["true_damage"],
+		"tooltip": {
+			"en": ["Takes 330 True damage every second"],
+			"jp": ["毎秒330の確定ダメージを受ける"],
+			"zh": ["自身每秒受到330真实伤害"]
+		}
+	},
 	"bleed_true_350": {
 		"type": "others",
 		"tags": ["true_damage"],
@@ -2743,7 +3061,7 @@
 		"tooltip": {
 			"en": ["Spawns 1 Touch of the Sanguinarch upon death"],
 			"jp": ["死亡すると、大君の触手を1体召喚する"],
-			"zh": []
+			"zh": ["死亡后召唤1只大君之触"]
 		}
 	},
 	"spawn_sci3": {
@@ -2753,6 +3071,24 @@
 			"en": ["Spawns 1 Gift of the Sanguinarch upon death"],
 			"jp": ["死亡すると、大君の祝福を1体召喚する"],
 			"zh": []
+		}
+	},
+	"heirbearer_ASV_buff": {
+		"type": "others",
+		"tags": [],
+		"tooltip": {
+			"en": [
+				"While present on the battlefield, increases the ATK of all 'Reborn Creations' on the field by 10% (stacking up to 5 times)",
+				"and grants them an extra 10% of ATK as Necrosis damage (can be silenced)."
+			],
+			"jp": [
+				"マップ上にいると、全ての再生造物の攻撃力+10%（5回まで重複する",
+				"さらに再生造物の通常攻撃に、攻撃力の10%の壊死ダメージが追加される"
+			],
+			"zh": [
+				"在场时，场上所有【重生造物】攻击力提升10%（最多叠加5层）",
+				"且攻击时附加各自攻击力10%的凋亡损伤（可被沉默）"
+			]
 		}
 	},
 	"hateweaver_atk_buff": {

@@ -35,7 +35,7 @@
 
 <div class="sm:max-w-[40rem] mx-auto">
 	{#if routes.length > 1}
-		<ul class="flex font-bold text-lg text-white text-center select-none divide-x divide-gray-500">
+		<ul class="flex font-bold text-lg text-white text-center select-none divide-x divide-gray-500 py-1">
 			{#each routes as route, index}
 				{@const icon = icons.find((ele) => ele.title === route.title)}
 				<li

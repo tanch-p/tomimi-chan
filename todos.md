@@ -4,3 +4,4 @@
 4. phcs
 5. layouts
 6. stage select for mizuki
+7. special mods
