@@ -4,7 +4,7 @@
 	export function stopAll() {
 		elements.forEach((element) => {
 			element.contentWindow.postMessage(
-				JSON.stringify({ event: 'command', func: 'stopVideo' }),
+				JSON.stringify({ event: 'command', func: 'pauseVideo' }),
 				'*'
 			);
 		});
