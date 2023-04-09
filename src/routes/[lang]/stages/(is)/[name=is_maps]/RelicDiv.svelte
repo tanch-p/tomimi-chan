@@ -27,7 +27,7 @@
 	on:click={handleClick}
 >
 	<div>
-		<img {src} alt={relic.name_zh} />
+		<img {src} alt={name} />
 	</div>
 	<div class="px-2">
 		<p class={`text-lg sm:text-xl ${selected ? 'text-[#58dbda]' : 'text-gray-400'}`}>{name}</p>

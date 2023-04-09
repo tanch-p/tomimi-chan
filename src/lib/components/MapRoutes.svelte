@@ -35,7 +35,9 @@
 
 <div class="sm:max-w-[40rem] mx-auto">
 	{#if routes.length > 1}
-		<ul class="flex font-bold text-lg text-white text-center select-none divide-x divide-gray-500 py-1">
+		<ul
+			class="flex font-bold text-lg text-white text-center select-none divide-x divide-gray-500 py-1"
+		>
 			{#each routes as route, index}
 				{@const icon = icons.find((ele) => ele.title === route.title)}
 				<li
@@ -67,8 +69,11 @@
 		<div class={`${selected !== index ? 'invisible pointer-events-none h-0 w-0' : ''}`}>
 			{#if route.title === 'doq'}
 				<img
-					src={`https://res.cloudinary.com/dbqz7mebk/image/upload/v1680366257/tomimi.dev/mizuki/doq/${route.id}.webp`}
-					alt={route.title}
+					srcset="https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_400/v1680366257/tomimi.dev/mizuki/doq/{route.id}.webp 400w, 
+					https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_640/v1680366257/tomimi.dev/mizuki/doq/{route.id}.webp 600w"
+					sizes="(max-width: 480px) 400px, 600px"
+					src={`https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_640/v1680366257/tomimi.dev/mizuki/doq/${route.id}.webp`}
+					alt={'doq'}
 					class="aspect-[1062/600] w-screen max-h-max sm:aspect-auto sm:w-[40rem] sm:h-[360px]"
 				/>
 			{:else}
