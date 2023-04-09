@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { selectedRelics } from './stores.js';
 	export let relic, language: string;
-	const { src } = relic;
+	const src = `https://res.cloudinary.com/dbqz7mebk/image/upload/v1681056192/tomimi.dev/relics/${relic.img}.webp`;
 	const name = relic[`name_${language}`] || relic[`name_zh`];
 	const tooltip = relic[`tooltip_${language}`] || relic[`tooltip_zh`];
 
@@ -21,7 +21,9 @@
 </script>
 
 <div
-	class={`grid grid-cols-[75px_auto] sm:grid-cols-[95px_auto] gap-x-2 ${selected ? "bg-neutral-800" : "hover:bg-neutral-700"}`}
+	class={`grid grid-cols-[75px_auto] sm:grid-cols-[95px_auto] gap-x-2 ${
+		selected ? 'bg-neutral-800' : 'hover:bg-neutral-700'
+	}`}
 	on:click={handleClick}
 >
 	<div>

@@ -2,17 +2,9 @@
 	import { selectedRelics } from './stores.js';
 	import RelicDiv from './RelicDiv.svelte';
 	import translations from '$lib/translations.json';
+	import relics from '$lib/data/relics_mizuki.json';
 
 	export let openOverlay: boolean, language: string, rogueTopic: string;
-
-	async function getRelics(rogueTopic: string) {
-		let relics = (await import(`../../../../../lib/data/relics_${rogueTopic}.json`)).default;
-		for (const relic of relics) {
-			relic.src = (await import(`../../../../../lib/images/relics/r_${relic.img}.webp`)).default;
-		}
-		return relics;
-	}
-	$: promise = getRelics(rogueTopic);
 </script>
 
 <div
@@ -25,11 +17,9 @@
 			<div
 				class="grid lg:grid-cols-3 gap-x-10 gap-y-8 w-full overflow-x-auto md:overflow-visible my-auto mx-auto px-4 sm:px-24"
 			>
-				{#await promise then relics}
-					{#each relics as relic}
-						<RelicDiv {relic} {language} />
-					{/each}
-				{/await}
+				{#each relics as relic}
+					<RelicDiv {relic} {language} />
+				{/each}
 			</div>
 			<div
 				id="reset"
