@@ -31,6 +31,7 @@
 							{src}
 							width="512"
 							decoding="async"
+							loading="lazy"
 							alt={translations[language][alt]}
 						/></a
 					>

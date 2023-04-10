@@ -17,7 +17,6 @@
 		<img
 			class="select-none mx-auto py-2"
 			src={banner_mizuki}
-			decoding="async"
 			alt={translations[language].rogue_mizuki}
 		/>
 	</div>

@@ -42,7 +42,7 @@
 								</p>
 							</div>
 						{/if}
-						<img src={relicIcon} alt="relic icon" decoding="async" />
+						<img src={relicIcon} alt="relic icon" loading="lazy" decoding="async" />
 					</div>
 					<div
 						class="bg-neutral-900 min-w-[280px] w-[80vw] md:w-auto overflow-hidden h-14 gap-x-2 pl-1"
@@ -54,7 +54,7 @@
 										class="absolute rounded-full border-[3px] border-neutral-600 border-opacity-80 left-[50%] w-[44px] h-[44px] -translate-x-[50%]"
 									/>
 									<div class="flex items-center text-center w-14 z-[1]">
-										<img src={relic.src} width="54px" alt={relic.name_zh} />
+										<img src={relic.src} width="54px" alt={relic.name_zh} loading="lazy" decoding="async" />
 									</div>
 								</div>
 							{/each}

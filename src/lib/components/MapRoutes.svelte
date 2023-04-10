@@ -50,6 +50,8 @@
 							height={icon.height ?? 50}
 							width={icon.width ?? 50}
 							alt={icon.title}
+							loading="lazy"
+							decoding="async"
 							class={`${selected !== index ? 'opacity-30' : ''}`}
 						/>
 					{:else}
@@ -74,6 +76,8 @@
 					sizes="(max-width: 480px) 400px, 600px"
 					src={`https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_640/v1680366257/tomimi.dev/mizuki/doq/${route.id}.webp`}
 					alt={'doq'}
+					loading="lazy"
+					decoding="async"
 					class="aspect-[1062/600] w-screen max-h-max sm:aspect-auto sm:w-[40rem] sm:h-[360px]"
 				/>
 			{:else}

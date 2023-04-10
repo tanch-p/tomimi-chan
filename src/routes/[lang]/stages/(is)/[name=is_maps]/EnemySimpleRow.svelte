@@ -54,6 +54,7 @@
 							height="75px"
 							width="75px"
 							decoding="async"
+							loading="lazy"
 							alt={enemy[`name_zh`]}
 						/>
 					</td>

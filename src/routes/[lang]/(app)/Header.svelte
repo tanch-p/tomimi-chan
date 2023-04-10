@@ -26,7 +26,7 @@
 
 	<div class="corner">
 		<a href="https://github.com/tanch-p/tomimi-chan">
-			<img src={github} alt="GitHub" />
+			<img src={github} alt="GitHub" loading="lazy" decoding="async" />
 		</a>
 	</div>
 </header>
