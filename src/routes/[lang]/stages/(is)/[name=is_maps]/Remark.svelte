@@ -1,11 +1,41 @@
 <script lang="ts">
-	import enemySkills from '$lib/data/enemy/enemy_skills.json';
-	export let skill: string, language: string;
+	export let skill, language: string;
+
+	const parseText = (text: string) => {
+		const returnArr = [];
+		if (text.includes('$')) {
+			const splitText = text.split('$');
+			splitText.forEach((text, index) => {
+				if (index % 2 === 0) {
+					returnArr.push({ text, highlight: null });
+				} else returnArr.push({ text, highlight: 'red' });
+			});
+		}
+		return returnArr;
+	};
+	const hasHighlight = (text: string) => {
+		return text.includes('$');
+	};
 </script>
 
 <div>
-	{#each enemySkills[skill].tooltip[language]  as line}
-		<p>{line}</p>
+	{#each skill.tooltip[language] as line}
+		{#if hasHighlight(line)}
+			{@const parsedTextArray = parseText(line)}
+			<p>
+				{#each parsedTextArray as { text, highlight }}
+					{#if highlight === 'red'}
+						<span class="text-red-400 font-medium">
+							{text}
+						</span>
+					{:else}
+						{text}
+					{/if}
+				{/each}
+			</p>
+		{:else}
+			<p>{line}</p>
+		{/if}
 	{/each}
 </div>
 

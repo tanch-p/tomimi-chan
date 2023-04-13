@@ -1,12 +1,50 @@
 <script lang="ts">
 	import type { Enemy } from '$lib/types';
-	export let enemy: Enemy, row: number, language: string;
 	import Remark from './Remark.svelte';
 	import StatusImmune from '$lib/components/StatusImmune.svelte';
 	import translations from '$lib/translations.json';
 	import { getEnemySkills } from '$lib/functions/getEnemySkills';
-	$: skills = getEnemySkills(enemy, row);
+	import enemySkills from '$lib/data/enemy/enemy_skills.json';
+	import { specialMods } from './stores';
+
+	export let enemy: Enemy, row: number, language: string;
+
+	$: skillNames = getEnemySkills(enemy, row);
 	const { format } = enemy;
+	let statusImmuneList = [];
+
+	specialMods.subscribe((mods) => {
+		if (mods?.[enemy.id]?.status_immune) {
+			statusImmuneList = [...enemy.status_immune, ...mods[enemy.id].status_immune];
+		} else {
+			statusImmuneList = enemy.status_immune;
+		}
+	});
+	$: skills = parseSkills(skillNames, $specialMods);
+
+	const parseSkills = (skillNames, specialMods) => {
+		let currentSkills = [];
+		let extraSkills = [];
+
+		currentSkills = skillNames.map((name) => {
+			if (specialMods[enemy.id] && Object.keys(specialMods[enemy.id]).includes(name)) {
+				return specialMods[enemy.id][name];
+			} else {
+				return enemySkills[name];
+			}
+		});
+
+		if (specialMods[enemy.id]) {
+			extraSkills = Object.keys(specialMods[enemy.id])
+				.map((key) => {
+					if (key !== 'status_immune' && !skillNames.includes(key)) {
+						return specialMods[enemy.id][key];
+					}
+				})
+				.filter(Boolean);
+		}
+		return [...extraSkills, ...currentSkills];
+	};
 </script>
 
 <div>
@@ -17,8 +55,8 @@
 	{:else if format === 'multiform' && row !== 0 && language !== 'en'}
 		<div>{translations[language].multiform_suffix.replace('#', row + 1)}</div>
 	{/if}
-	{#if enemy.status_immune.length > 0}
-		<StatusImmune statusImmuneList={enemy.status_immune} {language} />
+	{#if statusImmuneList.length > 0}
+		<StatusImmune {statusImmuneList} {language} />
 	{/if}
 	{#each skills as skill}
 		<Remark {skill} {language} />
