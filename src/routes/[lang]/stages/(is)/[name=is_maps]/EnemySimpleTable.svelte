@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Enemy } from './types';
+	import type { Enemy } from '$lib/types';
 	import EnemySimpleRow from './EnemySimpleRow.svelte';
 	export let enemies: Enemy[], language: string;
 	let tableHeaders = [

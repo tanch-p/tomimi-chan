@@ -1,5 +1,5 @@
 import type { PageLoad } from './$types';
-import type { MapConfig, Enemy } from './types';
+import type { MapConfig, Enemy } from '$lib/types';
 import enemyDatabase from '$lib/data/enemy/enemy_database.json';
 import findStage from '$lib/functions/findStage';
 

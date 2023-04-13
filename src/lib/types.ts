@@ -94,3 +94,5 @@ export type StatMods = {
 export type Mods = {
 	[key: string]: number;
 };
+
+export type Effects = [{ targets: string[]; mods: Mods }];

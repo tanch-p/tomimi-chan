@@ -1,7 +1,8 @@
 import { writable, derived } from 'svelte/store';
-import updateStatMods from '$lib/functions/compileMultipliers';
+import updateMods from '$lib/functions/compileMods';
+import difficultyModsList from '$lib/data/difficulty_mods_mizuki.json';
 import { browser } from '$app/environment';
-import { cookiesEnabled } from '../../../../stores.js';
+import { cookiesEnabled } from '../../../../stores';
 
 let storedDifficulty = 0;
 if (browser && cookiesEnabled) {
@@ -9,12 +10,37 @@ if (browser && cookiesEnabled) {
 }
 export const selectedRelics = writable([]);
 export const difficulty = writable(storedDifficulty);
+const difficultyMods = derived(difficulty, ($difficulty) =>
+	difficultyModsList.filter((ele) => ele.difficulty <= $difficulty).map((ele) => ele.effects)
+);
 export const selectedFloor = writable(1);
+const floorDifficultyMods = derived(
+	[selectedFloor, difficulty],
+	([$selectedFloor, $difficulty]) => [
+		{
+			targets: ['ALL'],
+			mods: {
+				hp: (1 + 0.01 * $difficulty) ** $selectedFloor,
+				atk: (1 + 0.01 * $difficulty) ** $selectedFloor
+			}
+		}
+	]
+);
+
 export const eliteMods = writable(null);
 export const activeFloorEffects = writable([]);
 
-export const statMods = derived(
-	[selectedRelics, difficulty, selectedFloor, eliteMods, activeFloorEffects],
-	([$selectedRelics, $difficulty, $selectedFloor, $eliteMods, $activeFloorEffects]) =>
-		updateStatMods($selectedRelics, $difficulty, $selectedFloor, $eliteMods, $activeFloorEffects)
+const compiledMods = derived(
+	[selectedRelics, difficultyMods, floorDifficultyMods, eliteMods, activeFloorEffects],
+	([$selectedRelics, $difficultyMods, $floorDifficultyMods, $eliteMods, $activeFloorEffects]) =>
+		updateMods(
+			$selectedRelics.map((relic) => relic.effects),
+			$difficultyMods,
+			[$floorDifficultyMods],
+			[$eliteMods],
+			$activeFloorEffects.map((ele) => ele.effects)
+		)
 );
+
+export const statMods = derived(compiledMods, ($compiledMods) => $compiledMods.statMods);
+export const specialMods = derived(compiledMods, ($compiledMods) => $compiledMods.specialMods);

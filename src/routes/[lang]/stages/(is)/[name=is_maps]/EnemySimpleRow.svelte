@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Enemy } from './types';
+	import type { Enemy } from '$lib/types';
 	import { getMaxRowSpan } from '$lib/functions/parseStats';
 	import { getNormalAtk } from '$lib/functions/parseAtkType';
 	import { getEnemySkills } from '$lib/functions/getEnemySkills';

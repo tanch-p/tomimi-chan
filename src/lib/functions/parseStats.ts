@@ -1,5 +1,5 @@
 /* takes in a list of enemies and statMods and returns enemy with modifiers applied */
-import type { Enemy, StatMods, Mods } from '../../routes/[lang]/stages/(is)/[name=is_maps]/types';
+import type { Enemy, StatMods, Mods } from '$lib/types';
 
 const STATS = ['hp', 'atk', 'aspd', 'range', 'def', 'res', 'weight', 'ms', 'lifepoint'];
 

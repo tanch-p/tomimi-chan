@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Enemy } from './types';
+	import type { Enemy } from '$lib/types';
 	export let enemy: Enemy, row: number, language: string;
 	import Remark from './Remark.svelte';
 	import StatusImmune from '$lib/components/StatusImmune.svelte';

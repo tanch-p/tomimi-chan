@@ -1,4 +1,4 @@
-import type { Enemy } from '../../routes/[lang]/stages/(is)/[name=is_maps]/types';
+import type { Enemy } from '$lib/types';
 
 export const getEnemySkills = (enemy: Enemy, row: number): string[] => {
 	const { format } = enemy;
