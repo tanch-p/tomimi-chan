@@ -19,13 +19,17 @@
 	class="sticky top-0 w-[100vw] md:w-full transition-none bg-neutral-800 text-near-white py-4 z-[1]"
 >
 	<div class="grid grid-cols-3 max-w-7xl mx-auto sm:px-6">
-		<a href={`/${language}`}>Home</a>
+		<div>
+			<a href={`/${language}`} class="hover:underline">Home</a>
+		</div>
 		{#if rogueTopic}
 			<FloorTitle stageFloors={mapConfig.floors} {language} />
 		{:else}
 			<div />
 		{/if}
-		<LanguageSwitcher {language} {mapConfig} {pathname} />
+		<div class="flex justify-end">
+			<LanguageSwitcher {language} {mapConfig} {pathname} />
+		</div>
 	</div>
 </header>
 

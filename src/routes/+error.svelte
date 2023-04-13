@@ -5,6 +5,7 @@
 
 	let language = 'en';
 	onMount(async () => {
+        
 		if (browser) {
 			const browerLang = window.navigator.language;
 			if (browerLang.match(/ja|ja/i)) {

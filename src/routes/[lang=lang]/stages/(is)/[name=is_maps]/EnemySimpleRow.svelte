@@ -6,7 +6,7 @@
 	import RemarksContainer from './RemarksContainer.svelte';
 	import AtkSuffix from '$lib/components/AtkSuffix.svelte';
 	import StatSkills from '$lib/components/StatSkills.svelte';
-	import translations from "$lib/translations.json"
+	import translations from '$lib/translations.json';
 
 	export let enemy: Enemy, index: number, filteredTableHeaders, language: string;
 	$: maxRowSpan = getMaxRowSpan(enemy);
@@ -17,7 +17,7 @@
 				return 'text-center px-3';
 			case 'type':
 			case 'atk':
-			case "def":
+			case 'def':
 				return 'text-left px-3 py-1.5';
 			case 'remarks':
 				return 'text-left px-2 py-2';
@@ -65,7 +65,7 @@
 					<td class={`border border-gray-400 h-[65px] ${textAlign(key)}`} rowspan={maxRowSpan}>
 						<div>
 							{#each enemy.type.filter((ele) => ele !== 'NORMAL') as type}
-								<p>{translations[language].types[type]}</p>
+								<p class="whitespace-nowrap">{translations[language].types[type]}</p>
 							{/each}
 						</div>
 					</td>

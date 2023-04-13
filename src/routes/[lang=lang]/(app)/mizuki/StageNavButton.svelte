@@ -8,7 +8,7 @@
 	}
 	const stageUrl = stageInfo.code + '_' + (stageInfo[`name_${language}`] || stageInfo['name_zh']);
 	let languageStyles = {
-		jp: 'whitespace-nowrap py-2 w-[120px]',
+		ja: 'whitespace-nowrap py-2 w-[120px]',
 		en: 'text-sm w-[100px] py-1',
 		cn: 'text-base w-[100px]'
 	};

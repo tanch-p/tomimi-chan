@@ -7,6 +7,7 @@
 	import MapInfo from './StageInfo.svelte';
 	import EliteToggle from './EliteToggle.svelte';
 	import parseStats from '$lib/functions/parseStats';
+	import translations from '$lib/translations.json';
 
 	export let data: PageData;
 	$: language = data.language;
@@ -14,7 +15,7 @@
 </script>
 
 <svelte:head>
-	<title>{data.mapConfig[`name_${'zh'}`]}</title>
+	<title>{data.mapConfig.code} {data.mapConfig[`name_${'zh'}`]} / {translations[language].title_post}</title>
 	<meta name="description" content={data.mapConfig[`name_${'zh'}`]} />
 </svelte:head>
 

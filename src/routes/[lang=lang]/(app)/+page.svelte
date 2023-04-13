@@ -14,7 +14,7 @@
 </script>
 
 <svelte:head>
-	<title>Home</title>
+	<title>{translations[language].home} / {translations[language].title_post}</title>
 	<meta name="description" content="tomimi.dev - tool/helper for arknights" />
 </svelte:head>
 

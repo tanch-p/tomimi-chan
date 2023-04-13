@@ -8,8 +8,8 @@ export const load = (async ({ request }) => {
 		return;
 	}
 	const acceptLanguage = request.headers.get('accept-language')?.split(',')[0];
-	if (acceptLanguage.match(/jp|ja/i)) {
-		language = 'jp';
+	if (acceptLanguage.match(/ja|ja/i)) {
+		language = 'ja';
 	} else if (acceptLanguage.includes('zh')) {
 		language = 'zh';
 	}
