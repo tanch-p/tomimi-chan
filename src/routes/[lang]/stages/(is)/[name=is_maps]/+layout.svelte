@@ -18,7 +18,7 @@
 <header
 	class="sticky top-0 w-[100vw] md:w-full transition-none bg-neutral-800 text-near-white py-4 z-[1]"
 >
-	<div class="grid grid-cols-3 max-w-7xl mx-auto">
+	<div class="grid grid-cols-3 max-w-7xl mx-auto sm:px-6">
 		<a href={`/${language}`}>Home</a>
 		{#if rogueTopic}
 			<FloorTitle stageFloors={mapConfig.floors} {language} />

@@ -49,12 +49,13 @@
 					>
 						<div class="flex gap-x-2 items-center">
 							{#each $selectedRelics as relic, i}
+							
 								<div class="relative flex items-center">
 									<div
 										class="absolute rounded-full border-[3px] border-neutral-600 border-opacity-80 left-[50%] w-[44px] h-[44px] -translate-x-[50%]"
 									/>
 									<div class="flex items-center text-center w-14 z-[1]">
-										<img src={relic.src} width="54px" alt={relic.name_zh} loading="lazy" decoding="async" />
+										<img src={`https://res.cloudinary.com/dbqz7mebk/image/upload/v1681056192/tomimi.dev/relics/${relic.img}.webp`} width="54px" alt={relic.name_zh} loading="lazy" decoding="async" />
 									</div>
 								</div>
 							{/each}

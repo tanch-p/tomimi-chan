@@ -33,7 +33,7 @@
 	}
 </script>
 
-<div class="sm:max-w-[40rem] mx-auto">
+<div class="">
 	{#if routes.length > 1}
 		<ul
 			class="flex font-bold text-lg text-white text-center select-none divide-x divide-gray-500 py-1"
