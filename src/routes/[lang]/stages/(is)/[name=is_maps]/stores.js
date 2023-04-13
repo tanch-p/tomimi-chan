@@ -1,15 +1,7 @@
 import { writable, derived } from 'svelte/store';
 import updateStatMods from '$lib/functions/compileMultipliers';
 import { browser } from '$app/environment';
-
-export let cookiesEnabled = true;
-if (browser) {
-	try {
-		localStorage.getItem('language');
-	} catch {
-		cookiesEnabled = false;
-	}
-}
+import { cookiesEnabled } from '../../../../stores.js';
 
 let storedDifficulty = 0;
 if (browser && cookiesEnabled) {

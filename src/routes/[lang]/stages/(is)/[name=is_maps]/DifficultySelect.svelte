@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { difficulty, cookiesEnabled } from './stores.js';
+	import { difficulty } from './stores.js';
+	import { cookiesEnabled } from '../../../../stores.js';
 	import { spring } from 'svelte/motion';
 	import translations from '$lib/translations.json';
 	import { browser } from '$app/environment';
