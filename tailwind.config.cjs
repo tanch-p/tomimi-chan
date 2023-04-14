@@ -10,8 +10,9 @@ module.exports = {
 				'arts-hl': '#A7C2FC',
 				'true-hl': '#FF99CA',
 				'heal-hl': '#A4F9A4',
-				'near-white': "#F2F2F2"
-			}
+				'near-white': '#F2F2F2'
+			},
+			fontSize: { subheading: '1.375rem' }
 		}
 	},
 	plugins: []

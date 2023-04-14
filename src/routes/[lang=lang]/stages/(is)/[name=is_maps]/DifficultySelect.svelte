@@ -48,8 +48,8 @@
 	}
 </script>
 
-<div>
-	{translations[language].difficulty}
+<div class="px-2 sm:px-6">
+	<p class="text-subheading">{translations[language].difficulty}</p>
 	<div class="counter">
 		<button
 			on:mousedown={() => startDecrement(initialTimeout)}
@@ -57,9 +57,10 @@
 			on:click={() => updateDifficulty(selectedDifficulty - 1)}
 			disabled={selectedDifficulty <= 0}
 			aria-label="Decrease the counter by one"
+			class="group"
 		>
 			<svg aria-hidden="true" viewBox="0 0 1 1">
-				<path d="M0,0.5 L1,0.5" />
+				<path d="M0,0.5 L1,0.5" class="group-disabled:stroke-[#444]" />
 			</svg>
 		</button>
 
@@ -76,9 +77,10 @@
 			on:click={() => updateDifficulty(selectedDifficulty + 1)}
 			disabled={selectedDifficulty >= 15}
 			aria-label="Increase the counter by one"
+			class="group"
 		>
 			<svg aria-hidden="true" viewBox="0 0 1 1">
-				<path d="M0,0.5 L1,0.5 M0.5,0 L0.5,1" />
+				<path d="M0,0.5 L1,0.5 M0.5,0 L0.5,1" class="group-disabled:stroke-[#444]" />
 			</svg>
 		</button>
 	</div>
@@ -116,7 +118,7 @@
 	path {
 		vector-effect: non-scaling-stroke;
 		stroke-width: 2px;
-		stroke: #444;
+		stroke: #d6d6d6;
 	}
 
 	.counter-viewport {
@@ -143,6 +145,7 @@
 		position: absolute;
 		width: 100%;
 		height: 100%;
+		color: #f2f2f2;
 	}
 
 	.hidden {

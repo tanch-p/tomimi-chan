@@ -41,13 +41,13 @@
 	</div>
 </div>
 <div class="px-2 sm:px-6">
-	<p class="text-[1.375rem] mt-4">{translations[language].routeInfo}</p>
+	<p class="text-subheading mt-4">{translations[language].routeInfo}</p>
 	<hr class="border-gray-500 my-1" />
 </div>
 <div class="my-2 sm:max-w-[40rem] mx-auto text-xl">
 	{#if mapConfig.routes}
 		<StageRoutes routes={mapConfig.routes} {language} />
-	{:else}{/if}
+	{:else}<p class="text-center">暂无路线，作者还没打到这里</p>{/if}
 	<div class="w-[100vw] md:w-full">
 		{#if mapConfig.sp_enemy}
 			<SpEnemy spEnemyInfo={mapConfig.sp_enemy} />
