@@ -173,7 +173,7 @@
 		"tooltip": {
 			"en": ["Reduces maximum Block of attacked unit by 1 for 5s"],
 			"ja": ["攻撃時、対象のブロック数上限を5秒間-1する(重複しない)"],
-			"zh": []
+			"zh": ["攻击后使我方单位5秒内减少1个阻挡数上限（不可叠加）（可被沉默）"]
 		}
 	},
 	"agent_leader_minus_block": {
@@ -181,7 +181,7 @@
 		"tooltip": {
 			"en": ["Reduces maximum Block of attacked unit by 1 for 10s"],
 			"ja": ["攻撃時、対象のブロック数上限を10秒間-1する(重複しない)"],
-			"zh": []
+			"zh": ["攻击后使我方单位10秒内减少1个阻挡数上限（不可叠加）（可被沉默）"]
 		}
 	},
 	"RPG": {
@@ -361,7 +361,7 @@
 		"tooltip": {
 			"en": ["Attacks do 50% splash to 4 tiles surrounding target"],
 			"ja": ["通常攻撃→攻撃対象の隣接4マスに50％ダメージ"],
-			"zh": []
+			"zh": ["攻击对目标周围4格内的所有我方单位造成50%伤害"]
 		}
 	},
 	"splash_4sq_100": {
@@ -369,7 +369,7 @@
 		"tooltip": {
 			"en": ["Attacks do 100% splash to 4 tiles surrounding target"],
 			"ja": ["通常攻撃→攻撃対象の隣接4マスに100％ダメージ"],
-			"zh": []
+			"zh": ["攻击对目标周围4格内的所有我方单位造成100%伤害"]
 		}
 	},
 	"splash_8sq_100": {
@@ -377,7 +377,7 @@
 		"tooltip": {
 			"en": ["Normal Atks do 100% splash to 8 tiles surrounding target"],
 			"ja": ["通常攻撃→攻撃対象の隣接8マスに100％のダメージ"],
-			"zh": []
+			"zh": ["攻击对目标及其周围八格内的所有我方单位造成伤害"]
 		}
 	},
 	"target_2": {
@@ -449,7 +449,7 @@
 		"tooltip": {
 			"en": ["Attacks ignores 40% def"],
 			"ja": ["攻撃は防御40％無視"],
-			"zh": []
+			"zh": ["获得40%防御无视"]
 		}
 	},
 	"ignore_def_60": {
@@ -457,7 +457,7 @@
 		"tooltip": {
 			"en": ["Attacks ignores 60% def"],
 			"ja": ["攻撃は防御60％無視"],
-			"zh": []
+			"zh": ["获得60%防御无视"]
 		}
 	},
 	"ignore_def_80": {
@@ -465,7 +465,7 @@
 		"tooltip": {
 			"en": ["Attacks ignores 80% def"],
 			"ja": ["攻撃は防御80％無視"],
-			"zh": []
+			"zh": ["获得80%防御无视"]
 		}
 	},
 	"hp_regen_150": {
@@ -473,7 +473,7 @@
 		"tooltip": {
 			"en": ["Recovers 150 hp/s"],
 			"ja": ["毎秒HP150回復する"],
-			"zh": []
+			"zh": ["每秒恢复150生命值"]
 		}
 	},
 	"greytail_shield": {
@@ -516,7 +516,7 @@
 		"tooltip": {
 			"en": ["Explodes on death, dealing 200% dmg + Cold❄ to nearby units (Can be silenced)"],
 			"ja": ["死亡時には爆発する（無効化可能）"],
-			"zh": ["死亡后对周围造成大量物理伤害"]
+			"zh": ["死亡后对周围造成大量物理伤害，并施加持续10秒的寒冷"]
 		}
 	},
 	"freeze_attack": {
@@ -525,7 +525,7 @@
 		"tooltip": {
 			"en": ["Attacks freeze enemy"],
 			"ja": ["通常攻撃は【寒冷❄】を付与する"],
-			"zh": []
+			"zh": ["普通攻击时对目标施加寒冷"]
 		}
 	},
 	"freeze_attack_5": {
@@ -582,15 +582,7 @@
 		"tooltip": {
 			"en": ["Atk type - Arts"],
 			"ja": ["攻撃属性が術になる"],
-			"zh": []
-		}
-	},
-	"recover_hp_150": {
-		"type": "others",
-		"tooltip": {
-			"en": ["Recovers 150 hp/s"],
-			"ja": ["毎秒HP150回復する"],
-			"zh": []
+			"zh": ["攻击造成法术伤害"]
 		}
 	},
 	"invincible_5s": {
@@ -643,7 +635,7 @@
 		"tooltip": {
 			"en": ["When blocked, teleports past unit. CD15s"],
 			"ja": ["ブロックされた時、ユニットの背後に回り込む　CD15秒"],
-			"zh": []
+			"zh": ["被阻挡时，使用闪现，冷却15秒"]
 		}
 	},
 	"diver_underwater": {
@@ -680,7 +672,7 @@
 		"tooltip": {
 			"en": ["Imprisoned state, gets released on 4th attack"],
 			"ja": ["禁固状態、攻撃4回→解放状態となる"],
-			"zh": []
+			"zh": ["禁锢状态 - 攻击4次后解放"]
 		}
 	},
 	"caster_prisoner_imprisoned": {
@@ -688,7 +680,7 @@
 		"tooltip": {
 			"en": ["Imprisoned state, does not attack"],
 			"ja": ["禁固状態中→攻撃しない"],
-			"zh": []
+			"zh": ["禁锢状态中不攻击"]
 		}
 	},
 	"prisoner_release_all": {
@@ -696,7 +688,7 @@
 		"tooltip": {
 			"en": ["On release, releases all other prisoners on field as well"],
 			"ja": ["解放時フィールド上の敵全体解放状態にする"],
-			"zh": []
+			"zh": ["首次切换至解放状态时，解放全场敌人"]
 		}
 	},
 	"aspd_buff_ALL": {
@@ -705,7 +697,7 @@
 		"tooltip": {
 			"en": ["Buff→All enemies on field gains +30% aspd (Does not stack)"],
 			"ja": ["バフ→敵全体攻撃速度+30％（重複しない）"],
-			"zh": []
+			"zh": ["在场时，全体敌方单位攻击速度增加30（不可叠加）"]
 		}
 	},
 	"rsh_arrow": {
@@ -1021,7 +1013,7 @@
 		"tooltip": {
 			"en": ["Barrier→for 30s, Def+3000, Res+95"],
 			"ja": ["バリア→30秒間、防御力+3000、術耐性+95"],
-			"zh": []
+			"zh": ["出场时防御力增加3000，法术抗性增加95，持续30s"]
 		}
 	},
 	"plasticknight_barrier": {
@@ -1359,6 +1351,85 @@
 			"zh": ["该形态下被击败后重生，持续5s，恢复2%生命值。重生结束后清空自身sp，切换至初始形态"]
 		}
 	},
+	"syjely_change": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Immediately turns into a random enemy when blocked"],
+			"ja": ["ブロックされた時、ランドムの敵に変身する"],
+			"zh": ["被阻挡时立即变为随机敌人"]
+		}
+	},
+	"mzk_hp_loss_start": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Spawns with 40% of max HP"],
+			"ja": ["出現時、HPが40%になる"],
+			"zh": ["出场时，立刻流失最大生命值60%的生命"]
+		}
+	},
+	"mzk_study": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Learning Form - invincible, does not block or normal attack"],
+			"ja": ["学習形態 - 無敵、ブロック不可、通常攻撃しない"],
+			"zh": ["学习阶段 - 无敌，不可阻挡，不进行普通攻击", "召唤详细请去PRTS看"]
+		}
+	},
+	"mzk_eat": {
+		"type": "others",
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"每吸收5个「子代」，自身获得1层攻击力+40%的强化(最多叠加4层)，治疗自身15%生命值，对场上所有我方单位造成攻击力100%的法术溅射伤害",
+				"自身生命值达到100%时，切换至阐释阶段，并释放当前波次"
+			]
+		}
+	},
+	"mzk_intepret_start": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Intepret State - Invincible for 15s, does not move/attack"],
+			"ja": ["阐释阶段 - 15秒間無敵、かつ攻撃、移動しない"],
+			"zh": ["进入阐释阶段15s内，获得无敌+阻回，无法攻击/移动"]
+		}
+	},
+	"mzk_intepret_normal_attack": {
+		"type": "atk",
+		"dmg_element": "arts",
+		"suffix": { "en": "extra", "ja": "追加", "zh": "额外" },
+		"hits": 1,
+		"multiplier": 1,
+		"fixed_inc": 0,
+		"tooltip": {
+			"en": ["Normal attack does 100% ATK phys + 100% ATK arts damage"],
+			"ja": ["通常攻撃は攻撃力の100%の物理と100%の術ダメージを与える"],
+			"zh": ["普通攻击造成物理伤害，额外造成攻击力100%的法术普通伤害"]
+		}
+	},
+	"mzk_shock_hp": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Every 25% of max HP lost, uses Shock skill"],
+			"ja": ["HPが25%減るごとに、スキルを使う"],
+			"zh": ["自身生命值降低至最大生命值的75%/50%/25%时，强制触发技能【震撼】 "]
+		}
+	},
+	"mzk_shock_skill": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Shock - causes all allied units to be stunned for 8s",
+				"and receive 12% ATK as Arts damage while being stunned by this skill"
+			],
+			"ja": [
+				"スキル→味方全体を8秒スタンする、かつこのスキルにスタンされたユニットは毎秒MZKの攻撃力12%のアーツダメージを受ける"
+			],
+			"zh": [
+				"震撼 - 令场上所有我方单位获得8s晕眩，且在技能赋予的晕眩结束前每秒受到攻击力12%的法术普通伤害（不可叠加） "
+			]
+		}
+	},
 	"egg_stab": {
 		"type": "atk",
 		"dmg_element": "arts",
@@ -1513,22 +1584,6 @@
 			"zh": ["进入第二形态时，重置自身近地悬浮效果"]
 		}
 	},
-	"carmen_ammo_3": {
-		"type": "others",
-		"tooltip": {
-			"en": ["Has initial and max Ammo of 3"],
-			"ja": ["弾薬上限数3"],
-			"zh": ["初始技力/技力上限为3"]
-		}
-	},
-	"carmen_ammo_1": {
-		"type": "others",
-		"tooltip": {
-			"en": ["Has initial and max Ammo of 1"],
-			"ja": ["弾薬上限数1"],
-			"zh": ["初始技力/技力上限为1"]
-		}
-	},
 	"carmen_handgun": {
 		"type": "atk",
 		"dmg_element": "phys",
@@ -1537,9 +1592,11 @@
 		"multiplier": 2,
 		"fixed_inc": 0,
 		"tooltip": {
-			"en": ["Handgun - Deals 200% of ATK as Phys damage"],
+			"en": ["Handgun - Consumes 1 Ammo and deals 200% of ATK as Phys damage"],
 			"ja": ["弾薬数1以上なら、通常攻撃時に弾薬を1消費し、攻撃力の200%の物理ダメージを与える"],
-			"zh": ["手炮 - 对攻击范围内一名我方单位造成200%物理普通伤害"]
+			"zh": [
+				"自身技力大于等于1时，每次攻击时消耗1技力发射特殊弹药,对攻击范围内一名我方单位造成200%物理普通伤害"
+			]
 		}
 	},
 	"carmen_ammocheck": {
@@ -2084,6 +2141,112 @@
 			"zh": []
 		}
 	},
+	"sgwlf_molotov": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Every 30% of max HP lost, throws a fire bomb centered on itself, creating a permanent 1.5 tile radius area that burns allied units for 100 True damage every second (stacks infinitely)."
+			],
+			"ja": [
+				"HPが30%減るごとに、自分中心に火炎瓶を投げ、範囲1.5半径内の味方に毎秒100確定ダメージを与える燃焼マスを起こす（疊ねます）"
+			],
+			"zh": [
+				"每损失30%生命值，强制触发技能【燃烧弹】",
+				"以自身所在位置为中心，释放一个持续时间无限，半径1.5的燃烧区域，位于燃烧区域中的我方单位每秒受到100点无来源真实伤害（可叠加） "
+			]
+		}
+	},
+	"pathfinder_veles": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Prioritizes 'Gelato Stops' and attacks deal an extra 1000 Arts damage to them"],
+			"ja": [
+				"ジェラート供給所を優先して攻撃する",
+				"ジェラート供給所を攻撃した時、追加で1000の術ダメージを与える"
+			],
+			"zh": ["优先攻击<“冰淇淋机”>", "每次攻击<“冰淇淋机”>时额外造成1000法术伤害"]
+		}
+	},
+	"ammo_1": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Has 1 Initial/Max Ammo"],
+			"ja": ["弾薬上限数1"],
+			"zh": ["初始技力/技力上限为1"]
+		}
+	},
+	"ammo_2": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Has 2 Initial/Max Ammo"],
+			"ja": ["弾薬上限数2"],
+			"zh": ["初始技力/技力上限为2"]
+		}
+	},
+	"ammo_3": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Has 3 Initial/Max Ammo"],
+			"ja": ["弾薬上限数3"],
+			"zh": ["初始技力/技力上限为3"]
+		}
+	},
+	"ammo_10": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Has 10 Initial/Max Ammo"],
+			"ja": ["弾薬上限数10"],
+			"zh": ["初始技力/技力上限为10"]
+		}
+	},
+	"sgprst": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Gun - Consumes 1 Ammo and deals 100% ATK as Phys damage to target and decreases target's DEF by 300 permanently"
+			],
+			"ja": [
+				"弾薬数1以上なら、通常攻撃時に弾薬を1消費し、対象に攻撃力の100%の物理ダメージを与え、防御力を永久に-300"
+			],
+			"zh": [
+				"自身技力大于等于1时，每次攻击时消耗1技力发射特殊弹药，特殊弹药使命中目标的防御力永久降低300"
+			]
+		}
+	},
+	"pathfinder_ballistarius": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Cannon - Consumes 1 Ammo and deals 100% ATK as Phys damage to target and surrounding 8 tiles",
+				"deals extra 3000 Arts damage to 'Gelato Stops'"
+			],
+			"ja": [
+				"弾薬数1以上なら、通常攻撃時に弾薬を1消費し、対象と周囲8マスに攻撃力の100%の物理ダメージを与える",
+				"ジェラート供給所には追加で3000の術ダメージを与える"
+			],
+			"zh": [
+				"自身技力大于等于1时，消耗1点技力，对目标及对周围八格我方单位造成100%物理伤害",
+				"对<冰淇淋机>额外造成3000点法术普通伤害"
+			]
+		}
+	},
+	"pathfinder_ballistarius_prefect": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Cannon - Consumes 1 Ammo and deals 125% ATK as Phys damage to target and surrounding 8 tiles",
+				"deals extra 3000 Arts damage to 'Gelato Stops'"
+			],
+			"ja": [
+				"弾薬数1以上なら、通常攻撃時に弾薬を1消費し、対象と周囲8マスに攻撃力の125%の物理ダメージを与える",
+				"ジェラート供給所には追加で3000の術ダメージを与える"
+			],
+			"zh": [
+				"大炮 - 消耗1点技力，对目标及对周围八格我方单位造成125%物理伤害",
+				"对<冰淇淋机>额外造成3000点法术普通伤害"
+			]
+		}
+	},
 	"sarkaz_caster_bind": {
 		"type": "others",
 		"tooltip": {
@@ -2094,7 +2257,12 @@
 				"スキル→20秒間味方ユニット1体を束縛し、1秒当たり攻撃力35%分の継続術ダメージを与える",
 				"※本スキルは戦闘中1回使う"
 			],
-			"zh": []
+			"zh": [
+				"对半径3范围内一名我方单位持续施法，最长持续20s",
+				"施法期间目标每秒获得1s晕眩，并受到相当于攻击力35%的法术伤害",
+				"※不会选择晕眩的单位为目标",
+				"※该技能只能发动一次"
+			]
 		}
 	},
 	"lancer_accelerate": {
@@ -2158,6 +2326,31 @@
 			"en": ["Does not attack while on standby", "Combat Ready - ms +200%"],
 			"ja": ["待機中攻撃しない", "【臨戦】態勢 - 移動速度+200%"],
 			"zh": []
+		}
+	},
+	"sarkaz_nac10_consume": {
+		"type": "others",
+		"tooltip": {
+			"en": ["When blocked, swallows the blocking unit", "gaining DEF +700 and MS -30%"],
+			"ja": ["ブロックされると、ブロックしたユニットを食べて、防御力+700、移動速度-30%"],
+			"zh": ["将阻挡单位强制击倒、切换至饱腹形态", "饱腹形态下：自身防御力+700，移动速度-30%"]
+		}
+	},
+	"dog_bleed": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Normal attack inflicts a debuff dealing 100 Arts damage/s for 10s (this damage cannot kill)",
+				"Debuff is dispelled when target receives healing"
+			],
+			"ja": [
+				"通常攻撃→10秒間、毎秒100術ダメージを受けるデバフを与える",
+				"回復を受けるとデバフが消える"
+			],
+			"zh": [
+				"受到自身普通攻击的目标在10秒内每秒受到100点无来源法术普通伤害(该伤害无法致死)",
+				"目标受到治疗效果后该效果立刻解除"
+			]
 		}
 	},
 	"yinyang_target_opposite": {
@@ -2276,6 +2469,28 @@
 			"zh": ["在场时，所有敌军获得战术命令，同时提升10%攻击力并增加100防御力"]
 		}
 	},
+	"guerilla_caster_no_attack": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Does not normal attack"],
+			"ja": ["通常攻撃しない"],
+			"zh": ["不进行普通攻击"]
+		}
+	},
+	"guerilla_caster_sacrifice": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Sacrifice (Initial SP: 0, Cost:5)",
+				"Deals 100% of ATK as Arts splash damage to allied Operators within a 1.5 tile radius."
+			],
+			"ja": ["スキル→初期SP0、必要SP5", "半径1.5内の味方全員に攻撃力の100%の術ダメージを与える"],
+			"zh": [
+				"献祭（初始0SP，消耗5SP）",
+				"对半径1.5范围内的我方干员造成相当于100%攻击力的法术溅射伤害"
+			]
+		}
+	},
 	"lower_target_priority": {
 		"type": "others",
 		"tooltip": {
@@ -2316,6 +2531,22 @@
 			"en": ["Removes nearby operators' stealth/camouflage"],
 			"ja": ["3.3半径内の味方のステルスと迷彩効果を解除"],
 			"zh": ["自身3.3半径范围内所有我方单位的隐匿/迷彩效果失效"]
+		}
+	},
+	"blocked_res_40": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Gains 40 RES when blocked"],
+			"ja": ["ブロック→術耐性 +40"],
+			"zh": ["被阻挡后法术抗性增加40"]
+		}
+	},
+	"blocked_res_50": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Gains 50 RES when blocked"],
+			"ja": ["ブロック→術耐性 +50"],
+			"zh": ["被阻挡后法术抗性增加50"]
 		}
 	},
 	"blocked_def_up_130": {
@@ -2391,6 +2622,27 @@
 				"被阻挡时，自身防御力最终下降70%,嘲讽等级减少一级",
 				"阻挡者的防御力最终下降70%，自身只会受到来源于阻挡者的伤害"
 			]
+		}
+	},
+	"ursus_striker_ranged_atk": {
+		"type": "atk",
+		"dmg_element": "phys",
+		"suffix": { "en": "ranged", "ja": "遠", "zh": "远" },
+		"multiplier": 0.5,
+		"hits": 1,
+		"fixed_inc": 0,
+		"tooltip": {
+			"en": ["When not blocked, uses ranged attacks that deal 50% of ATK as Physical damage"],
+			"ja": ["非ブロック時、攻撃力の50%で遠距離物理攻撃を行う"],
+			"zh": ["未被阻挡时可进行远程攻击，远程攻击造成攻击力50%的物理伤害"]
+		}
+	},
+	"ursus_striker_hp50": {
+		"type": "others",
+		"tooltip": {
+			"en": ["HP↓50% - ATK +100%"],
+			"ja": ["HP50%以下→攻撃力+100%"],
+			"zh": ["生命值低于50%时，攻击力提升100%"]
 		}
 	},
 	"ursus_civ_attack": {

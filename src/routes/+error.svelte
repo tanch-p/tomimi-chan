@@ -4,18 +4,18 @@
 	import { browser } from '$app/environment';
 
 	let language = 'en';
-	onMount(async () => {
+	// onMount(async () => {
         
-		if (browser) {
-			const browerLang = window.navigator.language;
-			if (browerLang.match(/ja|ja/i)) {
-				language = 'ja';
-			} else if (browerLang.includes('zh')) {
-				language = 'zh';
-			}
-			await goto(`/${language}`);
-		}
-	});
+	// 	if (browser) {
+	// 		const browerLang = window.navigator.language;
+	// 		if (browerLang.match(/ja|ja/i)) {
+	// 			language = 'ja';
+	// 		} else if (browerLang.includes('zh')) {
+	// 			language = 'zh';
+	// 		}
+	// 		await goto(`/${language}`);
+	// 	}
+	// });
 </script>
 
 <div class="max-w-7xl mx-auto">

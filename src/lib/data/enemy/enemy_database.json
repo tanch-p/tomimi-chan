@@ -2875,7 +2875,7 @@
 				"ms": 0.75
 			}
 		],
-		"special": [],
+		"special": ["blocked_res_40"],
 		"status_immune": ["silence"],
 		"normal_attack": {
 			"atk_type": ["melee", "phys"],
@@ -2903,7 +2903,7 @@
 				"ms": 0.75
 			}
 		],
-		"special": [],
+		"special": ["blocked_res_50"],
 		"status_immune": ["silence"],
 		"normal_attack": {
 			"atk_type": ["melee", "phys"],
@@ -4902,7 +4902,7 @@
 				"ms": 0.75
 			}
 		],
-		"special": [],
+		"special": ["guerilla_caster_no_attack", "guerilla_caster_sacrifice"],
 		"status_immune": ["silence"],
 		"normal_attack": {
 			"atk_type": ["ranged", "arts"],
@@ -6526,13 +6526,13 @@
 				"ms": 0.7
 			}
 		],
-		"special": [],
+		"special": ["ursus_striker_ranged_atk", "ursus_striker_hp50"],
 		"status_immune": [],
 		"normal_attack": {
-			"atk_type": ["ranged", "phys"],
+			"atk_type": ["melee", "phys"],
 			"hits": 1
 		},
-		"type": ["ranged", "ELITE"]
+		"type": ["melee", "ranged", "ELITE"]
 	},
 	"enemy_1113_empace_2": {
 		"id": "U14",
@@ -6554,13 +6554,13 @@
 				"ms": 0.7
 			}
 		],
-		"special": [],
+		"special": ["ursus_striker_ranged_atk", "ursus_striker_hp50"],
 		"status_immune": [],
 		"normal_attack": {
-			"atk_type": ["ranged", "phys"],
+			"atk_type": ["melee", "phys"],
 			"hits": 1
 		},
-		"type": ["ranged", "ELITE"]
+		"type": ["melee", "ranged", "ELITE"]
 	},
 	"enemy_1114_rgrdmn": {
 		"id": "P11",
@@ -6723,11 +6723,15 @@
 			}
 		],
 		"imprisoned": {
-			"mods": { "aspd": 0.5 },
+			"mods": {
+				"aspd": 0.5
+			},
 			"special": ["prisoner_atk_release"]
 		},
 		"released": {
-			"mods": { "atk": 1.5 },
+			"mods": {
+				"atk": 1.5
+			},
 			"status_immune": [],
 			"normal_attack": {
 				"atk_type": ["melee", "phys"],
@@ -6763,11 +6767,15 @@
 			}
 		],
 		"imprisoned": {
-			"mods": { "aspd": 0.5 },
+			"mods": {
+				"aspd": 0.5
+			},
 			"special": ["prisoner_atk_release"]
 		},
 		"released": {
-			"mods": { "atk": 1.5 },
+			"mods": {
+				"atk": 1.5
+			},
 			"status_immune": [],
 			"normal_attack": {
 				"atk_type": ["melee", "phys"],
@@ -6803,11 +6811,15 @@
 			}
 		],
 		"imprisoned": {
-			"mods": { "aspd": 0.5 },
+			"mods": {
+				"aspd": 0.5
+			},
 			"special": ["prisoner_atk_release"]
 		},
 		"released": {
-			"mods": { "atk": 1.5 },
+			"mods": {
+				"atk": 1.5
+			},
 			"status_immune": [],
 			"normal_attack": {
 				"atk_type": ["ranged", "arts"],
@@ -6843,11 +6855,15 @@
 			}
 		],
 		"imprisoned": {
-			"mods": { "aspd": 0.5 },
+			"mods": {
+				"aspd": 0.5
+			},
 			"special": ["prisoner_atk_release"]
 		},
 		"released": {
-			"mods": { "atk": 1.5 },
+			"mods": {
+				"atk": 1.5
+			},
 			"status_immune": [],
 			"normal_attack": {
 				"atk_type": ["ranged", "arts"],
@@ -6883,11 +6899,15 @@
 			}
 		],
 		"imprisoned": {
-			"mods": { "aspd": 0.5 },
+			"mods": {
+				"aspd": 0.5
+			},
 			"special": ["prisoner_atk_release"]
 		},
 		"released": {
-			"mods": { "atk": 1.5 },
+			"mods": {
+				"atk": 1.5
+			},
 			"status_immune": [],
 			"normal_attack": {
 				"atk_type": ["melee", "phys"],
@@ -6923,11 +6943,15 @@
 			}
 		],
 		"imprisoned": {
-			"mods": { "aspd": 0.5 },
+			"mods": {
+				"aspd": 0.5
+			},
 			"special": ["prisoner_atk_release"]
 		},
 		"released": {
-			"mods": { "atk": 1.5 },
+			"mods": {
+				"atk": 1.5
+			},
 			"status_immune": [],
 			"normal_attack": {
 				"atk_type": ["melee", "phys"],
@@ -6963,17 +6987,22 @@
 			}
 		],
 		"imprisoned": {
-			"mods": { "aspd": 0.5 },
+			"mods": {
+				"aspd": 0.5
+			},
 			"special": ["prisoner_atk_release"]
 		},
 		"released": {
-			"mods": { "atk": 1.5, "res": 40 },
+			"mods": {
+				"atk": 1.5,
+				"res": 40
+			},
 			"status_immune": [],
 			"normal_attack": {
 				"atk_type": ["melee", "phys"],
 				"hits": 1
 			},
-			"special": ["recover_hp_150"]
+			"special": ["hp_regen_150"]
 		},
 		"status_immune": ["silence"],
 		"normal_attack": {
@@ -7003,17 +7032,22 @@
 			}
 		],
 		"imprisoned": {
-			"mods": { "aspd": 0.5 },
+			"mods": {
+				"aspd": 0.5
+			},
 			"special": ["prisoner_atk_release"]
 		},
 		"released": {
-			"mods": { "atk": 1.5, "res": 40 },
+			"mods": {
+				"atk": 1.5,
+				"res": 40
+			},
 			"status_immune": [],
 			"normal_attack": {
 				"atk_type": ["melee", "phys"],
 				"hits": 1
 			},
-			"special": ["recover_hp_150"]
+			"special": ["hp_regen_150"]
 		},
 		"status_immune": ["silence"],
 		"normal_attack": {
@@ -7043,11 +7077,16 @@
 			}
 		],
 		"imprisoned": {
-			"mods": { "aspd": 0.5, "fixed_def": 300 },
+			"mods": {
+				"aspd": 0.5,
+				"fixed_def": 300
+			},
 			"special": ["caster_prisoner_imprisoned", "aspd_buff_ALL"]
 		},
 		"released": {
-			"mods": { "atk": 1.5 },
+			"mods": {
+				"atk": 1.5
+			},
 			"status_immune": [],
 			"normal_attack": {
 				"atk_type": ["ranged", "arts"],
@@ -7083,11 +7122,16 @@
 			}
 		],
 		"imprisoned": {
-			"mods": { "aspd": -0.5, "fixed_def": 300 },
+			"mods": {
+				"aspd": -0.5,
+				"fixed_def": 300
+			},
 			"special": ["caster_prisoner_imprisoned", "aspd_buff_ALL"]
 		},
 		"released": {
-			"mods": { "atk": 1.5 },
+			"mods": {
+				"atk": 1.5
+			},
 			"status_immune": [],
 			"normal_attack": {
 				"atk_type": ["ranged", "arts"],
@@ -7123,11 +7167,16 @@
 			}
 		],
 		"imprisoned": {
-			"mods": { "aspd": -0.5, "fixed_def": 300 },
+			"mods": {
+				"aspd": -0.5,
+				"fixed_def": 300
+			},
 			"special": ["prisoner_atk_release", "prisoner_release_all"]
 		},
 		"released": {
-			"mods": { "atk": 1.5 },
+			"mods": {
+				"atk": 1.5
+			},
 			"status_immune": [],
 			"normal_attack": {
 				"atk_type": ["melee", "phys"],
@@ -7163,11 +7212,16 @@
 			}
 		],
 		"imprisoned": {
-			"mods": { "aspd": -0.5, "fixed_def": 300 },
+			"mods": {
+				"aspd": -0.5,
+				"fixed_def": 300
+			},
 			"special": ["prisoner_atk_release", "prisoner_release_all"]
 		},
 		"released": {
-			"mods": { "atk": 1.5 },
+			"mods": {
+				"atk": 1.5
+			},
 			"status_immune": [],
 			"normal_attack": {
 				"atk_type": ["melee", "phys"],
@@ -12377,7 +12431,7 @@
 				"ms": 0.8
 			}
 		],
-		"special": [],
+		"special": ["pathfinder_veles"],
 		"status_immune": [],
 		"normal_attack": {
 			"atk_type": ["ranged", "phys"],
@@ -12433,13 +12487,13 @@
 				"ms": 0.6
 			}
 		],
-		"special": [],
+		"special": ["ammo_2", "pathfinder_ballistarius"],
 		"status_immune": [],
 		"normal_attack": {
-			"atk_type": ["ranged", "phys"],
+			"atk_type": ["melee", "phys"],
 			"hits": 1
 		},
-		"type": ["ranged", "ELITE"]
+		"type": ["melee", "ranged", "ELITE"]
 	},
 	"enemy_1216_cansld_2": {
 		"id": "SK10",
@@ -12461,13 +12515,13 @@
 				"ms": 0.6
 			}
 		],
-		"special": [],
+		"special": ["ammo_2", "pathfinder_ballistarius_prefect"],
 		"status_immune": [],
 		"normal_attack": {
-			"atk_type": ["ranged", "phys"],
+			"atk_type": ["melee", "phys"],
 			"hits": 1
 		},
-		"type": ["ranged", "ELITE"]
+		"type": ["melee", "ranged", "ELITE"]
 	},
 	"enemy_1217_rescar": {
 		"id": "SK11",
@@ -15311,7 +15365,7 @@
 				"ms": 1.4
 			}
 		],
-		"special": [],
+		"special": ["dog_bleed"],
 		"status_immune": [],
 		"normal_attack": {
 			"atk_type": ["melee", "phys"],
@@ -15367,7 +15421,7 @@
 				"ms": 0.6
 			}
 		],
-		"special": [],
+		"special": ["sarkaz_nac10_consume"],
 		"status_immune": ["silence"],
 		"normal_attack": {
 			"atk_type": ["melee", "phys"],
@@ -16078,7 +16132,7 @@
 				"ms": 1.0
 			}
 		],
-		"special": [],
+		"special": ["ammo_10"],
 		"status_immune": ["silence"],
 		"normal_attack": {
 			"atk_type": ["ranged", "phys"],
@@ -16117,7 +16171,7 @@
 				"ms": 1.0
 			}
 		],
-		"special": [],
+		"special": ["sgwlf_molotov"],
 		"status_immune": ["stun", "silence", "sleep", "freeze"],
 		"normal_attack": {
 			"atk_type": ["no_attack", "phys"],
@@ -17153,7 +17207,7 @@
 			"atk_type": ["no_attack", "phys"],
 			"hits": 1
 		},
-		"type": ["no_attack", "ELITE"] 
+		"type": ["no_attack", "ELITE"]
 	},
 	"enemy_2002_bearmi": {
 		"id": "GPN",
@@ -18338,7 +18392,6 @@
 				"aspd": 2,
 				"ms": 1.5
 			},
-			"status_immune": [],
 			"normal_attack": {
 				"atk_type": ["melee", "phys"],
 				"hits": 1
@@ -18516,7 +18569,9 @@
 		],
 		"forms": [
 			{
-				"mods": { "fixed_res": 50 },
+				"mods": {
+					"fixed_res": 50
+				},
 				"special": ["JAK_strong_wine_attack"],
 				"normal_attack": {
 					"atk_type": ["ranged", "arts"],
@@ -19546,7 +19601,10 @@
 				}
 			},
 			{
-				"mods": { "hp": 1.5, "atk": 1.9 },
+				"mods": {
+					"hp": 1.5,
+					"atk": 1.9
+				},
 				"special": ["invincible_30s", "fzm_nova_nodescript"],
 				"normal_attack": {
 					"atk_type": ["ranged", "arts"],
@@ -19636,7 +19694,10 @@
 		"special": ["freeze_attack"],
 		"powerup": {
 			"state_name": "rage",
-			"mods": { "aspd": 2, "ms": 2 },
+			"mods": {
+				"aspd": 2,
+				"ms": 2
+			},
 			"status_immune": [],
 			"normal_attack": {
 				"atk_type": ["ranged", "phys"],
@@ -19674,7 +19735,10 @@
 		"special": ["ice_pick_250"],
 		"powerup": {
 			"state_name": "rage",
-			"mods": { "aspd": 2, "ms": 2 },
+			"mods": {
+				"aspd": 2,
+				"ms": 2
+			},
 			"status_immune": [],
 			"normal_attack": {
 				"atk_type": ["melee", "phys"],
@@ -19848,7 +19912,7 @@
 				"ms": 0.5
 			}
 		],
-		"special": ["carmen_ammo_3", "carmen_handgun", "carmen_ammocheck", "carmen_reload"],
+		"special": ["ammo_3", "carmen_handgun", "carmen_ammocheck", "carmen_reload"],
 		"status_immune": ["silence"],
 		"normal_attack": {
 			"atk_type": ["melee", "phys"],
@@ -19876,7 +19940,7 @@
 				"ms": 0.5
 			}
 		],
-		"special": ["carmen_ammo_1", "carmen_handgun", "carmen_ammocheck", "carmen_reload"],
+		"special": ["ammo_1", "carmen_handgun", "carmen_ammocheck", "carmen_reload"],
 		"status_immune": ["silence"],
 		"normal_attack": {
 			"atk_type": ["melee", "phys"],
@@ -20046,7 +20110,9 @@
 		],
 		"forms": [
 			{
-				"mods": { "fixed_range": 2.5 },
+				"mods": {
+					"fixed_range": 2.5
+				},
 				"special": ["hover", "target_3_multi_alt", "corrosion_60", "highmore_aspd_down_1"],
 				"normal_attack": {
 					"atk_type": ["ranged", "phys"],
@@ -20102,7 +20168,9 @@
 				}
 			},
 			{
-				"mods": { "ms": 0.5 },
+				"mods": {
+					"ms": 0.5
+				},
 				"special": ["doq_bone", "doq_invincible", "doq_charge"],
 				"normal_attack": {
 					"atk_type": ["no_attack", "phys"],
@@ -20135,7 +20203,9 @@
 		],
 		"forms": [
 			{
-				"mods": { "fixed_range": 20 },
+				"mods": {
+					"fixed_range": 20
+				},
 				"special": [
 					"syskad_heal",
 					"syskad_hp_50_rage_150",
@@ -20187,7 +20257,12 @@
 				"ms": 0.4
 			}
 		],
-		"special": ["cannot","cannot_spray_potion","cannot_potion_effect_1","cannot_potion_effect_2"],
+		"special": [
+			"cannot",
+			"cannot_spray_potion",
+			"cannot_potion_effect_1",
+			"cannot_potion_effect_2"
+		],
 		"status_immune": ["stun", "silence", "sleep", "freeze", "levitate"],
 		"normal_attack": {
 			"atk_type": ["no_attack"],
@@ -21118,5 +21193,1413 @@
 			"hits": 1
 		},
 		"type": ["melee", "BOSS"]
+	},
+	"enemy_1303_mhshep": {
+		"id": "HS01",
+		"key": "enemy_1303_mhshep",
+		"name_zh": "角兽",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 5000,
+				"atk": 250,
+				"def": 0,
+				"res": 0.0,
+				"aspd": 2.3,
+				"range": 0.0,
+				"weight": 1,
+				"lifepoint": 1,
+				"ms": 0.8
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "NORMAL"]
+	},
+	"enemy_1303_mhshep_2": {
+		"id": "HS02",
+		"key": "enemy_1303_mhshep_2",
+		"name_zh": "亢角兽",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 6500,
+				"atk": 320,
+				"def": 0,
+				"res": 0.0,
+				"aspd": 2.3,
+				"range": 0.0,
+				"weight": 1,
+				"lifepoint": 1,
+				"ms": 0.8
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "NORMAL"]
+	},
+	"enemy_1304_mhwolf": {
+		"id": "HS03",
+		"key": "enemy_1304_mhwolf",
+		"name_zh": "鬣犄兽",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 4500,
+				"atk": 310,
+				"def": 0,
+				"res": 5.0,
+				"aspd": 1.8,
+				"range": 0.0,
+				"weight": 1,
+				"lifepoint": 1,
+				"ms": 1.5
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "NORMAL"]
+	},
+	"enemy_1304_mhwolf_2": {
+		"id": "HS04",
+		"key": "enemy_1304_mhwolf_2",
+		"name_zh": "利齿鬣犄兽",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 6500,
+				"atk": 380,
+				"def": 0,
+				"res": 5.0,
+				"aspd": 1.8,
+				"range": 0.0,
+				"weight": 1,
+				"lifepoint": 1,
+				"ms": 1.5
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "NORMAL"]
+	},
+	"enemy_1305_mhslim": {
+		"id": "HS05",
+		"key": "enemy_1305_mhslim",
+		"name_zh": "灼热源石虫",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 1200,
+				"atk": 50,
+				"def": 0,
+				"res": 0.0,
+				"aspd": 2.0,
+				"range": 1.8,
+				"weight": 0,
+				"lifepoint": 1,
+				"ms": 0.8
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["ranged", "arts"],
+			"hits": 1
+		},
+		"type": ["ranged", "NORMAL"]
+	},
+	"enemy_1305_mhslim_2": {
+		"id": "HS06",
+		"key": "enemy_1305_mhslim_2",
+		"name_zh": "炽焰源石虫",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 1800,
+				"atk": 80,
+				"def": 0,
+				"res": 0.0,
+				"aspd": 2.0,
+				"range": 1.8,
+				"weight": 0,
+				"lifepoint": 1,
+				"ms": 0.8
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["ranged", "arts"],
+			"hits": 1
+		},
+		"type": ["ranged", "NORMAL"]
+	},
+	"enemy_1306_mhtrtl": {
+		"id": "HS07",
+		"key": "enemy_1306_mhtrtl",
+		"name_zh": "硬甲爪兽",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 14000,
+				"atk": 600,
+				"def": 120,
+				"res": 0.0,
+				"aspd": 4.0,
+				"range": 0.0,
+				"weight": 2,
+				"lifepoint": 1,
+				"ms": 0.7
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "NORMAL"]
+	},
+	"enemy_1306_mhtrtl_2": {
+		"id": "HS08",
+		"key": "enemy_1306_mhtrtl_2",
+		"name_zh": "刚甲爪兽",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 18000,
+				"atk": 680,
+				"def": 130,
+				"res": 0.0,
+				"aspd": 4.0,
+				"range": 0.0,
+				"weight": 2,
+				"lifepoint": 1,
+				"ms": 0.7
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "NORMAL"]
+	},
+	"enemy_1307_mhrhcr": {
+		"id": "HS09",
+		"key": "enemy_1307_mhrhcr",
+		"name_zh": "岩冠兽",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 12000,
+				"atk": 600,
+				"def": 140,
+				"res": 0.0,
+				"aspd": 4.0,
+				"range": 0.0,
+				"weight": 2,
+				"lifepoint": 1,
+				"ms": 0.7
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "NORMAL"]
+	},
+	"enemy_1307_mhrhcr_2": {
+		"id": "HS10",
+		"key": "enemy_1307_mhrhcr_2",
+		"name_zh": "坚岩冠兽",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 16000,
+				"atk": 750,
+				"def": 160,
+				"res": 0.0,
+				"aspd": 4.0,
+				"range": 0.0,
+				"weight": 2,
+				"lifepoint": 1,
+				"ms": 0.7
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "NORMAL"]
+	},
+	"enemy_1308_mheagl": {
+		"id": "HS11",
+		"key": "enemy_1308_mheagl",
+		"name_zh": "锋羽兽",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 9000,
+				"atk": 450,
+				"def": 50,
+				"res": 5.0,
+				"aspd": 2.5,
+				"range": 0.0,
+				"weight": 0,
+				"lifepoint": 1,
+				"ms": 0.65
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["ranged", "phys"],
+			"hits": 1
+		},
+		"type": ["ranged", "NORMAL"]
+	},
+	"enemy_1308_mheagl_2": {
+		"id": "HS12",
+		"key": "enemy_1308_mheagl_2",
+		"name_zh": "迅猛锋羽兽",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 12000,
+				"atk": 550,
+				"def": 80,
+				"res": 5.0,
+				"aspd": 2.5,
+				"range": 0.0,
+				"weight": 0,
+				"lifepoint": 1,
+				"ms": 0.65
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["ranged", "phys"],
+			"hits": 1
+		},
+		"type": ["ranged", "NORMAL"]
+	},
+	"enemy_1309_mhboar": {
+		"id": "HS13",
+		"key": "enemy_1309_mhboar",
+		"name_zh": "凶豕兽",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 25000,
+				"atk": 600,
+				"def": 20,
+				"res": 0.0,
+				"aspd": 4.0,
+				"range": 0.0,
+				"weight": 2,
+				"lifepoint": 1,
+				"ms": 0.35
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "ELITE"]
+	},
+	"enemy_1309_mhboar_2": {
+		"id": "HS14",
+		"key": "enemy_1309_mhboar_2",
+		"name_zh": "狂暴凶豕兽",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 32000,
+				"atk": 700,
+				"def": 50,
+				"res": 0.0,
+				"aspd": 4.0,
+				"range": 0.0,
+				"weight": 2,
+				"lifepoint": 1,
+				"ms": 0.4
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "ELITE"]
+	},
+	"enemy_1310_mhprpn": {
+		"id": "HS15",
+		"key": "enemy_1310_mhprpn",
+		"name_zh": "棘兽",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 25000,
+				"atk": 580,
+				"def": 130,
+				"res": 5.0,
+				"aspd": 3.5,
+				"range": 0.5,
+				"weight": 3,
+				"lifepoint": 1,
+				"ms": 0.7
+			}
+		],
+		"special": [],
+		"status_immune": [],
+		"normal_attack": {
+			"atk_type": ["ranged", "phys"],
+			"hits": 1
+		},
+		"type": ["ranged", "ELITE"]
+	},
+	"enemy_1310_mhprpn_2": {
+		"id": "HS16",
+		"key": "enemy_1310_mhprpn_2",
+		"name_zh": "箭棘兽",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 35000,
+				"atk": 720,
+				"def": 150,
+				"res": 8.0,
+				"aspd": 3.5,
+				"range": 0.5,
+				"weight": 3,
+				"lifepoint": 1,
+				"ms": 0.3
+			}
+		],
+		"special": [],
+		"status_immune": [],
+		"normal_attack": {
+			"atk_type": ["ranged", "phys"],
+			"hits": 1
+		},
+		"type": ["ranged", "ELITE"]
+	},
+	"enemy_1311_mhkryk": {
+		"id": "HS17",
+		"key": "enemy_1311_mhkryk",
+		"name_zh": "狡兽",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 20000,
+				"atk": 1090,
+				"def": 480,
+				"res": 0.0,
+				"aspd": 1.8,
+				"range": 0.0,
+				"weight": 3,
+				"lifepoint": 1,
+				"ms": 0.75
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "ELITE"]
+	},
+	"enemy_1311_mhkryk_2": {
+		"id": "HS18",
+		"key": "enemy_1311_mhkryk_2",
+		"name_zh": "恶狡兽",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 27000,
+				"atk": 1260,
+				"def": 550,
+				"res": 1.0,
+				"aspd": 1.8,
+				"range": 0.0,
+				"weight": 3,
+				"lifepoint": 1,
+				"ms": 0.75
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "ELITE"]
+	},
+	"enemy_1313_wdfmr": {
+		"id": "LUD5",
+		"key": "enemy_1313_wdfmr",
+		"name_zh": "诺伯特平民",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 5000,
+				"atk": 250,
+				"def": 50,
+				"res": 0.0,
+				"aspd": 2.5,
+				"range": -1.0,
+				"weight": 1,
+				"lifepoint": 0,
+				"ms": 0.65
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["no_attack", "phys"],
+			"hits": 1
+		},
+		"type": ["no_attack", "NORMAL"]
+	},
+	"enemy_1313_wdfmr_2": {
+		"id": "LUD6",
+		"key": "enemy_1313_wdfmr_2",
+		"name_zh": "诺伯特暗探",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 5000,
+				"atk": 250,
+				"def": 50,
+				"res": 0.0,
+				"aspd": 2.5,
+				"range": -1.0,
+				"weight": 1,
+				"lifepoint": 0,
+				"ms": 0.65
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["no_attack", "phys"],
+			"hits": 1
+		},
+		"type": ["no_attack", "ELITE"]
+	},
+	"enemy_1314_wdnjd": {
+		"id": "LUD7",
+		"key": "enemy_1314_wdnjd",
+		"name_zh": "寻路密探",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 6500,
+				"atk": 500,
+				"def": 300,
+				"res": 20.0,
+				"aspd": 2.3,
+				"range": 0.0,
+				"weight": 2,
+				"lifepoint": 1,
+				"ms": 0.65
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "NORMAL"]
+	},
+	"enemy_1314_wdnjd_2": {
+		"id": "LUD8",
+		"key": "enemy_1314_wdnjd_2",
+		"name_zh": "寻路密探长",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 8000,
+				"atk": 600,
+				"def": 350,
+				"res": 20.0,
+				"aspd": 2.3,
+				"range": 0.0,
+				"weight": 2,
+				"lifepoint": 1,
+				"ms": 0.65
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "NORMAL"]
+	},
+	"enemy_1315_wdyjd": {
+		"id": "LUD9",
+		"key": "enemy_1315_wdyjd",
+		"name_zh": "岗哨密探",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 5500,
+				"atk": 700,
+				"def": 150,
+				"res": 35.0,
+				"aspd": 3.3,
+				"range": 0.0,
+				"weight": 2,
+				"lifepoint": 1,
+				"ms": 0.65
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "NORMAL"]
+	},
+	"enemy_1315_wdyjd_2": {
+		"id": "LUD10",
+		"key": "enemy_1315_wdyjd_2",
+		"name_zh": "岗哨密探长",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 6500,
+				"atk": 800,
+				"def": 200,
+				"res": 35.0,
+				"aspd": 3.3,
+				"range": 0.0,
+				"weight": 1,
+				"lifepoint": 1,
+				"ms": 0.65
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "NORMAL"]
+	},
+	"enemy_1316_wdpjd": {
+		"id": "LUD11",
+		"key": "enemy_1316_wdpjd",
+		"name_zh": "武装密探",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 12000,
+				"atk": 1000,
+				"def": 1200,
+				"res": 0.0,
+				"aspd": 3.5,
+				"range": 0.0,
+				"weight": 5,
+				"lifepoint": 1,
+				"ms": 0.35
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "ELITE"]
+	},
+	"enemy_1316_wdpjd_2": {
+		"id": "LUD12",
+		"key": "enemy_1316_wdpjd_2",
+		"name_zh": "武装密探长",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 15000,
+				"atk": 1200,
+				"def": 1500,
+				"res": 0.0,
+				"aspd": 3.5,
+				"range": 0.0,
+				"weight": 5,
+				"lifepoint": 1,
+				"ms": 0.35
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "ELITE"]
+	},
+	"enemy_1317_wdexg": {
+		"id": "SHD1",
+		"key": "enemy_1317_wdexg",
+		"name_zh": "萨卡兹悖谬谍报官",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 6000,
+				"atk": 600,
+				"def": 300,
+				"res": 35.0,
+				"aspd": 3.5,
+				"range": 0.0,
+				"weight": 3,
+				"lifepoint": 1,
+				"ms": 0.8
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["ranged", "phys"],
+			"hits": 1
+		},
+		"type": ["ranged", "sarkaz", "NORMAL"]
+	},
+	"enemy_1317_wdexg_2": {
+		"id": "SHD2",
+		"key": "enemy_1317_wdexg_2",
+		"name_zh": "萨卡兹悖谬谍报长",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 7500,
+				"atk": 650,
+				"def": 350,
+				"res": 35.0,
+				"aspd": 3.5,
+				"range": 0.0,
+				"weight": 3,
+				"lifepoint": 1,
+				"ms": 0.8
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["ranged", "phys"],
+			"hits": 1
+		},
+		"type": ["ranged", "sarkaz", "NORMAL"]
+	},
+	"enemy_1318_wdsmgc": {
+		"id": "SHD3",
+		"key": "enemy_1318_wdsmgc",
+		"name_zh": "萨卡兹悖谬裂变学徒",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 9000,
+				"atk": 550,
+				"def": 200,
+				"res": 50.0,
+				"aspd": 3.8,
+				"range": 2.0,
+				"weight": 3,
+				"lifepoint": 1,
+				"ms": 0.7
+			}
+		],
+		"special": [],
+		"status_immune": [],
+		"normal_attack": {
+			"atk_type": ["ranged", "arts"],
+			"hits": 1
+		},
+		"type": ["ranged", "sarkaz", "NORMAL"]
+	},
+	"enemy_1318_wdsmgc_2": {
+		"id": "SHD4",
+		"key": "enemy_1318_wdsmgc_2",
+		"name_zh": "萨卡兹悖谬裂变术师",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 12000,
+				"atk": 650,
+				"def": 250,
+				"res": 60.0,
+				"aspd": 3.8,
+				"range": 2.0,
+				"weight": 3,
+				"lifepoint": 1,
+				"ms": 0.7
+			}
+		],
+		"special": [],
+		"status_immune": [],
+		"normal_attack": {
+			"atk_type": ["ranged", "arts"],
+			"hits": 1
+		},
+		"type": ["ranged", "sarkaz", "NORMAL"]
+	},
+	"enemy_1320_wdrrl": {
+		"id": "SHD5",
+		"key": "enemy_1320_wdrrl",
+		"name_zh": "萨卡兹悖谬暴虐兵",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 20000,
+				"atk": 800,
+				"def": 700,
+				"res": 20.0,
+				"aspd": 2.9,
+				"range": 0.0,
+				"weight": 5,
+				"lifepoint": 1,
+				"ms": 0.8
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "sarkaz", "ELITE"]
+	},
+	"enemy_1320_wdrrl_2": {
+		"id": "SHD6",
+		"key": "enemy_1320_wdrrl_2",
+		"name_zh": "萨卡兹悖谬暴虐兵长",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 25000,
+				"atk": 1200,
+				"def": 800,
+				"res": 20.0,
+				"aspd": 2.9,
+				"range": 0.0,
+				"weight": 5,
+				"lifepoint": 1,
+				"ms": 0.8
+			}
+		],
+		"special": [],
+		"status_immune": ["silence"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "sarkaz", "ELITE"]
+	},
+	"enemy_1319_wdfmpm": {
+		"id": "SHD7",
+		"key": "enemy_1319_wdfmpm",
+		"name_zh": "叛乱煽动者",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 10000,
+				"atk": 250,
+				"def": 100,
+				"res": 50.0,
+				"aspd": 5.0,
+				"range": 0.0,
+				"weight": 2,
+				"lifepoint": 1,
+				"ms": 0.6
+			}
+		],
+		"special": [],
+		"status_immune": [],
+		"normal_attack": {
+			"atk_type": ["melee", "arts"],
+			"hits": 1
+		},
+		"type": ["melee", "ELITE"]
+	},
+	"enemy_1319_wdfmpm_2": {
+		"id": "SHD8",
+		"key": "enemy_1319_wdfmpm_2",
+		"name_zh": "叛乱鼓动者",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 12000,
+				"atk": 300,
+				"def": 150,
+				"res": 50.0,
+				"aspd": 5.0,
+				"range": 0.0,
+				"weight": 2,
+				"lifepoint": 1,
+				"ms": 0.6
+			}
+		],
+		"special": [],
+		"status_immune": [],
+		"normal_attack": {
+			"atk_type": ["melee", "arts"],
+			"hits": 1
+		},
+		"type": ["melee", "ELITE"]
+	},
+	"enemy_1321_wdarft": {
+		"id": "NAC16",
+		"key": "enemy_1321_wdarft",
+		"name_zh": "枯朽萃聚使徒",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 30000,
+				"atk": 500,
+				"def": 250,
+				"res": 30.0,
+				"aspd": 5.0,
+				"range": 0.0,
+				"weight": 5,
+				"lifepoint": 1,
+				"ms": 0.3
+			}
+		],
+		"special": [],
+		"status_immune": ["stun", "silence", "sleep", "freeze", "levitate"],
+		"normal_attack": {
+			"atk_type": ["no_attack", "phys"],
+			"hits": 1
+		},
+		"type": ["no_attack", "drone", "flying", "ELITE"]
+	},
+	"enemy_1321_wdarft_2": {
+		"id": "NAC17",
+		"key": "enemy_1321_wdarft_2",
+		"name_zh": "腐败萃聚使徒",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 35000,
+				"atk": 500,
+				"def": 300,
+				"res": 35.0,
+				"aspd": 5.0,
+				"range": 0.0,
+				"weight": 5,
+				"lifepoint": 1,
+				"ms": 0.3
+			}
+		],
+		"special": [],
+		"status_immune": ["stun", "silence", "sleep", "freeze", "levitate"],
+		"normal_attack": {
+			"atk_type": ["no_attack", "phys"],
+			"hits": 1
+		},
+		"type": ["no_attack", "drone", "flying", "ELITE"]
+	},
+	"enemy_1322_wdgyht": {
+		"id": "LUD13",
+		"key": "enemy_1322_wdgyht",
+		"name_zh": "“灰礼帽”",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 36000,
+				"atk": 2250,
+				"def": 500,
+				"res": 35.0,
+				"aspd": 6.0,
+				"range": 0.0,
+				"weight": 5,
+				"lifepoint": 1,
+				"ms": 0.7
+			}
+		],
+		"special": [],
+		"status_immune": ["silence", "levitate"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "ELITE"]
+	},
+	"enemy_1322_wdgyht_2": {
+		"id": "LUD14",
+		"key": "enemy_1322_wdgyht_2",
+		"name_zh": "“见习灰礼帽”",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 15000,
+				"atk": 1800,
+				"def": 375,
+				"res": 30.0,
+				"aspd": 6.0,
+				"range": 0.0,
+				"weight": 3,
+				"lifepoint": 1,
+				"ms": 0.7
+			}
+		],
+		"special": [],
+		"status_immune": ["silence", "levitate"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "ELITE"]
+	},
+	"enemy_1323_wdbshd": {
+		"id": "DC2",
+		"key": "enemy_1323_wdbshd",
+		"name_zh": "解构畸变体",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 3500,
+				"atk": 250,
+				"def": 300,
+				"res": 50.0,
+				"aspd": 1.9,
+				"range": 0.5,
+				"weight": 5,
+				"lifepoint": 0,
+				"ms": 0.2
+			},
+			{
+				"hp": 5000,
+				"atk": 300,
+				"def": 300,
+				"res": 50.0,
+				"aspd": 1.9,
+				"range": 0.5,
+				"weight": 5,
+				"lifepoint": 0,
+				"ms": 0.2
+			}
+		],
+		"special": [],
+		"status_immune": ["stun", "silence", "sleep", "freeze", "levitate"],
+		"normal_attack": {
+			"atk_type": ["ranged", "phys"],
+			"hits": 1
+		},
+		"type": ["ranged", "ELITE"]
+	},
+	"enemy_2041_syjely": {
+		"id": "SY8",
+		"key": "enemy_2041_syjely",
+		"name_zh": "伊祖米克的子代",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 20000,
+				"atk": 800,
+				"def": 2000,
+				"res": 70.0,
+				"aspd": 3.5,
+				"range": 0.0,
+				"weight": 0,
+				"lifepoint": 1,
+				"ms": 0.4
+			}
+		],
+		"special": ["syjely_change"],
+		"status_immune": ["stun", "silence", "sleep", "freeze", "levitate"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "seamonster", "NORMAL"]
+	},
+	"enemy_1537_mhrors": {
+		"id": "6935",
+		"key": "enemy_1537_mhrors",
+		"name_zh": "火龙",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 20000,
+				"atk": 900,
+				"def": 200,
+				"res": 0.0,
+				"aspd": 2.8,
+				"range": 0.0,
+				"weight": 3,
+				"lifepoint": 2,
+				"ms": 0.65
+			},
+			{
+				"hp": 26000,
+				"atk": 1050,
+				"def": 205,
+				"res": 3.0,
+				"aspd": 2.8,
+				"range": 0.0,
+				"weight": 3,
+				"lifepoint": 2,
+				"ms": 0.65
+			},
+			{
+				"hp": 30000,
+				"atk": 1150,
+				"def": 210,
+				"res": 5.0,
+				"aspd": 2.8,
+				"range": 0.0,
+				"weight": 3,
+				"lifepoint": 2,
+				"ms": 0.65
+			}
+		],
+		"special": [],
+		"status_immune": ["stun", "silence", "sleep", "freeze", "levitate"],
+		"normal_attack": {
+			"atk_type": ["ranged", "phys"],
+			"hits": 1
+		},
+		"type": ["ranged", "BOSS"]
+	},
+	"enemy_1539_reid": {
+		"id": "A15",
+		"key": "enemy_1539_reid",
+		"name_zh": "“复仇者”",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 23000,
+				"atk": 800,
+				"def": 650,
+				"res": 60.0,
+				"aspd": 3.0,
+				"range": 0.0,
+				"weight": 3,
+				"lifepoint": 2,
+				"ms": 0.65
+			}
+		],
+		"special": [],
+		"status_immune": ["silence", "sleep"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "BOSS"]
+	},
+	"enemy_1540_wdncr": {
+		"id": "EB",
+		"key": "enemy_1540_wdncr",
+		"name_zh": "爱布拉娜",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 50000,
+				"atk": 1500,
+				"def": 800,
+				"res": 50.0,
+				"aspd": 2.5,
+				"range": 2.0,
+				"weight": 0,
+				"lifepoint": 0,
+				"ms": 0.5
+			}
+		],
+		"special": [],
+		"status_immune": [],
+		"normal_attack": {
+			"atk_type": ["ranged", "arts"],
+			"hits": 1
+		},
+		"type": ["ranged", "BOSS"]
+	},
+	"enemy_1541_wdslms": {
+		"id": "DC3",
+		"key": "enemy_1541_wdslms",
+		"name_zh": "“变形者集群”",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 100000,
+				"atk": 750,
+				"def": 800,
+				"res": 50.0,
+				"aspd": 3.0,
+				"range": -1.0,
+				"weight": 0,
+				"lifepoint": 0,
+				"ms": 0.5
+			}
+		],
+		"special": [],
+		"status_immune": [],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "BOSS"]
+	},
+	"enemy_1542_wdslm": {
+		"id": "DC1",
+		"key": "enemy_1542_wdslm",
+		"name_zh": "“变形者集群”",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 100000,
+				"atk": 550,
+				"def": 750,
+				"res": 50.0,
+				"aspd": 2.5,
+				"range": -1.0,
+				"weight": 3,
+				"lifepoint": 2,
+				"ms": 0.5
+			},
+			{
+				"hp": 150000,
+				"atk": 750,
+				"def": 900,
+				"res": 50.0,
+				"aspd": 2.5,
+				"range": -1.0,
+				"weight": 3,
+				"lifepoint": 2,
+				"ms": 0.5
+			}
+		],
+		"special": [],
+		"status_immune": ["stun", "silence", "sleep", "freeze", "levitate"],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "BOSS"]
+	},
+	"enemy_2042_syboss": {
+		"id": "MZK",
+		"key": "enemy_2042_syboss",
+		"name_zh": "伊祖米克，生态泉源",
+		"name_ja": "",
+		"name_en": "",
+		"format": "multiform",
+		"stats": [
+			{
+				"hp": 150000,
+				"atk": 1200,
+				"def": 2000,
+				"res": 70.0,
+				"aspd": 4.0,
+				"range": 1.5,
+				"weight": 6,
+				"lifepoint": 30,
+				"ms": 0.4
+			}
+		],
+		"forms": [
+			{
+				"mods": null,
+				"special": ["mzk_hp_loss_start", "mzk_study", "mzk_eat"],
+				"normal_attack": {
+					"atk_type": ["no_attack"],
+					"hits": 1
+				}
+			},
+			{
+				"mods": {
+					"atk": 1.6
+				},
+				"special": [
+					"mzk_intepret_start",
+					"mzk_intepret_normal_attack",
+					"mzk_shock_hp",
+					"mzk_shock_skill"
+				],
+				"normal_attack": {
+					"atk_type": ["ranged", "phys"],
+					"hits": 1
+				}
+			}
+		],
+		"status_immune": ["stun", "silence", "sleep", "freeze", "levitate"],
+		"type": ["ranged", "seamonster", "BOSS"]
+	},
+	"enemy_6013_smith": {
+		"id": "DL13",
+		"key": "enemy_6013_smith",
+		"name_zh": "老妈的“逆女”",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 48000,
+				"atk": 1000,
+				"def": 1000,
+				"res": 30.0,
+				"aspd": 4.5,
+				"range": -1.0,
+				"weight": 4,
+				"lifepoint": 2,
+				"ms": 0.5
+			}
+		],
+		"special": [],
+		"status_immune": [],
+		"normal_attack": {
+			"atk_type": ["melee", "phys"],
+			"hits": 1
+		},
+		"type": ["melee", "BOSS"]
+	},
+	"enemy_6014_crzgas": {
+		"id": "DL14",
+		"key": "enemy_6014_crzgas",
+		"name_zh": "“毒瘤”",
+		"name_ja": "",
+		"name_en": "",
+		"format": "normal",
+		"stats": [
+			{
+				"hp": 50000,
+				"atk": 0,
+				"def": 600,
+				"res": 30.0,
+				"aspd": 1.0,
+				"range": -1.0,
+				"weight": 2,
+				"lifepoint": 2,
+				"ms": 0.3
+			}
+		],
+		"special": [],
+		"status_immune": ["levitate"],
+		"normal_attack": {
+			"atk_type": ["no_attack", "phys"],
+			"hits": 1
+		},
+		"type": ["no_attack", "BOSS"]
 	}
 }
