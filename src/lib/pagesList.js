@@ -1,6 +1,6 @@
 import ISStagesList from './data/stages/is_stages_list.json' assert { type: 'json' };
 
-const LANGUAGES = ['en', 'ja'];
+const LANGUAGES = ['en', 'ja','zh'];
 const PAGES = ['about', 'credits', 'mizuki', 'phantom'];
 
 export const pagesToRender = LANGUAGES.reduce((acc, language) => {
