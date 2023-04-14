@@ -12,7 +12,7 @@
 	<meta name="description" content="tomimi.dev - tool/helper for arknights" />
 </svelte:head>
 
-<div>
+<div class="mb-16">
 	<div class="py-4">
 		<img
 			class="select-none mx-auto py-2"

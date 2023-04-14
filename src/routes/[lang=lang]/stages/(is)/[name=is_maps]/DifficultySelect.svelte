@@ -48,7 +48,7 @@
 	}
 </script>
 
-<div class="px-2 sm:px-6">
+<div class="px-2 sm:px-6 select-none">
 	<p class="text-subheading">{translations[language].difficulty}</p>
 	<div class="counter">
 		<button
