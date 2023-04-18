@@ -22,7 +22,7 @@
 		<tbody>
 			{#each spTerrain as terrain}
 				<tr>
-					<td class="border border-gray-400 px-2 py-0.5 text-center">
+					<td class="border border-gray-400 px-2 py-1.5 text-center">
 						{spTerrainList[terrain.tileKey][`name_${language}`]}
 						{#if terrain.alias}({translations[language][terrain.alias]}){/if}
 					</td>
