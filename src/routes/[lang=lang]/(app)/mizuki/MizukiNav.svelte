@@ -2,8 +2,17 @@
 	export let language: string;
 	import StageNavButton from './StageNavButton.svelte';
 	let floor1 = ['蓄水池', '虫群横行', '射手部队', '共生', '互助'];
-	let floor2 = ['无声呼号', '海神的信者', '病症', '回溯', '征兆', '除暴安良', '饥渴'];
-	let floor3 = ['原始部落', '精酿杀手', '大君遗脉', '据险固守', '巢穴', '漩涡', '瞻前顾后'];
+	let floor2 = ['无声呼号', '海神的信者', '病症', '回溯', '征兆', '饥渴'];
+	let floor3 = [
+		'除暴安良',
+		'原始部落',
+		'精酿杀手',
+		'大君遗脉',
+		'据险固守',
+		'巢穴',
+		'漩涡',
+		'瞻前顾后'
+	];
 	let floor3b = ['永恒安息', '分离与统一', '纠错'];
 	let floor3b2 = ['永恒愤怒', '异体同心', '订正'];
 	let floor4 = [

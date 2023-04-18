@@ -4,7 +4,7 @@
 	import EnemySimpleTable from './EnemySimpleTable.svelte';
 	import DifficultySelect from './DifficultySelect.svelte';
 	import MizukiNav from '../../../(app)/mizuki/MizukiNav.svelte';
-	import MapInfo from './StageInfo.svelte';
+	import StageInfo from '../../../../../lib/components/StageInfo.svelte';
 	import EliteToggle from './EliteToggle.svelte';
 	import parseStats from '$lib/functions/parseStats';
 	import translations from '$lib/translations.json';
@@ -20,7 +20,7 @@
 </svelte:head>
 
 <div class="w-[100vw] md:w-full max-w-7xl mx-auto">
-	<MapInfo mapConfig={data.mapConfig} {language} />
+	<StageInfo mapConfig={data.mapConfig} {language} />
 	<DifficultySelect {language} />
 	{#if data.mapConfig.elite_mods}
 		<EliteToggle mapEliteMods={data.mapConfig.elite_mods} />

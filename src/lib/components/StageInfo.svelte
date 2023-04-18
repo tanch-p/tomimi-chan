@@ -1,9 +1,10 @@
 <script lang="ts">
 	import SpEnemy from '$lib/components/SpEnemy.svelte';
 	import StageRoutes from '$lib/components/StageRoutes.svelte';
+	import SpTerrain from './SpTerrain.svelte';
 	import translations from '$lib/translations.json';
-
-	export let mapConfig, language;
+	
+	export let mapConfig, language:string;
 
 	$: stageName = mapConfig[`name_${language}`] || mapConfig.name_zh;
 </script>
@@ -54,3 +55,6 @@
 		{/if}
 	</div>
 </div>
+{#if mapConfig.sp_terrain}
+	<SpTerrain spTerrain={mapConfig.sp_terrain} {language} />
+{/if}
