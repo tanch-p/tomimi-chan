@@ -41,6 +41,9 @@
 		{/if}
 	</div>
 </div>
+{#if mapConfig.sp_terrain}
+	<SpTerrain spTerrain={mapConfig.sp_terrain} {language} />
+{/if}
 <div class="px-2 sm:px-6">
 	<p class="text-subheading mt-4">{translations[language].routeInfo}</p>
 	<hr class="border-gray-500 my-1" />
@@ -55,6 +58,4 @@
 		{/if}
 	</div>
 </div>
-{#if mapConfig.sp_terrain}
-	<SpTerrain spTerrain={mapConfig.sp_terrain} {language} />
-{/if}
+
