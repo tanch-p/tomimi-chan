@@ -1370,48 +1370,52 @@
 	"mzk_study": {
 		"type": "others",
 		"tooltip": {
-			"en": ["Learning Form - invincible, does not block or normal attack"],
-			"ja": ["学習形態 - 無敵、ブロック不可、通常攻撃しない"],
-			"zh": ["学习阶段 - 无敌，不可阻挡，不进行普通攻击", "召唤详细请去PRTS看"]
-		}
-	},
-	"mzk_eat": {
-		"type": "others",
-		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Learning Mode - invincible, does not block or normal attack",
+				"After 360s or when HP reaches 100%, transits to <Intepret> mode and releases next enemy wave"
+			],
+			"ja": [
+				"学習形態 - 無敵、ブロック不可、通常攻撃しない",
+				"360秒後またはHPが全快すると、次の敵ウェーブを解放して、<阐释>形態に入る"
+			],
 			"zh": [
-				"每吸收5个「子代」，自身获得1层攻击力+40%的强化(最多叠加4层)，治疗自身15%生命值，对场上所有我方单位造成攻击力100%的法术溅射伤害",
-				"自身生命值达到100%时，切换至阐释阶段，并释放当前波次"
+				"学习阶段 - 无敌，不可阻挡，不进行普通攻击",
+				"360秒或自身生命值达到100%时，切换至阐释阶段，并释放当前波次"
 			]
 		}
 	},
-	"mzk_intepret_start": {
-		"type": "others",
+	"mzk_eat": {
+		"type": "atk",
+		"dmg_element": null,
+		"suffix": { "en": "max buff", "ja": "4回強化", "zh": "4层强化" },
+		"hits": 1,
+		"multiplier": 2.6,
+		"fixed_inc": 0,
 		"tooltip": {
-			"en": ["Intepret State - Invincible for 15s, does not move/attack"],
-			"ja": ["阐释阶段 - 15秒間無敵、かつ攻撃、移動しない"],
-			"zh": ["进入阐释阶段15s内，获得无敌+阻回，无法攻击/移动"]
+			"en": [
+				"Every 5 <子代> eaten, gains ATK +40%, heals 15% of max HP, and does 100% ATK as Arts damage to all allied units (ignores stealth)"
+			],
+			"ja": [
+				"<子代>を5体吸収した度、自身の攻击力+40%、HPの15%を回復して、味方全体に攻撃100%の術ダメージを与える（ステルス無視）"
+			],
+			"zh": [
+				"每吸收5个「子代」，自身获得1层攻击力+40%的强化(最多叠加4层)，治疗自身15%生命值，对场上所有我方单位造成攻击力100%的法术溅射伤害"
+			]
 		}
 	},
 	"mzk_intepret_normal_attack": {
-		"type": "atk",
-		"dmg_element": "arts",
-		"suffix": { "en": "extra", "ja": "追加", "zh": "额外" },
-		"hits": 1,
-		"multiplier": 1,
-		"fixed_inc": 0,
+		"type": "others",
 		"tooltip": {
-			"en": ["Normal attack does 100% ATK phys + 100% ATK arts damage"],
-			"ja": ["通常攻撃は攻撃力の100%の物理と100%の術ダメージを与える"],
+			"en": ["Intepret State - Normal attack does 100% ATK phys + 100% ATK arts damage"],
+			"ja": ["阐释阶段 - 通常攻撃は攻撃力の100%の物理と100%の術ダメージを与える"],
 			"zh": ["普通攻击造成物理伤害，额外造成攻击力100%的法术普通伤害"]
 		}
 	},
 	"mzk_shock_hp": {
 		"type": "others",
 		"tooltip": {
-			"en": ["Every 25% of max HP lost, uses Shock skill"],
-			"ja": ["HPが25%減るごとに、スキルを使う"],
+			"en": ["When HP drops to 75%/50%/25%, forcefully uses Shock skill"],
+			"ja": ["HPが75%/50%/25%になる度、スキルを使う"],
 			"zh": ["自身生命值降低至最大生命值的75%/50%/25%时，强制触发技能【震撼】 "]
 		}
 	},
@@ -1419,15 +1423,18 @@
 		"type": "others",
 		"tooltip": {
 			"en": [
-				"Shock (Initial SP: 30, Cost:30)",
+				"Shock [Intepret Mode] (Initial SP: 0, Cost:30)",
 				"causes all allied units to be stunned for 8s",
-				"and receive 12% ATK as Arts damage while being stunned by this skill"
+				"and receive 12% ATK as Arts damage while being stunned by this skill",
+				"this skill does not target invisible/camouflaged units"
 			],
 			"ja": [
-				"スキル（初期SP30、必要SP30）→味方全体を8秒スタンする、かつこのスキルにスタンされたユニットは毎秒MZKの攻撃力12%のアーツダメージを受ける"
+				"スキル<阐释>形態（初期SP0、必要SP30）→味方全体を8秒スタンする、かつこのスキルにスタンされたユニットは毎秒攻撃力12%のアーツダメージを受ける",
+				"このスキルは迷彩やステルスで回避可能"
 			],
 			"zh": [
-				"震撼（初始30SP，消耗30SP）- 令场上所有我方单位获得8s晕眩，且在技能赋予的晕眩结束前每秒受到攻击力12%的法术普通伤害（不可叠加） "
+				"震撼 [阐释阶段]（初始0SP，消耗30SP）- 令场上所有我方单位获得8s晕眩，且在技能赋予的晕眩结束前每秒受到攻击力12%的法术普通伤害（不可叠加）",
+				"迷彩或隐匿的干员不会受该技能的影响"
 			]
 		}
 	},

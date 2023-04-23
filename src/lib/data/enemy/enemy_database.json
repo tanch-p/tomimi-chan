@@ -16132,7 +16132,7 @@
 				"ms": 1.0
 			}
 		],
-		"special": ["ammo_10","sgprst"],
+		"special": ["ammo_10", "sgprst"],
 		"status_immune": ["silence"],
 		"normal_attack": {
 			"atk_type": ["ranged", "phys"],
@@ -22504,7 +22504,7 @@
 		"name_zh": "伊祖米克，生态泉源",
 		"name_ja": "",
 		"name_en": "",
-		"format": "multiform",
+		"format": "normal",
 		"stats": [
 			{
 				"hp": 150000,
@@ -22518,31 +22518,19 @@
 				"ms": 0.4
 			}
 		],
-		"forms": [
-			{
-				"mods": null,
-				"special": ["mzk_hp_loss_start", "mzk_study", "mzk_eat"],
-				"normal_attack": {
-					"atk_type": ["no_attack"],
-					"hits": 1
-				}
-			},
-			{
-				"mods": {
-					"atk": 1.6
-				},
-				"special": [
-					"mzk_intepret_start",
-					"mzk_intepret_normal_attack",
-					"mzk_shock_hp",
-					"mzk_shock_skill"
-				],
-				"normal_attack": {
-					"atk_type": ["ranged", "phys"],
-					"hits": 1
-				}
-			}
+		"special": [
+			"mzk_hp_loss_start",
+			"mzk_study",
+			"mzk_eat",
+			"mzk_intepret_normal_attack",
+			"mzk_shock_hp",
+			"mzk_shock_skill"
 		],
+
+		"normal_attack": {
+			"atk_type": ["raw"],
+			"hits": 1
+		},
 		"status_immune": ["stun", "silence", "sleep", "freeze", "levitate"],
 		"type": ["ranged", "seamonster", "BOSS"]
 	},
