@@ -14,7 +14,7 @@
 				<th class="border border-gray-400 border-solid py-0.5 px-1.5 md:min-w-[50px]"
 					>{translations[language].name}</th
 				>
-				<th class="border border-gray-400 border-solid py-0.5 px-1.5 md:min-w-[50px]"
+				<th class="border border-gray-400 border-solid py-0.5 px-2.5 md:min-w-[50px] sm:text-left"
 					>{translations[language].sp_terrain_desc}</th
 				>
 			</tr>

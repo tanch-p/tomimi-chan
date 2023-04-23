@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-	<title>Mizuki & Caerula Arbor</title>
+	<title>{translations[language].rogue_mizuki} / {translations[language].title_post}</title>
 	<meta name="description" content="tomimi.dev - tool/helper for arknights" />
 </svelte:head>
 

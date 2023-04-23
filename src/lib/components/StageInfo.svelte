@@ -3,8 +3,8 @@
 	import StageRoutes from '$lib/components/StageRoutes.svelte';
 	import SpTerrain from './SpTerrain.svelte';
 	import translations from '$lib/translations.json';
-	
-	export let mapConfig, language:string;
+
+	export let mapConfig, language: string;
 
 	$: stageName = mapConfig[`name_${language}`] || mapConfig.name_zh;
 </script>
@@ -31,7 +31,9 @@
 		{/if}
 		{#if mapConfig[`eliteDesc_${language}`]}
 			<div class="flex gap-x-1">
-				<p><span class="text-[#FF99CA]">{translations[language].eliteDesc}</span> -</p>
+				<p class="whitespace-nowrap">
+					<span class="text-[#FF99CA]">{translations[language].eliteDesc}</span> -
+				</p>
 				<div>
 					{#each mapConfig[`eliteDesc_${language}`] as line}
 						<li class="list-none">{line}</li>
@@ -58,4 +60,3 @@
 		{/if}
 	</div>
 </div>
-

@@ -31,9 +31,9 @@
 	}`}
 	on:click={handleClick}
 >
-	<img src={effect.src} alt={effect['name_zh']} />
+	<img src={effect.src} alt={effect['name_zh']} loading="lazy" decoding="async" />
 	<div class="flex flex-col">
-		<p class={`${selected ? '' : ''}`}>{effect['name_zh']}</p>
+		<p class={`${selected ? 'text-red-400 font-semibold' : ''}`}>{effect['name_zh']}</p>
 		<p>{effect['tooltip_zh']}</p>
 	</div>
 </div>

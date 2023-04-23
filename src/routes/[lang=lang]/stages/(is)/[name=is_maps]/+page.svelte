@@ -8,6 +8,7 @@
 	import EliteToggle from './EliteToggle.svelte';
 	import parseStats from '$lib/functions/parseStats';
 	import translations from '$lib/translations.json';
+	import Mission from './Mission.svelte';
 
 	export let data: PageData;
 	$: language = data.language;
@@ -21,6 +22,7 @@
 
 <div class="w-[100vw] md:w-full max-w-7xl mx-auto">
 	<StageInfo mapConfig={data.mapConfig} {language} />
+	<Mission {language}/>
 	<DifficultySelect {language} />
 	{#if data.mapConfig.elite_mods}
 		<EliteToggle mapEliteMods={data.mapConfig.elite_mods} />
