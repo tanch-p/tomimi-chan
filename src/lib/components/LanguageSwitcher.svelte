@@ -19,12 +19,12 @@
 	const languageCodes = { en: 'EN', ja: '日本語', zh: '中文' };
 </script>
 
-<div class="py-1" use:clickOutside on:outclick={() => (showOptions = false)}>
+<div class="py-1 relative" use:clickOutside on:outclick={() => (showOptions = false)}>
 	<button on:click={() => (showOptions = !showOptions)} class="px-2 hover:underline">
 		{translations[language].language}: {languageCodes[language]}
 	</button>
 	{#if showOptions}
-		<div on:click={() => (showOptions = false)} class="mt-1 py-1 bg-neutral-900 select-none">
+		<div on:click={() => (showOptions = false)} class="absolute w-full mt-1 py-1 bg-neutral-900 select-none">
 			<a href={pathEN}><div class="px-2 my-0.5 hover:bg-gray-600">English</div></a>
 			<a href={pathJA}><div class="px-2 my-0.5 hover:bg-gray-600">日本語</div></a>
 			<a href={pathZH}><div class="px-2 my-0.5 hover:bg-gray-600">中文</div></a>
