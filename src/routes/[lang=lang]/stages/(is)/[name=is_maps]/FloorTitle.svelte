@@ -18,6 +18,7 @@
 	function updateFloor(floors: number[]) {
 		if (!floors.includes($selectedFloor)) {
 			selectedFloor.set(Math.min(...stageFloors));
+			activeFloorEffects.set([]);
 		}
 	}
 	$: updateFloor(stageFloors);
