@@ -1,7 +1,7 @@
-2. possible change to routes - adding type: youtube/image etc
-3. zh translation
-4. phcs
-5. layouts
-6. stage select for mizuki
-7. special mods
-8. change format for enemy skills
+- possible change to routes - adding type: youtube/image etc
+- phcs
+- layouts
+- stage select for mizuki
+- change format for enemy skills
+- colored text for damage element in remarks
+- tooltip for nervous damage etc

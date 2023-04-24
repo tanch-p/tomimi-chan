@@ -19,7 +19,7 @@
 </script>
 
 <div
-	class={`w-max px-2 sm:px-6 mb-6 select-none hover:cursor-pointer hover:bg-neutral-700`}
+	class={`w-max px-2 sm:px-6 mt-4 mb-6 select-none hover:cursor-pointer hover:bg-neutral-700`}
 	on:click={() => {
 		selected = !selected;
 	}}
