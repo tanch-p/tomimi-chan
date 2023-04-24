@@ -1,18 +1,33 @@
 <script lang="ts">
+	import type { StatMods } from '$lib/types';
 	import { getDmgEleHighlight } from '$lib/functions/parseAtkType';
 	import translations from '$lib/translations.json';
 	import enemySkills from '$lib/data/enemy/enemy_skills.json';
-	export let skills: string[], stat: string, statValue: number, language: string;
+	import enemyDatabase from '$lib/data/enemy/enemy_database.json';
+	import { applyMods } from '$lib/functions/parseStats';
+	export let skills: string[],
+		stat: string,
+		statValue: number,
+		statMods: StatMods,
+		language: string;
 
 	$: separator = language === 'en' ? '/' : '・';
 	$: skillsToParse = skills
 		.map((skillName) => {
 			const skill = enemySkills[skillName];
 			if (skill.type === stat) {
-				const { suffix, multiplier, fixed_inc, fixed_value, hits, dmg_element } = skill;
+				const { suffix, multiplier, fixed_inc, fixed_value, summon_enemy, hits, dmg_element } =
+					skill;
 				let value = statValue;
 				if (fixed_value) {
 					value = fixed_value;
+				} else if (summon_enemy) {
+					const enemy = {
+						...enemyDatabase[summon_enemy],
+						stats: enemyDatabase[summon_enemy].stats[0]
+					};
+					const moddedStats = applyMods(enemy, statMods, 0);
+					value = moddedStats[stat];
 				} else {
 					value = Math.floor(value * (multiplier ?? 1) + (fixed_inc ?? 0));
 				}

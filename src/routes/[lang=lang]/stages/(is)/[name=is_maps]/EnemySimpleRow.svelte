@@ -3,6 +3,7 @@
 	import { getMaxRowSpan } from '$lib/functions/parseStats';
 	import { getNormalAtk } from '$lib/functions/parseAtkType';
 	import { getEnemySkills } from '$lib/functions/getEnemySkills';
+	import { statMods } from './stores.js';
 	import RemarksContainer from './RemarksContainer.svelte';
 	import AtkSuffix from '$lib/components/AtkSuffix.svelte';
 	import StatSkills from '$lib/components/StatSkills.svelte';
@@ -91,6 +92,7 @@
 							stat={key}
 							statValue={enemy.stats[row][key]}
 							{language}
+							statMods={$statMods}
 						/>
 					</div>
 				</td>

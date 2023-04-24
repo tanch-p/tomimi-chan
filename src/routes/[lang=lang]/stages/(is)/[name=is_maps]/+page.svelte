@@ -6,7 +6,7 @@
 	import MizukiNav from '../../../(app)/mizuki/MizukiNav.svelte';
 	import StageInfo from '../../../../../lib/components/StageInfo.svelte';
 	import EliteToggle from './EliteToggle.svelte';
-	import parseStats from '$lib/functions/parseStats';
+	import {parseStats} from '$lib/functions/parseStats';
 	import translations from '$lib/translations.json';
 	import Mission from './Mission.svelte';
 

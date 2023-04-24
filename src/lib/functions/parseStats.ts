@@ -15,7 +15,7 @@ export const getMaxRowSpan = (enemy: Enemy) => {
 };
 
 // enemy stats type is being changed from {} to [{}] here
-export default function parseStats(enemies: Enemy[], statMods: StatMods) {
+export function parseStats(enemies: Enemy[], statMods: StatMods) {
 	return enemies.map((enemy) => {
 		const maxRowSpan = getMaxRowSpan(enemy);
 		const moddedStats = [];
@@ -34,7 +34,7 @@ ALL + others -> distill into enemy ID
 */
 
 //returns enemy 'stats' object with modded stats
-const applyMods = (enemy: Enemy, statMods: StatMods, row: number) => {
+export const applyMods = (enemy: Enemy, statMods: StatMods, row: number) => {
 	const mods = getEnemyStatMods(enemy, statMods, row);
 	const enemy_stats = {};
 	for (const stat of STATS) {
