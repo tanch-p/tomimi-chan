@@ -1,7 +1,0 @@
-- phcs
-- layouts
-- stage select for mizuki
-- change format for enemy skills
-- colored text for damage element in remarks
-- tooltip for nervous damage etc
-- bilibili embed videos going to page 1 when you click on them...
