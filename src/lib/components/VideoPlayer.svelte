@@ -11,10 +11,10 @@
 	}
 </script>
 
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
 
-	export let route;
+	export let route, language: string;
 
 	let iframe;
 	onMount(() => {
@@ -23,12 +23,20 @@
 	});
 </script>
 
-<iframe
-	bind:this={iframe}
-	src={`https://www.youtube-nocookie.com/embed/${route.id}?rel=0&enablejsapi=1`}
-	frameBorder="0"
-	allowFullScreen
-/>
+{#if language === 'zh' && route.bilibili_src}
+	<iframe
+		src="//player.bilibili.com/player.html?{route.bilibili_src}&autoplay=0&high_quality=1&danmaku=0"
+		frameBorder="0"
+		allowFullScreen
+	/>
+{:else}
+	<iframe
+		bind:this={iframe}
+		src={`https://www.youtube-nocookie.com/embed/${route.youtube_src}?rel=0&enablejsapi=1`}
+		frameBorder="0"
+		allowFullScreen
+	/>
+{/if}
 
 <style>
 	iframe {

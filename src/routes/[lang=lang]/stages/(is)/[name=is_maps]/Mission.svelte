@@ -25,7 +25,7 @@
 	}}
 >
 	<p class="text-subheading">{translations[language].mizuki_mission}</p>
-	<hr class="border-gray-500" />
+	<hr class="border-gray-500 my-1" />
 	<div class="flex gap-x-1.5 sm:items-center mt-1.5">
 		<input type="checkbox" class="accent-red-500 w-4 h-4 mt-1 sm:mt-0" checked={selected} />
 		{translations[language].mizuki_mission_text}

@@ -29,7 +29,9 @@
 	}
 
 	$: if (selected) {
-		stopAll();
+		if (language !== 'zh') {
+			stopAll();
+		}
 	}
 </script>
 
@@ -69,19 +71,19 @@
 	{/if}
 	{#each routes as route, index}
 		<div class={`${selected !== index ? 'invisible pointer-events-none h-0 w-0' : ''}`}>
-			{#if route.title === 'doq'}
+			{#if route.type === 'img'}
 				<img
-					srcset="https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_400/v1680366257/tomimi.dev/mizuki/doq/{route.id}.webp 400w, 
-					https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_640/v1680366257/tomimi.dev/mizuki/doq/{route.id}.webp 600w"
+					srcset="https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_400/v1680366257/tomimi.dev/mizuki/doq/{route.src}.webp 400w, 
+					https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_640/v1680366257/tomimi.dev/mizuki/doq/{route.src}.webp 600w"
 					sizes="(max-width: 480px) 400px, 600px"
-					src={`https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_640/v1680366257/tomimi.dev/mizuki/doq/${route.id}.webp`}
+					src={`https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_640/v1680366257/tomimi.dev/mizuki/doq/${route.src}.webp`}
 					alt={'doq'}
 					loading="lazy"
 					decoding="async"
 					class="aspect-[1062/600] w-screen max-h-max sm:aspect-auto sm:w-[40rem] sm:h-[360px]"
 				/>
 			{:else}
-				<VideoPlayer {route} />
+				<VideoPlayer {route} {language} />
 			{/if}
 		</div>
 	{/each}
