@@ -2,7 +2,7 @@
 	import type { Enemy } from '$lib/types';
 	import EnemySimpleRow from './EnemySimpleRow.svelte';
 	import translations from '$lib/translations.json';
-	export let enemies: Enemy[], language: string;
+	export let enemies: Enemy[], language: string, statMods, specialMods;
 	let tableHeaders = [
 		{ key: 'enemy', show: true },
 		{ key: 'type', show: true },
@@ -44,7 +44,14 @@
 					</thead>
 					<tbody>
 						{#each enemies as enemy, index (enemy.key)}
-							<EnemySimpleRow {enemy} {filteredTableHeaders} {index} {language} />
+							<EnemySimpleRow
+								{enemy}
+								{filteredTableHeaders}
+								{index}
+								{language}
+								{statMods}
+								{specialMods}
+							/>
 						{/each}
 					</tbody>
 				</table>

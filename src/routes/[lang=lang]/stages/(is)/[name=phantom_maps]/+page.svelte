@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { statMods, specialMods, eliteMods, selectedRelics } from './stores.js';
-	import EnemySimpleTable from '$lib/components/EnemySimpleTable.svelte';
+	import EnemySimpleTable from './EnemySimpleTable.svelte';
 	import DifficultySelect from './DifficultySelect.svelte';
 	import MizukiNav from '../../../(app)/mizuki/MizukiNav.svelte';
 	import StageInfo from '$lib/components/StageInfo.svelte';
@@ -32,7 +32,7 @@
 	{#if data.mapConfig.elite_mods}
 		<EliteToggle mapEliteMods={data.mapConfig.elite_mods} {eliteMods} {rogueTopic} />
 	{/if}
-	<EnemySimpleTable enemies={moddedEnemies} {language} {statMods} {specialMods} />
+	<EnemySimpleTable enemies={moddedEnemies} {language} />
 	<div class="mt-4">
 		<MizukiNav {language} />
 	</div>
