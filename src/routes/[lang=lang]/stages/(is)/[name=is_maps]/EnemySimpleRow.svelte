@@ -3,8 +3,8 @@
 	import { getMaxRowSpan } from '$lib/functions/parseStats';
 	import { getNormalAtk } from '$lib/functions/parseAtkType';
 	import { getEnemySkills } from '$lib/functions/getEnemySkills';
-	import { statMods } from './stores.js';
-	import RemarksContainer from './RemarksContainer.svelte';
+	import { statMods, specialMods } from './stores.js';
+	import RemarksContainer from '$lib/components/RemarksContainer.svelte';
 	import AtkSuffix from '$lib/components/AtkSuffix.svelte';
 	import StatSkills from '$lib/components/StatSkills.svelte';
 	import translations from '$lib/translations.json';
@@ -73,7 +73,7 @@
 				{/if}
 			{:else if key === 'remarks'}
 				<td class={`border border-gray-400 h-[65px] ${textAlign(key)}`}
-					><RemarksContainer {enemy} {language} {row} /></td
+					><RemarksContainer {enemy} {language} {row} {specialMods}/></td
 				>
 			{:else if !(row !== 0 && getRowSpan(enemy.format, key, maxRowSpan) > 1)}
 				<td

@@ -5,9 +5,8 @@
 	import translations from '$lib/translations.json';
 	import { getEnemySkills } from '$lib/functions/getEnemySkills';
 	import enemySkills from '$lib/data/enemy/enemy_skills.json';
-	import { specialMods } from './stores';
 
-	export let enemy: Enemy, row: number, language: string;
+	export let enemy: Enemy, row: number, language: string, specialMods;
 
 	$: skillNames = getEnemySkills(enemy, row);
 	const { format } = enemy;
