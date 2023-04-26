@@ -8,7 +8,7 @@
 <div class="app">
 	<Header {language} />
 
-	<main class="max-w-7xl mx-auto">
+	<main class="mx-auto">
 		<slot />
 	</main>
 

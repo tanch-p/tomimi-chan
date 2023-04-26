@@ -1,10 +1,9 @@
 <script lang="ts">
-	import { selectedRelics } from './stores.js';
 	import RelicDiv from './RelicDiv.svelte';
 	import translations from '$lib/translations.json';
 	import relics from '$lib/data/relics_mizuki.json';
 
-	export let openOverlay: boolean, language: string, rogueTopic: string;
+	export let openOverlay: boolean, language: string, rogueTopic: string, selectedRelics;
 </script>
 
 <div
@@ -18,7 +17,7 @@
 				class="grid lg:grid-cols-3 gap-x-10 gap-y-8 w-full overflow-x-auto md:overflow-visible my-auto mx-auto px-4 sm:px-24"
 			>
 				{#each relics as relic}
-					<RelicDiv {relic} {language} />
+					<RelicDiv {relic} {language} {selectedRelics} />
 				{/each}
 			</div>
 			<div

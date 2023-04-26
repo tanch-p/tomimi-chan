@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { selectedRelics } from './stores.js';
-	export let relic, language: string;
+	export let relic, language: string, selectedRelics;
+
 	const src = `https://res.cloudinary.com/dbqz7mebk/image/upload/v1681056192/tomimi.dev/relics/${relic.img}.webp`;
 	const name = relic[`name_${language}`] || relic[`name_zh`];
 	const tooltip = relic[`tooltip_${language}`] || relic[`tooltip_zh`];
@@ -27,7 +27,7 @@
 	on:click={handleClick}
 >
 	<div>
-		<img {src} alt={name} loading="lazy" decoding="async"/>
+		<img {src} alt={name} loading="lazy" decoding="async" />
 	</div>
 	<div class="px-2">
 		<p class={`text-lg sm:text-xl ${selected ? 'text-[#58dbda]' : 'text-gray-400'}`}>{name}</p>

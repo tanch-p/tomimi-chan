@@ -1,16 +1,14 @@
 <script lang="ts">
-	import { selectedRelics } from './stores';
 	import relicIcon from '$lib/images/is/relic.png';
+	import phantomTextLogo from '$lib/images/is/phantom/text_logo.webp';
 	import RelicsOverlay from './RelicsOverlay.svelte';
 	import translations from '$lib/translations.json';
-	export let language: string, rogueTopic: string;
+	export let language: string, rogueTopic: string, selectedRelics;
 	let openOverlay = false;
-
-	
 </script>
 
 <div class="fixed overflow-hidden bottom-0 w-full select-none z-[2]">
-	<RelicsOverlay {openOverlay} {language} {rogueTopic}/>
+	<RelicsOverlay {openOverlay} {language} {rogueTopic} {selectedRelics} />
 	<div class="shadow-2xl shadow-gray-400 bg-neutral-900 w-full mt-4 fixed bottom-0 py-2">
 		<div class="max-w-7xl mx-auto px-2 md:px-4">
 			<div class="relative flex items-center justify-between h-16 ">
@@ -49,20 +47,34 @@
 					>
 						<div class="flex gap-x-2 items-center">
 							{#each $selectedRelics as relic, i}
-							
 								<div class="relative flex items-center">
 									<div
 										class="absolute rounded-full border-[3px] border-neutral-600 border-opacity-80 left-[50%] w-[44px] h-[44px] -translate-x-[50%]"
 									/>
 									<div class="flex items-center text-center w-14 z-[1]">
-										<img src={`https://res.cloudinary.com/dbqz7mebk/image/upload/v1681056192/tomimi.dev/relics/${relic.img}.webp`} width="54px" alt={relic.name_zh} loading="lazy" decoding="async" />
+										<img
+											src={`https://res.cloudinary.com/dbqz7mebk/image/upload/v1681056192/tomimi.dev/relics/${relic.img}.webp`}
+											width="54px"
+											alt={relic.name_zh}
+											loading="lazy"
+											decoding="async"
+										/>
 									</div>
 								</div>
 							{/each}
 						</div>
 					</div>
 				</div>
-				<div class="mt-2 hidden md:block" />
+				<div class="mt-2 hidden md:block">
+					{#if rogueTopic === 'phantom'}
+						<img
+							src={phantomTextLogo}
+							alt={translations[language].phantom}
+							loading="lazy"
+							decoding="async"
+						/>
+					{/if}
+				</div>
 			</div>
 		</div>
 	</div>

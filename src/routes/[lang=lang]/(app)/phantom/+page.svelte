@@ -13,7 +13,7 @@
 </svelte:head>
 
 <div class="bg-neutral-800 min-h-screen">
-	<div class="pb-24">
+	<div class="pb-24 max-w-7xl mx-auto">
 		<div class="py-4">
 			<img
 				class="select-none mx-auto py-2"
