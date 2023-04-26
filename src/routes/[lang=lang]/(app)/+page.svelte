@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import banner_mizuki from '$lib/images/banner_mizuki_800px.png';
-	import banner_phantom from '$lib/images/banner_phantom_800px.png';
+	import banner_mizuki from '$lib/images/banner_mizuki_800px.webp';
+	import banner_phantom from '$lib/images/banner_phantom_800px.webp';
 	import translations from '$lib/translations.json';
 
 	export let data: PageData;

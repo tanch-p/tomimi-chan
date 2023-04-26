@@ -22,11 +22,7 @@
 		<div>
 			<a href={`/${language}`} class="hover:underline">Home</a>
 		</div>
-		{#if rogueTopic}
-			<FloorTitle stageFloors={mapConfig.floors} {language} />
-		{:else}
-			<div />
-		{/if}
+		<FloorTitle stageFloors={mapConfig.floors} {language} />
 		<div class="flex justify-end">
 			<LanguageSwitcher {language} {mapConfig} {pathname} />
 		</div>

@@ -17,14 +17,18 @@
 	});
 </script>
 
+<svelte:head>
+	<title>tomimi.dev</title>
+</svelte:head>
+
 <div class="bg-neutral-800 min-h-screen flex items-center">
 	<div class="max-w-7xl mx-auto">
 		<p class="text-center text-near-white">
-		Welcome to tomimi.dev! <br />
+			Welcome to tomimi.dev! <br />
 
-		You will be redirected to the homepage shortly... <br />
-		If you are not redirected please click
-		<a data-sveltekit-reload class="text-blue-500" href={'/en'}>here</a>
-	</p>
-</div>
+			You will be redirected to the homepage shortly... <br />
+			If you are not redirected please click
+			<a data-sveltekit-reload class="text-blue-500" href={'/en'}>here</a>
+		</p>
+	</div>
 </div>

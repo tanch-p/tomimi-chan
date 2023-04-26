@@ -1,7 +1,26 @@
 <script lang="ts">
-	import banner_phantom from '$lib/images/banner_phantom_800px.png';
+	import PhantomNav from './PhantomNav.svelte';
+	import type { PageData } from './$types';
+	import banner_phantom from '$lib/images/banner_phantom_800px.webp';
+	import translations from '$lib/translations.json';
+	export let data: PageData;
+	$: language = data.language;
 </script>
-	
-<div>
 
-	Under Construction</div>
+<svelte:head>
+	<title>{translations[language].rogue_phantom} / {translations[language].title_post}</title>
+	<meta name="description" content="tomimi.dev - tool/helper for arknights" />
+</svelte:head>
+
+<div class="bg-neutral-800 min-h-screen">
+	<div class="pb-24">
+		<div class="py-4">
+			<img
+				class="select-none mx-auto py-2"
+				src={banner_phantom}
+				alt={translations[language].rogue_phantom}
+			/>
+		</div>
+		<PhantomNav {language} />
+	</div>
+</div>

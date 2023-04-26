@@ -23,7 +23,10 @@
 	$: message = $page.error?.message;
 </script>
 
-<title>404 / tomimi.dev</title>
+<svelte:head>
+	<title>404 / tomimi.dev</title>
+</svelte:head>
+
 <div class="bg-neutral-800 min-h-screen flex items-center">
 	<div class="max-w-7xl mx-auto">
 		<p class="text-center text-near-white">
