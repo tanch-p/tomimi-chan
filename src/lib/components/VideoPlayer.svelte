@@ -13,10 +13,10 @@
 
 <script lang="ts">
 	import { onMount } from 'svelte';
-
 	export let route, language: string;
 
 	let iframe;
+
 	onMount(() => {
 		elements.add(iframe);
 		return () => elements.delete(iframe);
@@ -29,14 +29,14 @@
 		frameBorder="0"
 		allowFullScreen
 	/>
-{:else}
-	<iframe
-		bind:this={iframe}
-		src={`https://www.youtube-nocookie.com/embed/${route.youtube_src}?rel=0&enablejsapi=1`}
-		frameBorder="0"
-		allowFullScreen
-	/>
 {/if}
+<iframe
+	bind:this={iframe}
+	class={language === 'zh' ? 'hidden' : ''}
+	src={`https://www.youtube-nocookie.com/embed/${route.youtube_src}?rel=0&enablejsapi=1`}
+	frameBorder="0"
+	allowFullScreen
+/>
 
 <style>
 	iframe {
