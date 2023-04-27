@@ -5,6 +5,8 @@ const STATS = ['hp', 'atk', 'aspd', 'range', 'def', 'res', 'weight', 'ms', 'life
 
 const NOT_BOSSES = ['MK', 'JAK'];
 
+const PHCS_BOSSES = ['ICR', 'ICM', 'MSC', 'FSK', 'JTM', 'WDG', 'PTM', 'DOL', 'HST', 'WRT'];
+
 export const getMaxRowSpan = (enemy: Enemy) => {
 	const { format } = enemy;
 	return format === 'powerup' || format === 'prisoner'
@@ -132,8 +134,8 @@ const isTarget = (enemy: Enemy, target: string) => {
 		case 'ELITE':
 		case 'BOSS':
 			return type.includes(target);
-		// case "phcs_boss":
-		// 	return PHCS_BOSSES.includes(id);
+		case 'PHCS_BOSS':
+			return PHCS_BOSSES.includes(id);
 		case 'NOT_BOSS':
 			if (type.includes('BOSS')) {
 				return NOT_BOSSES.includes(id);

@@ -44,7 +44,7 @@
 		aspect-ratio: 1062/600;
 	}
 
-	@media only screen and (min-width: 768px) {
+	@media only screen and (min-width: 640px) {
 		iframe {
 			width: 40rem;
 			height: 360px;

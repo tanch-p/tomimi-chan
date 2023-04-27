@@ -1,21 +1,18 @@
 import { writable, derived } from 'svelte/store';
 import updateMods from '$lib/functions/compileMods';
-import { browser } from '$app/environment';
-import { cookiesEnabled } from '../../../../stores';
 
-let storedDifficulty = 0;
-if (browser && cookiesEnabled) {
-	storedDifficulty = parseInt(localStorage.getItem('difficulty') ?? '0');
-}
 export const selectedRelics = writable([]);
 export const eliteMods = writable(null);
+export const selectedUniqueRelic = writable(null);
+
 export const activeFloorEffects = writable([]);
 
 const compiledMods = derived(
-	[selectedRelics, eliteMods, activeFloorEffects],
-	([$selectedRelics, $eliteMods, $activeFloorEffects]) =>
+	[selectedRelics, selectedUniqueRelic, eliteMods, activeFloorEffects],
+	([$selectedRelics, $selectedUniqueRelic, $eliteMods, $activeFloorEffects]) =>
 		updateMods(
 			$selectedRelics.map((relic) => relic.effects),
+			$selectedUniqueRelic ? [$selectedUniqueRelic.effects] : [$selectedUniqueRelic],
 			[$eliteMods],
 			$activeFloorEffects.map((ele) => ele.effects)
 		)

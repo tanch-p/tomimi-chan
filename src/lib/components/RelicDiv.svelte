@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let relic, language: string, selectedRelics;
+	export let relic, language: string, rogueTopic: string, selectedRelics;
 
 	const src = `https://res.cloudinary.com/dbqz7mebk/image/upload/v1681056192/tomimi.dev/relics/${relic.img}.webp`;
 	const name = relic[`name_${language}`] || relic[`name_zh`];
@@ -18,6 +18,16 @@
 			selectedRelics.update((list) => (list = list.filter((item) => item.id !== relic.id)));
 		}
 	}
+	function getSelectedTextColor(rogueTopic: string) {
+		switch (rogueTopic) {
+			case 'rogue_mizuki':
+				return 'text-[#58dbda]';
+			case 'rogue_phantom':
+				return 'text-[#cea658]';
+			default:
+				return '';
+		}
+	}
 </script>
 
 <div
@@ -30,7 +40,11 @@
 		<img {src} alt={name} loading="lazy" decoding="async" />
 	</div>
 	<div class="px-2">
-		<p class={`text-lg sm:text-xl ${selected ? 'text-[#58dbda]' : 'text-gray-400'}`}>{name}</p>
+		<p
+			class={`text-lg sm:text-xl ${selected ? getSelectedTextColor(rogueTopic) : 'text-gray-400'}`}
+		>
+			{name}
+		</p>
 		<p class="text-[#c4c4c4]">{tooltip}</p>
 	</div>
 </div>

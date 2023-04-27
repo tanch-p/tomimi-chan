@@ -3,12 +3,17 @@
 	import phantomTextLogo from '$lib/images/is/phantom/text_logo.webp';
 	import RelicsOverlay from './RelicsOverlay.svelte';
 	import translations from '$lib/translations.json';
-	export let language: string, rogueTopic: string, selectedRelics;
+	export let language: string,
+		rogueTopic: string,
+		selectedRelics,
+		selectedUniqueRelic = null;
 	let openOverlay = false;
 </script>
 
 <div class="fixed overflow-hidden bottom-0 w-full select-none z-[2]">
-	<RelicsOverlay {openOverlay} {language} {rogueTopic} {selectedRelics} />
+	<RelicsOverlay {openOverlay} {language} {rogueTopic} {selectedRelics} {selectedUniqueRelic}>
+		<slot name="uniqueRelics" slot="uniqueRelics" />
+	</RelicsOverlay>
 	<div class="shadow-2xl shadow-gray-400 bg-neutral-900 w-full mt-4 fixed bottom-0 py-2">
 		<div class="max-w-7xl mx-auto px-2 md:px-4">
 			<div class="relative flex items-center justify-between h-16 ">
@@ -43,10 +48,26 @@
 						<img src={relicIcon} alt="relic icon" loading="lazy" decoding="async" />
 					</div>
 					<div
-						class="bg-neutral-900 min-w-[280px] w-[80vw] md:w-auto overflow-hidden h-14 gap-x-2 pl-1"
+						class="bg-neutral-900 min-w-[280px] w-[80vw] md:w-auto md:max-w-[calc(80vw-300px)] overflow-hidden h-14 gap-x-2 pl-1"
 					>
 						<div class="flex gap-x-2 items-center">
-							{#each $selectedRelics as relic, i}
+							{#if selectedUniqueRelic !== null && $selectedUniqueRelic !== null}
+								<div class="relative flex items-center">
+									<div
+										class="absolute rounded-full border-[3px] border-neutral-600 border-opacity-80 left-[50%] w-[44px] h-[44px] -translate-x-[50%]"
+									/>
+									<div class="flex items-center text-center w-14 z-[1]">
+										<img
+											src={`https://res.cloudinary.com/dbqz7mebk/image/upload/v1681056192/tomimi.dev/relics/${$selectedUniqueRelic.img}.webp`}
+											width="54px"
+											alt={$selectedUniqueRelic[`name_${language}`] || $selectedUniqueRelic.name_zh}
+											loading="lazy"
+											decoding="async"
+										/>
+									</div>
+								</div>
+							{/if}
+							{#each $selectedRelics as relic}
 								<div class="relative flex items-center">
 									<div
 										class="absolute rounded-full border-[3px] border-neutral-600 border-opacity-80 left-[50%] w-[44px] h-[44px] -translate-x-[50%]"
@@ -55,7 +76,7 @@
 										<img
 											src={`https://res.cloudinary.com/dbqz7mebk/image/upload/v1681056192/tomimi.dev/relics/${relic.img}.webp`}
 											width="54px"
-											alt={relic.name_zh}
+											alt={relic[`name_${language}`] || relic.name_zh}
 											loading="lazy"
 											decoding="async"
 										/>
@@ -66,7 +87,7 @@
 					</div>
 				</div>
 				<div class="mt-2 hidden md:block">
-					{#if rogueTopic === 'phantom'}
+					{#if rogueTopic === 'rogue_phantom'}
 						<img
 							src={phantomTextLogo}
 							alt={translations[language].phantom}

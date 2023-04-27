@@ -4,9 +4,7 @@
 	import SpTerrain from './SpTerrain.svelte';
 	import translations from '$lib/translations.json';
 
-	export let mapConfig, language: string;
-
-	$: stageName = mapConfig[`name_${language}`] || mapConfig.name_zh;
+	export let mapConfig, language: string, stageName: string;
 </script>
 
 <div class="px-2 sm:px-6">
@@ -54,7 +52,7 @@
 	{#if mapConfig.routes}
 		<StageRoutes routes={mapConfig.routes} {language} />
 	{:else}<p class="text-center">暂无路线，作者还没打到这里</p>{/if}
-	<div class="w-[100vw] md:w-full">
+	<div class="w-screen sm:w-full">
 		{#if mapConfig.sp_enemy}
 			<SpEnemy spEnemyInfo={mapConfig.sp_enemy} />
 		{/if}
