@@ -16,7 +16,7 @@
 	</RelicsOverlay>
 	<div class="shadow-2xl shadow-gray-400 bg-neutral-900 w-full mt-4 fixed bottom-0 py-2">
 		<div class="max-w-7xl mx-auto px-2 md:px-4">
-			<div class="relative flex items-center justify-between h-16 ">
+			<div class="relative flex items-center h-16 ">
 				<div
 					class={`flex items-center py-[2px] bg-gradient-to-r from-[#333333] via-neutral-900 to-neutral-900 relative hover:cursor-pointer`}
 					on:click={() => (openOverlay = !openOverlay)}
@@ -48,7 +48,7 @@
 						<img src={relicIcon} alt="relic icon" loading="lazy" decoding="async" />
 					</div>
 					<div
-						class="bg-neutral-900 min-w-[280px] w-[80vw] md:w-auto md:max-w-[calc(80vw-300px)] overflow-hidden h-14 gap-x-2 pl-1"
+						class="bg-neutral-900 min-w-[280px] w-[80vw] md:w-auto overflow-hidden h-14 gap-x-2 pl-1"
 					>
 						<div class="flex gap-x-2 items-center">
 							{#if selectedUniqueRelic !== null && $selectedUniqueRelic !== null}
@@ -85,16 +85,6 @@
 							{/each}
 						</div>
 					</div>
-				</div>
-				<div class="mt-2 hidden md:block">
-					{#if rogueTopic === 'rogue_phantom'}
-						<img
-							src={phantomTextLogo}
-							alt={translations[language].phantom}
-							loading="lazy"
-							decoding="async"
-						/>
-					{/if}
 				</div>
 			</div>
 		</div>

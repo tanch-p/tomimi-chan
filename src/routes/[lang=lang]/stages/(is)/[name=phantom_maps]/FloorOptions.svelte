@@ -1,19 +1,10 @@
 <script lang="ts">
-	import mizukiOptions from '$lib/data/variations_mizuki.json';
+	import phantomVariations from '$lib/data/variations_phantom.json';
 	import FloorEffect from './FloorEffect.svelte';
 	import FloorSelect from './FloorSelect.svelte';
-	import translations from "$lib/translations.json"
-	import 争斗 from '$lib/images/is/mizuki/争斗.webp';
-	import 徒长 from '$lib/images/is/mizuki/徒长.webp';
-	import 众我 from '$lib/images/is/mizuki/众我.webp';
-	import 给养 from '$lib/images/is/mizuki/给养.webp';
+	import translations from '$lib/translations.json';
 
 	export let optionsOpen: boolean, language: string;
-
-	const mizukiOptionsSrc = [争斗, 徒长, 众我, 给养];
-	mizukiOptions.forEach((option, index) => {
-		option.src = mizukiOptionsSrc[index];
-	});
 </script>
 
 <div
@@ -21,14 +12,17 @@
 		optionsOpen ? 'opacity-90 translate-y-0' : 'invisible opacity-0 -translate-y-10'
 	}`}
 >
-	<FloorSelect {language}/>
+	<FloorSelect {language} />
 	<div class="mx-auto mt-3 px-2 md:px-8">
 		<hr class="border-neutral-600" />
 		<p class="mt-4 font-medium text-lg text-red-400 text-center">
-			{translations[language].mizuki_seaborn_call} <span class="font-normal text-sm text-near-white">{translations[language].variation_max_2}</span>
+			{translations[language].phantom_variation_title}
+			<span class="font-normal text-sm text-near-white"
+				>{translations[language].variation_max_2}</span
+			>
 		</p>
 		<div class="flex flex-col gap-y-4 mt-2">
-			{#each mizukiOptions as option}
+			{#each phantomVariations as option}
 				<FloorEffect effect={option} {language} />
 			{/each}
 		</div>

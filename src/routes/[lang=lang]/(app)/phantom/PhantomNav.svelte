@@ -4,10 +4,10 @@
 	import boss from '$lib/images/is/phantom/boss.webp';
 	import encounter from '$lib/images/is/phantom/encounter.webp';
 	import translations from '$lib/translations.json';
+	import romanNumerals from '$lib/roman_numerals.json';
 
 	export let language: string;
 
-	let romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI'];
 	let allNormalStages = [
 		['与虫为伴', '驯兽小屋', '礼炮小队', '意外', '死斗'],
 		['压轴登场', '巡逻队', '落魄骑士', '分赃不均', '先来后到'],

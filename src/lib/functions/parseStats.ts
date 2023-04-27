@@ -126,7 +126,7 @@ const distillMods = (enemyStatMod: Mods, mods: Mods) => {
 	return enemyStatMod;
 };
 
-const isTarget = (enemy: Enemy, target: string) => {
+export const isTarget = (enemy: Enemy, target: string) => {
 	const { id, type } = enemy;
 	switch (target) {
 		case 'ranged':
@@ -136,6 +136,8 @@ const isTarget = (enemy: Enemy, target: string) => {
 			return type.includes(target);
 		case 'PHCS_BOSS':
 			return PHCS_BOSSES.includes(id);
+		case 'NOT_PHCS_BOSS':
+			return !PHCS_BOSSES.includes(id);
 		case 'NOT_BOSS':
 			if (type.includes('BOSS')) {
 				return NOT_BOSSES.includes(id);

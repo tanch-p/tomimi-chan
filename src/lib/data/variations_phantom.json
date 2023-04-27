@@ -1,0 +1,79 @@
+[
+	{
+		"id": "variation_6",
+		"outerName_zh": "敏感的",
+		"innerName_zh": "敏感",
+		"outerName_ja": "敏感な",
+		"innerName_ja": "敏感",
+		"outerName_en": "Sensitive",
+		"innerName_en": "Sensitive",
+		"src": null,
+		"effects": [
+			{
+				"targets": ["ALL"],
+				"mods": {
+					"lifepoint": 2
+				}
+			}
+		],
+		"tooltip_zh": "在本层失去和获取的目标生命都大幅增加。",
+		"tooltip_ja": "このエリアでは耐久値の獲得数および喪失数が大幅に増加する。",
+		"tooltip_en": "On this floor, the amount of Life Points lost and gained are greatly increased."
+	},
+	{
+		"id": "variation_7",
+		"outerName_zh": "臆想的",
+		"innerName_zh": "臆想",
+		"outerName_ja": "恐怖の",
+		"innerName_ja": "恐怖",
+		"outerName_en": "Imagined",
+		"innerName_en": "Imagined",
+		"src": null,
+		"effects": [
+			{
+				"targets": ["ALL"],
+				"mods": {
+					"hp": 1.1,
+					"atk": 1.1,
+					"def": 1.1
+				}
+			}
+		],
+		"tooltip_zh": "本层中所有敌方单位攻击力、防御力和生命提升。",
+		"tooltip_ja": "このエリアでは敵全員の攻撃力、防御力、HPが上昇する。",
+		"tooltip_en": "On this floor, enemies have increased ATK, DEF, and HP."
+	},
+	{
+		"id": "variation_8",
+		"outerName_zh": "生存的",
+		"innerName_zh": "生存",
+		"outerName_ja": "死力の",
+		"innerName_ja": "死力",
+		"outerName_en": "Survivalist",
+		"innerName_en": "Survivalist",
+		"src": null,
+		"effects": [
+			{
+				"targets": ["NOT_PHCS_BOSS"],
+				"mods": {
+					"atk": 1.5,
+					"fixed_aspd": 50,
+					"special": {
+						"survivalist": {
+							"type": "others",
+							"value": 100,
+							"tooltip": {
+								"en": ["$Survivalist$ - Receive 100 True Dmg/s"],
+								"ja": ["$死力$→毎秒100確定ダメージを受ける"],
+								"cn": ["$生存$→每秒受到100真实伤害"]
+							}
+						}
+					}
+				}
+			}
+		],
+		"tooltip_zh": "本层中所有我方单位和非领袖敌人都持续受到伤害，但攻击力与攻击速度提升。",
+		"tooltip_ja": "このエリアでは味方全員と非BOSS敵が継続ダメージを受け、攻撃力と攻撃速度が上昇する。",
+		"tooltip_en": "On this floor, friendly units and non-Boss enemy units will take constant damage but receive increased ATK and ASPD."
+	}
+]

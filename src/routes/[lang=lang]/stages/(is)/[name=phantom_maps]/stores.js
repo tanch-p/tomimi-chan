@@ -4,7 +4,7 @@ import updateMods from '$lib/functions/compileMods';
 export const selectedRelics = writable([]);
 export const eliteMods = writable(null);
 export const selectedUniqueRelic = writable(null);
-
+export const selectedFloor = writable(1);
 export const activeFloorEffects = writable([]);
 
 const compiledMods = derived(

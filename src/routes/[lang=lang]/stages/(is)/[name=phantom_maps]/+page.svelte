@@ -9,6 +9,8 @@
 	import translations from '$lib/translations.json';
 	import hardRelics from '$lib/data/relics_phantom_hard.json';
 	import RelicDivUnique from '$lib/components/RelicDivUnique.svelte';
+	import StageHeader from '$lib/components/StageHeader.svelte';
+	import FloorTitle from './FloorTitle.svelte';
 
 	export let data: PageData;
 	$: language = data.language;
@@ -24,6 +26,10 @@
 	>
 	<meta name="description" content={data.mapConfig[`name_${'zh'}`]} />
 </svelte:head>
+
+<StageHeader {language}>
+	<FloorTitle slot="floorTitle" stageFloors={data.mapConfig.floors} {language} />
+</StageHeader>
 
 <main class="bg-neutral-800 text-near-white pb-32 pt-8 sm:pt-16 md:pb-28">
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
