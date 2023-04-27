@@ -17,11 +17,11 @@
 		<hr class="border-neutral-600" />
 		<p class="mt-4 font-medium text-lg text-red-400 text-center">
 			{translations[language].phantom_variation_title}
-			<span class="font-normal text-sm text-near-white"
-				>{translations[language].variation_max_2}</span
-			>
 		</p>
-		<div class="flex flex-col gap-y-4 mt-2">
+		<p class="font-normal text-sm text-near-white text-center">
+			({translations[language].variation_max_2})
+		</p>
+		<div class="flex flex-col gap-y-4 mt-3">
 			{#each phantomVariations as option}
 				<FloorEffect effect={option} {language} />
 			{/each}

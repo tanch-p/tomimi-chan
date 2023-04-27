@@ -24,9 +24,9 @@
 </script>
 
 <div
-	class={`grid grid-cols-[75px_auto] hover:cursor-pointer items-center ${
-		selected ? 'bg-neutral-700' : 'hover:bg-neutral-700'
-	}`}
+	class={`grid ${
+		language === 'en' ? 'grid-cols-[125px_auto]' : 'grid-cols-[100px_auto]'
+	} hover:cursor-pointer items-center py-1 ${selected ? 'bg-neutral-700' : 'hover:bg-neutral-700'}`}
 	on:click={handleClick}
 >
 	<!-- <img src={effect.src} alt={effect['name_zh']} loading="lazy" decoding="async" /> -->
