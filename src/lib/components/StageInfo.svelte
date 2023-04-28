@@ -4,7 +4,21 @@
 	import SpTerrain from './SpTerrain.svelte';
 	import translations from '$lib/translations.json';
 
-	export let mapConfig, language: string, stageName: string;
+	export let mapConfig,
+		language: string,
+		stageName: string,
+		rogueTopic: string | null = null;
+
+	const getEliteDescColor = (rogueTopic) => {
+		switch (rogueTopic) {
+			case 'rogue_mizuki':
+				return 'text-[#FF99CA]';
+			case 'rogue_phantom':
+				return 'text-[#ffb476]';
+			default:
+				return '';
+		}
+	};
 </script>
 
 <div class="px-2 sm:px-6">
@@ -30,7 +44,8 @@
 		{#if mapConfig[`eliteDesc_${language}`]}
 			<div class="flex gap-x-1">
 				<p class="whitespace-nowrap">
-					<span class="text-[#FF99CA]">{translations[language].eliteDesc}</span> -
+					<span class={`${getEliteDescColor(rogueTopic)}`}>{translations[language].eliteDesc}</span>
+					-
 				</p>
 				<div>
 					{#each mapConfig[`eliteDesc_${language}`] as line}

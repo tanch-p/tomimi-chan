@@ -33,7 +33,7 @@
 
 <main class="bg-neutral-800 text-near-white pb-32 pt-8 sm:pt-16 md:pb-28">
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
-		<StageInfo mapConfig={data.mapConfig} {language} {stageName} />
+		<StageInfo mapConfig={data.mapConfig} {language} {stageName} {rogueTopic}/>
 		{#if data.mapConfig.elite_mods}
 			<EliteToggle mapEliteMods={data.mapConfig.elite_mods} {eliteMods} {rogueTopic} />
 		{/if}
