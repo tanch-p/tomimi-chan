@@ -33,7 +33,7 @@
 	}
 
 	const languageStyles = {
-		ja: 'whitespace-nowrap py-2 w-[120px]',
+		ja: 'py-2 w-[120px]',
 		en: 'text-sm w-[100px] py-1',
 		zh: 'whitespace-nowrap py-2 w-[120px]'
 	};
@@ -68,8 +68,8 @@
 			><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg
 		>
 	</div>
-	<div class="grid auto-rows-auto ">
-		<div class="flex flex-col md:grid items-center shadow-lg md:grid-cols-[100px_480px]">
+	<div class="grid auto-rows-auto">
+		<div class="flex flex-col md:grid items-center shadow-lg md:grid-cols-[100px_490px]">
 			<div class="md:h-[68px] pt-2 md:pt-0 flex items-center">
 				<img
 					alt={translations[language].combat_ops}
@@ -91,7 +91,7 @@
 			</div>
 		</div>
 		{#if currentFloorBossStages.length > 0}
-			<div class="flex flex-col md:grid items-center shadow-lg md:grid-cols-[100px_480px]">
+			<div class="flex flex-col md:grid items-center shadow-lg md:grid-cols-[100px_490px]">
 				<div class="md:h-[68px] pt-4 md:pt-0 flex items-center">
 					<img
 						alt={translations[language].boss_ops}
@@ -115,7 +115,7 @@
 			</div>
 		{/if}
 		{#if currentFloorEncounterStages.length > 0}
-			<div class="flex flex-col md:grid items-center shadow-lg md:grid-cols-[100px_480px]">
+			<div class="flex flex-col md:grid items-center shadow-lg md:grid-cols-[100px_490px]">
 				<div class="md:h-[68px] pt-4 md:pt-0 flex items-center">
 					<img
 						alt={translations[language].encounter}
