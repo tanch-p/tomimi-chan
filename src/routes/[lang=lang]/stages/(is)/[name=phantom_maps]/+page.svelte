@@ -11,18 +11,19 @@
 	import RelicDivUnique from '$lib/components/RelicDivUnique.svelte';
 	import StageHeader from '$lib/components/StageHeader.svelte';
 	import FloorTitle from './FloorTitle.svelte';
+	import StageNav from './StageNav.svelte';
 
 	export let data: PageData;
 	$: language = data.language;
 	$: moddedEnemies = parseStats(data.enemies, $statMods);
 	const rogueTopic = 'rogue_phantom';
-	$: stageName = data.mapConfig[`name_${language}`].replace('_', ' ') || data.mapConfig.name_zh;
+	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 </script>
 
 <svelte:head>
 	<title
 		>{data.mapConfig.code}
-		{stageName} / {translations[language].title_post}</title
+		{stageName.replaceAll('_', ' ')} / {translations[language].title_post}</title
 	>
 	<meta name="description" content={data.mapConfig[`name_${'zh'}`]} />
 </svelte:head>
@@ -33,13 +34,15 @@
 
 <main class="bg-neutral-800 text-near-white pb-32 pt-8 sm:pt-16 md:pb-28">
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
-		<StageInfo mapConfig={data.mapConfig} {language} {stageName} {rogueTopic}/>
-		{#if data.mapConfig.elite_mods}
-			<EliteToggle mapEliteMods={data.mapConfig.elite_mods} {eliteMods} {rogueTopic} />
-		{/if}
-		<EnemySimpleTable enemies={moddedEnemies} {language} {statMods} {specialMods} />
+		<StageInfo mapConfig={data.mapConfig} {language} {stageName} {rogueTopic} />
+		<div class="mt-8">
+			{#if data.mapConfig.elite_mods}
+				<EliteToggle mapEliteMods={data.mapConfig.elite_mods} {eliteMods} {rogueTopic} />
+			{/if}
+			<EnemySimpleTable enemies={moddedEnemies} {language} {statMods} {specialMods} />
+		</div>
 		<div class="mt-4">
-			<!-- nav -->
+			<StageNav {language} />
 		</div>
 	</div>
 </main>

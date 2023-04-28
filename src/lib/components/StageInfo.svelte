@@ -22,7 +22,7 @@
 </script>
 
 <div class="px-2 sm:px-6">
-	<p class="text-3xl">{mapConfig.code} {stageName}</p>
+	<p class="text-3xl">{mapConfig.code} {stageName.replaceAll('_', ' ')}</p>
 	<hr class="border-gray-500 my-1" />
 	<div class="">
 		<p>

@@ -32,7 +32,7 @@
 	let floor6b = ['诸事不顺', '再启新篇'];
 	let du = ['鸭爵的戏剧', '鸭爵的宴会', '高普尼克之拳', '这位乌萨斯人'];
 	let sp = ['邪异囚笼', '无序盛宴', '“骑士对决”'];
-
+	let sp2 = ['自缚', '观察'];
 	//max per row = 4
 </script>
 
@@ -162,7 +162,7 @@
 				</th>
 			</tr>
 			<tr>
-				<td rowspan="2"> ? </td>
+				<td rowspan="3"> ? </td>
 				{#each du as stageName}
 					<td colspan={Math.floor(16 / du.length)}>
 						<StageNavButton {stageName} {language} />
@@ -177,6 +177,13 @@
 						{/each}
 					</div>
 				</td>
+			</tr>
+			<tr>
+				{#each sp2 as stageName}
+					<td colspan={Math.floor(16 / sp2.length)}>
+						<StageNavButton {stageName} {language} />
+					</td>
+				{/each}
 			</tr>
 		</tbody>
 	</table>
@@ -203,5 +210,6 @@
 	td {
 		border-width: 1px;
 		border-color: gray;
+		
 	}
 </style>

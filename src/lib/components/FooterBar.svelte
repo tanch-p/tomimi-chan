@@ -1,6 +1,5 @@
 <script lang="ts">
 	import relicIcon from '$lib/images/is/relic.png';
-	import phantomTextLogo from '$lib/images/is/phantom/text_logo.webp';
 	import RelicsOverlay from './RelicsOverlay.svelte';
 	import translations from '$lib/translations.json';
 	export let language: string,
@@ -26,6 +25,7 @@
 							<div
 								class="absolute flex flex-col inset-0 bg-[#212121] bg-opacity-70 text-center justify-center"
 							>
+								<!-- Down Arrow SVG -->
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
