@@ -5,7 +5,6 @@
 	$: atk_type = attack.atk_type;
 	$: hits = attack.hits;
 	$: separator = language === 'en' ? '/' : '・';
-	$: hasAtkElement = atk_type[0] !== 'raw' && atk_type[0] !== 'no_attack';
 </script>
 
 <!-- {@debug normalAttack} -->

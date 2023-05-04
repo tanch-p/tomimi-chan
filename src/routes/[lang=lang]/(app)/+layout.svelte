@@ -8,7 +8,7 @@
 <div class="app">
 	<Header {language} />
 
-	<main class="mx-auto">
+	<main class="bg-neutral-800 min-h-screen text-near-white">
 		<slot />
 	</main>
 
