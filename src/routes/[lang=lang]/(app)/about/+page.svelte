@@ -20,7 +20,7 @@
 	<table class="w-full mt-4 sm:mt-8">
 		<tbody>
 			<tr>
-				<td class="item">Github</td>
+				<td>Github</td>
 				<td>
 					<a href="https://github.com/tanch-p" target="_blank" rel="noopener noreferrer">
 						<span class="text-blue-400 hover:text-blue-300">tanch-p</span>
