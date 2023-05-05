@@ -16,7 +16,7 @@
 </script>
 
 <a href={`/${language}/stages/${stageUrl}`}>
-	<div class={`hover:text-sky-400 py-1.5 px-1 md:h-full hover:cursor-pointer`}>
+	<div class={`hover:text-sky-400 hover:bg-[#343434] py-1.5 px-1 md:h-full hover:cursor-pointer`}>
 		{name.replaceAll('_', ' ')}
 	</div>
 </a>

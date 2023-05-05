@@ -40,8 +40,8 @@
 	<table class="text-xs sm:text-base">
 		<tbody>
 			<tr>
-				<th class="empty" />
-				<th colspan="16">
+				<th colspan="2" class="empty" />
+				<th colspan="24">
 					<div class="flex justify-center items-center">
 						<img
 							src={combat_ops}
@@ -51,24 +51,24 @@
 							decoding="async"
 						/>
 					</div>
-				</th></tr
-			>
+				</th>
+			</tr>
 			{#each allNormalStages as stages, i}
 				{@const rowSpan = stages.length <= 4 ? 1 : 2}
 				<tr>
-					<td rowspan={rowSpan}>
+					<td colspan="2" rowspan={rowSpan}>
 						{romanNumerals[i]}
 					</td>
 					{#if rowSpan === 2}
 						{@const topRowStages = stages.slice(0, 4)}
 						{#each topRowStages as stageName}
-							<td colspan="4">
+							<td colspan={Math.floor(24 / topRowStages.length)}>
 								<StageNavButton {stageName} {language} />
 							</td>
 						{/each}
 					{:else}
 						{#each stages as stageName}
-							<td colspan={Math.floor(16 / stages.length)}>
+							<td colspan={Math.floor(24 / stages.length)}>
 								<StageNavButton {stageName} {language} />
 							</td>
 						{/each}
@@ -78,13 +78,13 @@
 					{@const btmRowStages = stages.slice(4)}
 					{#if btmRowStages.length >= 3}
 						{#each btmRowStages as stageName}
-							<td colspan="4">
+							<td colspan={Math.floor(24 / btmRowStages.length)}>
 								<StageNavButton {stageName} {language} />
 							</td>
 						{/each}
 					{:else}
 						{#each btmRowStages as stageName}
-							<td colspan={Math.floor(16 / btmRowStages.length)}>
+							<td colspan={Math.floor(24 / btmRowStages.length)}>
 								<StageNavButton {stageName} {language} />
 							</td>
 						{/each}
@@ -94,8 +94,8 @@
 
 			<!-- boss -->
 			<tr>
-				<th class="empty" />
-				<th colspan="16">
+				<th colspan="2" class="empty" />
+				<th colspan="24">
 					<div class="flex justify-center items-center">
 						<img
 							src={boss}
@@ -108,38 +108,38 @@
 				</th>
 			</tr>
 			<tr>
-				<td rowspan="2">
+				<td colspan="2" rowspan="2">
 					{romanNumerals[2]}
 				</td>
 				{#each floor3t as stageName}
-					<td colspan="4">
+					<td colspan={Math.floor(24 / floor3t.length)}>
 						<StageNavButton {stageName} {language} />
 					</td>
 				{/each}
 			</tr>
 			<tr>
 				{#each floor3b as stageName}
-					<td colspan={Math.floor(16 / floor3b.length)}>
+					<td colspan={Math.floor(24 / floor3b.length)}>
 						<StageNavButton {stageName} {language} />
 					</td>
 				{/each}
 			</tr>
 			<tr>
-				<td>
+				<td colspan="2">
 					{romanNumerals[4]}
 				</td>
 				{#each floor5b as stageName}
-					<td colspan={Math.floor(16 / floor5b.length)}>
+					<td colspan={Math.floor(24 / floor5b.length)}>
 						<StageNavButton {stageName} {language} />
 					</td>
 				{/each}
 			</tr>
 			<tr>
-				<td>
+				<td colspan="2">
 					{romanNumerals[5]}
 				</td>
 				{#each floor6b as stageName}
-					<td colspan={Math.floor(16 / floor6b.length)}>
+					<td colspan={Math.floor(24 / floor6b.length)}>
 						<StageNavButton {stageName} {language} />
 					</td>
 				{/each}
@@ -148,8 +148,8 @@
 			<!-- encounter -->
 
 			<tr>
-				<th class="empty" />
-				<th colspan="16">
+				<th colspan="2" class="empty" />
+				<th colspan="24">
 					<div class="flex justify-center items-center">
 						<img
 							src={encounter}
@@ -162,25 +162,23 @@
 				</th>
 			</tr>
 			<tr>
-				<td rowspan="3"> ? </td>
+				<td colspan="2" rowspan="3"> ? </td>
 				{#each du as stageName}
-					<td colspan={Math.floor(16 / du.length)}>
+					<td colspan={Math.floor(24 / du.length)}>
 						<StageNavButton {stageName} {language} />
 					</td>
 				{/each}
 			</tr>
 			<tr>
-				<td colspan="16">
-					<div class="grid grid-cols-3 divide-x divide-[#808080]">
-						{#each sp as stageName}
-							<StageNavButton {stageName} {language} />
-						{/each}
-					</div>
-				</td>
+				{#each sp as stageName}
+					<td colspan={Math.floor(24 / sp.length)}>
+						<StageNavButton {stageName} {language} />
+					</td>
+				{/each}
 			</tr>
 			<tr>
 				{#each sp2 as stageName}
-					<td colspan={Math.floor(16 / sp2.length)}>
+					<td colspan={Math.floor(24 / sp2.length)}>
 						<StageNavButton {stageName} {language} />
 					</td>
 				{/each}
@@ -210,6 +208,5 @@
 	td {
 		border-width: 1px;
 		border-color: gray;
-		
 	}
 </style>
