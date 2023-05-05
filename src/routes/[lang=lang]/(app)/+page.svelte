@@ -3,6 +3,7 @@
 	import banner_mizuki from '$lib/images/banner_mizuki_800px.webp';
 	import banner_phantom from '$lib/images/banner_phantom_800px.webp';
 	import translations from '$lib/translations.json';
+	import ISLogo from '$lib/images/is_logo.webp';
 
 	export let data: PageData;
 
@@ -20,22 +21,35 @@
 
 <section>
 	<div class="h-[10vh]" />
-	<div class="flex mx-auto gap-4">
-		<div class="grow">
-			<p class="">Integrated Strategies</p>
-			<div class="flex flex-wrap w-[512px] mx-auto">
-				{#each is_banners as { alt, src, href }}
-					<a class="w-fit" href={`/${language}/${href}`}>
-						<img
-							class="select-none mx-auto py-2"
-							{src}
-							width="512"
-							decoding="async"
-							loading="lazy"
-							alt={translations[language][alt]}
-						/></a
-					>
-				{/each}
+	<div class="w-screen sm:w-full max-w-7xl mx-auto">
+		<div class="flex flex-wrap mx-auto gap-4 px-2 sm:px-8  justify-center">
+			<!-- <div class="basis-2/6 bg-neutral-900 pt-3 pb-2">
+				<p class="">Tools</p>
+			</div> -->
+			<div
+				class="md:basis-3/4 lg:basis-2/4 bg-[#363636] shadow-lg md:shadow-xl pt-2 sm:pt-4 sm:pb-6 px-2 sm:px-8"
+			>
+				<div class="flex items-center justify-center">
+					<span>
+						<img src={ISLogo} alt={translations[language].is_title} />
+					</span>
+					<p class={`${language === 'en' ? 'text-sm' : ''}`}>
+						{translations[language].is_title}
+					</p>
+				</div>
+				<div class="flex flex-wrap w-full justify-center">
+					{#each is_banners as { alt, src, href }}
+						<a href={`/${language}/${href}`}>
+							<img
+								class="select-none mx-auto py-3"
+								{src}
+								decoding="async"
+								loading="lazy"
+								alt={translations[language][alt]}
+							/>
+						</a>
+					{/each}
+				</div>
 			</div>
 		</div>
 	</div>
@@ -44,5 +58,10 @@
 <style>
 	p {
 		text-align: center;
+		padding: 0 0.5rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		text-decoration: none;
 	}
 </style>
