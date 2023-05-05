@@ -6,13 +6,8 @@
 	if (!stageInfo) {
 		throw new Error(`${stageName} is not found!`);
 	}
-	const name = stageInfo[`name_${language}`] || stageInfo['name_zh'];
-	const stageUrl = stageInfo.code + '_' + name;
-	let languageStyles = {
-		ja: 'whitespace-nowrap py-2 w-[120px]',
-		en: 'text-sm w-[100px] py-1',
-		cn: 'text-base w-[100px]'
-	};
+	$: name = stageInfo[`name_${language}`] || stageInfo['name_zh'];
+	$: stageUrl = stageInfo.code + '_' + name;
 </script>
 
 <a href={`/${language}/stages/${stageUrl}`}>
