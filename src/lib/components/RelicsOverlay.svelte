@@ -47,3 +47,13 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	p {
+		text-align: center;
+		padding: 0 0.5rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-decoration: none;
+	}
+</style>
