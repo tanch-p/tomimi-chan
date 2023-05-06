@@ -7,7 +7,7 @@
 <header
 	class="sticky top-0 w-screen sm:w-full transition-none bg-neutral-800 text-near-white py-4 z-[1]"
 >
-	<div class="grid grid-cols-3 max-w-7xl mx-auto sm:px-6">
+	<div class="grid grid-cols-3 max-w-7xl mx-auto px-2 sm:px-6 items-start">
 		<div>
 			<a href={`/${language}`} class="hover:underline">Home</a>
 		</div>

@@ -25,13 +25,16 @@
 	}
 </script>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
-	class={`grid grid-cols-[75px_auto] hover:cursor-pointer ${
+	class={`grid grid-cols-[75px_auto] gap-x-2 hover:cursor-pointer ${
 		selected ? 'bg-neutral-700' : 'hover:bg-neutral-700'
 	}`}
 	on:click={handleClick}
 >
-	<img src={effect.src} alt={effect['name_zh']} loading="lazy" decoding="async" />
+	<span class="flex items-center justify-center">
+		<img src={effect.src} alt={effect['name_zh']} loading="lazy" decoding="async" /></span
+	>
 	<div class="flex flex-col">
 		<p class={`${selected ? 'text-red-400 font-semibold' : ''}`}>{effect['name_zh']}</p>
 		<p>{effect['tooltip_zh']}</p>
