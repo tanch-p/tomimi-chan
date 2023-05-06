@@ -24,6 +24,7 @@
 	}
 </script>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
 	class={`grid grid-cols-[75px_auto] sm:grid-cols-[95px_auto] gap-x-2 ${
 		selected ? 'bg-neutral-800' : 'hover:bg-neutral-700'

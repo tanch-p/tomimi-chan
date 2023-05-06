@@ -10,7 +10,7 @@
 
 	export let optionsOpen: boolean, language: string;
 
-	const mizukiOptionsSrc = [争斗, 徒长, 众我, 给养];
+	const mizukiOptionsSrc = [争斗, 给养, 众我, 徒长];
 	mizukiOptions.forEach((option, index) => {
 		option.src = mizukiOptionsSrc[index];
 	});

@@ -32,6 +32,7 @@
 				{/if}
 			</div>
 			<slot name="uniqueRelics" />
+			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<div
 				id="reset"
 				class="rounded-xl bg-neutral-700 text-near-white px-16 py-2 mt-12 mx-auto w-min hover:cursor-pointer hover:bg-neutral-600"
@@ -54,6 +55,5 @@
 		padding: 0 0.5rem;
 		font-weight: 700;
 		letter-spacing: 0.1em;
-		text-decoration: none;
 	}
 </style>
