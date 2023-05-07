@@ -61,7 +61,7 @@
 							width="75px"
 							decoding="async"
 							loading="lazy"
-							alt={enemy[`name_zh`]}
+							alt={enemy.id}
 						/>
 					</td>
 				{/if}
