@@ -5,11 +5,12 @@
 	export let enemies: Enemy[], language: string, statMods, specialMods;
 	let tableHeaders = [
 		{ key: 'enemy', show: true },
+		{ key: 'count', show: false },
 		{ key: 'type', show: true },
 		{ key: 'hp', show: true },
 		{ key: 'atk', show: true },
-		{ key: 'range', show: true },
 		{ key: 'aspd', show: true },
+		{ key: 'range', show: true },
 		{ key: 'def', show: true },
 		{ key: 'res', show: true },
 		{ key: 'weight', show: true },
