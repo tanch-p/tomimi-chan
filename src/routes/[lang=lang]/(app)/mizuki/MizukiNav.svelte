@@ -5,6 +5,7 @@
 	import aegir4 from '$lib/images/is/mizuki/aegir_4.webp';
 	import aegir5 from '$lib/images/is/mizuki/aegir_5.webp';
 	import aegir6 from '$lib/images/is/mizuki/aegir_6.webp';
+	import aegirQn from '$lib/images/is/mizuki/aegir_qn.webp';
 
 	export let language: string;
 	import StageNavButton from './StageNavButton.svelte';
@@ -128,7 +129,7 @@
 			{/each}
 		</tr>
 		<tr class="floor5">
-			<td rowspan="4" class="corner" colspan="4">
+			<td rowspan="3" class="corner" colspan="4">
 				<img src={aegir5} width="30px" alt="5" class="mt-2 sm:mt-3 ml-0.5 sm:ml-2" />
 			</td>
 			{#each floor5t as stageName}
@@ -136,18 +137,11 @@
 					<StageNavButton {stageName} {language} />
 				</td>
 			{/each}
-			<td rowspan="4" class="corner" colspan="4" />
+			<td rowspan="3" class="corner" colspan="4" />
 		</tr>
 		<tr class="floor5">
 			{#each floor5bb as stageName}
 				<td colspan={Math.floor(60 / floor5bb.length)}>
-					<StageNavButton {stageName} {language} />
-				</td>
-			{/each}
-		</tr>
-		<tr class="floor5">
-			{#each floorEX as stageName}
-				<td colspan={Math.floor(60 / floorEX.length)}>
 					<StageNavButton {stageName} {language} />
 				</td>
 			{/each}
@@ -176,6 +170,17 @@
 					<StageNavButton {stageName} {language} />
 				</td>
 			{/each}
+		</tr>
+		<tr class="floorEX">
+			<td class="corner" colspan="4">
+				<img src={aegirQn} width="30px" alt="?" class="mt-0.5 ml-0.5 sm:ml-2 py-1 sm:py-1.5" />
+			</td>
+			{#each floorEX as stageName}
+				<td colspan={Math.floor(60 / floorEX.length)}>
+					<StageNavButton {stageName} {language} />
+				</td>
+			{/each}
+			<td class="corner" colspan="4" />
 		</tr>
 		<tr class="floorSP">
 			<td class="corner" colspan="4" />
@@ -235,7 +240,7 @@
 		background-color: #366896;
 	}
 	.floor3 {
-		background-color: #285B7B;
+		background-color: #285b7b;
 	}
 	.floor4 {
 		background-color: #1e476d;
@@ -245,6 +250,9 @@
 	}
 	.floor6 {
 		background-color: #030d1a;
+	}
+	.floorEX {
+		background-color: #033a3a;
 	}
 	.floorSP {
 		background-color: #404750;

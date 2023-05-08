@@ -10,7 +10,7 @@
 </script>
 
 <a href={`/${language}/stages/${stageUrl}`} class="hover:text-sky-400">
-	<div class={`py-2 md:my-1 text-center hover:backdrop-brightness-50`}>
+	<div class={`py-2 my-0.5 sm:my-1 text-center hover:backdrop-brightness-50`}>
 		{stageName}
 	</div>
 </a>
