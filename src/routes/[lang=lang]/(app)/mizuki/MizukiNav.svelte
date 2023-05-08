@@ -6,6 +6,7 @@
 	import aegir5 from '$lib/images/is/mizuki/aegir_5.webp';
 	import aegir6 from '$lib/images/is/mizuki/aegir_6.webp';
 	import aegirQn from '$lib/images/is/mizuki/aegir_qn.webp';
+	import knt from '$lib/images/is/mizuki/knt_100px.webp';
 
 	export let language: string;
 	import StageNavButton from './StageNavButton.svelte';
@@ -210,7 +211,9 @@
 			<td class="corner" colspan="4" />
 		</tr>
 		<tr class="floorSP">
-			<td class="corner" colspan="4" />
+			<td class="corner" colspan="4">
+				<img src={knt} width="40px" alt="?" class="mt-0.5 ml-0.5 sm:ml-2 py-1 sm:py-1.5" />
+			</td>
 			{#each sp2 as stageName}
 				<td colspan={Math.floor(60 / sp2.length)}>
 					<StageNavButton {stageName} {language} />
