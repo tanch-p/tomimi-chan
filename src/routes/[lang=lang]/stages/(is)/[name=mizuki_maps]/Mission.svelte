@@ -18,15 +18,16 @@
 	export let language: string;
 </script>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
-	class={`max-w-screen sm:w-max px-2 sm:px-6 mt-4 mb-6 select-none hover:cursor-pointer hover:bg-neutral-700`}
+	class={`max-w-screen sm:w-max sm:px-6 mt-4 mb-6 select-none hover:cursor-pointer hover:bg-neutral-700`}
 	on:click={() => {
 		selected = !selected;
 	}}
 >
-	<p class="text-subheading">{translations[language].mizuki_mission}</p>
+	<p class="px-2 sm:px-0 text-subheading">{translations[language].mizuki_mission}</p>
 	<hr class="border-gray-500 my-1" />
-	<div class="flex gap-x-1.5 sm:items-center mt-1.5">
+	<div class="px-2 sm:px-0 flex gap-x-1.5 sm:items-center mt-1.5">
 		<input type="checkbox" class="accent-red-500 w-4 h-4 mt-1 sm:mt-0" checked={selected} />
 		{translations[language].mizuki_mission_text}
 	</div>

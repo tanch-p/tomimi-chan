@@ -23,9 +23,10 @@
 	}
 </script>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
 	class={`grid ${
-		language === 'en' ? 'grid-cols-[125px_auto]' : 'grid-cols-[100px_auto]'
+		language === 'en' ? 'grid-cols-[110px_auto]' : 'grid-cols-[100px_auto]'
 	} hover:cursor-pointer items-center py-1 ${selected ? 'bg-neutral-700' : 'hover:bg-neutral-700'}`}
 	on:click={handleClick}
 >

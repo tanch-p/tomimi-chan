@@ -21,10 +21,10 @@
 	};
 </script>
 
-<div class="px-2 sm:px-6">
-	<p class="text-3xl">{mapConfig.code} {stageName.replaceAll('_', ' ')}</p>
+<div class="sm:px-6">
+	<p class="px-2 sm:px-0 text-3xl">{mapConfig.code} {stageName.replaceAll('_', ' ')}</p>
 	<hr class="border-gray-500 my-1" />
-	<div class="">
+	<div class="px-2 sm:px-0">
 		<p>
 			{translations[language].initialCost} - {mapConfig.initialCost}
 		</p>
@@ -59,8 +59,8 @@
 {#if mapConfig.sp_terrain}
 	<SpTerrain spTerrain={mapConfig.sp_terrain} {language} />
 {/if}
-<div class="px-2 sm:px-6">
-	<p class="text-subheading mt-4">{translations[language].routeInfo}</p>
+<div class="sm:px-6">
+	<p class="px-2 sm:px-0 text-subheading mt-4">{translations[language].routeInfo}</p>
 	<hr class="border-gray-500 my-1" />
 </div>
 <div class="my-2 sm:max-w-[40rem] mx-auto text-xl">

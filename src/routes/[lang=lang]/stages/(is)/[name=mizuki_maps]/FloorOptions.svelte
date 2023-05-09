@@ -22,22 +22,24 @@
 	}`}
 >
 	<FloorSelect {language} />
-	<div class="mx-auto mt-3 px-2 md:px-8">
+	<div class="mx-auto mt-3 md:px-8">
 		<hr class="border-neutral-600" />
-		<p class="mt-4 font-medium text-lg text-red-400 text-center">
-			{translations[language].mizuki_seaborn_call}
-			<!-- <span class="font-normal text-sm text-near-white"
+		<div class="px-2 md:px-0">
+			<p class="mt-4 font-medium text-lg text-red-400 text-center">
+				{translations[language].mizuki_seaborn_call}
+				<!-- <span class="font-normal text-sm text-near-white"
 				>{translations[language].variation_max_2}</span
 			> -->
-		</p>
-		<p class="font-normal text-sm text-near-white text-center">
-			({translations[language].variation_max_2})
-		</p>
+			</p>
+			<p class="font-normal text-sm text-near-white text-center">
+				({translations[language].variation_max_2})
+			</p>
 
-		<div class="flex flex-col gap-y-4 mt-2">
-			{#each mizukiOptions as option}
-				<FloorEffect effect={option} {language} />
-			{/each}
+			<div class="flex flex-col gap-y-4 mt-2">
+				{#each mizukiOptions as option}
+					<FloorEffect effect={option} {language} />
+				{/each}
+			</div>
 		</div>
 	</div>
 </div>
