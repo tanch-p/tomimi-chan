@@ -33,7 +33,7 @@
 					<span>
 						<img src={ISLogo} alt={translations[language].is_title} />
 					</span>
-					<p class={`${language === 'en' ? 'text-sm' : ''}`}>
+					<p class={`${language === 'en' ? 'text-sm font-bold' : 'font-semibold'}`}>
 						{translations[language].is_title}
 					</p>
 				</div>
@@ -59,7 +59,6 @@
 	p {
 		text-align: center;
 		padding: 0 0.5rem;
-		font-weight: 700;
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
 		text-decoration: none;

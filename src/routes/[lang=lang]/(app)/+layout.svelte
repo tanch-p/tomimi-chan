@@ -17,6 +17,7 @@
 
 <style>
 	.font-ch {
-		font-family: Noto Sans CJK SC, sans-serif, Microsoft Yahei, SimSun;
+		font-family: Noto Sans CJK SC, system-ui, -apple-system, BlinkMacSystemFont, Microsoft Yahei,
+			SimSun, sans-serif;
 	}
 </style>
