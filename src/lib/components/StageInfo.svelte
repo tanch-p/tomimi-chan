@@ -32,8 +32,8 @@
 			{translations[language].characterLimit} - {mapConfig.characterLimit}
 		</p>
 		{#if mapConfig[`addInfo_${language}`]}
-			<div class="flex gap-x-1">
-				<p>{translations[language].addInfo} -</p>
+			<div class="flex gap-x-1 mt-4 sm:mt-2">
+				<p class="whitespace-nowrap">{translations[language].addInfo} -</p>
 				<div>
 					{#each mapConfig[`addInfo_${language}`] as line}
 						<li class="list-none">{line}</li>
@@ -42,7 +42,7 @@
 			</div>
 		{/if}
 		{#if mapConfig[`eliteDesc_${language}`]}
-			<div class="flex gap-x-1">
+			<div class="flex gap-x-1 mt-4 sm:mt-2">
 				<p class="whitespace-nowrap">
 					<span class={`${getEliteDescColor(rogueTopic)}`}>{translations[language].eliteDesc}</span>
 					-
