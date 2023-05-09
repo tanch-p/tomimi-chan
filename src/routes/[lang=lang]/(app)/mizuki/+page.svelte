@@ -23,9 +23,11 @@
 				alt={translations[language].rogue_mizuki}
 			/>
 		</div>
-
-		<TogglePanel title={'Stage Navigation'} isOpen={true}>
-			<MizukiNav {language} />
-		</TogglePanel>
+		<div class="space-y-6">
+			<!-- <TogglePanel title={translations[language].how_to_use} /> -->
+			<TogglePanel title={translations[language].stage_nav} isOpen={true}>
+				<MizukiNav {language} />
+			</TogglePanel>
+		</div>
 	</div>
 </div>

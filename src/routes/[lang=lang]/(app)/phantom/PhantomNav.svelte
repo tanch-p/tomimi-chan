@@ -36,7 +36,7 @@
 	//max per row = 4
 </script>
 
-<div class="max-w-6xl mx-auto sm:px-4">
+<div class="max-w-6xl mx-auto">
 	<table class="text-xs sm:text-base">
 		<tbody>
 			<tr>
