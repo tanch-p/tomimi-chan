@@ -4,6 +4,7 @@
 	import banner_mizuki from '$lib/images/banner_mizuki_800px.webp';
 	import translations from '$lib/translations.json';
 	import TogglePanel from '$lib/components/TogglePanel.svelte';
+	import HowToUse from '$lib/components/HowToUse.svelte';
 
 	export let data: PageData;
 	$: language = data.language;
@@ -24,7 +25,9 @@
 			/>
 		</div>
 		<div class="space-y-6">
-			<!-- <TogglePanel title={translations[language].how_to_use} /> -->
+			<TogglePanel title={translations[language].how_to_use}>
+				<HowToUse {language} rogueTopic={"rogue_mizuki"}/>
+			</TogglePanel>
 			<TogglePanel title={translations[language].stage_nav} isOpen={true}>
 				<MizukiNav {language} />
 			</TogglePanel>

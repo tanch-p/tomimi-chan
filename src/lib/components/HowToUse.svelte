@@ -1,0 +1,25 @@
+<script lang="ts">
+	import translations from '$lib/translations.json';
+
+	export let language: string, rogueTopic: string;
+</script>
+
+<div class="px-2">
+	<p>
+		{translations[language].how_to_use_main}
+	</p>
+	<ul class="mt-2">
+		{translations[language].how_to_use_ui_list}
+
+		<li class="list-disc list-inside">{translations[language].how_to_use_relic}</li>
+		<li class="list-disc list-inside">{translations[language].how_to_use_elite_toggle}</li>
+		{#if rogueTopic === 'rogue_mizuki'}
+			<li class="list-disc list-inside">{translations[language].how_to_use_diff}</li>
+			<li class="list-disc list-inside">{translations[language].how_to_use_mission}</li>
+			<li class="list-disc list-inside">{translations[language].how_to_use_floor}</li>
+			<li class="list-disc list-inside">{translations[language].how_to_use_seaborn}</li>
+		{:else}
+			<li class="list-disc list-inside">{translations[language].how_to_use_hallu}</li>
+		{/if}
+	</ul>
+</div>
