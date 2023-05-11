@@ -1973,16 +1973,16 @@
         "description_ja": "傭兵やオリジムシばかりに気を取られるな。一番厄介な奴は、最後にやって来るものだ。",
         "description_en": "Don't just worry about dealing with the mercenaries and Originium slugs. The most troublesome folks always show up last.",
         "eliteDesc_zh": [
-            "敌方单位的攻击力和防御力都提升至130%，生命值提升至160%",
-            "幽灵和幽灵组长的生命值提升至200%"
+            "所有敌方单位的攻击力，防御力+30%，生命值+60%",
+            "所有幽灵和幽灵组长的生命值额外再提升100%"
         ],
         "eliteDesc_ja": [
-            "敵の攻撃力、防御力が130%に上昇、HPが160%に上昇",
-            "<ゴースト兵>と<ゴースト隊長>のHPが200%に上昇"
+            "敵全員の攻撃力、防御力+30%、最大HP+60%",
+            "<ゴースト兵>と<ゴースト隊長>のHPがさらに100%上昇"
         ],
         "eliteDesc_en": [
-            "Enemies ATK +30%, DEF +30%, HP +60%",
-            "<Wraith> and <Wraith Leader>'s HP +100%"
+            "All enemy units have +30% ATK, +30% DEF, and +60% Max HP",
+            "All <Wraith> and <Wraith Leader> additionally gain +100% HP"
         ],
         "addInfo_zh": null,
         "addInfo_ja": null,
@@ -1994,7 +1994,8 @@
                 ],
                 "mods": {
                     "atk": 1.3,
-                    "def": 1.3
+                    "def": 1.3,
+                    "hp": 1.6
                 }
             },
             {
@@ -2004,20 +2005,6 @@
                 ],
                 "mods": {
                     "hp": 2
-                }
-            },
-            {
-                "targets": [
-                    "B3",
-                    "B2",
-                    "SI7",
-                    "SI5",
-                    "SI3",
-                    "DLD",
-                    "GPN"
-                ],
-                "mods": {
-                    "hp": 1.6
                 }
             }
         ],
@@ -2112,16 +2099,16 @@
         "description_ja": "傭兵隊が庭を巡回警備している。猟犬が見知らぬ者の匂いを嗅ぎつけ、激しく吠え出した。傭兵たちは素早くあなたに近づいて来る。",
         "description_en": "A team of mercenaries are patrolling in the courtyard. Their hounds pick up the scent of strangers and start barking immediately, sending the entire squad your way.",
         "eliteDesc_zh": [
-            "敌方单位的攻击力和防御力都提升至130%，生命值提升至160%",
-            "提亚卡乌勇士和寻仇者的攻击力提升至140%"
+            "所有敌方单位的攻击力，防御力+30%，生命值+60%",
+            "所有提亚卡乌勇士和寻仇者的攻击力额外再提升100%"
         ],
         "eliteDesc_ja": [
-            "敵の攻撃力、防御力が130%に上昇、HPが160%に上昇",
-            "<リベンジャー>と<ティアカウ勇士>の攻撃力が140%に上昇"
+            "敵全員の攻撃力、防御力+30%、最大HP+60%",
+            "<リベンジャー>と<ティアカウ勇士>の攻撃力がさらに40%上昇"
         ],
         "eliteDesc_en": [
-            "Enemies ATK +30%, DEF +30%, HP +60%",
-            "<Avenger> and <Tiacauh Brave> have +40% ATK"
+            "All enemy units have +30% ATK, +30% DEF, and +60% Max HP",
+            "All <Avenger> and <Tiacauh Brave> additionally gain +40% ATK"
         ],
         "addInfo_zh": null,
         "addInfo_ja": null,
@@ -2132,6 +2119,7 @@
                     "ALL"
                 ],
                 "mods": {
+                    "atk": 1.3,
                     "def": 1.3,
                     "hp": 1.6
                 }
@@ -2143,18 +2131,6 @@
                 ],
                 "mods": {
                     "atk": 1.4
-                }
-            },
-            {
-                "targets": [
-                    "06",
-                    "01",
-                    "O2",
-                    "DLD",
-                    "GPN"
-                ],
-                "mods": {
-                    "atk": 1.3
                 }
             }
         ],
