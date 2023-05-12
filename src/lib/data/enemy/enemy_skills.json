@@ -4,7 +4,7 @@
 		"tooltip": {
 			"en": ["Stealth"],
 			"ja": ["ステルス"],
-			"zh": []
+			"zh": ["隐匿"]
 		}
 	},
 	"stealth_fast": {
@@ -20,7 +20,7 @@
 		"tooltip": {
 			"en": ["Resist - duration of Stun, Cold, Freeze, etc debuffs are reduced by 50%"],
 			"ja": ["レジスト - スタン、寒冷、凍結などの状態異常の継続時間時間が50％減少"],
-			"zh": []
+			"zh": ["持有抵抗"]
 		}
 	},
 	"no_block": {
@@ -28,7 +28,7 @@
 		"tooltip": {
 			"en": ["Cannot be blocked"],
 			"ja": ["ブロックされない"],
-			"zh": []
+			"zh": ["无法被阻挡"]
 		},
 		"detailed": { "en": [], "ja": [], "zh": [] }
 	},
@@ -37,7 +37,7 @@
 		"tooltip": {
 			"en": ["Block count - 2"],
 			"ja": ["ブロック数2以上でブロック可能"],
-			"zh": []
+			"zh": ["无法被阻挡数小于2的我方单位阻挡"]
 		},
 		"detailed": { "en": [], "ja": [], "zh": [] }
 	},
@@ -46,7 +46,7 @@
 		"tooltip": {
 			"en": ["Block count - 3"],
 			"ja": ["ブロック数3以上でブロック可能"],
-			"zh": []
+			"zh": ["无法被阻挡数小于3的我方单位阻挡"]
 		}
 	},
 	"four_block": {
@@ -54,7 +54,7 @@
 		"tooltip": {
 			"en": ["Block count - 4"],
 			"ja": ["ブロック数4以上でブロック可能"],
-			"zh": []
+			"zh": ["无法被阻挡数小于4的我方单位阻挡"]
 		}
 	},
 	"despawn_30": {
@@ -86,7 +86,7 @@
 		"tooltip": {
 			"en": ["Targets only ground units"],
 			"ja": ["地上の味方のみを攻撃する"],
-			"zh": []
+			"zh": ["只能攻击部署于地面的单位"]
 		}
 	},
 	"target_priority_lower_hp": {
@@ -96,7 +96,7 @@
 				"Prioritizes attacking the target with the current lowest HP percentage within attack range"
 			],
 			"ja": ["攻撃範囲内のHP割合が最も低い対象を優先的に攻撃する"],
-			"zh": []
+			"zh": ["优先攻击范围内生命比例最低的目标"]
 		}
 	},
 	"avenger_100": {
@@ -106,9 +106,9 @@
 		"hits": 1,
 		"fixed_inc": 0,
 		"tooltip": {
-			"en": ["HP↓50%→Atk power x 2"],
-			"ja": ["HP50%以下→攻撃力2倍"],
-			"zh": []
+			"en": ["HP↓50% - +100% ATK"],
+			"ja": ["HP50%以下→攻撃力+100%"],
+			"zh": ["生命值低于50%时，攻击力提升100%"]
 		}
 	},
 	"avenger_150": {
@@ -118,9 +118,9 @@
 		"hits": 1,
 		"fixed_inc": 0,
 		"tooltip": {
-			"en": ["HP↓50%→Atk power x 2.5"],
-			"ja": ["HP50%以下→攻撃力2.5倍"],
-			"zh": []
+			"en": ["HP↓50% - +150% ATK"],
+			"ja": ["HP50%以下→攻撃力+150%"],
+			"zh": ["生命值低于50%时，攻击力提升150%"]
 		}
 	},
 	"avenger_180": {
@@ -130,9 +130,9 @@
 		"hits": 1,
 		"fixed_inc": 0,
 		"tooltip": {
-			"en": ["HP↓50%→Atk power x 2.8"],
-			"ja": ["HP50%以下→攻撃力2.8倍"],
-			"zh": []
+			"en": ["HP↓50% - +180% ATK"],
+			"ja": ["HP50%以下→攻撃力+180%"],
+			"zh": ["生命值低于50%时，攻击力提升180%"]
 		}
 	},
 	"attack_stun_4": {
@@ -196,7 +196,11 @@
 				"RPG → deals 100% splash dmg to target & surrounding 8 tiles, switches to Melee & ms+200% after firing"
 			],
 			"ja": ["RPG → 目標と周囲8マスにダメージ", "発射後は近接に切り替わって、移動速度+200%"],
-			"zh": []
+			"zh": [
+				"榴弹 - 对主目标与周围8格造成攻击力200%物理伤害",
+				"发射榴弹后切换至冲锋模式",
+				"冲锋模式下移速提升200%，只进行近战攻击"
+			]
 		}
 	},
 	"summon_scrap_normal": {
@@ -329,7 +333,7 @@
 				"Can be silenced"
 			],
 			"ja": ["バフ→ 攻撃範囲内の敵の防御力300上昇（重複しない、自分に効果なし）", "無効化可能"],
-			"zh": []
+			"zh": ["自身攻击范围内全体敌人（不含自身）防御力增加300 (※不可叠加，可被沉默)"]
 		}
 	},
 	"drone_bomb": {
@@ -353,7 +357,7 @@
 		"tooltip": {
 			"en": ["Debuff→operators with ranged aspd down (can be silenced)"],
 			"ja": ["攻撃範囲内の味方の攻撃速度-50（無効化可能）"],
-			"zh": []
+			"zh": ["处于自身攻击范围内的所有我方单位攻击速度降低50%（可被沉默）"]
 		}
 	},
 	"splash_4sq_50": {
@@ -433,7 +437,7 @@
 		"tooltip": {
 			"en": ["Attacks decreases target's def by 10, lasts indefinitely"],
 			"ja": ["攻撃1回につき相手のDEF10低下", "(蓄積する、撤退まで永続)"],
-			"zh": [""]
+			"zh": ["每次攻击使目标的防御力减少10（可无限叠加）（可被沉默）"]
 		}
 	},
 	"def_down_15": {
@@ -477,7 +481,26 @@
 		}
 	},
 	"greytail_shield": {
-		"name": "greytail_shield",
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Appears with a shield which absorbs up to 6000 Arts damage",
+				"Shield Active: DEF+1250",
+				"Shield Broken: MS+200%"
+			],
+			"ja": [
+				"登場時、合計6000の術攻撃を吸収するシールドを持つ",
+				"シールド存在中は防御力+1250",
+				"シールドが破れると移動速度+200％"
+			],
+			"zh": [
+				"出场后获得可吸收6000法术伤害的屏障",
+				"该屏障存在时防御力增加1250",
+				"该屏障被摧毁时移动速度提升200%"
+			]
+		}
+	},
+	"greytail_leader_shield": {
 		"type": "others",
 		"tooltip": {
 			"en": [
@@ -490,7 +513,11 @@
 				"シールド存在中は防御力+1750",
 				"シールドが破れると移動速度+200％"
 			],
-			"zh": []
+			"zh": [
+				"出场后获得可吸收10002法术伤害的屏障",
+				"该屏障存在时防御力增加1750",
+				"该屏障被摧毁时移动速度提升200%"
+			]
 		}
 	},
 	"bug_explode": {
@@ -880,7 +907,7 @@
 		"tooltip": {
 			"en": ["Move speed+150%"],
 			"ja": ["移動速度＋150％"],
-			"zh": []
+			"zh": ["移动速度提升150%"]
 		}
 	},
 	"rat_king_shield": {
@@ -890,9 +917,9 @@
 			"en": ["Spawns with a barrier which absorbs up to 14001 Arts dmg", "Shield Active: DEF+3000"],
 			"ja": [
 				"スキル→15秒毎にシールドを張り、合計16500の術攻撃を吸収する",
-				"シールド展開中：DEF+3000"
+				"シールド展開中：防御力+3000"
 			],
-			"zh": []
+			"zh": ["出场时获得可吸收14001的法术伤害的屏障", "该屏障存在时防御力增加3000"]
 		}
 	},
 	"hp_50_rage_150": {
@@ -900,7 +927,7 @@
 		"tooltip": {
 			"en": ["HP↓50% - Final Damage dealt increased by 1.5 times"],
 			"ja": ["HP50％以下 - 最終ダメージ+50％"],
-			"zh": []
+			"zh": ["生命值低于50%时，自身造成的伤害提升至150%"]
 		}
 	},
 	"syskad_hp_50_rage_150": {
@@ -908,7 +935,7 @@
 		"tooltip": {
 			"en": ["HP↓50% - ATK+50%", "Carried over to 2nd form"],
 			"ja": ["HP50％以下→攻撃力+50％", "第二形態に継続される"],
-			"zh": []
+			"zh": ["生命值低于50%时，攻击力提升50%", "(变身/重生均保留)"]
 		}
 	},
 	"rat_king_sand_cross": {
@@ -955,7 +982,7 @@
 				"登場時、合計6000の術攻撃を吸収するシールドを持つ",
 				"シールド存在中は最大HP+50%、攻撃速度+50%"
 			],
-			"zh": []
+			"zh": ["护盾耐久6000(只吸收法术伤害)", "护盾存在时提升50%生命上限并增加50攻击速度"]
 		}
 	},
 	"MR_zealot_leader_shield": {
@@ -969,7 +996,7 @@
 				"登場時、合計10002の術攻撃を吸収するシールドを持つ",
 				"シールド存在中は最大HP+50%、攻撃速度+50%"
 			],
-			"zh": []
+			"zh": ["护盾耐久10002(只吸收法术伤害)", "护盾存在时提升50%生命上限并增加50攻击速度"]
 		}
 	},
 	"mudrock_shield": {
@@ -1011,7 +1038,7 @@
 	"roarknight_barrier": {
 		"type": "others",
 		"tooltip": {
-			"en": ["Barrier→for 30s, Def+3000, Res+95"],
+			"en": ["Barrier→for 30s, DEF+3000, RES+95"],
 			"ja": ["バリア→30秒間、防御力+3000、術耐性+95"],
 			"zh": ["出场时防御力增加3000，法术抗性增加95，持续30s"]
 		}
@@ -1019,17 +1046,17 @@
 	"plasticknight_barrier": {
 		"type": "others",
 		"tooltip": {
-			"en": ["Barrier→for 60s, Def+3000, Res+95"],
+			"en": ["Barrier→for 60s, DEF+3000, RES+95"],
 			"ja": ["バリア→60秒間、防御力+3000、術耐性+95"],
-			"zh": []
+			"zh": ["出场时防御力增加3000，法术抗性增加95，持续60s"]
 		}
 	},
 	"plasticknight_barrier_骑士对决": {
 		"type": "others",
 		"tooltip": {
-			"en": ["Barrier→for 100s, Def+3000, Res+95"],
+			"en": ["Barrier→for 100s, DEF+3000, RES+95"],
 			"ja": ["バリア→100秒間、防御力+3000、術耐性+95"],
-			"zh": []
+			"zh": ["出场时防御力增加3000，法术抗性增加95，持续100s"]
 		}
 	},
 	"bloodboil_knight": {
@@ -1040,7 +1067,7 @@
 		"tooltip": {
 			"en": ["Each time an enemy is defeated, gains ATK and ASPD, max 10 stacks."],
 			"ja": ["ほかの敵が倒される度に、攻撃力+10%・攻撃速度+5（最大10回）"],
-			"zh": ["每有一个敌人死亡时攻击力与攻击速度提升，最多提升10次"]
+			"zh": ["每有一个敌人死亡时攻击力+10%，攻击速度+5，最多提升10次"]
 		}
 	},
 	"bloodboil_骑士对决": {
@@ -1049,7 +1076,7 @@
 		"tooltip": {
 			"en": ["Each time an enemy is defeated, ATK +40% and ASPD +40, max 3 stacks."],
 			"ja": ["ほかの敵が倒される度に、攻撃力+40%・攻撃速度+40（最大3回）"],
-			"zh": ["每有一个敌人死亡时攻击力与攻击速度提升，最多提升3次"]
+			"zh": ["每有一个敌人死亡时攻击力+40%，攻击速度+40，最多提升3次"]
 		}
 	},
 	"left_hand_revive": {
@@ -1057,7 +1084,7 @@
 		"tooltip": {
 			"en": ["On defeat, recovers with full HP (once per battle)"],
 			"ja": ["倒されると一度だけHP100％で復活する"],
-			"zh": []
+			"zh": ["首次死亡后重生，重生花费5秒，恢复100%生命值"]
 		}
 	},
 	"bladehelm_debuff": {
@@ -1065,7 +1092,10 @@
 		"tooltip": {
 			"en": ["Skill→Applies -50% Atk debuff to operator with highest attack stat, CD25s"],
 			"ja": ["スキル→最も攻撃力が高い味方の攻撃力を25秒50％減少する", "CD:25秒"],
-			"zh": []
+			"zh": [
+				"使全场攻击力最高的我方单位攻击力最终降低50%，持续25s，冷却25s",
+				"※不会对已处于技能效果中的我方单位重复释放"
+			]
 		}
 	},
 	"left_hand_debuff": {
@@ -1073,7 +1103,10 @@
 		"tooltip": {
 			"en": ["Skill→Applies -50% Atk debuff to operator with highest attack stat, CD10s"],
 			"ja": ["スキル→最も攻撃力が高い味方の攻撃力を25秒50％減少する", "CD:10秒"],
-			"zh": []
+			"zh": [
+				"使全场攻击力最高的我方单位攻击力最终降低50%，持续25s，冷却10s",
+				"※不会对已处于技能效果中的我方单位重复释放"
+			]
 		}
 	},
 	"knight_sleep_120": {
@@ -1277,7 +1310,7 @@
 		"tooltip": {
 			"en": ["Tile Type Enemy - Cannot be attacked. Does not block/move"],
 			"ja": ["床系敵→ブロック、移動しない、攻撃されない"],
-			"zh": []
+			"zh": ["地板系敌人 - 无敌，不攻击，无法移动，无法阻挡，孤立"]
 		}
 	},
 	"syrott_effect": {
@@ -2661,7 +2694,7 @@
 		"tooltip": {
 			"en": ["Can use long-ranged weapons to attack Ursus Civilians"],
 			"ja": ["ウルサス民間人に対して遠距離攻撃を行う"],
-			"zh": []
+			"zh": ["可远程攻击1.2半径范围内的中立单位"]
 		}
 	},
 	"ursus_civ_death": {
@@ -2670,7 +2703,7 @@
 		"tooltip": {
 			"en": ["Friendly Unit - Reduces lifepoint by 1 when defeated", "Cannot be healed"],
 			"ja": ["要介護ユニット→死亡すると耐久値減る", "回復受け付けない"],
-			"zh": []
+			"zh": ["死亡时扣除1点关卡生命值", "无法受治疗"]
 		}
 	},
 	"pompeii_aspd_inc": {
@@ -2698,7 +2731,7 @@
 		"tooltip": {
 			"en": ["When blocked, creates an explosion around self every 10s"],
 			"ja": ["ブロックされると10秒毎に自分中心に爆発"],
-			"zh": []
+			"zh": ["被阻挡后，每10秒(被眩晕时暂停计时)对自身1.4半径范围内我方单位造成1000法术溅射伤害"]
 		}
 	},
 	"W_C4_180": {
@@ -2872,7 +2905,10 @@
 				"バフ→ 半径1.5内のダブリン方陣戦士の防御力200上昇（ほかのダブリン方陣戦士と重複する）",
 				"無効化不可能"
 			],
-			"zh": []
+			"zh": [
+				"自身1.5半径内除自身外其它深池方阵战士/深池方阵指挥官防御力增加200",
+				"（可无限叠加，不可被沉默）"
+			]
 		}
 	},
 	"damage_1": {
