@@ -7,8 +7,9 @@
 </script>
 
 <svelte:head>
-	<title>About</title>
-	<meta name="description" content="About this app" />
+	<title>{translations[language].about_text}</title>
+	<meta name="description" content={translations[language].title_post} />
+	<meta property="og:description" content={translations[language].title_post} />
 </svelte:head>
 
 <div class="max-w-xl mx-auto pt-24 px-2">

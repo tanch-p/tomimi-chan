@@ -12,7 +12,10 @@
 
 <svelte:head>
 	<title>{translations[language].rogue_mizuki} / {translations[language].title_post}</title>
-	<meta name="description" content="tomimi.dev - tool/helper for arknights" />
+	<meta name="description" content={translations[language].title_post} />
+	<meta property="og:description" content={translations[language].title_post} />
+	<meta property="og:title" content={translations[language].rogue_mizuki} />
+	<meta property="og:url" content={`https://tomimi.dev/${language}/mizuki`} />
 </svelte:head>
 
 <div class="bg-neutral-800 min-h-screen">

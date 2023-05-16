@@ -1,6 +1,6 @@
 <svelte:head>
-	<title>Credits</title>
-	<meta name="description" content="Credits" />
+	<title>Credits / tomimi.dev</title>
+	<meta name="description" content="Credits for assets used in tomimi.dev" />
 </svelte:head>
 
 <div class="max-w-xl mx-auto pt-24 px-2">

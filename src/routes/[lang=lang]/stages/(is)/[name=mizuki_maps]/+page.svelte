@@ -25,7 +25,13 @@
 		>{data.mapConfig.code}
 		{stageName} / {translations[language].title_post}</title
 	>
-	<meta name="description" content={data.mapConfig[`name_${'zh'}`]} />
+	<meta name="description" content={translations[language].title_post} />
+	<meta property="og:description" content={translations[language].title_post} />
+	<meta property="og:title" content={data.mapConfig.code + '_' + stageName} />
+	<meta
+		property="og:url"
+		content={`https://tomimi.dev/${language}/stages/${data.mapConfig.code + '_' + stageName}`}
+	/>
 </svelte:head>
 
 <StageHeader {language}>
