@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let relic, language: string, rogueTopic: string, selectedRelics;
 
-	const src = `https://res.cloudinary.com/dbqz7mebk/image/upload/v1681056192/tomimi.dev/relics/${relic.img}.webp`;
+	const src = `https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_100/v1681056192/tomimi.dev/relics/${relic.img}.webp`;
 	$: name = relic[`name_${language}`] || relic[`name_zh`];
 	$: tooltip = relic[`tooltip_${language}`] || relic[`tooltip_zh`];
 
