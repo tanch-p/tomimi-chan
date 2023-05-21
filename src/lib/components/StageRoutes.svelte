@@ -7,6 +7,7 @@
 	import combat_ops_icon from '$lib/images/is/combat_icon.webp';
 	import emergency_ops_icon from '$lib/images/is/emergency_icon.webp';
 	import lumen from '$lib/images/is/lumen.webp';
+	import chest from '$lib/images/is/mizuki/chest.webp';
 	import translations from '$lib/translations.json';
 	import VideoPlayer, { stopAll } from './VideoPlayer.svelte';
 
@@ -17,6 +18,7 @@
 		{ title: 'gpn', src: GPN },
 		{ title: 'thf', src: THF },
 		{ title: 'doq', src: DOQ },
+		{ title: 'chest', src: chest },
 		{ title: 'lumen', src: lumen },
 		{ title: 'boss', src: boss_icon },
 		{ title: 'combat_ops', src: combat_ops_icon },
@@ -38,12 +40,12 @@
 <div class="">
 	{#if routes.length > 1}
 		<ul
-			class="flex font-bold text-lg text-white text-center select-none divide-x divide-gray-500 py-1"
+			class="flex w-screen sm:w-full overflow-auto font-bold text-lg text-white text-center select-none divide-x divide-gray-500 py-1"
 		>
 			{#each routes as route, index}
 				{@const icon = icons.find((ele) => ele.title === route.title)}
 				<li
-					class={`w-full cursor-pointer flex items-center justify-center py-1.5`}
+					class={`flex items-center justify-center min-w-[75px] w-full cursor-pointer py-1.5`}
 					on:click={() => (selected = index)}
 				>
 					{#if icon}
@@ -73,10 +75,10 @@
 		<div class={`${selected !== index ? 'invisible pointer-events-none h-0 w-0' : ''}`}>
 			{#if route.type === 'img'}
 				<img
-					srcset="https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_400/v1680366257/tomimi.dev/mizuki/doq/{route.src}.webp 400w, 
-					https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_640/v1680366257/tomimi.dev/mizuki/doq/{route.src}.webp 600w"
+					srcset="https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_400/v1680366257/tomimi.dev/mizuki/{route.title}/{route.src}.webp 400w, 
+					https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_640/v1680366257/tomimi.dev/mizuki/{route.title}/{route.src}.webp 600w"
 					sizes="(max-width: 480px) 400px, 600px"
-					src={`https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_640/v1680366257/tomimi.dev/mizuki/doq/${route.src}.webp`}
+					src={`https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_640/v1680366257/tomimi.dev/mizuki/${route.title}/${route.src}.webp`}
 					alt={'doq'}
 					loading="lazy"
 					decoding="async"
