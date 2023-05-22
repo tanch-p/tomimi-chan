@@ -40,7 +40,7 @@
 <div class="">
 	{#if routes.length > 1}
 		<ul
-			class="flex w-screen sm:w-full overflow-auto font-bold text-lg text-white text-center select-none divide-x divide-gray-500 py-1"
+			class="flex w-screen sm:w-full overflow-auto no-scrollbar font-bold text-lg text-white text-center select-none divide-x divide-gray-500 py-1"
 		>
 			{#each routes as route, index}
 				{@const icon = icons.find((ele) => ele.title === route.title)}

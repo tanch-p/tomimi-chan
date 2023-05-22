@@ -16,7 +16,7 @@
 		openOverlay ? 'opacity-100' : 'opacity-0 invisible'
 	}`}
 >
-	<div id="relic-list" class="fixed inset-0 bg-ph-bg bg-opacity-90 overflow-y-scroll">
+	<div id="relic-list" class="fixed inset-0 bg-ph-bg bg-opacity-90 overflow-y-scroll no-scrollbar">
 		<div class="w-full max-w-7xl mx-auto py-36">
 			<div
 				class="grid lg:grid-cols-3 gap-x-10 gap-y-8 w-full overflow-x-auto md:overflow-visible my-auto mx-auto px-4 sm:px-24"
