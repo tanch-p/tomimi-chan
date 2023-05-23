@@ -5,11 +5,11 @@
 	let selected = false;
 
 	activeFloorEffects.subscribe((list) => {
-		selected = Boolean(list.find((ele) => ele.name_zh === effect.name_zh));
+		selected = Boolean(list.find((ele) => ele.id === effect.id));
 	});
 
 	function handleClick() {
-		if (!$activeFloorEffects.find((ele) => ele.name_zh === effect.name_zh)) {
+		if (!$activeFloorEffects.find((ele) => ele.id === effect.id)) {
 			activeFloorEffects.update((list) => {
 				if (list.length === 2) {
 					return (list = [list[1], effect]);
@@ -18,11 +18,10 @@
 				}
 			});
 		} else {
-			activeFloorEffects.update(
-				(list) => (list = list.filter((ele) => ele.name_zh !== effect.name_zh))
-			);
+			activeFloorEffects.update((list) => (list = list.filter((ele) => ele.id !== effect.id)));
 		}
 	}
+	$: name = effect[`outerName_${language}`];
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -33,10 +32,10 @@
 	on:click={handleClick}
 >
 	<span class="flex items-center justify-center">
-		<img src={effect.src} alt={effect['name_zh']} loading="lazy" decoding="async" /></span
+		<img src={effect.src} alt={name} loading="lazy" decoding="async" /></span
 	>
 	<div class="flex flex-col">
-		<p class={`${selected ? 'text-red-400 font-semibold' : ''}`}>{effect['name_zh']}</p>
-		<p>{effect['tooltip_zh']}</p>
+		<p class={`${selected ? 'text-red-400 font-semibold' : ''}`}>{name}</p>
+		<p>{effect[`tooltip_${language}`]}</p>
 	</div>
 </div>

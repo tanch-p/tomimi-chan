@@ -8,14 +8,20 @@
 	if (!stageInfo) {
 		throw new Error(`${stageName} is not found!`);
 	}
-	const stageUrl = stageInfo.code + '_' + (stageInfo[`name_${language}`] || stageInfo['name_zh']);
+	$: stageUrl = stageInfo.code + '_' + (stageInfo[`name_${language}`] || stageInfo['name_zh']);
 
-	$: hidden = language !== "zh" && update2Stages.includes(stageName)
+	$: hidden = language !== 'zh' && update2Stages.includes(stageName);
+
+	$: name = stageInfo[`name_${language}`] || stageInfo['name_zh'];
 </script>
 
 <a href={`/${language}/stages/${stageUrl}`} class="hover:text-sky-400">
-	<div class={`py-2 my-0.5 sm:my-1 text-center hover:backdrop-brightness-50 ${hidden ? "opacity-0 hover:opacity-100" : ""}`}>
-		{stageName}
+	<div
+		class={`py-2 my-0.5 sm:my-1 text-center hover:backdrop-brightness-50 ${
+			hidden ? 'opacity-0 hover:opacity-100' : ''
+		}`}
+	>
+		{name.replaceAll('_', ' ')}
 	</div>
 </a>
 

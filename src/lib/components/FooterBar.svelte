@@ -58,7 +58,7 @@
 									/>
 									<div class="flex items-center text-center w-14 z-[1]">
 										<img
-											src={`https://res.cloudinary.com/dbqz7mebk/image/upload/v1681056192/tomimi.dev/relics/${$selectedUniqueRelic.img}.webp`}
+											src={`https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_100/v1681056192/tomimi.dev/relics/${$selectedUniqueRelic.img}.webp`}
 											width="54px"
 											alt={$selectedUniqueRelic[`name_${language}`] || $selectedUniqueRelic.name_zh}
 											loading="lazy"
@@ -74,7 +74,7 @@
 									/>
 									<div class="flex items-center text-center w-14 z-[1]">
 										<img
-											src={`https://res.cloudinary.com/dbqz7mebk/image/upload/v1681056192/tomimi.dev/relics/${relic.img}.webp`}
+											src={`https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_100/v1681056192/tomimi.dev/relics/${relic.img}.webp`}
 											width="54px"
 											alt={relic[`name_${language}`] || relic.name_zh}
 											loading="lazy"
