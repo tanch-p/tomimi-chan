@@ -56,7 +56,7 @@
 					<td class={`border border-gray-400 w-[75px] ${textAlign(key)}`} rowspan={maxRowSpan}>
 						<img
 							class="select-none"
-							src={enemy.img}
+							src="https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_75/v1686414382/tomimi.dev/enemy_icons/{enemy.key}.webp"
 							height="75px"
 							width="75px"
 							decoding="async"

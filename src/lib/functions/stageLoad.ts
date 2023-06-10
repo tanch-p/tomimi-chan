@@ -14,11 +14,5 @@ export const stageLoad = async (stageName: string, rogueTopic: string) => {
 		}
 		return enemy;
 	});
-	for (const enemy of enemies) {
-		enemy.img = (
-			await import(`../images/enemy_icons/enemy${enemy.key.replace('enemy', '')}.webp`)
-		).default;
-	}
-
 	return { mapConfig, enemies };
 };
