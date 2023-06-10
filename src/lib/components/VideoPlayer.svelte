@@ -1,26 +1,5 @@
-<script context="module">
-	const elements = new Set();
-
-	export function stopAll() {
-		elements.forEach((element) => {
-			element.contentWindow.postMessage(
-				JSON.stringify({ event: 'command', func: 'pauseVideo' }),
-				'*'
-			);
-		});
-	}
-</script>
-
 <script lang="ts">
-	import { onMount } from 'svelte';
 	export let route, language: string;
-
-	let iframe;
-
-	onMount(() => {
-		elements.add(iframe);
-		return () => elements.delete(iframe);
-	});
 </script>
 
 {#if language === 'zh' && route.bilibili_src}
@@ -31,7 +10,6 @@
 	/>
 {/if}
 <iframe
-	bind:this={iframe}
 	class={language === 'zh' ? 'hidden' : ''}
 	src={`https://www.youtube-nocookie.com/embed/${route.youtube_src}?rel=0&enablejsapi=1`}
 	frameBorder="0"

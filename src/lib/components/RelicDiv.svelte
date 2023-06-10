@@ -37,9 +37,7 @@
 	}`}
 	on:click={handleClick}
 >
-	<div>
-		<img {src} alt={name} loading="lazy" decoding="async" />
-	</div>
+	<img {src} alt={name} loading="lazy" decoding="async" class="w-[75px] sm:w-[95px]" />
 	<div class="px-2">
 		<p
 			class={`text-lg sm:text-xl ${selected ? getSelectedTextColor(rogueTopic) : 'text-gray-400'}`}

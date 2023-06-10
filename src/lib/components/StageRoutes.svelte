@@ -9,7 +9,7 @@
 	import lumen from '$lib/images/is/lumen.webp';
 	import chest from '$lib/images/is/mizuki/chest.webp';
 	import translations from '$lib/translations.json';
-	import VideoPlayer, { stopAll } from './VideoPlayer.svelte';
+	import VideoPlayer from './VideoPlayer.svelte';
 
 	export let routes: [], language: string;
 
@@ -28,12 +28,6 @@
 	let selected = 0;
 	$: if (routes) {
 		selected = 0;
-	}
-
-	$: if (selected) {
-		if (language !== 'zh') {
-			stopAll();
-		}
 	}
 </script>
 
@@ -72,7 +66,7 @@
 		</ul>
 	{/if}
 	{#each routes as route, index}
-		<div class={`${selected !== index ? 'invisible pointer-events-none h-0 w-0' : ''}`}>
+		{#if selected === index}
 			{#if route.type === 'img'}
 				<img
 					srcset="https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_400/v1680366257/tomimi.dev/mizuki/{route.title}/{route.src}.webp 400w, 
@@ -87,6 +81,6 @@
 			{:else}
 				<VideoPlayer {route} {language} />
 			{/if}
-		</div>
+		{/if}
 	{/each}
 </div>
