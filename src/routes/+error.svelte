@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import { browser } from '$app/environment';
+	import { browser, dev } from '$app/environment';
 	import { page } from '$app/stores';
 
 	let language = 'en';
 	let redirectTime = 10000;
 	let timer = redirectTime / 1000;
 	onMount(() => {
-		if (browser) {
+		if (browser && !dev) {
 			const browerLang = window.navigator.language;
 			if (browerLang.match(/ja|ja/i)) {
 				language = 'ja';

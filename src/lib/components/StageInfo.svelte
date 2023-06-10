@@ -9,7 +9,7 @@
 		stageName: string,
 		rogueTopic: string | null = null;
 
-	const getEliteDescColor = (rogueTopic) => {
+	const getEliteDescColor = (rogueTopic:string|null) => {
 		switch (rogueTopic) {
 			case 'rogue_mizuki':
 				return 'text-[#FF99CA]';
@@ -22,7 +22,7 @@
 </script>
 
 <div class="sm:px-6">
-	<p class="px-2 sm:px-0 text-3xl">{mapConfig.code} {stageName.replaceAll('_', ' ')}</p>
+	<p class="px-2 sm:px-0 text-3xl">{mapConfig.code ?? ''} {stageName.replaceAll('_', ' ')}</p>
 	<hr class="border-gray-500 my-1" />
 	<div class="px-2 sm:px-0">
 		<p>
@@ -65,7 +65,7 @@
 </div>
 <div class="my-2 sm:max-w-[40rem] mx-auto text-xl">
 	{#if mapConfig.routes}
-		<StageRoutes routes={mapConfig.routes} {language} />
+		<StageRoutes routes={mapConfig.routes} {language} {rogueTopic}/>
 	{:else}<p class="text-center">暂无路线，作者还没打到这里</p>{/if}
 	<div class="w-screen sm:w-full">
 		{#if mapConfig.sp_enemy}

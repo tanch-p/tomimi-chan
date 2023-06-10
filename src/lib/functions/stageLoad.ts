@@ -1,9 +1,11 @@
 import type { MapConfig, Enemy } from '$lib/types';
 import enemyDatabase from '$lib/data/enemy/enemy_database.json';
-import findStage from '$lib/functions/findStage';
+import findStage, { findCCStage } from '$lib/functions/findStage';
 
-export const stageLoad = async (stageName: string, rogueTopic: string) => {
-	const mapConfig: MapConfig = findStage(stageName, rogueTopic);
+export const stageLoad = async (stageName: string, rogueTopic: string|null) => {
+	const mapConfig: MapConfig = rogueTopic
+		? findStage(stageName, rogueTopic)
+		: findCCStage(stageName);
 	const enemies = mapConfig.enemies.map(({ id, level, overwrittenData }) => {
 		const enemy: Enemy = { ...enemyDatabase[id] };
 		enemy.stats = { ...enemyDatabase[id].stats[level] };
