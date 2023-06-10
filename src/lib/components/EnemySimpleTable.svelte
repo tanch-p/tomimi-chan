@@ -26,15 +26,15 @@
 		<!-- <div>Filter</div> -->
 
 		<div class="">
-			<div id="table-wrapper" class="overflow-x-auto md:overflow-visible w-screen sm:w-full">
+			<div id="table-wrapper" class="overflow-auto no-scrollbar w-screen sm:w-full">
 				<table
-					class="border border-gray-400 border-collapse bg-neutral-800 text-near-white w-max sm:w-full"
+					class="border border-gray-400 border-collapse bg-neutral-800 text-near-white w-[1280px] lg:w-full"
 				>
 					<thead>
 						<tr>
 							{#each filteredTableHeaders as { key }}
 								<th
-									class={`border border-gray-400 border-solid py-0.5 px-1.5 md:min-w-[50px] ${
+									class={`border border-gray-400 border-solid py-0.5 px-1.5 ${
 										language === 'en' ? 'sm:leading-none' : ''
 									}`}
 								>
