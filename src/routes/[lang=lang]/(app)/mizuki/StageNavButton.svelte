@@ -15,7 +15,7 @@
 	$: name = stageInfo[`name_${language}`] || stageInfo['name_zh'];
 </script>
 
-<a data-sveltekit-preload-code href={`/${language}/stages/${stageUrl}`} class="hover:text-sky-400">
+<a data-sveltekit-preload-code="eager" href={`/${language}/stages/${stageUrl}`} class="hover:text-sky-400">
 	<div
 		class={`py-2 my-0.5 sm:my-1 text-center hover:backdrop-brightness-50 ${
 			hidden ? 'opacity-0 hover:opacity-100' : ''
