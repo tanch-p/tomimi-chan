@@ -73,7 +73,7 @@
 					https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_640/v1680366257/tomimi.dev/mizuki/{route.title}/{route.src}.webp 600w"
 					sizes="(max-width: 480px) 400px, 600px"
 					src={`https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_640/v1680366257/tomimi.dev/mizuki/${route.title}/${route.src}.webp`}
-					alt={'doq'}
+					alt={route.title}
 					loading="lazy"
 					decoding="async"
 					class="aspect-[1062/600] w-screen max-h-max sm:aspect-auto sm:w-[40rem] sm:h-[360px]"
