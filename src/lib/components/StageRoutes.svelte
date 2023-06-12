@@ -38,6 +38,7 @@
 		>
 			{#each routes as route, index}
 				{@const icon = icons.find((ele) => ele.title === route.title)}
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
 				<li
 					class={`flex items-center justify-center min-w-[75px] w-full cursor-pointer py-1.5`}
 					on:click={() => (selected = index)}
