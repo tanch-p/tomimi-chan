@@ -48,7 +48,6 @@
 							height={icon.height ?? 50}
 							width={icon.width ?? 50}
 							alt={icon.title}
-							loading="lazy"
 							decoding="async"
 							class={`${selected !== index ? 'opacity-30' : ''}`}
 						/>

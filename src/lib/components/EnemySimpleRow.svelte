@@ -60,7 +60,6 @@
 							height="75px"
 							width="75px"
 							decoding="async"
-							loading="lazy"
 							alt={enemy.id}
 						/>
 					</td>

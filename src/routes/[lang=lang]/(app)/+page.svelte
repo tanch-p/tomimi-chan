@@ -47,7 +47,6 @@
 								class="select-none mx-auto py-3"
 								{src}
 								decoding="async"
-								loading="lazy"
 								alt={translations[language][alt]}
 							/>
 						</a>
