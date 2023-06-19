@@ -2,22 +2,33 @@
 	import { selectedContracts } from './stores';
 	import RankTriangles from './RiskTriangle.svelte';
 	import translations from '$lib/translations.json';
+	import { onMount, onDestroy } from 'svelte';
+	import { createSlider } from '$lib/functions/slider';
 
 	export let ccType: 'perma' | 'daily' = 'perma',
 		language: string;
+	const sortedContracts = [];
 
 	$: totalRisk = $selectedContracts.reduce((acc, curr) => (acc += curr.rank), 0);
+
+	let cleanupSlider = () => {};
+	onMount(() => {
+		cleanupSlider = createSlider('.selected-slider');
+	});
+	onDestroy(() => {
+		cleanupSlider();
+	});
 </script>
 
 <div class="max-w-4xl mx-auto">
-	<div class="overflow-scroll md:overflow-hidden">
+	<div class="selected-slider overflow-auto bg-[#2e2c2c] border-b border-b-gray-400 ">
 		<div
-			class="flex flex-wrap flex-col gap-y-2 border-b border-b-gray-400 w-[100vw] md:w-full md:h-[300px] md:max-w-[900px] text-[12px] lg:text-md bg-[#292929] text-gray-300"
+			class="relative flex flex-wrap flex-col gap-y-2 py-2 w-screen md:w-full max-h-[300px] md:h-[300px] md:max-w-[900px] text-[12px] lg:text-md  text-gray-300"
 		>
 			{#each $selectedContracts as option}
-				<div class="flex">
+				<div class="flex md:w-[50%]">
 					<RankTriangles risk={option.rank} type="perma" />
-					<p class={`mx-2 ${ccType === 'perma' ? 'max-w-[400px]' : 'max-w-[600px]'}`}>
+					<p class={`mx-2`}>
 						{option.tooltip[language]}
 					</p>
 				</div>
@@ -25,9 +36,9 @@
 		</div>
 	</div>
 	<div
-		class="flex flex-wrap border border-gray-800 w-[100vw] overflow:hidden md:w-full h-[50px] max-w-[900px] py-2 mb-2 select-none place-items-center bg-[#292929]"
+		class="flex flex-wrap border border-gray-800 w-[100vw] overflow:hidden md:w-full h-[50px] max-w-[900px] py-2 mb-2 select-none place-items-center bg-[#2e2c2c]"
 	>
-		<div
+		<button
 			class="flex flex-wrap bg-white border rounded border-gray-800 mx-1 px-1 h-[80%] cursor-pointer active:bg-gray-400"
 			on:click={() => selectedContracts.set([])}
 		>
@@ -48,7 +59,7 @@
 			<p class="font-semibold text-black">
 				{translations[language].cc_clear}
 			</p>
-		</div>
+		</button>
 		<div
 			class="flex flex-wrap flex-col px-2 h-[110%] border-r-2 border-r-black leading-[16px] text-white"
 		>

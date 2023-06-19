@@ -2,7 +2,8 @@
 	import RiskTriangle from './RiskTriangle.svelte';
 	import { selectedContracts } from './stores';
 	import translations from '$lib/translations.json';
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
+	import { createSlider } from '$lib/functions/slider';
 
 	export let language: string,
 		contracts = [];
@@ -35,37 +36,16 @@
 		}
 	};
 
+	let cleanupSlider = () => {};
 	onMount(() => {
-		const slider = document.querySelector('.slider');
-		let isDown = false;
-		let startX;
-		let scrollLeft;
-
-		slider.addEventListener('mousedown', (e) => {
-			isDown = true;
-			slider.classList.add('active');
-			startX = e.pageX - slider.offsetLeft;
-			scrollLeft = slider.scrollLeft;
-		});
-		slider.addEventListener('mouseleave', () => {
-			isDown = false;
-			slider.classList.remove('active');
-		});
-		slider.addEventListener('mouseup', () => {
-			isDown = false;
-			slider.classList.remove('active');
-		});
-		slider.addEventListener('mousemove', (e) => {
-			if (!isDown) return;
-			e.preventDefault();
-			const x = e.pageX - slider.offsetLeft;
-			const walk = (x - startX) * 3; //scroll-fast
-			slider.scrollLeft = scrollLeft - walk;
-		});
+		cleanupSlider = createSlider('.slider');
+	});
+	onDestroy(() => {
+		cleanupSlider();
 	});
 </script>
 
-<div class={`max-w-4xl mx-auto ${stickyTable ? 'sticky top-0 z-10' : ' '}`}>
+<div class={`max-w-4xl mx-auto ${stickyTable ? 'sticky top-16 sm:top-6 z-10' : ' '}`}>
 	<div class="w-full flex flex-wrap place-content-end mb-1">
 		<button
 			on:click={() => (stickyTable = !stickyTable)}
@@ -95,7 +75,7 @@
 	<div
 		class={`slider flex w-full h-fit max-w-[900px] overflow-x-auto overflow-y-clip no-scrollbar select-none`}
 	>
-		<div class="bg-[#545753] md:sticky left-0 border-x border-gray-700">
+		<div class="bg-[#545753] md:sticky left-0 z-[1] border-x border-gray-700">
 			{#each ranks as rank}
 				<div class={`min-w-[50px] max-w-[100px] h-[65px] flex items-center `}>
 					<div class="leading-[10px] mx-[4px]">
@@ -125,6 +105,7 @@
 						{#if option?.img}
 							<button
 								type="button"
+								title={option.tooltip[language]}
 								on:click={() =>
 									handleClick(category.category, option, selected, sameCategorySelected)}
 							>
@@ -134,7 +115,11 @@
 									width="64px"
 									height="64px"
 									class={`aspect-[1/1] ${
-										selected ? 'bg-blue-500' : sameCategorySelected ? 'bg-rose-600' : ''
+										selected
+											? 'bg-blue-500'
+											: sameCategorySelected
+											? 'bg-rose-600 opacity-90 brightness-75'
+											: ''
 									}`}
 								/>{' '}
 							</button>
