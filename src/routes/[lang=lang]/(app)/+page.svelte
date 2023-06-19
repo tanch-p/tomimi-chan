@@ -2,8 +2,10 @@
 	import type { PageData } from './$types';
 	import banner_mizuki from '$lib/images/banner_mizuki_800px.webp';
 	import banner_phantom from '$lib/images/banner_phantom_800px.webp';
+	import cc_banner from '$lib/images/banner_cc11.webp';
 	import translations from '$lib/translations.json';
 	import ISLogo from '$lib/images/is_logo.webp';
+	import CCLogo from '$lib/images/cc_logo.webp';
 
 	export let data: PageData;
 
@@ -25,16 +27,33 @@
 <section>
 	<div class="h-[10vh]" />
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
-		<div class="flex flex-wrap mx-auto gap-4 px-2 sm:px-8  justify-center">
+		<div class="flex flex-wrap mx-auto gap-x-4 gap-y-8 px-2 sm:px-8  justify-center">
 			<!-- <div class="basis-2/6 bg-neutral-900 pt-3 pb-2">
 				<p class="">Tools</p>
 			</div> -->
 			<div
-				class="md:basis-3/4 lg:basis-2/4 bg-[#363636] shadow-lg md:shadow-xl pt-2 sm:pt-4 sm:pb-6 px-2 sm:px-8"
+				class="md:basis-3/4 lg:basis-2/4 bg-[#363636] shadow-lg md:shadow-xl pt-2 sm:py-3 px-2 sm:px-6"
 			>
 				<div class="flex items-center justify-center">
 					<span>
-						<img src={ISLogo} alt={translations[language].is_title} />
+						<img src={CCLogo} alt={translations[language].cc_title} width="34" height="34" />
+					</span>
+					<p class={`${language === 'en' ? 'text-sm font-bold' : 'font-semibold'}`}>
+						{translations[language].cc_title}
+					</p>
+				</div>
+				<div class="flex flex-wrap w-full justify-center">
+					<a href={`/${language}/cc/`}>
+						<img class="select-none mx-auto py-3" src={cc_banner} decoding="async" alt={'cc11'} />
+					</a>
+				</div>
+			</div>
+			<div
+				class="md:basis-3/4 lg:basis-2/4 bg-[#363636] shadow-lg md:shadow-xl pt-2 sm:py-3 px-2 sm:px-6"
+			>
+				<div class="flex items-center justify-center">
+					<span>
+						<img src={ISLogo} alt={translations[language].is_title} width="36" height="36" />
 					</span>
 					<p class={`${language === 'en' ? 'text-sm font-bold' : 'font-semibold'}`}>
 						{translations[language].is_title}

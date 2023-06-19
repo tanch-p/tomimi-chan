@@ -13,7 +13,7 @@
 	$: name_zh = mapConfig?.name_zh;
 	$: name_ja = mapConfig?.name_ja;
 	$: name_en = mapConfig?.name_en;
-	$: if (mapConfig) {
+	$: if (mapConfig && !mapConfig.contracts) {
 		pathEN = `/en/stages/${code}_${name_en || name_zh}`;
 		pathJA = `/ja/stages/${code}_${name_ja || name_zh}`;
 		pathZH = `/zh/stages/${code}_${name_zh}`;

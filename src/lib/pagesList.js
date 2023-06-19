@@ -1,4 +1,5 @@
 import ISStagesList from './data/stages/is_stages_list.json' assert { type: 'json' };
+import { cc11stages } from '../params/cc_maps';
 
 const LANGUAGES = ['en', 'ja', 'zh'];
 const PAGES = ['about', 'credits', 'mizuki', 'phantom'];
@@ -10,6 +11,9 @@ export const pagesToRender = LANGUAGES.reduce((acc, language) => {
 	for (const stage of ISStagesList) {
 		const stageName = stage.code + '_' + (stage[`name_${language}`] || stage['name_zh']);
 		acc.push(`/${language}/stages/${stageName}`);
+	}
+	for (const stage of cc11stages) {
+		acc.push(`/${language}/stages/${stage}`);
 	}
 	return acc;
 }, []);
