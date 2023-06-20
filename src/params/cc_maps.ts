@@ -1,6 +1,6 @@
 import type { ParamMatcher } from '@sveltejs/kit';
 
-export const cc11stages = [
+const cc11stages = [
 	'冻原矿场_11-1',
 	'冻原矿场_11-1',
 	'沙海遗迹_11-1',
@@ -14,7 +14,7 @@ export const cc11stages = [
 	'尚蜀山道_11-2',
 	'伦蒂尼姆边缘区块_11-2',
 	'小丘郡物流站_11-2',
-	'沙海遗迹_11-2',
+	'冻原矿场_11-2',
 	'在建沙滩'
 ];
 export const match = ((param) => {

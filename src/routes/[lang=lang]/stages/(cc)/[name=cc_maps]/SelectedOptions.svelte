@@ -20,13 +20,13 @@
 	});
 </script>
 
-<div class="max-w-4xl mx-auto">
-	<div class="selected-slider overflow-auto bg-[#2e2c2c] border-b border-b-gray-400 ">
+<div class={`max-w-4xl mx-auto ${ccType === 'daily' ? 'md:w-[740px]' : ''}`}>
+	<div class="selected-slider bg-[#2e2c2c] border-b border-b-gray-400 ">
 		<div
 			class="relative flex flex-wrap flex-col gap-y-2 py-2 w-screen md:w-full max-h-[300px] md:h-[300px] md:max-w-[900px] text-[12px] lg:text-md  text-gray-300"
 		>
 			{#each $selectedContracts as option}
-				<div class="flex md:w-[50%]">
+				<div class={`flex ${ccType === 'daily' ? '' : 'md:w-[50%]'}`}>
 					<RankTriangles risk={option.rank} type="perma" />
 					<p class={`mx-2`}>
 						{option.tooltip[language]}
@@ -72,3 +72,12 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	.selected-slider {
+		position: relative;
+		width: 100%;
+		overflow-x: auto;
+		overflow-y: hidden;
+	}
+</style>

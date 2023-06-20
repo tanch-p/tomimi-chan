@@ -9,6 +9,7 @@
 	import translations from '$lib/translations.json';
 	import SelectedOptions from './SelectedOptions.svelte';
 	import StageHeader from '$lib/components/StageHeader.svelte';
+	import CCNav from '$lib/components/CCNav.svelte';
 
 	export let data: PageData;
 	$: language = data.language;
@@ -38,6 +39,9 @@
 		<SelectedOptions ccType={data?.contracts.type} {language} />
 		<div class="mt-12">
 			<EnemySimpleTable enemies={moddedEnemies} {language} {statMods} {specialMods} />
+		</div>
+		<div class="max-w-4xl mx-auto mt-24">
+			<CCNav {language} />
 		</div>
 	</div>
 </main>

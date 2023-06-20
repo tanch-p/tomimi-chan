@@ -82,12 +82,12 @@
 		"code": null,
 		"name_zh": "沙海遗迹",
 		"name_ja": "砂海の遺跡",
-		"name_en": "Sandsea_Remnants",
+		"name_en": "Sandsea Remnants",
 		"sp_terrain": null,
 		"contracts": [
 			{
 				"type": "daily",
-				"event": "11-1",
+				"id": "11-1",
 				"list": [
 					{
 						"category": "squad",
@@ -560,7 +560,7 @@
 		"costIncreaseTime": 1.0,
 		"code": null,
 		"name_zh": "在建沙滩",
-		"name_ja": null,
+		"name_ja": "建設中のビーチ",
 		"name_en": null,
 		"sp_terrain": [
 			{
@@ -572,7 +572,7 @@
 		"contracts": [
 			{
 				"type": "perma",
-				"code": null,
+				"id": null,
 				"list": [
 					{
 						"category": "Dockworker",
@@ -698,7 +698,7 @@
 													"type": "others",
 													"tooltip": {
 														"en": ["When underwater, takes $400$ True damage every second"],
-														"ja": ["水蝕状态で毎秒$400$確定ダメージを受ける"],
+														"ja": ["水蝕状態で毎秒$400$確定ダメージを受ける"],
 														"zh": ["“水蚀”状态每秒受到$400$点无来源真实伤害"]
 													}
 												}
@@ -713,7 +713,7 @@
 													"type": "others",
 													"tooltip": {
 														"en": ["When underwater, takes $560$ True damage every second"],
-														"ja": ["水蝕状态で毎秒$560$確定ダメージを受ける"],
+														"ja": ["水蝕状態で毎秒$560$確定ダメージを受ける"],
 														"zh": ["“水蚀”状态每秒受到$560$点无来源真实伤害"]
 													}
 												}
@@ -753,7 +753,7 @@
 													"type": "others",
 													"tooltip": {
 														"en": ["$No longer receives damage when underwater$"],
-														"ja": ["水蝕状态で$ダメージを受けなくなる$"],
+														"ja": ["水蝕状態で$ダメージを受けなくなる$"],
 														"zh": ["“水蚀”状态$不再受到伤害$"]
 													}
 												}
@@ -768,7 +768,7 @@
 													"type": "others",
 													"tooltip": {
 														"en": ["$No longer receives damage when underwater$"],
-														"ja": ["水蝕状态で$ダメージを受けなくなる$"],
+														"ja": ["水蝕状態で$ダメージを受けなくなる$"],
 														"zh": ["“水蚀”状态$不再受到伤害$"]
 													}
 												}
@@ -1604,10 +1604,409 @@
 		"costIncreaseTime": 1.0,
 		"code": null,
 		"name_zh": "冻原矿场",
-		"name_ja": null,
+		"name_ja": "凍原の鉱場",
 		"name_en": null,
 		"sp_terrain": null,
-		"contracts": null,
+		"contracts": [
+			{
+				"type": "daily",
+				"id": "11-1",
+				"list": [
+					{
+						"category": "cost_regen",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "DP Down 1",
+									"ja": "指令：孤軍奮闘I",
+									"zh": "目标：深度渗透I"
+								},
+								"img": "75px-Global_costrecovery_1",
+								"effects": [],
+								"tooltip": {
+									"en": "DP Regeneration reduced by 25%",
+									"ja": "コストの自然回復速度-25%",
+									"zh": "部署费用的自然回复速度降低25%"
+								}
+							}
+						]
+					},
+					{
+						"category": "obstacle_1",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "Roadblock 1",
+									"ja": "障害物I",
+									"zh": ""
+								},
+								"img": "冻原矿场/75px-Trap_roadblock_pos",
+								"effects": [],
+								"tooltip": {
+									"en": "Initial position of <Static Roadblock> changed and more <Static Roadblock> appear ",
+									"ja": "配置される＜道路障害物＞の位置が変化し、さらに追加で配置される",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "grids_1",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "Forbidden Grids 1",
+									"ja": "環境：峻険地形I",
+									"zh": ""
+								},
+								"img": "75px-Global_forbidloc_1",
+								"effects": [],
+								"tooltip": {
+									"en": "7 tiles forbid deployment",
+									"ja": "マップ上の7つのマスが配置不可に",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "vanguard",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "Imperial Striker 2",
+									"ja": "帝国精鋭先鋒II",
+									"zh": ""
+								},
+								"img": "冻原矿场/75px-Enemy_empace_2",
+								"effects": [
+									{
+										"targets": ["U13"],
+										"mods": {
+											"hp": 1.9,
+											"atk": 1.45,
+											"def": 1.45
+										}
+									}
+								],
+								"tooltip": {
+									"en": "<Imperial Striker> gains Max HP +90%, ATK +45%, DEF +45%",
+									"ja": "＜帝国精鋭先鋒＞の最大HP+90%、攻撃力+45%、防御力+45%",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "imperial_arti",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"ja": "特化：爆撃指令II",
+									"en": "Heavy Bombardment II",
+									"zh": ""
+								},
+								"img": "冻原矿场/Enemy_emppnt_2",
+								"effects": [
+									{
+										"targets": ["U11"],
+										"mods": {
+											"hp": 1.7,
+											"atk": 1.4
+										}
+									}
+								],
+								"tooltip": {
+									"en": "<Imperial Artillery Harbinger> appears early, Max HP +70%, ATK +40%",
+									"zh": "",
+									"ja": "＜帝国砲撃誘導機＞は早めに出現、HP+70%、攻撃力+40%"
+								}
+							}
+						]
+					},
+					{
+						"category": "enemy_aspd",
+						"options": [
+							{
+								"rank": 2,
+								"name": { "en": "Enemy ASPD 2", "ja": "増幅：ラッシュII", "zh": "" },
+								"img": "75px-Enemy_attackspeed_2",
+								"effects": [{ "targets": ["ALL"], "mods": { "fixed_aspd": 50 } }],
+								"tooltip": {
+									"en": "Enemy ASPD +50",
+									"ja": "全ての敵の攻撃速度+50",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "obstacle_2",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "Fortified Roadblocks 2",
+									"ja": "障害物強化II",
+									"zh": ""
+								},
+								"img": "冻原矿场/75px-Trap_roadblock_hp_2",
+								"effects": [],
+								"tooltip": {
+									"en": "<Static Roadblock> Max HP +200%, DEF +200, RES +15 ",
+									"ja": "＜道路障害物＞のHP+200%、防御力+200、術耐性+15",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "imperial_arti",
+						"options": [
+							{
+								"rank": 3,
+								"name": {
+									"ja": "特化：爆撃指令III",
+									"en": "Heavy Bombardment III",
+									"zh": ""
+								},
+								"img": "冻原矿场/Enemy_emppnt_3",
+								"effects": [
+									{
+										"targets": ["U11"],
+										"mods": {
+											"hp": 2,
+											"atk": 1.6
+										}
+									}
+								],
+								"tooltip": {
+									"en": "[Imperial Artillery Harbinger] appears early, Max HP +100%, ATK +60%",
+									"zh": "",
+									"ja": "「帝国砲撃誘導機」は早めに出現、HP+100%、攻撃力+60%"
+								}
+							}
+						]
+					},
+					{
+						"category": "char_atk",
+						"options": [
+							{
+								"rank": 3,
+								"name": {
+									"en": "Reduced Ally ATK 3",
+									"ja": "制限：火力減衰III",
+									"zh": "环境：高价值目标III"
+								},
+								"img": "75px-Char_atk_3",
+								"effects": [],
+								"tooltip": {
+									"en": "All allies’ ATK -50%",
+									"ja": "全ての味方の攻撃力-50%",
+									"zh": "所有我方单位的攻击力降低50%"
+								}
+							}
+						]
+					}
+				]
+			},
+			{
+				"type": "daily",
+				"id": "11-2",
+				"list": [
+					{
+						"category": "obstacle_2",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "Fortified Roadblocks 1",
+									"ja": "障害物強化I",
+									"zh": ""
+								},
+								"img": "冻原矿场/75px-Trap_roadblock_hp_1",
+								"effects": [],
+								"tooltip": {
+									"en": "<Static Roadblock> Max HP +100%, DEF +100, RES +10 ",
+									"ja": "＜道路障害物＞のHP+100%、防御力+100、術耐性+10",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "obstacle_1",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "More Roadblocks",
+									"ja": "障害物増加",
+									"zh": ""
+								},
+								"img": "冻原矿场/75px-Trap_roadblock_add",
+								"effects": [],
+								"tooltip": {
+									"en": "More <Static Roadblock> appear on the field",
+									"ja": "配置される＜道路障害物＞が増加する",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "char_block",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"ja": "制限：ブロック数",
+									"en": "Reduced Blockcount 1",
+									"zh": "环境：精神散I"
+								},
+								"img": "75px-Char_blockcnt_add",
+								"effects": [],
+								"tooltip": {
+									"en": "All allies' block count -1",
+									"ja": "全ての味方のブロック数-1",
+									"zh": "所有角色阻挡数-1"
+								}
+							}
+						]
+					},
+					{
+						"category": "cbm",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "Imperial Striker 2",
+									"ja": "帝国精鋭先鋒II",
+									"zh": ""
+								},
+								"img": "冻原矿场/75px-Enemy_uabone_2",
+								"effects": [
+									{
+										"targets": ["U5"],
+										"mods": {
+											"hp": 2.5,
+											"atk": 1.8,
+											"range": 1.3
+										}
+									}
+								],
+								"tooltip": {
+									"en": "<Ursus Assault Crossbowman> Max HP +150%, ATK +80%, Attack range increased",
+									"ja": "＜ウルサス強襲射撃兵＞の最大HP+150%、攻撃力+80%、攻撃範囲拡大",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "char_hp",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"ja": "制限：体力減衰II",
+									"en": "Reduced Operator HP 2",
+									"zh": "源石环境：侵蚀II"
+								},
+								"img": "75px-Char_hp_2",
+								"effects": [],
+								"tooltip": {
+									"en": "Ally Max HP reduced -35%",
+									"ja": "全ての味方の最大HP-35%",
+									"zh": "所有我方单位的生命值上限降低35%"
+								}
+							}
+						]
+					},
+					{
+						"category": "squad",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "Max Squad Size 2",
+									"ja": "環境：少数精鋭II",
+									"zh": "目标：隐秘行动II "
+								},
+								"img": "75px-Global_squadnum_2",
+								"effects": [],
+								"tooltip": {
+									"en": "Maximum 7 operators in squad",
+									"ja": "編成可能数が7人に",
+									"zh": "最多可编入7名干员进入作战"
+								}
+							}
+						]
+					},
+					{
+						"category": "vanguard",
+						"options": [
+							{
+								"rank": 3,
+								"name": {
+									"en": "Imperial Striker 3",
+									"ja": "帝国精鋭先鋒III",
+									"zh": ""
+								},
+								"img": "冻原矿场/75px-Enemy_empace_3",
+								"effects": [
+									{
+										"targets": ["U13"],
+										"mods": {
+											"hp": 2.5,
+											"atk": 1.6,
+											"def": 1.6
+										}
+									}
+								],
+								"tooltip": {
+									"en": "<Imperial Striker> gains Max HP +150%, ATK +60%, DEF +60%",
+									"ja": "＜帝国精鋭先鋒＞の最大HP+150%、攻撃力+60%、防御力+60%",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "enemy_hp",
+						"options": [
+							{
+								"rank": 3,
+								"name": {
+									"en": "Enemy HP 3",
+									"ja": "増幅：体力III",
+									"zh": "源石环境：活性III"
+								},
+								"img": "75px-Enemy_hp_3",
+								"effects": [
+									{
+										"targets": ["ALL"],
+										"mods": {
+											"hp": 2
+										}
+									}
+								],
+								"tooltip": {
+									"en": "Enemy Max HP +100%",
+									"ja": "全ての敵の最大HP+100%",
+									"zh": "所有敌人的生命值提升100%"
+								}
+							}
+						]
+					}
+				]
+			}
+		],
 		"enemies": [
 			{
 				"id": "enemy_1113_empace",
