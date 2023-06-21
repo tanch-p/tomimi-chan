@@ -11,7 +11,7 @@
 	import translations from '$lib/translations.json';
 	import VideoPlayer from './VideoPlayer.svelte';
 
-	export let routes: [], rogueTopic: string|null, language: string;
+	export let routes: [], rogueTopic: string | null, language: string;
 
 	const icons = [
 		{ title: 'duck', src: DLD },
@@ -29,6 +29,7 @@
 	$: if (routes) {
 		selected = 0;
 	}
+	$: folder = rogueTopic?.replace('rogue_', '');
 </script>
 
 <div class="">
@@ -72,7 +73,7 @@
 					srcset="https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_400/v1680366257/tomimi.dev/{folder}/{route.title}/{route.src}.webp 400w, 
 					https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_640/v1680366257/tomimi.dev/{folder}/{route.title}/{route.src}.webp 600w"
 					sizes="(max-width: 480px) 400px, 600px"
-					src={`https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_640/v1680366257/tomimi.dev/${folder}/${route.title}/${route.src}.webp`}
+					src="https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_640/v1680366257/tomimi.dev/{folder}/{route.title}/{route.src}.webp"
 					alt={route.title}
 					loading="lazy"
 					decoding="async"

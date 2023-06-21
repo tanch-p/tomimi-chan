@@ -6,16 +6,16 @@
 		contracts = [];
 	const ranks = [1, 2, 3];
 
-	const handleClick = (category, option, selected, sameCategorySelected) => {
+	const handleClick = (category, option, selected, sameCategorySelected,index) => {
 		if (selected) {
 			selectedContracts.update((list) => list.filter((item) => item.img !== option.img));
 		} else if (sameCategorySelected) {
 			selectedContracts.update((list) => {
 				list = list.filter((item) => item.category !== category);
-				return [...list, { ...option, category: category }];
+				return [...list, { ...option, category: category,index }];
 			});
 		} else {
-			selectedContracts.update((list) => [...list, { ...option, category: category }]);
+			selectedContracts.update((list) => [...list, { ...option, category: category,index }]);
 		}
 	};
 	const getRankColor = (rank: number) => {
@@ -42,7 +42,7 @@
 						<RiskTriangle risk={rank} type={'daily'} />
 					</div>
 					<div class="grid grid-rows-3">
-						{#each contracts as category}
+						{#each contracts as category,index}
 							{#each category['options'] as option}
 								{@const selected = Boolean(
 									$selectedContracts.find((item) => item.img === option.img)
@@ -61,7 +61,7 @@
 										}`}
 										title={option.tooltip[language]}
 										on:click={() =>
-											handleClick(category.category, option, selected, sameCategorySelected)}
+											handleClick(category.category, option, selected, sameCategorySelected,index)}
 									>
 										<img
 											src="https://res.cloudinary.com/dbqz7mebk/image/upload/v1680366257/tomimi.dev/cc/{option.img}.webp"

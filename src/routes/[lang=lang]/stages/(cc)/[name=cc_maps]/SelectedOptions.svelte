@@ -13,7 +13,19 @@
 		selectedContracts.set([]);
 	}
 
-	const sortedContracts = [];
+	let sortedContracts = [];
+	selectedContracts.subscribe(
+		(value) =>
+			(sortedContracts = value.sort((a, b) => {
+				if (a.index < b.index) {
+					return -1;
+				}
+				if (a.index > b.index) {
+					return 1;
+				}
+				return 0;
+			}))
+	);
 
 	$: totalRisk = $selectedContracts.reduce((acc, curr) => (acc += curr.rank), 0);
 
@@ -31,7 +43,7 @@
 		<div
 			class="relative flex flex-wrap flex-col gap-y-2 py-2 w-screen md:w-full max-h-[300px] md:h-[300px] md:max-w-[900px] text-[12px] lg:text-md  text-gray-300"
 		>
-			{#each $selectedContracts as option}
+			{#each sortedContracts as option}
 				<div class={`flex ${ccType === 'daily' ? '' : 'md:w-[50%]'}`}>
 					<RankTriangles risk={option.rank} type="perma" />
 					<p class={`mx-2`}>
