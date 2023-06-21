@@ -6,7 +6,13 @@
 	import { createSlider } from '$lib/functions/slider';
 
 	export let ccType: 'perma' | 'daily' = 'perma',
-		language: string;
+		language: string,
+		mapConfig;
+
+	$: if (mapConfig) {
+		selectedContracts.set([]);
+	}
+
 	const sortedContracts = [];
 
 	$: totalRisk = $selectedContracts.reduce((acc, curr) => (acc += curr.rank), 0);

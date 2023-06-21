@@ -41,7 +41,7 @@
 {#each skillsToParse as skill}
 	<p class="whitespace-nowrap">
 		{skill.value}
-		{'('}{#if stat === 'atk' && skill.hits > 1}{`x ${skill.hits}`}{/if}{skill.suffix[
+		{#if stat === 'atk' && skill.hits > 1}{`x ${skill.hits}`}{/if}{' ('}{skill.suffix[
 			language
 		]}{#if stat === 'atk' && skill.dmgEle}{separator}<span class={getDmgEleHighlight(skill.dmgEle)}
 				>{translations[language][skill.dmgEle]}</span

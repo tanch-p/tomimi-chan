@@ -36,7 +36,7 @@
 		{:else}
 			<DailyContracts contracts={data?.contracts?.list} {language} />
 		{/if}
-		<SelectedOptions ccType={data?.contracts.type} {language} />
+		<SelectedOptions ccType={data?.contracts.type} {language} mapConfig={data.mapConfig} />
 		<div class="mt-12">
 			<EnemySimpleTable enemies={moddedEnemies} {language} {statMods} {specialMods} />
 		</div>
