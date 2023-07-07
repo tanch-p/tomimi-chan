@@ -2074,9 +2074,7 @@
 									"zh": "目标：装备精良3"
 								},
 								"img": "75px-Enemy_defmagicresis_3",
-								"effects": [
-									{ "targets": ["ALL"], "mods": { "def": 1.5, "fixed_res": 20 } }
-								],
+								"effects": [{ "targets": ["ALL"], "mods": { "def": 1.5, "fixed_res": 20 } }],
 								"tooltip": {
 									"en": "Enemy DEF +50%, RES +20",
 									"ja": "全ての敵の防御力+50%、術耐性+20",
@@ -2480,7 +2478,7 @@
 									{
 										"targets": ["enemy_1177_dufrbl"],
 										"mods": {
-											"atk":1.6
+											"atk": 1.6
 										}
 									}
 								],
@@ -4391,7 +4389,837 @@
 		"name_ja": null,
 		"name_en": null,
 		"sp_terrain": null,
-		"contracts": null,
+		"contracts": [
+			{
+				"type": "perma",
+				"id": null,
+				"list": [
+					{
+						"category": "avenger",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "",
+									"ja": "",
+									"zh": ""
+								},
+								"img": "无名庇护所/75px-Enemy_newrevg_1",
+								"effects": [
+									{
+										"targets": ["14", "15"],
+										"mods": { "hp": 1.5, "def": 1.6, "atk": 1.15 }
+									}
+								],
+								"tooltip": {
+									"en": "<Avenger> and <Hateful Avenger> gains Max HP +50%, DEF +60%, ATK +15%",
+									"zh": "",
+									"ja": "＜リベンジャー＞と＜ヴェンデッタ＞の最大HP+50%、攻撃力+15%、防御力+60%"
+								}
+							},
+							{
+								"rank": 2,
+								"name": {
+									"en": "",
+									"ja": "",
+									"zh": ""
+								},
+								"img": "无名庇护所/75px-Enemy_newrevg_2",
+								"effects": [
+									{
+										"targets": ["14", "15"],
+										"mods": { "hp": 1.8, "def": 2, "atk": 1.3, "fixed_weight": 1 }
+									}
+								],
+								"tooltip": {
+									"en": "<Avenger> and <Hateful Avenger> gains Max HP +80%, DEF +100%, ATK +30%, Weight level +1",
+									"zh": "",
+									"ja": "＜リベンジャー＞と＜ヴェンデッタ＞の最大HP+80%、攻撃力+30%、防御力+100%、重量+1"
+								}
+							},
+							{
+								"rank": 3,
+								"name": {
+									"en": "",
+									"ja": "",
+									"zh": ""
+								},
+								"img": "无名庇护所/75px-Enemy_newrevg_3",
+								"effects": [
+									{
+										"targets": ["14", "15"],
+										"mods": { "hp": 2.2, "def": 2.5, "atk": 1.6, "fixed_weight": 1 }
+									}
+								],
+								"tooltip": {
+									"en": "<Avenger> and <Hateful Avenger> gains Max HP +120%, DEF +150%, ATK +60%, Weight level +1",
+									"zh": "",
+									"ja": "＜リベンジャー＞と＜ヴェンデッタ＞の最大HP+120%、攻撃力+60%、防御力+150%、重量+1"
+								}
+							}
+						]
+					},
+					{
+						"category": "Boss",
+						"options": [
+							{
+								"rank": 1,
+								"name": { "en": "", "ja": "", "zh": "" },
+								"img": "无名庇护所/75px-Enemy_reid_1",
+								"effects": [
+									{
+										"targets": ["A15"],
+										"mods": {
+											"hp": 1.6,
+											"special": {
+												"avenger_180": {
+													"type": "atk",
+													"dmg_element": null,
+													"suffix": {
+														"en": "HP↓50%",
+														"ja": "HP50%以下",
+														"zh": "HP50%以下"
+													},
+													"multiplier": 3.1,
+													"hits": 1,
+													"fixed_inc": 0,
+													"tooltip": {
+														"en": ["HP↓50% - $+210%$ ATK"],
+														"ja": ["HP50%以下→攻撃力+$210%$"],
+														"zh": ["生命值低于50%时，攻击力提升$210%$"]
+													}
+												}
+											}
+										}
+									}
+								],
+								"tooltip": {
+									"en": "<Redblade> gains Max HP +60%, ATK buff at 50% HP increased by 30%",
+									"zh": "",
+									"ja": "＜“复仇者”＞の最大HP+60%、HPが半分以下の時、さらに攻撃力+30%"
+								}
+							},
+							{
+								"rank": 2,
+								"name": {
+									"en": "",
+									"ja": "",
+									"zh": ""
+								},
+								"img": "无名庇护所/75px-Enemy_reid_2",
+								"effects": [
+									{
+										"targets": ["A15"],
+										"mods": {
+											"hp": 2,
+											"special": {
+												"avenger_180": {
+													"type": "atk",
+													"dmg_element": null,
+													"suffix": {
+														"en": "HP↓50%",
+														"ja": "HP50%以下",
+														"zh": "HP50%以下"
+													},
+													"multiplier": 3.3,
+													"hits": 1,
+													"fixed_inc": 0,
+													"tooltip": {
+														"en": ["HP↓50% - $+230%$ ATK"],
+														"ja": ["HP50%以下→攻撃力$+230%$"],
+														"zh": ["生命值低于50%时，攻击力提升$230%$"]
+													}
+												}
+											}
+										}
+									}
+								],
+								"tooltip": {
+									"en": "<Redblade> gains Max HP +60%, becomes Invicible for 5s upon revival, ATK buff at 50% HP increased by 80%",
+									"zh": "",
+									"ja": "＜“复仇者”＞の最大HP+100%、復活時5秒間無敵になる、HPが半分以下の時、さらに攻撃力+50%"
+								}
+							},
+							{
+								"rank": 3,
+								"name": {
+									"en": "Boss: Dazzle 3",
+									"ja": "強敵：煌煌III",
+									"zh": ""
+								},
+								"img": "无名庇护所/75px-Enemy_reid_3",
+								"effects": [
+									{
+										"targets": ["A15"],
+										"mods": {
+											"hp": 2.5,
+											"special": {
+												"avenger_180": {
+													"type": "atk",
+													"dmg_element": null,
+													"suffix": {
+														"en": "HP↓50%",
+														"ja": "HP50%以下",
+														"zh": "HP50%以下"
+													},
+													"multiplier": 3.8,
+													"hits": 1,
+													"fixed_inc": 0,
+													"tooltip": {
+														"en": ["HP↓50% - $+280%$ ATK and $receives 30% less damage$"],
+														"ja": ["HP50%以下→攻撃力$+280%$、$被ダメージ30%軽減$"],
+														"zh": ["生命值低于50%时，攻击力提升$280%$"]
+													}
+												}
+											}
+										}
+									}
+								],
+								"tooltip": {
+									"en": "<Redblade> gains Max HP +60%, gains immunity to all status ailments, becomes Invicible for 15s upon revival, receives 30% less damage at 50% HP and ATK buff at 50% HP increased by 100%, ",
+									"zh": "",
+									"ja": "＜“复仇者”＞の最大HP+150%、状態異常耐性を獲得、復活時15秒間無敵になる、HPが半分以下の時、さらに攻撃力+100%、被ダメージ30%軽減"
+								}
+							}
+						]
+					},
+					{
+						"category": "Boss",
+						"options": [
+							{ "rank": 1 },
+							{ "rank": 2 },
+							{
+								"rank": 3,
+								"name": {
+									"en": "Boss: Candlelight 3",
+									"ja": "強敵：明灯III",
+									"zh": ""
+								},
+								"img": "无名庇护所/75px-Enemy_reid_4",
+								"effects": [
+									{
+										"targets": ["A15"],
+										"mods": {
+											"hp": 2.5,
+											"fixed_aspd": 100,
+											"special": {
+												"avenger_180": {
+													"type": "atk",
+													"dmg_element": null,
+													"suffix": {
+														"en": "HP↓50%",
+														"ja": "HP50%以下",
+														"zh": "HP50%以下"
+													},
+													"multiplier": 3.8,
+													"hits": 1,
+													"fixed_inc": 0,
+													"tooltip": {
+														"en": ["HP↓50% - $+280%$ ATK and $receives 60% less damage$"],
+														"ja": ["HP50%以下→攻撃力$+280%$、$被ダメージ60%軽減$"],
+														"zh": ["生命值低于50%时，攻击力提升$280%$"]
+													}
+												}
+											}
+										}
+									}
+								],
+								"tooltip": {
+									"en": "<Redblade> gains Max HP +60%, gains immunity to all status ailments, becomes Invicible for 15s upon revival, receives 60% less damage at 50% HP and ATK buff at 50% HP increased by 100%",
+									"zh": "",
+									"ja": "＜“复仇者”＞の最大HP+150%、状態異常耐性を獲得、復活時15秒間無敵になる、HPが半分以下の時、さらに攻撃力+100%、被ダメージ30%軽減"
+								}
+							}
+						]
+					},
+					{
+						"category": "enemy_atk",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "Enemy ATK 1",
+									"ja": "増幅：火力I",
+									"zh": "源石环境：刺激I"
+								},
+								"img": "75px-Enemy_atk_1",
+								"effects": [
+									{
+										"targets": ["ALL"],
+										"mods": {
+											"atk": 1.3
+										}
+									}
+								],
+								"tooltip": {
+									"en": "All enemies ATK +30%",
+									"ja": "全ての敵の攻撃力+30%",
+									"zh": "所有敌人的攻击力提升30%"
+								}
+							},
+							{
+								"rank": 2,
+								"name": {
+									"en": "Enemy ATK 2",
+									"ja": "増幅：火力II",
+									"zh": "源石环境：刺激II"
+								},
+								"img": "75px-Enemy_atk_2",
+								"effects": [
+									{
+										"targets": ["ALL"],
+										"mods": {
+											"atk": 1.5
+										}
+									}
+								],
+								"tooltip": {
+									"en": "All enemies ATK +50%",
+									"ja": "全ての敵の攻撃力+50%",
+									"zh": "所有敌人的攻击力提升50%"
+								}
+							},
+							{
+								"rank": 3,
+								"name": {
+									"en": "Enemy ATK 3",
+									"ja": "増幅：火力III",
+									"zh": "源石环境：刺激III"
+								},
+								"img": "75px-Enemy_atk_3",
+								"effects": [
+									{
+										"targets": ["ALL"],
+										"mods": {
+											"atk": 1.8
+										}
+									}
+								],
+								"tooltip": {
+									"en": "All enemies ATK +80%",
+									"ja": "全ての敵の攻撃力+80%",
+									"zh": "所有敌人的攻击力提升80%"
+								}
+							}
+						]
+					},
+					{
+						"category": "enemy_hp",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "Enemy HP 1",
+									"ja": "増幅：体力I",
+									"zh": "源石环境：活性I"
+								},
+								"img": "75px-Enemy_hp_1",
+								"effects": [{ "targets": ["ALL"], "mods": { "hp": 1.4 } }],
+								"tooltip": {
+									"en": "Enemy Max HP +40%",
+									"ja": "全ての敵の最大HP+40%",
+									"zh": "所有敌人的生命值提升40%"
+								}
+							},
+							{
+								"rank": 2,
+								"name": {
+									"en": "Enemy HP 2",
+									"ja": "増幅：体力II",
+									"zh": "源石环境：活性II"
+								},
+								"img": "75px-Enemy_hp_2",
+								"effects": [{ "targets": ["ALL"], "mods": { "hp": 1.8 } }],
+								"tooltip": {
+									"en": "Enemy Max HP +80%",
+									"ja": "全ての敵の最大HP+80%",
+									"zh": "所有敌人的生命值提升80%"
+								}
+							},
+							{
+								"rank": 3,
+								"name": {
+									"en": "Enemy HP 3",
+									"ja": "増幅：体力III",
+									"zh": "源石环境：活性III"
+								},
+								"img": "75px-Enemy_hp_3",
+								"effects": [{ "targets": ["ALL"], "mods": { "hp": 2.3 } }],
+								"tooltip": {
+									"en": "Enemy Max HP +130%",
+									"ja": "全ての敵の最大HP+130%",
+									"zh": "所有敌人的生命值提升130%"
+								}
+							}
+						]
+					},
+					{
+						"category": "char_atk",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "Reduced Ally ATK 1",
+									"ja": "制限：火力減衰I",
+									"zh": "环境：高价值目标I"
+								},
+								"img": "75px-Char_atk_1",
+								"effects": [],
+								"tooltip": {
+									"en": "All allies’ ATK -15%",
+									"ja": "全ての味方の攻撃力-15%",
+									"zh": "所有我方单位的攻击力降低15%"
+								}
+							},
+							{
+								"rank": 2,
+								"name": {
+									"en": "Reduced Ally ATK 2",
+									"ja": "制限：火力減衰II",
+									"zh": "环境：高价值目标II"
+								},
+								"img": "75px-Char_atk_2",
+								"effects": [],
+								"tooltip": {
+									"en": "All allies’ ATK -30%",
+									"ja": "全ての味方の攻撃力-30%",
+									"zh": "所有我方单位的攻击力降低30%"
+								}
+							},
+							{
+								"rank": 3,
+								"latter": true,
+								"name": {
+									"en": "Reduced Ally ATK 3",
+									"ja": "制限：火力減衰III",
+									"zh": "环境：高价值目标III"
+								},
+								"img": "75px-Char_atk_3",
+								"effects": [],
+								"tooltip": {
+									"en": "All allies’ ATK -50%",
+									"ja": "全ての味方の攻撃力-50%",
+									"zh": "所有我方单位的攻击力降低50%"
+								}
+							}
+						]
+					},
+					{
+						"category": "char_aspd",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "Reduced Ally ASPD 1",
+									"ja": "制限：疲労累積I",
+									"zh": ""
+								},
+								"img": "75px-Char_attackspeed_1",
+								"effects": [],
+								"tooltip": {
+									"en": "All allies’ ASPD -30",
+									"ja": "全ての味方の攻撃速度-30",
+									"zh": ""
+								}
+							},
+							{
+								"rank": 2,
+								"name": {
+									"en": "Reduced Ally ASPD 2",
+									"ja": "制限：疲労累積II",
+									"zh": ""
+								},
+								"img": "75px-Char_attackspeed_2",
+								"effects": [],
+								"tooltip": {
+									"en": "All allies’ ASPD -40",
+									"ja": "全ての味方の攻撃速度-40",
+									"zh": ""
+								}
+							},
+							{
+								"rank": 3
+							}
+						]
+					},
+					{
+						"category": "char_hp",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"ja": "制限：体力減衰I",
+									"en": "Reduced Operator HP 1",
+									"zh": "源石环境：侵蚀I"
+								},
+								"img": "75px-Char_hp_1",
+								"effects": [],
+								"tooltip": {
+									"en": "Ally Max HP reduced -20%",
+									"ja": "全ての味方の最大HP-20%",
+									"zh": "所有我方单位的生命值上限降低20%"
+								}
+							},
+							{
+								"rank": 2,
+								"name": {
+									"ja": "制限：体力減衰II",
+									"en": "Reduced Operator HP 2",
+									"zh": "源石环境：侵蚀II"
+								},
+								"img": "75px-Char_hp_2",
+								"effects": [],
+								"tooltip": {
+									"en": "Ally Max HP reduced -40%",
+									"ja": "全ての味方の最大HP-40%",
+									"zh": "所有我方单位的生命值上限降低40%"
+								}
+							},
+							{
+								"rank": 3,
+								"latter": true,
+								"name": {
+									"ja": "制限：体力減衰III",
+									"en": "Reduced Operator HP 3",
+									"zh": "源石环境：侵蚀III"
+								},
+								"img": "75px-Char_hp_3",
+								"effects": [],
+								"tooltip": {
+									"en": "Ally Max HP reduced -55%",
+									"ja": "全ての味方の最大HP-55%",
+									"zh": "所有我方单位的生命值上限降低55%"
+								}
+							}
+						]
+					},
+					{
+						"category": "operator_cost",
+						"options": [
+							{
+								"rank": 1,
+								"latter": true,
+								"img": "75px-Char_cost_guardsupporter_1",
+								"effects": [],
+								"tooltip": {
+									"en": "Guards and Supporters DP cost doubled",
+									"ja": "前衛・補助の配置コストが2倍",
+									"zh": ""
+								}
+							},
+							{
+								"rank": 2,
+								"img": "75px-Char_exclude_guardsupporter_2",
+								"effects": [],
+								"tooltip": {
+									"en": "Guards and Supporters are banned",
+									"ja": "前衛・補助使用禁止",
+									"zh": ""
+								}
+							},
+							{ "rank": 3 }
+						]
+					},
+					{
+						"category": "operator_cost",
+						"options": [
+							{
+								"rank": 1,
+								"img": "75px-Char_cost_casterspecial_1",
+								"effects": [],
+								"tooltip": {
+									"en": "Casters and Specialists DP cost doubled",
+									"ja": "術師・特殊の配置コストが2倍",
+									"zh": ""
+								}
+							},
+							{
+								"rank": 2,
+								"img": "75px-Char_exclude_casterspecial_2",
+								"effects": [],
+								"tooltip": {
+									"en": "Casters and Specialists are banned",
+									"ja": "術師・特殊使用禁止",
+									"zh": ""
+								}
+							},
+							{ "rank": 3 }
+						]
+					},
+					{
+						"category": "global_cost_recovery",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "DP Down 1",
+									"ja": "指令：孤軍奮闘I",
+									"zh": "目标：深度渗透I"
+								},
+								"img": "75px-Global_costrecovery_1",
+								"effects": [],
+								"tooltip": {
+									"en": "DP Regeneration reduced by 25%",
+									"ja": "コストの自然回復速度-25%",
+									"zh": "部署费用的自然回复速度降低25%"
+								}
+							},
+							{
+								"rank": 2,
+								"name": {
+									"en": "DP Down 2",
+									"ja": "指令：孤軍奮闘II",
+									"zh": "目标：深度渗透II"
+								},
+								"img": "75px-Global_costrecovery_2",
+								"effects": [],
+								"tooltip": {
+									"en": "DP Regeneration reduced by 50%",
+									"ja": "コストの自然回復速度-50%",
+									"zh": "部署费用的自然回复速度降低50%"
+								}
+							},
+							{
+								"rank": 3
+							}
+						]
+					},
+					{
+						"category": "squad",
+						"options": [
+							{
+								"rank": 1,
+								"img": "75px-Global_squadnum_1",
+								"effects": [],
+								"tooltip": {
+									"en": "Maximum 10 operators in squad",
+									"zh": "",
+									"ja": "編成可能数が最大10人に"
+								}
+							},
+							{
+								"rank": 2,
+								"img": "75px-Global_squadnum_2",
+								"effects": [],
+								"tooltip": {
+									"en": "Maximum 7 operators in squad",
+									"zh": "",
+									"ja": "編成可能数が最大7人に"
+								}
+							},
+							{ "rank": 3 }
+						]
+					},
+					{
+						"category": "squad",
+						"options": [
+							{
+								"rank": 1,
+								"img": "75px-Global_pcharnum_1",
+								"effects": [],
+								"tooltip": {
+									"en": "Deploy Limit reduced to 7",
+									"zh": "",
+									"ja": "同時配置可能数が7人に"
+								}
+							},
+							{
+								"rank": 2,
+								"img": "75px-Global_pcharnum_2",
+								"effects": [],
+								"tooltip": {
+									"en": "Deploy Limit reduced to 5",
+									"zh": "",
+									"ja": "同時配置可能数が5人に"
+								}
+							},
+							{ "rank": 3 }
+						]
+					},
+					{
+						"category": "ex4",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "",
+									"ja": "",
+									"zh": ""
+								},
+								"img": "无名庇护所/75px-Trap_enable_ore_1",
+								"effects": [],
+								"tooltip": {
+									"en": "",
+									"ja": "",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "ex5",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "",
+									"ja": "",
+									"zh": ""
+								},
+								"img": "无名庇护所/75px-Enemy_sotidm_2",
+								"effects": [
+									{
+										"targets": ["SP6"],
+										"mods": {
+											"hp": 2.2,
+											"fixed_aspd": 70
+										}
+									}
+								],
+								"tooltip": {
+									"en": "<Sarkaz Guerrilla Fighter> gains Max HP +120%, Attackspeed +70",
+									"ja": "＜遊撃隊サルカズ戦士＞の最大HP+120%、攻撃速度+70",
+									"zh": ""
+								}
+							},
+							{ "rank": 3 }
+						]
+					},
+					{
+						"category": "lifepoint",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "None Escape",
+									"ja": "指令：背水の陣",
+									"zh": "目标：最后防线"
+								},
+								"img": "75px-Global_lifepoint_1",
+								"effects": [],
+								"tooltip": {
+									"en": "No enemies escape (Level HP set to 1)",
+									"ja": "防衛ラインの最大耐久値が1に",
+									"zh": "我方防御点可承受的敌方数量变为1 "
+								}
+							},
+							{ "rank": 2 },
+							{ "rank": 3 }
+						]
+					},
+					{
+						"category": "enemy_def",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "Increased Enemy DEF",
+									"ja": "増幅：装甲I",
+									"zh": "反装甲I"
+								},
+								"img": "75px-Enemy_def_1",
+								"effects": [
+									{
+										"targets": ["ALL"],
+										"mods": {
+											"fixed_def": 200
+										}
+									}
+								],
+								"tooltip": {
+									"en": "Enemy DEF +200",
+									"ja": "全ての敵の防御力+200",
+									"zh": "所有敌人的防御力提升200"
+								}
+							},
+							{ "rank": 2 },
+							{ "rank": 3 }
+						]
+					},
+					{
+						"category": "char_respawn",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"ja": "制限：効率低下I",
+									"en": "Reduced Operator Redeployment 1",
+									"zh": "目标：效率低下I"
+								},
+								"img": "75px-Char_respawntime_1",
+								"effects": [],
+								"tooltip": {
+									"en": "Ally redeployment time increased by 75%",
+									"ja": "全ての味方の再配置時間+75%",
+									"zh": "所有我方单位的再部署时间延长75%"
+								}
+							},
+							{ "rank": 2 },
+							{ "rank": 3 }
+						]
+					},
+					{
+						"category": "ex6",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "",
+									"ja": "",
+									"zh": ""
+								},
+								"img": "无名庇护所/75px-Enemy_soticn_1",
+								"effects": [
+									{
+										"targets": ["SP2"],
+										"mods": {
+											"atk": 1.4,
+											"def": 1.4
+										}
+									}
+								],
+								"tooltip": {
+									"en": "<Guerrilla Mortar> gains ATK +40%, DEF +40%",
+									"ja": "＜遊撃隊砲兵＞の攻撃力+40%、防御力+40%",
+									"zh": ""
+								}
+							},
+							{ "rank": 2 },
+							{ "rank": 3 }
+						]
+					},
+					{
+						"category": "enemy_ms",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "Increased Enemy Movement Speed 1",
+									"ja": "増幅：機動力I",
+									"zh": ""
+								},
+								"img": "75px-Enemy_movespeed_1",
+								"effects": [
+									{
+										"targets": ["ALL"],
+										"mods": {
+											"ms": 1.25
+										}
+									}
+								],
+								"tooltip": {
+									"en": "Enemies movement speed +25%",
+									"ja": "全ての敵の移動速度+25%",
+									"zh": ""
+								}
+							},
+							{ "rank": 2 },
+							{ "rank": 3 }
+						]
+					}
+				]
+			}
+		],
 		"enemies": [
 			{
 				"id": "enemy_1000_gopro_3",
@@ -4409,7 +5237,7 @@
 				"overwrittenData": null
 			},
 			{
-				"id": "enemy_1082_sotizh",
+				"id": "enemy_1082_soticn",
 				"level": 0,
 				"overwrittenData": {
 					"atk": 350
@@ -4463,7 +5291,218 @@
 				"blackboard": null
 			}
 		],
-		"contracts": null,
+		"contracts": [
+			{
+				"type": "daily",
+				"id": "12-1",
+				"list": [
+					{
+						"category": "cost_regen",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "DP Down 1",
+									"ja": "指令：孤軍奮闘I",
+									"zh": "目标：深度渗透I"
+								},
+								"img": "75px-Global_costrecovery_1",
+								"effects": [],
+								"tooltip": {
+									"en": "DP Regeneration reduced by 25%",
+									"ja": "コストの自然回復速度-25%",
+									"zh": "部署费用的自然回复速度降低25%"
+								}
+							}
+						]
+					},
+					{
+						"category": "grids",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "Forbidden Grids 1",
+									"ja": "環境：峻険地形I",
+									"zh": ""
+								},
+								"img": "迷雾战区/75px-Global_forbidloc_right_1",
+								"effects": [],
+								"tooltip": {
+									"en": "3 tiles forbid deployment",
+									"ja": "マップ上の3つのマスが配置不可に",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "pollution",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "Rot",
+									"ja": "環境：腐敗",
+									"zh": ""
+								},
+								"img": "迷雾战区/75px-Enemy_polluteddmg_1",
+								"effects": [],
+								"tooltip": {
+									"en": "The damage dealt by Corruption is tripled ",
+									"ja": "",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "enemy_atk",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "Enemy ATK 2",
+									"ja": "増幅：火力II",
+									"zh": "源石环境：刺激II"
+								},
+								"img": "75px-Enemy_atk_2",
+								"effects": [
+									{
+										"targets": ["ALL"],
+										"mods": {
+											"atk": 1.35
+										}
+									}
+								],
+								"tooltip": {
+									"en": "All enemies ATK +35%",
+									"ja": "全ての敵の攻撃力+35%",
+									"zh": "所有敌人的攻击力提升35%"
+								}
+							}
+						]
+					},
+					{
+						"category": "enemy_hp",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "Enemy HP 2",
+									"ja": "増幅：体力II",
+									"zh": "源石环境：活性II"
+								},
+								"img": "75px-Enemy_hp_2",
+								"effects": [
+									{
+										"targets": ["ALL"],
+										"mods": {
+											"hp": 1.8
+										}
+									}
+								],
+								"tooltip": {
+									"en": "Enemy Max HP +80%",
+									"ja": "全ての敵の最大HP+80%",
+									"zh": "所有敌人的生命值提升80%"
+								}
+							}
+						]
+					},
+					{
+						"category": "char_atk",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "Reduced Ally ATK 2",
+									"ja": "制限：火力減衰II",
+									"zh": "环境：高价值目标II"
+								},
+								"img": "75px-Char_atk_2",
+								"effects": [],
+								"tooltip": {
+									"en": "All allies’ ATK -30%",
+									"ja": "全ての味方の攻撃力-30%",
+									"zh": "所有我方单位的攻击力降低30%"
+								}
+							}
+						]
+					},
+					{
+						"category": "artillery",
+						"options": [
+							{
+								"rank": 3,
+								"name": {
+									"ja": "自走砲 B",
+									"en": "Artillery B Mod",
+									"zh": ""
+								},
+								"img": "迷雾战区/75px-Enemy_stmgun_bmod_3",
+								"effects": [
+									{
+										"targets": ["LUD1"],
+										"mods": { "atk": 1.2, "fixed_aspd": 20, "fixed_range": 96 }
+									}
+								],
+								"tooltip": {
+									"en": "<Londinium Mobile Defense Artillery> appears earlier, ATK +20%, Attackspeed +20, Attack range extends to whole map, Skill's damage +80%",
+									"ja": "「都市防衛自走砲」の最大HP+100%、攻撃力+70%、防御力+50%、術耐性+50",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "artillery",
+						"options": [
+							{
+								"rank": 3,
+								"name": {
+									"ja": "自走砲 A",
+									"en": "Artillery A Mod",
+									"zh": ""
+								},
+								"img": "迷雾战区/75px-Enemy_stmgun_amod_3",
+								"effects": [
+									{
+										"targets": ["LUD1"],
+										"mods": { "atk": 1.7, "fixed_aspd": 50, "range": 1.3 }
+									}
+								],
+								"tooltip": {
+									"en": "",
+									"ja": "",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "char_hp",
+						"options": [
+							{
+								"rank": 3,
+								"name": {
+									"ja": "制限：体力減衰III",
+									"en": "Reduced Operator HP 3",
+									"zh": "源石环境：侵蚀III"
+								},
+								"img": "75px-Char_hp_3",
+								"effects": [],
+								"tooltip": {
+									"en": "Ally Max HP reduced -60%",
+									"ja": "全ての味方の最大HP-60%",
+									"zh": "所有我方单位的生命值上限降低60%"
+								}
+							}
+						]
+					}
+				]
+			}
+		],
 		"enemies": [
 			{
 				"id": "enemy_1071_dftman",

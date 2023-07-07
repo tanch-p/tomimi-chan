@@ -4,20 +4,20 @@
     export let language:string;
 
 	const dailyStages = [
-		{ name: '冻原矿场', m: 6, d: 23, href: '冻原矿场_11-1' },
-		{ name: '冻原矿场', m: 6, d: 24, href: '冻原矿场_11-1' },
-		{ name: '沙海遗迹', m: 6, d: 25, href: '沙海遗迹_11-1' },
-		{ name: '大骑士领酒吧街', m: 6, d: 26, href: '大骑士领酒吧街_11-1' },
-		{ name: '盐风溶洞', m: 6, d: 27, href: '盐风溶洞_11-1' },
-		{ name: '尚蜀山道', m: 6, d: 28, href: '尚蜀山道_11-1' },
-		{ name: '伦蒂尼姆边缘区块', m: 6, d: 29, href: '伦蒂尼姆边缘区块_11-1' },
-		{ name: '小丘郡物流站', m: 6, d: 30, href: '小丘郡物流站_11-1' },
-		{ name: '大骑士领酒吧街', m: 7, d: 1, href: '大骑士领酒吧街_11-2' },
-		{ name: '盐风溶洞', m: 7, d: 2, href: '盐风溶洞_11-2' },
-		{ name: '尚蜀山道', m: 7, d: 3, href: '尚蜀山道_11-2' },
-		{ name: '伦蒂尼姆边缘区块', m: 7, d: 4, href: '伦蒂尼姆边缘区块_11-2' },
-		{ name: '小丘郡物流站', m: 7, d: 5, href: '小丘郡物流站_11-2' },
-		{ name: '冻原矿场', m: 7, d: 6, href: '冻原矿场_11-2' }
+		{ name: '迷雾战区', m: 6, d: 23, href: '迷雾战区_12-1' },
+		{ name: '迷雾战区', m: 6, d: 24, href: '迷雾战区_12-1' },
+		{ name: '沙海遗迹', m: 6, d: 25, href: '沙海遗迹_12-1' },
+		{ name: '大骑士领酒吧街', m: 6, d: 26, href: '大骑士领酒吧街_12-1' },
+		{ name: '盐风溶洞', m: 6, d: 27, href: '盐风溶洞_12-1' },
+		{ name: '尚蜀山道', m: 6, d: 28, href: '尚蜀山道_12-1' },
+		{ name: '伦蒂尼姆边缘区块', m: 6, d: 29, href: '伦蒂尼姆边缘区块_12-1' },
+		{ name: '小丘郡物流站', m: 6, d: 30, href: '小丘郡物流站_12-1' },
+		{ name: '大骑士领酒吧街', m: 7, d: 1, href: '大骑士领酒吧街_12-2' },
+		{ name: '盐风溶洞', m: 7, d: 2, href: '盐风溶洞_12-2' },
+		{ name: '尚蜀山道', m: 7, d: 3, href: '尚蜀山道_12-2' },
+		{ name: '伦蒂尼姆边缘区块', m: 7, d: 4, href: '伦蒂尼姆边缘区块_12-2' },
+		{ name: '小丘郡物流站', m: 7, d: 5, href: '小丘郡物流站_12-2' },
+		{ name: '冻原矿场', m: 7, d: 6, href: '冻原矿场_12-2' }
 	];
 
 	const today = new Date();
@@ -28,9 +28,9 @@
 
 <div class="border border-gray-500 text-center">
 	<div class="border-b border-gray-500 py-2">{translations[language].index.perma_stage}</div>
-	<a href="/{language}/stages/在建沙滩">
+	<a href="/{language}/stages/无名庇护所">
 		<div class={`py-2 hover:cursor-pointer hover:bg-gray-600 text-indigo-300 `}>
-			{translations[language].在建沙滩}
+			{translations[language].无名庇护所}
 		</div>
 	</a>
 	<div class="border-y border-gray-500 py-2">

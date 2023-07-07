@@ -15,7 +15,9 @@ const cc11stages = [
 	'伦蒂尼姆边缘区块_11-2',
 	'小丘郡物流站_11-2',
 	'冻原矿场_11-2',
-	'在建沙滩'
+	'在建沙滩',
+	'无名庇护所',
+	"迷雾战区_12-1"
 ];
 export const match = ((param) => {
 	return cc11stages.includes(param);
