@@ -2,7 +2,6 @@
 	export let resolution, stunTimings;
 
 	$: parsedStunTimings = parseStunTimings(stunTimings);
-	$: console.log(parsedStunTimings);
 	function parseStunTimings(stunTimings) {
 		let acc = [];
 		acc.push({ key: 'blank', value: stunTimings[0].i, counter: stunTimings[0].counter });
