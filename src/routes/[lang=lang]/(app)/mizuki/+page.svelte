@@ -29,7 +29,16 @@
 		</div>
 		<div class="space-y-6">
 			<TogglePanel title={translations[language].how_to_use}>
-				<HowToUse {language} rogueTopic={"rogue_mizuki"}/>
+				<HowToUse {language} rogueTopic={'rogue_mizuki'} />
+			</TogglePanel>
+			<TogglePanel title={translations[language].related_tools}>
+				<ul class="text-lg pt-2 pb-6">
+					<li class="list-disc list-inside">
+						<a class="text-sky-500 hover:underline" href="/{language}/laoli">
+							{translations[language].laoli_title}
+						</a>
+					</li>
+				</ul>
 			</TogglePanel>
 			<TogglePanel title={translations[language].stage_nav} isOpen={true}>
 				<MizukiNav {language} />
