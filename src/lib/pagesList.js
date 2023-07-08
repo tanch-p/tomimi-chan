@@ -19,7 +19,7 @@ const cc11stages = [
 ];
 
 const LANGUAGES = ['en', 'ja', 'zh'];
-const PAGES = ['about', 'credits', 'mizuki', 'phantom'];
+const PAGES = ['about', 'credits', 'mizuki', 'phantom','cc','laoli'];
 
 export const pagesToRender = LANGUAGES.reduce((acc, language) => {
 	for (const page of PAGES) {
