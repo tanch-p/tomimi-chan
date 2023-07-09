@@ -2,7 +2,7 @@
 	import translations from '$lib/translations.json';
 	import type { PageData } from './$types';
 	import ActionBlock from './ActionBlock.svelte';
-	import KnightBlock from './KnightBlock.svelte';
+	import StunBlock from './StunBlock.svelte';
 
 	export let data: PageData;
 	$: language = data.language;
@@ -71,7 +71,6 @@
 	);
 	$: freezeTimings = results.freezeIndexes; //used for debug
 	$: fValues = results.fValues;
-	$: stunTimings = results.stunTimings;
 	$: costReductions = results.costContainer;
 	$: costReductionPerMinute = costReductions.reduce(
 		(acc, curr, i) => {
@@ -110,7 +109,6 @@
 		let counter = 1;
 		let freezeIndexes = [];
 		let fValues = [];
-		let stunTimings = [];
 		let loopIndexCounter = 1;
 		let prevCounter = 0;
 		for (let i = 1; i < rounds * 90; i++) {
@@ -125,10 +123,9 @@
 						fValues.push({ key: 'frz', value: freezeDuration, counter });
 						initial2HitCounted = false;
 						counter = -freezeDuration;
-					} else {
-						stunTimings.push({ value: stunDuration, counter, i });
+					} 
 						initial2HitCounted = true;
-					}
+					
 					talentActivated = false;
 					newF0 = f0 - getEnemyLockFrame();
 					newF1 = Fcold - getEnemyLockFrame();
@@ -149,9 +146,7 @@
 						counter = -freezeDuration;
 						loopIndexCounter = 0;
 						prevCounter = 0;
-					} else {
-						stunTimings.push({ value: stunDuration, counter, i });
-					}
+					} 
 					talentActivated = false;
 					loopIndexCounter += 1;
 					newF0 = f0 - getEnemyLockFrame();
@@ -167,7 +162,7 @@
 			counter += 1;
 		}
 
-		return { freezeIndexes, costContainer, fValues, stunTimings };
+		return { freezeIndexes, costContainer, fValues };
 	}
 	let timer: NodeJS.Timeout;
 	let initialTimeout = 300;
@@ -328,7 +323,7 @@
 			{/each}
 		</p>
 		<div class="flex flex-col overflow-auto px-1.5 md:px-0">
-			<KnightBlock {resolution} {stunTimings} />
+			<StunBlock {resolution} {fValues} {moduleLevel} />
 			<div class="flex w-max" style={`margin-left:${talentInset * resolution}px`}>
 				{#each Array(rounds) as _, index}
 					<div class="flex flex-col items-center">
@@ -414,12 +409,6 @@
 					</li>
 				{/each}
 			</ul>
-		</div>
-		<div class="pl-3 md:pl-0">
-			<p class="text-lg font-bold mt-8">Currently known bugs:</p>
-			<p>If ASPD is too fast, stun blocks calculations become inaccurate</p>
-			<p>攻撃速度が速すぎるとスタン間隔がおかしくなります</p>
-			<p>攻速太快时骑士非晕眩计算不准确</p>
 		</div>
 	</div>
 </div>
