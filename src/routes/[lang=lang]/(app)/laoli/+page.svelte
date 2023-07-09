@@ -123,9 +123,9 @@
 						fValues.push({ key: 'frz', value: freezeDuration, counter });
 						initial2HitCounted = false;
 						counter = -freezeDuration;
-					} 
+					} else {
 						initial2HitCounted = true;
-					
+					}
 					talentActivated = false;
 					newF0 = f0 - getEnemyLockFrame();
 					newF1 = Fcold - getEnemyLockFrame();
@@ -146,7 +146,7 @@
 						counter = -freezeDuration;
 						loopIndexCounter = 0;
 						prevCounter = 0;
-					} 
+					}
 					talentActivated = false;
 					loopIndexCounter += 1;
 					newF0 = f0 - getEnemyLockFrame();
