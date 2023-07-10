@@ -15,8 +15,10 @@
 		eliteMods.set(null);
 	});
 
-	$: combatOpsColor = rogueTopic === 'rogue_mizuki' ? 'bg-[#5645a4]' : 'bg-[#dea41b]';
-	$: eliteOpsColor = rogueTopic === 'rogue_mizuki' ? 'bg-[#92344e]' : 'bg-[#cb710c]';
+	$: combatOpsColor =
+		rogueTopic === 'rogue_sami' ? 'bg-[#544a8a]' : 'rogue_mizuki' ? 'bg-[#5645a4]' : 'bg-[#dea41b]';
+	$: eliteOpsColor =
+		rogueTopic === 'rogue_sami' ? 'bg-[#8f3033]' : 'rogue_mizuki' ? 'bg-[#92344e]' : 'bg-[#cb710c]';
 </script>
 
 <div class="grid grid-cols-2 font-bold text-lg text-gray-700 mt-8 mb-3 select-none">
