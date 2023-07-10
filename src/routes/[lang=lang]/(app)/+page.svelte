@@ -2,16 +2,19 @@
 	import type { PageData } from './$types';
 	import banner_mizuki from '$lib/images/banner_mizuki_800px.webp';
 	import banner_phantom from '$lib/images/banner_phantom_800px.webp';
+	import banner_sami from '$lib/images/banner_sami_temp.webp';
 	import cc_banner from '$lib/images/banner_cc11.webp';
 	import laoli_banner from '$lib/images/laoli_sim.webp';
 	import translations from '$lib/translations.json';
 	import ISLogo from '$lib/images/is_logo.webp';
 	import CCLogo from '$lib/images/cc_logo.webp';
 	import ToolsLogo from '$lib/images/CRA-X.webp';
+
 	export let data: PageData;
 
 	$: language = data.language;
 	const is_banners = [
+		{ alt: 'rogue_sami', src: banner_sami, href: 'sami' },
 		{ alt: 'rogue_mizuki', src: banner_mizuki, href: 'mizuki' },
 		{ alt: 'rogue_phantom', src: banner_phantom, href: 'phantom' }
 	];
@@ -28,9 +31,9 @@
 <section>
 	<div class="h-[10vh]" />
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
-		<div class="flex flex-wrap mx-auto gap-x-4 gap-y-8 px-2 sm:px-8 justify-center">
+		<div class="flex flex-col items-center mx-auto gap-x-4 gap-y-8 px-2 sm:px-8 justify-center">
 			<div
-				class="w-screen md:basis-3/4 lg:basis-2/4 bg-[#363636] shadow-lg md:shadow-xl pt-2 sm:py-3 px-2 sm:px-6"
+				class="w-full md:w-[600px] bg-[#363636] shadow-lg md:shadow-xl pt-2 sm:py-3 px-2 sm:px-6"
 			>
 				<div class="flex items-center justify-center">
 					<span>
@@ -55,7 +58,9 @@
 								alt={translations[language].laoli_title}
 								width="240"
 							/>
-							<p class="my-1">{translations[language].laoli_title}</p>
+							<p class={`my-1 ${language !== 'en' ? 'whitespace-nowrap' : ''}`}>
+								{translations[language].laoli_title}
+							</p>
 						</div>
 					</a>
 				</div>
@@ -77,9 +82,7 @@
 					</a>
 				</div>
 			</div> -->
-			<div
-				class="md:basis-3/4 lg:basis-2/4 bg-[#363636] shadow-lg md:shadow-xl pt-2 sm:py-3 px-2 sm:px-6"
-			>
+			<div class="md:w-[600px] bg-[#363636] shadow-lg md:shadow-xl pt-2 sm:py-3 px-2 sm:px-6">
 				<div class="flex items-center justify-center">
 					<span>
 						<img src={ISLogo} alt={translations[language].is_title} width="36" height="36" />
