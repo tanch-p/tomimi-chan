@@ -2,7 +2,7 @@
 	import type { PageData } from './$types';
 	import banner_mizuki from '$lib/images/banner_mizuki_800px.webp';
 	import banner_phantom from '$lib/images/banner_phantom_800px.webp';
-	import banner_sami from '$lib/images/banner_sami_temp.webp';
+	import banner_sami from '$lib/images/banner_sami_800px.webp';
 	import cc_banner from '$lib/images/banner_cc11.webp';
 	import laoli_banner from '$lib/images/laoli_sim.webp';
 	import translations from '$lib/translations.json';

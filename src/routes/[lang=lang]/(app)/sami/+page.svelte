@@ -1,7 +1,6 @@
 <script lang="ts">
-	import MizukiNav from './MizukiNav.svelte';
 	import type { PageData } from './$types';
-	import banner_mizuki from '$lib/images/banner_mizuki_800px.webp';
+	import banner_sami from '$lib/images/banner_sami_800px.webp';
 	import translations from '$lib/translations.json';
 	import TogglePanel from '$lib/components/TogglePanel.svelte';
 	import HowToUse from '$lib/components/HowToUse.svelte';
@@ -23,8 +22,8 @@
 		<div class="py-4">
 			<img
 				class="select-none mx-auto py-2"
-				src={banner_mizuki}
-				alt={translations[language].rogue_mizuki}
+				src={banner_sami}
+				alt={translations[language].rogue_sami}
 			/>
 		</div>
 		<div class="space-y-6">
@@ -41,7 +40,6 @@
 				</ul>
 			</TogglePanel>
 			<TogglePanel title={translations[language].stage_nav} isOpen={true}>
-				<MizukiNav {language} />
 			</TogglePanel>
 		</div>
 	</div>
