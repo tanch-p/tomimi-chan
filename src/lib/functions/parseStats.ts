@@ -3,9 +3,9 @@ import type { Enemy, StatMods, Mods } from '$lib/types';
 
 const STATS = ['hp', 'atk', 'aspd', 'range', 'def', 'res', 'weight', 'ms', 'lifepoint'];
 
-const NOT_BOSSES = ['MK', 'JAK'];
-
 const PHCS_BOSSES = ['ICR', 'ICM', 'MSC', 'FSK', 'JTM', 'WDG', 'PTM', 'DOL', 'HST', 'WRT'];
+const MZK_BOSSES = [''];
+const SAMI_BOSSES = [''];
 
 export const getMaxRowSpan = (enemy: Enemy) => {
 	const { format } = enemy;
@@ -138,11 +138,14 @@ export const isTarget = (enemy: Enemy, target: string) => {
 			return PHCS_BOSSES.includes(id);
 		case 'NOT_PHCS_BOSS':
 			return !PHCS_BOSSES.includes(id);
-		case 'NOT_BOSS':
-			if (type.includes('BOSS')) {
-				return NOT_BOSSES.includes(id);
-			}
-			return true;
+		case 'MZK_BOSS':
+			return MZK_BOSSES.includes(id);
+		case 'NOT_MZK_BOSS':
+			return !MZK_BOSSES.includes(id);
+		case 'SAMI_BOSS':
+			return SAMI_BOSSES.includes(id);
+		case 'NOT_SAMI_BOSS':
+			return !SAMI_BOSSES.includes(id);
 		default:
 			return target === id;
 	}
