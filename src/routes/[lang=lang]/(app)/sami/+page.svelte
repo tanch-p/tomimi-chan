@@ -27,20 +27,25 @@
 			/>
 		</div>
 		<div class="space-y-6">
+			<TogglePanel title="进度">
+				<div class="px-2">
+					<ul class="mt-2">做好了</ul>
+					<ul class="mt-2">
+						验证中
+						<li class="list-disc list-inside">敌人数量</li>
+						<li class="list-disc list-inside">{translations[language].how_to_use_elite_toggle}</li>
+					</ul>
+					<ul class="mt-2">
+						开发中
+						<li class="list-disc list-inside">敌人数量</li>
+						<li class="list-disc list-inside">{translations[language].how_to_use_elite_toggle}</li>
+					</ul>
+				</div>
+			</TogglePanel>
 			<TogglePanel title={translations[language].how_to_use}>
 				<HowToUse {language} rogueTopic={'rogue_mizuki'} />
 			</TogglePanel>
-			<TogglePanel title={translations[language].related_tools}>
-				<ul class="text-lg pt-2 pb-6">
-					<li class="list-disc list-inside">
-						<a class="text-sky-500 hover:underline" href="/{language}/laoli">
-							{translations[language].laoli_title}
-						</a>
-					</li>
-				</ul>
-			</TogglePanel>
-			<TogglePanel title={translations[language].stage_nav} isOpen={true}>
-			</TogglePanel>
+			<TogglePanel title={translations[language].stage_nav} isOpen={true} />
 		</div>
 	</div>
 </div>
