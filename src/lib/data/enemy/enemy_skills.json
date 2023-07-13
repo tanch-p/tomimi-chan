@@ -1235,6 +1235,14 @@
 			"zh": ["攻击附加相当于攻击力80%的侵蚀损伤"]
 		}
 	},
+	"necrosis_25": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Attack deals 25% of ATK as Necrosis damage"],
+			"ja": ["攻撃で攻撃力の25%の凋亡ダメージを与える"],
+			"zh": ["攻击附加相当于攻击力25%的凋亡损伤"]
+		}
+	},
 	"sy2_attackdef": {
 		"type": "others",
 		"tooltip": {
@@ -2803,7 +2811,7 @@
 		"tooltip": {
 			"en": ["Every 3rd attack inflicts Cold❄ for 10s"],
 			"ja": ["攻撃2回の度に次の攻撃に相手を10秒【寒冷❄】効果を与える"],
-			"zh": ["攻击2次后，下一次攻击会对攻击对目标施加持续10秒的寒冷❄"]
+			"zh": ["攻击2次后，下一次攻击会对攻击目标施加持续10秒的寒冷❄"]
 		}
 	},
 	"DOL_regen": {
@@ -3704,6 +3712,220 @@
 			"en": ["Can carry up to 3 passengers"],
 			"ja": ["敵を最大3人乗客として乗せられる"],
 			"zh": ["可以装载最多3名乘客"]
+		}
+	},
+	"payback_sgbow": {
+		"type": "others",
+		"tooltip": {
+			"en": ["During 'Payback Time', attacks deal Arts damage"],
+			"ja": [""],
+			"zh": ["“清算时刻”状态下，攻击变为法术伤害"]
+		}
+	},
+	"blood_debt_sgman": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Upon death, increases 'Blood Debt' by 20"],
+			"ja": [""],
+			"zh": ["被击倒时，使“血债账款”增加20点"]
+		}
+	},
+	"blood_debt_sgman2": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Upon death, increases 'Blood Debt' by 35"],
+			"ja": [""],
+			"zh": ["被击倒时，使“血债账款”增加35点"]
+		}
+	},
+	"blood_debt_sgbdg": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Upon death, increases 'Blood Debt' by 80"],
+			"ja": [""],
+			"zh": ["被击倒时，使“血债账款”增加80点"]
+		}
+	},
+	"payback_sgkill": {
+		"type": "others",
+		"tooltip": {
+			"en": ["During 'Payback Time', gains ATK +15%, DEF +15% and ASPD +50"],
+			"ja": [""],
+			"zh": ["“清算时刻”状态下，自身获得攻击力，防御力+15%，攻击速度+50"]
+		}
+	},
+	"wdnjd_inspection": {
+		"type": "atk",
+		"dmg_element": "phys",
+		"suffix": { "en": "First Attack", "ja": "", "zh": "初次攻击" },
+		"multiplier": 2,
+		"hits": 1,
+		"fixed_inc": 0,
+		"tooltip": {
+			"en": [
+				"After Inspection has completed, gains movespeed +0.05, and the damage of the next attack is increased to 200% of ATK"
+			],
+			"ja": [""],
+			"zh": ["密探，显露真身后，移动速度+0.05，下一次攻击的攻击力提升至200%"]
+		}
+	},
+	"wdyjd_inspection": {
+		"type": "others",
+		"tooltip": {
+			"en": ["After Inspection has completed, gains movespeed +0.2 and Stealth"],
+			"ja": [""],
+			"zh": ["密探，显露真身后，获得隐匿"]
+		}
+	},
+	"wdgyht_blink": {
+		"type": "atk",
+		"dmg_element": "phys",
+		"suffix": { "en": "Blink", "ja": "", "zh": "闪现" },
+		"multiplier": 1.5,
+		"hits": 1,
+		"fixed_inc": 0,
+		"tooltip": {
+			"en": [
+				"Skill (Initial SP: 0, Cost:2) Attack Recovery",
+				"When blocked, deals 150% damage to blocking unit and blinks 1.5 tiles towards next checkpoint"
+			],
+			"ja": [""],
+			"zh": ["攻击2次后，下一次攻击会对攻击目标造成攻击力150%的伤害，向下个检查点移动1.5格"]
+		}
+	},
+	"imbalance_immune": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Immune to Imbalance"],
+			"ja": [""],
+			"zh": [""]
+		}
+	},
+	"nhapos_pollution": {
+		"type": "others",
+		"tooltip": {
+			"en": ["Pollution - Allied units in a 1.1 tile radius receive 50/25 True damage per second"],
+			"ja": [""],
+			"zh": ["释放污染秽蚀，使周围我方持续损失50/25生命"]
+		}
+	},
+	"nhapos_stat_change": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Upon spawn, max HP/ATK/DEF is lowered to the percentage of enemies defeated",
+				"(min 20%, max 80% if not all enemies defeated and 100% when all enemies are defeated)"
+			],
+			"ja": [""],
+			"zh": ["从汲营枯枝出场时，击倒过的敌人越多，生命、攻击和防御会越强"]
+		}
+	},
+	"nhpbr_pollution": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"Upon death, releases a mist for 8s in a 2.0 tile radius which causes allied units to take 50/25 True damage per second"
+			],
+			"ja": [""],
+			"zh": ["被击倒时释放污染秽蚀，使周围我方持续损失生命"]
+		}
+	},
+	"melee_atk_200": {
+		"type": "atk",
+		"dmg_element": "phys",
+		"suffix": { "en": "melee", "ja": "近", "zh": "近战" },
+		"multiplier": 2,
+		"hits": 1,
+		"fixed_inc": 0,
+		"tooltip": {
+			"en": ["When blocked, attacks deal 200% ATK as physical damage"],
+			"ja": [""],
+			"zh": ["近战攻击造成更高伤害"]
+		}
+	},
+	"nhtank_pollution": {
+		"type": "atk",
+		"dmg_element": "phys",
+		"suffix": { "en": "Skill", "ja": "", "zh": "技能" },
+		"multiplier": 1.5,
+		"hits": 1,
+		"fixed_inc": 0,
+		"tooltip": {
+			"en": [
+				"Skill (Initial SP: 2, Cost:2) Attack Recovery",
+				"Next attack does 100% ATK as Physical damage and releases a mist for 8s in a 2.0 tile radius which causes allied units to take 50/25 True damage per second"
+			],
+			"ja": [""],
+			"zh": ["攻击2次后，下一次攻击会对攻击目标造成攻击力100%的伤害并释放污染秽蚀"]
+		}
+	},
+	"stmgun_bombard": {
+		"type": "atk",
+		"dmg_element": "arts",
+		"suffix": { "en": "Skill", "ja": "", "zh": "技能" },
+		"multiplier": 0.55,
+		"hits": 10,
+		"fixed_inc": 0,
+		"tooltip": {
+			"en": [
+				"Skill (Initial SP: 10, Cost:25)",
+				"Centering on the allied unit with the highest max HP, spawns a bombardment area within the surrounding 8 tiles. For 6s, deals 55% of ATK as Arts damage to the allied unit with the highest percentage HP"
+			],
+			"ja": [""],
+			"zh": ["锁定生命上限最高的目标进行数次轰炸，每次对范围内当前生命比例最高的单位造成法术伤害"]
+		}
+	},
+	"enemy_1274_stmram_hp50": {
+		"type": "others",
+		"tooltip": {
+			"en": [
+				"When HP drops below 50%, gains Movespeed +100%, Attackspeed +100, and gains immunity to stun, sleep, freeze, levitate"
+			],
+			"ja": [""],
+			"zh": ["生命值降至一半时攻击速度和移动速度大幅提升，且免疫大部分控制效果"]
+		}
+	},
+	"dwlock_skill": {
+		"type": "atk",
+		"dmg_element": "arts",
+		"suffix": { "en": "Skill", "ja": "", "zh": "技能" },
+		"multiplier": 0.4,
+		"hits": 8,
+		"fixed_inc": 0,
+		"tooltip": {
+			"en": [
+				"Skill (Initial SP: 10, Cost:24)",
+				"Channels upon an allied unit, dealing 40% of ATK as Arts damage every second for 8s",
+				"When channel ends, deals 220% of ATK as Necrosis damage to target and adjacent 4 tiles."
+			],
+			"ja": [""],
+			"zh": ["锁定我方单位持续造成法术伤害，并在释放完成时造成群体凋亡损伤"]
+		}
+	},
+	"duswrd_cont_slash": {
+		"type": "atk",
+		"dmg_element": "phys",
+		"suffix": { "en": "Skill", "ja": "", "zh": "技能" },
+		"multiplier": 1,
+		"hits": 5,
+		"fixed_inc": 0,
+		"tooltip": {
+			"en": ["Skill (Initial SP: 0, Cost:3) Attack recovery", "Does 100% ATK x 5 to target"],
+			"ja": [""],
+			"zh": ["3次攻击后对目标发动五次连续斩击"]
+		}
+	},
+	"duswrd_3_cont_slash": {
+		"type": "atk",
+		"dmg_element": "phys",
+		"suffix": { "en": "Skill", "ja": "", "zh": "技能" },
+		"multiplier": 1.2,
+		"hits": 5,
+		"fixed_inc": 0,
+		"tooltip": {
+			"en": ["Skill (Initial SP: 0, Cost:3) Attack recovery", "Does 100% ATK x 5 to target"],
+			"ja": [""],
+			"zh": ["3次攻击后对目标发动五次连续斩击"]
 		}
 	}
 }
