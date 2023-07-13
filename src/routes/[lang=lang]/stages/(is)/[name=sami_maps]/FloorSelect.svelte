@@ -17,5 +17,5 @@
 			</button>
 		{/each}
 	</div>
-	<p class="text-center text-sm mt-4">※{translations[language].mizuki_sp_floor_tip}</p>
+	<p class="text-center text-sm mt-4">※{translations[language].sami_sp_floor_tip}</p>
 </div>

@@ -3,17 +3,11 @@
 	import FloorOptions from './FloorOptions.svelte';
 	import { selectedFloor, activeFloorEffects } from './stores';
 	import translations from '$lib/translations.json';
-	import floor1 from '$lib/images/is/mizuki/floor1.webp';
-	import floor2 from '$lib/images/is/mizuki/floor2.webp';
-	import floor3 from '$lib/images/is/mizuki/floor3.webp';
-	import floor4 from '$lib/images/is/mizuki/floor4.webp';
-	import floor5 from '$lib/images/is/mizuki/floor5.webp';
-	import floor6 from '$lib/images/is/mizuki/floor6.webp';
 
 	export let stageFloors: number[], language: string;
 	let optionsOpen = false;
 
-	const floorIcons = [floor1, floor2, floor3, floor4, floor5, floor6];
+	// const floorIcons = [floor1, floor2, floor3, floor4, floor5, floor6];
 
 	function updateFloor(floors: number[]) {
 		if (!floors.includes($selectedFloor)) {
@@ -28,8 +22,9 @@
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<div class="cursor-pointer" on:click={() => (optionsOpen = !optionsOpen)}>
 		<div class="flex justify-center items-center gap-x-1">
-			<img src={floorIcons[$selectedFloor - 1]} alt={`floor-${selectedFloor}`} />
-			<p>{translations[language]['mizuki_levels'][$selectedFloor - 1]}</p>
+			<!-- <img src={floorIcons[$selectedFloor - 1]} alt={`floor-${selectedFloor}`} /> -->
+			<p>{$selectedFloor}层 - </p>
+			<p>{translations[language]['sami_levels'][$selectedFloor - 1]}</p>
 		</div>
 		{#if $activeFloorEffects.length > 0}
 			<div class="flex gap-x-2.5 mt-1.5">

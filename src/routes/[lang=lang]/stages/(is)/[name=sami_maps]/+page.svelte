@@ -3,7 +3,7 @@
 	import { statMods, specialMods, eliteMods, selectedRelics } from './stores';
 	import EnemySimpleTable from '$lib/components/EnemySimpleTable.svelte';
 	import DifficultySelect from './DifficultySelect.svelte';
-	import MizukiNav from '../../../(app)/mizuki/MizukiNav.svelte';
+	import SamiNav from '../../../(app)/sami/SamiNavTemp.svelte';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import EliteToggle from '$lib/components/EliteToggle.svelte';
 	import FooterBar from '$lib/components/FooterBar.svelte';
@@ -46,7 +46,7 @@
 		{/if}
 		<EnemySimpleTable enemies={moddedEnemies} {language} {statMods} {specialMods} />
 		<div class="mt-8 sm:mt-16">
-			<MizukiNav {language} />
+			<SamiNav {language} />
 		</div>
 	</div>
 </main>
