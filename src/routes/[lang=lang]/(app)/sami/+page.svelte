@@ -4,6 +4,7 @@
 	import translations from '$lib/translations.json';
 	import TogglePanel from '$lib/components/TogglePanel.svelte';
 	import HowToUse from '$lib/components/HowToUse.svelte';
+	import SamiNavTemp from './SamiNavTemp.svelte';
 
 	export let data: PageData;
 	$: language = data.language;
@@ -27,9 +28,9 @@
 			/>
 		</div>
 		<div class="space-y-6">
-			<TogglePanel title="进度">
+			<TogglePanel title="工程进度">
 				<div class="px-2">
-					<ul class="mt-2">做好了</ul>
+					<ul class="py-2">做好了</ul>
 					<ul class="mt-2">
 						验证中
 						<li class="list-disc list-inside">敌人数量</li>
@@ -45,7 +46,9 @@
 			<TogglePanel title={translations[language].how_to_use}>
 				<HowToUse {language} rogueTopic={'rogue_mizuki'} />
 			</TogglePanel>
-			<TogglePanel title={translations[language].stage_nav} isOpen={true} />
+			<TogglePanel title={translations[language].stage_nav} isOpen={true} >
+				<SamiNavTemp {language} />
+			</TogglePanel>
 		</div>
 	</div>
 </div>

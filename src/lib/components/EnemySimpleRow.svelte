@@ -61,6 +61,7 @@
 							width="75px"
 							decoding="async"
 							alt={enemy.id}
+							title={enemy[`name_${language}` || enemy[`name_zh`]]}
 						/>
 					</td>
 				{/if}
