@@ -54,6 +54,7 @@
 		<button
 			on:mousedown={() => startDecrement(initialTimeout)}
 			on:mouseup={() => clearTimeout(timer)}
+			on:mouseleave={() => clearTimeout(timer)}
 			on:click={() => updateDifficulty(selectedDifficulty - 1)}
 			disabled={selectedDifficulty <= 0}
 			aria-label="Decrease the counter by one"
@@ -74,6 +75,7 @@
 		<button
 			on:mousedown={() => startIncrement(initialTimeout)}
 			on:mouseup={() => clearTimeout(timer)}
+			on:mouseleave={() => clearTimeout(timer)}
 			on:click={() => updateDifficulty(selectedDifficulty + 1)}
 			disabled={selectedDifficulty >= 15}
 			aria-label="Increase the counter by one"
