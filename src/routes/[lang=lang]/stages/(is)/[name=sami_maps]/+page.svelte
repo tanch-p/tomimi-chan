@@ -9,7 +9,6 @@
 	import FooterBar from '$lib/components/FooterBar.svelte';
 	import { parseStats } from '$lib/functions/parseStats';
 	import translations from '$lib/translations.json';
-	import Mission from './Mission.svelte';
 	import FloorTitle from './FloorTitle.svelte';
 	import StageHeader from '$lib/components/StageHeader.svelte';
 
@@ -41,7 +40,6 @@
 <main class="bg-neutral-800 text-near-white pb-32 pt-8 sm:pt-16 md:pb-28">
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
 		<StageInfo mapConfig={data.mapConfig} {language} {stageName} {rogueTopic} />
-		<Mission {language} />
 		<DifficultySelect {language} />
 		{#if data.mapConfig.elite_mods}
 			<EliteToggle mapEliteMods={data.mapConfig.elite_mods} {eliteMods} {rogueTopic} />

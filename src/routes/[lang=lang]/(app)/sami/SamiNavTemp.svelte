@@ -1,8 +1,8 @@
 <script lang="ts">
 	import StageNavButton from './StageNavButton.svelte';
-	import combat_ops from '$lib/images/is/phantom/combat_ops.webp';
-	import boss from '$lib/images/is/phantom/boss.webp';
-	import encounter from '$lib/images/is/phantom/encounter.webp';
+	import combat_ops from '$lib/images/is/sami/sami_combat_ops.webp';
+	import boss from '$lib/images/is/sami/sami_boss.webp';
+	import encounter from '$lib/images/is/sami/sami_encounter.webp';
 	import translations from '$lib/translations.json';
 
 	export let language: string;
@@ -99,7 +99,7 @@
 						<img
 							src={boss}
 							alt={translations[language].boss}
-							width="100px"
+							width="160px"
 							loading="lazy"
 							decoding="async"
 						/>

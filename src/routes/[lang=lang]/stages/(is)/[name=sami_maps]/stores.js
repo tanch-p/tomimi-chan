@@ -20,8 +20,8 @@ const floorDifficultyMods = derived(
 		{
 			targets: ['ALL'],
 			mods: {
-				hp: (1 + 0.01 * $difficulty) ** $selectedFloor,
-				atk: (1 + 0.01 * $difficulty) ** $selectedFloor
+				hp: (1 + difficultyModsList[$difficulty].floorBuff) ** $selectedFloor,
+				atk: (1 + difficultyModsList[$difficulty].floorBuff) ** $selectedFloor
 			}
 		}
 	]
@@ -29,24 +29,15 @@ const floorDifficultyMods = derived(
 
 export const eliteMods = writable(null);
 export const activeFloorEffects = writable([]);
-export const missionMods = writable(null);
 
 const compiledMods = derived(
-	[selectedRelics, difficultyMods, floorDifficultyMods, eliteMods, missionMods, activeFloorEffects],
-	([
-		$selectedRelics,
-		$difficultyMods,
-		$floorDifficultyMods,
-		$eliteMods,
-		$missionMods,
-		$activeFloorEffects
-	]) =>
+	[selectedRelics, difficultyMods, floorDifficultyMods, eliteMods, activeFloorEffects],
+	([$selectedRelics, $difficultyMods, $floorDifficultyMods, $eliteMods, $activeFloorEffects]) =>
 		updateMods(
 			$selectedRelics.map((relic) => relic.effects),
 			$difficultyMods.map((ele) => ele.effects),
 			[$floorDifficultyMods],
 			[$eliteMods],
-			[$missionMods],
 			$activeFloorEffects.map((ele) => ele.effects)
 		)
 );
