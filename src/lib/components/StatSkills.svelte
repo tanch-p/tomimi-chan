@@ -15,6 +15,7 @@
 	$: skillsToParse = skills
 		.map((skillName) => {
 			const skill = enemySkills[skillName];
+			// console.log(skillName)
 			if (skill.type === stat) {
 				const { suffix, multiplier, fixed_inc, fixed_value, summon_enemy, hits, dmg_element } =
 					skill;
