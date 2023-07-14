@@ -30,7 +30,8 @@ type EnemyType =
 	| 'animated'
 	| 'mutant'
 	| 'machine'
-	| 'wildanimal';
+	| 'wildanimal'
+	| 'collapsal';
 
 type EnemyFormType = {
 	mods: Mods;

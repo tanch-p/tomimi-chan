@@ -127,12 +127,13 @@ const distillMods = (enemyStatMod: Mods, mods: Mods) => {
 };
 
 export const isTarget = (enemy: Enemy, target: string) => {
-	const { id, type } = enemy;
+	const { id, key, type } = enemy;
 	switch (target) {
 		case 'ranged':
 		case 'melee':
 		case 'ELITE':
 		case 'BOSS':
+		case 'collapsal':
 			return type.includes(target);
 		case 'PHCS_BOSS':
 			return PHCS_BOSSES.includes(id);
@@ -147,6 +148,6 @@ export const isTarget = (enemy: Enemy, target: string) => {
 		case 'NOT_SAMI_BOSS':
 			return !SAMI_BOSSES.includes(id);
 		default:
-			return target === id;
+			return target === id || target === key;
 	}
 };
