@@ -28,24 +28,24 @@
 			/>
 		</div>
 		<div class="space-y-6">
-			<TogglePanel title="工程进度">
+			<TogglePanel title="开发进度">
 				<div class="px-2">
-					<ul class="py-2">做好了</ul>
 					<ul class="mt-2">
 						验证中
 						<li class="list-disc list-inside">敌人数量</li>
-						<li class="list-disc list-inside">{translations[language].how_to_use_elite_toggle}</li>
+						<li class="list-disc list-inside">敌人属性加成</li>
 					</ul>
 					<ul class="mt-2">
 						开发中
-						<li class="list-disc list-inside">敌人数量</li>
-						<li class="list-disc list-inside">{translations[language].how_to_use_elite_toggle}</li>
+						<li class="list-disc list-inside">敌人技能详细</li>
+						<li class="list-disc list-inside">坍缩</li>
+						<li class="list-disc list-inside">收藏品</li>
 					</ul>
 				</div>
 			</TogglePanel>
-			<TogglePanel title={translations[language].how_to_use}>
+			<!-- <TogglePanel title={translations[language].how_to_use}>
 				<HowToUse {language} rogueTopic={'rogue_mizuki'} />
-			</TogglePanel>
+			</TogglePanel> -->
 			<TogglePanel title={translations[language].stage_nav} isOpen={true} >
 				<SamiNavTemp {language} />
 			</TogglePanel>
