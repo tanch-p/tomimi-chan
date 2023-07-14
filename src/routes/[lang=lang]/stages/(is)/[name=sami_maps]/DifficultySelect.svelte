@@ -17,7 +17,7 @@
 		selectedDifficulty = value;
 	});
 	$: if (browser && cookiesEnabled) {
-		localStorage.setItem('difficulty', selectedDifficulty.toString());
+		localStorage.setItem('sami_difficulty', selectedDifficulty.toString());
 	}
 	const displayed_count = spring();
 	$: displayed_count.set(selectedDifficulty);

@@ -6,7 +6,7 @@ import { cookiesEnabled } from '../../../../stores';
 
 let storedDifficulty = 0;
 if (browser && cookiesEnabled) {
-	storedDifficulty = parseInt(localStorage.getItem('difficulty') ?? '0');
+	storedDifficulty = parseInt(localStorage.getItem('sami_difficulty') ?? '0');
 }
 export const selectedRelics = writable([]);
 export const difficulty = writable(storedDifficulty);
