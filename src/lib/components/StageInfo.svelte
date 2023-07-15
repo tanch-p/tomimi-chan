@@ -77,11 +77,11 @@
 	{/if}
 	{#if mapConfig.routes}
 		<StageRoutes routes={mapConfig.routes} {language} {rogueTopic} />
-	<!-- {:else}<p class="text-center">暂无路线，作者还没打到这里</p> -->
+	{:else}<p class="text-center">暂无路线，作者还没打到这里</p>
 	{/if}
 	<div class="w-screen sm:w-full">
 		{#if mapConfig.sp_enemy}
-			<SpEnemy spEnemyInfo={mapConfig.sp_enemy} />
+			<SpEnemy spEnemyInfo={mapConfig.sp_enemy} {language} />
 		{/if}
 	</div>
 </div>

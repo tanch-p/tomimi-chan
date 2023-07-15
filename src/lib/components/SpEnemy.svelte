@@ -3,8 +3,9 @@
 	import enemyCount from '$lib/images/is/enemy_count.webp';
 	import combat_icon from '$lib/images/is/combat_icon.webp';
 	import emergency_icon from '$lib/images/is/emergency_icon.webp';
-    
-	export let spEnemyInfo;
+	import translations from "$lib/translations.json"
+
+	export let spEnemyInfo, language;
 </script>
 
 <div class="flex justify-center items-center gap-x-1 mt-6 mb-4">
@@ -20,7 +21,7 @@
 	<img src={enemyCount} alt="enemy count" decoding="async" loading="lazy" class="" />
 	<div class="flex flex-col gap-y-2">
 		<div class="flex gap-x-2">
-			{#if spEnemyInfo.elite}
+			{#if spEnemyInfo.elite && !(spEnemyInfo.normal == spEnemyInfo.elite)}
 				<img
 					src={combat_icon}
 					width="40px"
@@ -32,10 +33,10 @@
 			{/if}
 			<span class="">{spEnemyInfo.normal}</span>
 			{#if !spEnemyInfo.fixed}
-				<span> - 100%</span>
+				<span>{translations[language].sp_enemy_sure}</span>
 			{/if}
 		</div>
-		{#if spEnemyInfo.elite}
+		{#if spEnemyInfo.elite && !(spEnemyInfo.normal == spEnemyInfo.elite)}
 			<div class="flex gap-x-2">
 				<img
 					src={emergency_icon}
@@ -46,6 +47,9 @@
 					class=""
 				/>
 				<span class="">{spEnemyInfo.elite}</span>
+				{#if !spEnemyInfo.fixed}
+					<span>{translations[language].sp_enemy_sure}</span>
+				{/if}
 			</div>
 		{/if}
 	</div>
