@@ -13,13 +13,15 @@
 
 		<li class="list-disc list-inside">{translations[language].how_to_use_relic}</li>
 		<li class="list-disc list-inside">{translations[language].how_to_use_elite_toggle}</li>
-		{#if rogueTopic === 'rogue_mizuki'}
+		{#if rogueTopic !== 'rogue_phantom'}
 			<li class="list-disc list-inside">{translations[language].how_to_use_diff}</li>
-			<li class="list-disc list-inside">{translations[language].how_to_use_mission}</li>
 			<li class="list-disc list-inside">{translations[language].how_to_use_floor}</li>
-			<li class="list-disc list-inside">{translations[language].how_to_use_seaborn}</li>
 		{:else}
 			<li class="list-disc list-inside">{translations[language].how_to_use_hallu}</li>
+		{/if}
+		{#if rogueTopic === 'rogue_mizuki'}
+			<li class="list-disc list-inside">{translations[language].how_to_use_seaborn}</li>
+			<li class="list-disc list-inside">{translations[language].how_to_use_mission}</li>
 		{/if}
 	</ul>
 </div>

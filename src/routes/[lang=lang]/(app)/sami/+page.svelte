@@ -43,9 +43,9 @@
 					</ul>
 				</div>
 			</TogglePanel>
-			<!-- <TogglePanel title={translations[language].how_to_use}>
-				<HowToUse {language} rogueTopic={'rogue_mizuki'} />
-			</TogglePanel> -->
+			<TogglePanel title={translations[language].how_to_use}>
+				<HowToUse {language} rogueTopic={'rogue_sami'} />
+			</TogglePanel>
 			<TogglePanel title={translations[language].stage_nav} isOpen={true} >
 				<SamiNavTemp {language} />
 			</TogglePanel>
