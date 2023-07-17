@@ -5,6 +5,7 @@
 	export let enemies: Enemy[], language: string, statMods, specialMods;
 	let tableHeaders = [
 		{ key: 'enemy', show: true },
+		{ key: 'name', show: true },
 		{ key: 'count', show: false },
 		{ key: 'type', show: true },
 		{ key: 'hp', show: true },

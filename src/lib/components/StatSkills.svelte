@@ -6,16 +6,20 @@
 	import enemyDatabase from '$lib/data/enemy/enemy_database.json';
 	import { applyMods } from '$lib/functions/parseStats';
 	export let skills: string[],
+		enemy,
 		stat: string,
 		statValue: number,
 		statMods: StatMods,
+		specialMods,
 		language: string;
-
+	
 	$: separator = language === 'en' ? '/' : '・';
 	$: skillsToParse = skills
 		.map((skillName) => {
-			const skill = enemySkills[skillName];
-			// console.log(skillName)
+			let skill = enemySkills[skillName];
+			if (specialMods[enemy.id] && Object.keys(specialMods[enemy.id]).includes(skillName)) {
+				skill = specialMods[enemy.id][skillName];
+			}
 			if (skill.type === stat) {
 				const { suffix, multiplier, fixed_inc, fixed_value, summon_enemy, hits, dmg_element } =
 					skill;

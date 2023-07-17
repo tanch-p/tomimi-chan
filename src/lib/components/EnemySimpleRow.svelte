@@ -31,8 +31,8 @@
 		}
 	};
 
-	const powerupOddRows = ['enemy', 'count', 'type', 'hp', 'weight', 'range', 'lifepoint'];
-	const multiformOddRows = ['enemy', 'count', 'type', 'weight', 'lifepoint'];
+	const powerupOddRows = ['enemy', 'name', 'count', 'type', 'hp', 'weight', 'range', 'lifepoint'];
+	const multiformOddRows = ['enemy', 'name', 'count', 'type', 'weight', 'lifepoint'];
 	let getRowSpan = (format: string, statKey: string, maxRowSpan: number) => {
 		switch (format) {
 			case 'powerup':
@@ -61,8 +61,16 @@
 							width="75px"
 							decoding="async"
 							alt={enemy.id}
-							title={enemy[`name_${language}` || enemy[`name_zh`]]}
+							title={enemy[`name_${language}`] || enemy[`name_zh`]}
 						/>
+					</td>
+				{/if}
+			{:else if key === 'name'}
+				{#if row === 0}
+					<td class={`border border-gray-400 h-[65px] text-left px-2.5`} rowspan={maxRowSpan}>
+						<p class="min-w-[100px] max-w-[110px]">
+							{enemy[`name_${language}`] || enemy[`name_zh`]}
+						</p>
 					</td>
 				{/if}
 			{:else if key === 'type'}
@@ -92,11 +100,13 @@
 							{/if}
 						</p>
 						<StatSkills
+							{enemy}
 							skills={getEnemySkills(enemy, row)}
 							stat={key}
 							statValue={enemy.stats[row][key]}
 							{language}
 							statMods={$statMods}
+							specialMods={$specialMods}
 						/>
 					</div>
 				</td>
