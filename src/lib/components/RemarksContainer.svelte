@@ -5,7 +5,7 @@
 	import translations from '$lib/translations.json';
 	import { getEnemySkills } from '$lib/functions/getEnemySkills';
 	import enemySkills from '$lib/data/enemy/enemy_skills.json';
-	import { isTarget } from '$lib/functions/parseStats';
+	import { checkIsTarget } from '$lib/functions/parseStats';
 
 	export let enemy: Enemy, row: number, language: string, specialMods;
 
@@ -35,7 +35,7 @@
 		});
 
 		for (const target in specialMods) {
-			if (isTarget(enemy, target)) {
+			if (checkIsTarget(enemy, target)) {
 				extraSkills = Object.keys(specialMods[target])
 					.map((key) => {
 						if (key !== 'status_immune' && !skillNames.includes(key)) {

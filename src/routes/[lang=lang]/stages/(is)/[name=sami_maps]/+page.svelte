@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { statMods, specialMods, eliteMods, selectedRelics } from './stores';
+	import { statMods, difficultyMods, specialMods, eliteMods, selectedRelics } from './stores';
 	import EnemySimpleTable from '$lib/components/EnemySimpleTable.svelte';
 	import DifficultySelect from './DifficultySelect.svelte';
 	import SamiNav from '../../../(app)/sami/SamiNavTemp.svelte';
@@ -14,7 +14,7 @@
 
 	export let data: PageData;
 	$: language = data.language;
-	$: moddedEnemies = parseStats(data.enemies, $statMods);
+	$: moddedEnemies = parseStats(data.enemies, $statMods, ...$difficultyMods);
 	const rogueTopic = 'rogue_mizuki';
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 </script>

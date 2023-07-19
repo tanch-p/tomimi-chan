@@ -1,5 +1,5 @@
 /* takes in a list of enemies and statMods and returns enemy with modifiers applied */
-import type { Enemy, StatMods, Mods } from '$lib/types';
+import type { Enemy, StatMods, Mods, Effects } from '$lib/types';
 
 const STATS = ['hp', 'atk', 'aspd', 'range', 'def', 'res', 'weight', 'ms', 'lifepoint'];
 
@@ -17,12 +17,12 @@ export const getMaxRowSpan = (enemy: Enemy) => {
 };
 
 // enemy stats type is being changed from {} to [{}] here
-export function parseStats(enemies: Enemy[], statMods: StatMods) {
+export function parseStats(enemies: Enemy[], statMods: StatMods, ...effectsToAdd: Effects[]) {
 	return enemies.map((enemy) => {
 		const maxRowSpan = getMaxRowSpan(enemy);
 		const moddedStats = [];
 		for (let i = 0; i < maxRowSpan; i++) {
-			moddedStats.push(applyMods(enemy, statMods, i));
+			moddedStats.push(applyMods(enemy, statMods, i, effectsToAdd));
 		}
 		return {
 			...enemy,
@@ -36,8 +36,13 @@ ALL + others -> distill into enemy ID
 */
 
 //returns enemy 'stats' object with modded stats
-export const applyMods = (enemy: Enemy, statMods: StatMods, row: number) => {
-	const mods = getEnemyStatMods(enemy, statMods, row);
+export const applyMods = (
+	enemy: Enemy,
+	statMods: StatMods,
+	row: number,
+	effectsToAdd: Effects[]
+) => {
+	const mods = getEnemyStatMods(enemy, statMods, row, effectsToAdd);
 	const enemy_stats = {};
 	for (const stat of STATS) {
 		enemy_stats[stat] = calculateModdedStat(
@@ -51,16 +56,24 @@ export const applyMods = (enemy: Enemy, statMods: StatMods, row: number) => {
 };
 
 //returns object with statMods to be used for calculateModdedStat
-const getEnemyStatMods = (enemy: Enemy, statMods: StatMods, row: number) => {
+const getEnemyStatMods = (
+	enemy: Enemy,
+	statMods: StatMods,
+	row: number,
+	effectsToAdd: Effects[]
+) => {
 	const { format } = enemy;
 	const enemyStatMod = { ...statMods.ALL };
 	for (const target of Object.keys(statMods)) {
 		if (target !== 'ALL') {
-			if (isTarget(enemy, target)) {
+			if (checkIsTarget(enemy, target)) {
 				distillMods(enemyStatMod, statMods[target]);
 			}
 		}
 	}
+
+	const addedMods = addMods(enemy, effectsToAdd);
+	distillMods(enemyStatMod, addedMods);
 
 	if (format !== 'normal') {
 		switch (format) {
@@ -126,9 +139,11 @@ const distillMods = (enemyStatMod: Mods, mods: Mods) => {
 	return enemyStatMod;
 };
 
-export const isTarget = (enemy: Enemy, target: string) => {
+export const checkIsTarget = (enemy: Enemy, target: string) => {
 	const { id, key, type } = enemy;
 	switch (target) {
+		case 'ALL':
+			return true;
 		case 'ranged':
 		case 'melee':
 		case 'ELITE':
@@ -151,3 +166,25 @@ export const isTarget = (enemy: Enemy, target: string) => {
 			return target === id || target === key;
 	}
 };
+
+//fix added for rogue_sami
+function addMods(enemy: Enemy, effectsToAdd: Effects[]) {
+	const mods = {};
+	for (const effects of effectsToAdd) {
+		for (const effect of effects) {
+			const isTarget = effect.targets.find((target) => checkIsTarget(enemy, target));
+			if (isTarget) {
+				for (const key in effect.mods) {
+					if (!mods[key]) {
+						mods[key] = effect.mods[key];
+					} else if (key.includes('fixed')) {
+						mods[key] += effect.mods[key];
+					} else {
+						mods[key] += effect.mods[key] - 1;
+					}
+				}
+			}
+		}
+	}
+	return mods;
+}

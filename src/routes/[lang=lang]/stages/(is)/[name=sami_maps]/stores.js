@@ -10,8 +10,14 @@ if (browser && cookiesEnabled) {
 }
 export const selectedRelics = writable([]);
 export const difficulty = writable(storedDifficulty);
-const difficultyMods = derived(difficulty, ($difficulty) =>
-	difficultyModsList.filter((ele) => ele.difficulty <= $difficulty)
+export const difficultyMods = derived(difficulty, ($difficulty) =>
+	difficultyModsList
+		.map((ele) => {
+			if (ele.difficulty <= $difficulty && ele.effects.length > 0) {
+				return ele.effects;
+			}
+		})
+		.filter(Boolean)
 );
 export const selectedFloor = writable(1);
 const floorDifficultyMods = derived(
@@ -31,11 +37,10 @@ export const eliteMods = writable(null);
 export const activeFloorEffects = writable([]);
 
 const compiledMods = derived(
-	[selectedRelics, difficultyMods, floorDifficultyMods, eliteMods, activeFloorEffects],
-	([$selectedRelics, $difficultyMods, $floorDifficultyMods, $eliteMods, $activeFloorEffects]) =>
+	[selectedRelics, floorDifficultyMods, eliteMods, activeFloorEffects],
+	([$selectedRelics, $floorDifficultyMods, $eliteMods, $activeFloorEffects]) =>
 		updateMods(
 			$selectedRelics.map((relic) => relic.effects),
-			$difficultyMods.map((ele) => ele.effects),
 			[$floorDifficultyMods],
 			[$eliteMods],
 			$activeFloorEffects.map((ele) => ele.effects)
