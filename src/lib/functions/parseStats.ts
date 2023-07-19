@@ -168,7 +168,7 @@ export const checkIsTarget = (enemy: Enemy, target: string) => {
 };
 
 //fix added for rogue_sami
-function addMods(enemy: Enemy, effectsToAdd: Effects[]) {
+function addMods(enemy: Enemy, effectsToAdd: Effects[] = []) {
 	const mods = {};
 	for (const effects of effectsToAdd) {
 		for (const effect of effects) {
