@@ -1,14 +1,24 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
 	import RelicDiv from './RelicDiv.svelte';
 	import translations from '$lib/translations.json';
 	import mizukiRelics from '$lib/data/relics_mizuki.json';
 	import phantomRelics from '$lib/data/relics_phantom.json';
+	import samiRelics from '$lib/data/relics_sami.json';
+
+	const dispatch = createEventDispatcher();
 
 	export let openOverlay: boolean,
 		language: string,
 		rogueTopic: string,
 		selectedRelics,
 		selectedUniqueRelic;
+
+	function handleOverlayClick(e) {
+		if (!e.target.className.includes('relic') && !e.target.id.includes('reset')) {
+			dispatch('close');
+		}
+	}
 </script>
 
 <div
@@ -17,9 +27,10 @@
 	}`}
 >
 	{#if openOverlay}
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<div
-			id="relic-list"
 			class="fixed inset-0 bg-ph-bg bg-opacity-90 overflow-y-scroll no-scrollbar"
+			on:click={handleOverlayClick}
 		>
 			<div class="w-full max-w-7xl mx-auto py-36">
 				<div
@@ -27,6 +38,10 @@
 				>
 					{#if rogueTopic === 'rogue_mizuki'}
 						{#each mizukiRelics as relic}
+							<RelicDiv {relic} {language} {rogueTopic} {selectedRelics} />
+						{/each}
+					{:else if rogueTopic === 'rogue_sami'}
+						{#each samiRelics as relic}
 							<RelicDiv {relic} {language} {rogueTopic} {selectedRelics} />
 						{/each}
 					{:else}

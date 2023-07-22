@@ -21,6 +21,7 @@
 	function getSelectedTextColor(rogueTopic: string) {
 		switch (rogueTopic) {
 			case 'rogue_mizuki':
+			case 'rogue_sami':
 				return 'text-[#58dbda]';
 			case 'rogue_phantom':
 				return 'text-[#cea658]';
@@ -32,18 +33,19 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
-	class={`grid grid-cols-[75px_auto] sm:grid-cols-[95px_auto] gap-x-2 ${
+	id={`relic_${name}`}
+	class={`relic grid grid-cols-[75px_auto] sm:grid-cols-[95px_auto] gap-x-2 ${
 		selected ? 'bg-neutral-800' : 'hover:bg-neutral-700'
 	}`}
 	on:click={handleClick}
 >
-	<img {src} alt={name} loading="lazy" decoding="async" class="w-[75px] sm:w-[95px]" />
-	<div class="px-2">
+	<img {src} alt={name} loading="lazy" decoding="async" class="relic w-[75px] sm:w-[95px]" />
+	<div class="relic px-2">
 		<p
-			class={`text-lg sm:text-xl ${selected ? getSelectedTextColor(rogueTopic) : 'text-gray-400'}`}
+			class={`relic text-lg sm:text-xl ${selected ? getSelectedTextColor(rogueTopic) : 'text-gray-400'}`}
 		>
 			{name}
 		</p>
-		<p class="text-[#c4c4c4]">{tooltip}</p>
+		<p class="relic text-[#c4c4c4]">{tooltip}</p>
 	</div>
 </div>
