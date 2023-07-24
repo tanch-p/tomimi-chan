@@ -11,11 +11,11 @@
 </script>
 
 <svelte:head>
-	<title>{translations[language].rogue_mizuki} / {translations[language].title_post}</title>
+	<title>{translations[language].rogue_sami} / {translations[language].title_post}</title>
 	<meta name="description" content={translations[language].title_post} />
 	<meta property="og:description" content={translations[language].title_post} />
-	<meta property="og:title" content={translations[language].rogue_mizuki} />
-	<meta property="og:url" content={`https://tomimi.dev/${language}/mizuki`} />
+	<meta property="og:title" content={translations[language].rogue_sami} />
+	<meta property="og:url" content={`https://tomimi.dev/${language}/sami`} />
 </svelte:head>
 
 <div class="bg-neutral-800 min-h-screen">
