@@ -16,12 +16,14 @@
 		{#if rogueTopic !== 'rogue_phantom'}
 			<li class="list-disc list-inside">{translations[language].how_to_use_diff}</li>
 			<li class="list-disc list-inside">{translations[language].how_to_use_floor}</li>
-		{:else}
-			<li class="list-disc list-inside">{translations[language].how_to_use_hallu}</li>
 		{/if}
 		{#if rogueTopic === 'rogue_mizuki'}
 			<li class="list-disc list-inside">{translations[language].how_to_use_seaborn}</li>
 			<li class="list-disc list-inside">{translations[language].how_to_use_mission}</li>
+		{:else if rogueTopic === 'rogue_sami'}
+			<li class="list-disc list-inside">{translations[language].how_to_use_chaos}</li>
+		{:else if rogueTopic === 'rogue_phantom'}
+			<li class="list-disc list-inside">{translations[language].how_to_use_hallu}</li>
 		{/if}
 	</ul>
 </div>

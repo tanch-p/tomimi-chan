@@ -33,7 +33,6 @@
 					<ul class="mt-2">
 						验证中
 						<li class="list-disc list-inside">敌人数量</li>
-						<li class="list-disc list-inside">敌人属性加成</li>
 					</ul>
 					<ul class="mt-2">
 						开发中
