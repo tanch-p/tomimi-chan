@@ -1,27 +1,21 @@
 <script lang="ts">
-	import { activeFloorEffects } from './stores';
+	import { activeChaosEffects } from './stores';
 	export let effect, language: string;
 
 	let selected = false;
 
-	activeFloorEffects.subscribe((list) => {
+	activeChaosEffects.subscribe((list) => {
 		selected = Boolean(list.find((ele) => ele.id === effect.id));
 	});
 
 	function handleClick() {
-		if (!$activeFloorEffects.find((ele) => ele.id === effect.id)) {
-			activeFloorEffects.update((list) => {
-				if (list.length === 2) {
-					return (list = [list[1], effect]);
-				} else {
-					return (list = [...list, effect]);
-				}
-			});
+		if (!$activeChaosEffects.find((ele) => ele.id === effect.id)) {
+			activeChaosEffects.update((list) => [effect]);
 		} else {
-			activeFloorEffects.update((list) => (list = list.filter((ele) => ele.id !== effect.id)));
+			activeChaosEffects.update((list) => (list = list.filter((ele) => ele.id !== effect.id)));
 		}
 	}
-	$: name = effect[`outerName_${language}`];
+	$: name = effect[`outerName_${language}`] || effect[`outerName_zh`];
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -35,7 +29,7 @@
 		<img src={effect.src} alt={name} loading="lazy" decoding="async" /></span
 	>
 	<div class="flex flex-col">
-		<p class={`${selected ? 'text-red-400 font-semibold' : ''}`}>{name}</p>
+		<p class={`${selected ? 'text-purple-400 font-semibold' : ''}`}>{name}</p>
 		<p>{effect[`tooltip_${language}`]}</p>
 	</div>
 </div>

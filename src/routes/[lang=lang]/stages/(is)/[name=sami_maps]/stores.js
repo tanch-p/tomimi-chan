@@ -34,16 +34,16 @@ const floorDifficultyMods = derived(
 );
 
 export const eliteMods = writable(null);
-export const activeFloorEffects = writable([]);
+export const activeChaosEffects = writable([]);
 
 const compiledMods = derived(
-	[selectedRelics, floorDifficultyMods, eliteMods, activeFloorEffects],
-	([$selectedRelics, $floorDifficultyMods, $eliteMods, $activeFloorEffects]) =>
+	[selectedRelics, floorDifficultyMods, eliteMods, activeChaosEffects],
+	([$selectedRelics, $floorDifficultyMods, $eliteMods, $activeChaosEffects]) =>
 		updateMods(
 			$selectedRelics.map((relic) => relic.effects),
 			[$floorDifficultyMods],
 			[$eliteMods],
-			$activeFloorEffects.map((ele) => ele.effects)
+			$activeChaosEffects.map((ele) => ele.effects)
 		)
 );
 
