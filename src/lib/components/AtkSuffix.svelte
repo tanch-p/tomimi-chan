@@ -14,8 +14,8 @@
 		{`x ${hits}`}
 	{/if}
 	{#if atk_type[0] !== 'raw' && atk_type[0] !== 'no_attack'}
-		{'('}{translations[language][atk_type[0]]}{separator}<span
-			class={getDmgEleHighlight(atk_type[1])}>{translations[language][atk_type[1]]}</span
-		>{')'}
+		{'('}{translations[language][atk_type[0]]}{separator}
+		<span class={getDmgEleHighlight(atk_type[1])}>{translations[language][atk_type[1]]}</span>
+		{')'}
 	{/if}
 {/if}

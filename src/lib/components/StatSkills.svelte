@@ -12,20 +12,19 @@
 		statMods: StatMods,
 		specialMods,
 		language: string;
-	
+
 	$: separator = language === 'en' ? '/' : '・';
 	$: skillsToParse = skills
-		.map((skillName) => {
-			let skill = enemySkills[skillName];
-			if (specialMods[enemy.id] && Object.keys(specialMods[enemy.id]).includes(skillName)) {
-				skill = specialMods[enemy.id][skillName];
+		.map((skillRef) => {
+			let skill = { ...enemySkills[skillRef.key], ...skillRef };
+			if (specialMods[enemy.id] && Object.keys(specialMods[enemy.id]).includes(skillRef.key)) {
+				skill = specialMods[enemy.id][skillRef.key];
 			}
-			if (skill.type === stat) {
-				const { suffix, multiplier, fixed_inc, fixed_value, summon_enemy, hits, dmg_element } =
-					skill;
+			if (skill[stat]) {
+				const { suffix, summon_enemy, hits, dmg_element } = skill;
 				let value = statValue;
-				if (fixed_value) {
-					value = fixed_value;
+				if (skill[stat].value) {
+					value = skill[stat].value;
 				} else if (summon_enemy) {
 					const enemy = {
 						...enemyDatabase[summon_enemy],
@@ -34,7 +33,7 @@
 					const moddedStats = applyMods(enemy, statMods, 0);
 					value = moddedStats[stat];
 				} else {
-					value = Math.floor(value * (multiplier ?? 1) + (fixed_inc ?? 0));
+					value = Math.floor(value * (skill[stat].multiplier ?? 1) + (skill[stat].fixed ?? 0));
 				}
 				return { suffix, value, hits: hits ?? 0, dmgEle: dmg_element ?? '' };
 			}

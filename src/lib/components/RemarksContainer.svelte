@@ -22,15 +22,15 @@
 	});
 	$: skills = parseSkills(skillNames, $specialMods);
 
-	const parseSkills = (skillNames, specialMods) => {
+	const parseSkills = (skillRefs, specialMods) => {
 		let currentSkills = [];
 		let extraSkills = [];
 
-		currentSkills = skillNames.map((name) => {
-			if (specialMods[enemy.id] && Object.keys(specialMods[enemy.id]).includes(name)) {
-				return specialMods[enemy.id][name];
+		currentSkills = skillRefs.map((skillRef) => {
+			if (specialMods[enemy.id] && Object.keys(specialMods[enemy.id]).includes(skillRef.key)) {
+				return specialMods[enemy.id][skillRef.key];
 			} else {
-				return enemySkills[name];
+				return { ...enemySkills[skillRef.key], ...skillRef };
 			}
 		});
 
@@ -38,7 +38,7 @@
 			if (checkIsTarget(enemy, target)) {
 				extraSkills = Object.keys(specialMods[target])
 					.map((key) => {
-						if (key !== 'status_immune' && !skillNames.includes(key)) {
+						if (key !== 'status_immune' && !skillRefs.find((ref) => ref.key === key)) {
 							return specialMods[target][key];
 						}
 					})

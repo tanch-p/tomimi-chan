@@ -3,7 +3,7 @@
 	import translations from '$lib/translations.json';
 	export let enemies: Enemy[], language: string, statMods, specialMods;
 
-    const statKeys = ['hp','ms','atk','aspd','def','res'];
+	const statKeys = ['hp', 'ms', 'atk', 'aspd', 'def', 'res'];
 </script>
 
 <div class="flex flex-col">
@@ -16,7 +16,7 @@
 			</div>
 			<div class="flex items-center">
 				<p>{enemy.id}</p>
-				{#if enemy.statsOverwritten}
+				{#if enemy.overwritten}
 					<p>Sp.</p>
 				{/if}
 				<p>{enemy[`name_${language}`]}</p>
@@ -33,26 +33,27 @@
 						alt={enemy.id}
 					/>
 					<div>
-						I {translations[language].weight}
-						{enemy[row].weight}
+						I {translations[language].table_headers.weight}
+						{enemy.stats[0].weight}
 					</div>
 				</div>
 				<div>
 					{#if enemy.lifepoint !== 1}
-						<div class="flex items-center justify-between">lifepoint icon {enemy.lifepoint}</div>
+						<div class="flex items-center justify-between">
+							lifepoint icon {enemy.stats[0].lifepoint}
+						</div>
 					{/if}
-                    <div class="grid grid-cols-2 gap-2">
-                        {#each statKeys as statKey}
-                            <div class="flex items-center">
-                                icon {translations[language][statKey]} {enemy.stats[row][key]}
-                            </div>
-                        {/each}
-                    </div>
+					<div class="grid grid-cols-2 gap-2">
+						{#each statKeys as statKey}
+							<div class="flex items-center">
+								icon {translations[language].table_headers[statKey]}
+								{enemy.stats[0][statKey]}
+							</div>
+						{/each}
+					</div>
 				</div>
-                <p>talent</p>
-                <div>
-                    
-                </div>
+				<p>talent</p>
+				<div />
 			</div>
 		</div>
 	{/each}

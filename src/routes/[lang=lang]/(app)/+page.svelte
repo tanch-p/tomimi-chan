@@ -29,7 +29,7 @@
 
 <section>
 	<div class="h-[10vh]" />
-	<div class="w-screen sm:w-full max-w-7xl mx-auto">
+	<div class="w-screen sm:w-full max-w-7xl mx-auto pb-32">
 		<div class="flex flex-col items-center mx-auto gap-x-4 gap-y-8 px-2 sm:px-8 justify-center">
 			<div
 				class="w-full md:w-[600px] bg-[#363636] shadow-lg md:shadow-xl pt-2 sm:py-3 px-2 sm:px-6"

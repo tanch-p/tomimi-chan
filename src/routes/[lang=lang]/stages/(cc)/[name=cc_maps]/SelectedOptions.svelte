@@ -2,7 +2,7 @@
 	import { selectedContracts } from './stores';
 	import RankTriangles from './RiskTriangle.svelte';
 	import translations from '$lib/translations.json';
-	import { onMount, onDestroy } from 'svelte';
+	import { onMount } from 'svelte';
 	import { createSlider } from '$lib/functions/slider';
 
 	export let ccType: 'perma' | 'daily' = 'perma',
@@ -32,9 +32,7 @@
 	let cleanupSlider = () => {};
 	onMount(() => {
 		cleanupSlider = createSlider('.selected-slider');
-	});
-	onDestroy(() => {
-		cleanupSlider();
+		return cleanupSlider
 	});
 </script>
 

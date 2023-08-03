@@ -93,7 +93,7 @@
 					rowspan={getRowSpan(enemy.format, key, maxRowSpan)}
 				>
 					<div>
-						<p class="whitespace-nowrap">
+						<p class={`whitespace-nowrap ${key === 'atk' ? 'flex' : ''}`}>
 							{enemy.stats[row][key]}
 							{#if key === 'atk'}
 								<AtkSuffix attack={getNormalAtk(enemy, row)} {language} />

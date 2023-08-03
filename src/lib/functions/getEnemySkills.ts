@@ -1,6 +1,6 @@
-import type { Enemy } from '$lib/types';
+import type { Enemy,Skill } from '$lib/types';
 
-export const getEnemySkills = (enemy: Enemy, row: number): string[] => {
+export const getEnemySkills = (enemy: Enemy, row: number): Skill[] => {
 	const { format } = enemy;
 	if (format === 'prisoner' && row === 0) {
 		return enemy.imprisoned?.special;

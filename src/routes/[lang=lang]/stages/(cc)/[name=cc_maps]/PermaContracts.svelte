@@ -2,7 +2,7 @@
 	import RiskTriangle from './RiskTriangle.svelte';
 	import { selectedContracts } from './stores';
 	import translations from '$lib/translations.json';
-	import { onMount, onDestroy } from 'svelte';
+	import { onMount } from 'svelte';
 	import { createSlider } from '$lib/functions/slider';
 
 	export let language: string,
@@ -13,7 +13,7 @@
 	let showGrid = false;
 	let stickyTable = false;
 
-	const handleClick = (category, option, selected, sameCategorySelected,index) => {
+	const handleClick = (category, option, selected, sameCategorySelected, index) => {
 		if (selected) {
 			selectedContracts.update((list) => list.filter((item) => item.img !== option.img));
 		} else if (sameCategorySelected) {
@@ -39,9 +39,8 @@
 	let cleanupSlider = () => {};
 	onMount(() => {
 		cleanupSlider = createSlider('.slider');
-	});
-	onDestroy(() => {
-		cleanupSlider();
+
+		return cleanupSlider;
 	});
 </script>
 
@@ -91,7 +90,7 @@
 			{/each}
 		</div>
 		<div class="grid grid-flow-col grid-rows-3 auto-cols-[65px] no-scrollbar">
-			{#each contracts as category,index}
+			{#each contracts as category, index}
 				{#each category['options'] as option}
 					{@const selected = Boolean($selectedContracts.find((item) => item.img === option.img))}
 					{@const sameCategorySelected = Boolean(
@@ -107,7 +106,7 @@
 								type="button"
 								title={option.tooltip[language]}
 								on:click={() =>
-									handleClick(category.category, option, selected, sameCategorySelected,index)}
+									handleClick(category.category, option, selected, sameCategorySelected, index)}
 							>
 								<img
 									src="https://res.cloudinary.com/dbqz7mebk/image/upload/v1680366257/tomimi.dev/cc/{option.img}.webp"

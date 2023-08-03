@@ -49,7 +49,7 @@ export interface Enemy {
 	[key: `name_${string}`]: string;
 	format: string;
 	stats: Stats[];
-	special?: string[];
+	special?: Skill[];
 	forms?: EnemyFormType[];
 	powerup?: EnemyFormType;
 	imprisoned?: EnemyFormType;
@@ -60,6 +60,7 @@ export interface Enemy {
 		hits: number;
 	};
 	type: EnemyType[];
+	overwritten?: true | false;
 }
 
 type overwrittenData = {
@@ -97,3 +98,8 @@ export type Mods = {
 };
 
 export type Effects = [{ targets: string[]; mods: Mods }];
+
+export type Skill = {
+	key: string;
+	value?: number;
+};
