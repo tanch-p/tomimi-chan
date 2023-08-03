@@ -1,5 +1,6 @@
 <script lang="ts">
-	export let relic, language: string, rogueTopic: string, selectedUniqueRelic;
+	import type { Language, RogueTopic } from '$lib/types';
+	export let relic, language: Language, rogueTopic: RogueTopic, selectedUniqueRelic;
 
 	const src = `https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_100/v1681056192/tomimi.dev/relics/${relic.img}.webp`;
 	$: name = relic[`name_${language}`] || relic[`name_zh`];

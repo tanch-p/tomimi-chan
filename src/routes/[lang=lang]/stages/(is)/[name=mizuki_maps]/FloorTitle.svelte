@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import { clickOutside } from '$lib/functions/clickOutside.js';
 	import FloorOptions from './FloorOptions.svelte';
 	import { selectedFloor, activeFloorEffects } from './stores';
@@ -10,7 +11,7 @@
 	import floor5 from '$lib/images/is/mizuki/floor5.webp';
 	import floor6 from '$lib/images/is/mizuki/floor6.webp';
 
-	export let stageFloors: number[], language: string;
+	export let stageFloors: number[], language: Language;
 	let optionsOpen = false;
 
 	const floorIcons = [floor1, floor2, floor3, floor4, floor5, floor6];

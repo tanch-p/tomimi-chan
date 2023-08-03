@@ -1,7 +1,8 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import { getDmgEleHighlight } from '$lib/functions/parseAtkType';
 	import translations from '$lib/translations.json';
-	export let attack, language: string;
+	export let attack, language: Language;
 	$: atk_type = attack.atk_type;
 	$: hits = attack.hits;
 	$: separator = language === 'en' ? '/' : '・';

@@ -1,6 +1,7 @@
 <script lang="ts">
+	import type {Language} from "$lib/types"
 	import translations from '$lib/translations.json';
-	export let normalAttack, language: string;
+	export let normalAttack, language: Language;
 	$: atk_type = normalAttack.atk_type;
 	$: hits = normalAttack.hits;
 	$: separator = language === 'en' ? '/' : '・';

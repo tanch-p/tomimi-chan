@@ -1,11 +1,12 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import StageNavButton from './StageNavButton.svelte';
 	import combat_ops from '$lib/images/is/sami/sami_combat_ops.webp';
 	import boss from '$lib/images/is/sami/sami_boss.webp';
 	import encounter from '$lib/images/is/sami/sami_encounter.webp';
 	import translations from '$lib/translations.json';
 
-	export let language: string;
+	export let language: Language;
 
 	let allNormalStages = [
 		['死囚之夜', '度假村冤魂', '苔手', '待宰的兽群'],

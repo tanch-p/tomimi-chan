@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
 
 	let layout = 'pc';
@@ -10,7 +10,7 @@
 		};
 	});
 
-	function screenTest(e) {
+	function screenTest(e: MediaQueryListEvent) {
 		if (e.matches) {
 			/* the viewport is 768 pixels wide or less */
 			layout = 'mobile';

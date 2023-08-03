@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Enemy } from '$lib/types';
+	import type { Enemy, Language, SpecialMods } from '$lib/types';
 	import Remark from './Remark.svelte';
 	import StatusImmune from '$lib/components/StatusImmune.svelte';
 	import translations from '$lib/translations.json';
@@ -7,7 +7,7 @@
 	import enemySkills from '$lib/data/enemy/enemy_skills.json';
 	import { checkIsTarget } from '$lib/functions/parseStats';
 
-	export let enemy: Enemy, row: number, language: string, specialMods;
+	export let enemy: Enemy, row: number, language: Language, specialMods;
 
 	$: skillNames = getEnemySkills(enemy, row);
 	const { format } = enemy;

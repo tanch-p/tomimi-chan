@@ -1,8 +1,9 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import relicIcon from '$lib/images/is/relic.png';
 	import RelicsOverlay from './RelicsOverlay.svelte';
 	import translations from '$lib/translations.json';
-	export let language: string,
+	export let language: Language,
 		rogueTopic: string,
 		selectedRelics,
 		selectedUniqueRelic = null;

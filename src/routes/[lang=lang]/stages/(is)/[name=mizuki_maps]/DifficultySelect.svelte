@@ -1,10 +1,11 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import { difficulty } from './stores.js';
 	import { cookiesEnabled } from '../../../../stores.js';
 	import { spring } from 'svelte/motion';
 	import translations from '$lib/translations.json';
 	import { browser } from '$app/environment';
-	export let language: string;
+	export let language: Language;
 
 	function updateDifficulty(n: number) {
 		if (n < 0 || n > 15) {

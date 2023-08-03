@@ -1,6 +1,7 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import { activeChaosEffects } from './stores';
-	export let effect, language: string;
+	export let effect, language: Language;
 
 	let selected = false;
 

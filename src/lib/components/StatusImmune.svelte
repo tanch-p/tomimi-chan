@@ -1,6 +1,7 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import translations from '$lib/translations.json';
-	export let statusImmuneList: [], language: string;
+	export let statusImmuneList: [], language: Language;
 
 	$: statusImmuneTexts = translations[language].status_immune;
 </script>

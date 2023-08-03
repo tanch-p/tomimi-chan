@@ -1,12 +1,13 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import { selectedFloor } from './stores.js';
 	import translations from '$lib/translations.json';
-	export let language: string;
+	export let language: Language;
 	let floors = new Array(6);
 </script>
 
 <div class="w-[70%] mx-auto py-3 mt-4">
-	<div class="grid grid-cols-6 ">
+	<div class="grid grid-cols-6">
 		{#each floors as n, i}
 			<button
 				on:click={() => selectedFloor.set(i + 1)}

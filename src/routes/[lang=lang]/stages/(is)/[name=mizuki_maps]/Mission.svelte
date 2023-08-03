@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import { missionMods } from './stores.js';
 
@@ -15,7 +16,7 @@
 
 	$: selected ? missionMods.set(missionModEffects) : missionMods.set(null);
 
-	export let language: string;
+	export let language: Language;
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->

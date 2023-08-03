@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import { selectedContracts } from './stores';
 	import RankTriangles from './RiskTriangle.svelte';
 	import translations from '$lib/translations.json';
@@ -6,7 +7,7 @@
 	import { createSlider } from '$lib/functions/slider';
 
 	export let ccType: 'perma' | 'daily' = 'perma',
-		language: string,
+		language: Language,
 		mapConfig;
 
 	$: if (mapConfig) {
@@ -32,14 +33,14 @@
 	let cleanupSlider = () => {};
 	onMount(() => {
 		cleanupSlider = createSlider('.selected-slider');
-		return cleanupSlider
+		return cleanupSlider;
 	});
 </script>
 
 <div class={`max-w-4xl mx-auto ${ccType === 'daily' ? 'md:w-[740px]' : ''}`}>
-	<div class="selected-slider bg-[#2e2c2c] border-b border-b-gray-400 ">
+	<div class="selected-slider bg-[#2e2c2c] border-b border-b-gray-400">
 		<div
-			class="relative flex flex-wrap flex-col gap-y-2 py-2 w-screen md:w-full max-h-[300px] md:h-[300px] md:max-w-[900px] text-[12px] lg:text-md  text-gray-300"
+			class="relative flex flex-wrap flex-col gap-y-2 py-2 w-screen md:w-full max-h-[300px] md:h-[300px] md:max-w-[900px] text-[12px] lg:text-md text-gray-300"
 		>
 			{#each sortedContracts as option}
 				<div class={`flex ${ccType === 'daily' ? '' : 'md:w-[50%]'}`}>
@@ -80,7 +81,7 @@
 			class="flex flex-wrap flex-col px-2 h-[110%] border-r-2 border-r-black leading-[16px] text-white"
 		>
 			<div class="w-full">
-				<p class="text-[10px] ">危機等級</p>
+				<p class="text-[10px]">危機等級</p>
 			</div>
 			<div class="w-full">
 				<p class="text-right text-[20px]">{totalRisk}</p>

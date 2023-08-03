@@ -1,8 +1,9 @@
 <script lang="ts">
+	import type {Language} from "$lib/types"
 	import translations from '$lib/translations.json';
 	import spTerrainList from '$lib/sp_terrain_list.json';
 	import SpTerrainDesc from './SpTerrainDesc.svelte';
-	export let spTerrain, language: string;
+	export let spTerrain, language: Language;
 </script>
 
 <div class="sm:px-6 my-4">

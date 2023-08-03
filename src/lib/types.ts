@@ -1,5 +1,7 @@
 //https://stackoverflow.com/questions/65878880/typescript-template-literal-as-interface-key
 
+export type Language = 'zh' | 'ja' | 'en';
+export type RogueTopic = 'rogue_phantom' | 'rogue_mizuki' | 'rogue_sami' | null;
 type Stats = {
 	hp: number;
 	atk: number;
@@ -91,6 +93,10 @@ export interface MapConfig {
 
 export type StatMods = {
 	[key: string]: Mods;
+};
+
+export type SpecialMods = {
+	[key: string]: Skill;
 };
 
 export type Mods = {

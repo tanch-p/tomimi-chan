@@ -1,11 +1,12 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import RiskTriangle from './RiskTriangle.svelte';
 	import { selectedContracts } from './stores';
 	import translations from '$lib/translations.json';
 	import { onMount } from 'svelte';
 	import { createSlider } from '$lib/functions/slider';
 
-	export let language: string,
+	export let language: Language,
 		contracts = [];
 	const ranks = [1, 2, 3];
 

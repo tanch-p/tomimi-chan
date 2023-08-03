@@ -1,6 +1,7 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import stageList from '$lib/data/stages/is_stages_list.json';
-	export let stageName: string, language: string;
+	export let stageName: string, language: Language;
 
 	const update2Stages = ['互助', '饥渴', '瞻前顾后', '铳与秩序', '余烬方阵', '人之光辉'];
 
@@ -15,7 +16,11 @@
 	$: name = stageInfo[`name_${language}`] || stageInfo['name_zh'];
 </script>
 
-<a data-sveltekit-preload-code="eager" href={`/${language}/stages/${stageUrl}`} class="hover:text-sky-400">
+<a
+	data-sveltekit-preload-code="eager"
+	href={`/${language}/stages/${stageUrl}`}
+	class="hover:text-sky-400"
+>
 	<div
 		class={`py-2 my-0.5 sm:my-1 text-center hover:backdrop-brightness-50 ${
 			hidden ? 'opacity-0 hover:opacity-100' : ''

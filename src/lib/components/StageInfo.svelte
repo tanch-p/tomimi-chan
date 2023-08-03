@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Language, RogueTopic } from '$lib/types';
 	import SpEnemy from '$lib/components/SpEnemy.svelte';
 	import StageRoutes from '$lib/components/StageRoutes.svelte';
 	import SpTerrain from './SpTerrain.svelte';
@@ -7,10 +8,10 @@
 	import translations from '$lib/translations.json';
 
 	export let mapConfig,
-		language: string,
+		language: Language,
 		stageName: string,
 		selectedFloor,
-		rogueTopic: string | null = null;
+		rogueTopic: RogueTopic = null;
 
 	const getEliteDescColor = (rogueTopic: string | null) => {
 		switch (rogueTopic) {

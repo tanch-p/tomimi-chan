@@ -1,7 +1,8 @@
 <script lang="ts">
+	import type {Language} from "$lib/types"
 	import TextParser from './TextParser.svelte';
 
-	export let skill, language: string;
+	export let skill, language: Language;
 
 	const parseValues = (text: string) => {
 		const regex = new RegExp(`<v.*?>`, 'g');

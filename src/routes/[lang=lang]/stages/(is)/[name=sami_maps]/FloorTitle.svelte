@@ -1,10 +1,11 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import { clickOutside } from '$lib/functions/clickOutside.js';
 	import FloorOptions from './FloorOptions.svelte';
 	import { selectedFloor, activeChaosEffects } from './stores';
 	import translations from '$lib/translations.json';
 
-	export let stageFloors: number[], language: string;
+	export let stageFloors: number[], language: Language;
 	let optionsOpen = false;
 
 	// const floorIcons = [floor1, floor2, floor3, floor4, floor5, floor6];
@@ -33,7 +34,11 @@
 	</div>
 	{#if $activeChaosEffects.length > 0}
 		{#each $activeChaosEffects as effect}
-			<img src={effect.src} class="absolute -inset-[9999px] z-[-1] m-auto" alt={effect['name_zh']} />
+			<img
+				src={effect.src}
+				class="absolute -inset-[9999px] z-[-1] m-auto"
+				alt={effect['name_zh']}
+			/>
 		{/each}
 	{/if}
 	<FloorOptions bind:optionsOpen {language} />

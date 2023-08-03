@@ -1,7 +1,8 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import LanguageSwitcher from '$lib/components/LanguageSwitcher.svelte';
 	import favicon from '$lib/images/favicon.webp';
-	export let language: string;
+	export let language: Language;
 </script>
 
 <header class="bg-[#161417] text-near-white">

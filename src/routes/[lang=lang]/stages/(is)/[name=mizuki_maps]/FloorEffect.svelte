@@ -1,6 +1,7 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import { activeFloorEffects } from './stores';
-	export let effect, language: string;
+	export let effect, language: Language;
 
 	let selected = false;
 

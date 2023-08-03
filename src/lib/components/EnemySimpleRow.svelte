@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Enemy } from '$lib/types';
+	import type { Enemy,Language } from '$lib/types';
 	import { getMaxRowSpan } from '$lib/functions/parseStats';
 	import { getNormalAtk } from '$lib/functions/parseAtkType';
 	import { getEnemySkills } from '$lib/functions/getEnemySkills';
@@ -11,7 +11,7 @@
 	export let enemy: Enemy,
 		index: number,
 		filteredTableHeaders,
-		language: string,
+		language: Language,
 		statMods,
 		specialMods;
 	$: maxRowSpan = getMaxRowSpan(enemy);
