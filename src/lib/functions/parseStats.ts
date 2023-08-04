@@ -8,12 +8,10 @@ const MZK_BOSSES = [''];
 const SAMI_BOSSES = [''];
 
 export const getMaxRowSpan = (enemy: Enemy) => {
-	const { format } = enemy;
-	return format === 'powerup' || format === 'prisoner'
-		? 2
-		: format === 'multiform'
-		? enemy.forms.length
-		: 1;
+	if(enemy?.forms){
+		return enemy.forms.length
+	}
+	return 1
 };
 
 // enemy stats type is being changed from {} to [{}] here
@@ -62,7 +60,6 @@ const getEnemyStatMods = (
 	row: number,
 	effectsToAdd: Effects[]
 ) => {
-	const { format } = enemy;
 	const enemyStatMod = { ...statMods.ALL };
 	for (const target of Object.keys(statMods)) {
 		if (target !== 'ALL') {
@@ -75,27 +72,8 @@ const getEnemyStatMods = (
 	const addedMods = addMods(enemy, effectsToAdd);
 	distillMods(enemyStatMod, addedMods);
 
-	if (format !== 'normal') {
-		switch (format) {
-			case 'prisoner':
-				if (row === 0) {
-					//imprisoned debuffs
-					distillMods(enemyStatMod, enemy.imprisoned.mods);
-				} else {
-					//released buffs
-					distillMods(enemyStatMod, enemy.released.mods);
-				}
-				break;
-
-			case 'powerup':
-				if (row === 1) {
-					distillMods(enemyStatMod, enemy.powerup.mods);
-				}
-				break;
-			case 'multiform':
-				distillMods(enemyStatMod, enemy.forms[row].mods);
-				break;
-		}
+	if (enemy?.forms) {
+		distillMods(enemyStatMod, enemy.forms[row].mods);
 	}
 	return enemyStatMod;
 };

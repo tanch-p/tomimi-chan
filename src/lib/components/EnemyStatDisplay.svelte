@@ -4,7 +4,7 @@
 	import EnemySimpleTable from './EnemySimpleTable.svelte';
 	import EnemyHandbookDisplay from './EnemyHandbookDisplay.svelte';
 
-	export let enemies: Enemy[], language: Language, statMods: StatMods, specialMods: SpecialMods;
+	export let enemies: Enemy[], language: Language, statMods, specialMods;
 </script>
 
 <MediaQuery>

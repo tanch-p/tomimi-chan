@@ -1,14 +1,10 @@
 import type { Enemy } from '$lib/types';
 
 export const getNormalAtk = (enemy: Enemy, row: number) => {
-	switch (enemy.format) {
-		case 'prisoner':
-			return row === 0 ? enemy.normal_attack : enemy.released.normal_attack;
-		case 'multiform':
-			return enemy.forms[row].normal_attack;
-		default:
-			return enemy.normal_attack;
+	if (enemy?.forms) {
+		return enemy.forms[row].normal_attack;
 	}
+	return enemy.normal_attack;
 };
 
 export const getDmgEleHighlight = (atkElement: string) => {

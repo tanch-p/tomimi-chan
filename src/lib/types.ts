@@ -35,9 +35,11 @@ type EnemyType =
 	| 'wildanimal'
 	| 'collapsal';
 
-type EnemyFormType = {
+export type EnemyFormType = {
+	title: string | null;
 	mods: Mods;
-	special: string[];
+	special: Skill[];
+	status_immune: StatusImmune[];
 	normal_attack: {
 		atk_type: [AttackType, AttackAttribute];
 		hits: number;
@@ -49,10 +51,9 @@ export interface Enemy {
 	key: string;
 	img: string;
 	[key: `name_${string}`]: string;
-	format: string;
 	stats: Stats[];
 	special?: Skill[];
-	forms?: EnemyFormType[];
+	forms?: EnemyFormType[] | undefined;
 	powerup?: EnemyFormType;
 	imprisoned?: EnemyFormType;
 	released?: EnemyFormType;

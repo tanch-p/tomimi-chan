@@ -13,7 +13,7 @@ export const stageLoad = async (stageName: string, rogueTopic: string | null) =>
 			enemy.overwritten = true;
 			for (const key in overwrittenData) {
 				if (key === 'talentBlackboard') {
-					if (enemy.format === 'multiform') {
+					if (enemy?.forms) {
 						overwrittenData[key].forEach((ele, index) => {
 							enemy.forms[index].special = overwriteBlackboard(enemy.forms[index].special, ele);
 						});

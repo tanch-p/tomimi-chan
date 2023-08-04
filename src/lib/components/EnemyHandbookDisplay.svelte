@@ -1,21 +1,12 @@
 <script lang="ts">
-	import type { Enemy, SpecialMods, Language } from '$lib/types';
+	import type { Enemy, Language } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import StatusImmune from './StatusImmune.svelte';
+	import HandbookAbilities from './HandbookAbilities.svelte';
 
 	export let enemies: Enemy[], language: Language, statMods, specialMods;
 
 	const statKeys = ['hp', 'ms', 'atk', 'aspd', 'def', 'res'];
-
-	let statusImmuneList = [];
-
-	specialMods.subscribe((mods: SpecialMods) => {
-		if (mods?.[enemy.id]?.status_immune) {
-			statusImmuneList = [...enemy.status_immune, ...mods[enemy.id].status_immune];
-		} else {
-			statusImmuneList = enemy.status_immune;
-		}
-	});
 </script>
 
 <div class="flex flex-col">
@@ -64,15 +55,10 @@
 						{/each}
 					</div>
 				</div>
-				<p>{translations[language].handbook_ability}</p>
-				<div />
-
-				{#if statusImmuneList.length > 0}
-					<p>{translations[language].handbook_immune}</p>
-					<div class="my-2">
-						<StatusImmune {statusImmuneList} {language} mode="handbook" />
-					</div>
-				{/if}
+			</div>
+			<div class="flex flex-col">
+				<HandbookAbilities {enemy} {language} {statMods} {specialMods}/>
+				<StatusImmune {enemy} {specialMods} {language} mode="handbook" />
 			</div>
 		</div>
 	{/each}

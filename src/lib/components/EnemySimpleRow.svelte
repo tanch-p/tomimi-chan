@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Enemy,Language } from '$lib/types';
+	import type { Enemy, Language, EnemyFormType } from '$lib/types';
 	import { getMaxRowSpan } from '$lib/functions/parseStats';
 	import { getNormalAtk } from '$lib/functions/parseAtkType';
 	import { getEnemySkills } from '$lib/functions/getEnemySkills';
@@ -30,19 +30,29 @@
 				return 'text-center py-1';
 		}
 	};
+	$: multispanKeys = getMultispanKeys(enemy?.forms);
 
-	const powerupOddRows = ['enemy', 'name', 'count', 'type', 'hp', 'weight', 'range', 'lifepoint'];
-	const multiformOddRows = ['enemy', 'name', 'count', 'type', 'weight', 'lifepoint'];
-	let getRowSpan = (format: string, statKey: string, maxRowSpan: number) => {
-		switch (format) {
-			case 'powerup':
-			case 'prisoner':
-				return powerupOddRows.includes(statKey) ? maxRowSpan : 1;
-			case 'multiform':
-				return multiformOddRows.includes(statKey) ? maxRowSpan : 1;
-			default:
-				return 1;
+	const getMultispanKeys = (forms: EnemyFormType[] | undefined) => {
+		const statKeys: string[] = [];
+		if (forms) {
+			if (forms[0].title === 'form') {
+				statKeys.push('hp');
+			}
+			forms.forEach((form) => {
+				for (const statKey of Object.keys(form.mods)) {
+					const key = statKey.replace('fixed_', '');
+					if (!statKeys.includes(key)) {
+						statKeys.push(key);
+					}
+				}
+			});
+			const sameAtkType =
+				JSON.stringify(forms[0].normal_attack) === JSON.stringify(forms[1].normal_attack);
+			if (!sameAtkType && !statKeys.includes('atk')) {
+				statKeys.push('atk');
+			}
 		}
+		return statKeys;
 	};
 </script>
 
@@ -51,46 +61,40 @@
 {#each new Array(maxRowSpan) as _blank, row (enemy.key.concat('-', row.toString()))}
 	<tr class={`${index % 2 === 1 ? ' bg-[#333333]' : 'bg-neutral-800'}`}>
 		{#each filteredTableHeaders as { key }}
-			{#if key === 'enemy'}
-				{#if row === 0}
-					<td class={`border border-gray-400 w-[75px] ${textAlign(key)}`} rowspan={maxRowSpan}>
-						<img
-							class="select-none"
-							src={enemy.img}
-							height="75px"
-							width="75px"
-							decoding="async"
-							alt={enemy.id}
-							title={enemy[`name_${language}`] || enemy[`name_zh`]}
-						/>
-					</td>
-				{/if}
-			{:else if key === 'name'}
-				{#if row === 0}
-					<td class={`border border-gray-400 h-[65px] text-left px-2.5`} rowspan={maxRowSpan}>
-						<p class="min-w-[100px] max-w-[110px]">
-							{enemy[`name_${language}`] || enemy[`name_zh`]}
-						</p>
-					</td>
-				{/if}
-			{:else if key === 'type'}
-				{#if row === 0}
-					<td class={`border border-gray-400 h-[65px] ${textAlign(key)}`} rowspan={maxRowSpan}>
-						<div>
-							{#each enemy.type.filter((ele) => ele !== 'NORMAL') as type}
-								<p class="whitespace-nowrap">{translations[language].types[type]}</p>
-							{/each}
-						</div>
-					</td>
-				{/if}
+			{#if key === 'enemy' && row === 0}
+				<td class={`border border-gray-400 w-[75px] ${textAlign(key)}`} rowspan={maxRowSpan}>
+					<img
+						class="select-none"
+						src={enemy.img}
+						height="75px"
+						width="75px"
+						decoding="async"
+						alt={enemy.id}
+						title={enemy[`name_${language}`] || enemy[`name_zh`]}
+					/>
+				</td>
+			{:else if key === 'name' && row === 0}
+				<td class={`border border-gray-400 h-[65px] text-left px-2.5`} rowspan={maxRowSpan}>
+					<p class="min-w-[100px] max-w-[110px]">
+						{enemy[`name_${language}`] || enemy[`name_zh`]}
+					</p>
+				</td>
+			{:else if key === 'type' && row === 0}
+				<td class={`border border-gray-400 h-[65px] ${textAlign(key)}`} rowspan={maxRowSpan}>
+					<div>
+						{#each enemy.type.filter((ele) => ele !== 'NORMAL') as type}
+							<p class="whitespace-nowrap">{translations[language].types[type]}</p>
+						{/each}
+					</div>
+				</td>
 			{:else if key === 'remarks'}
-				<td class={`border border-gray-400 h-[65px] ${textAlign(key)}`}
-					><RemarksContainer {enemy} {language} {row} {specialMods} /></td
-				>
-			{:else if !(row !== 0 && getRowSpan(enemy.format, key, maxRowSpan) > 1)}
+				<td class={`border border-gray-400 h-[65px] ${textAlign(key)}`}>
+					<RemarksContainer {enemy} {language} {row} {specialMods} />
+				</td>
+			{:else if !(row !== 0 && !multispanKeys.includes(key))}
 				<td
 					class={`border border-gray-400 h-[65px] ${textAlign(key)}`}
-					rowspan={getRowSpan(enemy.format, key, maxRowSpan)}
+					rowspan={multispanKeys.includes(key) ? 1 : maxRowSpan}
 				>
 					<div>
 						<p class={`whitespace-nowrap ${key === 'atk' ? 'flex' : ''}`}>
@@ -100,13 +104,15 @@
 							{/if}
 						</p>
 						<StatSkills
-							{enemy}
-							skills={getEnemySkills(enemy, row)}
+							skills={getEnemySkills(
+								enemy,
+								enemy?.forms ? enemy.forms[row].special : enemy.special,
+								$specialMods
+							)}
 							stat={key}
 							statValue={enemy.stats[row][key]}
 							{language}
 							statMods={$statMods}
-							specialMods={$specialMods}
 						/>
 					</div>
 				</td>
