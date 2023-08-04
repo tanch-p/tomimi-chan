@@ -57,7 +57,7 @@
 				</div>
 			</div>
 			<div class="flex flex-col">
-				<HandbookAbilities {enemy} {language} {statMods} {specialMods}/>
+				<HandbookAbilities {enemy} {language} {statMods} {specialMods} />
 				<StatusImmune {enemy} {specialMods} {language} mode="handbook" />
 			</div>
 		</div>

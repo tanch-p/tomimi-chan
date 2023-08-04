@@ -15,6 +15,8 @@
 
 	const getEliteDescColor = (rogueTopic: string | null) => {
 		switch (rogueTopic) {
+			case 'rogue_sami':
+				return 'text-[#dc555a]';
 			case 'rogue_mizuki':
 				return 'text-[#FF99CA]';
 			case 'rogue_phantom':
@@ -28,7 +30,10 @@
 <div class="sm:px-6">
 	<p class="px-2 sm:px-0 text-3xl">{mapConfig.code ?? ''} {stageName.replaceAll('_', ' ')}</p>
 	<hr class="border-gray-500 my-1" />
-	<div class="px-2 sm:px-0">
+	<p>
+		{mapConfig[`description_${language}`] || mapConfig[`description_zh`]}
+	</p>
+	<div class="px-2 sm:px-0 mt-2.5">
 		<p>
 			{translations[language].initialCost} - {mapConfig.initialCost}
 		</p>
@@ -36,7 +41,7 @@
 			{translations[language].characterLimit} - {mapConfig.characterLimit}
 		</p>
 		{#if mapConfig[`addInfo_${language}`]}
-			<div class="flex gap-x-1 mt-4 sm:mt-2">
+			<div class="flex gap-x-1 mt-4 sm:mt-2.5">
 				<p class="whitespace-nowrap">{translations[language].addInfo} -</p>
 				<div>
 					{#each mapConfig[`addInfo_${language}`] as line}
@@ -46,7 +51,7 @@
 			</div>
 		{/if}
 		{#if mapConfig[`eliteDesc_${language}`]}
-			<div class="flex gap-x-1 mt-4 sm:mt-2">
+			<div class="flex gap-x-1 mt-4 sm:mt-2.5">
 				<p class="whitespace-nowrap">
 					<span class={`${getEliteDescColor(rogueTopic)}`}>{translations[language].eliteDesc}</span>
 					-
