@@ -31,7 +31,12 @@
 <div class="sm:px-6">
 	<p class="px-2 sm:px-0 text-3xl">{mapConfig.code ?? ''} {stageName.replaceAll('_', ' ')}</p>
 	<hr class="border-gray-500 my-1" />
-	<TextParser line={mapConfig[`description_${language}`] || mapConfig[`description_zh`]} />
+	{#if mapConfig[`description_${language}`] || mapConfig[`description_zh`]}
+		<div class="px-2 sm:px-0">
+			<TextParser line={mapConfig[`description_${language}`] || mapConfig[`description_zh`]} />
+		</div>
+	{/if}
+
 	<div class="px-2 sm:px-0 mt-2.5">
 		<p>
 			{translations[language].initialCost} - {mapConfig.initialCost}
