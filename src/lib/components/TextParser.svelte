@@ -20,7 +20,7 @@
 
 {#if hasHighlight(line)}
 	{@const parsedTextArray = parseText(line)}
-	<p class="">
+	<p>
 		{#each parsedTextArray as { text, highlight }}
 			{#if highlight === 'red'}
 				<span class="text-red-400 font-medium"> {text}</span>

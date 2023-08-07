@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type {Language} from "$lib/types"
+	import type { Language } from '$lib/types';
 	import TextParser from './TextParser.svelte';
 
 	export let skill, language: Language;
@@ -33,17 +33,13 @@
 		}
 		return string;
 	};
-	$: tooltips = skill.tooltip ? skill.tooltip[language].map((line) => parseValues(line)) : [];
+	$: tooltips = skill.tooltip && skill.tooltip[language].map((line) => parseValues(line));
 </script>
 
-<div>
-	{#each tooltips as line}
-		<TextParser {line} />
-	{/each}
-</div>
-
-<style>
-	div {
-		padding: 6px 0px;
-	}
-</style>
+{#if tooltips}
+	<li class="py-1">
+		{#each tooltips as line}
+			<TextParser {line} />
+		{/each}
+	</li>
+{/if}

@@ -7,10 +7,13 @@
 	export let enemies: Enemy[], language: Language, statMods, specialMods;
 
 	const statKeys = ['hp', 'ms', 'atk', 'aspd', 'def', 'res'];
+	const enemyLevels = ['NORMAL', 'ELITE', 'BOSS'];
 </script>
 
-<div class="grid grid-cols-[100px_auto]">
-	<div class="flex flex-wrap gap-2.5 px-2.5 h-max sticky top-20">
+<div class="grid grid-cols-[80px_auto]">
+	<div
+		class="flex flex-wrap gap-2.5 px-2.5 h-[calc(100vh-172px)] overflow-scroll no-scrollbar sticky top-20"
+	>
 		{#each enemies as enemy}
 			<a href={`#${enemy.key}`}>
 				<div class="relative">
@@ -31,7 +34,7 @@
 		{#each enemies as enemy, index (enemy.key)}
 			<div id={enemy.key} class="scroll-mt-16">
 				<div class="flex gap-x-2">
-					{#each enemy.type.filter((ele) => ele !== 'NORMAL') as type}
+					{#each enemy.type.filter((ele) => !enemyLevels.includes(ele)) as type}
 						<p class="whitespace-nowrap">{translations[language].types[type]}</p>
 					{/each}
 				</div>

@@ -37,5 +37,5 @@
 </script>
 
 {#if formTitle}
-	<div class="text-red-400">{formTitle}</div>
+	<div class="text-red-400 pl-4 py-1">{formTitle}</div>
 {/if}

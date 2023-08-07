@@ -9,27 +9,23 @@
 </script>
 
 <p>{translations[language].handbook_ability}</p>
-{#if enemy.forms}
-	{#each enemy.forms as form, i}
-		{@const skills = getEnemySkills(enemy, form.special, $specialMods)}
-		<EnemyFormTitle {enemy} row={i} {language} />
-		<div>
+<div class="py-1">
+	{#if enemy.forms}
+		{#each enemy.forms as form, i}
+			{@const skills = getEnemySkills(enemy, form.special, $specialMods)}
+				<EnemyFormTitle {enemy} row={i} {language} />
+			<ul class="list-disc pl-4">
+				{#each skills as skill}
+					<Remark {skill} {language} />
+				{/each}
+			</ul>
+		{/each}
+	{:else}
+		{@const skills = getEnemySkills(enemy, enemy.special, $specialMods)}
+		<ul class="list-disc pl-4">
 			{#each skills as skill}
 				<Remark {skill} {language} />
 			{/each}
-		</div>
-	{/each}
-{:else}
-	{@const skills = getEnemySkills(enemy, enemy.special, $specialMods)}
-	<div>
-		{#each skills as skill}
-			<Remark {skill} {language} />
-		{/each}
-	</div>
-{/if}
-
-<style>
-	div {
-		padding: 6px 0px;
-	}
-</style>
+		</ul>
+	{/if}
+</div>

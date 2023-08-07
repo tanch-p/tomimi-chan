@@ -16,13 +16,9 @@
 <div>
 	<EnemyFormTitle {enemy} {row} {language} />
 	<StatusImmune {enemy} {specialMods} {language} mode="table" />
-	{#each skills as skill}
-		<Remark {skill} {language} />
-	{/each}
+	<ul class="list-disc pl-4">
+		{#each skills as skill}
+			<Remark {skill} {language} />
+		{/each}
+	</ul>
 </div>
-
-<style>
-	div {
-		padding: 6px 0px;
-	}
-</style>
