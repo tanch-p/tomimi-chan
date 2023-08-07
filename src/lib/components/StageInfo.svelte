@@ -6,6 +6,7 @@
 	import StageDrops from './StageDrops.svelte';
 	import EnemyWaves from './EnemyWaves.svelte';
 	import translations from '$lib/translations.json';
+	import TextParser from './TextParser.svelte';
 
 	export let mapConfig,
 		language: Language,
@@ -30,9 +31,7 @@
 <div class="sm:px-6">
 	<p class="px-2 sm:px-0 text-3xl">{mapConfig.code ?? ''} {stageName.replaceAll('_', ' ')}</p>
 	<hr class="border-gray-500 my-1" />
-	<p>
-		{mapConfig[`description_${language}`] || mapConfig[`description_zh`]}
-	</p>
+	<TextParser line={mapConfig[`description_${language}`] || mapConfig[`description_zh`]} />
 	<div class="px-2 sm:px-0 mt-2.5">
 		<p>
 			{translations[language].initialCost} - {mapConfig.initialCost}
