@@ -154,6 +154,13 @@
 						</tr>
 						<tr>
 							<td>
+								<img src={relic} width="35" alt={translations[language].relic} />
+							</td>
+							<td>{translations[language].relic}</td>
+							<td colspan="4">5%</td>
+						</tr>
+						<tr>
+							<td>
 								<img src={totem} width="35" alt={translations[language].totem} />
 							</td>
 							<td>{translations[language].totem}</td>
