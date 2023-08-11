@@ -8,6 +8,7 @@
 	export let mapConfig,
 		language: string,
 		stageName: string,
+		selectedFloor,
 		rogueTopic: string | null = null;
 
 	const getEliteDescColor = (rogueTopic: string | null) => {
@@ -58,7 +59,7 @@
 	</div>
 </div>
 {#if rogueTopic === 'rogue_sami'}
-	<StageDrops {rogueTopic} {language} />
+	<StageDrops {mapConfig} {rogueTopic} {language} {selectedFloor} />
 {/if}
 {#if mapConfig.sp_terrain}
 	<SpTerrain spTerrain={mapConfig.sp_terrain} {language} />
