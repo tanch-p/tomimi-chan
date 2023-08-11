@@ -2,6 +2,7 @@
 	import SpEnemy from '$lib/components/SpEnemy.svelte';
 	import StageRoutes from '$lib/components/StageRoutes.svelte';
 	import SpTerrain from './SpTerrain.svelte';
+	import StageDrops from './StageDrops.svelte';
 	import translations from '$lib/translations.json';
 
 	export let mapConfig,
@@ -56,6 +57,9 @@
 		{/if}
 	</div>
 </div>
+{#if rogueTopic === 'rogue_sami'}
+	<StageDrops {rogueTopic} {language} />
+{/if}
 {#if mapConfig.sp_terrain}
 	<SpTerrain spTerrain={mapConfig.sp_terrain} {language} />
 {/if}
