@@ -13,10 +13,10 @@
 	{#if enemy.forms}
 		{#each enemy.forms as form, i}
 			{@const skills = getEnemySkills(enemy, form.special, $specialMods)}
-				<EnemyFormTitle {enemy} row={i} {language} />
+			<EnemyFormTitle {enemy} row={i} {language} />
 			<ul class="list-disc pl-4">
 				{#each skills as skill}
-					<Remark {skill} {language} />
+					<Remark {skill} {language} mode={'handbook'} enemyStats={enemy.stats[i]} />
 				{/each}
 			</ul>
 		{/each}
@@ -24,7 +24,7 @@
 		{@const skills = getEnemySkills(enemy, enemy.special, $specialMods)}
 		<ul class="list-disc pl-4">
 			{#each skills as skill}
-				<Remark {skill} {language} />
+				<Remark {skill} {language} mode={'handbook'} enemyStats={enemy.stats[0]} />
 			{/each}
 		</ul>
 	{/if}

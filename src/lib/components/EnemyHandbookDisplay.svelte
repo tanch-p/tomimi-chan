@@ -7,7 +7,7 @@
 
 <div class="grid grid-cols-[80px_auto]">
 	<div
-		class="flex flex-wrap gap-2.5 px-2.5 h-[calc(100vh-172px)] overflow-scroll no-scrollbar sticky top-20"
+		class="grid grid-flow-row auto-rows-max gap-2.5 px-2.5 h-[calc(100vh-172px)] overflow-scroll no-scrollbar sticky top-20"
 	>
 		{#each enemies as enemy}
 			<a href={`#${enemy.key}`}>

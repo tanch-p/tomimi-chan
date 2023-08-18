@@ -7,11 +7,16 @@
 	];
 
 	const parseText = (line: string) => {
-		const returnArr = [{ text: line, style: null }];
+		const lines = line.split('\\n').map((ele, i) => {
+			if (i > 0) {
+				return { text: '\\n' + ele, style: null };
+			}
+			return { text: ele, style: null };
+		});
 		for (const pattern of patternsToParse) {
-			traverseLines(returnArr, pattern);
+			traverseLines(lines, pattern);
 		}
-		return returnArr.flat(10).filter((ele) => Boolean(ele.text));
+		return lines.flat(10).filter((ele) => Boolean(ele.text));
 	};
 	const traverseLines = (arr, pattern) => {
 		arr.forEach((ele, index) => {
@@ -56,6 +61,10 @@
 
 <p>
 	{#each parsedTextArray as { text, style }}
-		<span class={style}> {text}</span>
+		{#if text === '\\n'}
+			<br />
+		{:else}
+			<span class={style}> {text}</span>
+		{/if}
 	{/each}
 </p>

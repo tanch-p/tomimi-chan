@@ -18,7 +18,7 @@
 	<StatusImmune {enemy} {specialMods} {language} mode="table" />
 	<ul class="list-disc pl-4">
 		{#each skills as skill}
-			<Remark {skill} {language} />
+			<Remark {skill} {language} enemyStats={enemy.stats[row]} />
 		{/each}
 	</ul>
 </div>
