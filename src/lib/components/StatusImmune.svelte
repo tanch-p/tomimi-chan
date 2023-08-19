@@ -17,7 +17,9 @@
 
 {#if statusImmuneList.length > 0}
 	{#if mode === 'handbook'}
-		<p>{translations[language].handbook_immune}</p>
+		<p class="bg-[#383838] px-3.5 py-0.5 text-[#a2a5a5] font-bold">
+			{translations[language].handbook_immune}
+		</p>
 		<div class="flex flex-wrap gap-1.5 my-1">
 			{#each statusImmuneList as status}
 				<p class="rounded-md bg-neutral-700 px-1.5 text-sm">

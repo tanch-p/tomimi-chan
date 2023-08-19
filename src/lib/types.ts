@@ -12,6 +12,8 @@ type Stats = {
 	weight: number;
 	lifepoint: number;
 	ms: number;
+	eleRes:number;
+	eleDmgRes:number;
 };
 type StatusImmune = 'stun' | 'silence' | 'freeze' | 'sleep' | 'levitate';
 type AttackType = 'no_attack' | 'melee' | 'ranged';

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Enemy, Language } from '$lib/types';
 	import EnemyHandbookDetails from './EnemyHandbookDetails.svelte';
+	import bossIcon from '$lib/images/is/boss_icon.webp';
 
 	export let enemies: Enemy[], language: Language, statMods, specialMods;
 </script>
@@ -12,7 +13,17 @@
 		{#each enemies as enemy}
 			<a href={`#${enemy.key}`}>
 				<div class="relative">
-					<p class="absolute bg-black px-1 text-xs">{enemy.id}</p>
+					<p class="absolute bg-almost-black px-1 text-xs">{enemy.id}</p>
+					{#if enemy.type.includes('BOSS')}
+						<img
+							class="absolute bottom-0 opacity-70"
+							src={bossIcon}
+							width="30px"
+							height="30px"
+							decoding="async"
+							alt=""
+						/>
+					{/if}
 					<img
 						class="select-none"
 						src={enemy.img}
@@ -27,6 +38,9 @@
 	</div>
 	<div class="flex flex-col">
 		{#each enemies as enemy, index (enemy.key)}
+			{#if index !== 0}
+				<div class="bg-neutral-700 mx-1 h-0.5" />
+			{/if}
 			<EnemyHandbookDetails {enemy} {language} {statMods} {specialMods} />
 		{/each}
 	</div>

@@ -8,24 +8,28 @@
 	export let enemy: Enemy, language: Language, statMods, specialMods;
 </script>
 
-<p>{translations[language].handbook_ability}</p>
-<div class="py-1">
-	{#if enemy.forms}
-		{#each enemy.forms as form, i}
-			{@const skills = getEnemySkills(enemy, form.special, $specialMods)}
-			<EnemyFormTitle {enemy} row={i} {language} />
+{#if !enemy.forms && enemy.special.length > 0}
+	<p class="bg-[#383838] px-3.5 py-0.5 text-[#a2a5a5] font-bold">
+		{translations[language].handbook_ability}
+	</p>
+	<div class="py-1">
+		{#if enemy.forms}
+			{#each enemy.forms as form, i}
+				{@const skills = getEnemySkills(enemy, form.special, $specialMods)}
+				<EnemyFormTitle {enemy} row={i} {language} />
+				<ul class="list-disc pl-4">
+					{#each skills as skill}
+						<Remark {skill} {language} mode={'handbook'} enemyStats={enemy.stats[i]} />
+					{/each}
+				</ul>
+			{/each}
+		{:else}
+			{@const skills = getEnemySkills(enemy, enemy.special, $specialMods)}
 			<ul class="list-disc pl-4">
 				{#each skills as skill}
-					<Remark {skill} {language} mode={'handbook'} enemyStats={enemy.stats[i]} />
+					<Remark {skill} {language} mode={'handbook'} enemyStats={enemy.stats[0]} />
 				{/each}
 			</ul>
-		{/each}
-	{:else}
-		{@const skills = getEnemySkills(enemy, enemy.special, $specialMods)}
-		<ul class="list-disc pl-4">
-			{#each skills as skill}
-				<Remark {skill} {language} mode={'handbook'} enemyStats={enemy.stats[0]} />
-			{/each}
-		</ul>
-	{/if}
-</div>
+		{/if}
+	</div>
+{/if}
