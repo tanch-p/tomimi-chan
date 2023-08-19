@@ -16,7 +16,7 @@
 <div>
 	<EnemyFormTitle {enemy} {row} {language} />
 	<StatusImmune {enemy} {specialMods} {language} mode="table" />
-	<ul class="list-disc pl-4">
+	<ul class="list-disc pl-5">
 		{#each skills as skill}
 			<Remark {skill} {language} enemyStats={enemy.stats[row]} />
 		{/each}
