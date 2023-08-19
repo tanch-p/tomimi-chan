@@ -80,7 +80,7 @@
 				decoding="async"
 				alt={enemy.id}
 			/>
-			<div class="flex items-center justify-between bg-almost-black px-2">
+			<div class="flex items-center justify-between bg-almost-black px-1.5">
 				<div class="flex items-center gap-x-1 py-1">
 					<img src={weightIcon} width="18px" height="18px" alt="" />
 					<span class={`text-[#858585] font-bold ${language === 'en' ? 'text-sm' : ''}`}>
