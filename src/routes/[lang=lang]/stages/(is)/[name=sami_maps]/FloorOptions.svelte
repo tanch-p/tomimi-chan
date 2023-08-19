@@ -1,11 +1,12 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import FloorEffect from './FloorEffect.svelte';
 	import FloorSelect from './FloorSelect.svelte';
 	import translations from '$lib/translations.json';
-	import chaosImg from "$lib/images/is/sami/非线性.webp"
-	import chaosList from "$lib/data/chaos_sami.json"
+	import chaosImg from '$lib/images/is/sami/非线性.webp';
+	import chaosList from '$lib/data/chaos_sami.json';
 
-	export let optionsOpen: boolean, language: string;
+	export let optionsOpen: boolean, language: Language;
 
 	chaosList.forEach((option) => {
 		option.src = chaosImg;

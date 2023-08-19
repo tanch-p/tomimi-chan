@@ -1,31 +1,26 @@
 <script lang="ts">
-	import type { StatMods } from '$lib/types';
+	import type { StatMods, Enemy, Language, Skill } from '$lib/types';
 	import { getDmgEleHighlight } from '$lib/functions/parseAtkType';
 	import translations from '$lib/translations.json';
 	import enemySkills from '$lib/data/enemy/enemy_skills.json';
 	import enemyDatabase from '$lib/data/enemy/enemy_database.json';
 	import { applyMods } from '$lib/functions/parseStats';
-	export let skills: string[],
-		enemy,
+	export let skills: Skill[],
 		stat: string,
 		statValue: number,
 		statMods: StatMods,
-		specialMods,
-		language: string;
-	
+		language: Language;
+
 	$: separator = language === 'en' ? '/' : '・';
 	$: skillsToParse = skills
-		.map((skillName) => {
-			let skill = enemySkills[skillName];
-			if (specialMods[enemy.id] && Object.keys(specialMods[enemy.id]).includes(skillName)) {
-				skill = specialMods[enemy.id][skillName];
-			}
-			if (skill.type === stat) {
-				const { suffix, multiplier, fixed_inc, fixed_value, summon_enemy, hits, dmg_element } =
-					skill;
+		.map((skillRef) => {
+			let skill = { ...enemySkills[skillRef.key], ...skillRef };
+
+			if (skill[stat]) {
+				const { suffix, summon_enemy, hits, dmg_element } = skill;
 				let value = statValue;
-				if (fixed_value) {
-					value = fixed_value;
+				if (skill[stat].value) {
+					value = skill[stat].value;
 				} else if (summon_enemy) {
 					const enemy = {
 						...enemyDatabase[summon_enemy],
@@ -34,7 +29,13 @@
 					const moddedStats = applyMods(enemy, statMods, 0);
 					value = moddedStats[stat];
 				} else {
-					value = Math.floor(value * (multiplier ?? 1) + (fixed_inc ?? 0));
+					if (stat === 'aspd') {
+						let aspd = 100 + (skill[stat].fixed ?? 0);
+						value =
+							Math.round((value / ((aspd * (skill[stat].multiplier ?? 1)) / 100)) * 100) / 100;
+					} else {
+						value = Math.floor(value * (skill[stat].multiplier ?? 1) + (skill[stat].fixed ?? 0));
+					}
 				}
 				return { suffix, value, hits: hits ?? 0, dmgEle: dmg_element ?? '' };
 			}

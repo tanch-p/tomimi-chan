@@ -1,5 +1,6 @@
 <script lang="ts">
-	export let route, language: string;
+	import type { Language } from '$lib/types';
+	export let route, language: Language;
 </script>
 
 {#if language === 'zh' && route.bilibili_src}

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Language, RogueTopic } from '$lib/types';
 	import DLD from '$lib/images/enemy_icons/enemy_2001_duckmi.webp';
 	import GPN from '$lib/images/enemy_icons/enemy_2002_bearmi.webp';
 	import THF from '$lib/images/enemy_icons/enemy_2034_sythef.webp';
@@ -11,7 +12,7 @@
 	import translations from '$lib/translations.json';
 	import VideoPlayer from './VideoPlayer.svelte';
 
-	export let routes: [], rogueTopic: string | null, language: string;
+	export let routes: [], rogueTopic: RogueTopic | null, language: Language;
 
 	const icons = [
 		{ title: 'duck', src: DLD },

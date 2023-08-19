@@ -1,46 +1,51 @@
 <script lang="ts">
-	export let skill, language: string;
+	import type { Language } from '$lib/types';
+	import TextParser from './TextParser.svelte';
 
-	const parseText = (text: string) => {
-		const returnArr = [];
-		if (text.includes('$')) {
-			const splitText = text.split('$');
-			splitText.forEach((text, index) => {
-				if (index % 2 === 0) {
-					returnArr.push({ text, highlight: null });
-				} else returnArr.push({ text, highlight: 'red' });
-			});
+	export let skill,
+		language: Language,
+		mode = 'table',
+		enemyStats;
+
+	const parseValues = (text: string) => {
+		const regex = new RegExp(`<v.*?>`, 'g');
+		const extractedSubstrings = text.match(regex) || [];
+		for (const string of extractedSubstrings) {
+			const isPercent = string.includes('%');
+			let key = string.replace('%', '').slice(3, -1);
+			if (key.includes('.')) {
+				const [statKey, valueKey] = key.split('.');
+				if (valueKey === 'multiplier') {
+					text = text.replace(string, Math.round(skill[statKey][valueKey] * 100).toString());
+					if (statKey === 'atk' && mode === "handbook") {
+						text = text + `(${enemyStats[statKey] * skill[statKey][valueKey]})`;
+					}
+				} else {
+					text = text.replace(string, skill[statKey][valueKey]);
+				}
+			} else {
+				text = text.replace(
+					string,
+					addOverwrittenHighlight(Math.round(skill[key] * (isPercent ? 100 : 1)).toString(), skill)
+				);
+			}
 		}
-		return returnArr;
+		return text;
 	};
-	const hasHighlight = (text: string) => {
-		return text.includes('$');
+	//temp hotfix for overwritten skills
+	const addOverwrittenHighlight = (string: string, skill) => {
+		if (skill.overwritten) {
+			return '$' + string + '$';
+		}
+		return string;
 	};
+	$: tooltips = skill.tooltip && skill.tooltip[language].map((line) => parseValues(line));
 </script>
 
-<div>
-	{#each skill.tooltip[language] as line}
-		{#if hasHighlight(line)}
-			{@const parsedTextArray = parseText(line)}
-			<p>
-				{#each parsedTextArray as { text, highlight }}
-					{#if highlight === 'red'}
-						<span class="text-red-400 font-medium">
-							{text}
-						</span>
-					{:else}
-						{text}
-					{/if}
-				{/each}
-			</p>
-		{:else}
-			<p>{line}</p>
-		{/if}
-	{/each}
-</div>
-
-<style>
-	div {
-		padding: 6px 0px;
-	}
-</style>
+{#if tooltips}
+	<li class="py-1">
+		{#each tooltips as line}
+			<TextParser {line} />
+		{/each}
+	</li>
+{/if}

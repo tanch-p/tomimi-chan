@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type {Language, RogueTopic} from "$lib/types"
 	import { createEventDispatcher } from 'svelte';
 	import RelicDiv from './RelicDiv.svelte';
 	import translations from '$lib/translations.json';
@@ -9,8 +10,8 @@
 	const dispatch = createEventDispatcher();
 
 	export let openOverlay: boolean,
-		language: string,
-		rogueTopic: string,
+		language: Language,
+		rogueTopic: RogueTopic,
 		selectedRelics,
 		selectedUniqueRelic;
 

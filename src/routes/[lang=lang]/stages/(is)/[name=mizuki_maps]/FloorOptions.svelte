@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import mizukiOptions from '$lib/data/variations_mizuki.json';
 	import FloorEffect from './FloorEffect.svelte';
 	import FloorSelect from './FloorSelect.svelte';
@@ -8,7 +9,7 @@
 	import 众我 from '$lib/images/is/mizuki/众我.webp';
 	import 给养 from '$lib/images/is/mizuki/给养.webp';
 
-	export let optionsOpen: boolean, language: string;
+	export let optionsOpen: boolean, language: Language;
 
 	const mizukiOptionsSrc = [争斗, 给养, 众我, 徒长];
 	mizukiOptions.forEach((option, index) => {

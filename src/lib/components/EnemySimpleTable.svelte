@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { Enemy } from '$lib/types';
+	import type { Enemy, Language } from '$lib/types';
 	import EnemySimpleRow from './EnemySimpleRow.svelte';
 	import translations from '$lib/translations.json';
-	export let enemies: Enemy[], language: string, statMods, specialMods;
+	export let enemies: Enemy[], language: Language, statMods, specialMods;
 	let tableHeaders = [
 		{ key: 'enemy', show: true },
 		{ key: 'name', show: true },

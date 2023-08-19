@@ -1,21 +1,22 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import RiskTriangle from './RiskTriangle.svelte';
 	import { selectedContracts } from './stores';
 
-	export let language: string,
+	export let language: Language,
 		contracts = [];
 	const ranks = [1, 2, 3];
 
-	const handleClick = (category, option, selected, sameCategorySelected,index) => {
+	const handleClick = (category, option, selected, sameCategorySelected, index) => {
 		if (selected) {
 			selectedContracts.update((list) => list.filter((item) => item.img !== option.img));
 		} else if (sameCategorySelected) {
 			selectedContracts.update((list) => {
 				list = list.filter((item) => item.category !== category);
-				return [...list, { ...option, category: category,index }];
+				return [...list, { ...option, category: category, index }];
 			});
 		} else {
-			selectedContracts.update((list) => [...list, { ...option, category: category,index }]);
+			selectedContracts.update((list) => [...list, { ...option, category: category, index }]);
 		}
 	};
 	const getRankColor = (rank: number) => {
@@ -33,7 +34,7 @@
 <div class={`max-w-4xl mx-auto md:w-[740px]`}>
 	<div class="w-screen md:w-full overflow-x-scroll md:overflow-hidden text-black">
 		<div
-			class="flex flex-wrap flex-row md:min-h-min overflow-auto w-max select-none bg-neutral-300 "
+			class="flex flex-wrap flex-row md:min-h-min overflow-auto w-max select-none bg-neutral-300"
 		>
 			{#each ranks as rank}
 				<div class="border md:max-w-[250px] min-h-[30px] mx-2 mb-2 bg-[rgb(153,159,163)]">
@@ -42,7 +43,7 @@
 						<RiskTriangle risk={rank} type={'daily'} />
 					</div>
 					<div class="grid grid-rows-3">
-						{#each contracts as category,index}
+						{#each contracts as category, index}
 							{#each category['options'] as option}
 								{@const selected = Boolean(
 									$selectedContracts.find((item) => item.img === option.img)
@@ -61,7 +62,7 @@
 										}`}
 										title={option.tooltip[language]}
 										on:click={() =>
-											handleClick(category.category, option, selected, sameCategorySelected,index)}
+											handleClick(category.category, option, selected, sameCategorySelected, index)}
 									>
 										<img
 											src="https://res.cloudinary.com/dbqz7mebk/image/upload/v1680366257/tomimi.dev/cc/{option.img}.webp"

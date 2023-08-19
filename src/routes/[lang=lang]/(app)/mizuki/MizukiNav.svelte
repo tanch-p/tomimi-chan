@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import aegir1 from '$lib/images/is/mizuki/aegir_1.webp';
 	import aegir2 from '$lib/images/is/mizuki/aegir_2.webp';
 	import aegir3 from '$lib/images/is/mizuki/aegir_3.webp';
@@ -8,7 +9,7 @@
 	import aegirQn from '$lib/images/is/mizuki/aegir_qn.webp';
 	import knt from '$lib/images/is/mizuki/knt_100px.webp';
 
-	export let language: string;
+	export let language: Language;
 	import StageNavButton from './StageNavButton.svelte';
 
 	let floor1t = ['蓄水池', '虫群横行', '射手部队', '共生'];

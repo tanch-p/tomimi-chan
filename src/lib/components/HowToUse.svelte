@@ -1,7 +1,8 @@
 <script lang="ts">
+	import type {Language} from "$lib/types"
 	import translations from '$lib/translations.json';
 
-	export let language: string, rogueTopic: string;
+	export let language: Language, rogueTopic: string;
 </script>
 
 <div class="px-2">

@@ -1,6 +1,7 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import stageList from '$lib/data/stages/is_stages_list.json';
-	export let stageName: string, language: string;
+	export let stageName: string, language: Language;
 
 	const stageInfo = stageList.find((stage) => stage.name_zh === stageName);
 	if (!stageInfo) {

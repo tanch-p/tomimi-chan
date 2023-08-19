@@ -1,5 +1,7 @@
 //https://stackoverflow.com/questions/65878880/typescript-template-literal-as-interface-key
 
+export type Language = 'zh' | 'ja' | 'en';
+export type RogueTopic = 'rogue_phantom' | 'rogue_mizuki' | 'rogue_sami' | null;
 type Stats = {
 	hp: number;
 	atk: number;
@@ -10,6 +12,8 @@ type Stats = {
 	weight: number;
 	lifepoint: number;
 	ms: number;
+	eleRes:number;
+	eleDmgRes:number;
 };
 type StatusImmune = 'stun' | 'silence' | 'freeze' | 'sleep' | 'levitate';
 type AttackType = 'no_attack' | 'melee' | 'ranged';
@@ -33,9 +37,11 @@ type EnemyType =
 	| 'wildanimal'
 	| 'collapsal';
 
-type EnemyFormType = {
+export type EnemyFormType = {
+	title: string | null;
 	mods: Mods;
-	special: string[];
+	special: Skill[];
+	status_immune: StatusImmune[];
 	normal_attack: {
 		atk_type: [AttackType, AttackAttribute];
 		hits: number;
@@ -47,10 +53,9 @@ export interface Enemy {
 	key: string;
 	img: string;
 	[key: `name_${string}`]: string;
-	format: string;
 	stats: Stats[];
-	special?: string[];
-	forms?: EnemyFormType[];
+	special?: Skill[];
+	forms?: EnemyFormType[] | undefined;
 	powerup?: EnemyFormType;
 	imprisoned?: EnemyFormType;
 	released?: EnemyFormType;
@@ -60,6 +65,7 @@ export interface Enemy {
 		hits: number;
 	};
 	type: EnemyType[];
+	overwritten?: true | false;
 }
 
 type overwrittenData = {
@@ -92,8 +98,17 @@ export type StatMods = {
 	[key: string]: Mods;
 };
 
+export type SpecialMods = {
+	[key: string]: Skill;
+};
+
 export type Mods = {
 	[key: string]: number;
 };
 
 export type Effects = [{ targets: string[]; mods: Mods }];
+
+export type Skill = {
+	key: string;
+	value?: number;
+};
