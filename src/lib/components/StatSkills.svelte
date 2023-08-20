@@ -21,13 +21,6 @@
 				let value = statValue;
 				if (skill[stat].value) {
 					value = skill[stat].value;
-				} else if (summon_enemy) {
-					const enemy = {
-						...enemyDatabase[summon_enemy],
-						stats: enemyDatabase[summon_enemy].stats[0]
-					};
-					const moddedStats = applyMods(enemy, statMods, 0);
-					value = moddedStats[stat];
 				} else {
 					if (stat === 'aspd') {
 						let aspd = 100 + (skill[stat].fixed ?? 0);

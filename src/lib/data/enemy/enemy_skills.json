@@ -427,6 +427,13 @@
 			"zh": ["攻击造成法术伤害"]
 		}
 	},
+	"invincible_type2": {
+		"tooltip": {
+			"en": ["Cannot be attacked"],
+			"ja": ["攻撃を受け付けない"],
+			"zh": ["不能被攻击"]
+		}
+	},
 	"invincible": {
 		"value": 5,
 		"tooltip": {
@@ -1449,16 +1456,20 @@
 	},
 	"dublinn_evocator": {
 		"tooltip": {
-			"en": ["Has no normal attack, summons Fireball"],
-			"ja": ["通常攻撃しない、火球を召喚する"],
-			"zh": ["不进行普通攻击，使用净浊之焰"]
+			"en": [
+				"Has no normal attack, summons Fireball",
+				"Not Blocked: Initial SP: 5, Cost 5",
+				"Blocked: Initial SP: 3, Cost 6"
+			],
+			"ja": [
+				"通常攻撃しない、火球を召喚する",
+				"未ブロック：初期SP5、必要SP5",
+				"ブロック中：初期SP3、必要SP6"
+			],
+			"zh": ["不进行普通攻击，使用净浊之焰", "未阻挡：初始5SP，消耗5SP", "阻挡时：初始3SP，消耗6SP"]
 		}
 	},
 	"dublinn_fireball": {
-		"atk": {},
-		"dmg_element": "arts",
-		"summon_enemy": "enemy_1177_dufrbl",
-		"suffix": { "en": "🔥", "ja": "🔥", "zh": "🔥" },
 		"tooltip": {
 			"en": [
 				"Fireball explodes on contact with melee unit, dealing arts and burn damage to units within range 1.8",
@@ -1467,26 +1478,6 @@
 			"ja": [
 				"火球は地上にいる味方に触れると爆発、半径1.8内に術と灼熱ダメージを与える",
 				"時間経過で火球の攻撃力が減少する"
-			],
-			"zh": [
-				"【净浊之焰】：在10s内线性降低至30%，移动速度2.5，在生成10秒后或到达路径终点后自动消失",
-				"爆炸对以净浊之焰为中心半径1.8范围内所有我方单位造成攻击力100%法术普通伤害和攻击力100%灼燃损伤，随后自身消失"
-			]
-		}
-	},
-	"dublinn_fireball2": {
-		"atk": {},
-		"dmg_element": "arts",
-		"summon_enemy": "enemy_1177_dufrbl_2",
-		"suffix": { "en": "🔥", "ja": "🔥", "zh": "🔥" },
-		"tooltip": {
-			"en": [
-				"Fireball explodes on contact with melee unit, dealing arts and burn damage to units within range 1.8",
-				"Fireball's ATK decreases over distance travelled"
-			],
-			"ja": [
-				"炎は地上にいる味方に触れると爆発、半径1.8内に術と灼熱ダメージを与える",
-				"時間経過で炎の攻撃力が減少する"
 			],
 			"zh": [
 				"【净浊之焰】：在10s内线性降低至30%，移动速度2.5，在生成10秒后或到达路径终点后自动消失",

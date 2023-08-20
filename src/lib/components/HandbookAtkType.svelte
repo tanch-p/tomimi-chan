@@ -17,4 +17,6 @@
 			</span>
 		{/if}
 	</p>
+{:else}
+	<span/>
 {/if}

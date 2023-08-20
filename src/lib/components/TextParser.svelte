@@ -7,9 +7,9 @@
 	];
 
 	const parseText = (line: string) => {
-		const lines = line.split('\\n').map((ele, i) => {
+		const lines = line.split('\n').map((ele, i) => {
 			if (i > 0) {
-				return { text: '\\n' + ele, style: null };
+				return { text: '\n' + ele, style: null };
 			}
 			return { text: ele, style: null };
 		});
@@ -61,7 +61,7 @@
 
 <p>
 	{#each parsedTextArray as { text, style }}
-		{#if text === '\\n'}
+		{#if text === '\n'}
 			<br />
 		{:else}
 			<span class={style}> {text}</span>
