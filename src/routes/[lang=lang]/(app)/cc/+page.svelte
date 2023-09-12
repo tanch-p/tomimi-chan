@@ -13,12 +13,12 @@
 	<meta name="description" content={translations[language].title_post} />
 	<meta property="og:description" content={translations[language].title_post} />
 	<meta property="og:title" content={translations[language].cc_title} />
-	<meta property="og:url" content={`https://tomimi.dev/${language}/mizuki`} />
+	<meta property="og:url" content={`https://tomimi.dev/${language}/cc`} />
 </svelte:head>
 
 <div class="bg-neutral-800 min-h-screen">
 	<div class="pb-24 max-w-4xl mx-auto pt-4 sm:pt-24">
-		<img class="select-none mx-auto py-3" src={cc_banner} decoding="async" alt={'cc11'} />
+		<img class="select-none mx-auto py-3" src={cc_banner} decoding="async" alt={'cc12'} />
 		<CCNav {language} />
 	</div>
 </div>

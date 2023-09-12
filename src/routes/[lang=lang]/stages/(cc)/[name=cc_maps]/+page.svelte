@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { statMods, specialMods } from './stores';
-	import EnemySimpleTable from '$lib/components/EnemySimpleTable.svelte';
+	import EnemyStatDisplay from '$lib/components/EnemyStatDisplay.svelte';
 	import PermaContracts from './PermaContracts.svelte';
 	import DailyContracts from './DailyContracts.svelte';
 	import StageInfo from '$lib/components/StageInfo.svelte';
@@ -38,7 +38,7 @@
 		{/if}
 		<SelectedOptions ccType={data?.contracts.type} {language} mapConfig={data.mapConfig} />
 		<div class="mt-12">
-			<EnemySimpleTable enemies={moddedEnemies} {language} {statMods} {specialMods} />
+			<EnemyStatDisplay enemies={moddedEnemies} {language} {statMods} {specialMods} />
 		</div>
 		<div class="max-w-4xl mx-auto mt-24">
 			<CCNav {language} />

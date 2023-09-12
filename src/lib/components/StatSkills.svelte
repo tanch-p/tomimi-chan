@@ -13,9 +13,6 @@
 	$: skillsToParse = skills
 		.map((skillRef) => {
 			let skill = { ...enemySkills[skillRef.key], ...skillRef };
-			// if (specialMods[enemy.id] && Object.keys(specialMods[enemy.id]).includes(skillName)) {
-			// 	skill = specialMods[enemy.id][skillName];
-			// }
 			if (skill[stat]) {
 				const { suffix, hits, dmg_element } = skill;
 				let value = statValue;

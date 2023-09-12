@@ -3,7 +3,7 @@
 
 	const patternsToParse = [
 		{ prefix: '<@rolv.rem>', suffix: '</>', style: 'text-[#FF4C22]' },
-		{ prefix: '$', suffix: '$', style: 'text-red-400' }
+		{ prefix: '$', suffix: '$', style: 'text-red-400 font-semibold' }
 	];
 
 	const parseText = (line: string) => {

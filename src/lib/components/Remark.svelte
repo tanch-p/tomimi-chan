@@ -17,8 +17,8 @@
 				const [statKey, valueKey] = key.split('.');
 				if (valueKey === 'multiplier') {
 					text = text.replace(string, Math.round(skill[statKey][valueKey] * 100).toString());
-					if (statKey === 'atk' && mode === "handbook") {
-						text = text + `(${enemyStats[statKey] * skill[statKey][valueKey]})`;
+					if (statKey === 'atk' && mode === 'handbook') {
+						text = text + ` (${Math.round(enemyStats[statKey] * skill[statKey][valueKey])})`;
 					}
 				} else {
 					text = text.replace(string, skill[statKey][valueKey]);

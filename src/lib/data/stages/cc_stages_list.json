@@ -4472,21 +4472,13 @@
 										"mods": {
 											"hp": 1.6,
 											"special": {
-												"avenger_180": {
-													"type": "atk",
-													"dmg_element": null,
-													"suffix": {
-														"en": "HP↓50%",
-														"ja": "HP50%以下",
-														"zh": "HP50%以下"
-													},
-													"multiplier": 3.1,
-													"hits": 1,
-													"fixed_inc": 0,
+												"avenger": {
+													"suffix": { "en": "HP↓50%", "ja": "HP50%以下", "zh": "HP50%以下" },
+													"atk": { "multiplier": 3.1 },
 													"tooltip": {
-														"en": ["HP↓50% - $+210%$ ATK"],
-														"ja": ["HP50%以下→攻撃力+$210%$"],
-														"zh": ["生命值低于50%时，攻击力提升$210%$"]
+														"en": ["HP↓50% - ATK increased to $<v.atk.multiplier>$%"],
+														"ja": ["HP50%以下→攻撃力が$<v.atk.multiplier>%$に増加"],
+														"zh": ["生命值低于50%时，攻击力提升至$<v.atk.multiplier>%$"]
 													}
 												}
 											}
@@ -4513,21 +4505,20 @@
 										"mods": {
 											"hp": 2,
 											"special": {
-												"avenger_180": {
-													"type": "atk",
-													"dmg_element": null,
-													"suffix": {
-														"en": "HP↓50%",
-														"ja": "HP50%以下",
-														"zh": "HP50%以下"
-													},
-													"multiplier": 3.3,
-													"hits": 1,
-													"fixed_inc": 0,
+												"avenger": {
+													"suffix": { "en": "HP↓50%", "ja": "HP50%以下", "zh": "HP50%以下" },
+													"atk": { "multiplier": 3.3 },
 													"tooltip": {
-														"en": ["HP↓50% - $+230%$ ATK"],
-														"ja": ["HP50%以下→攻撃力$+230%$"],
-														"zh": ["生命值低于50%时，攻击力提升$230%$"]
+														"en": ["HP↓50% - ATK increased to $<v.atk.multiplier>$%"],
+														"ja": ["HP50%以下→攻撃力が$<v.atk.multiplier>%$に増加"],
+														"zh": ["生命值低于50%时，攻击力提升至$<v.atk.multiplier>%$"]
+													}
+												},
+												"avenger_revive": {
+													"tooltip": {
+														"en": ["On defeat, recovers with 50% HP (once per battle) and gains invincibility for $5s$"],
+														"ja": ["倒されると一度だけHP50％で復活する、$5秒$間無敵になる"],
+														"zh": ["首次死亡后重生，重生花费5秒，恢复50%生命值，并获得$5s$无敌"]
 													}
 												}
 											}
@@ -4554,21 +4545,20 @@
 										"mods": {
 											"hp": 2.5,
 											"special": {
-												"avenger_180": {
-													"type": "atk",
-													"dmg_element": null,
-													"suffix": {
-														"en": "HP↓50%",
-														"ja": "HP50%以下",
-														"zh": "HP50%以下"
-													},
-													"multiplier": 3.8,
-													"hits": 1,
-													"fixed_inc": 0,
+												"avenger": {
+													"suffix": { "en": "HP↓50%", "ja": "HP50%以下", "zh": "HP50%以下" },
+													"atk": { "multiplier": 3.8 },
 													"tooltip": {
-														"en": ["HP↓50% - $+280%$ ATK and $receives 30% less damage$"],
-														"ja": ["HP50%以下→攻撃力$+280%$、$被ダメージ30%軽減$"],
-														"zh": ["生命值低于50%时，攻击力提升$280%$"]
+														"en": ["HP↓50% - ATK increased to $<v.atk.multiplier>$% and $receives 30% less damage$"],
+														"ja": ["HP50%以下→攻撃力が$<v.atk.multiplier>%$に増加、$被ダメージ30%軽減$"],
+														"zh": ["生命值低于50%时，攻击力提升至$<v.atk.multiplier>%$，$受到的物理或法术伤害降低30%$"]
+													}
+												},
+												"avenger_revive": {
+													"tooltip": {
+														"en": ["On defeat, recovers with 50% HP (once per battle) and gains invincibility for $15s$"],
+														"ja": ["倒されると一度だけHP50％で復活する、$15秒$間無敵になる"],
+														"zh": ["首次死亡后重生，重生花费5秒，恢复50%生命值，并获得$15s$无敌"]
 													}
 												}
 											}
@@ -4576,7 +4566,7 @@
 									}
 								],
 								"tooltip": {
-									"en": "<Redblade> gains Max HP +60%, gains immunity to all status ailments, becomes Invicible for 15s upon revival, receives 30% less damage at 50% HP and ATK buff at 50% HP increased by 100%, ",
+									"en": "<Redblade> gains Max HP +60%, gains Resist, becomes Invicible for 15s upon revival, receives 30% less damage at 50% HP and ATK buff at 50% HP increased by 100%, ",
 									"zh": "",
 									"ja": "＜“复仇者”＞の最大HP+150%、状態異常耐性を獲得、復活時15秒間無敵になる、HPが半分以下の時、さらに攻撃力+100%、被ダメージ30%軽減"
 								}
@@ -4603,21 +4593,20 @@
 											"hp": 2.5,
 											"fixed_aspd": 100,
 											"special": {
-												"avenger_180": {
-													"type": "atk",
-													"dmg_element": null,
-													"suffix": {
-														"en": "HP↓50%",
-														"ja": "HP50%以下",
-														"zh": "HP50%以下"
-													},
-													"multiplier": 3.8,
-													"hits": 1,
-													"fixed_inc": 0,
+												"avenger": {
+													"suffix": { "en": "HP↓50%", "ja": "HP50%以下", "zh": "HP50%以下" },
+													"atk": { "multiplier": 3.8 },
 													"tooltip": {
-														"en": ["HP↓50% - $+280%$ ATK and $receives 60% less damage$"],
-														"ja": ["HP50%以下→攻撃力$+280%$、$被ダメージ60%軽減$"],
-														"zh": ["生命值低于50%时，攻击力提升$280%$"]
+														"en": ["HP↓50% - ATK increased to $<v.atk.multiplier>$% and $receives 60% less damage$"],
+														"ja": ["HP50%以下→攻撃力が$<v.atk.multiplier>%$に増加、$被ダメージ60%軽減$"],
+														"zh": ["生命值低于50%时，攻击力提升至$<v.atk.multiplier>%$，$受到的物理或法术伤害降低60%$"]
+													}
+												},
+												"avenger_revive": {
+													"tooltip": {
+														"en": ["On defeat, recovers with 50% HP (once per battle) and gains invincibility for $20s$"],
+														"ja": ["倒されると一度だけHP50％で復活する、$20秒$間無敵になる"],
+														"zh": ["首次死亡后重生，重生花费5秒，恢复50%生命值，并获得$20s$无敌"]
 													}
 												}
 											}
@@ -4625,9 +4614,9 @@
 									}
 								],
 								"tooltip": {
-									"en": "<Redblade> gains Max HP +60%, gains immunity to all status ailments, becomes Invicible for 15s upon revival, receives 60% less damage at 50% HP and ATK buff at 50% HP increased by 100%",
+									"en": "<Redblade> gains Max HP +60%, Attackspeed +100, gains Resist, becomes Invicible for 20s upon revival, receives 60% less damage at 50% HP and ATK buff at 50% HP increased by 100%",
 									"zh": "",
-									"ja": "＜“复仇者”＞の最大HP+150%、状態異常耐性を獲得、復活時15秒間無敵になる、HPが半分以下の時、さらに攻撃力+100%、被ダメージ30%軽減"
+									"ja": "＜“复仇者”＞の最大HP+150%、攻撃速度+100、状態異常耐性を獲得、復活時20秒間無敵になる。HPが半分以下の時、さらに攻撃力+100%、被ダメージ60%軽減"
 								}
 							}
 						]
