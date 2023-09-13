@@ -1,12 +1,11 @@
 <script lang="ts">
-	import type { StatMods, Language, Skill } from '$lib/types';
+	import type { Language, Skill } from '$lib/types';
 	import { getDmgEleHighlight } from '$lib/functions/parseAtkType';
 	import translations from '$lib/translations.json';
 	import enemySkills from '$lib/data/enemy/enemy_skills.json';
 	export let skills: Skill[],
 		stat: string,
 		statValue: number,
-		statMods: StatMods,
 		language: Language;
 
 	$: separator = language === 'en' ? '/' : '・';

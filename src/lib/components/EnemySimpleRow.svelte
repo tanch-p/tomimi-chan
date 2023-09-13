@@ -112,8 +112,6 @@
 							stat={key}
 							statValue={enemy.stats[row][key]}
 							{language}
-							statMods={$statMods}
-							specialMods={$specialMods}
 						/>
 					</div>
 				</td>

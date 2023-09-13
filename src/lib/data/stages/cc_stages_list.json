@@ -1,46 +1,46 @@
 [
 	{
-		"id": "level_rune_10-01.json",
-		"tags": ["night"],
+		"id": "level_rune_11-01.json",
+		"tags": null,
 		"characterLimit": 9,
 		"initialCost": 10,
 		"costIncreaseTime": 1.0,
 		"code": null,
-		"name_zh": "大骑士领酒吧街",
-		"name_ja": "大騎士領バー大通り",
-		"name_en": "Grand_Knight_Territory_Bar_District",
+		"name_zh": "盐风溶洞",
+		"name_ja": "サルヴィエントの洞窟",
+		"name_en": "Sal_Viento_Karst",
 		"sp_terrain": null,
 		"contracts": [
 			{
 				"type": "daily",
-				"id": "11-1",
+				"id": "12-1",
 				"list": [
 					{
-						"category": "viviana",
+						"category": "sea_reaper",
 						"options": [
 							{
 								"rank": 1,
-								"name": { "en": "Viviana: Dazzle 1", "ja": "強敵：煌煌I", "zh": "" },
-								"img": "大骑士领酒吧街/75px-Enemy_cadkgt_1",
+								"name": {
+									"en": "Sea Reaper: Predatory Need 3",
+									"ja": "特化：鉢海捕食III",
+									"zh": ""
+								},
+								"img": "盐风溶洞/75px-Enemy_dslntc_amod_3",
 								"effects": [
 									{
-										"targets": ["NL17"],
+										"targets": ["SM9"],
 										"mods": {
-											"hp": 1.5,
 											"special": {
-												"glimmering_touch": {
-													"type": "atk",
-													"multiplier": 3,
-													"fixed_inc": 0,
-													"initial": 10,
-													"cost": 10,
-													"skill_regen": "auto",
+												"sea_reaper_awaken": {
 													"tooltip": {
 														"en": [
-															"Glimmering Touch - after charging for $3.5s$ does 250% dmg to units within skill's range, CD20s"
+															"Standby→Does not attack, switches to Combat Ready mode when HP below 99.99%",
+															"Combat Ready→Movement Speed is increased by 500% and loses $3% max HP$ every second. Deals 20% of ATK as Nervous Impairment to all allied units in a 2.5 tile radius (ignores camouflage)."
 														],
 														"ja": [
-															"微光の蝕 - 攻撃半径内のユニットに$3.5秒$間チャージしたあと範囲攻撃を行う、CD20秒"
+															"【待機状態】→攻撃しない、HPが99.99%未満になると【臨戦態勢】に移行",
+															"【臨戦態勢】→移動速度+500%、毎秒$最大HPの3%$分のダメージを受けて、",
+															"半径2.5マス以内の味方全員に、攻撃力の20%の神経ダメージを毎秒与える（迷彩無視）"
 														],
 														"zh": []
 													}
@@ -50,200 +50,9 @@
 									}
 								],
 								"tooltip": {
-									"en": "[Viviana] Max HP +50%, Glimmering Touch charging time halved.",
+									"en": "[Basin Sea Reaper] HP loss decreased by 25% ",
 									"zh": "",
-									"ja": "＜「燭騎士」ヴィヴィアナ＞の最大HP+50%、【微光の蝕】のチャージ時間-50％"
-								}
-							}
-						]
-					},
-					{
-						"category": "nightzmora",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "Tola: Lone Khaganquest 1",
-									"ja": "強敵：遥々天路I",
-									"zh": ""
-								},
-								"img": "大骑士领酒吧街/75px-Enemy_nmekgt_1",
-								"effects": [
-									{
-										"targets": ["NL20"],
-										"mods": { "hp": 1.5, "atk": 1.2, "def": 1.2, "fixed_res": 10 }
-									}
-								],
-								"tooltip": {
-									"en": "'The Last Kheshig', Tola's Max HP +50%, ATK +20%, DEF +20%, RES +10",
-									"zh": "",
-									"ja": "＜「最後のケシク」トゥーラ＞の最大HP+50%、攻撃力+20%、防御力+20%、術耐性+10"
-								}
-							}
-						]
-					},
-					{
-						"category": "lifepoint",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "None Escape",
-									"ja": "指令：背水の陣",
-									"zh": "目标：最后防线"
-								},
-								"img": "75px-Global_lifepoint_1",
-								"effects": [],
-								"tooltip": {
-									"en": "No enemies escape (Level HP set to 1)",
-									"ja": "防衛ラインの最大耐久値が1に",
-									"zh": "我方防御点可承受的敌方数量变为1 "
-								}
-							}
-						]
-					},
-					{
-						"category": "char_hp",
-						"options": [
-							{
-								"rank": 2,
-								"name": {
-									"ja": "制限：体力減衰II",
-									"en": "Reduced Operator HP 2",
-									"zh": "源石环境：侵蚀II"
-								},
-								"img": "75px-Char_hp_2",
-								"effects": [],
-								"tooltip": {
-									"en": "Ally Max HP reduced -40%",
-									"ja": "全ての味方の最大HP-40%",
-									"zh": "所有我方单位的生命值上限降低40%"
-								}
-							}
-						]
-					},
-					{
-						"category": "operator_cost",
-						"options": [
-							{
-								"rank": 2,
-								"name": { "en": "Guard/Specialist Ban", "ja": "禁止：前衛特殊", "zh": "" },
-
-								"img": "75px-Char_exclude_guardspecial_2",
-								"effects": [],
-								"tooltip": {
-									"en": "Guards and Specialists banned",
-									"ja": "前衛・特殊使用禁止",
-									"zh": ""
-								}
-							}
-						]
-					},
-					{
-						"category": "char_aspd",
-						"options": [
-							{
-								"rank": 2,
-								"name": {
-									"en": "Reduced Ally ASPD 2",
-									"ja": "制限：疲労累積II",
-									"zh": ""
-								},
-								"img": "75px-Char_attackspeed_2",
-								"effects": [],
-								"tooltip": {
-									"en": "All allies’ ASPD -40",
-									"ja": "全ての味方の攻撃速度-40",
-									"zh": ""
-								}
-							}
-						]
-					},
-					{
-						"category": "enemy_hp",
-						"options": [
-							{
-								"rank": 3,
-								"name": {
-									"en": "Enemy HP 3",
-									"ja": "増幅：体力III",
-									"zh": "源石环境：活性III"
-								},
-								"img": "75px-Enemy_hp_3",
-								"effects": [
-									{
-										"targets": ["ALL"],
-										"mods": {
-											"hp": 2.2
-										}
-									}
-								],
-								"tooltip": {
-									"en": "Enemy Max HP +120%",
-									"ja": "全ての敵の最大HP+120%",
-									"zh": "所有敌人的生命值提升120%"
-								}
-							}
-						]
-					},
-					{
-						"category": "cost_regen",
-						"options": [
-							{
-								"rank": 3,
-								"name": {
-									"en": "DP Down 3",
-									"ja": "指令：孤軍奮闘III",
-									"zh": "目标：深度渗透III"
-								},
-								"img": "75px-Global_costrecovery_3",
-								"effects": [],
-								"tooltip": {
-									"en": "DP Regeneration reduced by 75%",
-									"ja": "コストの自然回復速度-75%",
-									"zh": "部署费用的自然回复速度降低75%"
-								}
-							}
-						]
-					}
-				]
-			},
-			{
-				"type": "daily",
-				"id": "11-2",
-				"list": [
-					{
-						"category": "neonlamp_candle",
-						"options": [
-							{
-								"rank": 1,
-								"name": { "en": "Insufficient Power β", "ja": "環境：電力不足β", "zh": "" },
-								"img": "大骑士领酒吧街/75px-Token_neonlamp_candle_bmod_1",
-								"effects": [],
-								"tooltip": {
-									"en": "Center top and lower right City Neons are removed, deployable Knight's Emblems count decreased to 0",
-									"zh": "",
-									"ja": "上と右下の「都市のネオン」が除外され、使用できる「騎士の紋章」の数が0に減少"
-								}
-							}
-						]
-					},
-					{
-						"category": "lifepoint",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "None Escape",
-									"ja": "指令：背水の陣",
-									"zh": "目标：最后防线"
-								},
-								"img": "75px-Global_lifepoint_1",
-								"effects": [],
-								"tooltip": {
-									"en": "No enemies escape (Level HP set to 1)",
-									"ja": "防衛ラインの最大耐久値が1に",
-									"zh": "我方防御点可承受的敌方数量变为1 "
+									"ja": "＜鉢海のリーパー＞のHP減少が-25％"
 								}
 							}
 						]
@@ -276,637 +85,68 @@
 						]
 					},
 					{
-						"category": "sleeping_knight",
+						"category": "char_cost",
 						"options": [
 							{
-								"rank": 2,
-								"latter": true,
+								"rank": 1,
 								"name": {
-									"en": "Hibernator +4",
-									"ja": "環境：酒類特価II",
-									"zh": "环境：酒水促销II"
+									"en": "Vanguard & Defender 1",
+									"ja": "制限：過負荷",
+									"zh": ""
 								},
-								"img": "大骑士领酒吧街/75px-Enemy_napkgt_2",
+								"img": "75px-Char_cost_pioneerdefender_1",
 								"effects": [],
 								"tooltip": {
-									"en": "Additional four Knight Territory Hibernator appears on map.",
-									"ja": "「騎士領の凶悪酔漢」が4体追加出現",
+									"en": "Vanguard and Defender DP cost doubled",
+									"ja": "先鋒・重装の配置コストが2倍",
 									"zh": ""
 								}
 							}
 						]
 					},
 					{
-						"category": "enemy_atkaspd",
+						"category": "char_cost",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "Healer & Supporter 1",
+									"ja": "制限：過負荷",
+									"zh": ""
+								},
+								"img": "75px-Char_cost_healersupport_1",
+								"effects": [],
+								"tooltip": {
+									"en": "Healer and Supporter DP cost doubled",
+									"ja": "医療・補助の配置コストが2倍",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "enemy_atk",
 						"options": [
 							{
 								"rank": 2,
 								"name": {
-									"en": "Enemy ATK ASPD 2",
-									"ja": "増幅：攻勢II",
-									"zh": "源石环境：深层刺激II"
+									"en": "Enemy ATK 2",
+									"ja": "増幅：火力II",
+									"zh": "源石环境：刺激II"
 								},
-								"img": "75px-Enemy_atk_attackspeed_2",
+								"img": "75px-Enemy_atk_2",
 								"effects": [
 									{
 										"targets": ["ALL"],
 										"mods": {
-											"atk": 1.3,
-											"fixed_aspd": 30
+											"atk": 1.35
 										}
 									}
 								],
 								"tooltip": {
-									"en": "All enemies ATK +30%, ASPD +30",
-									"ja": "全ての敵の攻撃力+30%、攻撃速度+30",
-									"zh": "所有敌人的攻击力提升30%，攻击速度+30"
-								}
-							}
-						]
-					},
-					{
-						"category": "deploy",
-						"options": [
-							{
-								"rank": 2,
-								"name": {
-									"en": "Deploy Limit 2",
-									"ja": "環境：小規模戦II",
-									"zh": "环境：交战区II"
-								},
-								"img": "75px-Global_pcharnum_2",
-								"effects": [],
-								"tooltip": {
-									"en": "Deploy Limit reduced to 5",
-									"ja": "同時配置可能数が5人に",
-									"zh": "可同时部署的单位数量减少至5"
-								}
-							}
-						]
-					},
-					{
-						"category": "viviana",
-						"options": [
-							{
-								"rank": 3,
-								"name": {
-									"en": "Viviana: Candlelight 3",
-									"ja": "強敵：明灯III",
-									"zh": ""
-								},
-								"img": "大骑士领酒吧街/75px-Enemy_cadkgt_bmod_3",
-								"effects": [
-									{
-										"targets": ["NL17"],
-										"mods": {
-											"hp": 2.1,
-											"atk": 1.9,
-											"range": 2,
-											"special": {
-												"extra": {
-													"tooltip": {
-														"en": ["$Attacks ignore 80 RES$"],
-														"ja": ["$攻撃が術耐性80無視$"],
-														"zh": ""
-													}
-												},
-												"glimmering_touch": {
-													"type": "atk",
-													"multiplier": 3,
-													"fixed_inc": 0,
-													"initial": 10,
-													"cost": 10,
-													"skill_regen": "auto",
-													"tooltip": {
-														"en": [
-															"Glimmering Touch - after charging for $3.5s$ does 250% dmg to units within skill's range, CD20s"
-														],
-														"ja": [
-															"微光の蝕 - 攻撃半径内のユニットに$3.5秒$間チャージしたあと範囲攻撃を行う、CD20秒"
-														],
-														"zh": []
-													}
-												}
-											}
-										}
-									}
-								],
-								"tooltip": {
-									"en": "[Viviana] Max HP +110%, ATK +90%, Range increases greatly, attacks ignore 80 RES and Glimmering Touch's charging time is halved",
-									"zh": "",
-									"ja": "＜「燭騎士」ヴィヴィアナ＞の最大HP+110%、攻撃力+90%、攻撃範囲が拡大し、攻撃対象の術耐性を80%無視、【微光の蝕】のチャージ時間-50％"
-								}
-							}
-						]
-					},
-					{
-						"category": "nightzmora",
-						"options": [
-							{
-								"rank": 3,
-								"name": {
-									"en": "Tola: Lone Khaganquest 3",
-									"ja": "強敵：遥々天路III",
-									"zh": ""
-								},
-								"img": "大骑士领酒吧街/75px-Enemy_nmekgt_amod_3",
-								"effects": [
-									{
-										"targets": ["NL20"],
-										"mods": {
-											"hp": 2.5,
-											"atk": 2,
-											"fixed_res": 50,
-											"special": {
-												"extra": {
-													"tooltip": {
-														"en": ["$Stealth$"],
-														"ja": ["$ステルス$"],
-														"zh": ""
-													}
-												}
-											}
-										}
-									}
-								],
-								"tooltip": {
-									"en": "'The Last Kheshig', Tola's Max HP +150%, ATK +100%, RES +50, gains Stealth",
-									"ja": "＜「最後のケシク」トゥーラ＞の最大HP+150%、攻撃力+100%、術耐性+50、【ステルス】状態になる",
-									"zh": ""
-								}
-							}
-						]
-					}
-				]
-			}
-		],
-		"enemies": [
-			{
-				"id": "enemy_1178_dscorp",
-				"level": 0,
-				"overwrittenData": null
-			},
-			{
-				"id": "enemy_1179_aruarw",
-				"level": 0,
-				"overwrittenData": null
-			},
-			{
-				"id": "enemy_1180_aruass",
-				"level": 0,
-				"overwrittenData": null
-			},
-			{
-				"id": "enemy_1181_napkgt",
-				"level": 0,
-				"overwrittenData": null
-			},
-			{
-				"id": "enemy_1181_napkgt_2",
-				"level": 0,
-				"overwrittenData": null
-			},
-			{
-				"id": "enemy_1184_cadkgt_3",
-				"level": 1,
-				"overwrittenData": {
-					"lifepoint": 3
-				}
-			},
-			{
-				"id": "enemy_1185_nmekgt_2",
-				"level": 0,
-				"overwrittenData": null
-			},
-			{
-				"id": "enemy_1185_nmekgt_3",
-				"level": 0,
-				"overwrittenData": {
-					"lifepoint": 3
-				}
-			},
-			{
-				"id": "enemy_1099_nbkght",
-				"level": 0,
-				"overwrittenData": null
-			},
-			{
-				"id": "enemy_1182_flasrt",
-				"level": 0,
-				"overwrittenData": null
-			},
-			{
-				"id": "enemy_1183_mlasrt",
-				"level": 0,
-				"overwrittenData": null
-			}
-		]
-	},
-	{
-		"id": "level_rune_10-02.json",
-		"tags": null,
-		"characterLimit": 9,
-		"initialCost": 10,
-		"costIncreaseTime": 1.0,
-		"code": null,
-		"name_zh": "沙海遗迹",
-		"name_ja": "砂海の遺跡",
-		"name_en": "Sandsea Remnants",
-		"sp_terrain": null,
-		"contracts": [
-			{
-				"type": "daily",
-				"id": "11-1",
-				"list": [
-					{
-						"category": "more_enemies",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"ja": "環境：火力支援I",
-									"en": "Firepower Support 1",
-									"zh": ""
-								},
-								"img": "75px-Level_hidden_group_1",
-								"effects": [
-									{
-										"targets": ["D7"],
-										"mods": {
-											"count": 7
-										}
-									}
-								],
-								"tooltip": {
-									"en": ["There will be 7 Arts Masters A1"],
-									"ja": ["追加で「アーツバードA1」7体が登場"],
-									"zh": []
-								}
-							}
-						]
-					},
-					{
-						"category": "char_block",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"ja": "制限：ブロック数",
-									"en": "Reduced Blockcount 1",
-									"zh": "环境：精神散I"
-								},
-								"img": "75px-Char_blockcnt_add",
-								"effects": [],
-								"tooltip": {
-									"en": "All allies' block count -1",
-									"ja": "全ての味方のブロック数-1",
-									"zh": "所有角色阻挡数-1"
-								}
-							}
-						]
-					},
-					{
-						"category": "enemy_aspd",
-						"options": [
-							{
-								"rank": 2,
-								"name": {
-									"en": "Enemy ASPD 2",
-									"ja": "増幅：ラッシュII",
-									"zh": ""
-								},
-								"img": "75px-Enemy_attackspeed_2",
-								"effects": [
-									{
-										"targets": ["ALL"],
-										"mods": {
-											"fixed_aspd": 60
-										}
-									}
-								],
-								"tooltip": {
-									"en": "Enemy ASPD +60",
-									"ja": "全ての敵の攻撃速度+60",
-									"zh": ""
-								}
-							}
-						]
-					},
-					{
-						"category": "operator_cost",
-						"options": [
-							{
-								"rank": 2,
-								"name": {
-									"ja": "特殊・重装禁止",
-									"en": "No Defender/Specialists",
-									"zh": ""
-								},
-								"img": "75px-Char_exclude_defenderspecial_2",
-								"effects": [],
-								"tooltip": {
-									"en": "Guards and Specialists banned",
-									"zh": "",
-									"ja": "前衛・特殊使用禁止"
-								}
-							}
-						]
-					},
-					{
-						"category": "drone_a",
-						"options": [
-							{
-								"rank": 3,
-								"name": {
-									"ja": "特化：機能向上III",
-									"en": "Drone ATK Buff 3",
-									"zh": ""
-								},
-								"img": "沙海遗迹/75px-Enemy_drones_1_3",
-								"effects": [
-									{
-										"targets": ["D7", "PS1", "PS3"],
-										"mods": {
-											"atk": 1.7,
-											"ms": 2,
-											"range": 1.5,
-											"special": {
-												"scrap_def_down": {
-													"type": "others",
-													"tooltip": {
-														"en": [
-															"Attacks reduce target's DEF by $70% for 10s$",
-															"(does not stack, can be silenced)"
-														],
-														"ja": [
-															"攻撃が相手の防御力を$10秒70％$減少する (重複しない、無効化できる)"
-														],
-														"zh": ["攻击使目标防御力最终降低$70%，持续10s$（不叠加，可沉默）"]
-													}
-												}
-											}
-										}
-									}
-								],
-								"tooltip": {
-									"en": [
-										"All drone type enemies ATK +70%, MS +100%, Attack range +50%, Scrap's def down effect increased by 40% and duration by 5s"
-									],
-									"ja": [
-										"すべての敵「ドローン」の攻撃力+70%、移動速度+100%、攻撃範囲+50%、「破片」の防御力減少効果+40%、効果継続時間+5秒"
-									],
-									"zh": []
-								}
-							}
-						]
-					},
-					{
-						"category": "drone_b",
-						"options": [
-							{
-								"rank": 3,
-								"name": {
-									"ja": "ドローン：強化装甲III",
-									"en": "Drone Armor 3",
-									"zh": ""
-								},
-								"img": "沙海遗迹/75px-Enemy_drones_2_2",
-								"effects": [
-									{
-										"targets": ["D7", "PS1", "PS3"],
-										"mods": {
-											"hp": 2.6,
-											"def": 1.3,
-											"special": {
-												"drone_flying_time": {
-													"type": "others",
-													"tooltip": {
-														"en": ["Automatically defeated after $210s$"],
-														"ja": ["出現から$210秒$後、撤退する"],
-														"zh": ["出场$210s$后自动死亡"]
-													}
-												},
-												"anvil_healing_aura": {
-													"type": "others",
-													"tooltip": {
-														"en": [
-															"All enemy units within attack range (excluding self) gains $350 DEF and restores 300HP/s$",
-															"(does not stack, can be silenced)"
-														],
-														"ja": [
-															"自分を除く攻撃範囲内の敵は、$防御力+350、HPが毎秒300回復する$(重複しない、無効化できる)"
-														],
-														"zh": [
-															"攻击范围内全体敌方单位（不含自身）$防御力增加350，每秒恢复300生命值$，不可叠加（可被沉默） "
-														]
-													}
-												}
-											}
-										}
-									}
-								],
-								"tooltip": {
-									"en": [
-										"All drone type enemies Max HP +160%, DEF +30%, Anvil and Scrap's retreat time +180s, Anvil's def buff increased by 75%, regen by 50%"
-									],
-									"ja": [
-										"すべての敵「ドローン」の敵最大HP+160%、防御力+30%、「破片」と「鉄砧」の航続時間+180秒、「鉄砧」の防御力上昇効果+75%、敵に付与するHP自動回復の効果値+50%"
-									],
-									"zh": []
-								}
-							}
-						]
-					},
-					{
-						"category": "char_atk",
-						"options": [
-							{
-								"rank": 3,
-								"name": {
-									"en": "Reduced Ally ATK 3",
-									"ja": "制限：火力減衰III",
-									"zh": "环境：高价值目标III"
-								},
-								"img": "75px-Char_atk_3",
-								"effects": [],
-								"tooltip": {
-									"en": "All allies’ ATK -50%",
-									"ja": "全ての味方の攻撃力-50%",
-									"zh": "所有我方单位的攻击力降低50%"
-								}
-							}
-						]
-					}
-				]
-			}
-		],
-		"enemies": [
-			{
-				"id": "enemy_1141_merbow",
-				"level": 0,
-				"overwrittenData": null
-			},
-			{
-				"id": "enemy_1142_mershd",
-				"level": 0,
-				"overwrittenData": null
-			},
-			{
-				"id": "enemy_1143_merrpg",
-				"level": 0,
-				"overwrittenData": null
-			},
-			{
-				"id": "enemy_1144_merlgd",
-				"level": 0,
-				"overwrittenData": null
-			},
-			{
-				"id": "enemy_1046_agent_2",
-				"level": 0,
-				"overwrittenData": null
-			},
-			{
-				"id": "enemy_1052_noramr",
-				"level": 0,
-				"overwrittenData": null
-			},
-			{
-				"id": "enemy_1041_lazerd",
-				"level": 0,
-				"overwrittenData": null
-			},
-			{
-				"id": "enemy_1145_atkspd",
-				"level": 0,
-				"overwrittenData": null
-			},
-			{
-				"id": "enemy_1146_defspd",
-				"level": 0,
-				"overwrittenData": null
-			}
-		]
-	},
-	{
-		"id": "level_rune_11-01.json",
-		"tags": null,
-		"characterLimit": 9,
-		"initialCost": 10,
-		"costIncreaseTime": 1.0,
-		"code": null,
-		"name_zh": "盐风溶洞",
-		"name_ja": "サルヴィエントの洞窟",
-		"name_en": "Sal_Viento_Karst",
-		"sp_terrain": null,
-		"contracts": [
-			{
-				"type": "daily",
-				"id": "11-1",
-				"list": [
-					{
-						"category": "cost_regen",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "DP Down 1",
-									"ja": "指令：孤軍奮闘I",
-									"zh": "目标：深度渗透I"
-								},
-								"img": "75px-Global_costrecovery_1",
-								"effects": [],
-								"tooltip": {
-									"en": "DP Regeneration reduced by 25%",
-									"ja": "コストの自然回復速度-25%",
-									"zh": "部署费用的自然回复速度降低25%"
-								}
-							}
-						]
-					},
-					{
-						"category": "char_res",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "Reduced Ally RES 1",
-									"ja": "制限：術耐性I",
-									"zh": ""
-								},
-								"img": "75px-Char_magicresistance_1",
-								"effects": [],
-								"tooltip": {
-									"en": "All allies’ RES -12",
-									"ja": "全ての味方の術耐性-12",
-									"zh": ""
-								}
-							}
-						]
-					},
-					{
-						"category": "char_skillrec",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "Reduced SP Regen",
-									"ja": "スキル回復速度",
-									"zh": ""
-								},
-								"img": "75px-Global_skillrecovery_1",
-								"effects": [],
-								"tooltip": {
-									"en": "All allies SP regen -30%",
-									"ja": "全ての味方のスキル回復速度-30%",
-									"zh": ""
-								}
-							}
-						]
-					},
-					{
-						"category": "enemy_hp",
-						"options": [
-							{
-								"rank": 2,
-								"name": {
-									"en": "Enemy HP 2",
-									"ja": "増幅：体力II",
-									"zh": "源石环境：活性II"
-								},
-								"img": "75px-Enemy_hp_2",
-								"effects": [
-									{
-										"targets": ["ALL"],
-										"mods": {
-											"hp": 1.75
-										}
-									}
-								],
-								"tooltip": {
-									"en": "Enemy Max HP +75%",
-									"ja": "全ての敵の最大HP+75%",
-									"zh": "所有敌人的生命值提升75%"
-								}
-							}
-						]
-					},
-					{
-						"category": "char_hp",
-						"options": [
-							{
-								"rank": 2,
-								"name": {
-									"ja": "制限：体力減衰II",
-									"en": "Reduced Operator HP 2",
-									"zh": "源石环境：侵蚀II"
-								},
-								"img": "75px-Char_hp_2",
-								"effects": [],
-								"tooltip": {
-									"en": "Ally Max HP reduced -35%",
-									"ja": "全ての味方の最大HP-35%",
-									"zh": "所有我方单位的生命值上限降低35%"
+									"en": "All enemies ATK +35%",
+									"ja": "全ての敵の攻撃力+35%",
+									"zh": "所有敌人的攻击力提升35%"
 								}
 							}
 						]
@@ -932,7 +172,7 @@
 						]
 					},
 					{
-						"category": "squad",
+						"category": "deploy",
 						"options": [
 							{
 								"rank": 2,
@@ -947,6 +187,26 @@
 									"en": "Deploy Limit reduced to 5",
 									"ja": "同時配置可能数が5人に",
 									"zh": "可同时部署的单位数量减少至5"
+								}
+							}
+						]
+					},
+					{
+						"category": "egg",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "Sea Crawler Propagation 2",
+									"ja": "環境：嚢海増殖II",
+									"zh": "环境：酒水促销II"
+								},
+								"img": "盐风溶洞/75px-Level_hidden_dsurch_2",
+								"effects": [],
+								"tooltip": {
+									"en": "Additional four Pocket Sea Crawler appears on map.",
+									"ja": "「嚢海のクローラー」が4体追加出現",
+									"zh": ""
 								}
 							}
 						]
@@ -972,8 +232,6 @@
 											"special": {
 												"status_immune": ["stun", "freeze"],
 												"stealth": {
-													"name": "stealth",
-													"type": "others",
 													"tooltip": {
 														"en": ["$Stealth$"],
 														"ja": ["$ステルス$"],
@@ -1012,15 +270,10 @@
 											"special": {
 												"status_immune": ["stun", "freeze"],
 												"ftt_splash": {
-													"type": "atk",
+													"atk": { "multiplier": 2 },
 													"dmg_element": "phys",
-													"suffix": { "en": "skill", "ja": "スキル", "zh": "技能" },
+													"suffix": { "en": "skill/", "ja": "スキル", "zh": "技能" },
 													"hits": 5,
-													"multiplier": 2,
-													"fixed_inc": 0,
-													"initial": 0,
-													"cost": 0,
-													"skill_regen": "attack",
 													"tooltip": {
 														"en": [
 															"Skill→Initial SP: 10, $Cost:14$",
@@ -1043,6 +296,241 @@
 									"en": "'FTT' Max HP +150%, attack range +35%, becomes immune to stun and freeze, skill's damage multiplier +140%, cooldown decreased by 30%",
 									"zh": "",
 									"ja": "＜ファースト・トーカー＞の最大HP+150%、攻撃範囲+35%、スタン、凍結無効になる、スキルのダメージ倍率が200％に上昇、クールタイム-30%"
+								}
+							}
+						]
+					},
+					{
+						"category": "char_atk",
+						"options": [
+							{
+								"rank": 3,
+								"name": {
+									"en": "Reduced Ally ATK 3",
+									"ja": "制限：火力減衰III",
+									"zh": "环境：高价值目标III"
+								},
+								"img": "75px-Char_atk_3",
+								"effects": [],
+								"tooltip": {
+									"en": "All allies’ ATK -50%",
+									"ja": "全ての味方の攻撃力-50%",
+									"zh": "所有我方单位的攻击力降低50%"
+								}
+							}
+						]
+					}
+				]
+			},
+			{
+				"type": "daily",
+				"id": "12-2",
+				"list": [
+					{
+						"category": "cost_regen",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "DP Down 1",
+									"ja": "指令：孤軍奮闘I",
+									"zh": "目标：深度渗透I"
+								},
+								"img": "75px-Global_costrecovery_1",
+								"effects": [],
+								"tooltip": {
+									"en": "DP Regeneration reduced by 30%",
+									"ja": "コストの自然回復速度-30%",
+									"zh": "部署费用的自然回复速度降低30%"
+								}
+							}
+						]
+					},
+					{
+						"category": "char_skillrec",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "Reduced SP Regen",
+									"ja": "スキル回復速度",
+									"zh": ""
+								},
+								"img": "75px-Global_skillrecovery_1",
+								"effects": [],
+								"tooltip": {
+									"en": "All allies SP regen -30%",
+									"ja": "全ての味方のスキル回復速度-30%",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "ftt",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "FTT: Tone 2",
+									"ja": "強敵：口調II",
+									"zh": ""
+								},
+								"img": "盐风溶洞/75px-Enemy_dsmant_amod_2",
+								"effects": [
+									{
+										"targets": ["FTT"],
+										"mods": {
+											"hp": 1.6,
+											"atk": 1.25,
+											"fixed_aspd": 25,
+											"special": {
+												"status_immune": ["stun", "freeze"]
+											}
+										}
+									}
+								],
+								"tooltip": {
+									"en": "'FTT' Max HP +60%, ATK +25%, ASPD +25%, becomes immune to stun and freeze",
+									"zh": "",
+									"ja": "＜ファースト・トーカー＞の最大HP+60%、攻撃力+25%、攻撃速度+25%、スタン、凍結無効になる"
+								}
+							}
+						]
+					},
+					{
+						"category": "ftt",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "FTT: Style 2",
+									"ja": "強敵：修辞II",
+									"zh": ""
+								},
+								"img": "盐风溶洞/75px-Enemy_dsmant_bmod_2",
+								"effects": [
+									{
+										"targets": ["FTT"],
+										"mods": {
+											"hp": "%100",
+											"range": "%35",
+											"special": {
+												"status_immune": ["stun", "freeze"],
+												"ftt_splash": {
+													"atk": { "multiplier": 1.35 },
+													"dmg_element": "phys",
+													"suffix": { "en": "skill/", "ja": "スキル", "zh": "技能" },
+													"hits": 5,
+													"tooltip": {
+														"en": [
+															"Skill→Initial SP: 10, Cost:20",
+															"Attacks up to 5 times, dealing $135% of ATK$ as Physical damage and Nervous Impairment",
+															"While using skill, does not move and becomes invulnerable, "
+														],
+														"ja": [
+															"スキル→初期SP10、必要SP20",
+															"最大5回攻撃力の$135%$の物理・神経ダメージを与える",
+															"スキル発動中は無敵、移動しない、"
+														],
+														"zh": []
+													}
+												}
+											}
+										}
+									}
+								],
+								"tooltip": {
+									"en": "'FTT' Max HP +100%, attack range +35%, becomes immune to stun and freeze, skill's damage multiplier +75%",
+									"zh": "",
+									"ja": "＜ファースト・トーカー＞の最大HP+100%、攻撃範囲+35%、スタン、凍結無効になる、スキルのダメージ倍率が135％に上昇"
+								}
+							}
+						]
+					},
+					{
+						"category": "char_cost",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "Ranged Operators DP",
+									"ja": "環境：強制転移",
+									"zh": ""
+								},
+								"img": "75px-Char_cost_ranged_2",
+								"effects": [],
+								"tooltip": {
+									"en": "Ranged Operators DP cost tripled",
+									"ja": "遠距離オペレーターの配置コストが3倍",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "char_cost",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "Melee Operators DP",
+									"ja": "環境：源石地帯",
+									"zh": ""
+								},
+								"img": "75px-Char_cost_melee_2",
+								"effects": [],
+								"tooltip": {
+									"en": "Melee Operators DP cost tripled",
+									"ja": "近距離オペレーターの配置コストが3倍",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "egg_mod",
+						"options": [
+							{
+								"rank": 3,
+								"latter": true,
+								"name": {
+									"en": "Crawler: High-Perf Separation 3",
+									"ja": "特化：嚢海析出III",
+									"zh": ""
+								},
+								"img": "盐风溶洞/75px-Enemy_dsurch_3",
+								"effects": [
+									{
+										"targets": ["SM11"],
+										"mods": {
+											"special": {
+												"status_immune": ["stun", "freeze"],
+												"egg_stab": {
+													"atk": { "multiplier": 3 },
+													"dmg_element": "arts",
+													"suffix": { "en": "skill", "ja": "スキル", "zh": "技能" },
+													"hits": 1,
+													"tooltip": {
+														"en": [
+															"Every $9%$ of max HP lost, deals $300%$ of ATK as Arts splash damage and Nervous Impairment in a $2.8$ tile radius"
+														],
+														"ja": [
+															"HPが$9%$減るごとに、半径$2.8$マス以内の味方全員に攻撃力の$300%$の術・神経ダメージを与える"
+														],
+														"zh": [
+															"每损失$9%$生命值，对半径$2.8$范围内所有我方单位造成攻击力$300%$法术溅射伤害与攻击力100%神经损伤"
+														]
+													}
+												}
+											}
+										}
+									}
+								],
+								"tooltip": {
+									"en": "Pocket Sea Crawler skill activation hp threshold decreased by 6%, damage +200%, effect range further increased, becomes immune to stun and freeze",
+									"ja": "「嚢海のクローラー」能力発動のHP値がさらに減少、ダメージ倍率が300％に上昇、効果範囲さらに増加、スタン、凍結無効になる",
+									"zh": ""
 								}
 							}
 						]
@@ -1073,258 +561,6 @@
 								}
 							}
 						]
-					}
-				]
-			},
-			{
-				"type": "daily",
-				"id": "11-2",
-				"list": [
-					{
-						"category": "egg_count",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "Sea Crawler Propagation 1",
-									"ja": "環境：嚢海増殖I",
-									"zh": "环境：酒水促销I"
-								},
-								"img": "盐风溶洞/75px-Level_hidden_dsurch_1",
-								"effects": [],
-								"tooltip": {
-									"en": "Additional two Pocket Sea Crawler appears on map.",
-									"ja": "「嚢海のクローラー」が2体追加出現",
-									"zh": ""
-								}
-							}
-						]
-					},
-					{
-						"category": "lifepoint",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "None Escape",
-									"ja": "指令：背水の陣",
-									"zh": "目标：最后防线"
-								},
-								"img": "75px-Global_lifepoint_1",
-								"effects": [],
-								"tooltip": {
-									"en": "No enemies escape (Level HP set to 1)",
-									"ja": "防衛ラインの最大耐久値が1に",
-									"zh": "我方防御点可承受的敌方数量变为1 "
-								}
-							}
-						]
-					},
-					{
-						"category": "operator_cost",
-						"options": [
-							{
-								"rank": 2,
-								"name": {
-									"en": "Forced Diversion",
-									"ja": "環境：強制転移",
-									"zh": ""
-								},
-								"img": "75px-Char_cost_ranged_2",
-								"effects": [],
-								"tooltip": {
-									"en": "Ranged Operators DP cost tripled",
-									"ja": "遠距離オペレーターの配置コストが3倍",
-									"zh": ""
-								}
-							}
-						]
-					},
-					{
-						"category": "operator_cost",
-						"options": [
-							{
-								"rank": 2,
-								"name": {
-									"en": "Surface Suppression",
-									"ja": "環境：源石地帯",
-									"zh": ""
-								},
-								"img": "75px-Char_cost_melee_2",
-								"effects": [],
-								"tooltip": {
-									"en": "Melee Operators DP cost tripled",
-									"ja": "近距離オペレーターの配置コストが3倍",
-									"zh": ""
-								}
-							}
-						]
-					},
-					{
-						"category": "char_cdtime",
-						"options": [
-							{
-								"rank": 2,
-								"name": {
-									"en": "Increased Ally SP Cost",
-									"ja": "環境：阻害II",
-									"zh": ""
-								},
-								"img": "75px-Char_cdtime_2",
-								"effects": [],
-								"tooltip": {
-									"en": "All allies’ skill sp cost +40%",
-									"ja": "スキル発動に必要なSPが40%増加",
-									"zh": ""
-								}
-							}
-						]
-					},
-					{
-						"category": "sea_reaper",
-						"options": [
-							{
-								"rank": 3,
-								"name": {
-									"en": "Sea Reaper: Predatory Need 3",
-									"ja": "特化：鉢海捕食III",
-									"zh": ""
-								},
-								"img": "盐风溶洞/75px-Enemy_dslntc_amod_3",
-								"effects": [
-									{
-										"targets": ["SM9"],
-										"mods": {
-											"atk": 1.5,
-											"ms": 2,
-											"special": {
-												"sea_reaper_awaken": {
-													"type": "others",
-													"value": 0.2,
-													"tooltip": {
-														"en": [
-															"Standby→Does not attack, switches to Combat Ready mode when HP below 99.99%",
-															"Combat Ready→Movement Speed is increased by 500% and loses $2.67% max HP$ every second. Deals 20% of ATK as Nervous Impairment to all allied units in a 2.5 tile radius (ignores camouflage)."
-														],
-														"ja": [
-															"【待機状態】→攻撃しない、HPが99.99%未満になると【臨戦態勢】に移行",
-															"【臨戦態勢】→移動速度+500%、毎秒$最大HPの2.67%$分のダメージを受けて、",
-															"半径2.5マス以内の味方全員に、攻撃力の20%の神経ダメージを毎秒与える（迷彩無視）"
-														],
-														"zh": []
-													}
-												}
-											}
-										}
-									}
-								],
-								"tooltip": {
-									"en": "[Basin Sea Reaper] HP loss decreased by 33%, ATK +50%, Movespeed +100%",
-									"zh": "",
-									"ja": "＜鉢海のリーパー＞のHP減少が-33%、攻撃力+50%、移動速度+100%"
-								}
-							}
-						]
-					},
-					{
-						"category": "sea_reaper",
-						"options": [
-							{
-								"rank": 3,
-								"name": {
-									"en": "Sea Reaper: Survival Need 3",
-									"ja": "特化：鉢海生存III",
-									"zh": ""
-								},
-								"img": "盐风溶洞/75px-Enemy_dslntc_bmod_3",
-								"effects": [
-									{
-										"targets": ["SM9"],
-										"mods": {
-											"hp": 1.7,
-											"special": {
-												"sea_reaper_awaken": {
-													"type": "others",
-													"value": 0.2,
-													"tooltip": {
-														"en": [
-															"Standby→Does not attack, switches to Combat Ready mode when HP below 99.99%",
-															"Combat Ready→Movement Speed is increased by 500% and loses $0.8% max HP$ every second. Deals 20% of ATK as Nervous Impairment to all allied units in a 2.5 tile radius (ignores camouflage)."
-														],
-														"ja": [
-															"【待機状態】→攻撃しない、HPが99.99%未満になると【臨戦態勢】に移行",
-															"【臨戦態勢】→移動速度+500%、毎秒$最大HPの0.8%$分のダメージを受けて、",
-															"半径2.5マス以内の味方全員に、攻撃力の20%の神経ダメージを毎秒与える（迷彩無視）"
-														],
-														"zh": []
-													}
-												}
-											}
-										}
-									}
-								],
-								"tooltip": {
-									"en": "[Basin Sea Reaper] HP loss decreased by 80%, Max HP +70%",
-									"zh": "",
-									"ja": "＜鉢海のリーパー＞のHP減少が-80%、最大HP+70%"
-								}
-							}
-						]
-					},
-					{
-						"category": "egg_mod",
-						"options": [
-							{
-								"rank": 3,
-								"latter": true,
-								"name": {
-									"en": "Crawler: High-Perf Separation 3",
-									"ja": "特化：嚢海析出III",
-									"zh": ""
-								},
-								"img": "盐风溶洞/75px-Enemy_dsurch_3",
-								"effects": [
-									{
-										"targets": ["SM11"],
-										"mods": {
-											"special": {
-												"status_immune": ["stun", "freeze"],
-												"egg_stab": {
-													"type": "atk",
-													"suffix": {
-														"en": "skill/arts",
-														"ja": "スキル・術",
-														"zh": "技能・法术"
-													},
-													"hits": 1,
-													"multiplier": 3,
-													"fixed_inc": 0,
-													"initial": 0,
-													"cost": 0,
-													"skill_regen": "attack",
-													"tooltip": {
-														"en": [
-															"Every $9%$ of max HP lost, deals $300%$ of ATK as Arts splash damage and Nervous Impairment in a $2.8$ tile radius"
-														],
-														"ja": [
-															"HPが$9%$減るごとに、半径$2.8$マス以内の味方全員に攻撃力の$300%$の術・神経ダメージを与える"
-														],
-														"zh": [
-															"每损失$9%$生命值，对半径$2.8$范围内所有我方单位造成攻击力$300%$法术溅射伤害与攻击力100%神经损伤"
-														]
-													}
-												}
-											}
-										}
-									}
-								],
-								"tooltip": {
-									"en": "Pocket Sea Crawler skill activation hp threshold decreased by 6%, damage +200%, effect range further increased, becomes immune to stun and freeze",
-									"ja": "「嚢海のクローラー」能力発動のHP値がさらに減少、ダメージ倍率が300％に上昇、効果範囲さらに増加、スタン、凍結無効になる",
-									"zh": ""
-								}
-							}
-						]
 					},
 					{
 						"category": "enemy_hp",
@@ -1341,14 +577,14 @@
 									{
 										"targets": ["ALL"],
 										"mods": {
-											"hp": 2.1
+											"hp": 2.15
 										}
 									}
 								],
 								"tooltip": {
-									"en": "Enemy Max HP +110%",
-									"ja": "全ての敵の最大HP+110%",
-									"zh": "所有敌人的生命值提升110%"
+									"en": "Enemy Max HP +115%",
+									"ja": "全ての敵の最大HP+115%",
+									"zh": "所有敌人的生命值提升115%"
 								}
 							}
 						]
@@ -1487,8 +723,6 @@
 											"hp": 2,
 											"special": {
 												"spawn_woodenseal": {
-													"type": "others",
-													"can_silence": false,
 													"tooltip": {
 														"en": ["Spawns $4$ Wooden Seals when defeated", "cannot be Silenced"],
 														"ja": ["死亡すると「木製瑞印」を$4体$召喚する", "無効化不可能"],
@@ -1616,8 +850,6 @@
 											"hp": 1.5,
 											"special": {
 												"spawn_woodenseal": {
-													"type": "others",
-													"can_silence": false,
 													"tooltip": {
 														"en": ["Spawns 4 Wooden Seals when defeated", "cannot be Silenced"],
 														"ja": ["死亡すると「木製瑞印」を4体召喚する", "無効化不可能"],
@@ -2025,7 +1257,6 @@
 											"fixed_res": 20,
 											"special": {
 												"manfred_military_training": {
-													"type": "others",
 													"tooltip": {
 														"en": [
 															"[Military Training]→ gains 80% Physical/Arts evasion",
@@ -2038,7 +1269,7 @@
 														"zh": []
 													}
 												},
-												"extra": {
+												"halo": {
 													"tooltip": {
 														"en": [
 															"$[Halo]$→ When present on battlefield,",
@@ -2176,7 +1407,6 @@
 											"range": 1.5,
 											"special": {
 												"manfred_military_training": {
-													"type": "others",
 													"tooltip": {
 														"en": [
 															"[Military Training]→ gains 80% Physical/Arts evasion",
@@ -2190,15 +1420,10 @@
 													}
 												},
 												"manfred_range_atk_2": {
-													"type": "atk",
-													"suffix": {
-														"en": "ranged/arts",
-														"ja": "遠・術",
-														"zh": "远・法术"
-													},
-													"multiplier": 0.5,
+													"atk": { "multiplier": 0.5 },
+													"dmg_element": "arts",
+													"suffix": { "en": "ranged", "ja": "遠", "zh": "远" },
 													"hits": 1,
-													"fixed_inc": 0,
 													"tooltip": {
 														"en": [
 															"Normal attacks does 100% ATK Phys & 50% Arts damage and grants the Londinium Artillery $12$ SP",
@@ -2283,11 +1508,11 @@
 											"atk": 1.7,
 											"fixed_res": 20,
 											"special": {
-												"extra": {
+												"stealth": {
 													"tooltip": {
 														"en": ["$Stealth$"],
 														"ja": ["$ステルス$"],
-														"zh": ""
+														"zh": ["$隐匿$"]
 													}
 												}
 											}
@@ -2550,15 +1775,10 @@
 											"fixed_res": 50,
 											"special": {
 												"flamerazer_flamethrower": {
-													"type": "atk",
-													"suffix": {
-														"en": "🔥/arts",
-														"ja": "🔥・術",
-														"zh": "🔥・法术"
-													},
-													"multiplier": 0.12,
+													"atk": { "multiplier": 0.12 },
+													"dmg_element": "arts",
+													"suffix": { "en": "🔥", "ja": "🔥", "zh": "🔥" },
 													"hits": 1,
-													"fixed_inc": 0,
 													"tooltip": {
 														"en": [
 															"Skill (Initial SP: 0, $Cost:2$)",
@@ -2786,15 +2006,10 @@
 											"fixed_res": 30,
 											"special": {
 												"flamerazer_flamethrower": {
-													"type": "atk",
-													"suffix": {
-														"en": "🔥/arts",
-														"ja": "🔥・術",
-														"zh": "🔥・法术"
-													},
-													"multiplier": 0.12,
+													"atk": { "multiplier": 0.12 },
+													"dmg_element": "arts",
+													"suffix": { "en": "🔥", "ja": "🔥", "zh": "🔥" },
 													"hits": 1,
-													"fixed_inc": 0,
 													"tooltip": {
 														"en": [
 															"Skill (Initial SP: 0, Cost:10)",
@@ -2811,11 +2026,11 @@
 														"zh": []
 													}
 												},
-												"extra": {
+												"stealth": {
 													"tooltip": {
 														"en": ["$Stealth$"],
 														"ja": ["$ステルス$"],
-														"zh": [""]
+														"zh": ["$隐匿$"]
 													}
 												}
 											}
@@ -2948,7 +2163,6 @@
 											"fixed_res": 30,
 											"special": {
 												"sailor_stun": {
-													"type": "others",
 													"tooltip": {
 														"en": ["Every $3rd$ attack stuns target for 7s"],
 														"ja": ["攻撃$2回$の度に次の攻撃に相手を7秒スタンする"],
@@ -2982,7 +2196,6 @@
 											"fixed_res": 50,
 											"special": {
 												"sailor_stun": {
-													"type": "others",
 													"tooltip": {
 														"en": ["$Every attack$ stuns target for 7s"],
 														"ja": ["$攻撃の度に$相手を7秒スタンする"],
@@ -3028,7 +2241,6 @@
 										"mods": {
 											"special": {
 												"sailor_drown": {
-													"type": "others",
 													"tooltip": {
 														"en": ["When underwater, takes $400$ True damage every second"],
 														"ja": ["水蝕状態で毎秒$400$確定ダメージを受ける"],
@@ -3043,7 +2255,6 @@
 										"mods": {
 											"special": {
 												"sailor_drown2": {
-													"type": "others",
 													"tooltip": {
 														"en": ["When underwater, takes $560$ True damage every second"],
 														"ja": ["水蝕状態で毎秒$560$確定ダメージを受ける"],
@@ -3083,7 +2294,6 @@
 										"mods": {
 											"special": {
 												"sailor_drown": {
-													"type": "others",
 													"tooltip": {
 														"en": ["$No longer receives damage when underwater$"],
 														"ja": ["水蝕状態で$ダメージを受けなくなる$"],
@@ -3098,7 +2308,6 @@
 										"mods": {
 											"special": {
 												"sailor_drown2": {
-													"type": "others",
 													"tooltip": {
 														"en": ["$No longer receives damage when underwater$"],
 														"ja": ["水蝕状態で$ダメージを受けなくなる$"],
@@ -3789,11 +2998,11 @@
 											"hp": 1.6,
 											"atk": 1.6,
 											"special": {
-												"extra": {
+												"stealth": {
 													"tooltip": {
 														"en": ["$Stealth$"],
 														"ja": ["$ステルス$"],
-														"zh": ""
+														"zh": ["$隐匿$"]
 													}
 												}
 											}
@@ -3829,7 +3038,7 @@
 											"hp": 2.5,
 											"def": 1.3,
 											"special": {
-												"extra": {
+												"taunt": {
 													"tooltip": {
 														"en": ["$Taunt Level +1$"],
 														"ja": ["$攻撃されやすくなる$"],
@@ -4516,7 +3725,9 @@
 												},
 												"avenger_revive": {
 													"tooltip": {
-														"en": ["On defeat, recovers with 50% HP (once per battle) and gains invincibility for $5s$"],
+														"en": [
+															"On defeat, recovers with 50% HP (once per battle) and gains invincibility for $5s$"
+														],
 														"ja": ["倒されると一度だけHP50％で復活する、$5秒$間無敵になる"],
 														"zh": ["首次死亡后重生，重生花费5秒，恢复50%生命值，并获得$5s$无敌"]
 													}
@@ -4549,14 +3760,22 @@
 													"suffix": { "en": "HP↓50%", "ja": "HP50%以下", "zh": "HP50%以下" },
 													"atk": { "multiplier": 3.8 },
 													"tooltip": {
-														"en": ["HP↓50% - ATK increased to $<v.atk.multiplier>$% and $receives 30% less damage$"],
-														"ja": ["HP50%以下→攻撃力が$<v.atk.multiplier>%$に増加、$被ダメージ30%軽減$"],
-														"zh": ["生命值低于50%时，攻击力提升至$<v.atk.multiplier>%$，$受到的物理或法术伤害降低30%$"]
+														"en": [
+															"HP↓50% - ATK increased to $<v.atk.multiplier>$% and $receives 30% less damage$"
+														],
+														"ja": [
+															"HP50%以下→攻撃力が$<v.atk.multiplier>%$に増加、$被ダメージ30%軽減$"
+														],
+														"zh": [
+															"生命值低于50%时，攻击力提升至$<v.atk.multiplier>%$，$受到的物理或法术伤害降低30%$"
+														]
 													}
 												},
 												"avenger_revive": {
 													"tooltip": {
-														"en": ["On defeat, recovers with 50% HP (once per battle) and gains invincibility for $15s$"],
+														"en": [
+															"On defeat, recovers with 50% HP (once per battle) and gains invincibility for $15s$"
+														],
 														"ja": ["倒されると一度だけHP50％で復活する、$15秒$間無敵になる"],
 														"zh": ["首次死亡后重生，重生花费5秒，恢复50%生命值，并获得$15s$无敌"]
 													}
@@ -4597,14 +3816,22 @@
 													"suffix": { "en": "HP↓50%", "ja": "HP50%以下", "zh": "HP50%以下" },
 													"atk": { "multiplier": 3.8 },
 													"tooltip": {
-														"en": ["HP↓50% - ATK increased to $<v.atk.multiplier>$% and $receives 60% less damage$"],
-														"ja": ["HP50%以下→攻撃力が$<v.atk.multiplier>%$に増加、$被ダメージ60%軽減$"],
-														"zh": ["生命值低于50%时，攻击力提升至$<v.atk.multiplier>%$，$受到的物理或法术伤害降低60%$"]
+														"en": [
+															"HP↓50% - ATK increased to $<v.atk.multiplier>$% and $receives 60% less damage$"
+														],
+														"ja": [
+															"HP50%以下→攻撃力が$<v.atk.multiplier>%$に増加、$被ダメージ60%軽減$"
+														],
+														"zh": [
+															"生命值低于50%时，攻击力提升至$<v.atk.multiplier>%$，$受到的物理或法术伤害降低60%$"
+														]
 													}
 												},
 												"avenger_revive": {
 													"tooltip": {
-														"en": ["On defeat, recovers with 50% HP (once per battle) and gains invincibility for $20s$"],
+														"en": [
+															"On defeat, recovers with 50% HP (once per battle) and gains invincibility for $20s$"
+														],
 														"ja": ["倒されると一度だけHP50％で復活する、$20秒$間無敵になる"],
 														"zh": ["首次死亡后重生，重生花费5秒，恢复50%生命值，并获得$20s$无敌"]
 													}
@@ -5038,8 +4265,8 @@
 								"img": "无名庇护所/75px-Trap_enable_ore_1",
 								"effects": [],
 								"tooltip": {
-									"en": "",
-									"ja": "",
+									"en": "Additional 1 <Originium Altar> appears at the right side",
+									"ja": "源石祭壇を1個追加",
 									"zh": ""
 								}
 							}
