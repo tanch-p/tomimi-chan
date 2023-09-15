@@ -272,7 +272,7 @@
 	},
 	"splash": {
 		"value": 1,
-		"tiles": 8,	
+		"tiles": 8,
 		"tooltip": {
 			"en": ["Attacks do <v.%value>% splash to <v.tiles> tiles surrounding target"],
 			"ja": ["通常攻撃→攻撃対象の隣接<v.tiles>マスに<v.%value>％ダメージ"],
@@ -3003,7 +3003,7 @@
 	"nhapos_pollution": {
 		"tooltip": {
 			"en": ["Pollution - Allied units in a 1.1 tile radius receive 50/25 True damage per second"],
-			"ja": [""],
+			"ja": ["自身の半径1.1以内に蝕む穢れの効果を与える"],
 			"zh": ["释放污染秽蚀，使周围我方持续损失50/25生命"]
 		}
 	},
@@ -3022,7 +3022,7 @@
 			"en": [
 				"Upon death, releases a mist for 8s in a 2.0 tile radius which causes allied units to take 50/25 True damage per second"
 			],
-			"ja": [""],
+			"ja": ["死亡時、その場に蝕む穢れが発生"],
 			"zh": ["被击倒时释放污染秽蚀，使周围我方持续损失生命"]
 		}
 	},
@@ -3030,23 +3030,31 @@
 		"tooltip": {
 			"en": [
 				"Skill (Initial SP: 2, Cost:2) Attack Recovery",
-				"Next attack does 100% ATK as Physical damage and releases a mist for 8s in a 2.0 tile radius which causes allied units to take 50/25 True damage per second"
+				"Next attack does 100% ATK as Physical damage and releases a mist for 10s in a 2.0 tile radius which causes allied units to take 50/25 True damage per second"
 			],
-			"ja": [""],
+			"ja": [
+				"【汚染】（攻撃回復/初期SP2/必要SP2）",
+				"対象に攻撃力の100%の物理ダメージを与え、半径2.2で10秒持続する蝕む穢れを発生させる"
+			],
 			"zh": ["攻击2次后，下一次攻击会对攻击目标造成攻击力100%的伤害并释放污染秽蚀"]
 		}
 	},
 	"stmgun_bombard": {
 		"atk": { "multiplier": 0.55 },
 		"dmg_element": "arts",
-		"suffix": { "en": "Skill", "ja": "", "zh": "技能" },
+		"suffix": { "en": "Skill", "ja": "爆撃", "zh": "技能" },
 		"hits": 10,
 		"tooltip": {
 			"en": [
 				"Skill (Initial SP: 10, Cost:25)",
 				"Centering on the allied unit with the highest max HP, spawns a bombardment area within the surrounding 8 tiles. For 6s, deals 55% of ATK as Arts damage to the allied unit with the highest percentage HP"
 			],
-			"ja": [""],
+			"ja": [
+				"【爆撃】（自然回復/初期SP15/必要SP25）",
+				"攻撃範囲内で最も最大HPが高い味方を中心に、3×3マスの爆撃区域を設定",
+				"爆撃区域内で最もHP割合が高い味方に対し、攻撃力の55%の術ダメージを与える",
+				"爆撃中、強制移動・スタン・睡眠・凍結・浮遊耐性を得る"
+			],
 			"zh": ["锁定生命上限最高的目标进行数次轰炸，每次对范围内当前生命比例最高的单位造成法术伤害"]
 		}
 	},
@@ -3055,7 +3063,7 @@
 			"en": [
 				"When HP drops below 50%, gains Movespeed +100%, Attackspeed +100, and gains immunity to stun, sleep, freeze, levitate"
 			],
-			"ja": [""],
+			"ja": ["HPが50%以下になると、攻撃速度+100・移動速度+100%され、スタン・睡眠・凍結・浮遊耐性を得る"],
 			"zh": ["生命值降至一半时攻击速度+100，移动速度+100%", "且免疫晕眩，睡眠，冻结，浮空"]
 		}
 	},
@@ -3708,9 +3716,11 @@
 			"zh": ["首次死亡后重生，重生花费5秒，恢复50%生命值，并获得0s无敌"]
 		}
 	},
-	"avenger_charge":{
+	"avenger_charge": {
 		"tooltip": {
-			"en": ["Assault Charge - locks on and charges towards an allied unit, gaining +200% Movespeed for 4.5s"],
+			"en": [
+				"Assault Charge - locks on and charges towards an allied unit, gaining +200% Movespeed for 4.5s"
+			],
 			"ja": ["「突撃」→先方にある味方ユニットに向かって走り出す、4.5秒間移動速度+200%"],
 			"zh": ["【冲锋】锁定前方路径范围内的一名目标，4.5s内移动速度+200%"]
 		}

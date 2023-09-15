@@ -28,7 +28,7 @@
 								"img": "盐风溶洞/75px-Enemy_dslntc_amod_3",
 								"effects": [
 									{
-										"targets": ["SM9"],
+										"targets": ["enemy_1151_dslntc"],
 										"mods": {
 											"special": {
 												"sea_reaper_awaken": {
@@ -224,7 +224,7 @@
 								"img": "盐风溶洞/75px-Enemy_dsmant_amod_3",
 								"effects": [
 									{
-										"targets": ["FTT"],
+										"targets": ["enemy_1154_dsmant"],
 										"mods": {
 											"hp": 1.8,
 											"atk": 1.4,
@@ -263,7 +263,7 @@
 								"img": "盐风溶洞/75px-Enemy_dsmant_bmod_3",
 								"effects": [
 									{
-										"targets": ["FTT"],
+										"targets": ["enemy_1154_dsmant"],
 										"mods": {
 											"hp": 2.5,
 											"range": 1.35,
@@ -379,7 +379,7 @@
 								"img": "盐风溶洞/75px-Enemy_dsmant_amod_2",
 								"effects": [
 									{
-										"targets": ["FTT"],
+										"targets": ["enemy_1154_dsmant"],
 										"mods": {
 											"hp": 1.6,
 											"atk": 1.25,
@@ -411,7 +411,7 @@
 								"img": "盐风溶洞/75px-Enemy_dsmant_bmod_2",
 								"effects": [
 									{
-										"targets": ["FTT"],
+										"targets": ["enemy_1154_dsmant"],
 										"mods": {
 											"hp": "%100",
 											"range": "%35",
@@ -502,7 +502,7 @@
 								"img": "盐风溶洞/75px-Enemy_dsurch_3",
 								"effects": [
 									{
-										"targets": ["SM11"],
+										"targets": ["enemy_1152_dsurch"],
 										"mods": {
 											"special": {
 												"status_immune": ["stun", "freeze"],
@@ -636,7 +636,7 @@
 		"contracts": [
 			{
 				"type": "daily",
-				"id": "11-1",
+				"id": "12-1",
 				"list": [
 					{
 						"category": "operator_cost",
@@ -654,6 +654,26 @@
 									"en": "DP Cost of Snipers and Defenders tripled",
 									"zh": "",
 									"ja": "狙撃・重装の配置コストが3倍"
+								}
+							}
+						]
+					},
+					{
+						"category": "grids",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "Forbidden Grids 1",
+									"ja": "環境：峻険地形I",
+									"zh": ""
+								},
+								"img": "75px-Global_forbidloc_1",
+								"effects": [],
+								"tooltip": {
+									"en": "5 tiles on left side of map forbid deployment",
+									"ja": "マップ左の5つのマスが配置不可に",
+									"zh": ""
 								}
 							}
 						]
@@ -679,33 +699,6 @@
 						]
 					},
 					{
-						"category": "enemy_def",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "Increased Enemy DEF",
-									"ja": "増幅：装甲I",
-									"zh": "反装甲I"
-								},
-								"img": "75px-Enemy_def_1",
-								"effects": [
-									{
-										"targets": ["ALL"],
-										"mods": {
-											"fixed_def": 200
-										}
-									}
-								],
-								"tooltip": {
-									"en": "Enemy DEF +200",
-									"ja": "全ての敵の防御力+200",
-									"zh": "所有敌人的防御力提升200"
-								}
-							}
-						]
-					},
-					{
 						"category": "grindstone",
 						"options": [
 							{
@@ -718,7 +711,7 @@
 								"img": "尚蜀山道/75px-Enemy_sfyin2",
 								"effects": [
 									{
-										"targets": ["AN1"],
+										"targets": ["enemy_1195_sfyin"],
 										"mods": {
 											"hp": 2,
 											"special": {
@@ -742,175 +735,21 @@
 						]
 					},
 					{
-						"category": "char_hp",
-						"options": [
-							{
-								"rank": 2,
-								"name": {
-									"ja": "制限：体力減衰II",
-									"en": "Reduced Operator HP 2",
-									"zh": "源石环境：侵蚀II"
-								},
-								"img": "75px-Char_hp_2",
-								"effects": [],
-								"tooltip": {
-									"en": "Ally Max HP reduced -40%",
-									"ja": "全ての味方の最大HP-40%",
-									"zh": "所有我方单位的生命值上限降低40%"
-								}
-							}
-						]
-					},
-					{
-						"category": "cost_regen",
-						"options": [
-							{
-								"rank": 2,
-								"name": {
-									"en": "DP Down 2",
-									"ja": "指令：孤軍奮闘II",
-									"zh": "目标：深度渗透II"
-								},
-								"img": "75px-Global_costrecovery_2",
-								"effects": [],
-								"tooltip": {
-									"en": "DP Regeneration reduced by 50%",
-									"ja": "コストの自然回復速度-50%",
-									"zh": "部署费用的自然回复速度降低50%"
-								}
-							}
-						]
-					},
-					{
-						"category": "sharpedge",
-						"options": [
-							{
-								"rank": 3,
-								"name": {
-									"ja": "特化：尚武III",
-									"en": "Sharpedge 3",
-									"zh": ""
-								},
-								"img": "尚蜀山道/75px-Enemy_sfji_3",
-								"effects": [
-									{
-										"targets": ["AN26"],
-										"mods": { "hp": 2, "atk": 1.7, "def": 1.5, "fixed_res": 50 }
-									}
-								],
-								"tooltip": {
-									"en": "Sharpedge Max HP +100% ATK +70% DEF +50% RES +50",
-									"ja": "「磨礱」の最大HP+100%、攻撃力+70%、防御力+50%、術耐性+50",
-									"zh": ""
-								}
-							}
-						]
-					},
-					{
 						"category": "char_aspd",
 						"options": [
 							{
-								"rank": 3,
+								"rank": 2,
 								"name": {
-									"en": "Reduced Ally ASPD 3",
-									"ja": "制限：疲労累積III",
+									"en": "Reduced Ally ASPD 2",
+									"ja": "制限：疲労累積II",
 									"zh": ""
 								},
-								"img": "75px-Char_attackspeed_3",
+								"img": "75px-Char_attackspeed_2",
 								"effects": [],
 								"tooltip": {
-									"en": "All allies’ ASPD -60",
-									"ja": "全ての味方の攻撃速度-60",
+									"en": "All allies’ ASPD -40",
+									"ja": "全ての味方の攻撃速度-40",
 									"zh": ""
-								}
-							}
-						]
-					}
-				]
-			},
-			{
-				"type": "daily",
-				"id": "11-2",
-				"list": [
-					{
-						"category": "grindstone",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"ja": "特化：刻印I",
-									"en": "Grindstone I",
-									"zh": ""
-								},
-								"img": "尚蜀山道/75px-Enemy_sfyin1",
-								"effects": [
-									{
-										"targets": ["AN1"],
-										"mods": {
-											"hp": 1.5,
-											"special": {
-												"spawn_woodenseal": {
-													"tooltip": {
-														"en": ["Spawns 4 Wooden Seals when defeated", "cannot be Silenced"],
-														"ja": ["死亡すると「木製瑞印」を4体召喚する", "無効化不可能"],
-														"zh": []
-													}
-												}
-											}
-										}
-									}
-								],
-								"tooltip": {
-									"en": "<Grindstone> gain +50% HP and spawns 4 wooden seals when defeated.",
-									"zh": "",
-									"ja": "＜刻印＞の最大HP+50%、倒されたときに生成される＜木製瑞印＞を4体召喚する"
-								}
-							}
-						]
-					},
-					{
-						"category": "enemy_atk",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "Enemy ATK 1",
-									"ja": "増幅：火力I",
-									"zh": "源石环境：刺激I"
-								},
-								"img": "75px-Enemy_atk_1",
-								"effects": [
-									{
-										"targets": ["ALL"],
-										"mods": {
-											"atk": 1.15
-										}
-									}
-								],
-								"tooltip": {
-									"en": "All enemies ATK +15%",
-									"ja": "全ての敵の攻撃力+15%",
-									"zh": "所有敌人的攻击力提升15%"
-								}
-							}
-						]
-					},
-					{
-						"category": "lifepoint",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "None Escape",
-									"ja": "指令：背水の陣",
-									"zh": "目标：最后防线"
-								},
-								"img": "75px-Global_lifepoint_1",
-								"effects": [],
-								"tooltip": {
-									"en": "No enemies escape (Level HP set to 1)",
-									"ja": "防衛ラインの最大耐久値が1に",
-									"zh": "我方防御点可承受的敌方数量变为1 "
 								}
 							}
 						]
@@ -936,100 +775,48 @@
 						]
 					},
 					{
-						"category": "grids",
+						"category": "enemy_atk",
 						"options": [
 							{
-								"rank": 2,
+								"rank": 3,
 								"name": {
-									"en": "Forbidden Grids 2",
-									"ja": "環境：峻険地形II",
-									"zh": ""
+									"en": "Enemy ATK 3",
+									"ja": "増幅：火力III",
+									"zh": "源石环境：刺激III"
 								},
-								"img": "75px-Global_forbidloc_2",
+								"img": "75px-Enemy_atk_3",
+								"effects": [
+									{
+										"targets": ["ALL"],
+										"mods": {
+											"atk": 1.8
+										}
+									}
+								],
+								"tooltip": {
+									"en": "All enemies ATK +80%",
+									"ja": "全ての敵の攻撃力+80%",
+									"zh": "所有敌人的攻击力提升80%"
+								}
+							}
+						]
+					},
+					{
+						"category": "cost_regen",
+						"options": [
+							{
+								"rank": 3,
+								"name": {
+									"en": "DP Down 3",
+									"ja": "指令：孤軍奮闘III",
+									"zh": "目标：深度渗透III"
+								},
+								"img": "75px-Global_costrecovery_3",
 								"effects": [],
 								"tooltip": {
-									"en": "9 tiles forbid deployment",
-									"ja": "マップ上の9つのマスが配置不可に",
-									"zh": ""
-								}
-							}
-						]
-					},
-					{
-						"category": "enemy_aspd",
-						"options": [
-							{
-								"rank": 2,
-								"name": {
-									"en": "Enemy ASPD 2",
-									"ja": "増幅：ラッシュII",
-									"zh": ""
-								},
-								"img": "75px-Enemy_attackspeed_2",
-								"effects": [
-									{
-										"targets": ["ALL"],
-										"mods": {
-											"fixed_aspd": 60
-										}
-									}
-								],
-								"tooltip": {
-									"en": "Enemy ASPD +60",
-									"ja": "全ての敵の攻撃速度+60",
-									"zh": ""
-								}
-							}
-						]
-					},
-					{
-						"category": "blueflower",
-						"options": [
-							{
-								"rank": 3,
-								"name": {
-									"ja": "特化：釉彩III",
-									"en": "Blueflower 3",
-									"zh": ""
-								},
-								"img": "尚蜀山道/75px-Enemy_sfpin3",
-								"effects": [
-									{
-										"targets": ["AN21"],
-										"mods": { "atk": 1.5, "fixed_aspd": 45 }
-									}
-								],
-								"tooltip": {
-									"en": "Blueflower ATK +50% Attackspeed +45",
-									"ja": "「青花」の最攻撃力+50%、攻撃速度+45",
-									"zh": ""
-								}
-							}
-						]
-					},
-					{
-						"category": "enemy_ms",
-						"options": [
-							{
-								"rank": 3,
-								"name": {
-									"en": "Increased Enemy Movement Speed 3",
-									"ja": "増幅：機動力I",
-									"zh": ""
-								},
-								"img": "75px-Enemy_movespeed_3",
-								"effects": [
-									{
-										"targets": ["ALL"],
-										"mods": {
-											"ms": 1.7
-										}
-									}
-								],
-								"tooltip": {
-									"en": "Enemies movement speed +70%",
-									"ja": "全ての敵の移動速度+70%",
-									"zh": ""
+									"en": "DP Regeneration reduced by 75%",
+									"ja": "コストの自然回復速度-75%",
+									"zh": "部署费用的自然回复速度降低75%"
 								}
 							}
 						]
@@ -1099,28 +886,189 @@
 		"contracts": [
 			{
 				"type": "daily",
-				"id": "11-1",
+				"id": "12-1",
 				"list": [
 					{
-						"category": "cost_regen",
+						"category": "lifepoint",
 						"options": [
 							{
 								"rank": 1,
 								"name": {
-									"en": "DP Down 1",
-									"ja": "指令：孤軍奮闘I",
-									"zh": "目标：深度渗透I"
+									"en": "None Escape",
+									"ja": "指令：背水の陣",
+									"zh": "目标：最后防线"
 								},
-								"img": "75px-Global_costrecovery_1",
+								"img": "75px-Global_lifepoint_1",
 								"effects": [],
 								"tooltip": {
-									"en": "DP Regeneration reduced by 25%",
-									"ja": "コストの自然回復速度-25%",
-									"zh": "部署费用的自然回复速度降低25%"
+									"en": "No enemies escape (Level HP set to 1)",
+									"ja": "防衛ラインの最大耐久値が1に",
+									"zh": "我方防御点可承受的敌方数量变为1 "
 								}
 							}
 						]
 					},
+					{
+						"category": "grids_lt",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"ja": "環境：城壁崩落",
+									"en": "Forbidden Grids Left",
+									"zh": "环境：断墙残垣"
+								},
+								"img": "伦蒂尼姆边缘区块/75px-Global_forbidloc_lt_1",
+								"effects": [],
+								"tooltip": {
+									"en": "3 tiles on left forbid deployment",
+									"zh": "",
+									"ja": "マップ左の3つのマスが配置不可に"
+								}
+							}
+						]
+					},
+					{
+						"category": "grids_rt",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"ja": "環境：戦場跡地",
+									"en": "Forbidden Grids Right",
+									"zh": "环境：战场遗迹"
+								},
+								"img": "伦蒂尼姆边缘区块/75px-Global_forbidloc_rt_1",
+								"effects": [],
+								"tooltip": {
+									"en": "3 tiles on right forbid deployment",
+									"zh": "",
+									"ja": "マップ右の3つのマスが配置不可に"
+								}
+							}
+						]
+					},
+					{
+						"category": "enemy_atk",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "Enemy ATK 2",
+									"ja": "増幅：火力II",
+									"zh": "源石环境：刺激II"
+								},
+								"img": "75px-Enemy_atk_2",
+								"effects": [
+									{
+										"targets": ["ALL"],
+										"mods": {
+											"atk": 1.4
+										}
+									}
+								],
+								"tooltip": {
+									"en": "All enemies ATK +40%",
+									"ja": "全ての敵の攻撃力+40%",
+									"zh": "所有敌人的攻击力提升40%"
+								}
+							}
+						]
+					},
+					{
+						"category": "operator_cost",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "Firepower Contract",
+									"ja": "特化：重火力",
+									"zh": ""
+								},
+								"img": "75px-Char_cost_casterspecial_2",
+								"effects": [],
+								"tooltip": {
+									"en": "Caster and Specialist DP cost tripled and redeployment time +50%",
+									"ja": "術士・特殊の配置コストが3倍、再配置時間+50%",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "squad",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "Max Squad Size 2",
+									"ja": "環境：少数精鋭II",
+									"zh": "目标：隐秘行动II "
+								},
+								"img": "75px-Global_squadnum_2",
+								"effects": [],
+								"tooltip": {
+									"en": "Maximum 7 operators in squad",
+									"ja": "編成可能数が7人に",
+									"zh": "最多可编入7名干员进入作战"
+								}
+							}
+						]
+					},
+					{
+						"category": "char_atk",
+						"options": [
+							{
+								"rank": 3,
+								"name": {
+									"en": "Reduced Ally ATK 3",
+									"ja": "制限：火力減衰III",
+									"zh": "环境：高价值目标III"
+								},
+								"img": "75px-Char_atk_3",
+								"effects": [],
+								"tooltip": {
+									"en": "All allies’ ATK -50%",
+									"ja": "全ての味方の攻撃力-50%",
+									"zh": "所有我方单位的攻击力降低50%"
+								}
+							}
+						]
+					},
+					{
+						"category": "enemy_defres",
+						"options": [
+							{
+								"rank": 3,
+								"name": {
+									"en": "Enemy DEF/RES 3",
+									"ja": "増幅：精鋭装備III",
+									"zh": "目标：装备精良3"
+								},
+								"img": "75px-Enemy_defmagicresis_3",
+								"effects": [
+									{
+										"targets": ["ALL"],
+										"mods": {
+											"def": 1.5,
+											"fixed_res": 20
+										}
+									}
+								],
+								"tooltip": {
+									"en": "All enemies DEF +50%, RES +20",
+									"ja": "全ての敵の防御力+50%、術耐性+20",
+									"zh": "所有敌人的防御力提升50%，法术抗性提升20"
+								}
+							}
+						]
+					}
+				]
+			},
+			{
+				"type": "daily",
+				"id": "12-2",
+				"list": [
 					{
 						"category": "lifepoint",
 						"options": [
@@ -1169,29 +1117,48 @@
 						]
 					},
 					{
-						"category": "creation",
+						"category": "char_respawn",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"ja": "制限：効率低下I",
+									"en": "Reduced Operator Redeployment 1",
+									"zh": "目标：效率低下I"
+								},
+								"img": "75px-Char_respawntime_1",
+								"effects": [],
+								"tooltip": {
+									"en": "Ally redeployment time increased by 75%",
+									"ja": "全ての味方の再配置時間+75%",
+									"zh": "所有我方单位的再部署时间延长75%"
+								}
+							}
+						]
+					},
+					{
+						"category": "enemy_atk",
 						"options": [
 							{
 								"rank": 2,
 								"name": {
-									"en": "Born Anew 2",
-									"ja": "新たな生命II",
-									"zh": ""
+									"en": "Enemy ATK 2",
+									"ja": "増幅：火力II",
+									"zh": "源石环境：刺激II"
 								},
-								"img": "伦蒂尼姆边缘区块/75px-Enemy_dzom_2",
+								"img": "75px-Enemy_atk_2",
 								"effects": [
 									{
-										"targets": ["SCI1", "SCI3"],
+										"targets": ["ALL"],
 										"mods": {
-											"hp": 1.2,
-											"atk": 1.3
+											"atk": 1.4
 										}
 									}
 								],
 								"tooltip": {
-									"en": "Reborn Creations have their HP and ATK increased by 20% and 30%, respectively",
-									"zh": "",
-									"ja": "全ての敵【再生造物】の最大HP+20%、攻撃力+30%"
+									"en": "All enemies ATK +40%",
+									"ja": "全ての敵の攻撃力+40%",
+									"zh": "所有敌人的攻击力提升40%"
 								}
 							}
 						]
@@ -1212,259 +1179,6 @@
 									"en": "All allies’ ATK -30%",
 									"ja": "全ての味方の攻撃力-30%",
 									"zh": "所有我方单位的攻击力降低30%"
-								}
-							}
-						]
-					},
-					{
-						"category": "char_hp",
-						"options": [
-							{
-								"rank": 2,
-								"name": {
-									"ja": "制限：体力減衰II",
-									"en": "Reduced Operator HP 2",
-									"zh": "源石环境：侵蚀II"
-								},
-								"img": "75px-Char_hp_2",
-								"effects": [],
-								"tooltip": {
-									"en": "Ally Max HP reduced -35%",
-									"ja": "全ての味方の最大HP-35%",
-									"zh": "所有我方单位的生命值上限降低35%"
-								}
-							}
-						]
-					},
-					{
-						"category": "manfred",
-						"options": [
-							{
-								"rank": 3,
-								"latter": true,
-								"name": {
-									"en": "Manfred: Death Trap 3",
-									"ja": "大君の助力III",
-									"zh": ""
-								},
-								"img": "伦蒂尼姆边缘区块/75px-Enemy_manfri_bmod_3",
-								"effects": [
-									{
-										"targets": ["MAN"],
-										"mods": {
-											"hp": 2.5,
-											"atk": 1.4,
-											"fixed_res": 20,
-											"special": {
-												"manfred_military_training": {
-													"tooltip": {
-														"en": [
-															"[Military Training]→ gains 80% Physical/Arts evasion",
-															"When hit by Londinium Artillery, lose this effect for $8s$ and become stunned for 8s"
-														],
-														"ja": [
-															"【軍事訓練】→物理・術回避率+80%",
-															"副砲に当たると、回避効果が$12秒$間無効化され、$スタンされなくなる$"
-														],
-														"zh": []
-													}
-												},
-												"halo": {
-													"tooltip": {
-														"en": [
-															"$[Halo]$→ When present on battlefield,",
-															"grants all 'Reborn Creations' and enemies that spawn 'Reborn Creation' upon death",
-															"an aura that deals 5% of Manfred's ATK as Arts damage to all allied units in a 1.25 tile radius every 0.5s"
-														],
-														"ja": [
-															"$追加能力→戦場滞在中、全ての再生造物及び再生造物を生成する敵が周囲に継続的に術ダメージを与える$"
-														],
-														"zh": ""
-													}
-												}
-											}
-										}
-									}
-								],
-								"tooltip": {
-									"en": "Manfred has his HP, ATK, and RES increased by 150%, 40%, and 20, respectively, and spawns earlier; his Military Training is only disabled for 8 seconds when struck by the Londinium Secondary Defense Artillery; while present, Reborn Creations and Sarkaz Heirbearer Artificers/Hatedrinkers deal Arts damage equal to 5% of Manfred's ATK every 0.5 seconds to friendly units in a radius of 1.25 tiles ",
-									"ja": "＜Manfred＞の最大HP+150%、攻撃力+40%、術耐性+20、【軍事訓練】の効果復活までの時間が8秒に短縮、早めに出現、Manfredが戦場にいる間、再生造物とそれを発生させる敵の周囲にいる味方はManfredの攻撃力の5%の術ダメージを受け続ける",
-									"zh": ""
-								}
-							}
-						]
-					},
-					{
-						"category": "enemy_defres",
-						"options": [
-							{
-								"rank": 3,
-								"name": {
-									"en": "Enemy DEF/RES 3",
-									"ja": "増幅：装甲3",
-									"zh": "目标：装备精良3"
-								},
-								"img": "75px-Enemy_defmagicresis_3",
-								"effects": [{ "targets": ["ALL"], "mods": { "def": 1.5, "fixed_res": 20 } }],
-								"tooltip": {
-									"en": "Enemy DEF +50%, RES +20",
-									"ja": "全ての敵の防御力+50%、術耐性+20",
-									"zh": "所有敌人的防御力提升50%，法术抗性提升20"
-								}
-							}
-						]
-					}
-				]
-			},
-			{
-				"type": "daily",
-				"id": "11-2",
-				"list": [
-					{
-						"category": "enemy_atk",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "Enemy ATK 1",
-									"ja": "増幅：火力I",
-									"zh": "源石环境：刺激I"
-								},
-								"img": "75px-Enemy_atk_1",
-								"effects": [
-									{
-										"targets": ["ALL"],
-										"mods": {
-											"atk": 1.15
-										}
-									}
-								],
-								"tooltip": {
-									"en": "All enemies ATK +15%",
-									"ja": "全ての敵の攻撃力+15%",
-									"zh": "所有敌人的攻击力提升15%"
-								}
-							}
-						]
-					},
-					{
-						"category": "char_hp",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"ja": "制限：体力減衰I",
-									"en": "Reduced Operator HP 1",
-									"zh": "源石环境：侵蚀I"
-								},
-								"img": "75px-Char_hp_1",
-								"effects": [],
-								"tooltip": {
-									"en": "Ally Max HP reduced -15%",
-									"ja": "全ての味方の最大HP-15%",
-									"zh": "所有我方单位的生命值上限降低15%"
-								}
-							}
-						]
-					},
-					{
-						"category": "lifepoint",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "None Escape",
-									"ja": "指令：背水の陣",
-									"zh": "目标：最后防线"
-								},
-								"img": "75px-Global_lifepoint_1",
-								"effects": [],
-								"tooltip": {
-									"en": "No enemies escape (Level HP set to 1)",
-									"ja": "防衛ラインの最大耐久値が1に",
-									"zh": "我方防御点可承受的敌方数量变为1 "
-								}
-							}
-						]
-					},
-					{
-						"category": "manfred",
-						"options": [
-							{
-								"rank": 2,
-								"name": {
-									"en": "Manfred: Teekaz Reborn 2",
-									"ja": "ティカズの芽吹きII",
-									"zh": ""
-								},
-								"img": "伦蒂尼姆边缘区块/75px-Enemy_manfri_amod_2",
-								"effects": [
-									{
-										"targets": ["MAN"],
-										"mods": {
-											"hp": 1.7,
-											"atk": 1.5,
-											"range": 1.5,
-											"special": {
-												"manfred_military_training": {
-													"tooltip": {
-														"en": [
-															"[Military Training]→ gains 80% Physical/Arts evasion",
-															"When hit by Londinium Artillery, lose this effect for $12s and does not get stunned$"
-														],
-														"ja": [
-															"【軍事訓練】→物理・術回避率+80%",
-															"副砲に当たると、回避効果が$12秒$間無効化され、$スタンされなくなる$"
-														],
-														"zh": []
-													}
-												},
-												"manfred_range_atk_2": {
-													"atk": { "multiplier": 0.5 },
-													"dmg_element": "arts",
-													"suffix": { "en": "ranged", "ja": "遠", "zh": "远" },
-													"hits": 1,
-													"tooltip": {
-														"en": [
-															"Normal attacks does 100% ATK Phys & 50% Arts damage and grants the Londinium Artillery $12$ SP",
-															"$Targets max 2 targets in a 1.5 tile radius. If only one target exists, deals damage twice to the target$"
-														],
-														"ja": [
-															"通常攻撃は攻撃力の100%の物理と50%の術ダメージを与え",
-															"2体同時攻撃（1.5マスの射程内1体のみいるの場合は2回連続攻撃）",
-															"攻撃の度に、副砲のSPを$+12$する"
-														],
-														"zh": []
-													}
-												}
-											}
-										}
-									}
-								],
-								"tooltip": {
-									"en": "Manfred has his HP and ATK/attack range increased by 70% and 50%, respectively, and immune to Stun; his Military Training is only disabled for 12 seconds when struck by the Londinium Secondary Defense Artillery; the Teekazwurtzen in Manfred's second phase can attack two targets simultaneously (attacks twice if there is only one target) ",
-									"ja": "＜Manfred＞の最大HP+70%、攻撃力+50%、攻撃半径+50%、【軍事訓練】の効果復活までの時間が12秒に短縮、スタン無効、第二形態時浮遊砲の同時攻撃対象数+1",
-									"zh": ""
-								}
-							}
-						]
-					},
-					{
-						"category": "operator_cost",
-						"options": [
-							{
-								"rank": 2,
-								"name": {
-									"en": "Firepower Contract",
-									"ja": "特化：重火力",
-									"zh": ""
-								},
-								"img": "75px-Char_cost_casterspecial_2",
-								"effects": [],
-								"tooltip": {
-									"en": "Caster and Specialist DP cost tripled and redeployment time +50%",
-									"ja": "術士・特殊の配置コストが3倍、再配置時間+50%",
-									"zh": ""
 								}
 							}
 						]
@@ -1503,16 +1217,16 @@
 								"img": "伦蒂尼姆边缘区块/75px-Enemy_dklord_3",
 								"effects": [
 									{
-										"targets": ["SCI7", "SCI13"],
+										"targets": ["enemy_1223_dmech", "enemy_1226_dklord"],
 										"mods": {
 											"atk": 1.7,
 											"fixed_res": 20,
 											"special": {
-												"stealth": {
+												"extra": {
 													"tooltip": {
 														"en": ["$Stealth$"],
 														"ja": ["$ステルス$"],
-														"zh": ["$隐匿$"]
+														"zh": ""
 													}
 												}
 											}
@@ -1528,29 +1242,63 @@
 						]
 					},
 					{
-						"category": "creation",
+						"category": "manfred",
 						"options": [
 							{
 								"rank": 3,
 								"name": {
-									"en": "Born Anew 3",
-									"ja": "特化：新たな生命III",
+									"en": "Manfred: Teekaz Reborn 3",
+									"ja": "ティカズの芽吹きIII",
 									"zh": ""
 								},
-								"img": "伦蒂尼姆边缘区块/75px-Enemy_dzom_2",
+								"img": "伦蒂尼姆边缘区块/75px-Enemy_manfri_amod_3",
 								"effects": [
 									{
-										"targets": ["SCI1", "SCI3"],
+										"targets": ["enemy_1528_manfri"],
 										"mods": {
-											"hp": 1.3,
-											"atk": 1.4
+											"hp": 2,
+											"atk": 1.7,
+											"range": 1.5,
+											"special": {
+												"manfred_military_training": {
+													"tooltip": {
+														"en": [
+															"[Military Training]→ gains 80% Physical/Arts evasion",
+															"When hit by Londinium Artillery, lose this effect for $8s and does not get stunned$"
+														],
+														"ja": [
+															"【軍事訓練】→物理・術回避率+80%",
+															"副砲に当たると、回避効果が$8秒$間無効化され、$スタンされなくなる$"
+														],
+														"zh": []
+													}
+												},
+												"manfred_range_atk_2": {
+													"atk": { "multiplier": 0.5 },
+													"dmg_element": "arts",
+													"suffix": { "en": "ranged", "ja": "遠", "zh": "远" },
+													"hits": 1,
+													"tooltip": {
+														"en": [
+															"Normal attacks does 100% ATK Phys & 50% Arts damage and grants the Londinium Artillery $12$ SP",
+															"$Targets max 2 targets in a 1.5 tile radius. If only one target exists, deals damage twice to the target$"
+														],
+														"ja": [
+															"通常攻撃は攻撃力の100%の物理と50%の術ダメージを与え",
+															"2体同時攻撃（1.5マスの射程内1体のみいるの場合は2回連続攻撃）",
+															"攻撃の度に、副砲のSPを$+12$する"
+														],
+														"zh": []
+													}
+												}
+											}
 										}
 									}
 								],
 								"tooltip": {
-									"en": "Reborn Creations have their HP and ATK increased by 30% and 40%, respectively",
-									"zh": "",
-									"ja": "全ての敵【再生造物】の最大HP+30%、攻撃力+40%"
+									"en": "Manfred gains +100% HP, +70% ATK, +50% Attack range, and becomes immune to Stun; his Military Training is only disabled for 8 seconds when struck by the Londinium Secondary Defense Artillery; the Teekazwurtzen in Manfred's second phase can attack two targets simultaneously (attacks twice if there is only one target) ",
+									"ja": "＜Manfred＞の最大HP+100%、攻撃力+70%、攻撃半径+50%、【軍事訓練】の効果復活までの時間が8秒に短縮、スタン無効、第二形態時浮遊砲の同時攻撃対象数+1",
+									"zh": ""
 								}
 							}
 						]
@@ -1620,137 +1368,71 @@
 		"contracts": [
 			{
 				"type": "daily",
-				"id": "11-1",
+				"id": "12-1",
 				"list": [
 					{
-						"category": "char_res",
+						"category": "char_aspd",
 						"options": [
 							{
 								"rank": 1,
 								"name": {
-									"en": "Reduced Ally RES 1",
-									"ja": "制限：術耐性I",
+									"en": "Reduced Ally ASPD 1",
+									"ja": "制限：疲労累積I",
 									"zh": ""
 								},
-								"img": "75px-Char_magicresistance_1",
+								"img": "75px-Char_attackspeed_1",
 								"effects": [],
 								"tooltip": {
-									"en": "All allies’ RES -12",
-									"ja": "全ての味方の術耐性-12",
+									"en": "All allies’ ASPD -20",
+									"ja": "全ての味方の攻撃速度-20",
 									"zh": ""
 								}
 							}
 						]
 					},
 					{
-						"category": "explosives",
+						"category": "lifepoint",
 						"options": [
 							{
 								"rank": 1,
 								"name": {
-									"en": "No Explosives",
-									"ja": "爆発物取締",
-									"zh": ""
+									"en": "None Escape",
+									"ja": "指令：背水の陣",
+									"zh": "目标：最后防线"
 								},
-								"img": "小丘郡物流站/75px-Global_dublst_1",
+								"img": "75px-Global_lifepoint_1",
 								"effects": [],
 								"tooltip": {
-									"en": "Number of deployable explosives decreased to 0",
-									"ja": "配置可能の爆発物が0になる",
-									"zh": ""
+									"en": "No enemies escape (Level HP set to 1)",
+									"ja": "防衛ラインの最大耐久値が1に",
+									"zh": "我方防御点可承受的敌方数量变为1 "
 								}
 							}
 						]
 					},
 					{
-						"category": "char_skill",
+						"category": "enemy_def",
 						"options": [
 							{
 								"rank": 1,
 								"name": {
-									"en": "Increased Ally SP Cost",
-									"ja": "環境：阻害I",
-									"zh": ""
+									"en": "Increased Enemy DEF",
+									"ja": "増幅：装甲I",
+									"zh": "反装甲I"
 								},
-								"img": "75px-Char_cdtime_1",
-								"effects": [],
-								"tooltip": {
-									"en": "All allies’ skill sp cost +20%",
-									"ja": "スキル発動に必要なSPが20%増加",
-									"zh": ""
-								}
-							}
-						]
-					},
-					{
-						"category": "evocator",
-						"options": [
-							{
-								"rank": 2,
-								"name": {
-									"ja": "特化：喚起術師II",
-									"en": "Evocator 2",
-									"zh": ""
-								},
-								"img": "小丘郡物流站/75px-Enemy_dusocr_bmod_2",
+								"img": "75px-Enemy_def_1",
 								"effects": [
 									{
-										"targets": ["DU21"],
+										"targets": ["ALL"],
 										"mods": {
-											"hp": 2.5
-										}
-									},
-									{
-										"targets": ["enemy_1177_dufrbl"],
-										"mods": {
-											"atk": 1.6
+											"fixed_def": 200
 										}
 									}
 								],
 								"tooltip": {
-									"en": ["<Dublinn Evocator> Max HP +150%, Fireball's damage +60%"],
-									"ja": ["＜ダブリン焼滅者＞の最大HP+150%、炎の攻撃力+60%"],
-									"zh": []
-								}
-							}
-						]
-					},
-					{
-						"category": "char_hp",
-						"options": [
-							{
-								"rank": 2,
-								"name": {
-									"ja": "制限：体力減衰II",
-									"en": "Reduced Operator HP 2",
-									"zh": "源石环境：侵蚀II"
-								},
-								"img": "75px-Char_hp_2",
-								"effects": [],
-								"tooltip": {
-									"en": "Ally Max HP reduced -35%",
-									"ja": "全ての味方の最大HP-35%",
-									"zh": "所有我方单位的生命值上限降低35%"
-								}
-							}
-						]
-					},
-					{
-						"category": "operator_cost",
-						"options": [
-							{
-								"rank": 2,
-								"name": {
-									"ja": "特化：縦深攻撃",
-									"en": "Sniper and Guard 2",
-									"zh": ""
-								},
-								"img": "75px-Char_cost_sniperguard_2",
-								"effects": [],
-								"tooltip": {
-									"en": "DP Cost of Snipers and Guards tripled and redeployment time increased by 50%",
-									"zh": "",
-									"ja": "狙撃・前衛の配置コストが3倍、再配置時間+50%"
+									"en": "Enemy DEF +200",
+									"ja": "全ての敵の防御力+200",
+									"zh": "所有敌人的防御力提升200"
 								}
 							}
 						]
@@ -1759,20 +1441,20 @@
 						"category": "flamerazer",
 						"options": [
 							{
-								"rank": 3,
+								"rank": 2,
 								"name": {
-									"ja": "特化：焼滅の焔III",
-									"en": "Incinerator: Path of Blaze 3",
+									"ja": "特化：火炎放射II",
+									"en": "Flamerazer 2",
 									"zh": ""
 								},
-								"img": "小丘郡物流站/75px-Enemy_duspfr_amod_3",
+								"img": "小丘郡物流站/75px-Enemy_duspfr_bmod_2",
 								"effects": [
 									{
-										"targets": ["DU15"],
+										"targets": ["enemy_1173_duspfr"],
 										"mods": {
-											"hp": 2.5,
+											"hp": 1.7,
 											"atk": 1.5,
-											"fixed_res": 50,
+											"fixed_res": 20,
 											"special": {
 												"flamerazer_flamethrower": {
 													"atk": { "multiplier": 0.12 },
@@ -1781,18 +1463,25 @@
 													"hits": 1,
 													"tooltip": {
 														"en": [
-															"Skill (Initial SP: 0, $Cost:2$)",
-															"Does 12% of ATK as Arts damage and 6% ATK as Burn Damage every 0.5s for 10.6s",
+															"Skill (Initial SP: 0, Cost:10)",
+															"Does 12% of ATK as Arts damage and 6% ATK as Burn Damage every 0.5s for $21s$",
 															"Resets cooldown if skill is used again while chanelling",
 															"6s after channeling, enters cooldown",
 															"Skill is stopped when silenced/stunned"
 														],
 														"ja": [
-															"火炎放射（初期SP0、$必要SP2$）",
-															"10.6秒間、0.5秒ごとに攻撃力の12%の術ダメージと6%の灼熱ダメージを与える",
+															"火炎放射（初期SP0、必要SP10）",
+															"$21秒間$、0.5秒ごとに攻撃力の12%の術ダメージと6%の灼熱ダメージを与える",
 															"無効化かスタンで中断できる"
 														],
 														"zh": []
+													}
+												},
+												"stealth": {
+													"tooltip": {
+														"en": ["$Stealth$"],
+														"ja": ["$ステルス$"],
+														"zh": ["$隐匿$"]
 													}
 												}
 											}
@@ -1800,10 +1489,89 @@
 									}
 								],
 								"tooltip": {
-									"en": ["[Flamerazer] HP +150%, ATK +50%, RES +50, Skill CD decreased by 80%"],
-									"ja": [
-										"＜ダブリン焼滅者＞の最大HP+150%、攻撃力+50%、術耐性+50、【火炎放射】の発動間隔が80%短縮"
+									"en": [
+										"[Flamerazer] HP +70%, ATK +50%, RES +20, Skill duration increased by 50%"
 									],
+									"ja": [
+										"＜ダブリン焼滅者＞の最大HP+70%、攻撃力+50%、術耐性+20、スキル継続時間+50%"
+									],
+									"zh": []
+								}
+							}
+						]
+					},
+					{
+						"category": "enemy_hp",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "Enemy HP 2",
+									"ja": "増幅：体力II",
+									"zh": "源石环境：活性II"
+								},
+								"img": "75px-Enemy_hp_2",
+								"effects": [
+									{
+										"targets": ["ALL"],
+										"mods": {
+											"hp": 1.7
+										}
+									}
+								],
+								"tooltip": {
+									"en": "Enemy Max HP +70%",
+									"ja": "全ての敵の最大HP+70%",
+									"zh": "所有敌人的生命值提升70%"
+								}
+							}
+						]
+					},
+					{
+						"category": "char_atk",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "Reduced Ally ATK 2",
+									"ja": "制限：火力減衰II",
+									"zh": "环境：高价值目标II"
+								},
+								"img": "75px-Char_atk_2",
+								"effects": [],
+								"tooltip": {
+									"en": "All allies’ ATK -30%",
+									"ja": "全ての味方の攻撃力-30%",
+									"zh": "所有我方单位的攻击力降低30%"
+								}
+							}
+						]
+					},
+					{
+						"category": "ggy",
+						"options": [
+							{
+								"rank": 3,
+								"name": {
+									"ja": "特化：優良石材III",
+									"en": "Gargoyle 3",
+									"zh": ""
+								},
+								"img": "小丘郡物流站/75px-Enemy_dugago_3",
+								"effects": [
+									{
+										"targets": ["enemy_1172_dugago"],
+										"mods": {
+											"hp": 1.9,
+											"atk": 1.7,
+											"def": 1.5,
+											"ms": 1.5
+										}
+									}
+								],
+								"tooltip": {
+									"en": ["[Tombkeeper Grotesque] HP +90%, ATK +70%, DEF +50%, Movespeed +50%"],
+									"ja": ["＜墓守の石像＞の最大HP+90%、攻撃力+70%、防御力+50%、移動速度+50%"],
 									"zh": []
 								}
 							}
@@ -1840,7 +1608,7 @@
 			},
 			{
 				"type": "daily",
-				"id": "11-2",
+				"id": "12-2",
 				"list": [
 					{
 						"category": "lifepoint",
@@ -1890,20 +1658,20 @@
 						]
 					},
 					{
-						"category": "explosives",
+						"category": "char_res",
 						"options": [
 							{
 								"rank": 1,
 								"name": {
-									"en": "No Explosives",
-									"ja": "爆発物取締",
+									"en": "Reduced Ally RES 1",
+									"ja": "制限：術耐性I",
 									"zh": ""
 								},
-								"img": "小丘郡物流站/75px-Global_dublst_1",
+								"img": "75px-Char_magicresistance_1",
 								"effects": [],
 								"tooltip": {
-									"en": "Number of deployable explosives decreased to 0",
-									"ja": "配置可能の爆発物が0になる",
+									"en": "All allies’ RES -12",
+									"ja": "全ての味方の術耐性-12",
 									"zh": ""
 								}
 							}
@@ -1922,7 +1690,7 @@
 								"img": "小丘郡物流站/75px-Enemy_dugago_2",
 								"effects": [
 									{
-										"targets": ["GGY1"],
+										"targets": ["enemy_1172_dugago"],
 										"mods": {
 											"hp": 1.5,
 											"atk": 1.5,
@@ -1940,48 +1708,103 @@
 						]
 					},
 					{
-						"category": "enemy_hp",
+						"category": "enemy_atk",
 						"options": [
 							{
 								"rank": 2,
 								"name": {
-									"en": "Enemy HP 2",
-									"ja": "増幅：体力II",
-									"zh": "源石环境：活性II"
+									"en": "Enemy ATK 2",
+									"ja": "増幅：火力II",
+									"zh": "源石环境：刺激II"
 								},
-								"img": "75px-Enemy_hp_2",
+								"img": "75px-Enemy_atk_2",
 								"effects": [
 									{
 										"targets": ["ALL"],
 										"mods": {
-											"hp": 1.7
+											"atk": 1.5
 										}
 									}
 								],
 								"tooltip": {
-									"en": "All enemies Max HP +70%",
-									"ja": "全ての敵の最大HP+70%",
-									"zh": "所有敌人的生命值提升70%"
+									"en": "All enemies ATK +50%",
+									"ja": "全ての敵の攻撃力+50%",
+									"zh": "所有敌人的攻击力提升50%"
 								}
 							}
 						]
 					},
 					{
-						"category": "char_aspd",
+						"category": "cost_regen",
 						"options": [
 							{
 								"rank": 2,
 								"name": {
-									"en": "Reduced Ally ASPD 2",
-									"ja": "制限：疲労累積II",
-									"zh": ""
+									"en": "DP Down 2",
+									"ja": "指令：孤軍奮闘II",
+									"zh": "目标：深度渗透II"
 								},
-								"img": "75px-Char_attackspeed_2",
+								"img": "75px-Global_costrecovery_2",
 								"effects": [],
 								"tooltip": {
-									"en": "All allies’ ASPD -40",
-									"ja": "全ての味方の攻撃速度-40",
+									"en": "DP Regeneration reduced by 50%",
+									"ja": "コストの自然回復速度-50%",
+									"zh": "部署费用的自然回复速度降低50%"
+								}
+							}
+						]
+					},
+					{
+						"category": "evocator",
+						"options": [
+							{
+								"rank": 3,
+								"name": {
+									"ja": "特化：燃焼維持III",
+									"en": "Evocator：Stability 3",
 									"zh": ""
+								},
+								"img": "小丘郡物流站/75px-Enemy_dusocr_amod_3",
+								"effects": [
+									{
+										"targets": ["enemy_1176_dusocr"],
+										"mods": {
+											"hp": 1.8,
+											"def": 1.5,
+											"fixed_res": 20
+										}
+									},
+									{
+										"targets": ["enemy_1177_dufrbl"],
+										"mods": {
+											"special": {
+												"dublinn_fireball": {
+													"tooltip": {
+														"en": [
+															"Fireball explodes on contact with melee unit, dealing arts and burn damage to units within range 1.8",
+															"$Fireball's ATK no longer decreases over distance travelled$"
+														],
+														"ja": [
+															"火球は地上にいる味方に触れると爆発、半径1.8内に術と灼熱ダメージを与える",
+															"$時間経過で炎の攻撃力が減少しない$"
+														],
+														"zh": [
+															"爆炸对以净浊之焰为中心半径1.8范围内所有我方单位造成攻击力100%法术普通伤害和攻击力100%灼燃损伤，随后自身消失"
+														]
+													}
+												}
+											}
+										}
+									}
+								],
+								"tooltip": {
+									"en": [
+										"[Dublinn Evocator] HP +80%, DEF +50%, RES +20, Fireball's damage no longer decreases over disance travelled"
+									],
+									"ja": [
+										"＜ダブリン焼滅者＞の最大HP+80%、防御力+50%、術耐性+20、時間経過で炎の攻撃力が減少しなくなる"
+									],
+									"zh": []
 								}
 							}
 						]
@@ -1992,18 +1815,18 @@
 							{
 								"rank": 3,
 								"name": {
-									"ja": "特化：火炎放射III",
-									"en": "Flamerazer 3",
+									"ja": "特化：焼滅の焔III",
+									"en": "Incinerator: Path of Blaze 3",
 									"zh": ""
 								},
 								"img": "小丘郡物流站/75px-Enemy_duspfr_amod_3",
 								"effects": [
 									{
-										"targets": ["DU15"],
+										"targets": ["enemy_1173_duspfr"],
 										"mods": {
-											"hp": 1.9,
-											"atk": 1.8,
-											"fixed_res": 30,
+											"hp": 2.5,
+											"atk": 1.5,
+											"fixed_res": 50,
 											"special": {
 												"flamerazer_flamethrower": {
 													"atk": { "multiplier": 0.12 },
@@ -2012,25 +1835,18 @@
 													"hits": 1,
 													"tooltip": {
 														"en": [
-															"Skill (Initial SP: 0, Cost:10)",
-															"Does 12% of ATK as Arts damage and 6% ATK as Burn Damage every 0.5s for $21s$",
+															"Skill (Initial SP: 0, $Cost:2$)",
+															"Does 12% of ATK as Arts damage and 6% ATK as Burn Damage every 0.5s for 10.6s",
 															"Resets cooldown if skill is used again while chanelling",
 															"6s after channeling, enters cooldown",
 															"Skill is stopped when silenced/stunned"
 														],
 														"ja": [
-															"火炎放射（初期SP0、必要SP10）",
-															"$21秒間$、0.5秒ごとに攻撃力の12%の術ダメージと6%の灼熱ダメージを与える",
+															"火炎放射（初期SP0、$必要SP2$）",
+															"10.6秒間、0.5秒ごとに攻撃力の12%の術ダメージと6%の灼熱ダメージを与える",
 															"無効化かスタンで中断できる"
 														],
 														"zh": []
-													}
-												},
-												"stealth": {
-													"tooltip": {
-														"en": ["$Stealth$"],
-														"ja": ["$ステルス$"],
-														"zh": ["$隐匿$"]
 													}
 												}
 											}
@@ -2038,33 +1854,11 @@
 									}
 								],
 								"tooltip": {
-									"en": [
-										"[Flamerazer] HP +70%, ATK +50%, RES +20, Skill duration increased by 50%"
-									],
+									"en": ["[Flamerazer] HP +150%, ATK +50%, RES +50, Skill CD decreased by 80%"],
 									"ja": [
-										"＜ダブリン焼滅者＞の最大HP+70%、攻撃力+50%、術耐性+20、スキル継続時間+50%"
+										"＜ダブリン焼滅者＞の最大HP+150%、攻撃力+50%、術耐性+50、スキルのクールタイム-80%"
 									],
 									"zh": []
-								}
-							}
-						]
-					},
-					{
-						"category": "cost_regen",
-						"options": [
-							{
-								"rank": 3,
-								"name": {
-									"en": "DP Down 3",
-									"ja": "指令：孤軍奮闘III",
-									"zh": "目标：深度渗透III"
-								},
-								"img": "75px-Global_costrecovery_3",
-								"effects": [],
-								"tooltip": {
-									"en": "DP Regeneration reduced by 75%",
-									"ja": "コストの自然回復速度-75%",
-									"zh": "部署费用的自然回复速度降低75%"
 								}
 							}
 						]
@@ -2094,6 +1888,11 @@
 				"overwrittenData": null
 			},
 			{
+				"id": "enemy_1177_dufrbl",
+				"level": 0,
+				"overwrittenData": null
+			},
+			{
 				"id": "enemy_1172_dugago",
 				"level": 0,
 				"overwrittenData": null
@@ -2119,54 +1918,52 @@
 		],
 		"contracts": [
 			{
-				"type": "perma",
-				"id": null,
+				"type": "daily",
+				"id": "12-1",
 				"list": [
 					{
-						"category": "Dockworker",
+						"category": "ex4",
 						"options": [
 							{
 								"rank": 1,
-								"name": { "en": "Dockworker: 1", "ja": "強敵：煌煌I", "zh": "" },
-								"type": "enemy",
-								"img": "在建沙滩/75px-Enemy_hvyslr_1",
-								"effects": [
-									{
-										"targets": ["DH5", "DH6"],
-										"mods": {
-											"hp": 1.5,
-											"def": 1.2,
-											"fixed_res": 10
-										}
-									}
-								],
-								"tooltip": {
-									"en": "<Dockworker> and <Dockworker Leader> gains Max HP +40%, DEF +20%, RES +10",
-									"zh": "所有<码头水手>和<码头水手长>的生命值提升40％，防御力提升20％，法术抗性提升10 ",
-									"ja": "＜水兵＞と＜水兵長＞の最大HP+40%、防御力+20%、術耐性+10"
-								}
-							},
-							{
-								"rank": 2,
 								"name": {
-									"en": "Dockworker: Dazzle 2",
-									"ja": "強敵：煌煌II",
+									"en": "",
+									"ja": "",
 									"zh": ""
 								},
-								"type": "enemy",
-								"img": "在建沙滩/75px-Enemy_hvyslr_amod_2",
+								"img": "在建沙滩/75px-Token_tidectrl_movespeed_1",
+								"effects": [],
+								"tooltip": {
+									"en": "<Deep Water Zone> no longer reduces enemies' movespeed",
+									"ja": "＜水蝕状態＞で敵の移動速度が減少しなくなる",
+									"zh": "<深水区>不再使敌人的移动速度降低"
+								}
+							}
+						]
+					},
+					{
+						"category": "ex5",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "",
+									"ja": "",
+									"zh": ""
+								},
+								"img": "在建沙滩/75px-Enemy_durbus_1",
 								"effects": [
 									{
-										"targets": ["DH5", "DH6"],
+										"targets": ["enemy_1263_durbus"],
 										"mods": {
-											"hp": 1.9,
-											"fixed_res": 30,
+											"hp": 1.6,
+											"atk": 1.6,
 											"special": {
-												"sailor_stun": {
+												"stealth": {
 													"tooltip": {
-														"en": ["Every $3rd$ attack stuns target for 7s"],
-														"ja": ["攻撃$2回$の度に次の攻撃に相手を7秒スタンする"],
-														"zh": ["攻击$2次$后，下一次攻击会晕眩目标 "]
+														"en": ["$Stealth$"],
+														"ja": ["$ステルス$"],
+														"zh": ["$隐匿$"]
 													}
 												}
 											}
@@ -2174,11 +1971,96 @@
 									}
 								],
 								"tooltip": {
-									"en": "<Dockworker> and <Dockworker Leader> gains Max HP +90%, RES +30, No. of attacks required to stun -1",
-									"zh": "所有<码头水手>和<码头水手长>的生命值提升90％，法术抗性提升30，晕眩我方单位需要的攻击次数-1",
-									"ja": "＜水兵＞と＜水兵長＞の最大HP+90%、術耐性+30、スタン攻撃に必要な攻撃回数-1"
+									"en": "<Fully-Enclosed Beach Buggy> gains Max HP +60%, ASPD +60, gains Stealth",
+									"ja": "＜防塵サンドバギー＞の最大HP+60%、攻撃速度+60、ステルスを獲得",
+									"zh": "所有<全封闭沙滩车>生命值提升60％，攻击速度提升60，并获得隐匿"
 								}
-							},
+							}
+						]
+					},
+					{
+						"category": "char_skill",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "Increased Ally SP Cost",
+									"ja": "環境：阻害I",
+									"zh": ""
+								},
+								"img": "75px-Char_cdtime_1",
+								"effects": [],
+								"tooltip": {
+									"en": "All allies’ skill sp cost +20%",
+									"ja": "スキル発動に必要なSPが20%増加",
+									"zh": "所有我方干员的技能技力消耗增加20%"
+								}
+							}
+						]
+					},
+					{
+						"category": "operator_cost",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "",
+									"ja": "",
+									"zh": ""
+								},
+								"img": "75px-Char_cost_slow_2",
+								"effects": [],
+								"tooltip": {
+									"en": "Supporters, Snipers and Casters DP cost tripled and redeployment time +50%",
+									"ja": "補助・狙撃・術師の配置コストが3倍、再配置時間+50%",
+									"zh": "辅助、狙击和术师干员的部署费用提升至3倍且再部署时间延长50% "
+								}
+							}
+						]
+					},
+					{
+						"category": "cost_regen",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "DP Down 2",
+									"ja": "指令：孤軍奮闘II",
+									"zh": "目标：深度渗透II"
+								},
+								"img": "75px-Global_costrecovery_2",
+								"effects": [],
+								"tooltip": {
+									"en": "DP Regeneration reduced by 50%",
+									"ja": "コストの自然回復速度-50%",
+									"zh": "部署费用的自然回复速度降低50%"
+								}
+							}
+						]
+					},
+					{
+						"category": "deploy",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "Deploy Limit 2",
+									"ja": "環境：小規模戦II",
+									"zh": "环境：交战区II"
+								},
+								"img": "75px-Global_pcharnum_2",
+								"effects": [],
+								"tooltip": {
+									"en": "Deploy Limit reduced to 5",
+									"ja": "同時配置可能数が5人に",
+									"zh": "可同时部署的单位数量减少至5"
+								}
+							}
+						]
+					},
+					{
+						"category": "Dockworker",
+						"options": [
 							{
 								"rank": 3,
 								"name": {
@@ -2190,7 +2072,7 @@
 								"img": "在建沙滩/75px-Enemy_hvyslr_amod_3",
 								"effects": [
 									{
-										"targets": ["DH5", "DH6"],
+										"targets": ["enemy_1160_hvyslr", "enemy_1160_hvyslr_2"],
 										"mods": {
 											"hp": 2.4,
 											"fixed_res": 50,
@@ -2215,62 +2097,168 @@
 						]
 					},
 					{
-						"category": "Dockworker",
+						"category": "enemy_hp",
 						"options": [
-							{ "rank": 1 },
 							{
-								"rank": 2,
+								"rank": 3,
 								"name": {
-									"en": "Dockworker: Candlelight 2",
-									"ja": "強敵：明灯II",
-									"zh": ""
+									"en": "Enemy HP 3",
+									"ja": "増幅：体力III",
+									"zh": "源石环境：活性III"
 								},
-								"type": "enemy",
-								"img": "在建沙滩/75px-Enemy_hvyslr_bmod_2",
+								"img": "75px-Enemy_hp_3",
 								"effects": [
 									{
-										"targets": ["DH5", "DH6"],
+										"targets": ["ALL"],
 										"mods": {
-											"hp": 1.6,
-											"def": 1.6,
-											"atk": 1.3
-										}
-									},
-									{
-										"targets": ["DH5"],
-										"mods": {
-											"special": {
-												"sailor_drown": {
-													"tooltip": {
-														"en": ["When underwater, takes $400$ True damage every second"],
-														"ja": ["水蝕状態で毎秒$400$確定ダメージを受ける"],
-														"zh": ["“水蚀”状态每秒受到$400$点无来源真实伤害"]
-													}
-												}
-											}
-										}
-									},
-									{
-										"targets": ["DH6"],
-										"mods": {
-											"special": {
-												"sailor_drown2": {
-													"tooltip": {
-														"en": ["When underwater, takes $560$ True damage every second"],
-														"ja": ["水蝕状態で毎秒$560$確定ダメージを受ける"],
-														"zh": ["“水蚀”状态每秒受到$560$点无来源真实伤害"]
-													}
-												}
-											}
+											"hp": 2.3
 										}
 									}
 								],
 								"tooltip": {
-									"en": "<Dockworker> and <Dockworker Leader> gains Max HP +60%, ATK +30%, DEF +60%, receives 60% less damage from drinking water and becomes immune to Sluggish, Bind and Sleep",
-									"zh": "所有<码头水手>和<码头水手长>的生命值提升60％，防御力提升60％，攻击力提升30％，<水蚀>状态下生命值损失速度降低60％，不再受到停顿、束缚、睡眠效果影响",
-									"ja": "＜水兵＞と＜水兵長＞の最大HP+60%、攻撃力+30%、防御力+60%、足止め、バインド、睡眠無効、水蝕状態でダメージを受ける速度が60%減少"
+									"en": "Enemy Max HP +130%",
+									"ja": "全ての敵の最大HP+130%",
+									"zh": "所有敌人的生命值提升130%"
 								}
-							},
+							}
+						]
+					}
+				]
+			},
+			{
+				"type": "daily",
+				"id": "12-2",
+				"list": [
+					{
+						"category": "char_block",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"ja": "制限：ブロック数",
+									"en": "Reduced Blockcount 1",
+									"zh": "环境：精神散I"
+								},
+								"img": "75px-Char_blockcnt_add",
+								"effects": [],
+								"tooltip": {
+									"en": "All allies' block count -1",
+									"ja": "全ての味方のブロック数-1",
+									"zh": "所有角色阻挡数-1"
+								}
+							}
+						]
+					},
+					{
+						"category": "char_aspd",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "Reduced Ally ASPD 1",
+									"ja": "制限：疲労累積I",
+									"zh": ""
+								},
+								"img": "75px-Char_attackspeed_1",
+								"effects": [],
+								"tooltip": {
+									"en": "All allies’ ASPD -25",
+									"ja": "全ての味方の攻撃速度-25",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "ex3",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "",
+									"ja": "",
+									"zh": ""
+								},
+								"type": "enemy",
+								"img": "在建沙滩/75px-Token_tidectrl_atkspeed_1",
+								"effects": [],
+								"tooltip": {
+									"en": "<Deep Water Zone> no longer reduces enemies' attackspeed",
+									"ja": "＜水蝕状態＞で敵の攻撃速度が減少しなくなる",
+									"zh": "<深水区>不再使敌人的攻击速度降低"
+								}
+							}
+						]
+					},
+					{
+						"category": "termite",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "Tola: Lone Khaganquest 2",
+									"ja": "強敵：遥々天路II",
+									"zh": ""
+								},
+								"type": "enemy",
+								"img": "在建沙滩/75px-Enemy_norgst_2",
+								"effects": [
+									{
+										"targets": ["PG1", "PG2"],
+										"mods": { "hp": 1.9, "ms": 1.6 }
+									}
+								],
+								"tooltip": {
+									"en": "<Ergate> and <Ergate Leader> gains Max HP +90%, Movespeed +60%",
+									"zh": "所有<工蚁><工蚁组长>生命值提升90％，移动速度提升60％",
+									"ja": "＜シロアリ＞と＜シロアリ隊長＞の最大HP+90%、移動速度+60%"
+								}
+							}
+						]
+					},
+					{
+						"category": "char_atk",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "Reduced Ally ATK 2",
+									"ja": "制限：火力減衰II",
+									"zh": "环境：高价值目标II"
+								},
+								"img": "75px-Char_atk_2",
+								"effects": [],
+								"tooltip": {
+									"en": "All allies’ ATK -30%",
+									"ja": "全ての味方の攻撃力-30%",
+									"zh": "所有我方单位的攻击力降低30%"
+								}
+							}
+						]
+					},
+					{
+						"category": "char_hp",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"ja": "制限：体力減衰II",
+									"en": "Reduced Operator HP 2",
+									"zh": "源石环境：侵蚀II"
+								},
+								"img": "75px-Char_hp_2",
+								"effects": [],
+								"tooltip": {
+									"en": "Ally Max HP reduced -40%",
+									"ja": "全ての味方の最大HP-40%",
+									"zh": "所有我方单位的生命值上限降低40%"
+								}
+							}
+						]
+					},
+					{
+						"category": "Dockworker",
+						"options": [
 							{
 								"rank": 3,
 								"name": {
@@ -2282,7 +2270,7 @@
 								"img": "在建沙滩/75px-Enemy_hvyslr_bmod_3",
 								"effects": [
 									{
-										"targets": ["DH5", "DH6"],
+										"targets": ["enemy_1160_hvyslr", "enemy_1160_hvyslr_2"],
 										"mods": {
 											"hp": 1.8,
 											"def": 1.9,
@@ -2290,7 +2278,7 @@
 										}
 									},
 									{
-										"targets": ["DH5"],
+										"targets": ["enemy_1160_hvyslr"],
 										"mods": {
 											"special": {
 												"sailor_drown": {
@@ -2304,7 +2292,7 @@
 										}
 									},
 									{
-										"targets": ["DH6"],
+										"targets": ["enemy_1160_hvyslr_2"],
 										"mods": {
 											"special": {
 												"sailor_drown2": {
@@ -2327,422 +2315,8 @@
 						]
 					},
 					{
-						"category": "termite",
+						"category": "cost_regen",
 						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "Tola: Lone Khaganquest 1",
-									"ja": "強敵：遥々天路I",
-									"zh": ""
-								},
-								"type": "enemy",
-								"img": "在建沙滩/75px-Enemy_norgst_1",
-								"effects": [
-									{
-										"targets": ["PG1", "PG2"],
-										"mods": { "hp": 1.4, "ms": 1.3 }
-									}
-								],
-								"tooltip": {
-									"en": "<Ergate> and <Ergate Leader> gains Max HP +40%, Movespeed +30%",
-									"zh": "所有<工蚁><工蚁组长>生命值提升40％，移动速度提升30％",
-									"ja": "＜シロアリ＞と＜シロアリ隊長＞の最大HP+40%、移動速度+30%"
-								}
-							},
-							{
-								"rank": 2,
-								"name": {
-									"en": "Tola: Lone Khaganquest 2",
-									"ja": "強敵：遥々天路II",
-									"zh": ""
-								},
-								"type": "enemy",
-								"img": "在建沙滩/75px-Enemy_norgst_2",
-								"effects": [
-									{
-										"targets": ["PG1", "PG2"],
-										"mods": { "hp": 1.9, "ms": 1.6 }
-									}
-								],
-								"tooltip": {
-									"en": "<Ergate> and <Ergate Leader> gains Max HP +90%, Movespeed +60%",
-									"zh": "所有<工蚁><工蚁组长>生命值提升90％，移动速度提升60％",
-									"ja": "＜シロアリ＞と＜シロアリ隊長＞の最大HP+90%、移動速度+60%"
-								}
-							},
-							{
-								"rank": 3
-							}
-						]
-					},
-					{
-						"category": "enemy_atk",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "Enemy ATK 1",
-									"ja": "増幅：火力I",
-									"zh": "源石环境：刺激I"
-								},
-								"type": "enemy",
-								"img": "75px-Enemy_atk_1",
-								"effects": [
-									{
-										"targets": ["ALL"],
-										"mods": {
-											"atk": 1.15
-										}
-									}
-								],
-								"tooltip": {
-									"en": "All enemies ATK +15%",
-									"ja": "全ての敵の攻撃力+15%",
-									"zh": "所有敌人的攻击力提升15%"
-								}
-							},
-							{
-								"rank": 2,
-								"name": {
-									"en": "Enemy ATK 2",
-									"ja": "増幅：火力II",
-									"zh": "源石环境：刺激II"
-								},
-								"type": "enemy",
-								"img": "75px-Enemy_atk_2",
-								"effects": [
-									{
-										"targets": ["ALL"],
-										"mods": {
-											"atk": 1.4
-										}
-									}
-								],
-								"tooltip": {
-									"en": "All enemies ATK +40%",
-									"ja": "全ての敵の攻撃力+40%",
-									"zh": "所有敌人的攻击力提升40%"
-								}
-							},
-							{
-								"rank": 3,
-								"name": {
-									"en": "Enemy ATK 3",
-									"ja": "増幅：火力III",
-									"zh": "源石环境：刺激III"
-								},
-								"type": "enemy",
-								"img": "75px-Enemy_atk_3",
-								"effects": [
-									{
-										"targets": ["ALL"],
-										"mods": {
-											"atk": 1.8
-										}
-									}
-								],
-								"tooltip": {
-									"en": "All enemies ATK +80%",
-									"ja": "全ての敵の攻撃力+80%",
-									"zh": "所有敌人的攻击力提升80%"
-								}
-							}
-						]
-					},
-					{
-						"category": "enemy_hp",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "Enemy HP 1",
-									"ja": "増幅：体力I",
-									"zh": "源石环境：活性I"
-								},
-								"type": "enemy",
-								"img": "75px-Enemy_hp_1",
-								"effects": [{ "targets": ["ALL"], "mods": { "hp": 1.4 } }],
-								"tooltip": {
-									"en": "Enemy Max HP +40%",
-									"ja": "全ての敵の最大HP+40%",
-									"zh": "所有敌人的生命值提升40%"
-								}
-							},
-							{
-								"rank": 2,
-								"name": {
-									"en": "Enemy HP 2",
-									"ja": "増幅：体力II",
-									"zh": "源石环境：活性II"
-								},
-								"type": "enemy",
-								"img": "75px-Enemy_hp_2",
-								"effects": [{ "targets": ["ALL"], "mods": { "hp": 1.8 } }],
-								"tooltip": {
-									"en": "Enemy Max HP +80%",
-									"ja": "全ての敵の最大HP+80%",
-									"zh": "所有敌人的生命值提升80%"
-								}
-							},
-							{
-								"rank": 3,
-								"name": {
-									"en": "Enemy HP 3",
-									"ja": "増幅：体力III",
-									"zh": "源石环境：活性III"
-								},
-								"type": "enemy",
-								"img": "75px-Enemy_hp_3",
-								"effects": [{ "targets": ["ALL"], "mods": { "hp": 2.3 } }],
-								"tooltip": {
-									"en": "Enemy Max HP +130%",
-									"ja": "全ての敵の最大HP+130%",
-									"zh": "所有敌人的生命值提升130%"
-								}
-							}
-						]
-					},
-					{
-						"category": "char_atk",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "Reduced Ally ATK 1",
-									"ja": "制限：火力減衰I",
-									"zh": "环境：高价值目标I"
-								},
-								"type": "enemy",
-								"img": "75px-Char_atk_1",
-								"effects": [],
-								"tooltip": {
-									"en": "All allies’ ATK -15%",
-									"ja": "全ての味方の攻撃力-15%",
-									"zh": "所有我方单位的攻击力降低15%"
-								}
-							},
-							{
-								"rank": 2,
-								"name": {
-									"en": "Reduced Ally ATK 2",
-									"ja": "制限：火力減衰II",
-									"zh": "环境：高价值目标II"
-								},
-								"type": "enemy",
-								"img": "75px-Char_atk_2",
-								"effects": [],
-								"tooltip": {
-									"en": "All allies’ ATK -30%",
-									"ja": "全ての味方の攻撃力-30%",
-									"zh": "所有我方单位的攻击力降低30%"
-								}
-							},
-							{
-								"rank": 3,
-								"latter": true,
-								"name": {
-									"en": "Reduced Ally ATK 3",
-									"ja": "制限：火力減衰III",
-									"zh": "环境：高价值目标III"
-								},
-								"type": "enemy",
-								"img": "75px-Char_atk_3",
-								"effects": [],
-								"tooltip": {
-									"en": "All allies’ ATK -50%",
-									"ja": "全ての味方の攻撃力-50%",
-									"zh": "所有我方单位的攻击力降低50%"
-								}
-							}
-						]
-					},
-					{
-						"category": "char_block",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"ja": "制限：ブロック数",
-									"en": "Reduced Blockcount 1",
-									"zh": "环境：精神散I"
-								},
-								"type": "enemy",
-								"img": "75px-Char_blockcnt_add",
-								"effects": [],
-								"tooltip": {
-									"en": "All allies' block count -1",
-									"ja": "全ての味方のブロック数-1",
-									"zh": "所有角色阻挡数-1"
-								}
-							},
-							{
-								"rank": 2,
-								"name": {
-									"ja": "制限：ブロック数II",
-									"en": "Reduced Blockcount 2",
-									"zh": "环境：精神散II"
-								},
-								"type": "enemy",
-								"img": "75px-Char_blockcnt_add_2",
-								"effects": [],
-								"tooltip": {
-									"en": "All allies' block count -2",
-									"ja": "全ての味方のブロック数-2",
-									"zh": "所有角色阻挡数-2"
-								}
-							},
-							{
-								"rank": 3
-							}
-						]
-					},
-					{
-						"category": "char_hp",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"ja": "制限：体力減衰I",
-									"en": "Reduced Operator HP 1",
-									"zh": "源石环境：侵蚀I"
-								},
-								"type": "enemy",
-								"img": "75px-Char_hp_1",
-								"effects": [],
-								"tooltip": {
-									"en": "Ally Max HP reduced -20%",
-									"ja": "全ての味方の最大HP-20%",
-									"zh": "所有我方单位的生命值上限降低20%"
-								}
-							},
-							{
-								"rank": 2,
-								"name": {
-									"ja": "制限：体力減衰II",
-									"en": "Reduced Operator HP 2",
-									"zh": "源石环境：侵蚀II"
-								},
-								"type": "enemy",
-								"img": "75px-Char_hp_2",
-								"effects": [],
-								"tooltip": {
-									"en": "Ally Max HP reduced -40%",
-									"ja": "全ての味方の最大HP-40%",
-									"zh": "所有我方单位的生命值上限降低40%"
-								}
-							},
-							{
-								"rank": 3,
-								"latter": true,
-								"name": {
-									"ja": "制限：体力減衰III",
-									"en": "Reduced Operator HP 3",
-									"zh": "源石环境：侵蚀III"
-								},
-								"type": "enemy",
-								"img": "75px-Char_hp_3",
-								"effects": [],
-								"tooltip": {
-									"en": "Ally Max HP reduced -60%",
-									"ja": "全ての味方の最大HP-60%",
-									"zh": "所有我方单位的生命值上限降低60%"
-								}
-							}
-						]
-					},
-					{
-						"category": "operator_cost",
-						"options": [
-							{
-								"rank": 1,
-								"latter": true,
-								"type": "enemy",
-								"img": "75px-Char_cost_block_1",
-								"effects": [],
-								"tooltip": {
-									"en": "Guards, Defenders and Medics DP cost doubled",
-									"ja": "前衛・重装・医療の配置コストが2倍",
-									"zh": "近卫、重装和医疗干员的部署费用提升至2倍 "
-								}
-							},
-							{
-								"rank": 2,
-								"type": "enemy",
-								"img": "75px-Char_cost_block_2",
-								"effects": [],
-								"tooltip": {
-									"en": "Guards, Defenders and Medics DP cost tripled and redeployment time +50%",
-									"ja": "前衛・重装・医療の配置コストが3倍、再配置時間+50%",
-									"zh": "近卫、重装和医疗干员的部署费用提升至3倍且再部署时间延长50% "
-								}
-							},
-							{ "rank": 3 }
-						]
-					},
-					{
-						"category": "operator_cost",
-						"options": [
-							{
-								"rank": 1,
-								"type": "enemy",
-								"img": "75px-Char_cost_slow_1",
-								"effects": [],
-								"tooltip": {
-									"en": "Supporters, Snipers and Casters DP cost doubled.",
-									"ja": "補助・狙撃・術師の配置コストが2倍",
-									"zh": "辅助、狙击和术师干员的部署费用提升至2倍 "
-								}
-							},
-							{
-								"rank": 2,
-								"type": "enemy",
-								"img": "75px-Char_cost_slow_2",
-								"effects": [],
-								"tooltip": {
-									"en": "Supporters, Snipers and Casters DP cost tripled and redeployment time +50%",
-									"ja": "補助・狙撃・術師の配置コストが3倍、再配置時間+50%",
-									"zh": "辅助、狙击和术师干员的部署费用提升至3倍且再部署时间延长50% "
-								}
-							},
-							{ "rank": 3 }
-						]
-					},
-					{
-						"category": "global_cost_recovery",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "DP Down 1",
-									"ja": "指令：孤軍奮闘I",
-									"zh": "目标：深度渗透I"
-								},
-								"type": "enemy",
-								"img": "75px-Global_costrecovery_1",
-								"effects": [],
-								"tooltip": {
-									"en": "DP Regeneration reduced by 25%",
-									"ja": "コストの自然回復速度-25%",
-									"zh": "部署费用的自然回复速度降低25%"
-								}
-							},
-							{
-								"rank": 2,
-								"name": {
-									"en": "DP Down 2",
-									"ja": "指令：孤軍奮闘II",
-									"zh": "目标：深度渗透II"
-								},
-								"type": "enemy",
-								"img": "75px-Global_costrecovery_2",
-								"effects": [],
-								"tooltip": {
-									"en": "DP Regeneration reduced by 50%",
-									"ja": "コストの自然回復速度-50%",
-									"zh": "部署费用的自然回复速度降低50%"
-								}
-							},
 							{
 								"rank": 3,
 								"name": {
@@ -2750,7 +2324,6 @@
 									"ja": "指令：孤軍奮闘III",
 									"zh": "目标：深度渗透III"
 								},
-								"type": "enemy",
 								"img": "75px-Global_costrecovery_3",
 								"effects": [],
 								"tooltip": {
@@ -2759,327 +2332,6 @@
 									"zh": "部署费用的自然回复速度降低75%"
 								}
 							}
-						]
-					},
-					{
-						"category": "squad",
-						"options": [
-							{
-								"rank": 1,
-								"type": "enemy",
-								"img": "75px-Global_squadnum_1",
-								"effects": [],
-								"tooltip": {
-									"en": "Maximum 10 operators in squad",
-									"zh": "最多可编入10名干员进入作战",
-									"ja": "編成可能数が最大10人に"
-								}
-							},
-							{
-								"rank": 2,
-								"type": "enemy",
-								"img": "75px-Global_squadnum_2",
-								"effects": [],
-								"tooltip": {
-									"en": "Maximum 7 operators in squad",
-									"zh": "最多可编入7名干员进入作战",
-									"ja": "編成可能数が最大7人に"
-								}
-							},
-							{ "rank": 3 }
-						]
-					},
-					{
-						"category": "squad",
-						"options": [
-							{
-								"rank": 1,
-								"type": "enemy",
-								"img": "75px-Global_pcharnum_1",
-								"effects": [],
-								"tooltip": {
-									"en": "Deploy Limit reduced to 7",
-									"zh": "可同时部署的单位数量减少至7",
-									"ja": "同時配置可能数が7人に"
-								}
-							},
-							{
-								"rank": 2,
-								"type": "enemy",
-								"img": "75px-Global_pcharnum_2",
-								"effects": [],
-								"tooltip": {
-									"en": "Deploy Limit reduced to 5",
-									"zh": "可同时部署的单位数量减少至5",
-									"ja": "同時配置可能数が5人に"
-								}
-							},
-							{ "rank": 3 }
-						]
-					},
-					{
-						"category": "lifepoint",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "None Escape",
-									"ja": "指令：背水の陣",
-									"zh": "目标：最后防线"
-								},
-								"type": "enemy",
-								"img": "75px-Global_lifepoint_1",
-								"effects": [],
-								"tooltip": {
-									"en": "No enemies escape (Level HP set to 1)",
-									"ja": "防衛ラインの最大耐久値が1に",
-									"zh": "我方防御点可承受的敌方数量变为1 "
-								}
-							},
-							{ "rank": 2 },
-							{ "rank": 3 }
-						]
-					},
-					{
-						"category": "enemy_res",
-						"options": [
-							{
-								"rank": 1,
-								"latter": true,
-								"name": {
-									"en": "Increased Enemy RES",
-									"ja": "増幅：法術阻害",
-									"zh": ""
-								},
-								"type": "enemy",
-								"img": "75px-Enemy_magicresistance_1",
-								"effects": [{ "targets": ["ALL"], "mods": { "fixed_res": 20 } }],
-								"tooltip": {
-									"en": "All enemies RES +20",
-									"zh": "所有敌人的法术抗性提高20",
-									"ja": "全ての敵の術耐性+20"
-								}
-							},
-							{ "rank": 2 },
-							{ "rank": 3 }
-						]
-					},
-					{
-						"category": "ex1",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "",
-									"ja": "",
-									"zh": ""
-								},
-								"type": "enemy",
-								"img": "在建沙滩/75px-Token_predefinecanoe_1",
-								"effects": [],
-								"tooltip": {
-									"en": "Less <Custom Floating Platforms> appear on the field, 4 tiles forbid deployment",
-									"ja": "マップ上の4つのマスが配置不可になり、初期配置の＜特設ボート＞の数が減少",
-									"zh": "场上存在的<特制水上平台>数量减少，场上的4个位置无法部署我方单位"
-								}
-							},
-							{ "rank": 2 },
-							{ "rank": 3 }
-						]
-					},
-					{
-						"category": "ex2",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "",
-									"ja": "",
-									"zh": ""
-								},
-								"type": "enemy",
-								"img": "在建沙滩/75px-Token_canoe_1",
-								"effects": [],
-								"tooltip": {
-									"en": "Deployable <Custom Floating Platforms> decreased to 1",
-									"ja": "使用できる＜特設ボート＞の数が1つに減少",
-									"zh": "可部署的<特制水上平台>数量减少至1 "
-								}
-							},
-							{ "rank": 2 },
-							{ "rank": 3 }
-						]
-					},
-					{
-						"category": "char_aspd",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "Reduced Ally ASPD 1",
-									"ja": "制限：疲労累積I",
-									"zh": ""
-								},
-								"type": "enemy",
-								"img": "75px-Char_attackspeed_1",
-								"effects": [],
-								"tooltip": {
-									"en": "All allies’ ASPD -25",
-									"ja": "全ての味方の攻撃速度-25",
-									"zh": "所有我方单位攻击速度降低25"
-								}
-							},
-							{ "rank": 2 },
-							{ "rank": 3 }
-						]
-					},
-					{
-						"category": "ex3",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "",
-									"ja": "",
-									"zh": ""
-								},
-								"type": "enemy",
-								"img": "在建沙滩/75px-Token_tidectrl_atkspeed_1",
-								"effects": [],
-								"tooltip": {
-									"en": "<Deep Water Zone> no longer reduces enemies' attackspeed",
-									"ja": "＜水蝕状態＞で敵の攻撃速度が減少しなくなる",
-									"zh": "<深水区>不再使敌人的攻击速度降低"
-								}
-							},
-							{ "rank": 2 },
-							{ "rank": 3 }
-						]
-					},
-					{
-						"category": "ex4",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "",
-									"ja": "",
-									"zh": ""
-								},
-								"type": "enemy",
-								"img": "在建沙滩/75px-Token_tidectrl_movespeed_1",
-								"effects": [],
-								"tooltip": {
-									"en": "<Deep Water Zone> no longer reduces enemies' movespeed",
-									"ja": "＜水蝕状態＞で敵の移動速度が減少しなくなる",
-									"zh": "<深水区>不再使敌人的移动速度降低"
-								}
-							},
-							{ "rank": 2 },
-							{ "rank": 3 }
-						]
-					},
-					{
-						"category": "ex5",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "",
-									"ja": "",
-									"zh": ""
-								},
-								"type": "enemy",
-								"img": "在建沙滩/75px-Enemy_durbus_1",
-								"effects": [
-									{
-										"targets": ["DUR11"],
-										"mods": {
-											"hp": 1.6,
-											"atk": 1.6,
-											"special": {
-												"stealth": {
-													"tooltip": {
-														"en": ["$Stealth$"],
-														"ja": ["$ステルス$"],
-														"zh": ["$隐匿$"]
-													}
-												}
-											}
-										}
-									}
-								],
-								"tooltip": {
-									"en": "<Fully-Enclosed Beach Buggy> gains Max HP +60%, ASPD +60, gains Stealth",
-									"ja": "＜防塵サンドバギー＞の最大HP+60%、攻撃速度+60、ステルスを獲得",
-									"zh": "所有<全封闭沙滩车>生命值提升60％，攻击速度提升60，并获得隐匿"
-								}
-							},
-							{ "rank": 2 },
-							{ "rank": 3 }
-						]
-					},
-					{
-						"category": "ex6",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "",
-									"ja": "",
-									"zh": ""
-								},
-								"type": "enemy",
-								"img": "在建沙滩/75px-Enemy_durgrd_1",
-								"effects": [
-									{
-										"targets": ["DUR9"],
-										"mods": {
-											"hp": 2.5,
-											"def": 1.3,
-											"special": {
-												"taunt": {
-													"tooltip": {
-														"en": ["$Taunt Level +1$"],
-														"ja": ["$攻撃されやすくなる$"],
-														"zh": ["嘲讽等级+1"]
-													}
-												}
-											}
-										}
-									}
-								],
-								"tooltip": {
-									"en": "<Full Metal Surfing Instructor> gains Max HP +150%, DEF +30%, Taunt Level +1",
-									"ja": "＜鋼のインストラクター＞の最大HP+150%、防御力+30%、挑発レベル+1",
-									"zh": "所有<钢铁冲浪教练>生命值提升150％，防御力提升30%，且自身嘲讽等级增加1级"
-								}
-							},
-							{ "rank": 2 },
-							{ "rank": 3 }
-						]
-					},
-					{
-						"category": "char_skill",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "Increased Ally SP Cost",
-									"ja": "環境：阻害I",
-									"zh": ""
-								},
-								"type": "enemy",
-								"img": "75px-Char_cdtime_1",
-								"effects": [],
-								"tooltip": {
-									"en": "All allies’ skill sp cost +20%",
-									"ja": "スキル発動に必要なSPが20%増加",
-									"zh": "所有我方干员的技能技力消耗增加20%"
-								}
-							},
-							{ "rank": 2 },
-							{ "rank": 3 }
 						]
 					}
 				]
@@ -3152,235 +2404,8 @@
 		"contracts": [
 			{
 				"type": "daily",
-				"id": "11-1",
+				"id": "12-1",
 				"list": [
-					{
-						"category": "cost_regen",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "DP Down 1",
-									"ja": "指令：孤軍奮闘I",
-									"zh": "目标：深度渗透I"
-								},
-								"img": "75px-Global_costrecovery_1",
-								"effects": [],
-								"tooltip": {
-									"en": "DP Regeneration reduced by 25%",
-									"ja": "コストの自然回復速度-25%",
-									"zh": "部署费用的自然回复速度降低25%"
-								}
-							}
-						]
-					},
-					{
-						"category": "obstacle_1",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "Roadblock 1",
-									"ja": "障害物I",
-									"zh": ""
-								},
-								"img": "冻原矿场/75px-Trap_roadblock_pos",
-								"effects": [],
-								"tooltip": {
-									"en": "Initial position of <Static Roadblock> changed and more <Static Roadblock> appear ",
-									"ja": "配置される＜道路障害物＞の位置が変化し、さらに追加で配置される",
-									"zh": ""
-								}
-							}
-						]
-					},
-					{
-						"category": "grids_1",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "Forbidden Grids 1",
-									"ja": "環境：峻険地形I",
-									"zh": ""
-								},
-								"img": "75px-Global_forbidloc_1",
-								"effects": [],
-								"tooltip": {
-									"en": "7 tiles forbid deployment",
-									"ja": "マップ上の7つのマスが配置不可に",
-									"zh": ""
-								}
-							}
-						]
-					},
-					{
-						"category": "vanguard",
-						"options": [
-							{
-								"rank": 2,
-								"name": {
-									"en": "Imperial Striker 2",
-									"ja": "帝国精鋭先鋒II",
-									"zh": ""
-								},
-								"img": "冻原矿场/75px-Enemy_empace_2",
-								"effects": [
-									{
-										"targets": ["U13"],
-										"mods": {
-											"hp": 1.9,
-											"atk": 1.45,
-											"def": 1.45
-										}
-									}
-								],
-								"tooltip": {
-									"en": "<Imperial Striker> gains Max HP +90%, ATK +45%, DEF +45%",
-									"ja": "＜帝国精鋭先鋒＞の最大HP+90%、攻撃力+45%、防御力+45%",
-									"zh": ""
-								}
-							}
-						]
-					},
-					{
-						"category": "imperial_arti",
-						"options": [
-							{
-								"rank": 2,
-								"name": {
-									"ja": "特化：爆撃指令II",
-									"en": "Heavy Bombardment II",
-									"zh": ""
-								},
-								"img": "冻原矿场/Enemy_emppnt_2",
-								"effects": [
-									{
-										"targets": ["U11"],
-										"mods": {
-											"hp": 1.7,
-											"atk": 1.4
-										}
-									}
-								],
-								"tooltip": {
-									"en": "<Imperial Artillery Harbinger> appears early, Max HP +70%, ATK +40%",
-									"zh": "",
-									"ja": "＜帝国砲撃誘導機＞は早めに出現、HP+70%、攻撃力+40%"
-								}
-							}
-						]
-					},
-					{
-						"category": "enemy_aspd",
-						"options": [
-							{
-								"rank": 2,
-								"name": { "en": "Enemy ASPD 2", "ja": "増幅：ラッシュII", "zh": "" },
-								"img": "75px-Enemy_attackspeed_2",
-								"effects": [{ "targets": ["ALL"], "mods": { "fixed_aspd": 50 } }],
-								"tooltip": {
-									"en": "Enemy ASPD +50",
-									"ja": "全ての敵の攻撃速度+50",
-									"zh": ""
-								}
-							}
-						]
-					},
-					{
-						"category": "obstacle_2",
-						"options": [
-							{
-								"rank": 2,
-								"name": {
-									"en": "Fortified Roadblocks 2",
-									"ja": "障害物強化II",
-									"zh": ""
-								},
-								"img": "冻原矿场/75px-Trap_roadblock_hp_2",
-								"effects": [],
-								"tooltip": {
-									"en": "<Static Roadblock> Max HP +200%, DEF +200, RES +15 ",
-									"ja": "＜道路障害物＞のHP+200%、防御力+200、術耐性+15",
-									"zh": ""
-								}
-							}
-						]
-					},
-					{
-						"category": "imperial_arti",
-						"options": [
-							{
-								"rank": 3,
-								"name": {
-									"ja": "特化：爆撃指令III",
-									"en": "Heavy Bombardment III",
-									"zh": ""
-								},
-								"img": "冻原矿场/Enemy_emppnt_3",
-								"effects": [
-									{
-										"targets": ["U11"],
-										"mods": {
-											"hp": 2,
-											"atk": 1.6
-										}
-									}
-								],
-								"tooltip": {
-									"en": "[Imperial Artillery Harbinger] appears early, Max HP +100%, ATK +60%",
-									"zh": "",
-									"ja": "「帝国砲撃誘導機」は早めに出現、HP+100%、攻撃力+60%"
-								}
-							}
-						]
-					},
-					{
-						"category": "char_atk",
-						"options": [
-							{
-								"rank": 3,
-								"name": {
-									"en": "Reduced Ally ATK 3",
-									"ja": "制限：火力減衰III",
-									"zh": "环境：高价值目标III"
-								},
-								"img": "75px-Char_atk_3",
-								"effects": [],
-								"tooltip": {
-									"en": "All allies’ ATK -50%",
-									"ja": "全ての味方の攻撃力-50%",
-									"zh": "所有我方单位的攻击力降低50%"
-								}
-							}
-						]
-					}
-				]
-			},
-			{
-				"type": "daily",
-				"id": "11-2",
-				"list": [
-					{
-						"category": "obstacle_2",
-						"options": [
-							{
-								"rank": 1,
-								"name": {
-									"en": "Fortified Roadblocks 1",
-									"ja": "障害物強化I",
-									"zh": ""
-								},
-								"img": "冻原矿场/75px-Trap_roadblock_hp_1",
-								"effects": [],
-								"tooltip": {
-									"en": "<Static Roadblock> Max HP +100%, DEF +100, RES +10 ",
-									"ja": "＜道路障害物＞のHP+100%、防御力+100、術耐性+10",
-									"zh": ""
-								}
-							}
-						]
-					},
 					{
 						"category": "obstacle_1",
 						"options": [
@@ -3422,6 +2447,199 @@
 						]
 					},
 					{
+						"category": "lifepoint",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "None Escape",
+									"ja": "指令：背水の陣",
+									"zh": "目标：最后防线"
+								},
+								"img": "75px-Global_lifepoint_1",
+								"effects": [],
+								"tooltip": {
+									"en": "No enemies escape (Level HP set to 1)",
+									"ja": "防衛ラインの最大耐久値が1に",
+									"zh": "我方防御点可承受的敌方数量变为1 "
+								}
+							}
+						]
+					},
+					{
+						"category": "char_atk",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "Reduced Ally ATK 2",
+									"ja": "制限：火力減衰II",
+									"zh": "环境：高价值目标II"
+								},
+								"img": "75px-Char_atk_2",
+								"effects": [],
+								"tooltip": {
+									"en": "All allies’ ATK -35%",
+									"ja": "全ての味方の攻撃力-35%",
+									"zh": "所有我方单位的攻击力降低35%"
+								}
+							}
+						]
+					},
+					{
+						"category": "cost_regen",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "DP Down 2",
+									"ja": "指令：孤軍奮闘II",
+									"zh": "目标：深度渗透II"
+								},
+								"img": "75px-Global_costrecovery_2",
+								"effects": [],
+								"tooltip": {
+									"en": "DP Regeneration reduced by 50%",
+									"ja": "コストの自然回復速度-50%",
+									"zh": "部署费用的自然回复速度降低50%"
+								}
+							}
+						]
+					},
+					{
+						"category": "deploy",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"en": "Deploy Limit 2",
+									"ja": "環境：小規模戦II",
+									"zh": "环境：交战区II"
+								},
+								"img": "75px-Global_pcharnum_2",
+								"effects": [],
+								"tooltip": {
+									"en": "Deploy Limit reduced to 5",
+									"ja": "同時配置可能数が5人に",
+									"zh": "可同时部署的单位数量减少至5"
+								}
+							}
+						]
+					},
+					{
+						"category": "char_hp",
+						"options": [
+							{
+								"rank": 3,
+								"name": {
+									"ja": "制限：体力減衰III",
+									"en": "Reduced Operator HP 3",
+									"zh": "源石环境：侵蚀III"
+								},
+								"img": "75px-Char_hp_3",
+								"effects": [],
+								"tooltip": {
+									"en": "Ally Max HP reduced -55%",
+									"ja": "全ての味方の最大HP-55%",
+									"zh": "所有我方单位的生命值上限降低55%"
+								}
+							}
+						]
+					},
+					{
+						"category": "enemy_hp",
+						"options": [
+							{
+								"rank": 3,
+								"name": {
+									"en": "Enemy HP 3",
+									"ja": "増幅：体力III",
+									"zh": "源石环境：活性III"
+								},
+								"img": "75px-Enemy_hp_3",
+								"effects": [
+									{
+										"targets": ["ALL"],
+										"mods": {
+											"hp": 2
+										}
+									}
+								],
+								"tooltip": {
+									"en": "Enemy Max HP +100%",
+									"ja": "全ての敵の最大HP+100%",
+									"zh": "所有敌人的生命值提升100%"
+								}
+							}
+						]
+					}
+				]
+			},
+			{
+				"type": "daily",
+				"id": "12-2",
+				"list": [
+					{
+						"category": "obstacle_1",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "Roadblock 1",
+									"ja": "障害物I",
+									"zh": ""
+								},
+								"img": "冻原矿场/75px-Trap_roadblock_pos",
+								"effects": [],
+								"tooltip": {
+									"en": "Initial position of <Static Roadblock> changed and more <Static Roadblock> appear ",
+									"ja": "配置される＜道路障害物＞の位置が変化し、さらに追加で配置される",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "grids_1",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "Forbidden Grids 1",
+									"ja": "環境：峻険地形I",
+									"zh": ""
+								},
+								"img": "75px-Global_forbidloc_1",
+								"effects": [],
+								"tooltip": {
+									"en": "7 tiles forbid deployment",
+									"ja": "マップ上の7つのマスが配置不可に",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "lifepoint",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "None Escape",
+									"ja": "指令：背水の陣",
+									"zh": "目标：最后防线"
+								},
+								"img": "75px-Global_lifepoint_1",
+								"effects": [],
+								"tooltip": {
+									"en": "No enemies escape (Level HP set to 1)",
+									"ja": "防衛ラインの最大耐久値が1に",
+									"zh": "我方防御点可承受的敌方数量变为1 "
+								}
+							}
+						]
+					},
+					{
 						"category": "cbm",
 						"options": [
 							{
@@ -3451,41 +2669,48 @@
 						]
 					},
 					{
-						"category": "char_hp",
+						"category": "enemy_hp",
 						"options": [
 							{
 								"rank": 2,
 								"name": {
-									"ja": "制限：体力減衰II",
-									"en": "Reduced Operator HP 2",
-									"zh": "源石环境：侵蚀II"
+									"en": "Enemy HP 2",
+									"ja": "増幅：体力II",
+									"zh": "源石环境：活性II"
 								},
-								"img": "75px-Char_hp_2",
-								"effects": [],
+								"img": "75px-Enemy_hp_2",
+								"effects": [
+									{
+										"targets": ["ALL"],
+										"mods": {
+											"hp": 1.6
+										}
+									}
+								],
 								"tooltip": {
-									"en": "Ally Max HP reduced -35%",
-									"ja": "全ての味方の最大HP-35%",
-									"zh": "所有我方单位的生命值上限降低35%"
+									"en": "Enemy Max HP +60%",
+									"ja": "全ての敵の最大HP+60%",
+									"zh": "所有敌人的生命值提升60%"
 								}
 							}
 						]
 					},
 					{
-						"category": "squad",
+						"category": "char_atk",
 						"options": [
 							{
 								"rank": 2,
 								"name": {
-									"en": "Max Squad Size 2",
-									"ja": "環境：少数精鋭II",
-									"zh": "目标：隐秘行动II "
+									"en": "Reduced Ally ATK 2",
+									"ja": "制限：火力減衰II",
+									"zh": "环境：高价值目标II"
 								},
-								"img": "75px-Global_squadnum_2",
+								"img": "75px-Char_atk_2",
 								"effects": [],
 								"tooltip": {
-									"en": "Maximum 7 operators in squad",
-									"ja": "編成可能数が7人に",
-									"zh": "最多可编入7名干员进入作战"
+									"en": "All allies’ ATK -35%",
+									"ja": "全ての味方の攻撃力-35%",
+									"zh": "所有我方单位的攻击力降低35%"
 								}
 							}
 						]
@@ -3520,28 +2745,29 @@
 						]
 					},
 					{
-						"category": "enemy_hp",
+						"category": "imperial_arti",
 						"options": [
 							{
 								"rank": 3,
 								"name": {
-									"en": "Enemy HP 3",
-									"ja": "増幅：体力III",
-									"zh": "源石环境：活性III"
+									"ja": "特化：爆撃指令III",
+									"en": "Heavy Bombardment III",
+									"zh": ""
 								},
-								"img": "75px-Enemy_hp_3",
+								"img": "冻原矿场/Enemy_emppnt_3",
 								"effects": [
 									{
-										"targets": ["ALL"],
+										"targets": ["U11"],
 										"mods": {
-											"hp": 2
+											"hp": 2,
+											"atk": 1.6
 										}
 									}
 								],
 								"tooltip": {
-									"en": "Enemy Max HP +100%",
-									"ja": "全ての敵の最大HP+100%",
-									"zh": "所有敌人的生命值提升100%"
+									"en": "[Imperial Artillery Harbinger] appears early, Max HP +100%, ATK +60%",
+									"zh": "",
+									"ja": "「帝国砲撃誘導機」は早めに出現、HP+100%、攻撃力+60%"
 								}
 							}
 						]
@@ -3677,7 +2903,7 @@
 								"img": "无名庇护所/75px-Enemy_reid_1",
 								"effects": [
 									{
-										"targets": ["A15"],
+										"targets": ["enemy_1539_reid"],
 										"mods": {
 											"hp": 1.6,
 											"special": {
@@ -3710,7 +2936,7 @@
 								"img": "无名庇护所/75px-Enemy_reid_2",
 								"effects": [
 									{
-										"targets": ["A15"],
+										"targets": ["enemy_1539_reid"],
 										"mods": {
 											"hp": 2,
 											"special": {
@@ -3752,7 +2978,7 @@
 								"img": "无名庇护所/75px-Enemy_reid_3",
 								"effects": [
 									{
-										"targets": ["A15"],
+										"targets": ["enemy_1539_reid"],
 										"mods": {
 											"hp": 2.5,
 											"special": {
@@ -3807,7 +3033,7 @@
 								"img": "无名庇护所/75px-Enemy_reid_4",
 								"effects": [
 									{
-										"targets": ["A15"],
+										"targets": ["enemy_1539_reid"],
 										"mods": {
 											"hp": 2.5,
 											"fixed_aspd": 100,
@@ -4659,13 +3885,40 @@
 								"img": "迷雾战区/75px-Enemy_stmgun_bmod_3",
 								"effects": [
 									{
-										"targets": ["LUD1"],
-										"mods": { "atk": 1.2, "fixed_aspd": 20, "fixed_range": 96 }
+										"targets": ["enemy_1273_stmgun"],
+										"mods": {
+											"atk": 1.2,
+											"fixed_aspd": 20,
+											"fixed_range": 96,
+											"special": {
+												"stmgun_bombard": {
+													"atk": { "multiplier": 1.35 },
+													"dmg_element": "arts",
+													"suffix": { "en": "Skill", "ja": "爆撃", "zh": "技能" },
+													"hits": 10,
+													"tooltip": {
+														"en": [
+															"Skill (Initial SP: 10, Cost:25)",
+															"Centering on the allied unit with the highest max HP, spawns a bombardment area within the surrounding 8 tiles. For 6s, deals $135$% of ATK as Arts damage to the allied unit with the highest percentage HP"
+														],
+														"ja": [
+															"【爆撃】（自然回復/初期SP15/必要SP25）",
+															"攻撃範囲内で最も最大HPが高い味方を中心に、3×3マスの爆撃区域を設定",
+															"爆撃区域内で最もHP割合が高い味方に対し、攻撃力の$135%$の術ダメージを与える",
+															"爆撃中、強制移動・スタン・睡眠・凍結・浮遊耐性を得る"
+														],
+														"zh": [
+															"锁定生命上限最高的目标进行数次轰炸，每次对范围内当前生命比例最高的单位造成法术伤害"
+														]
+													}
+												}
+											}
+										}
 									}
 								],
 								"tooltip": {
 									"en": "<Londinium Mobile Defense Artillery> appears earlier, ATK +20%, Attackspeed +20, Attack range extends to whole map, Skill's damage +80%",
-									"ja": "「都市防衛自走砲」の最大HP+100%、攻撃力+70%、防御力+50%、術耐性+50",
+									"ja": "「都市防衛自走砲」が早めに登場、攻撃力+20%、攻撃速度+20、攻撃範囲がマップ全体になる、スキルのダメージ+80％",
 									"zh": ""
 								}
 							}
@@ -4684,13 +3937,40 @@
 								"img": "迷雾战区/75px-Enemy_stmgun_amod_3",
 								"effects": [
 									{
-										"targets": ["LUD1"],
-										"mods": { "atk": 1.7, "fixed_aspd": 50, "range": 1.3 }
+										"targets": ["enemy_1273_stmgun"],
+										"mods": {
+											"atk": 1.7,
+											"fixed_aspd": 50,
+											"range": 1.3,
+											"special": {
+												"stmgun_bombard": {
+													"atk": { "multiplier": 0.7 },
+													"dmg_element": "arts",
+													"suffix": { "en": "Skill", "ja": "爆撃", "zh": "技能" },
+													"hits": 10,
+													"tooltip": {
+														"en": [
+															"Skill (Initial SP: 10, Cost:$5$)",
+															"Centering on the allied unit with the highest max HP, spawns a bombardment area within the surrounding 8 tiles. For 6s, deals $70$% of ATK as Arts damage to the allied unit with the highest percentage HP"
+														],
+														"ja": [
+															"【爆撃】（自然回復/初期SP15/必要SP$5$）",
+															"攻撃範囲内で最も最大HPが高い味方を中心に、3×3マスの爆撃区域を設定",
+															"爆撃区域内で最もHP割合が高い味方に対し、攻撃力の$70%$の術ダメージを与える",
+															"爆撃中、強制移動・スタン・睡眠・凍結・浮遊耐性を得る"
+														],
+														"zh": [
+															"锁定生命上限最高的目标进行数次轰炸，每次对范围内当前生命比例最高的单位造成法术伤害"
+														]
+													}
+												}
+											}
+										}
 									}
 								],
 								"tooltip": {
-									"en": "",
-									"ja": "",
+									"en": "<Londinium Mobile Defense Artillery> appears from a different portal, ATK +70%, Attackspeed +50, Attack range +30%, Skill's damage +15%, cooldown -80%",
+									"ja": "「都市防衛自走砲」が別の場所から出現し、攻撃力+70%、攻撃速度+50、攻撃範囲+30%、スキルのダメージ+15％、クールタイム-80%",
 									"zh": ""
 								}
 							}
@@ -4712,6 +3992,208 @@
 									"en": "Ally Max HP reduced -60%",
 									"ja": "全ての味方の最大HP-60%",
 									"zh": "所有我方单位的生命值上限降低60%"
+								}
+							}
+						]
+					}
+				]
+			},
+			{
+				"type": "daily",
+				"id": "12-2",
+				"list": [
+					{
+						"category": "artillery",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"ja": "自走砲 B",
+									"en": "Artillery B Mod",
+									"zh": ""
+								},
+								"img": "迷雾战区/75px-Enemy_stmgun_bmod_1",
+								"effects": [
+									{
+										"targets": ["LUD1"],
+										"mods": { "atk": 1.2, "fixed_aspd": 20, "fixed_range": 96 }
+									}
+								],
+								"tooltip": {
+									"en": "<Londinium Mobile Defense Artillery> appears earlier, ATK +20%, Attackspeed +20, Attack range extends to whole map, Skill's damage +80%",
+									"ja": "「都市防衛自走砲」の最大HP+100%、攻撃力+70%、防御力+50%、術耐性+50",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "grids",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "Forbidden Grids 1",
+									"ja": "環境：峻険地形I",
+									"zh": ""
+								},
+								"img": "迷雾战区/75px-Global_forbidloc_left_1",
+								"effects": [],
+								"tooltip": {
+									"en": "3 tiles forbid deployment",
+									"ja": "マップ上の3つのマスが配置不可に",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "lifepoint",
+						"options": [
+							{
+								"rank": 1,
+								"name": {
+									"en": "None Escape",
+									"ja": "指令：背水の陣",
+									"zh": "目标：最后防线"
+								},
+								"img": "75px-Global_lifepoint_1",
+								"effects": [],
+								"tooltip": {
+									"en": "No enemies escape (Level HP set to 1)",
+									"ja": "防衛ラインの最大耐久値が1に",
+									"zh": "我方防御点可承受的敌方数量变为1 "
+								}
+							}
+						]
+					},
+					{
+						"category": "artillery_2",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"ja": "自走砲 II",
+									"en": "Artillery 2",
+									"zh": ""
+								},
+								"img": "迷雾战区/75px-Enemy_stmgun_2",
+								"effects": [
+									{
+										"targets": ["LUD1"],
+										"mods": {
+											"hp": 1.7,
+											"def": 1.5,
+											"fixed_res": 20,
+											"special": {
+												"stealth": {
+													"tooltip": {
+														"en": ["$Stealth$"],
+														"ja": ["$ステルス$"],
+														"zh": [""]
+													}
+												}
+											}
+										}
+									}
+								],
+								"tooltip": {
+									"en": "<Londinium Mobile Defense Artillery> gains +70% HP, +50% DEF, +20 RES, gains Stealth",
+									"ja": "「都市防衛自走砲」の最大HP+70%、防御力+50%、術耐性+20、ステルスになる",
+									"zh": ""
+								}
+							}
+						]
+					},
+					{
+						"category": "char_hp",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"ja": "制限：体力減衰II",
+									"en": "Reduced Operator HP 2",
+									"zh": "源石环境：侵蚀II"
+								},
+								"img": "75px-Char_hp_2",
+								"effects": [],
+								"tooltip": {
+									"en": "Ally Max HP reduced -30%",
+									"ja": "全ての味方の最大HP-30%",
+									"zh": "所有我方单位的生命值上限降低30%"
+								}
+							}
+						]
+					},
+					{
+						"category": "operator_cost",
+						"options": [
+							{
+								"rank": 2,
+								"name": {
+									"ja": "制限：過負荷",
+									"en": "Healer Defender DP",
+									"zh": ""
+								},
+								"img": "75px-Char_cost_healerdefender_2",
+								"effects": [],
+								"tooltip": {
+									"en": "DP Cost of Healers and Defenders tripled and redeployment time +50%",
+									"zh": "",
+									"ja": "医療・重装の配置コストが3倍、再配置時間が+50%"
+								}
+							}
+						]
+					},
+					{
+						"category": "car",
+						"options": [
+							{
+								"rank": 3,
+								"name": {
+									"ja": "枯朽サルカズ戦車 III",
+									"en": "Sarkaz Wither Tank 3",
+									"zh": ""
+								},
+								"img": "迷雾战区/75px-Enemy_nhtank_3",
+								"effects": [
+									{
+										"targets": ["NAC12"],
+										"mods": { "atk": 1.7, "fixed_res": 30 }
+									}
+								],
+								"tooltip": {
+									"en": "All <Sarkaz Wither Tank> gains +70% ATK, +30 RES, additional 4 <Sarkaz Wither Tank> appears on left of battlefield",
+									"ja": "<枯朽サルカズ戦車>の攻撃力+70%、術耐性+30、戦場の左に4体追加",
+									"zh": ""
+								}
+							}
+						]
+					},
+
+					{
+						"category": "enemy_hp",
+						"options": [
+							{
+								"rank": 3,
+								"name": {
+									"en": "Enemy HP 3",
+									"ja": "増幅：体力III",
+									"zh": "源石环境：活性III"
+								},
+								"img": "75px-Enemy_hp_3",
+								"effects": [
+									{
+										"targets": ["ALL"],
+										"mods": {
+											"hp": 2.1
+										}
+									}
+								],
+								"tooltip": {
+									"en": "Enemy Max HP +110%",
+									"ja": "全ての敵の最大HP+110%",
+									"zh": "所有敌人的生命值提升110%"
 								}
 							}
 						]
