@@ -26,6 +26,51 @@ export const filterOptions = writable([
 		]
 	},
 	{
+		key: 'nationId',
+		options: [
+			{ value: 'rhodes', selected: false },
+			{ value: 'kazimierz', selected: false },
+			{ value: 'columbia', selected: false },
+			{ value: null, selected: false },
+			{ value: 'laterano', selected: false },
+			{ value: 'victoria', selected: false },
+			{ value: 'sami', selected: false },
+			{ value: 'bolivar', selected: false },
+			{ value: 'iberia', selected: false },
+			{ value: 'siracusa', selected: false },
+			{ value: 'higashi', selected: false },
+			{ value: 'sargon', selected: false },
+			{ value: 'kjerag', selected: false },
+			{ value: 'minos', selected: false },
+			{ value: 'yan', selected: false },
+			{ value: 'lungmen', selected: false },
+			{ value: 'ursus', selected: false },
+			{ value: 'egir', selected: false },
+			{ value: 'leithanien', selected: false },
+			{ value: 'rim', selected: false }
+		]
+	},
+	{
+		key: 'groupId',
+		options: [
+			{ value: null, selected: false },
+			{ value: 'pinus', selected: false },
+			{ value: 'blacksteel', selected: false },
+			{ value: 'karlan', selected: false },
+			{ value: 'sweep', selected: false },
+			{ value: 'rhine', selected: false },
+			{ value: 'penguin', selected: false },
+			{ value: 'lgd', selected: false },
+			{ value: 'glasgow', selected: false },
+			{ value: 'abyssal', selected: false },
+			{ value: 'dublinn', selected: false },
+			{ value: 'siesta', selected: false },
+			{ value: 'babel', selected: false },
+			{ value: 'elite', selected: false },
+			{ value: 'sui', selected: false }
+		]
+	},
+	{
 		key: 'status_ailment',
 		options: [
 			{ value: 'stun', selected: false },
@@ -65,3 +110,6 @@ export const filters = derived([filterOptions], ([$filterOptions]) =>
 // const compiledMods = derived([activeChaosEffects], ([$activeChaosEffects]) =>
 // 	updateMods($activeChaosEffects.map((ele) => ele.effects))
 // );
+
+//TODO
+// sorting, grouping, AA, condition

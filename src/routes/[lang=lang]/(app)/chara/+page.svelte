@@ -4,6 +4,7 @@
 	import CharaDisplay from '$lib/components/CharaDisplay.svelte';
 	import CharaFilter from '$lib/components/CharaFilter.svelte';
 	import { filters, filterOptions } from './stores';
+	import CharaFilterDesc from '$lib/components/CharaFilterDesc.svelte';
 
 	export let data: PageData;
 	$: language = data.language;
@@ -26,4 +27,5 @@
 <div class="pb-20">
 	<CharaFilter {filters} {filterOptions} />
 	<CharaDisplay characters={filter(data.characters, $filters)} />
+	<CharaFilterDesc {filterOptions} {language}/>
 </div>
