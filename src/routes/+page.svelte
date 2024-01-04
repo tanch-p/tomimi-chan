@@ -1,59 +1,34 @@
-<script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
+<script lang="ts">
+	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
+	import { browser } from '$app/environment';
+
+	let language = 'en';
+	onMount(async () => {
+		if (browser) {
+			const browerLang = window.navigator.language;
+			if (browerLang.match(/ja|ja/i)) {
+				language = 'ja';
+			} else if (browerLang.includes('zh')) {
+				language = 'zh';
+			}
+			await goto(`/${language}`);
+		}
+	});
 </script>
 
 <svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<title>tomimi.dev</title>
 </svelte:head>
 
-<section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
-		</span>
+<div class="bg-neutral-800 min-h-screen flex items-center">
+	<div class="max-w-7xl mx-auto">
+		<p class="text-center text-near-white">
+			Welcome to tomimi.dev! <br />
 
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
-</section>
-
-<style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
-	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
-</style>
+			You will be redirected to the homepage shortly... <br />
+			If you are not redirected please click
+			<a data-sveltekit-reload class="text-blue-500" href={'/en'}>here</a>
+		</p>
+	</div>
+</div>
