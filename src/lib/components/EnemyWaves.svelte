@@ -22,13 +22,17 @@
 			<div class="flex items-center">
 				<img src={DLD} width="50px" alt="DLD" /> <span>5%</span>
 				<img src={GPN} width="50px" alt="GPN" /> <span>5%</span>
-				<img src={THF} width="50px" alt="THF" /> <span>5%</span>
+				{#if rogueTopic !== 'rogue_phantom'}
+					<img src={THF} width="50px" alt="THF" /> <span>5%</span>
+				{/if}
 			</div>
-			<div class="flex items-center">
-				<img src={sami_smbox} width="50px" alt="smbox" /> <span>10.5%</span>
-				<img src={sami_smrbox} width="50px" alt="smrbox" /> <span>3%</span>
-				<img src={sami_smbbox} width="50px" alt="smbbox" /> <span>1.5%</span>
-			</div>
+			{#if rogueTopic !== 'rogue_phantom'}
+				<div class="flex items-center">
+					<img src={sami_smbox} width="50px" alt="smbox" /> <span>10.5%</span>
+					<img src={sami_smrbox} width="50px" alt="smrbox" /> <span>3%</span>
+					<img src={sami_smbbox} width="50px" alt="smbbox" /> <span>1.5%</span>
+				</div>
+			{/if}
 		</div>
 		<p class="mt-4">* - {translations[language].enemy_prob_dev}</p>
 	</div>
