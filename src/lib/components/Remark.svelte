@@ -26,7 +26,10 @@
 			} else {
 				text = text.replace(
 					string,
-					addOverwrittenHighlight(Math.round(skill[key] * (isPercent ? 100 : 1)).toString(), skill)
+					addOverwrittenHighlight(
+						(isPercent ? Math.round(skill[key] * 100) : skill[key]).toString(),
+						skill
+					)
 				);
 			}
 		}
