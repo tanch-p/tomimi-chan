@@ -471,6 +471,7 @@
 			"zh": ["获得<v.value>s无敌效果"]
 		}
 	},
+
 	"erosion_immune": {
 		"tooltip": {
 			"en": ["Immune to Erosion"],
@@ -546,15 +547,15 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Skill (Initial SP: 0, Cost:18)",
+				"Skill (Initial CD: 18s, Subsequent: 18s)",
 				"Fires a special bolt that deals <v.atk.multiplier>% of ATK as Arts damage."
 			],
 			"ja": [
-				"スキル→初期SP0、必要SP18",
+				"スキル（初動18秒/再動18秒）",
 				"攻撃力<v.atk.multiplier>%の術ダメージを与える特殊な矢を放つ"
 			],
 			"zh": [
-				"技能（初始0SP，消耗18SP）",
+				"技能（初次冷却18s，后18s）",
 				"释放特殊弩箭进行攻击，造成相当于攻击力<v.atk.multiplier>%的法术普通伤害"
 			]
 		}
@@ -566,17 +567,17 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Ice Nova (Initial SP: 12, Cost:12)",
+				"Ice Nova (Initial CD: 12s, Subsequent: 12s)",
 				"Deals 130% of ATK as Arts damage to all allied units in a 2.6 tile radius and applies Cold for 10s",
 				"Damage increased to 260% against Frozen targets."
 			],
 			"ja": [
-				"スキル→初期SP12、必要SP12",
+				"スキル（初動12秒/再動12秒）",
 				"自分周囲半径2.6マスへ攻撃力130%の術ダメージと10秒間の【寒冷】効果を与える",
 				"【凍結】している相手にはスキル攻撃力が2倍になる"
 			],
 			"zh": [
-				"技能（初始12SP，消耗12SP）",
+				"技能（初次冷却12s，后12s）",
 				"对半径2.6范围内所有我方单位造成相当于攻击力130%的法术溅射伤害并施加持续10秒的寒冷",
 				"对持有冻结的目标造成的伤害提升至260% "
 			]
@@ -614,12 +615,15 @@
 	"gst_shield": {
 		"tooltip": {
 			"en": [
-				"Shield (Initial CD: 10s, Thereafter: 30s)",
+				"Shield (Initial CD: 10s, Subsequent: 30s)",
 				"Refreshes shield effect. Shield can absorb all damage types, up to 10% of max HP."
 			],
-			"ja": ["シールド→初回10秒、後30秒", "自身の最大HPの10%に相当するシールドを自身に付与する"],
+			"ja": [
+				"シールド（初動10秒/再動30秒）",
+				"自身の最大HPの10%に相当するシールドを自身に付与する"
+			],
 			"zh": [
-				"刷新护盾（初回10s，后30s）",
+				"刷新护盾（初次冷却10s，后30s）",
 				"刷新自身屏障、屏障可吸收相当于自身最大生命值10%的全类型伤害 "
 			]
 		}
@@ -632,11 +636,11 @@
 		"tooltip": {
 			"en": ["Skill→Every 22s unleashes charged attack"],
 			"ja": ["スキル→チャージ攻撃、CD22秒"],
-			"zh": []
+			"zh": ["蓄力锤（冷却22s）", "对目标及其周围四格造成攻击力300%物理伤害"]
 		}
 	},
-	"withered_knight_arrow_bomb_CC": {
-		"atk": { "multiplier": 1.4 },
+	"withered_knight_arrow_bomb": {
+		"atk": { "multiplier": 1.6 },
 		"dmg_element": "arts",
 		"suffix": { "en": "skill", "ja": "スキル", "zh": "技能" },
 		"hits": 1,
@@ -645,7 +649,10 @@
 				"Skill→Every 22s unleashes charged attack → Fires a delayed exploding arrow on max 3 targets, deals damage to target + surrounding 4 tiles"
 			],
 			"ja": ["スキル→３体に爆発の矢を放つ、", "対象と隣接4マスに術ダメージ、CD22秒"],
-			"zh": []
+			"zh": [
+				"技能（冷却22s）",
+				"对最多3个目标发射爆炸箭，命中后2.5s爆炸，对目标及其周围四格造成攻击力<v.atk.multiplier>法术伤害"
+			]
 		}
 	},
 	"JAK_strong_wine_attack": {
@@ -766,19 +773,6 @@
 			"zh": []
 		}
 	},
-	"mudrock_shield_CC": {
-		"tooltip": {
-			"en": [
-				"Skill→Every 90s creates shield which absorbs up to 15000 Arts damage",
-				"Shield Active: Max HP+50%、ASPD+50%"
-			],
-			"ja": [
-				"スキル→90秒毎にシールドを張り、合計15000の術攻撃を吸収する",
-				"シールド展開中：最大HP+50%、攻撃速度+50%"
-			],
-			"zh": []
-		}
-	},
 	"mudrock_hammer": {
 		"tooltip": {
 			"en": ["Every normal attack increase Mudrock's atk stat by 60%, Max 6 stacks"],
@@ -846,7 +840,8 @@
 			"en": ["Skill→Applies -50% Atk debuff to operator with highest attack stat, CD10s"],
 			"ja": ["スキル→最も攻撃力が高い味方の攻撃力を25秒50％減少する", "CD:10秒"],
 			"zh": [
-				"使全场攻击力最高的我方单位攻击力最终降低50%，持续25s，冷却10s",
+				"攻击削弱（冷却10s）",
+				"使全场攻击力最高的我方单位攻击力最终降低50%，持续25s",
 				"※不会对已处于技能效果中的我方单位重复释放"
 			]
 		}
@@ -1523,7 +1518,7 @@
 		"tooltip": {
 			"en": ["Does not transit to 2nd form if defeated using Tattered Pillar"],
 			"ja": ["脆い石柱によるダメージで倒された場合、形態移行せずそのまま消滅する"],
-			"zh": [""]
+			"zh": ["被破碎支柱击败时，不会转换模式，直接退场"]
 		}
 	},
 	"ggy_stone_form": {
@@ -1531,12 +1526,12 @@
 		"suffix": {
 			"en": "Stone Form",
 			"ja": "石像形態",
-			"zh": "石像形態"
+			"zh": "石像形态"
 		},
 		"tooltip": {
 			"en": ["Stone Form - DEF +800 RES +30 for 10s, changes to flying mode thereafter"],
 			"ja": ["石像形態 - 10秒間、防御力+800、術耐性+30。終了後、飛行形態に"],
-			"zh": ["10秒間防御力增加800，法术抗性增加30"]
+			"zh": ["10秒間防御力增加800，法术抗性增加30，免疫失衡，免疫浮空"]
 		}
 	},
 	"duck_dash": {
@@ -1556,7 +1551,7 @@
 		"suffix": { "en": "20 stacks", "ja": "20回", "zh": "20次" },
 		"tooltip": {
 			"en": [
-				"Every atk increases atk by 7%, aspd by 5, max 28 stacks",
+				"Every attack increases atk by 7%, aspd by 5, max 28 stacks",
 				"resets after not attacking for 4s"
 			],
 			"ja": [
@@ -1615,14 +1610,14 @@
 				"無敵→攻撃を受け付けない、継続時間永久",
 				"助手が倒される度に最大HP10％のダメージを受ける"
 			],
-			"zh": [""]
+			"zh": ["永久无敌，每个“报幕助手”被击杀时，自身流失最大生命值10%的生命"]
 		}
 	},
 	"HST_summon_helper": {
 		"tooltip": {
 			"en": ["Every 45s summons 2 Host's Assistants"],
 			"ja": ["45秒毎に助手を2体召喚する"],
-			"zh": [""]
+			"zh": ["召唤（初始CD10s，后45s）", "召唤一次“报幕助手”/骇笑看客"]
 		}
 	},
 	"HST_summon_helper_revival": {
@@ -1632,7 +1627,7 @@
 				"Does not summon any more units for the rest of the battle"
 			],
 			"ja": ["復活後10秒無敵の助手を10体召喚する", "以降助手召喚しない"],
-			"zh": [""]
+			"zh": ["重生结束时，立刻召唤一次“报幕助手”，并令它们获得10s无敌效果"]
 		}
 	},
 	"puppet_killer_melody": {
@@ -1641,40 +1636,49 @@
 				"When not blocked, plays killer melody that deals 100 arts dmg /s to all units on map"
 			],
 			"ja": ["未ブロック時、致死なメロディで味方全体に毎秒100術ダメージを与える"],
-			"zh": []
+			"zh": ["未被阻挡时，每秒对本层地图中全体我方单位造成100点无来源无类型法术伤害"]
 		}
 	},
 	"PTM_evasion": {
 		"tooltip": {
 			"en": ["When not blocked, gains 40% phys & arts evasion"],
 			"ja": ["未ブロック時、物理と術回避率+40%"],
-			"zh": []
+			"zh": ["未被阻挡时，获得40%物理/法术闪避"]
 		}
 	},
 	"PTM_blink": {
 		"tooltip": {
-			"en": ["When blocked, blinks past unit & summons 1 shadow in place. CD15s"],
-			"ja": ["ブロックされた時、ユニットの背後に回り込む、その場に影を召喚する　CD15秒"],
-			"zh": []
+			"en": [
+				"Blink (Initial CD: 10s, Subsequent: 15s)",
+				"When blocked, blinks past unit & summons 1 shadow in place. CD15s"
+			],
+			"ja": [
+				"回り込み（初動10秒/再動15秒）",
+				"ブロックされた時、ユニットの背後に回り込む、その場に影を召喚する　CD15秒"
+			],
+			"zh": ["闪现（初始冷却10s，后15s）", "被阻挡时会穿过阻挡其的单位并留下不祥幻影"]
 		}
 	},
 	"PTM_aoe": {
-		"name": "sing_for_me",
 		"tooltip": {
 			"en": [
-				"AOE (range 2) - does 80% ATK phys dmg & 20% ATK Nervous Impairment to all units within range. CD10s"
+				"AOE (Initial CD: 5s, Subsequent: 10s) - does 80% ATK phys dmg & 20% ATK Nervous Impairment to all units within range. CD10s"
 			],
 			"ja": [
-				"範囲攻撃（半径2）→範囲内の全味方に攻撃力80％の物理ダメージと攻撃力20%の神経ダメージを与える　CD10秒"
+				"範囲攻撃（初動5秒/再動10秒）",
+				"半径2内の全味方に攻撃力80％の物理ダメージと攻撃力20%の神経ダメージを与える"
 			],
-			"zh": []
+			"zh": [
+				"AOE（初始冷却5s，后10s）",
+				"对半径2范围内全体我方单位造成自身攻击力80%的物理伤害和20%的神经损伤；该技能伤害无视迷彩"
+			]
 		}
 	},
 	"PTS_copy": {
 		"tooltip": {
 			"en": ["Same as above except no blink skill"],
 			"ja": ["回り込みスキルがない以外、上と同じ"],
-			"zh": []
+			"zh": ["技能与以上相同，除了不会闪现"]
 		}
 	},
 	"mutant_spawn_2": {
@@ -1889,7 +1893,11 @@
 				"ダメージを受けると警報を鳴らします",
 				"警報→魔剣士と呪術師を臨戦態勢に変化し、敵全体に攻撃力と防御力＋30％バフ（重複する）"
 			],
-			"zh": []
+			"zh": [
+				"被攻击后会使用警报",
+				"提升在场所有敌方单位30%攻击和30%防御(可无限叠加)",
+				"使【待命】的单位敌人立即进入【临战】状态"
+			]
 		}
 	},
 	"sarkaz_sentinel_leader_alert": {
@@ -1901,7 +1909,11 @@
 				"ダメージを受けると警報を鳴らします",
 				"警報→魔剣士と呪術師を臨戦態勢に変化し、敵全体に攻撃力と防御力＋50％バフ（重複する）"
 			],
-			"zh": []
+			"zh": [
+				"被攻击后会使用警报",
+				"提升在场所有敌方单位50%攻击和50%防御(可无限叠加)",
+				"使【待命】的单位敌人立即进入【临战】状态"
+			]
 		}
 	},
 	"sarkaz_standby": {
@@ -2220,7 +2232,11 @@
 				"(爆弾：単体に<v.atk.multiplier>%物理ダメージ)",
 				"HP50%以下：爆弾2体ｰ>3体、即時爆弾設置する"
 			],
-			"zh": []
+			"zh": [
+				"C4（初次冷却9s，后21s）",
+				"为自身2.5半径范围内一个我方单位安装上C4，3.2秒后造成攻击力180%的物理普通伤害",
+				"生命值低于50%时，技能冷却立刻归0，技能C4最大目标数提升至3"
+			]
 		}
 	},
 	"WDG_throw_rock": {
@@ -2253,14 +2269,14 @@
 		"tooltip": {
 			"en": ["Recovers 0.25% Max Hp/s (Can be disabled by a relic)"],
 			"ja": ["毎秒最大HPの0.25％を回復する（ある秘宝で無効化可能）"],
-			"zh": []
+			"zh": ["每秒回复最大生命0.25%的生命（可使用收藏品“空白遗书”无效化）"]
 		}
 	},
 	"DOL_counter": {
 		"tooltip": {
 			"en": ["Every 20 hits received, unleases a 100% ATK arts dmg counter to all units"],
 			"ja": ["20回攻撃を受けると、味方全体に攻撃力100％術ダメージのカウンターを放つ"],
-			"zh": []
+			"zh": ["每受到20次可触发受击回复的伤害后，对场上全体我方单位造成自身攻击力100%的法术溅射伤害"]
 		}
 	},
 	"DOL_shield": {
@@ -2271,18 +2287,22 @@
 				"CD45s, during shield active cooldown proceeds"
 			],
 			"ja": [
-				"バリア - 最大HP15％のダメージを吸収する",
-				"バリア使用中→通常攻撃しない、敵全体移動速度＋200％",
-				"CD45秒, クールタイムは使用中でもカウントされる"
+				"バリア（初動60秒/再動45秒）",
+				"最大HP15％のダメージを吸収する、バリア継続中は通常攻撃しない、敵全体移動速度＋200％",
+				"クールタイムは使用中でもカウントされる"
 			],
-			"zh": []
+			"zh": [
+				"护盾（初始冷却60s，后45s）",
+				"获得可吸收相当于自身最大生命值15%的全类型伤害的屏障",
+				"屏障存在期间，自身不进行普通攻击，每20s（包括0s时）召唤一次额外敌人，全场敌人移动速度最终提升至200%"
+			]
 		}
 	},
 	"DOL_self_destruct": {
 		"tooltip": {
 			"en": ["Self-destructs after 8mins, taking away 30 lifepoint"],
 			"ja": ["8分後自爆して、耐久値30点減る"],
-			"zh": []
+			"zh": ["8分后自爆，扣除30点关卡生命值，对场上全体我方单位造成自身攻击力200%的法术溅射伤害"]
 		}
 	},
 	"break_the_chains_1": {
@@ -2296,10 +2316,8 @@
 		"hits": 1,
 		"tooltip": {
 			"en": ["'Break the Chains' - Initial Cast: 30s, Thereafter: 70s"],
-			"ja": ["「破桎而出」初回使用:30秒、再使用：70秒"],
-			"zh": [
-				"スキル（破桎而出）→70秒毎に7500物理/術ダメージを吸収するシールドを生成、15秒以内にシールドが破られなかった場合、半径3.0以内の全ての味方に攻撃力の600%の術ダメージを与える"
-			]
+			"ja": ["「破桎而出」初動30秒/再動70秒"],
+			"zh": ["スキル（破桎而出）"]
 		}
 	},
 	"break_the_chains_2": {
@@ -2313,10 +2331,8 @@
 		"hits": 1,
 		"tooltip": {
 			"en": ["'Break the Chains(Rage)' - Initial Cast: 30s, Thereafter: 70s"],
-			"ja": ["「破桎而出（凶暴）」初回使用:30秒、再使用：70秒"],
-			"zh": [
-				"スキル（破桎而出）→70秒毎に9000物理/術ダメージを吸収するシールドを生成、15秒以内にシールドが破られなかった場合、半径3.0以内の全ての味方に攻撃力の800%の術ダメージを与える"
-			]
+			"ja": ["「破桎而出（凶暴）」初動30秒/再動70秒"],
+			"zh": ["スキル（破桎而出）"]
 		}
 	},
 	"dublinn_phalanx": {
@@ -2528,20 +2544,27 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Skill (Map AOE) - Initial SP: 10, Cost: 20",
+				"Map AOE (Initial CD: 10s, Subsequent:20s)",
+				"HP↓50% - (Initial CD: 5s, Subsequent: 15s)",
 				"Targets all allied units, dealing 80% ATK as Arts damage to target and 4 tiles surrounding target"
 			],
 			"ja": [
-				"スキル（全体攻撃）→ 初期SP10、必要SP20",
+				"全体攻撃（初動10秒/再動20秒）",
+				"HP50％以下（初動5秒/再動15秒）",
 				"味方全体に対象と隣接4マスに攻撃力80％の術ダメージを与える"
 			],
-			"zh": []
+			"zh": [
+				"全屏攻击（初始CD10s，后20s）",
+				"HP50%以下（初始CD5s，后15s）",
+				"向场上所有我方单位施加法阵，每个法阵对目标和周围4格的所有我方单位造成80%法术普通伤害 "
+			]
 		}
 	},
 	"playwright_gaze": {
 		"tooltip": {
 			"en": [
-				"Skill (Single Target) - Initial SP: 0, Cost: 20",
+				"Playwright's Gaze (Initial CD: 20s, Subsequent: 20s)",
+				"HP↓50% - (Initial CD: 10s, Subsequent: 15s)",
 				"Casts a $infinite duration$ debuff on an operator:",
 				"Reduces ASPD by 50%,",
 				"Deals 4% of Target's Max HP as Arts damage every second,",
@@ -2552,30 +2575,39 @@
 				"Cannot be removed by Lumen S3"
 			],
 			"ja": [
-				"スキル（眼差し）→ 初期SP0、必要SP20",
+				"眼差し（初動20秒/再動20秒）",
+				"HP50％以下（初動10秒/再動15秒）",
 				"味方単体に$継続時間無限$のデバフを与える：",
 				"攻撃速度-50、毎秒相手の最大HPの4％を術ダメージとして与える",
 				"相手が離脱した後、元いたマスを封印する",
 				"相手の再出撃時間を50％増加",
 				"召喚ユニットやすでに効果下の味方は選択されない"
 			],
-			"zh": []
+			"zh": [
+				"剧作家的注目（初始CD20s，后20s）",
+				"HP50%以下（初始CD10s，后15s）",
+				"选择场上一名我方干员施加永久持续的法术",
+				"攻击速度最终降低至50%",
+				"自身每秒对其造成目标最大生命值4%的法术伤害",
+				"若法术持续时间内目标退场，则封印目标所在地块，且本次再部署时间延长至150%",
+				"※不选择已处于此技能影响下的单位为目标 "
+			]
 		}
 	},
 	"playwright_hp50": {
 		"tooltip": {
-			"def": { "multiplier": 2 },
-			"res": { "multiplier": 1.8 },
 			"en": [
-				"HP↓50% - All skills cooldown -5s,",
+				"HP↓50% - All skills cooldown are decreased,",
 				"All damage dealt increased by 1.5 times",
 				"DEF is increased by 100%, RES is increased by 80%"
 			],
 			"ja": [
-				"HP50％以下 - 全スキルクールタイム-5秒、最終ダメージ+50％",
+				"HP50％以下 - 全スキルクールタイム減少、最終ダメージ+50％",
 				"防御力＋100％、術耐性＋80%"
 			],
-			"zh": []
+			"zh": [
+				"生命值低于50%时，自身造成的所有伤害提升至150%，防御力提升100%，法术抗性提升80%，技能冷却减少"
+			]
 		}
 	},
 	"icefield_arts_fighter_explode": {
@@ -2588,14 +2620,15 @@
 				"死亡すると、半径1.65以内の敵味方全員に攻撃力の130%の術ダメージを与え、5秒間寒冷状態にする",
 				"無効化可能"
 			],
-			"zh": []
+			"zh": ["被击倒时对周围所有单位造成攻击力150%的法术溅射伤害且施加5s的寒冷（可被沉默）"]
 		}
 	},
-	"unbalance_damage_80": {
+	"unbalance_damage": {
+		"damage": 50,
 		"tooltip": {
-			"en": ["When unbalanced, takes 80 True damage every 0.066s."],
-			"ja": ["強制移動中、0.066秒ごとに80（1秒に約1200）の確定ダメージを受ける"],
-			"zh": []
+			"en": ["When unbalanced, takes <v.damage> True damage every 0.066s."],
+			"ja": ["強制移動中、0.066秒ごとに<v.damage>（1秒に約1200）の確定ダメージを受ける"],
+			"zh": ["处于失衡状态时，每0.066s受到<v.damage>点无来源真实伤害"]
 		}
 	},
 	"bleed_true": {
@@ -2618,7 +2651,9 @@
 			"ja": [
 				"死亡時に自爆し、半径1.5以内の全ユニットに攻撃力の<v.atk.multiplier>%の術ダメージを与える"
 			],
-			"zh": []
+			"zh": [
+				"死亡时施法对周围所有单位造成攻击力<v.atk.multiplier>%的法术溅射伤害并直接夺取“留声机”的控制权"
+			]
 		}
 	},
 	"ltmob_add_arts": {
@@ -2638,15 +2673,15 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Skill - Initial SP: 10, Cost:20",
+				"Skill (Initial CD: 10s, Subsequent :20s)",
 				"Fires projectiles in all 4 directions, dealing 150% ATK as Physical damage to first allied unit hit"
 			],
 			"ja": [
-				"【全力演奏】→（自然回復スキル/初期SP10/必要SP20）",
+				"【全力演奏】（初動10秒/再動20秒）",
 				"十字方向にに射程無限の光弾を発射し、触れた最初の味方に攻撃力の150%の物理ダメージを与える"
 			],
 			"zh": [
-				"全力吹奏→初始10SP，消耗20",
+				"全力吹奏（初次冷却10s，后20s）",
 				"向自身四方向发射弹道，对第一个触碰到的我方单位造成攻击力150%的物理普通伤害。"
 			]
 		}
@@ -2716,7 +2751,7 @@
 		"tooltip": {
 			"en": ["Units blocking this gains +1 Block (up to max +6)"],
 			"ja": ["ブロックされうとブロックしたユニットのブロック数上限+1（最大+6まで）"],
-			"zh": []
+			"zh": ["阻挡该敌人的单位阻挡数+1，同类效果最多叠加6次"]
 		}
 	},
 	"london_arti_sp1": {
@@ -2740,7 +2775,7 @@
 		"tooltip": {
 			"en": ["Spawns 1 Gift of the Sanguinarch upon death"],
 			"ja": ["死亡すると、大君の祝福を1体召喚する"],
-			"zh": []
+			"zh": ["死亡后召唤1只大君之赐"]
 		}
 	},
 	"heirbearer_ASV_buff": {
@@ -2765,7 +2800,7 @@
 		"tooltip": {
 			"en": ["For every 'Reborn Creations' on field, ATK is increased by 15%, max 6 stacks"],
 			"ja": ["マップ上の再生造物1体につき、攻撃力+15%（6体まで）"],
-			"zh": []
+			"zh": ["场上每存在1个'重生造物'，自身攻击力提升15%，最多叠加6层"]
 		}
 	},
 	"recharge_london_arti": {
@@ -2961,35 +2996,22 @@
 	"payback_sgbow": {
 		"tooltip": {
 			"en": ["During 'Payback Time', attacks deal Arts damage"],
-			"ja": [""],
+			"ja": ["「粛清の時」中は術攻撃に変化する"],
 			"zh": ["“清算时刻”状态下，攻击变为法术伤害"]
 		}
 	},
-	"blood_debt_sgman": {
+	"blood_debt_inc": {
+		"value": 80,
 		"tooltip": {
-			"en": ["Upon death, increases 'Blood Debt' by 20"],
-			"ja": [""],
-			"zh": ["被击倒时，使“血债账款”增加20点"]
-		}
-	},
-	"blood_debt_sgman2": {
-		"tooltip": {
-			"en": ["Upon death, increases 'Blood Debt' by 35"],
-			"ja": [""],
-			"zh": ["被击倒时，使“血债账款”增加35点"]
-		}
-	},
-	"blood_debt_sgbdg": {
-		"tooltip": {
-			"en": ["Upon death, increases 'Blood Debt' by 80"],
-			"ja": [""],
-			"zh": ["被击倒时，使“血债账款”增加80点"]
+			"en": ["Upon death, increases 'Blood Debt' by <v.value>"],
+			"ja": ["倒されると、「血債」のSP+<v.value>"],
+			"zh": ["被击倒时，使“血债账款”增加<v.value>点"]
 		}
 	},
 	"payback_sgkill": {
 		"tooltip": {
 			"en": ["During 'Payback Time', gains ATK +15%, DEF +15% and ASPD +50"],
-			"ja": [""],
+			"ja": ["「粛清の時」中、攻撃力・防御力+15%、攻撃速度+50"],
 			"zh": ["“清算时刻”状态下，自身获得攻击力，防御力+15%，攻击速度+50"]
 		}
 	},
@@ -3002,38 +3024,40 @@
 			"en": [
 				"After Inspection has completed, gains movespeed +0.05, and the damage of the next attack is increased to 200% of ATK"
 			],
-			"ja": [""],
+			"ja": ["正体判明後、移動速度+0.05。1度だけ攻撃倍率が200%に上昇"],
 			"zh": ["密探，显露真身后，移动速度+0.05，下一次攻击的攻击力提升至200%"]
 		}
 	},
 	"wdyjd_inspection": {
 		"tooltip": {
 			"en": ["After Inspection has completed, gains movespeed +0.2 and Stealth"],
-			"ja": [""],
+			"ja": ["正体判明後、移動速度+0.2、ステルスを獲得"],
 			"zh": ["密探，显露真身后，获得隐匿"]
 		}
 	},
 	"wdgyht_blink": {
 		"atk": { "multiplier": 1.5 },
 		"dmg_element": "phys",
-		"suffix": { "en": "Blink", "ja": "", "zh": "闪现" },
-		"multiplier": 1.5,
+		"suffix": { "en": "Blink", "ja": "閃影", "zh": "闪现" },
 		"hits": 1,
-		"fixed_inc": 0,
 		"tooltip": {
 			"en": [
 				"Skill (Initial SP: 0, Cost:2) Attack Recovery",
 				"When blocked, deals 150% damage to blocking unit and blinks 1.5 tiles towards next checkpoint"
 			],
-			"ja": [""],
+			"ja": [
+				"【閃影】（攻撃回復/必要SP2）",
+				"ブロック相手をすりぬけ、進行ルートに沿って1.5マス移動",
+				"さらに、ブロックしていた相手に攻撃力の100%の物理ダメージを与える"
+			],
 			"zh": ["攻击2次后，下一次攻击会对攻击目标造成攻击力150%的伤害，向下个检查点移动1.5格"]
 		}
 	},
 	"imbalance_immune": {
 		"tooltip": {
 			"en": ["Immune to Imbalance"],
-			"ja": [""],
-			"zh": [""]
+			"ja": ["強制移動無効"],
+			"zh": ["失衡免疫"]
 		}
 	},
 	"nhapos_pollution": {
@@ -3084,16 +3108,19 @@
 		"hits": 10,
 		"tooltip": {
 			"en": [
-				"Skill (Initial SP: 10, Cost:25)",
+				"Skill (Initial CD: 10s, Subsequent: 25s)",
 				"Centering on the allied unit with the highest max HP, spawns a bombardment area within the surrounding 8 tiles. For 6s, deals 55% of ATK as Arts damage to the allied unit with the highest percentage HP"
 			],
 			"ja": [
-				"【爆撃】（自然回復/初期SP15/必要SP25）",
+				"【爆撃】（初動10秒/再動25秒）",
 				"攻撃範囲内で最も最大HPが高い味方を中心に、3×3マスの爆撃区域を設定",
 				"爆撃区域内で最もHP割合が高い味方に対し、攻撃力の55%の術ダメージを与える",
 				"爆撃中、強制移動・スタン・睡眠・凍結・浮遊耐性を得る"
 			],
-			"zh": ["锁定生命上限最高的目标进行数次轰炸，每次对范围内当前生命比例最高的单位造成法术伤害"]
+			"zh": [
+				"轰炸（初次冷却10s，后25s）",
+				"锁定生命上限最高的目标进行数次轰炸，每次对范围内当前生命比例最高的单位造成法术伤害"
+			]
 		}
 	},
 	"enemy_1274_stmram_hp50": {
@@ -3110,7 +3137,7 @@
 	"dwlock_skill": {
 		"atk": { "multiplier": 0.4 },
 		"dmg_element": "arts",
-		"suffix": { "en": "Skill", "ja": "技", "zh": "技能" },
+		"suffix": { "en": "Skill", "ja": "死の瞳", "zh": "技能" },
 		"hits": 8,
 		"tooltip": {
 			"en": [
@@ -3118,8 +3145,16 @@
 				"Channels upon an allied unit, dealing 40% of ATK as Arts damage every second for 8s",
 				"When channel ends, deals 220% of ATK as Necrosis damage to target and adjacent 4 tiles."
 			],
-			"ja": [""],
-			"zh": ["锁定我方单位持续造成法术伤害，并在释放完成时造成群体凋亡损伤"]
+			"ja": [
+				"【死の瞳】（初動10秒/再動24秒）",
+				"味方1人に8秒間、攻撃力の40%の術ダメージを毎秒与える",
+				"その後、対象と周囲4マスに攻撃力の220%の壊死損傷を与える"
+			],
+			"zh": [
+				"死亡之眼（初次冷却10s，后24s）",
+				"对攻击范围内一名我方单位持续施法，每秒造成攻击力40%的法术伤害，持续8s",
+				"并在释放完成时对目标及其周围4格的的我方单位造成攻击力220%的凋亡损伤"
+			]
 		}
 	},
 	"duswrd_cont_slash": {
@@ -3132,119 +3167,109 @@
 				"Skill (Initial SP: 0, Cost:3) Attack recovery",
 				"Does <v.atk.multiplier>% ATK x 5 to target"
 			],
-			"ja": [""],
+			"ja": ["【連続斬り】（攻撃回復/必要SP3）", "対象に攻撃力の100%の物理ダメージを5回与える"],
 			"zh": ["3次攻击后对目标发动五次连续斩击"]
 		}
 	},
 	"smedzi_1": {
 		"tooltip": {
-			"en": ["无敌"],
-			"ja": ["无敌"],
+			"en": ["Invincible"],
+			"ja": ["永久无敌、装置で剥がせる"],
 			"zh": ["无敌"]
 		}
 	},
 	"smedzi_2": {
 		"tooltip": {
-			"en": ["同时攻击两个目标，对【苗圃】中的我方单位造成高额法术伤害(+100%)"],
-			"ja": ["同时攻击两个目标，对【苗圃】中的我方单位造成高额法术伤害(+100%)"],
-			"zh": ["同时攻击两个目标，对【苗圃】中的我方单位造成高额法术伤害(+100%)"]
+			"en": ["Targets 2 units, deals extra +100% damage to units on【苗圃】tiles"],
+			"ja": ["2体同時攻撃、【苗圃】マスにいる対象のダメージ+100%"],
+			"zh": ["同时攻击两个目标，对【苗圃】中的我方单位造成的伤害+100%"]
 		}
 	},
 	"smedzi_3": {
 		"tooltip": {
-			"en": [
-				"每次移动后将2处可部署位置变为【苗圃】，大幅降低其中我方单位的攻击速度并持续造成法术伤害"
-			],
-			"ja": [
-				"每次移动后将2处可部署位置变为【苗圃】，大幅降低其中我方单位的攻击速度并持续造成法术伤害"
-			],
-			"zh": [
-				"每次移动后将2处可部署位置变为【苗圃】，大幅降低其中我方单位的攻击速度并持续造成法术伤害"
-			]
+			"en": ["Every movement turns 2 tiles within attack range to 【苗圃】"],
+			"ja": ["移動する毎に攻撃範囲内のマスを【苗圃】に転換する"],
+			"zh": ["每次移动后将2处可部署位置变为【苗圃】"]
 		}
 	},
 	"smedzi_4": {
 		"tooltip": {
-			"en": ["首次被击倒后，攻击力提升(+50%)"],
-			"ja": ["首次被击倒后，攻击力提升(+50%)"],
-			"zh": ["首次被击倒后，攻击力提升(+50%)"]
+			"en": ["When defeated once, ATK +50%"],
+			"ja": ["初回倒された後、攻击力+50%"],
+			"zh": ["首次被击倒后，攻击力提升50%"]
 		}
 	},
 	"smedzi_5": {
 		"tooltip": {
-			"en": ["战斗经过较长时间后(600s)，将全场可部署位置变为【苗圃】，并扣除30目标生命"],
-			"ja": ["战斗经过较长时间后(600s)，将全场可部署位置变为【苗圃】，并扣除30目标生命"],
-			"zh": ["战斗经过较长时间后(600s)，将全场可部署位置变为【苗圃】，并扣除30目标生命"]
+			"en": [
+				"After 600s，self-destructs and turns all tiles to 【苗圃】 and takes away 30 lifepoints"
+			],
+			"ja": ["戦闘経過600秒後、全てのマスを【苗圃】に変え、耐久値を-30"],
+			"zh": ["战斗经过600s后，将全场可部署位置变为【苗圃】，并扣除30目标生命"]
 		}
 	},
 	"smedzi_6": {
 		"tooltip": {
-			"en": ["关于闪现路线请看地图情报"],
-			"ja": ["关于闪现路线请看地图情报"],
+			"en": ["For movement route please check stage info at the top"],
+			"ja": ["移動法則は上の情報に載せている"],
 			"zh": ["关于闪现路线请看地图情报"]
-		}
-	},
-	"smlead_1": {
-		"tooltip": {
-			"en": ["攻击施加寒冷(4.5s)"],
-			"ja": ["攻击施加寒冷(4.5s)"],
-			"zh": ["攻击施加寒冷(4.5s)"]
 		}
 	},
 	"smlead_2": {
 		"tooltip": {
-			"en": ["周期性(5s)对周围我方干员施加寒冷(4.5s)"],
-			"ja": ["周期性(5s)对周围我方干员施加寒冷(4.5s)"],
-			"zh": ["周期性(5s)对周围我方干员施加寒冷(4.5s)"]
+			"en": ["Every 5s applies Cold (4.5s) to all nearby allied units"],
+			"ja": ["5秒毎に範囲内の味方に4.5秒の寒冷を与える"],
+			"zh": ["每5s对周围我方干员施加4.5s的寒冷"]
 		}
 	},
 	"smlead_4": {
 		"tooltip": {
 			"en": [
-				"生命低于70%,40%,10%时，短时间内(3s)进入【自我泯灭】",
-				"停止攻击",
-				"移动速度+200%，免疫束缚、停顿",
-				"不可被阻挡",
-				"受到的物理和法术伤害大幅降低(-80%)"
+				"When HP reaches 70%,40%,10%，enters【自我泯灭】state for 3s",
+				"Stops attacking, gains movespeed +200%",
+				"immunity to bind, sluggish, cannot be blocked",
+				"and 80% damage reduction"
 			],
 			"ja": [
-				"生命低于70%,40%,10%时，短时间内(3s)进入【自我泯灭】",
-				"停止攻击",
-				"移动速度+200%，免疫束缚，停顿，不可被阻挡",
-				"受到的物理和法术伤害大幅降低(-80%)"
+				"HPが70%,40%,10%以下になる時，3秒間【自我泯灭】状態に入る",
+				"攻撃を停止、移动速度+200%",
+				"バインド、足止め無効、ブロック不可",
+				"受ける物理と術ダメージが80%減少"
 			],
 			"zh": [
-				"生命低于70%,40%,10%时，短时间内(3s)进入【自我泯灭】",
+				"生命低于70%,40%,10%时，进入持续3s的【自我泯灭】",
 				"停止攻击，移动速度+200%，免疫束缚，停顿，不可被阻挡",
-				"受到的物理和法术伤害大幅降低(-80%)"
+				"受到的物理和法术伤害降低80%"
 			]
 		}
 	},
 	"smlead_5": {
 		"tooltip": {
-			"en": ["进入和离开【自我泯灭】时，对周围我方单位立即施加寒冷(5s)"],
-			"ja": ["进入和离开【自我泯灭】时，对周围我方单位立即施加寒冷(5s)"],
-			"zh": ["进入和离开【自我泯灭】时，对周围我方单位立即施加寒冷(5s)"]
+			"en": ["When entering and exiting【自我泯灭】state, inflicts 5s cold to all nearby allies"],
+			"ja": ["【自我泯灭】開始と終了時、周囲の味方に5秒の寒冷を与える"],
+			"zh": ["进入和离开【自我泯灭】时，对周围我方单位立即施加5s的寒冷"]
 		}
 	},
 	"smdeer_1": {
 		"tooltip": {
-			"en": ["【冰凌】攻击时对整列的我方单位造成物理伤害"],
-			"ja": ["【冰凌】攻击时对整列的我方单位造成物理伤害"],
+			"en": ["【冰凌】Attacks deal damage to all allies in a column"],
+			"ja": ["【冰凌】攻撃は列にいる味方全体にダメージを与える"],
 			"zh": ["【冰凌】攻击时对整列的我方单位造成物理伤害"]
 		}
 	},
 	"smdeer_2": {
 		"tooltip": {
-			"en": ["【自然涌动】使一名我方单位晕眩并持续受到法术伤害"],
-			"ja": ["【自然涌动】使一名我方单位晕眩并持续受到法术伤害"],
-			"zh": ["【自然涌动】使一名我方单位晕眩并持续受到法术伤害"]
+			"en": [
+				"【自然涌动】Stuns an allied unit for 10s and does 20% ATK as Arts damage every second"
+			],
+			"ja": ["【自然涌动】味方一人を10秒間スタンする、毎秒攻撃力20％の術ダメージを与える"],
+			"zh": ["【自然涌动】使一名我方单位晕眩10s并持续受到攻击力20%法术伤害"]
 		}
 	},
 	"smdeer_3": {
 		"tooltip": {
 			"en": [
-				"生命值低于一半时，受到的物理和法术伤害降低60%，【冰凌】和【自然涌动】额外选择一个目标"
+				"HP↓50% - gains 60% damage reduction","【冰凌】and 【自然涌动】 targets 1 more unit"
 			],
 			"ja": [
 				"生命值低于一半时，受到的物理和法术伤害降低60%，【冰凌】和【自然涌动】额外选择一个目标"
@@ -3256,9 +3281,9 @@
 	},
 	"smdeer_4": {
 		"tooltip": {
-			"en": ["战斗经过600s后，对全场我方单位造成法术伤害，并扣除30目标生命"],
-			"ja": ["战斗经过600s后，对全场我方单位造成法术伤害，并扣除30目标生命"],
-			"zh": ["战斗经过600s后，对全场我方单位造成法术伤害，并扣除30目标生命"]
+			"en": ["After 600s, does 150% ATK as Arts damage to all allied units and decreases lifepoint by 30"],
+			"ja": ["戦闘経過600秒後、味方全体に攻撃力150％の術ダメージを与え、耐久値を-30"],
+			"zh": ["战斗经过600s后，对全场我方单位造成攻击力150%的法术伤害，并扣除30目标生命"]
 		}
 	},
 	"smgia2_1": {
@@ -3677,13 +3702,6 @@
 			"zh": ["攻击两次后，下一次攻击造成溅射伤害"]
 		}
 	},
-	"cbjedi_1": {
-		"tooltip": {
-			"en": ["处于失衡状态时，每0.066s受到400点真实伤害"],
-			"ja": ["处于失衡状态时，每0.066s受到400点真实伤害"],
-			"zh": ["处于失衡状态时，每0.066s受到400点真实伤害"]
-		}
-	},
 	"cbrush_1": {
 		"tooltip": {
 			"en": ["经过干员时对其造成攻击力50%与自身移动速度*800的物理伤害"],
@@ -3700,17 +3718,22 @@
 	},
 	"sgcar_1": {
 		"tooltip": {
-			"en": ["被击倒时若已被阻挡，将卸下三个<家族士兵>"],
-			"ja": ["被击倒时若已被阻挡，将卸下三个<家族士兵>"],
+			"en": ["Unloads 3 Famiglia Soldiers if this unit is defeated while blocked"],
+			"ja": ["ブロック中に倒されると、その場にマフィアの準構成員を3体召喚する"],
 			"zh": ["被击倒时若已被阻挡，将卸下三个<家族士兵>"]
 		}
 	},
 	"speople_1": {
 		"dead": 40,
 		"tooltip": {
-			"en": ["在场时使血债账款减少1，但死亡时使血债账款增加<v.dead>"],
-			"ja": ["在场时使血债账款减1少，但死亡时使血债账款增加<v.dead>"],
-			"zh": ["在场时使血债账款1减少，但死亡时使血债账款增加<v.dead>"]
+			"en": [
+				"Gradually reduces 'Blood Debt' by 1/s when on the field, but increases 'Blood Debt' by <v.dead> when defeated"
+			],
+			"ja": [
+				"マップ上にいると、「血債」のSPを毎秒-1（重複する）",
+				"倒されると、「血債」のSP+<v.dead>"
+			],
+			"zh": ["在场时使血债账款减少1，但死亡时使血债账款增加<v.dead>"]
 		}
 	},
 	"byokai_buff": {
@@ -3746,12 +3769,16 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Skill (Initial CD: 10, Thereafter: 15) Attack Recovery",
+				"Skill (Initial CD: 10s, Subsequent: 15s) ",
 				"When blocked, deals 150% arts damage to blocking unit and blinks 1.5 tiles towards next checkpoint"
 			],
-			"ja": [""],
+			"ja": [
+				"【回り込み】（初動10秒/再動15秒）",
+				"ブロック相手をすりぬけ、進行ルートに沿って1.5マス移動",
+				"さらに、ブロックしていた相手に攻撃力の100%の術ダメージを与える"
+			],
 			"zh": [
-				"闪现（初始CD10s，之后CD15s）",
+				"闪现（初始冷却10s，后15s）",
 				"下一次攻击会对攻击目标造成攻击力150%的法术伤害，向下个检查点移动1.5格"
 			]
 		}
@@ -3759,24 +3786,33 @@
 	"smlion_gun": {
 		"atk": { "multiplier": 3 },
 		"dmg_element": "arts",
-		"suffix": { "en": "Gun", "ja": "", "zh": "敕令" },
+		"suffix": { "en": "AOE", "ja": "敕令", "zh": "敕令" },
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Skill (Initial CD: 10, Cost:15) Attack Recovery",
-				"When blocked, deals 150% damage to blocking unit and blinks 1.5 tiles towards next checkpoint"
+				"Skill (Initial CD: 10s, Subsequent: 30s) ",
+				"After charging for 5s, fires an AOE attack at <哈兰杜汗，大地之鞭>, dealing 200% of ATK as physical damage to all units caught up in the AOE and stuns for 10s"
 			],
-			"ja": [""],
+			"ja": [
+				"【敕令】（初動25秒/再動30秒）",
+				"5秒チャージした後<哈兰杜汗，大地之鞭>に大範囲砲撃を行う、範囲内全員に攻撃力200％の物理ダメージを与え、10秒スタンする"
+			],
 			"zh": [
-				"【敕令】（初始CD25s，之后CD30s）",
+				"【敕令】（初始冷却25s，后30s）",
 				"蓄力5s后对<哈兰杜汗，大地之鞭>周围大范围所有单位造成攻击力300%法术伤害并施加10秒晕眩"
 			]
 		}
 	},
 	"smlion_victory": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": [
+				"When <哈兰杜汗，大地之鞭> is defeated or leaves the battlefield, gains DEF +2000, RES +50, ASPD +100, MS +100%",
+				"【征服】now targets allied units"
+			],
+			"ja": [
+				"<哈兰杜汗，大地之鞭>が倒されると、防御力+2000、術耐性+50、攻击速度+100，移动速度+100%",
+				"【征服】のターゲットは味方ユニットに変わる"
+			],
 			"zh": [
 				"<哈兰杜汗，大地之鞭>被击倒或退场后",
 				"获得防御力+2000，法术耐性+50，攻击速度+100，移动速度+100%",
@@ -3786,8 +3822,14 @@
 	},
 	"smkght_victory": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": [
+				"When <路加萨尔古斯，历法之王> is defeated or leaves the battlefield, gains DEF +2000, RES +50, ASPD +100, MS +100%",
+				"【征服】now targets allied units"
+			],
+			"ja": [
+				"<路加萨尔古斯，历法之王>が倒されると、防御力+2000、術耐性+50、攻击速度+100，移动速度+100%",
+				"【征服】のターゲットは味方ユニットに変わる"
+			],
 			"zh": [
 				"<路加萨尔古斯，历法之王>被击倒或退场后",
 				"获得防御力+2000，法术耐性+50，攻击速度+100，移动速度+100%",
@@ -3797,24 +3839,33 @@
 	},
 	"smkght_attackup": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": [
+				"Every attack increases ATK by 30%, ASPD by 30, max 10 stacks",
+				"resets after not attacking for 4s"
+			],
+			"ja": [
+				"攻撃するたびに攻撃力30%と攻撃速度が30上昇(10回まで）",
+				"4秒間攻撃しなかったらリセットされる"
+			],
 			"zh": ["造成伤害时提高攻击力+30%和攻击速度+30（上限10次），停止攻击4秒后复原"]
 		}
 	},
 	"smkght_gun": {
 		"atk": { "multiplier": 2 },
 		"dmg_element": "phys",
-		"suffix": { "en": "Skill", "ja": "", "zh": "征服" },
+		"suffix": { "en": "AOE", "ja": "征服", "zh": "征服" },
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Skill (Initial CD: 10, CD:30) Attack Recovery",
-				"When blocked, deals 150% damage to blocking unit and blinks 1.5 tiles towards next checkpoint"
+				"Skill (Initial CD: 10s, Subsequent: 30s) ",
+				"After charging for 5s, fires an AOE attack at <路加萨尔古斯，历法之王>, dealing 200% of ATK as physical damage to all units caught up in the AOE and stuns for 10s"
 			],
-			"ja": [""],
+			"ja": [
+				"【征服】（初動10秒/再動30秒）",
+				"5秒チャージした後<路加萨尔古斯，历法之王>に大範囲砲撃を行う、範囲内全員に攻撃力200％の物理ダメージを与え、10秒スタンする"
+			],
 			"zh": [
-				"【征服】（初始CD10s，之后CD30s）",
+				"【征服】（初次冷却10s，后30s）",
 				"蓄力5s后对<路加萨尔古斯，历法之王>周围大范围所有单位造成攻击力200%物理伤害并施加10秒晕眩"
 			]
 		}

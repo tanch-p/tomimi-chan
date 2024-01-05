@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { statMods, specialMods, eliteMods, selectedRelics, selectedUniqueRelic } from './stores';
-	import EnemySimpleTable from '$lib/components/EnemySimpleTable.svelte';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import EliteToggle from '$lib/components/EliteToggle.svelte';
+	import EnemyStatDisplay from '$lib/components/EnemyStatDisplay.svelte';
 	import FooterBar from '$lib/components/FooterBar.svelte';
 	import { parseStats } from '$lib/functions/parseStats';
 	import translations from '$lib/translations.json';
@@ -45,7 +45,7 @@
 			{#if data.mapConfig.elite_mods}
 				<EliteToggle mapEliteMods={data.mapConfig.elite_mods} {eliteMods} {rogueTopic} />
 			{/if}
-			<EnemySimpleTable enemies={moddedEnemies} {language} {statMods} {specialMods} />
+			<EnemyStatDisplay enemies={moddedEnemies} {language} {specialMods} />
 		</div>
 		<div class="mt-4">
 			<StageNav {language} />
