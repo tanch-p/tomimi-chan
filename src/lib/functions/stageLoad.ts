@@ -7,7 +7,7 @@ export const stageLoad = async (stageName: string, rogueTopic: string | null) =>
 		? findStage(stageName, rogueTopic)
 		: findCCStage(stageName);
 	const enemies = mapConfig.enemies.map(({ id, level, overwrittenData }) => {
-		const enemy: Enemy = { ...enemyDatabase[id] };
+		const enemy: Enemy = JSON.parse(JSON.stringify(enemyDatabase[id]));
 		enemy.stats = { ...enemyDatabase[id].stats[level] };
 		if (overwrittenData) {
 			enemy.overwritten = true;
@@ -33,7 +33,6 @@ export const stageLoad = async (stageName: string, rogueTopic: string | null) =>
 		)
 	);
 	enemies.forEach((enemy, index) => (enemy.img = data[index].default));
-
 	return { mapConfig, enemies };
 };
 

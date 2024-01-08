@@ -16,7 +16,7 @@
 			if (key.includes('.')) {
 				const [statKey, valueKey] = key.split('.');
 				if (valueKey === 'multiplier') {
-					text = text.replace(string, Math.round(skill[statKey][valueKey] * 100).toString());
+					text = text.replace(string, addOverwrittenHighlight(Math.round(skill[statKey][valueKey] * 100).toString(),skill));
 					if (statKey === 'atk' && mode === 'handbook') {
 						text = text + ` (${Math.round(enemyStats[statKey] * skill[statKey][valueKey])})`;
 					}

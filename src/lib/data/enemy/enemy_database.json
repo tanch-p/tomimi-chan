@@ -6497,11 +6497,7 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [
-			{
-				"key": "roarknight_barrier"
-			}
-		],
+		"special": [{ "key": "roarknight_barrier" }],
 		"status_immune": ["silence"],
 		"normal_attack": {
 			"atk_type": ["ranged", "phys"],
@@ -6530,7 +6526,7 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [],
+		"special": [{ "key": "roarknight_barrier" }],
 		"status_immune": ["silence"],
 		"normal_attack": {
 			"atk_type": ["ranged", "phys"],
@@ -6559,11 +6555,7 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [
-			{
-				"key": "plasticknight_barrier"
-			}
-		],
+		"special": [{ "key": "roarknight_barrier", "duration": 60 }],
 		"status_immune": ["silence"],
 		"normal_attack": {
 			"atk_type": ["ranged", "phys"],
@@ -6754,7 +6746,7 @@
 				"key": "left_hand_revive"
 			},
 			{
-				"key": "bladehelm_debuff"
+				"key": "left_hand_debuff"
 			}
 		],
 		"status_immune": [],
@@ -6790,7 +6782,7 @@
 				"key": "left_hand_revive"
 			},
 			{
-				"key": "bladehelm_debuff"
+				"key": "left_hand_debuff"
 			}
 		],
 		"status_immune": [],
@@ -6826,7 +6818,9 @@
 				"key": "left_hand_revive"
 			},
 			{
-				"key": "left_hand_debuff"
+				"key": "left_hand_debuff",
+				"initCooldown": 10,
+				"cooldown": 10
 			}
 		],
 		"status_immune": [],
@@ -16024,11 +16018,7 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [
-			{
-				"key": "ltsmag_1"
-			}
-		],
+		"special": [{ "key": "ltsmag_1" }, { "key": "ltsmag_2" }],
 		"status_immune": [],
 		"normal_attack": {
 			"atk_type": ["ranged", "arts"],
@@ -16057,11 +16047,7 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [
-			{
-				"key": "ltsmag_1"
-			}
-		],
+		"special": [{ "key": "ltsmag_1" }, { "key": "ltsmag_2" }],
 		"status_immune": [],
 		"normal_attack": {
 			"atk_type": ["ranged", "arts"],
@@ -16436,7 +16422,7 @@
 		],
 		"special": [
 			{
-				"key": "lysyta_1"
+				"key": "lysyta"
 			}
 		],
 		"status_immune": ["silence"],
@@ -16467,11 +16453,7 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [
-			{
-				"key": "lysyta_1"
-			}
-		],
+		"special": [{ "key": "lysyta" }],
 		"status_immune": ["silence"],
 		"normal_attack": {
 			"atk_type": ["melee", "phys"],
@@ -16500,7 +16482,7 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [],
+		"special": [{ "key": "lysyta" }],
 		"status_immune": ["silence"],
 		"normal_attack": {
 			"atk_type": ["ranged", "phys"],
@@ -16529,7 +16511,7 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [],
+		"special": [{ "key": "lysyta", "value": 100 }, { "key": "no_block_dmg_red" }],
 		"status_immune": ["silence"],
 		"normal_attack": {
 			"atk_type": ["ranged", "phys"],
@@ -16558,14 +16540,7 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [
-			{
-				"key": "lysytc_1"
-			},
-			{
-				"key": "lysytc_2"
-			}
-		],
+		"special": [{ "key": "lysyta", "value": 100 }, { "key": "no_block_dmg_red" }],
 		"status_immune": ["silence"],
 		"normal_attack": {
 			"atk_type": ["melee", "arts"],
@@ -17099,11 +17074,7 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [
-			{
-				"key": "noblock_reduce_phys_arts_50"
-			}
-		],
+		"special": [{ "key": "no_block_dmg_red" }],
 		"status_immune": ["silence"],
 		"normal_attack": {
 			"atk_type": ["melee", "arts"],
@@ -17132,11 +17103,7 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [
-			{
-				"key": "noblock_reduce_phys_arts_75"
-			}
-		],
+		"special": [{ "key": "no_block_dmg_red", "value": 75 }],
 		"status_immune": ["silence"],
 		"normal_attack": {
 			"atk_type": ["melee", "arts"],
@@ -19324,7 +19291,7 @@
 		],
 		"special": [
 			{
-				"key": "ymkilr_1"
+				"key": "stealth"
 			},
 			{
 				"key": "ymkilr_2"
@@ -19429,7 +19396,8 @@
 		],
 		"special": [
 			{
-				"key": "ymmir_2"
+				"key": "ymmir_1",
+				"value": 150
 			}
 		],
 		"status_immune": [],
@@ -24808,7 +24776,8 @@
 		],
 		"special": [
 			{
-				"key": "mhboar_1"
+				"key": "block",
+				"value": 2
 			},
 			{
 				"key": "mhboar_2"
@@ -24844,7 +24813,8 @@
 		],
 		"special": [
 			{
-				"key": "mhboar_1"
+				"key": "block",
+				"value": 2
 			},
 			{
 				"key": "mhboar_2"
@@ -27631,10 +27601,10 @@
 		],
 		"special": [
 			{
-				"key": "smgia2_1"
+				"key": "smgia_1"
 			},
 			{
-				"key": "smgia2_2"
+				"key": "smgia_2"
 			}
 		],
 		"status_immune": ["silence"],
@@ -27711,7 +27681,8 @@
 		],
 		"special": [
 			{
-				"key": "freeze_attack","value":4.5
+				"key": "freeze_attack",
+				"value": 4.5
 			},
 			{
 				"key": "smlead_2"
@@ -30920,7 +30891,7 @@
 		"special": [],
 		"status_immune": [],
 		"normal_attack": {
-			"atk_type": ["melee", "arts"],
+			"atk_type": ["melee", "phys"],
 			"hits": 1
 		},
 		"type": ["melee", "ELITE"]

@@ -35,6 +35,7 @@ const SAMI_BOSSES = [
 	'enemy_2058_smlion'
 ];
 
+
 export const getMaxRowSpan = (enemy: Enemy) => {
 	if (enemy?.forms) {
 		return enemy.forms.length;
