@@ -66,6 +66,7 @@ export interface Enemy {
 	};
 	type: EnemyType[];
 	overwritten?: true | false;
+	ignore_diff: true | undefined;
 }
 
 type overwrittenData = {

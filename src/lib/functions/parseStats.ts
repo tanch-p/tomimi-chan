@@ -1,7 +1,18 @@
 /* takes in a list of enemies and statMods and returns enemy with modifiers applied */
 import type { Enemy, StatMods, Mods, Effects } from '$lib/types';
 
-const STATS = ['hp', 'atk', 'aspd', 'range', 'def', 'res', 'weight', 'ms', 'lifepoint', 'dmg_reduction'];
+const STATS = [
+	'hp',
+	'atk',
+	'aspd',
+	'range',
+	'def',
+	'res',
+	'weight',
+	'ms',
+	'lifepoint',
+	'dmg_reduction'
+];
 
 const PHCS_BOSSES = ['ICR', 'ICM', 'MSC', 'FSK', 'JTM', 'WDG', 'PTM', 'DOL', 'HST', 'WRT'];
 const MZK_BOSSES = [
@@ -34,7 +45,6 @@ const SAMI_BOSSES = [
 	'enemy_2057_smkght',
 	'enemy_2058_smlion'
 ];
-
 
 export const getMaxRowSpan = (enemy: Enemy) => {
 	if (enemy?.forms) {
@@ -189,10 +199,10 @@ function addMods(enemy: Enemy, effectsToAdd: Effects[] = []) {
 						mods[key] = effect.mods[key];
 					} else if (key.includes('fixed')) {
 						mods[key] += effect.mods[key];
-					} else if (key === "dmg_reduction"){
+					} else if (key === 'dmg_reduction') {
 						//to remove when dmg_reduction calc is moved
 						mods[key] += effect.mods[key];
-					}else {
+					} else {
 						mods[key] += effect.mods[key] - 1;
 					}
 				}

@@ -2,6 +2,10 @@ import type { MapConfig, Enemy } from '$lib/types';
 import enemyDatabase from '$lib/data/enemy/enemy_database.json';
 import findStage, { findCCStage } from '$lib/functions/findStage';
 
+const SPECIAL_CASES = {
+	'level_rogue3_3-7': ['enemy_1352_eslime']
+};
+
 export const stageLoad = async (stageName: string, rogueTopic: string | null) => {
 	const mapConfig: MapConfig = rogueTopic
 		? findStage(stageName, rogueTopic)
@@ -25,6 +29,12 @@ export const stageLoad = async (stageName: string, rogueTopic: string | null) =>
 				}
 			}
 		}
+		//handling of special cases where stats not added
+		for (const key in SPECIAL_CASES) {
+			if (mapConfig['levelId'] === key && SPECIAL_CASES[mapConfig['levelId']].includes(enemy.key)) {
+				enemy.ignore_diff = true;
+			}
+		}
 		return enemy;
 	});
 	const data = await Promise.all(
@@ -33,6 +43,7 @@ export const stageLoad = async (stageName: string, rogueTopic: string | null) =>
 		)
 	);
 	enemies.forEach((enemy, index) => (enemy.img = data[index].default));
+
 	return { mapConfig, enemies };
 };
 
