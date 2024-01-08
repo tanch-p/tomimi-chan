@@ -256,7 +256,7 @@
 	"mrfly_buff": {
 		"tooltip": {
 			"en": [
-				"Buff→enemies within 2.5 tile range RES+30, does not apply to self, does not stack",
+				"Buff→enemies within 2.5 tile range RES +30, does not apply to self, does not stack",
 				"Can be silenced"
 			],
 			"ja": ["バフ→ 攻撃範囲内の敵の術耐性30増加（重複しない、自分に効果なし）", "無効化可能"],
@@ -265,21 +265,24 @@
 	},
 	"drone_bomb": {
 		"tooltip": {
-			"en": ["Bomb does 100% AOE dmg 8sq around target", "After firing bomb - ms +200%"],
+			"en": ["Bomb does 100% AOE dmg 8sq around target", "After firing bomb - Movespeed +200%"],
 			"ja": ["爆弾→周囲8マスに100％ダメージ", "投下後移動速度+200%"],
 			"zh": ["爆弾→对目标及其周围八格造成100%群体物理伤害", "投弹后移速最终提升至200%"]
 		}
 	},
 	"drone_bomb_frost": {
 		"tooltip": {
-			"en": ["Bomb does 100% AOE dmg + Cold❄ 8sq around target", "After firing bomb - ms +200%"],
+			"en": [
+				"Bomb does 100% AOE dmg + Cold❄ 8sq around target",
+				"After firing bomb - Movespeed +200%"
+			],
 			"ja": ["爆弾→周囲8マスに100％ダメージ＋【寒冷❄】", "投下後移動速度+200%"],
 			"zh": ["爆弾→对目标及其周围八格造成100%群体物理伤害＋【寒冷❄】", "投弹后移速最终提升至200%"]
 		}
 	},
 	"drone_frost_debuff": {
 		"tooltip": {
-			"en": ["Debuff→operators with ranged aspd down (can be silenced)"],
+			"en": ["Debuff→operators within range have ASPD -50 (can be silenced)"],
 			"ja": ["攻撃範囲内の味方の攻撃速度-50（無効化可能）"],
 			"zh": ["处于自身攻击范围内的所有我方单位攻击速度降低50%（可被沉默）"]
 		}
@@ -314,7 +317,7 @@
 	"def_down_hit": {
 		"value": 10,
 		"tooltip": {
-			"en": ["Attacks decreases target's def by <v.value>, lasts indefinitely"],
+			"en": ["Attacks decreases target's DEF by <v.value>, lasts indefinitely"],
 			"ja": ["攻撃1回につき相手のDEF<v.value>低下", "(蓄積する、撤退まで永続)"],
 			"zh": ["每次攻击使目标的防御力减少<v.value>（可无限叠加）（可被沉默）"]
 		}
@@ -333,7 +336,7 @@
 	"ignore_def_percent": {
 		"value": 0.4,
 		"tooltip": {
-			"en": ["Attacks ignores <v.%value>% def"],
+			"en": ["Attacks ignores <v.%value>% DEF"],
 			"ja": ["攻撃は防御<v.%value>％無視"],
 			"zh": ["获得<v.%value>%防御无视"]
 		}
@@ -349,7 +352,7 @@
 	"ms_inc": {
 		"value": 1.5,
 		"tooltip": {
-			"en": ["Move speed+<v.%value>%"],
+			"en": ["Movespeed +<v.%value>%"],
 			"ja": ["移動速度＋<v.%value>％"],
 			"zh": ["移动速度提升<v.%value>%"]
 		}
@@ -552,7 +555,7 @@
 	},
 	"aspd_buff_ALL": {
 		"tooltip": {
-			"en": ["Buff→All enemies on field gains +30% aspd (Does not stack)"],
+			"en": ["Buff→All enemies on field gains +30% ASPD (Does not stack)"],
 			"ja": ["バフ→敵全体攻撃速度+30％（重複しない）"],
 			"zh": ["在场时，全体敌方单位攻击速度增加30（不可叠加）"]
 		}
@@ -693,7 +696,7 @@
 		"start": 0,
 		"skill": 3,
 		"tooltip": {
-			"en": ["Every 4th attack does 2 x 100% ATK phys dmg, Ignores 60% def"],
+			"en": ["Every 4th attack does 2 x 100% ATK phys dmg, Ignores 60% DEF"],
 			"ja": ["攻撃3回の度に次の攻撃に2回攻撃、防御力60％無視"],
 			"zh": ["攻击3次后，下一次攻击会晕眩目标 "]
 		}
@@ -1037,17 +1040,17 @@
 	"syskad_summon_tears": {
 		"tooltip": {
 			"en": [
-				"Summon Tears - Initial SP: 8, Cost: 30",
+				"Summon Tears (Initial CD: 8s, ~CD 30s)",
 				"Summons a Tear of Ishar-mla on a ground tile near allied units.",
 				"HP↓50% - Summons 2 Tears and immediately uses skill"
 			],
 			"ja": [
-				"抗争の涙→初期SP8，必要SP30",
+				"抗争の涙（初動8秒/再動30秒）",
 				"味方に近い地上マスに涙を召喚する",
 				"HP50%以下→即時2個の涙を召喚する"
 			],
 			"zh": [
-				"抗争之泪→初始8SP，消耗30SP",
+				"抗争之泪（初次冷却8s，后30s）",
 				"在最靠近友方的地面召唤1个伊莎玛拉之泪",
 				"HP低于50%时，立刻召唤2个伊莎玛拉之泪"
 			]
@@ -1057,7 +1060,7 @@
 		"tooltip": {
 			"en": ["On defeat - reverts back to 1st form and heals 2% of Max HP"],
 			"ja": ["倒された時、第一形態に戻って、最大HPの2%を回復する"],
-			"zh": ["该形态下被击败后重生，持续5s，恢复2%生命值。重生结束后清空自身sp，切换至初始形态"]
+			"zh": ["该形态下被击败后重生，持续5s，恢复2%生命值。重生结束后清空自身SP，切换至初始形态"]
 		}
 	},
 	"syjely_change": {
@@ -1502,15 +1505,15 @@
 		"tooltip": {
 			"en": [
 				"Has no normal attack, summons Fireball",
-				"Not Blocked: Initial SP: 5, Cost 5",
-				"Blocked: Initial SP: 3, Cost 6"
+				"Not Blocked: Initial CD: 5, ~CD: 5",
+				"Blocked: Initial CD: 3, ~CD: 6"
 			],
 			"ja": [
 				"通常攻撃しない、火球を召喚する",
-				"未ブロック：初期SP5、必要SP5",
-				"ブロック中：初期SP3、必要SP6"
+				"未ブロック：初動5秒/再動5秒",
+				"ブロック中：初動3秒/再動6秒"
 			],
-			"zh": ["不进行普通攻击，使用净浊之焰", "未阻挡：初始5SP，消耗5SP", "阻挡时：初始3SP，消耗6SP"]
+			"zh": ["不进行普通攻击，使用净浊之焰", "未阻挡：初次冷却5s，后5s", "阻挡时：初次冷却3s，后6s"]
 		}
 	},
 	"dublinn_fireball": {
@@ -1566,7 +1569,7 @@
 		"suffix": { "en": "20 stacks", "ja": "20回", "zh": "20次" },
 		"tooltip": {
 			"en": [
-				"Every attack increases atk by 7%, aspd by 5, max 28 stacks",
+				"Every attack increases ATK by 7%, ASPD by 5, max 28 stacks",
 				"resets after not attacking for 4s"
 			],
 			"ja": [
@@ -1630,9 +1633,9 @@
 	},
 	"HST_summon_helper": {
 		"tooltip": {
-			"en": ["Every 45s summons 2 Host's Assistants"],
-			"ja": ["45秒毎に助手を2体召喚する"],
-			"zh": ["召唤（初始CD10s，后45s）", "召唤一次“报幕助手”/骇笑看客"]
+			"en": ["Summon (Initial CD: 10s, ~CD 45s)", "Summons 2 Host's Assistants"],
+			"ja": ["召喚（初動10秒/再動45秒）", "助手を2体召喚する"],
+			"zh": ["召唤（初次CD10s，后45s）", "召唤一次“报幕助手”/骇笑看客"]
 		}
 	},
 	"HST_summon_helper_revival": {
@@ -1902,7 +1905,7 @@
 	"sarkaz_sentinel_alert": {
 		"tooltip": {
 			"en": [
-				"On HP loss sounds alarm, turns units on standby to combat-ready mode, increases all enemies atk & def by 30% (Stacks with other Sentinels)"
+				"On HP loss sounds alarm, turns units on standby to combat-ready mode, increases all enemies ATK & DEF by 30% (Stacks with other Sentinels)"
 			],
 			"ja": [
 				"ダメージを受けると警報を鳴らします",
@@ -1918,7 +1921,7 @@
 	"sarkaz_sentinel_leader_alert": {
 		"tooltip": {
 			"en": [
-				"On HP loss sounds alarm, turns units on standby to combat-ready mode, increases all enemies atk & def by 50% (Stacks with other Sentinels)"
+				"On HP loss sounds alarm, turns units on standby to combat-ready mode, increases all enemies ATK & DEF by 50% (Stacks with other Sentinels)"
 			],
 			"ja": [
 				"ダメージを受けると警報を鳴らします",
@@ -2056,7 +2059,8 @@
 	"guerilla_herald_buff": {
 		"tooltip": {
 			"en": [
-				"Buff - Inc all enemies atk10% def100, stacks with other Heralds",
+				"Buff - Grants all enemies ATK +10%, DEF +100",
+				"Effect stacks with other Heralds",
 				"Activates special abilities of Guerilla Squad"
 			],
 			"ja": ["バフ→ 敵全体の攻撃力10%＆防御力100増加（重複する）", "遊撃隊に特殊強化"],
@@ -2073,12 +2077,12 @@
 	"guerilla_caster_sacrifice": {
 		"tooltip": {
 			"en": [
-				"Sacrifice (Initial SP: 0, Cost:5)",
+				"Sacrifice (Initial CD: 0, ~CD: 5s)",
 				"Deals 100% of ATK as Arts splash damage to allied Operators within a 1.5 tile radius."
 			],
-			"ja": ["スキル→初期SP0、必要SP5", "半径1.5内の味方全員に攻撃力の100%の術ダメージを与える"],
+			"ja": ["スキル（初動0秒/再動5秒）", "半径1.5内の味方全員に攻撃力の100%の術ダメージを与える"],
 			"zh": [
-				"献祭（初始0SP，消耗5SP）",
+				"献祭（初次冷却0s，后5s）",
 				"对半径1.5范围内的我方干员造成相当于100%攻击力的法术溅射伤害"
 			]
 		}
@@ -2160,7 +2164,7 @@
 		"tooltip": {
 			"en": [
 				"When blocked, only takes damage from blocking unit",
-				"Self and Unit's def drops by 70%"
+				"Self and Unit's DEF drops by 70%"
 			],
 			"ja": [
 				"ブロックされている時、ブロック相手以外からダメージを受けない",
@@ -2209,7 +2213,7 @@
 	},
 	"pompeii_aspd_inc": {
 		"tooltip": {
-			"en": ["HP↓50% - ASPD+40"],
+			"en": ["HP↓50% - ASPD +40"],
 			"ja": ["HP↓50%→攻撃速度+40"],
 			"zh": ["HP↓50%→攻撃速度+40"]
 		}
@@ -2239,12 +2243,13 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Skill - plants bomb on 2 units, CD21s",
+				"C4 (Initial CD: 9s, ~CD: 21s)",
+				"plants bomb on 2 units",
 				"HP↓50% - plants bomb on 3 units, uses skill immediately"
 			],
 			"ja": [
-				"スキル→敵ユニット2体に爆弾設置する",
-				"(爆弾：単体に<v.atk.multiplier>%物理ダメージ)",
+				"爆弾（初動9秒/再動21秒）",
+				"味方2体に爆弾設置する、攻撃力<v.atk.multiplier>%の物理ダメージを与える",
 				"HP50%以下：爆弾2体ｰ>3体、即時爆弾設置する"
 			],
 			"zh": [
@@ -2261,14 +2266,11 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Rock Throw (Initial SP13, Cost SP13) - stuns unit for 25 sec, does not target stunned units"
+				"Rock Throw (Initial CD: 13s, ~CD: 13s) - stuns unit for 25 sec, does not target stunned units"
 			],
-			"ja": [
-				"石投げ（自然回復/初期SP15/必要SP25）",
-				"25秒スタンする (スタンしてるユニットは無視）"
-			],
+			"ja": ["石投げ（初動13秒/再動13秒）", "25秒スタンする (スタンしてるユニットは無視）"],
 			"zh": [
-				"眩晕击（初始13SP，消耗13SP，自动回复）",
+				"眩晕击（初次冷却13s，后13s）",
 				"对2.5半径内距离自身最近的未处于晕眩状态的目标投掷一块石头，造成25s晕眩和70%攻击力物理普通伤害"
 			]
 		}
@@ -2569,8 +2571,8 @@
 				"味方全体に対象と隣接4マスに攻撃力80％の術ダメージを与える"
 			],
 			"zh": [
-				"全屏攻击（初始CD10s，后20s）",
-				"HP50%以下（初始CD5s，后15s）",
+				"全屏攻击（初次冷却10s，后20s）",
+				"HP50%以下（初次冷却5s，后15s）",
 				"向场上所有我方单位施加法阵，每个法阵对目标和周围4格的所有我方单位造成80%法术普通伤害 "
 			]
 		}
@@ -2599,8 +2601,8 @@
 				"召喚ユニットやすでに効果下の味方は選択されない"
 			],
 			"zh": [
-				"剧作家的注目（初始CD20s，后20s）",
-				"HP50%以下（初始CD10s，后15s）",
+				"剧作家的注目（初次冷却20s，后20s）",
+				"HP50%以下（初次冷却10s，后15s）",
 				"选择场上一名我方干员施加永久持续的法术",
 				"攻击速度最终降低至50%",
 				"自身每秒对其造成目标最大生命值4%的法术伤害",
@@ -2895,18 +2897,18 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Skill (Initial SP: 0, Cost:10)",
+				"Skill (Initial CD: 0s, ~CD: 10s)",
 				"Does 12% of ATK as Arts damage and 6% ATK as Burn Damage every 0.5s for 10.6s",
 				"Resets cooldown if skill is used again while chanelling",
 				"6s after channeling, enters cooldown",
 				"Skill is stopped when silenced/stunned"
 			],
 			"ja": [
-				"火炎放射（初期SP0、必要SP10）",
+				"火炎放射（初動0秒/再動10秒）",
 				"10.6秒間、0.5秒ごとに攻撃力の12%の術ダメージと6%の灼熱ダメージを与える",
 				"無効化かスタンで中断できる"
 			],
-			"zh": ["技能（初始0SP，消耗10SP）", "10.6s间对持续造成法术和灼燃损伤"]
+			"zh": ["技能（初次冷却0s，后10s）", "10.6s间对持续造成法术和灼燃损伤"]
 		}
 	},
 	"flamerazer_explode": {
@@ -3162,7 +3164,7 @@
 		"hits": 8,
 		"tooltip": {
 			"en": [
-				"Skill (Initial SP: 10, Cost:24)",
+				"Skill (Initial CD: 10s, ~CD: 24s)",
 				"Channels upon an allied unit, dealing 40% of ATK as Arts damage every second for 8s",
 				"When channel ends, deals 220% of ATK as Necrosis damage to target and adjacent 4 tiles."
 			],
@@ -3185,7 +3187,7 @@
 		"hits": 5,
 		"tooltip": {
 			"en": [
-				"Skill (Initial SP: 0, Cost:3) Attack recovery",
+				"Skill (Initial SP: 0, Cost :3) Attack recovery",
 				"Does <v.atk.multiplier>% ATK x 5 to target"
 			],
 			"ja": ["【連続斬り】（攻撃回復/必要SP3）", "対象に攻撃力の100%の物理ダメージを5回与える"],
@@ -3408,7 +3410,7 @@
 	"mhshep_1": {
 		"tooltip": {
 			"en": [
-				"Starts battle Resting. ",
+				"Starts battle Resting",
 				"After being attacked, it and all surrounding hornbeasts become Combat-Ready and gains Movespeed +200% "
 			],
 			"ja": [
@@ -3967,15 +3969,15 @@
 	"egun_charge": {
 		"tooltip": {
 			"en": [
-				"Skill (Initial SP: 5, Cost:28)",
+				"Skill (Initial CD: 5s, ~CD: 28s)",
 				"Restores 1 energy for all enemies within attack range every second"
 			],
 			"ja": [
-				"スキル→初期SP5、必要SP28",
+				"スキル（初動5秒/再動28秒）",
 				"5秒間移動しない、毎秒攻撃範囲内の敵全員のエネルギーを1点補充する"
 			],
 			"zh": [
-				"技能（初始5SP，消耗28SP）",
+				"技能（初次冷却5s，后28s）",
 				"5秒间不移动且每秒为自身半径2.2范围内的所有敌人(含自身)回复1点能量的效果"
 			]
 		}
