@@ -27,16 +27,14 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
-	class={`grid grid-cols-[75px_auto] sm:grid-cols-[95px_auto] gap-x-2 ${
+	class={`relic grid grid-cols-[75px_auto] sm:grid-cols-[95px_auto] gap-x-2 ${
 		selected ? 'bg-neutral-800' : 'hover:bg-neutral-700'
 	}`}
 	on:click={handleClick}
 >
-	<div>
-		<img {src} alt={name} loading="lazy" decoding="async" />
-	</div>
-	<div class="px-2">
-		<p class={`text-lg sm:text-xl ${selected ? 'text-[#cea658]' : 'text-gray-400'}`}>{name}</p>
-		<p class="text-[#c4c4c4]">{tooltip}</p>
+	<img {src} alt={name} loading="lazy" decoding="async" class="relic" />
+	<div class="relic px-2">
+		<p class={`relic text-lg sm:text-xl ${selected ? 'text-[#cea658]' : 'text-gray-400'}`}>{name}</p>
+		<p class="relic text-[#c4c4c4]">{tooltip}</p>
 	</div>
 </div>
