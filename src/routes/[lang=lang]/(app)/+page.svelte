@@ -8,7 +8,9 @@
 	import translations from '$lib/translations.json';
 	import ISLogo from '$lib/images/is_logo.webp';
 	import CCLogo from '$lib/images/cc_logo.webp';
-	import ToolsLogo from '$lib/images/CRA-X.webp';
+	import toolsLogo from '$lib/images/CRA-X.webp';
+	import babel0 from '$lib/images/babel_sami_0.webp';
+	import friendlink from '$lib/images/friendlink.webp';
 
 	export let data: PageData;
 
@@ -32,6 +34,31 @@
 	<div class="h-[10vh]" />
 	<div class="w-screen sm:w-full max-w-7xl mx-auto pb-32">
 		<div class="flex flex-col items-center mx-auto gap-x-4 gap-y-8 px-2 sm:px-8 justify-center">
+			{#if language === 'zh'}
+				<div
+					class="w-full md:w-[600px] bg-[#363636] shadow-lg md:shadow-xl pt-2 sm:py-3 px-2 sm:px-6"
+				>
+					<div class="flex items-center justify-center">
+						<span>
+							<img src={friendlink} alt={'友情链接'} width="31" height="29" />
+						</span>
+						<p class={`font-semibold`}>友情链接</p>
+					</div>
+					<div class="flex flex-wrap w-full justify-center mt-3">
+						<a
+							href={`https://ytl.viktorlab.cn/tools/rougeCal`}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<div class="flex flex-col justify-center items-center">
+								<img class="select-none mx-auto" src={babel0} decoding="async" alt={'通天赛'} />
+								<p class={`my-1 whitespace-nowrap`}>通天联赛#0附加赛激励计划</p>
+							</div>
+						</a>
+						<p class="italic text-[#aaa] leading-snug">通天联赛#0附加赛正在如火如茶地进行中，在观看比赛的同时，我们也欢迎您一同挑战，获得丰厚奖金</p>
+					</div>
+				</div>
+			{/if}
 			<!-- <div
 				class="w-full md:w-[600px] bg-[#363636] shadow-lg md:shadow-xl pt-2 sm:py-3 px-2 sm:px-6"
 			>
@@ -55,7 +82,7 @@
 				<div class="flex items-center justify-center">
 					<span>
 						<img
-							src={ToolsLogo}
+							src={toolsLogo}
 							alt={translations[language].related_tools}
 							width="31"
 							height="31"
@@ -67,13 +94,12 @@
 				</div>
 				<div class="flex flex-wrap w-full justify-center mt-3">
 					<a href={`/${language}/laoli/`}>
-						<div class="flex flex-col justify-center items-center w-[240px]">
+						<div class="flex flex-col justify-center items-center">
 							<img
 								class="select-none mx-auto"
 								src={laoli_banner}
 								decoding="async"
 								alt={translations[language].laoli_title}
-								width="240"
 							/>
 							<p class={`my-1 ${language !== 'en' ? 'whitespace-nowrap' : ''}`}>
 								{translations[language].laoli_title}
