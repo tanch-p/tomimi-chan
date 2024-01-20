@@ -46,7 +46,7 @@
 					</div>
 					<div class="flex flex-wrap w-full justify-center mt-3">
 						<a
-							href={`https://ytl.viktorlab.cn/tools/rougeCal`}
+							href={`https://ark.yituliu.cn/tools/rogueCal`}
 							target="_blank"
 							rel="noopener noreferrer"
 						>
