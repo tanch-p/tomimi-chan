@@ -75,7 +75,8 @@
 								src={laoli_banner}
 								decoding="async"
 								alt={translations[language].laoli_title}
-								height="200"
+								width="552"
+								height="177"
 							/>
 							<p class={`my-1 ${language !== 'en' ? 'whitespace-nowrap' : ''}`}>
 								{translations[language].laoli_title}
@@ -101,6 +102,7 @@
 								{src}
 								decoding="async"
 								alt={translations[language][alt]}
+								width="552"
 								height="200"
 							/>
 						</a>
