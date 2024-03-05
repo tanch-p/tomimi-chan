@@ -2,15 +2,19 @@
 	import { slide } from 'svelte/transition';
 
 	export let title = 'title',
-		isOpen = false;
+		isOpen = false,
+		size = 'large';
 
 	const toggle = () => (isOpen = !isOpen);
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="sm:px-6">
-	<div class="flex justify-between items-center px-2 sm:px-0 hover:cursor-pointer" on:click={toggle}>
-		<p class="text-3xl">{title}</p>
+	<div
+		class="flex justify-between items-center px-2 sm:px-0 hover:cursor-pointer"
+		on:click={toggle}
+	>
+		<p class={`${size === "subheading" ? "text-subheading" : "text-3xl"}`}>{title}</p>
 		{#if isOpen}
 			<svg
 				xmlns="http://www.w3.org/2000/svg"

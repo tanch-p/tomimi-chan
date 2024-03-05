@@ -3203,15 +3203,15 @@
 	},
 	"smedzi_2": {
 		"tooltip": {
-			"en": ["Targets 2 units, deals extra +100% damage to units on【苗圃】tiles"],
-			"ja": ["2体同時攻撃、【苗圃】マスにいる対象のダメージ+100%"],
+			"en": ["Targets 2 units, deals extra +100% damage to units on【Seedbeds】tiles"],
+			"ja": ["2体同時攻撃、【苗床】マスにいる対象のダメージ+100%"],
 			"zh": ["同时攻击两个目标，对【苗圃】中的我方单位造成的伤害+100%"]
 		}
 	},
 	"smedzi_3": {
 		"tooltip": {
-			"en": ["Every movement turns 2 tiles within attack range to 【苗圃】"],
-			"ja": ["移動する毎に攻撃範囲内のマスを【苗圃】に転換する"],
+			"en": ["Every movement turns 2 tiles within attack range to【Seedbeds】"],
+			"ja": ["移動する毎に攻撃範囲内のマスを【苗床】に転換する"],
 			"zh": ["每次移动后将2处可部署位置变为【苗圃】"]
 		}
 	},
@@ -3225,9 +3225,9 @@
 	"smedzi_5": {
 		"tooltip": {
 			"en": [
-				"After 600s，self-destructs and turns all tiles to 【苗圃】 and takes away 30 lifepoints"
+				"After 600s，self-destructs and turns all tiles to【Seedbeds】and takes away 30 lifepoints"
 			],
-			"ja": ["戦闘経過600秒後、全てのマスを【苗圃】に変え、耐久値を-30"],
+			"ja": ["戦闘経過600秒後、全てのマスを【苗床】に変え、耐久値を-30"],
 			"zh": ["战斗经过600s后，将全场可部署位置变为【苗圃】，并扣除30目标生命"]
 		}
 	},
@@ -3248,13 +3248,13 @@
 	"smlead_4": {
 		"tooltip": {
 			"en": [
-				"When HP reaches 70%,40%,10%，enters【自我泯灭】state for 3s",
+				"When HP reaches 70%,40%,10%，enters【Self-Destruction】state for 3s",
 				"Stops attacking, gains Movespeed +200%",
 				"immunity to bind, sluggish, cannot be blocked",
 				"and 80% damage reduction"
 			],
 			"ja": [
-				"HPが70%,40%,10%以下になる時，3秒間【自我泯灭】状態に入る",
+				"HPが70%,40%,10%以下になる時，3秒間【自己消滅】状態に入る",
 				"攻撃を停止、移动速度+200%",
 				"バインド、足止め無効、ブロック不可",
 				"受ける物理と術ダメージが80%減少"
@@ -3268,24 +3268,24 @@
 	},
 	"smlead_5": {
 		"tooltip": {
-			"en": ["When entering and exiting【自我泯灭】state, inflicts 5s cold to all nearby allies"],
-			"ja": ["【自我泯灭】開始と終了時、周囲の味方に5秒の寒冷を与える"],
+			"en": ["When entering and exiting【Self-Destruction】state, inflicts 5s cold to all nearby allies"],
+			"ja": ["【自己消滅】開始と終了時、周囲の味方に5秒の寒冷を与える"],
 			"zh": ["进入和离开【自我泯灭】时，对周围我方单位立即施加5s的寒冷"]
 		}
 	},
 	"smdeer_1": {
 		"tooltip": {
-			"en": ["【冰凌】Attacks deal damage to all allies in a column"],
-			"ja": ["【冰凌】攻撃は列にいる味方全体にダメージを与える"],
+			"en": ["【Icicle Fall】Attacks deal Physical damage to allied units in a column"],
+			"ja": ["【氷柱】通常攻撃時、対象の配置列にいる味方ユニット全員に物理ダメージを与える"],
 			"zh": ["【冰凌】攻击时对整列的我方单位造成物理伤害"]
 		}
 	},
 	"smdeer_2": {
 		"tooltip": {
 			"en": [
-				"【自然涌动】Stuns an allied unit for 10s and does 20% ATK as Arts damage every second"
+				"【Surge of Nature】Stuns an allied unit for 10s and does 20% ATK as Arts damage every second"
 			],
-			"ja": ["【自然涌动】味方一人を10秒間スタンする、毎秒攻撃力20％の術ダメージを与える"],
+			"ja": ["【自然の奔流】味方ユニット1人を10秒間スタンする、毎秒攻撃力20％の術ダメージを与える"],
 			"zh": ["【自然涌动】使一名我方单位晕眩10s并持续受到攻击力20%法术伤害"]
 		}
 	},
@@ -3294,10 +3294,10 @@
 		"tooltip": {
 			"en": [
 				"HP↓50% - gains <v.value>% damage reduction",
-				"【冰凌】and 【自然涌动】 targets 1 more unit"
+				"【Icicle Fall】and 【Surge of Nature】 targets 1 more unit"
 			],
 			"ja": [
-				"生命值低于一半时，受到的物理和法术伤害降低<v.value>%，【冰凌】和【自然涌动】额外选择一个目标"
+				"HPが半分以下になると、物理・術の被ダメージが<v.value>%軽減され、【氷柱】と【自然の奔流】の対象が1体増加する"
 			],
 			"zh": [
 				"生命值低于一半时，受到的物理和法术伤害降低<v.value>%，【冰凌】和【自然涌动】额外选择一个目标"
@@ -3315,8 +3315,8 @@
 	},
 	"smgia_1": {
 		"tooltip": {
-			"en": ["受到来自自然环境的伤害时，自身获得10s高额脆弱(100%)"],
-			"ja": ["受到来自自然环境的伤害时，自身获得10s高额脆弱(100%)"],
+			"en": ["Gains a +100% Fragile effect for 10s after taking damage from environmental effects"],
+			"ja": ["自然環境からのダメージを受けたとき、10秒間効果100%の脆弱状態になる"],
 			"zh": ["受到来自自然环境的伤害时，自身获得10s高额脆弱(100%)"]
 		}
 	},

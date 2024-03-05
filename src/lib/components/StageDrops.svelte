@@ -9,6 +9,7 @@
 	import totem from '$lib/images/is/totem.webp';
 	import vision from '$lib/images/is/vision.webp';
 	import drops from '$lib/data/drops.json';
+	import TogglePanel from './TogglePanel.svelte';
 
 	export let mapConfig, rogueTopic: string, language: string, selectedFloor;
 
@@ -18,289 +19,289 @@
 </script>
 
 {#if !(isBossStage && mapConfig.floors.includes(6))}
-	<div class="sm:px-6 my-4">
-		<p class="px-2 sm:px-0 text-subheading mt-4">{translations[language].stage_rewards}</p>
-		<hr class="border-gray-500 my-1" />
-		<div class="px-2 sm:px-0 overflow-auto">
-			{#if isCombatStage}
-				<table class="border-collapse">
-					<colgroup>
-						<col width="50px" />
-						<col />
-						<col width="20%" />
-						<col width="20%" />
-						<col width="20%" />
-						<col width="20%" />
-					</colgroup>
-					<thead>
-						<tr>
-							<th colspan="2" class="noborder border-t border-l" />
-							<th>
-								<div class="flex items-center justify-center">
-									<img
-										src={combat_icon}
-										width="50px"
-										decoding="async"
-										loading="lazy"
-										alt="combat ops"
-										class=""
-									/>
-								</div>
-							</th>
-							<th>
-								<div class="flex items-center justify-center">
-									<img
-										src={portal}
-										width="50px"
-										decoding="async"
-										loading="lazy"
-										alt="combat ops"
-										class=""
-									/>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke-width="1.5"
-										stroke="currentColor"
-										class="w-6 h-6"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+	<div class="my-4">
+		<TogglePanel title={translations[language].stage_rewards} size="subheading">
+			<div class="px-2 sm:px-0 overflow-auto">
+				{#if isCombatStage}
+					<table class="border-collapse">
+						<colgroup>
+							<col width="50px" />
+							<col />
+							<col width="20%" />
+							<col width="20%" />
+							<col width="20%" />
+							<col width="20%" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th colspan="2" class="noborder border-t border-l" />
+								<th>
+									<div class="flex items-center justify-center">
+										<img
+											src={combat_icon}
+											width="50px"
+											decoding="async"
+											loading="lazy"
+											alt="combat ops"
+											class=""
 										/>
-									</svg>
+									</div>
+								</th>
+								<th>
+									<div class="flex items-center justify-center">
+										<img
+											src={portal}
+											width="50px"
+											decoding="async"
+											loading="lazy"
+											alt="combat ops"
+											class=""
+										/>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											fill="none"
+											viewBox="0 0 24 24"
+											stroke-width="1.5"
+											stroke="currentColor"
+											class="w-6 h-6"
+										>
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+											/>
+										</svg>
 
-									<img
-										src={combat_icon}
-										width="50px"
-										decoding="async"
-										loading="lazy"
-										alt="combat ops"
-										class=""
-									/>
-								</div>
-							</th>
-							<th>
-								<div class="flex items-center justify-center">
-									<img
-										src={emergency_icon}
-										width="50px"
-										decoding="async"
-										loading="lazy"
-										alt="combat ops"
-										class=""
-									/>
-								</div>
-							</th>
-							<th>
-								<div class="flex items-center justify-center">
-									<img
-										src={portal}
-										width="50px"
-										decoding="async"
-										loading="lazy"
-										alt="combat ops"
-										class=""
-									/>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke-width="1.5"
-										stroke="currentColor"
-										class="w-6 h-6"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+										<img
+											src={combat_icon}
+											width="50px"
+											decoding="async"
+											loading="lazy"
+											alt="combat ops"
+											class=""
 										/>
-									</svg>
-									<img
-										src={emergency_icon}
-										width="50px"
-										decoding="async"
-										loading="lazy"
-										alt="combat ops"
-										class=""
-									/>
-								</div>
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td />
-							<td> {translations[language].exp}</td>
-							<td colspan="2">{drops[rogueTopic].combat.exp[$selectedFloor - 1]}</td>
-							<td colspan="2">{drops[rogueTopic].elite.exp[$selectedFloor - 1]}</td>
-						</tr>
-						<tr>
-							<td>
-								<img src={gold} width="35" alt={translations[language].rogue_gold} />
-							</td>
-							<td>{translations[language].rogue_gold}</td>
-							<td colspan="2">{drops[rogueTopic].combat.gold[$selectedFloor - 1]}</td>
-							<td colspan="2">{drops[rogueTopic].elite.gold[$selectedFloor - 1]}</td>
-						</tr>
-						<tr>
-							<td>
-								<img src={life} width="35" alt={translations[language].drop_lifepoint} />
-							</td>
-							<td>{translations[language].drop_lifepoint}</td>
-							<td colspan="4">5%</td>
-						</tr>
-						<tr>
-							<td>
-								<img src={relic} width="35" alt={translations[language].relic} />
-							</td>
-							<td>{translations[language].relic}</td>
-							<td colspan="4">5%</td>
-						</tr>
-						<tr>
-							<td>
-								<img src={totem} width="35" alt={translations[language].totem} />
-							</td>
-							<td>{translations[language].totem}</td>
-							<td colspan="2">40%</td>
-							<td colspan="2">80%</td>
-						</tr>
-						<tr>
-							<td>
-								<img src={vision} width="40" alt={translations[language].vision} />
-							</td>
-							<td> {translations[language].vision}*</td>
-							<td>x 1 - 11.97%</td>
-							<td>
-								<p>x 1 - 79.17%</p>
-								<p>x 2 - 6.25%</p>
-							</td>
-							<td>x1 - 15.04%</td>
-							<td>
-								<p>x 1 - 73.53%</p>
-								<p>x 2 - 20.59%</p>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-start noborder" colspan="5">
-								* - {translations[language].data_estimate}
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			{:else if isEventStage}
-				<table class="border-collapse">
-					<thead>
-						<tr>
-							<th colspan="2" class="noborder border-t border-l" />
-							<th>
-								<div class="flex items-center justify-center">
-									<img
-										src={combat_icon}
-										width="50px"
-										decoding="async"
-										loading="lazy"
-										alt="combat ops"
-										class=""
-									/>
-								</div>
-							</th>
-							<th>
-								<div class="flex items-center justify-center">
-									<img
-										src={portal}
-										width="50px"
-										decoding="async"
-										loading="lazy"
-										alt="combat ops"
-										class=""
-									/>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke-width="1.5"
-										stroke="currentColor"
-										class="w-6 h-6"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+									</div>
+								</th>
+								<th>
+									<div class="flex items-center justify-center">
+										<img
+											src={emergency_icon}
+											width="50px"
+											decoding="async"
+											loading="lazy"
+											alt="combat ops"
+											class=""
 										/>
-									</svg>
-
-									<img
-										src={combat_icon}
-										width="50px"
-										decoding="async"
-										loading="lazy"
-										alt="combat ops"
-										class=""
-									/>
-								</div>
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td />
-							<td> {translations[language].exp}</td>
-							<td colspan="2">{drops[rogueTopic][mapConfig.id].exp}</td>
-						</tr>
-						<tr>
-							<td>
-								<img src={gold} width="35" alt={translations[language].rogue_gold} />
-							</td>
-							<td>{translations[language].rogue_gold}</td>
-							<td colspan="2">{drops[rogueTopic][mapConfig.id].gold}</td>
-						</tr>
-						<tr>
-							<td>
-								<img src={life} width="35" alt={translations[language].drop_lifepoint} />
-							</td>
-							<td>{translations[language].drop_lifepoint}</td>
-							<td colspan="2">5%</td>
-						</tr>
-						{#if mapConfig.id.includes('_ev_')}
+									</div>
+								</th>
+								<th>
+									<div class="flex items-center justify-center">
+										<img
+											src={portal}
+											width="50px"
+											decoding="async"
+											loading="lazy"
+											alt="combat ops"
+											class=""
+										/>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											fill="none"
+											viewBox="0 0 24 24"
+											stroke-width="1.5"
+											stroke="currentColor"
+											class="w-6 h-6"
+										>
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+											/>
+										</svg>
+										<img
+											src={emergency_icon}
+											width="50px"
+											decoding="async"
+											loading="lazy"
+											alt="combat ops"
+											class=""
+										/>
+									</div>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td />
+								<td> {translations[language].exp}</td>
+								<td colspan="2">{drops[rogueTopic].combat.exp[$selectedFloor - 1]}</td>
+								<td colspan="2">{drops[rogueTopic].elite.exp[$selectedFloor - 1]}</td>
+							</tr>
+							<tr>
+								<td>
+									<img src={gold} width="35" alt={translations[language].rogue_gold} />
+								</td>
+								<td>{translations[language].rogue_gold}</td>
+								<td colspan="2">{drops[rogueTopic].combat.gold[$selectedFloor - 1]}</td>
+								<td colspan="2">{drops[rogueTopic].elite.gold[$selectedFloor - 1]}</td>
+							</tr>
+							<tr>
+								<td>
+									<img src={life} width="35" alt={translations[language].drop_lifepoint} />
+								</td>
+								<td>{translations[language].drop_lifepoint}</td>
+								<td colspan="4">5%</td>
+							</tr>
 							<tr>
 								<td>
 									<img src={relic} width="35" alt={translations[language].relic} />
 								</td>
 								<td>{translations[language].relic}</td>
-								<td colspan="2">100%</td>
+								<td colspan="4">5%</td>
 							</tr>
-						{/if}
-						<tr>
-							<td>
-								<img src={totem} width="35" alt={translations[language].totem} />
-							</td>
-							<td>{translations[language].totem}</td>
-							<td colspan="2">40%</td>
-						</tr>
-						<tr>
-							<td>
-								<img src={vision} width="40" alt={translations[language].vision} />
-							</td>
-							<td> {translations[language].vision}*</td>
-							<td>x 1 - 4.55%</td>
-							<td> ? </td>
-						</tr>
-						<tr>
-							<td class="text-start noborder" colspan="5">
-								* - {translations[language].data_estimate}
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			{:else}
-				{@const index = mapConfig.floors.includes(3) ? 0 : 1}
-				<p>{translations[language].exp} - {drops[rogueTopic].boss.exp[index]}</p>
-				<p>{translations[language].rogue_gold} - {drops[rogueTopic].boss.gold[index]}</p>
-			{/if}
-		</div>
+							<tr>
+								<td>
+									<img src={totem} width="35" alt={translations[language].totem} />
+								</td>
+								<td>{translations[language].totem}</td>
+								<td colspan="2">40%</td>
+								<td colspan="2">80%</td>
+							</tr>
+							<tr>
+								<td>
+									<img src={vision} width="40" alt={translations[language].vision} />
+								</td>
+								<td> {translations[language].vision}*</td>
+								<td>x 1 - 11.97%</td>
+								<td>
+									<p>x 1 - 79.17%</p>
+									<p>x 2 - 6.25%</p>
+								</td>
+								<td>x1 - 15.04%</td>
+								<td>
+									<p>x 1 - 73.53%</p>
+									<p>x 2 - 20.59%</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-start noborder" colspan="5">
+									* - {translations[language].data_estimate}
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				{:else if isEventStage}
+					<table class="border-collapse">
+						<thead>
+							<tr>
+								<th colspan="2" class="noborder border-t border-l" />
+								<th>
+									<div class="flex items-center justify-center">
+										<img
+											src={combat_icon}
+											width="50px"
+											decoding="async"
+											loading="lazy"
+											alt="combat ops"
+											class=""
+										/>
+									</div>
+								</th>
+								<th>
+									<div class="flex items-center justify-center">
+										<img
+											src={portal}
+											width="50px"
+											decoding="async"
+											loading="lazy"
+											alt="combat ops"
+											class=""
+										/>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											fill="none"
+											viewBox="0 0 24 24"
+											stroke-width="1.5"
+											stroke="currentColor"
+											class="w-6 h-6"
+										>
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+											/>
+										</svg>
+
+										<img
+											src={combat_icon}
+											width="50px"
+											decoding="async"
+											loading="lazy"
+											alt="combat ops"
+											class=""
+										/>
+									</div>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td />
+								<td> {translations[language].exp}</td>
+								<td colspan="2">{drops[rogueTopic][mapConfig.id].exp}</td>
+							</tr>
+							<tr>
+								<td>
+									<img src={gold} width="35" alt={translations[language].rogue_gold} />
+								</td>
+								<td>{translations[language].rogue_gold}</td>
+								<td colspan="2">{drops[rogueTopic][mapConfig.id].gold}</td>
+							</tr>
+							<tr>
+								<td>
+									<img src={life} width="35" alt={translations[language].drop_lifepoint} />
+								</td>
+								<td>{translations[language].drop_lifepoint}</td>
+								<td colspan="2">5%</td>
+							</tr>
+							{#if mapConfig.id.includes('_ev_')}
+								<tr>
+									<td>
+										<img src={relic} width="35" alt={translations[language].relic} />
+									</td>
+									<td>{translations[language].relic}</td>
+									<td colspan="2">100%</td>
+								</tr>
+							{/if}
+							<tr>
+								<td>
+									<img src={totem} width="35" alt={translations[language].totem} />
+								</td>
+								<td>{translations[language].totem}</td>
+								<td colspan="2">40%</td>
+							</tr>
+							<tr>
+								<td>
+									<img src={vision} width="40" alt={translations[language].vision} />
+								</td>
+								<td> {translations[language].vision}*</td>
+								<td>x 1 - 4.55%</td>
+								<td> ? </td>
+							</tr>
+							<tr>
+								<td class="text-start noborder" colspan="5">
+									* - {translations[language].data_estimate}
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				{:else}
+					{@const index = mapConfig.floors.includes(3) ? 0 : 1}
+					<p>{translations[language].exp} - {drops[rogueTopic].boss.exp[index]}</p>
+					<p>{translations[language].rogue_gold} - {drops[rogueTopic].boss.gold[index]}</p>
+				{/if}
+			</div>
+		</TogglePanel>
 	</div>
 {/if}
 

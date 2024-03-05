@@ -28,20 +28,6 @@
 			/>
 		</div>
 		<div class="space-y-6">
-			<TogglePanel title="开发进度">
-				<div class="px-2">
-					<ul class="mt-2">
-						验证中
-						<li class="list-disc list-inside">敌人数量</li>
-					</ul>
-					<ul class="mt-2">
-						开发中
-						<li class="list-disc list-inside">敌人技能详细</li>
-						<li class="list-disc list-inside">坍缩</li>
-						<li class="list-disc list-inside">收藏品</li>
-					</ul>
-				</div>
-			</TogglePanel>
 			<TogglePanel title={translations[language].how_to_use}>
 				<HowToUse {language} rogueTopic={'rogue_sami'} />
 			</TogglePanel>
