@@ -4,6 +4,7 @@
 	import FloorOptions from './FloorOptions.svelte';
 	import { selectedFloor, activeChaosEffects } from './stores';
 	import translations from '$lib/translations.json';
+	import { floorPrefixSuffix } from '$lib/functions/languageHelpers';
 
 	export let stageFloors: number[], language: Language;
 	let optionsOpen = false;
@@ -28,7 +29,9 @@
 	<div class="cursor-pointer" on:click={() => (optionsOpen = !optionsOpen)}>
 		<div class="flex justify-center items-center gap-x-1">
 			<!-- <img src={floorIcons[$selectedFloor - 1]} alt={`floor-${selectedFloor}`} /> -->
-			<p>{$selectedFloor}层 -</p>
+			<p>
+				{floorPrefixSuffix($selectedFloor, language)} -
+			</p>
 			<p>{translations[language]['sami_levels'][$selectedFloor - 1]}</p>
 		</div>
 	</div>
