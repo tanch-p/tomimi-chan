@@ -11,8 +11,8 @@ const config = {
 	kit: {
 		adapter: adapter({
             routes: {
-                include: ['/'],
-                exclude: ['/*']
+				include: ['/*'],
+				exclude: ['<all>']
             }
         }),
 		prerender: {
