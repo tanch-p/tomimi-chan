@@ -5,14 +5,9 @@
 		{ prefix: '<@rolv.rem>', suffix: '</>', style: 'text-[#FF4C22]' },
 		{ prefix: '$', suffix: '$', style: 'text-red-400 font-semibold' }
 	];
-	//to rewrite/refactor entire logic
+	//due to a difference in resolving <@rolv.rem> in rogue3_b-3-b and rogue3_b-4-b, this should be written to resolve by patterns first.
 	const parseText = (line: string) => {
-		const lines = line.split('\n').map((ele, i) => {
-			if (i > 0) {
-				return { text: '\n' + ele, style: null };
-			}
-			return { text: ele, style: null };
-		});
+		const lines = [{ text: line, style: null }];
 		for (const pattern of patternsToParse) {
 			traverseLines(lines, pattern);
 		}
@@ -29,7 +24,25 @@
 			}
 		});
 	};
-
+	const splitNewLines = (lines: string[]) => {
+		return lines
+			.reduce((acc, curr) => {
+				if (curr.text.includes('\n')) {
+					const parts = curr.text.split('\n');
+					for (let i = 0; i < parts.length - 1; i++) {
+						acc.push({ text: parts[i], style: curr.style });
+						acc.push({ text: '\n', style: null });
+						if (parts[i + 1]) {
+							acc.push({ text: parts[i + 1], style: curr.style });
+						}
+					}
+				} else {
+					acc.push(curr);
+				}
+				return acc;
+			}, [])
+			.filter((ele) => Boolean(ele.text));
+	};
 	const splitText = (string: string, pattern) => {
 		let returnArr = [];
 		const { prefix, suffix, style } = pattern;
@@ -41,30 +54,14 @@
 				} else returnArr.push({ text, style });
 			});
 		} else {
-			let startIndex = 0;
-			startIndex = string.indexOf(prefix, startIndex);
-			if (startIndex === -1) {
-				returnArr.push({ text: string, style: null });
-			} else {
-				const endIndex = string.indexOf(suffix, startIndex);
-				const extractedSubstring = string.substring(startIndex + prefix.length, endIndex);
-				returnArr.push({ text: string.substring(0, startIndex), style: null });
-				returnArr.push({ text: extractedSubstring, style });
-				returnArr.push({ text: string.substring(endIndex + suffix.length), style: null });
-			}
+			const pattern = new RegExp(`${prefix}(.*?)${suffix}`, 'gs');
+			const parts = string.split(pattern);
+			returnArr = parts.map((text, i) => (i % 2 === 0 ? { text, style: null } : { text, style }));
 		}
-		returnArr = returnArr.map((line) => {
-			if (line.text.includes('\n') && line.text !== '\n') {
-				return [
-					{ text: '\n', style: null },
-					{ text: line.text.split('\n')[1], style: null }
-				];
-			}
-			return line;
-		});
+		returnArr = splitNewLines(returnArr);
+
 		return returnArr;
 	};
-
 	$: parsedTextArray = parseText(line);
 	// $: console.log(parsedTextArray);
 </script>
