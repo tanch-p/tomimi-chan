@@ -10,7 +10,7 @@
 
 	export let optionsOpen: boolean, language: Language;
 	const portalDesc = {
-		en: 'All enemies have Movespeed -50%, but gain DEF +800, RES +30 and Weight level +1.',
+		en: 'All enemies have Movement Speed -50%, but gain DEF +800, RES +30 and Weight level +1.',
 		ja: '敵全員の移動速度50%減少、重量ランク1増加、防御力800増加、術耐性30増加',
 		zh: '所有敌人移动速度下降（-50%），但重量（+1）、防御力（+800）、法术抗性提升（+30）'
 	};
