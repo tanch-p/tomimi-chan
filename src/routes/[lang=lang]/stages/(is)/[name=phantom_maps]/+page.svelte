@@ -15,7 +15,7 @@
 
 	export let data: PageData;
 	$: language = data.language;
-	$: moddedEnemies = parseStats(data.enemies, $statMods);
+	$: moddedEnemies = parseStats(data.enemies, $statMods,null);
 	const rogueTopic = 'rogue_phantom';
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 </script>

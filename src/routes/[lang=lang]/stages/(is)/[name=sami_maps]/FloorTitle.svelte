@@ -2,7 +2,7 @@
 	import type { Language } from '$lib/types';
 	import { clickOutside } from '$lib/functions/clickOutside.js';
 	import FloorOptions from './FloorOptions.svelte';
-	import { selectedFloor, activeChaosEffects } from './stores';
+	import { selectedFloor, activeChaosEffects, portalMods } from './stores';
 	import translations from '$lib/translations.json';
 	import { floorPrefixSuffix } from '$lib/functions/languageHelpers';
 
@@ -32,7 +32,11 @@
 			<p>
 				{floorPrefixSuffix($selectedFloor, language)} -
 			</p>
-			<p>{translations[language]['sami_levels'][$selectedFloor - 1]}</p>
+			{#if $portalMods}
+				<p class="text-[#FF99CA]">{translations[language].sami_portal}</p>
+			{:else}
+				<p>{translations[language]['sami_levels'][$selectedFloor - 1]}</p>
+			{/if}
 		</div>
 	</div>
 	{#if $activeChaosEffects.length > 0}

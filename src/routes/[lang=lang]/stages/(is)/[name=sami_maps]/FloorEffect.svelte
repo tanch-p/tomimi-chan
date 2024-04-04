@@ -11,7 +11,7 @@
 
 	function handleClick() {
 		if (!$activeChaosEffects.find((ele) => ele.id === effect.id)) {
-			activeChaosEffects.update((list) => [effect]);
+			activeChaosEffects.update(() => [effect]);
 		} else {
 			activeChaosEffects.update((list) => (list = list.filter((ele) => ele.id !== effect.id)));
 		}
@@ -20,17 +20,18 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div
-	class={`grid grid-cols-[75px_auto] gap-x-2 hover:cursor-pointer ${
+<button
+	class={`grid grid-cols-[75px_auto] gap-x-2 text-start ${
 		selected ? 'bg-neutral-700' : 'hover:bg-neutral-700'
 	}`}
 	on:click={handleClick}
 >
 	<span class="flex items-center justify-center">
-		<img src={effect.src} alt={name} loading="lazy" decoding="async" /></span
+		<img src={effect.src} alt={name} loading="lazy" decoding="async" class=""/>
+	</span
 	>
 	<div class="flex flex-col">
 		<p class={`${selected ? 'text-purple-400 font-semibold' : ''}`}>{name}</p>
 		<p>{effect[`tooltip_${language}`]}</p>
 	</div>
-</div>
+</button>

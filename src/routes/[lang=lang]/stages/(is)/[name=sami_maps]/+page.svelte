@@ -6,7 +6,8 @@
 		specialMods,
 		eliteMods,
 		selectedRelics,
-		selectedFloor
+		selectedFloor,
+		portalMods
 	} from './stores';
 	import EnemyStatDisplay from '$lib/components/EnemyStatDisplay.svelte';
 	import DifficultySelect from './DifficultySelect.svelte';
@@ -21,7 +22,7 @@
 
 	export let data: PageData;
 	$: language = data.language;
-	$: moddedEnemies = parseStats(data.enemies, $statMods, ...$difficultyMods);
+	$: moddedEnemies = parseStats(data.enemies, $statMods, $portalMods, ...$difficultyMods);
 	const rogueTopic = 'rogue_sami';
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 </script>
