@@ -98,9 +98,11 @@ export const filters = derived([filterOptions], ([$filterOptions]) =>
 		switch (curr.key) {
 			case 'status_ailment':
 				acc[curr.key] = (ele) =>
-					ele.skills.some((skill) => skill.bb.find((item) => selectedOptions.includes(item.key))) ||
+					ele.skills.some((skill) =>
+						skill.blackboard.find((item) => selectedOptions.includes(item.key))
+					) ||
 					ele.talents.some((talent) =>
-						talent.bb.find((item) => selectedOptions.includes(item.key))
+						talent.blackboard.find((item) => selectedOptions.includes(item.key))
 					);
 				break;
 			default:
@@ -112,6 +114,14 @@ export const filters = derived([filterOptions], ([$filterOptions]) =>
 );
 
 export const sortOptions = writable([{ key: 'rarity', order: -1, visible: true, priority: 1 }]);
+filterOptions.subscribe((list) => {
+	const activeAilmentFilters = list.reduce((acc, curr) => {
+		if (['status_ailment'].includes(curr.key)) {
+			acc = [...acc, ...curr.options.filter((ele) => ele.selected).map((ele) => ele.value)];
+		}
+		return acc;
+	}, []);
+});
 
 //TODO
 // sorting, grouping, AA, condition
