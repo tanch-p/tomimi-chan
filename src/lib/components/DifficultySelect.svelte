@@ -1,11 +1,20 @@
 <script lang="ts">
-	import type { Language } from '$lib/types';
-	import { difficulty } from './stores.js';
-	import { cookiesEnabled } from '../../../../stores.js';
+	import type { Language, RogueTopic } from '$lib/types';
+	import { cookiesEnabled } from '../../routes/stores.js';
 	import { spring } from 'svelte/motion';
 	import translations from '$lib/translations.json';
 	import { browser } from '$app/environment';
-	export let language: Language;
+	export let language: Language, difficulty,rogueTopic:RogueTopic;
+
+	const getStorageKey = (rogueTopic) => {
+		switch (rogueTopic) {
+			case "rogue_mizuki":
+				return "difficulty"		
+			default:
+				const topic = rogueTopic.split("_")[1];
+				return `${topic}_difficulty`;
+		}
+	}
 
 	function updateDifficulty(n: number) {
 		if (n < 0 || n > 15) {
@@ -18,7 +27,7 @@
 		selectedDifficulty = value;
 	});
 	$: if (browser && cookiesEnabled) {
-		localStorage.setItem('sami_difficulty', selectedDifficulty.toString());
+		localStorage.setItem(getStorageKey(rogueTopic), selectedDifficulty.toString());
 	}
 	const displayed_count = spring();
 	$: displayed_count.set(selectedDifficulty);
@@ -60,6 +69,7 @@
 			disabled={selectedDifficulty <= 0}
 			aria-label="Decrease the counter by one"
 			class="group"
+			id="diff-minus"
 		>
 			<svg aria-hidden="true" viewBox="0 0 1 1">
 				<path d="M0,0.5 L1,0.5" class="group-disabled:stroke-[#444]" />
@@ -69,7 +79,7 @@
 		<div class="counter-viewport select-none">
 			<div class="counter-digits" style="transform: translate(0, {100 * offset}%)">
 				<strong class="hidden" aria-hidden="true">{Math.floor($displayed_count + 1)}</strong>
-				<strong>{Math.floor($displayed_count)}</strong>
+				<strong id="diff-count">{Math.floor($displayed_count)}</strong>
 			</div>
 		</div>
 
@@ -81,6 +91,7 @@
 			disabled={selectedDifficulty >= 15}
 			aria-label="Increase the counter by one"
 			class="group"
+			id="diff-plus"
 		>
 			<svg aria-hidden="true" viewBox="0 0 1 1">
 				<path d="M0,0.5 L1,0.5 M0.5,0 L0.5,1" class="group-disabled:stroke-[#444]" />
