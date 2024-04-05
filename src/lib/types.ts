@@ -12,8 +12,8 @@ type Stats = {
 	weight: number;
 	lifepoint: number;
 	ms: number;
-	eleRes:number;
-	eleDmgRes:number;
+	eleRes: number;
+	eleDmgRes: number;
 };
 type StatusImmune = 'stun' | 'silence' | 'freeze' | 'sleep' | 'levitate' | 'disarmCombat';
 type AttackType = 'no_attack' | 'melee' | 'ranged';
@@ -113,3 +113,5 @@ export type Skill = {
 	key: string;
 	value?: number;
 };
+
+export type sortOrder = -1 | 0 | 1;
