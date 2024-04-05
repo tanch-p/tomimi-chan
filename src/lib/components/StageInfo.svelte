@@ -29,7 +29,7 @@
 </script>
 
 <div class="sm:px-6">
-	<p class="px-2 sm:px-0 text-3xl">{mapConfig.code ?? ''} {stageName.replaceAll('_', ' ')}</p>
+	<h1 id="stage-title" class="px-2 sm:px-0 text-3xl">{mapConfig.code ?? ''} {stageName.replaceAll('_', ' ')}</h1>
 	<hr class="border-gray-500 my-1" />
 	{#if mapConfig[`description_${language}`] || mapConfig[`description_zh`]}
 		<div class="px-2 sm:px-0">

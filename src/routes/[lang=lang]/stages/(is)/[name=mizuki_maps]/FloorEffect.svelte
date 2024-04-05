@@ -27,6 +27,7 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
+	id={name.replaceAll(" ","_")}
 	class={`grid grid-cols-[75px_auto] gap-x-2 hover:cursor-pointer ${
 		selected ? 'bg-neutral-700' : 'hover:bg-neutral-700'
 	}`}

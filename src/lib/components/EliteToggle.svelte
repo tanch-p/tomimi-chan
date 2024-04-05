@@ -32,6 +32,7 @@
 
 <div class="grid grid-cols-2 font-bold text-lg text-gray-700 mt-8 mb-3 select-none">
 	<button
+		id="normal-toggle"
 		class={`flex justify-center items-center py-1 ${combatOpsColor} ${
 			!eliteMode ? 'text-gray-900' : 'opacity-30'
 		}`}
@@ -40,6 +41,7 @@
 		<img src={combat_icon} width="50px" decoding="async" loading="lazy" alt="combat ops" class="" />
 	</button>
 	<button
+		id="elite-toggle"
 		class={`flex justify-center items-center ${eliteOpsColor} ${
 			eliteMode ? 'text-black' : 'opacity-30'
 		}`}

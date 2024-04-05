@@ -7,7 +7,7 @@
 </script>
 
 <div class="sm:px-6 my-4">
-	<p class="px-2 sm:px-0 text-subheading mt-4">{translations[language].spTerrain}</p>
+	<h2 class="px-2 sm:px-0 text-subheading mt-4">{translations[language].spTerrain}</h2>
 	<hr class="border-gray-500 my-1" />
 	<div class="px-2 sm:px-0">
 		<table class="mt-4 sm:mx-auto">

@@ -25,8 +25,7 @@
 	on:outclick={() => (optionsOpen = false)}
 	class="relative mx-auto select-none"
 >
-	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<div class="cursor-pointer" on:click={() => (optionsOpen = !optionsOpen)}>
+	<button id="floor-options" on:click={() => (optionsOpen = !optionsOpen)}>
 		<div class="flex justify-center items-center gap-x-1">
 			<!-- <img src={floorIcons[$selectedFloor - 1]} alt={`floor-${selectedFloor}`} /> -->
 			<p>
@@ -38,7 +37,7 @@
 				<p>{translations[language]['sami_levels'][$selectedFloor - 1]}</p>
 			{/if}
 		</div>
-	</div>
+	</button>
 	{#if $activeChaosEffects.length > 0}
 		{#each $activeChaosEffects as effect}
 			<img

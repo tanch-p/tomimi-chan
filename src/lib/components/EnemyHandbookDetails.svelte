@@ -90,23 +90,22 @@
 				<span class="text-[#a2a5a5] text-lg font-bold">{enemy.stats[0].weight}</span>
 			</div>
 		</div>
-		<div>
-			{#if enemy?.forms}
-				<div>
-					{#each enemy.forms as form, index}
-						<button
-							class={`text-sm py-1 px-2 ${formIndex === index ? 'bg-almost-black' : 'opacity-60'}`}
-							on:click={() => (formIndex = index)}
-						>
-							{getFormTitle(form.title, index, language)}
-						</button>
-					{/each}
-					<HandBookStats {enemy} {language} {formIndex} />
-				</div>
-			{:else}
+		{#if enemy?.forms}
+			<div>
+				{#each enemy.forms as form, index}
+					<button
+						data-id="form-{index + 1}"
+						class={`text-sm py-1 px-2 ${formIndex === index ? 'bg-almost-black' : 'opacity-60'}`}
+						on:click={() => (formIndex = index)}
+					>
+						{getFormTitle(form.title, index, language)}
+					</button>
+				{/each}
 				<HandBookStats {enemy} {language} {formIndex} />
-			{/if}
-		</div>
+			</div>
+		{:else}
+			<HandBookStats {enemy} {language} {formIndex} />
+		{/if}
 	</div>
 	<div class="flex flex-col mt-3">
 		<HandbookAbilities {enemy} {language} {specialMods} />

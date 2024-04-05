@@ -23,22 +23,21 @@
 		eleRes: eleResIcon
 	};
 
-	$: statKeys =
-		language === 'zh'
-			? ['hp', 'ms', 'atk', 'aspd', 'def', 'eleRes', 'res', 'eleDmgRes']
-			: ['hp', 'ms', 'atk', 'aspd', 'def', 'res'];
+	$: statKeys = ['hp', 'ms', 'atk', 'aspd', 'def', 'eleRes', 'res', 'eleDmgRes'];
 </script>
 
 <div class="grid grid-cols-2 gap-2">
 	{#each statKeys as statKey}
-		<div class={`flex flex-col bg-[#161616] bg-opacity-80 px-1 ${language === "en" ? "text-sm" : ""}`}>
+		<div
+			class={`flex flex-col bg-[#161616] bg-opacity-80 px-1 ${language === 'en' ? 'text-sm' : ''}`}
+		>
 			<div class="flex items-center gap-x-1">
 				<img src={statKeyIcons[statKey]} width="14px" height="14px" alt="" />
 				<span class="text-[#858585] font-semibold">
 					{translations[language].table_headers[statKey]}
 				</span>
 			</div>
-			<p class="text-near-white px-[18px]">{enemy.stats[formIndex][statKey] ?? "0"}</p>
+			<p data-id="{statKey}-value" class="text-near-white px-[18px]">{enemy.stats[formIndex][statKey] ?? '0'}</p>
 		</div>
 	{/each}
 </div>
