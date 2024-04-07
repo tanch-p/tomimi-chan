@@ -1,6 +1,6 @@
 import { writable, derived } from 'svelte/store';
 
-export const filterOptions = writable([
+let filtersList = [
 	{
 		key: 'rarity',
 		options: [
@@ -83,7 +83,8 @@ export const filterOptions = writable([
 			{ value: 'tremble', selected: false }
 		]
 	}
-]);
+];
+export const filterOptions = writable(filtersList);
 
 //condition for true/false
 export const filters = derived([filterOptions], ([$filterOptions]) =>
@@ -112,15 +113,43 @@ export const filters = derived([filterOptions], ([$filterOptions]) =>
 		return acc;
 	}, {})
 );
-
-export const sortOptions = writable([{ key: 'rarity', order: -1, visible: true, priority: 1 }]);
+const defaultSortOption = { key: 'rarity', order: -1, visible: true, priority: 1 };
+const generateSortOptions = (filterOptions) =>
+	filterOptions.reduce(
+		(acc, curr) => {
+			if (['status_ailment'].includes(curr.key)) {
+				acc = [
+					...acc,
+					...curr.options.map((ele) => {
+						return { key: ele.value, order: 0, visible: false, priority: 2 };
+					})
+				];
+			}
+			return acc;
+		},
+		[defaultSortOption]
+	);
+export const sortOptions = writable(generateSortOptions(filtersList));
 filterOptions.subscribe((list) => {
-	const activeAilmentFilters = list.reduce((acc, curr) => {
+	const activeSortableFilters = list.reduce((acc, curr) => {
 		if (['status_ailment'].includes(curr.key)) {
 			acc = [...acc, ...curr.options.filter((ele) => ele.selected).map((ele) => ele.value)];
 		}
 		return acc;
 	}, []);
+	//for each sortOption except rarity, check if key is in activeSortableFilters, if in: set visible = true, else set visible = false
+	sortOptions.update((list) =>
+		list.map((option) => {
+			const { key } = option;
+			if (key !== 'rarity') {
+				if (!activeSortableFilters.includes(key)) {
+					option.order = 0;
+				}
+				option.visible = activeSortableFilters.includes(key);
+			}
+			return option;
+		})
+	);
 });
 
 //TODO

@@ -5,6 +5,7 @@
 	import CharaFilter from '$lib/components/CharaFilter.svelte';
 	import { filters, filterOptions, sortOptions } from './stores';
 	import CharaFilterDesc from '$lib/components/CharaFilterDesc.svelte';
+	import { getMaxValue } from '$lib/functions/charaHelpers';
 
 	export let data: PageData;
 	$: language = data.language;
@@ -17,7 +18,7 @@
 	};
 	$: sortFunction = (a, b) => {
 		//filter out unselected options and sort by priority
-		const sortedArr = Array.from($sortOptions.filter((ele) => ele.order !== 0)).sort(
+		const sortedArr = Array.from($sortOptions.filter((ele) => ele.order)).sort(
 			(a, b) => a.priority - b.priority
 		);
 		const values = sortedArr.map(({ key, order }) => {
@@ -26,7 +27,9 @@
 					return a.rarity.localeCompare(b.rarity) * order;
 
 				default:
-					return 0;
+					const valA = getMaxValue(a, key);
+					const valB = getMaxValue(b, key);
+					return (valA - valB) * order;
 			}
 		});
 		return values.reduce((acc, curr) => acc || curr);

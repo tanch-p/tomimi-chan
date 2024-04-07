@@ -7,7 +7,7 @@
 
 	const skillKeys = ['status_ailment'];
 
-	$: line = defaultLine;
+	let line = defaultLine;
 
 	filterOptions.subscribe((options) => {
 		const activeOptions = options.reduce((acc, curr) => {
@@ -48,7 +48,6 @@
 		//2. remove absent keys
 		const regex = /<\w+>/g;
 		text = text.replaceAll(regex, '');
-
 		return text;
 	}
 </script>
