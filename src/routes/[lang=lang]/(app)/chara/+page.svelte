@@ -10,12 +10,6 @@
 	export let data: PageData;
 	$: language = data.language;
 
-	const filter = (characters, filters) => {
-		for (const key in filters) {
-			characters = characters.filter(filters[key]);
-		}
-		return characters;
-	};
 	$: sortFunction = (a, b) => {
 		//filter out unselected options and sort by priority
 		const sortedArr = Array.from($sortOptions.filter((ele) => ele.order)).sort(
@@ -34,8 +28,6 @@
 		});
 		return values.reduce((acc, curr) => acc || curr);
 	};
-
-	$: console.log($filters);
 </script>
 
 <svelte:head>
@@ -46,6 +38,6 @@
 
 <div class="pb-20">
 	<CharaFilter {filterOptions} {language} {sortOptions} />
-	<CharaDisplay characters={filter(data.characters, $filters).sort(sortFunction)} />
+	<CharaDisplay characters={data.characters.filter($filters).sort(sortFunction)} />
 	<CharaFilterDesc {filterOptions} {language} />
 </div>

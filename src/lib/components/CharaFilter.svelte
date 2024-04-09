@@ -29,7 +29,11 @@
 			const copy = Array.from(list);
 			const index = list.findIndex((ele) => ele.key === key);
 			if (index !== -1) {
-				copy[index].order = order;
+				if (copy[index].order === order && list.filter((ele) => ele.order !== 0).length !== 1) {
+					copy[index].order = 0;
+				} else {
+					copy[index].order = order;
+				}
 			}
 			list = copy;
 			return list;

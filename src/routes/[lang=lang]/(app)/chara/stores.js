@@ -87,32 +87,49 @@ let filtersList = [
 export const filterOptions = writable(filtersList);
 
 //condition for true/false
-export const filters = derived([filterOptions], ([$filterOptions]) =>
-	$filterOptions.reduce((acc, curr) => {
+export const filters = derived(filterOptions, ($filterOptions) => {
+	const filterFunctions = $filterOptions.reduce((acc, curr) => {
 		const selectedOptions = curr.options
 			.map((option) => option.selected && option.value)
 			.filter(Boolean);
 		if (selectedOptions.length === 0) {
-			acc[curr.key] = (ele) => true;
 			return acc;
 		}
 		switch (curr.key) {
 			case 'status_ailment':
-				acc[curr.key] = (ele) =>
-					ele.skills.some((skill) =>
-						skill.blackboard.find((item) => selectedOptions.includes(item.key))
-					) ||
-					ele.talents.some((talent) =>
-						talent.blackboard.find((item) => selectedOptions.includes(item.key))
-					);
+				acc.push(
+					(char) =>
+						char.skills.some((skill) =>
+							skill.blackboard.find((item) => selectedOptions.includes(item.key))
+						) ||
+						char.talents.some((talent) =>
+							talent.blackboard.find((item) => selectedOptions.includes(item.key))
+						) ||
+						char.uniequip
+							.filter((equip) => equip.combatData)
+							.some((equip) =>
+								equip.combatData.blackboard.find((item) => selectedOptions.includes(item.key))
+							)
+				);
 				break;
 			default:
-				acc[curr.key] = (ele) => selectedOptions.includes(ele[curr.key]);
+				acc.push((ele) => selectedOptions.includes(ele[curr.key]));
 		}
-
 		return acc;
-	}, {})
-);
+	}, []);
+	return function (char) {
+		if (filterFunctions.length === 0) {
+			return true;
+		}
+		for (const f of filterFunctions) {
+			const passFilter = f(char);
+			if (!passFilter) {
+				return false;
+			}
+		}
+		return true;
+	};
+});
 const defaultSortOption = { key: 'rarity', order: -1, visible: true, priority: 1 };
 const generateSortOptions = (filterOptions) =>
 	filterOptions.reduce(
