@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import type { sortOrder, Language } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import CharaDisplay from '$lib/components/CharaDisplay.svelte';
 	import CharaFilter from '$lib/components/CharaFilter.svelte';
@@ -8,9 +9,10 @@
 	import { getMaxValue } from '$lib/functions/charaHelpers';
 
 	export let data: PageData;
+	let language: Language;
 	$: language = data.language;
 
-	$: sortFunction = (a, b) => {
+	$: sortFunction = (a, b): sortOrder => {
 		//filter out unselected options and sort by priority
 		const sortedArr = Array.from($sortOptions.filter((ele) => ele.order)).sort(
 			(a, b) => a.priority - b.priority
@@ -26,7 +28,7 @@
 					return (valA - valB) * order;
 			}
 		});
-		return values.reduce((acc, curr) => acc || curr);
+		return values.length > 0 ? values.reduce((acc, curr) => acc || curr) : 0;
 	};
 </script>
 

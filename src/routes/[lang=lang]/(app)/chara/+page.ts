@@ -1,8 +1,9 @@
 import type { PageLoad } from './$types';
-import characters from "$lib/data/chara/characters.json";
+import type { Language } from '$lib/types';
+import characters from '$lib/data/chara/characters.json';
 
 export const load = (({ params }) => {
-	const language = params.lang;
+	const language: Language = params.lang;
 	return {
 		language,
 		characters

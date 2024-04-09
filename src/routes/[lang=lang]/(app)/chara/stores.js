@@ -131,14 +131,14 @@ export const filters = derived(filterOptions, ($filterOptions) => {
 	};
 });
 const defaultSortOption = { key: 'rarity', order: -1, visible: true, priority: 1 };
-const generateSortOptions = (filterOptions) =>
-	filterOptions.reduce(
+export const generateSortOptions = () =>
+	filtersList.reduce(
 		(acc, curr) => {
 			if (['status_ailment'].includes(curr.key)) {
 				acc = [
 					...acc,
 					...curr.options.map((ele) => {
-						return { key: ele.value, order: 0, visible: false, priority: 2 };
+						return { key: ele.value, order: 0, visible: false, priority: null };
 					})
 				];
 			}
@@ -146,7 +146,7 @@ const generateSortOptions = (filterOptions) =>
 		},
 		[defaultSortOption]
 	);
-export const sortOptions = writable(generateSortOptions(filtersList));
+export const sortOptions = writable(generateSortOptions());
 filterOptions.subscribe((list) => {
 	const activeSortableFilters = list.reduce((acc, curr) => {
 		if (['status_ailment'].includes(curr.key)) {
@@ -158,6 +158,11 @@ filterOptions.subscribe((list) => {
 	sortOptions.update((list) =>
 		list.map((option) => {
 			const { key } = option;
+			//case for Clear All button
+			if (key === 'rarity' && activeSortableFilters.length === 0) {
+				option.order = -1;
+				return option;
+			}
 			if (key !== 'rarity') {
 				if (!activeSortableFilters.includes(key)) {
 					option.order = 0;

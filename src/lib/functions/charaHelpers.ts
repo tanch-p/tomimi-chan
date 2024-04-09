@@ -16,3 +16,17 @@ export const getMaxValue = (chara, key) =>
 				return (acc = Math.max(acc, value));
 			}, 0)
 	);
+
+export const updateSortPriority = (sortOptions, index) => {
+	const valueToRemove = sortOptions[index].priority;
+
+	return sortOptions.map((ele, i) => {
+		if (i === index) {
+			ele.priority = null;
+		}
+		if (ele.priority && ele.priority > valueToRemove) {
+			ele.priority -= 1;
+		}
+		return ele;
+	});
+};

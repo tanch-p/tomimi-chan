@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { Language, sortOrder } from '$lib/types';
 	import translations from '$lib/translations.json';
+	import { updateSortPriority } from '$lib/functions/charaHelpers';
+	import { generateSortOptions } from '../../routes/[lang=lang]/(app)/chara/stores';
 
 	export let filterOptions, language: Language, sortOptions;
 	const updateFilters = (key, value) => {
@@ -11,7 +13,7 @@
 			return list;
 		});
 	};
-	const clearAll = () => {
+	const reset = () => {
 		filterOptions.update((list) =>
 			list.map((ele) => {
 				return {
@@ -23,7 +25,6 @@
 			})
 		);
 	};
-	$: console.log($sortOptions);
 	const updateSortOptions = (key, order: sortOrder) => {
 		sortOptions.update((list) => {
 			const copy = Array.from(list);
@@ -31,10 +32,15 @@
 			if (index !== -1) {
 				if (copy[index].order === order && list.filter((ele) => ele.order !== 0).length !== 1) {
 					copy[index].order = 0;
+					updateSortPriority(copy, index);
 				} else {
 					copy[index].order = order;
+					if (!copy[index].priority) {
+						copy[index].priority = copy.filter((ele) => ele.visible && ele.order !== 0).length;
+					}
 				}
 			}
+
 			list = copy;
 			return list;
 		});
@@ -55,13 +61,14 @@
 			</div>
 		{/each}
 	</div>
-	<button class="block my-4 mx-auto" on:click={clearAll}>Clear</button>
+	<button class="block my-4 mx-auto" on:click={reset}>Reset</button>
 
 	<p class="text-center">Sort</p>
-	<div class="grid grid-cols-[200px_1fr] gap-3">
+	<div class="grid grid-cols-[150px_50px_1fr] gap-3">
 		{#each $sortOptions as { key, order, priority, visible }}
 			{#if visible}
 				<p>{translations[language][key]}:</p>
+				<p>{priority || ''}</p>
 				<div class="flex flex-wrap gap-2">
 					<button
 						class={order === 1 ? 'text-sky-500' : ''}
