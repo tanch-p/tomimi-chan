@@ -2,7 +2,7 @@
 	import type { Language, sortOrder } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import { updateSortPriority } from '$lib/functions/charaHelpers';
-	import { generateSortOptions } from '../../routes/[lang=lang]/(app)/chara/stores';
+	import charaConst from '$lib/data/chara/chara_const.json';
 
 	export let filterOptions, language: Language, sortOptions;
 	const updateFilters = (key, value) => {
@@ -52,13 +52,35 @@
 	<div class="grid grid-cols-[200px_1fr] gap-3">
 		{#each $filterOptions as { key, options }}
 			<p>{translations[language][key]}:</p>
-			<div class="flex flex-wrap gap-2">
-				{#each options as { value, selected }}
-					<button class={selected ? 'text-sky-500' : ''} on:click={() => updateFilters(key, value)}>
-						{translations[language][value]}
-					</button>
-				{/each}
-			</div>
+			{#if key === 'subProfessionId'}
+				<div class="flex flex-col gap-2">
+					{#each Object.keys(charaConst.subProfessionId) as subKey}
+						{@const subOptions = charaConst.subProfessionId[subKey]}
+						<div class="flex flex-wrap gap-x-2">
+							{#each subOptions as value}
+								{@const selected = options.find((ele) => ele.value === value)?.selected}
+								<button
+									class={selected ? 'text-sky-500' : ''}
+									on:click={() => updateFilters(key, value)}
+								>
+									{translations[language][value]}
+								</button>
+							{/each}
+						</div>
+					{/each}
+				</div>
+			{:else}
+				<div class="flex flex-wrap gap-2">
+					{#each options as { value, selected }}
+						<button
+							class={selected ? 'text-sky-500' : ''}
+							on:click={() => updateFilters(key, value)}
+						>
+							{translations[language][value]}
+						</button>
+					{/each}
+				</div>
+			{/if}
 		{/each}
 	</div>
 	<button class="block my-4 mx-auto" on:click={reset}>Reset</button>

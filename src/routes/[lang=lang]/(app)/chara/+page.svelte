@@ -4,9 +4,10 @@
 	import translations from '$lib/translations.json';
 	import CharaDisplay from '$lib/components/CharaDisplay.svelte';
 	import CharaFilter from '$lib/components/CharaFilter.svelte';
-	import { filters, filterOptions, sortOptions } from './stores';
+	import { filters, filterOptions, sortOptions, selectedChara } from './stores';
 	import CharaFilterDesc from '$lib/components/CharaFilterDesc.svelte';
 	import { getMaxValue } from '$lib/functions/charaHelpers';
+	import CharaDrawer from './CharaDrawer.svelte';
 
 	export let data: PageData;
 	let language: Language;
@@ -40,6 +41,7 @@
 
 <div class="pb-20">
 	<CharaFilter {filterOptions} {language} {sortOptions} />
-	<CharaDisplay characters={data.characters.filter($filters).sort(sortFunction)} />
+	<CharaDisplay characters={data.characters.filter($filters).sort(sortFunction)} {selectedChara}/>
 	<CharaFilterDesc {filterOptions} {language} />
+	<CharaDrawer />
 </div>

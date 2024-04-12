@@ -5,9 +5,20 @@
 
 	const defaultLine = translations[language].chara_filter_start;
 
-	const skillKeys = ['status_ailment'];
+	const debuffKeys = ['status_ailment', 'debuffs'];
+	const buffKeys = ['buffs'];
 
 	let line = defaultLine;
+
+	const getReplaceOperatorFlag = (language, text) => {
+		switch (language) {
+			case 'en':
+				return text.includes('<profession>') && text.includes('<subProfessionId>');
+			case 'zh':
+			case 'ja':
+				return text.includes('<subProfessionId>');
+		}
+	};
 
 	filterOptions.subscribe((options) => {
 		const activeOptions = options.reduce((acc, curr) => {
@@ -31,18 +42,31 @@
 				.filter(Boolean)
 				.join('/');
 			let key = ele.key;
-			if (skillKeys.includes(ele.key)) {
+			if (debuffKeys.includes(ele.key)) {
 				key = 'skills';
 			}
+			switch (key) {
+				case 'skills':
+					value =
+						translations[language]['chara_filter']['skills_pre'] +
+						value +
+						translations[language]['chara_filter']['skills_post_e'];
+					break;
+				case 'nationId':
+					value = translations[language]['chara_filter']['nation_pre'] + value;
+					break;
+				case 'groupId':
+					value = translations[language]['chara_filter']['group_pre'] + value;
+					break;
+				default:
+					break;
+			}
 			if (key === 'skills') {
-				value =
-					translations[language]['chara_filter']['skills_pre'] +
-					value +
-					translations[language]['chara_filter']['skills_post_e'];
 			}
 			text = text.replace(`<${key}>`, value);
 		}
-		if (!(language === 'en' && !text.includes('<profession>'))) {
+		let replaceOperatorFlag = getReplaceOperatorFlag(language, text);
+		if (replaceOperatorFlag) {
 			text = text.replace('<operator>', translations[language].operator);
 		}
 		//2. remove absent keys
