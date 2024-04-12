@@ -10,6 +10,7 @@
 	import vision from '$lib/images/is/vision.webp';
 	import drops from '$lib/data/drops.json';
 	import TogglePanel from './TogglePanel.svelte';
+	import Icon from './Icon.svelte';
 
 	export let mapConfig, rogueTopic: string, language: string, selectedFloor;
 
@@ -57,21 +58,7 @@
 											alt="combat ops"
 											class=""
 										/>
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											fill="none"
-											viewBox="0 0 24 24"
-											stroke-width="1.5"
-											stroke="currentColor"
-											class="w-6 h-6"
-										>
-											<path
-												stroke-linecap="round"
-												stroke-linejoin="round"
-												d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-											/>
-										</svg>
-
+										<Icon name="right-arrow"/>
 										<img
 											src={combat_icon}
 											width="50px"
@@ -104,20 +91,7 @@
 											alt="combat ops"
 											class=""
 										/>
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											fill="none"
-											viewBox="0 0 24 24"
-											stroke-width="1.5"
-											stroke="currentColor"
-											class="w-6 h-6"
-										>
-											<path
-												stroke-linecap="round"
-												stroke-linejoin="round"
-												d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-											/>
-										</svg>
+										<Icon name="right-arrow"/>
 										<img
 											src={emergency_icon}
 											width="50px"
@@ -217,21 +191,7 @@
 											alt="combat ops"
 											class=""
 										/>
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											fill="none"
-											viewBox="0 0 24 24"
-											stroke-width="1.5"
-											stroke="currentColor"
-											class="w-6 h-6"
-										>
-											<path
-												stroke-linecap="round"
-												stroke-linejoin="round"
-												d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-											/>
-										</svg>
-
+										<Icon name="right-arrow"/>
 										<img
 											src={combat_icon}
 											width="50px"

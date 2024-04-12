@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
+	import Icon from './Icon.svelte';
 
 	export let title = 'title',
 		isOpen = false,
@@ -14,29 +15,11 @@
 		class="flex justify-between items-center px-2 sm:px-0 hover:cursor-pointer"
 		on:click={toggle}
 	>
-		<p class={`${size === "subheading" ? "text-subheading" : "text-3xl"}`}>{title}</p>
+		<p class={`${size === 'subheading' ? 'text-subheading' : 'text-3xl'}`}>{title}</p>
 		{#if isOpen}
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke-width="1.5"
-				stroke="currentColor"
-				class="w-6 h-6 sm:w-8 sm:h-8 mt-2"
-			>
-				<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
-			</svg>
+			<Icon name="icon-minus" className="w-6 h-6 sm:w-8 sm:h-8 mt-2" />
 		{:else}
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke-width="1.5"
-				stroke="currentColor"
-				class="w-6 h-6 sm:w-8 sm:h-8 mt-2"
-			>
-				<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-			</svg>
+			<Icon name="icon-plus" className="w-6 h-6 sm:w-8 sm:h-8 mt-2" />
 		{/if}
 	</div>
 	<hr class="border-gray-500 my-1" />

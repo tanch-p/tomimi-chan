@@ -3,6 +3,7 @@
 	import relicIcon from '$lib/images/is/relic.png';
 	import RelicsOverlay from './RelicsOverlay.svelte';
 	import translations from '$lib/translations.json';
+	import Icon from './Icon.svelte';
 	export let language: Language,
 		rogueTopic: string,
 		selectedRelics,
@@ -34,21 +35,7 @@
 							<div
 								class="absolute flex flex-col inset-0 bg-[#212121] bg-opacity-70 text-center justify-center"
 							>
-								<!-- Down Arrow SVG -->
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke-width="3"
-									stroke="#F2F2F2"
-									class="w-6 h-6 mx-auto"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										d="M12 4.5v15m0 0l6.75-6.75M12 19.5l-6.75-6.75"
-									/>
-								</svg>
+								<Icon name="down-arrow" className="w-6 h-6 mx-auto"/>
 								<p class="font-medium text-near-white">
 									{translations[language]['relic_overlay_close']}
 								</p>
