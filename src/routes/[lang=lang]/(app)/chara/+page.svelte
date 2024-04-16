@@ -39,9 +39,9 @@
 	<meta property="og:description" content={translations[language].title_post} />
 </svelte:head>
 
-<div class="pb-20">
+<div class="pb-40">
 	<CharaFilter {filterOptions} {language} {sortOptions} />
-	<CharaDisplay characters={data.characters.filter($filters).sort(sortFunction)} {selectedChara}/>
+	<CharaDisplay characters={data.characters.filter($filters).sort(sortFunction)} {selectedChara} {language}/>
 	<CharaFilterDesc {filterOptions} {language} />
 	<CharaDrawer />
 </div>

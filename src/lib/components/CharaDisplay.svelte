@@ -1,28 +1,60 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
+	import translations from '$lib/translations.json';
 	import Icon from './Icon.svelte';
+	export let characters, selectedChara, language: Language;
 
-	export let characters, selectedChara;
+	let displayMode = 'grid';
 </script>
 
-<div class="max-w-4xl mx-auto">
-	<div class="flex items-center gap-x-4 w-max ml-auto">
-		<div class="">
-			<Icon name="grid-view" size={24} />
-		</div>
-		<div>
-			<Icon name="icon-list" size={22} />
-		</div>
-	</div>
+<div class="max-w-5xl mx-auto">
 	{#if characters.length === 0}
-		<p class="text-center">No results found</p>
+		<p class="text-center">{translations[language].filter_no_result}</p>
 	{:else}
-		<p>{characters.length} results returned</p>
-		<div class="grid grid-cols-4 md:grid-cols-8 mt-4">
-			{#each characters as chara}
-				<button on:click={() => selectedChara.set(chara)}>
-					{chara.appellation}
+		<div class="relative">
+			<div class="absolute flex items-center gap-x-2 w-max right-4 -top-2.5">
+				<button
+					class="display-style-button rounded-full p-[9px]"
+					class:active={displayMode === 'grid'}
+					on:click={() => (displayMode = 'grid')}
+				>
+					<Icon name="grid-view" size={24} />
 				</button>
-			{/each}
+				<button
+					class="display-style-button rounded-full p-[10px]"
+					class:active={displayMode === 'list'}
+					on:click={() => (displayMode = 'list')}
+				>
+					<Icon name="icon-list" size={22} />
+				</button>
+			</div>
+			<p class="text-center">
+				{translations[language].filter_result.replace('<num>', characters.length)}
+			</p>
 		</div>
+
+		{#if displayMode === 'grid'}
+			<div class="mt-4 grid grid-cols-4 md:grid-cols-8">
+				{#each characters as chara}
+					<button on:click={() => selectedChara.set(chara)}>
+						{chara.appellation}
+					</button>
+				{/each}
+			</div>
+		{:else}
+			<div class="mt-4 flex flex-col">
+				{#each characters as chara}
+					<button on:click={() => selectedChara.set(chara)}>
+						{chara.appellation}
+					</button>
+				{/each}
+			</div>
+		{/if}
 	{/if}
 </div>
+
+<style>
+	.display-style-button.active {
+		background-color: dimgrey;
+	}
+</style>

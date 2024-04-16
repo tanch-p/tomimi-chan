@@ -3,12 +3,12 @@
 	import translations from '$lib/translations.json';
 	export let filterOptions, language: Language;
 
-	const defaultLine = translations[language].chara_filter_start;
+	$: defaultLine = translations[language].chara_filter_start;
 
 	const debuffKeys = ['status_ailment', 'debuffs'];
 	const buffKeys = ['buffs'];
 
-	let line = defaultLine;
+	$: line = defaultLine;
 
 	const getReplaceOperatorFlag = (language, text) => {
 		switch (language) {
@@ -50,13 +50,19 @@
 					value =
 						translations[language]['chara_filter']['skills_pre'] +
 						value +
-						translations[language]['chara_filter']['skills_post_e'];
+						translations[language]['chara_filter']['skills_post'];
 					break;
 				case 'nationId':
-					value = translations[language]['chara_filter']['nation_pre'] + value;
+					value =
+						translations[language]['chara_filter']['nation_pre'] +
+						value +
+						translations[language]['chara_filter']['nation_post'];
 					break;
 				case 'groupId':
-					value = translations[language]['chara_filter']['group_pre'] + value;
+					value =
+						translations[language]['chara_filter']['group_pre'] +
+						value +
+						translations[language]['chara_filter']['group_post'];
 					break;
 				default:
 					break;
@@ -69,13 +75,41 @@
 		if (replaceOperatorFlag) {
 			text = text.replace('<operator>', translations[language].operator);
 		}
-		//2. remove absent keys
+		//2. replace connectors
+		if (language === 'zh') {
+			const nationFlag = activeOptions.find((ele) => ele.key === 'nationId');
+			const groupFlag = activeOptions.find((ele) => ele.key === 'groupId');
+			const skillFlag = activeOptions.find((ele) => debuffKeys.includes(ele.key));
+			if ((groupFlag || nationFlag) && skillFlag) {
+				text = text.replace('<connector_2>', translations[language]['chara_filter'].connector_and);
+			}
+			if ((groupFlag || nationFlag) && !skillFlag) {
+				text = text.replace('<connector_2>', translations[language]['chara_filter'].connector);
+			}
+			if (groupFlag && nationFlag) {
+				text = text.replace('<connector_1>', translations[language]['chara_filter'].connector_and);
+			}
+			if (skillFlag) {
+				text = text.replace('<connector_skill>', translations[language]['chara_filter'].connector);
+			}
+		} else if (language === 'ja') {
+			const nationFlag = activeOptions.find((ele) => ele.key === 'nationId');
+			const groupFlag = activeOptions.find((ele) => ele.key === 'groupId');
+			if (groupFlag && nationFlag) {
+				text = text.replace('<connector_1>', translations[language]['chara_filter'].connector_and);
+			}
+			if (groupFlag || nationFlag) {
+				text = text.replace('<connector_2>', translations[language]['chara_filter'].connector);
+			}
+		}
+
+		//3. remove absent keys
 		const regex = /<\w+>/g;
 		text = text.replaceAll(regex, '');
 		return text;
 	}
 </script>
 
-<div class="fixed bottom-0 text-center w-full md:w- p-4 bg-white text-subheading text-black">
+<div class="fixed bottom-0 text-center w-full md:w- p-4 bg-[#333] text-lg text-near-white">
 	{line}
 </div>

@@ -47,65 +47,86 @@
 	};
 </script>
 
-<div class="max-w-4xl mx-auto pt-20 shadow-md pb-12 mb-8">
-	<p class="text-center">Filter</p>
-	<div class="grid grid-cols-[200px_1fr] gap-3">
-		{#each $filterOptions as { key, options }}
-			<p>{translations[language][key]}:</p>
-			{#if key === 'subProfessionId'}
-				<div class="flex flex-col gap-2">
-					{#each Object.keys(charaConst.subProfessionId) as subKey}
-						{@const subOptions = charaConst.subProfessionId[subKey]}
-						<div class="flex flex-wrap gap-x-2">
-							{#each subOptions as value}
-								{@const selected = options.find((ele) => ele.value === value)?.selected}
-								<button
-									class={selected ? 'text-sky-500' : ''}
-									on:click={() => updateFilters(key, value)}
-								>
+<div class="md:mx-10">
+	<div class="max-w-5xl mx-auto pt-6 md:pt-10 pb-4 text-[0.75rem] md:text-[0.875rem] {language}">
+		<div class="bg-near-white text-almost-black rounded-md p-3 md:p-4">
+			<p class="border-b text-center pb-1 md:pb-2">{translations[language].filter}</p>
+			<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 mt-2 md:mt-3">
+				{#each $filterOptions as { key, options }}
+					<p class="md:py-[5px]">{translations[language][key]}:</p>
+					{#if key === 'subProfessionId'}
+						<div class="flex flex-col gap-2">
+							{#each Object.keys(charaConst.subProfessionId) as subKey}
+								{@const subOptions = charaConst.subProfessionId[subKey]}
+								<div class="flex flex-wrap gap-2">
+									{#each subOptions as value}
+										{@const selected = options.find((ele) => ele.value === value)?.selected}
+										<button class:active={selected} on:click={() => updateFilters(key, value)}>
+											{translations[language][value]}
+										</button>
+									{/each}
+								</div>
+							{/each}
+						</div>
+					{:else}
+						<div class="flex flex-wrap gap-2">
+							{#each options as { value, selected }}
+								<button class:active={selected} on:click={() => updateFilters(key, value)}>
 									{translations[language][value]}
 								</button>
 							{/each}
 						</div>
-					{/each}
-				</div>
-			{:else}
-				<div class="flex flex-wrap gap-2">
-					{#each options as { value, selected }}
-						<button
-							class={selected ? 'text-sky-500' : ''}
-							on:click={() => updateFilters(key, value)}
-						>
-							{translations[language][value]}
-						</button>
-					{/each}
-				</div>
-			{/if}
-		{/each}
-	</div>
-	<button class="block my-4 mx-auto" on:click={reset}>Reset</button>
-
-	<p class="text-center">Sort</p>
-	<div class="grid grid-cols-[150px_50px_1fr] gap-3">
-		{#each $sortOptions as { key, order, priority, visible }}
-			{#if visible}
-				<p>{translations[language][key]}:</p>
-				<p>{priority || ''}</p>
-				<div class="flex flex-wrap gap-2">
-					<button
-						class={order === 1 ? 'text-sky-500' : ''}
-						on:click={() => updateSortOptions(key, 1)}
-					>
-						ascending
-					</button>
-					<button
-						class={order === -1 ? 'text-sky-500' : ''}
-						on:click={() => updateSortOptions(key, -1)}
-					>
-						descending
-					</button>
-				</div>
-			{/if}
-		{/each}
+					{/if}
+				{/each}
+			</div>
+			<button class="block mt-6 mx-auto hover:bg-slate-300" on:click={reset}
+				>{translations[language].filter_reset}</button
+			>
+		</div>
+		<div class="bg-near-white text-almost-black rounded-md p-3 md:p-4 mt-4">
+			<p class="border-b text-center pb-1 md:pb-2">{translations[language].sort}</p>
+			<div class="grid grid-cols-[auto_50px_1fr] gap-2 md:gap-3 mt-2 md:mt-3">
+				<p>{translations[language].filter_option}</p>
+				<p class="text-center">{translations[language].sort_priority}</p>
+				<p />
+				{#each $sortOptions as { key, order, priority, visible }}
+					{#if visible}
+						<p class="py-[5px]">{translations[language][key]}:</p>
+						<p class="py-[5px] text-center">{priority || ''}</p>
+						<div class="flex flex-wrap gap-2">
+							<button class:active={order === 1} on:click={() => updateSortOptions(key, 1)}>
+								{translations[language]['asc']}
+							</button>
+							<button class:active={order === -1} on:click={() => updateSortOptions(key, -1)}>
+								{translations[language]['desc']}
+							</button>
+						</div>
+					{/if}
+				{/each}
+			</div>
+		</div>
 	</div>
 </div>
+
+<style>
+	button.active {
+		background-color: rgb(2 132 199);
+		color: rgb(242 242 242);
+		border: 1px solid transparent;
+	}
+	.ja button,
+	.zh button {
+		min-width: 68px;
+		padding: 0.25rem 0.75rem;
+		border: 1px solid rgb(209 213 219);
+		box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+	}
+	@media only screen and (max-width: 640px) {
+		.ja button,
+		.zh button {
+			min-width: 56px;
+			padding: 0.25rem 0.5rem;
+			border: 1px solid rgb(209 213 219);
+		}
+	}
+</style>
