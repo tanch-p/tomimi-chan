@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import combat_icon from '$lib/images/is/combat_icon.webp';
 	import emergency_icon from '$lib/images/is/emergency_icon.webp';
@@ -11,14 +12,15 @@
 	import drops from '$lib/data/drops.json';
 	import TogglePanel from './TogglePanel.svelte';
 
-	export let mapConfig, rogueTopic: string, language: string, selectedFloor;
-
+	export let mapConfig, rogueTopic: string, language: Language, selectedFloor;
+	const stagesToExclude = ['ro3_b_7','ro3_b_7_b'];
+	$:console.log(mapConfig.id)
 	$: isBossStage = mapConfig.id.includes('_b_');
 	$: isEventStage = mapConfig.id.includes('_ev_') || mapConfig.id.includes('_t_');
 	$: isCombatStage = !isBossStage && !isEventStage;
 </script>
 
-{#if !(isBossStage && mapConfig.floors.includes(6))}
+{#if !stagesToExclude.includes(mapConfig.id)}
 	<div class="my-4">
 		<TogglePanel title={translations[language].stage_rewards} size="subheading">
 			<div class="px-2 sm:px-0 overflow-auto">
@@ -296,7 +298,7 @@
 						</tbody>
 					</table>
 				{:else}
-					{@const index = mapConfig.floors.includes(3) ? 0 : 1}
+					{@const index = mapConfig.floors.includes(3) ? 0 : mapConfig.floors.includes(5) ? 1 : 2}
 					<p>{translations[language].exp} - {drops[rogueTopic].boss.exp[index]}</p>
 					<p>{translations[language].rogue_gold} - {drops[rogueTopic].boss.gold[index]}</p>
 				{/if}
