@@ -1,5 +1,5 @@
 import { writable, derived } from 'svelte/store';
-import charaConst from '$lib/data/chara/chara_const.json';
+import filterOptins from '$lib/data/chara/filter_options.json';
 let filtersList = [
 	{
 		key: 'rarity',
@@ -27,10 +27,10 @@ let filtersList = [
 	},
 	{
 		key: 'subProfessionId',
-		options: Object.keys(charaConst.subProfessionId).reduce((acc, curr) => {
+		options: Object.keys(filterOptins.subProfessionId).reduce((acc, curr) => {
 			acc = [
 				...acc,
-				...charaConst.subProfessionId[curr].map((ele) => {
+				...filterOptins.subProfessionId[curr].map((ele) => {
 					return { value: ele, selected: false };
 				})
 			];
@@ -38,7 +38,7 @@ let filtersList = [
 		}, [])
 	},
 	{
-		key: 'nationId',
+		key: 'group',
 		options: [
 			{ value: 'rhodes', selected: false },
 			{ value: 'kazimierz', selected: false },
@@ -59,13 +59,7 @@ let filtersList = [
 			{ value: 'ursus', selected: false },
 			{ value: 'egir', selected: false },
 			{ value: 'leithanien', selected: false },
-			{ value: 'rim', selected: false }
-		]
-	},
-	{
-		key: 'groupId',
-		options: [
-			{ value: null, selected: false },
+			{ value: 'rim', selected: false },
 			{ value: 'pinus', selected: false },
 			{ value: 'blacksteel', selected: false },
 			{ value: 'karlan', selected: false },
@@ -110,6 +104,24 @@ export const filters = derived(filterOptions, ($filterOptions) => {
 			return acc;
 		}
 		switch (curr.key) {
+			case 'group':
+				acc.push((char) => {
+					if (selectedOptions.includes(null)) {
+						const options = selectedOptions.filter(Boolean);
+						return (
+							options.includes(char.nationId) ||
+							options.includes(char.groupId) ||
+							options.includes(char.teamId) ||
+							[char.nationId, char.groupId, char.teamId].every((ele) => ele === null)
+						);
+					}
+					return (
+						selectedOptions.includes(char.nationId) ||
+						selectedOptions.includes(char.groupId) ||
+						selectedOptions.includes(char.teamId)
+					);
+				});
+				break;
 			case 'status_ailment':
 				acc.push(
 					(char) =>
@@ -127,7 +139,7 @@ export const filters = derived(filterOptions, ($filterOptions) => {
 				);
 				break;
 			default:
-				acc.push((ele) => selectedOptions.includes(ele[curr.key]));
+				acc.push((char) => selectedOptions.includes(char[curr.key]));
 		}
 		return acc;
 	}, []);

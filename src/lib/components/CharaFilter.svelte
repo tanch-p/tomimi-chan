@@ -2,9 +2,14 @@
 	import type { Language, sortOrder } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import { updateSortPriority } from '$lib/functions/charaHelpers';
-	import charaConst from '$lib/data/chara/chara_const.json';
+	import filterOps from '$lib/data/chara/filter_options.json';
+	import charaConst from '$lib/data/chara/filter_options.json';
+	import TogglePanel from './TogglePanel.svelte';
 
 	export let filterOptions, language: Language, sortOptions;
+
+	const filterLayout = ['rarity', 'profession', ['subProfessionId', 'groups'], 'status_ailment'];
+
 	const updateFilters = (key, value) => {
 		filterOptions.update((list) => {
 			const catIndex = list.findIndex((ele) => ele.key === key);
@@ -52,7 +57,31 @@
 		<div class="bg-near-white text-almost-black rounded-md p-3 md:p-4">
 			<p class="border-b text-center pb-1 md:pb-2">{translations[language].filter}</p>
 			<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 mt-2 md:mt-3">
-				{#each $filterOptions as { key, options }}
+				<p class="md:py-[5px]">{translations[language]['rarity']}:</p>
+				<div class="flex flex-wrap gap-2">
+					{#each filterOps['rarity'] as value}
+						<button class:active={false} on:click={() => updateFilters('rarity', value)}>
+							{translations[language][value]}
+						</button>
+					{/each}
+				</div>
+			</div>
+			<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 mt-2 md:mt-3">
+				<p class="md:py-[5px]">{translations[language]['profession']}:</p>
+				<div class="flex flex-wrap gap-2">
+					{#each filterOps['profession'] as value}
+						<button class:active={false} on:click={() => updateFilters('profession', value)}>
+							{translations[language][value]}
+						</button>
+					{/each}
+				</div>
+			</div>
+			<TogglePanel
+				title="{translations[language].subProfessionId}/{translations[language]
+					.nationId}/{translations[language].group}/"
+			/>
+			{#each $filterOptions as { key, options }}
+				<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 mt-2 md:mt-3">
 					<p class="md:py-[5px]">{translations[language][key]}:</p>
 					{#if key === 'subProfessionId'}
 						<div class="flex flex-col gap-2">
@@ -77,8 +106,8 @@
 							{/each}
 						</div>
 					{/if}
-				{/each}
-			</div>
+				</div>
+			{/each}
 			<button class="block mt-6 mx-auto hover:bg-slate-300" on:click={reset}
 				>{translations[language].filter_reset}</button
 			>

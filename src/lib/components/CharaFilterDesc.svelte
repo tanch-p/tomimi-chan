@@ -58,7 +58,7 @@
 						value +
 						translations[language]['chara_filter']['nation_post'];
 					break;
-				case 'groupId':
+				case 'group':
 					value =
 						translations[language]['chara_filter']['group_pre'] +
 						value +
@@ -78,7 +78,7 @@
 		//2. replace connectors
 		if (language === 'zh') {
 			const nationFlag = activeOptions.find((ele) => ele.key === 'nationId');
-			const groupFlag = activeOptions.find((ele) => ele.key === 'groupId');
+			const groupFlag = activeOptions.find((ele) => ele.key === 'group');
 			const skillFlag = activeOptions.find((ele) => debuffKeys.includes(ele.key));
 			if ((groupFlag || nationFlag) && skillFlag) {
 				text = text.replace('<connector_2>', translations[language]['chara_filter'].connector_and);
@@ -94,7 +94,7 @@
 			}
 		} else if (language === 'ja') {
 			const nationFlag = activeOptions.find((ele) => ele.key === 'nationId');
-			const groupFlag = activeOptions.find((ele) => ele.key === 'groupId');
+			const groupFlag = activeOptions.find((ele) => ele.key === 'group');
 			if (groupFlag && nationFlag) {
 				text = text.replace('<connector_1>', translations[language]['chara_filter'].connector_and);
 			}
