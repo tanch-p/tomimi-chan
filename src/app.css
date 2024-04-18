@@ -3,5 +3,24 @@
 @tailwind utilities;
 
 div {
-    touch-action: manipulation;
+	touch-action: manipulation;
+}
+
+.chara .filter-btn {
+	min-width: 68px;
+	padding: 0.25rem 0.75rem;
+	border: 1px solid rgb(209 213 219);
+	box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+.chara .filter-btn.active {
+	background-color: rgb(2 132 199);
+	color: rgb(242 242 242);
+	border: 1px solid transparent;
+}
+@media only screen and (max-width: 640px) {
+	.chara .filter-btn {
+		min-width: 56px;
+		padding: 0.25rem 0.5rem;
+		border: 1px solid rgb(209 213 219);
+	}
 }

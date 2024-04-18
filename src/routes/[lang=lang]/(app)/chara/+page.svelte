@@ -4,10 +4,11 @@
 	import translations from '$lib/translations.json';
 	import CharaDisplay from '$lib/components/CharaDisplay.svelte';
 	import CharaFilter from '$lib/components/CharaFilter.svelte';
-	import { filters, filterOptions, sortOptions, selectedChara } from './stores';
+	import { filters, filtersStore, sortOptions, selectedChara } from './stores';
 	import CharaFilterDesc from '$lib/components/CharaFilterDesc.svelte';
 	import { getMaxValue } from '$lib/functions/charaHelpers';
-	import CharaDrawer from './CharaDrawer.svelte';
+	import CharaPopup from './CharaPopup.svelte';
+	import CharaSortOptions from '$lib/components/CharaSortOptions.svelte';
 
 	export let data: PageData;
 	let language: Language;
@@ -39,9 +40,18 @@
 	<meta property="og:description" content={translations[language].title_post} />
 </svelte:head>
 
-<div class="pb-40">
-	<CharaFilter {filterOptions} {language} {sortOptions} />
-	<CharaDisplay characters={data.characters.filter($filters).sort(sortFunction)} {selectedChara} {language}/>
-	<CharaFilterDesc {filterOptions} {language} />
-	<CharaDrawer />
+<div class="chara pb-40">
+	<div class="md:mx-10">
+		<div class="max-w-5xl mx-auto pt-6 md:pt-10 pb-4 text-[0.75rem] md:text-[0.875rem] {language}">
+			<CharaFilter {filtersStore} {language} />
+			<CharaSortOptions {language} {sortOptions} />
+		</div>
+		<CharaDisplay
+			characters={data.characters.filter($filters).sort(sortFunction)}
+			{selectedChara}
+			{language}
+		/>
+	</div>
+	<CharaFilterDesc {filtersStore} {language} />
+	<CharaPopup />
 </div>

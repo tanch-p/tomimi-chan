@@ -1,102 +1,47 @@
 import { writable, derived } from 'svelte/store';
-import filterOptins from '$lib/data/chara/filter_options.json';
-let filtersList = [
-	{
-		key: 'rarity',
-		options: [
-			{ value: 'TIER_1', selected: false },
-			{ value: 'TIER_2', selected: false },
-			{ value: 'TIER_3', selected: false },
-			{ value: 'TIER_4', selected: false },
-			{ value: 'TIER_5', selected: false },
-			{ value: 'TIER_6', selected: false }
-		]
-	},
-	{
-		key: 'profession',
-		options: [
-			{ value: 'PIONEER', selected: false },
-			{ value: 'WARRIOR', selected: false },
-			{ value: 'SNIPER', selected: false },
-			{ value: 'TANK', selected: false },
-			{ value: 'MEDIC', selected: false },
-			{ value: 'SUPPORT', selected: false },
-			{ value: 'CASTER', selected: false },
-			{ value: 'SPECIAL', selected: false }
-		]
-	},
-	{
-		key: 'subProfessionId',
-		options: Object.keys(filterOptins.subProfessionId).reduce((acc, curr) => {
-			acc = [
-				...acc,
-				...filterOptins.subProfessionId[curr].map((ele) => {
-					return { value: ele, selected: false };
-				})
-			];
-			return acc;
-		}, [])
-	},
-	{
-		key: 'group',
-		options: [
-			{ value: 'rhodes', selected: false },
-			{ value: 'kazimierz', selected: false },
-			{ value: 'columbia', selected: false },
-			{ value: null, selected: false },
-			{ value: 'laterano', selected: false },
-			{ value: 'victoria', selected: false },
-			{ value: 'sami', selected: false },
-			{ value: 'bolivar', selected: false },
-			{ value: 'iberia', selected: false },
-			{ value: 'siracusa', selected: false },
-			{ value: 'higashi', selected: false },
-			{ value: 'sargon', selected: false },
-			{ value: 'kjerag', selected: false },
-			{ value: 'minos', selected: false },
-			{ value: 'yan', selected: false },
-			{ value: 'lungmen', selected: false },
-			{ value: 'ursus', selected: false },
-			{ value: 'egir', selected: false },
-			{ value: 'leithanien', selected: false },
-			{ value: 'rim', selected: false },
-			{ value: 'pinus', selected: false },
-			{ value: 'blacksteel', selected: false },
-			{ value: 'karlan', selected: false },
-			{ value: 'sweep', selected: false },
-			{ value: 'rhine', selected: false },
-			{ value: 'penguin', selected: false },
-			{ value: 'lgd', selected: false },
-			{ value: 'glasgow', selected: false },
-			{ value: 'abyssal', selected: false },
-			{ value: 'dublinn', selected: false },
-			{ value: 'siesta', selected: false },
-			{ value: 'babel', selected: false },
-			{ value: 'elite', selected: false },
-			{ value: 'sui', selected: false }
-		]
-	},
-	{
-		key: 'status_ailment',
-		options: [
-			{ value: 'stun', selected: false },
-			{ value: 'sluggish', selected: false },
-			{ value: 'sleep', selected: false },
-			{ value: 'silence', selected: false },
-			{ value: 'cold', selected: false },
-			{ value: 'levitate', selected: false },
-			{ value: 'root', selected: false },
-			{ value: 'tremble', selected: false }
-		]
-	}
-];
+import filterOptions from '$lib/data/chara/filter_options.json';
+
+const maxTrust = writable(true);
+const maxPotential = writable(true);
+
+const generateFilterStore = (filterOptions) => {
+	return Object.keys(filterOptions).reduce((acc, key) => {
+		switch (key) {
+			case 'subProfessionId':
+				acc.push({
+					key,
+					options: Object.keys(filterOptions[key])
+						.reduce((acc, subKey) => {
+							acc.push(
+								filterOptions[key][subKey].map((value) => {
+									return { value, selected: false };
+								})
+							);
+							return acc;
+						}, [])
+						.flat(2)
+				});
+				break;
+			default:
+				acc.push({
+					key,
+					options: filterOptions[key].map((value) => {
+						return { value, selected: false };
+					})
+				});
+				break;
+		}
+		return acc;
+	}, []);
+};
+
 //filters to add: enemy type bonuses,
 
-export const filterOptions = writable(filtersList);
+export const filtersStore = writable(generateFilterStore(filterOptions));
 
 //condition for true/false
-export const filters = derived(filterOptions, ($filterOptions) => {
-	const filterFunctions = $filterOptions.reduce((acc, curr) => {
+export const filters = derived(filtersStore, ($filtersStore) => {
+	const filterFunctions = $filtersStore.reduce((acc, curr) => {
 		const selectedOptions = curr.options
 			.map((option) => option.selected && option.value)
 			.filter((ele) => ele !== false); //changed from Boolean because of nationId/groupId null values
@@ -158,13 +103,13 @@ export const filters = derived(filterOptions, ($filterOptions) => {
 });
 const defaultSortOption = { key: 'rarity', order: -1, visible: true, priority: 1 };
 export const generateSortOptions = () =>
-	filtersList.reduce(
-		(acc, curr) => {
-			if (['status_ailment'].includes(curr.key)) {
+	Object.keys(filterOptions).reduce(
+		(acc, key) => {
+			if (['status_ailment'].includes(key)) {
 				acc = [
 					...acc,
-					...curr.options.map((ele) => {
-						return { key: ele.value, order: 0, visible: false, priority: null };
+					...filterOptions[key].map((value) => {
+						return { key: value, order: 0, visible: false, priority: null };
 					})
 				];
 			}
@@ -173,7 +118,7 @@ export const generateSortOptions = () =>
 		[defaultSortOption]
 	);
 export const sortOptions = writable(generateSortOptions());
-filterOptions.subscribe((list) => {
+filtersStore.subscribe((list) => {
 	const activeSortableFilters = list.reduce((acc, curr) => {
 		if (['status_ailment'].includes(curr.key)) {
 			acc = [...acc, ...curr.options.filter((ele) => ele.selected).map((ele) => ele.value)];

@@ -1,17 +1,20 @@
 <script lang="ts">
-	import type { Language, sortOrder } from '$lib/types';
+	import type { Language } from '$lib/types';
 	import translations from '$lib/translations.json';
-	import { updateSortPriority } from '$lib/functions/charaHelpers';
-	import filterOps from '$lib/data/chara/filter_options.json';
-	import charaConst from '$lib/data/chara/filter_options.json';
-	import TogglePanel from './TogglePanel.svelte';
+	import filterOptions from '$lib/data/chara/filter_options.json';
+	import CharaFilterToggle from './CharaFilterToggle.svelte';
 
-	export let filterOptions, language: Language, sortOptions;
+	export let filtersStore, language: Language;
 
 	const filterLayout = ['rarity', 'profession', ['subProfessionId', 'groups'], 'status_ailment'];
 
+	$: isSelected = (key, value) => {
+		return $filtersStore.find((ele) => ele.key === key).options.find((ele) => ele.value === value)
+			?.selected;
+	};
+
 	const updateFilters = (key, value) => {
-		filterOptions.update((list) => {
+		filtersStore.update((list) => {
 			const catIndex = list.findIndex((ele) => ele.key === key);
 			const optionIndex = list[catIndex].options.findIndex((ele) => ele.value === value);
 			list[catIndex].options[optionIndex].selected = !list[catIndex].options[optionIndex].selected;
@@ -19,7 +22,7 @@
 		});
 	};
 	const reset = () => {
-		filterOptions.update((list) =>
+		filtersStore.update((list) =>
 			list.map((ele) => {
 				return {
 					...ele,
@@ -30,132 +33,88 @@
 			})
 		);
 	};
-	const updateSortOptions = (key, order: sortOrder) => {
-		sortOptions.update((list) => {
-			const copy = Array.from(list);
-			const index = list.findIndex((ele) => ele.key === key);
-			if (index !== -1) {
-				if (copy[index].order === order && list.filter((ele) => ele.order !== 0).length !== 1) {
-					copy[index].order = 0;
-					updateSortPriority(copy, index);
-				} else {
-					copy[index].order = order;
-					if (!copy[index].priority) {
-						copy[index].priority = copy.filter((ele) => ele.visible && ele.order !== 0).length;
-					}
-				}
-			}
-
-			list = copy;
-			return list;
-		});
-	};
 </script>
 
-<div class="md:mx-10">
-	<div class="max-w-5xl mx-auto pt-6 md:pt-10 pb-4 text-[0.75rem] md:text-[0.875rem] {language}">
-		<div class="bg-near-white text-almost-black rounded-md p-3 md:p-4">
-			<p class="border-b text-center pb-1 md:pb-2">{translations[language].filter}</p>
-			<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 mt-2 md:mt-3">
-				<p class="md:py-[5px]">{translations[language]['rarity']}:</p>
-				<div class="flex flex-wrap gap-2">
-					{#each filterOps['rarity'] as value}
-						<button class:active={false} on:click={() => updateFilters('rarity', value)}>
-							{translations[language][value]}
-						</button>
-					{/each}
-				</div>
-			</div>
-			<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 mt-2 md:mt-3">
-				<p class="md:py-[5px]">{translations[language]['profession']}:</p>
-				<div class="flex flex-wrap gap-2">
-					{#each filterOps['profession'] as value}
-						<button class:active={false} on:click={() => updateFilters('profession', value)}>
-							{translations[language][value]}
-						</button>
-					{/each}
-				</div>
-			</div>
-			<TogglePanel
-				title="{translations[language].subProfessionId}/{translations[language]
-					.nationId}/{translations[language].group}/"
-			/>
-			{#each $filterOptions as { key, options }}
-				<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 mt-2 md:mt-3">
-					<p class="md:py-[5px]">{translations[language][key]}:</p>
-					{#if key === 'subProfessionId'}
-						<div class="flex flex-col gap-2">
-							{#each Object.keys(charaConst.subProfessionId) as subKey}
-								{@const subOptions = charaConst.subProfessionId[subKey]}
-								<div class="flex flex-wrap gap-2">
-									{#each subOptions as value}
-										{@const selected = options.find((ele) => ele.value === value)?.selected}
-										<button class:active={selected} on:click={() => updateFilters(key, value)}>
-											{translations[language][value]}
-										</button>
-									{/each}
-								</div>
-							{/each}
-						</div>
-					{:else}
-						<div class="flex flex-wrap gap-2">
-							{#each options as { value, selected }}
-								<button class:active={selected} on:click={() => updateFilters(key, value)}>
-									{translations[language][value]}
-								</button>
-							{/each}
-						</div>
-					{/if}
-				</div>
+<div class="bg-near-white text-almost-black rounded-md p-3 md:p-4">
+	<p class="border-b text-center pb-1 md:pb-2">{translations[language].filter}</p>
+	<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 mt-2 md:mt-3">
+		<p class="md:py-[5px]">{translations[language]['rarity']}:</p>
+		<div class="flex flex-wrap gap-2">
+			{#each filterOptions['rarity'] as value}
+				<button
+					class="filter-btn"
+					class:active={isSelected('rarity', value)}
+					on:click={() => updateFilters('rarity', value)}
+				>
+					{translations[language][value]}
+				</button>
 			{/each}
-			<button class="block mt-6 mx-auto hover:bg-slate-300" on:click={reset}
-				>{translations[language].filter_reset}</button
-			>
 		</div>
-		<div class="bg-near-white text-almost-black rounded-md p-3 md:p-4 mt-4">
-			<p class="border-b text-center pb-1 md:pb-2">{translations[language].sort}</p>
-			<div class="grid grid-cols-[auto_50px_1fr] gap-2 md:gap-3 mt-2 md:mt-3">
-				<p>{translations[language].filter_option}</p>
-				<p class="text-center">{translations[language].sort_priority}</p>
-				<p />
-				{#each $sortOptions as { key, order, priority, visible }}
-					{#if visible}
-						<p class="py-[5px]">{translations[language][key]}:</p>
-						<p class="py-[5px] text-center">{priority || ''}</p>
-						<div class="flex flex-wrap gap-2">
-							<button class:active={order === 1} on:click={() => updateSortOptions(key, 1)}>
-								{translations[language]['asc']}
+		<p class="md:py-[5px]">{translations[language]['profession']}:</p>
+		<div class="flex flex-wrap gap-2">
+			{#each filterOptions['profession'] as value}
+				<button
+					class="filter-btn"
+					class:active={isSelected('profession', value)}
+					on:click={() => updateFilters('profession', value)}
+				>
+					{translations[language][value]}
+				</button>
+			{/each}
+		</div>
+	</div>
+	<CharaFilterToggle
+		title="{translations[language].subProfessionId}/{translations[language].group}"
+	>
+		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 mt-2 md:mt-3">
+			<p class="md:py-[5px]">{translations[language]['subProfessionId']}:</p>
+			<div class="flex flex-col gap-2">
+				{#each Object.keys(filterOptions.subProfessionId) as subKey}
+					{@const subOptions = filterOptions.subProfessionId[subKey]}
+					<div class="flex flex-wrap gap-2">
+						{#each subOptions as value}
+							<!-- {@const selected = options.find((ele) => ele.value === value)?.selected} -->
+							<button
+								class="filter-btn"
+								class:active={isSelected('subProfessionId', value)}
+								on:click={() => updateFilters('subProfessionId', value)}
+							>
+								{translations[language][value]}
 							</button>
-							<button class:active={order === -1} on:click={() => updateSortOptions(key, -1)}>
-								{translations[language]['desc']}
-							</button>
-						</div>
-					{/if}
+						{/each}
+					</div>
+				{/each}
+			</div>
+			<p class="md:py-[5px]">{translations[language]['group']}:</p>
+			<div class="flex flex-wrap gap-2">
+				{#each filterOptions['group'] as value}
+					<button
+						class="filter-btn"
+						class:active={isSelected('group', value)}
+						on:click={() => updateFilters('group', value)}
+					>
+						{translations[language][value]}
+					</button>
 				{/each}
 			</div>
 		</div>
+	</CharaFilterToggle>
+	<p class="border-b text-center pb-1 md:pb-2 mt-4">{translations[language].filter_ability}</p>
+	<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 mt-2 md:mt-3">
+		<p class="md:py-[5px]">{translations[language]['status_ailment']}:</p>
+		<div class="flex flex-wrap gap-2">
+			{#each filterOptions['status_ailment'] as value}
+				<button
+					class="filter-btn"
+					class:active={isSelected('status_ailment', value)}
+					on:click={() => updateFilters('status_ailment', value)}
+				>
+					{translations[language][value]}
+				</button>
+			{/each}
+		</div>
 	</div>
+	<button class="filter-btn block mt-6 mx-auto active:bg-slate-300" on:click={reset}>
+		{translations[language].filter_reset}
+	</button>
 </div>
-
-<style>
-	button.active {
-		background-color: rgb(2 132 199);
-		color: rgb(242 242 242);
-		border: 1px solid transparent;
-	}
-	.ja button,
-	.zh button {
-		min-width: 68px;
-		padding: 0.25rem 0.75rem;
-		border: 1px solid rgb(209 213 219);
-		box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-	}
-	@media only screen and (max-width: 640px) {
-		.ja button,
-		.zh button {
-			min-width: 56px;
-			padding: 0.25rem 0.5rem;
-			border: 1px solid rgb(209 213 219);
-		}
-	}
-</style>

@@ -1,12 +1,12 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
 	import translations from '$lib/translations.json';
-	export let filterOptions, language: Language;
+	export let filtersStore, language: Language;
 
 	$: defaultLine = translations[language].chara_filter_start;
 
-	const debuffKeys = ['status_ailment', 'debuffs'];
-	const buffKeys = ['buffs'];
+	const debuffKeys = ['status_ailment', 'debuff'];
+	const buffKeys = ['buff'];
 
 	$: line = defaultLine;
 
@@ -20,7 +20,7 @@
 		}
 	};
 
-	filterOptions.subscribe((options) => {
+	filtersStore.subscribe((options) => {
 		const activeOptions = options.reduce((acc, curr) => {
 			if (curr.options.some((ele) => ele.selected) && !curr.options.every((ele) => ele.selected)) {
 				acc.push(curr);
