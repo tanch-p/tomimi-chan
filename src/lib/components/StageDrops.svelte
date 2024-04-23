@@ -14,7 +14,6 @@
 
 	export let mapConfig, rogueTopic: string, language: Language, selectedFloor;
 	const stagesToExclude = ['ro3_b_7','ro3_b_7_b'];
-	$:console.log(mapConfig.id)
 	$: isBossStage = mapConfig.id.includes('_b_');
 	$: isEventStage = mapConfig.id.includes('_ev_') || mapConfig.id.includes('_t_');
 	$: isCombatStage = !isBossStage && !isEventStage;
