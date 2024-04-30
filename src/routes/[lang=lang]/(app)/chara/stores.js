@@ -68,6 +68,8 @@ export const filters = derived(filtersStore, ($filtersStore) => {
 				});
 				break;
 			case 'status_ailment':
+			case 'debuff':
+			case 'buff':
 				acc.push(
 					(char) =>
 						char.skills.some((skill) =>

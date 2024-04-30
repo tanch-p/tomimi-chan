@@ -1,8 +1,10 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
 	import translations from '$lib/translations.json';
-	import Icon from './Icon.svelte';
-	export let characters, selectedChara, language: Language;
+	import Icon from '$lib/components/Icon.svelte';
+	import { selectedChara } from './stores';
+
+	export let characters, language: Language;
 
 	let displayMode = 'grid';
 </script>

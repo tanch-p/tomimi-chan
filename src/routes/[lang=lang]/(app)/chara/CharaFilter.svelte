@@ -1,10 +1,13 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
+	import { filtersStore } from './stores';
 	import translations from '$lib/translations.json';
 	import filterOptions from '$lib/data/chara/filter_options.json';
 	import CharaFilterToggle from './CharaFilterToggle.svelte';
+	import relics from '$lib/data/chara/relics_chara.json';
 
-	export let filtersStore, language: Language;
+	export let language: Language;
+	let rogueTopic = 'rogue_3';
 
 	const filterLayout = ['rarity', 'profession', ['subProfessionId', 'groups'], 'status_ailment'];
 
@@ -113,7 +116,53 @@
 				</button>
 			{/each}
 		</div>
+		<p />
+		<div class="flex flex-wrap gap-2">
+			{#each filterOptions['debuff'] as value}
+				<button
+					class="filter-btn"
+					class:active={isSelected('debuff', value)}
+					on:click={() => updateFilters('debuff', value)}
+				>
+					{translations[language][value]}
+				</button>
+			{/each}
+		</div>
 	</div>
+	<CharaFilterToggle title={translations[language].is_title}>
+		<div class="flex md:justify-center gap-3 mt-2 md:mt-3">
+			{#each Object.keys(relics) as topic}
+				<button
+					class:active={rogueTopic === topic}
+					class="filter-btn"
+					on:click={() => (rogueTopic = topic)}
+				>
+					{translations[language][topic]}
+				</button>
+			{/each}
+		</div>
+		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 mt-2 md:mt-3">
+			<p class="md:py-[5px]">{translations[language]['rogue_relic']}:</p>
+			<div class="flex flex-col gap-3">
+				{#each relics[rogueTopic] as relic}
+					<button class="grid grid-cols-[100px_1fr] gap-2 hover:bg-slate-200 text-left">
+						<img
+							src={''}
+							alt={relic[`name_${language}`] || relic['name_zh']}
+							loading="lazy"
+							decoding="async"
+						/>
+						<div class="px-2">
+							<p>
+								{relic[`name_${language}`] || relic['name_zh']}
+							</p>
+							<p class="relic">{relic[`desc_${language}`] || relic['desc_zh']}</p>
+						</div>
+					</button>
+				{/each}
+			</div>
+		</div>
+	</CharaFilterToggle>
 	<button class="filter-btn block mt-6 mx-auto active:bg-slate-300" on:click={reset}>
 		{translations[language].filter_reset}
 	</button>

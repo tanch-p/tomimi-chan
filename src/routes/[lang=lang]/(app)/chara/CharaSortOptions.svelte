@@ -2,8 +2,9 @@
 	import type { Language, sortOrder } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import { updateSortPriority } from '$lib/functions/charaHelpers';
+	import { sortOptions } from './stores';
 
-	export let language: Language, sortOptions;
+	export let language: Language;
 
 	const updateSortOptions = (key, order: sortOrder) => {
 		sortOptions.update((list) => {

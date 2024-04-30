@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
-	import Icon from './Icon.svelte';
+	import Icon from '$lib/components/Icon.svelte';
 
 	export let title = 'title',
 		isOpen = false;

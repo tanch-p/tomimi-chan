@@ -1,0 +1,228 @@
+{
+	"rogue_1": [
+		{
+			"id": "rogue_1_relic_q29",
+			"name_zh": "绿叶菜罐头",
+			"name_ja": "青菜の缶詰",
+			"name_en": "Spinach Pack",
+			"desc_zh": "所有干员技能触发后1秒内攻击力+60%",
+			"desc_ja": "全オペレーター、スキル発動後1秒間の攻撃力+60%",
+			"desc_en": "All friendly units have +60% ATK for one second after their skill becomes active",
+			"tags": ["burst"]
+		},
+		{
+			"id": "rogue_1_relic_p46",
+			"name_zh": "极速之手",
+			"name_ja": "敏速の手",
+			"name_en": "Hand of Superspeed",
+			"desc_zh": "【处决者】、【伏击客】和【傀儡师】周围八格内没有我方单位时，攻击速度+100",
+			"desc_ja": "【執行者】・【潜伏者】・【傀儡師】の周囲8マスに味方がいない時、攻撃速度+100",
+			"desc_en": "Executor, Ambusher, and Dollkeeper Operators gain +100 ASPD when there are no friendly units in the eight adjacent tiles",
+			"checkCharBoxParams": ["executor", "stalker", "dollkeeper"]
+		},
+		{
+			"id": "rogue_1_relic_p43",
+			"name_zh": "扣挠之手",
+			"name_ja": "藻掻く手",
+			"name_en": "Hand of Buckler",
+			"desc_zh": "【凝滞师】、【削弱者】和【护佑者】攻击时额外造成目标当前生命值3%的法术伤害",
+			"desc_ja": "【緩速師】・【呪詛師】・【祈祷師】の攻撃時、追加で攻撃対象のHPの3%の術ダメージを与える",
+			"desc_en": "Decel Binder, Hexer, and Abjurer Operators' attacks deal extra Arts damage equal to 3% of the target's HP",
+			"checkCharBoxParams": ["slower", "underminer", "blessing"]
+		}
+	],
+	"rogue_2": [
+		{
+			"id": "rogue_2_relic_fight_115",
+			"name_zh": "绿叶菜罐头",
+			"name_ja": "青菜の缶詰",
+			"name_en": "Spinach Pack",
+			"desc_zh": "所有干员技能触发后1秒内攻击力+60%",
+			"desc_ja": "味方全員、スキル発動後1秒間の攻撃力+60%",
+			"desc_en": "All friendly units have +60% ATK for one second after their skill becomes active",
+			"tags": ["burst"]
+		},
+		{
+			"id": "rogue_2_relic_fight_85",
+			"name_zh": "极速之手",
+			"name_ja": "敏速の手",
+			"name_en": "Hand of Superspeed",
+			"desc_zh": "【处决者】、【伏击客】和【傀儡师】相邻四格内没有我方单位时，攻击速度+120",
+			"desc_ja": "【執行者】・【潜伏者】・【傀儡師】の隣接4マスに味方がいない時、攻撃速度+120",
+			"desc_en": "Executor, Ambusher, and Dollkeeper Operators gain +120 ASPD when there are no friendly units in the four adjacent tiles",
+			"checkCharBoxParams": ["executor", "stalker", "dollkeeper"]
+		},
+		{
+			"id": "rogue_2_relic_fight_84",
+			"name_zh": "炸裂之手",
+			"name_ja": "炸裂の手",
+			"name_en": "Hand of Diffusion",
+			"desc_zh": "【要塞】、【链术师】和【轰击术师】每对一个单位造成伤害就回复2点技力值",
+			"desc_ja": "【堅城砲手】・【連鎖術師】・【爆撃術師】がダメージを与えた時、攻撃対象1体につきSP+2",
+			"desc_en": "Fortress, Chain Caster, and Blast Caster Operators recover 2 SP each time they deal damage to an enemy unit",
+			"checkCharBoxParams": ["fortress", "chain", "blastcaster"]
+		},
+		{
+			"id": "rogue_2_relic_fight_83",
+			"name_zh": "扣挠之手",
+			"name_ja": "藻掻く手",
+			"name_en": "Hand of Buckler",
+			"desc_zh": "【凝滞师】、【削弱者】和【护佑者】攻击时额外造成目标当前生命值3%的法术伤害",
+			"desc_ja": "【緩速師】・【呪詛師】・【祈祷師】の攻撃時、追加で攻撃対象のHPの3%の術ダメージを与える",
+			"desc_en": "Decel Binder, Hexer, and Abjurer Operators' attacks deal additional Arts damage equal to 3% of the target's current HP",
+			"checkCharBoxParams": ["slower", "underminer", "blessing"]
+		},
+		{
+			"id": "rogue_2_relic_fight_130",
+			"name_zh": "净尘之手",
+			"name_ja": "清めの手",
+			"name_en": "Hand of Purification",
+			"desc_zh": "【吟游者】【阵法术师】【疗养师】对攻击范围内敌人每秒造成50%攻击力的法术伤害",
+			"desc_ja": "【吟遊者】・【法陣術師】・【療養師】が攻撃範囲内の敵に対し、1秒ごとに攻撃力の50%の術ダメージを与える",
+			"desc_en": "Bard, Phalanx Caster, and Therapist Operators deal 50% ATK as Arts damage to all enemies in their attack range",
+			"checkCharBoxParams": ["bard", "phalanx", "healer"]
+		},
+		{
+			"id": "rogue_2_relic_fight_134",
+			"name_zh": "碎靶之手",
+			"name_ja": "撃砕く手",
+			"name_en": "Hand of Pulverization",
+			"desc_zh": "【炮手】【扩散术师】【投掷手】每对一个单位造成伤害就使自身攻击力+15%，最高+150%，5秒未造成伤害则使加成清空",
+			"desc_ja": "【榴弾射手】・【拡散術師】・【投擲手】がダメージを与えた時、攻撃対象1体につき自身の攻撃力+15%（最大+150%まで、5秒間ダメージを与えずにいると上昇分はリセットされる）",
+			"desc_en": "Artilleryman, Splash Caster, and Flinger Operators gain +15% ATK for every time they deal damage to the same unit, up to 150%; this bonus will reset if no damage is dealt for 5 seconds",
+			"checkCharBoxParams": ["aoesniper", "splashcaster", "bombarder"]
+		}
+	],
+	"rogue_3": [
+		{
+			"id": "rogue_3_relic_legacy_159",
+			"name_zh": "绿叶菜罐头",
+			"name_ja": "青菜の缶詰",
+			"name_en": "Spinach Pack",
+			"desc_zh": "所有干员技能触发后1秒内攻击力+60%",
+			"desc_ja": "味方全員、スキル発動後1秒間の攻撃力+60%",
+			"desc_en": "All friendly units have +60% ATK for one second after their skill becomes active",
+			"tags": ["burst"]
+		},
+		{
+			"id": "rogue_3_relic_fight_18",
+			"name_zh": "空羽兽",
+			"name_ja": "空羽獣",
+			"name_en": "Empty Fowlbeast",
+			"desc_zh": "【召唤物】生命值+30%，攻击力+30%，且在场时使它所属的干员攻击力+60%",
+			"desc_ja": "【召喚ユニット】の最大HP+30%、攻撃力+30%。召喚ユニットが戦場に存在する間、召喚者の攻撃力+60%",
+			"desc_en": "Summons gain Max HP +30%, ATK +30%, and grant ATK +60% to their summoner",
+			"tags": ["summon"]
+		},
+		{
+			"id": "rogue_3_relic_fight_34",
+			"name_zh": "探索者背包",
+			"name_ja": "",
+			"name_en": "",
+			"desc_zh": "所有干员从异常状态恢复后，攻击力+60%并获得抵抗，持续15秒",
+			"desc_ja": "",
+			"desc_en": "",
+			"tags": ["ally_ailment"]
+		},
+		{
+			"id": "rogue_3_relic_legacy_134",
+			"name_zh": "极速之手",
+			"name_ja": "敏速の手",
+			"name_en": "Hand of Superspeed",
+			"desc_zh": "【处决者】、【伏击客】和【傀儡师】相邻四格内没有我方单位时，攻击速度+120",
+			"desc_ja": "【執行者】・【潜伏者】・【傀儡師】の隣接4マスに味方がいない時、攻撃速度+120",
+			"desc_en": "Executor, Ambusher, and Dollkeeper Operators gain +120 ASPD when there are no friendly units in the four adjacent tiles",
+			"checkCharBoxParams": ["executor", "stalker", "dollkeeper"]
+		},
+		{
+			"id": "rogue_3_relic_legacy_133",
+			"name_zh": "炸裂之手",
+			"name_ja": "炸裂の手",
+			"name_en": "Hand of Diffusion",
+			"desc_zh": "【要塞】、【链术师】和【轰击术师】每对一个单位造成伤害就回复2点技力值",
+			"desc_ja": "【堅城砲手】・【連鎖術師】・【爆撃術師】がダメージを与えた時、攻撃対象1体につきSP+2",
+			"desc_en": "Fortress, Chain Caster, and Blast Caster Operators recover 2 SP each time they deal damage to an enemy unit",
+			"checkCharBoxParams": ["fortress", "chain", "blastcaster"]
+		},
+		{
+			"id": "rogue_3_relic_legacy_132",
+			"name_zh": "扣挠之手",
+			"name_ja": "藻掻く手",
+			"name_en": "Hand of Buckler",
+			"desc_zh": "【凝滞师】、【削弱者】和【护佑者】攻击时额外造成目标当前生命值3%的法术伤害",
+			"desc_ja": "【緩速師】・【呪詛師】・【祈祷師】の攻撃時、追加で攻撃対象のHPの3%にあたる術ダメージを与える",
+			"desc_en": "Decel Binder, Hexer, and Abjurer Operators' attacks deal additional Arts damage equal to 3% of the target's current HP",
+			"checkCharBoxParams": ["slower", "underminer", "blessing"]
+		},
+		{
+			"id": "rogue_3_relic_legacy_135",
+			"name_zh": "净尘之手",
+			"name_ja": "清めの手",
+			"name_en": "Hand of Purification",
+			"desc_zh": "【吟游者】【阵法术师】【疗养师】对攻击范围内敌人每秒造成50%攻击力的法术伤害",
+			"desc_ja": "【吟遊者】・【法陣術師】・【療養師】が攻撃範囲内の敵に対し、1秒ごとに攻撃力の50%の術ダメージを与える",
+			"desc_en": "Bard, Phalanx Caster, and Therapist Operators deal 50% ATK as Arts damage per second to all enemies in their attack range",
+			"checkCharBoxParams": ["bard", "phalanx", "healer"]
+		},
+		{
+			"id": "rogue_3_relic_legacy_136",
+			"name_zh": "碎靶之手",
+			"name_ja": "撃砕く手",
+			"name_en": "Hand of Pulverization",
+			"desc_zh": "【炮手】【扩散术师】【投掷手】每对一个单位造成伤害就使自身攻击力+15%，最高+150%，5秒未造成伤害则使加成清空",
+			"desc_ja": "【榴弾射手】・【拡散術師】・【投擲手】がダメージを与えた時、攻撃対象1体につき自身の攻撃力+15%（最大+150%まで、5秒間ダメージを与えずにいると上昇分はリセットされる）",
+			"desc_en": "Artilleryman, Splash Caster, and Flinger Operators gain +15% ATK for every time they deal damage to the same unit, up to 150%; this bonus will reset if no damage is dealt for 5 seconds",
+			"checkCharBoxParams": ["aoesniper", "splashcaster", "bombarder"]
+		},
+		{
+			"id": "rogue_3_relic_hand_1",
+			"name_zh": "缠斗之手",
+			"name_ja": "阻止の手",
+			"name_en": "Hand of Fisticuffs",
+			"desc_zh": "【铁卫】、【驭法铁卫】和【决战者】每2秒束缚自身附近所有敌人1秒，并造成相当于攻击力100%的真实伤害",
+			"desc_ja": "【重盾衛士】・【術技衛士】・【決闘者】は2秒ごとに自身の近くにいる敵全員を1秒間バインド状態にし、攻撃力の100%の確定ダメージを与える",
+			"desc_en": "Protector, Arts Protector, and Duelist Operators inflict Bind on all nearby enemies lasting 1 second every 2 seconds, and deal True damage equal to 100% of their ATK",
+			"checkCharBoxParams": ["protector", "artsprotector", "duelist"]
+		},
+		{
+			"id": "rogue_3_relic_hand_2",
+			"name_zh": "应机之手",
+			"name_ja": "応変の手",
+			"name_en": "Hand of Adaptability",
+			"desc_zh": "【冲锋手】、【尖兵】和【战术家】的部署费用-10，且击杀敌人后使所有未部署干员下次部署费用-1",
+			"desc_ja": "【突撃兵】・【先駆兵】・【戦術家】の配置コスト-10。敵を倒した後、未配置オペレーター全員の次の配置コスト-1",
+			"desc_en": "Charger, Pioneer, and Tactician Operators have -10 DP Cost, and after defeating an enemy grant -1 DP Cost to all undeployed Operators on their next deployment",
+			"checkCharBoxParams": ["pioneer", "charger", "tactician"]
+		},
+		{
+			"id": "rogue_3_relic_hand_3",
+			"name_zh": "溃决之手",
+			"name_ja": "決壊の手",
+			"name_en": "Hand of Outburst",
+			"desc_zh": "【重射手】、【神射手】和【攻城手】的攻击伤害随目标生命下降而提升最高50%，并对生命20%以下的敌人强制击杀",
+			"desc_ja": "【精密射手】・【戦術射手】・【破城射手】は攻撃時、耐久値減少量に応じて与ダメージが最大50%まで上昇する。また、攻撃対象のHPが最大値の20%以下の場合、一撃で敵を撃破できる",
+			"desc_en": "Heavyshooter, Deadeye, and Besieger Operators deal increasing damage to enemies as the target's HP decreases, up to a maximum of 50%, and instantly defeat enemies below 20% HP",
+			"checkCharBoxParams": ["closerange", "longrange", "siegesniper"]
+		},
+		{
+			"id": "rogue_3_relic_hand_4",
+			"name_zh": "坚实之手",
+			"name_ja": "",
+			"name_en": "",
+			"desc_zh": "【工匠】、【行商】和【怪杰】在场上停留30秒后，获得3点临时目标生命值（每名干员同一作战最多触发1次）",
+			"desc_ja": "",
+			"desc_en": "",
+			"checkCharBoxParams": ["craftsman", "merchant", "geek"]
+		},
+		{
+			"id": "rogue_3_relic_hand_5",
+			"name_zh": "复还之手",
+			"name_ja": "",
+			"name_en": "",
+			"desc_zh": "【群愈师】、【链愈师】和【行医】攻击范围内干员受到致命伤时，回复所有生命（每名干员同一作战最多触发1次）",
+			"desc_ja": "",
+			"desc_en": "",
+			"checkCharBoxParams": ["ringhealer", "chainhealer", "wandermedic"]
+		}
+	]
+}

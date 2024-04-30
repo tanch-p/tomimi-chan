@@ -1,7 +1,8 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
 	import translations from '$lib/translations.json';
-	export let filtersStore, language: Language;
+	import { filtersStore } from './stores';
+	export let language: Language;
 
 	$: defaultLine = translations[language].chara_filter_start;
 

@@ -63,11 +63,12 @@
 						"value": 20.0
 					},
 					{
-						"key": "atk",
-						"value": 0.2
+						"key": "ally_atk_up",
+						"value": 0.2,
+						"condition": "ground"
 					},
 					{
-						"key": "def",
+						"key": "ally_def_up",
 						"value": 0.2
 					}
 				]
@@ -114,7 +115,7 @@
 					},
 					{
 						"key": "damage_scale",
-						"value": 1.3
+						"value": 0.3
 					}
 				]
 			}
@@ -152,7 +153,8 @@
 					},
 					{
 						"key": "damage_scale",
-						"value": 1.25
+						"value": 0.25,
+						"condition": "flying"
 					},
 					{
 						"key": "jnight_t.taunt_level",
@@ -429,7 +431,7 @@
 				"description_ja": "術回避+50%",
 				"blackboard": [
 					{
-						"key": "prob",
+						"key": "arts_evasion",
 						"value": 0.5
 					}
 				]
@@ -463,7 +465,7 @@
 				"description_ja": "物理回避+50%",
 				"blackboard": [
 					{
-						"key": "prob",
+						"key": "phys_evasion",
 						"value": 0.5
 					}
 				]
@@ -867,8 +869,9 @@
 				"description_ja": "味方を回復後、3秒間対象の物理回避+25%<@ba.talpu>(+5%)</>",
 				"blackboard": [
 					{
-						"key": "prob",
-						"value": 0.25
+						"key": "phys_evasion",
+						"value": 0.25,
+						"duration": 3.0
 					},
 					{
 						"key": "duration",
@@ -1314,8 +1317,8 @@
 						"value": 1.0
 					},
 					{
-						"key": "magic_resistance",
-						"value": -0.23
+						"key": "res_down",
+						"value": 0.23
 					}
 				]
 			}
@@ -1362,7 +1365,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["res_penetrate"],
 					"blackboard": [
 						{
 							"key": "magic_resist_penetrate_fixed",
@@ -1688,7 +1691,8 @@
 					},
 					{
 						"key": "stun",
-						"value": 1.0
+						"value": 1.0,
+						"prob": 0.27
 					}
 				]
 			}
@@ -1851,7 +1855,8 @@
 					},
 					{
 						"key": "root",
-						"value": 4.0
+						"value": 4.0,
+						"prob": 0.2
 					}
 				]
 			}
@@ -1910,7 +1915,8 @@
 						},
 						{
 							"key": "root",
-							"value": 4.0
+							"value": 4.0,
+							"prob": 0.27
 						}
 					]
 				}
@@ -2210,6 +2216,11 @@
 						"value": -0.35
 					},
 					{
+						"key": "reduce_def",
+						"value": 0.35,
+						"duration": 5.0
+					},
+					{
 						"key": "duration",
 						"value": 5.0
 					}
@@ -2225,6 +2236,11 @@
 					{
 						"key": "def",
 						"value": -0.4
+					},
+					{
+						"key": "reduce_def",
+						"value": 0.4,
+						"duration": 5.0
 					},
 					{
 						"key": "duration",
@@ -2472,7 +2488,8 @@
 					},
 					{
 						"key": "stun",
-						"value": 1.2
+						"value": 1.2,
+						"prob": 0.3
 					},
 					{
 						"key": "prob",
@@ -2611,6 +2628,11 @@
 					{
 						"key": "move_speed",
 						"value": -0.35
+					},
+					{
+						"key": "move_speed_down",
+						"value": 0.35,
+						"duration": 1
 					}
 				]
 			}
@@ -3025,7 +3047,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["min_damage"],
 					"blackboard": [
 						{
 							"key": "atk_scale",
@@ -4096,7 +4118,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["deploy_all"],
 					"blackboard": [
 						{
 							"key": "buildable_type",
@@ -4214,7 +4236,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["revive"],
 					"blackboard": [
 						{
 							"key": "attack_speed",
@@ -4428,6 +4450,11 @@
 						"value": -0.5
 					},
 					{
+						"key": "move_speed_down",
+						"value": 0.5,
+						"duration": 3.0
+					},
+					{
 						"key": "duration",
 						"value": 3.0
 					},
@@ -4445,6 +4472,11 @@
 						"value": -0.5
 					},
 					{
+						"key": "move_speed_down",
+						"value": -0.5,
+						"duration": 2.0
+					},
+					{
 						"key": "attack_speed",
 						"value": 50.0
 					},
@@ -4454,7 +4486,8 @@
 					},
 					{
 						"key": "root",
-						"value": 2.0
+						"value": 2.0,
+						"prob": 0.4
 					}
 				]
 			}
@@ -4625,6 +4658,11 @@
 					{
 						"key": "frncat_s_1[debuff].atk",
 						"value": -0.4
+					},
+					{
+						"key": "atk_down",
+						"value": 0.4,
+						"duration": 5.0
 					},
 					{
 						"key": "frncat_s_1[debuff].duration",
@@ -5136,7 +5174,8 @@
 					},
 					{
 						"key": "stun",
-						"value": 2.0
+						"value": 2.0,
+						"prob": 0.25
 					},
 					{
 						"key": "fake_damage",
@@ -5419,7 +5458,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["remaining_spawn_time"],
 					"blackboard": [
 						{
 							"key": "withdraw_cost_recover_ratio",
@@ -5623,7 +5662,7 @@
 				"description_ja": "物理回避+34%<@ba.talpu>(+4%)</>",
 				"blackboard": [
 					{
-						"key": "prob",
+						"key": "phys_evasion",
 						"value": 0.34
 					}
 				]
@@ -5671,7 +5710,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["arts", "phys_evasion"],
 					"blackboard": [
 						{
 							"key": "dist",
@@ -5686,7 +5725,7 @@
 							"value": 0.066
 						},
 						{
-							"key": "prob",
+							"key": "phys_evasion",
 							"value": 0.44
 						}
 					]
@@ -5734,10 +5773,6 @@
 					{
 						"key": "atk",
 						"value": 0.65
-					},
-					{
-						"key": "attack_speed",
-						"value": 0.0
 					}
 				]
 			}
@@ -6235,7 +6270,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["global_heal"],
 					"blackboard": [
 						{
 							"key": "attack@max_target",
@@ -6740,8 +6775,9 @@
 				"description_ja": "バブルを攻撃した敵の攻撃力が5秒間-8％",
 				"blackboard": [
 					{
-						"key": "atk",
-						"value": -0.08
+						"key": "atk_down",
+						"value": 0.08,
+						"duration": 5.0
 					},
 					{
 						"key": "duration",
@@ -6799,8 +6835,8 @@
 							"value": 0.2
 						},
 						{
-							"key": "atk",
-							"value": -0.12
+							"key": "atk_down",
+							"value": 0.12
 						},
 						{
 							"key": "duration",
@@ -6837,8 +6873,7 @@
 				"blackboard": [
 					{
 						"key": "atk_scale",
-						"value": 2.3,
-						"valueStr": null
+						"value": 2.3
 					}
 				]
 			},
@@ -6847,28 +6882,23 @@
 				"blackboard": [
 					{
 						"key": "p_force",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					},
 					{
 						"key": "mode",
-						"value": 1.0,
-						"valueStr": null
+						"value": 1.0
 					},
 					{
 						"key": "def",
-						"value": 1.3,
-						"valueStr": null
+						"value": 1.3
 					},
 					{
 						"key": "magic_atk_scale",
-						"value": 1.0,
-						"valueStr": null
+						"value": 1.0
 					},
 					{
 						"key": "interval",
-						"value": 2.0,
-						"valueStr": null
+						"value": 2.0
 					}
 				]
 			}
@@ -6885,8 +6915,7 @@
 				"blackboard": [
 					{
 						"key": "hp_ratio",
-						"value": 0.18,
-						"valueStr": null
+						"value": 0.18
 					}
 				]
 			}
@@ -7024,7 +7053,8 @@
 					},
 					{
 						"key": "stun",
-						"value": 1.0
+						"value": 1.0,
+						"prob": 0.18
 					}
 				]
 			}
@@ -7091,7 +7121,8 @@
 						},
 						{
 							"key": "stun",
-							"value": 1.5
+							"value": 1.5,
+							"prob": 0.26
 						}
 					]
 				}
@@ -7197,8 +7228,9 @@
 				"skillId": "skchr_deepcl_2",
 				"blackboard": [
 					{
-						"key": "prob",
-						"value": 0.5
+						"key": "ally_phys_evasion",
+						"value": 0.5,
+						"duration": 55.0
 					}
 				]
 			}
@@ -7285,7 +7317,7 @@
 							}
 						]
 					},
-					"tags": [],
+					"tags": ["summon"],
 					"blackboard": [
 						{
 							"key": "cnt",
@@ -7340,10 +7372,6 @@
 					{
 						"key": "interval",
 						"value": 1.4
-					},
-					{
-						"key": "sluggish",
-						"value": 0.8
 					}
 				]
 			}
@@ -7359,7 +7387,7 @@
 				"description_ja": "特性による<$ba.sluggish>足止め</>状態の継続時間をやや延長",
 				"blackboard": [
 					{
-						"key": "sluggish",
+						"key": "sluggish_addition",
 						"value": 0.13
 					}
 				]
@@ -7456,6 +7484,10 @@
 						"value": 6.0
 					},
 					{
+						"key": "silence",
+						"value": 6.0
+					},
+					{
 						"key": "atk_scale",
 						"value": 0.8
 					}
@@ -7533,7 +7565,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["supporter"],
 					"blackboard": [
 						{
 							"key": "sp_recovery_per_sec",
@@ -7773,7 +7805,8 @@
 					},
 					{
 						"key": "root",
-						"value": 3.0
+						"value": 3.0,
+						"prob": 0.25
 					}
 				]
 			}
@@ -7840,7 +7873,8 @@
 						},
 						{
 							"key": "root",
-							"value": 3.5
+							"value": 3.5,
+							"prob": 0.28
 						},
 						{
 							"key": "reduce_move_speed",
@@ -8010,7 +8044,7 @@
 						"value": 0.25
 					},
 					{
-						"key": "magic_resistance",
+						"key": "self_magic_resistance",
 						"value": 15.0
 					}
 				]
@@ -8226,7 +8260,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["sp_regen"],
 					"blackboard": [
 						{
 							"key": "sp_recovery_per_sec",
@@ -8298,10 +8332,6 @@
 					{
 						"key": "one_minus_status_resistance",
 						"value": -0.5
-					},
-					{
-						"key": "max_hp",
-						"value": 0.0
 					}
 				]
 			}
@@ -8360,7 +8390,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["resist"],
 					"blackboard": [
 						{
 							"key": "resist",
@@ -8491,7 +8521,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["lower_cost"],
 					"blackboard": [
 						{
 							"key": "atk",
@@ -8692,6 +8722,11 @@
 					{
 						"key": "magic_resistance",
 						"value": -0.2
+					},
+					{
+						"key": "res_down",
+						"value": 0.2,
+						"duration": 8.0
 					},
 					{
 						"key": "duration",
@@ -9228,10 +9263,6 @@
 					{
 						"key": "skill.atk_scale",
 						"value": 0.35
-					},
-					{
-						"key": "def",
-						"value": 0.0
 					}
 				]
 			}
@@ -9530,12 +9561,14 @@
 						"value": 4.0
 					},
 					{
-						"key": "move_speed",
-						"value": -0.6
+						"key": "move_speed_down",
+						"value": 0.6,
+						"duration": 15.0
 					},
 					{
-						"key": "def",
-						"value": -0.35
+						"key": "def_down",
+						"value": 0.35,
+						"duration": 15.0
 					},
 					{
 						"key": "value",
@@ -9567,8 +9600,9 @@
 						"value": -2.0
 					},
 					{
-						"key": "attack_speed",
-						"value": 23.0
+						"key": "ally_aspd_up",
+						"value": 23.0,
+						"condition": "sniper"
 					}
 				]
 			}
@@ -9676,8 +9710,9 @@
 				"skillId": "skchr_wanqin_2",
 				"blackboard": [
 					{
-						"key": "attack_speed",
-						"value": 25.0
+						"key": "ally_aspd_up",
+						"value": 25.0,
+						"duration": 15.0
 					},
 					{
 						"key": "heal_scale",
@@ -10155,8 +10190,9 @@
 				"description_ja": "配置中、周囲8マスの味方近距離ユニットの攻撃力+12%<@ba.talpu>(+2%)</>",
 				"blackboard": [
 					{
-						"key": "atk",
-						"value": 0.12
+						"key": "ally_atk_up",
+						"value": 0.12,
+						"condition": "ground"
 					}
 				]
 			}
@@ -10345,7 +10381,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["shield"],
 					"blackboard": [
 						{
 							"key": "atk_scale",
@@ -10394,11 +10430,12 @@
 						"value": 0.8
 					},
 					{
-						"key": "def",
-						"value": 0.8
+						"key": "ally_def_up",
+						"value": 0.8,
+						"duration": 30
 					},
 					{
-						"key": "stun",
+						"key": "ally_stun",
 						"value": 5.0
 					}
 				]
@@ -10766,7 +10803,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["def_penetrate"],
 					"blackboard": [
 						{
 							"key": "atk_scale",
@@ -10892,7 +10929,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["revive"],
 					"blackboard": [
 						{
 							"key": "attack_speed",
@@ -11121,7 +11158,7 @@
 						"value": 0.15
 					},
 					{
-						"key": "prob",
+						"key": "phys_evasion",
 						"value": 0.3
 					}
 				]
@@ -11182,7 +11219,7 @@
 				"description_ja": "33%<@ba.talpu>(+3%)</>の確率で近距離物理攻撃を回避、回避成功時自身の次の攻撃は攻撃力+100%",
 				"blackboard": [
 					{
-						"key": "tiger_t_1[evade].prob",
+						"key": "phys_evasion",
 						"value": 0.33
 					},
 					{
@@ -11320,7 +11357,7 @@
 				"description_ja": "自身にブロックされてない敵に与えるダメージ+45％<@ba.talpu>（+5%）</>",
 				"blackboard": [
 					{
-						"key": "damage_scale",
+						"key": "damage_scale_no_block",
 						"value": 1.45
 					}
 				]
@@ -11603,7 +11640,7 @@
 				"description_ja": "攻撃時、攻撃対象の一部の特殊能力を6<@ba.talpu>(+1)</>秒間無効化する",
 				"blackboard": [
 					{
-						"key": "duration",
+						"key": "silence",
 						"value": 6.0
 					}
 				]
@@ -11668,7 +11705,7 @@
 				"description_ja": "自身と周囲8マスの味方の攻撃速度+10<@ba.talpu>（+2）</>",
 				"blackboard": [
 					{
-						"key": "attack_speed",
+						"key": "ally_aspd_up",
 						"value": 10.0
 					}
 				]
@@ -11729,8 +11766,9 @@
 				"description_ja": "",
 				"blackboard": [
 					{
-						"key": "attack_speed",
-						"value": 24.0
+						"key": "ally_aspd_up",
+						"value": 24.0,
+						"condition": "ussg"
 					}
 				]
 			}
@@ -11765,7 +11803,7 @@
 				"skillId": "skchr_chimes_2",
 				"blackboard": [
 					{
-						"key": "damage_resistance",
+						"key": "self_damage_resistance",
 						"value": 0.4
 					},
 					{
@@ -12284,7 +12322,7 @@
 						"value": 0.65
 					},
 					{
-						"key": "stun",
+						"key": "self_stun",
 						"value": 5.0
 					}
 				]
@@ -12451,7 +12489,7 @@
 				"description_ja": "",
 				"blackboard": [
 					{
-						"key": "prob",
+						"key": "block_ranged",
 						"value": 0.3
 					}
 				]
@@ -12783,7 +12821,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["protect"],
 					"blackboard": [
 						{
 							"key": "value",
@@ -13183,8 +13221,9 @@
 						"value": 0.6
 					},
 					{
-						"key": "prob",
-						"value": 0.6
+						"key": "phys_evasion",
+						"value": 0.6,
+						"duration": 20
 					},
 					{
 						"key": "hp_ratio",
@@ -13381,13 +13420,11 @@
 				"blackboard": [
 					{
 						"key": "atk_scale",
-						"value": 2.4,
-						"valueStr": null
+						"value": 2.4
 					},
 					{
 						"key": "ability_range_radius",
-						"value": 1.5,
-						"valueStr": null
+						"value": 1.5
 					}
 				]
 			},
@@ -13396,23 +13433,19 @@
 				"blackboard": [
 					{
 						"key": "atk",
-						"value": 1.0,
-						"valueStr": null
+						"value": 1.0
 					},
 					{
 						"key": "def",
-						"value": 1.0,
-						"valueStr": null
+						"value": 1.0
 					},
 					{
 						"key": "value",
-						"value": 3.0,
-						"valueStr": null
+						"value": 3.0
 					},
 					{
 						"key": "levitate",
-						"value": 0.5,
-						"valueStr": null
+						"value": 0.5
 					}
 				]
 			}
@@ -13429,13 +13462,11 @@
 				"blackboard": [
 					{
 						"key": "count",
-						"value": 30.0,
-						"valueStr": null
+						"value": 30.0
 					},
 					{
 						"key": "atk",
-						"value": 0.18,
-						"valueStr": null
+						"value": 0.18
 					}
 				]
 			}
@@ -14112,7 +14143,8 @@
 					},
 					{
 						"key": "stun",
-						"value": 0.2
+						"value": 0.2,
+						"prob": 0.2
 					}
 				]
 			}
@@ -14175,7 +14207,8 @@
 						},
 						{
 							"key": "stun",
-							"value": 0.2
+							"value": 0.2,
+							"prob": 0.2
 						}
 					]
 				}
@@ -14362,8 +14395,9 @@
 						"value": 3.0
 					},
 					{
-						"key": "def",
-						"value": -330.0
+						"key": "def_down",
+						"value": 330.0,
+						"duration": 10
 					},
 					{
 						"key": "duration",
@@ -14492,8 +14526,9 @@
 						"value": 2.4
 					},
 					{
-						"key": "attack_speed",
-						"value": -20.0
+						"key": "aspd_down",
+						"value": 20.0,
+						"duration": 3.0
 					},
 					{
 						"key": "duration",
@@ -14513,7 +14548,7 @@
 				"description_ja": "配置中、ブロックされている敵が受ける物理ダメージ+16%<@ba.talpu>（+2%）</>",
 				"blackboard": [
 					{
-						"key": "damage_scale",
+						"key": "damage_scale_block",
 						"value": 1.16
 					}
 				]
@@ -14618,8 +14653,9 @@
 						"value": 1.35
 					},
 					{
-						"key": "move_speed",
-						"value": -0.5
+						"key": "move_speed_down",
+						"value": -0.5,
+						"duration": 1.0
 					},
 					{
 						"key": "projectile_delay_time",
@@ -15098,7 +15134,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["res_penetrate"],
 					"blackboard": [
 						{
 							"key": "magic_resist_penetrate_fixed",
@@ -15152,7 +15188,8 @@
 				"blackboard": [
 					{
 						"key": "stun",
-						"value": 1.6
+						"value": 1.6,
+						"prob": 0.33
 					},
 					{
 						"key": "atk_scale",
@@ -15318,8 +15355,8 @@
 				"description_ja": "攻撃範囲内の空中にいる敵全員に22%<@ba.talpu>（+2%）</>の<$ba.magicfragile>対術脆弱</>状態を付与",
 				"blackboard": [
 					{
-						"key": "damage_scale",
-						"value": 1.22
+						"key": "magicfragile",
+						"value": 0.22
 					}
 				]
 			}
@@ -15440,7 +15477,7 @@
 				"description_ja": "配置中、ブロック中の敵が受ける術ダメージ+18%<@ba.talpu>(+3%)</>",
 				"blackboard": [
 					{
-						"key": "damage_scale",
+						"key": "damage_scale_arts",
 						"value": 1.18
 					}
 				]
@@ -15528,8 +15565,9 @@
 				"skillId": "skchr_acast_1",
 				"blackboard": [
 					{
-						"key": "atk",
-						"value": 0.4
+						"key": "atk_up",
+						"value": 0.4,
+						"condition": "caster"
 					},
 					{
 						"key": "attack_speed",
@@ -16027,8 +16065,9 @@
 						"value": 2.3
 					},
 					{
-						"key": "magic_resistance",
-						"value": -0.15
+						"key": "res_down",
+						"value": 0.15,
+						"duration": 6.0
 					},
 					{
 						"key": "duration",
@@ -16336,12 +16375,8 @@
 				"description_ja": "スキル未発動時、隣接4マス内の味方全員の防御力+12%<@ba.talpu>（+2%）</>\nスキル発動中、敵に狙われにくくなる",
 				"blackboard": [
 					{
-						"key": "def",
+						"key": "ally_def_up",
 						"value": 0.12
-					},
-					{
-						"key": "atk",
-						"value": 0.0
 					},
 					{
 						"key": "taunt_level",
@@ -16603,8 +16638,8 @@
 						"value": 0.6
 					},
 					{
-						"key": "move_speed",
-						"value": -0.6
+						"key": "move_speed_down",
+						"value": 0.6
 					}
 				]
 			}
@@ -16919,8 +16954,9 @@
 				"description_ja": "初回配置後自身のSP+35<@ba.talpu>（+5）</>、配置する度に配置中の【術師】のSP+5<@ba.talpu>（+1）</>、配置中、自身以外の味方【術師】全員のストックSP+5<@ba.talpu>（+1）</>",
 				"blackboard": [
 					{
-						"key": "lava2_t_1[ally].sp",
-						"value": 5.0
+						"key": "ally_sp",
+						"value": 5.0,
+						"condition": "caster"
 					},
 					{
 						"key": "lava2_t_1[self].sp",
@@ -16983,7 +17019,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["sp"],
 					"blackboard": [
 						{
 							"key": "lava2_t_1[ally].sp",
@@ -17162,13 +17198,11 @@
 				"blackboard": [
 					{
 						"key": "atk_scale",
-						"value": 2.1,
-						"valueStr": null
+						"value": 2.1
 					},
 					{
 						"key": "atk_scale_to_fly",
-						"value": 0.9,
-						"valueStr": null
+						"value": 0.9
 					}
 				]
 			},
@@ -17177,18 +17211,15 @@
 				"blackboard": [
 					{
 						"key": "atk",
-						"value": 1.0,
-						"valueStr": null
+						"value": 1.0
 					},
 					{
 						"key": "atk_scale_when_fly_finish",
-						"value": 1.1,
-						"valueStr": null
+						"value": 1.1
 					},
 					{
 						"key": "duration",
-						"value": 15.0,
-						"valueStr": null
+						"value": 15.0
 					}
 				]
 			}
@@ -17204,14 +17235,13 @@
 				"description_ja": "",
 				"blackboard": [
 					{
-						"key": "levitate_duration",
+						"key": "levitate",
 						"value": 2.5,
-						"valueStr": null
+						"condition": "first_hit"
 					},
 					{
 						"key": "damage_scale",
-						"value": 1.15,
-						"valueStr": null
+						"value": 1.15
 					}
 				]
 			}
@@ -17332,7 +17362,8 @@
 					},
 					{
 						"key": "cold",
-						"value": 2.5
+						"value": 2.5,
+						"prob": 0.22
 					}
 				]
 			}
@@ -17922,7 +17953,11 @@
 				"skillId": "skchr_otter_1",
 				"blackboard": [
 					{
-						"key": "prob",
+						"key": "evasion",
+						"value": 0.35
+					},
+					{
+						"key": "ally_evasion",
 						"value": 0.35
 					}
 				]
@@ -18012,7 +18047,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["token_deploy_free", "summon"],
 					"blackboard": [
 						{
 							"key": "token_deploy_free",
@@ -18166,7 +18201,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["token_deploy_free", "summon"],
 					"blackboard": [
 						{
 							"key": "token_deploy_free",
@@ -18345,8 +18380,9 @@
 				"skillId": "skchr_bldsk_2",
 				"blackboard": [
 					{
-						"key": "atk",
-						"value": 0.9
+						"key": "ally_atk_up",
+						"value": 0.9,
+						"duration": 15.0
 					},
 					{
 						"key": "hp_ratio",
@@ -18426,7 +18462,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["ally_sp_gain"],
 					"blackboard": [
 						{
 							"key": "heal_scale",
@@ -18568,7 +18604,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["lower_env_damage"],
 					"blackboard": [
 						{
 							"key": "heal_scale",
@@ -18616,8 +18652,9 @@
 				"skillId": "skchr_amedic_1",
 				"blackboard": [
 					{
-						"key": "atk",
-						"value": 0.3
+						"key": "ally_atk_up",
+						"value": 0.3,
+						"condition": "medic"
 					},
 					{
 						"key": "ability_range_forward_extend",
@@ -18758,7 +18795,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["resist", "water"],
 					"blackboard": [
 						{
 							"key": "heal_scale",
@@ -18904,7 +18941,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["resist"],
 					"blackboard": [
 						{
 							"key": "heal_scale",
@@ -19294,8 +19331,9 @@
 						"value": 1.7
 					},
 					{
-						"key": "move_speed",
-						"value": -0.45
+						"key": "move_speed_down",
+						"value": 0.45,
+						"duration": 8.0
 					},
 					{
 						"key": "max_target",
@@ -19323,7 +19361,7 @@
 						"value": 5.0
 					},
 					{
-						"key": "damage_scale",
+						"key": "magicfragile",
 						"value": 1.14
 					}
 				]
@@ -19684,7 +19722,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["heal_scale"],
 					"blackboard": [
 						{
 							"key": "heal_scale",
@@ -20016,8 +20054,9 @@
 						"value": 0.8
 					},
 					{
-						"key": "prob",
-						"value": 0.5
+						"key": "evasion",
+						"value": 0.5,
+						"duration": 10
 					}
 				]
 			},
@@ -20138,8 +20177,9 @@
 						"value": 0.7
 					},
 					{
-						"key": "waaifu_s_1[debuff].atk",
-						"value": -0.4
+						"key": "atk_down",
+						"value": -0.4,
+						"duration": 3.0
 					},
 					{
 						"key": "waaifu_s_1[debuff].duration",
@@ -20427,6 +20467,11 @@
 						"value": -35.0
 					},
 					{
+						"key": "aspd_down",
+						"value": 35.0,
+						"duration": 5.0
+					},
+					{
 						"key": "nothin_s_2[a][attack_speed_down].duration",
 						"value": 5.0
 					},
@@ -20590,7 +20635,8 @@
 					},
 					{
 						"key": "stun",
-						"value": 1.0
+						"value": 1.0,
+						"prob": 0.25
 					},
 					{
 						"key": "self_stun",
@@ -20892,7 +20938,7 @@
 						"value": 1.2
 					},
 					{
-						"key": "bison_s_2[ally].def",
+						"key": "ally_def_up",
 						"value": 0.3
 					},
 					{
@@ -21051,7 +21097,7 @@
 						"value": 0.05
 					},
 					{
-						"key": "prob",
+						"key": "melee_phys_evasion",
 						"value": 0.3
 					}
 				]
@@ -21159,7 +21205,7 @@
 				"skillId": "skchr_asbest_1",
 				"blackboard": [
 					{
-						"key": "damage_scale",
+						"key": "damage_res_arts",
 						"value": 0.7
 					},
 					{
@@ -21341,8 +21387,8 @@
 						"value": 0.25
 					},
 					{
-						"key": "magic_resistance",
-						"value": -0.25
+						"key": "res_down",
+						"value": 0.25
 					},
 					{
 						"key": "duration",
@@ -21376,7 +21422,7 @@
 						"value": 0.8
 					},
 					{
-						"key": "magic_resistance",
+						"key": "res_up",
 						"value": 1.0
 					}
 				]
@@ -21652,7 +21698,7 @@
 				"description_ja": "配置中、自身と周囲8マスの高台にいる味方全員の物理回避+23%<@ba.talpu>（+3%）</>",
 				"blackboard": [
 					{
-						"key": "prob",
+						"key": "phys_evasion",
 						"value": 0.23
 					}
 				]
@@ -21704,7 +21750,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["ally_evasion"],
 					"blackboard": [
 						{
 							"key": "prob",
@@ -22638,7 +22684,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["ranged", "no_attack"],
 					"blackboard": [
 						{
 							"key": "sp",
@@ -22691,8 +22737,9 @@
 						"value": 2.4
 					},
 					{
-						"key": "move_speed",
-						"value": -0.4
+						"key": "move_speed_down",
+						"value": 0.4,
+						"duration": 6.0
 					},
 					{
 						"key": "duration",
@@ -22760,7 +22807,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["abyssal"],
 					"blackboard": [
 						{
 							"key": "max_dist",
@@ -22934,8 +22981,8 @@
 						"value": 1.8
 					},
 					{
-						"key": "def",
-						"value": -0.3
+						"key": "def_down",
+						"value": 0.3
 					},
 					{
 						"key": "taunt_level",
@@ -23252,7 +23299,9 @@
 					},
 					{
 						"key": "sluggish",
-						"value": 1.6
+						"value": 1.6,
+						"prob": 0.4,
+						"target_air": false
 					},
 					{
 						"key": "prob",
@@ -23277,7 +23326,8 @@
 					},
 					{
 						"key": "sluggish",
-						"value": 2.0
+						"value": 2.0,
+						"prob": "1-0.6^hits"
 					}
 				]
 			}
@@ -23463,11 +23513,8 @@
 					},
 					{
 						"key": "ally_stun",
-						"value": 1.8
-					},
-					{
-						"key": "prob",
-						"value": 0.2
+						"value": 1.8,
+						"prob": 0.2
 					}
 				]
 			}
@@ -23488,7 +23535,8 @@
 					},
 					{
 						"key": "stun",
-						"value": 1.0
+						"value": 1.0,
+						"prob": "0.7/3"
 					},
 					{
 						"key": "def_penetrate",
@@ -23697,7 +23745,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["arts"],
 					"blackboard": [
 						{
 							"key": "dist",
@@ -23795,8 +23843,9 @@
 						"value": 1.0
 					},
 					{
-						"key": "skill@silence",
-						"value": 8.0
+						"key": "silence",
+						"value": 8.0,
+						"condition": "infected"
 					}
 				]
 			}
@@ -23843,7 +23892,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["arts"],
 					"blackboard": [
 						{
 							"key": "dist",
@@ -23864,7 +23913,7 @@
 						{
 							"key": "silence",
 							"value": 12.0,
-							"condition": "type:infection"
+							"condition": "infection"
 						}
 					]
 				}
@@ -24038,8 +24087,9 @@
 				"skillId": "skchr_slbell_1",
 				"blackboard": [
 					{
-						"key": "attack_speed",
-						"value": -60.0
+						"key": "aspd_down",
+						"value": 60.0,
+						"duration": 20
 					},
 					{
 						"key": "max_target",
@@ -24051,12 +24101,12 @@
 				"skillId": "skchr_slbell_2",
 				"blackboard": [
 					{
-						"key": "def",
-						"value": -0.6
+						"key": "def_down",
+						"value": 0.6
 					},
 					{
-						"key": "magic_resistance",
-						"value": -0.3
+						"key": "res_down",
+						"value": 0.3
 					}
 				]
 			}
@@ -24076,7 +24126,7 @@
 						"value": 0.4
 					},
 					{
-						"key": "damage_scale",
+						"key": "fragile",
 						"value": 1.33
 					}
 				]
@@ -24197,6 +24247,10 @@
 					{
 						"key": "atk",
 						"value": 0.6
+					},
+					{
+						"key": "damage_scale",
+						"value": 1.39
 					}
 				]
 			},
@@ -24204,12 +24258,14 @@
 				"skillId": "skchr_vodfox_2",
 				"blackboard": [
 					{
-						"key": "atk",
-						"value": -0.5
+						"key": "atk_down",
+						"value": 0.5,
+						"duration": 15.0
 					},
 					{
-						"key": "def",
-						"value": -0.5
+						"key": "def_down",
+						"value": 0.5,
+						"duration": 15.0
 					}
 				]
 			}
@@ -24229,7 +24285,7 @@
 						"value": 0.4
 					},
 					{
-						"key": "damage_scale",
+						"key": "fragile",
 						"value": 1.33
 					}
 				]
@@ -24482,7 +24538,7 @@
 					{
 						"key": "stun",
 						"value": 6.0,
-						"condition": "type:drone"
+						"condition": "drone"
 					}
 				]
 			}
@@ -24558,7 +24614,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["drone"],
 					"blackboard": [
 						{
 							"key": "sp_recovery_per_sec",
@@ -25092,7 +25148,7 @@
 				"skillId": "skchr_sora_2",
 				"blackboard": [
 					{
-						"key": "atk",
+						"key": "ally_atk_up",
 						"value": 1.0
 					}
 				]
@@ -25140,7 +25196,7 @@
 				"skillId": "skchr_heidi_1",
 				"blackboard": [
 					{
-						"key": "atk",
+						"key": "ally_atk_up",
 						"value": 1.1
 					},
 					{
@@ -25161,11 +25217,11 @@
 						"value": 1.0
 					},
 					{
-						"key": "def",
+						"key": "ally_def_up",
 						"value": 0.7
 					},
 					{
-						"key": "max_hp",
+						"key": "max_hp_up",
 						"value": 0.3
 					},
 					{
@@ -25232,7 +25288,7 @@
 				"skillId": "skchr_tknogi_1",
 				"blackboard": [
 					{
-						"key": "prob",
+						"key": "evasion",
 						"value": 0.35
 					}
 				]
@@ -25399,8 +25455,9 @@
 						"value": 1.0
 					},
 					{
-						"key": "prob",
-						"value": 0.7
+						"key": "block_dmg",
+						"value": 0.7,
+						"condition": "ranged"
 					}
 				]
 			}
@@ -25726,8 +25783,8 @@
 				"skillId": "skchr_mantic_1",
 				"blackboard": [
 					{
-						"key": "move_speed",
-						"value": -0.5
+						"key": "move_speed_down",
+						"value": 0.5
 					},
 					{
 						"key": "duration",
@@ -26014,12 +26071,9 @@
 				"skillId": "skchr_panda_1",
 				"blackboard": [
 					{
-						"key": "duration",
-						"value": 5.0
-					},
-					{
 						"key": "move_speed",
-						"value": -0.3
+						"value": 0.3,
+						"duration": 5.0
 					},
 					{
 						"key": "force",
@@ -26035,16 +26089,13 @@
 						"value": 2.5
 					},
 					{
-						"key": "move_speed",
-						"value": -0.3
+						"key": "move_speed_down",
+						"value": 0.3,
+						"duration": 5.0
 					},
 					{
 						"key": "force",
 						"value": 3.0
-					},
-					{
-						"key": "duration",
-						"value": 5.0
 					}
 				]
 			}
@@ -26060,7 +26111,7 @@
 				"description_ja": "物理回避+43%<@ba.talpu>(+3%)</>",
 				"blackboard": [
 					{
-						"key": "prob",
+						"key": "phys_evasion",
 						"value": 0.43
 					}
 				]
@@ -26112,7 +26163,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["phys_evasion"],
 					"blackboard": [
 						{
 							"key": "cnt",
@@ -26123,7 +26174,7 @@
 							"value": 1.0
 						},
 						{
-							"key": "prob",
+							"key": "phys_evasion",
 							"value": 0.55
 						}
 					]
@@ -26174,7 +26225,7 @@
 					},
 					{
 						"key": "stun",
-						"value": 4.0
+						"value": 2.5
 					},
 					{
 						"key": "forcer_s_2[brush].stun",
@@ -26207,7 +26258,8 @@
 					},
 					{
 						"key": "def_penetrate_fixed",
-						"value": 200.0
+						"value": 200.0,
+						"condition": "weight"
 					}
 				]
 			}
@@ -26900,7 +26952,7 @@
 						"value": 8.0
 					},
 					{
-						"key": "damage_scale",
+						"key": "fragile",
 						"value": 1.22
 					},
 					{
@@ -27078,11 +27130,11 @@
 				"description_ja": "自身の攻撃力+8%<@ba.talpu>(+2%)</>、最大HP+13%<@ba.talpu>(+3%)</>。配置中、ランダムな味方1人に同じ効果を付与",
 				"blackboard": [
 					{
-						"key": "max_hp",
+						"key": "ally_max_hp",
 						"value": 0.13
 					},
 					{
-						"key": "atk",
+						"key": "ally_atk",
 						"value": 0.08
 					}
 				]
@@ -27130,7 +27182,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["ally_atk", "ally_max_hp"],
 					"blackboard": [
 						{
 							"key": "atk_scale",
@@ -27465,6 +27517,10 @@
 					{
 						"key": "ash_s_2[atk_scale].atk_scale",
 						"value": 2.5
+					},
+					{
+						"key": "stun",
+						"value": 5.0
 					}
 				]
 			},
@@ -27749,8 +27805,10 @@
 						"value": 1.6
 					},
 					{
-						"key": "def",
-						"value": -0.2
+						"key": "def_down",
+						"value": 0.2,
+						"prob": 0.2,
+						"duration": 5.0
 					},
 					{
 						"key": "prob",
@@ -27824,7 +27882,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["sniper"],
 					"blackboard": [
 						{
 							"key": "atk",
@@ -27886,7 +27944,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["ignore_evasion"],
 					"blackboard": [
 						{
 							"key": "atk_scale",
@@ -28010,7 +28068,12 @@
 				"description_zh": "“打字机”的攻击会使命中目标的防御力下降20%<@ba.talpu>（+2%）</>，持续5<@ba.talpu>（+1）</>秒；若“打字机”放在鸿雪周围四格则效果提升至25%<@ba.talpu>（+2%）</>",
 				"description_en": "Attacks from the 'Typewriter' reduce the target's DEF by 20% <@ba.talpu>(+2%)</> for 5 <@ba.talpu>(+1)</> seconds; if the 'Typewriter' is placed within the 4 tiles adjacent to Pozëmka, this effect increases to <@ba.talpu>25% (+2%)</>",
 				"description_ja": "「タイプライター」の攻撃時、攻撃した対象の防御力を5<@ba.talpu>（+1）</>秒間‐20%<@ba.talpu>（+2%）</>。「タイプライター」の隣接4マスにパゼオンカがいる時、効果値が-25%<@ba.talpu>（+2%）</>になる",
-				"blackboard": []
+				"blackboard": [
+					{
+						"key": "def_down",
+						"value": 0.2
+					}
+				]
 			}
 		],
 		"uniequip": [
@@ -28062,7 +28125,7 @@
 							}
 						]
 					},
-					"tags": [],
+					"tags": ["summon", "ignore_evasion"],
 					"blackboard": [
 						{
 							"key": "atk_scale",
@@ -28381,7 +28444,7 @@
 						"value": 10.0
 					},
 					{
-						"key": "prob",
+						"key": "evasion",
 						"value": 0.6
 					},
 					{
@@ -29069,7 +29132,8 @@
 					},
 					{
 						"key": "stun",
-						"value": 1.0
+						"value": 1.0,
+						"prob": 0.4
 					},
 					{
 						"key": "first_duration",
@@ -29119,7 +29183,7 @@
 					},
 					{
 						"key": "def_penetrate",
-						"value": 0.1
+						"value": 0.5
 					},
 					{
 						"key": "duration",
@@ -29142,7 +29206,8 @@
 					},
 					{
 						"key": "sluggish",
-						"value": 3.0
+						"value": 3.0,
+						"condition": "first_hit"
 					}
 				]
 			}
@@ -29283,7 +29348,8 @@
 					},
 					{
 						"key": "stun",
-						"value": 1.5
+						"value": 1.5,
+						"prob": "1-0.8^hits"
 					}
 				]
 			},
@@ -29452,8 +29518,8 @@
 						"value": 0.8
 					},
 					{
-						"key": "move_speed",
-						"value": -0.35
+						"key": "move_speed_down",
+						"value": 0.35
 					},
 					{
 						"key": "def",
@@ -29481,8 +29547,8 @@
 						"value": 1.0
 					},
 					{
-						"key": "move_speed",
-						"value": -0.45
+						"key": "move_speed_down",
+						"value": 0.45
 					},
 					{
 						"key": "def",
@@ -29598,7 +29664,7 @@
 						"value": 3.3
 					},
 					{
-						"key": "unmove_duration",
+						"key": "root",
 						"value": 2.0
 					},
 					{
@@ -29700,7 +29766,8 @@
 					},
 					{
 						"key": "stun",
-						"value": 1.5
+						"value": 1.5,
+						"prob": 0.4
 					},
 					{
 						"key": "base_attack_time",
@@ -30279,8 +30346,9 @@
 						"value": 0.06
 					},
 					{
-						"key": "prob",
-						"value": 0.7
+						"key": "phys_evasion",
+						"value": 0.7,
+						"duration": 17.0
 					},
 					{
 						"key": "duration",
@@ -30502,8 +30570,9 @@
 				"skillId": "skchr_sleach_2",
 				"blackboard": [
 					{
-						"key": "def",
-						"value": 0.5
+						"key": "ally_def_up",
+						"value": 0.5,
+						"duration": 15.0
 					},
 					{
 						"key": "atk_to_hp_recovery_ratio",
@@ -30564,12 +30633,12 @@
 				"description_ja": "「軍旗」を所持しており、その周囲8マスにいる味方全員の攻撃速度+12<@ba.talpu>（+2）</>、敵全員の攻撃速度-12<@ba.talpu>（+2）</>",
 				"blackboard": [
 					{
-						"key": "sleach_t_1[ally].attack_speed",
+						"key": "ally_aspd_up",
 						"value": 12.0
 					},
 					{
-						"key": "sleach_t_1[enemy].attack_speed",
-						"value": -12.0
+						"key": "aspd_down",
+						"value": 12.0
 					}
 				]
 			},
@@ -30700,8 +30769,9 @@
 						"value": 6.0
 					},
 					{
-						"key": "flamtl_s_2.prob",
-						"value": 0.5
+						"key": "ally_phys_evasion",
+						"value": 0.5,
+						"duration": 10
 					},
 					{
 						"key": "flamtl_s_2.duration",
@@ -30721,7 +30791,7 @@
 						"value": 1.0
 					},
 					{
-						"key": "prob",
+						"key": "evasion",
 						"value": 0.8
 					},
 					{
@@ -30760,8 +30830,9 @@
 				"description_ja": "配置中、味方【カジミエーシュ】の物理回避+25%<@ba.talpu>（+3%）</>",
 				"blackboard": [
 					{
-						"key": "prob",
-						"value": 0.25
+						"key": "phys_evasion",
+						"value": 0.25,
+						"condition": "kazimierz"
 					}
 				]
 			}
@@ -31222,6 +31293,11 @@
 						"value": 0.0
 					},
 					{
+						"key": "stun",
+						"value": 15.0,
+						"condition": "block"
+					},
+					{
 						"key": "mlyss_s_3[token_melee_trigger].interval",
 						"value": 2.0
 					},
@@ -31435,8 +31511,9 @@
 						"value": 7.0
 					},
 					{
-						"key": "steal_atk_speed_max",
-						"value": 70.0
+						"key": "aspd_down",
+						"value": 70.0,
+						"duration": 12.0
 					}
 				]
 			},
@@ -31481,6 +31558,10 @@
 						"value": 100.0
 					},
 					{
+						"key": "atk_down",
+						"value": 100.0
+					},
+					{
 						"key": "steal_atk_max",
 						"value": 20000.0
 					},
@@ -31501,7 +31582,7 @@
 				"description_ja": "攻撃範囲内の敵の<$ba.invisible>ステルス</>状態が無効になり、さらに移動速度-30%。撤退後、影哨を1体残して効果を持続させる（最大1体まで）",
 				"blackboard": [
 					{
-						"key": "reduce_move_speed",
+						"key": "move_speed_down",
 						"value": 0.3
 					}
 				]
@@ -31549,8 +31630,8 @@
 						"value": 0.33
 					},
 					{
-						"key": "def",
-						"value": -300.0
+						"key": "def_down",
+						"value": 300.0
 					},
 					{
 						"key": "duration",
@@ -31574,8 +31655,8 @@
 						"value": 0.02
 					},
 					{
-						"key": "magic_resistance",
-						"value": -20.0
+						"key": "res_down",
+						"value": 20.0
 					}
 				]
 			}
@@ -31591,8 +31672,8 @@
 				"description_ja": "攻撃範囲内の敵の術耐性-44%<@ba.talpu>(+4%)</>",
 				"blackboard": [
 					{
-						"key": "magic_resistance",
-						"value": -0.44
+						"key": "res_down",
+						"value": 0.44
 					}
 				]
 			},
@@ -31752,8 +31833,8 @@
 						"value": 0.0
 					},
 					{
-						"key": "talent_scale",
-						"value": 3.0
+						"key": "move_speed_down",
+						"value": "3*talent"
 					},
 					{
 						"key": "base_attack_time",
@@ -31774,7 +31855,8 @@
 				"blackboard": [
 					{
 						"key": "sp_recovery_per_sec",
-						"value": 0.4
+						"value": 0.4,
+						"condition": "caster"
 					}
 				]
 			},
@@ -31788,8 +31870,8 @@
 				"description_ja": "攻撃範囲内の敵の移動速度-18%<@ba.talpu>（+3%）</>",
 				"blackboard": [
 					{
-						"key": "move_speed",
-						"value": -0.18
+						"key": "move_speed_down",
+						"value": 0.18
 					}
 				]
 			}
@@ -31843,12 +31925,12 @@
 					"tags": [],
 					"blackboard": [
 						{
-							"key": "move_speed",
-							"value": -0.33
+							"key": "move_speed_down",
+							"value": 0.33
 						},
 						{
-							"key": "mostma_e_t_2[global].move_speed",
-							"value": -0.18
+							"key": "global_move_speed_down",
+							"value": 0.18
 						}
 					]
 				}
@@ -31917,8 +31999,8 @@
 						"value": 6.0
 					},
 					{
-						"key": "magic_resistance",
-						"value": -0.25
+						"key": "res_down",
+						"value": 0.25
 					}
 				]
 			},
@@ -31951,8 +32033,9 @@
 				"description_ja": "配置中、味方【術師】の攻撃力+16%<@ba.talpu>(+2%)</>",
 				"blackboard": [
 					{
-						"key": "atk",
-						"value": 0.16
+						"key": "ally_atk_up",
+						"value": 0.16,
+						"condition": "caster"
 					}
 				]
 			},
@@ -32018,7 +32101,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["res_penetrate"],
 					"blackboard": [
 						{
 							"key": "magic_resist_penetrate_fixed",
@@ -32172,7 +32255,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["res_penetrate"],
 					"blackboard": [
 						{
 							"key": "magic_resist_penetrate_fixed",
@@ -32316,7 +32399,8 @@
 					},
 					{
 						"key": "levitate",
-						"value": 1.0
+						"value": 1.0,
+						"prob": "1-0.85^9"
 					}
 				]
 			},
@@ -33406,6 +33490,11 @@
 					{
 						"key": "talent_scale",
 						"value": 3.0
+					},
+					{
+						"key": "stun",
+						"value": 1.0,
+						"condition": "defeat_enemy"
 					}
 				]
 			}
@@ -33634,7 +33723,7 @@
 				"description_ja": "自身と浮遊ユニットの攻撃時、敵の術耐性を18<@ba.talpu>（+3）</>無視",
 				"blackboard": [
 					{
-						"key": "magic_resist_penetrate_fixed",
+						"key": "res_penetrate_fixed",
 						"value": 18.0
 					}
 				]
@@ -34123,12 +34212,9 @@
 						"value": 1.0
 					},
 					{
-						"key": "damage_scale_cold",
-						"value": 1.27
-					},
-					{
-						"key": "damage_scale_freeze",
-						"value": 1.54
+						"key": "fragile",
+						"value": 1.54,
+						"condition": "freeze"
 					}
 				]
 			},
@@ -34146,8 +34232,9 @@
 						"value": 10.0
 					},
 					{
-						"key": "one_minus_status_resistance",
-						"value": -0.5
+						"key": "ally_resist",
+						"value": -0.5,
+						"condition": "karlan"
 					}
 				]
 			}
@@ -34303,7 +34390,7 @@
 				"description_ja": "配置中、味方全員の攻撃速度+8<@ba.talpu>(+1)</>",
 				"blackboard": [
 					{
-						"key": "attack_speed",
+						"key": "ally_aspd_up",
 						"value": 8.0
 					}
 				]
@@ -34366,7 +34453,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["global_heal"],
 					"blackboard": [
 						{
 							"key": "sluggish",
@@ -34502,6 +34589,10 @@
 				"skillId": "skchr_lisa_3",
 				"blackboard": [
 					{
+						"key": "damage_scale",
+						"value": "2*talent"
+					},
+					{
 						"key": "scale_delta_to_one",
 						"value": 2.0
 					},
@@ -34511,7 +34602,7 @@
 					},
 					{
 						"key": "sluggish",
-						"value": 29.0
+						"value": 35.0
 					}
 				]
 			}
@@ -34528,7 +34619,8 @@
 				"blackboard": [
 					{
 						"key": "sp_recovery_per_sec",
-						"value": 0.4
+						"value": 0.4,
+						"condition": "supporter"
 					}
 				]
 			},
@@ -34542,8 +34634,9 @@
 				"description_ja": "攻撃範囲内の敵が<$ba.sluggish>足止め</>された時、次の瞬間から<$ba.sluggish>足止め</>と同じ時間の23%<@ba.talpu>（+3%）</>の<$ba.fragile>脆弱</>状態も付与される",
 				"blackboard": [
 					{
-						"key": "damage_scale",
-						"value": 1.23
+						"key": "fragile",
+						"value": 1.23,
+						"condition": "sluggish"
 					},
 					{
 						"key": "atk",
@@ -34833,7 +34926,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["stealth", "token_deploy_free"],
 					"blackboard": [
 						{
 							"key": "token_deploy_free",
@@ -35514,7 +35607,7 @@
 							}
 						]
 					},
-					"tags": [],
+					"tags": ["summon"],
 					"blackboard": [
 						{
 							"key": "max_token",
@@ -35562,8 +35655,8 @@
 				"skillId": "skchr_ironmn_1",
 				"blackboard": [
 					{
-						"key": "atk_scale",
-						"value": 2.0
+						"key": "ally_atk_up",
+						"value": 0.96
 					},
 					{
 						"key": "fake_scale",
@@ -35880,7 +35973,7 @@
 				"skillId": "skchr_phatom_1",
 				"blackboard": [
 					{
-						"key": "prob",
+						"key": "evasion",
 						"value": 0.5
 					},
 					{
@@ -36167,8 +36260,8 @@
 						"value": 0.55
 					},
 					{
-						"key": "magic_resistance",
-						"value": -0.3
+						"key": "res_down",
+						"value": 0.3
 					},
 					{
 						"key": "atk_scale",
@@ -36518,7 +36611,7 @@
 						"value": 0.6
 					},
 					{
-						"key": "prob",
+						"key": "arts_evasion",
 						"value": 0.4
 					}
 				]
@@ -36568,8 +36661,9 @@
 						"value": 1.0
 					},
 					{
-						"key": "prob",
-						"value": 0.7
+						"key": "evasion",
+						"value": 0.7,
+						"condition": "outside_atk_range"
 					},
 					{
 						"key": "prob_knockback",
@@ -36593,8 +36687,9 @@
 				"description_ja": "ブロックしている敵の攻撃速度-15<@ba.talpu>（+1）</>、自身の攻撃速度+15<@ba.talpu>（+1）</>。周囲8マス内にいる敵が1体のみの場合、効果値倍増",
 				"blackboard": [
 					{
-						"key": "lmlee_t_1[enemy].attack_speed",
-						"value": -15.0
+						"key": "aspd_down",
+						"value": 30.0,
+						"condition": "block"
 					},
 					{
 						"key": "lmlee_t_1[self].attack_speed",
@@ -36621,7 +36716,8 @@
 					},
 					{
 						"key": "stun",
-						"value": 3.0
+						"value": 3.0,
+						"condition": "stun/freeze"
 					}
 				]
 			}
@@ -36685,7 +36781,7 @@
 						{
 							"key": "stun",
 							"value": 4.0,
-							"condition": "debuff:stun|frozen"
+							"condition": "stun|frozen"
 						}
 					]
 				}
@@ -37288,7 +37384,7 @@
 						"value": 0.8
 					},
 					{
-						"key": "def",
+						"key": "ally_def_up",
 						"value": 0.8
 					},
 					{
@@ -37301,15 +37397,15 @@
 				"skillId": "skchr_haak_3",
 				"blackboard": [
 					{
-						"key": "atk",
+						"key": "ally_atk_up",
 						"value": 0.5
 					},
 					{
-						"key": "attack_speed",
+						"key": "ally_aspd_up",
 						"value": 50.0
 					},
 					{
-						"key": "damage",
+						"key": "ally_damage",
 						"value": 500.0
 					}
 				]
@@ -37335,11 +37431,13 @@
 					},
 					{
 						"key": "sluggish",
-						"value": 1.4
+						"value": 1.4,
+						"prob": 0.25
 					},
 					{
 						"key": "stun",
-						"value": 1.0
+						"value": 1.0,
+						"prob": 0.25
 					}
 				]
 			},
@@ -37528,7 +37626,7 @@
 					},
 					{
 						"key": "root",
-						"value": 9.0
+						"value": 8.0
 					},
 					{
 						"key": "move_speed",
@@ -37619,7 +37717,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["arts"],
 					"blackboard": [
 						{
 							"key": "dist",
@@ -37940,13 +38038,11 @@
 				"blackboard": [
 					{
 						"key": "atk_scale",
-						"value": 2.1,
-						"valueStr": null
+						"value": 2.1
 					},
 					{
 						"key": "cnt",
-						"value": 3.0,
-						"valueStr": null
+						"value": 3.0
 					}
 				]
 			},
@@ -37955,18 +38051,15 @@
 				"blackboard": [
 					{
 						"key": "atk",
-						"value": 1.3,
-						"valueStr": null
+						"value": 1.3
 					},
 					{
-						"key": "move_speed",
-						"value": -0.6,
-						"valueStr": null
+						"key": "move_speed_down",
+						"value": 0.6
 					},
 					{
 						"key": "range_radius",
-						"value": 1.3,
-						"valueStr": null
+						"value": 1.3
 					}
 				]
 			},
@@ -37975,33 +38068,27 @@
 				"blackboard": [
 					{
 						"key": "base_attack_time",
-						"value": -1.5,
-						"valueStr": null
+						"value": -1.5
 					},
 					{
 						"key": "atk",
-						"value": 0.5,
-						"valueStr": null
+						"value": 0.5
 					},
 					{
 						"key": "taunt_level",
-						"value": 2.0,
-						"valueStr": null
+						"value": 2.0
 					},
 					{
 						"key": "hp_ratio",
-						"value": 0.08,
-						"valueStr": null
+						"value": 0.08
 					},
 					{
 						"key": "damage_hitrate_physical",
-						"value": -0.5,
-						"valueStr": null
+						"value": -0.5
 					},
 					{
 						"key": "damage_hitrate_magical",
-						"value": -0.5,
-						"valueStr": null
+						"value": -0.5
 					}
 				]
 			}
@@ -38018,28 +38105,23 @@
 				"blackboard": [
 					{
 						"key": "move_speed",
-						"value": -0.18,
-						"valueStr": null
+						"value": -0.18
 					},
 					{
 						"key": "atk_ratio",
-						"value": 0.1,
-						"valueStr": null
+						"value": 0.1
 					},
 					{
 						"key": "max_stack_cnt",
-						"value": 3.0,
-						"valueStr": null
+						"value": 3.0
 					},
 					{
 						"key": "debuff_duration",
-						"value": 25.0,
-						"valueStr": null
+						"value": 25.0
 					},
 					{
 						"key": "interval",
-						"value": 1.0,
-						"valueStr": null
+						"value": 1.0
 					}
 				]
 			},
@@ -38054,18 +38136,15 @@
 				"blackboard": [
 					{
 						"key": "attack_speed",
-						"value": 10.0,
-						"valueStr": null
+						"value": 10.0
 					},
 					{
 						"key": "attack_speed_add",
-						"value": 6.0,
-						"valueStr": null
+						"value": 6.0
 					},
 					{
 						"key": "cnt",
-						"value": 1.0,
-						"valueStr": null
+						"value": 1.0
 					}
 				]
 			}
@@ -38235,8 +38314,8 @@
 				"description_ja": "<身替り>状態時、周囲の敵の移動速度-40%、1秒ごとに攻撃力の40%の術ダメージを与える",
 				"blackboard": [
 					{
-						"key": "move_speed",
-						"value": -0.4
+						"key": "move_speed_down",
+						"value": 0.4
 					},
 					{
 						"key": "atk_scale",
@@ -38258,7 +38337,7 @@
 				"description_ja": "編成中、味方【アビサル】のHP+23%<@ba.talpu>（+3%）</>",
 				"blackboard": [
 					{
-						"key": "max_hp",
+						"key": "ally_max_hp",
 						"value": 0.23
 					}
 				]
@@ -38337,8 +38416,8 @@
 							"value": 0.0
 						},
 						{
-							"key": "move_speed",
-							"value": -0.6
+							"key": "move_speed_down",
+							"value": 0.6
 						},
 						{
 							"key": "atk_scale",
@@ -38400,7 +38479,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["abyssal", "sp_regen"],
 					"blackboard": [
 						{
 							"key": "duration",
@@ -38464,8 +38543,9 @@
 						"value": 4.5
 					},
 					{
-						"key": "def",
-						"value": -0.35
+						"key": "def_down",
+						"value": 0.35,
+						"duration": 5.0
 					},
 					{
 						"key": "duration",
@@ -38705,7 +38785,8 @@
 					},
 					{
 						"key": "damage_scale",
-						"value": 1.35
+						"value": 0.35,
+						"duration": 7.0
 					},
 					{
 						"key": "fake_damage_scale",
@@ -38897,7 +38978,7 @@
 				"skillId": "skchr_shining_2",
 				"blackboard": [
 					{
-						"key": "def",
+						"key": "ally_def_up",
 						"value": 0.5
 					},
 					{
@@ -38918,7 +38999,7 @@
 				"skillId": "skchr_shining_3",
 				"blackboard": [
 					{
-						"key": "def",
+						"key": "ally_def_up",
 						"value": 1.0
 					},
 					{
@@ -38939,7 +39020,7 @@
 				"description_ja": "攻撃範囲内の味方の防御力+65<@ba.talpu>(+5)</>",
 				"blackboard": [
 					{
-						"key": "def",
+						"key": "ally_def",
 						"value": 65.0
 					}
 				]
@@ -39137,7 +39218,7 @@
 						"value": 0.9
 					},
 					{
-						"key": "magic_resistance",
+						"key": "ally_res_up",
 						"value": 20.0
 					},
 					{
@@ -39158,11 +39239,11 @@
 						"value": 0.8
 					},
 					{
-						"key": "magic_resistance",
+						"key": "ally_res_up",
 						"value": 1.5
 					},
 					{
-						"key": "prob",
+						"key": "ally_arts_evasion",
 						"value": 0.25
 					}
 				]
@@ -39179,7 +39260,7 @@
 				"description_ja": "攻撃範囲内の味方の術耐性+17<@ba.talpu>(+2)</>",
 				"blackboard": [
 					{
-						"key": "magic_resistance",
+						"key": "ally_res",
 						"value": 17.0
 					}
 				]
@@ -39371,7 +39452,13 @@
 				"description_zh": "Mon3tr在被击倒后（不包括撤退）使周围8格内所有敌人<$ba.stun>晕眩</>3.5<@ba.talpu>（+0.5）</>秒并对其造成1400<@ba.talpu>（+200）</>点真实伤害",
 				"description_en": "When Mon3tr is defeated (excluding retreat), all enemies in the surrounding 8 tiles are <$ba.stun>Stunned</> for 3.5 <@ba.talpu>(+0.5)</> seconds and receive 1400 <@ba.talpu>(+200)</> True damage",
 				"description_ja": "「Mon3tr」が倒された時（撤退時発動ぜず）、周囲8マス内にいる敵全員に1400<@ba.talpu>（+200）</>の確定ダメージを与え、3.5<@ba.talpu>（+0.5）</>秒間<$ba.stun>スタン</>させる",
-				"blackboard": []
+				"blackboard": [
+					{
+						"key": "stun",
+						"value": 3.5,
+						"condition": "defeat"
+					}
+				]
 			}
 		],
 		"uniequip": [
@@ -39440,7 +39527,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["true"],
 					"blackboard": [
 						{
 							"key": "heal_scale",
@@ -39622,7 +39709,7 @@
 				"description_ja": "味方を回復後、対象に4秒の<$ba.buffres>レジスト</>状態を付与、対象のHPが最大値の75%を超える場合、<$ba.buffres>レジスト</>状態の継続時間が6秒に上昇",
 				"blackboard": [
 					{
-						"key": "status_resistance[limit]",
+						"key": "ally_resist",
 						"value": 4.0
 					},
 					{
@@ -39705,7 +39792,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["resist", "lower_target_priority"],
 					"blackboard": [
 						{
 							"key": "heal_scale",
@@ -39897,11 +39984,11 @@
 				"description_ja": "攻撃範囲内の味方の最大HP+8%<@ba.talpu>（+2%）</>、受ける<$ba.dt.element>元素損傷</>の値-12%",
 				"blackboard": [
 					{
-						"key": "max_hp",
+						"key": "ally_max_hp",
 						"value": 0.08
 					},
 					{
-						"key": "ep_damage_resistance",
+						"key": "ele_dmg_res",
 						"value": 0.12
 					}
 				]
@@ -40011,11 +40098,11 @@
 						"value": 0.3
 					},
 					{
-						"key": "atk",
-						"value": -0.22
+						"key": "atk_down",
+						"value": 0.22
 					},
 					{
-						"key": "damage_scale",
+						"key": "magicfragile",
 						"value": 1.32
 					},
 					{
@@ -40248,7 +40335,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["block_damage"],
 					"blackboard": [
 						{
 							"key": "prob",
@@ -40388,12 +40475,13 @@
 						"value": 0.35
 					},
 					{
-						"key": "demkni_s_3.move_speed",
-						"value": -0.6
+						"key": "move_speed_down",
+						"value": 0.6,
+						"duration": 30
 					},
 					{
-						"key": "demkni_s_3.damage_scale",
-						"value": 1.55
+						"key": "fragile_arts",
+						"value": 0.55
 					},
 					{
 						"key": "fake.b",
@@ -40488,7 +40576,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["ally_sp_gain"],
 					"blackboard": [
 						{
 							"key": "heal_scale",
@@ -40736,7 +40824,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["damage_resistance"],
 					"blackboard": [
 						{
 							"key": "damage_resistance",
@@ -40896,11 +40984,11 @@
 						"value": 0.5
 					},
 					{
-						"key": "e_atk",
+						"key": "ally_atk_up",
 						"value": 0.25
 					},
 					{
-						"key": "e_attack_speed",
+						"key": "ally_aspd_up",
 						"value": 25.0
 					},
 					{
@@ -40944,12 +41032,14 @@
 				"description_ja": "",
 				"blackboard": [
 					{
-						"key": "max_hp",
-						"value": 0.12
+						"key": "ally_max_hp",
+						"value": 0.12,
+						"condition": "3 diff professsion"
 					},
 					{
-						"key": "attack_speed",
-						"value": 12.0
+						"key": "ally_attack_speed",
+						"value": 12.0,
+						"condition": "3 same profession"
 					},
 					{
 						"key": "atk",
@@ -41012,7 +41102,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["damage_resistance"],
 					"blackboard": [
 						{
 							"key": "heal_scale",
@@ -41090,7 +41180,8 @@
 					},
 					{
 						"key": "silence",
-						"value": 5.0
+						"value": 5.0,
+						"condition": "counter"
 					}
 				]
 			},
@@ -41106,7 +41197,7 @@
 						"value": 1.0
 					},
 					{
-						"key": "nian_s_3[ally].def",
+						"key": "ally_def_up",
 						"value": 0.8
 					},
 					{
@@ -41131,8 +41222,9 @@
 				"description_ja": "編成中、味方【重装】の最大HP+20%<@ba.talpu>（+4%）</>",
 				"blackboard": [
 					{
-						"key": "max_hp",
-						"value": 0.2
+						"key": "ally_max_hp",
+						"value": 0.2,
+						"condition": "defender"
 					}
 				]
 			},
@@ -41146,7 +41238,7 @@
 				"description_ja": "配置後、<$ba.shield>シールド</>を3枚形成する",
 				"blackboard": [
 					{
-						"key": "times",
+						"key": "shield",
 						"value": 3.0
 					}
 				]
@@ -41198,7 +41290,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["shield"],
 					"blackboard": [
 						{
 							"key": "def",
@@ -41750,7 +41842,7 @@
 					},
 					{
 						"key": "stun",
-						"value": 17
+						"value": 18
 					}
 				]
 			},
@@ -41916,7 +42008,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["protect"],
 					"blackboard": [
 						{
 							"key": "sp_recover_ratio",
@@ -42055,8 +42147,9 @@
 				"description_ja": "配置中、味方【重装】の攻撃力+23%<@ba.talpu>（+3%）</>",
 				"blackboard": [
 					{
-						"key": "atk",
-						"value": 0.23
+						"key": "ally_atk_up",
+						"value": 0.23,
+						"condition": "defender"
 					}
 				]
 			},
@@ -42195,7 +42288,7 @@
 						"value": -0.9
 					},
 					{
-						"key": "prob",
+						"key": "evasion",
 						"value": 0.75
 					}
 				]
@@ -42486,8 +42579,8 @@
 						"value": 0.2
 					},
 					{
-						"key": "atk",
-						"value": -0.15
+						"key": "atk_down",
+						"value": 0.15
 					},
 					{
 						"key": "duration",
@@ -42509,7 +42602,7 @@
 						"value": 0.1
 					},
 					{
-						"key": "prob",
+						"key": "phys_evasion",
 						"value": 0.15
 					}
 				]
@@ -42855,7 +42948,7 @@
 					},
 					{
 						"key": "respawn_time",
-						"value": -0.12
+						"value": 0.12
 					}
 				]
 			},
@@ -43095,7 +43188,8 @@
 					},
 					{
 						"key": "root",
-						"value": 1.5
+						"value": 1.5,
+						"prob": 0.23
 					}
 				]
 			}
@@ -43172,7 +43266,8 @@
 					},
 					{
 						"key": "stun",
-						"value": 5.0
+						"value": 5.0,
+						"prob": 0.25
 					},
 					{
 						"key": "ability_range_forward_extend",
@@ -43324,7 +43419,7 @@
 						"value": 0.06
 					},
 					{
-						"key": "prob",
+						"key": "phys_evasion",
 						"value": 0.13
 					}
 				]
@@ -43590,10 +43685,6 @@
 					{
 						"key": "attack_speed",
 						"value": 21.0
-					},
-					{
-						"key": "atk",
-						"value": 0.0
 					}
 				]
 			}
@@ -43776,7 +43867,8 @@
 					},
 					{
 						"key": "tremble",
-						"value": 5.0
+						"value": 5.0,
+						"prob": 0.1
 					}
 				]
 			},
@@ -43792,7 +43884,7 @@
 					{
 						"key": "def_penetrate",
 						"value": 0.3,
-						"condition": "debuff:tremble"
+						"condition": "tremble"
 					}
 				]
 			}
@@ -44370,7 +44462,7 @@
 				"description_ja": "敵の術耐性を22<@ba.talpu>（+2）</>無視して攻撃",
 				"blackboard": [
 					{
-						"key": "magic_resist_penetrate_fixed",
+						"key": "res_penetrate_fixed",
 						"value": 22.0
 					}
 				]
@@ -44445,7 +44537,7 @@
 						"value": 0.2
 					},
 					{
-						"key": "steal_atk_speed",
+						"key": "aspd_down",
 						"value": 40.0
 					},
 					{
@@ -44518,8 +44610,9 @@
 				"description_ja": "",
 				"blackboard": [
 					{
-						"key": "prob",
-						"value": 0.2
+						"key": "shield",
+						"value": 1,
+						"prob": 0.2
 					}
 				]
 			}
@@ -44558,8 +44651,9 @@
 						"value": 0.8
 					},
 					{
-						"key": "prob",
-						"value": 0.75
+						"key": "phys_evasion",
+						"value": 0.75,
+						"duration": 13
 					}
 				]
 			},
@@ -44671,7 +44765,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["protect"],
 					"blackboard": [
 						{
 							"key": "value",
@@ -45173,7 +45267,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["peak_performance", "minos"],
 					"blackboard": [
 						{
 							"key": "atk_scale",
@@ -45182,7 +45276,7 @@
 						{
 							"key": "peak_performance",
 							"value": 0.3,
-							"condition": "hp_above_50"
+							"condition": "minos"
 						}
 					]
 				}
@@ -45240,7 +45334,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["deploy_all"],
 					"blackboard": [
 						{
 							"key": "buildable_type",
@@ -45623,7 +45717,8 @@
 				"blackboard": [
 					{
 						"key": "damage_resistance",
-						"value": 0.35
+						"value": 0.35,
+						"condition": "croc_duel"
 					}
 				]
 			},
@@ -45766,7 +45861,7 @@
 						"value": 1.0
 					},
 					{
-						"key": "prob",
+						"key": "phys_evasion",
 						"value": 0.4
 					},
 					{
@@ -46446,7 +46541,7 @@
 				"description_ja": "物理回避+33%<@ba.talpu>（+3%）</>、回避後5秒間攻撃速度+12（重複不可）",
 				"blackboard": [
 					{
-						"key": "prob",
+						"key": "phys_evasion",
 						"value": 0.33
 					},
 					{
@@ -46567,8 +46662,9 @@
 				"skillId": "skchr_nightm_2",
 				"blackboard": [
 					{
-						"key": "move_speed",
-						"value": -0.6
+						"key": "move_speed_down",
+						"value": 0.6,
+						"duration": 10
 					},
 					{
 						"key": "max_target",
@@ -46600,7 +46696,7 @@
 				"description_ja": "スキル1装着時物理と術回避+45%<@ba.talpu>(+5%)</>、スキル2装着時攻撃力+18%<@ba.talpu>(+3%)</>",
 				"blackboard": [
 					{
-						"key": "prob",
+						"key": "evasion",
 						"value": 0.45
 					},
 					{
@@ -46742,8 +46838,9 @@
 				"description_ja": "配置中、味方【先鋒】の物理回避+25%<@ba.talpu>(+5%)</>",
 				"blackboard": [
 					{
-						"key": "prob",
-						"value": 0.25
+						"key": "phys_evasion",
+						"value": 0.25,
+						"condition": "pioneer"
 					}
 				]
 			}
@@ -46802,7 +46899,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["phys_evasion"],
 					"blackboard": [
 						{
 							"key": "cost",
@@ -46813,7 +46910,7 @@
 							"value": 1.0
 						},
 						{
-							"key": "prob",
+							"key": "phys_evasion",
 							"value": 0.35
 						}
 					]
@@ -46960,7 +47057,7 @@
 						}
 					],
 					"tokenAttributeBlackboard": {},
-					"tags": [],
+					"tags": ["revive", "abyssal"],
 					"blackboard": [
 						{
 							"key": "attack_speed",
