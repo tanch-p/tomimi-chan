@@ -2,6 +2,9 @@ import { writable, derived } from 'svelte/store';
 import filterOptions from '$lib/data/chara/filter_options.json';
 import relics from '$lib/data/chara/relics_chara.json';
 
+const SEARCH_IN_TAGS = ['weightless', 'cancel_stealth', 'stealth', 'camouflage'];
+const SEARCH_IN_BLACKBOARD = ['magicfragile', 'fragile', 'undying', 'phys_evasion', 'arts_evasion'];
+
 const generateFilterStore = (filterOptions) => {
 	return Object.keys(filterOptions).reduce((acc, key) => {
 		switch (key) {
@@ -102,8 +105,7 @@ export const filters = derived(
 							);
 						});
 						break;
-					case 'debuff':
-					case 'buff':
+
 					case 'status_ailment':
 						acc.push(
 							(char) =>
@@ -117,6 +119,31 @@ export const filters = derived(
 									.filter((equip) => equip.combatData)
 									.some((equip) =>
 										equip.combatData.blackboard.find((item) => selectedOptions.includes(item.key))
+									)
+						);
+						break;
+					case 'debuff':
+					case 'buff':
+						const tags = SEARCH_IN_TAGS.filter((tag) => selectedOptions.includes(tag));
+						const keys = SEARCH_IN_BLACKBOARD.filter((key) => selectedOptions.includes(key));
+						acc.push(
+							(char) =>
+								char.skills.some(
+									(skill) =>
+										skill.blackboard.find((item) => keys.includes(item.key)) ||
+										tags.some((tag) => skill.tags.includes(tag))
+								) ||
+								char.talents.some(
+									(talent) =>
+										talent.blackboard.find((item) => keys.includes(item.key)) ||
+										tags.some((tag) => talent.tags.includes(tag))
+								) ||
+								char.uniequip
+									.filter((equip) => equip.combatData)
+									.some(
+										(equip) =>
+											equip.combatData.blackboard.find((item) => keys.includes(item.key)) ||
+											tags.some((tag) => equip.combatData.tags.includes(tag))
 									)
 						);
 						break;
