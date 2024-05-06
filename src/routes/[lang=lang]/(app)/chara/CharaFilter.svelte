@@ -1,14 +1,12 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
-	import { filtersStore } from './stores';
+	import { filtersStore, relicFiltersStore, rogueTopic } from './stores';
 	import translations from '$lib/translations.json';
 	import filterOptions from '$lib/data/chara/filter_options.json';
 	import CharaFilterToggle from './CharaFilterToggle.svelte';
 	import relics from '$lib/data/chara/relics_chara.json';
 
 	export let language: Language;
-	let rogueTopic = 'rogue_3';
-
 	const filterLayout = ['rarity', 'profession', ['subProfessionId', 'groups'], 'status_ailment'];
 
 	$: isSelected = (key, value) => {
@@ -21,6 +19,16 @@
 			const catIndex = list.findIndex((ele) => ele.key === key);
 			const optionIndex = list[catIndex].options.findIndex((ele) => ele.value === value);
 			list[catIndex].options[optionIndex].selected = !list[catIndex].options[optionIndex].selected;
+			return list;
+		});
+	};
+	$: isRelicSelected = (id) => {
+		return $relicFiltersStore.find((relic) => relic.id === id)?.selected;
+	};
+	const updateRelicFilters = (id) => {
+		relicFiltersStore.update((list) => {
+			const index = list.findIndex((ele) => ele.id === id);
+			list[index].selected = !list[index].selected;
 			return list;
 		});
 	};
@@ -102,40 +110,41 @@
 			</div>
 		</div>
 	</CharaFilterToggle>
-	<p class="border-b text-center pb-1 md:pb-2 mt-4">{translations[language].filter_ability}</p>
-	<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 mt-2 md:mt-3">
-		<p class="md:py-[5px]">{translations[language]['status_ailment']}:</p>
-		<div class="flex flex-wrap gap-2">
-			{#each filterOptions['status_ailment'] as value}
-				<button
-					class="filter-btn"
-					class:active={isSelected('status_ailment', value)}
-					on:click={() => updateFilters('status_ailment', value)}
-				>
-					{translations[language][value]}
-				</button>
-			{/each}
+	<CharaFilterToggle title={translations[language].filter_ability} isOpen={true}>
+		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 mt-2 md:mt-3">
+			<p class="md:py-[5px]">{translations[language]['status_ailment']}:</p>
+			<div class="flex flex-wrap gap-2">
+				{#each filterOptions['status_ailment'] as value}
+					<button
+						class="filter-btn"
+						class:active={isSelected('status_ailment', value)}
+						on:click={() => updateFilters('status_ailment', value)}
+					>
+						{translations[language][value]}
+					</button>
+				{/each}
+			</div>
+			<p />
+			<div class="flex flex-wrap gap-2">
+				{#each filterOptions['debuff'] as value}
+					<button
+						class="filter-btn"
+						class:active={isSelected('debuff', value)}
+						on:click={() => updateFilters('debuff', value)}
+					>
+						{translations[language][value]}
+					</button>
+				{/each}
+			</div>
 		</div>
-		<p />
-		<div class="flex flex-wrap gap-2">
-			{#each filterOptions['debuff'] as value}
-				<button
-					class="filter-btn"
-					class:active={isSelected('debuff', value)}
-					on:click={() => updateFilters('debuff', value)}
-				>
-					{translations[language][value]}
-				</button>
-			{/each}
-		</div>
-	</div>
+	</CharaFilterToggle>
 	<CharaFilterToggle title={translations[language].is_title}>
 		<div class="flex md:justify-center gap-3 mt-2 md:mt-3">
 			{#each Object.keys(relics) as topic}
 				<button
-					class:active={rogueTopic === topic}
+					class:active={$rogueTopic === topic}
 					class="filter-btn"
-					on:click={() => (rogueTopic = topic)}
+					on:click={() => rogueTopic.set(topic)}
 				>
 					{translations[language][topic]}
 				</button>
@@ -144,8 +153,12 @@
 		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 mt-2 md:mt-3">
 			<p class="md:py-[5px]">{translations[language]['rogue_relic']}:</p>
 			<div class="flex flex-col gap-3">
-				{#each relics[rogueTopic] as relic}
-					<button class="grid grid-cols-[100px_1fr] gap-2 hover:bg-slate-200 text-left">
+				{#each relics[$rogueTopic] as relic}
+					<button
+						class="grid grid-cols-[100px_1fr] gap-2 hover:bg-slate-200 text-left"
+						class:bg-slate-200={isRelicSelected(relic.id)}
+						on:click={() => updateRelicFilters(relic.id)}
+					>
 						<img
 							src={''}
 							alt={relic[`name_${language}`] || relic['name_zh']}
