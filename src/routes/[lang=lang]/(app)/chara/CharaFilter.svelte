@@ -136,6 +136,18 @@
 					</button>
 				{/each}
 			</div>
+			<p class="md:py-[5px]">{translations[language]['buff']}:</p>
+			<div class="flex flex-wrap gap-2">
+				{#each filterOptions['buff'] as value}
+					<button
+						class="filter-btn"
+						class:active={isSelected('buff', value)}
+						on:click={() => updateFilters('buff', value)}
+					>
+						{translations[language][value]}
+					</button>
+				{/each}
+			</div>
 		</div>
 	</CharaFilterToggle>
 	<CharaFilterToggle title={translations[language].is_title}>

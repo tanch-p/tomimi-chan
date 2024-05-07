@@ -52,5 +52,5 @@
 		/>
 	</div>
 	<CharaFilterDesc {language} />
-	<CharaPopup />
+	<CharaPopup {language}/>
 </div>
