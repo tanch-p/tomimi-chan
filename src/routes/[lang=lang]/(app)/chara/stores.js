@@ -3,7 +3,7 @@ import filterOptions from '$lib/data/chara/filter_options.json';
 import relics from '$lib/data/chara/relics_chara.json';
 
 const SEARCH_IN_TAGS = ['weightless', 'cancel_stealth', 'stealth', 'camouflage', 'taunt', 'undying'];
-const SEARCH_IN_BLACKBOARD = ['magicfragile', 'fragile',  'phys_evasion', 'arts_evasion'];
+const SEARCH_IN_BLACKBOARD = ['magicfragile', 'fragile',  'phys_evasion', 'arts_evasion','protect','damage_resistance'];
 
 const generateFilterStore = (filterOptions) => {
 	return Object.keys(filterOptions).reduce((acc, key) => {
