@@ -3,8 +3,25 @@
 	import type { Language } from '$lib/types';
 	import { selectedChara } from './stores';
 	import translations from '$lib/translations.json';
+	import hpIcon from '$lib/images/is/icon_sort_hp.webp';
+	import atkIcon from '$lib/images/is/icon_sort_atk.webp';
+	import defIcon from '$lib/images/is/icon_sort_def.webp';
+	import resIcon from '$lib/images/is/icon_sort_res_def.webp';
+	import aspdIcon from '$lib/images/is/aspd.webp';
 
 	export let language: Language;
+	const statKeyIcons = {
+		hp: hpIcon,
+		atk: atkIcon,
+		def: defIcon,
+		res: resIcon,
+		// respawnTime: respawnIcon,
+		// cost: costIcon,
+		// blockCnt: blockIcon,
+		aspd: aspdIcon
+	};
+	const statKeys = ['hp', 'respawnTime', 'atk', 'cost', 'def', 'blockCnt', 'cost', 'aspd'];
+
 	$: console.log($selectedChara);
 </script>
 
@@ -22,7 +39,31 @@
 			{@const displayLang = !!$selectedChara.name_en ? language : 'zh'}
 			<div class="grid grid-cols-[75px_1fr]">
 				<img src="" width="75" height="75" alt={$selectedChara.appellation} />
-				{$selectedChara[`name_${displayLang}`]}
+				<div>
+					<p>{$selectedChara[`name_${displayLang}`]}</p>
+					<p>全部位</p>
+				</div>
+			</div>
+			<div>
+				<div class="grid grid-cols-[120px_1fr] gap-x-2 items-center">
+					<div>range</div>
+					<div class="grid grid-cols-2 gap-x-2 gap-y-1">
+						{#each statKeys as statKey}
+							<div
+								class={`flex flex-col bg-[#161616] bg-opacity-80 px-1 ${
+									language === 'en' ? 'text-sm' : ''
+								}`}
+							>
+								<div class="flex items-center gap-x-1.5">
+									<img src={statKeyIcons[statKey]} width="14px" height="14px" alt="" />
+									<p class="text-near-white">
+										{$selectedChara['stats'][statKey]}{statKey === 'respawnTime' ? 's' : ''}
+									</p>
+								</div>
+							</div>
+						{/each}
+					</div>
+				</div>
 			</div>
 			<div class="grid grid-cols-[75px_1fr] items-center">
 				<img src="" width="75" height="75" alt="icon" />
