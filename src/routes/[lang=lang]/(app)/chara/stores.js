@@ -2,8 +2,8 @@ import { writable, derived } from 'svelte/store';
 import filterOptions from '$lib/data/chara/filter_options.json';
 import relics from '$lib/data/chara/relics_chara.json';
 
-const SEARCH_IN_TAGS = ['weightless', 'cancel_stealth', 'stealth', 'camouflage', 'taunt', 'undying'];
-const SEARCH_IN_BLACKBOARD = ['magicfragile', 'fragile',  'phys_evasion', 'arts_evasion','protect','damage_resistance'];
+const SEARCH_IN_TAGS = ['weightless', 'cancel_stealth', 'stealth', 'camouflage', 'taunt', 'undying','dying','barrier','infected','starting_cost','enemy_hp',"lower_target_priority","env","min_damage"];
+const SEARCH_IN_BLACKBOARD = ['magicfragile', 'fragile',  'phys_evasion', 'arts_evasion','protect','damage_resistance',"ally_shield","poison_damage","block_dmg","sp_gain","ally_sp_gain","heal_scale"];
 
 const generateFilterStore = (filterOptions) => {
 	return Object.keys(filterOptions).reduce((acc, key) => {
