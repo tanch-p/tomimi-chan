@@ -9,7 +9,6 @@
 	import CharaSortOptions from './CharaSortOptions.svelte';
 	import CharaPopup from './CharaPopup.svelte';
 	import translations from '$lib/translations.json';
-
 	export let data: PageData;
 	let language: Language;
 	$: language = data.language;

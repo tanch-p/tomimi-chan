@@ -5,6 +5,7 @@
 	import filterOptions from '$lib/data/chara/filter_options.json';
 	import CharaFilterToggle from './CharaFilterToggle.svelte';
 	import relics from '$lib/data/chara/relics_chara.json';
+	import { relicLookup } from '$lib/data/relic_lookup';
 
 	export let language: Language;
 	const filterLayout = ['rarity', 'profession', ['subProfessionId', 'groups'], 'status_ailment'];
@@ -179,8 +180,10 @@
 						on:click={() => updateRelicFilters(relic.id)}
 					>
 						<img
-							src={''}
+							src={relicLookup[relic['id']]}
 							alt={relic[`name_${language}`] || relic['name_zh']}
+							width="100"
+							height="100"
 							loading="lazy"
 							decoding="async"
 						/>

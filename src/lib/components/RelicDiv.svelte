@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type {Language} from "$lib/types"
-	export let relic, language: Language, rogueTopic: string, selectedRelics;
+	import type {Language, RogueTopic} from "$lib/types"
+	import { relicLookup } from "$lib/data/relic_lookup";
+	export let relic, language: Language, rogueTopic: RogueTopic, selectedRelics;
 
-	const src = `https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_100/v1681056192/tomimi.dev/relics/${relic.img}.webp`;
 	$: name = relic[`name_${language}`] || relic[`name_zh`];
 	$: tooltip = relic[`tooltip_${language}`] || relic[`tooltip_zh`];
 
@@ -40,7 +40,7 @@
 	}`}
 	on:click={handleClick}
 >
-	<img {src} alt={name} loading="lazy" decoding="async" class="relic w-[75px] sm:w-[95px]" />
+	<img src={relicLookup[relic.id]} alt={name} loading="lazy" decoding="async" class="relic w-[75px] sm:w-[95px]" />
 	<div class="relic px-2">
 		<p
 			class={`relic text-lg sm:text-xl ${selected ? getSelectedTextColor(rogueTopic) : 'text-gray-400'}`}

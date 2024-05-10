@@ -1,11 +1,12 @@
 <script lang="ts">
-	import type { Language } from '$lib/types';
+	import type { Language, RogueTopic } from '$lib/types';
 	import relicIcon from '$lib/images/is/relic.png';
 	import RelicsOverlay from './RelicsOverlay.svelte';
 	import translations from '$lib/translations.json';
 	import Icon from './Icon.svelte';
+	import { relicLookup } from '$lib/data/relic_lookup';
 	export let language: Language,
-		rogueTopic: string,
+		rogueTopic: RogueTopic,
 		selectedRelics,
 		selectedUniqueRelic = null;
 	let openOverlay = false;
@@ -35,7 +36,7 @@
 							<div
 								class="absolute flex flex-col inset-0 bg-[#212121] bg-opacity-70 text-center justify-center"
 							>
-								<Icon name="down-arrow" className="w-6 h-6 mx-auto"/>
+								<Icon name="down-arrow" className="w-6 h-6 mx-auto" />
 								<p class="font-medium text-near-white">
 									{translations[language]['relic_overlay_close']}
 								</p>
@@ -54,7 +55,7 @@
 									/>
 									<div class="flex items-center text-center w-14 z-[1]">
 										<img
-											src={`https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_100/v1681056192/tomimi.dev/relics/${$selectedUniqueRelic.img}.webp`}
+											src={relicLookup[$selectedUniqueRelic.id]}
 											width="54px"
 											alt={$selectedUniqueRelic[`name_${language}`] || $selectedUniqueRelic.name_zh}
 											loading="lazy"
@@ -70,7 +71,7 @@
 									/>
 									<div class="flex items-center text-center w-14 z-[1]">
 										<img
-											src={`https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_100/v1681056192/tomimi.dev/relics/${relic.img}.webp`}
+											src={relicLookup[relic.id]}
 											width="54px"
 											alt={relic[`name_${language}`] || relic.name_zh}
 											loading="lazy"

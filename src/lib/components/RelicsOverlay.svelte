@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type {Language, RogueTopic} from "$lib/types"
+	import type { Language, RogueTopic } from '$lib/types';
 	import { createEventDispatcher } from 'svelte';
 	import RelicDiv from './RelicDiv.svelte';
 	import translations from '$lib/translations.json';
@@ -20,6 +20,19 @@
 			dispatch('close');
 		}
 	}
+	const getRelicsList = (rogueTopic: RogueTopic) => {
+		switch (rogueTopic) {
+			case 'rogue_mizuki':
+				return mizukiRelics;
+			case 'rogue_phantom':
+				return phantomRelics;
+			case 'rogue_sami':
+				return samiRelics;
+			default:
+				return [];
+		}
+	};
+	$: relicsList = getRelicsList(rogueTopic);
 </script>
 
 <div
@@ -37,25 +50,14 @@
 				<div
 					class="grid lg:grid-cols-3 gap-x-10 gap-y-8 w-full overflow-x-auto md:overflow-visible my-auto mx-auto px-4 sm:px-24"
 				>
-					{#if rogueTopic === 'rogue_mizuki'}
-						{#each mizukiRelics as relic}
-							<RelicDiv {relic} {language} {rogueTopic} {selectedRelics} />
-						{/each}
-					{:else if rogueTopic === 'rogue_sami'}
-						{#each samiRelics as relic}
-							<RelicDiv {relic} {language} {rogueTopic} {selectedRelics} />
-						{/each}
-					{:else}
-						{#each phantomRelics as relic}
-							<RelicDiv {relic} {language} {rogueTopic} {selectedRelics} />
-						{/each}
-					{/if}
+					{#each relicsList as relic}
+						<RelicDiv {relic} {language} {rogueTopic} {selectedRelics} />
+					{/each}
 				</div>
 				<slot name="uniqueRelics" />
-				<!-- svelte-ignore a11y-click-events-have-key-events -->
-				<div
+				<button
 					id="reset"
-					class="rounded-xl bg-neutral-700 text-near-white px-16 py-2 mt-12 mx-auto w-min hover:cursor-pointer hover:bg-neutral-600"
+					class="block rounded-xl bg-neutral-700 text-near-white px-16 py-2 mt-12 mx-auto w-min hover:cursor-pointer hover:bg-neutral-600 whitespace-nowrap"
 					on:click={() => {
 						selectedRelics.set([]);
 						if (selectedUniqueRelic !== null) {
@@ -63,8 +65,8 @@
 						}
 					}}
 				>
-					<p class="whitespace-nowrap">{translations[language]['reset']}</p>
-				</div>
+					{translations[language]['reset']}
+				</button>
 			</div>
 		</div>
 	{/if}
