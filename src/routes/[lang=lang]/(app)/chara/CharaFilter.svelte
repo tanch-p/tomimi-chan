@@ -110,7 +110,7 @@
 			</div>
 		</div>
 	</CharaFilterToggle>
-	<CharaFilterToggle title={translations[language].filter_ability} isOpen={true}>
+	<CharaFilterToggle title={translations[language].enemy_debuff} isOpen={true}>
 		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 mt-2 md:mt-3">
 			<p class="md:py-[5px]">{translations[language]['status_ailment']}:</p>
 			<div class="flex flex-wrap gap-2">
@@ -124,7 +124,7 @@
 					</button>
 				{/each}
 			</div>
-			<p />
+			<p class="md:py-[5px]">{translations[language]['special_debuff']}:</p>
 			<div class="flex flex-wrap gap-2">
 				{#each filterOptions['debuff'] as value}
 					<button
@@ -136,6 +136,11 @@
 					</button>
 				{/each}
 			</div>
+			<p class="md:py-[5px]">{translations[language]['stats']}:</p>
+		</div>
+	</CharaFilterToggle>
+	<CharaFilterToggle title={translations[language].ally_buff}>
+		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 mt-2 md:mt-3">
 			<p class="md:py-[5px]">{translations[language]['buff']}:</p>
 			<div class="flex flex-wrap gap-2">
 				{#each filterOptions['buff'] as value}
@@ -148,8 +153,10 @@
 					</button>
 				{/each}
 			</div>
-		</div>
-	</CharaFilterToggle>
+		</div></CharaFilterToggle
+	>
+	<CharaFilterToggle title={translations[language].self_buff} />
+	<CharaFilterToggle title={translations[language].others} />
 	<CharaFilterToggle title={translations[language].is_title}>
 		<div class="flex md:justify-center gap-3 mt-2 md:mt-3">
 			{#each Object.keys(relics) as topic}
