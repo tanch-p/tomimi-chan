@@ -57,14 +57,13 @@ export const getMaxRowSpan = (enemy: Enemy) => {
 export function parseStats(
 	enemies: Enemy[],
 	statMods: StatMods,
-	finalFixedStatMods,
 	...effectsToAdd: Effects[]
 ) {
 	return enemies.map((enemy) => {
 		const maxRowSpan = getMaxRowSpan(enemy);
 		const moddedStats = [];
 		for (let i = 0; i < maxRowSpan; i++) {
-			moddedStats.push(applyMods(enemy, statMods, i, finalFixedStatMods, effectsToAdd));
+			moddedStats.push(applyMods(enemy, statMods, i, effectsToAdd));
 		}
 		return {
 			...enemy,
@@ -82,7 +81,6 @@ export const applyMods = (
 	enemy: Enemy,
 	statMods: StatMods,
 	row: number,
-	finalFixedStatMods,
 	effectsToAdd: Effects[]
 ) => {
 	const mods = getEnemyStatMods(enemy, statMods, row, effectsToAdd);
@@ -94,22 +92,6 @@ export const applyMods = (
 			mods[stat],
 			mods?.[`fixed_${stat}`] ?? 0
 		);
-		//hotfix for sami_portal
-		if (finalFixedStatMods) {
-			if(stat === "dmg_reduction"){
-				continue;
-			}
-			for (const { targets, mods } of finalFixedStatMods) {
-				if (targets.some((target) => checkIsTarget(enemy, target))) {
-					enemy_stats[stat] = calculateModdedStat(
-						enemy_stats[stat],
-						stat,
-						mods[stat] ?? 1,
-						mods?.[`fixed_${stat}`] ?? 0
-					);
-				}
-			}
-		}
 	}
 	return enemy_stats;
 };
