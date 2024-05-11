@@ -3,6 +3,7 @@
 	import translations from '$lib/translations.json';
 	import Icon from '$lib/components/Icon.svelte';
 	import { selectedChara } from './stores';
+	import CharaIcon from './CharaIcon.svelte';
 
 	export let characters, language: Language;
 
@@ -36,19 +37,22 @@
 		</div>
 
 		{#if displayMode === 'grid'}
-			<div class="mt-4 grid grid-cols-4 md:grid-cols-8">
+			<div class="grid grid-cols-4 sm:flex flex-wrap gap-1.5 mt-4 px-1.5 sm:px-0">
 				{#each characters as chara}
 					<button on:click={() => selectedChara.set(chara)}>
-						{chara.appellation}
+						<CharaIcon {chara} />
 					</button>
 				{/each}
 			</div>
 		{:else}
-			<div class="mt-4 flex flex-col">
+			<div class="mt-4 flex flex-col gap-1.5">
 				{#each characters as chara}
-					<button on:click={() => selectedChara.set(chara)}>
+					<div class="grid grid-cols-[100px_1fr]">
+						<button on:click={() => selectedChara.set(chara)}>
+							<CharaIcon {chara} />
+						</button>
 						{chara.appellation}
-					</button>
+					</div>
 				{/each}
 			</div>
 		{/if}

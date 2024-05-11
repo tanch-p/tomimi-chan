@@ -3,50 +3,66 @@
 	import type { Language } from '$lib/types';
 	import { selectedChara } from './stores';
 	import translations from '$lib/translations.json';
-	import hpIcon from '$lib/images/is/icon_sort_hp.webp';
-	import atkIcon from '$lib/images/is/icon_sort_atk.webp';
-	import defIcon from '$lib/images/is/icon_sort_def.webp';
-	import resIcon from '$lib/images/is/icon_sort_res_def.webp';
-	import aspdIcon from '$lib/images/is/aspd.webp';
+	import Icon from '$lib/components/Icon.svelte';
+	import { charaAssets } from '$lib/data/chara/chara_assets';
+	import { uniequips } from '$lib/data/chara/uniequip_lookup';
 
 	export let language: Language;
-	const statKeyIcons = {
-		hp: hpIcon,
-		atk: atkIcon,
-		def: defIcon,
-		res: resIcon,
-		// respawnTime: respawnIcon,
-		// cost: costIcon,
-		// blockCnt: blockIcon,
-		aspd: aspdIcon
-	};
-	const statKeys = ['hp', 'respawnTime', 'atk', 'cost', 'def', 'blockCnt', 'cost', 'aspd'];
+	const statKeys = ['hp', 'respawnTime', 'atk', 'cost', 'def', 'blockCnt', 'res', 'aspd'];
 
+	let moduleIndex = 0;
 	$: console.log($selectedChara);
 </script>
 
 <div class="overlay" class:visible={$selectedChara}>
 	<div
 		class:visible={$selectedChara}
-		class="popup text-black"
+		class="popup text-near-white bg-neutral-800 bg-opacity-95 no-scrollbar"
 		use:clickOutside
 		on:outclick={() => selectedChara.set(null)}
 	>
-		<button class="absolute right-[8px] text-black" on:click={() => selectedChara.set(null)}
-			>x</button
+		<button class="absolute right-[4px] top-[4px]" on:click={() => selectedChara.set(null)}
+			><Icon name="x-mark" /></button
 		>
 		{#if $selectedChara}
 			{@const displayLang = !!$selectedChara.name_en ? language : 'zh'}
-			<div class="grid grid-cols-[75px_1fr]">
-				<img src="" width="75" height="75" alt={$selectedChara.appellation} />
-				<div>
-					<p>{$selectedChara[`name_${displayLang}`]}</p>
-					<p>全部位</p>
+			{@const phase = ['TIER_1', 'TIER_2'].includes($selectedChara.rarity)
+				? 0
+				: $selectedChara.rarity === 'TIER_3'
+				? 1
+				: 2}
+			<div class="grid grid-cols-[100px_1fr_75px] pr-10">
+				<img
+					src={$selectedChara.icon}
+					width="100"
+					height="100"
+					alt={$selectedChara.appellation}
+					class="ring-1 ring-[#555]"
+				/>
+				<div class="pl-3 pt-1.5">
+					<p>{$selectedChara.appellation}</p>
+					<p class="text-xl">{$selectedChara[`name_${displayLang}`]}</p>
+					<!--TODO <p>全部位</p> -->
+				</div>
+				<div class="shadow-md h-min self-center mt-3">
+					<img
+						width="75"
+						src={charaAssets[$selectedChara.profession + '_LG']}
+						alt={$selectedChara.profession}
+						class="opacity-60"
+					/>
 				</div>
 			</div>
 			<div>
-				<div class="grid grid-cols-[120px_1fr] gap-x-2 items-center">
-					<div>range</div>
+				<div class="grid grid-cols-[70px_1fr] gap-x-2 items-center px-1 mt-3">
+					<div class="flex flex-col items-center justify-evenly h-full">
+						<div class="border-2 border-[#ffd800] rounded-full h-[60px] w-[60px] text-center">
+							<p class="text-[10px] mt-[2px] tracking-widest">LV</p>
+							<p class="-mt-2.5 text-4xl">{$selectedChara.stats.level}</p>
+						</div>
+						<img src={charaAssets['phase'][phase]} width="50" alt="E2" />
+						<img src={charaAssets.potential[5]} width="60" alt="p5" />
+					</div>
 					<div class="grid grid-cols-2 gap-x-2 gap-y-1">
 						{#each statKeys as statKey}
 							<div
@@ -54,40 +70,80 @@
 									language === 'en' ? 'text-sm' : ''
 								}`}
 							>
-								<div class="flex items-center gap-x-1.5">
-									<img src={statKeyIcons[statKey]} width="14px" height="14px" alt="" />
-									<p class="text-near-white">
-										{$selectedChara['stats'][statKey]}{statKey === 'respawnTime' ? 's' : ''}
-									</p>
+								<div class="grid grid-cols-[14px_1fr] items-center gap-x-1.5">
+									<img src={charaAssets[statKey]} width="14px" height="14px" alt="" />
+									<span class="text-[#b3b3b3] font-semibold">
+										{translations[language].table_headers[statKey]}
+									</span>
 								</div>
+								<p class="text-near-white px-[18px]">
+									{$selectedChara['stats'][statKey]}{statKey === 'respawnTime' ? 's' : ''}
+								</p>
 							</div>
 						{/each}
 					</div>
 				</div>
 			</div>
-			<div class="grid grid-cols-[75px_1fr] items-center">
-				<img src="" width="75" height="75" alt="icon" />
-				{$selectedChara.subProfessionId}
+			<div class="px-1.5">
+				<div class="grid grid-cols-[70px_1fr_auto] items-center mt-3">
+					<div class="flex items-center justify-center w-[65px] h-[65px] bg-neutral-900">
+						<img
+							src={charaAssets[$selectedChara.subProfessionId]}
+							width="50"
+							alt={$selectedChara.subProfessionId}
+						/>
+					</div>
+					<p class="ml-3 text-xl">{translations[language][$selectedChara.subProfessionId]}</p>
+					<div>rangeId: {$selectedChara.stats.rangeId}</div>
+				</div>
+
+				<p class="mt-2">{$selectedChara[`desc_${displayLang}`]}</p>
+				<p class="mt-4">{translations[language].module}</p>
+				<div class="overflow-scroll max-w-full no-scrollbar">
+					<div class="flex mt-4 gap-x-8 w-max px-4">
+						{#if $selectedChara.uniequip.length === 0}
+							<div class="module none" />
+						{:else}
+							{#each $selectedChara.uniequip as equip, idx}
+								{@const typeIcon = equip.typeIcon.toLowerCase()}
+								<button
+									class:active={moduleIndex === idx}
+									class="module flex-col"
+									on:click={() => (moduleIndex = idx)}
+								>
+									<div class="grid items-center w-[40px] h-[48px]">
+										<img src={uniequips[typeIcon]} width="40" alt={typeIcon} class="" />
+									</div>
+									<div class="flex gap-x-0.5 text-xs font-light uppercase">
+										{#if typeIcon !== 'original'}
+											{@const parts = typeIcon.split('-')}
+											{parts[0]}
+											<img src={charaAssets[parts[1]]} alt={parts[1]} width="13px" />
+										{:else}
+											{typeIcon}
+										{/if}
+									</div>
+								</button>
+							{/each}
+						{/if}
+					</div>
+				</div>
+				<hr class="mt-4 mb-3 border-t-2 border-[#555]" />
+				{#if $selectedChara.talents && $selectedChara.talents.length > 0}
+					<p>{translations[language].talent}</p>
+					{#each $selectedChara.talents as talent}
+						<p>{talent[`name_${displayLang}`]}</p>
+						<p>{talent[`description_${displayLang}`]}</p>
+					{/each}
+				{/if}
+				{#if $selectedChara.skills && $selectedChara.skills.length > 0}
+					<p>{translations[language].skill}</p>
+					{#each $selectedChara.skills as skill}
+						<p>{skill[`name_${displayLang}`]}</p>
+						<p>{skill[`description_${displayLang}`]}</p>
+					{/each}
+				{/if}
 			</div>
-			<p>{$selectedChara[`desc_${displayLang}`]}</p>
-			<p>{translations[language].module}</p>
-			<div class="p-3">
-				<div class="module none" />
-			</div>
-			{#if $selectedChara.skills && $selectedChara.skills.length > 0}
-				<p>{translations[language].skill}</p>
-				{#each $selectedChara.skills as skill}
-					<p>{skill[`name_${displayLang}`]}</p>
-					<p>{skill[`description_${displayLang}`]}</p>
-				{/each}
-			{/if}
-			{#if $selectedChara.talents && $selectedChara.talents.length > 0}
-				<p>{translations[language].talent}</p>
-				{#each $selectedChara.talents as talent}
-					<p>{talent[`name_${displayLang}`]}</p>
-					<p>{talent[`description_${displayLang}`]}</p>
-				{/each}
-			{/if}
 		{/if}
 	</div>
 </div>
@@ -106,7 +162,6 @@
 		border-radius: 5px;
 		width: min(calc(100% - 15px), 500px);
 		position: fixed;
-		background-color: white;
 		inset: 0;
 		min-height: 300px;
 		max-height: 500px;
@@ -123,18 +178,24 @@
 	}
 	.module {
 		position: relative;
-		width: 50px;
-		height: 50px;
-		border: 1px solid #363636;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 75px;
+		height: 75px;
+		border: 3px solid #555;
+	}
+	.module.active {
+		border-color: #0098dc;
 	}
 	.module.none:after {
 		content: '';
 		position: absolute;
 		top: 50%;
-		left: calc(-25% + 1px);
+		left: 0;
 		width: calc(1px * sqrt(pow(50, 2) * 2) - 1px);
 		height: 1px;
-		background-color: #000;
+		background-color: #555;
 		transform: rotate(-45deg);
 	}
 </style>

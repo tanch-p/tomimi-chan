@@ -30,3 +30,8 @@ export const updateSortPriority = (sortOptions, index) => {
 		return ele;
 	});
 };
+
+export const getCharaImages = (chara_list) =>
+	chara_list.map(
+		(chara) => import(`../images/chara_icons/icon_${chara.id}.webp`)
+	);
