@@ -6,6 +6,7 @@
 	import Icon from '$lib/components/Icon.svelte';
 	import { charaAssets } from '$lib/data/chara/chara_assets';
 	import { uniequips } from '$lib/data/chara/uniequip_lookup';
+	import CharaSkill from './CharaSkill.svelte';
 
 	export let language: Language;
 	const statKeys = ['hp', 'respawnTime', 'atk', 'cost', 'def', 'blockCnt', 'res', 'aspd'];
@@ -17,7 +18,7 @@
 <div class="overlay" class:visible={$selectedChara}>
 	<div
 		class:visible={$selectedChara}
-		class="popup text-near-white bg-neutral-800 bg-opacity-95 no-scrollbar"
+		class="popup text-near-white bg-neutral-800 bg-opacity-95 pb-12 no-scrollbar"
 		use:clickOutside
 		on:outclick={() => selectedChara.set(null)}
 	>
@@ -31,7 +32,7 @@
 				: $selectedChara.rarity === 'TIER_3'
 				? 1
 				: 2}
-			<div class="grid grid-cols-[100px_1fr_75px] pr-10">
+			<div class="grid grid-cols-[100px_1fr] pr-10">
 				<img
 					src={$selectedChara.icon}
 					width="100"
@@ -40,25 +41,30 @@
 					class="ring-1 ring-[#555]"
 				/>
 				<div class="pl-3 pt-1.5">
+					<img
+						src={charaAssets[$selectedChara.rarity]}
+						alt={$selectedChara.rarity}
+						class="relative -left-1 h-[20px]"
+					/>
 					<p>{$selectedChara.appellation}</p>
 					<p class="text-xl">{$selectedChara[`name_${displayLang}`]}</p>
 					<!--TODO <p>全部位</p> -->
 				</div>
-				<div class="shadow-md h-min self-center mt-3">
+				<!-- <div class="shadow-md h-min self-center mt-3">
 					<img
 						width="75"
 						src={charaAssets[$selectedChara.profession + '_LG']}
 						alt={$selectedChara.profession}
 						class="opacity-60"
 					/>
-				</div>
+				</div> -->
 			</div>
 			<div>
 				<div class="grid grid-cols-[70px_1fr] gap-x-2 items-center px-1 mt-3">
 					<div class="flex flex-col items-center justify-evenly h-full">
 						<div class="border-2 border-[#ffd800] rounded-full h-[60px] w-[60px] text-center">
-							<p class="text-[10px] mt-[2px] tracking-widest">LV</p>
-							<p class="-mt-2.5 text-4xl">{$selectedChara.stats.level}</p>
+							<p class="text-[10px] mt-[1px] tracking-widest">LV</p>
+							<p class="-mt-2 text-4xl">{$selectedChara.stats.level}</p>
 						</div>
 						<img src={charaAssets['phase'][phase]} width="50" alt="E2" />
 						<img src={charaAssets.potential[5]} width="60" alt="p5" />
@@ -132,15 +138,18 @@
 				{#if $selectedChara.talents && $selectedChara.talents.length > 0}
 					<p>{translations[language].talent}</p>
 					{#each $selectedChara.talents as talent}
-						<p>{talent[`name_${displayLang}`]}</p>
-						<p>{talent[`description_${displayLang}`]}</p>
+						<p class="py-[1px] px-2 mt-4 w-max bg-[#f9f9f9] rounded-md font-medium text-[#333]">
+							{talent[`name_${displayLang}`]}
+						</p>
+						<p class="mt-1">{talent[`description_${displayLang}`]}</p>
 					{/each}
 				{/if}
 				{#if $selectedChara.skills && $selectedChara.skills.length > 0}
-					<p>{translations[language].skill}</p>
+					<p class="mt-8">
+						{translations[language].skill} <span class="text-[#999]">※{translations[language].chara_rank_click}</span>
+					</p>
 					{#each $selectedChara.skills as skill}
-						<p>{skill[`name_${displayLang}`]}</p>
-						<p>{skill[`description_${displayLang}`]}</p>
+						<CharaSkill {skill} {displayLang} {language} />
 					{/each}
 				{/if}
 			</div>
@@ -152,7 +161,7 @@
 	.overlay {
 		position: fixed;
 		inset: 0;
-		background-color: rgba(0, 0, 0, 0.4);
+		background-color: rgba(0, 0, 0, 0.8);
 		z-index: 99;
 		pointer-events: none;
 		opacity: 0;
@@ -170,6 +179,7 @@
 		transition: transform 0.3s, opacity 0.2s, -webkit-transform 0.3s;
 		opacity: 0;
 		overflow-y: auto;
+		overscroll-behavior: contain;
 	}
 	.overlay.visible,
 	.popup.visible {

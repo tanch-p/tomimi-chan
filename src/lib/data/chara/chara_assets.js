@@ -102,6 +102,13 @@ import potential_5 from '$lib/images/chara_assets/potential_5.webp';
 import module_x from '$lib/images/chara_assets/x.webp';
 import module_y from '$lib/images/chara_assets/y.webp';
 import module_d from '$lib/images/chara_assets/d.webp';
+import sp_cost from '$lib/images/chara_assets/sp_cost.webp';
+import sp_start from '$lib/images/chara_assets/sp_start.png';
+import solid_7 from '$lib/images/chara_assets/solid_7.webp';
+import m0 from '$lib/images/chara_assets/evolve_small_icon_0.webp';
+import m1 from '$lib/images/chara_assets/evolve_small_icon_1.webp';
+import m2 from '$lib/images/chara_assets/evolve_small_icon_2.webp';
+import m3 from '$lib/images/chara_assets/evolve_small_icon_3.webp';
 
 export const charaAssets = {
 	TIER_1: star_1,
@@ -200,5 +207,9 @@ export const charaAssets = {
 	wandermedic: sub_wandermedic_icon,
 	x: module_x,
 	y: module_y,
-	d: module_d
+	d: module_d,
+	sp_cost: sp_cost,
+	sp_start: sp_start,
+	solid_7: solid_7,
+	mastery: [m0, m1, m2, m3]
 };

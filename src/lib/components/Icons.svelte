@@ -4,8 +4,15 @@ Provides a list of svg icons that can be referenced through the `Icon` component
 <div style="display: none">
 	<!-- wrapper div allows use of innerHTML -->
 	<svg>
-		<symbol id="x-mark" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+		<symbol id="x-mark" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
 			<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+		</symbol>
+		<symbol id="clock-icon" viewBox="0 0 24 24" fill="#bababa">
+			<path
+				fill-rule="evenodd"
+				d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z"
+				clip-rule="evenodd"
+			/>
 		</symbol>
 
 		<symbol id="down-arrow" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="#F2F2F2">
