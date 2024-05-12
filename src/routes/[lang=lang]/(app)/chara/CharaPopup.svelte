@@ -13,6 +13,9 @@
 
 	let moduleIndex = 0;
 	$: console.log($selectedChara);
+	$: if ($selectedChara) {
+		moduleIndex = 0;
+	}
 </script>
 
 <div class="overlay" class:visible={$selectedChara}>
@@ -22,9 +25,9 @@
 		use:clickOutside
 		on:outclick={() => selectedChara.set(null)}
 	>
-		<button class="absolute right-[4px] top-[4px]" on:click={() => selectedChara.set(null)}
-			><Icon name="x-mark" /></button
-		>
+		<button class="absolute right-[4px] top-[4px]" on:click={() => selectedChara.set(null)}>
+			<Icon name="x-mark" />
+		</button>
 		{#if $selectedChara}
 			{@const displayLang = !!$selectedChara.name_en ? language : 'zh'}
 			{@const phase = ['TIER_1', 'TIER_2'].includes($selectedChara.rarity)
@@ -146,7 +149,8 @@
 				{/if}
 				{#if $selectedChara.skills && $selectedChara.skills.length > 0}
 					<p class="mt-8">
-						{translations[language].skill} <span class="text-[#999]">※{translations[language].chara_rank_click}</span>
+						{translations[language].skill}
+						<span class="text-[#999]">※{translations[language].chara_rank_click}</span>
 					</p>
 					{#each $selectedChara.skills as skill}
 						<CharaSkill {skill} {displayLang} {language} />

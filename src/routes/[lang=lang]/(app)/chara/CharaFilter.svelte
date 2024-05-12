@@ -6,6 +6,8 @@
 	import CharaFilterToggle from './CharaFilterToggle.svelte';
 	import relics from '$lib/data/chara/relics_chara.json';
 	import { relicLookup } from '$lib/data/relic_lookup';
+	import { charaAssets } from '$lib/data/chara/chara_assets';
+	import Icon from '$lib/components/Icon.svelte';
 
 	export let language: Language;
 	const filterLayout = ['rarity', 'profession', ['subProfessionId', 'groups'], 'status_ailment'];
@@ -48,7 +50,13 @@
 </script>
 
 <div class="bg-near-white text-almost-black rounded-md p-3 md:p-4">
-	<p class="border-b text-center pb-1 md:pb-2">{translations[language].filter}</p>
+	<h2 class="border-b text-center pb-1 md:pb-2">
+		{translations[language].filter}
+	</h2>
+	<button class="flex ml-auto mt-1 pr-2" on:click={reset}>
+		<Icon name="trash" className="h-[18px]" />
+		{translations[language].filter_reset}
+	</button>
 	<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 mt-2 md:mt-3">
 		<p class="md:py-[5px]">{translations[language]['rarity']}:</p>
 		<div class="flex flex-wrap gap-2">
@@ -175,8 +183,8 @@
 			<div class="flex flex-col gap-3">
 				{#each relics[$rogueTopic] as relic}
 					<button
-						class="grid grid-cols-[100px_1fr] gap-2 hover:bg-slate-200 text-left"
-						class:bg-slate-200={isRelicSelected(relic.id)}
+						class="grid grid-cols-[100px_1fr] gap-2 text-left"
+						class:bg-slate-300={isRelicSelected(relic.id)}
 						on:click={() => updateRelicFilters(relic.id)}
 					>
 						<img
@@ -188,10 +196,10 @@
 							decoding="async"
 						/>
 						<div class="px-2">
-							<p>
+							<p class="text-base">
 								{relic[`name_${language}`] || relic['name_zh']}
 							</p>
-							<p class="relic">{relic[`desc_${language}`] || relic['desc_zh']}</p>
+							<p class="">{relic[`desc_${language}`] || relic['desc_zh']}</p>
 						</div>
 					</button>
 				{/each}
