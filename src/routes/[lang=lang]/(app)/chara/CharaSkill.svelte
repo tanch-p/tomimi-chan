@@ -4,7 +4,10 @@
 	import { skillIcons } from '$lib/data/chara/skill_lookup';
 	import translations from '$lib/translations.json';
 	import Icon from '$lib/components/Icon.svelte';
+	import TextParser from '$lib/components/TextParser.svelte';
+
 	export let skill, displayLang: Language, language: Language;
+
 	const hasMastery = skill.levels.length > 1;
 	let mastery: number = hasMastery ? 3 : 0;
 
@@ -46,7 +49,9 @@
 		<p class="leading-tight">RANK</p>
 		<img src={charaAssets.solid_7} width="12" alt="7" class="ml-1.5 mt-0.5" />
 	</div>
-	<img src={charaAssets.mastery[mastery]} width="25" height="24" alt="M{mastery}" />
+	{#if hasMastery}
+		<img src={charaAssets.mastery[mastery]} width="25" height="24" alt="M{mastery}" />
+	{/if}
 </button>
 <div class="flex mt-2">
 	{#if skill.skillType !== 'PASSIVE'}
@@ -62,8 +67,7 @@
 		</div>
 	{/if}
 </div>
-
-<p class="mt-1.5">{skill.levels[mastery][`description_${displayLang}`]}</p>
+<TextParser line={skill.levels[mastery][`description_${displayLang}`]} className="mt-1.5" />
 
 <style>
 	.pill {

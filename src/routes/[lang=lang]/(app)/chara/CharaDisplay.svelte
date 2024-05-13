@@ -39,7 +39,7 @@
 		{#if displayMode === 'grid'}
 			<div class="grid grid-cols-4 sm:flex flex-wrap gap-1.5 mt-4 px-1.5 sm:px-0">
 				{#each characters as chara}
-					<button on:click={() => selectedChara.set(chara)}>
+					<button on:click={() => selectedChara.set(chara)} class="select-none">
 						<CharaIcon {chara} />
 					</button>
 				{/each}

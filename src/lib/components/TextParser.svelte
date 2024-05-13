@@ -1,8 +1,14 @@
 <script lang="ts">
-	export let line: string;
+	export let line: string, className: string;
 
 	const patternsToParse = [
 		{ prefix: '<@rolv.rem>', suffix: '</>', style: 'text-[#FF4C22]' },
+		{ prefix: '<@ba.talpu>', suffix: '</>', style: 'text-[#0098DC]' },
+		{ prefix: '<@ba.vup>', suffix: '</>', style: 'text-[#20a8EC]' },
+		{ prefix: '<@ba.vdown>', suffix: '</>', style: 'text-[#FF6237]' },
+		{ prefix: '<@ba.rem>', suffix: '</>', style: 'text-[#F49800]' },
+		{ prefix: '<@ba.kw>', suffix: '</>', style: 'text-[#00B0FF]' },
+		{ prefix: '<ba.stun>', suffix: '</>', style: '' },
 		{ prefix: '$', suffix: '$', style: 'text-red-400 font-semibold' }
 	];
 	//due to a difference in resolving <@rolv.rem> in rogue3_b-3-b and rogue3_b-4-b, this should be written to resolve by patterns first.
@@ -66,7 +72,7 @@
 	// $: console.log(parsedTextArray);
 </script>
 
-<p>
+<p class={className}>
 	{#each parsedTextArray as { text, style }}
 		{#if text === '\n'}
 			<br />

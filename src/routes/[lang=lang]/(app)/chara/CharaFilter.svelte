@@ -46,6 +46,11 @@
 				};
 			})
 		);
+		relicFiltersStore.update((list) =>
+			list.map((ele) => {
+				return { ...ele, selected: false };
+			})
+		);
 	};
 </script>
 
@@ -57,7 +62,7 @@
 		<Icon name="trash" className="h-[18px]" />
 		{translations[language].filter_reset}
 	</button>
-	<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 mt-2 md:mt-3">
+	<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 pt-2 md:pt-3">
 		<p class="md:py-[5px]">{translations[language]['rarity']}:</p>
 		<div class="flex flex-wrap gap-2">
 			{#each filterOptions['rarity'] as value}
@@ -83,10 +88,8 @@
 			{/each}
 		</div>
 	</div>
-	<CharaFilterToggle
-		title="{translations[language].subProfessionId}/{translations[language].group}"
-	>
-		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 mt-2 md:mt-3">
+	<CharaFilterToggle title={translations[language].subProfessionId}>
+		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 pt-2 md:pt-3">
 			<p class="md:py-[5px]">{translations[language]['subProfessionId']}:</p>
 			<div class="flex flex-col gap-2">
 				{#each Object.keys(filterOptions.subProfessionId) as subKey}
@@ -105,6 +108,10 @@
 					</div>
 				{/each}
 			</div>
+		</div>
+	</CharaFilterToggle>
+	<CharaFilterToggle title={translations[language].group}>
+		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 pt-2 md:pt-3">
 			<p class="md:py-[5px]">{translations[language]['group']}:</p>
 			<div class="flex flex-wrap gap-2">
 				{#each filterOptions['group'] as value}
@@ -120,7 +127,7 @@
 		</div>
 	</CharaFilterToggle>
 	<CharaFilterToggle title={translations[language].enemy_debuff} isOpen={true}>
-		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 mt-2 md:mt-3">
+		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 pt-2 md:pt-3">
 			<p class="md:py-[5px]">{translations[language]['status_ailment']}:</p>
 			<div class="flex flex-wrap gap-2">
 				{#each filterOptions['status_ailment'] as value}
@@ -149,7 +156,7 @@
 		</div>
 	</CharaFilterToggle>
 	<CharaFilterToggle title={translations[language].ally_buff}>
-		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 mt-2 md:mt-3">
+		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 pt-2 md:pt-3">
 			<p class="md:py-[5px]">{translations[language]['buff']}:</p>
 			<div class="flex flex-wrap gap-2">
 				{#each filterOptions['buff'] as value}
@@ -167,7 +174,7 @@
 	<CharaFilterToggle title={translations[language].self_buff} />
 	<CharaFilterToggle title={translations[language].others} />
 	<CharaFilterToggle title={translations[language].is_title}>
-		<div class="flex md:justify-center gap-3 mt-2 md:mt-3">
+		<div class="flex md:justify-center gap-3 pt-2 md:pt-3">
 			{#each Object.keys(relics) as topic}
 				<button
 					class:active={$rogueTopic === topic}
@@ -178,7 +185,7 @@
 				</button>
 			{/each}
 		</div>
-		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 mt-2 md:mt-3">
+		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 pt-2 md:pt-3">
 			<p class="md:py-[5px]">{translations[language]['rogue_relic']}:</p>
 			<div class="flex flex-col gap-3">
 				{#each relics[$rogueTopic] as relic}

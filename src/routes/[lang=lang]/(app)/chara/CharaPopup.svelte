@@ -7,6 +7,8 @@
 	import { charaAssets } from '$lib/data/chara/chara_assets';
 	import { uniequips } from '$lib/data/chara/uniequip_lookup';
 	import CharaSkill from './CharaSkill.svelte';
+	import { getModuleUpdatedTalent, getModuleUpdatedTrait } from '$lib/functions/charaHelpers';
+	import TextParser from '$lib/components/TextParser.svelte';
 
 	export let language: Language;
 	const statKeys = ['hp', 'respawnTime', 'atk', 'cost', 'def', 'blockCnt', 'res', 'aspd'];
@@ -105,52 +107,70 @@
 					<p class="ml-3 text-xl">{translations[language][$selectedChara.subProfessionId]}</p>
 					<div>rangeId: {$selectedChara.stats.rangeId}</div>
 				</div>
-
-				<p class="mt-2">{$selectedChara[`desc_${displayLang}`]}</p>
-				<p class="mt-4">{translations[language].module}</p>
-				<div class="overflow-scroll max-w-full no-scrollbar">
-					<div class="flex mt-4 gap-x-8 w-max px-4">
-						{#if $selectedChara.uniequip.length === 0}
-							<div class="module none" />
-						{:else}
-							{#each $selectedChara.uniequip as equip, idx}
-								{@const typeIcon = equip.typeIcon.toLowerCase()}
-								<button
-									class:active={moduleIndex === idx}
-									class="module flex-col"
-									on:click={() => (moduleIndex = idx)}
-								>
-									<div class="grid items-center w-[40px] h-[48px]">
-										<img src={uniequips[typeIcon]} width="40" alt={typeIcon} class="" />
-									</div>
-									<div class="flex gap-x-0.5 text-xs font-light uppercase">
-										{#if typeIcon !== 'original'}
-											{@const parts = typeIcon.split('-')}
-											{parts[0]}
-											<img src={charaAssets[parts[1]]} alt={parts[1]} width="13px" />
-										{:else}
-											{typeIcon}
-										{/if}
-									</div>
-								</button>
-							{/each}
-						{/if}
+				<TextParser
+					line={getModuleUpdatedTrait(
+						$selectedChara[`desc_${displayLang}`],
+						$selectedChara.uniequip[moduleIndex],
+						language
+					)}
+					className="mt-2"
+				/>
+				{#if ['TIER_4', 'TIER_5', 'TIER_6'].includes($selectedChara.rarity)}
+					<p class="mt-4">{translations[language].module}</p>
+					<div class="overflow-scroll max-w-full no-scrollbar">
+						<div class="flex mt-4 gap-x-8 w-max px-4">
+							{#if $selectedChara.uniequip.length === 0}
+								<div class="module none" />
+							{:else}
+								{#each $selectedChara.uniequip as equip, idx}
+									{@const typeIcon = equip.typeIcon.toLowerCase()}
+									<button
+										class:active={moduleIndex === idx}
+										class="module flex-col"
+										on:click={() => (moduleIndex = idx)}
+									>
+										<div class="grid items-center w-[40px] h-[48px]">
+											<img src={uniequips[typeIcon]} width="40" alt={typeIcon} class="" />
+										</div>
+										<div class="flex gap-x-0.5 text-xs font-light uppercase">
+											{#if typeIcon !== 'original'}
+												{@const parts = typeIcon.split('-')}
+												{parts[0]}
+												<img src={charaAssets[parts[1]]} alt={parts[1]} width="12px" />
+											{:else}
+												{typeIcon}
+											{/if}
+										</div>
+									</button>
+								{/each}
+							{/if}
+						</div>
 					</div>
-				</div>
+				{/if}
 				<hr class="mt-4 mb-3 border-t-2 border-[#555]" />
 				{#if $selectedChara.talents && $selectedChara.talents.length > 0}
 					<p>{translations[language].talent}</p>
-					{#each $selectedChara.talents as talent}
+					{#each $selectedChara.talents as talent, idx}
+						{@const moduleTalentDesc = getModuleUpdatedTalent(
+							idx,
+							$selectedChara.uniequip[moduleIndex],
+							language
+						)}
 						<p class="py-[1px] px-2 mt-4 w-max bg-[#f9f9f9] rounded-md font-medium text-[#333]">
 							{talent[`name_${displayLang}`]}
 						</p>
-						<p class="mt-1">{talent[`description_${displayLang}`]}</p>
+						<TextParser
+							className="mt-1"
+							line={moduleTalentDesc || talent[`description_${displayLang}`]}
+						/>
 					{/each}
 				{/if}
 				{#if $selectedChara.skills && $selectedChara.skills.length > 0}
 					<p class="mt-8">
 						{translations[language].skill}
-						<span class="text-[#999]">※{translations[language].chara_rank_click}</span>
+						{#if $selectedChara.rarity !== 'TIER_3'}
+							<span class="text-[#999]">※{translations[language].chara_rank_click}</span>
+						{/if}
 					</p>
 					{#each $selectedChara.skills as skill}
 						<CharaSkill {skill} {displayLang} {language} />

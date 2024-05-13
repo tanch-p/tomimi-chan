@@ -1,3 +1,5 @@
+import type { Language } from '$lib/types';
+
 //goes through talent and skills blackboard and gets maximum value of key
 export const getMaxValue = (chara, key) =>
 	Math.max(
@@ -32,6 +34,22 @@ export const updateSortPriority = (sortOptions, index) => {
 };
 
 export const getCharaImages = (chara_list) =>
-	chara_list.map(
-		(chara) => import(`../images/chara_icons/icon_${chara.id}.webp`)
-	);
+	chara_list.map((chara) => import(`../images/chara_icons/icon_${chara.id}.webp`));
+
+export const getModuleUpdatedTrait = (trait, module, language: Language) => {
+	if (!module?.combatData) return trait;
+	for (const part of module.combatData.parts) {
+		if (part.target.includes('TRAIT') || part.target === 'DISPLAY') {
+			if (part.overrideDesc_zh) return part[`overrideDesc_${language}`] || part[`overrideDesc_zh`];
+			if (part.addDesc_zh) return trait + '\n' + part[`addDesc_${language}`] || part.addDesc_zh;
+		}
+	}
+	return trait;
+};
+export const getModuleUpdatedTalent = (idx, module, language: Language) => {
+	if (!module?.combatData) return;
+	for (const part of module.combatData.parts) {
+		if (part.target.includes('TALENT') && part.talentIndex === idx && part.upgradeDesc_zh)
+			return part[`upgradeDesc_${language}`] || part[`upgradeDesc_zh`];
+	}
+};
