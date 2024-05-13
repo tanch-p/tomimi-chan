@@ -1839,5 +1839,8 @@ export const skillIcons = {
 	skill_icon_sktok_xbtent: skill_icon_sktok_xbtent,
 	skill_icon_sktok_xbtrophy: skill_icon_sktok_xbtrophy,
 	skill_icon_sktok_xbwall: skill_icon_sktok_xbwall,
-	skill_icon_sktok_xbwood: skill_icon_sktok_xbwood
+	skill_icon_sktok_xbwood: skill_icon_sktok_xbwood,
+	skill_icon_skchr_stward_1: skill_icon_skcom_powerstrike1,
+	skill_icon_skchr_midn_1: skill_icon_skcom_enchant1,
+	skill_icon_skchr_catap_1: skill_icon_skcom_blowrange_up1
 };

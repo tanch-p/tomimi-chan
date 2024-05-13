@@ -12,7 +12,7 @@
 
 	export let language: Language;
 	const statKeys = ['hp', 'respawnTime', 'atk', 'cost', 'def', 'blockCnt', 'res', 'aspd'];
-
+	$: hasModule = ['TIER_4', 'TIER_5', 'TIER_6'].includes($selectedChara?.rarity);
 	let moduleIndex = 0;
 	$: console.log($selectedChara);
 	$: if ($selectedChara) {
@@ -113,9 +113,9 @@
 						$selectedChara.uniequip[moduleIndex],
 						language
 					)}
-					className="mt-2"
+					className="mt-2 {hasModule ? 'min-h-20' : ''}"
 				/>
-				{#if ['TIER_4', 'TIER_5', 'TIER_6'].includes($selectedChara.rarity)}
+				{#if hasModule}
 					<p class="mt-4">{translations[language].module}</p>
 					<div class="overflow-scroll max-w-full no-scrollbar">
 						<div class="flex mt-4 gap-x-8 w-max px-4">

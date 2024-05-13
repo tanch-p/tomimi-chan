@@ -17,7 +17,7 @@
 		for (const pattern of patternsToParse) {
 			traverseLines(lines, pattern);
 		}
-		return lines.flat(10).filter((ele) => Boolean(ele.text));
+		return splitNewLines(lines.flat(10)).filter((ele) => Boolean(ele.text));
 	};
 	const traverseLines = (arr, pattern) => {
 		arr.forEach((ele, index) => {
@@ -35,11 +35,10 @@
 			.reduce((acc, curr) => {
 				if (curr.text.includes('\n')) {
 					const parts = curr.text.split('\n');
-					for (let i = 0; i < parts.length - 1; i++) {
+					for (let i = 0; i < parts.length; i++) {
 						acc.push({ text: parts[i], style: curr.style });
-						acc.push({ text: '\n', style: null });
-						if (parts[i + 1]) {
-							acc.push({ text: parts[i + 1], style: curr.style });
+						if (parts[i + 1] !== undefined) {
+							acc.push({ text: '\n', style: null });
 						}
 					}
 				} else {
@@ -64,8 +63,6 @@
 			const parts = string.split(pattern);
 			returnArr = parts.map((text, i) => (i % 2 === 0 ? { text, style: null } : { text, style }));
 		}
-		returnArr = splitNewLines(returnArr);
-
 		return returnArr;
 	};
 	$: parsedTextArray = parseText(line);
