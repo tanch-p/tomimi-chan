@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import type { sortOrder, Language } from '$lib/types';
-	import { filters, sortOptions } from './stores';
+	import { filters, sortOptions, globalCheck } from './stores';
 	import { getMaxValue } from '$lib/functions/charaHelpers';
 	import CharaDisplay from './CharaDisplay.svelte';
 	import CharaFilter from './CharaFilter.svelte';
@@ -43,13 +43,13 @@
 	<div class="md:mx-10">
 		<div class="max-w-5xl mx-auto pt-6 md:pt-10 pb-4 text-[0.75rem] md:text-[0.875rem] {language}">
 			<CharaFilter {language} />
-			<CharaSortOptions {language}/>
+			<CharaSortOptions {language} />
 		</div>
 		<CharaDisplay
-			characters={data.characters.filter($filters).sort(sortFunction)}
+			characters={data.characters.filter($filters).filter($globalCheck).sort(sortFunction)}
 			{language}
 		/>
 	</div>
 	<CharaFilterDesc {language} />
-	<CharaPopup {language}/>
+	<CharaPopup {language} />
 </div>

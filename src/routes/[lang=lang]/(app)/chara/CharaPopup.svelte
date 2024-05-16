@@ -102,15 +102,19 @@
 				</div>
 			</div>
 			<div class="px-1.5">
-				<div class="grid grid-cols-[70px_1fr_180px] items-center mt-3">
-					<div class="flex items-center justify-center w-[65px] h-[65px] bg-neutral-900">
-						<img
-							src={charaAssets[$selectedChara.subProfessionId]}
-							width="50"
-							alt={$selectedChara.subProfessionId}
-						/>
+				<div class="grid grid-cols-[1fr_180px] items-center mt-3">
+					<div class="self-end grid grid-cols-[70px_1fr] items-center">
+						<div class="flex items-center justify-center w-[65px] h-[65px] bg-neutral-900">
+							<img
+								src={charaAssets[$selectedChara.subProfessionId]}
+								width="50"
+								alt={$selectedChara.subProfessionId}
+							/>
+						</div>
+						<p class="ml-3 text-xl">
+							{translations[language][$selectedChara.subProfessionId]}
+						</p>
 					</div>
-					<p class="ml-3 text-xl">{translations[language][$selectedChara.subProfessionId]}</p>
 					<div class="pl-3 pr-3">
 						<RangeParser rangeId={$selectedChara.stats.rangeId} />
 					</div>

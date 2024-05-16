@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
-	import { filtersStore, relicFiltersStore, rogueTopic } from './stores';
+	import { filtersStore, relicFiltersStore, rogueTopic, releaseStatusStore } from './stores';
 	import translations from '$lib/translations.json';
 	import filterOptions from '$lib/data/chara/filter_options.json';
 	import CharaFilterToggle from './CharaFilterToggle.svelte';
@@ -8,6 +8,8 @@
 	import { relicLookup } from '$lib/data/relic_lookup';
 	import { charaAssets } from '$lib/data/chara/chara_assets';
 	import Icon from '$lib/components/Icon.svelte';
+	import { cookiesEnabled } from '../../../stores';
+	import { browser } from '$app/environment';
 
 	export let language: Language;
 	const filterLayout = ['rarity', 'profession', ['subProfessionId', 'groups'], 'status_ailment'];
@@ -34,6 +36,12 @@
 			list[index].selected = !list[index].selected;
 			return list;
 		});
+	};
+	const updateReleaseStatus = (val) => {
+		releaseStatusStore.set(val);
+		if (browser && cookiesEnabled) {
+			localStorage.setItem('releaseStatus', val);
+		}
 	};
 	const reset = () => {
 		filtersStore.update((list) =>
@@ -87,6 +95,41 @@
 				</button>
 			{/each}
 		</div>
+		<p class="md:py-[5px]">{translations[language]['position'] || 'Position'}:</p>
+		<div class="flex flex-wrap gap-2">
+			{#each filterOptions['positions'] as value}
+				<button
+					class="filter-btn"
+					class:active={isSelected('positions', value)}
+					on:click={() => updateFilters('positions', value)}
+				>
+					{translations[language][value]}
+				</button>
+			{/each}
+		</div>
+		<p class="md:py-[5px]">Damage Type</p>
+		<div class="flex flex-wrap gap-2">
+			<p>phys</p>
+			<p>arts</p>
+			<p>true</p>
+			<p>element</p>
+			<p>apoptosis</p>
+			<p>burning</p>
+		</div>
+		{#if language !== 'zh'}
+			<p class="md:py-[5px]">{translations[language].chara_filter.release_status}:</p>
+			<div class="flex flex-wrap gap-2">
+				{#each ['global', 'cn'] as value}
+					<button
+						class="filter-btn"
+						class:active={$releaseStatusStore === value}
+						on:click={() => updateReleaseStatus(value)}
+					>
+						{translations[language].chara_filter[value]}
+					</button>
+				{/each}
+			</div>
+		{/if}
 	</div>
 	<CharaFilterToggle title={translations[language].subProfessionId}>
 		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 pt-2 md:pt-3">
@@ -128,6 +171,20 @@
 	</CharaFilterToggle>
 	<CharaFilterToggle title={translations[language].enemy_debuff} isOpen={true}>
 		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 pt-2 md:pt-3">
+			<p class="md:py-[5px]">{translations[language]['stats']}:</p>
+			<div class="flex flex-wrap gap-2">
+				{#each filterOptions['enemy_stats'] as value}
+					<button
+						class="filter-btn"
+						class:active={isSelected('enemy_stats', value)}
+						on:click={() => updateFilters('enemy_stats', value)}
+					>
+						{translations[language].chara_filter[value]}
+					</button>
+				{/each}
+				<p>phys hit rate</p>
+				<p>arts hit rate</p>
+			</div>
 			<p class="md:py-[5px]">{translations[language]['status_ailment']}:</p>
 			<div class="flex flex-wrap gap-2">
 				{#each filterOptions['status_ailment'] as value}
@@ -152,11 +209,32 @@
 					</button>
 				{/each}
 			</div>
-			<p class="md:py-[5px]">{translations[language]['stats']}:</p>
+			<p class="md:py-[5px]">Damage Taken Increase:</p>
+			<div class="flex flex-wrap gap-2">
+				<p>Phys</p>
+				<p>Arts</p>
+				<p>Element</p>
+			</div>
 		</div>
 	</CharaFilterToggle>
-	<CharaFilterToggle title={translations[language].ally_buff}>
+	<CharaFilterToggle title={translations[language].ally_buff} isOpen={true}>
 		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 pt-2 md:pt-3">
+			<p class="md:py-[5px]">{translations[language]['stats']}:</p>
+			<div class="flex flex-wrap gap-2">
+				<p>Max HP</p>
+				{#each filterOptions['enemy_stats'] as value}
+					<button
+						class="filter-btn"
+						class:active={isSelected('enemy_stats', value)}
+						on:click={() => updateFilters('enemy_stats', value)}
+					>
+						{translations[language].chara_filter[value]}
+					</button>
+				{/each}
+				<p>Block</p>
+				<p>Redeploy Time</p>
+				<p>Cost</p>
+			</div>
 			<p class="md:py-[5px]">{translations[language]['buff']}:</p>
 			<div class="flex flex-wrap gap-2">
 				{#each filterOptions['buff'] as value}
@@ -168,11 +246,34 @@
 						{translations[language][value]}
 					</button>
 				{/each}
+				<p>env</p>
 			</div>
-		</div></CharaFilterToggle
-	>
-	<CharaFilterToggle title={translations[language].self_buff} />
-	<CharaFilterToggle title={translations[language].others} />
+		</div>
+	</CharaFilterToggle>
+	<CharaFilterToggle title={translations[language].self_buff} isOpen={true}>
+		<p class="md:py-[5px]">{translations[language]['stats']}:</p>
+		<div class="flex flex-wrap gap-2">
+			<p>DEF</p>
+			<p>RES</p>
+			<p>Block</p>
+		</div>
+		<p class="md:py-[5px]">{translations[language]['buff']}:</p>
+		<div class="flex flex-wrap gap-2">
+			{#each filterOptions['buff'] as value}
+				<button
+					class="filter-btn"
+					class:active={isSelected('buff', value)}
+					on:click={() => updateFilters('buff', value)}
+				>
+					{translations[language][value]}
+				</button>
+			{/each}
+			<p>env</p>
+		</div>
+	</CharaFilterToggle>
+	<CharaFilterToggle title={translations[language].others} isOpen={true}>
+		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 pt-2 md:pt-3" />
+	</CharaFilterToggle>
 	<CharaFilterToggle title={translations[language].is_title}>
 		<div class="flex md:justify-center gap-3 pt-2 md:pt-3">
 			{#each Object.keys(relics) as topic}
