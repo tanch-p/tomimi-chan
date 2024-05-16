@@ -9,6 +9,7 @@
 	import CharaSkill from './CharaSkill.svelte';
 	import { getModuleUpdatedTalent, getModuleUpdatedTrait } from '$lib/functions/charaHelpers';
 	import TextParser from '$lib/components/TextParser.svelte';
+	import RangeParser from '$lib/components/RangeParser.svelte';
 
 	export let language: Language;
 	const statKeys = ['hp', 'respawnTime', 'atk', 'cost', 'def', 'blockCnt', 'res', 'aspd'];
@@ -101,7 +102,7 @@
 				</div>
 			</div>
 			<div class="px-1.5">
-				<div class="grid grid-cols-[70px_1fr_auto] items-center mt-3">
+				<div class="grid grid-cols-[70px_1fr_180px] items-center mt-3">
 					<div class="flex items-center justify-center w-[65px] h-[65px] bg-neutral-900">
 						<img
 							src={charaAssets[$selectedChara.subProfessionId]}
@@ -110,7 +111,9 @@
 						/>
 					</div>
 					<p class="ml-3 text-xl">{translations[language][$selectedChara.subProfessionId]}</p>
-					<div>rangeId: {$selectedChara.stats.rangeId}</div>
+					<div class="pl-3 pr-3">
+						<RangeParser rangeId={$selectedChara.stats.rangeId} />
+					</div>
 				</div>
 				<TextParser
 					line={getModuleUpdatedTrait(

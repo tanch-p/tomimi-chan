@@ -40,7 +40,7 @@ export const getModuleUpdatedTrait = (trait, module, stage: number, language: La
 	if (!module?.combatData) return trait;
 	for (const part of module.combatData.phases[stage].parts) {
 		if ((!part.isToken && part.target.includes('TRAIT')) || part.target === 'DISPLAY') {
-			if (part.addDesc_zh) return trait + '\n' + part[`addDesc_${language}`] || part.addDesc_zh;
+			if (part.addDesc_zh) return trait + '\n' + (part[`addDesc_${language}`] || part.addDesc_zh);
 			if (part.overrideDesc_zh) return part[`overrideDesc_${language}`] || part[`overrideDesc_zh`];
 		}
 	}

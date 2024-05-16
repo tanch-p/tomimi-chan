@@ -4,6 +4,12 @@ Provides a list of svg icons that can be referenced through the `Icon` component
 <div style="display: none">
 	<!-- wrapper div allows use of innerHTML -->
 	<svg>
+		<symbol id="sq-blue">
+			<rect id="sq-blue" fill="#27a6f3" width="22" height="22" />
+		</symbol>
+		<symbol id="sq-outline">
+			<rect id="sq-outline" fill="none" stroke="gray" stroke-width="2" width="22" height="22" />
+		</symbol>
 		<symbol id="x-mark" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
 			<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
 		</symbol>

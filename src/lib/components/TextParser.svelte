@@ -8,7 +8,7 @@
 		{ prefix: '<@ba.vdown>', suffix: '</>', style: 'text-[#FF6237]' },
 		{ prefix: '<@ba.rem>', suffix: '</>', style: 'text-[#F49800]' },
 		{ prefix: '<@ba.kw>', suffix: '</>', style: 'text-[#00B0FF]' },
-		{ prefix: '<ba.stun>', suffix: '</>', style: '' },
+		{ prefix: '<.*>', suffix: '</>', style: '' },
 		{ prefix: '$', suffix: '$', style: 'text-red-400 font-semibold' }
 	];
 	//due to a difference in resolving <@rolv.rem> in rogue3_b-3-b and rogue3_b-4-b, this should be written to resolve by patterns first.
@@ -33,6 +33,7 @@
 	const splitNewLines = (lines: string[]) => {
 		return lines
 			.reduce((acc, curr) => {
+				curr.text = curr.text.replaceAll('\\n', '\n');
 				if (curr.text.includes('\n')) {
 					const parts = curr.text.split('\n');
 					for (let i = 0; i < parts.length; i++) {
