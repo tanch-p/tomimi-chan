@@ -14,9 +14,14 @@
 	const statKeys = ['hp', 'respawnTime', 'atk', 'cost', 'def', 'blockCnt', 'res', 'aspd'];
 	$: hasModule = ['TIER_4', 'TIER_5', 'TIER_6'].includes($selectedChara?.rarity);
 	let moduleIndex = 0;
+	$: moduleStage = 2;
+
 	$: console.log($selectedChara);
 	$: if ($selectedChara) {
 		moduleIndex = 0;
+	}
+	$: if (moduleIndex) {
+		moduleStage = 2;
 	}
 </script>
 
@@ -111,12 +116,18 @@
 					line={getModuleUpdatedTrait(
 						$selectedChara[`desc_${displayLang}`],
 						$selectedChara.uniequip[moduleIndex],
+						moduleStage,
 						language
 					)}
 					className="mt-2 {hasModule ? 'min-h-20' : ''}"
 				/>
 				{#if hasModule}
-					<p class="mt-4">{translations[language].module}</p>
+					<p class="mt-4">
+						{translations[language].module}
+						{#if hasModule && $selectedChara.uniequip.length > 0}
+							<span class="text-[#999]">※{translations[language].chara_module_stage_click}</span>
+						{/if}
+					</p>
 					<div class="overflow-scroll max-w-full no-scrollbar">
 						<div class="flex mt-4 gap-x-8 w-max px-4">
 							{#if $selectedChara.uniequip.length === 0}
@@ -124,24 +135,36 @@
 							{:else}
 								{#each $selectedChara.uniequip as equip, idx}
 									{@const typeIcon = equip.typeIcon.toLowerCase()}
-									<button
-										class:active={moduleIndex === idx}
-										class="module flex-col"
-										on:click={() => (moduleIndex = idx)}
-									>
-										<div class="grid items-center w-[40px] h-[48px]">
-											<img src={uniequips[typeIcon]} width="40" alt={typeIcon} class="" />
-										</div>
-										<div class="flex gap-x-0.5 text-xs font-light uppercase">
-											{#if typeIcon !== 'original'}
-												{@const parts = typeIcon.split('-')}
-												{parts[0]}
-												<img src={charaAssets[parts[1]]} alt={parts[1]} width="12px" />
-											{:else}
-												{typeIcon}
-											{/if}
-										</div>
-									</button>
+									<div class="flex flex-col">
+										<button
+											class:active={moduleIndex === idx}
+											class="module flex-col"
+											on:click={() => (moduleIndex = idx)}
+										>
+											<div class="grid items-center w-[40px] h-[48px]">
+												<img src={uniequips[typeIcon]} width="40" alt={typeIcon} class="" />
+											</div>
+											<div class="flex gap-x-0.5 text-xs font-light uppercase">
+												{#if typeIcon !== 'original'}
+													{@const parts = typeIcon.split('-')}
+													{parts[0]}
+													<img src={charaAssets[parts[1]]} alt={parts[1]} width="12px" />
+												{:else}
+													{typeIcon}
+												{/if}
+											</div>
+										</button>
+										{#if moduleIndex !== 0 && moduleIndex == idx}
+											<button
+												on:click={() => {
+													if (moduleStage === 2) return (moduleStage = 0);
+													return (moduleStage += 1);
+												}}
+											>
+												STAGE {moduleStage + 1}
+											</button>
+										{/if}
+									</div>
 								{/each}
 							{/if}
 						</div>
@@ -154,6 +177,7 @@
 						{@const moduleTalentDesc = getModuleUpdatedTalent(
 							idx,
 							$selectedChara.uniequip[moduleIndex],
+							moduleStage,
 							language
 						)}
 						<p class="py-[1px] px-2 mt-4 w-max bg-[#f9f9f9] rounded-md font-medium text-[#333]">
@@ -169,7 +193,7 @@
 					<p class="mt-8">
 						{translations[language].skill}
 						{#if $selectedChara.rarity !== 'TIER_3'}
-							<span class="text-[#999]">※{translations[language].chara_rank_click}</span>
+							<span class="text-[#999]">※{translations[language].chara_skill_rank_click}</span>
 						{/if}
 					</p>
 					{#each $selectedChara.skills as skill}

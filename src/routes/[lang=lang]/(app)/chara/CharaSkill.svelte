@@ -11,7 +11,7 @@
 	const hasMastery = skill.levels.length > 1;
 	let mastery: number = hasMastery ? 3 : 0;
 
-	function changeMastery(mastery: number) {
+	function getMasteryLvl(mastery: number) {
 		if (!hasMastery) return mastery;
 		if (mastery === 3) return 0;
 		return mastery + 1;
@@ -43,7 +43,7 @@
 <p class="mt-1.5 pl-1.5 text-lg">{skill[`name_${displayLang}`]}</p>
 <button
 	class="grid grid-cols-[1fr_30px] w-max mt-1.5"
-	on:click={() => (mastery = changeMastery(mastery))}
+	on:click={() => (mastery = getMasteryLvl(mastery))}
 >
 	<div class="flex items-center border border-[#3e3e3e] bg-[#272727] pl-2 pr-1 h-[24px]">
 		<p class="leading-tight">RANK</p>
@@ -55,8 +55,8 @@
 </button>
 <div class="flex mt-2">
 	{#if skill.skillType !== 'PASSIVE'}
-		<p class="pill {skill.levels?.[0]?.spData?.spType}">
-			{translations[language][skill.levels?.[0]?.spData?.spType]}
+		<p class="pill {skill?.spType}">
+			{translations[language][skill?.spType]}
 		</p>
 	{/if}
 	<p class="pill bg-[#737373]">{translations[language][skill.skillType]}</p>

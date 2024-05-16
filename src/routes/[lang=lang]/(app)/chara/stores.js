@@ -2,8 +2,8 @@ import { writable, derived } from 'svelte/store';
 import filterOptions from '$lib/data/chara/filter_options.json';
 import relics from '$lib/data/chara/relics_chara.json';
 
-const SEARCH_IN_TAGS = ['weightless', 'cancel_stealth', 'stealth', 'camouflage', 'taunt', 'undying','dying','barrier','infected','starting_cost','enemy_hp',"lower_target_priority","env","min_damage"];
-const SEARCH_IN_BLACKBOARD = ['magicfragile', 'fragile',  'phys_evasion', 'arts_evasion','protect','damage_resistance',"ally_shield","poison_damage","block_dmg","sp_gain","ally_sp_gain","heal_scale"];
+const SEARCH_IN_TAGS = ['weightless', 'cancel_stealth', 'stealth', 'camouflage', 'taunt', 'undying','dying','barrier','infected','starting_cost','enemy_hp',"lower_target_priority","env","min_damage","spareshot","revive","ally_resist","reflect_dmg","ally_reflect_dmg","dot","first_token_free","ally_sp_regen","global_move_speed_down","ignore_evasion","env","ally_env","ally_block_up","ally_block_down","stop_attack","limited_use","unlimited_duration","activate_skill","inspire","skill_time_invincible","enemy_priority","reallocate_hp","erase_projectile","slow_projectile","interval_aspd","execute"];
+const SEARCH_IN_BLACKBOARD = ['magicfragile', 'fragile',  'phys_evasion', 'arts_evasion','protect','damage_resistance',"ally_shield","poison_damage","block_dmg","sp_gain","ally_sp_gain","heal_scale","def_penetrate","def_penetrate_fixed","ally_sp_stock","res_penetrate_fixed","damage_scale","ally_damage_scale","ally_heal_scale","heal_scale","cost_return","block_up","phys_hitrate_down","arts_hitrate_down"];
 
 const generateFilterStore = (filterOptions) => {
 	return Object.keys(filterOptions).reduce((acc, key) => {

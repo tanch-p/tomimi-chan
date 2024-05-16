@@ -36,20 +36,25 @@ export const updateSortPriority = (sortOptions, index) => {
 export const getCharaImages = (chara_list) =>
 	chara_list.map((chara) => import(`../images/chara_icons/icon_${chara.id}.webp`));
 
-export const getModuleUpdatedTrait = (trait, module, language: Language) => {
+export const getModuleUpdatedTrait = (trait, module, stage: number, language: Language) => {
 	if (!module?.combatData) return trait;
-	for (const part of module.combatData.parts) {
-		if (part.target.includes('TRAIT') || part.target === 'DISPLAY') {
-			if (part.overrideDesc_zh) return part[`overrideDesc_${language}`] || part[`overrideDesc_zh`];
+	for (const part of module.combatData.phases[stage].parts) {
+		if ((!part.isToken && part.target.includes('TRAIT')) || part.target === 'DISPLAY') {
 			if (part.addDesc_zh) return trait + '\n' + part[`addDesc_${language}`] || part.addDesc_zh;
+			if (part.overrideDesc_zh) return part[`overrideDesc_${language}`] || part[`overrideDesc_zh`];
 		}
 	}
 	return trait;
 };
-export const getModuleUpdatedTalent = (idx, module, language: Language) => {
+export const getModuleUpdatedTalent = (idx, module, stage: number, language: Language) => {
 	if (!module?.combatData) return;
-	for (const part of module.combatData.parts) {
-		if (part.target.includes('TALENT') && part.talentIndex === idx && part.upgradeDesc_zh)
+	for (const part of module.combatData.phases[stage].parts) {
+		if (
+			!part.isToken &&
+			part.target.includes('TALENT') &&
+			part.talentIndex === idx &&
+			part.upgradeDesc_zh
+		)
 			return part[`upgradeDesc_${language}`] || part[`upgradeDesc_zh`];
 	}
 };
