@@ -116,20 +116,18 @@
 			<p>apoptosis</p>
 			<p>burning</p>
 		</div>
-		{#if language !== 'zh'}
-			<p class="md:py-[5px]">{translations[language].chara_filter.release_status}:</p>
-			<div class="flex flex-wrap gap-2">
-				{#each ['global', 'cn'] as value}
-					<button
-						class="filter-btn"
-						class:active={$releaseStatusStore === value}
-						on:click={() => updateReleaseStatus(value)}
-					>
-						{translations[language].chara_filter[value]}
-					</button>
-				{/each}
-			</div>
-		{/if}
+		<p class="md:py-[5px]">{translations[language].chara_filter.release_status}:</p>
+		<div class="flex flex-wrap gap-2">
+			{#each ['global', 'cn'] as value}
+				<button
+					class="filter-btn"
+					class:active={$releaseStatusStore === value}
+					on:click={() => updateReleaseStatus(value)}
+				>
+					{translations[language].chara_filter[value]}
+				</button>
+			{/each}
+		</div>
 	</div>
 	<CharaFilterToggle title={translations[language].subProfessionId}>
 		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 pt-2 md:pt-3">

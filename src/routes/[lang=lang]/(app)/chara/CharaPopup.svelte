@@ -115,8 +115,9 @@
 							{translations[language][$selectedChara.subProfessionId]}
 						</p>
 					</div>
-					<div class="pl-3 pr-3">
+					<div class="flex flex-col items-center pl-3 pr-3">
 						<RangeParser rangeId={$selectedChara.stats.rangeId} />
+						<p class="text-[#999]">{translations[language].attack_range}</p>
 					</div>
 				</div>
 				<TextParser

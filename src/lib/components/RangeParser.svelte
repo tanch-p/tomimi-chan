@@ -23,8 +23,8 @@
 			if (col > maxCol) maxCol = col;
 			if (col < minCol) minCol = col;
 		}
-		width = 22 + (maxCol - minCol) * (22 + 4);
-		height = 22 + (maxRow - minRow) * (22 + 4);
+		width = 26 + (maxCol - minCol) * (22 + 4);
+		height = 26 + (maxRow - minRow) * (22 + 4);
 	}
 </script>
 
