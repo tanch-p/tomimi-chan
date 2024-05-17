@@ -7,7 +7,11 @@
 	import { charaAssets } from '$lib/data/chara/chara_assets';
 	import { uniequips } from '$lib/data/chara/uniequip_lookup';
 	import CharaSkill from './CharaSkill.svelte';
-	import { getModuleUpdatedTalent, getModuleUpdatedTrait } from '$lib/functions/charaHelpers';
+	import {
+		getModuleUpdatedRange,
+		getModuleUpdatedTalent,
+		getModuleUpdatedTrait
+	} from '$lib/functions/charaHelpers';
 	import TextParser from '$lib/components/TextParser.svelte';
 	import RangeParser from '$lib/components/RangeParser.svelte';
 
@@ -57,7 +61,9 @@
 						alt={$selectedChara.rarity}
 						class="relative -left-1 h-[20px]"
 					/>
-					<p>{$selectedChara.appellation}</p>
+					{#if language !== 'en'}
+						<p>{$selectedChara.appellation}</p>
+					{/if}
 					<p class="text-xl">{$selectedChara[`name_${displayLang}`]}</p>
 					<!--TODO <p>全部位</p> -->
 				</div>
@@ -102,23 +108,28 @@
 				</div>
 			</div>
 			<div class="px-1.5">
-				<div class="grid grid-cols-[1fr_180px] items-center mt-3">
-					<div class="self-end grid grid-cols-[70px_1fr] items-center">
-						<div class="flex items-center justify-center w-[65px] h-[65px] bg-neutral-900">
-							<img
-								src={charaAssets[$selectedChara.subProfessionId]}
-								width="50"
-								alt={$selectedChara.subProfessionId}
-							/>
-						</div>
-						<p class="ml-3 text-xl">
-							{translations[language][$selectedChara.subProfessionId]}
-						</p>
+				<div
+					class="flex flex-col items-center min-w-28 p-3 bg-[#161616] bg-opacity-80 rounded float-right"
+				>
+					<RangeParser
+						rangeId={getModuleUpdatedRange(
+							$selectedChara.stats.rangeId,
+							$selectedChara.uniequip[moduleIndex]
+						)}
+					/>
+					<p class="mt-1">{translations[language].attack_range}</p>
+				</div>
+				<div class="self-end grid grid-cols-[70px_1fr] items-center mt-3">
+					<div class="flex items-center justify-center w-[65px] h-[65px] bg-neutral-900">
+						<img
+							src={charaAssets[$selectedChara.subProfessionId]}
+							width="50"
+							alt={$selectedChara.subProfessionId}
+						/>
 					</div>
-					<div class="flex flex-col items-center pl-3 pr-3">
-						<RangeParser rangeId={$selectedChara.stats.rangeId} />
-						<p class="text-[#999]">{translations[language].attack_range}</p>
-					</div>
+					<p class="ml-3 text-xl">
+						{translations[language][$selectedChara.subProfessionId]}
+					</p>
 				</div>
 				<TextParser
 					line={getModuleUpdatedTrait(
@@ -171,6 +182,8 @@
 											>
 												STAGE {moduleStage + 1}
 											</button>
+										{:else}
+											<div class="h-[30px]" />
 										{/if}
 									</div>
 								{/each}

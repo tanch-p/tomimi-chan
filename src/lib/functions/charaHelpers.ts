@@ -58,3 +58,11 @@ export const getModuleUpdatedTalent = (idx, module, stage: number, language: Lan
 			return part[`upgradeDesc_${language}`] || part[`upgradeDesc_zh`];
 	}
 };
+export const getModuleUpdatedRange = (rangeId, module) => {
+	if (!module?.combatData) return rangeId;
+	for (const part of module.combatData.phases[0].parts) {
+		if (!part.isToken && part.target.includes('TALENT') && part.talentIndex === -1 && part.rangeId)
+			return part.rangeId;
+	}
+	return rangeId;
+};
