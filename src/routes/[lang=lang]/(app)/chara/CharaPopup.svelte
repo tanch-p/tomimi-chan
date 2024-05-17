@@ -222,6 +222,7 @@
 											</button>
 											{#if moduleIndex !== 0 && moduleIndex == idx}
 												<button
+													class="flex items-center border border-[#3e3e3e] bg-[#272727] mt-1.5"
 													on:click={() => {
 														if (moduleStage === 2) return (moduleStage = 0);
 														return (moduleStage += 1);
@@ -252,10 +253,7 @@
 						<p class="py-[1px] px-2 mt-4 w-max bg-[#f9f9f9] rounded-md font-medium text-[#333]">
 							{talent[`name_${displayLang}`]}
 						</p>
-						<TextParser
-							className="mt-1"
-							line={moduleTalentDesc || talent[`desc_${displayLang}`]}
-						/>
+						<TextParser className="mt-1" line={moduleTalentDesc || talent[`desc_${displayLang}`]} />
 					{/each}
 				{/if}
 				{#if $selectedChara.skills && $selectedChara.skills.length > 0}
