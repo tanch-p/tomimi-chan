@@ -42,7 +42,11 @@
 				</div>
 			</div>
 		</div>
-		<p class="mt-1.5 text-lg {language === "zh" ? "text-center max-w-[90px] whitespace-nowrap" : ""}">{skill[`name_${displayLang}`]}</p>
+		<p
+			class="mt-1.5 text-lg {language !== 'en' ? 'text-center max-w-[90px] whitespace-nowrap' : ''}"
+		>
+			{skill[`name_${displayLang}`]}
+		</p>
 		<button
 			class="grid grid-cols-[1fr_30px] w-max mt-1.5"
 			on:click={() => (mastery = getMasteryLvl(mastery))}

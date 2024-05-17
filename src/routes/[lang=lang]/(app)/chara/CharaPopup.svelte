@@ -8,9 +8,13 @@
 	import { uniequips } from '$lib/data/chara/uniequip_lookup';
 	import CharaSkill from './CharaSkill.svelte';
 	import {
+		convertStatKeys,
+		getFullCharaStat,
+		getModuleStat,
 		getModuleUpdatedRange,
 		getModuleUpdatedTalent,
-		getModuleUpdatedTrait
+		getModuleUpdatedTrait,
+		getTotalPotStat
 	} from '$lib/functions/charaHelpers';
 	import TextParser from '$lib/components/TextParser.svelte';
 	import RangeParser from '$lib/components/RangeParser.svelte';
@@ -84,10 +88,29 @@
 							<p class="-mt-2 text-4xl">{$selectedChara.stats.level}</p>
 						</div>
 						<img src={charaAssets['phase'][phase]} width="50" alt="E2" />
-						<img src={charaAssets.potential[5]} width="60" alt="p5" />
+						{#if $selectedChara.potential.length > 0}
+							<div class="relative group">
+								<img src={charaAssets.potential[5]} width="60" alt="p5" />
+								<div
+									class="absolute hidden group-hover:block top-[-50%] left-[100%] bg-neutral-700 text-near-white w-max py-1.5 px-2 z-[1] rounded-md text-sm shadow-md"
+								>
+									{#each $selectedChara.potential as pot}
+										<p>{pot[`desc_${displayLang}`]}</p>
+									{/each}
+								</div>
+							</div>
+						{:else}
+							<img src={charaAssets.potential[0]} width="60" alt="p0" />
+						{/if}
 					</div>
 					<div class="grid grid-cols-2 gap-x-2 gap-y-1">
 						{#each statKeys as statKey}
+							{@const potStat = getTotalPotStat(statKey, $selectedChara.potential)}
+							{@const moduleStat = getModuleStat(
+								statKey,
+								$selectedChara.uniequip?.[moduleIndex]?.combatData?.phases?.[moduleStage]
+									?.attributeBlackboard
+							)}
 							<div
 								class={`flex flex-col bg-[#161616] bg-opacity-80 px-1 ${
 									language === 'en' ? 'text-sm' : ''
@@ -99,15 +122,24 @@
 										{translations[language].table_headers[statKey]}
 									</span>
 								</div>
-								<p class="text-near-white px-[18px]">
-									{$selectedChara['stats'][statKey]}{statKey === 'respawnTime' ? 's' : ''}
+								<p class="text-near-white pl-[18px] whitespace-nowrap">
+									{getFullCharaStat(statKey, $selectedChara, moduleStat, potStat)}{statKey ===
+									'respawnTime'
+										? 's'
+										: ''}
+									{#if potStat}
+										<span class="text-[#00B0FF] text-sm">({potStat > 0 ? '+' : ''}{potStat})</span>
+									{/if}
+									{#if moduleStat}
+										<span class="text-red-400 text-sm">(+{moduleStat})</span>
+									{/if}
 								</p>
 							</div>
 						{/each}
 					</div>
 				</div>
 			</div>
-			<div class="px-1.5">
+			<div class="px-1.5 mt-3">
 				<div
 					class="flex flex-col items-center min-w-28 p-3 bg-[#161616] bg-opacity-80 rounded float-right"
 				>
@@ -119,78 +151,94 @@
 					/>
 					<p class="mt-1">{translations[language].attack_range}</p>
 				</div>
-				<div class="self-end grid grid-cols-[70px_1fr] items-center mt-3">
-					<div class="flex items-center justify-center w-[65px] h-[65px] bg-neutral-900">
-						<img
-							src={charaAssets[$selectedChara.subProfessionId]}
-							width="50"
-							alt={$selectedChara.subProfessionId}
-						/>
-					</div>
-					<p class="ml-3 text-xl">
-						{translations[language][$selectedChara.subProfessionId]}
-					</p>
-				</div>
-				<TextParser
-					line={getModuleUpdatedTrait(
-						$selectedChara[`desc_${displayLang}`],
-						$selectedChara.uniequip[moduleIndex],
-						moduleStage,
-						language
-					)}
-					className="mt-2 {hasModule ? 'min-h-20' : ''}"
-				/>
-				{#if hasModule}
-					<p class="mt-4">
-						{translations[language].module}
-						{#if hasModule && $selectedChara.uniequip.length > 0}
-							<span class="text-[#999]">※{translations[language].chara_module_stage_click}</span>
-						{/if}
-					</p>
-					<div class="overflow-scroll max-w-full no-scrollbar">
-						<div class="flex mt-4 gap-x-8 w-max px-4">
-							{#if $selectedChara.uniequip.length === 0}
-								<div class="module none" />
-							{:else}
-								{#each $selectedChara.uniequip as equip, idx}
-									{@const typeIcon = equip.typeIcon.toLowerCase()}
-									<div class="flex flex-col">
-										<button
-											class:active={moduleIndex === idx}
-											class="module flex-col"
-											on:click={() => (moduleIndex = idx)}
-										>
-											<div class="grid items-center w-[40px] h-[48px]">
-												<img src={uniequips[typeIcon]} width="40" alt={typeIcon} class="" />
-											</div>
-											<div class="flex gap-x-0.5 text-xs font-light uppercase">
-												{#if typeIcon !== 'original'}
-													{@const parts = typeIcon.split('-')}
-													{parts[0]}
-													<img src={charaAssets[parts[1]]} alt={parts[1]} width="12px" />
-												{:else}
-													{typeIcon}
-												{/if}
-											</div>
-										</button>
-										{#if moduleIndex !== 0 && moduleIndex == idx}
-											<button
-												on:click={() => {
-													if (moduleStage === 2) return (moduleStage = 0);
-													return (moduleStage += 1);
-												}}
-											>
-												STAGE {moduleStage + 1}
-											</button>
-										{:else}
-											<div class="h-[30px]" />
-										{/if}
-									</div>
-								{/each}
-							{/if}
+				<div class="min-h-[130px]">
+					{#if Object.keys($selectedChara.favorData).length > 0}
+						<p class="mb-3">
+							{translations[language].favor}:
+							{#each Object.keys($selectedChara.favorData) as key, i}
+								{#if i !== 0}
+									,
+								{/if}
+								<span>
+									{translations[language].table_headers[convertStatKeys[key]]}+{$selectedChara
+										.favorData[key]}
+								</span>
+							{/each}
+						</p>
+					{/if}
+					<div class="grid grid-cols-[70px_1fr] items-center">
+						<div class="flex items-center justify-center w-[65px] h-[65px] bg-neutral-900">
+							<img
+								src={charaAssets[$selectedChara.subProfessionId]}
+								width="50"
+								alt={$selectedChara.subProfessionId}
+							/>
 						</div>
+						<p class="ml-3 text-xl">
+							{translations[language][$selectedChara.subProfessionId]}
+						</p>
 					</div>
-				{/if}
+					<TextParser
+						line={getModuleUpdatedTrait(
+							$selectedChara[`desc_${displayLang}`],
+							$selectedChara.uniequip[moduleIndex],
+							moduleStage,
+							language
+						)}
+						className="mt-2 {hasModule ? 'min-h-20' : ''}"
+					/>
+					{#if hasModule}
+						<p class="mt-4">
+							{translations[language].module}
+							{#if hasModule && $selectedChara.uniequip.length > 0}
+								<span class="text-[#999]">※{translations[language].chara_module_stage_click}</span>
+							{/if}
+						</p>
+						<div class="overflow-scroll max-w-full no-scrollbar">
+							<div class="flex mt-4 gap-x-8 w-max px-4">
+								{#if $selectedChara.uniequip.length === 0}
+									<div class="module none" />
+								{:else}
+									{#each $selectedChara.uniequip as equip, idx}
+										{@const typeIcon = equip.typeIcon.toLowerCase()}
+										<div class="flex flex-col">
+											<button
+												class:active={moduleIndex === idx}
+												class="module flex-col"
+												on:click={() => (moduleIndex = idx)}
+											>
+												<div class="grid items-center w-[40px] h-[48px]">
+													<img src={uniequips[typeIcon]} width="40" alt={typeIcon} class="" />
+												</div>
+												<div class="flex gap-x-0.5 text-xs font-light uppercase">
+													{#if typeIcon !== 'original'}
+														{@const parts = typeIcon.split('-')}
+														{parts[0]}
+														<img src={charaAssets[parts[1]]} alt={parts[1]} width="12px" />
+													{:else}
+														{typeIcon}
+													{/if}
+												</div>
+											</button>
+											{#if moduleIndex !== 0 && moduleIndex == idx}
+												<button
+													on:click={() => {
+														if (moduleStage === 2) return (moduleStage = 0);
+														return (moduleStage += 1);
+													}}
+												>
+													STAGE {moduleStage + 1}
+												</button>
+											{:else}
+												<div class="h-[30px]" />
+											{/if}
+										</div>
+									{/each}
+								{/if}
+							</div>
+						</div>
+					{/if}
+				</div>
 				<hr class="mt-4 mb-3 border-t-2 border-[#555]" />
 				{#if $selectedChara.talents && $selectedChara.talents.length > 0}
 					<p>{translations[language].talent}</p>
@@ -206,7 +254,7 @@
 						</p>
 						<TextParser
 							className="mt-1"
-							line={moduleTalentDesc || talent[`description_${displayLang}`]}
+							line={moduleTalentDesc || talent[`desc_${displayLang}`]}
 						/>
 					{/each}
 				{/if}

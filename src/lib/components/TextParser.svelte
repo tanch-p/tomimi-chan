@@ -1,6 +1,39 @@
 <script lang="ts">
 	export let line: string, className: string;
-
+	const patternsToIgnore = [
+		'<ba.magicfragile>',
+		'<ba.fragile>',
+		'<ba.elementfragile>',
+		'<ba.camou>',
+		'<ba.invisible>',
+		'<ba.stun>',
+		'<ba.sluggish>',
+		'<ba.root>',
+		'<ba.sleep>',
+		'<ba.tremble>',
+		'<ba.cold>',
+		'<ba.frozen>',
+		'<ba.levitate>',
+		'<ba.weightless>',
+		'<ba.debuff>',
+		'<ba.epbarrier>',
+		'<ba.protect>',
+		'<ba.dying>',
+		'<ba.dt.element>',
+		'<ba.berserk>',
+		'<ba.inspire>',
+		'<ba.strong>',
+		'<ba.barrier>',
+		'<ba.shield>',
+		'<ba.buffres>',
+		'<ba.physhield>',
+		'<ba.charged>',
+		'<ba.overdrive>',
+		'<ba.dt.apoptosis2>',
+		'<ba.dt.burning2>',
+		'<ba.weaken>',
+		'<ba.binding>'
+	];
 	const patternsToParse = [
 		{ prefix: '<@rolv.rem>', suffix: '</>', style: 'text-[#FF4C22]' },
 		{ prefix: '<@ba.talpu>', suffix: '</>', style: 'text-[#0098DC]' },
@@ -8,11 +41,18 @@
 		{ prefix: '<@ba.vdown>', suffix: '</>', style: 'text-[#FF6237]' },
 		{ prefix: '<@ba.rem>', suffix: '</>', style: 'text-[#F49800]' },
 		{ prefix: '<@ba.kw>', suffix: '</>', style: 'text-[#00B0FF]' },
-		{ prefix: '<.*>', suffix: '</>', style: '' },
 		{ prefix: '$', suffix: '$', style: 'text-red-400 font-semibold' }
 	];
 	//due to a difference in resolving <@rolv.rem> in rogue3_b-3-b and rogue3_b-4-b, this should be written to resolve by patterns first.
 	const parseText = (line: string) => {
+		for (const pattern of patternsToIgnore) {
+			const regex = new RegExp(`${pattern}(.*?)</>`, 'gs');
+			const splitText = line.split(regex);
+			if (splitText.length > 1) {
+				splitText.forEach((text, i) => i % 2 === 1 && (line = line.replace(regex, text)));
+			}
+		}
+
 		const lines = [{ text: line, style: null }];
 		for (const pattern of patternsToParse) {
 			traverseLines(lines, pattern);

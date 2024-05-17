@@ -1,5 +1,30 @@
 import type { Language } from '$lib/types';
 
+export const convertStatKeys = {
+	hp: 'hp',
+	maxHp: 'hp',
+	max_hp: 'hp',
+	magicResistance: 'res',
+	attackSpeed: 'aspd',
+	attack_speed: 'aspd',
+	moveSpeed: 'ms',
+	respawnTime: 'respawnTime',
+	atk: 'atk',
+	def: 'def',
+	cost: 'cost'
+};
+
+const revertStatKey = (statKey) => {
+	switch (statKey) {
+		case 'hp':
+			return 'max_hp';
+		case 'aspd':
+			return 'attack_speed';
+		default:
+			return statKey;
+	}
+};
+
 //goes through talent and skills blackboard and gets maximum value of key
 export const getMaxValue = (chara, key) =>
 	Math.max(
@@ -65,4 +90,41 @@ export const getModuleUpdatedRange = (rangeId, module) => {
 			return part.rangeId;
 	}
 	return rangeId;
+};
+
+export const getFullCharaStat = (statKey, chara, moduleStat, potStat) => {
+	let stat = chara['stats'][statKey];
+	if (statKey === 'aspd') {
+		return (
+			Math.round(
+				(stat / ((100 + (chara?.favorData?.[statKey] ?? 0) + moduleStat + potStat) / 100)) * 100
+			) / 100
+		);
+	} else {
+		stat += chara?.favorData?.[statKey] ?? 0;
+		stat += moduleStat;
+		stat += potStat;
+	}
+	return stat;
+};
+export const getModuleStat = (statKey, attributeBlackboard) => {
+	if (attributeBlackboard) {
+		for (const item of attributeBlackboard) {
+			const key = revertStatKey(statKey);
+			if (item.key === key) {
+				return item.value;
+			}
+		}
+	}
+	return 0;
+};
+
+export const getTotalPotStat = (statKey, potential) => {
+	let value = 0;
+	for (const pot of potential) {
+		if (pot.attribute?.[statKey]) {
+			value += pot.attribute[statKey];
+		}
+	}
+	return value;
 };
