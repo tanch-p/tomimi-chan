@@ -34,6 +34,9 @@ import module_y from '$lib/images/chara_assets/y.webp';
 import module_d from '$lib/images/chara_assets/d.webp';
 import sp_cost from '$lib/images/chara_assets/sp_cost.webp';
 import sp_start from '$lib/images/chara_assets/sp_start.png';
+import solid_1 from '$lib/images/chara_assets/solid_1.webp';
+import solid_2 from '$lib/images/chara_assets/solid_2.webp';
+import solid_3 from '$lib/images/chara_assets/solid_3.webp';
 import solid_7 from '$lib/images/chara_assets/solid_7.webp';
 import m0 from '$lib/images/chara_assets/evolve_small_icon_0.webp';
 import m1 from '$lib/images/chara_assets/evolve_small_icon_1.webp';
@@ -70,6 +73,9 @@ export const charaAssets = {
 	d: module_d,
 	sp_cost: sp_cost,
 	sp_start: sp_start,
+	solid_1: solid_1,
+	solid_2: solid_2,
+	solid_3: solid_3,
 	solid_7: solid_7,
 	mastery: [m0, m1, m2, m3]
 };

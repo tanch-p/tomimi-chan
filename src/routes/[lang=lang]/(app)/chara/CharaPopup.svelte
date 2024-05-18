@@ -40,9 +40,6 @@
 		use:clickOutside
 		on:outclick={() => selectedChara.set(null)}
 	>
-		<button class="absolute right-[4px] top-[4px]" on:click={() => selectedChara.set(null)}>
-			<Icon name="x-mark" />
-		</button>
 		{#if $selectedChara}
 			{@const displayLang = !!$selectedChara.name_en ? language : 'zh'}
 			{@const phase = ['TIER_1', 'TIER_2'].includes($selectedChara.rarity)
@@ -221,16 +218,23 @@
 											</button>
 											{#if moduleIndex !== 0 && moduleIndex == idx}
 												<button
-													class="flex items-center border border-[#3e3e3e] bg-[#272727] mt-1.5"
+													class="flex items-center justify-center border border-[#3d3d3d] bg-[#272727] mt-1.5 py-[1px] w-full"
 													on:click={() => {
 														if (moduleStage === 2) return (moduleStage = 0);
 														return (moduleStage += 1);
 													}}
 												>
-													STAGE {moduleStage + 1}
+													<p class="text-[#7d7d7d] font-bold">STAGE</p>
+													<div class="w-[11px] ml-1.5 mt-0.5">
+													<img
+														src={charaAssets[`solid_${moduleStage + 1}`]}
+														alt="7"
+														class="max-h-[15px]"
+													/>
+												</div>
 												</button>
 											{:else}
-												<div class="h-[30px]" />
+												<div class="h-[35px]" />
 											{/if}
 										</div>
 									{/each}
@@ -283,11 +287,11 @@
 	}
 	.popup {
 		border-radius: 5px;
-		width: min(calc(100% - 15px), 500px);
+		width: min(calc(100% - 15px), 600px);
 		position: fixed;
 		inset: 0;
 		min-height: 300px;
-		max-height: 500px;
+		max-height: max(500px,70vh);
 		margin: auto;
 		pointer-events: none;
 		transition: transform 0.3s, opacity 0.2s, -webkit-transform 0.3s;
