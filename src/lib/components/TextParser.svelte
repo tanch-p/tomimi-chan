@@ -32,7 +32,8 @@
 		'<ba.dt.apoptosis2>',
 		'<ba.dt.burning2>',
 		'<ba.weaken>',
-		'<ba.binding>'
+		'<ba.binding>',
+		'<@ba.dt.element>'
 	];
 	const patternsToParse = [
 		{ prefix: '<@rolv.rem>', suffix: '</>', style: 'text-[#FF4C22]' },
