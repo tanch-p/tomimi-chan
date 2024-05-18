@@ -61,6 +61,15 @@ export const updateSortPriority = (sortOptions, index) => {
 export const getCharaImages = (chara_list) =>
 	chara_list.map((chara) => import(`../images/chara_icons/icon_${chara.id}.webp`));
 
+export const getCharaList = async () => {
+	const data = (await import('../data/chara/characters.json')).default;
+	const images = await Promise.all(
+		data.map((chara) => import(`../images/chara_icons/icon_${chara.id}.webp`))
+	);
+	data.forEach((chara, index) => (chara.icon = images[index].default));
+	return data;
+};
+
 export const getModuleUpdatedTrait = (trait, module, stage: number, language: Language) => {
 	if (!module?.combatData) return trait;
 	for (const part of module.combatData.phases[stage].parts) {

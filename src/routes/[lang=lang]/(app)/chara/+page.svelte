@@ -2,16 +2,19 @@
 	import type { PageData } from './$types';
 	import type { sortOrder, Language } from '$lib/types';
 	import { filters, sortOptions, globalCheck } from './stores';
-	import { getMaxValue } from '$lib/functions/charaHelpers';
+	import { getMaxValue, getCharaList } from '$lib/functions/charaHelpers';
 	import CharaDisplay from './CharaDisplay.svelte';
 	import CharaFilter from './CharaFilter.svelte';
 	import CharaFilterDesc from './CharaFilterDesc.svelte';
 	import CharaSortOptions from './CharaSortOptions.svelte';
 	import CharaPopup from './CharaPopup.svelte';
 	import translations from '$lib/translations.json';
+	import { onMount } from 'svelte';
 	export let data: PageData;
 	let language: Language;
 	$: language = data.language;
+	let loading = true;
+	let characters = [];
 
 	$: sortFunction = (a, b): sortOrder => {
 		//filter out unselected options and sort by priority
@@ -31,6 +34,10 @@
 		});
 		return values.length > 0 ? values.reduce((acc, curr) => acc || curr) : 0;
 	};
+	onMount(async () => {
+		characters = await getCharaList();
+		loading = false;
+	});
 </script>
 
 <svelte:head>
@@ -45,10 +52,14 @@
 			<CharaFilter {language} />
 			<CharaSortOptions {language} />
 		</div>
-		<CharaDisplay
-			characters={data.characters.filter($filters).filter($globalCheck).sort(sortFunction)}
-			{language}
-		/>
+		{#if loading}
+			<p class="text-center">{translations[language].data_loading}</p>
+		{:else}
+			<CharaDisplay
+				characters={characters.filter($filters).filter($globalCheck).sort(sortFunction)}
+				{language}
+			/>
+		{/if}
 	</div>
 	<CharaFilterDesc {language} />
 	<CharaPopup {language} />
