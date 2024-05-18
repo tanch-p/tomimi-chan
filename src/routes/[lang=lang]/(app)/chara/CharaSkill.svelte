@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
 	import { charaAssets } from '$lib/data/chara/chara_assets';
-	import { skillIcons } from '$lib/data/chara/skill_lookup';
 	import translations from '$lib/translations.json';
 	import Icon from '$lib/components/Icon.svelte';
 	import TextParser from '$lib/components/TextParser.svelte';
@@ -22,13 +21,9 @@
 <div class="grid grid-cols-[200px_1fr] gap-x-3 mt-6">
 	<div class="self-end">
 		<div class="relative h-max w-[90px]">
-			<img
-				src={skillIcons['skill_icon_' + skill.skillId]}
-				width="90"
-				height="90"
-				loading="lazy"
-				alt={''}
-			/>
+			{#await import(`../../../../lib/images/skill_icons/skill_icon_${skill.skillId}.webp`) then { default: src }}
+				<img {src} width="90" height="90" loading="lazy" alt={''} />
+			{/await}
 			<div class="absolute flex -bottom-0.5 -right-0.5">
 				{#if skill.levels?.[mastery]?.spData?.initSp > mastery}
 					<div class="grid grid-cols-[11px_1fr] items-center bg-[#434343] pl-[4px] pr-[1px]">

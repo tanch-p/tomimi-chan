@@ -5,7 +5,6 @@
 	import translations from '$lib/translations.json';
 	import Icon from '$lib/components/Icon.svelte';
 	import { charaAssets } from '$lib/data/chara/chara_assets';
-	import { uniequips } from '$lib/data/chara/uniequip_lookup';
 	import CharaSkill from './CharaSkill.svelte';
 	import {
 		convertStatKeys,
@@ -168,11 +167,9 @@
 					{/if}
 					<div class="grid grid-cols-[70px_1fr] items-center">
 						<div class="flex items-center justify-center w-[65px] h-[65px] bg-neutral-900">
-							<img
-								src={charaAssets[$selectedChara.subProfessionId]}
-								width="50"
-								alt={$selectedChara.subProfessionId}
-							/>
+							{#await import(`../../../../lib/images/chara_assets/sub_${$selectedChara.subProfessionId}_icon.webp`) then { default: src }}
+								<img {src} width="50" alt={$selectedChara.subProfessionId} />
+							{/await}
 						</div>
 						<p class="ml-3 text-xl">
 							{translations[language][$selectedChara.subProfessionId]}
@@ -207,8 +204,10 @@
 												class="module flex-col"
 												on:click={() => (moduleIndex = idx)}
 											>
-												<div class="grid items-center w-[40px] h-[48px]">
-													<img src={uniequips[typeIcon]} width="40" alt={typeIcon} class="" />
+												<div class="grid place-items-center h-[48px]">
+													{#await import(`../../../../lib/images/equip_icons/icon_${typeIcon}.webp`) then { default: src }}
+														<img {src} height="40" alt={typeIcon} class="max-h-[40px]" />
+													{/await}
 												</div>
 												<div class="flex gap-x-0.5 text-xs font-light uppercase">
 													{#if typeIcon !== 'original'}
