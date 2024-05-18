@@ -40,7 +40,7 @@
 </svelte:head>
 
 <div class="chara pb-40">
-	<div class="md:mx-10">
+	<div class="sm:mx-10">
 		<div class="max-w-5xl mx-auto pt-6 md:pt-10 pb-4 text-[0.75rem] md:text-[0.875rem] {language}">
 			<CharaFilter {language} />
 			<CharaSortOptions {language} />
