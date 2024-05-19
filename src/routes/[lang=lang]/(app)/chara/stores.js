@@ -87,15 +87,15 @@ export const globalCheck = derived(releaseStatusStore, ($releaseStatusStore) => 
 });
 
 const generateFilterStore = (filterOptions) => {
-	return Object.keys(filterOptions).reduce((acc, key) => {
-		switch (key) {
+	return Object.keys(filterOptions).reduce((acc, category) => {
+		switch (category) {
 			case 'subProfessionId':
 				acc.push({
-					key,
-					options: Object.keys(filterOptions[key])
+					key: category,
+					options: Object.keys(filterOptions[category])
 						.reduce((acc, subKey) => {
 							acc.push(
-								filterOptions[key][subKey].map((value) => {
+								filterOptions[category][subKey].map((value) => {
 									return { value, selected: false };
 								})
 							);
@@ -104,10 +104,19 @@ const generateFilterStore = (filterOptions) => {
 						.flat(2)
 				});
 				break;
+			case 'enemy_stats':
+				acc.push({
+					key: category,
+					options: filterOptions[category].map(({ value }) => {
+						return { value, selected: false };
+					})
+				});
+
+				break;
 			default:
 				acc.push({
-					key,
-					options: filterOptions[key].map((value) => {
+					key: category,
+					options: filterOptions[category].map((value) => {
 						return { value, selected: false };
 					})
 				});
