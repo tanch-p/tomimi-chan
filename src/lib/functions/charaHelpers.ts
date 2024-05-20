@@ -9,6 +9,8 @@ export const convertStatKeys = {
 	attack_speed: 'aspd',
 	moveSpeed: 'ms',
 	respawnTime: 'respawnTime',
+	block_cnt: 'blockCnt',
+	blockCnt: 'blockCnt',
 	atk: 'atk',
 	def: 'def',
 	cost: 'cost'
@@ -20,6 +22,8 @@ const revertStatKey = (statKey) => {
 			return 'max_hp';
 		case 'aspd':
 			return 'attack_speed';
+		case 'blockCnt':
+			return 'block_cnt';
 		default:
 			return statKey;
 	}
@@ -70,7 +74,24 @@ export const getCharaList = async () => {
 	return data;
 };
 
-export const getModuleUpdatedTrait = (trait, module, stage: number, language: Language) => {
+export const getModuleNewTalent = (module, stage: number, language:Language) => {
+	if (!module?.combatData) return;
+	for (const part of module.combatData.phases[stage].parts) {
+		if (
+			!part.isToken &&
+			part.target.includes('TALENT') &&
+			part.talentIndex === -1 &&
+			part.name_zh
+		) {
+			return {
+				name: part[`name_${language}`] || part.name_zh,
+				desc: part[`upgradeDesc_${language}`] || part.upgradeDesc_zh
+			};
+		}
+	}
+};
+
+export const getModuleTrait = (trait, module, stage: number, language: Language) => {
 	if (!module?.combatData) return trait;
 	for (const part of module.combatData.phases[stage].parts) {
 		if ((!part.isToken && part.target.includes('TRAIT')) || part.target === 'DISPLAY') {
@@ -80,11 +101,23 @@ export const getModuleUpdatedTrait = (trait, module, stage: number, language: La
 	}
 	return trait;
 };
-export const getModuleUpdatedTalent = (idx, module, stage: number, language: Language) => {
+export const getModuleTalentDesc = (idx, module, stage: number, language: Language) => {
 	if (!module?.combatData) return;
 	for (const part of module.combatData.phases[stage].parts) {
 		if (
 			!part.isToken &&
+			part.target.includes('TALENT') &&
+			part.talentIndex === idx &&
+			part.upgradeDesc_zh
+		)
+			return part[`upgradeDesc_${language}`] || part[`upgradeDesc_zh`];
+	}
+};
+export const getTokenModuleTalent = (idx, module, stage: number, language: Language) => {
+	if (!module?.combatData) return;
+	for (const part of module.combatData.phases[stage].parts) {
+		if (
+			part.isToken &&
 			part.target.includes('TALENT') &&
 			part.talentIndex === idx &&
 			part.upgradeDesc_zh

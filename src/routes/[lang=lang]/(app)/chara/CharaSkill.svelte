@@ -25,7 +25,7 @@
 				<img {src} width="90" height="90" loading="lazy" alt={''} />
 			{/await}
 			<div class="absolute flex -bottom-0.5 -right-0.5">
-				{#if skill.levels?.[mastery]?.spData?.initSp > mastery}
+				{#if skill.levels?.[mastery]?.spData?.initSp}
 					<div class="grid grid-cols-[11px_1fr] items-center bg-[#434343] pl-[4px] pr-[1px]">
 						<img src={charaAssets.sp_start} alt="" />
 						<p class="text-[20px] leading-tight">{skill.levels?.[mastery]?.spData?.initSp}</p>

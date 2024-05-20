@@ -71,6 +71,18 @@
 		{translations[language].filter_reset}
 	</button>
 	<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 pt-2 md:pt-3">
+		<p class="md:py-[5px]">{translations[language].chara_filter.release_status}:</p>
+		<div class="flex flex-wrap gap-2">
+			{#each ['global', 'cn'] as value}
+				<button
+					class="filter-btn"
+					class:active={$releaseStatusStore === value}
+					on:click={() => updateReleaseStatus(value)}
+				>
+					{translations[language].chara_filter[value]}
+				</button>
+			{/each}
+		</div>
 		<p class="md:py-[5px]">{translations[language]['rarity']}:</p>
 		<div class="flex flex-wrap gap-2">
 			{#each filterOptions['rarity'] as value}
@@ -95,36 +107,39 @@
 				</button>
 			{/each}
 		</div>
-		<p class="md:py-[5px]">{translations[language]['position'] || 'Position'}:</p>
+		<p class="md:py-[5px]">{translations[language]['deployable_tile']}:</p>
 		<div class="flex flex-wrap gap-2">
-			{#each filterOptions['positions'] as value}
+			{#each filterOptions['deployable_tile'] as { key, value }}
 				<button
 					class="filter-btn"
-					class:active={isSelected('positions', value)}
-					on:click={() => updateFilters('positions', value)}
+					class:active={isSelected('deployable_tile', value)}
+					on:click={() => updateFilters('deployable_tile', value)}
+				>
+					{translations[language][key]}
+				</button>
+			{/each}
+		</div>
+		<p class="md:py-[5px]">{translations[language].damage_type}</p>
+		<div class="flex flex-wrap gap-2">
+			{#each filterOptions['damage_type'] as value}
+				<button
+					class="filter-btn"
+					class:active={isSelected('damage_type', value)}
+					on:click={() => updateFilters('damage_type', value)}
 				>
 					{translations[language][value]}
 				</button>
 			{/each}
 		</div>
-		<p class="md:py-[5px]">Damage Type</p>
+		<p class="md:py-[5px]">{translations[language].table_headers.blockCnt}</p>
 		<div class="flex flex-wrap gap-2">
-			<p>phys</p>
-			<p>arts</p>
-			<p>true</p>
-			<p>element</p>
-			<p>apoptosis</p>
-			<p>burning</p>
-		</div>
-		<p class="md:py-[5px]">{translations[language].chara_filter.release_status}:</p>
-		<div class="flex flex-wrap gap-2">
-			{#each ['global', 'cn'] as value}
+			{#each filterOptions['blockCnt'] as value}
 				<button
 					class="filter-btn"
-					class:active={$releaseStatusStore === value}
-					on:click={() => updateReleaseStatus(value)}
+					class:active={isSelected('blockCnt', value)}
+					on:click={() => updateFilters('blockCnt', value)}
 				>
-					{translations[language].chara_filter[value]}
+					{value}
 				</button>
 			{/each}
 		</div>

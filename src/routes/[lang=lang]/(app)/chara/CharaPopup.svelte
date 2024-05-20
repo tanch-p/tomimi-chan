@@ -3,7 +3,6 @@
 	import type { Language } from '$lib/types';
 	import { selectedChara } from './stores';
 	import translations from '$lib/translations.json';
-	import Icon from '$lib/components/Icon.svelte';
 	import { charaAssets } from '$lib/data/chara/chara_assets';
 	import CharaSkill from './CharaSkill.svelte';
 	import {
@@ -11,9 +10,11 @@
 		getFullCharaStat,
 		getModuleStat,
 		getModuleUpdatedRange,
-		getModuleUpdatedTalent,
-		getModuleUpdatedTrait,
-		getTotalPotStat
+		getModuleTalentDesc,
+		getTokenModuleTalent,
+		getModuleTrait,
+		getTotalPotStat,
+		getModuleNewTalent
 	} from '$lib/functions/charaHelpers';
 	import TextParser from '$lib/components/TextParser.svelte';
 	import RangeParser from '$lib/components/RangeParser.svelte';
@@ -112,13 +113,13 @@
 									language === 'en' ? 'text-sm' : ''
 								}`}
 							>
-								<div class="grid grid-cols-[14px_1fr] items-center gap-x-1.5">
-									<img src={charaAssets[statKey]} width="14px" height="14px" alt="" />
+								<div class="grid grid-cols-[16px_1fr] items-center gap-x-1">
+									<img src={charaAssets[statKey]} width="16px" height="16px" alt="" />
 									<span class="text-[#b3b3b3] font-semibold">
 										{translations[language].table_headers[statKey]}
 									</span>
 								</div>
-								<p class="text-near-white pl-[18px] whitespace-nowrap">
+								<p class="text-near-white pl-[20px] whitespace-nowrap">
 									{getFullCharaStat(statKey, $selectedChara, moduleStat, potStat)}{statKey ===
 									'respawnTime'
 										? 's'
@@ -127,7 +128,9 @@
 										<span class="text-[#00B0FF] text-sm">({potStat > 0 ? '+' : ''}{potStat})</span>
 									{/if}
 									{#if moduleStat}
-										<span class="text-red-400 text-sm">(+{moduleStat})</span>
+										<span class="text-red-400 text-sm"
+											>({moduleStat > 0 ? '+' : ''}{moduleStat})</span
+										>
 									{/if}
 								</p>
 							</div>
@@ -137,14 +140,16 @@
 			</div>
 			<div class="px-1.5 mt-3">
 				<div
-					class="flex flex-col items-center min-w-28 p-3 bg-[#161616] bg-opacity-80 rounded float-right"
+					class="flex flex-col items-center min-w-28 p-3 pb-1 bg-[#161616] bg-opacity-80 rounded float-right"
 				>
-					<RangeParser
-						rangeId={getModuleUpdatedRange(
-							$selectedChara.stats.rangeId,
-							$selectedChara.uniequip[moduleIndex]
-						)}
-					/>
+					<div class="flex items-center min-h-[50px]">
+						<RangeParser
+							rangeId={getModuleUpdatedRange(
+								$selectedChara.stats.rangeId,
+								$selectedChara.uniequip[moduleIndex]
+							)}
+						/>
+					</div>
 					<p class="mt-1">{translations[language].attack_range}</p>
 				</div>
 				<div class="min-h-[130px]">
@@ -173,7 +178,7 @@
 						</p>
 					</div>
 					<TextParser
-						line={getModuleUpdatedTrait(
+						line={getModuleTrait(
 							$selectedChara[`desc_${displayLang}`],
 							$selectedChara.uniequip[moduleIndex],
 							moduleStage,
@@ -224,14 +229,14 @@
 														return (moduleStage += 1);
 													}}
 												>
-													<p class="text-[#7d7d7d] font-bold">STAGE</p>
+													<p class="text-[#7d7d7d] font-bold text-sm">STAGE</p>
 													<div class="w-[11px] ml-1.5 mt-0.5">
-													<img
-														src={charaAssets[`solid_${moduleStage + 1}`]}
-														alt="7"
-														class="max-h-[15px]"
-													/>
-												</div>
+														<img
+															src={charaAssets[`solid_${moduleStage + 1}`]}
+															alt="7"
+															class="max-h-[15px]"
+														/>
+													</div>
 												</button>
 											{:else}
 												<div class="h-[35px]" />
@@ -245,9 +250,14 @@
 				</div>
 				<hr class="mt-4 mb-3 border-t-2 border-[#555]" />
 				{#if $selectedChara.talents && $selectedChara.talents.length > 0}
+					{@const newTalent = getModuleNewTalent(
+						$selectedChara.uniequip[moduleIndex],
+						moduleStage,
+						language
+					)}
 					<p>{translations[language].talent}</p>
 					{#each $selectedChara.talents as talent, idx}
-						{@const moduleTalentDesc = getModuleUpdatedTalent(
+						{@const moduleTalentDesc = getModuleTalentDesc(
 							idx,
 							$selectedChara.uniequip[moduleIndex],
 							moduleStage,
@@ -258,6 +268,12 @@
 						</p>
 						<TextParser className="mt-1" line={moduleTalentDesc || talent[`desc_${displayLang}`]} />
 					{/each}
+					{#if newTalent}
+						<p class="py-[1px] px-2 mt-4 w-max bg-[#f9f9f9] rounded-md font-medium text-[#333]">
+							{newTalent.name}
+						</p>
+						<TextParser className="mt-1" line={newTalent.desc} />
+					{/if}
 				{/if}
 				{#if $selectedChara.skills && $selectedChara.skills.length > 0}
 					<p class="mt-8">
@@ -268,6 +284,126 @@
 					</p>
 					{#each $selectedChara.skills as skill}
 						<CharaSkill {skill} {displayLang} {language} />
+					{/each}
+				{/if}
+				{#if $selectedChara.tokens && $selectedChara.tokens.length > 0}
+					<hr class="mt-4 mb-3 border-t-2 border-[#555]" />
+					<p class="mt-8">
+						{translations[language].token}
+					</p>
+					{#each $selectedChara.tokens as token}
+						<div class="grid grid-cols-[100px_1fr]">
+							<div>
+								<img src="" alt="" />
+							</div>
+							<div>
+								<p>{token[`name_${displayLang}`]}</p>
+								<div>{translations[language][`position_${token.position.toLowerCase()}`]}</div>
+							</div>
+						</div>
+						<div class="grid grid-cols-[130px_1fr] gap-2">
+							<div
+								class="flex flex-col items-center w-full p-2 pb-1 bg-[#161616] bg-opacity-80 rounded"
+							>
+								<div class="flex items-center h-full">
+									<RangeParser rangeId={token.stats.rangeId} />
+								</div>
+								<p class="mt-1">{translations[language].attack_range}</p>
+							</div>
+
+							<div class="grid grid-cols-2 gap-x-2 gap-y-1.5">
+								{#each statKeys as statKey}
+									{@const moduleStat = getModuleStat(
+										statKey,
+										$selectedChara.uniequip?.[moduleIndex]?.combatData?.phases?.[moduleStage]
+											?.tokenAttributeBlackboard?.[token.id]
+									)}
+
+									<div
+										class="grid grid-cols-[20px_1fr] items-center gap-x-2 bg-[#161616] bg-opacity-80 h-[25px]"
+									>
+										<div class="flex items-center bg-[#444] h-full px-[1px]">
+											<img src={charaAssets[statKey]} width="18px" height="18px" alt="" />
+										</div>
+										<p class="text-near-white whitespace-nowrap">
+											{getFullCharaStat(statKey, token, moduleStat, 0)}{statKey === 'respawnTime'
+												? 's'
+												: ''}
+											{#if moduleStat}
+												<span class="text-red-400 text-sm"
+													>({moduleStat > 0 ? '+' : ''}{moduleStat})</span
+												>
+											{/if}
+										</p>
+									</div>
+								{/each}
+							</div>
+						</div>
+						<div class="px-1.5 mt-3">
+							<p>{translations[language].trait}</p>
+							<TextParser line={token[`desc_${displayLang}`]} className="mt-2" />
+							{#if token.talents && token.talents.length > 0}
+								<p>{translations[language].talent}</p>
+								{#each token.talents as talent, idx}
+									{@const moduleTalentDesc = getTokenModuleTalent(
+										idx,
+										$selectedChara.uniequip[moduleIndex],
+										moduleStage,
+										language
+									)}
+									<p
+										class="py-[1px] px-2 mt-4 w-max bg-[#f9f9f9] rounded-md font-medium text-[#333]"
+									>
+										{talent[`name_${displayLang}`]}
+									</p>
+									<TextParser
+										className="mt-1"
+										line={moduleTalentDesc || talent[`desc_${displayLang}`]}
+									/>
+								{/each}
+							{/if}
+							{#if token.skills && token.skills.length > 0}
+								<p class="mt-8">
+									{translations[language].skill}
+								</p>
+								{#each token.skills as skill}
+									<div class="grid grid-cols-[100px_1fr]">
+										<div class="relative border">
+											<img src="" alt="" />
+											<div class="absolute flex -bottom-0.5 -right-0.5">
+												{#if skill?.spData?.sp_cost}
+													<div
+														class="grid grid-cols-[11px_1fr] items-center bg-[#434343] pl-[4px] pr-[1px]"
+													>
+														<img src={charaAssets.sp_start} alt="" />
+														<p class="text-[20px] leading-tight">{skill?.spData?.initSp}</p>
+													</div>
+
+													<div
+														class="ml-1 grid grid-cols-[16px_1fr] items-center bg-[#434343] pr-[1px]"
+													>
+														<img src={charaAssets.sp_cost} alt="" />
+														<p class="text-[20px] leading-tight">{skill?.spData?.spCost}</p>
+													</div>
+												{/if}
+											</div>
+										</div>
+										<div>
+											<p>{skill[`name_${displayLang}`]}</p>
+											<div class="flex mt-2">
+												{#if skill.skillType !== 'PASSIVE'}
+													<p class="pill {skill?.spType}">
+														{translations[language][skill?.spType]}
+													</p>
+												{/if}
+												<p class="pill bg-[#737373]">{translations[language][skill.skillType]}</p>
+											</div>
+										</div>
+									</div>
+									<TextParser line={skill[`desc_${displayLang}`]} className="mt-1.5" />
+								{/each}
+							{/if}
+						</div>
 					{/each}
 				{/if}
 			</div>
@@ -287,11 +423,11 @@
 	}
 	.popup {
 		border-radius: 5px;
-		width: min(calc(100% - 15px), 600px);
+		width: min(calc(100% - 15px), 550px);
 		position: fixed;
 		inset: 0;
 		min-height: 300px;
-		max-height: max(500px,70vh);
+		max-height: max(500px, 70vh);
 		margin: auto;
 		pointer-events: none;
 		transition: transform 0.3s, opacity 0.2s, -webkit-transform 0.3s;
@@ -325,5 +461,23 @@
 		height: 1px;
 		background-color: #555;
 		transform: rotate(-45deg);
+	}
+	.pill {
+		min-width: 72px;
+		border-radius: 5px;
+		padding: 0 6px 1px;
+		text-align: center;
+	}
+	.pill.PASSIVE {
+		background-color: #737373;
+	}
+	.pill.INCREASE_WHEN_ATTACK {
+		background-color: #fc793e;
+	}
+	.pill.INCREASE_WHEN_TAKEN_DAMAGE {
+		background-color: #ffb400;
+	}
+	.pill.INCREASE_WITH_TIME {
+		background-color: #8ec31f;
 	}
 </style>

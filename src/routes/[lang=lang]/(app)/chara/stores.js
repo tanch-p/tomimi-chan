@@ -105,6 +105,8 @@ const generateFilterStore = (filterOptions) => {
 				});
 				break;
 			case 'enemy_stats':
+			case 'ally_stats':
+			case 'deployable_tile':
 				acc.push({
 					key: category,
 					options: filterOptions[category].map(({ value }) => {
@@ -195,7 +197,44 @@ export const filters = derived(
 							);
 						});
 						break;
-
+					case 'deployable_tile':
+						acc.push((char) => {
+							const isALL =
+								char.tags.includes('position_all') ||
+								char.uniequip
+									.filter((equip) => equip.combatData)
+									.some((equip) => equip.combatData.tags.includes('position_all'));
+							const meleeOK = char.position === 'MELEE' || isALL;
+							const rangedOK = char.position === 'RANGED' || isALL;
+							return selectedOptions.every((val) => {
+								switch (val) {
+									case 'MELEE':
+										return meleeOK;
+									case 'RANGED':
+										return rangedOK;
+									case 'ALL':
+										return isALL;
+									default:
+										return;
+								}
+							});
+						});
+						break;
+					case 'blockCnt':
+						acc.push((char) => {
+							const block4Check = selectedOptions.includes(4);
+							const block0Check = selectedOptions.includes(0);
+							return (
+								selectedOptions.includes(char.stats.blockCnt) ||
+								(block4Check &&
+									(char.uniequip
+										.filter((equip) => equip.combatData)
+										.some((equip) => equip.combatData.tags.includes('block_4')) ||
+										char.tokens?.some((token) => token.tags.includes('block_4')))) ||
+								(block0Check && char.tags.includes('block_0'))
+							);
+						});
+						break;
 					case 'status_ailment':
 						acc.push(
 							(char) =>
@@ -209,7 +248,10 @@ export const filters = derived(
 									.filter((equip) => equip.combatData)
 									.some((equip) =>
 										equip.combatData.blackboard.find((item) => selectedOptions.includes(item.key))
-									)
+									) ||
+								char.tokens?.some((token) =>
+									token.blackboard.find((item) => selectedOptions.includes(item.key))
+								)
 						);
 						break;
 					case 'debuff':
@@ -219,6 +261,8 @@ export const filters = derived(
 							const keys = SEARCH_IN_BLACKBOARD.filter((key) => selectedOptions.includes(key));
 							acc.push(
 								(char) =>
+									char.blackboard.find((item) => keys.includes(item.key)) ||
+									tags.some((tag) => char.tags.includes(tag)) ||
 									char.skills.some(
 										(skill) =>
 											skill.blackboard.find((item) => keys.includes(item.key)) ||
@@ -235,7 +279,12 @@ export const filters = derived(
 											(equip) =>
 												equip.combatData.blackboard.find((item) => keys.includes(item.key)) ||
 												tags.some((tag) => equip.combatData.tags.includes(tag))
-										)
+										) ||
+									char.tokens.some(
+										(token) =>
+											token.blackboard.find((item) => keys.includes(item.key)) ||
+											tags.some((tag) => token.tags.includes(tag))
+									)
 							);
 						}
 						break;

@@ -1,9 +1,12 @@
 {
 	"rarity": ["TIER_1", "TIER_2", "TIER_3", "TIER_4", "TIER_5", "TIER_6"],
-	"positions": [
-		{ "key": "MELEE", "value": "position_melee" },
-		{ "key": "RANGED", "value": "position_ranged" }
+	"deployable_tile": [
+		{ "key": "position_melee", "value": "MELEE" },
+		{ "key": "position_ranged", "value": "RANGED" },
+		{ "key": "position_all", "value": "ALL" }
 	],
+	"damage_type": ["phys", "arts", "true", "ele_dmg"],
+	"blockCnt": [0, 1, 2, 3, 4],
 	"profession": ["PIONEER", "WARRIOR", "SNIPER", "TANK", "MEDIC", "SUPPORT", "CASTER", "SPECIAL"],
 	"subProfessionId": {
 		"PIONEER": ["charger", "pioneer", "bearer", "tactician", "agent"],
@@ -143,9 +146,18 @@
 		"ally_shield",
 		"ally_skill_regen"
 	],
-	"enemy_stats": ["atk_down", "def_down", "res_down", "aspd_down", "ms_down"],
-	"ally_stats": ["ally_def_up", "ally_resist", "ally_max_hp"],
-	"elemental": ["apoptosis", "burning", "ele_dmg"],
+	"enemy_stats": [
+		{ "key": "atk", "value": "atk_down" },
+		{ "key": "def", "value": "def_down" },
+		{ "key": "res", "value": "res_down" },
+		{ "key": "aspd", "value": "aspd_down" },
+		{ "key": "ms", "value": "ms_down" }
+	],
+	"ally_stats": [
+		{ "key": "def", "value": "ally_def" },
+		{ "key": "res", "value": "ally_res" },
+		{ "key": "hp", "value": "ally_max_hp" }
+	],
 	"others": [
 		"revive",
 		"def_penetrate",
