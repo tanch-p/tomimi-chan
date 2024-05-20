@@ -198,27 +198,16 @@ export const filters = derived(
 						});
 						break;
 					case 'deployable_tile':
-						acc.push((char) => {
-							const isALL =
-								char.tags.includes('position_all') ||
-								char.uniequip
-									.filter((equip) => equip.combatData)
-									.some((equip) => equip.combatData.tags.includes('position_all'));
-							const meleeOK = char.position === 'MELEE' || isALL;
-							const rangedOK = char.position === 'RANGED' || isALL;
-							return selectedOptions.every((val) => {
-								switch (val) {
-									case 'MELEE':
-										return meleeOK;
-									case 'RANGED':
-										return rangedOK;
-									case 'ALL':
-										return isALL;
-									default:
-										return;
-								}
-							});
-						});
+						acc.push((char) =>
+							selectedOptions.some(
+								(val) =>
+									char.position === val ||
+									char.tags.includes('position_all') ||
+									char.uniequip
+										.filter((equip) => equip.combatData)
+										.some((equip) => equip.combatData.tags.includes('position_all'))
+							)
+						);
 						break;
 					case 'blockCnt':
 						acc.push((char) => {

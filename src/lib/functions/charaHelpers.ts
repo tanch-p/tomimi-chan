@@ -74,7 +74,23 @@ export const getCharaList = async () => {
 	return data;
 };
 
-export const getModuleNewTalent = (module, stage: number, language:Language) => {
+export const getSkillImgUrl = (skill) => {
+	switch (skill.name_zh) {
+		case '强力击·γ型':
+			return 'skcom_powerstrike[3]';
+		case '强力击·β型':
+			return 'skcom_powerstrike[2]';
+		case '强力击·α型':
+			return 'skcom_powerstrike[1]';
+		case '武器附魔·α型':
+			return 'skill_icon_skcom_enchant[1]';
+
+		default:
+			return skill.skillId;
+	}
+};
+
+export const getModuleNewTalent = (module, stage: number, language: Language) => {
 	if (!module?.combatData) return;
 	for (const part of module.combatData.phases[stage].parts) {
 		if (
@@ -169,4 +185,40 @@ export const getTotalPotStat = (statKey, potential) => {
 		}
 	}
 	return value;
+};
+
+export const getTokenPosition = (token, uniequip) => {
+	switch (uniequip?.typeIcon) {
+		case 'trp-d':
+			return 'all';
+		default:
+			return token.position.toLowerCase();
+	}
+};
+
+export const getActiveModule = (chara, filtersStore) => {
+	for (const curr of filtersStore) {
+		const selectedOptions = curr.options
+			.map((option) => option.selected && option.value)
+			.filter(Boolean);
+		if (selectedOptions.length === 0) {
+			continue;
+		}
+		switch (curr.key) {
+			case 'deployable_tile':
+				if (
+					!selectedOptions.some(
+						(val) => chara.position === val || chara.tags.includes('position_all')
+					)
+				) {
+					return chara.uniequip
+						.filter((equip) => equip.combatData)
+						.find((equip) => equip.combatData.tags.includes('position_all'));
+				}
+				break;
+			default:
+				break;
+		}
+	}
+	return;
 };

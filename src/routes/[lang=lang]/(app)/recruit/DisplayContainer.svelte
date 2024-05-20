@@ -4,6 +4,7 @@
 	import Icon from '$lib/components/Icon.svelte';
 	import { selectedChara } from './stores';
 	import CharaIcon from './CharaIcon.svelte';
+	import CharaDisplay from './CharaDisplay.svelte';
 
 	export let characters, language: Language;
 
@@ -35,27 +36,15 @@
 				{translations[language].filter_result.replace('<num>', characters.length)}
 			</p>
 		</div>
-
-		{#if displayMode === 'grid'}
-			<div class="grid grid-cols-4 sm:flex flex-wrap gap-1.5 mt-4 px-1.5 sm:px-0">
-				{#each characters as chara}
-					<button on:click={() => selectedChara.set(chara)} class="select-none">
-						<CharaIcon {chara} />
-					</button>
-				{/each}
-			</div>
-		{:else}
-			<div class="mt-4 flex flex-col gap-1.5">
-				{#each characters as chara}
-					<div class="grid grid-cols-[100px_1fr]">
-						<button on:click={() => selectedChara.set(chara)}>
-							<CharaIcon {chara} />
-						</button>
-						{chara.appellation}
-					</div>
-				{/each}
-			</div>
-		{/if}
+		<div
+			class="mt-4 {displayMode === 'grid'
+				? 'grid grid-cols-4 sm:flex flex-wrap gap-1.5 px-1.5 sm:px-0'
+				: 'flex flex-col gap-1.5'}"
+		>
+			{#each characters as chara}
+				<CharaDisplay {chara} {displayMode} {language} />
+			{/each}
+		</div>
 	{/if}
 </div>
 

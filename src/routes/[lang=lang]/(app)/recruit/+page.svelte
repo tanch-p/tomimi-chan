@@ -3,7 +3,7 @@
 	import type { sortOrder, Language } from '$lib/types';
 	import { filters, sortOptions, globalCheck } from './stores';
 	import { getMaxValue, getCharaList } from '$lib/functions/charaHelpers';
-	import CharaDisplay from './CharaDisplay.svelte';
+	import DisplayContainer from './DisplayContainer.svelte';
 	import CharaFilter from './CharaFilter.svelte';
 	import CharaFilterDesc from './CharaFilterDesc.svelte';
 	import CharaSortOptions from './CharaSortOptions.svelte';
@@ -55,7 +55,7 @@
 		{#if loading}
 			<p class="text-center">{translations[language].data_loading}</p>
 		{:else}
-			<CharaDisplay
+			<DisplayContainer
 				characters={characters.filter($filters).filter($globalCheck).sort(sortFunction)}
 				{language}
 			/>

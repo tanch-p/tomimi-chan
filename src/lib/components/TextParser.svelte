@@ -6,6 +6,7 @@
 		'<ba.elementfragile>',
 		'<ba.camou>',
 		'<ba.invisible>',
+		"<ba.steal>",
 		'<ba.stun>',
 		'<ba.sluggish>',
 		'<ba.root>',
