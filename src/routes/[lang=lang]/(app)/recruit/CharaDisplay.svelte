@@ -1,17 +1,25 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
 	import translations from '$lib/translations.json';
-	import { selectedChara, filtersStore } from './stores';
+	import { selectedChara, filtersStore, moduleIndex } from './stores';
 	import CharaIcon from './CharaIcon.svelte';
 	import { getActiveModule } from '$lib/functions/charaHelpers';
 
 	export let chara, displayMode, language: Language;
 
 	$: equip = getActiveModule(chara, $filtersStore);
+
+	const handleClick = (chara, equip) => {
+		selectedChara.set(chara);
+		if (equip) {
+			const equipIndex = chara.uniequip.findIndex((ele) => ele.uniEquipId === equip.uniEquipId);
+			if (equipIndex !== -1) moduleIndex.set(equipIndex);
+		}
+	};
 </script>
 
 {#if displayMode === 'grid'}
-	<button on:click={() => selectedChara.set(chara)} class="select-none">
+	<button on:click={() => handleClick(chara, equip)} class="select-none">
 		<CharaIcon {chara}>
 			{#if equip}
 				{@const typeIcon = equip.typeIcon.toLowerCase()}

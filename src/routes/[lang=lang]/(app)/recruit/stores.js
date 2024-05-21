@@ -1,76 +1,9 @@
 import { writable, derived } from 'svelte/store';
 import filterOptions from '$lib/data/chara/filter_options.json';
 import relics from '$lib/data/chara/relics_chara.json';
+import { addOptionsToAcc } from '$lib/functions/charaHelpers';
 import { browser } from '$app/environment';
-import { cookiesEnabled } from '../../../stores.js';
-
-const SEARCH_IN_TAGS = [
-	'weightless',
-	'cancel_stealth',
-	'stealth',
-	'camouflage',
-	'taunt',
-	'undying',
-	'dying',
-	'barrier',
-	'infected',
-	'starting_cost',
-	'enemy_hp',
-	'lower_target_priority',
-	'min_damage',
-	'spareshot',
-	'revive',
-	'ally_resist',
-	'reflect_dmg',
-	'ally_reflect_dmg',
-	'dot',
-	'first_token_free',
-	'ally_sp_regen',
-	'global_move_speed_down',
-	'ignore_evasion',
-	'env',
-	'ally_env',
-	'ally_block_up',
-	'ally_block_down',
-	'stop_attack',
-	'limited_use',
-	'unlimited_duration',
-	'activate_skill',
-	'inspire',
-	'skill_time_invincible',
-	'enemy_priority',
-	'reallocate_hp',
-	'erase_projectile',
-	'slow_projectile',
-	'interval_aspd',
-	'execute'
-];
-const SEARCH_IN_BLACKBOARD = [
-	'magicfragile',
-	'fragile',
-	'phys_evasion',
-	'arts_evasion',
-	'protect',
-	'damage_resistance',
-	'ally_shield',
-	'poison_damage',
-	'block_dmg',
-	'sp_gain',
-	'ally_sp_gain',
-	'heal_scale',
-	'def_penetrate',
-	'def_penetrate_fixed',
-	'ally_sp_stock',
-	'res_penetrate_fixed',
-	'damage_scale',
-	'ally_damage_scale',
-	'ally_heal_scale',
-	'heal_scale',
-	'cost_return',
-	'block_up',
-	'phys_hitrate_down',
-	'arts_hitrate_down'
-];
+import { cookiesEnabled } from '../../../stores';
 
 let releaseStatus = 'cn';
 if (browser && cookiesEnabled) {
@@ -89,6 +22,18 @@ export const globalCheck = derived(releaseStatusStore, ($releaseStatusStore) => 
 const generateFilterStore = (filterOptions) => {
 	return Object.keys(filterOptions).reduce((acc, category) => {
 		switch (category) {
+			case 'rarity':
+			case 'damage_type':
+			case 'blockCnt':
+			case 'profession':
+			case 'group':
+				acc.push({
+					key: category,
+					options: filterOptions[category].map((value) => {
+						return { value, selected: false };
+					})
+				});
+				break;
 			case 'subProfessionId':
 				acc.push({
 					key: category,
@@ -104,8 +49,6 @@ const generateFilterStore = (filterOptions) => {
 						.flat(2)
 				});
 				break;
-			case 'enemy_stats':
-			case 'ally_stats':
 			case 'deployable_tile':
 				acc.push({
 					key: category,
@@ -113,15 +56,9 @@ const generateFilterStore = (filterOptions) => {
 						return { value, selected: false };
 					})
 				});
-
 				break;
 			default:
-				acc.push({
-					key: category,
-					options: filterOptions[category].map((value) => {
-						return { value, selected: false };
-					})
-				});
+				addOptionsToAcc(acc, filterOptions[category]);
 				break;
 		}
 		return acc;
@@ -224,9 +161,26 @@ export const filters = derived(
 							);
 						});
 						break;
-					case 'status_ailment':
+					case 'damage_scale':
 						acc.push(
 							(char) =>
+								char.skills.some((skill) =>
+									skill.blackboard.find((item) => item.key === 'damage_scale')
+								) ||
+								char.talents.some((talent) =>
+									talent.blackboard.find((item) => item.key === 'damage_scale')
+								) ||
+								char.uniequip
+									.filter((equip) => equip.combatData)
+									.some((equip) =>
+										equip.combatData.blackboard.find((item) => item.key === 'damage_scale')
+									)
+						);
+						break;
+					case 'blackboard':
+						acc.push(
+							(char) =>
+								char.blackboard.find((item) => selectedOptions.includes(item.key)) ||
 								char.skills.some((skill) =>
 									skill.blackboard.find((item) => selectedOptions.includes(item.key))
 								) ||
@@ -243,39 +197,23 @@ export const filters = derived(
 								)
 						);
 						break;
-					case 'debuff':
-					case 'buff':
-						{
-							const tags = SEARCH_IN_TAGS.filter((tag) => selectedOptions.includes(tag));
-							const keys = SEARCH_IN_BLACKBOARD.filter((key) => selectedOptions.includes(key));
-							acc.push(
-								(char) =>
-									char.blackboard.find((item) => keys.includes(item.key)) ||
-									tags.some((tag) => char.tags.includes(tag)) ||
-									char.skills.some(
-										(skill) =>
-											skill.blackboard.find((item) => keys.includes(item.key)) ||
-											tags.some((tag) => skill.tags.includes(tag))
+					case 'tags':
+						acc.push(
+							(char) =>
+								selectedOptions.some((tag) => char.tags.includes(tag)) ||
+								char.skills.some((skill) =>
+									selectedOptions.some((tag) => skill.tags.includes(tag))
+								) ||
+								char.talents.some((talent) =>
+									selectedOptions.some((tag) => talent.tags.includes(tag))
+								) ||
+								char.uniequip
+									.filter((equip) => equip.combatData)
+									.some((equip) =>
+										selectedOptions.some((tag) => equip.combatData.tags.includes(tag))
 									) ||
-									char.talents.some(
-										(talent) =>
-											talent.blackboard.find((item) => keys.includes(item.key)) ||
-											tags.some((tag) => talent.tags.includes(tag))
-									) ||
-									char.uniequip
-										.filter((equip) => equip.combatData)
-										.some(
-											(equip) =>
-												equip.combatData.blackboard.find((item) => keys.includes(item.key)) ||
-												tags.some((tag) => equip.combatData.tags.includes(tag))
-										) ||
-									char.tokens.some(
-										(token) =>
-											token.blackboard.find((item) => keys.includes(item.key)) ||
-											tags.some((tag) => token.tags.includes(tag))
-									)
-							);
-						}
+								char.tokens.some((token) => selectedOptions.some((tag) => token.tags.includes(tag)))
+						);
 						break;
 					default:
 						acc.push((char) => selectedOptions.includes(char[curr.key]));
@@ -346,3 +284,4 @@ filtersStore.subscribe((list) => {
 // SKILLS - if multiple selected, should be able to sort by individual skills
 
 export const selectedChara = writable(null);
+export const moduleIndex = writable(0);

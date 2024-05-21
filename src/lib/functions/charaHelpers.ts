@@ -1,5 +1,118 @@
 import type { Language } from '$lib/types';
 
+const SEARCH_IN_TAGS = [
+	'weightless',
+	'cancel_stealth',
+	'stealth',
+	'camouflage',
+	'ally_camouflage',
+	'taunt',
+	'ally_taunt',
+	'undying',
+	'ally_undying',
+	'lower_target_priority',
+	'ally_lower_target_priority',
+	'min_damage',
+	'spareshot',
+	'revive',
+	'resist',
+	'ally_resist',
+	'reflect_dmg',
+	'ally_reflect_dmg',
+	'dot',
+	'first_token_free',
+	'ally_sp_regen',
+	'global_move_speed_down',
+	'ignore_evasion',
+	'ally_block_up',
+	'ally_block_down',
+	'stop_attack',
+	'limited_use',
+	'unlimited_duration',
+	'activate_skill',
+	'ignore_status',
+	'status_immune',
+	'inspire',
+	'berserk',
+	'vigor',
+	'skill_time_invincible',
+	'enemy_priority',
+	'reallocate_hp',
+	'erase_projectile',
+	'slow_projectile',
+	'aspd_unrelated',
+	'execute',
+	'ally_respawn_time',
+	'env_dmg_reduce',
+	'ally_env_dmg_reduce',
+	'crit_wound',
+	'squad_effect',
+	'barrier',
+	'infected',
+	'starting_cost',
+	'enemy_hp',
+	'terrain_water',
+	"apoptosis_scale"
+];
+const SEARCH_IN_BLACKBOARD = [
+	'stun',
+	'sluggish',
+	'sleep',
+	'silence',
+	'cold',
+	'levitate',
+	'root',
+	'tremble',
+	'max_hp_up',
+	'def_up',
+	'res_up',
+	'attack_speed',
+	'respawn_time',
+	'atk_down',
+	'def_down',
+	'res_down',
+	'ms_down',
+	'aspd_down',
+	'ally_max_hp',
+	'ally_atk',
+	'ally_def',
+	'ally_res',
+	'ally_aspd',
+	'ally_block_up',
+	'ally_cost_down',
+	'phys_evasion',
+	'ally_phys_evasion',
+	'arts_evasion',
+	'ally_arts_evasion',
+	'ally_dmg_res',
+	'damage_resistance',
+	'shield',
+	'ally_shield',
+	'poison_damage',
+	'block_dmg',
+	'ally_block_dmg',
+	'sp_gain',
+	'ally_sp_gain',
+	'ally_sp_stock',
+	'heal_scale',
+	'def_penetrate',
+	'def_penetrate_fixed',
+	'res_penetrate_fixed',
+	'damage_scale',
+	'ally_damage_scale',
+	'elementfragile',
+	'magicfragile',
+	'fragile',
+	'ally_heal_scale',
+	'heal_scale',
+	'cost_return',
+	'block_up',
+	'block_down',
+	'phys_hitrate_down',
+	'arts_hitrate_down',
+	'protect'
+];
+
 export const convertStatKeys = {
 	hp: 'hp',
 	maxHp: 'hp',
@@ -129,14 +242,10 @@ export const getModuleTalentDesc = (idx, module, stage: number, language: Langua
 			return part[`upgradeDesc_${language}`] || part[`upgradeDesc_zh`];
 	}
 };
-export const getTokenModuleTalent = (idx, module, stage: number, language: Language) => {
+export const getTokenModuleTalent = (module, stage: number, language: Language) => {
 	if (!module?.combatData) return;
 	for (const part of module.combatData.phases[stage].parts) {
-		if (
-			part.isToken &&
-			part.target.includes('TALENT') &&
-			part.upgradeDesc_zh
-		)
+		if (part.isToken && part.target.includes('TALENT') && part.upgradeDesc_zh)
 			return part[`upgradeDesc_${language}`] || part[`upgradeDesc_zh`];
 	}
 };
@@ -195,7 +304,7 @@ export const getTokenPosition = (token, uniequip) => {
 	}
 };
 
-export const getActiveModule = (chara, filtersStore) => {
+export const getActiveModule = (char, filtersStore) => {
 	for (const curr of filtersStore) {
 		const selectedOptions = curr.options
 			.map((option) => option.selected && option.value)
@@ -207,12 +316,61 @@ export const getActiveModule = (chara, filtersStore) => {
 			case 'deployable_tile':
 				if (
 					!selectedOptions.some(
-						(val) => chara.position === val || chara.tags.includes('position_all')
+						(val) => char.position === val || char.tags.includes('position_all')
 					)
 				) {
-					return chara.uniequip
+					return char.uniequip
 						.filter((equip) => equip.combatData)
 						.find((equip) => equip.combatData.tags.includes('position_all'));
+				}
+				break;
+			case 'blockCnt':
+				if (
+					selectedOptions.includes(4) &&
+					char.stats.blockCnt !== 4 &&
+					!char.tokens?.some((token) => token.tags.includes('block_4'))
+				) {
+					return char.uniequip
+						.filter((equip) => equip.combatData)
+						.find((equip) => equip.combatData.tags.includes('block_4'));
+				}
+				break;
+			case 'tags':
+				if (
+					!(
+						selectedOptions.some((tag) => char.tags.includes(tag)) ||
+						char.skills.some((skill) => selectedOptions.some((tag) => skill.tags.includes(tag))) ||
+						char.talents.some((talent) =>
+							selectedOptions.some((tag) => talent.tags.includes(tag))
+						) ||
+						char.tokens.some((token) => selectedOptions.some((tag) => token.tags.includes(tag)))
+					)
+				) {
+					return char.uniequip
+						.filter((equip) => equip.combatData)
+						.find((equip) => selectedOptions.some((tag) => equip.combatData.tags.includes(tag)));
+				}
+				break;
+			case 'blackboard':
+				if (
+					!(
+						char.blackboard.find((item) => selectedOptions.includes(item.key)) ||
+						char.skills.some((skill) =>
+							skill.blackboard.find((item) => selectedOptions.includes(item.key))
+						) ||
+						char.talents.some((talent) =>
+							talent.blackboard.find((item) => selectedOptions.includes(item.key))
+						) ||
+						char.tokens?.some((token) =>
+							token.blackboard.find((item) => selectedOptions.includes(item.key))
+						)
+					)
+				) {
+					return char.uniequip
+						.filter((equip) => equip.combatData)
+						.find((equip) =>
+							equip.combatData.blackboard.find((item) => selectedOptions.includes(item.key))
+						);
 				}
 				break;
 			default:
@@ -220,4 +378,39 @@ export const getActiveModule = (chara, filtersStore) => {
 		}
 	}
 	return;
+};
+
+export const addOptionsToAcc = (acc, options) => {
+	const blackboardIndex = acc.findIndex((ele) => ele.key === 'blackboard');
+	const tagsIndex = acc.findIndex((ele) => ele.key === 'tags');
+	const blackboardOptions = options
+		.filter((value) => SEARCH_IN_BLACKBOARD.includes(value?.value ?? value))
+		.map((value) => {
+			return { value: value?.value ?? value, selected: false };
+		});
+	const tagOptions = options
+		.filter((value) => SEARCH_IN_TAGS.includes(value?.value ?? value))
+		.map((value) => {
+			return { value: value?.value ?? value, selected: false };
+		});
+	if (blackboardIndex === -1) {
+		acc.push({
+			key: 'blackboard',
+			options: blackboardOptions
+		});
+	} else {
+		acc[blackboardIndex].options = [...acc[blackboardIndex].options, ...blackboardOptions];
+	}
+	if (tagsIndex === -1) {
+		acc.push({
+			key: 'tags',
+			options: tagOptions
+		});
+	} else {
+		acc[tagsIndex].options = [...acc[tagsIndex].options, ...tagOptions];
+	}
+};
+
+export const getCategory = (value) => {
+	return SEARCH_IN_BLACKBOARD.includes(value) ? 'blackboard' : 'tags';
 };

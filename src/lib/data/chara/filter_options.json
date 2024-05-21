@@ -123,8 +123,6 @@
 	"debuff": [
 		"magicfragile",
 		"fragile",
-		"weightless",
-		"cancel_stealth",
 		"dying",
 		"atk_down",
 		"damage_scale",
@@ -150,27 +148,100 @@
 		{ "key": "atk", "value": "atk_down" },
 		{ "key": "def", "value": "def_down" },
 		{ "key": "res", "value": "res_down" },
-		{ "key": "aspd", "value": "aspd_down" },
+		{ "key": "attack_speed", "value": "aspd_down" },
 		{ "key": "ms", "value": "ms_down" }
 	],
+	"debuff_special": [
+		"weightless",
+		"cancel_stealth",
+		"crit_wound",
+		"phys_hitrate_down",
+		"arts_hitrate_down"
+	],
+	"damage_scale": [
+		{ "key": "phys", "value": "damage_scale_phys" },
+		{ "key": "arts", "value": "damage_scale_arts" },
+		{ "key": "true", "value": "fragile" },
+		{ "key": "fragile", "value": "fragile" },
+		{ "key": "magicfragile", "value": "magicfragile" },
+		{ "key": "elementfragile", "value": "elementfragile" },
+		{ "key": "apoptosis", "value": "apoptosis_scale" }
+	],
 	"ally_stats": [
+		{ "key": "hp", "value": "ally_max_hp" },
+		{ "key": "atk", "value": "ally_atk" },
 		{ "key": "def", "value": "ally_def" },
 		{ "key": "res", "value": "ally_res" },
-		{ "key": "hp", "value": "ally_max_hp" }
+		{ "key": "attack_speed", "value": "ally_aspd" },
+		{ "key": "respawnTime", "value": "ally_respawn_time" },
+		{ "key": "cost", "value": "ally_cost_down" }
 	],
+	"ally_buffs": [
+		{ "key": "camouflage", "value": "ally_camouflage" },
+		{ "key": "taunt", "value": "ally_taunt" },
+		{ "key": "lower_target_priority", "value": "ally_lower_target_priority" },
+		{ "key": "resist", "value": "ally_resist" },
+		{ "key": "block_up", "value": "ally_block_up" },
+		{ "key": "block_down", "value": "ally_block_down" },
+		{ "key": "phys_evasion", "value": "ally_phys_evasion" },
+		{ "key": "arts_evasion", "value": "ally_arts_evasion" },
+		{ "key": "buff_shield", "value": "ally_shield" },
+		{ "key": "block_dmg", "value": "ally_block_dmg" },
+		{ "key": "dmg_reduction", "value": "ally_dmg_res" },
+		{ "key": "reflect_dmg", "value": "ally_reflect_dmg" },
+		{ "key": "damage_scale_buff", "value": "ally_damage_scale" },
+		{ "key": "undying", "value": "ally_undying" },
+		{ "key": "env_dmg_reduce", "value": "ally_env_dmg_reduce" }
+	],
+	"ally_sp_buffs": [
+		{ "key": "sp_regen", "value": "ally_sp_regen" },
+		{ "key": "sp_gain", "value": "ally_sp_gain" },
+		{ "key": "spareshot", "value": "spareshot" },
+		{ "key": "sp_stock", "value": "ally_sp_stock" },
+		{ "key": "undying", "value": "ally_undying" },
+		{ "key": "env_dmg_reduce", "value": "ally_env_dmg_reduce" }
+	],
+	"self_stats": [
+		{ "key": "hp", "value": "max_hp_up" },
+		{ "key": "def", "value": "def_up" },
+		{ "key": "res", "value": "res_up" },
+		{ "key": "attack_speed", "value": "attack_speed" },
+		{ "key": "respawnTime", "value": "respawn_time" }
+	],
+	"self_buffs": [
+		{ "key": "stealth", "value": "stealth" },
+		{ "key": "camouflage", "value": "camouflage" },
+		{ "key": "taunt", "value": "taunt" },
+		{ "key": "lower_target_priority", "value": "lower_target_priority" },
+		{ "key": "resist", "value": "resist" },
+		{ "key": "block_up", "value": "block_up" },
+		{ "key": "block_down", "value": "block_down" },
+		{ "key": "phys_evasion", "value": "phys_evasion" },
+		{ "key": "arts_evasion", "value": "arts_evasion" },
+		{ "key": "buff_shield", "value": "shield" },
+		{ "key": "block_dmg", "value": "block_dmg" },
+		{ "key": "dmg_reduction", "value": "damage_resistance" },
+		{ "key": "reflect_dmg", "value": "reflect_dmg" },
+		{ "key": "sp_gain", "value": "sp_gain" },
+		{ "key": "spareshot", "value": "spareshot" },
+		{ "key": "undying", "value": "undying" },
+		{ "key": "env_dmg_reduce", "value": "env_dmg_reduce" }
+	],
+	"buff_tags": ["vigor", "inspire", "berserk"],
 	"others": [
+		"global_heal",
 		"revive",
 		"def_penetrate",
-		"def_penetrate_fixed",
 		"spareshot",
-		"lower_target_priority",
 		"squad_effect",
 		"reflect_dmg",
 		"poison_damage",
-		"block_dmg",
 		"unlimited_duration",
-		"env",
-		"ignore_evasion"
+		"ignore_evasion",
+		"erase_projectile",
+		"slow_projectile",
+		"aspd_unrelated",
+		"execute"
 	],
 	"enemy_type": ["infected"],
 	"target_priority": ["drone", "flying"],
@@ -183,5 +254,6 @@
 		"support",
 		"caster",
 		"special"
-	]
+	],
+	"terrain": ["terrain_water"]
 }
