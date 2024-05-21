@@ -4,6 +4,7 @@ const SEARCH_IN_TAGS = [
 	'weightless',
 	'cancel_stealth',
 	'stealth',
+	"ally_stealth",
 	'camouflage',
 	'ally_camouflage',
 	'taunt',
@@ -29,6 +30,8 @@ const SEARCH_IN_TAGS = [
 	'stop_attack',
 	'limited_use',
 	'unlimited_duration',
+	'charged',
+	'overdrive',
 	'activate_skill',
 	'ignore_status',
 	'status_immune',
@@ -52,7 +55,10 @@ const SEARCH_IN_TAGS = [
 	'starting_cost',
 	'enemy_hp',
 	'terrain_water',
-	"apoptosis_scale"
+	'apoptosis_scale',
+	'change_target_priority',
+	"remove_status",
+	"poison_damage"
 ];
 const SEARCH_IN_BLACKBOARD = [
 	'stun',
@@ -88,7 +94,6 @@ const SEARCH_IN_BLACKBOARD = [
 	'damage_resistance',
 	'shield',
 	'ally_shield',
-	'poison_damage',
 	'block_dmg',
 	'ally_block_dmg',
 	'sp_gain',
@@ -110,7 +115,8 @@ const SEARCH_IN_BLACKBOARD = [
 	'block_down',
 	'phys_hitrate_down',
 	'arts_hitrate_down',
-	'protect'
+	'protect',
+	'ally_protect'
 ];
 
 export const convertStatKeys = {

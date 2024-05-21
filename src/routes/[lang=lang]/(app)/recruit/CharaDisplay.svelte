@@ -19,7 +19,7 @@
 </script>
 
 {#if displayMode === 'grid'}
-	<button on:click={() => handleClick(chara, equip)} class="select-none">
+	<button on:click={() => handleClick(chara, equip)} class="select-none border border-gray-600 border-opacity-50">
 		<CharaIcon {chara}>
 			{#if equip}
 				{@const typeIcon = equip.typeIcon.toLowerCase()}

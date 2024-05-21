@@ -65,7 +65,7 @@
 					</p>
 				</div>
 				<div class="flex flex-wrap w-full justify-center gap-4 mt-3">
-					<a href={`/${language}/chara/`}>
+					<a href={`/${language}/recruit/`}>
 						<div class="flex flex-col justify-center items-center">
 							<img
 								class="select-none mx-auto"
