@@ -135,7 +135,6 @@ export const getTokenModuleTalent = (idx, module, stage: number, language: Langu
 		if (
 			part.isToken &&
 			part.target.includes('TALENT') &&
-			part.talentIndex === idx &&
 			part.upgradeDesc_zh
 		)
 			return part[`upgradeDesc_${language}`] || part[`upgradeDesc_zh`];
