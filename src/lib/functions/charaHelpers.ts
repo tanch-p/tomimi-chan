@@ -59,7 +59,8 @@ const SEARCH_IN_TAGS = [
 	'apoptosis_scale',
 	'change_target_priority',
 	'remove_status',
-	'poison_damage'
+	'poison_damage',
+	"force_non_special"
 ];
 const SEARCH_IN_BLACKBOARD = [
 	'stun',
