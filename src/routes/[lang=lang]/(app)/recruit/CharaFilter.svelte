@@ -9,7 +9,7 @@
 	import Icon from '$lib/components/Icon.svelte';
 	import { cookiesEnabled } from '../../../stores';
 	import { browser } from '$app/environment';
-	import { getCategory } from '$lib/functions/charaHelpers';
+	import { getCategory, getSelectedFilterOptions } from '$lib/functions/charaHelpers';
 
 	export let language: Language;
 
@@ -49,7 +49,6 @@
 		{
 			title: 'others',
 			categories: [
-
 				{ catKey: 'buff_tags', optionKey: 'buff_tags' },
 				{ catKey: 'skill', optionKey: 'skill' },
 				{ catKey: 'buff_special', optionKey: 'others' },
@@ -63,6 +62,7 @@
 			?.selected;
 	};
 	let relicDisplayMode = 'grid';
+	let selectedRelics = [];
 
 	const updateFilters = (key, value) => {
 		filtersStore.update((list) => {
@@ -72,6 +72,9 @@
 			return list;
 		});
 	};
+	relicFiltersStore.subscribe((list) => {
+		selectedRelics = list.filter((relic) => relic.selected);
+	});
 	$: isRelicSelected = (id) => {
 		return $relicFiltersStore.find((relic) => relic.id === id)?.selected;
 	};
@@ -107,7 +110,7 @@
 	};
 </script>
 
-<div class="grid gap-6 text-almost-black">
+<div class="grid gap-5 text-almost-black">
 	<div class="bg-near-white rounded-md p-3 md:p-4">
 		<h2 class="border-b text-center pb-1 md:pb-2">
 			{translations[language].filter}
@@ -190,9 +193,13 @@
 				{/each}
 			</div>
 		</div>
-		<CharaFilterToggle title={translations[language].subProfessionId} className="mt-3 md:mt-4">
+		<CharaFilterToggle
+			title={translations[language].subProfessionId}
+			className="mt-2"
+			titleClassName="border-b"
+		>
 			<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 pt-2 md:pt-3">
-				<p class="md:py-[5px]">{translations[language]['subProfessionId']}</p>
+				<p class="hidden sm:block md:py-[5px]">{translations[language]['subProfessionId']}</p>
 				<div class="flex flex-col gap-2">
 					{#each Object.keys(filterOptions.subProfessionId) as subKey}
 						{@const subOptions = filterOptions.subProfessionId[subKey]}
@@ -212,9 +219,13 @@
 				</div>
 			</div>
 		</CharaFilterToggle>
-		<CharaFilterToggle title={translations[language].group} className="mt-3 md:mt-4">
+		<CharaFilterToggle
+			title={translations[language].group}
+			className="mt-1.5"
+			titleClassName="border-b"
+		>
 			<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 pt-2 md:pt-3">
-				<p class="md:py-[5px]">{translations[language]['group']}</p>
+				<p class="hidden sm:block md:py-[5px]">{translations[language]['group']}</p>
 				<div class="flex flex-wrap gap-2">
 					{#each filterOptions['group'] as value}
 						<button
@@ -230,9 +241,14 @@
 		</CharaFilterToggle>
 	</div>
 	{#each filterLayout as { title, categories }}
-		<div class="bg-near-white rounded-md p-3 md:p-4">
-			<CharaFilterToggle title={translations[language][title]} isOpen={true}>
-				<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 pt-2 md:pt-3">
+		{@const selectedOptions = getSelectedFilterOptions(categories, $filtersStore)}
+		<div class="bg-near-white rounded-md">
+			<CharaFilterToggle
+				title={translations[language][title]}
+				isOpen={true}
+				innerClassName="border-t py-3 mx-3 md:py-4 md:mx-4"
+			>
+				<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3">
 					{#each categories as { catKey, optionKey }}
 						<p class="md:py-[5px]">{translations[language][catKey]}</p>
 						<div class="flex flex-wrap gap-2">
@@ -248,13 +264,31 @@
 						</div>
 					{/each}
 				</div>
+				<div slot="selected">
+					{#if selectedOptions.length > 0}
+						<div class="flex flex-wrap gap-2 border-t py-3 mx-3 md:mx-4">
+							{#each selectedOptions as { key, value }}
+								<button
+									class="relative filter-btn"
+									class:active={isSelected(getCategory(value), value)}
+									on:click={() => updateFilters(getCategory(value), value)}
+								>
+									{translations[language].table_headers[key] ?? translations[language][key]}
+								</button>
+							{/each}
+						</div>
+					{/if}
+				</div>
 			</CharaFilterToggle>
 		</div>
 	{/each}
-	<div class="bg-near-white rounded-md p-3 md:p-4">
-		<CharaFilterToggle title={translations[language].is_title}>
+	<div class="bg-near-white rounded-md">
+		<CharaFilterToggle
+			title={translations[language].is_title}
+			innerClassName="border-t py-3 md:py-4 md:mx-4"
+		>
 			<div
-				class="md:absolute right-0 float-right md:float-none flex items-center gap-x-2 w-max ml-auto pt-2"
+				class="md:absolute right-0 float-right md:float-none flex items-center gap-x-2 w-max ml-auto"
 			>
 				<button
 					class="display-style-button rounded-full p-[9px]"
@@ -271,7 +305,7 @@
 					<Icon name="icon-list" size={22} />
 				</button>
 			</div>
-			<div class="flex md:justify-center gap-3 pt-2 md:pt-3">
+			<div class="flex md:justify-center gap-3 pt-2">
 				{#each Object.keys(relics) as topic}
 					<button
 						class:active={$rogueTopic === topic}
@@ -313,6 +347,35 @@
 						</button>
 					{/each}
 				</div>
+			</div>
+			<div slot="selected">
+				{#if selectedRelics.length > 0}
+					<div class="flex flex-wrap gap-2 border-t py-3 mx-3">
+						{#each selectedRelics as { id }}
+							{@const relic = relics[$rogueTopic].find((ele) => ele.id === id)}
+							<button
+								class="text-center"
+								class:bg-slate-300={isRelicSelected(relic.id)}
+								on:click={() => updateRelicFilters(relic.id)}
+							>
+								<img
+									src={relicLookup[relic['id']]}
+									alt={relic[`name_${language}`] || relic['name_zh']}
+									width="75"
+									height="75"
+									loading="lazy"
+									decoding="async"
+									class="mx-auto"
+								/>
+								<div class="px-2">
+									<p class="text-sm">
+										{relic[`name_${language}`] || relic['name_zh']}
+									</p>
+								</div>
+							</button>
+						{/each}
+					</div>
+				{/if}
 			</div>
 		</CharaFilterToggle>
 	</div>

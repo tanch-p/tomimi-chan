@@ -1,10 +1,11 @@
 import type { Language } from '$lib/types';
+import filterOptions from '$lib/data/chara/filter_options.json';
 
 const SEARCH_IN_TAGS = [
 	'weightless',
 	'cancel_stealth',
 	'stealth',
-	"ally_stealth",
+	'ally_stealth',
 	'camouflage',
 	'ally_camouflage',
 	'taunt',
@@ -57,9 +58,8 @@ const SEARCH_IN_TAGS = [
 	'terrain_water',
 	'apoptosis_scale',
 	'change_target_priority',
-	"remove_status",
-	"poison_damage",
-	
+	'remove_status',
+	'poison_damage'
 ];
 const SEARCH_IN_BLACKBOARD = [
 	'stun',
@@ -420,4 +420,19 @@ export const addOptionsToAcc = (acc, options) => {
 
 export const getCategory = (value) => {
 	return SEARCH_IN_BLACKBOARD.includes(value) ? 'blackboard' : 'tags';
+};
+
+export const getSelectedFilterOptions = (categories, filtersStore) => {
+	return categories.reduce((acc, { optionKey }) => {
+		for (const { key, value } of filterOptions[optionKey]) {
+			const category = getCategory(value);
+			const selected = filtersStore
+				.find((ele) => ele.key === category)
+				.options.find((ele) => ele.value === value)?.selected;
+			if (selected) {
+				acc.push({ key, value });
+			}
+		}
+		return acc;
+	}, []);
 };

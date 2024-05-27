@@ -29,7 +29,7 @@
 </script>
 
 
-<div class="bg-near-white text-almost-black rounded-md p-3 md:p-4 mt-4">
+<div class="bg-near-white text-almost-black rounded-md p-3 md:p-4 mt-5">
     <p class="border-b text-center pb-1 md:pb-2">{translations[language].sort}</p>
     <div class="grid grid-cols-[minmax(75px,auto)_50px_1fr] gap-2 md:gap-3 mt-2 md:mt-3">
         <p>{translations[language].filter_option}</p>
