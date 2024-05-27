@@ -12,14 +12,15 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class={className}>
-	<div class="relative p-3 hover:cursor-pointer rounded-t-md {titleClassName}" on:click={toggle}>
+<div class="relative {className}">
+	<div class="relative p-3 hover:cursor-pointer {titleClassName}" on:click={toggle}>
 		<p class={`text-center`}>{title}</p>
 		<Icon
 			name={isOpen ? 'icon-minus' : 'icon-plus'}
-			className="absolute right-2 top-[50%] -translate-y-[50%] w-4 h-4"
+			className="absolute z-[1] right-2 top-[50%] -translate-y-[50%] w-4 h-4"
 		/>
 	</div>
+	<slot name="triangle"/>
 	{#if isOpen}
 		<div transition:slide|local={{ duration: 300 }} class="relative {innerClassName}">
 			<slot>No children given</slot>

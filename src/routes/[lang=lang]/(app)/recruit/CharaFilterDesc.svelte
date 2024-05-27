@@ -111,6 +111,6 @@
 	}
 </script>
 
-<div class="fixed bottom-0 w-full md:w- p-4 bg-[#333] text-lg md:text-2xl text-near-white text-center">
+<div class="fixed z-10 bottom-0 w-full p-4 bg-[#333] text-lg md:text-2xl text-near-white text-center">
 	{line}
 </div>

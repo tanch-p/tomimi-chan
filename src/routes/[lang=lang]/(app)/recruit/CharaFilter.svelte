@@ -16,6 +16,7 @@
 	const filterLayout = [
 		{
 			title: 'enemy_debuff',
+			color: "bg-[#FFA5AF]",
 			categories: [
 				{ catKey: 'stats_debuff', optionKey: 'enemy_stats' },
 				{ catKey: 'status_ailment', optionKey: 'status_ailment' },
@@ -25,6 +26,7 @@
 		},
 		{
 			title: 'ally_buff',
+			color: "bg-[#FFC89B]",
 			categories: [
 				{ catKey: 'stats_buff', optionKey: 'ally_stats' },
 				{ catKey: 'atk_cat', optionKey: 'ally_atk_buffs' },
@@ -37,6 +39,7 @@
 		},
 		{
 			title: 'self_buff',
+			color: "bg-[#C0E6FA]",
 			categories: [
 				{ catKey: 'stats_buff', optionKey: 'self_stats' },
 				{ catKey: 'atk_cat', optionKey: 'self_atk_buffs' },
@@ -48,6 +51,7 @@
 		},
 		{
 			title: 'others',
+			color: "bg-[#DAD4FF]",
 			categories: [
 				{ catKey: 'buff_tags', optionKey: 'buff_tags' },
 				{ catKey: 'skill', optionKey: 'skill' },
@@ -240,15 +244,15 @@
 			</div>
 		</CharaFilterToggle>
 	</div>
-	{#each filterLayout as { title, categories }}
+	{#each filterLayout as { title, color, categories }}
 		{@const selectedOptions = getSelectedFilterOptions(categories, $filtersStore)}
-		<div class="bg-near-white rounded-md">
+		<div class="bg-near-white rounded-md overflow-hidden">
 			<CharaFilterToggle
 				title={translations[language][title]}
 				isOpen={true}
-				innerClassName="border-t py-3 mx-3 md:py-4 md:mx-4"
+				innerClassName="border-t p-3 md:p-4"
 			>
-				<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3">
+				<div class="relative z-[1] flex flex-col md:grid grid-cols-[100px_1fr] gap-3">
 					{#each categories as { catKey, optionKey }}
 						<p class="md:py-[5px]">{translations[language][catKey]}</p>
 						<div class="flex flex-wrap gap-2">
@@ -264,6 +268,7 @@
 						</div>
 					{/each}
 				</div>
+				<div slot="triangle" class="side-triangle absolute right-0 bottom-0 {color} h-[60px] w-[60px]"/>
 				<div slot="selected">
 					{#if selectedOptions.length > 0}
 						<div class="flex flex-wrap gap-2 border-t py-3 mx-3 md:mx-4">
@@ -282,13 +287,13 @@
 			</CharaFilterToggle>
 		</div>
 	{/each}
-	<div class="bg-near-white rounded-md">
+	<div class="bg-near-white rounded-md overflow-hidden">
 		<CharaFilterToggle
 			title={translations[language].is_title}
-			innerClassName="border-t py-3 md:py-4 md:mx-4"
+			innerClassName="border-t px-3 md:px-4 pt-2 pb-3 md:pb-4"
 		>
 			<div
-				class="md:absolute right-0 float-right md:float-none flex items-center gap-x-2 w-max ml-auto"
+				class="md:absolute right-3 float-right md:float-none flex items-center gap-x-2 w-max ml-auto"
 			>
 				<button
 					class="display-style-button rounded-full p-[9px]"
@@ -316,14 +321,14 @@
 					</button>
 				{/each}
 			</div>
-			<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 pt-2 md:pt-5">
+			<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 w-full pt-2 md:pt-5">
 				<p class="md:py-[5px]">{translations[language]['rogue_relic']}</p>
-				<div class="gap-3 {relicDisplayMode === 'grid' ? 'flex flex-wrap' : 'flex flex-col'}">
+				<div class="gap-3 {relicDisplayMode === 'grid' ? 'grid grid-cols-3 sm:flex flex-wrap' : 'flex flex-col'}">
 					{#each relics[$rogueTopic] as relic}
 						<button
-							class="gap-2 {relicDisplayMode === 'grid'
+							class="{relicDisplayMode === 'grid'
 								? 'text-center'
-								: 'grid grid-cols-[100px_1fr] text-left'} "
+								: 'grid grid-cols-[100px_1fr] gap-2 text-left'}"
 							class:bg-slate-300={isRelicSelected(relic.id)}
 							on:click={() => updateRelicFilters(relic.id)}
 						>
@@ -336,7 +341,7 @@
 								decoding="async"
 								class="mx-auto"
 							/>
-							<div class="px-2">
+							<div class="sm:px-2">
 								<p class="text-base">
 									{relic[`name_${language}`] || relic['name_zh']}
 								</p>
@@ -384,6 +389,7 @@
 <style>
 	.filter-btn {
 		height: 30px;
+		background-color: rgb(242 242 242);
 	}
 	.display-style-button {
 		background-color: dimgrey;
