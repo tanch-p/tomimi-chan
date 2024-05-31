@@ -16,7 +16,7 @@
 	const filterLayout = [
 		{
 			title: 'enemy_debuff',
-			color: "bg-[#FFA5AF]",
+			color: 'bg-[#FFA5AF]',
 			categories: [
 				{ catKey: 'stats_debuff', optionKey: 'enemy_stats' },
 				{ catKey: 'status_ailment', optionKey: 'status_ailment' },
@@ -26,7 +26,7 @@
 		},
 		{
 			title: 'ally_buff',
-			color: "bg-[#FFC89B]",
+			color: 'bg-[#FFC89B]',
 			categories: [
 				{ catKey: 'stats_buff', optionKey: 'ally_stats' },
 				{ catKey: 'atk_cat', optionKey: 'ally_atk_buffs' },
@@ -39,7 +39,7 @@
 		},
 		{
 			title: 'self_buff',
-			color: "bg-[#C0E6FA]",
+			color: 'bg-[#C0E6FA]',
 			categories: [
 				{ catKey: 'stats_buff', optionKey: 'self_stats' },
 				{ catKey: 'atk_cat', optionKey: 'self_atk_buffs' },
@@ -51,9 +51,13 @@
 		},
 		{
 			title: 'others',
-			color: "bg-[#DAD4FF]",
+			color: 'bg-[#DAD4FF]',
 			categories: [
 				{ catKey: 'buff_tags', optionKey: 'buff_tags' },
+				{ catKey: 'profession_buff', optionKey: 'profession_buff' },
+				{ catKey: 'group_buff', optionKey: 'group_buff' },
+				{ catKey: 'enemy_type', optionKey: 'enemy_type' },
+				{ catKey: 'enemy_target_priority', optionKey: 'enemy_target_priority' },
 				{ catKey: 'skill', optionKey: 'skill' },
 				{ catKey: 'buff_special', optionKey: 'others' },
 				{ catKey: 'terrain', optionKey: 'terrain' }
@@ -262,13 +266,18 @@
 									class:active={isSelected(getCategory(value), value)}
 									on:click={() => updateFilters(getCategory(value), value)}
 								>
-									{translations[language].table_headers[key] ?? translations[language][key]}
+									{translations[language].table_headers[key] ??
+										translations[language][key] ??
+										translations[language].types[key]}
 								</button>
 							{/each}
 						</div>
 					{/each}
 				</div>
-				<div slot="triangle" class="side-triangle absolute right-0 bottom-0 {color} h-[60px] w-[60px]"/>
+				<div
+					slot="triangle"
+					class="side-triangle absolute right-0 bottom-0 {color} h-[60px] w-[60px]"
+				/>
 				<div slot="selected">
 					{#if selectedOptions.length > 0}
 						<div class="flex flex-wrap gap-2 border-t py-3 mx-3 md:mx-4">
@@ -278,7 +287,9 @@
 									class:active={isSelected(getCategory(value), value)}
 									on:click={() => updateFilters(getCategory(value), value)}
 								>
-									{translations[language].table_headers[key] ?? translations[language][key]}
+									{translations[language].table_headers[key] ??
+										translations[language][key] ??
+										translations[language].types[key]}
 								</button>
 							{/each}
 						</div>
@@ -323,12 +334,16 @@
 			</div>
 			<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 w-full pt-2 md:pt-5">
 				<p class="md:py-[5px]">{translations[language]['rogue_relic']}</p>
-				<div class="gap-3 {relicDisplayMode === 'grid' ? 'grid grid-cols-3 sm:flex flex-wrap' : 'flex flex-col'}">
+				<div
+					class="gap-3 {relicDisplayMode === 'grid'
+						? 'grid grid-cols-3 sm:flex flex-wrap'
+						: 'flex flex-col'}"
+				>
 					{#each relics[$rogueTopic] as relic}
 						<button
-							class="{relicDisplayMode === 'grid'
+							class={relicDisplayMode === 'grid'
 								? 'text-center'
-								: 'grid grid-cols-[100px_1fr] gap-2 text-left'}"
+								: 'grid grid-cols-[100px_1fr] gap-2 text-left'}
 							class:bg-slate-300={isRelicSelected(relic.id)}
 							on:click={() => updateRelicFilters(relic.id)}
 						>

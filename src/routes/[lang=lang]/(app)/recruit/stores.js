@@ -235,22 +235,22 @@ export const filters = derived(
 		};
 	}
 );
-const defaultSortOption = { key: 'rarity', order: -1, visible: true, priority: 1 };
+const defaultSortOptions = [
+	{ key: 'rarity', order: -1, visible: true, priority: 1 },
+	{ key: 'profession', order: 0, visible: true, priority: null }
+];
 export const generateSortOptions = () =>
-	Object.keys(filterOptions).reduce(
-		(acc, key) => {
-			if (['status_ailment'].includes(key)) {
-				acc = [
-					...acc,
-					...filterOptions[key].map((value) => {
-						return { key: value, order: 0, visible: false, priority: null };
-					})
-				];
-			}
-			return acc;
-		},
-		[defaultSortOption]
-	);
+	Object.keys(filterOptions).reduce((acc, key) => {
+		if (['status_ailment'].includes(key)) {
+			acc = [
+				...acc,
+				...filterOptions[key].map((value) => {
+					return { key: value, order: 0, visible: false, priority: null };
+				})
+			];
+		}
+		return acc;
+	}, defaultSortOptions);
 export const sortOptions = writable(generateSortOptions());
 filtersStore.subscribe((list) => {
 	const activeSortableFilters = list.reduce((acc, curr) => {
@@ -266,6 +266,11 @@ filtersStore.subscribe((list) => {
 			//case for Clear All button
 			if (key === 'rarity' && activeSortableFilters.length === 0) {
 				option.order = -1;
+				return option;
+			}
+			if (key === "profession"){
+				option.order = 0;
+				option.priority = null;
 				return option;
 			}
 			if (key !== 'rarity') {

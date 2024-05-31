@@ -25,6 +25,7 @@ const SEARCH_IN_TAGS = [
 	'first_token_free',
 	'ally_sp_regen',
 	'global_move_speed_down',
+	'global_heal',
 	'ignore_evasion',
 	'ally_block_up',
 	'ally_block_down',
@@ -52,15 +53,34 @@ const SEARCH_IN_TAGS = [
 	'crit_wound',
 	'squad_effect',
 	'barrier',
+	"ally_barrier",
 	'infected',
 	'starting_cost',
 	'enemy_hp',
 	'terrain_water',
+	"true",
+	"apoptosis",
+	"burning",
 	'apoptosis_scale',
 	'change_target_priority',
 	'remove_status',
-	'poison_damage',
-	"force_non_special"
+	'dot',
+	'force_non_special',
+	"starting_cost",
+	'fast_redeploy',
+	'heal_ally',
+	'heal_self',
+	'type_flying',
+	'priority_ranged',
+	'pioneer',
+	'warrior',
+	'sniper',
+	'tank',
+	'medic',
+	'support',
+	'caster',
+	'special',
+	'three_star'
 ];
 const SEARCH_IN_BLACKBOARD = [
 	'stun',
@@ -92,8 +112,10 @@ const SEARCH_IN_BLACKBOARD = [
 	'ally_phys_evasion',
 	'arts_evasion',
 	'ally_arts_evasion',
-	'ally_dmg_res',
-	'damage_resistance',
+	'ally_dmg_res_phys',
+	'ally_dmg_res_arts',
+	'dmg_res_phys',
+	'dmg_res_arts',
 	'shield',
 	'ally_shield',
 	'block_dmg',
@@ -101,12 +123,14 @@ const SEARCH_IN_BLACKBOARD = [
 	'sp_gain',
 	'ally_sp_gain',
 	'ally_sp_stock',
-	'heal_scale',
 	'def_penetrate',
 	'def_penetrate_fixed',
 	'res_penetrate_fixed',
 	'damage_scale',
 	'ally_damage_scale',
+	'damage_scale_phys',
+	'damage_scale_arts',
+	'sp_regen',
 	'elementfragile',
 	'magicfragile',
 	'fragile',
@@ -205,7 +229,6 @@ export const getSkillImgUrl = (skill) => {
 			return 'skcom_powerstrike[1]';
 		case '武器附魔·α型':
 			return 'skill_icon_skcom_enchant[1]';
-
 		default:
 			return skill.skillId;
 	}

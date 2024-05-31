@@ -24,8 +24,9 @@
 		const values = sortedArr.map(({ key, order }) => {
 			switch (key) {
 				case 'rarity':
-					return a.rarity.localeCompare(b.rarity) * order;
-
+				case 'profession':
+					return a[key].localeCompare(b[key]) * order;
+				
 				default:
 					const valA = getMaxValue(a, key);
 					const valB = getMaxValue(b, key);

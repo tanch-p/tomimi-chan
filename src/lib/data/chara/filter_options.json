@@ -199,14 +199,16 @@
 	],
 	"ally_others": [{ "key": "squad_effect", "value": "squad_effect" }],
 	"self_stats": [
-		{ "key": "hp", "value": "max_hp_up" },
-		{ "key": "def", "value": "def_up" },
-		{ "key": "res", "value": "res_up" },
+		{ "key": "hp", "value": "max_hp" },
+		{ "key": "def", "value": "def" },
+		{ "key": "res", "value": "magic_resistance" },
 		{ "key": "attack_speed", "value": "attack_speed" },
 		{ "key": "respawnTime", "value": "respawn_time" }
 	],
 	"self_atk_buffs": [
+		{ "key": "min_damage", "value": "min_damage" },
 		{ "key": "ignore_evasion", "value": "ignore_evasion" },
+		{ "key": "ignore_stealth", "value": "ignore_stealth" },
 		{ "key": "def_penetrate", "value": "def_penetrate" },
 		{ "key": "res_penetrate", "value": "res_penetrate" }
 	],
@@ -221,7 +223,8 @@
 		{ "key": "arts_evasion", "value": "arts_evasion" },
 		{ "key": "buff_shield", "value": "shield" },
 		{ "key": "block_dmg", "value": "block_dmg" },
-		{ "key": "dmg_reduction", "value": "dmg_res" },
+		{ "key": "dmg_res_phys", "value": "dmg_res_phys" },
+		{ "key": "dmg_res_arts", "value": "dmg_res_arts" },
 		{ "key": "protect", "value": "protect" },
 		{ "key": "reflect_dmg", "value": "reflect_dmg" },
 		{ "key": "undying", "value": "undying" },
@@ -231,7 +234,10 @@
 		{ "key": "resist", "value": "resist" },
 		{ "key": "status_immune_text", "value": "status_immune" }
 	],
-	"self_heal_buffs": [{ "key": "heal_scale", "value": "heal_scale" }],
+	"self_heal_buffs": [
+		{ "key": "heal_self_others", "value": "heal_self" },
+		{ "key": "heal_scale", "value": "heal_scale" }
+	],
 	"self_sp_buffs": [
 		{ "key": "sp_regen", "value": "sp_regen" },
 		{ "key": "sp_gain", "value": "sp_gain" },
@@ -249,26 +255,56 @@
 		{ "key": "charged", "value": "charged" }
 	],
 	"others": [
+		{ "key": "starting_cost", "value": "starting_cost" },
+		{ "key": "fast_redeploy", "value": "fast_redeploy" },
 		{ "key": "force_non_special", "value": "force_non_special" },
 		{ "key": "revive", "value": "revive" },
-		{ "key": "poison_damage", "value": "poison_damage" },
+		{ "key": "poison_damage", "value": "dot" },
 		{ "key": "aspd_unrelated", "value": "aspd_unrelated" },
 		{ "key": "execute", "value": "execute" },
 		{ "key": "slow_projectile", "value": "slow_projectile" },
 		{ "key": "erase_projectile", "value": "erase_projectile" },
 		{ "key": "reallocate_hp", "value": "reallocate_hp" }
 	],
-	"enemy_type": ["infected"],
-	"target_priority": ["drone", "flying"],
+	"enemy_type": [
+		{ "key": "flying", "value": "type_flying" },
+		{ "key": "drone", "value": "type_drone" },
+		{ "key": "infected", "value": "type_infected" },
+		{ "key": "sarkaz", "value": "type_sarkaz" },
+		{ "key": "wild_animal", "value": "wild_animal" },
+		{ "key": "seamonster", "value": "seamonster" },
+		{ "key": "blocked", "value": "blocked" },
+		{ "key": "no_block", "value": "no_block" },
+		{ "key": "stun", "value": "bonus_stun" },
+		{ "key": "sleep", "value": "bonus_sleep" }
+	],
+	"enemy_target_priority": [
+		{ "key": "flying", "value": "priority_flying" },
+		{ "key": "drone", "value": "priority_drone" },
+		{ "key": "ranged", "value": "priority_ranged" },
+		{ "key": "def_high", "value": "priority_def_high" },
+		{ "key": "stun", "value": "priority_stun" }
+	],
 	"profession_buff": [
-		"pioneer",
-		"warrior",
-		"sniper",
-		"tank",
-		"medic",
-		"support",
-		"caster",
-		"special"
+		{ "key": "PIONEER", "value": "pioneer" },
+		{ "key": "WARRIOR", "value": "warrior" },
+		{ "key": "SNIPER", "value": "sniper" },
+		{ "key": "TANK", "value": "tank" },
+		{ "key": "MEDIC", "value": "medic" },
+		{ "key": "SUPPORT", "value": "support" },
+		{ "key": "CASTER", "value": "caster" },
+		{ "key": "SPECIAL", "value": "special" }
+	],
+	"group_buff": [
+		{ "key": "abyssal", "value": "abyssal" },
+		{ "key": "three_star", "value": "three_star" },
+		{ "key": "robot", "value": "robot" },
+		{ "key": "student", "value": "student" },
+		{ "key": "kazimierz", "value": "kazimierz" },
+		{ "key": "rhine", "value": "rhine" },
+		{ "key": "karlan", "value": "karlan" },
+		
+		{ "key": "position_ranged", "value": "position_ranged" }
 	],
 	"terrain": [{ "key": "terrain_water", "value": "terrain_water" }]
 }
