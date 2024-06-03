@@ -194,7 +194,7 @@
 								{:else}
 									{#each $selectedChara.uniequip as equip, idx}
 										{@const typeIcon = equip.typeIcon.toLowerCase()}
-										<div class="flex flex-col">
+										<div class="flex flex-col w-[75px]">
 											<button
 												class:active={$moduleIndex === idx}
 												class="module flex-col"
@@ -217,7 +217,7 @@
 											</button>
 											{#if $moduleIndex !== 0 && $moduleIndex == idx}
 												<button
-													class="flex items-center justify-center border border-[#3d3d3d] bg-[#272727] mt-1.5 py-[1px] w-full"
+													class="flex items-center justify-center border border-[#3d3d3d] bg-[#272727] mt-1.5 py-[1px]"
 													on:click={() => {
 														if (moduleStage === 2) return (moduleStage = 0);
 														return (moduleStage += 1);
@@ -232,8 +232,20 @@
 														/>
 													</div>
 												</button>
-											{:else}
-												<div class="h-[35px]" />
+											{/if}
+											{#if $moduleIndex == idx}
+												<div
+													class="flex justify-center mt-1 text-center {$moduleIndex === 0
+														? 'pb-[30px]'
+														: ''} {language !== 'en' ? 'whitespace-nowrap' : ''}"
+												>
+													<p
+														title={equip[`name_${language}`] || equip.name_zh}
+														class={language === 'en' ? 'truncate' : ''}
+													>
+														{equip[`name_${language}`] || equip.name_zh}
+													</p>
+												</div>
 											{/if}
 										</div>
 									{/each}
