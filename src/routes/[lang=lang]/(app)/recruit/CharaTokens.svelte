@@ -63,7 +63,7 @@
 				<p class="text-[#999] mt-1.5">*{translations[language].token_stat_remark}</p>
 			</div>
 		</div>
-		<div class="grid grid-cols-[130px_1fr] gap-2 mt-4">
+		<div class="grid grid-cols-[130px_1fr] sm:grid-cols-[1fr_2fr] gap-2 mt-4">
 			<div class="flex flex-col items-center w-full p-2 pb-1 bg-[#161616] bg-opacity-80 rounded">
 				<div class="flex items-center h-full">
 					<RangeParser rangeId={token.stats.rangeId} />

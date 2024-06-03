@@ -52,20 +52,20 @@ const SEARCH_IN_TAGS = [
 	'crit_wound',
 	'squad_effect',
 	'barrier',
-	"ally_barrier",
+	'ally_barrier',
 	'infected',
 	'starting_cost',
 	'enemy_hp',
 	'terrain_water',
-	"true",
-	"apoptosis",
-	"burning",
+	'true',
+	'apoptosis',
+	'burning',
 	'apoptosis_scale',
 	'change_target_priority',
 	'remove_status',
 	'dot',
 	'force_non_special',
-	"starting_cost",
+	'starting_cost',
 	'fast_redeploy',
 	'heal_ally',
 	'heal_self',
@@ -280,15 +280,37 @@ export const getTokenModuleTalent = (module, stage: number, language: Language) 
 			return part[`upgradeDesc_${language}`] || part[`upgradeDesc_zh`];
 	}
 };
-export const getModuleUpdatedRange = (rangeId, module) => {
+export const getModuleUpdatedRange = (rangeId, module, stage, talentIndex = -1) => {
 	if (!module?.combatData) return rangeId;
-	for (const part of module.combatData.phases[0].parts) {
-		if (!part.isToken && part.target.includes('TALENT') && part.talentIndex === -1 && part.rangeId)
+	for (const part of module.combatData.phases[stage].parts) {
+		if (
+			!part.isToken &&
+			part.target.includes('TALENT') &&
+			part.talentIndex === talentIndex &&
+			part.rangeId
+		)
 			return part.rangeId;
 	}
 	return rangeId;
 };
-
+export const getSkillRangeId = (skill, char, moduleIndex, moduleStage) => {
+	if (skill.levels?.[0]?.rangeId?.includes('get_talent')) {
+		const splitStr = skill.levels?.[0]?.rangeId.split('_');
+		const index = parseInt(splitStr[splitStr.length - 1]) - 1;
+		const talentRangeId = char.talents[index].rangeId;
+		return getModuleUpdatedRange(talentRangeId, char.uniequip[moduleIndex], moduleStage, index);
+	}
+	return null;
+};
+export const getAttackRangeId = (char, moduleIndex, moduleStage) => {
+	let rangeId = char.stats.rangeId;
+	for (const talent of char.talents) {
+		if (talent.tags.includes('override_range')) {
+			rangeId = talent.rangeId;
+		}
+	}
+	return getModuleUpdatedRange(rangeId, char.uniequip[moduleIndex], moduleStage);
+};
 export const getFullCharaStat = (statKey, chara, moduleStat, potStat) => {
 	let stat = chara['stats'][statKey];
 	if (statKey === 'aspd') {

@@ -13,7 +13,11 @@
 		getModuleTalentDesc,
 		getModuleTrait,
 		getTotalPotStat,
-		getModuleNewTalent
+		getModuleNewTalent,
+		getSkillRangeId,
+
+		getAttackRangeId
+
 	} from '$lib/functions/charaHelpers';
 	import TextParser from '$lib/components/TextParser.svelte';
 	import RangeParser from '$lib/components/RangeParser.svelte';
@@ -137,12 +141,7 @@
 					class="flex flex-col items-center min-w-28 p-3 pb-1 bg-[#161616] bg-opacity-80 rounded float-right"
 				>
 					<div class="flex items-center min-h-[50px]">
-						<RangeParser
-							rangeId={getModuleUpdatedRange(
-								$selectedChara.stats.rangeId,
-								$selectedChara.uniequip[$moduleIndex]
-							)}
-						/>
+						<RangeParser rangeId={getAttackRangeId($selectedChara, $moduleIndex, moduleStage)} />
 					</div>
 					<p class="mt-1">{translations[language].attack_range}</p>
 				</div>
@@ -289,7 +288,12 @@
 						{/if}
 					</p>
 					{#each $selectedChara.skills as skill}
-						<CharaSkill {skill} {displayLang} {language} />
+						<CharaSkill
+							{skill}
+							{displayLang}
+							{language}
+							overrideRangeId={getSkillRangeId(skill, $selectedChara, $moduleIndex, moduleStage)}
+						/>
 					{/each}
 				{/if}
 				{#if $selectedChara.tokens && $selectedChara.tokens.length > 0}

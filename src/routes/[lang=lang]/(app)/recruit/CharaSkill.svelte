@@ -7,7 +7,7 @@
 	import RangeParser from '$lib/components/RangeParser.svelte';
 	import { getSkillImgUrl } from '$lib/functions/charaHelpers';
 
-	export let skill, displayLang: Language, language: Language;
+	export let skill, displayLang: Language, language: Language, overrideRangeId;
 
 	const hasMastery = skill.levels.length > 1;
 	let mastery: number = hasMastery ? 3 : 0;
@@ -56,9 +56,9 @@
 			{/if}
 		</button>
 	</div>
-	{#if skill.levels?.[mastery]?.rangeId}
+	{#if overrideRangeId || skill.levels?.[mastery]?.rangeId}
 		<div class="flex justify-center items-center">
-			<RangeParser rangeId={skill.levels?.[mastery]?.rangeId} />
+			<RangeParser rangeId={overrideRangeId || skill.levels?.[mastery]?.rangeId} />
 		</div>
 	{/if}
 </div>
