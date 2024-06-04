@@ -9,7 +9,6 @@
 		convertStatKeys,
 		getFullCharaStat,
 		getModuleStat,
-		getModuleUpdatedRange,
 		getModuleTalentDesc,
 		getModuleTrait,
 		getTotalPotStat,

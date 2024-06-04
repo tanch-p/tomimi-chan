@@ -142,7 +142,8 @@ const SEARCH_IN_BLACKBOARD = [
 	'phys_hitrate_down',
 	'arts_hitrate_down',
 	'protect',
-	'ally_protect'
+	'ally_protect',
+	"block_no_attack"
 ];
 
 export const convertStatKeys = {
