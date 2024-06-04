@@ -1,7 +1,11 @@
 import { writable, derived } from 'svelte/store';
 import filterOptions from '$lib/data/chara/filter_options.json';
 import relics from '$lib/data/chara/relics_chara.json';
-import { addOptionsToAcc } from '$lib/functions/charaHelpers';
+import {
+	addOptionsToAcc,
+	adjustSortPriority,
+	secondaryFilterOptions
+} from '$lib/functions/charaHelpers';
 import { browser } from '$app/environment';
 import { cookiesEnabled } from '../../../stores';
 
@@ -68,6 +72,7 @@ const generateFilterStore = (filterOptions) => {
 //filters to add: enemy type bonuses,
 const defaultRogueTopic = 'rogue_3';
 export const filtersStore = writable(generateFilterStore(filterOptions));
+export const secFiltersStore = writable([]);
 export const rogueTopic = writable(defaultRogueTopic);
 export const relicFiltersStore = writable(
 	relics[defaultRogueTopic].map((relic) => {
@@ -235,53 +240,98 @@ export const filters = derived(
 		};
 	}
 );
-const defaultSortOptions = [
-	{ key: 'rarity', order: -1, visible: true, priority: 1 },
-	{ key: 'profession', order: 0, visible: true, priority: null }
-];
-export const generateSortOptions = () =>
-	Object.keys(filterOptions).reduce((acc, key) => {
-		if (['status_ailment'].includes(key)) {
-			acc = [
-				...acc,
-				...filterOptions[key].map((value) => {
-					return { key: value, order: 0, visible: false, priority: null };
-				})
-			];
+
+export const secFilters = derived([secFiltersStore], ([$secFiltersStore]) => {
+	const filterFunctions = $secFiltersStore.reduce((acc, curr) => {
+		const selectedOptions = curr.options
+			.map((option) => option.selected && option.value)
+			.filter(Boolean);
+		if (selectedOptions.length === 0) {
+			return acc;
 		}
-		return acc;
-	}, defaultSortOptions);
-export const sortOptions = writable(generateSortOptions());
-filtersStore.subscribe((list) => {
-	const activeSortableFilters = list.reduce((acc, curr) => {
-		if (['status_ailment'].includes(curr.key)) {
-			acc = [...acc, ...curr.options.filter((ele) => ele.selected).map((ele) => ele.value)];
+		switch (curr.key) {
+			case 'force':
+				acc.push(
+					(char) =>
+						char.skills.some((skill) => selectedOptions.some((tag) => skill.tags.includes(tag))) ||
+						char.talents.some((talent) =>
+							selectedOptions.some((tag) => talent.tags.includes(tag))
+						) ||
+						char.uniequip
+							.filter((equip) => equip.combatData)
+							.some((equip) =>
+								selectedOptions.some((tag) => equip.combatData.tags.includes(tag))
+							) ||
+						char.tokens.some((token) => selectedOptions.some((tag) => token.tags.includes(tag)))
+				);
+				break;
+			default:
+				acc.push((char) => selectedOptions.includes(char[curr.key]));
 		}
 		return acc;
 	}, []);
-	//for each sortOption except rarity, check if key is in activeSortableFilters, if in: set visible = true, else set visible = false
-	sortOptions.update((list) =>
-		list.map((option) => {
-			const { key } = option;
-			//case for Clear All button
-			if (key === 'rarity' && activeSortableFilters.length === 0) {
-				option.order = -1;
-				return option;
+	return function (char) {
+		if (filterFunctions.length === 0) {
+			return true;
+		}
+		for (const f of filterFunctions) {
+			const passFilter = f(char);
+			if (!passFilter) {
+				return false;
 			}
-			if (key === "profession"){
-				option.order = 0;
-				option.priority = null;
-				return option;
+		}
+		return true;
+	};
+});
+
+const defaultSortOptions = [
+	{ key: 'rarity', order: -1, priority: 1 },
+	{ key: 'profession', order: 0, priority: null }
+];
+export const sortOptions = writable(defaultSortOptions);
+filtersStore.subscribe((list) => {
+	const activeOptions = list
+		.find(({ key }) => key === 'blackboard')
+		.options.map(({ value, selected }) => selected && value)
+		.filter(Boolean);
+
+	//secFilters update
+	secFiltersStore.update((options) => {
+		const returnList = [];
+		for (const option of activeOptions) {
+			const filterOption = options.find(({ key }) => key === option);
+			if (filterOption) {
+				returnList.push(filterOption);
+			} else if (secondaryFilterOptions[option]) {
+				returnList.push({
+					key: option,
+					options: secondaryFilterOptions[option].map((value) => {
+						return { value, selected: true };
+					})
+				});
 			}
-			if (key !== 'rarity') {
-				if (!activeSortableFilters.includes(key)) {
-					option.order = 0;
-				}
-				option.visible = activeSortableFilters.includes(key);
+		}
+		return returnList;
+	});
+
+	//sortOptions update
+	sortOptions.update((options) => {
+		let returnList = options.filter(({ key }) => ['rarity', 'profession'].includes(key));
+		for (const option of activeOptions) {
+			const sortOption = options.find(({ key }) => key === option);
+			if (sortOption) {
+				returnList.push(sortOption);
+			} else {
+				returnList.push({ key: option, order: -1, priority: 1 });
+				returnList = adjustSortPriority(
+					returnList.map(({ key, order, priority }) => {
+						return { key, order, priority: key === option ? 1 : priority ? priority + 1 : null };
+					})
+				);
 			}
-			return option;
-		})
-	);
+		}
+		return returnList;
+	});
 });
 
 //TODO

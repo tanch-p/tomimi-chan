@@ -9,7 +9,11 @@
 	import Icon from '$lib/components/Icon.svelte';
 	import { cookiesEnabled } from '../../../stores';
 	import { browser } from '$app/environment';
-	import { getCategory, getSelectedFilterOptions } from '$lib/functions/charaHelpers';
+	import {
+		getCategory,
+		getSelectedFilterOptions,
+		updateFilters
+	} from '$lib/functions/charaHelpers';
 
 	export let language: Language;
 
@@ -64,21 +68,12 @@
 			]
 		}
 	];
+	let relicDisplayMode = 'grid';
+	let selectedRelics = [];
 
 	$: isSelected = (key, value) => {
 		return $filtersStore.find((ele) => ele.key === key).options.find((ele) => ele.value === value)
 			?.selected;
-	};
-	let relicDisplayMode = 'grid';
-	let selectedRelics = [];
-
-	const updateFilters = (key, value) => {
-		filtersStore.update((list) => {
-			const catIndex = list.findIndex((ele) => ele.key === key);
-			const optionIndex = list[catIndex].options.findIndex((ele) => ele.value === value);
-			list[catIndex].options[optionIndex].selected = !list[catIndex].options[optionIndex].selected;
-			return list;
-		});
 	};
 	relicFiltersStore.subscribe((list) => {
 		selectedRelics = list.filter((relic) => relic.selected);
@@ -146,7 +141,7 @@
 					<button
 						class="filter-btn"
 						class:active={isSelected('rarity', value)}
-						on:click={() => updateFilters('rarity', value)}
+						on:click={() => updateFilters('rarity', value, filtersStore)}
 					>
 						{translations[language][value]}
 					</button>
@@ -158,7 +153,7 @@
 					<button
 						class="filter-btn"
 						class:active={isSelected('profession', value)}
-						on:click={() => updateFilters('profession', value)}
+						on:click={() => updateFilters('profession', value, filtersStore)}
 					>
 						{translations[language][value]}
 					</button>
@@ -170,7 +165,7 @@
 					<button
 						class="filter-btn"
 						class:active={isSelected('deployable_tile', value)}
-						on:click={() => updateFilters('deployable_tile', value)}
+						on:click={() => updateFilters('deployable_tile', value, filtersStore)}
 					>
 						{translations[language][key]}
 					</button>
@@ -182,7 +177,7 @@
 					<button
 						class="filter-btn"
 						class:active={isSelected('damage_type', value)}
-						on:click={() => updateFilters('damage_type', value)}
+						on:click={() => updateFilters('damage_type', value, filtersStore)}
 					>
 						{translations[language][value]}
 					</button>
@@ -194,7 +189,7 @@
 					<button
 						class="filter-btn"
 						class:active={isSelected('blockCnt', value)}
-						on:click={() => updateFilters('blockCnt', value)}
+						on:click={() => updateFilters('blockCnt', value, filtersStore)}
 					>
 						{value}
 					</button>
@@ -207,24 +202,22 @@
 			titleClassName="border-b"
 		>
 			<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 pt-2 md:pt-3">
-				<p class="hidden sm:block md:py-[5px]">{translations[language]['subProfessionId']}</p>
-				<div class="flex flex-col gap-2">
-					{#each Object.keys(filterOptions.subProfessionId) as subKey}
-						{@const subOptions = filterOptions.subProfessionId[subKey]}
-						<div class="flex flex-wrap gap-2">
-							{#each subOptions as value}
-								<!-- {@const selected = options.find((ele) => ele.value === value)?.selected} -->
-								<button
-									class="filter-btn"
-									class:active={isSelected('subProfessionId', value)}
-									on:click={() => updateFilters('subProfessionId', value)}
-								>
-									{translations[language][value]}
-								</button>
-							{/each}
-						</div>
-					{/each}
-				</div>
+				{#each Object.keys(filterOptions.subProfessionId) as subKey}
+					{@const subOptions = filterOptions.subProfessionId[subKey]}
+					<p class="md:py-[5px]">{translations[language][subKey]}</p>
+					<div class="flex flex-wrap gap-2">
+						{#each subOptions as value}
+							<!-- {@const selected = options.find((ele) => ele.value === value)?.selected} -->
+							<button
+								class="filter-btn"
+								class:active={isSelected('subProfessionId', value)}
+								on:click={() => updateFilters('subProfessionId', value, filtersStore)}
+							>
+								{translations[language][value]}
+							</button>
+						{/each}
+					</div>
+				{/each}
 			</div>
 		</CharaFilterToggle>
 		<CharaFilterToggle
@@ -239,7 +232,7 @@
 						<button
 							class="filter-btn"
 							class:active={isSelected('group', value)}
-							on:click={() => updateFilters('group', value)}
+							on:click={() => updateFilters('group', value, filtersStore)}
 						>
 							{translations[language][value]}
 						</button>
@@ -264,7 +257,7 @@
 								<button
 									class="filter-btn"
 									class:active={isSelected(getCategory(value), value)}
-									on:click={() => updateFilters(getCategory(value), value)}
+									on:click={() => updateFilters(getCategory(value), value, filtersStore)}
 								>
 									{translations[language].table_headers[key] ??
 										translations[language][key] ??
@@ -285,7 +278,7 @@
 								<button
 									class="relative filter-btn"
 									class:active={isSelected(getCategory(value), value)}
-									on:click={() => updateFilters(getCategory(value), value)}
+									on:click={() => updateFilters(getCategory(value), value, filtersStore)}
 								>
 									{translations[language].table_headers[key] ??
 										translations[language][key] ??
@@ -405,6 +398,7 @@
 	.filter-btn {
 		height: 30px;
 		background-color: rgb(242 242 242);
+		text-transform: capitalize;
 	}
 	.display-style-button {
 		background-color: dimgrey;

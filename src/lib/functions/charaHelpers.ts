@@ -64,7 +64,6 @@ const SEARCH_IN_TAGS = [
 	'change_target_priority',
 	'remove_status',
 	'dot',
-	'force_non_special',
 	'starting_cost',
 	'fast_redeploy',
 	'heal_ally',
@@ -79,7 +78,8 @@ const SEARCH_IN_TAGS = [
 	'support',
 	'caster',
 	'special',
-	'three_star'
+	'three_star',
+	'skill_invincible'
 ];
 const SEARCH_IN_BLACKBOARD = [
 	'stun',
@@ -143,8 +143,30 @@ const SEARCH_IN_BLACKBOARD = [
 	'arts_hitrate_down',
 	'protect',
 	'ally_protect',
-	"block_no_attack"
+	'block_no_attack',
+	'force'
 ];
+
+export const secondaryFilterOptions = {
+	force: ['push', 'pull']
+};
+const keyTable = {
+	force: 'force_tag'
+};
+export const getOptionTranslationKey = (option) => {
+	return keyTable?.[option] ?? option;
+};
+
+export const professionWeights = {
+	PIONEER: 0,
+	WARRIOR: 1,
+	SNIPER: 2,
+	TANK: 3,
+	MEDIC: 4,
+	SUPPORT: 5,
+	CASTER: 6,
+	SPECIAL: 7
+};
 
 export const convertStatKeys = {
 	hp: 'hp',
@@ -482,4 +504,26 @@ export const getSelectedFilterOptions = (categories, filtersStore) => {
 		}
 		return acc;
 	}, []);
+};
+
+export const updateFilters = (key, value, store) => {
+	store.update((list) => {
+		const catIndex = list.findIndex((ele) => ele.key === key);
+		const optionIndex = list[catIndex].options.findIndex((ele) => ele.value === value);
+		list[catIndex].options[optionIndex].selected = !list[catIndex].options[optionIndex].selected;
+		return list;
+	});
+};
+export const adjustSortPriority = (list) => {
+	const adjustedPriorities = list
+		.filter((ele) => ele.priority)
+		.sort((a, b) => a.priority - b.priority)
+		.reduce((acc, { key }, i) => {
+			acc[key] = i + 1;
+			return acc;
+		}, {});
+
+	return list.map(({ key, order, priority }) => {
+		return { key, order, priority: priority ? adjustedPriorities[key] : null };
+	});
 };
