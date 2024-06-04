@@ -19,12 +19,18 @@
 </script>
 
 {#if displayMode === 'grid'}
-	<button on:click={() => handleClick(chara, equip)} class="select-none border border-gray-600 border-opacity-50">
+	<button
+		on:click={() => handleClick(chara, equip)}
+		class="select-none border border-gray-600 border-opacity-50"
+	>
 		<CharaIcon {chara}>
 			{#if equip}
 				{@const typeIcon = equip.typeIcon.toLowerCase()}
 				{#await import(`../../../../lib/images/color_equip_icons/icon_${typeIcon}.webp`) then { default: src }}
-					<img {src} height="40" alt={''} class="absolute right-0 w-[40px] max-h-[40px]" />
+					<div
+						class="absolute -right-1 -top-1 w-[40px] h-[40px] bg-center bg-cover"
+						style="background-image: url({src});"
+					/>
 				{/await}
 			{/if}
 		</CharaIcon>
