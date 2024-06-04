@@ -4,6 +4,7 @@ import relics from '$lib/data/chara/relics_chara.json';
 import {
 	addOptionsToAcc,
 	adjustSortPriority,
+	getSortSuffix,
 	secondaryFilterOptions
 } from '$lib/functions/charaHelpers';
 import { browser } from '$app/environment';
@@ -285,8 +286,8 @@ export const secFilters = derived([secFiltersStore], ([$secFiltersStore]) => {
 });
 
 const defaultSortOptions = [
-	{ key: 'rarity', order: -1, priority: 1 },
-	{ key: 'profession', order: 0, priority: null }
+	{ key: 'rarity', suffix: null, order: -1, priority: 1 },
+	{ key: 'profession', suffix: null, order: 0, priority: null }
 ];
 export const sortOptions = writable(defaultSortOptions);
 filtersStore.subscribe((list) => {
@@ -322,15 +323,18 @@ filtersStore.subscribe((list) => {
 			if (sortOption) {
 				returnList.push(sortOption);
 			} else {
-				returnList.push({ key: option, order: -1, priority: 1 });
-				returnList = adjustSortPriority(
-					returnList.map(({ key, order, priority }) => {
-						return { key, order, priority: key === option ? 1 : priority ? priority + 1 : null };
-					})
-				);
+				returnList.push({ key: option, suffix: getSortSuffix(option), order: -1, priority: 1 });
+				returnList = returnList.map(({ key, suffix, order, priority }) => {
+					return {
+						key,
+						suffix,
+						order,
+						priority: key === option ? 1 : priority ? priority + 1 : null
+					};
+				});
 			}
 		}
-		return returnList;
+		return adjustSortPriority(returnList);
 	});
 });
 

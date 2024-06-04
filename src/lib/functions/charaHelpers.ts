@@ -147,6 +147,18 @@ const SEARCH_IN_BLACKBOARD = [
 	'force'
 ];
 
+export const durationKeys = [
+	'stun',
+	'sluggish',
+	'sleep',
+	'silence',
+	'cold',
+	'levitate',
+	'root',
+	'tremble',
+	'block_no_attack'
+];
+
 export const secondaryFilterOptions = {
 	force: ['push', 'pull']
 };
@@ -523,7 +535,11 @@ export const adjustSortPriority = (list) => {
 			return acc;
 		}, {});
 
-	return list.map(({ key, order, priority }) => {
-		return { key, order, priority: priority ? adjustedPriorities[key] : null };
+	return list.map(({ key, suffix, order, priority }) => {
+		return { key, suffix, order, priority: priority ? adjustedPriorities[key] : null };
 	});
+};
+
+export const getSortSuffix = (key) => {
+	return durationKeys.includes(key) ? 'duration' : null;
 };

@@ -33,8 +33,12 @@
 		<p>{translations[language].filter_option}</p>
 		<p class="text-center">{translations[language].sort_priority}</p>
 		<p />
-		{#each $sortOptions as { key, order, priority }}
-			<p class="py-[5px]">{translations[language][key]}:</p>
+		{#each $sortOptions as { key, suffix, order, priority }}
+			<p class="py-[5px]">
+				{translations[language][key]}{#if suffix}{#if language === 'en'}&nbsp;{/if}{translations[
+						language
+					][suffix]}{/if}:
+			</p>
 			<p class="py-[5px] text-center">{priority || ''}</p>
 			<div class="flex flex-wrap gap-2">
 				<button
