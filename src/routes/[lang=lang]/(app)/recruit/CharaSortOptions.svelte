@@ -1,15 +1,15 @@
 <script lang="ts">
 	import type { Language, sortOrder } from '$lib/types';
 	import translations from '$lib/translations.json';
-	import { updateSortPriority } from '$lib/functions/charaHelpers';
+	import { getOptionTranslationKey, updateSortPriority } from '$lib/functions/charaHelpers';
 	import { sortOptions } from './stores';
 
 	export let language: Language;
 
-	const updateSortOptions = (key, order: sortOrder) => {
+	const updateSortOptions = (key, subKey, order: sortOrder) => {
 		sortOptions.update((list) => {
 			const copy = Array.from(list);
-			const index = list.findIndex((ele) => ele.key === key);
+			const index = list.findIndex((ele) => ele.key === key && ele.subKey === subKey);
 			if (index !== -1) {
 				if (copy[index].order === order) {
 					copy[index].order = 0;
@@ -33,25 +33,25 @@
 		<p>{translations[language].filter_option}</p>
 		<p class="text-center">{translations[language].sort_priority}</p>
 		<p />
-		{#each $sortOptions as { key, suffix, order, priority }}
+		{#each $sortOptions as { key, subKey, suffix, order, priority }}
 			<p class="py-[5px]">
-				{translations[language][key]}{#if suffix}{#if language === 'en'}&nbsp;{/if}{translations[
+				{translations[language][getOptionTranslationKey(key)]}{#if suffix}{#if language === 'en'}&nbsp;{/if}{translations[
 						language
-					][suffix]}{/if}:
+					][suffix]}{/if}
 			</p>
 			<p class="py-[5px] text-center">{priority || ''}</p>
 			<div class="flex flex-wrap gap-2">
 				<button
 					class="filter-btn"
 					class:active={order === 1}
-					on:click={() => updateSortOptions(key, 1)}
+					on:click={() => updateSortOptions(key, subKey, 1)}
 				>
 					{translations[language]['asc']}
 				</button>
 				<button
 					class="filter-btn"
 					class:active={order === -1}
-					on:click={() => updateSortOptions(key, -1)}
+					on:click={() => updateSortOptions(key, subKey, -1)}
 				>
 					{translations[language]['desc']}
 				</button>

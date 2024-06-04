@@ -4,8 +4,9 @@ import relics from '$lib/data/chara/relics_chara.json';
 import {
 	addOptionsToAcc,
 	adjustSortPriority,
-	getSortSuffix,
-	secondaryFilterOptions
+	getSecFilterOptions,
+	isSubset,
+	getSortOptions
 } from '$lib/functions/charaHelpers';
 import { browser } from '$app/environment';
 import { cookiesEnabled } from '../../../stores';
@@ -266,8 +267,36 @@ export const secFilters = derived([secFiltersStore], ([$secFiltersStore]) => {
 						char.tokens.some((token) => selectedOptions.some((tag) => token.tags.includes(tag)))
 				);
 				break;
+			case 'ally_block_dmg':
+			case 'block_dmg':
+				acc.push(
+					(char) =>
+						char.skills.some((skill) =>
+							skill.blackboard.some(
+								(item) => item.key === curr.key && isSubset(selectedOptions, item.types)
+							)
+						) ||
+						char.talents.some((talent) =>
+							talent.blackboard.some(
+								(item) => item.key === curr.key && isSubset(selectedOptions, item.types)
+							)
+						) ||
+						char.uniequip
+							.filter((equip) => equip.combatData)
+							.some((equip) =>
+								equip.combatData.blackboard.some(
+									(item) => item.key === curr.key && isSubset(selectedOptions, item.types)
+								)
+							) ||
+						char.tokens?.some((token) =>
+							token.blackboard.some(
+								(item) => item.key === curr.key && isSubset(selectedOptions, item.types)
+							)
+						)
+				);
+				break;
 			default:
-				acc.push((char) => selectedOptions.includes(char[curr.key]));
+				break;
 		}
 		return acc;
 	}, []);
@@ -286,8 +315,8 @@ export const secFilters = derived([secFiltersStore], ([$secFiltersStore]) => {
 });
 
 const defaultSortOptions = [
-	{ key: 'rarity', suffix: null, order: -1, priority: 1 },
-	{ key: 'profession', suffix: null, order: 0, priority: null }
+	{ key: 'rarity', subKey: null, suffix: null, order: -1, priority: 1 },
+	{ key: 'profession', subKey: null, suffix: null, order: 0, priority: null }
 ];
 export const sortOptions = writable(defaultSortOptions);
 filtersStore.subscribe((list) => {
@@ -303,13 +332,19 @@ filtersStore.subscribe((list) => {
 			const filterOption = options.find(({ key }) => key === option);
 			if (filterOption) {
 				returnList.push(filterOption);
-			} else if (secondaryFilterOptions[option]) {
-				returnList.push({
-					key: option,
-					options: secondaryFilterOptions[option].map((value) => {
-						return { value, selected: true };
-					})
-				});
+			} else {
+				const secOptions = getSecFilterOptions(option);
+				if (secOptions) {
+					for (const [type, typeOptions] of Object.entries(secOptions)) {
+						returnList.push({
+							key: option,
+							subKey: type,
+							options: typeOptions.map((value) => {
+								return { value, selected: false };
+							})
+						});
+					}
+				}
 			}
 		}
 		return returnList;
@@ -323,15 +358,7 @@ filtersStore.subscribe((list) => {
 			if (sortOption) {
 				returnList.push(sortOption);
 			} else {
-				returnList.push({ key: option, suffix: getSortSuffix(option), order: -1, priority: 1 });
-				returnList = returnList.map(({ key, suffix, order, priority }) => {
-					return {
-						key,
-						suffix,
-						order,
-						priority: key === option ? 1 : priority ? priority + 1 : null
-					};
-				});
+				returnList = [...returnList, ...getSortOptions(option)];
 			}
 		}
 		return adjustSortPriority(returnList);

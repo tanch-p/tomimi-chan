@@ -147,23 +147,21 @@ const SEARCH_IN_BLACKBOARD = [
 	'force'
 ];
 
-export const durationKeys = [
-	'stun',
-	'sluggish',
-	'sleep',
-	'silence',
-	'cold',
-	'levitate',
-	'root',
-	'tremble',
-	'block_no_attack'
-];
-
-export const secondaryFilterOptions = {
-	force: ['push', 'pull']
+export const getSecFilterOptions = (key) => {
+	switch (key) {
+		case 'force':
+			return { tags: ['push', 'pull'] };
+		case 'block_dmg':
+		case 'ally_block_dmg':
+			return { types: ['phys', 'arts', 'true', 'melee_attack', 'ranged_attack'] };
+		default:
+			return;
+	}
 };
+
 const keyTable = {
-	force: 'force_tag'
+	force: 'force_tag',
+	ally_block_dmg: 'block_dmg'
 };
 export const getOptionTranslationKey = (option) => {
 	return keyTable?.[option] ?? option;
@@ -196,6 +194,19 @@ export const convertStatKeys = {
 	cost: 'cost'
 };
 
+export function isSubset(arr1, arr2) {
+	const set1 = new Set(arr1);
+	const set2 = new Set(arr2);
+
+	for (const elem of set1) {
+		if (!set2.has(elem)) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
 const revertStatKey = (statKey) => {
 	switch (statKey) {
 		case 'hp':
@@ -210,23 +221,41 @@ const revertStatKey = (statKey) => {
 };
 
 //goes through talent and skills blackboard and gets maximum value of key
-export const getMaxValue = (chara, key) =>
-	Math.max(
+export const getMaxValue = (chara, key, subKey) => {
+	const defaultValue = getDefaultValue(subKey);
+	return Math.max(
 		chara.skills.reduce((acc, curr) => {
-			const value = curr.blackboard.find((ele) => ele.key === key)?.value ?? 0;
+			let value = 0;
+			const item = curr.blackboard.find((ele) => ele.key === key);
+			if (item) value = item[subKey] ?? defaultValue;
 			return (acc = Math.max(acc, value));
 		}, 0),
 		chara.talents.reduce((acc, curr) => {
-			const value = curr.blackboard.find((ele) => ele.key === key)?.value ?? 0;
+			let value = 0;
+			const item = curr.blackboard.find((ele) => ele.key === key);
+			if (item) value = item[subKey] ?? defaultValue;
 			return (acc = Math.max(acc, value));
 		}, 0),
 		chara.uniequip
 			.filter((equip) => equip.combatData)
 			.reduce((acc, curr) => {
-				const value = curr.combatData.blackboard.find((ele) => ele.key === key)?.value ?? 0;
+				let value = 0;
+				const item = curr.combatData.blackboard.find((ele) => ele.key === key);
+				if (item) value = item[subKey] ?? defaultValue;
 				return (acc = Math.max(acc, value));
 			}, 0)
 	);
+};
+export const getDefaultValue = (key) => {
+	switch (key) {
+		case 'duration':
+			return 999;
+		case 'prob':
+			return 1;
+		default:
+			return 0;
+	}
+};
 
 export const updateSortPriority = (sortOptions, index) => {
 	const valueToRemove = sortOptions[index].priority;
@@ -534,12 +563,41 @@ export const adjustSortPriority = (list) => {
 			acc[key] = i + 1;
 			return acc;
 		}, {});
-
-	return list.map(({ key, suffix, order, priority }) => {
-		return { key, suffix, order, priority: priority ? adjustedPriorities[key] : null };
+	return list.map(({ key, subKey, suffix, order, priority }) => {
+		return { key, subKey, suffix, order, priority: priority ? adjustedPriorities[key] : null };
 	});
 };
 
-export const getSortSuffix = (key) => {
-	return durationKeys.includes(key) ? 'duration' : null;
+export const getSortOptions = (key) => {
+	const list = [];
+	switch (true) {
+		case ['stun', 'sluggish', 'sleep', 'silence', 'cold', 'levitate', 'root', 'tremble'].includes(
+			key
+		):
+			list.push({ key, subKey: 'value', suffix: 'duration', order: -1, priority: -1 });
+			list.push({ key, subKey: 'prob', suffix: 'prob', order: 0, priority: null });
+			break;
+		case [
+			'phys_evasion',
+			'ally_phys_evasion',
+			'arts_evasion',
+			'ally_arts_evasion',
+			'ally_dmg_res_phys',
+			'ally_dmg_res_arts',
+			'dmg_res_phys',
+			'dmg_res_arts',
+			'shield',
+			'ally_shield',
+			'block_dmg',
+			'ally_block_dmg'
+		].includes(key):
+			list.push({ key, subKey: 'value', suffix: 'prob', order: -1, priority: -1 });
+			list.push({ key, subKey: 'duration', suffix: 'duration', order: 0, priority: null });
+			break;
+		default:
+			list.push({ key, subKey: 'value', suffix: null, order: -1, priority: -1 });
+			break;
+	}
+
+	return list;
 };

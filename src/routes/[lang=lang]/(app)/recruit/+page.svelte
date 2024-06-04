@@ -7,7 +7,7 @@
 	import CharaFilter from './CharaFilter.svelte';
 	import CharaFilterDesc from './CharaFilterDesc.svelte';
 	import CharaSortOptions from './CharaSortOptions.svelte';
-	import CharaSecFilter from "./CharaSecFilter.svelte";
+	import CharaSecFilter from './CharaSecFilter.svelte';
 	import CharaPopup from './CharaPopup.svelte';
 	import translations from '$lib/translations.json';
 	import { onMount } from 'svelte';
@@ -22,15 +22,15 @@
 		const sortedArr = Array.from($sortOptions.filter((ele) => ele.order)).sort(
 			(a, b) => a.priority - b.priority
 		);
-		const values = sortedArr.map(({ key, order }) => {
+		const values = sortedArr.map(({ key, subKey, order }) => {
 			switch (key) {
 				case 'rarity':
 					return a[key].localeCompare(b[key]) * order;
 				case 'profession':
 					return (professionWeights[a[key]] - professionWeights[b[key]]) * order;
 				default:
-					const valA = getMaxValue(a, key);
-					const valB = getMaxValue(b, key);
+					const valA = getMaxValue(a, key, subKey ?? 'value');
+					const valB = getMaxValue(b, key, subKey ?? 'value');
 					return (valA - valB) * order;
 			}
 		});
@@ -53,13 +53,17 @@
 		<div class="max-w-5xl mx-auto pt-6 md:pt-10 pb-4 text-[0.75rem] md:text-[0.875rem] {language}">
 			<CharaFilter {language} />
 			<CharaSortOptions {language} />
-			<CharaSecFilter {language}/>
+			<CharaSecFilter {language} />
 		</div>
 		{#if loading}
 			<p class="text-center">{translations[language].data_loading}</p>
 		{:else}
 			<DisplayContainer
-				characters={characters.filter($globalCheck).filter($filters).filter($secFilters).sort(sortFunction)}
+				characters={characters
+					.filter($globalCheck)
+					.filter($filters)
+					.filter($secFilters)
+					.sort(sortFunction)}
 				{language}
 			/>
 		{/if}
