@@ -14,9 +14,7 @@
 		getTotalPotStat,
 		getModuleNewTalent,
 		getSkillRangeId,
-
 		getAttackRangeId
-
 	} from '$lib/functions/charaHelpers';
 	import TextParser from '$lib/components/TextParser.svelte';
 	import RangeParser from '$lib/components/RangeParser.svelte';
@@ -47,7 +45,6 @@
 		on:outclick={() => selectedChara.set(null)}
 	>
 		{#if $selectedChara}
-			{@const displayLang = !!$selectedChara.name_en ? language : 'zh'}
 			{@const phase = ['TIER_1', 'TIER_2'].includes($selectedChara.rarity)
 				? 0
 				: $selectedChara.rarity === 'TIER_3'
@@ -70,7 +67,7 @@
 					{#if language !== 'en'}
 						<p>{$selectedChara.appellation}</p>
 					{/if}
-					<p class="text-xl">{$selectedChara[`name_${displayLang}`]}</p>
+					<p class="text-xl">{$selectedChara.name}</p>
 					<!--TODO <p>全部位</p> -->
 				</div>
 			</div>
@@ -89,7 +86,7 @@
 									class="absolute hidden group-hover:block top-[-50%] left-[100%] bg-neutral-700 text-near-white w-max py-1.5 px-2 z-[1] rounded-md text-sm shadow-md"
 								>
 									{#each $selectedChara.potential as pot}
-										<p>{pot[`desc_${displayLang}`]}</p>
+										<p>{pot.desc}</p>
 									{/each}
 								</div>
 							</div>
@@ -171,7 +168,7 @@
 					</div>
 					<TextParser
 						line={getModuleTrait(
-							$selectedChara[`desc_${displayLang}`],
+							$selectedChara.desc,
 							$selectedChara.uniequip[$moduleIndex],
 							moduleStage,
 							language
@@ -238,10 +235,10 @@
 														: ''} {language !== 'en' ? 'whitespace-nowrap' : ''}"
 												>
 													<p
-														title={equip[`name_${language}`] || equip.name_zh}
+														title={equip.name}
 														class={language === 'en' ? 'truncate' : ''}
 													>
-														{equip[`name_${language}`] || equip.name_zh}
+														{equip.name}
 													</p>
 												</div>
 											{/if}
@@ -268,9 +265,9 @@
 							language
 						)}
 						<p class="py-[1px] px-2 mt-4 w-max bg-[#f9f9f9] rounded-md font-medium text-[#333]">
-							{talent[`name_${displayLang}`]}
+							{talent.name}
 						</p>
-						<TextParser className="mt-1" line={moduleTalentDesc || talent[`desc_${displayLang}`]} />
+						<TextParser className="mt-1" line={moduleTalentDesc || talent.desc} />
 					{/each}
 					{#if newTalent}
 						<p class="py-[1px] px-2 mt-4 w-max bg-[#f9f9f9] rounded-md font-medium text-[#333]">
@@ -289,7 +286,6 @@
 					{#each $selectedChara.skills as skill}
 						<CharaSkill
 							{skill}
-							{displayLang}
 							{language}
 							overrideRangeId={getSkillRangeId(skill, $selectedChara, $moduleIndex, moduleStage)}
 						/>
@@ -302,7 +298,6 @@
 						chara={$selectedChara}
 						moduleIndex={$moduleIndex}
 						{moduleStage}
-						{displayLang}
 						{language}
 					/>
 				{/if}

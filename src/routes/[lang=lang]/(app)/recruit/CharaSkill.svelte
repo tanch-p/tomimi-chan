@@ -7,7 +7,7 @@
 	import RangeParser from '$lib/components/RangeParser.svelte';
 	import { getSkillImgUrl } from '$lib/functions/charaHelpers';
 
-	export let skill, displayLang: Language, language: Language, overrideRangeId;
+	export let skill, language: Language, overrideRangeId;
 
 	const hasMastery = skill.levels.length > 1;
 	let mastery: number = hasMastery ? 3 : 0;
@@ -22,7 +22,7 @@
 <div class="grid grid-cols-[200px_1fr] gap-x-3 mt-6">
 	<div class="self-end">
 		<div class="relative h-max w-[90px]">
-			{#await import(`../../../../lib/images/skill_icons/skill_icon_${getSkillImgUrl(skill)}.webp`) then { default: src }}
+			{#await import(`../../../../lib/images/skill_icons/skill_icon_${getSkillImgUrl(skill.skillId)}.webp`) then { default: src }}
 				<img {src} width="90" height="90" loading="lazy" alt={''} />
 			{/await}
 			<div class="absolute flex -bottom-0.5 -right-0.5">
@@ -41,7 +41,7 @@
 		<p
 			class="mt-1.5 text-lg {language !== 'en' ? 'text-center max-w-[90px] whitespace-nowrap' : ''}"
 		>
-			{skill[`name_${displayLang}`]}
+			{skill.name}
 		</p>
 		<button
 			class="grid grid-cols-[1fr_30px] w-max mt-1.5"
@@ -76,7 +76,7 @@
 		</div>
 	{/if}
 </div>
-<TextParser line={skill.levels[mastery][`description_${displayLang}`]} className="mt-1.5" />
+<TextParser line={skill.levels[mastery].desc} className="mt-1.5" />
 
 <style>
 	.pill {

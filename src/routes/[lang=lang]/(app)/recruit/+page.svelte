@@ -17,6 +17,12 @@
 	let loading = true;
 	let characters = [];
 
+	const loadData = async (language) => {
+		loading = true;
+		characters = await getCharaList(language);
+		loading = false;
+	};
+
 	$: sortFunction = (a, b): sortOrder => {
 		//filter out unselected options and sort by priority
 		const sortedArr = Array.from($sortOptions.filter((ele) => ele.order)).sort(
@@ -37,9 +43,11 @@
 		return values.length > 0 ? values.reduce((acc, curr) => acc || curr) : 0;
 	};
 	onMount(async () => {
-		characters = await getCharaList();
-		loading = false;
+		loadData(language);
 	});
+	$: if (language) {
+		loadData(language);
+	}
 </script>
 
 <svelte:head>

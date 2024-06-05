@@ -274,8 +274,8 @@ export const updateSortPriority = (sortOptions, index) => {
 export const getCharaImages = (chara_list) =>
 	chara_list.map((chara) => import(`../images/chara_icons/icon_${chara.id}.webp`));
 
-export const getCharaList = async () => {
-	const data = (await import('../data/chara/characters.json')).default;
+export const getCharaList = async (language) => {
+	const data = (await import(`../data/chara/characters_${language}.json`)).default;
 	const images = await Promise.all(
 		data.map((chara) => import(`../images/chara_icons/icon_${chara.id}.webp`))
 	);
@@ -283,65 +283,71 @@ export const getCharaList = async () => {
 	return data;
 };
 
-export const getSkillImgUrl = (skill) => {
-	switch (skill.name_zh) {
-		case '强力击·γ型':
+export const getSkillImgUrl = (skillId) => {
+	switch (skillId) {
+		case 'skchr_svrash_1':
+		case 'skchr_huang_1':
+		case 'skchr_lessng_1':
 			return 'skcom_powerstrike[3]';
-		case '强力击·β型':
+		case 'skchr_jesica_1':
+		case 'skchr_caper_1':
+		case 'skchr_doberm_1':
+		case 'skchr_bryota_1':
+		case 'skchr_savage_1':
 			return 'skcom_powerstrike[2]';
-		case '强力击·α型':
+		case 'skchr_stward_1':
 			return 'skcom_powerstrike[1]';
-		case '武器附魔·α型':
+		case 'skchr_midn_1':
 			return 'skill_icon_skcom_enchant[1]';
 		default:
-			return skill.skillId;
+			return skillId;
 	}
 };
 
-export const getModuleNewTalent = (module, stage: number, language: Language) => {
+export const getModuleNewTalent = (module, stage: number) => {
 	if (!module?.combatData) return;
 	for (const part of module.combatData.phases[stage].parts) {
 		if (
 			!part.isToken &&
 			part.target.includes('TALENT') &&
 			part.talentIndex === -1 &&
-			part.name_zh
+			part.name
 		) {
 			return {
-				name: part[`name_${language}`] || part.name_zh,
-				desc: part[`upgradeDesc_${language}`] || part.upgradeDesc_zh
+				name: part.name,
+				desc: part.upgradeDesc
 			};
 		}
 	}
 };
 
-export const getModuleTrait = (trait, module, stage: number, language: Language) => {
+export const getModuleTrait = (trait, module, stage: number) => {
 	if (!module?.combatData) return trait;
 	for (const part of module.combatData.phases[stage].parts) {
 		if ((!part.isToken && part.target.includes('TRAIT')) || part.target === 'DISPLAY') {
-			if (part.addDesc_zh) return trait + '\n' + (part[`addDesc_${language}`] || part.addDesc_zh);
-			if (part.overrideDesc_zh) return part[`overrideDesc_${language}`] || part[`overrideDesc_zh`];
+			if (part.addDesc) return trait + '\n' + (part.addDesc);
+			if (part.overrideDesc) return part.overrideDesc;
 		}
 	}
 	return trait;
 };
-export const getModuleTalentDesc = (idx, module, stage: number, language: Language) => {
+export const getModuleTalentDesc = (idx, module, stage: number) => {
 	if (!module?.combatData) return;
 	for (const part of module.combatData.phases[stage].parts) {
 		if (
 			!part.isToken &&
 			part.target.includes('TALENT') &&
 			part.talentIndex === idx &&
-			part.upgradeDesc_zh
+			part.upgradeDesc
 		)
-			return part[`upgradeDesc_${language}`] || part[`upgradeDesc_zh`];
+			return part.upgradeDesc;
 	}
 };
-export const getTokenModuleTalent = (module, stage: number, language: Language) => {
+export const getTokenModuleTalent = (module, stage: number) => {
 	if (!module?.combatData) return;
 	for (const part of module.combatData.phases[stage].parts) {
-		if (part.isToken && part.target.includes('TALENT') && part.upgradeDesc_zh)
-			return part[`upgradeDesc_${language}`] || part[`upgradeDesc_zh`];
+		if (part.isToken && part.target.includes('TALENT') && part.upgradeDesc)
+			return part.upgradeDesc;
 	}
 };
 export const getModuleUpdatedRange = (rangeId, module, stage, talentIndex = -1) => {

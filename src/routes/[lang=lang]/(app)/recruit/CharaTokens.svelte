@@ -12,7 +12,7 @@
 		getTokenPosition
 	} from '$lib/functions/charaHelpers';
 
-	export let tokens, chara, moduleIndex, moduleStage, displayLang: Language, language: Language;
+	export let tokens, chara, moduleIndex, moduleStage, language: Language;
 
 	const tokensWithoutIcon = ['token_10012_rosmon_shield', 'token_10015_dusk_drgn'];
 	const statKeys = ['hp', 'respawnTime', 'atk', 'cost', 'def', 'blockCnt', 'res', 'aspd'];
@@ -28,7 +28,7 @@
 {#if tokenToSkill1to1Linked || tokenToSkillManyLinked}
 	<div class="flex justify-evenly mt-6">
 		{#each chara.skills as skill, skillIdx}
-			{#await import(`../../../../lib/images/skill_icons/skill_icon_${getSkillImgUrl(skill)}.webp`) then { default: src }}
+			{#await import(`../../../../lib/images/skill_icons/skill_icon_${getSkillImgUrl(skill.skillId)}.webp`) then { default: src }}
 				<button class="relative" on:click={() => (tokenSkillIndex = skillIdx)}>
 					{#if tokenSkillIndex === skillIdx}
 						<div class="absolute w-full h-full border-[3px] border-[#0098dc]" />
@@ -52,7 +52,7 @@
 				</div>
 			{/if}
 			<div>
-				<p class="text-xl">{token[`name_${displayLang}`]}</p>
+				<p class="text-xl">{token.name}</p>
 				<div
 					class="flex items-center justify-center rounded-[5px] bg-[#555] mt-1.5 px-2 h-[24px] w-max min-w-[60px]"
 				>
@@ -99,7 +99,7 @@
 		</div>
 		<div class="px-1.5 mt-3">
 			<p class="text-[#999] text-lg">{translations[language].trait}</p>
-			<TextParser line={token[`desc_${displayLang}`]} className="mt-1.5" />
+			<TextParser line={token.desc} className="mt-1.5" />
 			{#if token.talents && token.talents.length > 0}
 				<p class="mt-6 text-[#999] text-lg">{translations[language].talent}</p>
 				{#each token.talents as talent, idx}
@@ -109,9 +109,9 @@
 						language
 					)}
 					<p class="py-[1px] px-2 mt-4 w-max bg-[#f9f9f9] rounded-md font-medium text-[#333]">
-						{talent[`name_${displayLang}`]}
+						{talent.name}
 					</p>
-					<TextParser className="mt-1" line={moduleTalentDesc || talent[`desc_${displayLang}`]} />
+					<TextParser className="mt-1" line={moduleTalentDesc || talent.desc} />
 				{/each}
 			{/if}
 			{#if token.skills && token.skills.length > 0}
@@ -152,7 +152,7 @@
 								</div>
 							</div>
 							<div>
-								<p class="text-xl">{skill[`name_${displayLang}`]}</p>
+								<p class="text-xl">{skill.name}</p>
 								<div class="flex mt-2">
 									{#if skill.skillType !== 'PASSIVE' && skill.spType !== 8}
 										<p class="pill {skill?.spType}">
@@ -165,7 +165,7 @@
 								</div>
 							</div>
 						</div>
-						<TextParser line={skill[`desc_${displayLang}`]} className="mt-1.5" />
+						<TextParser line={skill.desc} className="mt-1.5" />
 					</div>
 				{/each}
 			{/if}
