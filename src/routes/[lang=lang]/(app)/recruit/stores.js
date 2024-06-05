@@ -22,9 +22,8 @@ export const releaseStatusStore = writable(releaseStatus);
 export const globalCheck = derived(releaseStatusStore, ($releaseStatusStore) => (char) => {
 	if ($releaseStatusStore === 'cn') {
 		return true;
-	} else {
-		return Boolean(char.name_en);
 	}
+	return !char.tags.includes('not_in_global');
 });
 
 const generateFilterStore = (filterOptions) => {
@@ -246,59 +245,99 @@ export const filters = derived(
 );
 
 export const secFilters = derived([secFiltersStore], ([$secFiltersStore]) => {
-	const filterFunctions = $secFiltersStore.reduce((acc, curr) => {
-		const selectedOptions = curr.options
-			.map((option) => option.selected && option.value)
-			.filter(Boolean);
-		if (selectedOptions.length === 0) {
-			return acc;
-		}
-		switch (curr.key) {
-			case 'force':
-				acc.push(
-					(char) =>
-						char.skills.some((skill) => selectedOptions.some((tag) => skill.tags.includes(tag))) ||
-						char.talents.some((talent) =>
-							selectedOptions.some((tag) => talent.tags.includes(tag))
-						) ||
-						char.uniequip
-							.filter((equip) => equip.combatData)
-							.some((equip) =>
-								selectedOptions.some((tag) => equip.combatData.tags.includes(tag))
-							) ||
-						char.tokens.some((token) => selectedOptions.some((tag) => token.tags.includes(tag)))
-				);
-				break;
-			case 'ally_block_dmg':
-			case 'block_dmg':
+	const filterFunctions = $secFiltersStore.reduce((acc, { key, list }) => {
+		for (const { subKey, type, options, sign, value } of list) {
+			if (type === 'compare') {
 				acc.push(
 					(char) =>
 						char.skills.some((skill) =>
 							skill.blackboard.some(
-								(item) => item.key === curr.key && isSubset(selectedOptions, item.types)
+								(item) =>
+									item.key === key &&
+									(sign === 'gte' ? item[subKey] >= value : item[subKey] <= value)
 							)
 						) ||
 						char.talents.some((talent) =>
 							talent.blackboard.some(
-								(item) => item.key === curr.key && isSubset(selectedOptions, item.types)
+								(item) =>
+									item.key === key &&
+									(sign === 'gte' ? item[subKey] >= value : item[subKey] <= value)
 							)
 						) ||
 						char.uniequip
 							.filter((equip) => equip.combatData)
 							.some((equip) =>
 								equip.combatData.blackboard.some(
-									(item) => item.key === curr.key && isSubset(selectedOptions, item.types)
+									(item) =>
+										item.key === key &&
+										(sign === 'gte' ? item[subKey] >= value : item[subKey] <= value)
 								)
 							) ||
 						char.tokens?.some((token) =>
 							token.blackboard.some(
-								(item) => item.key === curr.key && isSubset(selectedOptions, item.types)
+								(item) =>
+									item.key === key &&
+									(sign === 'gte' ? item[subKey] >= value : item[subKey] <= value)
 							)
 						)
 				);
-				break;
-			default:
-				break;
+			} else {
+				const selectedOptions = options
+					.map((option) => option.selected && option.value)
+					.filter(Boolean);
+				if (selectedOptions.length === 0) {
+					continue;
+				}
+				switch (key) {
+					case 'force':
+						acc.push(
+							(char) =>
+								char.skills.some((skill) =>
+									selectedOptions.some((tag) => skill.tags.includes(tag))
+								) ||
+								char.talents.some((talent) =>
+									selectedOptions.some((tag) => talent.tags.includes(tag))
+								) ||
+								char.uniequip
+									.filter((equip) => equip.combatData)
+									.some((equip) =>
+										selectedOptions.some((tag) => equip.combatData.tags.includes(tag))
+									) ||
+								char.tokens.some((token) => selectedOptions.some((tag) => token.tags.includes(tag)))
+						);
+						break;
+					case 'ally_block_dmg':
+					case 'block_dmg':
+						acc.push(
+							(char) =>
+								char.skills.some((skill) =>
+									skill.blackboard.some(
+										(item) => item.key === key && isSubset(selectedOptions, item.types)
+									)
+								) ||
+								char.talents.some((talent) =>
+									talent.blackboard.some(
+										(item) => item.key === key && isSubset(selectedOptions, item.types)
+									)
+								) ||
+								char.uniequip
+									.filter((equip) => equip.combatData)
+									.some((equip) =>
+										equip.combatData.blackboard.some(
+											(item) => item.key === key && isSubset(selectedOptions, item.types)
+										)
+									) ||
+								char.tokens?.some((token) =>
+									token.blackboard.some(
+										(item) => item.key === key && isSubset(selectedOptions, item.types)
+									)
+								)
+						);
+						break;
+					default:
+						break;
+				}
+			}
 		}
 		return acc;
 	}, []);
@@ -337,15 +376,17 @@ filtersStore.subscribe((list) => {
 			} else {
 				const secOptions = getSecFilterOptions(option);
 				if (secOptions) {
-					for (const [type, typeOptions] of Object.entries(secOptions)) {
-						returnList.push({
-							key: option,
-							subKey: type,
-							options: typeOptions.map((value) => {
-								return { value, selected: false };
-							})
-						});
-					}
+					returnList.push({
+						key: option,
+						list: secOptions.map((ele) => {
+							if (ele.type === 'options') {
+								ele.options = ele.options?.map((value) => {
+									return { value, selected: false };
+								});
+							}
+							return ele;
+						})
+					});
 				}
 			}
 		}

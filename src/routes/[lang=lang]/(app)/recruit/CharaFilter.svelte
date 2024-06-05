@@ -21,6 +21,7 @@
 		{
 			title: 'enemy_debuff',
 			color: 'bg-[#FFA5AF]',
+			textColor:"text-[#950202]",
 			categories: [
 				{ catKey: 'stats_debuff', optionKey: 'enemy_stats' },
 				{ catKey: 'status_ailment', optionKey: 'status_ailment' },
@@ -31,6 +32,7 @@
 		{
 			title: 'ally_buff',
 			color: 'bg-[#FFC89B]',
+			textColor:"text-[#A15E00]",
 			categories: [
 				{ catKey: 'stats_buff', optionKey: 'ally_stats' },
 				{ catKey: 'atk_cat', optionKey: 'ally_atk_buffs' },
@@ -44,6 +46,7 @@
 		{
 			title: 'self_buff',
 			color: 'bg-[#C0E6FA]',
+			textColor:"text-[#17638D]",
 			categories: [
 				{ catKey: 'stats_buff', optionKey: 'self_stats' },
 				{ catKey: 'atk_cat', optionKey: 'self_atk_buffs' },
@@ -56,6 +59,7 @@
 		{
 			title: 'others',
 			color: 'bg-[#DAD4FF]',
+			textColor:"",
 			categories: [
 				{ catKey: 'buff_tags', optionKey: 'buff_tags' },
 				{ catKey: 'profession_buff', optionKey: 'profession_buff' },
@@ -122,7 +126,7 @@
 			<Icon name="trash" className="h-[18px]" />
 			{translations[language].filter_reset}
 		</button>
-		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 pt-2 md:pt-3">
+		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-x-3 gap-y-4 pt-2 md:pt-3">
 			<p class="md:py-[5px]">{translations[language].chara_filter.release_status}</p>
 			<div class="flex flex-wrap gap-2">
 				{#each ['global', 'cn'] as value}
@@ -201,7 +205,7 @@
 			className="mt-2"
 			titleClassName="border-b"
 		>
-			<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 pt-2 md:pt-3">
+			<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-x-3 gap-y-4 pt-2 md:pt-3">
 				{#each Object.keys(filterOptions.subProfessionId) as subKey}
 					{@const subOptions = filterOptions.subProfessionId[subKey]}
 					<p class="md:py-[5px]">{translations[language][subKey]}</p>
@@ -225,7 +229,7 @@
 			className="mt-1.5"
 			titleClassName="border-b"
 		>
-			<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-3 pt-2 md:pt-3">
+			<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-x-3 gap-y-4 pt-2 md:pt-3">
 				<p class="hidden sm:block md:py-[5px]">{translations[language]['group']}</p>
 				<div class="flex flex-wrap gap-2">
 					{#each filterOptions['group'] as value}
@@ -241,17 +245,17 @@
 			</div>
 		</CharaFilterToggle>
 	</div>
-	{#each filterLayout as { title, color, categories }}
+	{#each filterLayout as { title, color, textColor, categories }}
 		{@const selectedOptions = getSelectedFilterOptions(categories, $filtersStore)}
 		<div class="bg-near-white rounded-md overflow-hidden">
 			<CharaFilterToggle
 				title={translations[language][title]}
-				isOpen={true}
+				isOpen={false}
 				innerClassName="border-t p-3 md:p-4"
 			>
-				<div class="relative z-[1] flex flex-col md:grid grid-cols-[100px_1fr] gap-3">
+				<div class="relative z-[1] flex flex-col md:grid grid-cols-[100px_1fr] gap-x-3 gap-y-4">
 					{#each categories as { catKey, optionKey }}
-						<p class="md:py-[5px]">{translations[language][catKey]}</p>
+						<p class="md:py-[5px] {textColor} sm:text-inherit">{translations[language][catKey]}</p>
 						<div class="flex flex-wrap gap-2">
 							{#each filterOptions[optionKey] as { key, value }}
 								<button

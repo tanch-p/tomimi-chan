@@ -150,10 +150,46 @@ const SEARCH_IN_BLACKBOARD = [
 export const getSecFilterOptions = (key) => {
 	switch (key) {
 		case 'force':
-			return { tags: ['push', 'pull'] };
+			return [
+				{
+					subKey: 'tags',
+					displayKey: '',
+					options: ['push', 'pull'],
+					type: 'options'
+				}
+			];
 		case 'block_dmg':
 		case 'ally_block_dmg':
-			return { types: ['phys', 'arts', 'true', 'melee_attack', 'ranged_attack'] };
+			return [
+				{
+					subKey: 'types',
+					displayKey: 'damage_type',
+					options: ['phys', 'arts', 'true', 'melee_attack', 'ranged_attack'],
+					type: 'options'
+				}
+			];
+		case 'stun':
+		case 'sluggish':
+		case 'sleep':
+		case 'silence':
+		case 'cold':
+		case 'levitate':
+		case 'root':
+			return [
+				{
+					subKey: 'conditions',
+					displayKey: 'conditions',
+					options: ['condition_none'],
+					type: 'options'
+				},
+				{
+					subKey: 'value',
+					suffix: 'duration',
+					sign: 'gte',
+					value: 0,
+					type: 'compare'
+				}
+			];
 		default:
 			return;
 	}
@@ -164,12 +200,7 @@ const keyTable = {
 	ally_block_dmg: 'block_dmg'
 };
 export const getOptionTranslationKey = (option) => {
-	switch (option) {
-		case 'force':
-			return option;
-		default:
-			return keyTable?.[option] ?? option;
-	}
+	return keyTable?.[option] ?? option;
 };
 
 export const professionWeights = {
@@ -580,7 +611,6 @@ export const getSortOptions = (key) => {
 			key
 		):
 			list.push({ key, subKey: 'value', suffix: 'duration', order: -1, priority: -1 });
-			list.push({ key, subKey: 'prob', suffix: 'prob', order: 0, priority: null });
 			break;
 		case [
 			'phys_evasion',
