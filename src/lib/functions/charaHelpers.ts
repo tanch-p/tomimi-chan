@@ -164,7 +164,12 @@ const keyTable = {
 	ally_block_dmg: 'block_dmg'
 };
 export const getOptionTranslationKey = (option) => {
-	return keyTable?.[option] ?? option;
+	switch (option) {
+		case 'force':
+			return option;
+		default:
+			return keyTable?.[option] ?? option;
+	}
 };
 
 export const professionWeights = {
@@ -307,12 +312,7 @@ export const getSkillImgUrl = (skillId) => {
 export const getModuleNewTalent = (module, stage: number) => {
 	if (!module?.combatData) return;
 	for (const part of module.combatData.phases[stage].parts) {
-		if (
-			!part.isToken &&
-			part.target.includes('TALENT') &&
-			part.talentIndex === -1 &&
-			part.name
-		) {
+		if (!part.isToken && part.target.includes('TALENT') && part.talentIndex === -1 && part.name) {
 			return {
 				name: part.name,
 				desc: part.upgradeDesc
@@ -325,7 +325,7 @@ export const getModuleTrait = (trait, module, stage: number) => {
 	if (!module?.combatData) return trait;
 	for (const part of module.combatData.phases[stage].parts) {
 		if ((!part.isToken && part.target.includes('TRAIT')) || part.target === 'DISPLAY') {
-			if (part.addDesc) return trait + '\n' + (part.addDesc);
+			if (part.addDesc) return trait + '\n' + part.addDesc;
 			if (part.overrideDesc) return part.overrideDesc;
 		}
 	}
@@ -346,8 +346,7 @@ export const getModuleTalentDesc = (idx, module, stage: number) => {
 export const getTokenModuleTalent = (module, stage: number) => {
 	if (!module?.combatData) return;
 	for (const part of module.combatData.phases[stage].parts) {
-		if (part.isToken && part.target.includes('TALENT') && part.upgradeDesc)
-			return part.upgradeDesc;
+		if (part.isToken && part.target.includes('TALENT') && part.upgradeDesc) return part.upgradeDesc;
 	}
 };
 export const getModuleUpdatedRange = (rangeId, module, stage, talentIndex = -1) => {

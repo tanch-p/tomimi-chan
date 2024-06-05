@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import type { sortOrder, Language } from '$lib/types';
-	import { filters, secFilters, sortOptions, globalCheck } from './stores';
+	import { filters, secFilters, sortOptions, globalCheck,sortFunction } from './stores';
 	import { getMaxValue, getCharaList, professionWeights } from '$lib/functions/charaHelpers';
 	import DisplayContainer from './DisplayContainer.svelte';
 	import CharaFilter from './CharaFilter.svelte';
@@ -23,25 +23,6 @@
 		loading = false;
 	};
 
-	$: sortFunction = (a, b): sortOrder => {
-		//filter out unselected options and sort by priority
-		const sortedArr = Array.from($sortOptions.filter((ele) => ele.order)).sort(
-			(a, b) => a.priority - b.priority
-		);
-		const values = sortedArr.map(({ key, subKey, order }) => {
-			switch (key) {
-				case 'rarity':
-					return a[key].localeCompare(b[key]) * order;
-				case 'profession':
-					return (professionWeights[a[key]] - professionWeights[b[key]]) * order;
-				default:
-					const valA = getMaxValue(a, key, subKey ?? 'value');
-					const valB = getMaxValue(b, key, subKey ?? 'value');
-					return (valA - valB) * order;
-			}
-		});
-		return values.length > 0 ? values.reduce((acc, curr) => acc || curr) : 0;
-	};
 	onMount(async () => {
 		loadData(language);
 	});
@@ -71,7 +52,7 @@
 					.filter($globalCheck)
 					.filter($filters)
 					.filter($secFilters)
-					.sort(sortFunction)}
+					.sort($sortFunction)}
 				{language}
 			/>
 		{/if}
