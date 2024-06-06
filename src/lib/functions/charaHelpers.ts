@@ -3,7 +3,6 @@ import filterOptions from '$lib/data/chara/filter_options.json';
 
 const SEARCH_IN_TAGS = [
 	'weightless',
-	'cancel_stealth',
 	'stealth',
 	'ally_stealth',
 	'camouflage',
@@ -45,6 +44,7 @@ const SEARCH_IN_TAGS = [
 	'erase_projectile',
 	'slow_projectile',
 	'aspd_unrelated',
+	'ailment_but_skill_cont',
 	'execute',
 	'ally_respawn_time',
 	'env_dmg_reduce',
@@ -82,6 +82,7 @@ const SEARCH_IN_TAGS = [
 	'skill_invincible'
 ];
 const SEARCH_IN_BLACKBOARD = [
+	'cancel_stealth',
 	'stun',
 	'sluggish',
 	'sleep',
@@ -128,8 +129,6 @@ const SEARCH_IN_BLACKBOARD = [
 	'res_penetrate_fixed',
 	'damage_scale',
 	'ally_damage_scale',
-	'damage_scale_phys',
-	'damage_scale_arts',
 	'sp_regen',
 	'elementfragile',
 	'magicfragile',
@@ -147,27 +146,142 @@ const SEARCH_IN_BLACKBOARD = [
 	'force'
 ];
 
-export const getSecFilterOptions = (key) => {
+export const genSecFilterOptions = (characters: []) => {
+	const obj = {};
+	const findAndAddKeyEntries = (item) => {
+		if (SEARCH_IN_BLACKBOARD.includes(item.key)) {
+			for (const [key, value] of Object.entries(item)) {
+				if (!obj[item.key]) {
+					obj[item.key] = {};
+				}
+				if (!obj[item.key][key]) {
+					obj[item.key][key] = [];
+				}
+				if (Array.isArray(value)) {
+					value?.forEach((val) => {
+						if (!obj[item.key][key].includes(val)) {
+							obj[item.key][key].push(val);
+						}
+					});
+				} else if (['category'].includes(key)) {
+					if (!obj[item.key][key].includes(value)) {
+						obj[item.key][key].push(value);
+					}
+				}
+			}
+		}
+	};
+	for (const char of characters) {
+		char.blackboard.forEach((item) => findAndAddKeyEntries(item)) ||
+			char.skills.forEach((skill) =>
+				skill.blackboard.forEach((item) => findAndAddKeyEntries(item))
+			) ||
+			char.talents.forEach((talent) =>
+				talent.blackboard.forEach((item) => findAndAddKeyEntries(item))
+			) ||
+			char.uniequip
+				.filter((equip) => equip.combatData)
+				.forEach((equip) =>
+					equip.combatData.blackboard.forEach((item) => findAndAddKeyEntries(item))
+				) ||
+			char.tokens?.forEach((token) =>
+				token.blackboard.forEach((item) => findAndAddKeyEntries(item))
+			);
+	}
+	return obj;
+};
+
+const getSecFilterDisplayKey = (key, subKey) => {
+	switch (subKey) {
+		case 'types':
+			return 'damage_type';
+		case 'value':
+			switch (key) {
+				case 'stun':
+				case 'sluggish':
+				case 'sleep':
+				case 'silence':
+				case 'cold':
+				case 'levitate':
+				case 'root':
+					return 'duration';
+				default:
+					return;
+			}
+		default:
+			return subKey;
+	}
+};
+const getWeights = (key) => {
+	switch (key) {
+		case 'condition_none':
+			return 0;
+		case 'enemy_melee':
+		case 'flying':
+			return 1;
+		case 'stun':
+			return 2;
+		case 'sleep':
+			return 3;
+		case 'silence':
+			return 4;
+		case 'cold':
+		case 'freeze':
+			return 5;
+		case 'levitate':
+		case 'root':
+		case 'sluggish':
+			return 6;
+		case 'phys':
+			return 7;
+		case 'arts':
+			return 8;
+		case 'true':
+			return 9;
+		case 'ele_dmg':
+			return 10;
+		case 'melee_attack':
+			return 11;
+		case 'ranged_attack':
+			return 12;
+		default:
+			if (key.includes('hp')) {
+				return 99;
+			}
+			return 98;
+	}
+};
+
+const sortSecFilterOptions = (a, b) => {
+	return getWeights(a) - getWeights(b);
+};
+
+export const getSecFilterOptions = (key, store) => {
+	let storeVal;
+	store.subscribe((val) => (storeVal = val));
+	const optionsList = Object.entries(storeVal?.[key] ?? {}).filter(
+		([_, options]) => options.length > 0
+	);
+	const returnArr = optionsList.map(([subKey, options]) => {
+		if (subKey === 'conditions') {
+			options.push('condition_none');
+		}
+		return {
+			subKey: subKey,
+			displayKey: getSecFilterDisplayKey(key, subKey),
+			options: options.sort(sortSecFilterOptions),
+			type: 'options'
+		};
+	});
 	switch (key) {
 		case 'force':
-			return [
-				{
-					subKey: 'tags',
-					displayKey: '',
-					options: ['push', 'pull'],
-					type: 'options'
-				}
-			];
-		case 'block_dmg':
-		case 'ally_block_dmg':
-			return [
-				{
-					subKey: 'types',
-					displayKey: 'damage_type',
-					options: ['phys', 'arts', 'true', 'melee_attack', 'ranged_attack'],
-					type: 'options'
-				}
-			];
+			returnArr.push({
+				subKey: 'tags',
+				displayKey: '',
+				options: ['push', 'pull'],
+				type: 'options'
+			});
+			break;
 		case 'stun':
 		case 'sluggish':
 		case 'sleep':
@@ -175,24 +289,16 @@ export const getSecFilterOptions = (key) => {
 		case 'cold':
 		case 'levitate':
 		case 'root':
-			return [
-				{
-					subKey: 'conditions',
-					displayKey: 'conditions',
-					options: ['condition_none'],
-					type: 'options'
-				},
-				{
-					subKey: 'value',
-					suffix: 'duration',
-					sign: 'gte',
-					value: 0,
-					type: 'compare'
-				}
-			];
-		default:
-			return;
+			returnArr.push({
+				subKey: 'value',
+				suffix: 'duration',
+				sign: 'gte',
+				value: 0,
+				type: 'compare'
+			});
+			break;
 	}
+	return returnArr;
 };
 
 const keyTable = {
@@ -201,6 +307,9 @@ const keyTable = {
 };
 export const getOptionTranslationKey = (option) => {
 	return keyTable?.[option] ?? option;
+};
+export const getSortDisplayKey = (key) => {
+	return key;
 };
 
 export const professionWeights = {
@@ -241,6 +350,13 @@ export function isSubset(arr1, arr2) {
 	}
 
 	return true;
+}
+export function someCheck(itemArr, selectedOptions) {
+	let noneCheck = false;
+	if (selectedOptions.includes('condition_none')) {
+		noneCheck = !Boolean(itemArr);
+	}
+	return (itemArr ?? []).some((val) => selectedOptions.includes(val)) || noneCheck;
 }
 
 const revertStatKey = (statKey) => {
@@ -330,6 +446,7 @@ export const getSkillImgUrl = (skillId) => {
 		case 'skchr_doberm_1':
 		case 'skchr_bryota_1':
 		case 'skchr_savage_1':
+		case 'skchr_luton_1':
 			return 'skcom_powerstrike[2]';
 		case 'skchr_stward_1':
 			return 'skcom_powerstrike[1]';
@@ -607,10 +724,22 @@ export const adjustSortPriority = (list) => {
 export const getSortOptions = (key) => {
 	const list = [];
 	switch (true) {
-		case ['stun', 'sluggish', 'sleep', 'silence', 'cold', 'levitate', 'root', 'tremble'].includes(
-			key
-		):
+		case [
+			'stun',
+			'sluggish',
+			'sleep',
+			'silence',
+			'cold',
+			'levitate',
+			'root',
+			'tremble',
+			'cancel_stealth'
+		].includes(key):
 			list.push({ key, subKey: 'value', suffix: 'duration', order: -1, priority: -1 });
+			break;
+		case ['damage_scale'].includes(key):
+			list.push({ key, subKey: 'value', suffix: null, order: -1, priority: -1 });
+			list.push({ key, subKey: 'duration', suffix: 'duration', order: 0, priority: null });
 			break;
 		case [
 			'phys_evasion',
@@ -620,17 +749,24 @@ export const getSortOptions = (key) => {
 			'ally_dmg_res_phys',
 			'ally_dmg_res_arts',
 			'dmg_res_phys',
-			'dmg_res_arts',
-			'shield',
-			'ally_shield',
-			'block_dmg',
-			'ally_block_dmg'
+			'dmg_res_arts'
 		].includes(key):
 			list.push({ key, subKey: 'value', suffix: 'prob', order: -1, priority: -1 });
 			list.push({ key, subKey: 'duration', suffix: 'duration', order: 0, priority: null });
 			break;
+		case ['block_dmg', 'ally_block_dmg'].includes(key):
+			list.push({ key, subKey: 'value', suffix: 'prob', order: 0, priority: null });
+			list.push({ key, subKey: 'duration', suffix: 'duration', order: 0, priority: null });
+			break;
 		default:
-			list.push({ key, subKey: 'value', suffix: null, order: -1, priority: -1 });
+			list.push({
+				key,
+				subKey: 'value',
+				displayKey: getSortDisplayKey(key),
+				suffix: null,
+				order: -1,
+				priority: -1
+			});
 			break;
 	}
 

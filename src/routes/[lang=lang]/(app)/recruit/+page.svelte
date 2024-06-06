@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import type { sortOrder, Language } from '$lib/types';
-	import { filters, secFilters, sortOptions, globalCheck,sortFunction } from './stores';
-	import { getMaxValue, getCharaList, professionWeights } from '$lib/functions/charaHelpers';
+	import type { Language } from '$lib/types';
+	import { filters, secFilters, globalCheck, sortFunction, secFilterOptions } from './stores';
+	import { getCharaList, genSecFilterOptions } from '$lib/functions/charaHelpers';
 	import DisplayContainer from './DisplayContainer.svelte';
 	import CharaFilter from './CharaFilter.svelte';
 	import CharaFilterDesc from './CharaFilterDesc.svelte';
@@ -22,9 +22,10 @@
 		characters = await getCharaList(language);
 		loading = false;
 	};
-
+	$: console.log($secFilterOptions);
 	onMount(async () => {
-		loadData(language);
+		await loadData(language);
+		secFilterOptions.set(genSecFilterOptions(characters));
 	});
 	$: if (language) {
 		loadData(language);
@@ -37,7 +38,7 @@
 	<meta property="og:description" content={translations[language].title_post} />
 </svelte:head>
 
-<div class="chara pb-40">
+<div class:loading class="chara pb-60">
 	<div class="sm:mx-10">
 		<div class="max-w-5xl mx-auto pt-6 md:pt-10 pb-4 text-[0.75rem] md:text-[0.875rem] {language}">
 			<CharaFilter {language} />
@@ -60,3 +61,10 @@
 	<CharaFilterDesc {language} />
 	<CharaPopup {language} />
 </div>
+
+<style>
+	:global(.loading .filter-btn) {
+		pointer-events: none;
+		cursor: not-allowed;
+	}
+</style>

@@ -3,6 +3,7 @@
 	import translations from '$lib/translations.json';
 	import { secFiltersStore } from './stores';
 	import { getOptionTranslationKey } from '$lib/functions/charaHelpers';
+	import { parseConditions } from '$lib/functions/languageHelpers';
 
 	export let language: Language;
 
@@ -32,7 +33,6 @@
 			return list;
 		});
 	};
-	$: console.log($secFiltersStore);
 </script>
 
 {#if $secFiltersStore?.length > 0}
@@ -43,10 +43,10 @@
 		<div class="flex flex-wrap sm:grid grid-cols-2 gap-3 mt-2">
 			{#each $secFiltersStore as { key, list }}
 				<div class="w-full rounded border p-3 bg-gray-200">
-					<p class="sm:text-center text-[#0098DC]">
+					<p class="sm:text-center text-[#006EA1]">
 						{translations[language][getOptionTranslationKey(key)]}
 					</p>
-					<div class="flex flex-col md:grid grid-cols-[auto_1fr] gap-3 pt-2 md:pt-3">
+					<div class="flex flex-col md:grid grid-cols-[auto_1fr] gap-x-3 gap-y-4 pt-2 md:pt-3">
 						{#each list as { subKey, displayKey, type, options, sign, suffix }}
 							{#if type === 'compare'}
 								<div class="flex items-center gap-x-1.5 col-span-2">
@@ -87,7 +87,7 @@
 											class:active={selected}
 											on:click={() => updateSecFilters(key, subKey, value, type)}
 										>
-											{translations[language][value]}
+											{parseConditions(value, language)}
 										</button>
 									{/each}
 								</div>

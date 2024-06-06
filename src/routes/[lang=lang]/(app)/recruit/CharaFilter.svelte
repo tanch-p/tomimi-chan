@@ -21,18 +21,17 @@
 		{
 			title: 'enemy_debuff',
 			color: 'bg-[#FFA5AF]',
-			textColor:"text-[#950202]",
+			textColor: 'text-[#950202]',
 			categories: [
 				{ catKey: 'stats_debuff', optionKey: 'enemy_stats' },
 				{ catKey: 'status_ailment', optionKey: 'status_ailment' },
-				{ catKey: 'buff_special', optionKey: 'debuff_special' },
-				{ catKey: 'damage_scale', optionKey: 'damage_scale' }
+				{ catKey: 'buff_special', optionKey: 'debuff_special' }
 			]
 		},
 		{
 			title: 'ally_buff',
 			color: 'bg-[#FFC89B]',
-			textColor:"text-[#A15E00]",
+			textColor: 'text-[#A15E00]',
 			categories: [
 				{ catKey: 'stats_buff', optionKey: 'ally_stats' },
 				{ catKey: 'atk_cat', optionKey: 'ally_atk_buffs' },
@@ -40,13 +39,13 @@
 				{ catKey: 'status_ailment', optionKey: 'ally_status_buffs' },
 				{ catKey: 'heal_buff', optionKey: 'ally_heal_buffs' },
 				{ catKey: 'buff_sp', optionKey: 'ally_sp_buffs' },
-				{ catKey: 'others', optionKey: 'ally_others' }
+				{ catKey: 'others_tag', optionKey: 'ally_others' }
 			]
 		},
 		{
 			title: 'self_buff',
 			color: 'bg-[#C0E6FA]',
-			textColor:"text-[#17638D]",
+			textColor: 'text-[#17638D]',
 			categories: [
 				{ catKey: 'stats_buff', optionKey: 'self_stats' },
 				{ catKey: 'atk_cat', optionKey: 'self_atk_buffs' },
@@ -57,9 +56,9 @@
 			]
 		},
 		{
-			title: 'others',
+			title: 'others_tag',
 			color: 'bg-[#DAD4FF]',
-			textColor:"",
+			textColor: '',
 			categories: [
 				{ catKey: 'buff_tags', optionKey: 'buff_tags' },
 				{ catKey: 'profession_buff', optionKey: 'profession_buff' },
@@ -67,7 +66,7 @@
 				{ catKey: 'enemy_type', optionKey: 'enemy_type' },
 				{ catKey: 'enemy_target_priority', optionKey: 'enemy_target_priority' },
 				{ catKey: 'skill', optionKey: 'skill' },
-				{ catKey: 'buff_special', optionKey: 'others' },
+				{ catKey: 'buff_special', optionKey: 'others_tag' },
 				{ catKey: 'terrain', optionKey: 'terrain' }
 			]
 		}
