@@ -66,7 +66,7 @@
 		<div class="flex flex-wrap sm:grid grid-cols-2 gap-3 mt-2">
 			{#each $secFiltersStore as { key, list }}
 				<div class="relative w-full rounded border p-3 bg-gray-200">
-					<button class="flex ml-auto mt-1 pr-2" on:click={() => reset(key)}>
+					<button class="absolute flex right-2" on:click={() => reset(key)}>
 						<Icon name="trash" className="h-[18px] mt-[1px]" />
 						{translations[language].filter_reset}
 					</button>
