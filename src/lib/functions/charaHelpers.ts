@@ -111,10 +111,8 @@ const SEARCH_IN_BLACKBOARD = [
 	'ally_cost_down',
 	'evasion',
 	'ally_evasion',
-	'ally_dmg_res_phys',
-	'ally_dmg_res_arts',
-	'dmg_res_phys',
-	'dmg_res_arts',
+	'ally_dmg_res',
+	'dmg_res',
 	'shield',
 	'ally_shield',
 	'block_dmg',
@@ -857,20 +855,11 @@ export const getSortOptions = (key) => {
 		].includes(key):
 			list.push({ key, subKey: 'value', suffix: 'duration', order: -1, priority: -1 });
 			break;
-		case ['damage_scale'].includes(key):
+		case ['damage_scale', 'ally_dmg_res', 'dmg_res'].includes(key):
 			list.push({ key, subKey: 'value', suffix: null, order: -1, priority: -1 });
 			list.push({ key, subKey: 'duration', suffix: 'duration', order: 0, priority: null });
 			break;
-		case [
-			'phys_evasion',
-			'ally_phys_evasion',
-			'arts_evasion',
-			'ally_arts_evasion',
-			'ally_dmg_res_phys',
-			'ally_dmg_res_arts',
-			'dmg_res_phys',
-			'dmg_res_arts'
-		].includes(key):
+		case ['evasion', 'ally_evasion'].includes(key):
 			list.push({ key, subKey: 'value', suffix: 'prob', order: -1, priority: -1 });
 			list.push({ key, subKey: 'duration', suffix: 'duration', order: 0, priority: null });
 			break;
