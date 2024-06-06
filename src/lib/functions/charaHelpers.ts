@@ -142,15 +142,7 @@ const SEARCH_IN_BLACKBOARD = [
 	'force'
 ];
 
-const ENEMY_KEYS = [
-	'atk_down',
-	'def_down',
-	'res_down',
-	'aspd_down',
-	'ms_down',
-	'hitrate_down',
-	'damage_scale'
-];
+const ENEMY_KEYS = ['atk_down', 'def_down', 'res_down', 'aspd_down', 'ms_down', 'hitrate_down'];
 const ALLY_KEYS = [
 	'ally_max_hp',
 	'ally_atk',
@@ -187,7 +179,6 @@ const SELF_KEYS = [
 	'aspd',
 	'respawn_time',
 	'cost_down',
-	'damage_scale',
 	'reflect_dmg',
 	'block_up',
 	'block_down',
@@ -281,7 +272,7 @@ const getSecFilterDisplayKey = (key, subKey) => {
 			return subKey;
 	}
 };
-const getWeights = (key) => {
+const getConditionWeights = (key) => {
 	switch (key) {
 		case 'condition_none':
 			return 0;
@@ -347,7 +338,7 @@ export const getSecFilterOptions = (key, store) => {
 		return {
 			subKey: subKey,
 			displayKey: getSecFilterDisplayKey(key, subKey),
-			options: options.sort((a, b) => getWeights(a) - getWeights(b)),
+			options: options.sort((a, b) => getConditionWeights(a) - getConditionWeights(b)),
 			type: 'options'
 		};
 	});
@@ -378,11 +369,6 @@ export const getSecFilterOptions = (key, store) => {
 	}
 	return returnArr;
 };
-
-const keyTable = {
-	force: 'force_tag',
-	ally_block_dmg: 'block_dmg'
-};
 export const getOptionTranslation = (option, language: Language) => {
 	let symbol = '';
 	let suffix = '';
@@ -399,16 +385,25 @@ export const getOptionTranslation = (option, language: Language) => {
 	} else if (SELF_KEYS.includes(option)) {
 		symbol = 'self_abbr';
 	}
+	if (option === 'force') {
+		option = 'force_tag';
+	}
 	return (
 		(translations[language].table_headers[option] ??
 			translations[language][option] ??
 			translations[language].types[option]) +
-		(suffix ? `${translations[language][suffix]}` : '') +
-		(symbol ? `(${translations[language][symbol]})` : '')
+		(suffix ? getSpacing(language) + `${translations[language][suffix]}` : '') +
+		(symbol ? getSpacing(language) + `(${translations[language][symbol]})` : '')
 	);
 };
 export const getSortDisplayKey = (key) => {
 	return key.replace('ally_', '');
+};
+export const getSpacing = (language: Language) => {
+	if (language === 'en') {
+		return ' ';
+	}
+	return '';
 };
 
 export const professionWeights = {
@@ -463,12 +458,6 @@ export function isSubset(arr1, arr2) {
 
 	return true;
 }
-export const targetAirCheck = (item, selectedOptions) => {
-	let target_air = false;
-	if (selectedOptions.includes('target_air') && item.target_air) {
-		target_air = true;
-	}
-};
 export function someCheck(itemArr, selectedOptions) {
 	let noneCheck = false;
 	if (selectedOptions.includes('condition_none')) {
@@ -866,6 +855,16 @@ export const getSortOptions = (key) => {
 		case ['block_dmg', 'ally_block_dmg'].includes(key):
 			list.push({ key, subKey: 'value', suffix: 'prob', order: 0, priority: null });
 			list.push({ key, subKey: 'duration', suffix: 'duration', order: 0, priority: null });
+			break;
+		case key === 'force':
+			list.push({
+				key,
+				subKey: 'value',
+				displayKey: getSortDisplayKey(key),
+				suffix: 'force',
+				order: -1,
+				priority: -1
+			});
 			break;
 		default:
 			list.push({

@@ -70,7 +70,7 @@
 						<Icon name="trash" className="h-[18px] mt-[1px]" />
 						{translations[language].filter_reset}
 					</button>
-					<p class="sm:text-center text-[#006EA1]">
+					<p class="sm:text-center capitalize text-[#006EA1]">
 						{getOptionTranslation(key, language)}
 					</p>
 					<div class="flex flex-col md:grid grid-cols-[auto_1fr] gap-2 md:gap-4 pt-2 md:pt-3">

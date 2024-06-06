@@ -34,7 +34,7 @@
 		<p class="text-center">{translations[language].sort_priority}</p>
 		<p />
 		{#each $sortOptions as { key, subKey, suffix, order, priority }}
-			<p class="py-[5px]">
+			<p class="py-[5px] capitalize">
 				{getOptionTranslation(
 					key,
 					language
