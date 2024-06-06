@@ -1,5 +1,6 @@
 import type { Language } from '$lib/types';
 import filterOptions from '$lib/data/chara/filter_options.json';
+import translations from '$lib/translations.json';
 
 const SEARCH_IN_TAGS = [
 	'weightless',
@@ -25,8 +26,6 @@ const SEARCH_IN_TAGS = [
 	'global_move_speed_down',
 	'global_heal',
 	'ignore_evasion',
-	'ally_block_up',
-	'ally_block_down',
 	'stop_attack',
 	'limited_use',
 	'unlimited_duration',
@@ -79,7 +78,8 @@ const SEARCH_IN_TAGS = [
 	'caster',
 	'special',
 	'three_star',
-	'skill_invincible'
+	'skill_invincible',
+	'ally_apoptosis'
 ];
 const SEARCH_IN_BLACKBOARD = [
 	'cancel_stealth',
@@ -107,11 +107,10 @@ const SEARCH_IN_BLACKBOARD = [
 	'ally_res',
 	'ally_aspd',
 	'ally_block_up',
+	'ally_block_down',
 	'ally_cost_down',
-	'phys_evasion',
-	'ally_phys_evasion',
-	'arts_evasion',
-	'ally_arts_evasion',
+	'evasion',
+	'ally_evasion',
 	'ally_dmg_res_phys',
 	'ally_dmg_res_arts',
 	'dmg_res_phys',
@@ -138,13 +137,80 @@ const SEARCH_IN_BLACKBOARD = [
 	'cost_return',
 	'block_up',
 	'block_down',
-	'phys_hitrate_down',
-	'arts_hitrate_down',
+	'hitrate_down',
 	'protect',
 	'ally_protect',
 	'block_no_attack',
 	'force'
 ];
+
+const ENEMY_KEYS = [
+	'atk_down',
+	'def_down',
+	'res_down',
+	'aspd_down',
+	'ms_down',
+	'hitrate_down',
+	'damage_scale'
+];
+const ALLY_KEYS = [
+	'ally_max_hp',
+	'ally_atk',
+	'ally_def',
+	'ally_res',
+	'ally_aspd',
+	'ally_respawn_time',
+	'ally_cost_down',
+	'ally_damage_scale',
+	'ally_reflect_dmg',
+	'ally_block_up',
+	'ally_block_down',
+	'ally_evasion',
+	'ally_shield',
+	'ally_block_dmg',
+	'ally_dmg_res',
+	'ally_undying',
+	'ally_env_dmg_reduce',
+	'ally_stealth',
+	'ally_camouflage',
+	'ally_taunt',
+	'ally_lower_target_priority',
+	'ally_resist',
+	'ally_heal_scale',
+	'ally_sp_regen',
+	'ally_sp_gain',
+	'ally_sp_stock'
+];
+const SELF_KEYS = [
+	'max_hp',
+	'atk',
+	'def',
+	'res',
+	'aspd',
+	'respawn_time',
+	'cost_down',
+	'damage_scale',
+	'reflect_dmg',
+	'block_up',
+	'block_down',
+	'evasion',
+	'shield',
+	'block_dmg',
+	'dmg_res',
+	'undying',
+	'env_dmg_reduce',
+	'stealth',
+	'camouflage',
+	'taunt',
+	'lower_target_priority',
+	'resist',
+	'heal_scale',
+	'sp_regen',
+	'sp_gain',
+	'sp_stock'
+];
+
+const KEYS_TO_CHECK_VALUE_TYPE = ['atk_down', 'def_down', 'res_down'];
 
 export const genSecFilterOptions = (characters: []) => {
 	const obj = {};
@@ -163,7 +229,7 @@ export const genSecFilterOptions = (characters: []) => {
 							obj[item.key][key].push(val);
 						}
 					});
-				} else if (['category'].includes(key)) {
+				} else if (['targets'].includes(key)) {
 					if (!obj[item.key][key].includes(value)) {
 						obj[item.key][key].push(value);
 					}
@@ -187,6 +253,11 @@ export const genSecFilterOptions = (characters: []) => {
 			char.tokens?.forEach((token) =>
 				token.blackboard.forEach((item) => findAndAddKeyEntries(item))
 			);
+	}
+	for (const key of ['stun', 'sluggish', 'sleep', 'silence', 'cold', 'levitate', 'root']) {
+		if (obj[key]?.['conditions']?.length > 0) {
+			obj[key].conditions.push('target_air');
+		}
 	}
 	return obj;
 };
@@ -217,6 +288,7 @@ const getWeights = (key) => {
 		case 'condition_none':
 			return 0;
 		case 'enemy_melee':
+		case 'target_air':
 		case 'flying':
 			return 1;
 		case 'stun':
@@ -252,24 +324,32 @@ const getWeights = (key) => {
 	}
 };
 
-const sortSecFilterOptions = (a, b) => {
-	return getWeights(a) - getWeights(b);
-};
-
 export const getSecFilterOptions = (key, store) => {
 	let storeVal;
 	store.subscribe((val) => (storeVal = val));
 	const optionsList = Object.entries(storeVal?.[key] ?? {}).filter(
 		([_, options]) => options.length > 0
 	);
+	if (KEYS_TO_CHECK_VALUE_TYPE.includes(key)) {
+		optionsList.push(['value_type', ['value_fixed', 'value_percent']]);
+	}
+
 	const returnArr = optionsList.map(([subKey, options]) => {
 		if (subKey === 'conditions') {
 			options.push('condition_none');
 		}
+		if (subKey === 'targets') {
+			return {
+				subKey: subKey,
+				displayKey: getSecFilterDisplayKey(key, subKey),
+				options: ['single_target', 'few_target', 'aoe'],
+				type: 'options'
+			};
+		}
 		return {
 			subKey: subKey,
 			displayKey: getSecFilterDisplayKey(key, subKey),
-			options: options.sort(sortSecFilterOptions),
+			options: options.sort((a, b) => getWeights(a) - getWeights(b)),
 			type: 'options'
 		};
 	});
@@ -305,11 +385,32 @@ const keyTable = {
 	force: 'force_tag',
 	ally_block_dmg: 'block_dmg'
 };
-export const getOptionTranslationKey = (option) => {
-	return keyTable?.[option] ?? option;
+export const getOptionTranslation = (option, language: Language) => {
+	let symbol = '';
+	let suffix = '';
+
+	if (ALLY_KEYS.includes(option)) {
+		symbol = 'ally_abbr';
+		option = option.replace('ally_', '');
+	} else if (ENEMY_KEYS.includes(option)) {
+		symbol = 'enemy_abbr';
+		if (option.includes('down')) {
+			suffix = 'debuff';
+		}
+		option = option.replace('_down', '');
+	} else if (SELF_KEYS.includes(option)) {
+		symbol = 'self_abbr';
+	}
+	return (
+		(translations[language].table_headers[option] ??
+			translations[language][option] ??
+			translations[language].types[option]) +
+		(suffix ? `${translations[language][suffix]}` : '') +
+		(symbol ? `(${translations[language][symbol]})` : '')
+	);
 };
 export const getSortDisplayKey = (key) => {
-	return key;
+	return key.replace('ally_', '');
 };
 
 export const professionWeights = {
@@ -321,6 +422,19 @@ export const professionWeights = {
 	SUPPORT: 5,
 	CASTER: 6,
 	SPECIAL: 7
+};
+
+export const targetValueCheck = (targets, selectedOptions) => {
+	return selectedOptions.some((val) => {
+		switch (val) {
+			case 'single_target':
+				return targets === 1;
+			case 'few_target':
+				return targets > 1 && targets < 99;
+			default:
+				return targets >= 99;
+		}
+	});
 };
 
 export const convertStatKeys = {
@@ -351,6 +465,12 @@ export function isSubset(arr1, arr2) {
 
 	return true;
 }
+export const targetAirCheck = (item, selectedOptions) => {
+	let target_air = false;
+	if (selectedOptions.includes('target_air') && item.target_air) {
+		target_air = true;
+	}
+};
 export function someCheck(itemArr, selectedOptions) {
 	let noneCheck = false;
 	if (selectedOptions.includes('condition_none')) {
@@ -771,4 +891,33 @@ export const getSortOptions = (key) => {
 	}
 
 	return list;
+};
+export const compareValueType = (selectedOptions, value) => {
+	return selectedOptions.some((val) => {
+		switch (val) {
+			case 'value_fixed':
+				return value > 3;
+			default:
+				return value <= 3;
+		}
+	});
+};
+
+export const createSubFilterFunction = (key, subKey, method) => {
+	return (char) =>
+		char.blackboard.some((item) => item.key === key && method(item[subKey], item)) ||
+		char.skills.some((skill) =>
+			skill.blackboard.some((item) => item.key === key && method(item[subKey], item))
+		) ||
+		char.talents.some((talent) =>
+			talent.blackboard.some((item) => item.key === key && method(item[subKey], item))
+		) ||
+		char.uniequip
+			.filter((equip) => equip.combatData)
+			.some((equip) =>
+				equip.combatData.blackboard.some((item) => item.key === key && method(item[subKey], item))
+			) ||
+		char.tokens?.some((token) =>
+			token.blackboard.some((item) => item.key === key && method(item[subKey], item))
+		);
 };

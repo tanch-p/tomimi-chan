@@ -2,8 +2,9 @@
 	import type { Language } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import { secFiltersStore } from './stores';
-	import { getOptionTranslationKey } from '$lib/functions/charaHelpers';
+	import { getOptionTranslation } from '$lib/functions/charaHelpers';
 	import { parseConditions } from '$lib/functions/languageHelpers';
+	import Icon from '$lib/components/Icon.svelte';
 
 	export let language: Language;
 
@@ -33,6 +34,22 @@
 			return list;
 		});
 	};
+	const reset = (key) => {
+		secFiltersStore.update((list) => {
+			const catIndex = list.findIndex((ele) => ele.key === key);
+			list[catIndex] = list.map((subItem) => {
+				return {
+					...subItem,
+					options: subItem.options.map(({ value }) => {
+						return { value, selected: false };
+					})
+				};
+			});
+			return list;
+		});
+	};
+
+	$: console.log($secFiltersStore);
 </script>
 
 {#if $secFiltersStore?.length > 0}
@@ -42,18 +59,23 @@
 		</h2>
 		<div class="flex flex-wrap sm:grid grid-cols-2 gap-3 mt-2">
 			{#each $secFiltersStore as { key, list }}
-				<div class="w-full rounded border p-3 bg-gray-200">
+				<div class="relative w-full rounded border p-3 bg-gray-200">
+					<button class="flex ml-auto mt-1 pr-2" on:click={() => reset(key)}>
+						<Icon name="trash" className="h-[18px] mt-[1px]" />
+						{translations[language].filter_reset}
+					</button>
 					<p class="sm:text-center text-[#006EA1]">
-						{translations[language][getOptionTranslationKey(key)]}
+						{getOptionTranslation(key, language)}
 					</p>
-					<div class="flex flex-col md:grid grid-cols-[auto_1fr] gap-x-3 gap-y-4 pt-2 md:pt-3">
+					<div class="flex flex-col md:grid grid-cols-[auto_1fr] gap-2 md:gap-4 pt-2 md:pt-3">
 						{#each list as { subKey, displayKey, type, options, sign, suffix }}
 							{#if type === 'compare'}
 								<div class="flex items-center gap-x-1.5 col-span-2">
 									<span>
-										{translations[language][
-											getOptionTranslationKey(key)
-										]}{#if language === 'en'}&nbsp;{/if}{translations[language][suffix]}
+										{getOptionTranslation(
+											key,
+											language
+										)}{#if language === 'en'}&nbsp;{/if}{translations[language][suffix]}
 									</span>
 									<button
 										class="text-lg bg-gray-300 hover:bg-gray-400 rounded px-3"
@@ -76,7 +98,7 @@
 								</div>
 							{:else}
 								{#if displayKey}
-									<p class="md:py-[5px]">
+									<p class="md:py-[5px] mt-2 md:mt-0">
 										{translations[language][displayKey]}
 									</p>
 								{/if}

@@ -9,7 +9,10 @@ import {
 	getSortOptions,
 	getMaxValue,
 	professionWeights,
-	someCheck
+	someCheck,
+	targetValueCheck,
+	createSubFilterFunction,
+	compareValueType
 } from '$lib/functions/charaHelpers';
 import { browser } from '$app/environment';
 import { cookiesEnabled } from '../../../stores';
@@ -252,37 +255,9 @@ export const secFilters = derived([secFiltersStore], ([$secFiltersStore]) => {
 			if (type === 'compare') {
 				if (value <= 0) continue;
 				acc.push(
-					(char) =>
-						char.skills.some((skill) =>
-							skill.blackboard.some(
-								(item) =>
-									item.key === key &&
-									(sign === 'gte' ? item[subKey] >= value : item[subKey] <= value)
-							)
-						) ||
-						char.talents.some((talent) =>
-							talent.blackboard.some(
-								(item) =>
-									item.key === key &&
-									(sign === 'gte' ? item[subKey] >= value : item[subKey] <= value)
-							)
-						) ||
-						char.uniequip
-							.filter((equip) => equip.combatData)
-							.some((equip) =>
-								equip.combatData.blackboard.some(
-									(item) =>
-										item.key === key &&
-										(sign === 'gte' ? item[subKey] >= value : item[subKey] <= value)
-								)
-							) ||
-						char.tokens?.some((token) =>
-							token.blackboard.some(
-								(item) =>
-									item.key === key &&
-									(sign === 'gte' ? item[subKey] >= value : item[subKey] <= value)
-							)
-						)
+					createSubFilterFunction(key, subKey, (val) =>
+						sign === 'gte' ? val >= value : val <= value
+					)
 				);
 			} else {
 				const selectedOptions = options
@@ -309,92 +284,39 @@ export const secFilters = derived([secFiltersStore], ([$secFiltersStore]) => {
 								char.tokens.some((token) => selectedOptions.some((tag) => token.tags.includes(tag)))
 						);
 						break;
-					case 'ally_block_dmg':
-					case 'block_dmg':
-						acc.push(
-							(char) =>
-								char.skills.some((skill) =>
-									skill.blackboard.some(
-										(item) => item.key === key && isSubset(selectedOptions, item.types)
-									)
-								) ||
-								char.talents.some((talent) =>
-									talent.blackboard.some(
-										(item) => item.key === key && isSubset(selectedOptions, item.types)
-									)
-								) ||
-								char.uniequip
-									.filter((equip) => equip.combatData)
-									.some((equip) =>
-										equip.combatData.blackboard.some(
-											(item) => item.key === key && isSubset(selectedOptions, item.types)
-										)
-									) ||
-								char.tokens?.some((token) =>
-									token.blackboard.some(
-										(item) => item.key === key && isSubset(selectedOptions, item.types)
-									)
-								)
-						);
-						break;
 					default:
 						switch (subKey) {
+							case 'targets':
+								acc.push(
+									createSubFilterFunction(key, subKey, (list) =>
+										targetValueCheck(list, selectedOptions)
+									)
+								);
+								break;
 							case 'conditions':
 							case 'category':
 								acc.push(
-									(char) =>
-										char.skills.some((skill) =>
-											skill.blackboard.some(
-												(item) => item.key === key && someCheck(item[subKey], selectedOptions)
-											)
-										) ||
-										char.talents.some((talent) =>
-											talent.blackboard.some(
-												(item) => item.key === key && someCheck(item[subKey], selectedOptions)
-											)
-										) ||
-										char.uniequip
-											.filter((equip) => equip.combatData)
-											.some((equip) =>
-												equip.combatData.blackboard.some(
-													(item) => item.key === key && someCheck(item[subKey], selectedOptions)
-												)
-											) ||
-										char.tokens?.some((token) =>
-											token.blackboard.some(
-												(item) => item.key === key && someCheck(item[subKey], selectedOptions)
-											)
-										)
+									createSubFilterFunction(
+										key,
+										subKey,
+										(list,item) =>
+											someCheck(list, selectedOptions) ||
+											(selectedOptions.includes('target_air') && item.target_air)
+									)
 								);
 								break;
 							case 'types':
 								acc.push(
-									(char) =>
-										char.skills.some((skill) =>
-											skill.blackboard.some(
-												(item) => item.key === key && isSubset(selectedOptions, item[subKey])
-											)
-										) ||
-										char.talents.some((talent) =>
-											talent.blackboard.some(
-												(item) => item.key === key && isSubset(selectedOptions, item[subKey])
-											)
-										) ||
-										char.uniequip
-											.filter((equip) => equip.combatData)
-											.some((equip) =>
-												equip.combatData.blackboard.some(
-													(item) => item.key === key && isSubset(selectedOptions, item[subKey])
-												)
-											) ||
-										char.tokens?.some((token) =>
-											token.blackboard.some(
-												(item) => item.key === key && isSubset(selectedOptions, item[subKey])
-											)
-										)
+									createSubFilterFunction(key, subKey, (list) => isSubset(selectedOptions, list))
 								);
 								break;
-
+							case 'value_type':
+								acc.push(
+									createSubFilterFunction(key, 'value', (value) =>
+										compareValueType(selectedOptions, value)
+									)
+								);
+								break;
 							default:
 								break;
 						}
@@ -438,7 +360,7 @@ filtersStore.subscribe((list) => {
 				returnList.push(filterOption);
 			} else {
 				const secOptions = getSecFilterOptions(option, secFilterOptions);
-				if (secOptions) {
+				if (secOptions?.length > 0) {
 					returnList.push({
 						key: option,
 						list: secOptions.map((ele) => {

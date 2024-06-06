@@ -33,9 +33,10 @@
 			color: 'bg-[#FFC89B]',
 			textColor: 'text-[#A15E00]',
 			categories: [
-				{ catKey: 'stats_buff', optionKey: 'ally_stats' },
+				{ catKey: 'stats', optionKey: 'ally_stats' },
 				{ catKey: 'atk_cat', optionKey: 'ally_atk_buffs' },
 				{ catKey: 'def_cat', optionKey: 'ally_def_buffs' },
+				{ catKey: 'targeting', optionKey: 'ally_targeting' },
 				{ catKey: 'status_ailment', optionKey: 'ally_status_buffs' },
 				{ catKey: 'heal_buff', optionKey: 'ally_heal_buffs' },
 				{ catKey: 'buff_sp', optionKey: 'ally_sp_buffs' },
@@ -47,9 +48,10 @@
 			color: 'bg-[#C0E6FA]',
 			textColor: 'text-[#17638D]',
 			categories: [
-				{ catKey: 'stats_buff', optionKey: 'self_stats' },
+				{ catKey: 'stats', optionKey: 'self_stats' },
 				{ catKey: 'atk_cat', optionKey: 'self_atk_buffs' },
 				{ catKey: 'def_cat', optionKey: 'self_def_buffs' },
+				{ catKey: 'targeting', optionKey: 'self_targeting' },
 				{ catKey: 'status_ailment', optionKey: 'self_status_buffs' },
 				{ catKey: 'heal_buff', optionKey: 'self_heal_buffs' },
 				{ catKey: 'buff_sp', optionKey: 'self_sp_buffs' }
@@ -122,10 +124,10 @@
 			{translations[language].filter}
 		</h2>
 		<button class="flex ml-auto mt-1 pr-2" on:click={reset}>
-			<Icon name="trash" className="h-[18px]" />
+			<Icon name="trash" className="h-[18px] mt-[1px]" />
 			{translations[language].filter_reset}
 		</button>
-		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-x-3 gap-y-4 pt-2 md:pt-3">
+		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-2 md:gap-y-3 pt-2">
 			<p class="md:py-[5px]">{translations[language].chara_filter.release_status}</p>
 			<div class="flex flex-wrap gap-2">
 				{#each ['global', 'cn'] as value}
@@ -138,7 +140,7 @@
 					</button>
 				{/each}
 			</div>
-			<p class="md:py-[5px]">{translations[language]['rarity']}</p>
+			<p class="md:py-[5px] mt-2 md:mt-0">{translations[language]['rarity']}</p>
 			<div class="flex flex-wrap gap-2">
 				{#each filterOptions['rarity'] as value}
 					<button
@@ -150,7 +152,7 @@
 					</button>
 				{/each}
 			</div>
-			<p class="md:py-[5px]">{translations[language]['profession']}</p>
+			<p class="md:py-[5px] mt-2 md:mt-0">{translations[language]['profession']}</p>
 			<div class="flex flex-wrap gap-2">
 				{#each filterOptions['profession'] as value}
 					<button
@@ -162,7 +164,7 @@
 					</button>
 				{/each}
 			</div>
-			<p class="md:py-[5px]">{translations[language]['deployable_tile']}</p>
+			<p class="md:py-[5px] mt-2 md:mt-0">{translations[language]['deployable_tile']}</p>
 			<div class="flex flex-wrap gap-2">
 				{#each filterOptions['deployable_tile'] as { key, value }}
 					<button
@@ -174,7 +176,7 @@
 					</button>
 				{/each}
 			</div>
-			<p class="md:py-[5px]">{translations[language].damage_type}</p>
+			<p class="md:py-[5px] mt-2 md:mt-0">{translations[language].damage_type}</p>
 			<div class="flex flex-wrap gap-2">
 				{#each filterOptions['damage_type'] as value}
 					<button
@@ -186,7 +188,7 @@
 					</button>
 				{/each}
 			</div>
-			<p class="md:py-[5px]">{translations[language].table_headers.blockCnt}</p>
+			<p class="md:py-[5px] mt-2 md:mt-0">{translations[language].table_headers.blockCnt}</p>
 			<div class="flex flex-wrap gap-2">
 				{#each filterOptions['blockCnt'] as value}
 					<button
@@ -204,10 +206,10 @@
 			className="mt-2"
 			titleClassName="border-b"
 		>
-			<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-x-3 gap-y-4 pt-2 md:pt-3">
+			<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-2 md:gap-y-3 pt-2 md:pt-3">
 				{#each Object.keys(filterOptions.subProfessionId) as subKey}
 					{@const subOptions = filterOptions.subProfessionId[subKey]}
-					<p class="md:py-[5px]">{translations[language][subKey]}</p>
+					<p class="md:py-[5px] mt-2 md:mt-0 first:mt-0">{translations[language][subKey]}</p>
 					<div class="flex flex-wrap gap-2">
 						{#each subOptions as value}
 							<!-- {@const selected = options.find((ele) => ele.value === value)?.selected} -->
@@ -228,7 +230,7 @@
 			className="mt-1.5"
 			titleClassName="border-b"
 		>
-			<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-x-3 gap-y-4 pt-2 md:pt-3">
+			<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-2 md:gap-y-3 pt-2 md:pt-3">
 				<p class="hidden sm:block md:py-[5px]">{translations[language]['group']}</p>
 				<div class="flex flex-wrap gap-2">
 					{#each filterOptions['group'] as value}
@@ -252,9 +254,11 @@
 				isOpen={false}
 				innerClassName="border-t p-3 md:p-4"
 			>
-				<div class="relative z-[1] flex flex-col md:grid grid-cols-[100px_1fr] gap-x-3 gap-y-4">
+				<div class="relative z-[1] flex flex-col md:grid grid-cols-[100px_1fr] gap-2 md:gap-y-3">
 					{#each categories as { catKey, optionKey }}
-						<p class="md:py-[5px] {textColor} sm:text-inherit">{translations[language][catKey]}</p>
+						<p class="md:py-[5px] mt-2 md:mt-0 first:mt-0 {textColor} sm:text-inherit">
+							{translations[language][catKey]}
+						</p>
 						<div class="flex flex-wrap gap-2">
 							{#each filterOptions[optionKey] as { key, value }}
 								<button

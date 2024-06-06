@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Language, sortOrder } from '$lib/types';
 	import translations from '$lib/translations.json';
-	import { getOptionTranslationKey, updateSortPriority } from '$lib/functions/charaHelpers';
+	import { getOptionTranslation, updateSortPriority } from '$lib/functions/charaHelpers';
 	import { sortOptions } from './stores';
 
 	export let language: Language;
@@ -35,9 +35,10 @@
 		<p />
 		{#each $sortOptions as { key, subKey, suffix, order, priority }}
 			<p class="py-[5px]">
-				{translations[language][getOptionTranslationKey(key)]}{#if suffix}{#if language === 'en'}&nbsp;{/if}{translations[
-						language
-					][suffix]}{/if}
+				{getOptionTranslation(
+					key,
+					language
+				)}{#if suffix}{#if language === 'en'}&nbsp;{/if}{translations[language][suffix]}{/if}
 			</p>
 			<p class="py-[5px] text-center">{priority || ''}</p>
 			<div class="flex flex-wrap gap-2">
