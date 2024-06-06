@@ -37,14 +37,20 @@
 	const reset = (key) => {
 		secFiltersStore.update((list) => {
 			const catIndex = list.findIndex((ele) => ele.key === key);
-			list[catIndex] = list.map((subItem) => {
-				return {
-					...subItem,
-					options: subItem.options.map(({ value }) => {
-						return { value, selected: false };
-					})
-				};
-			});
+			console.log(list[catIndex].list[0].options);
+			list[catIndex] = {
+				key,
+				list: list[catIndex].list.map((subItem) => {
+					if (subItem.type === 'options')
+						return {
+							...subItem,
+							options: subItem.options.map(({ value }) => {
+								return { value, selected: false };
+							})
+						};
+					else return subItem;
+				})
+			};
 			return list;
 		});
 	};
