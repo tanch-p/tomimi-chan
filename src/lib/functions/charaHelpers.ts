@@ -199,7 +199,7 @@ const SELF_KEYS = [
 	'sp_stock'
 ];
 
-const KEYS_TO_CHECK_VALUE_TYPE = ['atk_down', 'def_down', 'res_down'];
+const KEYS_TO_CHECK_VALUE_TYPE = ['atk_down', 'def_down', 'res_down',"damage_scale"];
 
 export const genSecFilterOptions = (characters: []) => {
 	const obj = {};
