@@ -299,7 +299,7 @@ export const secFilters = derived([secFiltersStore], ([$secFiltersStore]) => {
 									createSubFilterFunction(
 										key,
 										subKey,
-										(list,item) =>
+										(list, item) =>
 											someCheck(list, selectedOptions) ||
 											(selectedOptions.includes('target_air') && item.target_air)
 									)
@@ -341,7 +341,8 @@ export const secFilters = derived([secFiltersStore], ([$secFiltersStore]) => {
 });
 
 const defaultSortOptions = [
-	{ key: 'rarity', subKey: null, suffix: null, order: -1, priority: 1 },
+	{ key: 'release_time', subKey: null, suffix: null, order: -1, priority: 1 },
+	{ key: 'rarity', subKey: null, suffix: null, order: 0, priority: null },
 	{ key: 'profession', subKey: null, suffix: null, order: 0, priority: null }
 ];
 export const sortOptions = writable(defaultSortOptions);
@@ -380,7 +381,9 @@ filtersStore.subscribe((list) => {
 
 	//sortOptions update
 	sortOptions.update((options) => {
-		let returnList = options.filter(({ key }) => ['rarity', 'profession'].includes(key));
+		let returnList = options.filter(({ key }) =>
+			['rarity', 'profession', 'release_time'].includes(key)
+		);
 		for (const option of activeOptions) {
 			const sortOption = options.find(({ key }) => key === option);
 			if (sortOption) {
