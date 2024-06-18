@@ -3,7 +3,6 @@
 	import {
 		statMods,
 		difficulty,
-		difficultyMods,
 		specialMods,
 		eliteMods,
 		selectedRelics,
@@ -22,7 +21,7 @@
 
 	export let data: PageData;
 	$: language = data.language;
-	$: moddedEnemies = parseStats(data.enemies, $statMods, ...$difficultyMods);
+	$: moddedEnemies = parseStats(data.enemies, $statMods);
 	const rogueTopic = 'rogue_sami';
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 </script>

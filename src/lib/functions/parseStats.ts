@@ -1,5 +1,5 @@
 /* takes in a list of enemies and statMods and returns enemy with modifiers applied */
-import type { Enemy, StatMods, Mods, Effects } from '$lib/types';
+import type { Enemy, StatMods, Mods } from '$lib/types';
 
 const STATS = [
 	'hp',
@@ -54,16 +54,12 @@ export const getMaxRowSpan = (enemy: Enemy) => {
 };
 
 // enemy stats type is being changed from {} to [{}] here
-export function parseStats(
-	enemies: Enemy[],
-	statMods: StatMods,
-	...effectsToAdd: Effects[]
-) {
+export function parseStats(enemies: Enemy[], statMods: StatMods) {
 	return enemies.map((enemy) => {
 		const maxRowSpan = getMaxRowSpan(enemy);
 		const moddedStats = [];
 		for (let i = 0; i < maxRowSpan; i++) {
-			moddedStats.push(applyMods(enemy, statMods, i, effectsToAdd));
+			moddedStats.push(applyMods(enemy, statMods, i));
 		}
 		return {
 			...enemy,
@@ -77,13 +73,8 @@ ALL + others -> distill into enemy ID
 */
 
 //returns enemy 'stats' object with modded stats
-export const applyMods = (
-	enemy: Enemy,
-	statMods: StatMods,
-	row: number,
-	effectsToAdd: Effects[]
-) => {
-	const mods = getEnemyStatMods(enemy, statMods, row, effectsToAdd);
+export const applyMods = (enemy: Enemy, statMods: StatMods, row: number) => {
+	const mods = getEnemyStatMods(enemy, statMods, row);
 	const enemy_stats = {};
 	for (const stat of STATS) {
 		enemy_stats[stat] = calculateModdedStat(
@@ -97,12 +88,7 @@ export const applyMods = (
 };
 
 //returns object with statMods to be used for calculateModdedStat
-const getEnemyStatMods = (
-	enemy: Enemy,
-	statMods: StatMods,
-	row: number,
-	effectsToAdd: Effects[]
-) => {
+const getEnemyStatMods = (enemy: Enemy, statMods: StatMods, row: number) => {
 	const enemyStatMod = { ...statMods.ALL };
 	for (const target of Object.keys(statMods)) {
 		if (target !== 'ALL') {
@@ -111,10 +97,6 @@ const getEnemyStatMods = (
 			}
 		}
 	}
-
-	const addedMods = addMods(enemy, effectsToAdd);
-	distillMods(enemyStatMod, addedMods);
-
 	if (enemy?.forms) {
 		distillMods(enemyStatMod, enemy.forms[row].mods);
 	}
@@ -154,7 +136,7 @@ const distillMods = (enemyStatMod: Mods, mods: Mods) => {
 		const value = mods[stat];
 		if (!enemyStatMod.hasOwnProperty(stat)) {
 			enemyStatMod[stat] = value;
-		} else if (stat.includes('fixed')) {
+		} else if (stat.includes('fixed') || stat === 'dmg_reduction') {
 			enemyStatMod[stat] += value;
 		} else {
 			enemyStatMod[stat] *= value;
@@ -190,28 +172,3 @@ export const checkIsTarget = (enemy: Enemy, target: string) => {
 			return target === id || target === key;
 	}
 };
-
-//fix added for rogue_sami
-function addMods(enemy: Enemy, effectsToAdd: Effects[] = []) {
-	const mods = {};
-	for (const effects of effectsToAdd) {
-		for (const effect of effects) {
-			const isTarget = effect.targets.find((target) => checkIsTarget(enemy, target));
-			if (isTarget) {
-				for (const key in effect.mods) {
-					if (!mods[key]) {
-						mods[key] = effect.mods[key];
-					} else if (key.includes('fixed')) {
-						mods[key] += effect.mods[key];
-					} else if (key === 'dmg_reduction') {
-						//to remove when dmg_reduction calc is moved
-						mods[key] += effect.mods[key];
-					} else {
-						mods[key] += effect.mods[key] - 1;
-					}
-				}
-			}
-		}
-	}
-	return mods;
-}

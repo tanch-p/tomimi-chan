@@ -1,5 +1,5 @@
 import { writable, derived } from 'svelte/store';
-import updateMods from '$lib/functions/compileMods';
+import updateMods, { compileDifficultyMods } from '$lib/functions/compileMods';
 import difficultyModsList from '$lib/data/difficulty_mods_sami.json';
 import { browser } from '$app/environment';
 import { cookiesEnabled } from '../../../../stores';
@@ -10,15 +10,7 @@ if (browser && cookiesEnabled) {
 }
 export const selectedRelics = writable([]);
 export const difficulty = writable(storedDifficulty);
-export const difficultyMods = derived(difficulty, ($difficulty) =>
-	difficultyModsList
-		.map((ele) => {
-			if (ele.difficulty <= $difficulty && ele.effects.length > 0) {
-				return ele.effects;
-			}
-		})
-		.filter(Boolean)
-);
+
 export const selectedFloor = writable(1);
 const floorDifficultyMods = derived(
 	[selectedFloor, difficulty],
@@ -36,16 +28,27 @@ const floorDifficultyMods = derived(
 export const eliteMods = writable(null);
 export const activeChaosEffects = writable([]);
 export const portalMods = writable(null);
+const difficultyMods = derived([difficulty], ([$difficulty]) =>
+	compileDifficultyMods(difficultyModsList, $difficulty, 'add')
+);
 
 const compiledMods = derived(
-	[selectedRelics, floorDifficultyMods, eliteMods, activeChaosEffects, portalMods],
-	([$selectedRelics, $floorDifficultyMods, $eliteMods, $activeChaosEffects, $portalMods]) =>
+	[selectedRelics, floorDifficultyMods, eliteMods, activeChaosEffects, portalMods, difficultyMods],
+	([
+		$selectedRelics,
+		$floorDifficultyMods,
+		$eliteMods,
+		$activeChaosEffects,
+		$portalMods,
+		$difficultyMods
+	]) =>
 		updateMods(
 			$selectedRelics.map((relic) => relic.effects),
 			[$floorDifficultyMods],
 			[$eliteMods],
 			$activeChaosEffects.map((ele) => ele.effects),
-			[$portalMods]
+			[$portalMods],
+			[$difficultyMods]
 		)
 );
 

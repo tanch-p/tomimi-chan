@@ -1,5 +1,5 @@
 import { writable, derived } from 'svelte/store';
-import updateMods from '$lib/functions/compileMods';
+import updateMods, { compileDifficultyMods } from '$lib/functions/compileMods';
 import difficultyModsList from '$lib/data/difficulty_mods_mizuki.json';
 import { browser } from '$app/environment';
 import { cookiesEnabled } from '../../../../stores';
@@ -10,8 +10,8 @@ if (browser && cookiesEnabled) {
 }
 export const selectedRelics = writable([]);
 export const difficulty = writable(storedDifficulty);
-const difficultyMods = derived(difficulty, ($difficulty) =>
-	difficultyModsList.filter((ele) => ele.difficulty <= $difficulty)
+const difficultyMods = derived([difficulty], ([$difficulty]) =>
+	compileDifficultyMods(difficultyModsList, $difficulty, 'times')
 );
 export const selectedFloor = writable(1);
 const floorDifficultyMods = derived(
@@ -43,7 +43,7 @@ const compiledMods = derived(
 	]) =>
 		updateMods(
 			$selectedRelics.map((relic) => relic.effects),
-			$difficultyMods.map((ele) => ele.effects),
+			[$difficultyMods],
 			[$floorDifficultyMods],
 			[$eliteMods],
 			[$missionMods],
