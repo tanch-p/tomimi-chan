@@ -33,15 +33,17 @@
 			return grids;
 		}
 		const newGrids = [...grids];
-		let maxCol = 0;
+		const lastColOfRow = {};
 		for (const { row, col } of grids) {
-			if (col > maxCol) maxCol = col;
+			if (!lastColOfRow[row]) {
+				lastColOfRow[row] = col;
+			} else {
+				if (col > lastColOfRow[row]) lastColOfRow[row] = col;
+			}
 		}
 		for (let i = 0; i < extend; i++) {
-			for (const { row, col } of grids) {
-				if (col === maxCol) {
-					newGrids.push({ row, col: col + i + 1 });
-				}
+			for (const row in lastColOfRow) {
+				newGrids.push({ row, col: lastColOfRow[row] + i + 1 });
 			}
 		}
 		return newGrids;
