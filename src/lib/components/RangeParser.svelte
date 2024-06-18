@@ -1,6 +1,7 @@
 <script lang="ts">
 	import rangeTable from '$lib/data/range_table.json';
-	export let rangeId;
+	export let rangeId,
+		extend = 0;
 	let grids,
 		width: number,
 		height: number,
@@ -9,7 +10,7 @@
 		maxRow: number,
 		minCol: number,
 		maxCol: number;
-	$: grids = rangeTable?.[rangeId]?.grids;
+	$: grids = extendGrids(rangeTable?.[rangeId]?.grids, extend);
 	$: if (grids) {
 		noCenter = true;
 		minRow = 0;
@@ -25,6 +26,25 @@
 		}
 		width = 26 + (maxCol - minCol) * (22 + 4);
 		height = 26 + (maxRow - minRow) * (22 + 4);
+	}
+
+	function extendGrids(grids, extend) {
+		if (extend <= 0) {
+			return grids;
+		}
+		const newGrids = [...grids];
+		let maxCol = 0;
+		for (const { row, col } of grids) {
+			if (col > maxCol) maxCol = col;
+		}
+		for (let i = 0; i < extend; i++) {
+			for (const { row, col } of grids) {
+				if (col === maxCol) {
+					newGrids.push({ row, col: col + i + 1 });
+				}
+			}
+		}
+		return newGrids;
 	}
 </script>
 

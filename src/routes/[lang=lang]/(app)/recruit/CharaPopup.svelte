@@ -234,10 +234,7 @@
 														? 'pb-[30px]'
 														: ''} {language !== 'en' ? 'whitespace-nowrap' : ''}"
 												>
-													<p
-														title={equip.name}
-														class={language === 'en' ? 'truncate' : ''}
-													>
+													<p title={equip.name} class={language === 'en' ? 'truncate' : ''}>
 														{equip.name}
 													</p>
 												</div>
@@ -288,6 +285,7 @@
 							{skill}
 							{language}
 							overrideRangeId={getSkillRangeId(skill, $selectedChara, $moduleIndex, moduleStage)}
+							rangeId={getAttackRangeId($selectedChara, $moduleIndex, moduleStage)}
 						/>
 					{/each}
 				{/if}

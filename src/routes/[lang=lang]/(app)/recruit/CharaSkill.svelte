@@ -7,7 +7,7 @@
 	import RangeParser from '$lib/components/RangeParser.svelte';
 	import { getSkillImgUrl } from '$lib/functions/charaHelpers';
 
-	export let skill, language: Language, overrideRangeId;
+	export let skill, language: Language, rangeId, overrideRangeId;
 
 	const hasMastery = skill.levels.length > 1;
 	let mastery: number = hasMastery ? 3 : 0;
@@ -17,6 +17,7 @@
 		if (mastery === 3) return 0;
 		return mastery + 1;
 	}
+	$: extend = skill.blackboard.find((item) => item.key === 'ability_range_forward_extend')?.value;
 </script>
 
 <div class="grid grid-cols-[200px_1fr] gap-x-3 mt-6">
@@ -56,9 +57,13 @@
 			{/if}
 		</button>
 	</div>
-	{#if overrideRangeId || skill.levels?.[mastery]?.rangeId}
+	{#if overrideRangeId || skill.levels?.[mastery]?.rangeId || extend}
 		<div class="flex justify-center items-center">
-			<RangeParser rangeId={overrideRangeId || skill.levels?.[mastery]?.rangeId} />
+			{#if extend}
+				<RangeParser {rangeId} {extend} />
+			{:else}
+				<RangeParser rangeId={overrideRangeId || skill.levels?.[mastery]?.rangeId} />
+			{/if}
 		</div>
 	{/if}
 </div>
