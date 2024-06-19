@@ -2,6 +2,7 @@
 	import type { Language } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import { filtersStore } from './stores';
+	import { getDisplayKey } from '$lib/functions/charaHelpers';
 	export let language: Language;
 
 	$: defaultLine = translations[language].chara_filter_start;
@@ -39,7 +40,15 @@
 		//1. replace active keys
 		for (const ele of activeOptions) {
 			let value = ele.options
-				.map(({ value, selected }) => selected && translations[language][value])
+				.map(({ value, selected }) => {
+					const key = getDisplayKey(value);
+					return (
+						selected &&
+						(translations[language].table_headers[key] ??
+							translations[language][key] ??
+							translations[language].types[key])
+					);
+				})
 				.filter(Boolean)
 				.join('/');
 			let key = ele.key;
@@ -66,6 +75,10 @@
 						translations[language]['chara_filter']['group_post'];
 					break;
 				default:
+					value =
+						(translations[language]['chara_filter']?.[`${key}_pre`] ?? '') +
+						value +
+						(translations[language]['chara_filter']?.[`${key}_post`] ?? '');
 					break;
 			}
 			if (key === 'skills') {
@@ -111,6 +124,8 @@
 	}
 </script>
 
-<div class="fixed z-10 bottom-0 w-full p-4 bg-[#333] text-lg md:text-2xl text-near-white text-center">
+<div
+	class="fixed z-10 bottom-0 w-full p-4 bg-[#333] text-lg md:text-2xl text-near-white text-center"
+>
 	{line}
 </div>

@@ -1,10 +1,6 @@
 {
 	"rarity": ["TIER_1", "TIER_2", "TIER_3", "TIER_4", "TIER_5", "TIER_6"],
-	"deployable_tile": [
-		{ "key": "position_melee", "value": "MELEE" },
-		{ "key": "position_ranged", "value": "RANGED" },
-		{ "key": "position_all", "value": "ALL" }
-	],
+	"deployable_tile": ["MELEE", "RANGED", "ALL"],
 	"damage_type": ["phys", "arts", "true", "ele_dmg"],
 	"blockCnt": [0, 1, 2, 3, 4],
 	"profession": ["PIONEER", "WARRIOR", "SNIPER", "TANK", "MEDIC", "SUPPORT", "CASTER", "SPECIAL"],
@@ -119,193 +115,118 @@
 		"rainbow",
 		"student"
 	],
-	"status_ailment": [
-		{ "key": "stun", "value": "stun" },
-		{ "key": "sluggish", "value": "sluggish" },
-		{ "key": "sleep", "value": "sleep" },
-		{ "key": "silence", "value": "silence" },
-		{ "key": "cold", "value": "cold" },
-		{ "key": "levitate", "value": "levitate" },
-		{ "key": "root", "value": "root" },
-		{ "key": "tremble", "value": "tremble" }
-	],
-	"enemy_stats": [
-		{ "key": "atk", "value": "atk_down" },
-		{ "key": "def", "value": "def_down" },
-		{ "key": "res", "value": "res_down" },
-		{ "key": "attack_speed", "value": "aspd_down" },
-		{ "key": "ms", "value": "ms_down" },
-		{ "key": "hitrate", "value": "hitrate_down" }
-	],
-	"debuff_special": [
-		{ "key": "damage_scale", "value": "damage_scale" },
-		{ "key": "weightless", "value": "weightless" },
-		{ "key": "cancel_stealth", "value": "cancel_stealth" },
-		{ "key": "crit_wound", "value": "crit_wound" }
-	],
+	"status_ailment": ["stun", "sluggish", "sleep", "silence", "cold", "levitate", "root", "tremble"],
+	"enemy_stats": ["atk_down", "def_down", "res_down", "aspd_down", "ms_down", "hitrate_down"],
+	"debuff_special": ["damage_scale", "weightless", "cancel_stealth", "crit_wound"],
 	"ally_stats": [
-		{ "key": "hp", "value": "ally_max_hp" },
-		{ "key": "atk", "value": "ally_atk" },
-		{ "key": "def", "value": "ally_def" },
-		{ "key": "res", "value": "ally_res" },
-		{ "key": "attack_speed", "value": "ally_aspd" },
-		{ "key": "block_up", "value": "ally_block_up" },
-		{ "key": "block_down", "value": "ally_block_down" },
-		{ "key": "respawnTime", "value": "ally_respawn_time" },
-		{ "key": "cost", "value": "ally_cost_down" }
+		"ally_max_hp",
+		"ally_atk",
+		"ally_def",
+		"ally_res",
+		"ally_aspd",
+		"ally_block_up",
+		"ally_block_down",
+		"ally_respawn_time",
+		"ally_cost_down"
 	],
 	"ally_atk_buffs": [
-		{ "key": "change_target_priority", "value": "change_target_priority" },
-		{ "key": "damage_scale_buff", "value": "ally_damage_scale" },
-		{ "key": "reflect_dmg", "value": "ally_reflect_dmg" },
-		{ "key": "apoptosis", "value": "ally_apoptosis" }
+		"change_target_priority",
+		"ally_damage_scale",
+		"ally_reflect_dmg",
+		"ally_apoptosis"
 	],
 	"ally_def_buffs": [
-		{ "key": "evasion", "value": "ally_evasion" },
-		{ "key": "buff_shield", "value": "ally_shield" },
-		{ "key": "block_dmg", "value": "ally_block_dmg" },
-		{ "key": "dmg_reduction", "value": "ally_dmg_res" },
-		{ "key": "undying", "value": "ally_undying" },
-		{ "key": "env_dmg_reduce", "value": "ally_env_dmg_reduce" }
+		"ally_evasion",
+		"ally_shield",
+		"ally_block_dmg",
+		"ally_dmg_res",
+		"ally_undying",
+		"ally_env_dmg_reduce"
 	],
-	"ally_targeting": [
-		{ "key": "stealth", "value": "ally_stealth" },
-		{ "key": "camouflage", "value": "ally_camouflage" },
-		{ "key": "taunt", "value": "ally_taunt" },
-		{ "key": "lower_target_priority", "value": "ally_lower_target_priority" }
-	],
-	"ally_status_buffs": [
-		{ "key": "resist", "value": "ally_resist" },
-		{ "key": "remove_status", "value": "remove_status" }
-	],
-	"ally_heal_buffs": [
-		{ "key": "heal_scale", "value": "ally_heal_scale" },
-		{ "key": "heal_ally_others", "value": "heal_ally" },
-		{ "key": "heal_unhealable", "value": "heal_unhealable" },
-		{ "key": "global_heal", "value": "global_heal" }
-	],
-	"ally_sp_buffs": [
-		{ "key": "sp_regen", "value": "ally_sp_regen" },
-		{ "key": "sp_gain", "value": "ally_sp_gain" },
-		{ "key": "sp_stock", "value": "ally_sp_stock" },
-		{ "key": "spareshot", "value": "spareshot" }
-	],
-	"ally_others": [{ "key": "squad_effect", "value": "squad_effect" }],
-	"self_stats": [
-		{ "key": "hp", "value": "max_hp" },
-		{ "key": "def", "value": "def" },
-		{ "key": "res", "value": "res" },
-		{ "key": "attack_speed", "value": "attack_speed" },
-		{ "key": "block_up", "value": "block_up" },
-		{ "key": "block_down", "value": "block_down" },
-		{ "key": "respawnTime", "value": "respawn_time" }
-	],
+	"ally_targeting": ["ally_stealth", "ally_camouflage", "ally_taunt", "ally_lower_target_priority"],
+	"ally_status_buffs": ["ally_resist", "remove_status"],
+	"ally_heal_buffs": ["ally_heal_scale", "heal_ally", "heal_unhealable", "global_heal"],
+	"ally_sp_buffs": ["ally_sp_regen", "ally_sp_gain", "ally_sp_stock", "spareshot"],
+	"ally_others": ["squad_effect"],
+	"self_stats": ["max_hp", "def", "res", "attack_speed", "block_up", "block_down", "respawn_time"],
 	"self_atk_buffs": [
-		{ "key": "min_damage", "value": "min_damage" },
-		{ "key": "ignore_evasion", "value": "ignore_evasion" },
-		{ "key": "ignore_stealth", "value": "ignore_stealth" },
-		{ "key": "def_penetrate", "value": "def_penetrate" },
-		{ "key": "res_penetrate", "value": "res_penetrate" },
-		{ "key": "reflect_dmg", "value": "reflect_dmg" }
+		"min_damage",
+		"ignore_evasion",
+		"ignore_stealth",
+		"def_penetrate",
+		"res_penetrate",
+		"reflect_dmg"
 	],
-	"self_def_buffs": [
-		{ "key": "evasion", "value": "evasion" },
-		{ "key": "buff_shield", "value": "shield" },
-		{ "key": "block_dmg", "value": "block_dmg" },
-		{ "key": "dmg_reduction", "value": "dmg_res" },
-		{ "key": "undying", "value": "undying" },
-		{ "key": "env_dmg_reduce", "value": "env_dmg_reduce" }
-	],
-	"self_targeting": [
-		{ "key": "stealth", "value": "stealth" },
-		{ "key": "camouflage", "value": "camouflage" },
-		{ "key": "taunt", "value": "taunt" },
-		{ "key": "lower_target_priority", "value": "lower_target_priority" }
-	],
-	"self_status_buffs": [
-		{ "key": "resist", "value": "resist" },
-		{ "key": "status_immune_text", "value": "status_immune" }
-	],
-	"self_heal_buffs": [
-		{ "key": "heal_self_others", "value": "heal_self" },
-		{ "key": "heal_scale", "value": "heal_scale" }
-	],
-	"self_sp_buffs": [
-		{ "key": "sp_regen", "value": "sp_regen" },
-		{ "key": "sp_gain", "value": "sp_gain" },
-		{ "key": "sp_stock", "value": "sp_stock" },
-		{ "key": "spareshot", "value": "spareshot" }
-	],
+	"self_def_buffs": ["evasion", "shield", "block_dmg", "dmg_res", "undying", "env_dmg_reduce"],
+	"self_targeting": ["stealth", "camouflage", "taunt", "lower_target_priority"],
+	"self_status_buffs": ["resist", "status_immune"],
+	"self_heal_buffs": ["heal_self", "heal_scale"],
+	"self_sp_buffs": ["sp_regen", "sp_gain", "sp_stock", "spareshot"],
 	"buff_tags": [
-		{ "key": "vigor", "value": "vigor" },
-		{ "key": "inspire", "value": "inspire" },
-		{ "key": "berserk", "value": "berserk" },
-		{ "key": "fragile", "value": "fragile" },
-		{ "key": "protect", "value": "protect" },
-		{ "key": "magicfragile", "value": "magicfragile" },
-		{ "key": "elementfragile", "value": "elementfragile" },
-		{ "key": "weaken", "value": "weaken" }
+		"vigor",
+		"inspire",
+		"berserk",
+		"fragile",
+		"protect",
+		"magicfragile",
+		"elementfragile",
+		"weaken"
 	],
 	"enemy_type": [
-		{ "key": "flying", "value": "type_flying" },
-		{ "key": "drone", "value": "type_drone" },
-		{ "key": "infected", "value": "type_infected" },
-		{ "key": "sarkaz", "value": "type_sarkaz" },
-		{ "key": "wild_animal", "value": "wild_animal" },
-		{ "key": "seamonster", "value": "seamonster" },
-		{ "key": "blocked", "value": "blocked" },
-		{ "key": "no_block", "value": "no_block" },
-		{ "key": "stun", "value": "bonus_stun" },
-		{ "key": "sleep", "value": "bonus_sleep" }
+		"type_flying",
+		"type_drone",
+		"type_infected",
+		"type_sarkaz",
+		"wild_animal",
+		"seamonster",
+		"blocked",
+		"no_block",
+		"bonus_stun",
+		"bonus_sleep"
 	],
 	"enemy_target_priority": [
-		{ "key": "flying", "value": "priority_flying" },
-		{ "key": "drone", "value": "priority_drone" },
-		{ "key": "ranged", "value": "priority_ranged" },
-		{ "key": "def_high", "value": "priority_def_high" },
-		{ "key": "stun", "value": "priority_stun" }
+		"priority_flying",
+		"priority_drone",
+		"priority_ranged",
+		"priority_def_high",
+		"priority_stun"
 	],
 	"profession_buff": [
-		{ "key": "PIONEER", "value": "pioneer" },
-		{ "key": "WARRIOR", "value": "warrior" },
-		{ "key": "SNIPER", "value": "sniper" },
-		{ "key": "TANK", "value": "tank" },
-		{ "key": "MEDIC", "value": "medic" },
-		{ "key": "SUPPORT", "value": "support" },
-		{ "key": "CASTER", "value": "caster" },
-		{ "key": "SPECIAL", "value": "special" }
+		"pioneer",
+		"warrior",
+		"sniper",
+		"tank",
+		"medic",
+		"support",
+		"caster",
+		"special"
 	],
 	"group_buff": [
-		{ "key": "abyssal", "value": "abyssal" },
-		{ "key": "three_star", "value": "three_star" },
-		{ "key": "robot", "value": "robot" },
-		{ "key": "student", "value": "student" },
-		{ "key": "kazimierz", "value": "kazimierz" },
-		{ "key": "rhine", "value": "rhine" },
-		{ "key": "karlan", "value": "karlan" },
-		{ "key": "minos", "value": "minos" },
-		{ "key": "position_ranged", "value": "position_ranged" }
+		"abyssal",
+		"three_star",
+		"robot",
+		"student",
+		"kazimierz",
+		"rhine",
+		"karlan",
+		"minos",
+		"position_ranged"
 	],
-	"skill": [
-		{ "key": "unlimited_duration", "value": "unlimited_duration" },
-		{ "key": "skill_invincible", "value": "skill_invincible" },
-		{ "key": "overdrive", "value": "overdrive" },
-		{ "key": "charged", "value": "charged" }
-	],
+	"skill": ["unlimited_duration", "skill_invincible", "overdrive", "charged"],
 	"others_tag": [
-		{ "key": "force_tag", "value": "force" },
-		{ "key": "starting_cost", "value": "starting_cost" },
-		{ "key": "fast_redeploy", "value": "fast_redeploy" },
-		{ "key": "block_no_attack", "value": "block_no_attack" },
-		{ "key": "revive", "value": "revive" },
-		{ "key": "poison_damage", "value": "dot" },
-		{ "key": "aspd_unrelated", "value": "aspd_unrelated" },
-		{ "key": "ailment_but_skill_cont", "value": "ailment_but_skill_cont" },
-		{ "key": "execute", "value": "execute" },
-		{ "key": "slow_projectile", "value": "slow_projectile" },
-		{ "key": "erase_projectile", "value": "erase_projectile" },
-		{ "key": "reallocate_hp", "value": "reallocate_hp" },
-		{ "key": "heal_on_damage", "value": "heal_on_damage" }
+		"force",
+		"starting_cost",
+		"fast_redeploy",
+		"block_no_attack",
+		"revive",
+		"dot",
+		"aspd_unrelated",
+		"ailment_but_skill_cont",
+		"execute",
+		"slow_projectile",
+		"erase_projectile",
+		"reallocate_hp",
+		"heal_on_damage"
 	],
-	"terrain": [{ "key": "terrain_water", "value": "terrain_water" }]
+	"terrain": ["terrain_water"]
 }

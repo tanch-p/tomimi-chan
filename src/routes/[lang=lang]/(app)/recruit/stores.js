@@ -60,7 +60,7 @@ const generateFilterStore = (filterOptions) => {
 			case 'deployable_tile':
 				acc.push({
 					key: category,
-					options: filterOptions[category].map(({ value }) => {
+					options: filterOptions[category].map((value) => {
 						return { value, selected: false };
 					})
 				});

@@ -11,6 +11,7 @@
 	import { browser } from '$app/environment';
 	import {
 		getCategory,
+		getDisplayKey,
 		getSelectedFilterOptions,
 		updateFilters
 	} from '$lib/functions/charaHelpers';
@@ -166,13 +167,13 @@
 			</div>
 			<p class="md:py-[5px] mt-2 md:mt-0">{translations[language]['deployable_tile']}</p>
 			<div class="flex flex-wrap gap-2">
-				{#each filterOptions['deployable_tile'] as { key, value }}
+				{#each filterOptions['deployable_tile'] as value}
 					<button
 						class="filter-btn"
 						class:active={isSelected('deployable_tile', value)}
 						on:click={() => updateFilters('deployable_tile', value, filtersStore)}
 					>
-						{translations[language][key]}
+						{translations[language][getDisplayKey(value)]}
 					</button>
 				{/each}
 			</div>
@@ -260,7 +261,8 @@
 							{translations[language][catKey]}
 						</p>
 						<div class="flex flex-wrap gap-2">
-							{#each filterOptions[optionKey] as { key, value }}
+							{#each filterOptions[optionKey] as value}
+								{@const key = getDisplayKey(value)}
 								<button
 									class="filter-btn"
 									class:active={isSelected(getCategory(value), value)}
@@ -281,7 +283,8 @@
 				<div slot="selected">
 					{#if selectedOptions.length > 0}
 						<div class="flex flex-wrap gap-2 border-t py-3 mx-3 md:mx-4">
-							{#each selectedOptions as { key, value }}
+							{#each selectedOptions as value}
+								{@const key = getDisplayKey(value)}
 								<button
 									class="relative filter-btn"
 									class:active={isSelected(getCategory(value), value)}

@@ -81,7 +81,9 @@ const SEARCH_IN_TAGS = [
 	'special',
 	'three_star',
 	'skill_invincible',
-	'ally_apoptosis'
+	'ally_apoptosis',
+	'ignore_stealth',
+	'weaken'
 ];
 const SEARCH_IN_BLACKBOARD = [
 	'cancel_stealth',
@@ -123,9 +125,9 @@ const SEARCH_IN_BLACKBOARD = [
 	'ally_sp_regen',
 	'ally_sp_gain',
 	'ally_sp_stock',
+	'sp_stock',
 	'def_penetrate',
-	'def_penetrate_fixed',
-	'res_penetrate_fixed',
+	'res_penetrate',
 	'damage_scale',
 	'ally_damage_scale',
 	'sp_regen',
@@ -144,6 +146,65 @@ const SEARCH_IN_BLACKBOARD = [
 	'block_no_attack',
 	'force'
 ];
+
+const DISPLAY_KEYS_TABLE = {
+	MELEE: 'position_melee',
+	RANGED: 'position_ranged',
+	ALL: 'position_all',
+	force: 'force_tag',
+	aspd_down: 'attack_speed',
+	ally_aspd: 'attack_speed',
+	ally_cost_down: 'cost',
+	ally_damage_scale: 'damage_scale_buff',
+	ally_shield: 'buff_shield',
+	shield: 'buff_shield',
+	ally_block_dmg: 'block_dmg',
+	ally_dmg_res: 'dmg_reduction',
+	dmg_res: 'dmg_reduction',
+	ally_undying: 'undying',
+	ally_max_hp: 'hp',
+	max_hp: 'hp',
+	atk_down: 'atk',
+	ally_atk: 'atk',
+	def_down: 'def',
+	ally_def: 'def',
+	res_down: 'res',
+	ally_res: 'res',
+	ms_down: 'ms',
+	hitrate_down: 'hitrate',
+	ally_block_up: 'block_up',
+	ally_block_down: 'block_down',
+	ally_respawn_time: 'respawnTime',
+	respawn_time: 'respawnTime',
+	ally_reflect_dmg: 'reflect_dmg',
+	ally_evasion: 'evasion',
+	ally_env_dmg_reduce: 'env_dmg_reduce',
+	ally_stealth: 'stealth',
+	ally_camouflage: 'camouflage',
+	ally_taunt: 'taunt',
+	ally_lower_target_priority: 'lower_target_priority',
+	ally_resist: 'resist',
+	ally_heal_scale: 'heal_scale',
+	heal_ally: 'heal_ally_others',
+	ally_sp_gain: 'sp_gain',
+	ally_sp_regen: 'sp_regen',
+	ally_sp_stock: 'sp_stock',
+	ally_apoptosis: 'apoptosis',
+	status_immune: 'status_immune_text',
+	heal_self: 'heal_self_others',
+	type_flying: 'flying',
+	type_drone: 'drone',
+	type_infected: 'infected',
+	type_sarkaz: 'sarkaz',
+	bonus_stun: 'stun',
+	bonus_sleep: 'sleep',
+	priority_flying: 'flying',
+	priority_drone: 'drone',
+	priority_ranged: 'ranged',
+	priority_def_high: 'def_high',
+	priority_stun: 'stun',
+	dot: 'poison_damage'
+};
 
 const ENEMY_KEYS = ['atk_down', 'def_down', 'res_down', 'aspd_down', 'ms_down', 'hitrate_down'];
 const ALLY_KEYS = [
@@ -378,6 +439,12 @@ export const getSecFilterOptions = (key, store) => {
 	}
 	return returnArr;
 };
+
+export const getDisplayKey = (option) => {
+	return DISPLAY_KEYS_TABLE?.[option] ?? option;
+};
+
+//used in secFilters, sortOptions
 export const getOptionTranslation = (option, language: Language) => {
 	let symbol = '';
 	let suffix = '';
@@ -404,9 +471,6 @@ export const getOptionTranslation = (option, language: Language) => {
 		(suffix ? getSpacing(language) + `${translations[language][suffix]}` : '') +
 		(symbol ? getSpacing(language) + `(${translations[language][symbol]})` : '')
 	);
-};
-export const getSortDisplayKey = (key) => {
-	return key.replace('ally_', '');
 };
 export const getSpacing = (language: Language) => {
 	if (language === 'en') {
@@ -773,14 +837,14 @@ export const addOptionsToAcc = (acc, options) => {
 	const blackboardIndex = acc.findIndex((ele) => ele.key === 'blackboard');
 	const tagsIndex = acc.findIndex((ele) => ele.key === 'tags');
 	const blackboardOptions = options
-		.filter((value) => SEARCH_IN_BLACKBOARD.includes(value?.value ?? value))
+		.filter((value) => SEARCH_IN_BLACKBOARD.includes(value))
 		.map((value) => {
-			return { value: value?.value ?? value, selected: false };
+			return { value, selected: false };
 		});
 	const tagOptions = options
-		.filter((value) => SEARCH_IN_TAGS.includes(value?.value ?? value))
+		.filter((value) => SEARCH_IN_TAGS.includes(value))
 		.map((value) => {
-			return { value: value?.value ?? value, selected: false };
+			return { value, selected: false };
 		});
 	if (blackboardIndex === -1) {
 		acc.push({
@@ -872,7 +936,7 @@ export const getSortOptions = (key) => {
 			list.push({
 				key,
 				subKey: 'value',
-				displayKey: getSortDisplayKey(key),
+				displayKey: getDisplayKey(key),
 				suffix: 'force',
 				order: -1,
 				priority: -1
@@ -882,7 +946,7 @@ export const getSortOptions = (key) => {
 			list.push({
 				key,
 				subKey: 'value',
-				displayKey: getSortDisplayKey(key),
+				displayKey: getDisplayKey(key),
 				suffix: null,
 				order: -1,
 				priority: -1
