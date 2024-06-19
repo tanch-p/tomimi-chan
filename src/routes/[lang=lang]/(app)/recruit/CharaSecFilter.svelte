@@ -5,6 +5,8 @@
 	import { getOptionTranslation } from '$lib/functions/charaHelpers';
 	import { parseConditions } from '$lib/functions/languageHelpers';
 	import Icon from '$lib/components/Icon.svelte';
+	import CharaFilterToggle from './CharaFilterToggle.svelte';
+	import FilterOptionsToggle from './FilterOptionsToggle.svelte';
 
 	export let language: Language;
 
@@ -59,79 +61,84 @@
 </script>
 
 {#if $secFiltersStore?.length > 0}
-	<div class="bg-near-white text-almost-black rounded-md p-3 md:p-4 mt-5">
-		<h2 class="border-b text-center pb-1 md:pb-2">
-			{translations[language].filter_round2}
-		</h2>
-		<div class="flex flex-wrap sm:grid grid-cols-2 gap-3 mt-2">
-			{#each $secFiltersStore as { key, list }}
-				<div class="relative w-full rounded border p-3 bg-gray-200">
-					<button class="absolute flex right-2" on:click={() => reset(key)}>
-						<Icon name="trash" className="h-[18px] mt-[1px]" />
-						{translations[language].filter_reset}
-					</button>
-					<p class="sm:text-center capitalize text-[#006EA1]">
-						{getOptionTranslation(key, language)}
-					</p>
-					<div class="flex flex-col md:grid grid-cols-[auto_1fr] gap-2 md:gap-4 pt-2 md:pt-3">
-						{#each list as { subKey, displayKey, type, options, sign, suffix }}
-							{#if type === 'compare'}
-								<div class="flex items-center gap-x-1.5 col-span-2">
-									<span>
-										{getOptionTranslation(
-											key,
-											language
-										)}{#if language === 'en'}&nbsp;{/if}{translations[language][suffix]}
-									</span>
-									<button
-										class="text-lg bg-gray-300 hover:bg-gray-400 rounded px-3"
-										on:click={() => updateSecFilters(key, subKey, sign, 'sign')}
-									>
-										{#if sign === 'gte'}
-											&ge;
-										{:else}
-											&le;
-										{/if}
-									</button>
-									<input
-										class="w-[50px] pl-1.5"
-										value="0"
-										on:input={(v) => updateSecFilters(key, subKey, v.currentTarget.value, 'value')}
-										type="number"
-										pattern="[0-9]*"
-										inputmode="numeric"
-									/>
-								</div>
-							{:else}
-								{#if displayKey}
-									<p class="md:py-[5px] mt-2 md:mt-0">
-										{translations[language][displayKey]}
-									</p>
-								{/if}
-								<div class="flex flex-wrap gap-2 {displayKey ? '' : 'col-span-2'} ">
-									{#each options as { value, selected }}
+	<div class="bg-near-white text-almost-black rounded-md mt-5">
+		<CharaFilterToggle
+			title={translations[language].filter_round2}
+			className="mt-1.5"
+			innerClassName="border-t p-3 md:p-4"
+			isOpen={true}
+		>
+			<div class="flex flex-wrap sm:grid grid-cols-2 gap-3">
+				{#each $secFiltersStore as { key, list }}
+					<div class="relative w-full rounded border p-3 bg-gray-200">
+						<button class="absolute flex right-2" on:click={() => reset(key)}>
+							<Icon name="trash" className="h-[18px] mt-[1px]" />
+							{translations[language].filter_reset}
+						</button>
+						<p class="sm:text-center capitalize text-[#006EA1]">
+							{getOptionTranslation(key, language)}
+						</p>
+						<div class="flex flex-col md:grid grid-cols-[auto_1fr] gap-2 md:gap-4 pt-2 md:pt-3">
+							{#each list as { subKey, displayKey, type, options, sign, suffix }}
+								{#if type === 'compare'}
+									<div class="flex items-center gap-x-1.5 col-span-2 mt-2">
+										<span>
+											{getOptionTranslation(
+												key,
+												language
+											)}{#if language === 'en'}&nbsp;{/if}{translations[language][suffix]}
+										</span>
 										<button
-											class="filter-btn"
-											class:active={selected}
-											on:click={() => updateSecFilters(key, subKey, value, type)}
+											class="text-lg bg-gray-300 hover:bg-gray-400 rounded px-3"
+											on:click={() => updateSecFilters(key, subKey, sign, 'sign')}
 										>
-											{parseConditions(value, language)}
+											{#if sign === 'gte'}
+												&ge;
+											{:else}
+												&le;
+											{/if}
 										</button>
-									{/each}
-								</div>
-							{/if}
-						{/each}
+										<input
+											class="w-[50px] pl-1.5"
+											value="0"
+											on:input={(v) =>
+												updateSecFilters(key, subKey, v.currentTarget.value, 'value')}
+											type="number"
+											pattern="[0-9]*"
+											inputmode="numeric"
+										/>
+									</div>
+								{:else}
+									{#if displayKey}
+										<p class="md:py-[5px] mt-2 md:mt-0">
+											{translations[language][displayKey]}
+										</p>
+									{/if}
+									<div class="flex flex-wrap gap-2 {displayKey ? '' : 'col-span-2'} ">
+										{#if subKey === 'conditions' && options.length > 4}
+											<FilterOptionsToggle
+												{options}
+												updateFunc={(value) => updateSecFilters(key, subKey, value, type)}
+												{language}
+											/>
+										{:else}
+											{#each options as { value, selected }}
+												<button
+													class="filter-btn"
+													class:active={selected}
+													on:click={() => updateSecFilters(key, subKey, value, type)}
+												>
+													{parseConditions(value, language)}
+												</button>
+											{/each}
+										{/if}
+									</div>
+								{/if}
+							{/each}
+						</div>
 					</div>
-				</div>
-			{/each}
-		</div>
+				{/each}
+			</div>
+		</CharaFilterToggle>
 	</div>
 {/if}
-
-<style>
-	.filter-btn {
-		height: 30px;
-		background-color: rgb(242 242 242);
-		text-transform: capitalize;
-	}
-</style>

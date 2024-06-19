@@ -26,6 +26,7 @@ const SEARCH_IN_TAGS = [
 	'global_move_speed_down',
 	'global_heal',
 	'heal_unhealable',
+	'heal_on_damage',
 	'ignore_evasion',
 	'stop_attack',
 	'limited_use',
@@ -92,9 +93,9 @@ const SEARCH_IN_BLACKBOARD = [
 	'levitate',
 	'root',
 	'tremble',
-	'max_hp_up',
-	'def_up',
-	'res_up',
+	'max_hp',
+	'def',
+	'res',
 	'attack_speed',
 	'respawn_time',
 	'atk_down',
@@ -136,6 +137,7 @@ const SEARCH_IN_BLACKBOARD = [
 	'cost_return',
 	'block_up',
 	'block_down',
+	'no_block',
 	'hitrate_down',
 	'protect',
 	'ally_protect',
@@ -200,7 +202,15 @@ const SELF_KEYS = [
 	'sp_stock'
 ];
 
-const KEYS_TO_CHECK_VALUE_TYPE = ['atk_down', 'def_down', 'res_down',"damage_scale"];
+const KEYS_TO_CHECK_VALUE_TYPE = [
+	'atk_down',
+	'def_down',
+	'res_down',
+	'damage_scale',
+	'def_penetrate'
+];
+
+const TARGET_AIR_KEYS = ['stun', 'sluggish', 'sleep', 'silence', 'cold', 'levitate', 'root'];
 
 export const genSecFilterOptions = (characters: []) => {
 	const obj = {};
@@ -244,10 +254,8 @@ export const genSecFilterOptions = (characters: []) => {
 				token.blackboard.forEach((item) => findAndAddKeyEntries(item))
 			);
 	}
-	for (const key of ['stun', 'sluggish', 'sleep', 'silence', 'cold', 'levitate', 'root']) {
-		if (obj[key]?.['conditions']?.length > 0) {
-			obj[key].conditions.push('target_air');
-		}
+	for (const key of TARGET_AIR_KEYS) {
+		obj[key].target_air = ['target_air', 'not_target_air'];
 	}
 	return obj;
 };
@@ -275,11 +283,11 @@ const getSecFilterDisplayKey = (key, subKey) => {
 };
 const getConditionWeights = (key) => {
 	switch (key) {
-		case 'condition_none':
-			return 0;
 		case 'enemy_melee':
 		case 'target_air':
 		case 'flying':
+			return 0;
+		case 'condition_none':
 			return 1;
 		case 'stun':
 			return 2;
@@ -459,12 +467,15 @@ export function isSubset(arr1, arr2) {
 
 	return true;
 }
+
 export function someCheck(itemArr, selectedOptions) {
 	let noneCheck = false;
 	if (selectedOptions.includes('condition_none')) {
 		noneCheck = !Boolean(itemArr);
 	}
-	return (itemArr ?? []).some((val) => selectedOptions.includes(val)) || noneCheck;
+	selectedOptions = selectedOptions.filter((val) => !['condition_none'].includes(val));
+	const list = itemArr ?? [];
+	return noneCheck || list.some((val) => selectedOptions.includes(val));
 }
 
 const revertStatKey = (statKey) => {
@@ -892,21 +903,83 @@ export const compareValueType = (selectedOptions, value) => {
 	});
 };
 
-export const createSubFilterFunction = (key, subKey, method) => {
+export const createSubFilterFunction = (key, list) => {
+	const functions = [];
+	for (const { subKey, type, options, sign, value } of list) {
+		let fn = () => true;
+		if (type === 'compare') {
+			if (value <= 0) continue;
+			fn = (item) => (sign === 'gte' ? item[subKey] >= value : item[subKey] <= value);
+		} else {
+			const selectedOptions = options
+				.map((option) => option.selected && option.value)
+				.filter(Boolean);
+			if (selectedOptions.length === 0) {
+				continue;
+			}
+			switch (key) {
+				case 'force':
+					acc.push(
+						(char) =>
+							char.skills.some((skill) =>
+								selectedOptions.some((tag) => skill.tags.includes(tag))
+							) ||
+							char.talents.some((talent) =>
+								selectedOptions.some((tag) => talent.tags.includes(tag))
+							) ||
+							char.uniequip
+								.filter((equip) => equip.combatData)
+								.some((equip) =>
+									selectedOptions.some((tag) => equip.combatData.tags.includes(tag))
+								) ||
+							char.tokens.some((token) => selectedOptions.some((tag) => token.tags.includes(tag)))
+					);
+					break;
+				default:
+					switch (subKey) {
+						case 'target_air':
+							fn = (item) =>
+								selectedOptions.some((val) =>
+									val === 'target_air' ? item.target_air : !item.target_air
+								);
+							break;
+						case 'targets':
+							fn = (item) => targetValueCheck(item[subKey], selectedOptions);
+							break;
+						case 'conditions':
+						case 'category':
+							fn = (item) => someCheck(item[subKey], selectedOptions);
+							break;
+						case 'types':
+							fn = (item) => isSubset(selectedOptions, item[subKey]);
+							break;
+						case 'value_type':
+							fn = (item) => compareValueType(selectedOptions, item['value']);
+							break;
+						default:
+							break;
+					}
+					break;
+			}
+		}
+		functions.push(fn);
+	}
 	return (char) =>
-		char.blackboard.some((item) => item.key === key && method(item[subKey], item)) ||
+		char.blackboard.some((item) => item.key === key && functions.every((fn) => fn(item))) ||
 		char.skills.some((skill) =>
-			skill.blackboard.some((item) => item.key === key && method(item[subKey], item))
+			skill.blackboard.some((item) => item.key === key && functions.every((fn) => fn(item)))
 		) ||
 		char.talents.some((talent) =>
-			talent.blackboard.some((item) => item.key === key && method(item[subKey], item))
+			talent.blackboard.some((item) => item.key === key && functions.every((fn) => fn(item)))
+		) ||
+		char.tokens?.some((token) =>
+			token.blackboard.some((item) => item.key === key && functions.every((fn) => fn(item)))
 		) ||
 		char.uniequip
 			.filter((equip) => equip.combatData)
 			.some((equip) =>
-				equip.combatData.blackboard.some((item) => item.key === key && method(item[subKey], item))
-			) ||
-		char.tokens?.some((token) =>
-			token.blackboard.some((item) => item.key === key && method(item[subKey], item))
-		);
+				equip.combatData.blackboard.some(
+					(item) => item.key === key && functions.every((fn) => fn(item))
+				)
+			);
 };

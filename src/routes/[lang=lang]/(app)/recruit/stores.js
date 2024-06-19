@@ -5,14 +5,10 @@ import {
 	addOptionsToAcc,
 	adjustSortPriority,
 	getSecFilterOptions,
-	isSubset,
 	getSortOptions,
 	getMaxValue,
 	professionWeights,
-	someCheck,
-	targetValueCheck,
-	createSubFilterFunction,
-	compareValueType
+	createSubFilterFunction
 } from '$lib/functions/charaHelpers';
 import { browser } from '$app/environment';
 import { cookiesEnabled } from '../../../stores';
@@ -251,79 +247,7 @@ export const filters = derived(
 
 export const secFilters = derived([secFiltersStore], ([$secFiltersStore]) => {
 	const filterFunctions = $secFiltersStore.reduce((acc, { key, list }) => {
-		for (const { subKey, type, options, sign, value } of list) {
-			if (type === 'compare') {
-				if (value <= 0) continue;
-				acc.push(
-					createSubFilterFunction(key, subKey, (val) =>
-						sign === 'gte' ? val >= value : val <= value
-					)
-				);
-			} else {
-				const selectedOptions = options
-					.map((option) => option.selected && option.value)
-					.filter(Boolean);
-				if (selectedOptions.length === 0) {
-					continue;
-				}
-				switch (key) {
-					case 'force':
-						acc.push(
-							(char) =>
-								char.skills.some((skill) =>
-									selectedOptions.some((tag) => skill.tags.includes(tag))
-								) ||
-								char.talents.some((talent) =>
-									selectedOptions.some((tag) => talent.tags.includes(tag))
-								) ||
-								char.uniequip
-									.filter((equip) => equip.combatData)
-									.some((equip) =>
-										selectedOptions.some((tag) => equip.combatData.tags.includes(tag))
-									) ||
-								char.tokens.some((token) => selectedOptions.some((tag) => token.tags.includes(tag)))
-						);
-						break;
-					default:
-						switch (subKey) {
-							case 'targets':
-								acc.push(
-									createSubFilterFunction(key, subKey, (list) =>
-										targetValueCheck(list, selectedOptions)
-									)
-								);
-								break;
-							case 'conditions':
-							case 'category':
-								acc.push(
-									createSubFilterFunction(
-										key,
-										subKey,
-										(list, item) =>
-											someCheck(list, selectedOptions) ||
-											(selectedOptions.includes('target_air') && item.target_air)
-									)
-								);
-								break;
-							case 'types':
-								acc.push(
-									createSubFilterFunction(key, subKey, (list) => isSubset(selectedOptions, list))
-								);
-								break;
-							case 'value_type':
-								acc.push(
-									createSubFilterFunction(key, 'value', (value) =>
-										compareValueType(selectedOptions, value)
-									)
-								);
-								break;
-							default:
-								break;
-						}
-						break;
-				}
-			}
-		}
+		acc.push(createSubFilterFunction(key, list));
 		return acc;
 	}, []);
 	return function (char) {

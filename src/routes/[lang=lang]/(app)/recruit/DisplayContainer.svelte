@@ -2,8 +2,6 @@
 	import type { Language } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import Icon from '$lib/components/Icon.svelte';
-	import { selectedChara } from './stores';
-	import CharaIcon from './CharaIcon.svelte';
 	import CharaDisplay from './CharaDisplay.svelte';
 
 	export let characters, language: Language;
@@ -32,7 +30,7 @@
 					<Icon name="icon-list" size={22} />
 				</button>
 			</div>
-			<p class="text-center">
+			<p class="md:text-center ml-2 md:ml-0">
 				{translations[language].filter_result.replace('<num>', characters.length)}
 			</p>
 		</div>

@@ -59,4 +59,7 @@
 			</div>
 		{/each}
 	</div>
+	<p class="mt-4 text-xs text-end">
+		※{translations[language].chara_filter_disclaimer}
+	</p>
 </div>

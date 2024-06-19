@@ -71,7 +71,8 @@
 					<!--TODO <p>全部位</p> -->
 				</div>
 			</div>
-			<div>
+			<div class="relative">
+				<p class="absolute -translate-y-full right-2 text-xs text-[#b3b3b3]">※{translations[language].chara_stat_disclaimer}</p>
 				<div class="grid grid-cols-[70px_1fr] gap-x-2 items-center px-1 mt-3">
 					<div class="flex flex-col items-center justify-evenly h-full">
 						<div class="border-2 border-[#ffd800] rounded-full h-[60px] w-[60px] text-center">

@@ -402,11 +402,6 @@
 </div>
 
 <style>
-	.filter-btn {
-		height: 30px;
-		background-color: rgb(242 242 242);
-		text-transform: capitalize;
-	}
 	.display-style-button {
 		background-color: dimgrey;
 		opacity: 0.4;
