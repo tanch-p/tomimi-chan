@@ -919,22 +919,17 @@ export const createSubFilterFunction = (key, list) => {
 			}
 			switch (key) {
 				case 'force':
-					acc.push(
-						(char) =>
-							char.skills.some((skill) =>
-								selectedOptions.some((tag) => skill.tags.includes(tag))
+					return (char) =>
+						char.skills.some((skill) => selectedOptions.some((tag) => skill.tags.includes(tag))) ||
+						char.talents.some((talent) =>
+							selectedOptions.some((tag) => talent.tags.includes(tag))
+						) ||
+						char.uniequip
+							.filter((equip) => equip.combatData)
+							.some((equip) =>
+								selectedOptions.some((tag) => equip.combatData.tags.includes(tag))
 							) ||
-							char.talents.some((talent) =>
-								selectedOptions.some((tag) => talent.tags.includes(tag))
-							) ||
-							char.uniequip
-								.filter((equip) => equip.combatData)
-								.some((equip) =>
-									selectedOptions.some((tag) => equip.combatData.tags.includes(tag))
-								) ||
-							char.tokens.some((token) => selectedOptions.some((tag) => token.tags.includes(tag)))
-					);
-					break;
+						char.tokens.some((token) => selectedOptions.some((tag) => token.tags.includes(tag)));
 				default:
 					switch (subKey) {
 						case 'target_air':
