@@ -8,8 +8,6 @@ const SEARCH_IN_TAGS = [
 	'ally_stealth',
 	'camouflage',
 	'ally_camouflage',
-	'taunt',
-	'ally_taunt',
 	'undying',
 	'ally_undying',
 	'lower_target_priority',
@@ -19,8 +17,6 @@ const SEARCH_IN_TAGS = [
 	'revive',
 	'resist',
 	'ally_resist',
-	'reflect_dmg',
-	'ally_reflect_dmg',
 	'dot',
 	'first_token_free',
 	'global_move_speed_down',
@@ -86,6 +82,10 @@ const SEARCH_IN_TAGS = [
 	'weaken'
 ];
 const SEARCH_IN_BLACKBOARD = [
+	'taunt',
+	'ally_taunt',
+	'reflect_dmg',
+	'ally_reflect_dmg',
 	'cancel_stealth',
 	'stun',
 	'sluggish',
@@ -144,7 +144,7 @@ const SEARCH_IN_BLACKBOARD = [
 	'protect',
 	'ally_protect',
 	'block_no_attack',
-	'force'
+	'force',
 ];
 
 const DISPLAY_KEYS_TABLE = {
