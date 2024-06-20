@@ -67,14 +67,14 @@ const SEARCH_IN_TAGS = [
 	'heal_self',
 	'type_flying',
 	'priority_ranged',
-	'pioneer',
-	'warrior',
-	'sniper',
-	'tank',
-	'medic',
-	'support',
-	'caster',
-	'special',
+	'PIONEER',
+	'WARRIOR',
+	'SNIPER',
+	'TANK',
+	'MEDIC',
+	'SUPPORT',
+	'CASTER',
+	'SPECIAL',
 	'three_star',
 	'skill_invincible',
 	'ally_apoptosis',
@@ -145,6 +145,7 @@ const SEARCH_IN_BLACKBOARD = [
 	'ally_protect',
 	'block_no_attack',
 	'force',
+	'trigger_time'
 ];
 
 const DISPLAY_KEYS_TABLE = {
@@ -295,6 +296,9 @@ export const genSecFilterOptions = (characters: []) => {
 						obj[item.key][key].push(value);
 					}
 				}
+				if (key === 'category' && !obj[item.key][key].includes('others')) {
+					obj[item.key][key].push('others');
+				}
 			}
 		}
 	};
@@ -347,6 +351,7 @@ const getConditionWeights = (key) => {
 		case 'enemy_melee':
 		case 'target_air':
 		case 'flying':
+		case 'others':
 			return 0;
 		case 'condition_none':
 			return 1;
@@ -532,14 +537,18 @@ export function isSubset(arr1, arr2) {
 	return true;
 }
 
-export function someCheck(itemArr, selectedOptions) {
+function someCheck(itemArr, selectedOptions) {
 	let noneCheck = false;
 	if (selectedOptions.includes('condition_none')) {
 		noneCheck = !Boolean(itemArr);
 	}
-	selectedOptions = selectedOptions.filter((val) => !['condition_none'].includes(val));
+	let othersCheck = false;
+	if (selectedOptions.includes('others')) {
+		othersCheck = !Boolean(itemArr);
+	}
+	selectedOptions = selectedOptions.filter((val) => !['condition_none','others'].includes(val));
 	const list = itemArr ?? [];
-	return noneCheck || list.some((val) => selectedOptions.includes(val));
+	return othersCheck|| noneCheck || list.some((val) => selectedOptions.includes(val));
 }
 
 const revertStatKey = (statKey) => {
@@ -1005,8 +1014,8 @@ export const createSubFilterFunction = (key, list) => {
 						case 'targets':
 							fn = (item) => targetValueCheck(item[subKey], selectedOptions);
 							break;
-						case 'conditions':
 						case 'category':
+						case 'conditions':
 							fn = (item) => someCheck(item[subKey], selectedOptions);
 							break;
 						case 'types':

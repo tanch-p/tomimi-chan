@@ -13,6 +13,9 @@
 				if (i === 0) {
 					return { ...ele, order: -1, priority: 1 };
 				}
+				if (i === 1) {
+					return { ...ele, order: -1, priority: 2 };
+				}
 				return { ...ele, order: 0, priority: null };
 			})
 		);

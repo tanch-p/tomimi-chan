@@ -266,7 +266,7 @@ export const secFilters = derived([secFiltersStore], ([$secFiltersStore]) => {
 
 const defaultSortOptions = [
 	{ key: 'release_time', subKey: null, suffix: null, order: -1, priority: 1 },
-	{ key: 'rarity', subKey: null, suffix: null, order: 0, priority: null },
+	{ key: 'rarity', subKey: null, suffix: null, order: -1, priority: 2 },
 	{ key: 'profession', subKey: null, suffix: null, order: 0, priority: null }
 ];
 export const sortOptions = writable(defaultSortOptions);
@@ -331,6 +331,8 @@ export const sortFunction = derived(sortOptions, ($sortOptions) => (a, b) => {
 				return a[key].localeCompare(b[key]) * order;
 			case 'profession':
 				return (professionWeights[a[key]] - professionWeights[b[key]]) * order;
+			case 'release_time':
+				return (a[key] - b[key]) * order;
 			default:
 				const valA = getMaxValue(a, key, subKey ?? 'value');
 				const valB = getMaxValue(b, key, subKey ?? 'value');
