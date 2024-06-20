@@ -16,7 +16,7 @@
 	<table class="w-full mt-2">
 		<tbody>
 			<tr>
-				<td>IS banners</td>
+				<td>IS banners / Character, Enemy data/descriptions</td>
 				<td>
 					<a href="https://prts.wiki/" target="_blank" rel="noopener noreferrer">
 						<span class="text-blue-400 hover:text-blue-300">PRTS wiki</span>
