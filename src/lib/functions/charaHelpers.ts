@@ -8,8 +8,6 @@ const SEARCH_IN_TAGS = [
 	'ally_stealth',
 	'camouflage',
 	'ally_camouflage',
-	'undying',
-	'ally_undying',
 	'lower_target_priority',
 	'ally_lower_target_priority',
 	'min_damage',
@@ -79,9 +77,12 @@ const SEARCH_IN_TAGS = [
 	'skill_invincible',
 	'ally_apoptosis',
 	'ignore_stealth',
-	'weaken'
+	'weaken',
+	"teleport_enemy"
 ];
 const SEARCH_IN_BLACKBOARD = [
+	'ally_undying',
+	'undying',
 	'taunt',
 	'ally_taunt',
 	'reflect_dmg',
@@ -137,9 +138,7 @@ const SEARCH_IN_BLACKBOARD = [
 	'ally_heal_scale',
 	'heal_scale',
 	'cost_return',
-	'block_up',
-	'block_down',
-	'no_block',
+	'block',
 	'hitrate_down',
 	'protect',
 	'ally_protect',
@@ -272,7 +271,7 @@ const KEYS_TO_CHECK_VALUE_TYPE = [
 	'def_penetrate'
 ];
 
-const TARGET_AIR_KEYS = ['stun', 'sluggish', 'sleep', 'silence', 'cold', 'levitate', 'root'];
+const TARGET_AIR_KEYS = ['stun', 'sluggish', 'sleep', 'silence', 'cold', 'root',"ms_down","aspd_down","res_down","def_down"];
 
 export const genSecFilterOptions = (characters: []) => {
 	const obj = {};

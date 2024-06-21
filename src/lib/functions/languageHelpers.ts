@@ -17,7 +17,14 @@ export function parseConditions(key, language: Language) {
 		const splitStr = key.split('_');
 		return splitStr
 			.map((ele, i) => {
+				const suffix = ele === 'weight' ? '' : '%';
 				let buffer = '';
+				if (ele.includes('gte')) {
+					return '≥';
+				}
+				if (ele.includes('lte')) {
+					return '≤';
+				}
 				if (ele.includes('gt')) {
 					return '↑';
 				}
@@ -25,7 +32,7 @@ export function parseConditions(key, language: Language) {
 					return '↓';
 				}
 				if (i === splitStr.length - 1) {
-					return ele + "%";
+					return ele + suffix;
 				}
 				if (language === 'en' && i < splitStr.length - 2) {
 					buffer = ' ';

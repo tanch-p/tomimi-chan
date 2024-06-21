@@ -30,7 +30,7 @@
 					<Icon name="icon-list" size={22} />
 				</button>
 			</div>
-			<p class="md:text-center ml-2 md:ml-0">
+			<p class="md:text-center ml-4 md:ml-0">
 				{translations[language].filter_result.replace('<num>', characters.length)}
 			</p>
 		</div>
