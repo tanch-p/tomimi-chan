@@ -63,3 +63,7 @@ const compileMods = (statMods: StatMods, specialMods, effects: Effects) => {
 		}
 	});
 };
+
+export const compileMods2 = () => {
+	
+}

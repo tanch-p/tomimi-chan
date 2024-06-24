@@ -8,7 +8,7 @@
 	export let enemy: Enemy, language: Language, specialMods;
 </script>
 
-{#if enemy?.special?.length > 0 || enemy.forms}
+{#if enemy?.special?.length > 0 || enemy.forms || enemy.stats[0].dmg_reduction}
 	<p class="bg-[#383838] px-3.5 py-0.5 text-[#a2a5a5] font-bold">
 		{translations[language].handbook_ability}
 	</p>
