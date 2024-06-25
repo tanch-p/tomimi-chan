@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Enemy, Language, EnemyFormType } from '$lib/types';
-	import { getMaxRowSpan } from '$lib/functions/parseStats';
+	import { getMaxRowSpan } from '$lib/functions/statHelpers';
 	import { getNormalAtk } from '$lib/functions/parseAtkType';
 	import { getEnemySkills } from '$lib/functions/getEnemySkills';
 	import RemarksContainer from '$lib/components/RemarksContainer.svelte';

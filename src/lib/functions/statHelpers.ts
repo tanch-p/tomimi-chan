@@ -1,0 +1,266 @@
+/* takes in a list of enemies and statMods and returns enemy with modifiers applied */
+import type { Enemy, StatMods, ModGroup, Effects } from '$lib/types';
+
+const STATS = [
+	'hp',
+	'atk',
+	'aspd',
+	'range',
+	'def',
+	'res',
+	'weight',
+	'ms',
+	'lifepoint',
+	'dmg_reduction'
+];
+
+const PHCS_BOSSES = ['ICR', 'ICM', 'MSC', 'FSK', 'JTM', 'WDG', 'PTM', 'DOL', 'HST', 'WRT'];
+const MZK_BOSSES = [
+	'enemy_2026_syudg',
+	'enemy_2027_syudg2',
+	'enemy_2028_syevil',
+	'enemy_2029_symon',
+	'enemy_2030_symon2',
+	'enemy_2031_syboy',
+	'enemy_2032_syboy2',
+	'enemy_2036_syshop',
+	'enemy_2037_sygirl',
+	'enemy_2038_sydonq',
+	'enemy_2039_syskad',
+	'enemy_2006_flsnip',
+	'enemy_2007_flwitch',
+	'enemy_2008_flking'
+];
+const SAMI_BOSSES = [
+	'enemy_2048_smgrd',
+	'enemy_2049_smgrd2',
+	'enemy_2050_smsha',
+	'enemy_2051_smsha2',
+	'enemy_2052_smgia',
+	'enemy_2053_smgia2',
+	'enemy_2054_smdeer',
+	'enemy_2055_smlead',
+	'enemy_2056_smedzi',
+	'enemy_2036_syshop',
+	'enemy_2057_smkght',
+	'enemy_2058_smlion'
+];
+
+export const getMaxRowSpan = (enemy: Enemy) => {
+	if (enemy?.forms) {
+		return enemy.forms.length;
+	}
+	return 1;
+};
+
+// enemy stats type is being changed from {} to [{}] here
+export function applyMods(enemies: Enemy[], stageId: string, statMods: StatMods) {
+	return enemies.map((enemy) => {
+		const maxRowSpan = getMaxRowSpan(enemy);
+		const moddedStats = [];
+		for (let i = 0; i < maxRowSpan; i++) {
+			moddedStats.push(parseStats(enemy, stageId, statMods, i));
+		}
+		return {
+			...enemy,
+			stats: moddedStats
+		};
+	});
+}
+
+//returns enemy 'stats' object with modded stats
+export function parseStats(enemy: Enemy, stageId: string, statMods: StatMods, row: number) {
+	let modsList = [];
+	for (const mod of statMods.initial) {
+		modsList.push(distillMods(enemy, stageId, mod));
+	}
+	if (enemy?.forms) {
+		modsList.push(enemy.forms[row].mods);
+	}
+	const initialMods = modsList.reduce((acc, curr) => {
+		for (const statKey in curr) {
+			if (statKey.includes('fixed') || statKey === 'dmg_reduction') {
+				acc[statKey] += curr[statKey];
+			} else {
+				acc[statKey] *= curr[statKey];
+			}
+		}
+		return acc;
+	});
+	modsList = [];
+	for (const mod of statMods.final) {
+		modsList.push(distillMods(enemy, stageId, mod));
+	}
+	const finalMods = modsList.reduce((acc, curr) => {
+		for (const statKey in curr) {
+			if (statKey.includes('fixed') || statKey === 'dmg_reduction') {
+				acc[statKey] += curr[statKey];
+			} else {
+				acc[statKey] *= curr[statKey];
+			}
+		}
+		return acc;
+	});
+	const enemy_stats = {};
+	for (const stat of STATS) {
+		enemy_stats[stat] = calculateModdedStat(
+			enemy.stats[stat],
+			stat,
+			initialMods?.[`fixed_${stat}`] ?? 0,
+			initialMods[stat],
+			finalMods?.[`fixed_${stat}`] ?? 0,
+			finalMods[stat]
+		);
+	}
+	return enemy_stats;
+}
+
+//return mods: {atk:...}
+export const distillMods = (enemy: Enemy, stageId: string, mod: ModGroup) => {
+	const { key, mods: effectsList, operation } = mod;
+	const mods = {
+		hp: 1,
+		atk: 1,
+		def: 1,
+		res: 1,
+		aspd: 1,
+		ms: 1,
+		range: 1,
+		weight: 1,
+		lifepoint: 1,
+		fixed_hp: 0,
+		fixed_atk: 0,
+		fixed_def: 0,
+		fixed_res: 0,
+		fixed_aspd: 0,
+		fixed_ms: 0,
+		fixed_range: 0,
+		fixed_weight: 0,
+		dmg_reduction: 0
+	};
+	effectsList.filter(Boolean).forEach((effects) => {
+		for (const effect of effects) {
+			if (effect.targets.some((target) => checkIsTarget(enemy, target))) {
+				for (const statKey in effect.mods) {
+					if (!mods[statKey]) {
+						mods[statKey] = effect.mods[statKey];
+					} else if (statKey.includes('fixed') || statKey === 'dmg_reduction') {
+						mods[statKey] += effect.mods[statKey];
+					} else if (
+						stageId === 'ro3_e_3_7' &&
+						enemy.key === 'enemy_1352_eslime' &&
+						(key === 'floorDiff' || key === 'diff') &&
+						statKey === 'atk'
+					) {
+						continue;
+					} else {
+						switch (operation) {
+							case 'add':
+								mods[statKey] += effect.mods[statKey] - 1;
+								break;
+							case 'times':
+								mods[statKey] *= effect.mods[statKey];
+								break;
+						}
+					}
+				}
+			}
+		}
+	});
+	return mods;
+};
+
+const calculateModdedStat = (
+	base_stat: number,
+	stat: string,
+	initial_fixed_value: number,
+	initial_multiplier: number,
+	final_fixed_value: number,
+	final_multiplier: number
+) => {
+	const aspd = 100;
+	if (stat !== 'aspd') {
+		base_stat += initial_fixed_value;
+	}
+	switch (stat) {
+		//temp fix for dmg_reduction, to move to its own calculation if dmg reduction appears not just in difficulty mods
+		case 'dmg_reduction':
+			return initial_multiplier + final_multiplier;
+		case 'aspd':
+			return (
+				Math.round(
+					(base_stat /
+						((((aspd + initial_fixed_value) * initial_multiplier + final_fixed_value) *
+							final_multiplier) /
+							100)) *
+						100
+				) / 100
+			);
+		case 'range':
+		case 'ms':
+			return (
+				Math.round((base_stat * initial_multiplier + final_fixed_value) * final_multiplier * 100) /
+				100
+			);
+		case 'weight':
+		case 'res':
+			return Math.min(
+				Math.max((base_stat * initial_multiplier + final_fixed_value) * final_multiplier, 0),
+				100
+			);
+		default:
+			return Math.round((base_stat * initial_multiplier + final_fixed_value) * final_multiplier);
+	}
+};
+
+export const checkIsTarget = (enemy: Enemy, target: string) => {
+	const { id, key, type } = enemy;
+	switch (target) {
+		case 'ALL':
+			return true;
+		case 'ranged':
+		case 'melee':
+		case 'ELITE':
+		case 'BOSS':
+		case 'collapsal':
+			return type.includes(target);
+		case 'PHCS_BOSS':
+			return PHCS_BOSSES.includes(id);
+		case 'NOT_PHCS_BOSS':
+			return !PHCS_BOSSES.includes(id);
+		case 'MZK_BOSS':
+			return MZK_BOSSES.includes(key);
+		case 'NOT_MZK_BOSS':
+			return !MZK_BOSSES.includes(key);
+		case 'SAMI_BOSS':
+			return SAMI_BOSSES.includes(key);
+		case 'NOT_SAMI_BOSS':
+			return !SAMI_BOSSES.includes(key);
+		default:
+			return target === id || target === key;
+	}
+};
+
+export const compileSpecialMods = (...modsList: [[Effects]]) => {
+	const specialMods = {};
+	for (const effectsList of modsList) {
+		for (const effects of effectsList)
+			if (effects !== null && effects.length > 0) {
+				effects.forEach((effect) => {
+					for (const target of effect.targets) {
+						for (const key in effect.mods) {
+							if (key === 'special') {
+								if (!specialMods[target]) {
+									specialMods[target] = {};
+								}
+								for (const key of Object.keys(effect.mods.special)) {
+									specialMods[target][key] = effect.mods.special[key];
+								}
+							}
+						}
+					}
+				});
+			}
+	}
+	return specialMods;
+};

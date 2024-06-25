@@ -5,7 +5,7 @@
 	import EliteToggle from '$lib/components/EliteToggle.svelte';
 	import EnemyStatDisplay from '$lib/components/EnemyStatDisplay.svelte';
 	import FooterBar from '$lib/components/FooterBar.svelte';
-	import { parseStats } from '$lib/functions/parseStats';
+	import { applyMods } from '$lib/functions/statHelpers';
 	import translations from '$lib/translations.json';
 	import hardRelics from '$lib/data/relics_phantom_hard.json';
 	import RelicDivUnique from '$lib/components/RelicDivUnique.svelte';
@@ -15,7 +15,7 @@
 
 	export let data: PageData;
 	$: language = data.language;
-	$: moddedEnemies = parseStats(data.enemies, $statMods);
+	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods);
 	const rogueTopic = 'rogue_phantom';
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 </script>

@@ -5,15 +5,15 @@
 	import PermaContracts from './PermaContracts.svelte';
 	import DailyContracts from './DailyContracts.svelte';
 	import StageInfo from '$lib/components/StageInfo.svelte';
-	import { parseStats } from '$lib/functions/parseStats';
 	import translations from '$lib/translations.json';
 	import SelectedOptions from './SelectedOptions.svelte';
 	import StageHeader from '$lib/components/StageHeader.svelte';
 	import CCNav from '$lib/components/CCNav.svelte';
+	import { applyMods } from '$lib/functions/statHelpers';
 
 	export let data: PageData;
 	$: language = data.language;
-	$: moddedEnemies = parseStats(data.enemies, $statMods);
+	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods);
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 </script>
 

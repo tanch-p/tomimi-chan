@@ -1,6 +1,6 @@
 import type { Enemy, Skill, SpecialMods } from '$lib/types';
 import enemySkills from '$lib/data/enemy/enemy_skills.json';
-import { checkIsTarget } from '$lib/functions/parseStats';
+import { checkIsTarget } from '$lib/functions/statHelpers';
 
 export const getEnemySkills = (
 	enemy: Enemy,

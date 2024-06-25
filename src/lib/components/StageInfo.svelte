@@ -13,7 +13,6 @@
 		stageName: string,
 		selectedFloor,
 		rogueTopic: RogueTopic = null;
-
 	const getEliteDescColor = (rogueTopic: string | null) => {
 		switch (rogueTopic) {
 			case 'rogue_sami':

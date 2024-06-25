@@ -6,7 +6,7 @@
 		specialMods,
 		eliteMods,
 		selectedRelics,
-		selectedFloor,
+		selectedFloor
 	} from './stores';
 	import EnemyStatDisplay from '$lib/components/EnemyStatDisplay.svelte';
 	import DifficultySelect from '../../../../../lib/components/DifficultySelect.svelte';
@@ -14,14 +14,14 @@
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import EliteToggle from '$lib/components/EliteToggle.svelte';
 	import FooterBar from '$lib/components/FooterBar.svelte';
-	import { parseStats } from '$lib/functions/parseStats';
 	import translations from '$lib/translations.json';
 	import FloorTitle from './FloorTitle.svelte';
 	import StageHeader from '$lib/components/StageHeader.svelte';
+	import { applyMods } from '$lib/functions/statHelpers';
 
 	export let data: PageData;
 	$: language = data.language;
-	$: moddedEnemies = parseStats(data.enemies, $statMods);
+	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods);
 	const rogueTopic = 'rogue_sami';
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 </script>
@@ -47,7 +47,7 @@
 <main class="bg-neutral-800 text-near-white pb-32 pt-8 sm:pt-16 md:pb-28">
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
 		<StageInfo mapConfig={data.mapConfig} {language} {stageName} {rogueTopic} {selectedFloor} />
-		<DifficultySelect {language} {difficulty} {rogueTopic}/>
+		<DifficultySelect {language} {difficulty} {rogueTopic} />
 		{#if data.mapConfig.elite_mods}
 			<EliteToggle mapEliteMods={data.mapConfig.elite_mods} {eliteMods} {rogueTopic} />
 		{/if}

@@ -12,8 +12,8 @@ type Stats = {
 	weight: number;
 	lifepoint: number;
 	ms: number;
-	eleRes:number;
-	eleDmgRes:number;
+	eleRes: number;
+	eleDmgRes: number;
 };
 type StatusImmune = 'stun' | 'silence' | 'freeze' | 'sleep' | 'levitate' | 'disarmCombat';
 type AttackType = 'no_attack' | 'melee' | 'ranged';
@@ -96,7 +96,15 @@ export interface MapConfig {
 }
 
 export type StatMods = {
-	[key: string]: Mods;
+	initial: ModGroup[];
+	final: ModGroup[];
+};
+type ModOperation = 'times' | 'add';
+
+export type ModGroup = {
+	key: string;
+	mods: [Effects];
+	operation: ModOperation;
 };
 
 export type SpecialMods = {

@@ -1,13 +1,20 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { statMods, difficulty, specialMods, eliteMods, selectedRelics, selectedFloor } from './stores';
+	import {
+		statMods,
+		difficulty,
+		specialMods,
+		eliteMods,
+		selectedRelics,
+		selectedFloor
+	} from './stores';
 	import EnemyStatDisplay from '$lib/components/EnemyStatDisplay.svelte';
 	import DifficultySelect from '$lib/components/DifficultySelect.svelte';
 	import MizukiNav from '../../../(app)/mizuki/MizukiNav.svelte';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import EliteToggle from '$lib/components/EliteToggle.svelte';
 	import FooterBar from '$lib/components/FooterBar.svelte';
-	import { parseStats } from '$lib/functions/parseStats';
+	import { applyMods } from '$lib/functions/statHelpers';
 	import translations from '$lib/translations.json';
 	import Mission from './Mission.svelte';
 	import FloorTitle from './FloorTitle.svelte';
@@ -15,7 +22,7 @@
 
 	export let data: PageData;
 	$: language = data.language;
-	$: moddedEnemies = parseStats(data.enemies, $statMods);
+	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods);
 	const rogueTopic = 'rogue_mizuki';
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 </script>
