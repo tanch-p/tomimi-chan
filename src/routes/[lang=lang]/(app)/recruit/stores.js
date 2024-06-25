@@ -157,16 +157,25 @@ export const filters = derived(
 						break;
 					case 'blockCnt':
 						acc.push((char) => {
-							const block4Check = selectedOptions.includes(4);
-							const block0Check = selectedOptions.includes(0);
 							return (
 								selectedOptions.includes(char.stats.blockCnt) ||
-								(block4Check &&
-									(char.uniequip
-										.filter((equip) => equip.combatData)
-										.some((equip) => equip.combatData.tags.includes('block_4')) ||
-										char.tokens?.some((token) => token.tags.includes('block_4')))) ||
-								(block0Check && char.tags.includes('block_0'))
+								char.skills?.some((skill) =>
+									skill.blackboard.some(
+										(item) => item.key === 'blockCnt' && selectedOptions.includes(item.value)
+									)
+								) ||
+								char.uniequip
+									.filter((equip) => equip.combatData)
+									.some((equip) =>
+										equip.combatData.blackboard.some(
+											(item) => item.key === 'blockCnt' && selectedOptions.includes(item.value)
+										)
+									) ||
+								char.tokens?.some((token) =>
+									token.blackboard.some(
+										(item) => item.key === 'blockCnt' && selectedOptions.includes(item.value)
+									)
+								)
 							);
 						});
 						break;
@@ -245,9 +254,10 @@ export const filters = derived(
 	}
 );
 
-export const secFilters = derived([secFiltersStore], ([$secFiltersStore]) => {
+export const secFilters = derived([secFiltersStore, filtersStore], ([$secFiltersStore,$filtersStore]) => {
+	const blockCntOptions = $filtersStore.find((ele) => ele.key ==="blockCnt")?.options;
 	const filterFunctions = $secFiltersStore.reduce((acc, { key, list }) => {
-		acc.push(createSubFilterFunction(key, list));
+		acc.push(createSubFilterFunction(key, list,blockCntOptions));
 		return acc;
 	}, []);
 	return function (char) {
@@ -271,11 +281,15 @@ const defaultSortOptions = [
 ];
 export const sortOptions = writable(defaultSortOptions);
 filtersStore.subscribe((list) => {
-	const activeOptions = list
+	const blackboardOptions = list
 		.find(({ key }) => key === 'blackboard')
 		.options.map(({ value, selected }) => selected && value)
 		.filter(Boolean);
-
+	const otherOptions = list
+		.filter(({ key, options }) => key === 'blockCnt' && options.some(({ selected }) => selected))
+		.map((ele) => ele.key)
+		.filter(Boolean);
+	const activeOptions = [...otherOptions, ...blackboardOptions];
 	//secFilters update
 	secFiltersStore.update((options) => {
 		const returnList = [];

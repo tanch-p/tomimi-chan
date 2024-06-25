@@ -78,7 +78,7 @@ const SEARCH_IN_TAGS = [
 	'ally_apoptosis',
 	'ignore_stealth',
 	'weaken',
-	"teleport_enemy"
+	'teleport_enemy'
 ];
 const SEARCH_IN_BLACKBOARD = [
 	'ally_undying',
@@ -271,7 +271,18 @@ const KEYS_TO_CHECK_VALUE_TYPE = [
 	'def_penetrate'
 ];
 
-const TARGET_AIR_KEYS = ['stun', 'sluggish', 'sleep', 'silence', 'cold', 'root',"ms_down","aspd_down","res_down","def_down"];
+const TARGET_AIR_KEYS = [
+	'stun',
+	'sluggish',
+	'sleep',
+	'silence',
+	'cold',
+	'root',
+	'ms_down',
+	'aspd_down',
+	'res_down',
+	'def_down'
+];
 
 export const genSecFilterOptions = (characters: []) => {
 	const obj = {};
@@ -321,6 +332,10 @@ export const genSecFilterOptions = (characters: []) => {
 	for (const key of TARGET_AIR_KEYS) {
 		obj[key].target_air = ['target_air', 'not_target_air'];
 	}
+	obj['blockCnt'] = {
+		duration: ['infinite', 'finite'],
+		category: ['normal_state', 'skill_active']
+	};
 	return obj;
 };
 
@@ -396,7 +411,6 @@ export const getSecFilterOptions = (key, store) => {
 	if (KEYS_TO_CHECK_VALUE_TYPE.includes(key)) {
 		optionsList.push(['value_type', ['value_fixed', 'value_percent']]);
 	}
-
 	const returnArr = optionsList.map(([subKey, options]) => {
 		if (subKey === 'conditions') {
 			options.push('condition_none');
@@ -545,9 +559,9 @@ function someCheck(itemArr, selectedOptions) {
 	if (selectedOptions.includes('others')) {
 		othersCheck = !Boolean(itemArr);
 	}
-	selectedOptions = selectedOptions.filter((val) => !['condition_none','others'].includes(val));
+	selectedOptions = selectedOptions.filter((val) => !['condition_none', 'others'].includes(val));
 	const list = itemArr ?? [];
-	return othersCheck|| noneCheck || list.some((val) => selectedOptions.includes(val));
+	return othersCheck || noneCheck || list.some((val) => selectedOptions.includes(val));
 }
 
 const revertStatKey = (statKey) => {
@@ -787,13 +801,34 @@ export const getActiveModule = (char, filtersStore) => {
 				break;
 			case 'blockCnt':
 				if (
-					selectedOptions.includes(4) &&
-					char.stats.blockCnt !== 4 &&
-					!char.tokens?.some((token) => token.tags.includes('block_4'))
+					(selectedOptions.includes(4) || selectedOptions.includes(5)) &&
+					!char.tokens?.some((token) =>
+						token.blackboard.some(
+							(item) => item.key === 'blockCnt' && selectedOptions.includes(item.value)
+						)
+					)
 				) {
+					const noModuleSkills = [];
+					const moduleSkills = [];
+					char.skills.forEach((skill) =>
+						skill.blackboard.forEach((item) => {
+							if (item.key === 'blockCnt' && selectedOptions.includes(item.value))
+								item.module ? moduleSkills.push(item) : noModuleSkills.push(item);
+						})
+					);
+					if (noModuleSkills.length > 0) {
+						return;
+					}
+					if (moduleSkills.length > 0) {
+						return char.uniequip.find((equip) => equip.typeIcon === moduleSkills?.[0]?.module);
+					}
 					return char.uniequip
 						.filter((equip) => equip.combatData)
-						.find((equip) => equip.combatData.tags.includes('block_4'));
+						.find((equip) =>
+							equip.combatData.blackboard.some(
+								(item) => item.key === 'blockCnt' && selectedOptions.includes(item.value)
+							)
+						);
 				}
 				break;
 			case 'tags':
@@ -950,6 +985,8 @@ export const getSortOptions = (key) => {
 				priority: -1
 			});
 			break;
+		case key === 'blockCnt':
+			break;
 		default:
 			list.push({
 				key,
@@ -974,8 +1011,65 @@ export const compareValueType = (selectedOptions, value) => {
 		}
 	});
 };
+export const blockDurationCheck = (selectedOptions, char, filterOptions) => {
+	const selectedFilterOptions = filterOptions
+		.map((option) => option.selected && option.value)
+		.filter((ele) => ele !== false);
+	return selectedOptions.some((val) => {
+		switch (val) {
+			case 'normal_state':
+				return (
+					selectedFilterOptions.includes(char.stats.blockCnt) ||
+					char.uniequip
+						.filter((equip) => equip.combatData)
+						.some((equip) =>
+							equip.combatData.blackboard.some(
+								(item) => item.key === 'blockCnt' && selectedFilterOptions.includes(item.value)
+							)
+						)
+				);
+			case 'skill_active':
+				return char.skills.some((skill) =>
+					skill.blackboard.some(
+						(item) => item.key === 'blockCnt' && selectedFilterOptions.includes(item.value)
+					)
+				);
+			case 'infinite':
+				return (
+					selectedFilterOptions.includes(char.stats.blockCnt) ||
+					char.skills.some((skill) =>
+						skill.blackboard.some((item) => item.key === 'blockCnt' && !Boolean(item.duration))
+					) ||
+					char.uniequip
+						.filter((equip) => equip.combatData)
+						.some((equip) =>
+							equip.combatData.blackboard.some(
+								(item) => item.key === 'blockCnt' && !Boolean(item.duration)
+							)
+						) ||
+					char.tokens.some((token) =>
+						token.blackboard.some((item) => item.key === 'blockCnt' && !Boolean(item.duration))
+					)
+				);
+			default:
+				return (
+					char.skills.some((skill) =>
+						skill.blackboard.some((item) => item.key === 'blockCnt' && item.duration)
+					) ||
+					char.uniequip
+						.filter((equip) => equip.combatData)
+						.some((equip) =>
+							equip.combatData.blackboard.some((item) => item.key === 'blockCnt' && item.duration)
+						) ||
+					char.tokens.some((token) =>
+						token.blackboard.some((item) => item.key === 'blockCnt' && item.duration)
+					)
+				);
+		}
+	});
+};
 
-export const createSubFilterFunction = (key, list) => {
+export const createSubFilterFunction = (key, list, filterOptions) => {
 	const functions = [];
 	for (const { subKey, type, options, sign, value } of list) {
 		let fn = () => true;
@@ -990,6 +1084,8 @@ export const createSubFilterFunction = (key, list) => {
 				continue;
 			}
 			switch (key) {
+				case 'blockCnt':
+					return (char) => blockDurationCheck(selectedOptions, char, filterOptions);
 				case 'force':
 					return (char) =>
 						char.skills.some((skill) => selectedOptions.some((tag) => skill.tags.includes(tag))) ||
@@ -1030,6 +1126,9 @@ export const createSubFilterFunction = (key, list) => {
 			}
 		}
 		functions.push(fn);
+	}
+	if (functions.length === 0) {
+		return () => true;
 	}
 	return (char) =>
 		char.blackboard.some((item) => item.key === key && functions.every((fn) => fn(item))) ||

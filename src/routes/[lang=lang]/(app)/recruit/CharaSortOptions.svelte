@@ -40,6 +40,7 @@
 			return list;
 		});
 	};
+	$: console.log($sortOptions)
 </script>
 
 <div class="bg-near-white text-almost-black rounded-md p-3 md:p-4 mt-5">

@@ -39,7 +39,6 @@
 	const reset = (key) => {
 		secFiltersStore.update((list) => {
 			const catIndex = list.findIndex((ele) => ele.key === key);
-			console.log(list[catIndex].list[0].options);
 			list[catIndex] = {
 				key,
 				list: list[catIndex].list.map((subItem) => {
