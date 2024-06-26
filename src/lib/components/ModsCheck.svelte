@@ -86,7 +86,7 @@
 					{enemy[`name_${language}`] || enemy[`name_zh`]}
 				</p>
 				{#if enemy.form}
-					<p class="">
+					<p class="text-gray-400">
 						{getFormTitle(enemy.form?.title, enemy.formIndex, language)}
 					</p>
 				{/if}

@@ -252,7 +252,7 @@ export const compileStatModsForChecking = (
 		if (enemy.forms) {
 			enemy.forms.forEach((form, i) => {
 				const modsList = [];
-				modsList.push({ type: 'initial', key: 'form', mods: form.mods });
+				modsList.push({ type: 'initial', key: 'multiform_suffix', mods: form.mods });
 				for (const mod of statMods.initial) {
 					modsList.push({ type: 'initial', ...compileMods(enemy, stageId, mod) });
 				}
