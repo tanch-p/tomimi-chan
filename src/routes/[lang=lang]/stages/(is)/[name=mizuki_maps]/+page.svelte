@@ -14,15 +14,17 @@
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import EliteToggle from '$lib/components/EliteToggle.svelte';
 	import FooterBar from '$lib/components/FooterBar.svelte';
-	import { applyMods } from '$lib/functions/statHelpers';
+	import { applyMods, compileStatModsForChecking } from '$lib/functions/statHelpers';
 	import translations from '$lib/translations.json';
 	import Mission from './Mission.svelte';
 	import FloorTitle from './FloorTitle.svelte';
 	import StageHeader from '$lib/components/StageHeader.svelte';
+	import ModsCheck from '$lib/components/ModsCheck.svelte';
 
 	export let data: PageData;
 	$: language = data.language;
 	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods);
+	$: modsCheck = compileStatModsForChecking(data.enemies, data.mapConfig.id, $statMods);
 	const rogueTopic = 'rogue_mizuki';
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 </script>
@@ -50,6 +52,7 @@
 		<StageInfo mapConfig={data.mapConfig} {language} {stageName} {rogueTopic} {selectedFloor} />
 		<Mission {language} />
 		<DifficultySelect {language} {difficulty} {rogueTopic} />
+		<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 		{#if data.mapConfig.elite_mods}
 			<EliteToggle mapEliteMods={data.mapConfig.elite_mods} {eliteMods} {rogueTopic} />
 		{/if}

@@ -241,6 +241,130 @@ export const checkIsTarget = (enemy: Enemy, target: string) => {
 	}
 };
 
+//return list of enemies { }
+export const compileStatModsForChecking = (
+	enemies: Enemy[],
+	stageId: string,
+	statMods: StatMods
+) => {
+	const returnList = [];
+	for (const enemy of enemies) {
+		if (enemy.forms) {
+			enemy.forms.forEach((form, i) => {
+				const modsList = [];
+				modsList.push({ type: 'initial', key: 'form', mods: form.mods });
+				for (const mod of statMods.initial) {
+					modsList.push({ type: 'initial', ...compileMods(enemy, stageId, mod) });
+				}
+				for (const mod of statMods.final) {
+					modsList.push({ type: 'final', ...compileMods(enemy, stageId, mod) });
+				}
+				returnList.push({
+					key: enemy.key,
+					name_zh: enemy.name_zh,
+					name_ja: enemy.name_ja,
+					name_en: enemy.name_en,
+					img: enemy.img,
+					type: enemy.type,
+					form: form,
+					formIndex: i,
+					modsList: modsList.filter((ele) => {
+						for (const stat of STATS.filter(
+							(ele) => !['lifepoint', 'dmg_reduction'].includes(ele)
+						)) {
+							if ((ele.mods[stat] ?? 1) !== 1 || (ele.mods[`fixed_${stat}`] ?? 0) !== 0) {
+								return true;
+							}
+						}
+						return false;
+					})
+				});
+			});
+		} else {
+			const modsList = [];
+			for (const mod of statMods.initial) {
+				modsList.push({ type: 'initial', ...compileMods(enemy, stageId, mod) });
+			}
+			for (const mod of statMods.final) {
+				modsList.push({ type: 'final', ...compileMods(enemy, stageId, mod) });
+			}
+			returnList.push({
+				key: enemy.key,
+				name_zh: enemy.name_zh,
+				name_ja: enemy.name_ja,
+				name_en: enemy.name_en,
+				img: enemy.img,
+				type: enemy.type,
+				form: null,
+				formIndex: null,
+				modsList: modsList.filter((ele) => {
+					for (const stat of STATS.filter((ele) => !['lifepoint', 'dmg_reduction'].includes(ele))) {
+						if ((ele.mods[stat] ?? 1) !== 1 || (ele.mods[`fixed_${stat}`] ?? 0) !== 0) {
+							return true;
+						}
+					}
+					return false;
+				})
+			});
+		}
+	}
+	return returnList;
+};
+
+const compileMods = (enemy: Enemy, stageId: string, mod: ModGroup) => {
+	const { key, mods: effectsList, operation } = mod;
+	const mods = {
+		hp: 1,
+		atk: 1,
+		def: 1,
+		res: 1,
+		aspd: 1,
+		ms: 1,
+		range: 1,
+		weight: 1,
+		lifepoint: 1,
+		fixed_hp: 0,
+		fixed_atk: 0,
+		fixed_def: 0,
+		fixed_res: 0,
+		fixed_aspd: 0,
+		fixed_ms: 0,
+		fixed_range: 0,
+		fixed_weight: 0,
+		dmg_reduction: 0
+	};
+	effectsList.filter(Boolean).forEach((effects) => {
+		for (const effect of effects) {
+			if (effect.targets.some((target) => checkIsTarget(enemy, target))) {
+				for (const statKey in effect.mods) {
+					if (!mods[statKey]) {
+						mods[statKey] = effect.mods[statKey];
+					} else if (statKey.includes('fixed') || statKey === 'dmg_reduction') {
+						mods[statKey] += effect.mods[statKey];
+					} else if (
+						stageId === 'ro3_e_3_7' &&
+						enemy.key === 'enemy_1352_eslime' &&
+						(key === 'floorDiff' || key === 'diff') &&
+						statKey === 'atk'
+					) {
+						continue;
+					} else {
+						switch (operation) {
+							case 'add':
+								mods[statKey] += effect.mods[statKey] - 1;
+								break;
+							case 'times':
+								mods[statKey] *= effect.mods[statKey];
+								break;
+						}
+					}
+				}
+			}
+		}
+	});
+	return { key, mods };
+};
+
 export const compileSpecialMods = (...modsList: [[Effects]]) => {
 	const specialMods = {};
 	for (const effectsList of modsList) {

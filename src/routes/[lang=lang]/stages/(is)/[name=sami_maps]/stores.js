@@ -50,14 +50,14 @@ export const statMods = derived(
 	]) => {
 		return {
 			initial: [
-				{ key: 'elite', mods: [$eliteMods], operation: 'times' },
-				{ key: 'floorDiff', mods: [$floorDifficultyMods], operation: 'times' }
+				{ key: 'elite_ops', mods: [$eliteMods], operation: 'times' },
+				{ key: 'floor_diff', mods: [$floorDifficultyMods], operation: 'times' }
 			],
 			final: [
-				{ key: 'relics', mods: $selectedRelics.map((relic) => relic.effects), operation: 'times' },
-				{ key: 'chaos', mods: $activeChaosEffects.map((ele) => ele.effects), operation: 'times' },
-				{ key: 'portal', mods: [$portalMods], operation: 'times' },
-				{ key: 'diff', mods: $difficultyMods, operation: 'add' }
+				{ key: 'relic', mods: $selectedRelics.map((relic) => relic.effects), operation: 'times' },
+				{ key: 'sami_chaos', mods: $activeChaosEffects.map((ele) => ele.effects), operation: 'times' },
+				{ key: 'sami_portal', mods: [$portalMods], operation: 'times' },
+				{ key: 'difficulty', mods: $difficultyMods, operation: 'add' }
 			]
 		};
 	}

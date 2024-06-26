@@ -11,12 +11,16 @@ export const statMods = derived(
 	[selectedRelics, selectedUniqueRelic, eliteMods, activeFloorEffects],
 	([$selectedRelics, $selectedUniqueRelic, $eliteMods, $activeFloorEffects]) => {
 		return {
-			initial: [{ key: 'elite', mods: [$eliteMods], operation: 'times' }],
+			initial: [{ key: 'elite_ops', mods: [$eliteMods], operation: 'times' }],
 			final: [
-				{ key: 'relics', mods: $selectedRelics.map((relic) => relic.effects), operation: 'times' },
-				{ key: 'hallu', mods: $activeFloorEffects.map((ele) => ele.effects), operation: 'times' },
+				{ key: 'relic', mods: $selectedRelics.map((relic) => relic.effects), operation: 'times' },
 				{
-					key: 'unique',
+					key: 'phantom_variation_title',
+					mods: $activeFloorEffects.map((ele) => ele.effects),
+					operation: 'times'
+				},
+				{
+					key: 'ph_hard_relic',
 					mods: $selectedUniqueRelic ? [$selectedUniqueRelic.effects] : [$selectedUniqueRelic],
 					operation: 'times'
 				}

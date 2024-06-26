@@ -5,17 +5,19 @@
 	import EliteToggle from '$lib/components/EliteToggle.svelte';
 	import EnemyStatDisplay from '$lib/components/EnemyStatDisplay.svelte';
 	import FooterBar from '$lib/components/FooterBar.svelte';
-	import { applyMods } from '$lib/functions/statHelpers';
+	import { applyMods, compileStatModsForChecking } from '$lib/functions/statHelpers';
 	import translations from '$lib/translations.json';
 	import hardRelics from '$lib/data/relics_phantom_hard.json';
 	import RelicDivUnique from '$lib/components/RelicDivUnique.svelte';
 	import StageHeader from '$lib/components/StageHeader.svelte';
 	import FloorTitle from './FloorTitle.svelte';
 	import StageNav from './StageNav.svelte';
+	import ModsCheck from '$lib/components/ModsCheck.svelte';
 
 	export let data: PageData;
 	$: language = data.language;
 	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods);
+	$: modsCheck = compileStatModsForChecking(data.enemies, data.mapConfig.id, $statMods);
 	const rogueTopic = 'rogue_phantom';
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 </script>
@@ -42,6 +44,7 @@
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
 		<StageInfo mapConfig={data.mapConfig} {language} {stageName} {rogueTopic} />
 		<div class="mt-8">
+			<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 			{#if data.mapConfig.elite_mods}
 				<EliteToggle mapEliteMods={data.mapConfig.elite_mods} {eliteMods} {rogueTopic} />
 			{/if}

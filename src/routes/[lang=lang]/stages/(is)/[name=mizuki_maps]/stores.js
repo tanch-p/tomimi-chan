@@ -49,14 +49,14 @@ export const statMods = derived(
 	]) => {
 		return {
 			initial: [
-				{ key: 'elite', mods: [$eliteMods], operation: 'times' },
-				{ key: 'floorDiff', mods: [$floorDifficultyMods], operation: 'times' }
+				{ key: 'elite_ops', mods: [$eliteMods], operation: 'times' },
+				{ key: 'floor_diff', mods: [$floorDifficultyMods], operation: 'times' }
 			],
 			final: [
-				{ key: 'relics', mods: $selectedRelics.map((relic) => relic.effects), operation: 'times' },
-				{ key: 'call', mods: $activeFloorEffects.map((ele) => ele.effects), operation: 'times' },
-				{ key: 'mission', mods: [$missionMods], operation: 'times' },
-				{ key: 'diff', mods: $difficultyMods, operation: 'times' }
+				{ key: 'relic', mods: $selectedRelics.map((relic) => relic.effects), operation: 'times' },
+				{ key: 'mizuki_seaborn_call', mods: $activeFloorEffects.map((ele) => ele.effects), operation: 'times' },
+				{ key: 'mizuki_mission', mods: [$missionMods], operation: 'times' },
+				{ key: 'difficulty', mods: $difficultyMods, operation: 'times' }
 			]
 		};
 	}

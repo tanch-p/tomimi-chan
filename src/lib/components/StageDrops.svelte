@@ -155,9 +155,9 @@
 							</tr>
 							<tr>
 								<td>
-									<img src={relic} width="35" alt={translations[language].relic} />
+									<img src={relic} width="35" alt={translations[language].relic_extra} />
 								</td>
-								<td>{translations[language].relic}</td>
+								<td>{translations[language].relic_extra}</td>
 								<td colspan="4">5%</td>
 							</tr>
 							<tr>
@@ -268,9 +268,9 @@
 							{#if mapConfig.id.includes('_ev_')}
 								<tr>
 									<td>
-										<img src={relic} width="35" alt={translations[language].relic} />
+										<img src={relic} width="35" alt={translations[language].relic_extra} />
 									</td>
-									<td>{translations[language].relic}</td>
+									<td>{translations[language].relic_extra}</td>
 									<td colspan="2">100%</td>
 								</tr>
 							{/if}
