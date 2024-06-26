@@ -10,7 +10,7 @@
 
 {#each options as { value, selected }, i}
 	<button
-		hidden={!showMore ? i > 0 : false}
+		hidden={!showMore ? i > 3 : false}
 		class="filter-btn"
 		class:active={selected}
 		on:click={() => updateFunc(value)}

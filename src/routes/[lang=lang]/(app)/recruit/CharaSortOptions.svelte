@@ -10,12 +10,6 @@
 	const reset = () => {
 		sortOptions.update((list) =>
 			list.map((ele, i) => {
-				if (i === 0) {
-					return { ...ele, order: -1, priority: 1 };
-				}
-				if (i === 1) {
-					return { ...ele, order: -1, priority: 2 };
-				}
 				return { ...ele, order: 0, priority: null };
 			})
 		);
@@ -40,7 +34,7 @@
 			return list;
 		});
 	};
-	$: console.log($sortOptions)
+	$: console.log($sortOptions);
 </script>
 
 <div class="bg-near-white text-almost-black rounded-md p-3 md:p-4 mt-5">

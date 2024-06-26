@@ -3,6 +3,10 @@ import filterOptions from '$lib/data/chara/filter_options.json';
 import translations from '$lib/translations.json';
 
 const SEARCH_IN_TAGS = [
+	'phys',
+	'arts',
+	'true',
+	'ele_dmg',
 	'weightless',
 	'stealth',
 	'ally_stealth',
@@ -52,7 +56,6 @@ const SEARCH_IN_TAGS = [
 	'starting_cost',
 	'enemy_hp',
 	'terrain_water',
-	'true',
 	'apoptosis',
 	'burning',
 	'apoptosis_scale',
@@ -78,7 +81,8 @@ const SEARCH_IN_TAGS = [
 	'ally_apoptosis',
 	'ignore_stealth',
 	'weaken',
-	'teleport_enemy'
+	'teleport_enemy',
+	"add_sp_gain_option"
 ];
 const SEARCH_IN_BLACKBOARD = [
 	'ally_undying',
@@ -268,7 +272,13 @@ const KEYS_TO_CHECK_VALUE_TYPE = [
 	'def_down',
 	'res_down',
 	'damage_scale',
-	'def_penetrate'
+	'def_penetrate',
+	'ally_max_hp',
+	'ally_atk',
+	'ally_def',
+	"max_hp",
+	"def",
+	'res'
 ];
 
 const TARGET_AIR_KEYS = [
@@ -284,90 +294,25 @@ const TARGET_AIR_KEYS = [
 	'def_down'
 ];
 
-export const genSecFilterOptions = (characters: []) => {
-	const obj = {};
-	const findAndAddKeyEntries = (item) => {
-		if (SEARCH_IN_BLACKBOARD.includes(item.key)) {
-			for (const [key, value] of Object.entries(item)) {
-				if (!obj[item.key]) {
-					obj[item.key] = {};
-				}
-				if (!obj[item.key][key]) {
-					obj[item.key][key] = [];
-				}
-				if (Array.isArray(value)) {
-					value?.forEach((val) => {
-						if (!obj[item.key][key].includes(val)) {
-							obj[item.key][key].push(val);
-						}
-					});
-				} else if (['targets'].includes(key)) {
-					if (!obj[item.key][key].includes(value)) {
-						obj[item.key][key].push(value);
-					}
-				}
-				if (key === 'category' && !obj[item.key][key].includes('others')) {
-					obj[item.key][key].push('others');
-				}
-			}
-		}
-	};
-	for (const char of characters) {
-		char.blackboard.forEach((item) => findAndAddKeyEntries(item)) ||
-			char.skills.forEach((skill) =>
-				skill.blackboard.forEach((item) => findAndAddKeyEntries(item))
-			) ||
-			char.talents.forEach((talent) =>
-				talent.blackboard.forEach((item) => findAndAddKeyEntries(item))
-			) ||
-			char.uniequip
-				.filter((equip) => equip.combatData)
-				.forEach((equip) =>
-					equip.combatData.blackboard.forEach((item) => findAndAddKeyEntries(item))
-				) ||
-			char.tokens?.forEach((token) =>
-				token.blackboard.forEach((item) => findAndAddKeyEntries(item))
-			);
-	}
-	for (const key of TARGET_AIR_KEYS) {
-		obj[key].target_air = ['target_air', 'not_target_air'];
-	}
-	obj['blockCnt'] = {
-		duration: ['infinite', 'finite'],
-		category: ['normal_state', 'skill_active']
-	};
-	return obj;
+export const professionWeights = {
+	PIONEER: 0,
+	WARRIOR: 1,
+	SNIPER: 2,
+	TANK: 3,
+	MEDIC: 4,
+	SUPPORT: 5,
+	CASTER: 6,
+	SPECIAL: 7
 };
 
-const getSecFilterDisplayKey = (key, subKey) => {
-	switch (subKey) {
-		case 'types':
-			return 'damage_type';
-		case 'value':
-			switch (key) {
-				case 'stun':
-				case 'sluggish':
-				case 'sleep':
-				case 'silence':
-				case 'cold':
-				case 'levitate':
-				case 'root':
-					return 'duration';
-				default:
-					return;
-			}
-		default:
-			return subKey;
-	}
-};
 const getConditionWeights = (key) => {
 	switch (key) {
+		case 'condition_none':
+			return 0;
 		case 'enemy_melee':
 		case 'target_air':
 		case 'flying':
 		case 'others':
-			return 0;
-		case 'condition_none':
 			return 1;
 		case 'stun':
 			return 2;
@@ -394,6 +339,15 @@ const getConditionWeights = (key) => {
 			return 11;
 		case 'ranged_attack':
 			return 12;
+		case 'PIONEER':
+		case 'WARRIOR':
+		case 'SNIPER':
+		case 'TANK':
+		case 'MEDIC':
+		case 'SUPPORT':
+		case 'CASTER':
+		case 'SPECIAL':
+			return professionWeights[key] + 13;
 		default:
 			if (key.includes('hp')) {
 				return 99;
@@ -412,7 +366,7 @@ export const getSecFilterOptions = (key, store) => {
 		optionsList.push(['value_type', ['value_fixed', 'value_percent']]);
 	}
 	const returnArr = optionsList.map(([subKey, options]) => {
-		if (subKey === 'conditions') {
+		if (subKey === 'conditions' && !options.includes('condition_none')) {
 			options.push('condition_none');
 		}
 		if (subKey === 'targets') {
@@ -469,19 +423,15 @@ export const getOptionTranslation = (option, language: Language) => {
 
 	if (ALLY_KEYS.includes(option)) {
 		symbol = 'ally_abbr';
-		option = option.replace('ally_', '');
 	} else if (ENEMY_KEYS.includes(option)) {
 		symbol = 'enemy_abbr';
 		if (option.includes('down')) {
 			suffix = 'debuff';
 		}
-		option = option.replace('_down', '');
 	} else if (SELF_KEYS.includes(option)) {
 		symbol = 'self_abbr';
 	}
-	if (option === 'force') {
-		option = 'force_tag';
-	}
+	option = getDisplayKey(option);
 	return (
 		(translations[language].table_headers[option] ??
 			translations[language][option] ??
@@ -495,17 +445,6 @@ export const getSpacing = (language: Language) => {
 		return ' ';
 	}
 	return '';
-};
-
-export const professionWeights = {
-	PIONEER: 0,
-	WARRIOR: 1,
-	SNIPER: 2,
-	TANK: 3,
-	MEDIC: 4,
-	SUPPORT: 5,
-	CASTER: 6,
-	SPECIAL: 7
 };
 
 export const targetValueCheck = (targets, selectedOptions) => {
@@ -578,27 +517,36 @@ const revertStatKey = (statKey) => {
 };
 
 //goes through talent and skills blackboard and gets maximum value of key
-export const getMaxValue = (chara, key, subKey) => {
+export const getMaxValue = (char, key, subKey) => {
 	const defaultValue = getDefaultValue(subKey);
 	return Math.max(
-		chara.skills.reduce((acc, curr) => {
+		char.skills.reduce((acc, curr) => {
 			let value = 0;
-			const item = curr.blackboard.find((ele) => ele.key === key);
-			if (item) value = item[subKey] ?? defaultValue;
+			curr.blackboard.forEach((ele) => {
+				if (ele.key === key) {
+					value = ele[subKey] ?? defaultValue;
+				}
+			});
 			return (acc = Math.max(acc, value));
 		}, 0),
-		chara.talents.reduce((acc, curr) => {
+		char.talents.reduce((acc, curr) => {
 			let value = 0;
-			const item = curr.blackboard.find((ele) => ele.key === key);
-			if (item) value = item[subKey] ?? defaultValue;
+			curr.blackboard.forEach((ele) => {
+				if (ele.key === key) {
+					value = ele[subKey] ?? defaultValue;
+				}
+			});
 			return (acc = Math.max(acc, value));
 		}, 0),
-		chara.uniequip
+		char.uniequip
 			.filter((equip) => equip.combatData)
 			.reduce((acc, curr) => {
 				let value = 0;
-				const item = curr.combatData.blackboard.find((ele) => ele.key === key);
-				if (item) value = item[subKey] ?? defaultValue;
+				curr.combatData.blackboard.forEach((ele) => {
+					if (ele.key === key) {
+						value = ele[subKey] ?? defaultValue;
+					}
+				});
 				return (acc = Math.max(acc, value));
 			}, 0)
 	);
@@ -985,7 +933,9 @@ export const getSortOptions = (key) => {
 				priority: -1
 			});
 			break;
-		case key === 'blockCnt':
+		case ['blockCnt', 'ally_block_up', 'ally_block_down', 'ally_undying', 'ally_taunt'].includes(
+			key
+		):
 			break;
 		default:
 			list.push({
@@ -1005,9 +955,9 @@ export const compareValueType = (selectedOptions, value) => {
 	return selectedOptions.some((val) => {
 		switch (val) {
 			case 'value_fixed':
-				return value > 3;
+				return value > 4.9;
 			default:
-				return value <= 3;
+				return value <= 4.9;
 		}
 	});
 };
@@ -1068,6 +1018,82 @@ export const blockDurationCheck = (selectedOptions, char, filterOptions) => {
 		}
 	});
 };
+export const genSecFilterOptions = (characters: []) => {
+	const obj = {};
+	const findAndAddKeyEntries = (item) => {
+		if (SEARCH_IN_BLACKBOARD.includes(item.key)) {
+			for (const [key, value] of Object.entries(item)) {
+				if (!obj[item.key]) {
+					obj[item.key] = {};
+				}
+				if (!obj[item.key][key]) {
+					obj[item.key][key] = [];
+				}
+				if (Array.isArray(value)) {
+					value?.forEach((val) => {
+						if (!obj[item.key][key].includes(val)) {
+							obj[item.key][key].push(val);
+						}
+					});
+				} else if (['targets', 'dep_stat', 'damage_type'].includes(key)) {
+					if (!obj[item.key][key].includes(value)) {
+						obj[item.key][key].push(value);
+					}
+				}
+				if (key === 'category' && !obj[item.key][key].includes('others')) {
+					obj[item.key][key].push('others');
+				}
+			}
+		}
+	};
+	for (const char of characters) {
+		char.blackboard.forEach((item) => findAndAddKeyEntries(item)) ||
+			char.skills.forEach((skill) =>
+				skill.blackboard.forEach((item) => findAndAddKeyEntries(item))
+			) ||
+			char.talents.forEach((talent) =>
+				talent.blackboard.forEach((item) => findAndAddKeyEntries(item))
+			) ||
+			char.uniequip
+				.filter((equip) => equip.combatData)
+				.forEach((equip) =>
+					equip.combatData.blackboard.forEach((item) => findAndAddKeyEntries(item))
+				) ||
+			char.tokens?.forEach((token) =>
+				token.blackboard.forEach((item) => findAndAddKeyEntries(item))
+			);
+	}
+	for (const key of TARGET_AIR_KEYS) {
+		obj[key].target_air = ['target_air', 'not_target_air'];
+	}
+	obj['blockCnt'] = {
+		duration: ['infinite', 'finite'],
+		category: ['normal_state', 'skill_active']
+	};
+	return obj;
+};
+
+const getSecFilterDisplayKey = (key, subKey) => {
+	switch (subKey) {
+		case 'types':
+			return 'damage_type';
+		case 'value':
+			switch (key) {
+				case 'stun':
+				case 'sluggish':
+				case 'sleep':
+				case 'silence':
+				case 'cold':
+				case 'levitate':
+				case 'root':
+					return 'duration';
+				default:
+					return;
+			}
+		default:
+			return subKey;
+	}
+};
 
 export const createSubFilterFunction = (key, list, filterOptions) => {
 	const functions = [];
@@ -1115,6 +1141,10 @@ export const createSubFilterFunction = (key, list, filterOptions) => {
 							break;
 						case 'types':
 							fn = (item) => isSubset(selectedOptions, item[subKey]);
+							break;
+						case 'dep_stat':
+						case 'damage_type':
+							fn = (item) => selectedOptions.includes(item[subKey]);
 							break;
 						case 'value_type':
 							fn = (item) => compareValueType(selectedOptions, item['value']);

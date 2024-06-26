@@ -31,7 +31,6 @@ const generateFilterStore = (filterOptions) => {
 	return Object.keys(filterOptions).reduce((acc, category) => {
 		switch (category) {
 			case 'rarity':
-			case 'damage_type':
 			case 'blockCnt':
 			case 'profession':
 			case 'group':

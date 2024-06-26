@@ -17,7 +17,7 @@ export function parseConditions(key, language: Language) {
 		const splitStr = key.split('_');
 		return splitStr
 			.map((ele, i) => {
-				const suffix = ele === 'weight' ? '' : '%';
+				const suffix = splitStr.includes('weight') ? '' : '%';
 				let buffer = '';
 				if (ele.includes('gte')) {
 					return '≥';
