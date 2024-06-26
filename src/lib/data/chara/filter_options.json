@@ -146,7 +146,13 @@
 	"ally_targeting": ["ally_stealth", "ally_camouflage", "ally_taunt", "ally_lower_target_priority"],
 	"ally_status_buffs": ["ally_resist", "remove_status"],
 	"ally_heal_buffs": ["ally_heal_scale", "heal_ally", "heal_unhealable", "global_heal"],
-	"ally_sp_buffs": ["ally_sp_regen", "ally_sp_gain", "ally_sp_stock","add_sp_gain_option", "spareshot"],
+	"ally_sp_buffs": [
+		"ally_sp_regen",
+		"ally_sp_gain",
+		"ally_sp_stock",
+		"add_sp_gain_option",
+		"spareshot"
+	],
 	"ally_others": ["squad_effect"],
 	"self_stats": ["fast_redeploy"],
 	"self_atk_buffs": [
@@ -157,39 +163,55 @@
 		"res_penetrate",
 		"reflect_dmg"
 	],
-	"self_def_buffs": ["evasion", "shield", "block_dmg", "dmg_res", "undying", "env_dmg_reduce"],
-	"self_targeting": ["stealth", "camouflage", "taunt", "lower_target_priority"],
-	"self_status_buffs": ["resist", "status_immune"],
-	"self_heal_buffs": ["heal_self", "heal_scale"],
-	"self_sp_buffs": ["sp_regen", "sp_gain", "sp_stock", "spareshot"],
-	"buff_tags": [
-		"vigor",
-		"inspire",
-		"berserk",
-		"fragile",
-		"protect",
-		"magicfragile",
-		"elementfragile",
-		"weaken"
-	],
-	"enemy_type": [
-		"type_flying",
-		"type_drone",
-		"type_infected",
-		"type_sarkaz",
-		"wild_animal",
-		"seamonster",
-		"blocked",
-		"no_block",
+	"type_bonus": [
+		"bonus_flying",
+		"bonus_drone",
+		"bonus_infection",
+		"bonus_sarkaz",
+		"bonus_wildanimal",
+		"bonus_seamonster",
+		"bonus_blocked",
+		"bonus_no_block",
 		"bonus_stun",
-		"bonus_sleep"
+		"bonus_sleep",
+		"bonus_ranged",
+		"bonus_no_attack"
 	],
 	"enemy_target_priority": [
 		"priority_flying",
 		"priority_drone",
 		"priority_ranged",
+		"priority_stun",
 		"priority_def_high",
-		"priority_stun"
+		"priority_def_low"
+	],
+	"self_def_buffs": ["evasion", "shield", "block_dmg", "dmg_res", "undying", "env_dmg_reduce"],
+	"self_targeting": ["stealth", "camouflage", "taunt", "lower_target_priority"],
+	"self_status_buffs": ["resist", "status_immune"],
+	"self_heal_buffs": ["heal_self"],
+	"skill": ["unlimited_duration", "skill_invincible", "charged", "overdrive", "trigger_time"],
+	"self_sp_buffs": ["sp_regen", "sp_gain", "sp_stock", "spareshot"],
+	"buff_tags": [
+		"inspire",
+		"berserk",
+		"protect",
+		"fragile",
+		"magicfragile",
+		"elementfragile",
+		"vigor",
+		"weaken"
+	],
+	"enemy_type": [
+		"flying",
+		"drone",
+		"infection",
+		"sarkaz",
+		"wildanimal",
+		"seamonster",
+		"blocked",
+		"no_block",
+		"stun",
+		"sleep"
 	],
 	"profession_buff": [
 		"PIONEER",
@@ -212,7 +234,6 @@
 		"minos",
 		"position_ranged"
 	],
-	"skill": ["unlimited_duration", "skill_invincible", "charged", "overdrive", "trigger_time"],
 	"others_tag": [
 		"force",
 		"starting_cost",
