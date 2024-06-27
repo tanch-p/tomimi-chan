@@ -906,13 +906,13 @@ export const getCategory = (value) => {
 
 export const getSelectedFilterOptions = (categories, filtersStore) => {
 	return categories.reduce((acc, { optionKey }) => {
-		for (const { key, value } of filterOptions[optionKey]) {
+		for (const value of filterOptions[optionKey]) {
 			const category = getCategory(value);
 			const selected = filtersStore
 				.find((ele) => ele.key === category)
 				.options.find((ele) => ele.value === value)?.selected;
 			if (selected) {
-				acc.push({ key, value });
+				acc.push(value);
 			}
 		}
 		return acc;
