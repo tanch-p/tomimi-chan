@@ -569,7 +569,8 @@ export const getMaxValue = (char, key, subKey) => {
 			let value = 0;
 			curr.blackboard.forEach((ele) => {
 				if (ele.key === key) {
-					value = ele[subKey] ?? defaultValue;
+					const val = ele[subKey] ?? defaultValue;
+					if (val > value) value = val;
 				}
 			});
 			return (acc = Math.max(acc, value));
@@ -927,6 +928,91 @@ export const updateFilters = (key, value, store) => {
 		return list;
 	});
 };
+
+//for tags/blackboard, either talent + skill or skill must fulfill all conditions
+export const createFilterFunction = (list) => {
+	if (list.length === 0) {
+		return () => true;
+	}
+	return (char) => {
+		const initialRemainder = [];
+		const skillRemainder = [];
+		let equipIndex = -1;
+
+		list.forEach((searchItem) => {
+			const { key, type } = searchItem;
+			if (type === 'tags') {
+				if (
+					!(
+						char.tags.includes(key) ||
+						char.talents.some((talent) => talent.tags.includes(key)) ||
+						char.tokens.some((token) => token.tags.includes(key))
+					)
+				) {
+					initialRemainder.push(searchItem);
+				}
+			} else {
+				if (
+					!(
+						char.blackboard.some((item) => item.key === key) ||
+						char.talents.some((talent) => talent.blackboard.some((item) => item.key === key)) ||
+						char.tokens?.some((token) => token.blackboard.some((item) => item.key === key))
+					)
+				) {
+					initialRemainder.push(searchItem);
+				}
+			}
+		});
+		if (initialRemainder.length === 0) {
+			return true;
+		}
+		char.skills.forEach((skill) => {
+			const remainder = [];
+			initialRemainder.forEach((searchItem) => {
+				const { key, type } = searchItem;
+				if (type === 'tags') {
+					if (!skill.tags.includes(key)) {
+						remainder.push(searchItem);
+					}
+				} else {
+					if (!skill.blackboard.some((item) => item.key === key)) {
+						remainder.push(searchItem);
+					}
+				}
+			});
+			skillRemainder.push(remainder);
+		});
+		if (skillRemainder.some((list) => list.length === 0)) {
+			return true;
+		}
+		const equipList = char.uniequip.filter((equip) => equip.combatData);
+		if (equipList.length === 0) {
+			return skillRemainder.some((list) => list.length === 0);
+		}
+		for (const remainder of skillRemainder) {
+			equipIndex = equipList.findIndex((equip) =>
+				remainder.every((searchItem) => {
+					const { key, type } = searchItem;
+					if (type === 'tags') {
+						return equip.combatData.tags.includes(key);
+					} else {
+						return equip.combatData.blackboard.some((item) => item.key === key);
+					}
+				})
+			);
+			if (equipIndex !== -1) {
+				char.activeModuleIndex = equipIndex;
+				return true;
+			}
+		}
+		if (char.id === 'char_1013_chen2') {
+			console.log('initial', initialRemainder);
+			console.log('skill', skillRemainder);
+		}
+		return equipIndex !== -1;
+	};
+};
+
 export const adjustSortPriority = (list) => {
 	const adjustedPriorities = list
 		.filter((ele) => ele.priority)

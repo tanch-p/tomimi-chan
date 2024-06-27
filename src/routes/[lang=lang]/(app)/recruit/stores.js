@@ -8,7 +8,8 @@ import {
 	getSortOptions,
 	getMaxValue,
 	professionWeights,
-	createSubFilterFunction
+	createSubFilterFunction,
+	createFilterFunction
 } from '$lib/functions/charaHelpers';
 import { browser } from '$app/environment';
 import { cookiesEnabled } from '../../../stores';
@@ -115,6 +116,7 @@ export const filters = derived(
 						return () => true;
 				}
 			});
+		const bbTagHolder = [];
 		const filterFunctions = relicFilterFunctions.concat(
 			$filtersStore.reduce((acc, curr) => {
 				const selectedOptions = curr.options
@@ -195,41 +197,17 @@ export const filters = derived(
 						);
 						break;
 					case 'blackboard':
-						acc.push(
-							(char) =>
-								char.blackboard.find((item) => selectedOptions.includes(item.key)) ||
-								char.skills.some((skill) =>
-									skill.blackboard.find((item) => selectedOptions.includes(item.key))
-								) ||
-								char.talents.some((talent) =>
-									talent.blackboard.find((item) => selectedOptions.includes(item.key))
-								) ||
-								char.uniequip
-									.filter((equip) => equip.combatData)
-									.some((equip) =>
-										equip.combatData.blackboard.find((item) => selectedOptions.includes(item.key))
-									) ||
-								char.tokens?.some((token) =>
-									token.blackboard.find((item) => selectedOptions.includes(item.key))
-								)
+						bbTagHolder.push(
+							...selectedOptions.map((key) => {
+								return { key, type: 'blackboard' };
+							})
 						);
 						break;
 					case 'tags':
-						acc.push(
-							(char) =>
-								selectedOptions.some((tag) => char.tags.includes(tag)) ||
-								char.skills.some((skill) =>
-									selectedOptions.some((tag) => skill.tags.includes(tag))
-								) ||
-								char.talents.some((talent) =>
-									selectedOptions.some((tag) => talent.tags.includes(tag))
-								) ||
-								char.uniequip
-									.filter((equip) => equip.combatData)
-									.some((equip) =>
-										selectedOptions.some((tag) => equip.combatData.tags.includes(tag))
-									) ||
-								char.tokens.some((token) => selectedOptions.some((tag) => token.tags.includes(tag)))
+						bbTagHolder.push(
+							...selectedOptions.map((key) => {
+								return { key, type: 'tags' };
+							})
 						);
 						break;
 					default:
@@ -238,6 +216,7 @@ export const filters = derived(
 				return acc;
 			}, [])
 		);
+		filterFunctions.push(createFilterFunction(bbTagHolder));
 		return function (char) {
 			if (filterFunctions.length === 0) {
 				return true;
@@ -253,25 +232,28 @@ export const filters = derived(
 	}
 );
 
-export const secFilters = derived([secFiltersStore, filtersStore], ([$secFiltersStore,$filtersStore]) => {
-	const blockCntOptions = $filtersStore.find((ele) => ele.key ==="blockCnt")?.options;
-	const filterFunctions = $secFiltersStore.reduce((acc, { key, list }) => {
-		acc.push(createSubFilterFunction(key, list,blockCntOptions));
-		return acc;
-	}, []);
-	return function (char) {
-		if (filterFunctions.length === 0) {
-			return true;
-		}
-		for (const f of filterFunctions) {
-			const passFilter = f(char);
-			if (!passFilter) {
-				return false;
+export const secFilters = derived(
+	[secFiltersStore, filtersStore],
+	([$secFiltersStore, $filtersStore]) => {
+		const blockCntOptions = $filtersStore.find((ele) => ele.key === 'blockCnt')?.options;
+		const filterFunctions = $secFiltersStore.reduce((acc, { key, list }) => {
+			acc.push(createSubFilterFunction(key, list, blockCntOptions));
+			return acc;
+		}, []);
+		return function (char) {
+			if (filterFunctions.length === 0) {
+				return true;
 			}
-		}
-		return true;
-	};
-});
+			for (const f of filterFunctions) {
+				const passFilter = f(char);
+				if (!passFilter) {
+					return false;
+				}
+			}
+			return true;
+		};
+	}
+);
 
 const defaultSortOptions = [
 	{ key: 'release_time', subKey: null, suffix: null, order: -1, priority: 1 },

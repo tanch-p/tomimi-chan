@@ -189,7 +189,9 @@
 					</button>
 				{/each}
 			</div>
-			<p class="md:py-[5px] mt-2 md:mt-0 capitalize">{translations[language].table_headers.blockCnt}</p>
+			<p class="md:py-[5px] mt-2 md:mt-0 capitalize">
+				{translations[language].table_headers.blockCnt}
+			</p>
 			<div class="flex flex-wrap gap-2">
 				{#each filterOptions['blockCnt'] as value}
 					<button
