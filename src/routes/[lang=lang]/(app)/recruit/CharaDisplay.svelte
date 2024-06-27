@@ -1,13 +1,13 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
 	import translations from '$lib/translations.json';
-	import { selectedChara, filtersStore, moduleIndex } from './stores';
+	import { selectedChara, moduleIndex } from './stores';
 	import CharaIcon from './CharaIcon.svelte';
 	import { getActiveModule } from '$lib/functions/charaHelpers';
 
 	export let chara, displayMode, language: Language;
 
-	$: equip = getActiveModule(chara, $filtersStore);
+	$: equip = getActiveModule(chara);
 
 	const handleClick = (chara, equip) => {
 		selectedChara.set(chara);

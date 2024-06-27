@@ -107,7 +107,13 @@ const SEARCH_IN_TAGS = [
 	'ignore_stealth',
 	'weaken',
 	'teleport_enemy',
-	'add_sp_gain_option'
+	'add_sp_gain_option',
+	'aoe',
+	'target_air',
+	'elementfragile',
+	'magicfragile',
+	'fragile',
+	'protect'
 ];
 const SEARCH_IN_BLACKBOARD = [
 	'stealth',
@@ -164,16 +170,11 @@ const SEARCH_IN_BLACKBOARD = [
 	'damage_scale',
 	'ally_damage_scale',
 	'sp_regen',
-	'elementfragile',
-	'magicfragile',
-	'fragile',
 	'ally_heal_scale',
 	'heal_scale',
 	'cost_return',
 	'block',
 	'hitrate_down',
-	'protect',
-	'ally_protect',
 	'block_no_attack',
 	'force',
 	'trigger_time'
@@ -630,7 +631,9 @@ export const getCharaList = async (language) => {
 	const images = await Promise.all(
 		data.map((chara) => import(`../images/chara_icons/icon_${chara.id}.webp`))
 	);
-	data.forEach((chara, index) => (chara.icon = images[index].default));
+	data.forEach((chara, index) => {
+		chara.icon = images[index].default;
+	});
 	return data;
 };
 
@@ -773,101 +776,11 @@ export const getTokenPosition = (token, uniequip) => {
 	}
 };
 
-export const getActiveModule = (char, filtersStore) => {
-	for (const curr of filtersStore) {
-		const selectedOptions = curr.options
-			.map((option) => option.selected && option.value)
-			.filter(Boolean);
-		if (selectedOptions.length === 0) {
-			continue;
-		}
-		switch (curr.key) {
-			case 'deployable_tile':
-				if (
-					!selectedOptions.some(
-						(val) => char.position === val || char.tags.includes('position_all')
-					)
-				) {
-					return char.uniequip
-						.filter((equip) => equip.combatData)
-						.find((equip) => equip.combatData.tags.includes('position_all'));
-				}
-				break;
-			case 'blockCnt':
-				if (
-					(selectedOptions.includes(4) || selectedOptions.includes(5)) &&
-					!char.tokens?.some((token) =>
-						token.blackboard.some(
-							(item) => item.key === 'blockCnt' && selectedOptions.includes(item.value)
-						)
-					)
-				) {
-					const noModuleSkills = [];
-					const moduleSkills = [];
-					char.skills.forEach((skill) =>
-						skill.blackboard.forEach((item) => {
-							if (item.key === 'blockCnt' && selectedOptions.includes(item.value))
-								item.module ? moduleSkills.push(item) : noModuleSkills.push(item);
-						})
-					);
-					if (noModuleSkills.length > 0) {
-						return;
-					}
-					if (moduleSkills.length > 0) {
-						return char.uniequip.find((equip) => equip.typeIcon === moduleSkills?.[0]?.module);
-					}
-					return char.uniequip
-						.filter((equip) => equip.combatData)
-						.find((equip) =>
-							equip.combatData.blackboard.some(
-								(item) => item.key === 'blockCnt' && selectedOptions.includes(item.value)
-							)
-						);
-				}
-				break;
-			case 'tags':
-				if (
-					!(
-						selectedOptions.some((tag) => char.tags.includes(tag)) ||
-						char.skills.some((skill) => selectedOptions.some((tag) => skill.tags.includes(tag))) ||
-						char.talents.some((talent) =>
-							selectedOptions.some((tag) => talent.tags.includes(tag))
-						) ||
-						char.tokens.some((token) => selectedOptions.some((tag) => token.tags.includes(tag)))
-					)
-				) {
-					return char.uniequip
-						.filter((equip) => equip.combatData)
-						.find((equip) => selectedOptions.some((tag) => equip.combatData.tags.includes(tag)));
-				}
-				break;
-			case 'blackboard':
-				if (
-					!(
-						char.blackboard.find((item) => selectedOptions.includes(item.key)) ||
-						char.skills.some((skill) =>
-							skill.blackboard.find((item) => selectedOptions.includes(item.key))
-						) ||
-						char.talents.some((talent) =>
-							talent.blackboard.find((item) => selectedOptions.includes(item.key))
-						) ||
-						char.tokens?.some((token) =>
-							token.blackboard.find((item) => selectedOptions.includes(item.key))
-						)
-					)
-				) {
-					return char.uniequip
-						.filter((equip) => equip.combatData)
-						.find((equip) =>
-							equip.combatData.blackboard.find((item) => selectedOptions.includes(item.key))
-						);
-				}
-				break;
-			default:
-				break;
-		}
+export const getActiveModule = (char) => {
+	if (char.activeModuleIndex === -1) {
+		return;
 	}
-	return;
+	return char.uniequip.filter((equip) => equip.combatData)?.[char.activeModuleIndex];
 };
 
 export const addOptionsToAcc = (acc, options) => {
@@ -930,14 +843,28 @@ export const updateFilters = (key, value, store) => {
 };
 
 //for tags/blackboard, either talent + skill or skill must fulfill all conditions
-export const createFilterFunction = (list) => {
+export const createFilterFunction = (list, secFilters) => {
 	if (list.length === 0) {
-		return () => true;
+		return (char) => {
+			char.activeModuleIndex = -1;
+			return true;
+		};
 	}
+	const blockCntSubFilters = secFilters
+		.filter(({ key }) => key === 'blockCnt')
+		.reduce((acc, curr) => {
+			const { list } = curr;
+			for (const { options } of list) {
+				acc = options?.map((option) => option.selected && option.value).filter(Boolean);
+			}
+			return acc;
+		}, []);
 	return (char) => {
 		const initialRemainder = [];
 		const skillRemainder = [];
+		const finalRemainder = [];
 		let equipIndex = -1;
+		char.activeModuleIndex = -1;
 
 		list.forEach((searchItem) => {
 			const { key, type } = searchItem;
@@ -951,7 +878,7 @@ export const createFilterFunction = (list) => {
 				) {
 					initialRemainder.push(searchItem);
 				}
-			} else {
+			} else if (type === 'blackboard') {
 				if (
 					!(
 						char.blackboard.some((item) => item.key === key) ||
@@ -961,8 +888,46 @@ export const createFilterFunction = (list) => {
 				) {
 					initialRemainder.push(searchItem);
 				}
+			} else if (type === 'blockCnt') {
+				const options = searchItem.options.filter((val) => val !== 0);
+				if (blockCntSubFilters.includes('skill_active')) {
+					initialRemainder.push(searchItem);
+				} else if (blockCntSubFilters.includes('normal_state')) {
+					if (
+						!(
+							options.includes(char.stats.blockCnt) ||
+							char.tokens?.some(
+								(token) =>
+									options.includes(token.stats.blockCnt) ||
+									token.blackboard.some(
+										(item) => item.key === 'blockCnt' && options.includes(item.value)
+									)
+							) ||
+							char.uniequip
+								.filter((equip) => equip.combatData)
+								.some((equip) =>
+									equip.combatData.blackboard.some(
+										(item) => item.key === 'blockCnt' && options.includes(item.value)
+									)
+								)
+						)
+					) {
+						initialRemainder.push(searchItem);
+					}
+				} else if (
+					!char.tokens?.some(
+						(token) =>
+							options.includes(token.stats.blockCnt) ||
+							token.blackboard.some(
+								(item) => item.key === 'blockCnt' && options.includes(item.value)
+							)
+					)
+				) {
+					initialRemainder.push(searchItem);
+				}
 			}
 		});
+
 		if (initialRemainder.length === 0) {
 			return true;
 		}
@@ -974,9 +939,29 @@ export const createFilterFunction = (list) => {
 					if (!skill.tags.includes(key)) {
 						remainder.push(searchItem);
 					}
-				} else {
+				} else if (type === 'blackboard') {
 					if (!skill.blackboard.some((item) => item.key === key)) {
 						remainder.push(searchItem);
+					}
+				} else if (type === 'blockCnt') {
+					const { options } = searchItem;
+					if (blockCntSubFilters.includes('normal_state')) {
+						remainder.push(searchItem);
+					} else if (blockCntSubFilters.includes('skill_active')) {
+						if (
+							!skill.blackboard.find((item) => item.key === key && options.includes(item.value))
+						) {
+							remainder.push(searchItem);
+						}
+					} else {
+						const pass =
+							(options.includes(char.stats.blockCnt) &&
+								!skill.blackboard.find((item) => item.key === key)) ||
+							(!options.includes(char.stats.blockCnt) &&
+								skill.blackboard.find((item) => item.key === key && options.includes(item.value)));
+						if (!pass) {
+							remainder.push(searchItem);
+						}
 					}
 				}
 			});
@@ -985,18 +970,37 @@ export const createFilterFunction = (list) => {
 		if (skillRemainder.some((list) => list.length === 0)) {
 			return true;
 		}
+		for (const remainder of skillRemainder) {
+			const temp = [];
+			remainder.forEach((searchItem) => {
+				if (searchItem.type === 'blockCnt' && !searchItem.options.includes(char.stats.blockCnt)) {
+					temp.push(searchItem);
+				} else {
+					temp.push(searchItem);
+				}
+			});
+			finalRemainder.push(temp);
+		}
 		const equipList = char.uniequip.filter((equip) => equip.combatData);
 		if (equipList.length === 0) {
-			return skillRemainder.some((list) => list.length === 0);
+			return finalRemainder.some((list) => list.length === 0);
 		}
-		for (const remainder of skillRemainder) {
+		for (const remainder of finalRemainder) {
 			equipIndex = equipList.findIndex((equip) =>
 				remainder.every((searchItem) => {
 					const { key, type } = searchItem;
 					if (type === 'tags') {
 						return equip.combatData.tags.includes(key);
-					} else {
+					} else if (type === 'blackboard') {
 						return equip.combatData.blackboard.some((item) => item.key === key);
+					} else if (type === 'blockCnt') {
+						const { options } = searchItem;
+						if (blockCntSubFilters.includes('skill_active')) {
+							return false;
+						}
+						return equip.combatData.blackboard.some(
+							(item) => item.key === key && options.includes(item.value)
+						);
 					}
 				})
 			);
@@ -1005,10 +1009,11 @@ export const createFilterFunction = (list) => {
 				return true;
 			}
 		}
-		if (char.id === 'char_1013_chen2') {
-			console.log('initial', initialRemainder);
-			console.log('skill', skillRemainder);
-		}
+		// if (char.id === 'char_1026_gvial2') {
+		// 	console.log('initial', initialRemainder);
+		// 	console.log('skill', skillRemainder);
+		// 	console.log('final', finalRemainder);
+		// }
 		return equipIndex !== -1;
 	};
 };
@@ -1100,63 +1105,7 @@ export const compareValueType = (selectedOptions, value) => {
 		}
 	});
 };
-export const blockDurationCheck = (selectedOptions, char, filterOptions) => {
-	const selectedFilterOptions = filterOptions
-		.map((option) => option.selected && option.value)
-		.filter((ele) => ele !== false);
-	return selectedOptions.some((val) => {
-		switch (val) {
-			case 'normal_state':
-				return (
-					selectedFilterOptions.includes(char.stats.blockCnt) ||
-					char.uniequip
-						.filter((equip) => equip.combatData)
-						.some((equip) =>
-							equip.combatData.blackboard.some(
-								(item) => item.key === 'blockCnt' && selectedFilterOptions.includes(item.value)
-							)
-						)
-				);
-			case 'skill_active':
-				return char.skills.some((skill) =>
-					skill.blackboard.some(
-						(item) => item.key === 'blockCnt' && selectedFilterOptions.includes(item.value)
-					)
-				);
-			case 'infinite':
-				return (
-					selectedFilterOptions.includes(char.stats.blockCnt) ||
-					char.skills.some((skill) =>
-						skill.blackboard.some((item) => item.key === 'blockCnt' && !Boolean(item.duration))
-					) ||
-					char.uniequip
-						.filter((equip) => equip.combatData)
-						.some((equip) =>
-							equip.combatData.blackboard.some(
-								(item) => item.key === 'blockCnt' && !Boolean(item.duration)
-							)
-						) ||
-					char.tokens.some((token) =>
-						token.blackboard.some((item) => item.key === 'blockCnt' && !Boolean(item.duration))
-					)
-				);
-			default:
-				return (
-					char.skills.some((skill) =>
-						skill.blackboard.some((item) => item.key === 'blockCnt' && item.duration)
-					) ||
-					char.uniequip
-						.filter((equip) => equip.combatData)
-						.some((equip) =>
-							equip.combatData.blackboard.some((item) => item.key === 'blockCnt' && item.duration)
-						) ||
-					char.tokens.some((token) =>
-						token.blackboard.some((item) => item.key === 'blockCnt' && item.duration)
-					)
-				);
-		}
-	});
-};
+
 export const genSecFilterOptions = (characters: []) => {
 	const obj = {};
 	const findAndAddKeyEntries = (item) => {
@@ -1206,7 +1155,6 @@ export const genSecFilterOptions = (characters: []) => {
 		obj[key].target_air = ['target_air', 'not_target_air'];
 	}
 	obj['blockCnt'] = {
-		duration: ['infinite', 'finite'],
 		category: ['normal_state', 'skill_active']
 	};
 	return obj;
@@ -1248,54 +1196,44 @@ export const createSubFilterFunction = (key, list, filterOptions) => {
 			if (selectedOptions.length === 0) {
 				continue;
 			}
-			switch (key) {
-				case 'blockCnt':
-					return (char) => blockDurationCheck(selectedOptions, char, filterOptions);
+			switch (subKey) {
+				case 'tags':
+					return (char) =>
+						selectedOptions.some((tag) => char.tags.includes(tag)) ||
+						char.skills.some((skill) => selectedOptions.some((tag) => skill.tags.includes(tag))) ||
+						char.talents.some((talent) =>
+							selectedOptions.some((tag) => talent.tags.includes(tag))
+						) ||
+						char.uniequip
+							.filter((equip) => equip.combatData)
+							.some((equip) =>
+								selectedOptions.some((tag) => equip.combatData.tags.includes(tag))
+							) ||
+						char.tokens.some((token) => selectedOptions.some((tag) => token.tags.includes(tag)));
+				case 'target_air':
+					fn = (item) =>
+						selectedOptions.some((val) =>
+							val === 'target_air' ? item.target_air : !item.target_air
+						);
+					break;
+				case 'targets':
+					fn = (item) => targetValueCheck(item[subKey], selectedOptions);
+					break;
+				case 'category':
+				case 'conditions':
+					fn = (item) => someCheck(item[subKey], selectedOptions);
+					break;
+				case 'types':
+					fn = (item) => isSubset(selectedOptions, item[subKey]);
+					break;
+				case 'dep_stat':
+				case 'damage_type':
+					fn = (item) => selectedOptions.includes(item[subKey]);
+					break;
+				case 'value_type':
+					fn = (item) => compareValueType(selectedOptions, item['value']);
+					break;
 				default:
-					switch (subKey) {
-						case 'tags':
-							return (char) =>
-								selectedOptions.some((tag) => char.tags.includes(tag)) ||
-								char.skills.some((skill) =>
-									selectedOptions.some((tag) => skill.tags.includes(tag))
-								) ||
-								char.talents.some((talent) =>
-									selectedOptions.some((tag) => talent.tags.includes(tag))
-								) ||
-								char.uniequip
-									.filter((equip) => equip.combatData)
-									.some((equip) =>
-										selectedOptions.some((tag) => equip.combatData.tags.includes(tag))
-									) ||
-								char.tokens.some((token) =>
-									selectedOptions.some((tag) => token.tags.includes(tag))
-								);
-						case 'target_air':
-							fn = (item) =>
-								selectedOptions.some((val) =>
-									val === 'target_air' ? item.target_air : !item.target_air
-								);
-							break;
-						case 'targets':
-							fn = (item) => targetValueCheck(item[subKey], selectedOptions);
-							break;
-						case 'category':
-						case 'conditions':
-							fn = (item) => someCheck(item[subKey], selectedOptions);
-							break;
-						case 'types':
-							fn = (item) => isSubset(selectedOptions, item[subKey]);
-							break;
-						case 'dep_stat':
-						case 'damage_type':
-							fn = (item) => selectedOptions.includes(item[subKey]);
-							break;
-						case 'value_type':
-							fn = (item) => compareValueType(selectedOptions, item['value']);
-							break;
-						default:
-							break;
-					}
 					break;
 			}
 		}

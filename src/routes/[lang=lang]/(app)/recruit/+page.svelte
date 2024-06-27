@@ -39,7 +39,7 @@
 	<meta property="og:description" content={translations[language].title_post} />
 </svelte:head>
 
-<ClearButton/>
+<ClearButton {language}/>
 <div class:loading class="chara pb-60">
 	<div class="sm:mx-10">
 		<div class="max-w-5xl mx-auto pt-6 md:pt-10 pb-4 text-[0.75rem] md:text-[0.875rem] {language}">

@@ -203,6 +203,20 @@
 					</button>
 				{/each}
 			</div>
+			<p class="md:py-[5px] mt-2 md:mt-0 capitalize">
+				{translations[language].others}
+			</p>
+			<div class="flex flex-wrap gap-2">
+				{#each filterOptions['others'] as value}
+					<button
+						class="filter-btn"
+						class:active={isSelected('tags', value)}
+						on:click={() => updateFilters('tags', value, filtersStore)}
+					>
+						{translations[language][value]}
+					</button>
+				{/each}
+			</div>
 		</div>
 		<CharaFilterToggle
 			title={translations[language].subProfessionId}
