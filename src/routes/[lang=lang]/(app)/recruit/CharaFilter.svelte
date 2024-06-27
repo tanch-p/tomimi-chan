@@ -51,7 +51,6 @@
 			categories: [
 				{ catKey: 'stats', optionKey: 'self_stats' },
 				{ catKey: 'atk_cat', optionKey: 'self_atk_buffs' },
-				{ catKey: 'type_bonus', optionKey: 'type_bonus' },
 				{ catKey: 'enemy_target_priority', optionKey: 'enemy_target_priority' },
 				{ catKey: 'def_cat', optionKey: 'self_def_buffs' },
 				{ catKey: 'targeting', optionKey: 'self_targeting' },
@@ -69,7 +68,7 @@
 				{ catKey: 'buff_tags', optionKey: 'buff_tags' },
 				{ catKey: 'profession_buff', optionKey: 'profession_buff' },
 				{ catKey: 'group_buff', optionKey: 'group_buff' },
-				{ catKey: 'enemy_type', optionKey: 'enemy_type' },
+				{ catKey: 'enemy_type_related', optionKey: 'enemy_type_related' },
 				{ catKey: 'buff_special', optionKey: 'others_tag' },
 				{ catKey: 'terrain', optionKey: 'terrain' }
 			]

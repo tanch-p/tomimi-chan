@@ -16,7 +16,7 @@ Provides a list of svg icons that can be referenced through the `Icon` component
 				clip-rule="evenodd"
 			/>
 		</symbol>
-		<symbol id="trash" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="black">
+		<symbol id="trash" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 			<path
 				stroke-linecap="round"
 				stroke-linejoin="round"

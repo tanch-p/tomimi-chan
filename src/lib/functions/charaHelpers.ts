@@ -8,10 +8,7 @@ const SEARCH_IN_TAGS = [
 	'true',
 	'ele_dmg',
 	'weightless',
-	'stealth',
 	'ally_stealth',
-	'camouflage',
-	'ally_camouflage',
 	'lower_target_priority',
 	'ally_lower_target_priority',
 	'min_damage',
@@ -19,7 +16,6 @@ const SEARCH_IN_TAGS = [
 	'revive',
 	'resist',
 	'ally_resist',
-	'dot',
 	'first_token_free',
 	'global_move_speed_down',
 	'global_heal',
@@ -62,28 +58,33 @@ const SEARCH_IN_TAGS = [
 	'change_target_priority',
 	'remove_status',
 	'dot',
-	'starting_cost',
 	'fast_redeploy',
 	'heal_ally',
 	'heal_self',
-	'bonus_flying',
-	'bonus_drone',
-	'bonus_infection',
-	'bonus_sarkaz',
-	'bonus_wildanimal',
-	'bonus_seamonster',
-	'bonus_blocked',
-	'bonus_no_block',
-	'bonus_stun',
-	'bonus_sleep',
-	'bonus_ranged',
-	'bonus_no_attack',
+	'flying',
+	'drone',
+	'infection',
+	'sarkaz',
+	'wildanimal',
+	'seamonster',
+	'type_stun',
+	'type_sluggish',
+	'type_sleep',
+	'type_silence',
+	'type_freeze',
+	'type_levitate',
+	'type_root',
+	'type_tremble',
+	'blocked_enemy',
+	'no_block_enemy',
 	'priority_flying',
 	'priority_drone',
 	'priority_ranged',
+	'priority_highest_weight',
 	'priority_def_high',
 	'priority_def_low',
 	'priority_stun',
+	'priority_sleep',
 	'PIONEER',
 	'WARRIOR',
 	'SNIPER',
@@ -92,7 +93,15 @@ const SEARCH_IN_TAGS = [
 	'SUPPORT',
 	'CASTER',
 	'SPECIAL',
+	'abyssal',
 	'three_star',
+	'robot',
+	'student',
+	'kazimierz',
+	'rhine',
+	'karlan',
+	'minos',
+	'position_ranged',
 	'skill_invincible',
 	'ally_apoptosis',
 	'ignore_stealth',
@@ -101,6 +110,9 @@ const SEARCH_IN_TAGS = [
 	'add_sp_gain_option'
 ];
 const SEARCH_IN_BLACKBOARD = [
+	'stealth',
+	'camouflage',
+	'ally_camouflage',
 	'ally_undying',
 	'undying',
 	'taunt',
@@ -224,12 +236,22 @@ const DISPLAY_KEYS_TABLE = {
 	bonus_sleep: 'sleep',
 	bonus_ranged: 'enemy_ranged',
 	bonus_no_attack: 'no_attack',
+	type_stun: 'stun',
+	type_sluggish: 'sluggish',
+	type_sleep: 'sleep',
+	type_silence: 'silence',
+	type_freeze: 'freeze',
+	type_levitate: 'levitate',
+	type_root: 'root',
+	type_tremble: 'tremble',
+	priority_highest_weight: 'highest_weight',
 	priority_flying: 'flying',
 	priority_drone: 'drone',
 	priority_ranged: 'enemy_ranged',
 	priority_def_high: 'def_high',
 	priority_def_low: 'def_low',
 	priority_stun: 'stun',
+	priority_sleep: 'sleep',
 	dot: 'poison_damage'
 };
 
@@ -411,7 +433,7 @@ export const getSecFilterOptions = (key, store) => {
 		case 'force':
 			returnArr.push({
 				subKey: 'tags',
-				displayKey: '',
+				displayKey: 'category',
 				options: ['push', 'pull'],
 				type: 'options'
 			});
@@ -930,7 +952,10 @@ export const getSortOptions = (key) => {
 			'levitate',
 			'root',
 			'tremble',
-			'cancel_stealth'
+			'cancel_stealth',
+			'camouflage',
+			'taunt',
+			'undying'
 		].includes(key):
 			list.push({ key, subKey: 'value', suffix: 'duration', order: -1, priority: -1 });
 			break;
@@ -956,9 +981,14 @@ export const getSortOptions = (key) => {
 				priority: -1
 			});
 			break;
-		case ['blockCnt', 'ally_block_up', 'ally_block_down', 'ally_undying', 'ally_taunt'].includes(
-			key
-		):
+		case [
+			'blockCnt',
+			'ally_block_up',
+			'ally_block_down',
+			'ally_undying',
+			'ally_taunt',
+			'ally_camouflage'
+		].includes(key):
 			break;
 		default:
 			list.push({
@@ -1135,20 +1165,25 @@ export const createSubFilterFunction = (key, list, filterOptions) => {
 			switch (key) {
 				case 'blockCnt':
 					return (char) => blockDurationCheck(selectedOptions, char, filterOptions);
-				case 'force':
-					return (char) =>
-						char.skills.some((skill) => selectedOptions.some((tag) => skill.tags.includes(tag))) ||
-						char.talents.some((talent) =>
-							selectedOptions.some((tag) => talent.tags.includes(tag))
-						) ||
-						char.uniequip
-							.filter((equip) => equip.combatData)
-							.some((equip) =>
-								selectedOptions.some((tag) => equip.combatData.tags.includes(tag))
-							) ||
-						char.tokens.some((token) => selectedOptions.some((tag) => token.tags.includes(tag)));
 				default:
 					switch (subKey) {
+						case 'tags':
+							return (char) =>
+								selectedOptions.some((tag) => char.tags.includes(tag)) ||
+								char.skills.some((skill) =>
+									selectedOptions.some((tag) => skill.tags.includes(tag))
+								) ||
+								char.talents.some((talent) =>
+									selectedOptions.some((tag) => talent.tags.includes(tag))
+								) ||
+								char.uniequip
+									.filter((equip) => equip.combatData)
+									.some((equip) =>
+										selectedOptions.some((tag) => equip.combatData.tags.includes(tag))
+									) ||
+								char.tokens.some((token) =>
+									selectedOptions.some((tag) => token.tags.includes(tag))
+								);
 						case 'target_air':
 							fn = (item) =>
 								selectedOptions.some((val) =>
