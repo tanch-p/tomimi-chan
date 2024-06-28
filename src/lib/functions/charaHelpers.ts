@@ -941,8 +941,6 @@ export const createFilterFunctionOR = (list, secFilters, filterMode) => {
 					if (equipIndex !== -1) {
 						char.activeModuleIndex = equipIndex;
 					} else initialRemainder.push(searchItem);
-
-					initialRemainder.push(searchItem);
 				}
 			} else if (type === 'blockCnt') {
 				const { options } = searchItem;
@@ -1266,11 +1264,6 @@ export const createFilterFunction = (list, secFilters) => {
 				return true;
 			}
 		}
-		// if (char.id === 'char_1026_gvial2') {
-		// 	console.log('initial', initialRemainder);
-		// 	console.log('skill', skillRemainder);
-		// 	console.log('final', finalRemainder);
-		// }
 		return equipIndex !== -1;
 	};
 };
