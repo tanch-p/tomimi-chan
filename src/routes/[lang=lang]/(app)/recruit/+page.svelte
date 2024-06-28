@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import type { Language } from '$lib/types';
-	import { filters, secFilters, globalCheck, sortFunction, secFilterOptions } from './stores';
+	import { filters, globalCheck, sortFunction, secFilterOptions } from './stores';
 	import { getCharaList, genSecFilterOptions } from '$lib/functions/charaHelpers';
 	import DisplayContainer from './DisplayContainer.svelte';
 	import CharaFilter from './CharaFilter.svelte';
@@ -12,7 +12,10 @@
 	import translations from '$lib/translations.json';
 	import { onMount } from 'svelte';
 	import ClearButton from './ClearButton.svelte';
+	import Settings from './Settings.svelte';
+
 	export let data: PageData;
+
 	let language: Language;
 	$: language = data.language;
 	let loading = true;
@@ -23,7 +26,6 @@
 		characters = await getCharaList(language);
 		loading = false;
 	};
-	$: console.log($secFilterOptions);
 	onMount(async () => {
 		await loadData(language);
 		secFilterOptions.set(genSecFilterOptions(characters));
@@ -39,10 +41,11 @@
 	<meta property="og:description" content={translations[language].title_post} />
 </svelte:head>
 
-<ClearButton {language}/>
+<ClearButton {language} />
 <div class:loading class="chara pb-60">
 	<div class="sm:mx-10">
 		<div class="max-w-5xl mx-auto pt-6 md:pt-10 pb-4 text-[0.75rem] md:text-[0.875rem] {language}">
+			<Settings {language} />
 			<CharaFilter {language} />
 			<CharaSortOptions {language} />
 			<CharaSecFilter {language} />
@@ -51,10 +54,7 @@
 			<p class="text-center">{translations[language].data_loading}</p>
 		{:else}
 			<DisplayContainer
-				characters={characters
-					.filter($globalCheck)
-					.filter($filters)
-					.sort($sortFunction)}
+				characters={characters.filter($globalCheck).filter($filters).sort($sortFunction)}
 				{language}
 			/>
 		{/if}

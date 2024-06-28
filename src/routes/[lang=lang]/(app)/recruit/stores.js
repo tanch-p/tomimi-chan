@@ -8,7 +8,6 @@ import {
 	getSortOptions,
 	getMaxValue,
 	professionWeights,
-	createSubFilterFunction,
 	createFilterFunction
 } from '$lib/functions/charaHelpers';
 import { browser } from '$app/environment';
@@ -19,6 +18,7 @@ if (browser && cookiesEnabled) {
 	releaseStatus = localStorage.getItem('releaseStatus') || 'cn';
 }
 export const releaseStatusStore = writable(releaseStatus);
+export const filterMode = writable('AND');
 
 export const globalCheck = derived(releaseStatusStore, ($releaseStatusStore) => (char) => {
 	if ($releaseStatusStore === 'cn') {
@@ -145,16 +145,11 @@ export const filters = derived(
 						});
 						break;
 					case 'deployable_tile':
-						acc.push((char) =>
-							selectedOptions.some(
-								(val) =>
-									char.position === val ||
-									char.tags.includes('position_all') ||
-									char.uniequip
-										.filter((equip) => equip.combatData)
-										.some((equip) => equip.combatData.tags.includes('position_all'))
-							)
-						);
+						bbTagHolder.push({
+							key: 'deployable_tile',
+							type: 'deployable_tile',
+							options: selectedOptions
+						});
 						break;
 					case 'blockCnt':
 						bbTagHolder.push({ key: 'blockCnt', type: 'blockCnt', options: selectedOptions });
@@ -194,27 +189,6 @@ export const filters = derived(
 		};
 	}
 );
-
-export const secFilters = derived([secFiltersStore], ([$secFiltersStore]) => {
-	const filterFunctions = $secFiltersStore
-		.filter(({ key }) => key !== 'blockCnt')
-		.reduce((acc, { key, list }) => {
-			acc.push(createSubFilterFunction(key, list));
-			return acc;
-		}, []);
-	return function (char) {
-		if (filterFunctions.length === 0) {
-			return true;
-		}
-		for (const f of filterFunctions) {
-			const passFilter = f(char);
-			if (!passFilter) {
-				return false;
-			}
-		}
-		return true;
-	};
-});
 
 const defaultSortOptions = [
 	{ key: 'release_time', subKey: null, suffix: null, order: -1, priority: 1 },

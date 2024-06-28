@@ -100,35 +100,14 @@
 			localStorage.setItem('releaseStatus', val);
 		}
 	};
-	const reset = () => {
-		filtersStore.update((list) =>
-			list.map((ele) => {
-				return {
-					...ele,
-					options: ele.options.map((option) => {
-						return { ...option, selected: false };
-					})
-				};
-			})
-		);
-		relicFiltersStore.update((list) =>
-			list.map((ele) => {
-				return { ...ele, selected: false };
-			})
-		);
-	};
 </script>
 
-<div class="grid gap-5 text-almost-black">
+<div class="grid gap-5 text-almost-black mt-5">
 	<div class="bg-near-white rounded-md p-3 md:p-4">
 		<h2 class="border-b text-center pb-1 md:pb-2">
 			{translations[language].filter}
 		</h2>
-		<button class="flex ml-auto mt-1 pr-2" on:click={reset}>
-			<Icon name="trash" className="h-[18px] mt-[1px]" />
-			{translations[language].filter_reset}
-		</button>
-		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-2 md:gap-y-3 pt-2">
+		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-2 md:gap-y-3 pt-3">
 			<p class="md:py-[5px]">{translations[language].chara_filter.release_status}</p>
 			<div class="flex flex-wrap gap-2">
 				{#each ['global', 'cn'] as value}
