@@ -54,7 +54,6 @@
 				characters={characters
 					.filter($globalCheck)
 					.filter($filters)
-					.filter($secFilters)
 					.sort($sortFunction)}
 				{language}
 			/>

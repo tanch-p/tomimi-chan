@@ -859,6 +859,13 @@ export const createFilterFunction = (list, secFilters) => {
 			}
 			return acc;
 		}, []);
+	const secFiltersFunctions = secFilters
+		.filter(({ key }) => key !== 'blockCnt')
+		.reduce((acc, { key, list }) => {
+			const functions = createSubFilterFunction2(list);
+			acc[key] = functions;
+			return acc;
+		}, {});
 	return (char) => {
 		const initialRemainder = [];
 		const skillRemainder = [];
@@ -881,9 +888,24 @@ export const createFilterFunction = (list, secFilters) => {
 			} else if (type === 'blackboard') {
 				if (
 					!(
-						char.blackboard.some((item) => item.key === key) ||
-						char.talents.some((talent) => talent.blackboard.some((item) => item.key === key)) ||
-						char.tokens?.some((token) => token.blackboard.some((item) => item.key === key))
+						char.blackboard.some(
+							(item) =>
+								item.key === key && secFiltersFunctions?.[key]?.every((fn) => fn(item, char.tags))
+						) ||
+						char.talents.some((talent) =>
+							talent.blackboard.some(
+								(item) =>
+									item.key === key &&
+									secFiltersFunctions?.[key]?.every((fn) => fn(item, talent.tags))
+							)
+						) ||
+						char.tokens?.some((token) =>
+							token.blackboard.some(
+								(item) =>
+									item.key === key &&
+									secFiltersFunctions?.[key]?.every((fn) => fn(item, token.tags))
+							)
+						)
 					)
 				) {
 					initialRemainder.push(searchItem);
@@ -902,17 +924,21 @@ export const createFilterFunction = (list, secFilters) => {
 									token.blackboard.some(
 										(item) => item.key === 'blockCnt' && options.includes(item.value)
 									)
-							) ||
-							char.uniequip
-								.filter((equip) => equip.combatData)
-								.some((equip) =>
-									equip.combatData.blackboard.some(
-										(item) => item.key === 'blockCnt' && options.includes(item.value)
-									)
-								)
+							)
 						)
 					) {
-						initialRemainder.push(searchItem);
+						equipIndex = char.uniequip
+							.filter((equip) => equip.combatData)
+							.findIndex((equip) =>
+								equip.combatData.blackboard.some(
+									(item) => item.key === 'blockCnt' && options.includes(item.value)
+								)
+							);
+						if (equipIndex === -1) {
+							initialRemainder.push(searchItem);
+						} else {
+							char.activeModuleIndex = equipIndex;
+						}
 					}
 				} else if (
 					!char.tokens?.some(
@@ -940,7 +966,12 @@ export const createFilterFunction = (list, secFilters) => {
 						remainder.push(searchItem);
 					}
 				} else if (type === 'blackboard') {
-					if (!skill.blackboard.some((item) => item.key === key)) {
+					if (
+						!skill.blackboard.some(
+							(item) =>
+								item.key === key && secFiltersFunctions?.[key]?.every((fn) => fn(item, skill.tags))
+						)
+					) {
 						remainder.push(searchItem);
 					}
 				} else if (type === 'blockCnt') {
@@ -948,10 +979,16 @@ export const createFilterFunction = (list, secFilters) => {
 					if (blockCntSubFilters.includes('normal_state')) {
 						remainder.push(searchItem);
 					} else if (blockCntSubFilters.includes('skill_active')) {
-						if (
-							!skill.blackboard.find((item) => item.key === key && options.includes(item.value))
-						) {
+						const item = skill.blackboard.find(
+							(item) => item.key === key && options.includes(item.value)
+						);
+						if (!item) {
 							remainder.push(searchItem);
+						} else if (item.module) {
+							equipIndex = char.uniequip
+								.filter((equip) => equip.combatData)
+								.findIndex((equip) => equip.typeIcon === item.module);
+							char.activeModuleIndex = equipIndex;
 						}
 					} else {
 						const pass =
@@ -992,7 +1029,11 @@ export const createFilterFunction = (list, secFilters) => {
 					if (type === 'tags') {
 						return equip.combatData.tags.includes(key);
 					} else if (type === 'blackboard') {
-						return equip.combatData.blackboard.some((item) => item.key === key);
+						return equip.combatData.blackboard.some(
+							(item) =>
+								item.key === key &&
+								secFiltersFunctions?.[key]?.every((fn) => fn(item, equip.combatData.tags))
+						);
 					} else if (type === 'blockCnt') {
 						const { options } = searchItem;
 						if (blockCntSubFilters.includes('skill_active')) {
@@ -1180,6 +1221,59 @@ const getSecFilterDisplayKey = (key, subKey) => {
 		default:
 			return subKey;
 	}
+};
+
+const createSubFilterFunction2 = (list) => {
+	const functions = [];
+	for (const { subKey, type, options, sign, value } of list) {
+		let fn = () => true;
+		if (type === 'compare') {
+			if (value <= 0) continue;
+			fn = (item) => (sign === 'gte' ? item[subKey] >= value : item[subKey] <= value);
+		} else {
+			const selectedOptions = options
+				.map((option) => option.selected && option.value)
+				.filter(Boolean);
+			if (selectedOptions.length === 0) {
+				continue;
+			}
+			switch (subKey) {
+				case 'tags':
+					fn = (_, tags) => selectedOptions.some((tag) => tags.includes(tag));
+					break;
+				case 'target_air':
+					fn = (item) =>
+						selectedOptions.some((val) =>
+							val === 'target_air' ? item.target_air : !item.target_air
+						);
+					break;
+				case 'targets':
+					fn = (item) => targetValueCheck(item[subKey], selectedOptions);
+					break;
+				case 'category':
+				case 'conditions':
+					fn = (item) => someCheck(item[subKey], selectedOptions);
+					break;
+				case 'types':
+					fn = (item) => isSubset(selectedOptions, item[subKey]);
+					break;
+				case 'dep_stat':
+				case 'damage_type':
+					fn = (item) => selectedOptions.includes(item[subKey]);
+					break;
+				case 'value_type':
+					fn = (item) => compareValueType(selectedOptions, item['value']);
+					break;
+				default:
+					break;
+			}
+		}
+		functions.push(fn);
+	}
+	if (functions.length === 0) {
+		return [() => true];
+	}
+	return functions;
 };
 
 export const createSubFilterFunction = (key, list, filterOptions) => {
