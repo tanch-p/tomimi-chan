@@ -98,6 +98,7 @@ rogueTopic.subscribe((topic) =>
 export const filters = derived(
 	[filtersStore, secFiltersStore, relicFiltersStore, rogueTopic, filterModeStore],
 	([$filtersStore, $secFiltersStore, $relicFiltersStore, $rogueTopic, $filterModeStore]) => {
+		const bbTagHolder = [];
 		const relicFilterFunctions = $relicFiltersStore
 			.filter((option) => option.selected)
 			.map((option) => {
@@ -107,19 +108,14 @@ export const filters = derived(
 				}
 				switch (true) {
 					case Boolean(relic.tag):
-						return (char) =>
-							char.skills.some((skill) => skill.tags.includes(relic.tag)) ||
-							char.talents.some((talent) => talent.tags.includes(relic.tag)) ||
-							char.uniequip
-								.filter((equip) => equip.combatData)
-								.some((equip) => equip.combatData.tags.includes(relic.tag));
+						bbTagHolder.push({ key: relic.tag, type: 'tags' });
+						return () => true;
 					case Boolean(relic.subProfessionId):
 						return (char) => relic.subProfessionId.includes(char.subProfessionId);
 					default:
 						return () => true;
 				}
 			});
-		const bbTagHolder = [];
 		const filterFunctions = relicFilterFunctions.concat(
 			$filtersStore.reduce((acc, curr) => {
 				const selectedOptions = curr.options
