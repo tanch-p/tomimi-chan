@@ -1,12 +1,13 @@
 <script lang="ts">
-	export let line: string, className: string;
+	export let line: string,
+		className: string = '';
 	const patternsToIgnore = [
 		'<ba.magicfragile>',
 		'<ba.fragile>',
 		'<ba.elementfragile>',
 		'<ba.camou>',
 		'<ba.invisible>',
-		"<ba.steal>",
+		'<ba.steal>',
 		'<ba.stun>',
 		'<ba.sluggish>',
 		'<ba.root>',
@@ -43,6 +44,7 @@
 		{ prefix: '<@ba.vdown>', suffix: '</>', style: 'text-[#FF6237]' },
 		{ prefix: '<@ba.rem>', suffix: '</>', style: 'text-[#F49800]' },
 		{ prefix: '<@ba.kw>', suffix: '</>', style: 'text-[#00B0FF]' },
+		{ prefix: '#b', suffix: 'b#', style: 'text-[#20a8EC]' },
 		{ prefix: '$', suffix: '$', style: 'text-red-400 font-semibold' }
 	];
 	//due to a difference in resolving <@rolv.rem> in rogue3_b-3-b and rogue3_b-4-b, this should be written to resolve by patterns first.

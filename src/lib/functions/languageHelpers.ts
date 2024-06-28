@@ -1,6 +1,13 @@
 import type { Language } from '$lib/types';
 import translations from '$lib/translations.json';
 
+export function formatArray(arr, connector, connector_final) {
+	if (arr.length === 0) return '';
+	if (arr.length === 1) return arr[0].toString();
+
+	return arr.slice(0, -1).join(connector) + connector_final + arr.slice(-1);
+}
+
 export function floorPrefixSuffix(floor: number, language: Language) {
 	switch (language) {
 		case 'zh':

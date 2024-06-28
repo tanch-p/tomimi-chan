@@ -1,6 +1,7 @@
 import type { Language } from '$lib/types';
 import filterOptions from '$lib/data/chara/filter_options.json';
 import translations from '$lib/translations.json';
+import { formatArray } from './languageHelpers';
 
 const SEARCH_IN_TAGS = [
 	'phys',
@@ -255,7 +256,53 @@ const DISPLAY_KEYS_TABLE = {
 	priority_sleep: 'sleep',
 	dot: 'poison_damage'
 };
-
+const DAMAGE_TYPE_KEYS = ['phys', 'arts', 'true', 'ele_dmg'];
+const BUFF_TAGS = [
+	'inspire',
+	'berserk',
+	'protect',
+	'fragile',
+	'magicfragile',
+	'elementfragile',
+	'vigor',
+	'weaken'
+];
+const STAT_DEBUFFS = ['atk_down', 'def_down', 'res_down', 'aspd_down', 'ms_down', 'hitrate_down'];
+const DEBUFFS = [
+	'stun',
+	'sluggish',
+	'sleep',
+	'silence',
+	'cold',
+	'levitate',
+	'root',
+	'tremble',
+	'damage_scale',
+	'weightless',
+	'cancel_stealth',
+	'crit_wound'
+];
+const ALLY_STAT_PLUS = [
+	'ally_max_hp',
+	'ally_atk',
+	'ally_def',
+	'ally_res',
+	'ally_aspd',
+	'ally_block_up'
+];
+const ALLY_STAT_MINUS = ['ally_respawn_time', 'ally_cost_down', 'ally_block_down'];
+const ALLY_CAUSATION = ['change_target_priority'];
+const ALLY_BUFFS = [
+	'ally_damage_scale',
+	'ally_reflect_dmg',
+	'ally_apoptosis',
+	'ally_evasion',
+	'ally_shield',
+	'ally_block_dmg',
+	'ally_dmg_res',
+	'ally_undying',
+	'ally_env_dmg_reduce'
+];
 const ENEMY_KEYS = ['atk_down', 'def_down', 'res_down', 'aspd_down', 'ms_down', 'hitrate_down'];
 const ALLY_KEYS = [
 	'ally_max_hp',
@@ -402,60 +449,21 @@ const getConditionWeights = (key) => {
 	}
 };
 
-export const getSecFilterOptions = (key, store) => {
-	let storeVal;
-	store.subscribe((val) => (storeVal = val));
-	const optionsList = Object.entries(storeVal?.[key] ?? {}).filter(
-		([_, options]) => options.length > 0
-	);
-	if (KEYS_TO_CHECK_VALUE_TYPE.includes(key)) {
-		optionsList.push(['value_type', ['value_fixed', 'value_percent']]);
+const getCategoryKey = (key) => {
+	switch (true) {
+		case DAMAGE_TYPE_KEYS.includes(key):
+			return 'damage_type';
+		case STAT_DEBUFFS.includes(key):
+			return 'enemy_stat_debuff';
+		case ALLY_KEYS.includes(key):
+			return 'ally';
+		case ENEMY_KEYS.includes(key):
+			return 'enemy';
+		case [0, 1, 2, 3, 4, 5].includes(key):
+			return 'blockCnt';
+		default:
+			return 'others';
 	}
-	const returnArr = optionsList.map(([subKey, options]) => {
-		if (subKey === 'conditions' && !options.includes('condition_none')) {
-			options.push('condition_none');
-		}
-		if (subKey === 'targets') {
-			return {
-				subKey: subKey,
-				displayKey: getSecFilterDisplayKey(key, subKey),
-				options: ['single_target', 'few_target', 'aoe'],
-				type: 'options'
-			};
-		}
-		return {
-			subKey: subKey,
-			displayKey: getSecFilterDisplayKey(key, subKey),
-			options: options.sort((a, b) => getConditionWeights(a) - getConditionWeights(b)),
-			type: 'options'
-		};
-	});
-	switch (key) {
-		case 'force':
-			returnArr.push({
-				subKey: 'tags',
-				displayKey: 'category',
-				options: ['push', 'pull'],
-				type: 'options'
-			});
-			break;
-		case 'stun':
-		case 'sluggish':
-		case 'sleep':
-		case 'silence':
-		case 'cold':
-		case 'levitate':
-		case 'root':
-			returnArr.push({
-				subKey: 'value',
-				suffix: 'duration',
-				sign: 'gte',
-				value: 0,
-				type: 'compare'
-			});
-			break;
-	}
-	return returnArr;
 };
 
 export const getDisplayKey = (option) => {
@@ -1355,6 +1363,61 @@ export const compareValueType = (selectedOptions, value) => {
 		}
 	});
 };
+export const getSecFilterOptions = (key, store) => {
+	let storeVal;
+	store.subscribe((val) => (storeVal = val));
+	const optionsList = Object.entries(storeVal?.[key] ?? {}).filter(
+		([_, options]) => options.length > 0
+	);
+	if (KEYS_TO_CHECK_VALUE_TYPE.includes(key)) {
+		optionsList.push(['value_type', ['value_fixed', 'value_percent']]);
+	}
+	const returnArr = optionsList.map(([subKey, options]) => {
+		if (subKey === 'conditions' && !options.includes('condition_none')) {
+			options.push('condition_none');
+		}
+		if (subKey === 'targets') {
+			return {
+				subKey: subKey,
+				displayKey: getSecFilterDisplayKey(key, subKey),
+				options: ['single_target', 'few_target', 'aoe'],
+				type: 'options'
+			};
+		}
+		return {
+			subKey: subKey,
+			displayKey: getSecFilterDisplayKey(key, subKey),
+			options: options.sort((a, b) => getConditionWeights(a) - getConditionWeights(b)),
+			type: 'options'
+		};
+	});
+	switch (key) {
+		case 'force':
+			returnArr.push({
+				subKey: 'tags',
+				displayKey: 'category',
+				options: ['push', 'pull'],
+				type: 'options'
+			});
+			break;
+		case 'stun':
+		case 'sluggish':
+		case 'sleep':
+		case 'silence':
+		case 'cold':
+		case 'levitate':
+		case 'root':
+			returnArr.push({
+				subKey: 'value',
+				suffix: 'duration',
+				sign: 'gte',
+				value: 0,
+				type: 'compare'
+			});
+			break;
+	}
+	return returnArr;
+};
 
 export const genSecFilterOptions = (characters: []) => {
 	const obj = {};
@@ -1483,4 +1546,71 @@ const createSubFilterFunction = (list) => {
 		return [() => true];
 	}
 	return functions;
+};
+
+export const generateSkillDesc = (list, language: Language, filterMode) => {
+	//1. split array into indiv categories
+	const allyGroups = {};
+	const enemyGroups = {};
+	const otherGroups = {};
+	for (const key of list) {
+		const category = getCategoryKey(key);
+		let holder;
+		if (category.includes('ally')) {
+			holder = allyGroups;
+		} else if (category.includes('enemy')) {
+			holder = enemyGroups;
+		} else {
+			holder = otherGroups;
+		}
+		if (!holder[category]) {
+			holder[category] = [];
+		}
+		holder[category].push(key);
+	}
+	let text = '';
+	[
+		{ key: 'ally', holder: allyGroups },
+		{ key: 'enemy', holder: enemyGroups },
+		{ key: 'others', holder: otherGroups }
+	].forEach(({ key, holder }) => {
+		if (key !== 'others' && Object.keys(holder).length > 0) {
+			text += translations[language].chara_filter[`${key}_start`];
+		}
+		console.log(holder);
+		Object.entries(holder).forEach(([category, options], i) => {
+			console.log(category);
+			if (i > 0) {
+				text += '，';
+			}
+			const translatedStrings = options.map((key) => {
+				const displayKey = getDisplayKey(key);
+				return (
+					'#b' +
+					(category === 'blockCnt'
+						? key
+						: translations[language].table_headers[displayKey] ??
+						  translations[language][displayKey] ??
+						  translations[language].types[displayKey]) +
+					'b#'
+				);
+			});
+			const joinedString =
+				filterMode === 'OR' || category === 'blockCnt'
+					? translatedStrings.join('/')
+					: formatArray(
+							translatedStrings,
+							',',
+							translations[language].chara_filter.connector_and_inner
+					  );
+			text +=
+				(translations[language]['chara_filter']?.[`${category}_pre`] ?? '') +
+				joinedString +
+				(translations[language]['chara_filter']?.[`${category}_post`] ?? '');
+		});
+	});
+	if(Object.keys(allyGroups).length >0 || Object.keys(enemyGroups).length >0){
+		text = translations[language].chara_filter.skills_start + text;
+	}
+	return text;
 };

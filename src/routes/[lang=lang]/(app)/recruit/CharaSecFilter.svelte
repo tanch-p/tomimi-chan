@@ -56,7 +56,7 @@
 		});
 	};
 
-	$: console.log($secFiltersStore);
+	// $: console.log($secFiltersStore);
 </script>
 
 {#if $secFiltersStore?.length > 0}

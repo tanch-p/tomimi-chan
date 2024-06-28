@@ -80,10 +80,10 @@
 					combined can both lower enemies' Movespeed and stun enemies.<br /> Eg. Mostima, Mudrock
 					<br />
 					<br />
-					AND mode will filter through skills separately (As you can only equip 1 skill in battle). Example:
-					If you have selected Block Count 5 and Push/Pull Options, Gavial the Invincible, whose S3 increases
-					her Block Count to 5 and S2 allows her to pull enemy units, is unable to fulfill both options
-					at the same time.
+					This mode will filter through skills separately (As you can only equip 1 skill in battle).
+					Example: If you have selected Block Count 5 and Push/Pull Options, Gavial the Invincible, whose
+					S3 increases her Block Count to 5 and S2 allows her to pull enemy units, is unable to fulfill
+					both options at the same time.
 				{:else if language === 'zh'}
 					查询干员是否能满足所选的<span class="text-red-600">所有</span>选项。如果选择了<span
 						class="text-blue-600">降低移动速度</span
