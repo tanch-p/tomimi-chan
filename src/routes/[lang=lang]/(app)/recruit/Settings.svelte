@@ -1,9 +1,18 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
 	import translations from '$lib/translations.json';
-	import { filterMode } from './stores';
+	import { filterModeStore } from './stores';
+	import { cookiesEnabled } from '../../../stores';
+	import { browser } from '$app/environment';
 
 	export let language: Language;
+
+	const updateFilterMode = (val) => {
+		filterModeStore.set(val);
+		if (browser && cookiesEnabled) {
+			localStorage.setItem('filterMode', val);
+		}
+	};
 </script>
 
 <div class="bg-near-white rounded-md p-3 md:p-4 text-almost-black">
@@ -13,11 +22,11 @@
 	<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-2 md:gap-y-3 pt-3">
 		<p class="md:py-[5px]">{translations[language].filter_mode}</p>
 		<div class="flex flex-wrap gap-2">
-			{#each ['OR', 'AND'] as value}
+			{#each ['OR', 'AND', 'AND_STRICT'] as value}
 				<button
 					class="filter-btn"
-					class:active={$filterMode === value}
-					on:click={() => filterMode.set(value)}
+					class:active={$filterModeStore === value}
+					on:click={() => updateFilterMode(value)}
 				>
 					{value}
 				</button>
@@ -25,31 +34,50 @@
 		</div>
 	</div>
 	<div class="mt-4 max-w-[500px]">
-		{#if $filterMode === 'OR'}
+		{#if $filterModeStore === 'OR'}
 			<p class="text-lg">OR - {translations[language].general_search}</p>
 			<p>
 				{#if language === 'en'}
-					Queries by whether character's talent/module/skill is able to fulfill <span
+					Queries by whether operator's talent/module/skill is able to fulfill <span
 						class="text-red-600">ANY</span
 					> of the options selected.
 				{:else if language === 'zh'}
-					查询角色的天赋/模组/技能是否能满足所选的<span class="text-red-600">任何</span>选项。
+					查询干员的天赋/模组/技能是否能满足所选的<span class="text-red-600">任何</span>选项。
 				{:else}
-					キャラクターの素質/モジュール/スキルが、選択されたオプションの<span class="text-red-600"
+					オペレーターの素質/モジュール/スキルが、選択されたオプションの<span class="text-red-600"
 						>いずれか</span
 					>を満たすことができるかどうかを照会します。{/if}
 			</p>
-		{:else}
+		{:else if $filterModeStore === 'AND'}
 			<p class="text-lg">AND - {translations[language].specific_search}</p>
 			<p class="">
 				{#if language === 'en'}
-					Queries by whether character is able to fulfill <span class="text-red-600">ALL</span> of
+					Queries by whether operator's talent/module + <span class="text-[#508407]"
+						>ALL skills</span
+					>
+					is able to fulfill <span class="text-red-600">ALL</span> of the options (Excluding Basic Options)
+					selected.
+				{:else if language === 'zh'}
+					查询干员的天赋/模组和<span class="text-[#508407]">全部技能</span
+					>加起来是否能满足所选的<span class="text-red-600">所有</span>选项。
+				{:else}
+					オペレーターの素質/モジュールと<span class="text-[#508407]">全スキル</span
+					>の組み合わせが選択された<span class="text-red-600">すべて</span
+					>のオプションを満たすことができるかどうかを照会します。
+				{/if}
+			</p>
+		{:else}
+			<p class="text-lg">AND (STRICT) - {translations[language].specific_search_strict}</p>
+			<p class="">
+				{#if language === 'en'}
+					Queries by whether operator is able to fulfill <span class="text-red-600">ALL</span> of
 					the options (Excluding Basic Options) selected. If
 					<span class="text-blue-600">Movespeed Debuff</span>/<span class="text-yellow-600"
 						>Stun</span
 					>
-					options are selected, will return characters whose talent/module + skill combined can both
-					lower enemies' Movespeed and stun enemies.<br /> Eg. Mostima, Mudrock
+					options are selected, will return operators whose talent/module +
+					<span class="text-[#508407]">1 skill</span>
+					combined can both lower enemies' Movespeed and stun enemies.<br /> Eg. Mostima, Mudrock
 					<br />
 					<br />
 					AND mode will filter through skills separately (As you can only equip 1 skill in battle). Example:
@@ -57,10 +85,11 @@
 					her Block Count to 5 and S2 allows her to pull enemy units, is unable to fulfill both options
 					at the same time.
 				{:else if language === 'zh'}
-					查询角色是否能满足所选的<span class="text-red-600">所有</span>选项。如果选择了<span
+					查询干员是否能满足所选的<span class="text-red-600">所有</span>选项。如果选择了<span
 						class="text-blue-600">降低移动速度</span
-					>/<span class="text-yellow-600">晕眩</span
-					>选项，则将返回天赋/模组+技能结合后既能降低敌人移动速度又能使敌人晕眩的角色。
+					>/<span class="text-yellow-600">晕眩</span>选项，则将返回天赋/模组+<span
+						class="text-[#508407]">一个技能</span
+					>结合后既能降低敌人移动速度又能使敌人晕眩的干员。
 					<br />例：莫斯提马，泥岩
 					<br />
 					<br
@@ -74,8 +103,9 @@
 					選択された<span class="text-red-600">すべて</span
 					>のオプションを満たすことができるかどうかを照会します。
 					<span class="text-blue-600">移動速度低下</span>/<span class="text-yellow-600">スタン</span
-					>のオプションが選択されている場合、キャラクターの素質/モジュール+スキルの組み合わせで照合し、移動速度低下とスタンの両方が可能なキャラクターを返します。<br
-					/>
+					>のオプションが選択されている場合、オペレーターの素質/モジュールと<span
+						class="text-[#508407]">スキル1個</span
+					>の組み合わせで照合し、移動速度低下とスタンの両方が可能なオペレーターを返します。<br />
 					例：モスティマ、マドロック
 					<br />
 					<br />

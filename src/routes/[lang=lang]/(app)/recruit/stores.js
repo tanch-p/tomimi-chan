@@ -8,17 +8,20 @@ import {
 	getSortOptions,
 	getMaxValue,
 	professionWeights,
-	createFilterFunction
+	createFilterFunction,
+	createFilterFunctionOR
 } from '$lib/functions/charaHelpers';
 import { browser } from '$app/environment';
 import { cookiesEnabled } from '../../../stores';
 
 let releaseStatus = 'cn';
+let filterMode = 'AND';
 if (browser && cookiesEnabled) {
 	releaseStatus = localStorage.getItem('releaseStatus') || 'cn';
+	filterMode = localStorage.getItem('filterMode') || 'AND';
 }
 export const releaseStatusStore = writable(releaseStatus);
-export const filterMode = writable('AND');
+export const filterModeStore = writable(filterMode);
 
 export const globalCheck = derived(releaseStatusStore, ($releaseStatusStore) => (char) => {
 	if ($releaseStatusStore === 'cn') {
@@ -93,8 +96,8 @@ rogueTopic.subscribe((topic) =>
 
 //condition for true/false
 export const filters = derived(
-	[filtersStore, secFiltersStore, relicFiltersStore, rogueTopic],
-	([$filtersStore, $secFiltersStore, $relicFiltersStore, $rogueTopic]) => {
+	[filtersStore, secFiltersStore, relicFiltersStore, rogueTopic, filterModeStore],
+	([$filtersStore, $secFiltersStore, $relicFiltersStore, $rogueTopic, $filterModeStore]) => {
 		const relicFilterFunctions = $relicFiltersStore
 			.filter((option) => option.selected)
 			.map((option) => {
@@ -174,7 +177,11 @@ export const filters = derived(
 				return acc;
 			}, [])
 		);
-		filterFunctions.push(createFilterFunction(bbTagHolder, $secFiltersStore));
+		if ($filterModeStore === 'OR' || $filterModeStore === 'AND') {
+			filterFunctions.push(createFilterFunctionOR(bbTagHolder, $secFiltersStore, $filterModeStore));
+		} else {
+			filterFunctions.push(createFilterFunction(bbTagHolder, $secFiltersStore));
+		}
 		return function (char) {
 			if (filterFunctions.length === 0) {
 				return true;

@@ -3,7 +3,7 @@
 	import type { Language } from '$lib/types';
 	import { filters, globalCheck, sortFunction, secFilterOptions } from './stores';
 	import { getCharaList, genSecFilterOptions } from '$lib/functions/charaHelpers';
-	import DisplayContainer from './DisplayContainer.svelte';
+	import DisplayContainer from './ResultsContainer.svelte';
 	import CharaFilter from './CharaFilter.svelte';
 	import CharaFilterDesc from './CharaFilterDesc.svelte';
 	import CharaSortOptions from './CharaSortOptions.svelte';
