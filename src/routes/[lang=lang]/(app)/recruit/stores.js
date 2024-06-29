@@ -174,7 +174,9 @@ export const filters = derived(
 			}, [])
 		);
 		if ($filterModeStore === 'OR' || $filterModeStore === 'AND') {
-			filterFunctions.push(createNormalFilterFunction(bbTagHolder, $secFiltersStore, $filterModeStore));
+			filterFunctions.push(
+				createNormalFilterFunction(bbTagHolder, $secFiltersStore, $filterModeStore)
+			);
 		} else {
 			filterFunctions.push(createStrictFilterFunction(bbTagHolder, $secFiltersStore));
 		}
@@ -274,6 +276,19 @@ export const sortFunction = derived(sortOptions, ($sortOptions) => (a, b) => {
 	});
 	return values.length > 0 ? values.reduce((acc, curr) => acc || curr) : 0;
 });
+
+export const filterDescStore = derived(
+	[filtersStore, relicFiltersStore, filterModeStore, rogueTopic],
+	([$filtersStore, $relicFiltersStore, $filterModeStore, $rogueTopic]) => {
+		const activeOptions = $filtersStore.filter(({ options }) =>
+			options.some((val) => val.selected)
+		);
+		const relicActiveOptions = $relicFiltersStore
+			.map((option) => option.selected && option.id)
+			.filter(Boolean);
+		return { activeOptions, relicActiveOptions, filterMode: $filterModeStore, rogueTopic:$rogueTopic };
+	}
+);
 
 //TODO
 // sorting, grouping, AA, condition

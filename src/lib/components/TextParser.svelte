@@ -44,8 +44,9 @@
 		{ prefix: '<@ba.vdown>', suffix: '</>', style: 'text-[#FF6237]' },
 		{ prefix: '<@ba.rem>', suffix: '</>', style: 'text-[#F49800]' },
 		{ prefix: '<@ba.kw>', suffix: '</>', style: 'text-[#00B0FF]' },
-		{ prefix: '#r', suffix: 'r#', style: 'text-[#FFA5AF]' },
-		{ prefix: '#o', suffix: 'o#', style: 'text-[#FFC89B]' },
+		{ prefix: '<@bluehl>', suffix: '</>', style: 'text-[#30c8FC]' },
+		{ prefix: '<@enemy>', suffix: '</>', style: 'text-[#FFA5AF]' },
+		{ prefix: '<@ally>', suffix: '</>', style: 'text-[#FFC89B]' },
 		{ prefix: '$', suffix: '$', style: 'text-red-400 font-semibold' }
 	];
 	//due to a difference in resolving <@rolv.rem> in rogue3_b-3-b and rogue3_b-4-b, this should be written to resolve by patterns first.
