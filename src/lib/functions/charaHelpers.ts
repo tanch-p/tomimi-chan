@@ -1248,7 +1248,6 @@ export const getSortOptions = (key) => {
 			'cold',
 			'levitate',
 			'root',
-			'tremble',
 			'cancel_stealth',
 			'camouflage',
 			'taunt',
@@ -1256,7 +1255,21 @@ export const getSortOptions = (key) => {
 		].includes(key):
 			list.push({ key, subKey: 'value', suffix: 'duration', order: -1, priority: -1 });
 			break;
-		case ['damage_scale', 'ally_dmg_res', 'dmg_res'].includes(key):
+		case [
+			'damage_scale',
+			'dmg_res',
+			'ally_max_hp',
+			'ally_atk',
+			'ally_def',
+			'ally_res',
+			'ally_aspd',
+			'atk_down',
+			'def_down',
+			'res_down',
+			'aspd_down',
+			'ms_down',
+			'hitrate_down'
+		].includes(key):
 			list.push({ key, subKey: 'value', suffix: null, order: -1, priority: -1 });
 			list.push({ key, subKey: 'duration', suffix: 'duration', order: 0, priority: null });
 			break;
@@ -1284,7 +1297,10 @@ export const getSortOptions = (key) => {
 			'ally_block_down',
 			'ally_undying',
 			'ally_taunt',
-			'ally_camouflage'
+			'ally_camouflage',
+			'ally_reflect_dmg',
+			'ally_dmg_res',
+			'tremble'
 		].includes(key):
 			break;
 		default:

@@ -244,9 +244,14 @@ filtersStore.subscribe((list) => {
 			['rarity', 'profession', 'release_time'].includes(key)
 		);
 		for (const option of activeOptions) {
-			const sortOption = options.find(({ key }) => key === option);
-			if (sortOption) {
-				returnList.push(sortOption);
+			let existingOptions = [];
+			for (const sortOption of options) {
+				if (sortOption.key === option) {
+					existingOptions.push(sortOption);
+				}
+			}
+			if (existingOptions.length > 0) {
+				returnList.push(...existingOptions);
 			} else {
 				returnList = [...returnList, ...getSortOptions(option)];
 			}
@@ -286,7 +291,12 @@ export const filterDescStore = derived(
 		const relicActiveOptions = $relicFiltersStore
 			.map((option) => option.selected && option.id)
 			.filter(Boolean);
-		return { activeOptions, relicActiveOptions, filterMode: $filterModeStore, rogueTopic:$rogueTopic };
+		return {
+			activeOptions,
+			relicActiveOptions,
+			filterMode: $filterModeStore,
+			rogueTopic: $rogueTopic
+		};
 	}
 );
 
