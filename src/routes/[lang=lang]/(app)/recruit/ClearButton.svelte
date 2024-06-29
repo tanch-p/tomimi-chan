@@ -2,9 +2,9 @@
 	import type { Language } from '$lib/types';
 	import { filtersStore, relicFiltersStore } from './stores';
 	import Icon from '$lib/components/Icon.svelte';
-	import translations from "$lib/translations.json"
+	import translations from '$lib/translations.json';
 
-	export let language:Language
+	export let language: Language;
 
 	const reset = () => {
 		filtersStore.update((list) =>
@@ -25,15 +25,17 @@
 	};
 </script>
 
-<button
-	class="fixed bottom-[150px] right-[20px] md:right-[40px] z-50"
-	on:click={() => reset()}
-	id="scroll-top-button"
-	title={translations[language].filter_reset_button}
->
-	<div
-		class="flex items-center justify-center h-[45px] w-[45px] rounded-full bg-slate-700 hover:bg-[rgb(40,51,69)]"
+<div class="fixed max-w-[1280px] mx-auto inset-0 z-50 pointer-events-none">
+	<button
+		class="absolute bottom-[150px] right-[20px] md:right-[40px] pointer-events-auto"
+		on:click={() => reset()}
+		id="scroll-top-button"
+		title={translations[language].filter_reset_button}
 	>
-		<Icon name="trash" className="stroke-white" />
-	</div>
-</button>
+		<div
+			class="flex items-center justify-center h-[45px] w-[45px] rounded-full bg-slate-700 hover:bg-[rgb(40,51,69)]"
+		>
+			<Icon name="trash" className="stroke-white" />
+		</div>
+	</button>
+</div>

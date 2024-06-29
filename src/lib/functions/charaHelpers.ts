@@ -13,6 +13,7 @@ const SEARCH_IN_TAGS = [
 	'lower_target_priority',
 	'ally_lower_target_priority',
 	'min_damage',
+	'ally_spareshot',
 	'spareshot',
 	'revive',
 	'resist',
@@ -68,6 +69,7 @@ const SEARCH_IN_TAGS = [
 	'sarkaz',
 	'wildanimal',
 	'seamonster',
+	'cost_under_10',
 	'type_stun',
 	'type_sluggish',
 	'type_sleep',
@@ -78,6 +80,7 @@ const SEARCH_IN_TAGS = [
 	'type_tremble',
 	'blocked_enemy',
 	'no_block_enemy',
+	"self_no_block_enemy",
 	'priority_flying',
 	'priority_drone',
 	'priority_ranged',
@@ -223,7 +226,7 @@ const DISPLAY_KEYS_TABLE = {
 	ally_sp_gain: 'sp_gain',
 	ally_sp_regen: 'sp_regen',
 	ally_sp_stock: 'sp_stock',
-	ally_apoptosis: 'apoptosis',
+	ally_spareshot: 'spareshot',
 	status_immune: 'status_immune_text',
 	heal_self: 'heal_self_others',
 	bonus_flying: 'flying',
@@ -282,26 +285,138 @@ const DEBUFFS = [
 	'cancel_stealth',
 	'crit_wound'
 ];
-const ALLY_STAT_PLUS = [
+const ALLY_STAT_BUFFS = [
 	'ally_max_hp',
 	'ally_atk',
 	'ally_def',
 	'ally_res',
 	'ally_aspd',
-	'ally_block_up'
+	'ally_sp_regen',
+	'ally_sp_stock'
 ];
-const ALLY_STAT_MINUS = ['ally_respawn_time', 'ally_cost_down', 'ally_block_down'];
-const ALLY_CAUSATION = ['change_target_priority'];
-const ALLY_BUFFS = [
+const ALLY_NORMAL = [
+	'ally_block_down',
+	'ally_block_up',
+	'change_target_priority',
 	'ally_damage_scale',
-	'ally_reflect_dmg',
 	'ally_apoptosis',
+	'ally_heal_scale',
+	'ally_sp_gain',
+	'spareshot',
+	'ally_lower_target_priority'
+];
+const ALLY_STAT_MINUS = ['ally_respawn_time', 'ally_cost_down'];
+const ALLY_BUFFS = [
 	'ally_evasion',
 	'ally_shield',
+	'ally_reflect_dmg',
+	'ally_resist',
 	'ally_block_dmg',
 	'ally_dmg_res',
 	'ally_undying',
-	'ally_env_dmg_reduce'
+	'ally_env_dmg_reduce',
+	'ally_stealth',
+	'ally_camouflage',
+	'ally_taunt'
+];
+const SELF_CAN_TAGS = [
+	'remove_status',
+	'add_sp_gain_option',
+	'heal_ally',
+	'heal_unhealable',
+	'ignore_evasion',
+	'ignore_stealth',
+	'def_penetrate',
+	'res_penetrate',
+	'reflect_dmg',
+	'heal_self',
+	'sp_gain',
+	'spareshot',
+	'force',
+	'block_no_attack',
+	'revive',
+	'teleport_enemy',
+	'execute',
+	'slow_projectile',
+	'erase_projectile',
+	'reallocate_hp'
+];
+const SELF_BUFF_TAGS = [
+	'evasion',
+	'shield',
+	'block_dmg',
+	'dmg_res',
+	'undying',
+	'env_dmg_reduce',
+	'stealth',
+	'camouflage',
+	'taunt',
+	'lower_target_priority',
+	'resist',
+	'status_immune'
+];
+const SELF_STAT_BUFFS = ['sp_regen', 'sp_stock'];
+const HAVE_TAGS = [
+	'global_heal',
+	'squad_effect',
+	'min_damage',
+	'dot',
+	'aspd_unrelated',
+	'starting_cost'
+];
+const SKILL_HAVE_TAGS = [
+	'unlimited_duration',
+	'skill_invincible',
+	'charged',
+	'overdrive',
+	'trigger_time'
+];
+const PRIORITY_TAGS = [
+	'priority_flying',
+	'priority_drone',
+	'priority_ranged',
+	'priority_stun',
+	'priority_sleep',
+	'priority_highest_weight',
+	'priority_def_high',
+	'priority_def_low'
+];
+const SQUAD_TAGS = [
+	'abyssal',
+	'three_star',
+	'robot',
+	'student',
+	'kazimierz',
+	'rhine',
+	'karlan',
+	'minos',
+	'position_ranged',
+	'PIONEER',
+	'WARRIOR',
+	'SNIPER',
+	'TANK',
+	'MEDIC',
+	'SUPPORT',
+	'CASTER',
+	'SPECIAL',
+	'cost_under_10'
+];
+const TYPE_TAGS = [
+	'flying',
+	'drone',
+	'infection',
+	'sarkaz',
+	'wildanimal',
+	'seamonster',
+	'type_stun',
+	'type_sluggish',
+	'type_sleep',
+	'type_freeze',
+	'type_root',
+	'type_tremble',
+	'blocked_enemy',
+	'no_block_enemy',
+	"self_no_block_enemy"
 ];
 const ENEMY_KEYS = ['atk_down', 'def_down', 'res_down', 'aspd_down', 'ms_down', 'hitrate_down'];
 const ALLY_KEYS = [
@@ -448,22 +563,32 @@ const getConditionWeights = (key) => {
 			return 98;
 	}
 };
-
-const getCategoryKey = (key) => {
-	switch (true) {
-		case DAMAGE_TYPE_KEYS.includes(key):
-			return 'damage_type';
-		case STAT_DEBUFFS.includes(key):
-			return 'enemy_stat_debuff';
-		case ALLY_KEYS.includes(key):
-			return 'ally';
-		case ENEMY_KEYS.includes(key):
-			return 'enemy';
-		case [0, 1, 2, 3, 4, 5].includes(key):
-			return 'blockCnt';
-		default:
-			return 'others';
+const getFilterDescCategory = (key) => {
+	const categories = [
+		{ category: 'damage_type', keyList: DAMAGE_TYPE_KEYS },
+		{ category: 'enemy_stat_debuff', keyList: STAT_DEBUFFS },
+		{ category: 'enemy_debuff', keyList: DEBUFFS },
+		{ category: 'ally_stat_buff', keyList: ALLY_STAT_BUFFS },
+		{ category: 'ally_normal', keyList: ALLY_NORMAL },
+		{ category: 'ally_stat_minus', keyList: ALLY_STAT_MINUS },
+		{ category: 'ally_buff', keyList: ALLY_BUFFS },
+		{ category: 'have_tags', keyList: HAVE_TAGS },
+		{ category: 'buff_tags', keyList: BUFF_TAGS },
+		{ category: 'self_stat_buff', keyList: SELF_STAT_BUFFS },
+		{ category: 'self_can', keyList: SELF_CAN_TAGS },
+		{ category: 'self_buff', keyList: SELF_BUFF_TAGS },
+		{ category: 'skill_have', keyList: SKILL_HAVE_TAGS },
+		{ category: 'priority', keyList: PRIORITY_TAGS },
+		{ category: 'squad', keyList: SQUAD_TAGS },
+		{ category: 'type', keyList: TYPE_TAGS },
+		{ category: 'blockCnt', keyList: [0, 1, 2, 3, 4, 5] }
+	];
+	for (const { category, keyList } of categories) {
+		if (keyList.includes(key)) {
+			return category;
+		}
 	}
+	return 'others';
 };
 
 export const getDisplayKey = (option) => {
@@ -849,7 +974,7 @@ export const updateFilters = (key, value, store) => {
 		return list;
 	});
 };
-export const createFilterFunctionOR = (list, secFilters, filterMode) => {
+export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 	if (list.length === 0) {
 		return (char) => {
 			char.activeModuleIndex = -1;
@@ -865,11 +990,16 @@ export const createFilterFunctionOR = (list, secFilters, filterMode) => {
 			}
 			return acc;
 		}, []);
-	const secFiltersFunctions = secFilters
-		.filter(({ key }) => key !== 'blockCnt')
-		.reduce((acc, { key, list }) => {
-			const functions = createSubFilterFunction(list);
-			acc[key] = functions;
+	const secFiltersFunctions = list
+		.filter((val) => val.type === 'blackboard')
+		.reduce((acc, { key }) => {
+			const secFilter = secFilters.find((item) => item.key === key);
+			if (secFilter) {
+				const functions = createSubFilterFunction(secFilter.list);
+				acc[key] = functions;
+			} else {
+				acc[key] = [() => true];
+			}
 			return acc;
 		}, {});
 	return (char) => {
@@ -1036,7 +1166,7 @@ export const createFilterFunctionOR = (list, secFilters, filterMode) => {
 };
 
 //for tags/blackboard, either talent + skill or skill must fulfill all conditions
-export const createFilterFunction = (list, secFilters) => {
+export const createStrictFilterFunction = (list, secFilters) => {
 	if (list.length === 0) {
 		return (char) => {
 			char.activeModuleIndex = -1;
@@ -1052,11 +1182,16 @@ export const createFilterFunction = (list, secFilters) => {
 			}
 			return acc;
 		}, []);
-	const secFiltersFunctions = secFilters
-		.filter(({ key }) => key !== 'blockCnt')
-		.reduce((acc, { key, list }) => {
-			const functions = createSubFilterFunction(list);
-			acc[key] = functions;
+	const secFiltersFunctions = list
+		.filter((val) => val.type === 'blackboard')
+		.reduce((acc, { key }) => {
+			const secFilter = secFilters.find((item) => item.key === key);
+			if (secFilter) {
+				const functions = createSubFilterFunction(secFilter.list);
+				acc[key] = functions;
+			} else {
+				acc[key] = [() => true];
+			}
 			return acc;
 		}, {});
 	return (char) => {
@@ -1552,14 +1687,17 @@ export const generateSkillDesc = (list, language: Language, filterMode) => {
 	//1. split array into indiv categories
 	const allyGroups = {};
 	const enemyGroups = {};
+	const selfGroups = {};
 	const otherGroups = {};
 	for (const key of list) {
-		const category = getCategoryKey(key);
+		const category = getFilterDescCategory(key);
 		let holder;
 		if (category.includes('ally')) {
 			holder = allyGroups;
 		} else if (category.includes('enemy')) {
 			holder = enemyGroups;
+		} else if (category.includes('self')) {
+			holder = selfGroups;
 		} else {
 			holder = otherGroups;
 		}
@@ -1572,8 +1710,15 @@ export const generateSkillDesc = (list, language: Language, filterMode) => {
 	[
 		{ key: 'ally', holder: allyGroups },
 		{ key: 'enemy', holder: enemyGroups },
+		{ key: 'self', holder: selfGroups },
 		{ key: 'others', holder: otherGroups }
-	].forEach(({ key, holder }) => {
+	].forEach(({ key, holder }, i) => {
+		if (i > 0 && Object.keys(holder).length > 0) {
+			text +=
+				filterMode === 'OR'
+					? translations[language].chara_filter.connector_or
+					: translations[language].chara_filter.connector_and;
+		}
 		if (key !== 'others' && Object.keys(holder).length > 0) {
 			text += translations[language].chara_filter[`${key}_start`];
 		}
@@ -1586,13 +1731,13 @@ export const generateSkillDesc = (list, language: Language, filterMode) => {
 			const translatedStrings = options.map((key) => {
 				const displayKey = getDisplayKey(key);
 				return (
-					'#b' +
+					'<@ba.vup>' +
 					(category === 'blockCnt'
 						? key
 						: translations[language].table_headers[displayKey] ??
 						  translations[language][displayKey] ??
 						  translations[language].types[displayKey]) +
-					'b#'
+					'</>'
 				);
 			});
 			const joinedString =
@@ -1609,7 +1754,7 @@ export const generateSkillDesc = (list, language: Language, filterMode) => {
 				(translations[language]['chara_filter']?.[`${category}_post`] ?? '');
 		});
 	});
-	if(Object.keys(allyGroups).length >0 || Object.keys(enemyGroups).length >0){
+	if (Object.keys(allyGroups).length > 0 || Object.keys(enemyGroups).length > 0) {
 		text = translations[language].chara_filter.skills_start + text;
 	}
 	return text;

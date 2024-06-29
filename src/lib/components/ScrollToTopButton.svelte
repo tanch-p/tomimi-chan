@@ -11,10 +11,17 @@
 	});
 </script>
 
-<button hidden={!showButton} class="fixed bottom-[90px] right-[20px] md:right-[40px] z-50" on:click={() => window.scrollTo(0, 0)} id="scroll-top-button">
-	<div
-		class="flex items-center justify-center h-[45px] w-[45px] rounded-full bg-slate-700 hover:bg-[rgb(40,51,69)]"
+<div class="fixed max-w-[1280px] mx-auto inset-0 z-50 pointer-events-none">
+	<button
+		hidden={!showButton}
+		class="absolute bottom-[90px] right-[20px] md:right-[40px] pointer-events-auto"
+		on:click={() => window.scrollTo(0, 0)}
+		id="scroll-top-button"
 	>
-		<Icon name="down-arrow" className="rotate-180" />
-	</div>
-</button>
+		<div
+			class="flex items-center justify-center h-[45px] w-[45px] rounded-full bg-slate-700 hover:bg-[rgb(40,51,69)]"
+		>
+			<Icon name="down-arrow" className="rotate-180" />
+		</div>
+	</button>
+</div>

@@ -8,8 +8,8 @@ import {
 	getSortOptions,
 	getMaxValue,
 	professionWeights,
-	createFilterFunction,
-	createFilterFunctionOR
+	createStrictFilterFunction,
+	createNormalFilterFunction
 } from '$lib/functions/charaHelpers';
 import { browser } from '$app/environment';
 import { cookiesEnabled } from '../../../stores';
@@ -174,9 +174,9 @@ export const filters = derived(
 			}, [])
 		);
 		if ($filterModeStore === 'OR' || $filterModeStore === 'AND') {
-			filterFunctions.push(createFilterFunctionOR(bbTagHolder, $secFiltersStore, $filterModeStore));
+			filterFunctions.push(createNormalFilterFunction(bbTagHolder, $secFiltersStore, $filterModeStore));
 		} else {
-			filterFunctions.push(createFilterFunction(bbTagHolder, $secFiltersStore));
+			filterFunctions.push(createStrictFilterFunction(bbTagHolder, $secFiltersStore));
 		}
 		return function (char) {
 			if (filterFunctions.length === 0) {

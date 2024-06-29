@@ -63,9 +63,9 @@
 	<CharaPopup {language} />
 </div>
 
-<style>
+<!-- <style>
 	:global(.loading .filter-btn) {
 		pointer-events: none;
 		cursor: not-allowed;
 	}
-</style>
+</style> -->
