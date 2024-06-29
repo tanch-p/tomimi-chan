@@ -9,7 +9,8 @@ import {
 	getMaxValue,
 	professionWeights,
 	createStrictFilterFunction,
-	createNormalFilterFunction
+	createNormalFilterFunction,
+	createSecFilterFunction
 } from '$lib/functions/charaHelpers';
 import { browser } from '$app/environment';
 import { cookiesEnabled } from '../../../stores';
@@ -260,26 +261,35 @@ filtersStore.subscribe((list) => {
 	});
 });
 
-export const sortFunction = derived(sortOptions, ($sortOptions) => (a, b) => {
-	//filter out unselected options and sort by priority
-	const sortedArr = Array.from($sortOptions.filter((ele) => ele.order)).sort(
-		(a, b) => a.priority - b.priority
-	);
-	const values = sortedArr.map(({ key, subKey, order }) => {
-		switch (key) {
-			case 'rarity':
-				return a[key].localeCompare(b[key]) * order;
-			case 'profession':
-				return (professionWeights[a[key]] - professionWeights[b[key]]) * order;
-			case 'release_time':
-				return (a[key] - b[key]) * order;
-			default:
-				const valA = getMaxValue(a, key, subKey ?? 'value');
-				const valB = getMaxValue(b, key, subKey ?? 'value');
-				return (valA - valB) * order;
-		}
-	});
-	return values.length > 0 ? values.reduce((acc, curr) => acc || curr) : 0;
+export const secFilters = derived(secFiltersStore, ($secFiltersStore) =>
+	$secFiltersStore.reduce((acc, { key, list }) => {
+		acc[key] = createSecFilterFunction(list);
+		return acc;
+	}, {})
+);
+
+export const sortFunction = derived([sortOptions, secFilters], ([$sortOptions, $secFilters]) => {
+	return (a, b) => {
+		//filter out unselected options and sort by priority
+		const sortedArr = Array.from($sortOptions.filter((ele) => ele.order)).sort(
+			(a, b) => a.priority - b.priority
+		);
+		const values = sortedArr.map(({ key, subKey, order }) => {
+			switch (key) {
+				case 'rarity':
+					return a[key].localeCompare(b[key]) * order;
+				case 'profession':
+					return (professionWeights[a[key]] - professionWeights[b[key]]) * order;
+				case 'release_time':
+					return (a[key] - b[key]) * order;
+				default:
+					const valA = getMaxValue(a, key, subKey ?? 'value', $secFilters[key]);
+					const valB = getMaxValue(b, key, subKey ?? 'value', $secFilters[key]);
+					return (valA - valB) * order;
+			}
+		});
+		return values.length > 0 ? values.reduce((acc, curr) => acc || curr) : 0;
+	};
 });
 
 export const filterDescStore = derived(

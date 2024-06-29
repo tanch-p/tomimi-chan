@@ -1,14 +1,14 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
 	import translations from '$lib/translations.json';
-	import { selectedChara, moduleIndex } from './stores';
+	import { selectedChara, moduleIndex, sortOptions, secFilters } from './stores';
 	import CharaIcon from './CharaIcon.svelte';
-	import { getActiveModule } from '$lib/functions/charaHelpers';
+	import { getActiveModule, getPrioritySortValue } from '$lib/functions/charaHelpers';
 
 	export let chara, displayMode, language: Language;
 
 	$: equip = getActiveModule(chara);
-
+	$: values = getPrioritySortValue(chara, $sortOptions, $secFilters);
 	const handleClick = (chara, equip) => {
 		selectedChara.set(chara);
 		if (equip) {
@@ -23,7 +23,7 @@
 		on:click={() => handleClick(chara, equip)}
 		class="select-none border border-gray-600 border-opacity-50"
 	>
-		<CharaIcon {chara}>
+		<CharaIcon {chara} {values}>
 			{#if equip}
 				{@const typeIcon = equip.typeIcon.toLowerCase()}
 				{#await import(`../../../../lib/images/color_equip_icons/icon_${typeIcon}.webp`) then { default: src }}

@@ -508,40 +508,106 @@ const revertStatKey = (statKey) => {
 	}
 };
 
-//goes through talent and skills blackboard and gets maximum value of key
-export const getMaxValue = (char, key, subKey) => {
+const getAllValues = (char, key, subKey, functions) => {
 	const defaultValue = getDefaultValue(subKey);
+	if (!functions) functions = [() => true];
+	const values = [];
+	char.blackboard.forEach((ele) => {
+		if (ele.key === key && functions.every((fn) => fn(ele, char.tags))) {
+			values.push(ele[subKey] ?? defaultValue);
+		}
+	});
+	char.tokens.forEach((token) => {
+		token.blackboard.forEach((ele) => {
+			if (ele.key === key && functions.every((fn) => fn(ele, token.tags))) {
+				values.push(ele[subKey] ?? defaultValue);
+			}
+		});
+	});
+	char.skills.forEach((skill) => {
+		skill.blackboard.forEach((ele) => {
+			if (ele.key === key && functions.every((fn) => fn(ele, skill.tags))) {
+				values.push(ele[subKey] ?? defaultValue);
+			}
+		});
+	});
+	char.talents.forEach((talent) => {
+		talent.blackboard.forEach((ele) => {
+			if (ele.key === key && functions.every((fn) => fn(ele, talent.tags))) {
+				values.push(ele[subKey] ?? defaultValue);
+			}
+		});
+	});
+	char.uniequip
+		.filter((equip) => equip.combatData)
+		.forEach((equip) => {
+			equip.combatData.blackboard.forEach((ele) => {
+				if (ele.key === key && functions.every((fn) => fn(ele, equip.combatData.tags))) {
+					values.push(ele[subKey] ?? defaultValue);
+				}
+			});
+		});
+	return values;
+};
+
+//goes through talent and skills blackboard and gets maximum value of key
+//startValue changed to -1 because of force level...
+export const getMaxValue = (char, key, subKey, functions) => {
+	const defaultValue = getDefaultValue(subKey);
+	const startValue = -1;
+	if (!functions) functions = [() => true];
 	return Math.max(
-		char.skills.reduce((acc, curr) => {
-			let value = 0;
+		char.blackboard.reduce((acc, curr) => {
+			let value = startValue;
+			if (curr.key === key && functions.every((fn) => fn(curr, char.tags))) {
+				const val = curr[subKey] ?? defaultValue;
+				if (val > value) value = val;
+			}
+			return (acc = Math.max(acc, value));
+		}, startValue),
+		char.tokens.reduce((acc, curr) => {
+			let value = startValue;
 			curr.blackboard.forEach((ele) => {
-				if (ele.key === key) {
+				if (ele.key === key && functions.every((fn) => fn(ele, curr.tags))) {
 					const val = ele[subKey] ?? defaultValue;
 					if (val > value) value = val;
 				}
 			});
 			return (acc = Math.max(acc, value));
-		}, 0),
-		char.talents.reduce((acc, curr) => {
-			let value = 0;
+		}, startValue),
+		char.skills.reduce((acc, curr) => {
+			let value = startValue;
 			curr.blackboard.forEach((ele) => {
-				if (ele.key === key) {
-					value = ele[subKey] ?? defaultValue;
+				if (ele.key === key && functions.every((fn) => fn(ele, curr.tags))) {
+					const val = ele[subKey] ?? defaultValue;
+					if (val > value) value = val;
 				}
 			});
 			return (acc = Math.max(acc, value));
-		}, 0),
+		}, startValue),
+		char.talents.reduce((acc, curr) => {
+			let value = startValue;
+			curr.blackboard.forEach((ele) => {
+				if (ele.key === key && functions.every((fn) => fn(ele, curr.tags))) {
+					const val = ele[subKey] ?? defaultValue;
+					if (val > value) value = val;
+				}
+			});
+			return (acc = Math.max(acc, value));
+		}, startValue),
 		char.uniequip
 			.filter((equip) => equip.combatData)
 			.reduce((acc, curr) => {
-				let value = 0;
+				let value = startValue;
 				curr.combatData.blackboard.forEach((ele) => {
-					if (ele.key === key) {
-						value = ele[subKey] ?? defaultValue;
+					if (ele.key === key && functions.every((fn) => fn(ele, curr.combatData.tags))) {
+						const val = ele[subKey] ?? defaultValue;
+						if (val > value) value = val;
 					}
 				});
 				return (acc = Math.max(acc, value));
-			}, 0)
+			}, startValue),
+		key === 'force' ? -1 : 0
 	);
 };
 export const getDefaultValue = (key) => {
@@ -729,6 +795,53 @@ export const getActiveModule = (char) => {
 	return char.uniequip.filter((equip) => equip.combatData)?.[char.activeModuleIndex];
 };
 
+export const getPrioritySortValue = (char, sortOptions, secFilters) => {
+	const priorityOption = sortOptions.find((ele) => ele.priority === 1);
+	if (!priorityOption) {
+		return 0;
+	}
+	const { key, subKey, order } = priorityOption;
+	const values = getAllValues(char, key, subKey ?? 'value', secFilters[key]);
+	const uniqueValues = [...new Set(values)];
+	uniqueValues.sort((a, b) => (a - b) * order);
+	return uniqueValues
+		.map((value) => {
+			if (!value && key !== 'force') return;
+			if (value === 999) return '-';
+			if (
+				['duration'].includes(subKey) ||
+				[
+					'stun',
+					'sluggish',
+					'sleep',
+					'silence',
+					'cold',
+					'levitate',
+					'root',
+					'tremble',
+					'ally_sp_regen',
+					'shield',
+					'ally_shield',
+					'sp_regen',
+					'force'
+				].includes(key)
+			) {
+				return value.toString();
+			}
+			if (['damage_scale', 'ally_damage_scale', 'ally_heal_scale'].includes(key) && value < 4.9) {
+				return `${Math.round((value - 1) * 100)}%`;
+			}
+			if (['ally_sp_gain', 'sp_gain'].includes(key)) {
+				return value < 1 ? `${Math.round(value * 100)}%` : value;
+			}
+			if (value < 1.01) {
+				return `${Math.round(value * 100)}%`;
+			}
+			return value;
+		})
+		.filter(key === 'force' ? () => true : Boolean);
+};
+
 export const addOptionsToAcc = (acc, options) => {
 	const blackboardIndex = acc.findIndex((ele) => ele.key === 'blackboard');
 	const tagsIndex = acc.findIndex((ele) => ele.key === 'tags');
@@ -808,7 +921,7 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 		.reduce((acc, { key }) => {
 			const secFilter = secFilters.find((item) => item.key === key);
 			if (secFilter) {
-				const functions = createSubFilterFunction(secFilter.list);
+				const functions = createSecFilterFunction(secFilter.list);
 				acc[key] = functions;
 			} else {
 				acc[key] = [() => true];
@@ -1000,7 +1113,7 @@ export const createStrictFilterFunction = (list, secFilters) => {
 		.reduce((acc, { key }) => {
 			const secFilter = secFilters.find((item) => item.key === key);
 			if (secFilter) {
-				const functions = createSubFilterFunction(secFilter.list);
+				const functions = createSecFilterFunction(secFilter.list);
 				acc[key] = functions;
 			} else {
 				acc[key] = [() => true];
@@ -1257,6 +1370,7 @@ export const getSortOptions = (key) => {
 			break;
 		case [
 			'damage_scale',
+			'ally_dmg_res',
 			'dmg_res',
 			'ally_max_hp',
 			'ally_atk',
@@ -1273,12 +1387,8 @@ export const getSortOptions = (key) => {
 			list.push({ key, subKey: 'value', suffix: null, order: -1, priority: -1 });
 			list.push({ key, subKey: 'duration', suffix: 'duration', order: 0, priority: null });
 			break;
-		case ['evasion', 'ally_evasion'].includes(key):
+		case ['evasion', 'ally_evasion', 'block_dmg'].includes(key):
 			list.push({ key, subKey: 'value', suffix: 'prob', order: -1, priority: -1 });
-			list.push({ key, subKey: 'duration', suffix: 'duration', order: 0, priority: null });
-			break;
-		case ['block_dmg', 'ally_block_dmg'].includes(key):
-			list.push({ key, subKey: 'value', suffix: 'prob', order: 0, priority: null });
 			list.push({ key, subKey: 'duration', suffix: 'duration', order: 0, priority: null });
 			break;
 		case key === 'force':
@@ -1299,8 +1409,9 @@ export const getSortOptions = (key) => {
 			'ally_taunt',
 			'ally_camouflage',
 			'ally_reflect_dmg',
-			'ally_dmg_res',
-			'tremble'
+			'tremble',
+			'ally_cost_down',
+			'ally_block_dmg'
 		].includes(key):
 			break;
 		default:
@@ -1459,7 +1570,7 @@ const getSecFilterDisplayKey = (key, subKey) => {
 	}
 };
 
-const createSubFilterFunction = (list) => {
+export const createSecFilterFunction = (list) => {
 	const functions = [];
 	for (const { subKey, type, options, sign, value } of list) {
 		let fn = () => true;
