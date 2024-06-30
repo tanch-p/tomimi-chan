@@ -13,7 +13,8 @@ const BUFF_TAGS = [
 	'magicfragile',
 	'elementfragile',
 	'vigor',
-	'weaken'
+	'weaken',
+	"barrier"
 ];
 const STAT_DEBUFFS = ['atk_down', 'def_down', 'res_down', 'aspd_down', 'ms_down', 'hitrate_down'];
 const DEBUFFS = [
@@ -47,7 +48,7 @@ const ALLY_NORMAL = [
 	'ally_apoptosis',
 	'ally_heal_scale',
 	'ally_sp_gain',
-	'spareshot',
+	'ally_spareshot',
 	'ally_lower_target_priority'
 ];
 const ALLY_STAT_MINUS = ['ally_respawn_time', 'ally_cost_down'];
@@ -84,7 +85,7 @@ const SELF_CAN_TAGS = [
 	'execute',
 	'slow_projectile',
 	'erase_projectile',
-	'reallocate_hp'
+	'reallocate_hp',
 ];
 const SELF_BUFF_TAGS = [
 	'evasion',
@@ -107,7 +108,8 @@ const HAVE_TAGS = [
 	'min_damage',
 	'dot',
 	'aspd_unrelated',
-	'starting_cost'
+	'starting_cost',
+	'global_range'
 ];
 const SKILL_HAVE_TAGS = [
 	'unlimited_duration',
@@ -164,17 +166,6 @@ const TYPE_TAGS = [
 	'self_no_block_enemy'
 ];
 
-export const professionWeights = {
-	PIONEER: 0,
-	WARRIOR: 1,
-	SNIPER: 2,
-	TANK: 3,
-	MEDIC: 4,
-	SUPPORT: 5,
-	CASTER: 6,
-	SPECIAL: 7
-};
-
 const getFilterDescCategory = (key) => {
 	const categories = [
 		{ category: 'damage_type', keyList: DAMAGE_TYPE_KEYS },
@@ -203,6 +194,7 @@ const getFilterDescCategory = (key) => {
 	return 'others';
 };
 export const generateSkillDesc = (
+	activeOptions,
 	list,
 	language: Language,
 	filterMode,

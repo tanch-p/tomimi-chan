@@ -20,6 +20,7 @@ const SEARCH_IN_TAGS = [
 	'first_token_free',
 	'global_move_speed_down',
 	'global_heal',
+	"global_range",
 	'heal_unhealable',
 	'heal_on_damage',
 	'ignore_evasion',
