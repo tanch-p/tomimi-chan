@@ -4,6 +4,12 @@ import star_3 from '$lib/images/chara_assets/star_3.webp';
 import star_4 from '$lib/images/chara_assets/star_4.webp';
 import star_5 from '$lib/images/chara_assets/star_5.webp';
 import star_6 from '$lib/images/chara_assets/star_6.webp';
+import rarity_1 from '$lib/images/chara_assets/rarity_0.png';
+import rarity_2 from '$lib/images/chara_assets/rarity_1.png';
+import rarity_3 from '$lib/images/chara_assets/rarity_2.png';
+import rarity_4 from '$lib/images/chara_assets/rarity_3.png';
+import rarity_5 from '$lib/images/chara_assets/rarity_4.png';
+import rarity_6 from '$lib/images/chara_assets/rarity_5.png';
 import pioneer from '$lib/images/chara_assets/icon_profession_pioneer.webp';
 import warrior from '$lib/images/chara_assets/icon_profession_warrior.webp';
 import sniper from '$lib/images/chara_assets/icon_profession_sniper.webp';
@@ -50,6 +56,12 @@ export const charaAssets = {
 	TIER_4: star_4,
 	TIER_5: star_5,
 	TIER_6: star_6,
+	sandbox_TIER_1: rarity_1,
+	sandbox_TIER_2: rarity_2,
+	sandbox_TIER_3: rarity_3,
+	sandbox_TIER_4: rarity_4,
+	sandbox_TIER_5: rarity_5,
+	sandbox_TIER_6: rarity_6,
 	PIONEER: pioneer,
 	WARRIOR: warrior,
 	SNIPER: sniper,

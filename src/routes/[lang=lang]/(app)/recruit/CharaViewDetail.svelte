@@ -11,11 +11,19 @@
 		getTotalPotStat
 	} from '$lib/functions/charaHelpers';
 	import { selectedChara, moduleIndex, sortOptions } from './stores';
-	import { parseConditions } from '$lib/functions/languageHelpers';
 	import Icon from '$lib/components/Icon.svelte';
 	import RangeParser from '$lib/components/RangeParser.svelte';
 
 	export let chara, equip, items, language: Language;
+
+	const rarityBgColors = {
+		TIER_1: 'bg-[#c1c1c1]',
+		TIER_2: 'bg-[#c4cc71]',
+		TIER_3: 'bg-[#8eb3c3]',
+		TIER_4: 'bg-[#be95c6]',
+		TIER_5: 'bg-[#f8ca2c]',
+		TIER_6: 'bg-[#c12d2d]'
+	};
 
 	let prioritySortOption;
 	sortOptions.subscribe((list) => {
@@ -37,10 +45,13 @@
 </script>
 
 <div>
-	<div class="relative z-[1] bg-yellow-500 pl-1.5 rounded-md">
-		<div class="grid grid-cols-[120px_1fr] p-1.5 shadow-md rounded-md bg-white">
-			<button on:click={() => handleClick(chara, equip)} class="relative pl-6 pr-4">
-				<div class="absolute z-[1] top-0 left-0 bg-[#282828] p-1 rounded-md">
+	<div class="relative z-[1] {rarityBgColors[chara.rarity]} pl-1.5 rounded-md">
+		<div class="grid grid-cols-[130px_1fr] p-1.5 pb-0 shadow-md rounded-md bg-white">
+			<button
+				on:click={() => handleClick(chara, equip)}
+				class="relative pl-[1.125rem] pr-4 h-[102px]"
+			>
+				<div class="absolute z-[1] top-0 left-0 bg-[#2c2c2c] p-1 rounded-md">
 					<img
 						src={charaAssets[chara.profession]}
 						alt={chara.profession}
@@ -52,66 +63,76 @@
 				<div class="feathered">
 					<img src={chara.icon} width="100" height="100" alt={chara.appellation} />
 				</div>
-				<div class="absolute z-[1] bottom-3.5 left-0">
+				<div class="absolute z-[1] bottom-4 left-0">
 					{#if chara.potential.length > 0}
-						<img src={charaAssets.potential[5]} width="30" alt="p5" />
+						<img src={charaAssets.potential[5]} width="30" alt="p5" class="potential-shadow" />
 					{:else}
 						<img src={charaAssets.potential[0]} width="30" alt="p0" />
 					{/if}
 				</div>
 				<img
-					src={charaAssets[chara.rarity]}
+					src={charaAssets['sandbox_' + chara.rarity]}
 					alt={chara.rarity}
-					class="absolute z-[1] bottom-[-3px] left-0 h-[20px]"
+					class="absolute z-[1] bottom-0 left-0 h-[20px]"
 				/>
-				<img
-					src={charaAssets['phase'][phase]}
-					width="30"
-					alt="E{phase}"
-					class="absolute z-[2] right-0 bottom-[22px]"
-				/>
-				<div class="absolute z-[1] right-0 bottom-0">
-					<div class="flex items-center justify-center level-shadow rounded-full h-[24px] w-[24px]">
+
+				<div class="absolute z-[1] -right-2.5 -bottom-0.5">
+					<img
+						src={charaAssets['phase'][phase]}
+						width="36"
+						alt="E{phase}"
+						class="absolute z-[2] bottom-[32px] left-[50%] -translate-x-[50%]"
+					/>
+					<svg width="0">
+						<clipPath id="teardrop">
+							<path
+								fill="transparent"
+								stroke="#000"
+								stroke-width="1.5"
+								d="M10.3 4.86
+								   Q25.515 7.938 40.5 28.16
+								   A20.736 20.736 0 1 1 8.1 28.16
+								   Q35.085 7.938 15.3 4.86z"
+							/>
+						</clipPath>
+					</svg>
+					<div class="raindrop-wrap">
+						<div class="raindrop-shadow w-[47px] h-[68px]" />
+					</div>
+					<div
+						class="absolute bottom-3 left-[50%] -translate-x-[50%] flex items-center justify-center"
+					>
 						<p class="text-xl">{chara.stats.level}</p>
 					</div>
 				</div>
 			</button>
 			<div class="text-[#333]">
-				<h3 class="border-b border-gray-400">{chara.name}</h3>
-				<div class="gap-x-[10px] pt-1.5">
-					<!-- <div
-						class:none={chara.uniequip.length === 0}
-						class="relative shrink-0 module mt-3 mr-1 w-[40px] h-[40px] border-4 border-gray-400"
-					>
-						{#if equip}
-							{@const typeIcon = equip.typeIcon.toLowerCase()}
-							{#await import(`../../../../lib/images/equip_icons/icon_${typeIcon}.webp`) then { default: src }}
-								<div
-									class="absolute left-[-2px] top-[-2px] w-[32px] h-[32px] bg-center bg-contain invert"
-									style="background-image: url({src});"
-								/>
-							{/await}
-						{/if}
-					</div> -->
+				<h3 class="border-b border-gray-400 font-medium">{chara.name}</h3>
+				<div class="pt-1.5">
 					{#if items.length > 0 || true}
 						<div class="flex">
-							<div class="grid grid-flow-col auto-cols-[40px]">
-								<div class="bg-black flex items-center justify-center h-[40px] p-1">
-									{#await import(`../../../../lib/images/chara_assets/sub_${chara.subProfessionId}_icon.webp`) then { default: src }}
+							<div
+								class:none={chara.uniequip.length === 0}
+								class="relative shrink-0 module mt-3 mr-1 w-[40px] h-[40px] border-4 border-[#ddd]"
+							>
+								{#if equip}
+									{@const typeIcon = equip.typeIcon.toLowerCase()}
+									{#await import(`../../../../lib/images/equip_icons/icon_${typeIcon}.webp`) then { default: src }}
 										<div
-											class="w-full h-full bg-center bg-contain bg-no-repeat bg-black"
+											class="absolute inset-0 w-[32px] h-[32px] bg-center bg-contain bg-no-repeat invert"
 											style="background-image: url({src});"
 										/>
 									{/await}
-								</div>
+								{/if}
 							</div>
-							<div class="flex flex-col items-center p-1.5 pb-1 bg-[#161616] bg-opacity-80 rounded">
+							<div class="flex flex-col items-center py-0.5 px-1.5 bg-[#7f7f7f] rounded">
 								<div class="flex justify-center items-center min-h-[45px] max-h-[65px] w-[55px]">
-									<RangeParser rangeId={getAttackRangeId(chara, $moduleIndex, 0)} />
+									<RangeParser
+										rangeId={getAttackRangeId(chara, chara.activeModuleIndex, 0)}
+										size="small"
+									/>
 								</div>
-								<p class="mt-1 text-near-white text-xs">
-									{translations[language].attack_range}
-								</p>
+								<p class="text-near-white text-xs">{translations[language].attack_range}</p>
 							</div>
 						</div>
 					{:else}
@@ -227,9 +248,21 @@
 </div>
 
 <style>
+	.potential-shadow {
+		filter: drop-shadow(0 2px 1.5px #333a);
+	}
+	.raindrop-wrap {
+		filter: blur(3.5px);
+	}
+	.raindrop-shadow {
+		clip-path: url(#teardrop);
+		background: radial-gradient(#333d, #333d 40%, #3331 70%);
+	}
 	.level-shadow {
-		background: #444;
-		box-shadow: 0 0 5px 5px #333;
+		width: 20px;
+		height: 20px;
+		background-color: #666;
+		box-shadow: 0 0 6px 8px #666;
 	}
 	.feathered {
 		position: relative;
@@ -241,7 +274,7 @@
 		position: absolute;
 		display: block;
 		inset: 0;
-		box-shadow: inset 0 0 12px 2px #fff;
+		box-shadow: inset 0 0 12px 4px #fff;
 	}
 	.module.none:after {
 		content: '';
@@ -250,17 +283,7 @@
 		left: 3px;
 		width: calc(1px * sqrt(pow(18, 2) * 2) - 1px);
 		height: 2px;
-		background-color: #555;
-		transform: rotate(-45deg);
-	}
-	.skill.none:after {
-		content: '';
-		position: absolute;
-		top: 50%;
-		left: 3px;
-		width: calc(1px * sqrt(pow(38, 2) * 2) - 1px);
-		height: 2px;
-		background-color: #555;
+		background-color: #ddd;
 		transform: rotate(-45deg);
 	}
 

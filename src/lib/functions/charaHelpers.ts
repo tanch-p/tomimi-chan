@@ -20,7 +20,7 @@ const SEARCH_IN_TAGS = [
 	'first_token_free',
 	'global_move_speed_down',
 	'global_heal',
-	"global_range",
+	'global_range',
 	'heal_unhealable',
 	'heal_on_damage',
 	'ignore_evasion',
@@ -837,10 +837,10 @@ export const getTokenPosition = (token, uniequip) => {
 };
 
 export const getActiveModule = (char) => {
-	if (char.activeModuleIndex === -1) {
+	if (!char.activeModuleIndex) {
 		return;
 	}
-	return char.uniequip.filter((equip) => equip.combatData)?.[char.activeModuleIndex];
+	return char.uniequip?.[char.activeModuleIndex];
 };
 
 export const getPrioritySortItemsAndValue = (char, sortOptions, secFilters) => {
@@ -955,7 +955,7 @@ export const updateFilters = (key, value, store) => {
 export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 	if (list.length === 0) {
 		return (char) => {
-			char.activeModuleIndex = -1;
+			char.activeModuleIndex = 0;
 			return true;
 		};
 	}
@@ -983,7 +983,7 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 	return (char) => {
 		const initialRemainder = [];
 		let equipIndex = -1;
-		char.activeModuleIndex = -1;
+		char.activeModuleIndex = 0;
 
 		list.forEach((searchItem) => {
 			const { key, type } = searchItem;
@@ -996,7 +996,7 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 					let equipIndex = char.uniequip
 						.filter((equip) => equip.combatData)
 						.findIndex((equip) => equip.combatData.tags.includes('position_all'));
-					char.activeModuleIndex = equipIndex;
+					char.activeModuleIndex = equipIndex + 1;
 					equipIndex === -1 && initialRemainder.push(searchItem);
 				}
 			} else if (type === 'tags') {
@@ -1012,7 +1012,7 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 						.filter((equip) => equip.combatData)
 						.findIndex((equip) => equip.combatData.tags.includes(key));
 					if (equipIndex !== -1) {
-						char.activeModuleIndex = equipIndex;
+						char.activeModuleIndex = equipIndex + 1;
 					} else initialRemainder.push(searchItem);
 				}
 			} else if (type === 'blackboard') {
@@ -1055,7 +1055,7 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 							)
 						);
 					if (equipIndex !== -1) {
-						char.activeModuleIndex = equipIndex;
+						char.activeModuleIndex = equipIndex + 1;
 					} else initialRemainder.push(searchItem);
 				}
 			} else if (type === 'blockCnt') {
@@ -1072,7 +1072,7 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 							equipIndex = char.uniequip
 								.filter((equip) => equip.combatData)
 								.findIndex((equip) => equip.typeIcon === option.module);
-							char.activeModuleIndex = equipIndex;
+							char.activeModuleIndex = equipIndex + 1;
 						}
 					} else {
 						initialRemainder.push(searchItem);
@@ -1100,7 +1100,7 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 						if (equipIndex === -1) {
 							initialRemainder.push(searchItem);
 						} else {
-							char.activeModuleIndex = equipIndex;
+							char.activeModuleIndex = equipIndex + 1;
 						}
 					}
 				} else {
@@ -1129,7 +1129,7 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 						if (equipIndex === -1) {
 							initialRemainder.push(searchItem);
 						} else {
-							char.activeModuleIndex = equipIndex;
+							char.activeModuleIndex = equipIndex + 1;
 						}
 					}
 				}
@@ -1147,7 +1147,7 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 export const createStrictFilterFunction = (list, secFilters) => {
 	if (list.length === 0) {
 		return (char) => {
-			char.activeModuleIndex = -1;
+			char.activeModuleIndex = 0;
 			return true;
 		};
 	}
@@ -1177,7 +1177,7 @@ export const createStrictFilterFunction = (list, secFilters) => {
 		const skillRemainder = [];
 		const finalRemainder = [];
 		let equipIndex = -1;
-		char.activeModuleIndex = -1;
+		char.activeModuleIndex = 0;
 
 		list.forEach((searchItem) => {
 			const { key, type } = searchItem;
@@ -1190,7 +1190,7 @@ export const createStrictFilterFunction = (list, secFilters) => {
 					let equipIndex = char.uniequip
 						.filter((equip) => equip.combatData)
 						.findIndex((equip) => equip.combatData.tags.includes('position_all'));
-					char.activeModuleIndex = equipIndex;
+					char.activeModuleIndex = equipIndex + 1;
 					equipIndex === -1 && initialRemainder.push(searchItem);
 				}
 			} else if (type === 'tags') {
@@ -1255,7 +1255,7 @@ export const createStrictFilterFunction = (list, secFilters) => {
 						if (equipIndex === -1) {
 							initialRemainder.push(searchItem);
 						} else {
-							char.activeModuleIndex = equipIndex;
+							char.activeModuleIndex = equipIndex + 1;
 						}
 					}
 				} else if (
@@ -1308,7 +1308,7 @@ export const createStrictFilterFunction = (list, secFilters) => {
 							equipIndex = char.uniequip
 								.filter((equip) => equip.combatData)
 								.findIndex((equip) => equip.typeIcon === item.module);
-							char.activeModuleIndex = equipIndex;
+							char.activeModuleIndex = equipIndex + 1;
 						}
 					} else {
 						const statPass =
@@ -1326,7 +1326,7 @@ export const createStrictFilterFunction = (list, secFilters) => {
 									equipIndex = char.uniequip
 										.filter((equip) => equip.combatData)
 										.findIndex((equip) => equip.typeIcon === item.module);
-									char.activeModuleIndex = equipIndex;
+									char.activeModuleIndex = equipIndex + 1;
 								}
 							} else {
 								remainder.push(searchItem);
@@ -1381,7 +1381,7 @@ export const createStrictFilterFunction = (list, secFilters) => {
 				})
 			);
 			if (equipIndex !== -1) {
-				char.activeModuleIndex = equipIndex;
+				char.activeModuleIndex = equipIndex + 1;
 				return true;
 			}
 		}

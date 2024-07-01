@@ -6,6 +6,8 @@ Provides a list of svg icons that can be referenced through the `Icon` component
 	<svg>
 		<rect id="sq-blue" fill="#27a6f3" width="22" height="22" />
 		<rect id="sq-outline" fill="none" stroke="gray" stroke-width="1.5" width="22" height="22" />
+		<rect id="sq-white" fill="#f6f6f6" width="10" height="10" />
+		<rect id="sq-outline-sm" fill="none" stroke="#acacac" stroke-width="1.5" width="10" height="10" />
 		<symbol id="x-mark" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
 			<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
 		</symbol>

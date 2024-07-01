@@ -1,7 +1,9 @@
 <script lang="ts">
 	import rangeTable from '$lib/data/range_table.json';
 	export let rangeId,
+		size,
 		extend = 0;
+
 	let grids,
 		width: number,
 		height: number,
@@ -9,7 +11,8 @@
 		minRow: number,
 		maxRow: number,
 		minCol: number,
-		maxCol: number;
+		maxCol: number,
+		sqSize = size === 'small' ? 12 : 26;
 	$: grids = extendGrids(rangeTable?.[rangeId]?.grids, extend);
 	$: if (grids) {
 		noCenter = true;
@@ -24,8 +27,8 @@
 			if (col > maxCol) maxCol = col;
 			if (col < minCol) minCol = col;
 		}
-		width = 26 + (maxCol - minCol) * (22 + 4);
-		height = 26 + (maxRow - minRow) * (22 + 4);
+		width = sqSize + (maxCol - minCol) * sqSize;
+		height = sqSize + (maxRow - minRow) * sqSize;
 	}
 
 	function extendGrids(grids, extend) {
@@ -57,13 +60,25 @@
 			{@const newRow = row - minRow}
 			{@const newCol = col - minCol}
 			{#if row === 0 && col === 0}
-				<use xlink:href="#sq-blue" x={newCol * 26} y={newRow * 26} />
+				<use
+					xlink:href={size === 'small' ? '#sq-white' : '#sq-blue'}
+					x={newCol * sqSize}
+					y={newRow * sqSize}
+				/>
 			{:else}
-				<use xlink:href="#sq-outline" x={newCol * 26} y={newRow * 26} />
+				<use
+					xlink:href={size === 'small' ? '#sq-outline-sm' : '#sq-outline'}
+					x={newCol * sqSize}
+					y={newRow * sqSize}
+				/>
 			{/if}
 		{/each}
 		{#if noCenter}
-			<use xlink:href="#sq-blue" x={0} y={((maxRow - minRow) / 2) * 26} />
+			<use
+				xlink:href={size === 'small' ? '#sq-white' : '#sq-blue'}
+				x={0}
+				y={((maxRow - minRow) / 2) * sqSize}
+			/>
 		{/if}
 	</svg>
 {:else}
