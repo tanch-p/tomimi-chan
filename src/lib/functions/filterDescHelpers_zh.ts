@@ -263,8 +263,14 @@ export const generateSkillDesc = (
 					category_pre += '能';
 				}
 			}
-
 			category_pre += translations[language].chara_filter[`${key}_start`] ?? '';
+		}
+		if (
+			key === 'others' &&
+			counter === 0 &&
+			holder['damage_type']
+		) {
+			category_pre += '能';
 		}
 		if (Object.keys(holder).length > 0) {
 			counter += 1;
