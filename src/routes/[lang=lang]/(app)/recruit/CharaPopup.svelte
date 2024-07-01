@@ -139,7 +139,7 @@
 				<div
 					class="flex flex-col items-center min-w-28 p-3 pb-1 bg-[#161616] bg-opacity-80 rounded float-right"
 				>
-					<div class="flex items-center min-h-[50px]">
+					<div class="flex items-center min-h-[50px] max-w-[90px]">
 						<RangeParser rangeId={getAttackRangeId($selectedChara, $moduleIndex, moduleStage)} />
 					</div>
 					<p class="mt-1">{translations[language].attack_range}</p>
