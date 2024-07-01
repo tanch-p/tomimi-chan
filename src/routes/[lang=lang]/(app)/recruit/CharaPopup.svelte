@@ -81,7 +81,7 @@
 							<p class="text-[10px] mt-[1px] tracking-widest">LV</p>
 							<p class="-mt-2 text-4xl">{$selectedChara.stats.level}</p>
 						</div>
-						<img src={charaAssets['phase'][phase]} width="50" alt="E2" />
+						<img src={charaAssets['phase'][phase]} width="50" alt="E{phase}" />
 						{#if $selectedChara.potential.length > 0}
 							<div class="relative group">
 								<img src={charaAssets.potential[5]} width="60" alt="p5" />
@@ -253,16 +253,14 @@
 				{#if $selectedChara.talents && $selectedChara.talents.length > 0}
 					{@const newTalent = getModuleNewTalent(
 						$selectedChara.uniequip[$moduleIndex],
-						moduleStage,
-						language
+						moduleStage
 					)}
 					<p>{translations[language].talent}</p>
 					{#each $selectedChara.talents as talent, idx}
 						{@const moduleTalentDesc = getModuleTalentDesc(
 							idx,
 							$selectedChara.uniequip[$moduleIndex],
-							moduleStage,
-							language
+							moduleStage
 						)}
 						<p class="py-[1px] px-2 mt-4 w-max bg-[#f9f9f9] rounded-md font-medium text-[#333]">
 							{talent.name}

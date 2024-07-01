@@ -655,6 +655,7 @@ export const getSkillImgUrl = (skillId) => {
 		case 'skchr_huang_1':
 		case 'skchr_lessng_1':
 			return 'skcom_powerstrike[3]';
+		case 'skchr_vigna_1':
 		case 'skchr_jesica_1':
 		case 'skchr_caper_1':
 		case 'skchr_doberm_1':
@@ -665,7 +666,9 @@ export const getSkillImgUrl = (skillId) => {
 		case 'skchr_stward_1':
 			return 'skcom_powerstrike[1]';
 		case 'skchr_midn_1':
-			return 'skill_icon_skcom_enchant[1]';
+			return 'skcom_enchant[1]';
+		case 'skchr_catap_1':
+			return 'skcom_blowrange_up[1]';
 		default:
 			return skillId;
 	}

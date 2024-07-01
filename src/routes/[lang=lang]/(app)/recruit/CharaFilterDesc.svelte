@@ -113,7 +113,7 @@
 </script>
 
 <div
-	class="fixed z-10 bottom-0 w-full p-4 bg-[#333] text-lg md:text-2xl text-near-white text-center"
+	class="fixed z-10 bottom-0 w-full p-2.5 md:p-4 bg-[#333] text-lg md:text-2xl text-near-white text-center"
 >
 	<TextParser {line} />
 </div>
