@@ -47,6 +47,7 @@
 		{ prefix: '<@bluehl>', suffix: '</>', style: 'text-[#30c8FC]' },
 		{ prefix: '<@enemy>', suffix: '</>', style: 'text-[#FFA5AF]' },
 		{ prefix: '<@ally>', suffix: '</>', style: 'text-[#FFC89B]' },
+		{ prefix: '<@self>', suffix: '</>', style: 'text-[#C0E6FA]' },
 		{ prefix: '$', suffix: '$', style: 'text-red-400 font-semibold' }
 	];
 	//due to a difference in resolving <@rolv.rem> in rogue3_b-3-b and rogue3_b-4-b, this should be written to resolve by patterns first.
@@ -63,7 +64,7 @@
 		for (const pattern of patternsToParse) {
 			traverseLines(lines, pattern);
 		}
-		return splitNewLines(lines.flat(10)).filter((ele) => Boolean(ele.text));
+		return splitNewLines(lines.flat(patternsToParse.length + 1)).filter((ele) => Boolean(ele.text));
 	};
 	const traverseLines = (arr, pattern) => {
 		arr.forEach((ele, index) => {

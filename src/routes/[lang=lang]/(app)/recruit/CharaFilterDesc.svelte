@@ -111,30 +111,6 @@
 		if (replaceOperatorFlag) {
 			text = text.replace('<operator>', translations[language].operator);
 		}
-		//2. replace connectors
-		const connector =
-			filterMode === 'OR' ? '/' : translations[language]['chara_filter'].connector_and;
-		if (language === 'zh') {
-			const groupFlag = activeOptions.find((ele) => ele.key === 'group');
-			const deployableFlag = activeOptions.find((ele) => ele.key === 'deployable_tile');
-			const abilityFlag =
-				activeOptions.find((ele) =>
-					['deployable_tile', 'tags', 'blackboard', 'blockCnt'].includes(ele.key)
-				) || relicActiveOptions.length > 0;
-			if (groupFlag && abilityFlag) {
-				text = text.replace('<connector_2>', connector);
-			}
-			if (groupFlag && !abilityFlag) {
-				text = text.replace('<connector_2>', translations[language]['chara_filter'].connector);
-			}
-			if (deployableFlag && abilityFlag) {
-				text = text.replace('<connector_3>', connector);
-			}
-			if (abilityFlag) {
-				text = text.replace('<connector>', translations[language]['chara_filter'].connector);
-			}
-		}
-		//3. remove absent keys
 		const regex = /<\w+>/g;
 		text = text.replaceAll(regex, '');
 		return text;
@@ -144,5 +120,7 @@
 <div
 	class="fixed z-10 bottom-0 w-full p-2.5 md:p-4 bg-[#333] text-lg md:text-2xl text-near-white text-center"
 >
-	<TextParser {line} />
+	<div class="max-w-[1200px] w-full mx-auto">
+		<TextParser {line} />
+	</div>
 </div>

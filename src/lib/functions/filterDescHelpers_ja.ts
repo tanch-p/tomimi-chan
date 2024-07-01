@@ -105,7 +105,7 @@ const SELF_BUFF_TAGS = [
 	'status_immune',
 	'terrain_water'
 ];
-const SELF_STAT_BUFFS = ['sp_regen', 'sp_stock'];
+const SELF_STAT_BUFFS = ['sp_regen', 'sp_stock', 'def', 'res'];
 const HAVE_TAGS = [
 	'global_heal',
 	'squad_effect',
@@ -240,14 +240,13 @@ export const generateSkillDesc = (
 	let categoryDescHolder = [];
 	[
 		{ key: 'relic', holder: relicGroups },
-		{ key: 'ally', holder: allyGroups },
 		{ key: 'enemy', holder: enemyGroups },
+		{ key: 'ally', holder: allyGroups },
 		{ key: 'self', holder: selfGroups },
 		{ key: 'others', holder: otherGroups }
 	].forEach(({ key, holder }) => {
 		categoryDescHolder = [];
 		let category_pre = '';
-		let category_post = '';
 		if (key !== 'others' && Object.keys(holder).length > 0) {
 			category_pre = translations[language].chara_filter[`${key}_start`] ?? '';
 			if (key === 'enemy' && language === 'ja') {

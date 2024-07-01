@@ -14,7 +14,7 @@ const BUFF_TAGS = [
 	'elementfragile',
 	'vigor',
 	'weaken',
-	"barrier"
+	'barrier'
 ];
 const STAT_DEBUFFS = ['atk_down', 'def_down', 'res_down', 'aspd_down', 'ms_down', 'hitrate_down'];
 const DEBUFFS = [
@@ -70,11 +70,6 @@ const SELF_CAN_TAGS = [
 	'add_sp_gain_option',
 	'heal_ally',
 	'heal_unhealable',
-	'ignore_evasion',
-	'ignore_stealth',
-	'def_penetrate',
-	'res_penetrate',
-	'reflect_dmg',
 	'heal_self',
 	'sp_gain',
 	'spareshot',
@@ -85,7 +80,7 @@ const SELF_CAN_TAGS = [
 	'execute',
 	'slow_projectile',
 	'erase_projectile',
-	'reallocate_hp',
+	'reallocate_hp'
 ];
 const SELF_BUFF_TAGS = [
 	'evasion',
@@ -101,11 +96,16 @@ const SELF_BUFF_TAGS = [
 	'resist',
 	'status_immune'
 ];
-const SELF_STAT_BUFFS = ['sp_regen', 'sp_stock'];
+const SELF_STAT_BUFFS = ['sp_regen', 'sp_stock', 'def', 'res'];
 const HAVE_TAGS = [
 	'global_heal',
 	'squad_effect',
 	'min_damage',
+	'ignore_evasion',
+	'ignore_stealth',
+	'def_penetrate',
+	'res_penetrate',
+	'reflect_dmg',
 	'dot',
 	'aspd_unrelated',
 	'starting_cost',
@@ -199,7 +199,8 @@ export const generateSkillDesc = (
 	language: Language,
 	filterMode,
 	relicActiveOptions,
-	rogueTopic
+	rogueTopic,
+	otherOptions
 ) => {
 	//1. split array into indiv categories
 	const allyGroups = {};
@@ -228,29 +229,59 @@ export const generateSkillDesc = (
 		}
 		holder[category].push(key);
 	}
-	let text = '';
-	let connectorNeeded = false;
+	const descList = [];
+	let categoryDescHolder = [];
+	let counter = 0;
 	[
 		{ key: 'relic', holder: relicGroups },
-		{ key: 'ally', holder: allyGroups },
 		{ key: 'enemy', holder: enemyGroups },
+		{ key: 'ally', holder: allyGroups },
 		{ key: 'self', holder: selfGroups },
 		{ key: 'others', holder: otherGroups }
-	].forEach(({ key, holder }, i) => {
-		if (i > 0 && Object.keys(holder).length > 0 && connectorNeeded) {
-			text +=
-				filterMode === 'OR'
-					? translations[language].chara_filter.connector_or
-					: translations[language].chara_filter.connector_and;
-		}
+	].forEach(({ key, holder }) => {
+		categoryDescHolder = [];
+		let category_pre = '';
 		if (key !== 'others' && Object.keys(holder).length > 0) {
-			text += translations[language].chara_filter[`${key}_start`] ?? '';
-		}
-		Object.entries(holder).forEach(([category, options], i) => {
-			connectorNeeded = true;
-			if (i > 0) {
-				text += ',';
+			if (counter === 0 && key === 'enemy') {
+				category_pre += '能';
 			}
+			if (key === 'ally' && Object.keys(enemyGroups).length === 0 && counter <= 1) {
+				category_pre += '能使';
+			}
+			if (key === 'self') {
+				if (selfGroups?.['self_buff']?.length > 0 && Object.keys(selfGroups).length === 1) {
+					category_pre += '<@self>自身</>';
+					if (counter === 0) {
+						category_pre += '能';
+					}
+				}
+				if (
+					Object.keys(selfGroups).includes('self_stat_buff') &&
+					!Object.keys(selfGroups).includes('self_can') &&
+					counter === 0
+				) {
+					category_pre += '能';
+				}
+			}
+
+			category_pre += translations[language].chara_filter[`${key}_start`] ?? '';
+		}
+		if (Object.keys(holder).length > 0) {
+			counter += 1;
+		}
+		const entries = Object.entries(holder);
+		if (key === 'self') {
+			entries.sort((a, b) => {
+				if (a[0] === 'self_can') {
+					return -1;
+				}
+				if (b[0] === 'self_can') {
+					return 1;
+				}
+				return 0;
+			});
+		}
+		entries.forEach(([category, options]) => {
 			const translatedStrings = options.map((key) => {
 				const displayKey = getDisplayKey(key);
 				let relic;
@@ -272,16 +303,34 @@ export const generateSkillDesc = (
 			const joinedString =
 				filterMode === 'OR' || category === 'blockCnt'
 					? translatedStrings.join('/')
-					: formatArray(
-							translatedStrings,
-							',',
-							translations[language].chara_filter.connector_and_inner
-					  );
-			text +=
-				(translations[language]['chara_filter']?.[`${category}_pre`] ?? '') +
-				joinedString +
-				(translations[language]['chara_filter']?.[`${category}_post`] ?? '');
+					: formatArray(translatedStrings, ',', '和');
+			const pre = translations[language]['chara_filter']?.[`${category}_pre`] ?? '';
+			const post = translations[language]['chara_filter']?.[`${category}_post`] ?? '';
+			categoryDescHolder.push(pre + joinedString + post);
 		});
+		if (categoryDescHolder.length > 0) {
+			descList.push(category_pre + categoryDescHolder.join(','));
+		}
 	});
-	return text;
+
+	for (const { key, options } of otherOptions) {
+		const value = options
+			.map(({ value, selected }) => {
+				const key = getDisplayKey(value);
+				return (
+					selected &&
+					(translations[language].table_headers[key] ??
+						translations[language][key] ??
+						translations[language].types[key])
+				);
+			})
+			.filter(Boolean)
+			.join('/');
+		const pre = translations[language]['chara_filter']?.[`${key}_pre`] ?? '';
+		const post = translations[language]['chara_filter']?.[`${key}_post`] ?? '';
+		descList.push(pre + '<@bluehl>' + value + '</>' + post);
+	}
+	const innerConnectorFinal = filterMode === 'OR' ? '或' : ',';
+	const finalConnector = descList.length > 0 && !descList[0].includes('水') ? '的' : '';
+	return formatArray(descList, ',', innerConnectorFinal) + finalConnector;
 };

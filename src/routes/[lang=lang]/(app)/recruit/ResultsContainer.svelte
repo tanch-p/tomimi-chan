@@ -8,7 +8,6 @@
 	export let characters, language: Language;
 
 	let displayMode = 'grid';
-	let loading = false;
 	let visibleItems = [];
 	let itemsPerLoad = 50;
 	let currentIndex = 0;
@@ -20,15 +19,13 @@
 	}
 
 	function loadMoreItems() {
-		if (loading || currentIndex >= characters.length) return;
+		if (currentIndex >= characters.length) return;
 
-		loading = true;
 		setTimeout(() => {
 			const newItems = characters.slice(currentIndex, currentIndex + itemsPerLoad);
 			visibleItems = [...visibleItems, ...newItems];
 			currentIndex += itemsPerLoad;
-			loading = false;
-		}, 300); // Simulate network delay
+		}, 0);
 	}
 
 	function handleScroll() {
@@ -85,9 +82,6 @@
 				<CharaDisplay {chara} {displayMode} {language} />
 			{/each}
 		</div>
-		{#if loading}
-			<div class="text-center mt-5">{translations[language].loading}</div>
-		{/if}
 	{/if}
 </div>
 
