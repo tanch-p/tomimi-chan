@@ -5,7 +5,7 @@
 	import TextParser from '$lib/components/TextParser.svelte';
 	import RangeParser from '$lib/components/RangeParser.svelte';
 	import {
-		getFullCharaStat,
+		getFullCharStat,
 		getModuleStat,
 		getSkillImgUrl,
 		getTokenModuleTalent,
@@ -86,7 +86,7 @@
 							<img src={charaAssets[statKey]} width="18px" height="18px" alt="" />
 						</div>
 						<p class="text-near-white whitespace-nowrap">
-							{getFullCharaStat(statKey, token, moduleStat, 0)}{statKey === 'respawnTime'
+							{getFullCharStat(statKey, token, moduleStat, 0)}{statKey === 'respawnTime'
 								? 's'
 								: ''}
 							{#if moduleStat}

@@ -5,6 +5,7 @@
 	import { onMount } from 'svelte';
 	import CharaViewGrid from './CharaViewGrid.svelte';
 	import CharaViewDetail from './CharaViewDetail.svelte';
+	import { filtersStore, relicFiltersStore } from './stores';
 
 	export let characters, language: Language;
 
@@ -12,6 +13,11 @@
 	let visibleItems = [];
 	let itemsPerLoad = 50;
 	let currentIndex = 0;
+	let showAlt = false;
+
+	$: showAlt =
+		$filtersStore.some(({ _, options }) => options.some((item) => item.selected)) ||
+		$relicFiltersStore.some((item) => item.selected);
 
 	$: if (characters?.length) {
 		visibleItems = [];
@@ -77,13 +83,13 @@
 		<div
 			class="mt-4 {displayMode === 'grid'
 				? 'grid grid-cols-4 sm:flex flex-wrap gap-1.5 px-1.5 sm:px-0'
-				: 'flex flex-col gap-3.5 px-1.5'}"
+				: 'flex flex-col gap-4 px-1.5 md:px-0'}"
 		>
 			{#each visibleItems as chara (chara.id)}
 				{#if displayMode === 'grid'}
 					<CharaViewGrid {chara} />
 				{:else}
-					<CharaViewDetail {chara} {language} />
+					<CharaViewDetail {chara} {language} {showAlt} />
 				{/if}
 			{/each}
 		</div>

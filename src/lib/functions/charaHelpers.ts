@@ -636,16 +636,20 @@ export const updateSortPriority = (sortOptions, index) => {
 	});
 };
 
-export const getCharaImages = (chara_list) =>
-	chara_list.map((chara) => import(`../images/chara_icons/icon_${chara.id}.webp`));
+export const getCharImages = (chara_list) =>
+	chara_list.map((char) => import(`../images/chara_icons/icon_${char.id}.webp`));
 
 export const getCharaList = async (language) => {
 	const data = (await import(`../data/chara/characters_${language}.json`)).default;
 	const images = await Promise.all(
-		data.map((chara) => import(`../images/chara_icons/icon_${chara.id}.webp`))
+		data.map((char) => import(`../images/chara_icons/icon_${char.id}.webp`))
 	);
-	data.forEach((chara, index) => {
-		chara.icon = images[index].default;
+	data.forEach((char, index) => {
+		char.icon = images[index].default;
+		char.activeModuleIndex = 0;
+		char.activeTalents = [];
+		char.activeSkills = [];
+		char.activeTokens = [];
 	});
 	return data;
 };
@@ -672,6 +676,13 @@ export const getSkillImgUrl = (skillId) => {
 			return 'skcom_blowrange_up[1]';
 		default:
 			return skillId;
+	}
+};
+
+const getModuleRelatedTalentIndex = (char, equipIndex) => {
+	for (const part of char.uniequip[equipIndex].combatData.phases[2].parts) {
+		if (!part.isToken && part.target.includes('TALENT') && part.upgradeDesc)
+			return part.talentIndex;
 	}
 };
 
@@ -746,16 +757,16 @@ export const getAttackRangeId = (char, moduleIndex, moduleStage) => {
 	}
 	return getModuleUpdatedRange(rangeId, char.uniequip[moduleIndex], moduleStage);
 };
-export const getFullCharaStat = (statKey, chara, moduleStat, potStat) => {
-	let stat = chara['stats'][statKey];
+export const getFullCharStat = (statKey, char, moduleStat, potStat) => {
+	let stat = char['stats'][statKey];
 	if (statKey === 'aspd') {
 		return (
 			Math.round(
-				(stat / ((100 + (chara?.favorData?.[statKey] ?? 0) + moduleStat + potStat) / 100)) * 100
+				(stat / ((100 + (char?.favorData?.[statKey] ?? 0) + moduleStat + potStat) / 100)) * 100
 			) / 100
 		);
 	} else {
-		stat += chara?.favorData?.[statKey] ?? 0;
+		stat += char?.favorData?.[statKey] ?? 0;
 		stat += moduleStat;
 		stat += potStat;
 	}
@@ -905,11 +916,9 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 	if (list.length === 0) {
 		return (char) => {
 			char.activeModuleIndex = 0;
-			char.activeModuleIndex = 0;
 			char.activeTalents = [];
 			char.activeSkills = [];
 			char.activeTokens = [];
-			char.showTrait = false;
 			return true;
 		};
 	}
@@ -957,7 +966,6 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 				let found = false;
 				if (char.tags.includes(key)) {
 					found = true;
-					char.showTrait = true;
 				}
 				char.skills.forEach((skill, i) => {
 					if (skill.tags.includes(key)) {
@@ -983,6 +991,8 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 						.findIndex((equip) => equip.combatData.tags.includes(key));
 					if (equipIndex !== -1) {
 						char.activeModuleIndex = equipIndex + 1;
+						const moduleTalent = getModuleRelatedTalentIndex(char, equipIndex + 1);
+						char.activeTalents.push(moduleTalent);
 					} else initialRemainder.push(searchItem);
 				}
 			} else if (type === 'blackboard') {
@@ -994,7 +1004,6 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 					)
 				) {
 					found = true;
-					char.showTrait = true;
 				}
 				char.skills.forEach((skill, i) => {
 					if (
@@ -1041,6 +1050,8 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 						);
 					if (equipIndex !== -1) {
 						char.activeModuleIndex = equipIndex + 1;
+						const moduleTalent = getModuleRelatedTalentIndex(char, equipIndex + 1);
+						char.activeTalents.push(moduleTalent);
 					} else initialRemainder.push(searchItem);
 				}
 			} else if (type === 'blockCnt') {
@@ -1112,10 +1123,8 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 					});
 					char.skills.forEach((skill, i) => {
 						if (
-							char.skills?.some((skill) =>
-								skill.blackboard.some(
-									(item) => item.key === 'blockCnt' && options.includes(item.value)
-								)
+							skill.blackboard.some(
+								(item) => item.key === 'blockCnt' && options.includes(item.value)
 							)
 						) {
 							found = true;
@@ -1155,7 +1164,6 @@ export const createStrictFilterFunction = (list, secFilters) => {
 			char.activeTalents = [];
 			char.activeSkills = [];
 			char.activeTokens = [];
-			char.showTrait = false;
 			return true;
 		};
 	}
@@ -1205,7 +1213,6 @@ export const createStrictFilterFunction = (list, secFilters) => {
 				let found = false;
 				if (char.tags.includes(key)) {
 					found = true;
-					char.showTrait = true;
 				}
 				char.talents.forEach((talent, i) => {
 					if (talent.tags.includes(key)) {
@@ -1231,7 +1238,6 @@ export const createStrictFilterFunction = (list, secFilters) => {
 					)
 				) {
 					found = true;
-					char.showTrait = true;
 				}
 				char.talents.forEach((talent, i) => {
 					if (
@@ -1342,7 +1348,7 @@ export const createStrictFilterFunction = (list, secFilters) => {
 							(item) => item.key === key && options.includes(item.value)
 						);
 						if (item) {
-							chara.activeSkills.push(i);
+							char.activeSkills.push(i);
 						}
 						if (!item) {
 							remainder.push(searchItem);
@@ -1361,7 +1367,7 @@ export const createStrictFilterFunction = (list, secFilters) => {
 							skill.blackboard.find((item) => item.key === key && options.includes(item.value));
 						if (!statPass) {
 							if (skillPass) {
-								chara.activeSkills.push(i);
+								char.activeSkills.push(i);
 								const item = skill.blackboard.find(
 									(item) => item.key === key && options.includes(item.value)
 								);
@@ -1425,6 +1431,14 @@ export const createStrictFilterFunction = (list, secFilters) => {
 			);
 			if (equipIndex !== -1) {
 				char.activeModuleIndex = equipIndex + 1;
+				if (
+					!finalRemainder.some(
+						(remainder) => remainder.length === 1 && remainder[0].key === 'blockCnt'
+					)
+				) {
+					const moduleTalent = getModuleRelatedTalentIndex(char, equipIndex + 1);
+					char.activeTalents.push(moduleTalent);
+				}
 				return true;
 			}
 		}

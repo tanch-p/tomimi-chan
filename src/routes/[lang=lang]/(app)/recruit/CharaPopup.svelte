@@ -7,7 +7,7 @@
 	import CharaSkill from './CharaSkill.svelte';
 	import {
 		convertStatKeys,
-		getFullCharaStat,
+		getFullCharStat,
 		getModuleStat,
 		getModuleTalentDesc,
 		getModuleTrait,
@@ -26,7 +26,6 @@
 	$: hasModule = ['TIER_4', 'TIER_5', 'TIER_6'].includes($selectedChara?.rarity);
 	$: moduleStage = 2;
 
-	$: console.log($selectedChara);
 	selectedChara.subscribe((val) => {
 		if (!val) {
 			moduleIndex.set(0);
@@ -35,6 +34,8 @@
 	moduleIndex.subscribe((val) => {
 		if (val) moduleStage = 2;
 	});
+
+	// $: console.log($selectedChara);
 </script>
 
 <div class="overlay" class:visible={$selectedChara}>
@@ -117,7 +118,7 @@
 									</span>
 								</div>
 								<p class="text-near-white pl-[20px] whitespace-nowrap">
-									{getFullCharaStat(statKey, $selectedChara, moduleStat, potStat)}{statKey ===
+									{getFullCharStat(statKey, $selectedChara, moduleStat, potStat)}{statKey ===
 									'respawnTime'
 										? 's'
 										: ''}
@@ -173,8 +174,7 @@
 						line={getModuleTrait(
 							$selectedChara.desc,
 							$selectedChara.uniequip[$moduleIndex],
-							moduleStage,
-							language
+							moduleStage
 						)}
 						className="mt-2 {hasModule ? 'min-h-20' : ''}"
 					/>
