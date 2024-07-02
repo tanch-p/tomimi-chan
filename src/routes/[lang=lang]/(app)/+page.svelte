@@ -4,10 +4,10 @@
 	import banner_phantom from '$lib/images/banner_phantom_800px.webp';
 	import banner_sami from '$lib/images/banner_sami_800px.webp';
 	import laoli_banner from '$lib/images/laoli_sim.webp';
+	import chara_banner from '$lib/images/chara_banner.webp';
 	import translations from '$lib/translations.json';
 	import ISLogo from '$lib/images/is_logo.webp';
 	import toolsLogo from '$lib/images/CRA-X.webp';
-	// import friendlink from '$lib/images/friendlink.webp';
 
 	export let data: PageData;
 
@@ -47,7 +47,22 @@
 						{translations[language].related_tools}
 					</p>
 				</div>
-				<div class="flex flex-wrap w-full justify-center mt-3">
+				<div class="flex flex-wrap w-full justify-center gap-4 mt-3">
+					<a href={`/${language}/recruit/`}>
+						<div class="flex flex-col justify-center items-center">
+							<img
+								class="select-none mx-auto"
+								src={chara_banner}
+								decoding="async"
+								alt={translations[language].chara_title}
+								width="552"
+								height="177"
+							/>
+							<p class={`my-1 `}>
+								{translations[language].chara_title}
+							</p>
+						</div>
+					</a>
 					<a href={`/${language}/laoli/`}>
 						<div class="flex flex-col justify-center items-center">
 							<img

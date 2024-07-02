@@ -5,7 +5,8 @@
 
 	const positionStyles = {
 		top: 'bottom-full',
-		bottom: ''
+		bottom: '',
+		right:""
 	};
 </script>
 

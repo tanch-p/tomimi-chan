@@ -121,3 +121,5 @@ export type Skill = {
 	key: string;
 	value?: number;
 };
+
+export type sortOrder = -1 | 0 | 1;

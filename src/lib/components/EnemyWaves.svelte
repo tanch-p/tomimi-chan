@@ -1,8 +1,8 @@
 <script lang="ts">
 	import translations from '$lib/translations.json';
-	import DLD from '$lib/images/enemy_icons/enemy_2001_duckmi.webp';
-	import GPN from '$lib/images/enemy_icons/enemy_2002_bearmi.webp';
-	import THF from '$lib/images/enemy_icons/enemy_2034_sythef.webp';
+	import DLD from '$lib/images/enemy_icons/icon_enemy_2001_duckmi.webp';
+	import GPN from '$lib/images/enemy_icons/icon_enemy_2002_bearmi.webp';
+	import THF from '$lib/images/enemy_icons/icon_enemy_2034_sythef.webp';
 	import sami_smbox from '$lib/images/is/sami/sktok_smbox.webp';
 	import sami_smrbox from '$lib/images/is/sami/sktok_smrbox.webp';
 	import sami_smbbox from '$lib/images/is/sami/sktok_smbbox.webp';

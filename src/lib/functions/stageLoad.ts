@@ -37,7 +37,7 @@ export const stageLoad = async (stageName: string, rogueTopic: string | null) =>
 	});
 	const data = await Promise.all(
 		enemies.map(
-			(enemy) => import(`../images/enemy_icons/enemy${enemy.key.replace('enemy', '')}.webp`)
+			(enemy) => import(`../images/enemy_icons/icon_${enemy.key}.webp`)
 		)
 	);
 	enemies.forEach((enemy, index) => (enemy.img = data[index].default));

@@ -23,7 +23,7 @@
 		<div class="flex flex-wrap gap-1.5 my-1">
 			{#each statusImmuneList as status}
 				<p class="rounded-md bg-neutral-700 px-1.5 text-sm">
-					{language === 'en' ? '' : statusImmuneTexts.pre}{statusImmuneTexts[
+					{language === 'en' ? '' : statusImmuneTexts.pre}{translations[language][
 						status
 					]}{statusImmuneTexts.post}
 				</p>
@@ -32,7 +32,7 @@
 	{:else}
 		<div>
 			{statusImmuneTexts.pre}{#each statusImmuneList as status, index}<span
-					>{statusImmuneTexts[
+					>{translations[language][
 						status
 					]}{#if statusImmuneList.length > 1 && index !== statusImmuneList.length - 1}{statusImmuneTexts.separator}{/if}</span
 				>{/each}{statusImmuneTexts.post}
