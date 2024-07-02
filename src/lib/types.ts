@@ -96,7 +96,15 @@ export interface MapConfig {
 }
 
 export type StatMods = {
-	[key: string]: Mods;
+	initial: ModGroup[];
+	final: ModGroup[];
+};
+type ModOperation = 'times' | 'add';
+
+export type ModGroup = {
+	key: string;
+	mods: [Effects];
+	operation: ModOperation;
 };
 
 export type SpecialMods = {

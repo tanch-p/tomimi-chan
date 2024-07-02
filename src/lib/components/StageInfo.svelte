@@ -13,7 +13,6 @@
 		stageName: string,
 		selectedFloor,
 		rogueTopic: RogueTopic = null;
-
 	const getEliteDescColor = (rogueTopic: string | null) => {
 		switch (rogueTopic) {
 			case 'rogue_sami':
@@ -28,8 +27,8 @@
 	};
 </script>
 
-<div class="sm:px-6">
-	<p class="px-2 sm:px-0 text-3xl">{mapConfig.code ?? ''} {stageName.replaceAll('_', ' ')}</p>
+<div class="sm:px-6 mb-4">
+	<h1 id="stage-title" class="px-2 sm:px-0 text-3xl">{mapConfig.code ?? ''} {stageName.replaceAll('_', ' ')}</h1>
 	<hr class="border-gray-500 my-1" />
 	{#if mapConfig[`description_${language}`] || mapConfig[`description_zh`]}
 		<div class="px-2 sm:px-0">

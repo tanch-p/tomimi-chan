@@ -277,7 +277,10 @@
 				"After firing bomb - Movespeed +200%"
 			],
 			"ja": ["爆弾→周囲8マスに100％ダメージ＋【寒冷❄】", "投下後移動速度+200%"],
-			"zh": ["爆弾→对目标及其周围八格造成100%群体物理伤害＋【寒冷❄】", "投弹后移速最终提升至200%"]
+			"zh": [
+				"爆弾→对目标及其周围八格造成100%群体法术伤害并施加持续10秒的寒冷",
+				"投弹后移速最终提升至200%"
+			]
 		}
 	},
 	"drone_frost_debuff": {
@@ -3131,8 +3134,9 @@
 		"hits": 10,
 		"tooltip": {
 			"en": [
-				"Skill (Initial CD: 10s, ~CD: 25s)",
-				"Centering on the allied unit with the highest max HP, spawns a bombardment area within the surrounding 8 tiles. For 6s, deals <v.atk.multiplier>% of ATK as Arts damage to the allied unit with the highest percentage HP"
+				"Bombard (Initial CD: 10s, ~CD: 25s)",
+				"Centering on the allied unit with the highest max HP, spawns a bombardment area within the surrounding 8 tiles. For 6s, deals <v.atk.multiplier>% of ATK as Arts damage to the allied unit with the highest percentage HP",
+				"During Skill, gains immunity to push/pull, stun, freeze, levitate and sleep"
 			],
 			"ja": [
 				"【爆撃】（初動10秒/再動25秒）",
@@ -3142,7 +3146,8 @@
 			],
 			"zh": [
 				"轰炸（初次冷却10s，后25s）",
-				"锁定生命上限最高的目标进行数次轰炸，每次对范围内当前生命比例最高的单位造成法术伤害"
+				"锁定生命上限最高的目标进行数次轰炸，每次对范围内当前生命比例最高的单位造成法术伤害",
+				"技能期间免疫失衡，晕眩，冻结，浮空，沉睡"
 			]
 		}
 	},
@@ -3268,7 +3273,9 @@
 	},
 	"smlead_5": {
 		"tooltip": {
-			"en": ["When entering and exiting【Self-Destruction】state, inflicts 5s cold to all nearby allies"],
+			"en": [
+				"When entering and exiting【Self-Destruction】state, inflicts 5s cold to all nearby allies"
+			],
 			"ja": ["【自己消滅】開始と終了時、周囲の味方に5秒の寒冷を与える"],
 			"zh": ["进入和离开【自我泯灭】时，对周围我方单位立即施加5s的寒冷"]
 		}
@@ -3513,8 +3520,8 @@
 	"cbrokt_1": {
 		"tooltip": {
 			"en": [
-				"移动速度高于初始速度累计持续1s时，获得近地悬浮",
-				"受到沉默/晕眩/冻结效果后近地悬浮失效"
+				"If Movement Speed is higher than starting speed for 1s, gains Low-Altitude Hovering and takes off!",
+				"Loses Hover effect when affected by stun/sleep/frozen"
 			],
 			"ja": [
 				"移動速度が初期状態より高い状態で1秒間移動すると、1度だけ低空浮揚状態になる",
@@ -3895,7 +3902,7 @@
 			],
 			"zh": [
 				"<哈兰杜汗，大地之鞭>被击倒或退场后",
-				"获得防御力+2000，法术耐性+50，攻击速度+100，移动速度+100%",
+				"获得防御力+2000，法术抗性+50，攻击速度+100，移动速度+100%",
 				"【敕令】目标变为我方单位"
 			]
 		}
@@ -3912,7 +3919,7 @@
 			],
 			"zh": [
 				"<路加萨尔古斯，历法之王>被击倒或退场后",
-				"获得防御力+2000，法术耐性+50，攻击速度+100，移动速度+100%",
+				"获得防御力+2000，法术抗性+50，攻击速度+100，移动速度+100%",
 				"【征服】目标变为我方单位"
 			]
 		}
@@ -3954,15 +3961,29 @@
 		"min": 0,
 		"max": 20,
 		"tooltip": {
-			"en": ["Spawns with <v.min>/<v.max> energy，enters <Overload> state when energy caps"],
-			"ja": ["拥有<v.min>/<v.max>的能量，能量达到上限时进入过载状态"],
-			"zh": ["拥有<v.min>/<v.max>的能量，能量达到上限时进入过载状态"]
+			"en": [
+				"Spawns with <v.min>/<v.max> energy，enters <Overload> state when energy caps",
+				"Gains ATK +10%, DEF +20% for every point of energy"
+			],
+			"ja": [
+				"エネルギーを蓄積できる（初期：<v.min>/<v.max>）",
+				"エネルギーが上限に達すると【過負荷】状態に入る",
+				"エネルギー1点につき攻撃力+10%、防御力+20%"
+			],
+			"zh": [
+				"拥有<v.min>/<v.max>的能量，能量达到上限时进入过载状态",
+				"每一点能量攻击力+10%，防御力+20%"
+			]
 		}
 	},
 	"e_enemy_overload": {
 		"tooltip": {
-			"en": ["【Overload】- 20s内攻击速度+120、防御力+100%、法术抗性+30，持续时间结束后清空能量"],
-			"ja": ["【过载】- 20s内攻击速度+120、防御力+100%、法术抗性+30，持续时间结束后清空能量"],
+			"en": [
+				"【Overload】- gains ASPD +120, DEF +100%, RES +30 for 20s, clears all energy thereafter"
+			],
+			"ja": [
+				"【過負荷】- 20秒間、防御力+200%、術耐性+30、攻撃速度+120。その後、エネルギーは0になる"
+			],
 			"zh": ["【过载】- 20s内攻击速度+120、防御力+100%、法术抗性+30，持续时间结束后清空能量"]
 		}
 	},
@@ -3984,8 +4005,12 @@
 	},
 	"erob_steal": {
 		"tooltip": {
-			"en": ["未处于过载状态时，每2s夺取自身半径2.2范围内每个有能量且未处于过载状态的敌人1点能量"],
-			"ja": ["未处于过载状态时，每2s夺取自身半径2.2范围内每个有能量且未处于过载状态的敌人1点能量"],
+			"en": [
+				"When not in Overload state, drains 1 energy from all nearby enemies not in Overload State within 2.2 tiles every 2 seconds"
+			],
+			"ja": [
+				"【過負荷】状態外の時、2秒ごとに半径2.2以内の過負荷状態でない敵全員からエネルギーを1点奪う"
+			],
 			"zh": ["未处于过载状态时，每2s夺取自身半径2.2范围内每个有能量且未处于过载状态的敌人1点能量"]
 		}
 	},

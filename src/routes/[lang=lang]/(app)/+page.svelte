@@ -31,23 +31,6 @@
 	<div class="h-[10vh]" />
 	<div class="w-screen sm:w-full max-w-7xl mx-auto pb-32">
 		<div class="flex flex-col items-center mx-auto gap-x-4 gap-y-8 px-2 sm:px-8 justify-center">
-			<!-- <div
-				class="w-full md:w-[600px] bg-[#363636] shadow-lg md:shadow-xl pt-2 sm:py-3 px-2 sm:px-6"
-			>
-				<div class="flex items-center justify-center">
-					<span>
-						<img src={CCLogo} alt={translations[language].cc_title} width="34" height="34" />
-					</span>
-					<p class={`${language === 'en' ? 'text-sm font-bold' : 'font-semibold'}`}>
-						{translations[language].cc_title}
-					</p>
-				</div>
-				<div class="flex flex-wrap w-full justify-center">
-					<a href={`/${language}/cc/`}>
-						<img class="select-none mx-auto py-3" src={cc_banner} decoding="async" alt={'cc11'} />
-					</a>
-				</div>
-			</div> -->
 			<div
 				class="w-full md:w-[600px] bg-[#363636] shadow-lg md:shadow-xl pt-2 sm:py-3 px-2 sm:px-6"
 			>

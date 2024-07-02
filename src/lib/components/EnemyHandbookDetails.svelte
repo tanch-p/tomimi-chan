@@ -27,7 +27,7 @@
 				alt=""
 				width="100px"
 				height="100px"
-				class="absolute top-0 right-6 opacity-30"
+				class="absolute top-0 right-[6%] opacity-30"
 			/>
 		{:else if enemy.type.includes('ELITE')}
 			<img
@@ -35,7 +35,7 @@
 				alt=""
 				width="100px"
 				height="100px"
-				class="absolute top-0 right-6 opacity-20"
+				class="absolute top-0 right-[6%] opacity-20"
 			/>
 		{/if}
 		<div class="h-4" />
@@ -70,43 +70,45 @@
 			{/if}
 		</div>
 	</div>
-	<div class="grid grid-cols-[95px_auto] gap-x-1.5">
-		<div class="flex flex-col gap-y-1">
+	<div class="grid grid-cols-[minmax(75px,auto)_1fr] gap-x-1.5">
+		<div class="flex flex-col gap-y-1 max-[390px]:w-[75px]">
 			<img
 				class="select-none"
 				src={enemy.img}
 				height="95px"
 				width="95px"
 				decoding="async"
+				loading="lazy"
 				alt={enemy.id}
 			/>
-			<div class="flex items-center justify-between bg-almost-black px-1.5">
-				<div class="flex items-center gap-x-1 py-1">
-					<img src={weightIcon} width="18px" height="18px" alt="" />
+			<div class="flex flex-wrap items-center bg-almost-black px-1.5">
+				<div class="flex items-center gap-x-1 py-1 max-[390px]:text-sm">
+					<div class="max-[390px]:w-[12px]">
+						<img src={weightIcon} width="18px" height="18px" alt="" />
+					</div>
 					<span class={`text-[#858585] font-bold ${language === 'en' ? 'text-sm' : ''}`}>
 						{translations[language].table_headers.weight}
 					</span>
 				</div>
-				<span class="text-[#a2a5a5] text-lg font-bold">{enemy.stats[0].weight}</span>
+				<span class="text-[#a2a5a5] text-lg font-bold ml-auto">{enemy.stats[0].weight}</span>
 			</div>
 		</div>
-		<div>
-			{#if enemy?.forms}
-				<div>
-					{#each enemy.forms as form, index}
-						<button
-							class={`text-sm py-1 px-2 ${formIndex === index ? 'bg-almost-black' : 'opacity-60'}`}
-							on:click={() => (formIndex = index)}
-						>
-							{getFormTitle(form.title, index, language)}
-						</button>
-					{/each}
-					<HandBookStats {enemy} {language} {formIndex} />
-				</div>
-			{:else}
+		{#if enemy?.forms}
+			<div>
+				{#each enemy.forms as form, index}
+					<button
+						data-id="form-{index + 1}"
+						class={`text-sm py-1 px-2 ${formIndex === index ? 'bg-almost-black' : 'opacity-60'}`}
+						on:click={() => (formIndex = index)}
+					>
+						{getFormTitle(form.title, index, language)}
+					</button>
+				{/each}
 				<HandBookStats {enemy} {language} {formIndex} />
-			{/if}
-		</div>
+			</div>
+		{:else}
+			<HandBookStats {enemy} {language} {formIndex} />
+		{/if}
 	</div>
 	<div class="flex flex-col mt-3">
 		<HandbookAbilities {enemy} {language} {specialMods} />

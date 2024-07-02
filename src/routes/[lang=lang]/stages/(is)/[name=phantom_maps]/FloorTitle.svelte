@@ -18,8 +18,7 @@
 </script>
 
 <div use:clickOutside on:outclick={() => (optionsOpen = false)} class="mx-auto select-none">
-	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<div class="cursor-pointer" on:click={() => (optionsOpen = !optionsOpen)}>
+	<button id="floor-options" on:click={() => (optionsOpen = !optionsOpen)}>
 		<div class="flex justify-center items-center gap-x-6 md:gap-x-8">
 			<div class=" md:block border-y border-neutral-600 w-[80px] md:w-[104px]" />
 			<p class="text-center text-neutral-300">
@@ -37,6 +36,6 @@
 			</div>
 		{/if}
 		<p class="text-center">{translations[language].phcs_levels[$selectedFloor - 1]}</p>
-	</div>
+	</button>
 	<FloorOptions bind:optionsOpen {language} />
 </div>

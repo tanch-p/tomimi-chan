@@ -16,7 +16,7 @@
 
 {#if isCombatStage}
 	<div class="sm:px-6 my-4">
-		<p class="px-2 sm:px-0 text-subheading mt-4">{translations[language].hidden_enemy_prob}</p>
+		<h2 class="px-2 sm:px-0 text-subheading mt-4">{translations[language].hidden_enemy_prob}</h2>
 		<hr class="border-gray-500 my-1" />
 		<div class="flex flex-col gap-y-4 px-2 sm:px-0">
 			<div class="flex items-center">

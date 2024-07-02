@@ -23,22 +23,32 @@
 		eleRes: eleResIcon
 	};
 
-	$: statKeys =
-		language === 'zh'
-			? ['hp', 'ms', 'atk', 'aspd', 'def', 'eleRes', 'res', 'eleDmgRes']
-			: ['hp', 'ms', 'atk', 'aspd', 'def', 'res'];
+	$: statKeys = ['hp', 'ms', 'atk', 'aspd', 'def', 'eleRes', 'res', 'eleDmgRes'];
 </script>
 
-<div class="grid grid-cols-2 gap-2">
+<div class="grid grid-cols-2 gap-2 w-full">
 	{#each statKeys as statKey}
-		<div class={`flex flex-col bg-[#161616] bg-opacity-80 px-1 ${language === "en" ? "text-sm" : ""}`}>
-			<div class="flex items-center gap-x-1">
-				<img src={statKeyIcons[statKey]} width="14px" height="14px" alt="" />
-				<span class="text-[#858585] font-semibold">
+		<div
+			class={`flex flex-col bg-[#161616] bg-opacity-80 px-1 ${
+				language === 'en' ? 'text-sm' : 'whitespace-nowrap'
+			}`}
+		>
+			<div class="grid grid-cols-[14px_1fr] items-center gap-x-1">
+				<img src={statKeyIcons[statKey]} width="14px" height="14px" alt="" class="" />
+				<span class="text-[#858585] font-semibold {language === 'en' && ['aspd','eleDmgRes'].includes(statKey) ? "text-xs" : ""}">
 					{translations[language].table_headers[statKey]}
 				</span>
 			</div>
-			<p class="text-near-white px-[18px]">{enemy.stats[formIndex][statKey] ?? "0"}</p>
+			<p data-id="{statKey}-value" class="text-near-white px-[18px]">
+				{enemy.stats[formIndex][statKey] ?? '0'}
+			</p>
 		</div>
 	{/each}
 </div>
+<span/>
+<p class="text-[#858585] font-semibold mt-1.5">
+	{translations[language].table_headers.range}:
+	<span data-id="range-value" class="text-near-white"
+		>{enemy.stats[formIndex].range ?? '0'}</span
+	>
+</p>

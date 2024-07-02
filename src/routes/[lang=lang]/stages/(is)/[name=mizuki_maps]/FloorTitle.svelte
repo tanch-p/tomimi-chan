@@ -26,8 +26,7 @@
 </script>
 
 <div use:clickOutside on:outclick={() => (optionsOpen = false)} class="mx-auto select-none">
-	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<div class="cursor-pointer" on:click={() => (optionsOpen = !optionsOpen)}>
+	<button id="floor-options" on:click={() => (optionsOpen = !optionsOpen)}>
 		<div class="flex justify-center items-center gap-x-1">
 			<img src={floorIcons[$selectedFloor - 1]} alt={`floor-${selectedFloor}`} />
 			<p>{translations[language]['mizuki_levels'][$selectedFloor - 1]}</p>
@@ -45,6 +44,6 @@
 				{/each}
 			</div>
 		{/if}
-	</div>
+	</button>
 	<FloorOptions bind:optionsOpen {language} />
 </div>
