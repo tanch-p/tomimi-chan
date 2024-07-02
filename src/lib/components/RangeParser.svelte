@@ -1,7 +1,7 @@
 <script lang="ts">
 	import rangeTable from '$lib/data/range_table.json';
 	export let rangeId,
-		size,
+		size ="normal",
 		extend = 0;
 
 	let grids,

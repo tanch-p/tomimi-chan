@@ -1,24 +1,21 @@
 <script lang="ts">
 	import { selectedChara, moduleIndex, sortOptions, secFilters } from './stores';
 	import { charaAssets } from '$lib/data/chara/chara_assets';
-	import { getActiveModule, getPrioritySortValues } from '$lib/functions/charaHelpers';
+	import { getPrioritySortValues } from '$lib/functions/charaHelpers';
 	export let chara;
 
-	$: equip = getActiveModule(chara);
+	$: equip = chara.activeModuleIndex && chara.uniequip?.[chara.activeModuleIndex];
 
 	$: values = getPrioritySortValues(chara, $sortOptions, $secFilters);
 
-	const handleClick = (chara, equip) => {
+	const handleClick = (chara) => {
 		selectedChara.set(chara);
-		if (equip) {
-			const equipIndex = chara.uniequip.findIndex((ele) => ele.uniEquipId === equip.uniEquipId);
-			if (equipIndex !== -1) moduleIndex.set(equipIndex);
-		}
+		moduleIndex.set(chara.activeModuleIndex);
 	};
 </script>
 
 <button
-	on:click={() => handleClick(chara, equip)}
+	on:click={() => handleClick(chara)}
 	class="relative select-none border border-gray-600 border-opacity-50"
 >
 	<div class="relative">

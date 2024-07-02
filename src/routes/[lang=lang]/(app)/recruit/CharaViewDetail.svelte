@@ -16,7 +16,13 @@
 
 	export let chara, language: Language;
 
-	let items = [], equip;
+	let talents = [],
+		skills = [],
+		showAlt = false;
+	$: talents = [...new Set(chara.activeTalents)].sort().map((i) => chara.talents[i]);
+	$: skills = [...new Set(chara.activeSkills)].sort().map((i) => chara.skills[i]);
+	$: showAlt =
+		talents.length > 0 || skills.length > 0 || chara.activeModuleIndex || chara.showTrait;
 
 	const rarityBgColors = {
 		TIER_1: 'bg-[#c1c1c1]',
@@ -34,12 +40,9 @@
 
 	const statKeys = ['hp', 'respawnTime', 'atk', 'cost', 'def', 'blockCnt', 'res', 'aspd'];
 
-	const handleClick = (chara, equip) => {
+	const handleClick = (chara) => {
 		selectedChara.set(chara);
-		if (equip) {
-			const equipIndex = chara.uniequip.findIndex((ele) => ele.uniEquipId === equip.uniEquipId);
-			if (equipIndex !== -1) moduleIndex.set(equipIndex);
-		}
+		moduleIndex.set(chara.activeModuleIndex);
 	};
 
 	const phase = ['TIER_1', 'TIER_2'].includes(chara.rarity) ? 0 : chara.rarity === 'TIER_3' ? 1 : 2;
@@ -48,10 +51,7 @@
 <div>
 	<div class="relative z-[1] {rarityBgColors[chara.rarity]} pl-1.5 rounded-md">
 		<div class="grid grid-cols-[130px_1fr] p-1.5 pb-0 shadow-md rounded-md bg-white">
-			<button
-				on:click={() => handleClick(chara, equip)}
-				class="relative pl-[1.125rem] pr-4 h-[102px]"
-			>
+			<button on:click={() => handleClick(chara)} class="relative pl-[1.125rem] pr-4 h-[102px]">
 				<div class="absolute z-[1] top-0 left-0 bg-[#2c2c2c] p-1 rounded-md">
 					<img
 						src={charaAssets[chara.profession]}
@@ -108,9 +108,9 @@
 				</div>
 			</button>
 			<div class="text-[#333]">
-				<h3 class="border-b border-gray-400 font-medium">{chara.name}</h3>
+				<h3 class="border-b border-gray-400 font-medium leading-[20px]">{chara.name}</h3>
 				<div class="pt-1.5">
-					{#if items.length > 0 || true}
+					{#if showAlt}
 						<div class="flex">
 							<div
 								class:none={chara.uniequip.length === 0}
@@ -164,86 +164,78 @@
 			</div>
 		</div>
 	</div>
-	{#if items.length > 0}
-		{@const talents = items.filter((ele) => ele.key === 'talent').map((ele) => ele.data)}
-		{@const skills = items.filter((ele) => ele.key === 'skill').map((ele) => ele.data)}
-		{#if talents.length > 0 || skills.length > 0}
-			<div class="relative rounded-b-md bg-gray-300 pt-4 pb-2 -mt-2 space-y-2.5 text-[#333]">
-				{#if talents.length > 0}
-					<div class="px-3">
-						{#each talents as talent}
-							<p class="py-[1px] px-2 w-max bg-[#f9f9f9] rounded-md font-medium text-[#333]">
-								{talent.name}
-							</p>
-							<TextParser className="mt-1" line={talent.desc} />
-						{/each}
-					</div>
-				{/if}
-				{#if skills.length > 0}
-					{#each skills as skill}
-						{@const hasMastery = skill.levels.length > 1}
-						{@const mastery = hasMastery ? 3 : 0}
-						<div class="grid grid-cols-[75px_1fr] gap-x-[10px] pl-1">
-							<div class="flex flex-col items-center">
-								<div class="relative flex items-center justify-center w-[75px] h-[75px]">
-									{#await import(`../../../../lib/images/skill_icons/skill_icon_${getSkillImgUrl(skill.skillId)}.webp`) then { default: src }}
-										<img {src} width="70" height="70" loading="lazy" alt={''} />
-									{/await}
-									{#if hasMastery}
-										<img
-											src={charaAssets.mastery[mastery]}
-											width="15"
-											alt="M{mastery}"
-											class="absolute top-0 left-0"
-										/>
-									{/if}
-									<div class="absolute flex -bottom-0.5 -right-0.5 shadow-md text-near-white">
-										{#if skill.levels?.[mastery]?.spData?.initSp}
-											<div
-												class="grid grid-cols-[9px_1fr] items-center border-r border-black bg-[#434343] pl-[4px] pr-[1px]"
-											>
-												<img src={charaAssets.sp_start} alt="" />
-												<p class="text-sm leading-tight">
-													{skill.levels?.[mastery]?.spData?.initSp}
-												</p>
-											</div>
-										{/if}
-										<div class="grid grid-cols-[12px_1fr] items-center bg-[#434343] pr-[1px]">
-											<img src={charaAssets.sp_cost} alt="" />
+	{#if showAlt}
+		<div class="relative rounded-b-md bg-gray-300 pt-4 pb-2 -mt-2 space-y-2.5 text-[#333]">
+			{#if talents.length > 0}
+				<div class="px-3">
+					{#each talents as talent}
+						<p class="py-[1px] px-2 w-max bg-[#f9f9f9] rounded-md font-medium text-[#333]">
+							{talent.name}
+						</p>
+						<TextParser className="mt-1" line={talent.desc} />
+					{/each}
+				</div>
+			{/if}
+			{#if skills.length > 0}
+				{#each skills as skill}
+					{@const hasMastery = skill.levels.length > 1}
+					{@const mastery = hasMastery ? 3 : 0}
+					<div class="grid grid-cols-[75px_1fr] gap-x-[10px] pl-1">
+						<div class="flex flex-col items-center">
+							<div class="relative flex items-center justify-center w-[75px] h-[75px]">
+								{#await import(`../../../../lib/images/skill_icons/skill_icon_${getSkillImgUrl(skill.skillId)}.webp`) then { default: src }}
+									<img {src} width="70" height="70" loading="lazy" alt={''} />
+								{/await}
+								{#if hasMastery}
+									<img
+										src={charaAssets.mastery[mastery]}
+										width="15"
+										alt="M{mastery}"
+										class="absolute top-0 left-0"
+									/>
+								{/if}
+								<div class="absolute flex -bottom-0.5 -right-0.5 shadow-md text-near-white">
+									{#if skill.levels?.[mastery]?.spData?.initSp}
+										<div
+											class="grid grid-cols-[9px_1fr] items-center border-r border-black bg-[#434343] pl-[4px] pr-[1px]"
+										>
+											<img src={charaAssets.sp_start} alt="" />
 											<p class="text-sm leading-tight">
-												{skill.levels?.[mastery]?.spData?.spCost}
+												{skill.levels?.[mastery]?.spData?.initSp}
 											</p>
 										</div>
+									{/if}
+									<div class="grid grid-cols-[12px_1fr] items-center bg-[#434343] pr-[1px]">
+										<img src={charaAssets.sp_cost} alt="" />
+										<p class="text-sm leading-tight">
+											{skill.levels?.[mastery]?.spData?.spCost}
+										</p>
 									</div>
 								</div>
-								<p class="text-sm mt-1">{skill.name}</p>
 							</div>
-							<div class="pr-2.5">
-								<div class="flex text-near-white">
-									{#if skill.skillType !== 'PASSIVE'}
-										<p class="pill px-1.5 {skill?.spType}">
-											{translations[language][skill?.spType]}
-										</p>
-									{/if}
-									<p class="pill px-1.5 bg-[#737373]">{translations[language][skill.skillType]}</p>
-									{#if skill.levels?.[mastery]?.duration > 0}
-										<div
-											class="pill px-0.5 grid grid-cols-[20px_1fr] gap-x-1 items-center bg-[#555]"
-										>
-											<Icon name="clock-icon" className="w-[20px]" />
-											<span
-												>{skill.levels?.[mastery]?.duration}{language === 'en' ? 's' : '秒'}</span
-											>
-										</div>
-									{/if}
-								</div>
-								<TextParser line={skill.levels[mastery].desc} className="mt-0.5" />
-							</div>
+							<p class="text-sm mt-1">{skill.name}</p>
 						</div>
-					{/each}
-				{/if}
-			</div>
-		{/if}
+						<div class="pr-2.5">
+							<div class="flex text-near-white">
+								{#if skill.skillType !== 'PASSIVE'}
+									<p class="pill px-1.5 {skill?.spType}">
+										{translations[language][skill?.spType]}
+									</p>
+								{/if}
+								<p class="pill px-1.5 bg-[#737373]">{translations[language][skill.skillType]}</p>
+								{#if skill.levels?.[mastery]?.duration > 0}
+									<div class="pill px-0.5 grid grid-cols-[20px_1fr] gap-x-1 items-center bg-[#555]">
+										<Icon name="clock-icon" className="w-[20px]" />
+										<span>{skill.levels?.[mastery]?.duration}{language === 'en' ? 's' : '秒'}</span>
+									</div>
+								{/if}
+							</div>
+							<TextParser line={skill.levels[mastery].desc} className="mt-0.5" />
+						</div>
+					</div>
+				{/each}
+			{/if}
+		</div>
 	{/if}
 	<div />
 </div>

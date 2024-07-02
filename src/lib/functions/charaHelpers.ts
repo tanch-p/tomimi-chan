@@ -792,13 +792,6 @@ export const getTokenPosition = (token, uniequip) => {
 	}
 };
 
-export const getActiveModule = (char) => {
-	if (!char.activeModuleIndex) {
-		return;
-	}
-	return char.uniequip?.[char.activeModuleIndex];
-};
-
 export const getPrioritySortValues = (char, sortOptions, secFilters) => {
 	const priorityOption = sortOptions.find((ele) => ele.priority === 1);
 	if (!priorityOption) {
@@ -912,6 +905,11 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 	if (list.length === 0) {
 		return (char) => {
 			char.activeModuleIndex = 0;
+			char.activeModuleIndex = 0;
+			char.activeTalents = [];
+			char.activeSkills = [];
+			char.activeTokens = [];
+			char.showTrait = false;
 			return true;
 		};
 	}
@@ -956,14 +954,30 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 					equipIndex === -1 && initialRemainder.push(searchItem);
 				}
 			} else if (type === 'tags') {
-				if (
-					!(
-						char.tags.includes(key) ||
-						char.skills.some((skill) => skill.tags.includes(key)) ||
-						char.talents.some((talent) => talent.tags.includes(key)) ||
-						char.tokens.some((token) => token.tags.includes(key))
-					)
-				) {
+				let found = false;
+				if (char.tags.includes(key)) {
+					found = true;
+					char.showTrait = true;
+				}
+				char.skills.forEach((skill, i) => {
+					if (skill.tags.includes(key)) {
+						found = true;
+						char.activeSkills.push(i);
+					}
+				});
+				char.talents.forEach((talent, i) => {
+					if (talent.tags.includes(key)) {
+						found = true;
+						char.activeTalents.push(i);
+					}
+				});
+				char.tokens.forEach((token, i) => {
+					if (token.tags.includes(key)) {
+						found = true;
+						char.activeTokens.push(i);
+					}
+				});
+				if (!found) {
 					equipIndex = char.uniequip
 						.filter((equip) => equip.combatData)
 						.findIndex((equip) => equip.combatData.tags.includes(key));
@@ -972,35 +986,50 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 					} else initialRemainder.push(searchItem);
 				}
 			} else if (type === 'blackboard') {
+				let found = false;
 				if (
-					!(
-						char.blackboard.some(
-							(item) =>
-								item.key === key && secFiltersFunctions?.[key]?.every((fn) => fn(item, char.tags))
-						) ||
-						char.skills.some((skill) =>
-							skill.blackboard.some(
-								(item) =>
-									item.key === key &&
-									secFiltersFunctions?.[key]?.every((fn) => fn(item, skill.tags))
-							)
-						) ||
-						char.talents.some((talent) =>
-							talent.blackboard.some(
-								(item) =>
-									item.key === key &&
-									secFiltersFunctions?.[key]?.every((fn) => fn(item, talent.tags))
-							)
-						) ||
-						char.tokens?.some((token) =>
-							token.blackboard.some(
-								(item) =>
-									item.key === key &&
-									secFiltersFunctions?.[key]?.every((fn) => fn(item, token.tags))
-							)
-						)
+					char.blackboard.some(
+						(item) =>
+							item.key === key && secFiltersFunctions?.[key]?.every((fn) => fn(item, char.tags))
 					)
 				) {
+					found = true;
+					char.showTrait = true;
+				}
+				char.skills.forEach((skill, i) => {
+					if (
+						skill.blackboard.some(
+							(item) =>
+								item.key === key && secFiltersFunctions?.[key]?.every((fn) => fn(item, skill.tags))
+						)
+					) {
+						found = true;
+						char.activeSkills.push(i);
+					}
+				});
+				char.talents.forEach((talent, i) => {
+					if (
+						talent.blackboard.some(
+							(item) =>
+								item.key === key && secFiltersFunctions?.[key]?.every((fn) => fn(item, talent.tags))
+						)
+					) {
+						found = true;
+						char.activeTalents.push(i);
+					}
+				});
+				char.tokens.forEach((token, i) => {
+					if (
+						token.blackboard.some(
+							(item) =>
+								item.key === key && secFiltersFunctions?.[key]?.every((fn) => fn(item, token.tags))
+						)
+					) {
+						found = true;
+						char.activeTokens.push(i);
+					}
+				});
+				if (!found) {
 					equipIndex = char.uniequip
 						.filter((equip) => equip.combatData)
 						.findIndex((equip) =>
@@ -1021,6 +1050,8 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 						skill.blackboard.some((item) => item.key === 'blockCnt' && options.includes(item.value))
 					);
 					if (skill) {
+						const skillIndex = char.skills.findIndex((ele) => ele.name === skill.name);
+						char.activeSkills.push(skillIndex);
 						const option = skill.blackboard.find(
 							(item) => item.key === 'blockCnt' && options.includes(item.value)
 						);
@@ -1034,18 +1065,22 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 						initialRemainder.push(searchItem);
 					}
 				} else if (blockCntSubFilters.includes('normal_state')) {
-					if (
-						!(
-							options.includes(char.stats.blockCnt) ||
-							char.tokens?.some(
-								(token) =>
-									options.includes(token.stats.blockCnt) ||
-									token.blackboard.some(
-										(item) => item.key === 'blockCnt' && options.includes(item.value)
-									)
+					let found = false;
+					if (options.includes(char.stats.blockCnt)) {
+						found = true;
+					}
+					char.tokens.forEach((token, i) => {
+						if (
+							options.includes(token.stats.blockCnt) ||
+							token.blackboard.some(
+								(item) => item.key === 'blockCnt' && options.includes(item.value)
 							)
-						)
-					) {
+						) {
+							found = true;
+							char.activeTokens.push(i);
+						}
+					});
+					if (!found) {
 						equipIndex = char.uniequip
 							.filter((equip) => equip.combatData)
 							.findIndex((equip) =>
@@ -1060,21 +1095,34 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 						}
 					}
 				} else {
-					if (
-						!(
-							options.includes(char.stats.blockCnt) ||
+					let found = false;
+					if (options.includes(char.stats.blockCnt)) {
+						found = true;
+					}
+					char.tokens.forEach((token, i) => {
+						if (
+							options.includes(token.stats.blockCnt) ||
+							token.blackboard.some(
+								(item) => item.key === 'blockCnt' && options.includes(item.value)
+							)
+						) {
+							found = true;
+							char.activeTokens.push(i);
+						}
+					});
+					char.skills.forEach((skill, i) => {
+						if (
 							char.skills?.some((skill) =>
 								skill.blackboard.some(
 									(item) => item.key === 'blockCnt' && options.includes(item.value)
 								)
-							) ||
-							char.tokens?.some((token) =>
-								token.blackboard.some(
-									(item) => item.key === 'blockCnt' && options.includes(item.value)
-								)
 							)
-						)
-					) {
+						) {
+							found = true;
+							char.activeSkills.push(i);
+						}
+					});
+					if (!found) {
 						equipIndex = char.uniequip
 							.filter((equip) => equip.combatData)
 							.findIndex((equip) =>
@@ -1104,6 +1152,10 @@ export const createStrictFilterFunction = (list, secFilters) => {
 	if (list.length === 0) {
 		return (char) => {
 			char.activeModuleIndex = 0;
+			char.activeTalents = [];
+			char.activeSkills = [];
+			char.activeTokens = [];
+			char.showTrait = false;
 			return true;
 		};
 	}
@@ -1150,38 +1202,60 @@ export const createStrictFilterFunction = (list, secFilters) => {
 					equipIndex === -1 && initialRemainder.push(searchItem);
 				}
 			} else if (type === 'tags') {
-				if (
-					!(
-						char.tags.includes(key) ||
-						char.talents.some((talent) => talent.tags.includes(key)) ||
-						char.tokens.some((token) => token.tags.includes(key))
-					)
-				) {
+				let found = false;
+				if (char.tags.includes(key)) {
+					found = true;
+					char.showTrait = true;
+				}
+				char.talents.forEach((talent, i) => {
+					if (talent.tags.includes(key)) {
+						found = true;
+						char.activeTalents.push(i);
+					}
+				});
+				char.tokens.forEach((token, i) => {
+					if (token.tags.includes(key)) {
+						found = true;
+						char.activeTokens.push(i);
+					}
+				});
+				if (!found) {
 					initialRemainder.push(searchItem);
 				}
 			} else if (type === 'blackboard') {
+				let found = false;
 				if (
-					!(
-						char.blackboard.some(
-							(item) =>
-								item.key === key && secFiltersFunctions?.[key]?.every((fn) => fn(item, char.tags))
-						) ||
-						char.talents.some((talent) =>
-							talent.blackboard.some(
-								(item) =>
-									item.key === key &&
-									secFiltersFunctions?.[key]?.every((fn) => fn(item, talent.tags))
-							)
-						) ||
-						char.tokens?.some((token) =>
-							token.blackboard.some(
-								(item) =>
-									item.key === key &&
-									secFiltersFunctions?.[key]?.every((fn) => fn(item, token.tags))
-							)
-						)
+					char.blackboard.some(
+						(item) =>
+							item.key === key && secFiltersFunctions?.[key]?.every((fn) => fn(item, char.tags))
 					)
 				) {
+					found = true;
+					char.showTrait = true;
+				}
+				char.talents.forEach((talent, i) => {
+					if (
+						talent.blackboard.some(
+							(item) =>
+								item.key === key && secFiltersFunctions?.[key]?.every((fn) => fn(item, talent.tags))
+						)
+					) {
+						found = true;
+						char.activeTalents.push(i);
+					}
+				});
+				char.tokens.forEach((token, i) => {
+					if (
+						token.blackboard.some(
+							(item) =>
+								item.key === key && secFiltersFunctions?.[key]?.every((fn) => fn(item, token.tags))
+						)
+					) {
+						found = true;
+						char.activeTokens.push(i);
+					}
+				});
+				if (!found) {
 					initialRemainder.push(searchItem);
 				}
 			} else if (type === 'blockCnt') {
@@ -1215,14 +1289,19 @@ export const createStrictFilterFunction = (list, secFilters) => {
 						}
 					}
 				} else if (
-					!char.tokens?.some(
-						(token) =>
+					char.tokens?.some((token, i) => {
+						if (
 							options.includes(token.stats.blockCnt) ||
 							token.blackboard.some(
 								(item) => item.key === 'blockCnt' && options.includes(item.value)
 							)
-					)
+						) {
+							char.activeTokens.push(i);
+							return true;
+						}
+					})
 				) {
+				} else {
 					initialRemainder.push(searchItem);
 				}
 			} else {
@@ -1233,21 +1312,25 @@ export const createStrictFilterFunction = (list, secFilters) => {
 		if (initialRemainder.length === 0) {
 			return true;
 		}
-		char.skills.forEach((skill) => {
+		char.skills.forEach((skill, i) => {
 			const remainder = [];
 			initialRemainder.forEach((searchItem) => {
 				const { key, type } = searchItem;
 				if (type === 'tags') {
-					if (!skill.tags.includes(key)) {
+					if (skill.tags.includes(key)) {
+						char.activeSkills.push(i);
+					} else {
 						remainder.push(searchItem);
 					}
 				} else if (type === 'blackboard') {
 					if (
-						!skill.blackboard.some(
+						skill.blackboard.some(
 							(item) =>
 								item.key === key && secFiltersFunctions?.[key]?.every((fn) => fn(item, skill.tags))
 						)
 					) {
+						char.activeSkills.push(i);
+					} else {
 						remainder.push(searchItem);
 					}
 				} else if (type === 'blockCnt') {
@@ -1258,6 +1341,9 @@ export const createStrictFilterFunction = (list, secFilters) => {
 						const item = skill.blackboard.find(
 							(item) => item.key === key && options.includes(item.value)
 						);
+						if (item) {
+							chara.activeSkills.push(i);
+						}
 						if (!item) {
 							remainder.push(searchItem);
 						} else if (item.module) {
@@ -1275,6 +1361,7 @@ export const createStrictFilterFunction = (list, secFilters) => {
 							skill.blackboard.find((item) => item.key === key && options.includes(item.value));
 						if (!statPass) {
 							if (skillPass) {
+								chara.activeSkills.push(i);
 								const item = skill.blackboard.find(
 									(item) => item.key === key && options.includes(item.value)
 								);
