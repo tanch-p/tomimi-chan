@@ -2,8 +2,9 @@
 	import type { Language } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import Icon from '$lib/components/Icon.svelte';
-	import CharaDisplay from './CharaDisplay.svelte';
 	import { onMount } from 'svelte';
+	import CharaViewGrid from './CharaViewGrid.svelte';
+	import CharaViewDetail from './CharaViewDetail.svelte';
 
 	export let characters, language: Language;
 
@@ -12,7 +13,7 @@
 	let itemsPerLoad = 50;
 	let currentIndex = 0;
 
-	$: if (characters) {
+	$: if (characters?.length) {
 		visibleItems = [];
 		currentIndex = 0;
 		loadMoreItems();
@@ -79,7 +80,11 @@
 				: 'flex flex-col gap-3.5 px-1.5'}"
 		>
 			{#each visibleItems as chara (chara.id)}
-				<CharaDisplay {chara} {displayMode} {language} />
+				{#if displayMode === 'grid'}
+					<CharaViewGrid {chara} />
+				{:else}
+					<CharaViewDetail {chara} {language} />
+				{/if}
 			{/each}
 		</div>
 	{/if}

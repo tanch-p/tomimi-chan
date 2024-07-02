@@ -88,6 +88,7 @@ const SELF_CAN_TAGS = [
 	'reallocate_hp',
 	'ailment_but_skill_cont',
 	'target_air',
+	"max_target",
 	'fast_redeploy'
 ];
 const SELF_BUFF_TAGS = [

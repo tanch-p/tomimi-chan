@@ -268,7 +268,10 @@ export const generateSkillDesc = (
 		if (
 			key === 'others' &&
 			counter === 0 &&
-			holder['damage_type']
+			(otherGroups?.others?.some((ele) =>
+				['aoe', 'damage_type', 'max_target', 'target_air', 'damage_type'].includes(ele)
+			) ||
+				otherGroups?.['damage_type'])
 		) {
 			category_pre += '能';
 		}

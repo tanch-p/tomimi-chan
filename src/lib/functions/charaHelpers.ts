@@ -120,6 +120,7 @@ const SEARCH_IN_TAGS = [
 	'protect'
 ];
 const SEARCH_IN_BLACKBOARD = [
+	'max_target',
 	'stealth',
 	'camouflage',
 	'ally_camouflage',
@@ -550,50 +551,6 @@ const getAllValues = (char, key, subKey, functions) => {
 	return values;
 };
 
-const getAllItems = (char, key, subKey, order, functions) => {
-	const defaultValue = getDefaultValue(subKey);
-	if (!functions) functions = [() => true];
-	const items = [];
-	char.blackboard.forEach((ele) => {
-		if (ele.key === key && functions.every((fn) => fn(ele, char.tags))) {
-			items.push({ key: 'trait', data: null, item: ele });
-		}
-	});
-	char.tokens.forEach((token) => {
-		token.blackboard.forEach((ele) => {
-			if (ele.key === key && functions.every((fn) => fn(ele, token.tags))) {
-				items.push({ key: 'token', data: token, item: ele });
-			}
-		});
-	});
-	char.skills.forEach((skill) => {
-		skill.blackboard.forEach((ele) => {
-			if (ele.key === key && functions.every((fn) => fn(ele, skill.tags))) {
-				items.push({ key: 'skill', data: skill, item: ele });
-			}
-		});
-	});
-	char.talents.forEach((talent) => {
-		talent.blackboard.forEach((ele) => {
-			if (ele.key === key && functions.every((fn) => fn(ele, talent.tags))) {
-				items.push({ key: 'talent', data: talent, item: ele });
-			}
-		});
-	});
-	char.uniequip
-		.filter((equip) => equip.combatData)
-		.forEach((equip) => {
-			equip.combatData.blackboard.forEach((ele) => {
-				if (ele.key === key && functions.every((fn) => fn(ele, equip.combatData.tags))) {
-					items.push({ key: 'uniequip', data: equip, item: ele });
-				}
-			});
-		});
-	return items.sort((a, b) => {
-		return ((a.item[subKey] ?? defaultValue) - (b.item[subKey] ?? defaultValue)) * order;
-	});
-};
-
 //goes through talent and skills blackboard and gets maximum value of key
 //startValue changed to -1 because of force level...
 export const getMaxValue = (char, key, subKey, functions) => {
@@ -842,58 +799,55 @@ export const getActiveModule = (char) => {
 	return char.uniequip?.[char.activeModuleIndex];
 };
 
-export const getPrioritySortItemsAndValue = (char, sortOptions, secFilters) => {
+export const getPrioritySortValues = (char, sortOptions, secFilters) => {
 	const priorityOption = sortOptions.find((ele) => ele.priority === 1);
 	if (!priorityOption) {
 		return 0;
 	}
 	const { key, subKey, order } = priorityOption;
 	const values = getAllValues(char, key, subKey ?? 'value', secFilters[key]);
-	const items = getAllItems(char, key, subKey ?? 'value', order, secFilters[key]);
 	const uniqueValues = [...new Set(values)];
 	uniqueValues.sort((a, b) => (a - b) * order);
-	return {
-		items,
-		values: uniqueValues
-			.map((value) => {
-				if (!value && key !== 'force') return;
-				if (value === 999) return '-';
-				if (
-					['duration'].includes(subKey) ||
-					[
-						'stun',
-						'sluggish',
-						'sleep',
-						'silence',
-						'cold',
-						'levitate',
-						'root',
-						'tremble',
-						'ally_sp_regen',
-						'shield',
-						'ally_shield',
-						'sp_regen',
-						'force'
-					].includes(key)
-				) {
-					return value.toString();
-				}
-				if (['damage_scale', 'ally_damage_scale', 'ally_heal_scale'].includes(key) && value < 4.9) {
-					return `${Math.round((value - 1) * 100)}%`;
-				}
-				if (['ally_sp_gain', 'sp_gain'].includes(key)) {
-					return value < 1 ? `${Math.round(value * 100)}%` : value;
-				}
-				if (['ally_atk', 'ally_def', 'ally_res', 'def', 'res'].includes(key)) {
-					return value < 4.9 ? `${Math.round(value * 100)}%` : value;
-				}
-				if (value < 1.01) {
-					return `${Math.round(value * 100)}%`;
-				}
-				return value;
-			})
-			.filter(key === 'force' ? () => true : Boolean)
-	};
+	return uniqueValues
+		.map((value) => {
+			if (!value && key !== 'force') return;
+			if (value === 999) return '-';
+			if (
+				['duration'].includes(subKey) ||
+				[
+					'stun',
+					'sluggish',
+					'sleep',
+					'silence',
+					'cold',
+					'levitate',
+					'root',
+					'tremble',
+					'ally_sp_regen',
+					'shield',
+					'ally_shield',
+					'sp_regen',
+					'force',
+					'max_target'
+				].includes(key)
+			) {
+				return value.toString();
+			}
+			if (['damage_scale', 'ally_damage_scale', 'ally_heal_scale'].includes(key) && value < 4.9) {
+				return `${Math.round((value - 1) * 100)}%`;
+			}
+			if (['ally_sp_gain', 'sp_gain'].includes(key)) {
+				return value < 1 ? `${Math.round(value * 100)}%` : value;
+			}
+			if (['ally_atk', 'ally_def', 'ally_res', 'def', 'res'].includes(key)) {
+				return value < 4.9 ? `${Math.round(value * 100)}%` : value;
+			}
+			if (value < 1.01) {
+				return `${Math.round(value * 100)}%`;
+			}
+			return value;
+		})
+		.filter(key === 'force' ? () => true : Boolean);
 };
 
 export const addOptionsToAcc = (acc, options) => {

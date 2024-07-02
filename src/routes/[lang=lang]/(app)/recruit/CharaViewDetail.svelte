@@ -14,7 +14,9 @@
 	import Icon from '$lib/components/Icon.svelte';
 	import RangeParser from '$lib/components/RangeParser.svelte';
 
-	export let chara, equip, items, language: Language;
+	export let chara, language: Language;
+
+	let items = [], equip;
 
 	const rarityBgColors = {
 		TIER_1: 'bg-[#c1c1c1]',
@@ -30,7 +32,6 @@
 		prioritySortOption = list.find((ele) => ele.priority === 1);
 	});
 
-	$: console.log(items);
 	const statKeys = ['hp', 'respawnTime', 'atk', 'cost', 'def', 'blockCnt', 'res', 'aspd'];
 
 	const handleClick = (chara, equip) => {
@@ -115,7 +116,7 @@
 								class:none={chara.uniequip.length === 0}
 								class="relative shrink-0 module mt-3 mr-1 w-[40px] h-[40px] border-4 border-[#ddd]"
 							>
-								{#if equip}
+								<!-- {#if equip}
 									{@const typeIcon = equip.typeIcon.toLowerCase()}
 									{#await import(`../../../../lib/images/equip_icons/icon_${typeIcon}.webp`) then { default: src }}
 										<div
@@ -123,7 +124,7 @@
 											style="background-image: url({src});"
 										/>
 									{/await}
-								{/if}
+								{/if} -->
 							</div>
 							<div class="flex flex-col items-center py-0.5 px-1.5 bg-[#7f7f7f] rounded">
 								<div class="flex justify-center items-center min-h-[45px] max-h-[65px] w-[55px]">

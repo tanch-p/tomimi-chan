@@ -191,8 +191,8 @@
 				{#each filterOptions['others'] as value}
 					<button
 						class="filter-btn"
-						class:active={isSelected('tags', value)}
-						on:click={() => updateFilters('tags', value, filtersStore)}
+						class:active={isSelected(getCategory(value), value)}
+						on:click={() => updateFilters(getCategory(value), value, filtersStore)}
 					>
 						{translations[language][value]}
 					</button>

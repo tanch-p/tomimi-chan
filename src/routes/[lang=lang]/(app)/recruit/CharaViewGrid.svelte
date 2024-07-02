@@ -1,7 +1,12 @@
 <script lang="ts">
-	import { selectedChara, moduleIndex } from './stores';
+	import { selectedChara, moduleIndex, sortOptions, secFilters } from './stores';
 	import { charaAssets } from '$lib/data/chara/chara_assets';
-	export let chara, values, equip;
+	import { getActiveModule, getPrioritySortValues } from '$lib/functions/charaHelpers';
+	export let chara;
+
+	$: equip = getActiveModule(chara);
+
+	$: values = getPrioritySortValues(chara, $sortOptions, $secFilters);
 
 	const handleClick = (chara, equip) => {
 		selectedChara.set(chara);

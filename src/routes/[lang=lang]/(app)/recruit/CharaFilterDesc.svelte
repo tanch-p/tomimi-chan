@@ -124,7 +124,7 @@
 	class="fixed z-10 bottom-0 w-full p-2.5 md:p-4 bg-[#333] text-near-white text-center {language ===
 	'en'
 		? 'text-base md:text-lg'
-		: 'text-lg md:text-2xl'} "
+		: 'text-lg md:text-xl'} "
 >
 	<div class="max-w-[1200px] w-full mx-auto">
 		<TextParser {line} />

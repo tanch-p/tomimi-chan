@@ -91,6 +91,7 @@ const SELF_CAN_TAGS = [
 ];
 const SELF_STAT_BUFFS = ['sp_regen', 'sp_stock', 'def', 'res'];
 const HAVE_TAGS = [
+	'max_target',
 	'fast_redeploy',
 	'revive',
 	'spareshot',
