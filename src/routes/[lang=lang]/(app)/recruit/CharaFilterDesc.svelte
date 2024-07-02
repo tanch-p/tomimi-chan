@@ -6,6 +6,7 @@
 	import TextParser from '$lib/components/TextParser.svelte';
 	import { generateSkillDesc as generateSkillDesc_zh } from '$lib/functions/filterDescHelpers_zh';
 	import { generateSkillDesc as generateSkillDesc_ja } from '$lib/functions/filterDescHelpers_ja';
+	import { generateSkillDesc as generateSkillDesc_en } from '$lib/functions/filterDescHelpers_en';
 
 	export let language: Language;
 
@@ -27,7 +28,9 @@
 			case 'ja':
 				fn = generateSkillDesc_ja;
 				break;
-
+			case 'en':
+				fn = generateSkillDesc_en;
+				break;
 			default:
 				fn = generateSkillDesc_zh;
 				break;
@@ -118,7 +121,10 @@
 </script>
 
 <div
-	class="fixed z-10 bottom-0 w-full p-2.5 md:p-4 bg-[#333] text-lg md:text-2xl text-near-white text-center"
+	class="fixed z-10 bottom-0 w-full p-2.5 md:p-4 bg-[#333] text-near-white text-center {language ===
+	'en'
+		? 'text-base md:text-lg'
+		: 'text-lg md:text-2xl'} "
 >
 	<div class="max-w-[1200px] w-full mx-auto">
 		<TextParser {line} />

@@ -196,8 +196,7 @@ const DISPLAY_KEYS_TABLE = {
 	ally_shield: 'buff_shield',
 	shield: 'buff_shield',
 	ally_block_dmg: 'block_dmg',
-	ally_dmg_res: 'dmg_reduction',
-	dmg_res: 'dmg_reduction',
+	ally_dmg_res: 'dmg_res',
 	ally_undying: 'undying',
 	ally_max_hp: 'hp',
 	max_hp: 'hp',
@@ -884,6 +883,9 @@ export const getPrioritySortItemsAndValue = (char, sortOptions, secFilters) => {
 				}
 				if (['ally_sp_gain', 'sp_gain'].includes(key)) {
 					return value < 1 ? `${Math.round(value * 100)}%` : value;
+				}
+				if (['ally_atk', 'ally_def', 'ally_res', 'def', 'res'].includes(key)) {
+					return value < 4.9 ? `${Math.round(value * 100)}%` : value;
 				}
 				if (value < 1.01) {
 					return `${Math.round(value * 100)}%`;

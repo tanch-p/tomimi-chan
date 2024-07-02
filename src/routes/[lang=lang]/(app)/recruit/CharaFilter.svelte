@@ -108,7 +108,7 @@
 			{translations[language].filter}
 		</h2>
 		<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-2 md:gap-y-3 pt-3">
-			<p class="md:py-[5px]">{translations[language].chara_filter.release_status}</p>
+			<p class="md:py-[5px] font-medium">{translations[language].chara_filter.release_status}</p>
 			<div class="flex flex-wrap gap-2">
 				{#each ['global', 'cn'] as value}
 					<button
@@ -120,7 +120,7 @@
 					</button>
 				{/each}
 			</div>
-			<p class="md:py-[5px] mt-2 md:mt-0">{translations[language]['rarity']}</p>
+			<p class="md:py-[5px] mt-2 md:mt-0 font-medium">{translations[language]['rarity']}</p>
 			<div class="flex flex-wrap gap-2">
 				{#each filterOptions['rarity'] as value}
 					<button
@@ -132,7 +132,7 @@
 					</button>
 				{/each}
 			</div>
-			<p class="md:py-[5px] mt-2 md:mt-0">{translations[language]['profession']}</p>
+			<p class="md:py-[5px] mt-2 md:mt-0 font-medium">{translations[language]['profession']}</p>
 			<div class="flex flex-wrap gap-2">
 				{#each filterOptions['profession'] as value}
 					<button
@@ -144,7 +144,9 @@
 					</button>
 				{/each}
 			</div>
-			<p class="md:py-[5px] mt-2 md:mt-0">{translations[language]['deployable_tile']}</p>
+			<p class="md:py-[5px] mt-2 md:mt-0 font-medium">
+				{translations[language]['deployable_tile']}
+			</p>
 			<div class="flex flex-wrap gap-2">
 				{#each filterOptions['deployable_tile'] as value}
 					<button
@@ -156,7 +158,7 @@
 					</button>
 				{/each}
 			</div>
-			<p class="md:py-[5px] mt-2 md:mt-0">{translations[language].damage_type}</p>
+			<p class="md:py-[5px] mt-2 md:mt-0 font-medium">{translations[language].damage_type}</p>
 			<div class="flex flex-wrap gap-2">
 				{#each filterOptions['damage_type'] as value}
 					<button
@@ -168,7 +170,7 @@
 					</button>
 				{/each}
 			</div>
-			<p class="md:py-[5px] mt-2 md:mt-0 capitalize">
+			<p class="md:py-[5px] mt-2 md:mt-0 capitalize font-medium">
 				{translations[language].table_headers.blockCnt}
 			</p>
 			<div class="flex flex-wrap gap-2">
@@ -182,7 +184,7 @@
 					</button>
 				{/each}
 			</div>
-			<p class="md:py-[5px] mt-2 md:mt-0 capitalize">
+			<p class="md:py-[5px] mt-2 md:mt-0 capitalize font-medium">
 				{translations[language].others}
 			</p>
 			<div class="flex flex-wrap gap-2">
@@ -205,7 +207,9 @@
 			<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-2 md:gap-y-3 pt-2 md:pt-3">
 				{#each Object.keys(filterOptions.subProfessionId) as subKey}
 					{@const subOptions = filterOptions.subProfessionId[subKey]}
-					<p class="md:py-[5px] mt-2 md:mt-0 first:mt-0">{translations[language][subKey]}</p>
+					<p class="md:py-[5px] mt-2 md:mt-0 first:mt-0 font-medium">
+						{translations[language][subKey]}
+					</p>
 					<div class="flex flex-wrap gap-2">
 						{#each subOptions as value}
 							<!-- {@const selected = options.find((ele) => ele.value === value)?.selected} -->
@@ -227,7 +231,7 @@
 			titleClassName="border-b"
 		>
 			<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-2 md:gap-y-3 pt-2 md:pt-3">
-				<p class="hidden sm:block md:py-[5px]">{translations[language]['group']}</p>
+				<p class="hidden sm:block md:py-[5px] font-medium">{translations[language]['group']}</p>
 				<div class="flex flex-wrap gap-2">
 					{#each filterOptions['group'] as value}
 						<button
@@ -252,7 +256,7 @@
 			>
 				<div class="relative z-[1] flex flex-col md:grid grid-cols-[100px_1fr] gap-2 md:gap-y-3">
 					{#each categories as { catKey, optionKey }}
-						<p class="md:py-[5px] mt-2 md:mt-0 first:mt-0 {textColor} sm:text-inherit">
+						<p class="md:py-[5px] mt-2 md:mt-0 first:mt-0 {textColor} sm:text-inherit font-medium">
 							{translations[language][catKey]}
 						</p>
 						<div class="flex flex-wrap gap-2">
@@ -334,7 +338,9 @@
 				<p class="md:py-[5px]">{translations[language]['rogue_relic']}</p>
 				<div
 					class="gap-3 {relicDisplayMode === 'grid'
-						? 'grid grid-cols-3 sm:flex flex-wrap'
+						? language === 'en'
+							? 'grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 items-start'
+							: 'grid grid-cols-3 sm:flex flex-wrap'
 						: 'flex flex-col'}"
 				>
 					{#each relics[$rogueTopic] as relic}
