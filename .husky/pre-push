@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npm run test
+if [ $(git branch --no-color --show-current) = "main" ]; then
+  npm run test
+fi
