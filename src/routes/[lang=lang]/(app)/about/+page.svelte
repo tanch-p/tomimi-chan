@@ -28,19 +28,26 @@
 					</a>
 				</td>
 			</tr>
-			<tr>
-				{#if language === 'zh'}
-					<td class="w-[20%]">b站</td>
+
+			{#if language === 'zh'}
+				<tr>
+					<td class="w-[80px]">b站</td>
 					<td>
 						<a href="https://space.bilibili.com/42504309" target="_blank" rel="noopener noreferrer">
 							<span class="text-blue-400 hover:text-blue-300">塔塔酱AT4</span>
 						</a>
 					</td>
-				{:else}
-					<td class="w-[20%]">Discord</td>
-					<td>@xiiao#0613</td>
-				{/if}
-			</tr>
+				</tr>
+			{:else}
+				<tr>
+					<td class="w-[80px]">Discord</td>
+					<td>@xiiao</td>
+				</tr>
+				<tr>
+					<td class="w-[80px]">Email</td>
+					<td>tomimi.dev@gmail.com</td>
+				</tr>
+			{/if}
 		</tbody>
 	</table>
 </div>
