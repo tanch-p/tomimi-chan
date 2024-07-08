@@ -19,6 +19,7 @@
 	import StageHeader from '$lib/components/StageHeader.svelte';
 	import { applyMods, compileStatModsForChecking } from '$lib/functions/statHelpers';
 	import ModsCheck from '$lib/components/ModsCheck.svelte';
+	import EnemyTimeline from '$lib/components/EnemyTimeline.svelte';
 
 	export let data: PageData;
 	$: language = data.language;
@@ -48,11 +49,30 @@
 
 <main class="bg-neutral-800 text-near-white pb-32 pt-8 sm:pt-16 md:pb-28">
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
-		<StageInfo mapConfig={data.mapConfig} {language} {stageName} {rogueTopic} {selectedFloor} />
+		<StageInfo
+			mapConfig={data.mapConfig}
+			{language}
+			{stageName}
+			{rogueTopic}
+			{selectedFloor}
+			enemies={moddedEnemies}
+		/>
+		<EnemyTimeline
+			{language}
+			enemies={moddedEnemies}
+			{eliteMods}
+			{rogueTopic}
+			mapConfig={data.mapConfig}
+		/>
 		<DifficultySelect {language} {difficulty} {rogueTopic} />
 		<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 		{#if data.mapConfig.elite_mods}
-			<EliteToggle mapEliteMods={data.mapConfig.elite_mods} {eliteMods} {rogueTopic} />
+			<EliteToggle
+				mapEliteMods={data.mapConfig.elite_mods}
+				{eliteMods}
+				{rogueTopic}
+				className="mt-8 mb-3"
+			/>
 		{/if}
 		<EnemyStatDisplay enemies={moddedEnemies} {language} {specialMods} />
 		<div class="mt-8 sm:mt-16">

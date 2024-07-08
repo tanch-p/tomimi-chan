@@ -3,14 +3,11 @@
 	import combat_icon from '$lib/images/is/combat_icon.webp';
 	import emergency_icon from '$lib/images/is/emergency_icon.webp';
 
-	export let mapEliteMods: any, rogueTopic: string, eliteMods: any;
-	let eliteMode = false;
-	$: eliteMode ? eliteMods.set(mapEliteMods) : eliteMods.set(null);
-	//hotfix to set hardMode to false on nav to another stage with hardMods
-	$: if (mapEliteMods) {
-		eliteMode = false;
-	}
+	export let mapEliteMods: any, rogueTopic: string, eliteMods: any, className="";
 
+	$: if (mapEliteMods) {
+		eliteMods.set(null);
+	}
 	onDestroy(() => {
 		eliteMods.set(null);
 	});
@@ -30,22 +27,22 @@
 	$: [combatOpsColor, eliteOpsColor] = getColors(rogueTopic);
 </script>
 
-<div class="grid grid-cols-2 font-bold text-lg text-gray-700 mt-8 mb-3 select-none">
+<div class="grid grid-cols-2 font-bold text-lg text-gray-700 select-none {className}">
 	<button
 		id="normal-toggle"
 		class={`flex justify-center items-center py-1 ${combatOpsColor} ${
-			!eliteMode ? 'text-gray-900' : 'opacity-30'
+			!$eliteMods ? 'text-gray-900' : 'opacity-30'
 		}`}
-		on:click={() => (eliteMode = false)}
+		on:click={() => eliteMods.set(null)}
 	>
 		<img src={combat_icon} width="50px" decoding="async" loading="lazy" alt="combat ops" class="" />
 	</button>
 	<button
 		id="elite-toggle"
 		class={`flex justify-center items-center ${eliteOpsColor} ${
-			eliteMode ? 'text-black' : 'opacity-30'
+			$eliteMods ? 'text-black' : 'opacity-30'
 		}`}
-		on:click={() => (eliteMode = true)}
+		on:click={() => eliteMods.set(mapEliteMods)}
 	>
 		<img
 			src={emergency_icon}
