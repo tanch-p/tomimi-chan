@@ -121,7 +121,7 @@ const HAVE_TAGS = [
 	'res_penetrate',
 	'reflect_dmg'
 ];
-const SKILL_HAVE_TAGS = ['unlimited_duration', 'skill_invincible'];
+const SKILL_HAVE_TAGS = ['unlimited_duration', 'skill_invincible',"skill_manual_off"];
 const PRIORITY_TAGS = [
 	'priority_flying',
 	'priority_drone',

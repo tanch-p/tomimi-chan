@@ -116,7 +116,8 @@ const SKILL_HAVE_TAGS = [
 	'skill_invincible',
 	'charged',
 	'overdrive',
-	'trigger_time'
+	'trigger_time',
+	"skill_manual_off"
 ];
 const PRIORITY_TAGS = [
 	'priority_flying',

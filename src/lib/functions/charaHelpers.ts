@@ -107,6 +107,7 @@ const SEARCH_IN_TAGS = [
 	'minos',
 	'position_ranged',
 	'skill_invincible',
+	"skill_manual_off",
 	'ally_apoptosis',
 	'ignore_stealth',
 	'weaken',
