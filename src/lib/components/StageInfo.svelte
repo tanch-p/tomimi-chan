@@ -7,11 +7,13 @@
 	import EnemyWaves from './EnemyWaves.svelte';
 	import translations from '$lib/translations.json';
 	import TextParser from './TextParser.svelte';
+	import { getStageImg } from '$lib/functions/stageLoad';
 
 	export let mapConfig,
 		language: Language,
 		stageName: string,
 		selectedFloor,
+		eliteMods,
 		rogueTopic: RogueTopic = null;
 	const getEliteDescColor = (rogueTopic: string | null) => {
 		switch (rogueTopic) {
@@ -28,7 +30,10 @@
 </script>
 
 <div class="sm:px-6 mb-4">
-	<h1 id="stage-title" class="px-2 sm:px-0 text-3xl">{mapConfig.code ?? ''} {stageName.replaceAll('_', ' ')}</h1>
+	<h1 id="stage-title" class="px-2 sm:px-0 text-3xl">
+		{mapConfig.code ?? ''}
+		{stageName.replaceAll('_', ' ')}
+	</h1>
 	<hr class="border-gray-500 my-1" />
 	{#if mapConfig[`description_${language}`] || mapConfig[`description_zh`]}
 		<div class="px-2 sm:px-0">
@@ -99,6 +104,12 @@
 		{:else if rogueTopic}
 			<p class="text-center">暂无路线，作者还没打到这里</p>
 		{/if}
+	</div>
+{:else}
+	<div class="max-w-[600px] w-full sm:h-[338px] mx-auto px-3 sm:px-0">
+		{#await import(`../../lib/images/stages/level_${getStageImg(mapConfig.id, eliteMods)}.webp`) then { default: src }}
+			<img {src} width="600" height="338px" alt={mapConfig.levelId} loading="lazy" />
+		{/await}
 	</div>
 {/if}
 <div class="w-screen sm:w-full">

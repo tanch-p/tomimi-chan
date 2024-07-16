@@ -124,5 +124,15 @@ export const relicLookup = {
 	rogue_3_relic_hand_2: relic_hand_adaptability,
 	rogue_3_relic_hand_3: relic_hand_outburst,
 	rogue_3_relic_hand_4: relic_hand_4,
-	rogue_3_relic_hand_5: relic_hand_5
+	rogue_3_relic_hand_5: relic_hand_5,
+	rogue_4_relic_legacy_147: relic_spinach,
+	rogue_4_relic_legacy_160: relic_empty_fowlbeast,
+	rogue_4_relic_legacy_163: relic_backpack,
+	rogue_4_relic_legacy_165: '',
+	rogue_4_relic_hand_1: '',
+	rogue_4_relic_hand_2: '',
+	rogue_4_relic_hand_3: '',
+	rogue_4_relic_hand_4: '',
+	rogue_4_relic_hand_5: '',
+	rogue_4_relic_hand_6: ''
 };

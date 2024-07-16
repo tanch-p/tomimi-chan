@@ -78,7 +78,7 @@ const generateFilterStore = (filterOptions) => {
 };
 
 //filters to add: enemy type bonuses,
-const defaultRogueTopic = 'rogue_3';
+const defaultRogueTopic = releaseStatus === 'cn' ? 'rogue_4' : 'rogue_3';
 export const filtersStore = writable(generateFilterStore(filterOptions));
 export const secFiltersStore = writable([]);
 export const rogueTopic = writable(defaultRogueTopic);

@@ -45,6 +45,20 @@ const SAMI_BOSSES = [
 	'enemy_2057_smkght',
 	'enemy_2058_smlion'
 ];
+const SARKAZ_BOSSES = [
+	'enemy_2074_skzgly',
+	'enemy_2075_skgly2',
+	'enemy_2076_skzklz',
+	'enemy_2077_skklz2',
+	'enemy_2078_skzmst',
+	'enemy_2079_skmst2',
+	'enemy_2080_skzlwy',
+	'enemy_2081_skztxs',
+	'enemy_2082_skzdd',
+	'enemy_2084_skzcan',
+	'enemy_2071_skzdny',
+	'enemy_2072_skdny2'
+];
 
 export const getMaxRowSpan = (enemy: Enemy) => {
 	if (enemy?.forms) {
@@ -223,6 +237,7 @@ export const checkIsTarget = (enemy: Enemy, target: string) => {
 		case 'ELITE':
 		case 'BOSS':
 		case 'collapsal':
+		case 'sarkaz':
 			return type.includes(target);
 		case 'PHCS_BOSS':
 			return PHCS_BOSSES.includes(id);
@@ -236,6 +251,10 @@ export const checkIsTarget = (enemy: Enemy, target: string) => {
 			return SAMI_BOSSES.includes(key);
 		case 'NOT_SAMI_BOSS':
 			return !SAMI_BOSSES.includes(key);
+		case 'SARKAZ_BOSS':
+			return SARKAZ_BOSSES.includes(key);
+		case 'NOT_SARKAZ_BOSS':
+			return !SARKAZ_BOSSES.includes(key);
 		default:
 			return target === id || target === key;
 	}

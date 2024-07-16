@@ -1,0 +1,65 @@
+<script lang="ts">
+	import type { Language } from '$lib/types';
+	import FloorEffect from './FloorEffect.svelte';
+	import FloorSelect from './FloorSelect.svelte';
+	import translations from '$lib/translations.json';
+	import disasters from '$lib/data/is/sarkaz/disasters.json';
+	import { difficulty } from './stores';
+	import disaster_1 from '$lib/images/is/sarkaz/rogue_4_disaster_1.webp';
+	import disaster_1_toast from '$lib/images/is/sarkaz/rogue_4_disaster_1_toast.webp';
+	import disaster_2 from '$lib/images/is/sarkaz/rogue_4_disaster_2.webp';
+	import disaster_2_toast from '$lib/images/is/sarkaz/rogue_4_disaster_2_toast.webp';
+	import disaster_5 from '$lib/images/is/sarkaz/rogue_4_disaster_5.webp';
+	import disaster_5_toast from '$lib/images/is/sarkaz/rogue_4_disaster_5_toast.webp';
+
+	export let optionsOpen: boolean,
+		language: Language,
+		level = 1,
+		options = [];
+
+	difficulty.subscribe((n) => {
+		switch (true) {
+			case n <= 5:
+				options = disasters.filter((ele) => ele.level == 1);
+				level = 1;
+				break;
+			case n <= 11:
+				options = disasters.filter((ele) => ele.level == 2);
+				level = 2;
+				break;
+			default:
+				level = 3;
+				options = disasters.filter((ele) => ele.level == 3);
+		}
+	});
+</script>
+
+<div
+	class={`absolute left-[50%] -translate-x-[50%] mt-2 w-screen md:w-[700px] pb-8 rounded-md shadow-lg select-none bg-[#1c1c1c] transition-[opacity_transform] ease-in duration-150 ${
+		optionsOpen ? 'opacity-90 translate-y-0' : 'invisible opacity-0 -translate-y-10'
+	}`}
+>
+	<FloorSelect {language} />
+	<div class="mx-auto mt-3 md:px-8">
+		<hr class="border-neutral-600" />
+		<div class="px-2 md:px-0">
+			<p class="mt-4 font-medium text-lg text-[#ff382e] text-center">
+				{translations[language].sarkaz_disaster} ({translations[language][
+					`disaster_level_${level}`
+				]})
+			</p>
+			<div class="flex flex-col gap-y-4 mt-2">
+				{#each options as option}
+					<FloorEffect effect={option} {language} />
+				{/each}
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	.portal-active {
+		clip-path: polygon(53% 4%, 97% 52%, 51% 97%, 5% 52%);
+		background: radial-gradient(circle, #000 0%, #6922c6 24%, #7b7aa6 39%);
+	}
+</style>

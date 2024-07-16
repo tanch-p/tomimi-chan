@@ -2,10 +2,6 @@ import type { MapConfig, Enemy } from '$lib/types';
 import enemyDatabase from '$lib/data/enemy/enemy_database.json';
 import findStage from '$lib/functions/findStage';
 
-const SPECIAL_CASES = {
-	'level_rogue3_3-7': ['enemy_1352_eslime']
-};
-
 export const stageLoad = async (stageName: string, rogueTopic: string | null) => {
 	const mapConfig: MapConfig = findStage(stageName, rogueTopic);
 	const enemies = mapConfig.enemies.map(({ id, level, overwrittenData }) => {
@@ -27,18 +23,10 @@ export const stageLoad = async (stageName: string, rogueTopic: string | null) =>
 				}
 			}
 		}
-		//handling of special cases where stats not added
-		for (const key in SPECIAL_CASES) {
-			if (mapConfig['levelId'] === key && SPECIAL_CASES[mapConfig['levelId']].includes(enemy.key)) {
-				enemy.ignore_diff = true;
-			}
-		}
 		return enemy;
 	});
 	const data = await Promise.all(
-		enemies.map(
-			(enemy) => import(`../images/enemy_icons/icon_${enemy.key}.webp`)
-		)
+		enemies.map((enemy) => import(`../images/enemy_icons/icon_${enemy.key}.webp`))
 	);
 	enemies.forEach((enemy, index) => (enemy.img = data[index].default));
 
@@ -52,4 +40,16 @@ const overwriteBlackboard = (specialList, blackboard) => {
 		specialList.splice(index, 1, skillRef);
 	}
 	return specialList;
+};
+
+const STAGES_WITH_ELITE_IMG = ['ro3_e_3_2', 'ro3_e_4_2', 'ro3_e_5_2'];
+export const getStageImg = (id, eliteMods) => {
+	if (
+		!(eliteMods && STAGES_WITH_ELITE_IMG.includes(id)) &&
+		!id.includes('ev') &&
+		!id.includes('duel')
+	) {
+		id = id.replace('e', 'n');
+	}
+	return id;
 };

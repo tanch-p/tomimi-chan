@@ -97,7 +97,7 @@
 					{:else}
 						<div>
 							<p class={`whitespace-nowrap ${key === 'atk' ? 'flex' : ''}`}>
-								{enemy.stats[row][key]}
+								{enemy.stats[row][key] === -1 ? '-' : enemy.stats[row][key]}
 								{#if key === 'atk'}
 									<AtkSuffix attack={getNormalAtk(enemy, row)} {language} />
 								{/if}

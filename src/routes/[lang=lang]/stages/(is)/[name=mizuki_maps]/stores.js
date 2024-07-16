@@ -1,5 +1,5 @@
 import { writable, derived } from 'svelte/store';
-import difficultyModsList from '$lib/data/difficulty_mods_mizuki.json';
+import difficultyModsList from '$lib/data/is/mizuki/difficulty_mods_mizuki.json';
 import { browser } from '$app/environment';
 import { cookiesEnabled } from '../../../../stores';
 import { compileSpecialMods } from '$lib/functions/statHelpers';

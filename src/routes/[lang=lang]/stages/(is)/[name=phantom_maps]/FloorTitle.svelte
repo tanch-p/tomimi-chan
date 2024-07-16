@@ -1,11 +1,12 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import { clickOutside } from '$lib/functions/clickOutside.js';
 	import FloorOptions from './FloorOptions.svelte';
 	import { selectedFloor, activeFloorEffects } from './stores';
 	import translations from '$lib/translations.json';
 	import romanNumerals from '$lib/roman_numerals.json';
 
-	export let stageFloors: number[], language: string;
+	export let stageFloors: number[], language: Language;
 	let optionsOpen = false;
 
 	function updateFloor(floors: number[]) {

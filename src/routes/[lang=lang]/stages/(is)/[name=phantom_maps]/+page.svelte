@@ -1,13 +1,13 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { statMods, specialMods, eliteMods, selectedRelics, selectedUniqueRelic } from './stores';
+	import { statMods, specialMods, eliteMods, selectedRelics, selectedUniqueRelic, selectedFloor } from './stores';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import EliteToggle from '$lib/components/EliteToggle.svelte';
 	import EnemyStatDisplay from '$lib/components/EnemyStatDisplay.svelte';
 	import FooterBar from '$lib/components/FooterBar.svelte';
 	import { applyMods, compileStatModsForChecking } from '$lib/functions/statHelpers';
 	import translations from '$lib/translations.json';
-	import hardRelics from '$lib/data/relics_phantom_hard.json';
+	import hardRelics from '$lib/data/is/phantom/relics_phantom_hard.json';
 	import RelicDivUnique from '$lib/components/RelicDivUnique.svelte';
 	import StageHeader from '$lib/components/StageHeader.svelte';
 	import FloorTitle from './FloorTitle.svelte';
@@ -42,7 +42,7 @@
 
 <main class="bg-neutral-800 text-near-white pb-32 pt-8 sm:pt-16 md:pb-28">
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
-		<StageInfo mapConfig={data.mapConfig} {language} {stageName} {rogueTopic} />
+		<StageInfo mapConfig={data.mapConfig} {language} {stageName} eliteMods={$eliteMods} {selectedFloor} {rogueTopic} />
 		<div class="mt-8">
 			<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 			{#if data.mapConfig.elite_mods}

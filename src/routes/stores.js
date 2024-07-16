@@ -4,7 +4,6 @@ import { writable } from 'svelte/store';
 let initialTableHeaders = [
 	{ key: 'enemy', show: true },
 	{ key: 'name', show: true },
-	// { key: 'count', show: false },
 	{ key: 'type', show: true },
 	{ key: 'hp', show: true },
 	{ key: 'e_hp', show: false },

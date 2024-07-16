@@ -14,7 +14,6 @@
 	function updateFloor(floors: number[]) {
 		if (!floors.includes($selectedFloor)) {
 			selectedFloor.set(Math.min(...stageFloors));
-			activeChaosEffects.set([]);
 		}
 	}
 	$: updateFloor(stageFloors);

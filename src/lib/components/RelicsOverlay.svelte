@@ -3,9 +3,9 @@
 	import { createEventDispatcher } from 'svelte';
 	import RelicDiv from './RelicDiv.svelte';
 	import translations from '$lib/translations.json';
-	import mizukiRelics from '$lib/data/relics_mizuki.json';
-	import phantomRelics from '$lib/data/relics_phantom.json';
-	import samiRelics from '$lib/data/relics_sami.json';
+	import mizukiRelics from '$lib/data/is/mizuki/relics_mizuki.json';
+	import phantomRelics from '$lib/data/is/phantom/relics_phantom.json';
+	import samiRelics from '$lib/data/is/sami/relics_sami.json';
 
 	const dispatch = createEventDispatcher();
 
@@ -71,12 +71,3 @@
 		</div>
 	{/if}
 </div>
-
-<style>
-	p {
-		text-align: center;
-		padding: 0 0.5rem;
-		font-weight: 700;
-		letter-spacing: 0.1em;
-	}
-</style>

@@ -4,7 +4,7 @@
 	import RelicsOverlay from './RelicsOverlay.svelte';
 	import translations from '$lib/translations.json';
 	import Icon from './Icon.svelte';
-	import { relicLookup } from '$lib/data/relic_lookup';
+	import { relicLookup } from '$lib/data/is/relic_lookup';
 	export let language: Language,
 		rogueTopic: RogueTopic,
 		selectedRelics,

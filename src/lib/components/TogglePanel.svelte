@@ -4,18 +4,19 @@
 
 	export let title = 'title',
 		isOpen = false,
-		size = 'large';
+		size = 'large',
+		className="";
 
 	const toggle = () => (isOpen = !isOpen);
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="sm:px-6">
+<div class="sm:px-6 {className}">
 	<div
 		class="flex justify-between items-center px-2 sm:px-0 hover:cursor-pointer"
 		on:click={toggle}
 	>
-		<p class={`${size === 'subheading' ? 'text-subheading' : 'text-3xl'}`}>{title}</p>
+		<h2 class={`${size === 'subheading' ? 'text-subheading' : 'text-3xl'}`}>{title}</h2>
 		{#if isOpen}
 			<Icon name="icon-minus" className="w-6 h-6 sm:w-8 sm:h-8 mt-2" />
 		{:else}

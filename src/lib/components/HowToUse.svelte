@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type {Language} from "$lib/types"
+	import type { Language } from '$lib/types';
 	import translations from '$lib/translations.json';
 
 	export let language: Language, rogueTopic: string;
@@ -25,6 +25,8 @@
 			<li class="list-disc list-inside">{translations[language].how_to_use_chaos}</li>
 		{:else if rogueTopic === 'rogue_phantom'}
 			<li class="list-disc list-inside">{translations[language].how_to_use_hallu}</li>
+		{:else if rogueTopic === 'rogue_skz'}
+			<li class="list-disc list-inside">{translations[language].how_to_use_sarkaz}</li>
 		{/if}
 	</ul>
 </div>

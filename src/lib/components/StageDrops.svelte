@@ -9,7 +9,7 @@
 	import relic from '$lib/images/is/relic.png';
 	import totem from '$lib/images/is/totem.webp';
 	import vision from '$lib/images/is/vision.webp';
-	import drops from '$lib/data/drops.json';
+	import drops from '$lib/data/is/drops.json';
 	import TogglePanel from './TogglePanel.svelte';
 	import Icon from './Icon.svelte';
 

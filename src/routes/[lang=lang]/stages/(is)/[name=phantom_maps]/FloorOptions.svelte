@@ -1,5 +1,5 @@
 <script lang="ts">
-	import phantomVariations from '$lib/data/variations_phantom.json';
+	import phantomVariations from '$lib/data/is/phantom/variations_phantom.json';
 	import FloorEffect from './FloorEffect.svelte';
 	import FloorSelect from './FloorSelect.svelte';
 	import translations from '$lib/translations.json';

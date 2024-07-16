@@ -11,9 +11,9 @@
 
 	function handleClick() {
 		if (!$activeChaosEffects.find((ele) => ele.id === effect.id)) {
-			activeChaosEffects.update(() => [effect]);
+			activeChaosEffects.set([effect]);
 		} else {
-			activeChaosEffects.update((list) => (list = list.filter((ele) => ele.id !== effect.id)));
+			activeChaosEffects.set([]);
 		}
 	}
 	$: name = effect[`outerName_${language}`] || effect[`outerName_zh`];
@@ -27,9 +27,8 @@
 	on:click={handleClick}
 >
 	<span class="flex items-center justify-center">
-		<img src={effect.src} alt={name} loading="lazy" decoding="async" class=""/>
-	</span
-	>
+		<img src={effect.src} alt={name} loading="lazy" decoding="async" class="" />
+	</span>
 	<div class="flex flex-col">
 		<p class={`${selected ? 'text-purple-400 font-semibold' : ''}`}>{name}</p>
 		<p>{effect[`tooltip_${language}`]}</p>

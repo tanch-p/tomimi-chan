@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
-	import mizukiOptions from '$lib/data/variations_mizuki.json';
+	import mizukiOptions from '$lib/data/is/mizuki/variations_mizuki.json';
 	import FloorEffect from './FloorEffect.svelte';
 	import FloorSelect from './FloorSelect.svelte';
 	import translations from '$lib/translations.json';

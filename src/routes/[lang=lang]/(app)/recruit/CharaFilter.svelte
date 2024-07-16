@@ -5,7 +5,7 @@
 	import filterOptions from '$lib/data/chara/filter_options.json';
 	import CharaFilterToggle from './CharaFilterToggle.svelte';
 	import relics from '$lib/data/chara/relics_chara.json';
-	import { relicLookup } from '$lib/data/relic_lookup';
+	import { relicLookup } from '$lib/data/is/relic_lookup';
 	import Icon from '$lib/components/Icon.svelte';
 	import { cookiesEnabled } from '../../../stores';
 	import { browser } from '$app/environment';

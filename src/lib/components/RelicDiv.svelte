@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type {Language, RogueTopic} from "$lib/types"
-	import { relicLookup } from "$lib/data/relic_lookup";
+	import { relicLookup } from "$lib/data/is/relic_lookup";
 	export let relic, language: Language, rogueTopic: RogueTopic, selectedRelics;
 
 	$: name = relic[`name_${language}`] || relic[`name_zh`];
