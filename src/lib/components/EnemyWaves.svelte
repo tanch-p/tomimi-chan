@@ -15,7 +15,7 @@
 	export let mapConfig, rogueTopic: string, language: Language, selectedFloor;
 
 	$: isBossStage = mapConfig.id.includes('_b_');
-	$: isEventStage = mapConfig.id.includes('_ev_') || mapConfig.id.includes('_t_');
+	$: isEventStage = mapConfig.id.includes('_ev_') || mapConfig.id.includes('_t_') || mapConfig.id.includes('_duel_');
 	$: isCombatStage = !isBossStage && !isEventStage;
 </script>
 
