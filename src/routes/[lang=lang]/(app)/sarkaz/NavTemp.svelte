@@ -25,8 +25,8 @@
 	let floor5b = ['紧急授课', '朝谒'];
 	let floor6b = ['圣城'];
 	let du = ['失败的试胆', '信号灯', '劫虚济实', '鸭速公路'];
-	let sp = ['战场侧面', '继承', '时光凯旋'];
-	let sp2 = ['玩具的报复', '物权纠纷', '叙事要约'];
+	let sp = ['战场侧面', '继承', '时光凯旋','玩具的报复'];
+	let sp2 = ['物权纠纷', '叙事要约'];
 	let duel = ['以血还血', '善恶同道', '石心双子'];
 	//max per row = 4
 </script>
@@ -41,7 +41,7 @@
 						<img
 							src={combat_ops}
 							alt={translations[language].combat_ops}
-							width="100px"
+							width="120px"
 							loading="lazy"
 							decoding="async"
 						/>
@@ -170,7 +170,7 @@
 						<img
 							src={encounter}
 							alt={translations[language].encounter}
-							width="100px"
+							width="120px"
 							loading="lazy"
 							decoding="async"
 						/>
@@ -205,7 +205,7 @@
 						<img
 							src={duelIcon}
 							alt={translations[language].duel}
-							width="160px"
+							width="120px"
 							loading="lazy"
 							decoding="async"
 						/>
