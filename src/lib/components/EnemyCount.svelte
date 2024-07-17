@@ -46,7 +46,7 @@
 	<div class="flex flex-wrap gap-x-3 gap-y-2 px-2.5 md:px-0">
 		{#each enemies as enemy}
 			{#if mapConfig.id.includes('t') || mapConfig.id.includes('ev') ? true : !BONUS_ENEMY_KEYS.includes(enemy.key)}
-				{@const { min, max } = getMinMaxCount(enemy.key, eliteMods)}
+				{@const { min, max } = getMinMaxCount(enemy.stageId, eliteMods)}
 				<div class="flex items-center">
 					<img
 						class="select-none"

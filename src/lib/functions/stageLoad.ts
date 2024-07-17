@@ -4,9 +4,10 @@ import findStage from '$lib/functions/findStage';
 
 export const stageLoad = async (stageName: string, rogueTopic: string | null) => {
 	const mapConfig: MapConfig = findStage(stageName, rogueTopic);
-	const enemies = mapConfig.enemies.map(({ id, level, overwrittenData }) => {
-		const enemy: Enemy = JSON.parse(JSON.stringify(enemyDatabase[id]));
-		enemy.stats = { ...enemyDatabase[id].stats[level] };
+	const enemies = mapConfig.enemies.map(({ id, prefabKey, level, overwrittenData }) => {
+		const enemy: Enemy = JSON.parse(JSON.stringify(enemyDatabase[prefabKey]));
+		enemy.stageId = id;
+		enemy.stats = { ...enemyDatabase[prefabKey].stats[level] };
 		if (overwrittenData) {
 			enemy.overwritten = true;
 			for (const key in overwrittenData) {
