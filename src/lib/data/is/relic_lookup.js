@@ -43,6 +43,18 @@ import relic_lei_sceptre from '$lib/images/is/relics/relic_lei_sceptre.webp';
 import relic_whisperer from '$lib/images/is/relics/relic_whisperer.webp';
 import relic_writer_tongue from '$lib/images/is/relics/relic_writer_tongue.webp';
 import relic_wyrdmask from '$lib/images/is/relics/relic_wyrdmask.webp';
+import rogue_4_relic_encounter_1 from "$lib/images/is/relics/rogue_4_relic_encounter_1.webp"
+import rogue_4_relic_encounter_5 from "$lib/images/is/relics/rogue_4_relic_encounter_5.webp"
+import rogue_4_relic_encounter_7 from "$lib/images/is/relics/rogue_4_relic_encounter_7.webp"
+import rogue_4_relic_explore_3 from "$lib/images/is/relics/rogue_4_relic_explore_3.webp"
+import rogue_4_relic_fight_13 from "$lib/images/is/relics/rogue_4_relic_fight_13.webp"
+import rogue_4_relic_fight_17 from "$lib/images/is/relics/rogue_4_relic_fight_17.webp"
+import rogue_4_relic_hand_1 from "$lib/images/is/relics/rogue_4_relic_hand_1.webp"
+import rogue_4_relic_hand_2 from "$lib/images/is/relics/rogue_4_relic_hand_2.webp"
+import rogue_4_relic_hand_3 from "$lib/images/is/relics/rogue_4_relic_hand_3.webp"
+import rogue_4_relic_hand_4 from "$lib/images/is/relics/rogue_4_relic_hand_4.webp"
+import rogue_4_relic_hand_5 from "$lib/images/is/relics/rogue_4_relic_hand_5.webp"
+import rogue_4_relic_hand_6 from "$lib/images/is/relics/rogue_4_relic_hand_6.webp"
 
 export const relicLookup = {
 	rogue_1_relic_c01: relic_ursus_chachek,
@@ -91,6 +103,24 @@ export const relicLookup = {
 	rogue_3_relic_legacy_70: relic_gold_plated_dice,
 	rogue_3_relic_legacy_71: relic_whisperer,
 	rogue_3_relic_legacy_72: relic_profound_silence,
+	rogue_4_relic_legacy_149: relic_civilight_eterna,
+	rogue_4_relic_legacy_177: relic_familiar_sculpture,
+	rogue_4_relic_legacy_178: relic_painful_happiness,
+	rogue_4_relic_legacy_59: relic_restraints,
+	rogue_4_relic_legacy_60: relic_wyrdmask,
+	rogue_4_relic_legacy_61: relic_godmother,
+	rogue_4_relic_legacy_62: relic_group_photo,
+	rogue_4_relic_legacy_63: relic_sea_terror_jerky,
+	rogue_4_relic_legacy_64: relic_rosmontis_embrace,
+	rogue_4_relic_legacy_65: relic_gold_plated_dice,
+	rogue_4_relic_legacy_66: relic_whisperer,
+	rogue_4_relic_legacy_67: relic_profound_silence,
+	rogue_4_relic_encounter_1: rogue_4_relic_encounter_1,
+	rogue_4_relic_encounter_5: rogue_4_relic_encounter_5,
+	rogue_4_relic_encounter_7: rogue_4_relic_encounter_7,
+	rogue_4_relic_explore_3: rogue_4_relic_explore_3,
+	rogue_4_relic_fight_13: rogue_4_relic_fight_13,
+	rogue_4_relic_fight_17: rogue_4_relic_fight_17,
 
 	rogue_1_relic_q29: relic_spinach,
 	rogue_1_relic_p46: relic_hand_superspeed,
@@ -128,11 +158,11 @@ export const relicLookup = {
 	rogue_4_relic_legacy_147: relic_spinach,
 	rogue_4_relic_legacy_160: relic_empty_fowlbeast,
 	rogue_4_relic_legacy_163: relic_backpack,
-	rogue_4_relic_legacy_165: '',
-	rogue_4_relic_hand_1: '',
-	rogue_4_relic_hand_2: '',
-	rogue_4_relic_hand_3: '',
-	rogue_4_relic_hand_4: '',
-	rogue_4_relic_hand_5: '',
-	rogue_4_relic_hand_6: ''
+	rogue_4_relic_legacy_165: relic_hand_buckler,
+	rogue_4_relic_hand_1: rogue_4_relic_hand_1,
+	rogue_4_relic_hand_2: rogue_4_relic_hand_2,
+	rogue_4_relic_hand_3: rogue_4_relic_hand_3,
+	rogue_4_relic_hand_4: rogue_4_relic_hand_4,
+	rogue_4_relic_hand_5: rogue_4_relic_hand_5,
+	rogue_4_relic_hand_6: rogue_4_relic_hand_6
 };

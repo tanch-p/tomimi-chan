@@ -1,7 +1,7 @@
 //https://stackoverflow.com/questions/65878880/typescript-template-literal-as-interface-key
 
 export type Language = 'zh' | 'ja' | 'en';
-export type RogueTopic = 'rogue_phantom' | 'rogue_mizuki' | 'rogue_sami' | null;
+export type RogueTopic = 'rogue_phantom' | 'rogue_mizuki' | 'rogue_sami' | 'rogue_skz' | null;
 type Stats = {
 	hp: number;
 	atk: number;
@@ -51,6 +51,7 @@ export type EnemyFormType = {
 export interface Enemy {
 	id: string;
 	key: string;
+	stageId: string;
 	img: string;
 	[key: `name_${string}`]: string;
 	stats: Stats[];

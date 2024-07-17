@@ -6,6 +6,7 @@
 	import mizukiRelics from '$lib/data/is/mizuki/relics_mizuki.json';
 	import phantomRelics from '$lib/data/is/phantom/relics_phantom.json';
 	import samiRelics from '$lib/data/is/sami/relics_sami.json';
+	import skzRelics from "$lib/data/is/sarkaz/relics_sarkaz.json"
 
 	const dispatch = createEventDispatcher();
 
@@ -28,6 +29,8 @@
 				return phantomRelics;
 			case 'rogue_sami':
 				return samiRelics;
+			case 'rogue_skz':
+				return skzRelics;
 			default:
 				return [];
 		}

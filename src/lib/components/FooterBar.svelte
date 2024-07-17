@@ -69,7 +69,7 @@
 									<div
 										class="absolute rounded-full border-[3px] border-neutral-600 border-opacity-80 left-[50%] w-[44px] h-[44px] -translate-x-[50%]"
 									/>
-									<div class="flex items-center text-center w-14 z-[1]">
+									<div class="flex items-center text-center w-14 z-[1] h-14">
 										<img
 											src={relicLookup[relic.id]}
 											width="54px"
