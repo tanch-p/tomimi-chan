@@ -1,17 +1,8 @@
 <script lang="ts">
-	import type { Enemy, Language, SpecialMods } from '$lib/types';
+	import type { Language } from '$lib/types';
 	import translations from '$lib/translations.json';
-	export let enemy: Enemy, language: Language, specialMods, mode: 'handbook' | 'table';
+	export let statusImmuneList, language: Language, mode: 'handbook' | 'table';
 
-	let statusImmuneList = [];
-
-	specialMods.subscribe((mods: SpecialMods) => {
-		if (mods?.[enemy.id]?.status_immune) {
-			statusImmuneList = [...enemy.status_immune, ...mods[enemy.id].status_immune];
-		} else {
-			statusImmuneList = enemy.status_immune;
-		}
-	});
 	$: statusImmuneTexts = translations[language].status_immune;
 </script>
 

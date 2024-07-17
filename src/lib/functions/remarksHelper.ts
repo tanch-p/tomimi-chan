@@ -41,3 +41,10 @@ export const getEnemySkills = (
 
 	return [...extraSkills, ...currentSkills];
 };
+
+export const getStatusImmune = (enemy: Enemy, statusImmuneList, mods: SpecialMods) => {
+	if (mods?.[enemy.id]?.status_immune) {
+		statusImmuneList = [...statusImmuneList, ...mods[enemy.id].status_immune];
+	}
+	return statusImmuneList;
+};

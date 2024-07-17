@@ -93,7 +93,7 @@ export function parseStats(enemy: Enemy, stageId: string, statMods: StatMods, ro
 	}
 	const initialMods = modsList.reduce((acc, curr) => {
 		for (const statKey in curr) {
-			if (statKey.includes('fixed') || statKey === 'dmg_reduction') {
+			if (statKey.includes('fixed') || statKey === 'dmg_reduction' || statKey === 'atk_interval') {
 				acc[statKey] += curr[statKey];
 			} else {
 				acc[statKey] *= curr[statKey];
@@ -107,7 +107,7 @@ export function parseStats(enemy: Enemy, stageId: string, statMods: StatMods, ro
 	}
 	const finalMods = modsList.reduce((acc, curr) => {
 		for (const statKey in curr) {
-			if (statKey.includes('fixed') || statKey === 'dmg_reduction') {
+			if (statKey.includes('fixed') || statKey === 'dmg_reduction' || statKey === 'atk_interval') {
 				acc[statKey] += curr[statKey];
 			} else {
 				acc[statKey] *= curr[statKey];
@@ -123,7 +123,8 @@ export function parseStats(enemy: Enemy, stageId: string, statMods: StatMods, ro
 			initialMods?.[`fixed_${stat}`] ?? 0,
 			initialMods[stat],
 			finalMods?.[`fixed_${stat}`] ?? 0,
-			finalMods[stat]
+			finalMods[stat],
+			stat === 'aspd' ? (initialMods?.atk_interval ?? 0) + (finalMods?.atk_interval ?? 0) : 0
 		);
 	}
 	return enemy_stats;
@@ -142,6 +143,7 @@ export const distillMods = (enemy: Enemy, stageId: string, mod: ModGroup) => {
 		range: 1,
 		weight: 1,
 		lifepoint: 1,
+		atk_interval: 0,
 		fixed_hp: 0,
 		fixed_atk: 0,
 		fixed_def: 0,
@@ -158,7 +160,11 @@ export const distillMods = (enemy: Enemy, stageId: string, mod: ModGroup) => {
 				for (const statKey in effect.mods) {
 					if (!mods[statKey]) {
 						mods[statKey] = effect.mods[statKey];
-					} else if (statKey.includes('fixed') || statKey === 'dmg_reduction') {
+					} else if (
+						statKey.includes('fixed') ||
+						statKey === 'dmg_reduction' ||
+						statKey === 'atk_interval'
+					) {
 						mods[statKey] += effect.mods[statKey];
 					} else if (
 						stageId === 'ro3_e_3_7' &&
@@ -190,7 +196,8 @@ const calculateModdedStat = (
 	initial_fixed_value: number,
 	initial_multiplier: number,
 	final_fixed_value: number,
-	final_multiplier: number
+	final_multiplier: number,
+	atk_interval: number
 ) => {
 	const aspd = 100;
 	if (stat !== 'aspd') {
@@ -203,7 +210,7 @@ const calculateModdedStat = (
 		case 'aspd':
 			return (
 				Math.round(
-					(base_stat /
+					((base_stat + atk_interval) /
 						((((aspd + initial_fixed_value) * initial_multiplier + final_fixed_value) *
 							final_multiplier) /
 							100)) *

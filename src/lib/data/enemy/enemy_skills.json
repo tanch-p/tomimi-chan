@@ -299,6 +299,13 @@
 			"zh": ["攻击对目标周围<v.tiles>格内的所有我方单位造成<v.%value>%伤害"]
 		}
 	},
+	"target_all": {
+		"tooltip": {
+			"en": ["Able to attack all targets within range"],
+			"ja": ["攻撃範囲内の目標全部攻撃できる"],
+			"zh": ["可同时攻击自身攻击范围内的所有我方单位"]
+		}
+	},
 	"multi_target": {
 		"value": 2,
 		"tooltip": {
@@ -448,6 +455,21 @@
 			]
 		}
 	},
+	"bug_explode_lrboom": {
+		"atk": { "multiplier": 3.5 },
+		"dmg_element": "phys",
+		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
+		"hits": 1,
+		"tooltip": {
+			"en": [
+				"Explodes on death, leaving behind 源石污染区 tile and dealing <v.atk.multiplier>% ATK dmg to nearby units (Can be silenced)"
+			],
+			"ja": [
+				"死亡時には爆発する、源石污染区を生成し、周囲に攻撃力<v.atk.multiplier>%の物理ダメージを与える（無効化可能）"
+			],
+			"zh": ["死亡后在自身所在地块生成源石污染区，对周围造成攻击力<v.atk.multiplier>%物理伤害"]
+		}
+	},
 	"freeze_attack": {
 		"value": 5,
 		"tooltip": {
@@ -511,7 +533,14 @@
 			"zh": ["在水中时：攻击力提升40%，未被阻挡时获得隐匿效果"]
 		}
 	},
-
+	"evasion_phys_arts": {
+		"value": 40,
+		"tooltip": {
+			"en": ["Has <v.value>% Phys/Arts evasion"],
+			"ja": ["物理・術回避率+<v.value>%"],
+			"zh": ["持有<v.value>%物理/法术闪避"]
+		}
+	},
 	"no_block_evasion_phys": {
 		"value": 40,
 		"tooltip": {
@@ -583,10 +612,42 @@
 			]
 		}
 	},
+	"fnf_nova": {
+		"radius": 2,
+		"atk": { "multiplier": 1 },
+		"dmg_element": "arts",
+		"suffix": { "en": "nova", "ja": "氷環", "zh": "冰环" },
+		"hits": 1,
+		"tooltip": {
+			"en": [
+				"Ice Nova (Initial CD: 10.5s, ~CD: 10.5s)",
+				"Deals 130% of ATK as Arts damage to all allied units in a <v.radius> tile radius and applies Cold for 10s",
+				"Damage increased to 200% against Frozen targets."
+			],
+			"ja": [
+				"スキル（初動10.5秒/再動10.5秒）",
+				"自分周囲半径2.6マスへ攻撃力130%の術ダメージと10秒間の【寒冷】効果を与える",
+				"【凍結】している相手にはスキル攻撃力が<v.radius>倍になる"
+			],
+			"zh": [
+				"冰环（初次冷却10.5s，后10.5s）",
+				"对半径<v.radius>范围内所有我方单位造成相当于攻击力130%的法术溅射伤害并施加持续10秒的寒冷",
+				"对持有冻结的目标造成的伤害提升至200% "
+			]
+		}
+	},
+	"fnf_seal_tile": {
+		"value": 2,
+		"tooltip": {
+			"en": ["Freeze Tile (Initial CD: 35s, ~CD: 35s)"],
+			"ja": ["地面封じ（初動35秒/再動35秒）"],
+			"zh": ["冻结（初次冷却10.5s，后10.5s）", "在半径2的范围内随机冻结<v.value>格地面"]
+		}
+	},
 	"fzm_nova": {
 		"atk": { "multiplier": 1.3 },
 		"dmg_element": "arts",
-		"suffix": { "en": "nova", "ja": "氷環", "zh": "冰环" },
+		"suffix": { "en": "nova", "ja": "冰环", "zh": "冰环" },
 		"hits": 1,
 		"tooltip": {
 			"en": [
@@ -595,12 +656,12 @@
 				"Damage increased to 260% against Frozen targets."
 			],
 			"ja": [
-				"スキル（初動12秒/再動12秒）",
+				"冰环（初動12秒/再動12秒）",
 				"自分周囲半径2.6マスへ攻撃力130%の術ダメージと10秒間の【寒冷】効果を与える",
-				"【凍結】している相手にはスキル攻撃力が2倍になる"
+				"【凍結】している相手にはスキル攻撃力が2.6倍になる"
 			],
 			"zh": [
-				"技能（初次冷却12s，后12s）",
+				"冰环（初次冷却12s，后12s）",
 				"对半径2.6范围内所有我方单位造成相当于攻击力130%的法术溅射伤害并施加持续10秒的寒冷",
 				"对持有冻结的目标造成的伤害提升至260% "
 			]
@@ -786,21 +847,25 @@
 	"mudrock_shield": {
 		"tooltip": {
 			"en": [
-				"Skill→Every 15s creates shield which absorbs up to 16500 Arts damage",
+				"Skill→Every 17s creates shield which absorbs up to 16500 Arts damage",
 				"Shield Active: Max HP+50%、ASPD+50%"
 			],
 			"ja": [
-				"スキル→15秒毎にシールドを張り、合計16500の術攻撃を吸収する",
+				"スキル→17秒毎にシールドを張り、合計16500の術攻撃を吸収する",
 				"シールド展開中：最大HP+50%、攻撃速度+50%"
 			],
-			"zh": []
+			"zh": [
+				"刷新护盾（初次冷却17s，后17s）",
+				"重置自身法术屏障；屏障能吸收16500法术伤害",
+				"屏障存在时提升50%生命上限并增加50攻击速度"
+			]
 		}
 	},
 	"mudrock_hammer": {
 		"tooltip": {
 			"en": ["Every normal attack increase Mudrock's atk stat by 60%, Max 6 stacks"],
 			"ja": ["通常攻撃する度に攻撃力が60％増加、最大6回"],
-			"zh": []
+			"zh": ["攻击成功时获得一层攻击力提升60%的永久增益（当次攻击也会受到增益），最多叠加六层"]
 		}
 	},
 	"roarknight_barrier": {
@@ -1702,18 +1767,15 @@
 			"zh": ["技能与以上相同，除了不会闪现"]
 		}
 	},
-	"mutant_spawn_2": {
+	"mutant_spawn": {
+		"value": 2,
 		"tooltip": {
-			"en": ["On death, this unit will spawn 2 Originiutant Excrescence.", "Can be silenced."],
-			"ja": ["死亡時、変異腫瘍を2体召喚する", "無効化可能"],
-			"zh": ["死亡后召唤2个畸变赘生物（可被沉默）"]
-		}
-	},
-	"mutant_spawn_3": {
-		"tooltip": {
-			"en": ["On death, this unit will spawn 3 Originiutant Excrescence.", "Can be silenced."],
-			"ja": ["死亡時、変異腫瘍を3体召喚する", "無効化可能"],
-			"zh": ["死亡后召唤3个畸变赘生物（可被沉默）"]
+			"en": [
+				"On death, this unit will spawn <v.value> Originiutant Excrescence.",
+				"Can be silenced."
+			],
+			"ja": ["死亡時、変異腫瘍を<v.value>体召喚する", "無効化可能"],
+			"zh": ["死亡后召唤<v.value>个畸变赘生物（可被沉默）"]
 		}
 	},
 	"redmark_melee": {
@@ -1783,32 +1845,22 @@
 			"zh": ["优先攻击<“冰淇淋机”>", "每次攻击<“冰淇淋机”>时额外造成1000法术伤害"]
 		}
 	},
-	"ammo_1": {
+	"pathfinder_nuncio": {
+		"duration":10,
 		"tooltip": {
-			"en": ["Has 1 Initial/Max Ammo"],
-			"ja": ["弾薬上限数1"],
-			"zh": ["初始技力/技力上限为1"]
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"技力大于等于1时：变为远程攻击，攻击时消耗1点技力，优先选择攻击范围内未处于攻击附加效果影响下的我方单位，造成攻击力150%法术普通伤害（对<冰淇淋机>额外造成5000法术伤害），并附加<v.duration>s无法攻击与使用技能的效果"
+			]
 		}
 	},
-	"ammo_2": {
+	"ammo": {
+		"value": 3,
 		"tooltip": {
-			"en": ["Has 2 Initial/Max Ammo"],
-			"ja": ["弾薬上限数2"],
-			"zh": ["初始技力/技力上限为2"]
-		}
-	},
-	"ammo_3": {
-		"tooltip": {
-			"en": ["Has 3 Initial/Max Ammo"],
-			"ja": ["弾薬上限数3"],
-			"zh": ["初始技力/技力上限为3"]
-		}
-	},
-	"ammo_10": {
-		"tooltip": {
-			"en": ["Has 10 Initial/Max Ammo"],
-			"ja": ["弾薬上限数10"],
-			"zh": ["初始技力/技力上限为10"]
+			"en": ["Has <v.value> Initial/Max Ammo"],
+			"ja": ["弾薬上限数<v.value>"],
+			"zh": ["初始技力/技力上限为<v.value>"]
 		}
 	},
 	"sgprst": {
@@ -1825,33 +1877,21 @@
 		}
 	},
 	"pathfinder_ballistarius": {
+		"atk": { "multiplier": 1 },
+		"dmg_element": "phys",
+		"suffix": { "en": "Bazooka", "ja": "大砲", "zh": "大炮" },
+		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Cannon - Consumes 1 Ammo and deals 100% ATK as Phys damage to target and surrounding 8 tiles",
+				"Cannon - Consumes 1 Ammo and deals <v.atk.multiplier>% ATK as Phys damage to target and surrounding 8 tiles",
 				"deals extra 3000 Arts damage to 'Gelato Stops'"
 			],
 			"ja": [
-				"弾薬数1以上なら、通常攻撃時に弾薬を1消費し、対象と周囲8マスに攻撃力の100%の物理ダメージを与える",
+				"弾薬数1以上なら、通常攻撃時に弾薬を1消費し、対象と周囲8マスに攻撃力の<v.atk.multiplier>%の物理ダメージを与える",
 				"ジェラート供給所には追加で3000の術ダメージを与える"
 			],
 			"zh": [
-				"自身技力大于等于1时，消耗1点技力，对目标及对周围八格我方单位造成100%物理伤害",
-				"对<冰淇淋机>额外造成3000点法术普通伤害"
-			]
-		}
-	},
-	"pathfinder_ballistarius_prefect": {
-		"tooltip": {
-			"en": [
-				"Cannon - Consumes 1 Ammo and deals 125% ATK as Phys damage to target and surrounding 8 tiles",
-				"deals extra 3000 Arts damage to 'Gelato Stops'"
-			],
-			"ja": [
-				"弾薬数1以上なら、通常攻撃時に弾薬を1消費し、対象と周囲8マスに攻撃力の125%の物理ダメージを与える",
-				"ジェラート供給所には追加で3000の術ダメージを与える"
-			],
-			"zh": [
-				"大炮 - 消耗1点技力，对目标及对周围八格我方单位造成125%物理伤害",
+				"自身技力大于等于1时，消耗1点技力，对目标及对周围八格我方单位造成<v.atk.multiplier>%物理伤害",
 				"对<冰淇淋机>额外造成3000点法术普通伤害"
 			]
 		}
@@ -2098,10 +2138,11 @@
 		}
 	},
 	"taunt": {
+		"value": 1,
 		"tooltip": {
 			"en": ["Taunt - Higher Target Priority"],
 			"ja": ["挑発→狙われやすい"],
-			"zh": ["嘲讽等级+1"]
+			"zh": ["嘲讽等级+<v.value>"]
 		}
 	},
 	"atk_priority_low_def": {
@@ -2279,10 +2320,11 @@
 		}
 	},
 	"caster_frost_attack": {
+		"value": 10,
 		"tooltip": {
-			"en": ["Every 3rd attack inflicts Cold❄ for 10s"],
-			"ja": ["攻撃2回の度に次の攻撃に相手を10秒【寒冷❄】効果を与える"],
-			"zh": ["攻击2次后，下一次攻击会对攻击目标施加持续10秒的寒冷❄"]
+			"en": ["Every 3rd attack inflicts Cold❄ for <v.value>s"],
+			"ja": ["攻撃2回の度に次の攻撃に相手を<v.value>秒【寒冷❄】効果を与える"],
+			"zh": ["攻击2次后，下一次攻击会对攻击目标施加持续<v.value>秒的寒冷❄"]
 		}
 	},
 	"DOL_regen": {
@@ -2824,7 +2866,10 @@
 				"副砲充填（1回のみ）→攻撃しなくなり、20秒間、副砲のSPを毎秒+1する",
 				"スキルが中断された時、副砲のSP-15"
 			],
-			"zh": []
+			"zh": [
+				"副炮充能 - 停止攻击，对伦蒂尼姆城防副炮持续施法，每秒令其获得1SP，持续20s",
+				"持续施法被打断时，伦蒂尼姆城防副炮损失15SP"
+			]
 		}
 	},
 	"manfred_military_training": {
@@ -3630,16 +3675,16 @@
 		"tooltip": {
 			"en": [
 				"Overload (Initial CD: 0, ~CD: 20s)",
-				"Punches target 10 times over 10s, each punch does 75% of ATK as Phys damage and stuns for 2s"
+				"Punches target 10 times over 10s, each punch does <v.atk.multiplier>% of ATK as Phys damage and stuns for 2s"
 			],
 			"ja": [
 				"【過負荷】（初動0秒/再動20秒）",
 				"10秒間、攻撃間隔1秒のパンチを打ち続ける",
-				"パンチは1発ごとに、攻撃力の75%の物理ダメージと2秒のスタンを与える"
+				"パンチは1発ごとに、攻撃力の<v.atk.multiplier>%の物理ダメージと2秒のスタンを与える"
 			],
 			"zh": [
 				"超负载（初次冷却0s，后20s）",
-				"对目标连续攻击，每次造成攻击力75%的物理伤害和2s晕眩，持续10s"
+				"对目标连续攻击，每次造成攻击力<v.atk.multiplier>%的物理伤害和2s晕眩，持续10s"
 			]
 		}
 	},
@@ -3678,10 +3723,11 @@
 		}
 	},
 	"vampire_heal_scale": {
+		"value": 150,
 		"tooltip": {
-			"en": ["Attacks recover 150% of total damage dealt"],
-			"ja": ["合計与ダメージの150%のHPを回復する"],
-			"zh": ["恢复攻击总伤害150%的生命值"]
+			"en": ["Attacks recover <v.value>% of total damage dealt"],
+			"ja": ["合計与ダメージの<v.value>%のHPを回復する"],
+			"zh": ["恢复攻击总伤害<v.value>%的生命值"]
 		}
 	},
 	"ltsmag_1": {
@@ -3808,6 +3854,13 @@
 			"en": ["Unloads 3 Famiglia Soldiers if this unit is defeated while blocked"],
 			"ja": ["ブロック中に倒されると、その場にマフィアの準構成員を3体召喚する"],
 			"zh": ["被击倒时若已被阻挡，将卸下三个<家族士兵>"]
+		}
+	},
+	"sgcar_2": {
+		"tooltip": {
+			"en": ["Unloads 3 Elite Famiglia Soldiers if this unit is defeated while blocked"],
+			"ja": ["ブロック中に倒されると、その場にマフィアの構成員を3体召喚する"],
+			"zh": ["被击倒时若已被阻挡，将卸下三个<家族精英士兵>"]
 		}
 	},
 	"speople_1": {
@@ -4014,6 +4067,15 @@
 			"zh": ["未处于过载状态时，每2s夺取自身半径2.2范围内每个有能量且未处于过载状态的敌人1点能量"]
 		}
 	},
+	"durgrd_buff_1": {
+		"tooltip": {
+			"en": [
+				"After taking damage for the first time, gains 100 ASPD and 100% increased Movement Speed for 30s."
+			],
+			"ja": ["初めてダメージを受けてから30秒間、攻撃速度+100、移動速度+100%。"],
+			"zh": ["首次受到伤害后攻击速度+100，移动速度+100%，持续30s"]
+		}
+	},
 	"durgrd_buff": {
 		"tooltip": {
 			"en": [
@@ -4099,7 +4161,7 @@
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": ["【自动自卫仪礼】（初次冷却20s，后25s）", "召唤数个圣卫自动机 "]
+			"zh": ["【自动自卫仪礼】（初次冷却20s，后25s）", "召唤数个圣卫自动机"]
 		}
 	},
 	"skzdd_1_5": {
@@ -4142,7 +4204,7 @@
 			"en": [],
 			"ja": [],
 			"zh": [
-				"思维混乱时，被击倒后，进入持续10s的重生，恢复50%生命值，后进入第三形态并获得6s无敌，攻击力提升并召唤数个“门”"
+				"思维混乱时，被击倒后，进入持续10s的重生，恢复50%生命值，后进入第三形态并获得6s无敌，攻击力提升并召唤4个“门”"
 			]
 		}
 	},
@@ -4328,6 +4390,537 @@
 			"en": [],
 			"ja": [],
 			"zh": ["死亡后在自身所在格部署1个饮泣之刺，击败<饮泣之刺>后掉落数个构想"]
+		}
+	},
+	"direction_face_most_allies_mhkryk": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["持有甲壳时，始终面向我方干员数量较多的方向"]
+		}
+	},
+	"direction_face_most_allies": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["始终面向我方干员数量较多的方向"]
+		}
+	},
+	"front_dmg_red": {
+		"value": 80,
+		"tooltip": {
+			"en": ["Damage dealt to the front significantly decreased (-<v.value>%)"],
+			"ja": ["正面から受ける物理・術ダメージ-<v.value>%"],
+			"zh": ["正面所受的物理/法术伤害降低<v.value>%"]
+		}
+	},
+	"skzcy_1": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["被击败后会带走最后部署的干员，使其暂离队伍，下一层以精2状态回来"]
+		}
+	},
+	"skzwdd_1": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["处于年代印痕时，攻击变为二连击"]
+		}
+	},
+	"skzlch_1": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["进入保护目标后，延长当前年代持续时间"]
+		}
+	},
+	"telex_1": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["无法被攻击、消失时不会扣除目标生命"]
+		}
+	},
+	"winfrz_1": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"出场后进入【冬眠】状态：不移动，沉睡免疫，防御力+1000，法术抗性+20",
+				"受到紧急供暖器影响/经过200s后立刻离开【冬眠】状态"
+			]
+		}
+	},
+	"wingnt_1": {
+		"suffix": { "en": "First Attack", "ja": "", "zh": "首次攻击" },
+		"hits": 1,
+		"atk": { "multiplier": 1.5 },
+		"dmg_element": "arts",
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["首次攻击对目标及其周围4格造成攻击力150%的法术伤害，此后仅进行近战攻击"]
+		}
+	},
+	"wdexg_1": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["弹药大于等于1时：进行远程攻击，攻击时消耗1点技力，造成伤害后扣除3点已有部署费用"]
+		}
+	},
+	"skzlcp_1": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"织咒（初次冷却10s，后60s）",
+				"停止攻击，20s持续在目标周围创建年代印痕；持续施法结束/被打断清除自身召唤的年代印痕"
+			]
+		}
+	},
+	"mmjump_1": {
+		"value": 1100,
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["首次被阻挡/接触稳固锁链时获得3.5s近地悬浮；持续时间结束后，防御力-<v.value>"]
+		}
+	},
+	"block_dmg_phys_arts": {
+		"value": 1,
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["可以抵挡<v.value>次物理或法术伤害"]
+		}
+	},
+	"ltsmer_1": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"技能（初次冷却5s，后15s）",
+				"停止攻击，对攻击范围内距离自身最近的非敌方“留声机”持续施法，每秒扣除其2点技力，持续25秒"
+			]
+		}
+	},
+	"bldbat_1": {
+		"value": 30,
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"技能（初始0SP，消耗1SP，攻击回复）",
+				"使目标流血，5s内每秒流失<v.value>点生命（不可叠加）"
+			]
+		}
+	},
+	"ltnflu_1": {
+		"suffix": { "en": "Skill", "ja": "スキル", "zh": "技能" },
+		"hits": 1,
+		"atk": { "multiplier": 1.3 },
+		"dmg_element": "phys",
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["技能（初始0SP，消耗2SP，攻击回复）", "造成攻击力130%的物理伤害"]
+		}
+	},
+	"ltnflu_2": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"<@purple>沉郁变奏</>持续期间：攻击力+20%，攻击速度-50，移动速度最终降低至50%",
+				"<@gold>激昂变奏</>持续期间：攻击速度+50，移动速度最终提升至200%，防御力-50%"
+			]
+		}
+	},
+	"ltntpt_1": {
+		"suffix": { "en": "Skill", "ja": "スキル", "zh": "凯歌" },
+		"hits": 1,
+		"atk": { "multiplier": 1.0 },
+		"dmg_element": "phys",
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"凯歌（初始0SP，消耗2SP，攻击回复）",
+				"对目标及周围4格的我方单位造成攻击力100%的物理伤害",
+				"<@gold>激昂变奏</>持续期间：变为造成法术伤害"
+			]
+		}
+	},
+	"ltntpt_2": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"<@purple>沉郁变奏</>持续期间：攻击力+20%，攻击速度-50，移动速度最终降低至50%",
+				"<@gold>激昂变奏</>持续期间：攻击速度+50，移动速度最终提升至200%，防御力-50%，攻击变为造成法术伤害"
+			]
+		}
+	},
+	"ltndru_1": {
+		"suffix": { "en": "Skill", "ja": "スキル", "zh": "重奏" },
+		"hits": 1,
+		"atk": { "multiplier": 1.0 },
+		"dmg_element": "arts",
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"重奏（初始0SP，消耗2SP，攻击回复）",
+				"仅攻击范围内存在目标时可触发：对2.0半径范围内所有我方单位造成攻击力100%的法术伤害",
+				"<@gold>激昂变奏</>持续期间：伤害半径扩大至3.0"
+			]
+		}
+	},
+	"ltndru_2": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"<@purple>沉郁变奏</>持续期间：攻击力+20%，攻击速度-50，移动速度最终降低至50%",
+				"<@gold>激昂变奏</>持续期间：攻击速度+50，移动速度最终提升至200%，防御力-50%，攻击范围半径扩大至2.2"
+			]
+		}
+	},
+	"ltnhor_1": {
+		"suffix": { "en": "Skill", "ja": "スキル", "zh": "劈音" },
+		"hits": 1,
+		"atk": { "multiplier": 1.0 },
+		"dmg_element": "phys",
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"劈音（初始0SP，消耗2SP，攻击回复）",
+				"对最多2个目标分别造成攻击力100%的物理伤害",
+				"<@gold>激昂变奏</>持续期间：变为造成法术伤害"
+			]
+		}
+	},
+	"ltnhor_2": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"<@purple>沉郁变奏</>持续期间：攻击力+20%，攻击速度-50，移动速度最终降低至50%",
+				"<@gold>激昂变奏</>持续期间：攻击速度+50，移动速度最终提升至200%，防御力-50%，攻击变为造成法术伤害"
+			]
+		}
+	},
+	"ltnclr_1": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"未被阻挡时，每0.5秒获得1层攻击力最终+30的增益（最多叠加30层），于进行攻击后清除所有增益"
+			]
+		}
+	},
+	"ltnclr_2": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"<@purple>沉郁变奏</>持续期间：攻击速度-25，移动速度最终降低至70%，攻击力+150%，攻击使目标晕眩10s",
+				"<@gold>激昂变奏</>持续期间：攻击速度+25，移动速度提升至200%，防御力-50% "
+			]
+		}
+	},
+	"ltnclo_1": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"进入<@purple>沉郁变奏</>时获得10层护盾（退出沉郁变奏时清空此护盾，护盾不多于5层时出现外观变化）",
+				"该护盾成功抵挡伤害时，若伤害来源为默认类，则对伤害来源造成自身攻击力20%的无来源物理伤害"
+			]
+		}
+	},
+	"ltnclo_2": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"<@purple>沉郁变奏</>持续期间：攻击速度-25，移动速度最终降低至70%，攻击力+150%",
+				"<@gold>激昂变奏</>持续期间：攻击速度+25，移动速度最终提升至200%，防御力-50%"
+			]
+		}
+	},
+	"lrcmra_1": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"受源石污染区或活性源石风暴影响后会在自身周围半径1.2持续生成源石污染区，并且攻击转为造成法术伤害",
+				"源石污染区效果 - 技力自然回复速度倍率-80%，每0.5秒受到50真实持续伤害"
+			]
+		}
+	},
+	"lrnazg_1": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"自身受源石污染区/活性源石风暴影响期间，可无视攻击范围，同时攻击受源石污染区/活性源石风暴影响的所有我方单位"
+			]
+		}
+	},
+	"lrboom_2": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"受活性源石风暴影响时立刻死亡：此时不再生成源石污染区，并使活性源石风暴立刻获得1层增幅"
+			]
+		}
+	},
+	"gunsho_1": {
+		"suffix": { "en": "Skill", "ja": "スキル", "zh": "直击" },
+		"hits": 3,
+		"atk": { "multiplier": 1 },
+		"dmg_element": "phys",
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["直击（初次冷却2s，后5s）", "与我方处于同一直线上时进行直击：向目标方向发射3支弩箭"]
+		}
+	},
+	"lrwzrd_1": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"巫术激流（初次冷却0s，后15s）",
+				"持有充能且自身十字范围内存在我方单位时可触发：消耗所有充能，向目标所在正方向持续发射激光（最多持续7.8s）",
+				"激光每秒对宽度0.65的区域内所有我方单位造成自身攻击力40%的法术伤害",
+				"技能期间，自身攻击力每秒+40%，最多提升至+(消耗充能数*25)%"
+			]
+		}
+	},
+	"lrwzrd_2_1": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"巫术激流（初次冷却0s，后15s）",
+				"持有充能且自身十字范围内存在我方单位时可触发：消耗所有充能，向目标所在正方向持续发射激光（最多持续7.8s）",
+				"激光每秒对宽度0.65的区域内所有我方单位造成自身攻击力50%的法术伤害",
+				"技能期间，自身攻击力每秒+200%，最多提升至+(消耗充能数*40)%"
+			]
+		}
+	},
+	"lrwzrd_2": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"魂灵涡流进入自身半径0.25范围内时，若自身充能未达到上限（3层），则获得1层充能，并令此魂灵涡流立刻退场"
+			]
+		}
+	},
+	"lrrook_1": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["分摊95%自身周围半径1.7内敌方非空中单位受到的伤害 "]
+		}
+	},
+	"lrmzrd_1": {
+		"suffix": { "en": "Skill", "ja": "スキル", "zh": "巫术旋流" },
+		"hits": 1,
+		"atk": { "multiplier": 1.2 },
+		"dmg_element": "arts",
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"巫术旋流（初次冷却0s，后15s）",
+				"持有充能且法球数量未达到上限（3个）时可触发：消耗1层充能，在自身前方召唤一个以50°/s的角速度和0.9的公转半径逆时针围绕自身旋转的法球，法球碰撞半径0.45，碰撞我方单位时造成攻击力120%的法术伤害随后消失"
+			]
+		}
+	},
+	"mtrsnp_1": {
+		"suffix": { "en": "Skill", "ja": "スキル", "zh": "弹药" },
+		"hits": 1,
+		"atk": { "multiplier": 2 },
+		"dmg_element": "phys",
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["技力大于等于1时：攻击时消耗1点技力，造成攻击力200%的物理普通伤害"]
+		}
+	},
+	"mmkonm_1": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["失去近地悬浮后，攻击范围缩小至30%"]
+		}
+	},
+	"mmcike_1": {
+		"suffix": { "en": "Ambush", "ja": "闇討", "zh": "强击" },
+		"hits": 1,
+		"atk": { "multiplier": 2 },
+		"dmg_element": "phys",
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["隐匿效果失效后的下一次攻击造成更高伤害"]
+		}
+	},
+	"mmcike_2": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["仅生命值低于50%且被阻挡时可触发闪现", "向下个检查点方向>当前移动方向闪现1.5格距离"]
+		}
+	},
+	"lpeopl_1": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["始终在场上不撤回保护目标点"]
+		}
+	},
+	"lpeopl_2": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["恐慌（初始0SP，消耗50SP），每秒回复2点SP"]
+		}
+	},
+	"lpeopl_3": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["恐慌满后进入“惶惶不安”状态，每秒流失15点生命"]
+		}
+	},
+	"lpeopl_4": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["死亡时扣除1目标生命；不计入歼灭数"]
+		}
+	},
+	"ymtro_1": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["周围有领袖以外的非机械敌人时会将其装载为乘客（最多4个）"]
+		}
+	},
+	"harchn_1": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["分裂（初次冷却5s，后5s）", "在自身位置以自身路径召唤1个畸变赘生物"]
+		}
+	},
+	"skzjs_mark": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["持有标记，被击败后便会生成恐卡兹"]
+		}
+	},
+	"rescar_1": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"召唤糖果车（初次冷却5s，后10s）",
+				"仅技力大于等于1时触发：消耗1点技力，延迟0.1s后在自身位置以自身路径召唤1个糖果车"
+			]
+		}
+	},
+	"rescar_2": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"召唤糖果车（初次冷却5s，后10s）",
+				"仅技力大于等于1时触发：消耗1点技力，延迟0.1s后在自身位置以自身路径召唤1个精致糖果车"
+			]
+		}
+	},
+	"bomscr_1": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["被阻挡后发生爆炸，对周围所有目标造成375点法术溅射伤害和250点灼燃损伤"]
+		}
+	},
+	"bomscr_2": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["被阻挡后发生爆炸，对周围所有目标造成550点法术溅射伤害和350点灼燃损伤"]
+		}
+	},
+	"frtuna_1": {
+		"suffix": { "en": "🔫", "ja": "🔫", "zh": "🔫" },
+		"hits": 1,
+		"atk": { "multiplier": 2 },
+		"dmg_element": "phys",
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["开火 - 锁定攻击范围内随机一名我方单位，有70%的概率造成攻击力200%的物理普通伤害"]
+		}
+	},
+	"frtuna_reload": {
+		"tooltip": {
+			"en": ["Reload - Does not attack or move, recovers 1 Ammo every second."],
+			"ja": ["リロード→移動、攻撃しなくなる。毎秒弾薬数1回復する"],
+			"zh": ["装弹模式: 不攻击，无法移动，每1秒回复1点技力"]
+		}
+	},
+	"patrt_1": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["在场时，全体敌方单位(包括自身)攻击力+20%，防御力+200，获得战术命令状态"]
+		}
+	},
+	"patrt_2": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["被击败时立刻触发【生命献祭】并释放当前波次，随后进行持续60s的重生，恢复100%生命值"]
+		}
+	},
+	"patrt_2_1": {
+		"suffix": { "en": "投枪", "ja": "投枪", "zh": "投枪" },
+		"hits": 1,
+		"atk": { "multiplier": 1.35 },
+		"dmg_element": "phys",
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"投枪（初次冷却15s，后20s）",
+				"锁定半径20范围内距离自身最远的部署于高台的我方单位，蓄力约3s后对其造成相当于攻击力135%的物理普通伤害 "
+			]
+		}
+	},
+	"patrt_2_2": {
+		"suffix": { "en": "献祭", "ja": "献祭", "zh": "献祭" },
+		"hits": 1,
+		"atk": { "multiplier": 0.0521 },
+		"dmg_element": "true",
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"每间隔0.8s触发一次【献祭】- 对自身半径1.75范围内的我方单位造成相当于攻击力5.21%的真实溅射伤害"
+			]
 		}
 	}
 }

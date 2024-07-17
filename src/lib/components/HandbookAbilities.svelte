@@ -3,7 +3,7 @@
 	import Remark from './Remark.svelte';
 	import translations from '$lib/translations.json';
 	import EnemyFormTitle from './EnemyFormTitle.svelte';
-	import { getEnemySkills } from '$lib/functions/getEnemySkills';
+	import { getEnemySkills } from '$lib/functions/remarksHelper';
 
 	export let enemy: Enemy, language: Language, specialMods;
 </script>

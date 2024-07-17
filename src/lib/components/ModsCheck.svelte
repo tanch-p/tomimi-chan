@@ -7,6 +7,7 @@
 		{ key: 'hp', displayKey: 'hp' },
 		{ key: 'atk', displayKey: 'atk' },
 		{ key: 'aspd', displayKey: 'attack_speed' },
+		{ key: 'atk_interval', displayKey: 'aspd' },
 		{ key: 'range', displayKey: 'range_display' },
 		{ key: 'def', displayKey: 'def' },
 		{ key: 'res', displayKey: 'res' },

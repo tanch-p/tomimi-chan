@@ -2,7 +2,7 @@
 	import type { Enemy, Language, EnemyFormType } from '$lib/types';
 	import { getMaxRowSpan } from '$lib/functions/statHelpers';
 	import { getNormalAtk } from '$lib/functions/parseAtkType';
-	import { getEnemySkills } from '$lib/functions/getEnemySkills';
+	import { getEnemySkills } from '$lib/functions/remarksHelper';
 	import RemarksContainer from '$lib/components/RemarksContainer.svelte';
 	import AtkSuffix from '$lib/components/AtkSuffix.svelte';
 	import StatSkills from '$lib/components/StatSkills.svelte';
@@ -39,6 +39,9 @@
 					const key = statKey.replace('fixed_', '');
 					if (!statKeys.includes(key)) {
 						statKeys.push(key);
+					}
+					if (key === 'atk_interval') {
+						statKeys.push('aspd');
 					}
 				}
 			});

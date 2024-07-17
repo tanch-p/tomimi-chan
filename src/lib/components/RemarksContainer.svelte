@@ -3,8 +3,8 @@
 	import Remark from './Remark.svelte';
 	import StatusImmune from '$lib/components/StatusImmune.svelte';
 	import EnemyFormTitle from './EnemyFormTitle.svelte';
-	import { getEnemySkills } from '$lib/functions/getEnemySkills';
-	import translations from "$lib/translations.json";
+	import { getEnemySkills, getStatusImmune } from '$lib/functions/remarksHelper';
+	import translations from '$lib/translations.json';
 
 	export let enemy: Enemy, row: number, language: Language, specialMods;
 	$: skills = getEnemySkills(
@@ -16,7 +16,17 @@
 
 <div>
 	<EnemyFormTitle {enemy} {row} {language} />
-	<StatusImmune {enemy} {specialMods} {language} mode="table" />
+	<StatusImmune
+		statusImmuneList={getStatusImmune(
+			enemy,
+			enemy?.forms
+				? [...enemy.status_immune, ...(enemy.forms[row].mods?.status_immune ?? [])]
+				: enemy.status_immune,
+			$specialMods
+		)}
+		{language}
+		mode="table"
+	/>
 	<ul class="list-disc pl-5">
 		{#if enemy.stats[row].dmg_reduction}
 			<li class="py-1">
