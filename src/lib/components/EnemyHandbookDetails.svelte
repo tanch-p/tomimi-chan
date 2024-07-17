@@ -11,6 +11,7 @@
 	import life_blue from '$lib/images/is/sprite_base_hp.webp';
 	import life_red from '$lib/images/is/sprite_base_hp_red.webp';
 	import weightIcon from '$lib/images/is/weight.webp';
+	import { getStatusImmune } from '$lib/functions/remarksHelper';
 
 	export let enemy: Enemy, language: Language, specialMods;
 
@@ -112,6 +113,16 @@
 	</div>
 	<div class="flex flex-col mt-3">
 		<HandbookAbilities {enemy} {language} {specialMods} />
-		<StatusImmune {enemy} {specialMods} {language} mode="handbook" />
+		<StatusImmune
+			statusImmuneList={getStatusImmune(
+				enemy,
+				enemy?.forms
+					? [...enemy.status_immune, ...(enemy.forms[formIndex].mods?.status_immune ?? [])]
+					: enemy.status_immune,
+				$specialMods
+			)}
+			{language}
+			mode="handbook"
+		/>
 	</div>
 </div>
