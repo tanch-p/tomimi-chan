@@ -58,7 +58,10 @@
 <!-- {@debug enemy} -->
 
 {#each new Array(maxRowSpan) as _blank, row (enemy.key.concat('-', row.toString()))}
-	<tr class={`${index % 2 === 1 ? ' bg-[#333333]' : 'bg-neutral-800'}`}>
+	<tr
+		id={enemy.stageId}
+		class={`scroll-mt-24 ${index % 2 === 1 ? ' bg-[#333333]' : 'bg-neutral-800'}`}
+	>
 		{#each filteredTableHeaders as { key }}
 			{#if key === 'enemy' && row === 0}
 				<td class={`border border-gray-400 w-[75px] ${textAlign(key)}`} rowspan={maxRowSpan}>

@@ -47,7 +47,7 @@
 		{#each enemies as enemy}
 			{#if mapConfig.id.includes('t') || mapConfig.id.includes('ev') ? true : !BONUS_ENEMY_KEYS.includes(enemy.key)}
 				{@const { min, max } = getMinMaxCount(enemy.stageId, eliteMods)}
-				<div class="flex items-center">
+				<a href="#{enemy.stageId}" class="flex items-center pr-1.5 hover:bg-neutral-700">
 					<img
 						class="select-none"
 						src={enemy.img}
@@ -67,7 +67,7 @@
 							<span>{max}</span>
 						{/if}
 					</p>
-				</div>
+				</a>
 			{/if}
 		{/each}
 	</div>

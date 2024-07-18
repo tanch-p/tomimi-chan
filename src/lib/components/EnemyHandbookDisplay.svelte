@@ -11,7 +11,7 @@
 		class="grid grid-flow-row auto-rows-max gap-2.5 px-2.5 h-[calc(100vh-172px)] overflow-scroll no-scrollbar sticky top-20"
 	>
 		{#each enemies as enemy}
-			<a href={`#${enemy.key}`}>
+			<a href={`#${enemy.stageId}`}>
 				<div class="relative">
 					<p class="absolute bg-almost-black px-1 text-xs">{enemy.id}</p>
 					{#if enemy.type.includes('BOSS')}

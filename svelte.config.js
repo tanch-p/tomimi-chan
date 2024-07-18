@@ -16,6 +16,7 @@ const config = {
             }
         }),
 		prerender: {
+			handleMissingId:"ignore",
 			entries: pagesToRender
 		}
 	}

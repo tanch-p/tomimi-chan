@@ -20,7 +20,7 @@
 	let formIndex = 0;
 </script>
 
-<div id={enemy.key} class="scroll-mt-16 px-2 bg-neutral-900 bg-opacity-40">
+<div id={enemy.stageId} class="scroll-mt-16 px-2 bg-neutral-900 bg-opacity-40">
 	<div class="relative">
 		{#if enemy.type.includes('BOSS')}
 			<img
