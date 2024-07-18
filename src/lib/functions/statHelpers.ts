@@ -68,12 +68,12 @@ export const getMaxRowSpan = (enemy: Enemy) => {
 };
 
 // enemy stats type is being changed from {} to [{}] here
-export function applyMods(enemies: Enemy[], stageId: string, statMods: StatMods) {
+export function applyMods(enemies: Enemy[], stageId: string, statMods: StatMods, specialMods) {
 	return enemies.map((enemy) => {
 		const maxRowSpan = getMaxRowSpan(enemy);
 		const moddedStats = [];
 		for (let i = 0; i < maxRowSpan; i++) {
-			moddedStats.push(parseStats(enemy, stageId, statMods, i));
+			moddedStats.push(parseStats(enemy, stageId, statMods, i, specialMods));
 		}
 		return {
 			...enemy,
@@ -83,13 +83,23 @@ export function applyMods(enemies: Enemy[], stageId: string, statMods: StatMods)
 }
 
 //returns enemy 'stats' object with modded stats
-export function parseStats(enemy: Enemy, stageId: string, statMods: StatMods, row: number) {
+export function parseStats(
+	enemy: Enemy,
+	stageId: string,
+	statMods: StatMods,
+	row: number,
+	specialMods
+) {
 	let modsList = [];
 	for (const mod of statMods.initial) {
 		modsList.push(distillMods(enemy, stageId, mod));
 	}
 	if (enemy?.forms) {
-		modsList.push(enemy.forms[row].mods);
+		if (specialMods?.[enemy.key]?.[`mods_${row}`]) {
+			modsList.push(specialMods?.[enemy.key]?.[`mods_${row}`]);
+		} else {
+			modsList.push(enemy.forms[row].mods);
+		}
 	}
 	const initialMods = modsList.reduce((acc, curr) => {
 		for (const statKey in curr) {

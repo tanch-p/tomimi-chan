@@ -38,7 +38,11 @@ const overwriteBlackboard = (specialList, blackboard) => {
 	for (const skillRef of blackboard) {
 		skillRef.overwritten = true;
 		const index = specialList.findIndex((ele) => ele.key === skillRef.key);
-		specialList.splice(index, 1, skillRef);
+		if (index === -1) {
+			specialList.push(skillRef);
+		} else {
+			specialList.splice(index, 1, skillRef);
+		}
 	}
 	return specialList;
 };

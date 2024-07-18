@@ -20,7 +20,7 @@
 		statusImmuneList={getStatusImmune(
 			enemy,
 			enemy?.forms
-				? [...enemy.status_immune, ...(enemy.forms[row].mods?.status_immune ?? [])]
+				? enemy.forms[row].mods?.status_immune ?? enemy.status_immune
 				: enemy.status_immune,
 			$specialMods
 		)}

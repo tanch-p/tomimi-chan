@@ -11,8 +11,10 @@ export const getEnemySkills = (
 	let extraSkills = [];
 	currentSkills = skillRefs.map((skillRef) => {
 		if (specialMods[enemy.key] && Object.keys(specialMods[enemy.key]).includes(skillRef.key)) {
-			return specialMods[enemy.key][skillRef.key];
+			skillRef.overwritten = true;
+			return { ...enemySkills[skillRef.key], ...skillRef, ...specialMods[enemy.key][skillRef.key] };
 		} else {
+			skillRef.overwritten=false;
 			return { ...enemySkills[skillRef.key], ...skillRef };
 		}
 	});
@@ -21,7 +23,7 @@ export const getEnemySkills = (
 		if (checkIsTarget(enemy, target)) {
 			extraSkills = Object.keys(specialMods[target])
 				.map((key) => {
-					if (key === 'status_immune') {
+					if (key === 'status_immune' || key.includes('mods_')) {
 						return;
 					}
 					if (enemy.forms) {

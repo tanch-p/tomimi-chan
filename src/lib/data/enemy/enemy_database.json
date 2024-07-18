@@ -1782,9 +1782,11 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [{
-			"key": "sarkaz_caster_bind"
-		}],
+		"special": [
+			{
+				"key": "sarkaz_caster_bind"
+			}
+		],
 		"status_immune": [],
 		"normal_attack": {
 			"atk_type": ["ranged", "arts"],
@@ -10757,7 +10759,7 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [],
+		"special": [{ "key": "block" }, { "key": "hvymot_crash" }, { "key": "hvymot_defeat" }],
 		"status_immune": ["silence"],
 		"normal_attack": {
 			"atk_type": ["melee", "phys"],
@@ -14508,7 +14510,10 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [{ "key": "ammo", "value": 1 }, { "key": "pathfinder_nuncio","duration":15 }],
+		"special": [
+			{ "key": "ammo", "value": 1 },
+			{ "key": "pathfinder_nuncio", "duration": 15 }
+		],
 		"status_immune": [],
 		"normal_attack": {
 			"atk_type": ["melee", "arts"],
@@ -16947,7 +16952,7 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [],
+		"special": [{ "key": "durman_2" }],
 		"status_immune": [],
 		"normal_attack": {
 			"atk_type": ["melee", "phys"],
@@ -17297,9 +17302,11 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [{
-			"key": "durgrd_buff_1"
-		}],
+		"special": [
+			{
+				"key": "durgrd_buff_1"
+			}
+		],
 		"status_immune": ["silence"],
 		"normal_attack": {
 			"atk_type": ["melee", "phys"],
@@ -20581,13 +20588,13 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [],
+		"special": [{ "key": "skulsr_1" }, { "key": "skulsr_2" }],
 		"status_immune": ["silence"],
 		"normal_attack": {
-			"atk_type": ["ranged", "phys"],
+			"atk_type": ["melee", "phys"],
 			"hits": 1
 		},
-		"type": ["ranged", "BOSS"]
+		"type": ["melee", "ranged", "BOSS"]
 	},
 	"enemy_1502_crowns": {
 		"id": "CS",
@@ -20757,8 +20764,63 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [],
-		"status_immune": ["stun", "silence", "freeze", "levitate"],
+		"forms": [
+			{
+				"title": "form",
+				"mods": {},
+				"special": [
+					{
+						"key": "fnf_nova",
+						"cd1": 8.5,
+						"cd2": 8.5,
+						"atk": { "multiplier": 1.5 },
+						"duration": 8
+					},
+					{
+						"key": "fnf_seal_tile",
+						"cd1": 30,
+						"cd2": 30
+					}
+				],
+				"normal_attack": {
+					"atk_type": ["ranged", "arts"],
+					"hits": 1
+				}
+			},
+			{
+				"title": "form",
+				"mods": {
+					"atk": 1.5,
+					"status_immune": ["stun", "silence", "freeze", "levitate"]
+				},
+				"special": [
+					{
+						"key": "fnf_nova",
+						"atk": { "multiplier": 1.5 },
+						"tooltip": null
+					}
+				],
+				"normal_attack": {
+					"atk_type": ["ranged", "arts"],
+					"hits": 1
+				}
+			}
+		],
+		"special": [
+			{
+				"key": "fnf_nova",
+				"cd1": 8.5,
+				"cd2": 8.5,
+				"atk": { "multiplier": 1.5 },
+				"duration": 8
+			},
+			{
+				"key": "fnf_seal_tile",
+				"cd1": 30,
+				"cd2": 30
+			}
+		],
+		"status_immune": ["stun", "sleep", "silence", "freeze", "levitate"],
 		"normal_attack": {
 			"atk_type": ["ranged", "arts"],
 			"hits": 1
@@ -21054,7 +21116,7 @@
 					"fixed_ms": 0.1,
 					"atk_interval": -0.4,
 					"fixed_range": 0.85,
-					"status_immune": ["stun", "freeze", "levitate"]
+					"status_immune": ["stun", "freeze", "levitate", "silence"]
 				},
 				"special": [
 					{
@@ -21072,6 +21134,11 @@
 					"atk_type": ["ranged", "phys"],
 					"hits": 1
 				}
+			}
+		],
+		"special": [
+			{
+				"key": "patrt_1"
 			}
 		],
 		"status_immune": ["silence"],
@@ -36325,7 +36392,7 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [{ "key": "skzjs_1" }, { "key": "skzjs_2" }],
+		"special": [{ "key": "skzjs_1" }],
 		"status_immune": ["silence"],
 		"normal_attack": {
 			"atk_type": ["melee", "phys"],

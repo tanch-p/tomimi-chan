@@ -23,7 +23,7 @@
 
 	export let data: PageData;
 	$: language = data.language;
-	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods);
+	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods, $specialMods);
 	$: modsCheck = compileStatModsForChecking(data.enemies, data.mapConfig.id, $statMods);
 	const rogueTopic = 'rogue_skz';
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;

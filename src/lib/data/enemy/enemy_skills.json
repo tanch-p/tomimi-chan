@@ -564,6 +564,23 @@
 			"zh": ["死亡后召唤1个控潮术师"]
 		}
 	},
+	"hvymot_crash": {
+		"atk": { "multiplier": 1 },
+		"dmg_element": "phys",
+		"suffix": { "en": "Runover", "ja": "轢", "zh": "撞" },
+		"tooltip": {
+			"en": ["Deals 100% ATK as Phys damage to allies that comes into contact while moving"],
+			"ja": ["轢かれる時攻撃力100%の物理ダメージを与える"],
+			"zh": ["自主移动时，对进入自身0.5半径范围内部署于地面的我方单位造成一次攻击力100%的物理伤害"]
+		}
+	},
+	"hvymot_defeat": {
+		"tooltip": {
+			"en": ["Upon defeat, spawns a Dockworker Leader"],
+			"ja": ["死亡すると、同じ場所に水兵長が出現"],
+			"zh": ["死亡后召唤1个码头水手长"]
+		}
+	},
 	"prisoner_atk_release": {
 		"tooltip": {
 			"en": ["Imprisoned state, gets released on 4th attack"],
@@ -613,35 +630,40 @@
 		}
 	},
 	"fnf_nova": {
+		"cd1": 10.5,
+		"cd2": 10.5,
 		"radius": 2,
+		"duration": 10,
 		"atk": { "multiplier": 1 },
 		"dmg_element": "arts",
 		"suffix": { "en": "nova", "ja": "氷環", "zh": "冰环" },
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Ice Nova (Initial CD: 10.5s, ~CD: 10.5s)",
-				"Deals 130% of ATK as Arts damage to all allied units in a <v.radius> tile radius and applies Cold for 10s",
+				"Ice Nova (Initial CD: <v.cd1>s, ~CD: <v.cd2>s)",
+				"Deals <v.atk.multiplier>% of ATK as Arts damage to all allied units in a <v.radius> tile radius and applies Cold for <v.duration>s",
 				"Damage increased to 200% against Frozen targets."
 			],
 			"ja": [
-				"スキル（初動10.5秒/再動10.5秒）",
-				"自分周囲半径2.6マスへ攻撃力130%の術ダメージと10秒間の【寒冷】効果を与える",
+				"スキル（初動<v.cd1>秒/再動<v.cd2>秒）",
+				"自分周囲半径2.6マスへ攻撃力<v.atk.multiplier>%の術ダメージと<v.duration>秒間の【寒冷】効果を与える",
 				"【凍結】している相手にはスキル攻撃力が<v.radius>倍になる"
 			],
 			"zh": [
-				"冰环（初次冷却10.5s，后10.5s）",
-				"对半径<v.radius>范围内所有我方单位造成相当于攻击力130%的法术溅射伤害并施加持续10秒的寒冷",
+				"冰环（初次冷却<v.cd1>s，后<v.cd2>s）",
+				"对半径<v.radius>范围内所有我方单位造成相当于攻击力<v.atk.multiplier>%的法术溅射伤害并施加持续<v.duration>秒的寒冷",
 				"对持有冻结的目标造成的伤害提升至200% "
 			]
 		}
 	},
 	"fnf_seal_tile": {
+		"cd1": 35,
+		"cd2": 35,
 		"value": 2,
 		"tooltip": {
-			"en": ["Freeze Tile (Initial CD: 35s, ~CD: 35s)"],
-			"ja": ["地面封じ（初動35秒/再動35秒）"],
-			"zh": ["冻结（初次冷却10.5s，后10.5s）", "在半径2的范围内随机冻结<v.value>格地面"]
+			"en": ["Freeze Tile (Initial CD: <v.cd1>s, ~CD: <v.cd2>s)"],
+			"ja": ["地面封じ（初動<v.cd1>秒/再動<v.cd2>秒）"],
+			"zh": ["冻结（初次冷却<v.cd1>s，后<v.cd2>s）", "在半径2的范围内随机冻结<v.value>格地面"]
 		}
 	},
 	"fzm_nova": {
@@ -720,7 +742,7 @@
 		"tooltip": {
 			"en": ["Skill→Every 22s unleashes charged attack"],
 			"ja": ["スキル→チャージ攻撃、CD22秒"],
-			"zh": ["蓄力锤（冷却22s）", "对目标及其周围四格造成攻击力300%物理伤害"]
+			"zh": ["蓄力锤（冷却22s）", "对目标及其周围四格造成攻击力300%的物理伤害"]
 		}
 	},
 	"withered_knight_arrow_bomb": {
@@ -735,7 +757,7 @@
 			"ja": ["スキル→３体に爆発の矢を放つ、", "対象と隣接4マスに術ダメージ、CD22秒"],
 			"zh": [
 				"技能（冷却22s）",
-				"对最多3个目标发射爆炸箭，命中后2.5s爆炸，对目标及其周围四格造成攻击力<v.atk.multiplier>法术伤害"
+				"对最多3个目标发射爆炸箭，命中后2.5s爆炸，对目标及其周围四格造成攻击力<v.atk.multiplier>%的法术伤害"
 			]
 		}
 	},
@@ -1237,7 +1259,7 @@
 				"【臨戦態勢】→移動速度+500%、毎秒最大HPの4%分のダメージを受けて、",
 				"半径2.5マス以内の味方全員に、攻撃力の20%の神経ダメージを毎秒与える（迷彩無視）"
 			],
-			"zh": []
+			"zh": ["处于待命状态时，无法攻击/触发技能，低于99.99%时苏醒","临战状态下，移动速度提升500%，每秒流失最大生命值*4%的生命值，每秒对半径2.5范围内所有我方单位造成攻击力20%的神经损伤（该效果无视迷彩）"]
 		}
 	},
 	"ftt_splash": {
@@ -1846,7 +1868,7 @@
 		}
 	},
 	"pathfinder_nuncio": {
-		"duration":10,
+		"duration": 10,
 		"tooltip": {
 			"en": [""],
 			"ja": [""],
@@ -1977,8 +1999,15 @@
 			]
 		}
 	},
+	"standby": {
+		"value": 100,
+		"tooltip": {
+			"en": ["On Standby for <v.value> seconds"],
+			"ja": ["<v.value>待機する"],
+			"zh": ["待命<v.value>秒"]
+		}
+	},
 	"sarkaz_standby": {
-		"name": "standby",
 		"tooltip": {
 			"en": ["Does not attack while on standby", "Combat Ready - ms +200%"],
 			"ja": ["待機中攻撃しない", "【臨戦】態勢 - 移動速度+200%"],
@@ -3173,24 +3202,26 @@
 		}
 	},
 	"stmgun_bombard": {
+		"cd1":10,
+		"cd2":25,
 		"atk": { "multiplier": 0.55 },
 		"dmg_element": "arts",
 		"suffix": { "en": "Skill", "ja": "爆撃", "zh": "技能" },
 		"hits": 10,
 		"tooltip": {
 			"en": [
-				"Bombard (Initial CD: 10s, ~CD: 25s)",
+				"Bombard (Initial CD: <v.cd1>s, ~CD: <v.cd2>s)",
 				"Centering on the allied unit with the highest max HP, spawns a bombardment area within the surrounding 8 tiles. For 6s, deals <v.atk.multiplier>% of ATK as Arts damage to the allied unit with the highest percentage HP",
 				"During Skill, gains immunity to push/pull, stun, freeze, levitate and sleep"
 			],
 			"ja": [
-				"【爆撃】（初動10秒/再動25秒）",
+				"【爆撃】（初動<v.cd1>秒/再動<v.cd2>秒）",
 				"攻撃範囲内で最も最大HPが高い味方を中心に、3×3マスの爆撃区域を設定",
 				"爆撃区域内で最もHP割合が高い味方に対し、攻撃力の<v.atk.multiplier>%の術ダメージを与える",
 				"爆撃中、強制移動・スタン・睡眠・凍結・浮遊耐性を得る"
 			],
 			"zh": [
-				"轰炸（初次冷却10s，后25s）",
+				"轰炸（初次冷却<v.cd1>s，后<v.cd2>s）",
 				"锁定生命上限最高的目标进行数次轰炸，每次对范围内当前生命比例最高的单位造成法术伤害",
 				"技能期间免疫失衡，晕眩，冻结，浮空，沉睡"
 			]
@@ -4297,13 +4328,6 @@
 			]
 		}
 	},
-	"skzjs_2": {
-		"tooltip": {
-			"en": [],
-			"ja": [],
-			"zh": ["头顶被标记的敌人在死后便会生成恐卡兹"]
-		}
-	},
 	"skzlwy_1_1": {
 		"tooltip": {
 			"en": [],
@@ -4471,21 +4495,23 @@
 		}
 	},
 	"skzlcp_1": {
+		"cd2":60,
 		"tooltip": {
 			"en": [],
 			"ja": [],
 			"zh": [
-				"织咒（初次冷却10s，后60s）",
+				"织咒（初次冷却10s，后<v.cd2>s）",
 				"停止攻击，20s持续在目标周围创建年代印痕；持续施法结束/被打断清除自身召唤的年代印痕"
 			]
 		}
 	},
 	"mmjump_1": {
+		"duration": 3.5,
 		"value": 1100,
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": ["首次被阻挡/接触稳固锁链时获得3.5s近地悬浮；持续时间结束后，防御力-<v.value>"]
+			"zh": ["首次被阻挡/接触稳固锁链时获得<v.duration>s近地悬浮；持续时间结束后，防御力-<v.value>"]
 		}
 	},
 	"block_dmg_phys_arts": {
@@ -4823,7 +4849,7 @@
 			"zh": ["分裂（初次冷却5s，后5s）", "在自身位置以自身路径召唤1个畸变赘生物"]
 		}
 	},
-	"skzjs_mark": {
+	"parasitic": {
 		"tooltip": {
 			"en": [],
 			"ja": [],
@@ -4921,6 +4947,33 @@
 			"zh": [
 				"每间隔0.8s触发一次【献祭】- 对自身半径1.75范围内的我方单位造成相当于攻击力5.21%的真实溅射伤害"
 			]
+		}
+	},
+	"skulsr_1": {
+		"suffix": { "en": "ranged", "ja": "遠", "zh": "远" },
+		"hits": 1,
+		"atk": { "multiplier": 0.26 },
+		"dmg_element": "phys",
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"未被阻挡时会发射榴弹，爆炸范围为目标及其周围八格，使我方单位5秒内防御力下降50%，造成相当于攻击力26%的物理伤害"
+			]
+		}
+	},
+	"skulsr_2": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["生命值低于50%时攻击力提升50%"]
+		}
+	},
+	"durman_2": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["初始获得100%物理闪避，持续30s（可被沉默）"]
 		}
 	}
 }
