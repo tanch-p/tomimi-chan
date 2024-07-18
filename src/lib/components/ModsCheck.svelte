@@ -20,7 +20,7 @@
 	let modIndex = 0;
 	let enemy = modsCheck[0];
 
-	$: if (mapConfig) {
+	$: if (mapConfig || modsCheck) {
 		enemyIndex = 0;
 	}
 
