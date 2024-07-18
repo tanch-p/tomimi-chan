@@ -32,6 +32,9 @@
 		if (mod.type !== type) {
 			return '-';
 		}
+		if (stat === 'atk_interval') {
+			return idx % 2 === 0 ? mod.mods[stat] ?? '-' : '-';
+		}
 		if (idx % 2 === 0) {
 			return mod.mods[`fixed_${stat}`] || '-';
 		}
@@ -43,16 +46,17 @@
 	$: if (enemyIndex > -1) {
 		modIndex = 0;
 	}
-	$: enemy = modsCheck[enemyIndex];
+	$: listToShow = modsCheck.filter((enemy) => enemy.modsList.length > 0);
+	$: enemy = listToShow[enemyIndex];
 </script>
 
 <TogglePanel title={translations[language].mods_check} size="subheading">
-	{#if enemy.modsList.length > 0}
+	{#if listToShow.length > 0}
 		<div class="max-w-[100vw] overflow-auto no-scrollbar">
 			<div
 				class="flex w-max min-w-full font-bold text-lg text-white text-center select-none py-1 border-b border-b-gray-500"
 			>
-				{#each modsCheck as enemy, i}
+				{#each listToShow as enemy, i}
 					<button on:click={() => (enemyIndex = i)} class="px-1">
 						<img
 							class="select-none {i !== enemyIndex ? 'brightness-50' : ''}"
@@ -100,7 +104,7 @@
 				{#each enemy.modsList as mod, i}
 					<button on:click={() => (modIndex = i)} class="px-2">
 						<p class="select-none {i !== modIndex ? 'brightness-50' : ''}">
-							{translations[language][mod.key]}
+							{translations[language][mod.key] ?? mod.key}
 						</p>
 					</button>
 				{/each}

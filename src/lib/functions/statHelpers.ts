@@ -1,5 +1,6 @@
 /* takes in a list of enemies and statMods and returns enemy with modifiers applied */
 import type { Enemy, StatMods, ModGroup, Effects } from '$lib/types';
+import enemySkills from '$lib/data/enemy/enemy_skills.json';
 
 const STATS = [
 	'hp',
@@ -423,4 +424,23 @@ export const compileSpecialMods = (...modsList: [[Effects]]) => {
 			}
 	}
 	return specialMods;
+};
+
+export const updateBuffs = (otherBuffs, enemies, language) => {
+	const buffs = [];
+	for (const enemy of enemies) {
+		if (enemy.special) {
+			for (const skillRef of enemy.special) {
+				const skill = enemySkills[skillRef.key];
+				if (skill?.type === 'buff') {
+					buffs.push({
+						key: enemy[`name_${language}`],
+						mods: [skill.effects],
+						operation: 'times'
+					});
+				}
+			}
+		}
+	}
+	otherBuffs.set(buffs);
 };

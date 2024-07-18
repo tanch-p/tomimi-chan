@@ -37,16 +37,26 @@ const difficultyMods = derived([difficulty], ([$difficulty]) =>
 		})
 		.filter(Boolean)
 );
+export const otherBuffs = writable([]);
 
 export const statMods = derived(
-	[selectedRelics, floorDifficultyMods, eliteMods, disasterEffects, portalMods, difficultyMods],
+	[
+		selectedRelics,
+		floorDifficultyMods,
+		eliteMods,
+		disasterEffects,
+		portalMods,
+		difficultyMods,
+		otherBuffs
+	],
 	([
 		$selectedRelics,
 		$floorDifficultyMods,
 		$eliteMods,
 		$disasterEffects,
 		$portalMods,
-		$difficultyMods
+		$difficultyMods,
+		$otherBuffs
 	]) => {
 		return {
 			initial: [
@@ -55,9 +65,13 @@ export const statMods = derived(
 			],
 			final: [
 				{ key: 'relic', mods: $selectedRelics.map((relic) => relic.effects), operation: 'times' },
-				{ key: 'sami_chaos', mods: $disasterEffects.map((ele) => ele.effects), operation: 'times' },
-				{ key: 'sami_portal', mods: [$portalMods], operation: 'times' },
-				{ key: 'difficulty', mods: $difficultyMods, operation: 'times' }
+				{
+					key: 'sarkaz_disaster',
+					mods: $disasterEffects.map((ele) => ele.effects),
+					operation: 'times'
+				},
+				{ key: 'difficulty', mods: $difficultyMods, operation: 'times' },
+				...$otherBuffs
 			]
 		};
 	}
