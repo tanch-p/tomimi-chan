@@ -22,10 +22,11 @@
 	let floor3t = ['守望的河水', '卫士不语功', '存亡之战'];
 	let floor3b = ['或然面纱', '奉献', '斩首'];
 	let floor3c = ['离歌的庭院', '赴敌者', '王冠之下'];
+	let floor4b = ['时光凯旋'];
 	let floor5b = ['紧急授课', '朝谒'];
 	let floor6b = ['圣城'];
 	let du = ['失败的试胆', '信号灯', '劫虚济实', '鸭速公路'];
-	let sp = ['战场侧面', '继承', '时光凯旋','玩具的报复'];
+	let sp = ['战场侧面', '继承', '玩具的报复'];
 	let sp2 = ['物权纠纷', '叙事要约'];
 	let duel = ['以血还血', '善恶同道', '石心双子'];
 	//max per row = 4
@@ -122,6 +123,14 @@
 			<tr>
 				{#each floor3c as stageName}
 					<td colspan={Math.floor(24 / floor3c.length)}>
+						<StageNavButton {stageName} {language} />
+					</td>
+				{/each}
+			</tr>
+			<tr>
+				<th colspan="2" class="empty">?</th>
+				{#each floor4b as stageName}
+					<td colspan={Math.floor(24 / floor4b.length)}>
 						<StageNavButton {stageName} {language} />
 					</td>
 				{/each}
