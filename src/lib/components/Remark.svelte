@@ -16,7 +16,14 @@
 			if (key.includes('.')) {
 				const [statKey, valueKey] = key.split('.');
 				if (valueKey === 'multiplier') {
-					text = text.replace(string, addOverwrittenHighlight(Math.round(skill[statKey][valueKey] * 100).toString(),skill));
+					text = text.replace(
+						string,
+						addOverwrittenHighlight(
+							Math.round(skill[statKey][valueKey] * 100).toString(),
+							skill,
+							statKey
+						)
+					);
 					if (statKey === 'atk' && mode === 'handbook') {
 						text = text + ` (${Math.round(enemyStats[statKey] * skill[statKey][valueKey])})`;
 					}
@@ -28,7 +35,8 @@
 					string,
 					addOverwrittenHighlight(
 						(isPercent ? Math.round(skill[key] * 100) : skill[key]).toString(),
-						skill
+						skill,
+						key
 					)
 				);
 			}
@@ -36,8 +44,8 @@
 		return text;
 	};
 	//temp hotfix for overwritten skills
-	const addOverwrittenHighlight = (string: string, skill) => {
-		if (skill.overwritten) {
+	const addOverwrittenHighlight = (string: string, skill, key) => {
+		if (skill.overwrittenKeys.includes(key)) {
 			return '$' + string + '$';
 		}
 		return string;

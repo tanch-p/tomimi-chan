@@ -72,7 +72,7 @@
 			</div>
 		{/if}
 	</div>
-	<div class="flex gap-x-1 mt-4 sm:mt-2.5">
+	<div class="flex gap-x-1 mt-4 sm:mt-2.5 px-2 sm:px-0">
 		<p class="whitespace-nowrap">
 			<span class="">{translations[language].outLink}</span>
 			-

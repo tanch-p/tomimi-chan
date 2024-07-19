@@ -2,7 +2,7 @@
 	import type { Enemy, Language, EnemyFormType } from '$lib/types';
 	import { getMaxRowSpan } from '$lib/functions/statHelpers';
 	import { getNormalAtk } from '$lib/functions/parseAtkType';
-	import { getEnemySkills } from '$lib/functions/remarksHelper';
+	import { getStatSkills } from '$lib/functions/skillHelpers';
 	import RemarksContainer from '$lib/components/RemarksContainer.svelte';
 	import AtkSuffix from '$lib/components/AtkSuffix.svelte';
 	import StatSkills from '$lib/components/StatSkills.svelte';
@@ -109,7 +109,7 @@
 								{/if}
 							</p>
 							<StatSkills
-								skills={getEnemySkills(
+								skills={getStatSkills(
 									enemy,
 									enemy?.forms ? enemy.forms[row].special : enemy.special,
 									$specialMods

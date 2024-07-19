@@ -3,7 +3,7 @@
 	import Remark from './Remark.svelte';
 	import translations from '$lib/translations.json';
 	import EnemyFormTitle from './EnemyFormTitle.svelte';
-	import { getEnemySkills } from '$lib/functions/remarksHelper';
+	import { getEnemySkills } from '$lib/functions/skillHelpers';
 
 	export let enemy: Enemy, language: Language, specialMods;
 </script>
@@ -15,7 +15,7 @@
 	<div class="py-1">
 		{#if enemy.forms}
 			{#each enemy.forms as form, i}
-				{@const skills = getEnemySkills(enemy, form.special, $specialMods)}
+				{@const skills = getEnemySkills(enemy, i, $specialMods)}
 				<EnemyFormTitle {enemy} row={i} {language} />
 				<ul class="list-disc pl-4">
 					{#if enemy.stats[i].dmg_reduction}
@@ -29,7 +29,7 @@
 				</ul>
 			{/each}
 		{:else}
-			{@const skills = getEnemySkills(enemy, enemy.special, $specialMods)}
+			{@const skills = getEnemySkills(enemy, 0, $specialMods)}
 			<ul class="list-disc pl-4">
 				{#if enemy.stats[0].dmg_reduction}
 					<li class="py-1">

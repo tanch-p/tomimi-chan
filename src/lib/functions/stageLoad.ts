@@ -2,6 +2,7 @@ import type { MapConfig, Enemy } from '$lib/types';
 import enemyDatabase from '$lib/data/enemy/enemy_database.json';
 import findStage from '$lib/functions/findStage';
 import { sortEnemies } from './lib';
+import { overwriteBlackboard } from './skillHelpers';
 
 export const stageLoad = async (stageName: string, rogueTopic: string | null) => {
 	const mapConfig: MapConfig = findStage(stageName, rogueTopic);
@@ -36,19 +37,6 @@ export const stageLoad = async (stageName: string, rogueTopic: string | null) =>
 	enemies.forEach((enemy, index) => (enemy.img = data[index].default));
 
 	return { mapConfig, enemies };
-};
-
-const overwriteBlackboard = (specialList, blackboard) => {
-	for (const skillRef of blackboard) {
-		skillRef.overwritten = true;
-		const index = specialList.findIndex((ele) => ele.key === skillRef.key);
-		if (index === -1) {
-			specialList.push(skillRef);
-		} else {
-			specialList.splice(index, 1, skillRef);
-		}
-	}
-	return specialList;
 };
 
 const STAGES_WITH_ELITE_IMG = ['ro3_e_3_2', 'ro3_e_4_2', 'ro3_e_5_2'];

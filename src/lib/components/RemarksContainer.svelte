@@ -3,13 +3,13 @@
 	import Remark from './Remark.svelte';
 	import StatusImmune from '$lib/components/StatusImmune.svelte';
 	import EnemyFormTitle from './EnemyFormTitle.svelte';
-	import { getEnemySkills, getStatusImmune } from '$lib/functions/remarksHelper';
+	import { getEnemySkills, getStatusImmune } from '$lib/functions/skillHelpers';
 	import translations from '$lib/translations.json';
 
 	export let enemy: Enemy, row: number, language: Language, specialMods;
 	$: skills = getEnemySkills(
 		enemy,
-		enemy?.forms ? enemy.forms[row].special : enemy.special,
+		row,
 		$specialMods
 	);
 </script>

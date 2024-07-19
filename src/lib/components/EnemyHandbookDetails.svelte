@@ -11,7 +11,7 @@
 	import life_blue from '$lib/images/is/sprite_base_hp.webp';
 	import life_red from '$lib/images/is/sprite_base_hp_red.webp';
 	import weightIcon from '$lib/images/is/weight.webp';
-	import { getStatusImmune } from '$lib/functions/remarksHelper';
+	import { getStatusImmune } from '$lib/functions/skillHelpers';
 
 	export let enemy: Enemy, language: Language, specialMods;
 
