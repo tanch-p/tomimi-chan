@@ -1,6 +1,7 @@
 import type { MapConfig, Enemy } from '$lib/types';
 import enemyDatabase from '$lib/data/enemy/enemy_database.json';
 import findStage from '$lib/functions/findStage';
+import { sortEnemies } from './lib';
 
 export const stageLoad = async (stageName: string, rogueTopic: string | null) => {
 	const mapConfig: MapConfig = findStage(stageName, rogueTopic);
@@ -26,6 +27,9 @@ export const stageLoad = async (stageName: string, rogueTopic: string | null) =>
 		}
 		return enemy;
 	});
+	if (!mapConfig.id.includes('duel')) {
+		enemies.sort(sortEnemies);
+	}
 	const data = await Promise.all(
 		enemies.map((enemy) => import(`../images/enemy_icons/icon_${enemy.key}.webp`))
 	);

@@ -37,7 +37,7 @@
 		{/each}
 	</div>
 	<div class="flex flex-col">
-		{#each enemies as enemy, index (enemy.key)}
+		{#each enemies as enemy, index (enemy.stageId)}
 			{#if index !== 0}
 				<div class="bg-neutral-700 mx-1 h-0.5" />
 			{/if}

@@ -2,16 +2,9 @@
 	import type { MapConfig, Language } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import TogglePanel from './TogglePanel.svelte';
+	import { BONUS_ENEMY_KEYS } from '$lib/functions/lib';
 
 	export let mapConfig: MapConfig, enemies, eliteMods, language: Language;
-
-	const BONUS_ENEMY_KEYS = [
-		'enemy_2001_duckmi',
-		'enemy_2002_bearmi',
-		'enemy_2034_sythef',
-		'enemy_2059_smbox',
-		'enemy_2085_skzjxd'
-	];
 
 	function getMinMaxCount(id, eliteMods) {
 		const data = mapConfig.enemies.find((enemy) => id === enemy.id);

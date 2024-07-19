@@ -1,4 +1,14 @@
-import translations from "$lib/translations.json"
+import translations from '$lib/translations.json';
+
+export const BONUS_ENEMY_KEYS = [
+	'enemy_2001_duckmi',
+	'enemy_2002_bearmi',
+	'enemy_2034_sythef',
+	'enemy_2059_smbox',
+	'enemy_2085_skzjxd',
+	"enemy_2067_skzcy",
+	"enemy_2069_skzbox"
+];
 
 export function convertToOrdinal(number: number) {
 	const lastDigit = number % 10;
@@ -20,7 +30,7 @@ export function convertToOrdinal(number: number) {
 	}
 }
 
-export function getFormTitle(title: string | undefined | null, row:number, language: Language) {
+export function getFormTitle(title: string | undefined | null, row: number, language: Language) {
 	if (!title) {
 		return null;
 	}
@@ -39,11 +49,20 @@ export function getFormTitle(title: string | undefined | null, row:number, langu
 			);
 		}
 		return (
-			translations[language].multiform_prefix +
-			(row + 1) +
-			translations[language].multiform_suffix
+			translations[language].multiform_prefix + (row + 1) + translations[language].multiform_suffix
 		);
 	}
 
 	return translations[language][title];
 }
+
+const getEnemyWeight = (key, type) => {
+	if (BONUS_ENEMY_KEYS.includes(key)) {
+		return 99;
+	}
+	return type.includes('BOSS') ? 0 : type.includes('ELITE') ? 1 : 2;
+};
+
+export const sortEnemies = (a, b) => {
+	return getEnemyWeight(a.key, a.type) - getEnemyWeight(b.key, b.type);
+};
