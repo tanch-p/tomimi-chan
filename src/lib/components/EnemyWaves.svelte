@@ -42,8 +42,8 @@
 				</div>
 			{:else if rogueTopic === 'rogue_skz'}
 				<div class="flex items-center">
-					<img src={skzbox} width="50px" alt="skzbox" /> <span>10.5%</span>
-					<img src={skzmbx} width="50px" alt="skzmbx" /> <span>3%</span>
+					<img src={skzmbx} width="50px" alt="skzmbx" /> <span>10.5%</span>
+					<img src={skzbox} width="50px" alt="skzbox" /> <span>3%</span>
 					<img src={skzwyx} width="50px" alt="skzwyx" /> <span>1.5%</span>
 				</div>
 			{/if}
