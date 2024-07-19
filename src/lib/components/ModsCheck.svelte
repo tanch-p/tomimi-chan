@@ -81,7 +81,7 @@
 			/>
 			<div class="flex flex-col ml-2">
 				<div class="flex gap-x-2 mt-1.5 h-[20px]">
-					{#each enemy.type.filter((ele) => ['ELITE', 'BOSS'].includes(ele)) as type}
+					{#each enemy.type.filter((ele) => !['melee', 'ranged','NORMAL'].includes(ele)) as type}
 						<p class="whitespace-nowrap text-[#83a39f] text-sm">
 							{translations[language].types[type]}
 						</p>
