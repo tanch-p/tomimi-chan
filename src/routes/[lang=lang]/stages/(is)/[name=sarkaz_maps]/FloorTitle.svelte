@@ -37,7 +37,7 @@
 	$: updateFloor(stageFloors);
 </script>
 
-<div use:clickOutside on:outclick={() => (optionsOpen = false)} class="mx-auto select-none">
+<div use:clickOutside on:outclick={() => (optionsOpen = false)} class="self-center mx-auto select-none">
 	<button id="floor-options" on:click={() => (optionsOpen = !optionsOpen)}>
 		<p class="flex items-center justify-center relative text-center">
 			<img
