@@ -22,26 +22,26 @@
 				</tr>
 			</thead>
 			<tbody>
-				{#each spTerrain as terrain}
-					<tr>
-						<td class="min-w-[82px] border border-gray-400 px-2 py-1.5 text-center">
-							{spTerrainList[terrain.tileKey][`name_${language}`]}
-							{#if terrain.alias}({translations[language][terrain.alias]}){/if}
-						</td>
-						<SpTerrainDesc
-							blackboard={terrain.blackboard}
-							description={spTerrainList[terrain.tileKey][`description_${language}`]}
-						/>
-					</tr>
-				{/each}
+				{#if spTerrain}
+					{#each spTerrain as terrain}
+						<tr>
+							<td class="min-w-[82px] border border-gray-400 px-2 py-1.5 text-center">
+								{spTerrainList[terrain.tileKey][`name_${language}`]}
+								{#if terrain.alias}({translations[language][terrain.alias]}){/if}
+							</td>
+							<SpTerrainDesc
+								blackboard={terrain.blackboard}
+								description={spTerrainList[terrain.tileKey][`description_${language}`]}
+							/>
+						</tr>
+					{/each}
+				{/if}
 				{#if rogueTopic === 'rogue_skz'}
 					<tr>
 						<td class="min-w-[82px] border border-gray-400 px-2 py-1.5 text-center">
 							{spTerrainList.skzdwz[`name_${language}`]}
 						</td>
-						<SpTerrainDesc
-							description={spTerrainList.skzdwz[`description_${language}`]}
-						/>
+						<SpTerrainDesc description={spTerrainList.skzdwz[`description_${language}`]} />
 					</tr>
 				{/if}
 			</tbody>

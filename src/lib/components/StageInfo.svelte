@@ -109,7 +109,7 @@
 {#if rogueTopic === 'rogue_sami'}
 	<StageDrops {mapConfig} {rogueTopic} {language} {selectedFloor} />
 {/if}
-{#if mapConfig.sp_terrain}
+{#if mapConfig.sp_terrain || rogueTopic === "rogue_skz"}
 	<SpTerrain spTerrain={mapConfig.sp_terrain} {rogueTopic} {language} />
 {/if}
 {#if rogueTopic}
