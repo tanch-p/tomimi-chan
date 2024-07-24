@@ -23,6 +23,7 @@
 		switch (rogueTopic) {
 			case 'rogue_mizuki':
 			case 'rogue_sami':
+			case 'rogue_skz':
 				return 'text-[#58dbda]';
 			case 'rogue_phantom':
 				return 'text-[#cea658]';
