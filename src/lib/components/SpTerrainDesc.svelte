@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let description: string[], blackboard;
+	export let description: string[], blackboard={};
 
 	//temp hack before the format for spTerrain replacement is sorted out
 	const percentKeys = ['atk', 'atk_scale', 'HP_RECOVERY_PER_SEC_BY_MAX_HP_RATIO'];

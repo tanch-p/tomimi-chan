@@ -38,7 +38,7 @@
 >
 	<div class="flex flex-wrap gap-x-3 gap-y-2 px-2.5 md:px-0">
 		{#each enemies as enemy}
-			{#if mapConfig.id.includes('t') || mapConfig.id.includes('ev') || mapConfig.id.includes('duel') ? true : !BONUS_ENEMY_KEYS.includes(enemy.key)}
+			{#if !((mapConfig.id.includes('_n_') || mapConfig.id.includes('_e_')) && BONUS_ENEMY_KEYS.includes(enemy.key))}
 				{@const { min, max } = getMinMaxCount(enemy.stageId, eliteMods)}
 				<a href="#{enemy.stageId}" class="flex items-center pr-1.5 hover:bg-neutral-700">
 					<img

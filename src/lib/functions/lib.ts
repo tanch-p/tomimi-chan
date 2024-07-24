@@ -6,7 +6,6 @@ export const BONUS_ENEMY_KEYS = [
 	'enemy_2034_sythef',
 	'enemy_2059_smbox',
 	'enemy_2085_skzjxd',
-	"enemy_2067_skzcy",
 	"enemy_2069_skzbox"
 ];
 

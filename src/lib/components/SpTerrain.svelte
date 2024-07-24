@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type {Language} from "$lib/types"
+	import type { Language } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import spTerrainList from '$lib/sp_terrain_list.json';
 	import SpTerrainDesc from './SpTerrainDesc.svelte';
-	export let spTerrain, language: Language;
+	export let spTerrain, rogueTopic, language: Language;
 </script>
 
 <div class="sm:px-6 my-4">
@@ -34,6 +34,16 @@
 						/>
 					</tr>
 				{/each}
+				{#if rogueTopic === 'rogue_skz'}
+					<tr>
+						<td class="min-w-[82px] border border-gray-400 px-2 py-1.5 text-center">
+							{spTerrainList.skzdwz[`name_${language}`]}
+						</td>
+						<SpTerrainDesc
+							description={spTerrainList.skzdwz[`description_${language}`]}
+						/>
+					</tr>
+				{/if}
 			</tbody>
 		</table>
 	</div>

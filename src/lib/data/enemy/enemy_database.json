@@ -36555,7 +36555,7 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [{ "key": "steal_gold" }],
+		"special": [{ "key": "steal_gold", "value":"?" }],
 		"status_immune": ["levitate"],
 		"normal_attack": {
 			"atk_type": ["melee", "phys"],
@@ -36611,7 +36611,7 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [{ "key": "hover" }, { "key": "steal_gold" }],
+		"special": [{ "key": "hover" },{"key":"skzfbx_1"}, { "key": "steal_gold" }],
 		"status_immune": ["levitate"],
 		"normal_attack": {
 			"atk_type": ["melee", "phys"],
@@ -36996,7 +36996,7 @@
 			}
 		],
 		"status_immune": ["stun", "silence", "sleep", "freeze", "levitate"],
-		"type": ["melee","ranged", "sarkaz", "BOSS"]
+		"type": ["melee", "ranged", "sarkaz", "BOSS"]
 	},
 	"enemy_2082_skzdd": {
 		"id": "SPT",
@@ -37070,7 +37070,7 @@
 			},
 			{
 				"title": "form",
-				"mods": { "atk": 1.5 },
+				"mods": { "atk": 1.25 },
 				"special": [],
 				"normal_attack": {
 					"atk_type": ["ranged", "phys"],
@@ -37081,10 +37081,40 @@
 		"status_immune": ["stun", "silence", "sleep", "freeze", "levitate", "tremble"],
 		"type": ["melee", "ranged", "sarkaz", "BOSS"]
 	},
+	"enemy_2083_skzhg": {
+		"id": "-",
+		"key": "enemy_2083_skzhg",
+		"sortId": 1011,
+		"name_zh": "“放逐的黑棺”",
+		"name_ja": "",
+		"name_en": "",
+		"stats": [
+			{
+				"hp": 8000,
+				"atk": 0,
+				"def": 500,
+				"res": 50.0,
+				"aspd": 5.0,
+				"range": -1.0,
+				"weight": 10,
+				"lifepoint": 0,
+				"ms": 1.0,
+				"epDamageResistance": 0.0,
+				"epResistance": 0.0
+			}
+		],
+		"special": [],
+		"status_immune": ["stun", "silence", "sleep", "freeze", "levitate", "tremble", "fear"],
+		"normal_attack": {
+			"atk_type": ["no_attack", null],
+			"hits": 1
+		},
+		"type": ["no_attack"]
+	},
 	"enemy_2084_skzcan": {
 		"id": "KNS",
 		"key": "enemy_2084_skzcan",
-		"sortId": 1011,
+		"sortId": 1012,
 		"name_zh": "古德因纳夫先生",
 		"name_ja": "",
 		"name_en": "",
@@ -37116,7 +37146,7 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [{ "key": "skzcan_1" }, { "key": "skzcan_2" }, { "key": "steal_gold" }],
+		"special": [{ "key": "skzcan_1" }, { "key": "skzcan_2" }, { "key": "steal_gold","value":"?"  }],
 		"status_immune": ["silence"],
 		"normal_attack": {
 			"atk_type": ["no_attack", null],

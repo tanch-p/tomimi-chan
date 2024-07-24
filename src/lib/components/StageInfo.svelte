@@ -110,7 +110,7 @@
 	<StageDrops {mapConfig} {rogueTopic} {language} {selectedFloor} />
 {/if}
 {#if mapConfig.sp_terrain}
-	<SpTerrain spTerrain={mapConfig.sp_terrain} {language} />
+	<SpTerrain spTerrain={mapConfig.sp_terrain} {rogueTopic} {language} />
 {/if}
 {#if rogueTopic}
 	<EnemyWaves {mapConfig} {rogueTopic} {language} {selectedFloor} />
