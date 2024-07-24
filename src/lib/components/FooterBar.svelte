@@ -12,7 +12,7 @@
 	let openOverlay = false;
 </script>
 
-<div class="fixed overflow-hidden bottom-0 w-full select-none z-[2]">
+<div class="fixed overflow-hidden bottom-0 w-full select-none z-10">
 	<RelicsOverlay
 		{openOverlay}
 		{language}

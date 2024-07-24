@@ -7,6 +7,7 @@
 	import encounter from '$lib/images/is/sarkaz/node_inv.webp';
 	import translations from '$lib/translations.json';
 	import duelIcon from '$lib/images/is/sarkaz/node_duel.webp';
+	import shop from "$lib/images/is/sarkaz/node_shop.webp";
 
 	export let language: Language;
 
@@ -26,7 +27,7 @@
 	let floor5b = ['紧急授课', '朝谒'];
 	let floor6b = ['圣城'];
 	let du = ['失败的试胆', '信号灯', '劫虚济实', '鸭速公路'];
-	let sp = ['战场侧面', '继承', '玩具的报复'];
+	let sp = ['战场侧面', '继承','玩具的报复'];
 	let sp2 = ['物权纠纷', '叙事要约'];
 	let duel = ['以血还血', '善恶同道', '石心双子'];
 	//max per row = 4
@@ -187,7 +188,7 @@
 				</th>
 			</tr>
 			<tr>
-				<td colspan="2" rowspan="5"> ? </td>
+				<td colspan="2" rowspan="10"> ? </td>
 				{#each du as stageName}
 					<td colspan={Math.floor(24 / du.length)}>
 						<StageNavButton {stageName} {language} />
@@ -200,6 +201,19 @@
 						<StageNavButton {stageName} {language} />
 					</td>
 				{/each}
+			</tr>
+			<tr>
+				<th colspan="24">
+					<div class="flex justify-center items-center">
+						<img
+							src={shop}
+							alt={translations[language].shop}
+							width="120px"
+							loading="lazy"
+							decoding="async"
+						/>
+					</div>
+				</th>
 			</tr>
 			<tr>
 				{#each sp2 as stageName}

@@ -1,9 +1,11 @@
 <script>
 	import Icons from '$lib/components/Icons.svelte';
-	import ScrollToTopButton from '$lib/components/ScrollToTopButton.svelte';
+	import ScrollButtons from '$lib/components/ScrollButtons.svelte';
 	import '../app.css';
+	import { page } from '$app/stores';
 </script>
 
-<ScrollToTopButton />
+<ScrollButtons hasBtm={$page?.data?.mapConfig}/>
+
 <Icons />
 <slot />
