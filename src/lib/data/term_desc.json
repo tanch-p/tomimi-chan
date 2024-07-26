@@ -1,0 +1,371 @@
+{
+	"ba.sluggish": {
+		"termId": "ba.sluggish",
+		"termName_zh": "停顿",
+		"termName_en": "Slow",
+		"termName_ja": "足止め",
+		"description_zh": "移动速度降低80%",
+		"description_en": "-80% Movement Speed",
+		"description_ja": "移動速度-80％"
+	},
+	"ba.root": {
+		"termId": "ba.root",
+		"termName_zh": "束缚",
+		"termName_en": "Bind",
+		"termName_ja": "バインド",
+		"description_zh": "无法移动",
+		"description_en": "Unable to move",
+		"description_ja": "移動不可"
+	},
+	"ba.stun": {
+		"termId": "ba.stun",
+		"termName_zh": "晕眩",
+		"termName_en": "Stun",
+		"termName_ja": "スタン",
+		"description_zh": "无法移动、阻挡、攻击及使用技能",
+		"description_en": "Unable to move, block, attack, or use skills",
+		"description_ja": "移動、ブロック、攻撃およびスキル発動不可"
+	},
+	"ba.buffres": {
+		"termId": "ba.buffres",
+		"termName_zh": "抵抗",
+		"termName_en": "Status Resistance",
+		"termName_ja": "レジスト",
+		"description_zh": "<$ba.stun>晕眩</>、<$ba.cold>寒冷</>、<$ba.frozen>冻结</>等异常状态的持续时间减半（同名效果不叠加）",
+		"description_en": "Negative Status durations(<$ba.stun>Stun</>, <$ba.cold>Cold</>, <$ba.frozen>Freeze</>, etc.) halved (does not stack with the same effect)",
+		"description_ja": "<$ba.stun>スタン</>、<$ba.cold>寒冷</>、<$ba.frozen>凍結</>などの状態異常の継続時間が50%減少(同名の状態は重複不可)"
+	},
+	"ba.invisible": {
+		"termId": "ba.invisible",
+		"termName_zh": "隐匿",
+		"termName_en": "Invisible",
+		"termName_ja": "ステルス",
+		"description_zh": "不阻挡时不成为敌方攻击的目标",
+		"description_en": "Prevents being targeted by enemy attacks if the unit is not blocking",
+		"description_ja": "未ブロック時、攻撃の対象にならない"
+	},
+	"ba.camou": {
+		"termId": "ba.camou",
+		"termName_zh": "迷彩",
+		"termName_en": "Camouflage",
+		"termName_ja": "迷彩",
+		"description_zh": "不阻挡时不成为敌方普通攻击的目标（无法躲避溅射类攻击）",
+		"description_en": "Prevents being targeted by normal enemy attacks if the unit is not blocking (but will still take Splash damage)",
+		"description_ja": "未ブロック時、通常攻撃の対象にならない（範囲攻撃のダメージは無効化できない）"
+	},
+	"ba.fragile": {
+		"termId": "ba.fragile",
+		"termName_zh": "脆弱",
+		"termName_en": "Fragile",
+		"termName_ja": "脆弱",
+		"description_zh": "受到的物理、法术、真实伤害提升相应比例（同名效果取最高）",
+		"description_en": "Amplifies all Physical, Arts, and True damage taken by the corresponding amount (only the strongest effect of this type applies)",
+		"description_ja": "物理・術・確定の被ダメージが効果値分上昇する（同名の状態は効果値が高いほうのみ適用）"
+	},
+	"ba.shield": {
+		"termId": "ba.shield",
+		"termName_zh": "护盾",
+		"termName_en": "Shield",
+		"termName_ja": "シールド",
+		"description_zh": "每层护盾可以抵挡一次伤害",
+		"description_en": "Blocks 1 instance of damage per layer of Shield",
+		"description_ja": "ダメージを受けるとき、シールドを1枚消耗することによって被ダメージを1回無効化できる"
+	},
+	"ba.protect": {
+		"termId": "ba.protect",
+		"termName_zh": "庇护",
+		"termName_en": "Sanctuary",
+		"termName_ja": "加護",
+		"description_zh": "受到的物理和法术伤害降低相应比例（同名效果取最高）",
+		"description_en": "Reduces incoming Physical and Arts damage by the corresponding amount (only the strongest effect of this type applies)",
+		"description_ja": "物理、術の被ダメージが効果値分減少（同名の状態は効果値が高いほうのみ適用）"
+	},
+	"ba.cold": {
+		"termId": "ba.cold",
+		"termName_zh": "寒冷",
+		"termName_en": "Cold",
+		"termName_ja": "寒冷",
+		"description_zh": "攻击速度下降30，如果在持续时间内再次受到寒冷效果则会变为<$ba.frozen>冻结</>",
+		"description_en": "Reduces ASPD by 30 and causes subsequent applications of the Cold status during the debuff duration to inflict <$ba.frozen>Frozen</>",
+		"description_ja": "攻撃速度-30、スキル発動中にもう一度寒冷状態を付与されると<$ba.frozen>凍結</>状態になる"
+	},
+	"ba.frozen": {
+		"termId": "ba.frozen",
+		"termName_zh": "冻结",
+		"termName_en": "Frozen",
+		"termName_ja": "凍結",
+		"description_zh": "无法移动、攻击及使用技能（通过<$ba.cold>寒冷</>触发）；敌方被冻结时，法术抗性-15",
+		"description_en": "Unable to move, attack, or use skills (inflicted through the <$ba.cold>Cold</> status); When enemies are frozen, RES -15",
+		"description_ja": "移動、攻撃およびスキル発動不可（<$ba.cold>寒冷</>状態から派生）。凍結状態の敵の術耐性-15"
+	},
+	"ba.sleep": {
+		"termId": "ba.sleep",
+		"termName_zh": "沉睡",
+		"termName_en": "Sleep",
+		"termName_ja": "睡眠",
+		"description_zh": "无敌且无法行动",
+		"description_en": "Invulnerable and unable to take any actions",
+		"description_ja": "無敵、行動不能"
+	},
+	"ba.inspire": {
+		"termId": "ba.inspire",
+		"termName_zh": "鼓舞",
+		"termName_en": "Inspiration",
+		"termName_ja": "鼓舞",
+		"description_zh": "获得额外附加的基础属性加成（同类属性取最高）",
+		"description_en": "Increases base stats (only the strongest effect of this type applies for each stat)",
+		"description_ja": "対応するステータス値が上昇（同類のステータス上昇効果は効果値が高いほうのみ適用）"
+	},
+	"ba.binding": {
+		"termId": "ba.binding",
+		"termName_zh": "绑定",
+		"termName_en": "Tied",
+		"termName_ja": "連動",
+		"description_zh": "绑定对象不在场时技能强制结束，清空所有技力且无法回复技力",
+		"description_en": "When the corresponding Tied unit is no longer on the battlefield, this unit's skill immediately ends, SP is set to 0, and SP can no longer be gained",
+		"description_ja": "連動対象が場にいない状態ではスキルが強制終了し、SPが０になり増加しなくなる"
+	},
+	"ba.dt.neural": {
+		"termId": "ba.dt.neural",
+		"termName_zh": "神经损伤",
+		"termName_en": "Nervous Impairment",
+		"termName_ja": "神経損傷",
+		"description_zh": "神经损伤累计至1000时，受到1000点真实伤害并<$ba.stun>晕眩</>10秒",
+		"description_en": "After Nervous Impairment reaches 1000, the affected unit takes 1000 True damage and is <$ba.stun>Stunned</> for 10s",
+		"description_ja": "神経損傷の蓄積値が1000になると、1000の確定ダメージを受けて10秒間<$ba.stun>スタン</>状態になる"
+	},
+	"ba.charged": {
+		"termId": "ba.charged",
+		"termName_zh": "蓄力",
+		"termName_en": "Charged",
+		"termName_ja": "オーバーチャージ",
+		"description_zh": "技力达到上限可继续回复，回复至上限2倍时进入蓄力状态，此时开启技能会触发额外效果（任何时候开启均消耗全部技力）",
+		"description_en": "Can continue recovering SP after reaching the maximum. When SP reaches double the maximum, enters Charged state. Skills have additional effects when activated in Charged state (All SP will be consumed whenever the skill is activated)",
+		"description_ja": "SPが最大値の2倍まで増加し続け、上限に達するとオーバーチャージ状態となる。オーバーチャージ状態中でスキルを発動すると追加効果が付与される（状態を問わず、スキル発動時はSPが全て消費される）"
+	},
+	"ba.strong": {
+		"termId": "ba.strong",
+		"termName_zh": "精力充沛",
+		"termName_en": "Vigor",
+		"termName_ja": "勇猛",
+		"description_zh": "生命值高于一定比例时攻击力加成提升相应比例（同名效果攻击力加成取最高）",
+		"description_en": "When HP is higher than a certain percentage, increases ATK by the effect percentage (only the highest ATK increase from effects of this type will be applied)",
+		"description_ja": "HPが最大値の一定割合以上である時、攻撃力が効果値分増加（同名の状態は効果値が高いほうのみ適用）"
+	},
+	"ba.dt.erosion": {
+		"termId": "ba.dt.erosion",
+		"termName_zh": "侵蚀损伤",
+		"termName_en": "Corrosion Damage",
+		"termName_ja": "侵蝕損傷",
+		"description_zh": "侵蚀损伤累计至1000时，永久降低100点防御力并受到800点物理伤害",
+		"description_en": "After Corrosion Damage reaches 1000, the affected unit has its DEF permanently reduced by 100 and takes 800 Physical damage",
+		"description_ja": "侵蝕損傷の蓄積値が1000になると、800の物理ダメージを受けて、退場まで防御力-100"
+	},
+	"ba.dt.burning": {
+		"termId": "ba.dt.burning",
+		"termName_zh": "灼燃损伤",
+		"termName_en": "Burn Damage",
+		"termName_ja": "灼熱損傷",
+		"description_zh": "灼燃损伤累计至1000时，10秒内降低20法术抗性并受到1200点法术伤害",
+		"description_en": "After Burn Damage reaches 1000, the affected unit has its RES reduced by 20 for 10 seconds and takes 1200 Arts damage",
+		"description_ja": "灼熱損傷の蓄積値が1000になると、1200の術ダメージを受けて10秒間術耐性-20"
+	},
+	"ba.float": {
+		"termId": "ba.float",
+		"termName_zh": "近地悬浮",
+		"termName_en": "Low-Altitude Hovering",
+		"termName_ja": "低空浮揚",
+		"description_zh": "无法被阻挡或近战攻击",
+		"description_en": "Cannot be blocked or attacked by melee attacks",
+		"description_ja": "ブロック不可、近距離攻撃の対象にされない"
+	},
+	"ba.refraction": {
+		"termId": "ba.refraction",
+		"termName_zh": "折射",
+		"termName_en": "Refraction",
+		"termName_ja": "屈折",
+		"description_zh": "生效时，法术抗性+70",
+		"description_en": "When in effect, RES +70",
+		"description_ja": "効果中、術耐性+70"
+	},
+	"ba.dt.element": {
+		"termId": "ba.dt.element",
+		"termName_zh": "元素损伤",
+		"termName_en": "Elemental Damage",
+		"termName_ja": "元素損傷",
+		"description_zh": "包括<$ba.dt.neural>神经损伤</>、<$ba.dt.erosion>侵蚀损伤</>、<$ba.dt.burning>灼燃损伤</>、<$ba.dt.apoptosis>凋亡损伤</>",
+		"description_en": "Includes <$ba.dt.neural>Nervous Impairment</>, <$ba.dt.erosion>Corrosion Damage</>, <$ba.dt.burning>Burn Damage</>, and <$ba.dt.apoptosis>Necrosis Damage</>",
+		"description_ja": "以下のダメージ種類を含む：<$ba.dt.neural>神経損傷</>、<$ba.dt.erosion>侵蝕損傷</>、<$ba.dt.burning>灼熱損傷</>、<$ba.dt.apoptosis>壊死損傷</>"
+	},
+	"ba.overdrive": {
+		"termId": "ba.overdrive",
+		"termName_zh": "过载",
+		"termName_en": "Overload",
+		"termName_ja": "オーバードライブ",
+		"description_zh": "技能持续拥有两段计量槽，技能进行到一半时触发额外效果",
+		"description_en": "Skill duration has two gauges. Extra effect is triggered when skill duration is halfway complete.",
+		"description_ja": "スキル発動中は二段階のスキルゲージが存在し、スキルが後半にさしかかると追加効果を発動する"
+	},
+	"ba.dt.apoptosis": {
+		"termId": "ba.dt.apoptosis",
+		"termName_zh": "凋亡损伤",
+		"termName_en": "Necrosis Damage",
+		"termName_ja": "壊死損傷",
+		"description_zh": "凋亡损伤累计至1000时，15秒内无法开启技能，每秒损失1点技力并受到100点法术伤害",
+		"description_en": "After Necrosis Damage reaches 1000, the affected unit cannot use skills for 15 seconds and every second loses 1 SP and takes 100 Arts damage",
+		"description_ja": "壊死損傷の蓄積値が1000になると、15秒間スキルが発動できなくなり、1秒ごとにSPを1失い、100の術ダメージを受ける"
+	},
+	"ba.debuff": {
+		"termId": "ba.debuff",
+		"termName_zh": "异常状态",
+		"termName_en": "Negative Status",
+		"termName_ja": "状態異常",
+		"description_zh": "包括<$ba.stun>晕眩</>、<$ba.cold>寒冷</>、<$ba.frozen>冻结</>等",
+		"description_en": "Includes <$ba.stun>Stun</>, <$ba.cold>Cold</>, <$ba.frozen>Freeze</>, etc.",
+		"description_ja": "以下の状態異常種類を含む：<$ba.stun>スタン</>、<$ba.cold>寒冷</>、<$ba.frozen>凍結</>など"
+	},
+	"ba.levitate": {
+		"termId": "ba.levitate",
+		"termName_zh": "浮空",
+		"termName_en": "Levitate",
+		"termName_ja": "浮遊",
+		"description_zh": "变为空中单位，无法移动、攻击及使用技能；对重量大于3的单位持续时间减半",
+		"description_en": "Target becomes aerial and cannot move, attack, or use skills. Duration halved if Weight is greater than 3.",
+		"description_ja": "飛行ユニットとなり、移動、攻撃、スキル発動不能となる。重量ランクが4以上のユニットに対しては効果時間が50%減少"
+	},
+	"ba.physhield": {
+		"termId": "ba.physhield",
+		"termName_zh": "物理护盾",
+		"termName_en": "Physical Shield",
+		"termName_ja": "対物理シールド",
+		"description_zh": "每层物理护盾可以抵挡一次物理伤害",
+		"description_en": "Blocks 1 instance of Physical damage per layer of Physical Shield",
+		"description_ja": "ダメージを受けるとき、対物理シールドを1枚消耗することによって物理の被ダメージを1回無効化できる"
+	},
+	"ba.magicfragile": {
+		"termId": "ba.magicfragile",
+		"termName_zh": "法术脆弱",
+		"termName_en": "Arts Fragility",
+		"termName_ja": "対術脆弱",
+		"description_zh": "受到的法术伤害提升相应比例（同名效果取最高）",
+		"description_en": "Amplifies all Arts damage taken by the corresponding amount (only the strongest effect of this type applies)",
+		"description_ja": "術の被ダメージが効果値分上昇（同名の状態は効果値が高いほうのみ適用）"
+	},
+	"ba.elementfragile": {
+		"termId": "ba.elementfragile",
+		"termName_zh": "元素脆弱",
+		"termName_en": null,
+		"termName_ja": null,
+		"description_zh": "受到的元素伤害提升相应比例（同名效果取最高）",
+		"description_en": null,
+		"description_ja": null
+	},
+	"ba.dying": {
+		"termId": "ba.dying",
+		"termName_zh": "重伤",
+		"termName_en": "Critically Wounded",
+		"termName_ja": "重傷",
+		"description_zh": "移速下降且无法被阻挡，10秒后自然死亡，被击杀后使击杀者回复数点技力",
+		"description_en": "Movement Speed reduced, cannot be blocked, dies after 10s, restores SP to the attacker when defeated.",
+		"description_ja": "移動速度が低下、ブロックされなくなり、10秒後そのまま消滅する。倒すと攻撃者に一定のSPを回復させる"
+	},
+	"ba.barrier": {
+		"termId": "ba.barrier",
+		"termName_zh": "屏障",
+		"termName_en": "Barrier",
+		"termName_ja": "バリア",
+		"description_zh": "可以吸收一定数值的伤害",
+		"description_en": "Absorbs a certain amount of damage.",
+		"description_ja": "被ダメージを一定値まで無効化できる"
+	},
+	"ba.weightless": {
+		"termId": "ba.weightless",
+		"termName_zh": "失重",
+		"termName_en": "Weightless",
+		"termName_ja": "反重力",
+		"description_zh": "重量下降一个等级（同名效果不可叠加）",
+		"description_en": "Weight reduced by 1 level (effects of the same name do not stack)",
+		"description_ja": "重量が1ランクダウン（重複不可）"
+	},
+	"ba.berserk": {
+		"termId": "ba.berserk",
+		"termName_zh": "坚忍",
+		"termName_en": "Tenacity",
+		"termName_ja": "不屈",
+		"description_zh": "根据已损失的生命值获得相应比例的属性加成，损失一定比例时达最大加成（同类属性取最高）",
+		"description_en": "Increases stats proportionally based on lost HP, reaching the maximum bonus once a certain percentage has been lost (only the strongest effect of this type applies)",
+		"description_ja": "失ったHP量に応じて、異なる割合のステータス上昇効果を得る。HPが一定割合まで低下すると、最大値に達する（同類のステータス上昇効果は効果値が高いほうのみ適用）"
+	},
+	"ba.steal": {
+		"termId": "ba.steal",
+		"termName_zh": "偷取",
+		"termName_en": "Steal",
+		"termName_ja": "奪取",
+		"description_zh": "减少目标的基础属性作为自身加成，目标减少和自身加成的属性不超过指定上限（同类属性取最高）",
+		"description_en": "Reduces the target's base stats while increasing own. The reduction and increase in stats cannot exceed the specified upper limit (only the strongest effect of this type applies)",
+		"description_ja": "対象のステータスを低下させ、自身のステータスを上昇させる。対象のステータス低下、および自身のステータス上昇には上限がある（同類のステータス上昇効果は効果値が高いほうのみ適用）"
+	},
+	"ba.weaken": {
+		"termId": "ba.weaken",
+		"termName_zh": "虚弱",
+		"termName_en": "Enfeeble",
+		"termName_ja": "虚弱",
+		"description_zh": "使目标攻击力降低相应比例（同名效果取最高）",
+		"description_en": "Reduces the target's ATK by the corresponding amount (only the strongest effect with this name applies)",
+		"description_ja": "対象の攻撃力が効果値分低下（同名の状態は効果値が高いほうのみ適用）"
+	},
+	"ba.dt.apoptosis2": {
+		"termId": "ba.dt.apoptosis2",
+		"termName_zh": "凋亡损伤·我方",
+		"termName_en": "Necrosis Damage - Player",
+		"termName_ja": "壊死損傷・味方",
+		"description_zh": "累计满时爆发（普通、精英敌人1000点、领袖2000点累计值），使敌人附加50%<$ba.weaken>虚弱</>但期间逐渐恢复，每秒受到800点元素伤害。15秒冷却",
+		"description_en": "Explodes when at max (1000 for Normal and Elite, 2000 for Leaders), inflicting 50%<$ba.weaken>Enfeeble</> that gradually recovers, and dealing 800 Elemental Damage per second. 15s cooldown.",
+		"description_ja": "損傷が一定値（通常の敵及び【エリート】は1000、敵【ボス】は2000）蓄積すると爆発し、対象が50%の<$ba.weaken>虚弱</>状態（効果値は時間経過で徐々に低下）になり、1秒ごとに800の元素ダメージを受ける。効果発動後、15秒後再発動可能になる"
+	},
+	"ba.epbarrier": {
+		"termId": "ba.epbarrier",
+		"termName_zh": "损伤屏障",
+		"termName_en": "Protective Barrier",
+		"termName_ja": "損傷バリア",
+		"description_zh": "可以吸收一定数值的<$ba.dt.element>元素损伤</>",
+		"description_en": "Absorbs a certain amount of <$ba.dt.element>Elemental Damage</>.",
+		"description_ja": "自身が受ける<$ba.dt.element>元素損傷</>を一定値まで無効化可能"
+	},
+	"ba.tremble": {
+		"termId": "ba.tremble",
+		"termName_zh": "战栗",
+		"termName_en": "Frighten",
+		"termName_ja": "戦慄",
+		"description_zh": "被阻挡后无法进行普通攻击",
+		"description_en": "Cannot perform normal attacks when blocked",
+		"description_ja": "ブロックされると通常攻撃が行えなくなる"
+	},
+	"ba.fear": {
+		"termId": "ba.fear",
+		"termName_zh": "恐惧",
+		"termName_en": null,
+		"termName_ja": null,
+		"description_zh": "无法被阻挡并四散逃跑",
+		"description_en": null,
+		"description_ja": null
+	},
+	"ba.dt.burning2": {
+		"termId": "ba.dt.burning2",
+		"termName_zh": "灼燃损伤·我方",
+		"termName_en": "Burn damage - Player",
+		"termName_ja": "灼熱損傷・味方",
+		"description_zh": "累计满时爆发（普通、精英敌人1000点、领袖2000点累计值），敌人立即受到7000点元素伤害且期间法术抗性-20。10秒冷却",
+		"description_en": "Explodes when at max (1000 for Normal and Elite, 2000 for Leaders), dealing 7000 Elemental damage and temporarily inflicting -20 RES. 10s cooldown.",
+		"description_ja": "損傷が一定値（通常の敵、【エリート】は1000、敵【ボス】は2000）蓄積すると爆発し、対象は即時に7000の元素ダメージを受け、かつ爆発効果期間中は術耐性-20。効果発動後、10秒後再発動可能になる"
+	},
+	"ba.addash": {
+		"termId": "ba.addash",
+		"termName_zh": "移动",
+		"termName_en": null,
+		"termName_ja": null,
+		"description_zh": "不退场，以当前血量在目标位置部署",
+		"description_en": null,
+		"description_ja": null
+	}
+}
