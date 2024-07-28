@@ -66,7 +66,7 @@
 				</p>
 				<div>
 					{#each mapConfig[`eliteDesc_${language}`] as line}
-						<li class="list-none">{line}</li>
+						<TextParser {line} />
 					{/each}
 				</div>
 			</div>

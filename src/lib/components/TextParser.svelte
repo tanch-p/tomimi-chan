@@ -50,6 +50,7 @@
 		{ prefix: '<@self>', suffix: '</>', style: 'text-[#C0E6FA]' },
 		{ prefix: '<@purple>', suffix: '</>', style: 'text-[#A48CE7]' },
 		{ prefix: '<@gold>', suffix: '</>', style: 'text-[#CDB07A]' },
+		{ prefix: '<@strike>', suffix: '</>', style: 'line-through text-neutral-400' },
 		{ prefix: '$', suffix: '$', style: 'text-red-400 font-semibold' }
 	];
 	//due to a difference in resolving <@rolv.rem> in rogue3_b-3-b and rogue3_b-4-b, this should be written to resolve by patterns first.

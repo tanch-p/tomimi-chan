@@ -87,7 +87,14 @@
 		"difficulty": 10,
 		"ruleDesc": "可同时部署人数-1",
 		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+7%\\n探险的年代进入扩张期\\n思维负担变为标准",
-		"effects": [],
+		"effects": [
+			{
+				"targets": ["ELITE", "SARKAZ_BOSS"],
+				"mods": {
+					"dmg_reduction": 10
+				}
+			}
+		],
 		"floorBuff": 0.07
 	},
 	{
