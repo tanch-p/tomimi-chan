@@ -37,6 +37,7 @@
 		'<ba.binding>',
 		'<@ba.dt.element>'
 	];
+	const keysToReplace = ["phys","arts","true"]
 	const patternsToParse = [
 		{ prefix: '<@rolv.rem>', suffix: '</>', style: 'text-[#FF4C22]' },
 		{ prefix: '<@ba.talpu>', suffix: '</>', style: 'text-[#0098DC]' },
@@ -55,6 +56,12 @@
 	];
 	//due to a difference in resolving <@rolv.rem> in rogue3_b-3-b and rogue3_b-4-b, this should be written to resolve by patterns first.
 	const parseText = (line: string) => {
+		for (const key of keysToReplace){
+			const regex = new RegExp(`{(.*?)}`, 'gs');
+			const splitText = line.split(regex);
+			console.log(splitText)
+		}
+
 		for (const pattern of patternsToIgnore) {
 			const regex = new RegExp(`${pattern}(.*?)</>`, 'gs');
 			const splitText = line.split(regex);
