@@ -1,7 +1,14 @@
 <script lang="ts">
+	import { page } from '$app/stores';
+	import type { Language } from '$lib/types';
+	import translations from '$lib/translations.json';
+	import termDesc from '$lib/data/term_desc.json';
+
 	export let line: string,
 		className: string = '';
-	const patternsToIgnore = [
+	let language: Language = 'zh';
+	$: language = $page.data.language;
+	const tooltipPatterns = [
 		'<ba.magicfragile>',
 		'<ba.fragile>',
 		'<ba.elementfragile>',
@@ -35,9 +42,12 @@
 		'<ba.dt.burning2>',
 		'<ba.weaken>',
 		'<ba.binding>',
-		'<@ba.dt.element>'
+		'<@ba.dt.element>',
+		'<@ba.dt.apoptosis>',
+		'<@ba.dt.erosion>',
+		'<@ba.dt.neural>',
+		'<@ba.dt.burning>'
 	];
-	const keysToReplace = ["phys","arts","true"]
 	const patternsToParse = [
 		{ prefix: '<@rolv.rem>', suffix: '</>', style: 'text-[#FF4C22]' },
 		{ prefix: '<@ba.talpu>', suffix: '</>', style: 'text-[#0098DC]' },
@@ -51,88 +61,67 @@
 		{ prefix: '<@self>', suffix: '</>', style: 'text-[#C0E6FA]' },
 		{ prefix: '<@purple>', suffix: '</>', style: 'text-[#A48CE7]' },
 		{ prefix: '<@gold>', suffix: '</>', style: 'text-[#CDB07A]' },
+		{ prefix: '<@phys>', suffix: '</>', style: 'text-[#FFB082]' },
+		{ prefix: '<@arts>', suffix: '</>', style: 'text-[#A7C2FC]' },
+		{ prefix: '<@true>', suffix: '</>', style: 'text-[#FF99CA]' },
 		{ prefix: '<@strike>', suffix: '</>', style: 'line-through text-neutral-400' },
 		{ prefix: '$', suffix: '$', style: 'text-red-400 font-semibold' }
 	];
-	//due to a difference in resolving <@rolv.rem> in rogue3_b-3-b and rogue3_b-4-b, this should be written to resolve by patterns first.
-	const parseText = (line: string) => {
-		for (const key of keysToReplace){
-			const regex = new RegExp(`{(.*?)}`, 'gs');
-			const splitText = line.split(regex);
-			console.log(splitText)
-		}
 
-		for (const pattern of patternsToIgnore) {
-			const regex = new RegExp(`${pattern}(.*?)</>`, 'gs');
-			const splitText = line.split(regex);
-			if (splitText.length > 1) {
-				splitText.forEach((text, i) => i % 2 === 1 && (line = line.replace(regex, text)));
-			}
-		}
-
-		const lines = [{ text: line, style: null }];
-		for (const pattern of patternsToParse) {
-			traverseLines(lines, pattern);
-		}
-		return splitNewLines(lines.flat(patternsToParse.length + 1)).filter((ele) => Boolean(ele.text));
-	};
-	const traverseLines = (arr, pattern) => {
-		arr.forEach((ele, index) => {
-			if (Array.isArray(ele)) {
-				traverseLines(ele, pattern);
-			} else {
-				if (ele.style === null) {
-					arr[index] = splitText(ele.text, pattern);
-				}
-			}
-		});
-	};
-	const splitNewLines = (lines: string[]) => {
-		return lines
-			.reduce((acc, curr) => {
-				curr.text = curr.text.replaceAll('\\n', '\n');
-				if (curr.text.includes('\n')) {
-					const parts = curr.text.split('\n');
-					for (let i = 0; i < parts.length; i++) {
-						acc.push({ text: parts[i], style: curr.style });
-						if (parts[i + 1] !== undefined) {
-							acc.push({ text: '\n', style: null });
-						}
-					}
-				} else {
-					acc.push(curr);
-				}
-				return acc;
-			}, [])
-			.filter((ele) => Boolean(ele.text));
-	};
-	const splitText = (string: string, pattern) => {
-		let returnArr = [];
-		const { prefix, suffix, style } = pattern;
-		if (prefix === suffix) {
-			const splitText = string.split(prefix);
-			splitText.forEach((text, index) => {
-				if (index % 2 === 0) {
-					returnArr.push({ text, style: null });
-				} else returnArr.push({ text, style });
+	function processText(input, pattern) {
+		if (pattern.prefix === '$') {
+			const regex = /\$(.*?)\$/g;
+			return input.replace(regex, (match, content) => {
+				return `<span class="${pattern.style}">${content}</span>`;
 			});
 		} else {
-			const pattern = new RegExp(`${prefix}(.*?)${suffix}`, 'gs');
-			const parts = string.split(pattern);
-			returnArr = parts.map((text, i) => (i % 2 === 0 ? { text, style: null } : { text, style }));
+			const regex = new RegExp(`${pattern.prefix}(.*?)${pattern.suffix}`, 'gs');
+			return input.replace(regex, (match, content) => {
+				return `<span class="${pattern.style}">${content}</span>`;
+			});
 		}
-		return returnArr;
+	}
+	function addTooltip(input, depth = 0) {
+		if (depth > 1) return input;
+		const groupStr = depth === 0 ? `group/zero` : `group/one`;
+		const hoverGroupStr = depth === 0 ? `group-hover/zero:block` : `group-hover/one:block`;
+		for (const pattern of tooltipPatterns) {
+			const key = pattern.replace('<', '').replace('@', '').replace('>', '');
+			const regex = new RegExp(`${pattern}(.*?)</>`, 'gs');
+			input = input.replace(regex, (match, content) => {
+				return `<div class="relative inline-block underline underline-offset-2 decoration-dotted ${groupStr}">${content}<div class="absolute hidden ${hoverGroupStr} left-[50%] -translate-x-[50%] bg-slate-300 text-[#222222] w-[220px] p-1.5 z-[1] rounded-md text-sm shadow-md">${addTooltip(
+					termDesc[key][`desc_${language}`],
+					depth + 1
+				)}</div></div>`;
+			});
+		}
+		return input;
+	}
+
+	const parseText = (line: string, language) => {
+		line = line.replaceAll('\n', '<br/>');
+		line = line.replaceAll('\\n', '<br/>');
+
+		// for {phys}/{arts}/{true} type keys
+		const regex = new RegExp(`{(.*?)}`, 'gs');
+		const matches = line.match(regex);
+		if (matches) {
+			for (const match of matches) {
+				const key = match.slice(1, -1);
+				line = line.replace(
+					match,
+					`<@${key}>` + translations[language][key.replace('ba.dt.', '')] + '</>'
+				);
+			}
+		}
+		line = addTooltip(line);
+		for (const pattern of patternsToParse) {
+			line = processText(line, pattern);
+		}
+		return line;
 	};
-	$: parsedTextArray = parseText(line);
-	// $: console.log(parsedTextArray);
 </script>
 
-<p class={className}>
-	{#each parsedTextArray as { text, style }}
-		{#if text === '\n'}
-			<br />
-		{:else}
-			<span class={style}> {text}</span>
-		{/if}
-	{/each}
-</p>
+<div class="relative {className}">
+	{@html parseText(line, language)}
+</div>

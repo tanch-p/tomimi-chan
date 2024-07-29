@@ -36555,7 +36555,7 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [{ "key": "steal_gold", "value":"?" }],
+		"special": [{ "key": "steal_gold", "value": "5" }, { "key": "defeat_gold", "value":10}],
 		"status_immune": ["levitate"],
 		"normal_attack": {
 			"atk_type": ["melee", "phys"],
@@ -36611,7 +36611,7 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [{ "key": "hover" },{"key":"skzfbx_1"}, { "key": "steal_gold" }],
+		"special": [{ "key": "hover" }, { "key": "skzfbx_1" }, { "key": "steal_gold" }, {"key":"defeat_gold"}],
 		"status_immune": ["levitate"],
 		"normal_attack": {
 			"atk_type": ["melee", "phys"],
@@ -36931,7 +36931,7 @@
 			}
 		],
 		"status_immune": ["stun", "silence", "sleep", "freeze", "levitate"],
-		"type": ["ranged","sarkaz","BOSS"]
+		"type": ["ranged", "sarkaz", "BOSS"]
 	},
 	"enemy_2081_skztxs": {
 		"id": "TRS",
@@ -37146,7 +37146,11 @@
 				"epResistance": 0.0
 			}
 		],
-		"special": [{ "key": "skzcan_1" }, { "key": "skzcan_2" }, { "key": "steal_gold","value":"?"  }],
+		"special": [
+			{ "key": "skzcan_1" },
+			{ "key": "skzcan_2" },
+			{ "key": "steal_gold", "value": "?" }
+		],
 		"status_immune": ["silence"],
 		"normal_attack": {
 			"atk_type": ["no_attack", null],

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import TextParser from "./TextParser.svelte";
+
 	export let description: string[], blackboard={};
 
 	//temp hack before the format for spTerrain replacement is sorted out
@@ -22,6 +24,6 @@
 
 <td class="border border-gray-400 px-2 py-1.5">
 	{#each fullDesc as line}
-		<p>{line}</p>
+		<TextParser {line}/>
 	{/each}
 </td>
