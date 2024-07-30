@@ -13,12 +13,20 @@
 			};
 		}
 	});
+	function scrollToNav() {
+		const targetElement = document.getElementById('stageNav');
+		if (targetElement) {
+			targetElement.scrollIntoView();
+		}
+	}
 </script>
 
 <div class="fixed max-w-[1280px] mx-auto inset-0 z-10 pointer-events-none">
 	<button
 		hidden={!showTop}
-		class="absolute {hasBtm ? "bottom-[150px]" :"bottom-[90px]"} right-[20px] md:right-[40px] pointer-events-auto"
+		class="absolute {hasBtm
+			? 'bottom-[150px]'
+			: 'bottom-[90px]'} right-[20px] md:right-[40px] pointer-events-auto"
 		on:click={() => window.scrollTo(0, 0)}
 		id="scroll-top-button"
 	>
@@ -32,7 +40,7 @@
 		<button
 			hidden={!showBtm}
 			class="absolute bottom-[90px] right-[20px] md:right-[40px] pointer-events-auto"
-			on:click={() => window.scrollTo(0, document.body.scrollHeight)}
+			on:click={scrollToNav}
 			id="scroll-top-button"
 		>
 			<div

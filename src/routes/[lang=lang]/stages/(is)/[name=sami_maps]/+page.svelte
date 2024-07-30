@@ -57,7 +57,7 @@
 			<EliteToggle mapEliteMods={data.mapConfig.elite_mods} {eliteMods} {rogueTopic} />
 		{/if}
 		<EnemyStatDisplay enemies={moddedEnemies} {language} {specialMods} />
-		<div class="mt-8 sm:mt-16">
+		<div id="stageNav" class="mt-8 sm:mt-16 scroll-mt-20">
 			<SamiNav {language} />
 		</div>
 	</div>

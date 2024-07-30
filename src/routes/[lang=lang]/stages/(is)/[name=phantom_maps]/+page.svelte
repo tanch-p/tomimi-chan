@@ -50,7 +50,7 @@
 			{/if}
 			<EnemyStatDisplay enemies={moddedEnemies} {language} {specialMods} />
 		</div>
-		<div class="mt-4">
+		<div id="stageNav" class="mt-4 scroll-mt-20">
 			<StageNav {language} />
 		</div>
 	</div>
