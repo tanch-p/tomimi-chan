@@ -39,7 +39,14 @@ export const stageLoad = async (stageName: string, rogueTopic: string | null) =>
 	return { mapConfig, enemies };
 };
 
-const STAGES_WITH_ELITE_IMG = ['ro3_e_3_2', 'ro3_e_4_2', 'ro3_e_5_2'];
+const STAGES_WITH_ELITE_IMG = [
+	'ro3_e_3_2',
+	'ro3_e_4_2',
+	'ro3_e_5_2',
+	'ro4_e_2_2',
+	'ro4_e_3_2',
+	'ro4_e_3_5'
+];
 export const getStageImg = (id, eliteMods) => {
 	if (
 		!(eliteMods && STAGES_WITH_ELITE_IMG.includes(id)) &&
