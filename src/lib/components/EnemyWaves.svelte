@@ -21,6 +21,20 @@
 	export let mapConfig, rogueTopic: RogueTopic, language: Language, eliteMods;
 
 	const stagesWithMultipleImgs = ['level_rogue4_4-1'];
+	const stagesWithRNG = [
+		'level_rogue4_1-3',
+		'level_rogue4_2-1',
+		'level_rogue4_2-3',
+		'level_rogue4_2-4',
+		'level_rogue4_2-5',
+		'level_rogue4_3-3',
+		'level_rogue4_3-4',
+		'level_rogue4_3-6',
+		'level_rogue4_4-3',
+		'level_rogue4_4-6',
+		'level_rogue4_5-4',
+		'level_rogue4_t-1'
+	];
 	const multipleImgLookup = {
 		'level_rogue4_4-1': [
 			{ key: 'a', img: skz_4_1a },
@@ -116,12 +130,14 @@
 					<img src={skz_calamity} width="24px" height="24px" alt="calamity" />
 					<p>{translations[language].skz_calamity}</p>
 				</div>
-				<div class="flex">
-					<div class="rounded-full bg-[#f14c4c]">
-						<img src={unknown} width="24px" height="24px" alt="?" />
+				{#if stagesWithRNG.includes(mapConfig.levelId)}
+					<div class="flex">
+						<div class="rounded-full bg-[#f14c4c]">
+							<img src={unknown} width="24px" height="24px" alt="?" />
+						</div>
+						<p class="ml-1">{translations[language].stageinfo_random}</p>
 					</div>
-					<p class="ml-1">{translations[language].stageinfo_random}</p>
-				</div>
+				{/if}
 			</div>
 		{/if}
 	</div>
