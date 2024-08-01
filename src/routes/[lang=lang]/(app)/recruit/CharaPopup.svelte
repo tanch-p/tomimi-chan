@@ -189,32 +189,32 @@
 							{#if $selectedChara.uniequip.length === 0}
 								<div class="module none" />
 							{:else}
-								<div class="overflow-scroll max-w-full no-scrollbar">
-									<div class="grid grid-flow-col auto-cols-[calc((100vw-16px)/3)] w-max place items-center">
-										{#each $selectedChara.uniequip as equip, idx}
-											{@const typeIcon = equip.typeIcon.toLowerCase()}
-											<button
-												class:active={$moduleIndex === idx}
-												class="module flex-col"
-												on:click={() => moduleIndex.set(idx)}
-											>
-												<div class="grid place-items-center h-[48px]">
-													{#await import(`../../../../lib/images/equip_icons/icon_${typeIcon}.webp`) then { default: src }}
-														<img {src} height="40" alt={typeIcon} class="max-h-[40px]" />
-													{/await}
-												</div>
-												<div class="flex gap-x-0.5 text-xs font-light uppercase">
-													{#if typeIcon !== 'original'}
-														{@const parts = typeIcon.split('-')}
-														{parts[0]}
-														<img src={charaAssets[parts[1]]} alt={parts[1]} width="12px" />
-													{:else}
-														{typeIcon}
-													{/if}
-												</div>
-											</button>
-										{/each}
-									</div>
+								<div
+									class="flex overflow-x-auto no-scrollbar min-[520px]:px-10 gap-x-[calc((min(100vw-15px,550px)/2)-135px)] min-[520px]:gap-x-[calc((min(100vw-15px,550px)/2)-175px)] snap-mandatory snap-x"
+								>
+									{#each $selectedChara.uniequip as equip, idx}
+										{@const typeIcon = equip.typeIcon.toLowerCase()}
+										<button
+											class:active={$moduleIndex === idx}
+											class="module flex-col snap-center shrink-0"
+											on:click={() => moduleIndex.set(idx)}
+										>
+											<div class="grid place-items-center h-[48px]">
+												{#await import(`../../../../lib/images/equip_icons/icon_${typeIcon}.webp`) then { default: src }}
+													<img {src} height="40" alt={typeIcon} class="max-h-[40px]" />
+												{/await}
+											</div>
+											<div class="flex gap-x-0.5 text-xs font-light uppercase">
+												{#if typeIcon !== 'original'}
+													{@const parts = typeIcon.split('-')}
+													{parts[0]}
+													<img src={charaAssets[parts[1]]} alt={parts[1]} width="12px" />
+												{:else}
+													{typeIcon}
+												{/if}
+											</div>
+										</button>
+									{/each}
 								</div>
 								<div class="flex flex-col items-center">
 									{#if $moduleIndex !== 0}
