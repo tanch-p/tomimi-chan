@@ -185,17 +185,19 @@
 								<span class="text-[#999]">※{translations[language].chara_module_stage_click}</span>
 							{/if}
 						</p>
-						<div class="overflow-scroll max-w-full no-scrollbar">
-							<div class="flex mt-4 gap-x-8 w-max px-4">
-								{#if $selectedChara.uniequip.length === 0}
-									<div class="module none" />
-								{:else}
+						<div class="mt-4 px-4">
+							{#if $selectedChara.uniequip.length === 0}
+								<div class="module none" />
+							{:else}
+								<div
+									class="flex overflow-x-auto overflow-y-visible no-scrollbar pb-8 min-[520px]:px-10 gap-x-[calc((min(100vw-15px,550px)/2)-135px)] min-[520px]:gap-x-[calc((min(100vw-15px,550px)/2)-175px)] snap-mandatory snap-x"
+								>
 									{#each $selectedChara.uniequip as equip, idx}
 										{@const typeIcon = equip.typeIcon.toLowerCase()}
-										<div class="flex flex-col w-[75px]">
+										<div class="relative">
 											<button
 												class:active={$moduleIndex === idx}
-												class="module flex-col"
+												class="module flex-col snap-center shrink-0"
 												on:click={() => moduleIndex.set(idx)}
 											>
 												<div class="grid place-items-center h-[48px]">
@@ -213,39 +215,52 @@
 													{/if}
 												</div>
 											</button>
-											{#if $moduleIndex !== 0 && $moduleIndex == idx}
-												<button
-													class="flex items-center justify-center border border-[#3d3d3d] bg-[#272727] mt-1.5 py-[1px]"
-													on:click={() => {
-														if (moduleStage === 2) return (moduleStage = 0);
-														return (moduleStage += 1);
-													}}
-												>
-													<p class="text-[#7d7d7d] font-bold text-sm">STAGE</p>
-													<div class="w-[11px] ml-1.5 mt-0.5">
-														<img
-															src={charaAssets[`solid_${moduleStage + 1}`]}
-															alt="7"
-															class="max-h-[15px]"
-														/>
+											{#if idx !== 0}
+												{#if $moduleIndex === idx}
+													<button
+														class="absolute bottom-[-30px] left-1/2 -translate-x-1/2 flex items-center justify-center border border-[#3d3d3d] bg-[#272727] mt-1.5 py-[1px] px-4"
+														on:click={() => {
+															if (moduleStage === 2) return (moduleStage = 0);
+															return (moduleStage += 1);
+														}}
+													>
+														<p class="text-[#7d7d7d] font-bold text-sm">STAGE</p>
+														<div class="w-[11px] ml-1.5 mt-0.5">
+															<img
+																src={charaAssets[`solid_${moduleStage + 1}`]}
+																alt="7"
+																class="max-h-[15px]"
+															/>
+														</div>
+													</button>
+												{:else}
+													<div
+														class="absolute bottom-[-30px] left-1/2 -translate-x-1/2 flex items-center justify-center border border-[#3d3d3d] bg-[#272727] mt-1.5 py-[1px] px-4"
+													>
+														<p class="text-[#7d7d7d] font-bold text-sm">STAGE</p>
+														<div class="w-[11px] ml-1.5 mt-0.5">
+															<img
+																src={charaAssets[`solid_3`]}
+																alt="7"
+																class="max-h-[15px]"
+															/>
+														</div>
 													</div>
-												</button>
-											{/if}
-											{#if $moduleIndex == idx}
-												<div
-													class="flex justify-center mt-1 text-center {$moduleIndex === 0
-														? 'pb-[30px]'
-														: ''} {language !== 'en' ? 'whitespace-nowrap' : ''}"
-												>
-													<p title={equip.name} class={language === 'en' ? 'truncate' : ''}>
-														{equip.name}
-													</p>
-												</div>
+												{/if}
 											{/if}
 										</div>
 									{/each}
-								{/if}
-							</div>
+								</div>
+								<div
+									class="flex justify-center mt-1 text-center {language !== 'en'
+										? 'whitespace-nowrap'
+										: ''}"
+								>
+									<p title={$selectedChara.uniequip[$moduleIndex].name}>
+										{$selectedChara.uniequip[$moduleIndex].name}
+									</p>
+								</div>
+							{/if}
 						</div>
 					{/if}
 				</div>
