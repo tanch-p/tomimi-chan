@@ -62,6 +62,7 @@
 			eliteMods={$eliteMods}
 			{rogueTopic}
 			{selectedFloor}
+			difficulty={$difficulty}
 		/>
 		<DifficultySelect {language} {difficulty} {rogueTopic} />
 		<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />

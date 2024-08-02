@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Language } from '$lib/types';
+	import type { Language, RogueTopic } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import spTerrainList from '$lib/sp_terrain_list.json';
 	import SpTerrainDesc from './SpTerrainDesc.svelte';
-	export let spTerrain, rogueTopic, language: Language;
+	export let spTerrain, rogueTopic: RogueTopic, difficulty, language: Language;
 </script>
 
 <div class="sm:px-6 my-4">
@@ -41,7 +41,11 @@
 						<td class="min-w-[82px] border border-gray-400 px-2 py-1.5 text-center">
 							{spTerrainList.skzdwz[`name_${language}`]}
 						</td>
-						<SpTerrainDesc description={spTerrainList.skzdwz[`description_${language}`]} />
+						<SpTerrainDesc
+							description={spTerrainList.skzdwz[`description_${language}`].map((ele) =>
+								ele.replace('<value>', difficulty >= 9 ? '$130$' : '100')
+							)}
+						/>
 					</tr>
 				{/if}
 			</tbody>

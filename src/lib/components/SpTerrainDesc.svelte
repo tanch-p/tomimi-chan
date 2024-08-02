@@ -1,5 +1,8 @@
 <script lang="ts">
-	export let description: string[], blackboard={};
+	import TextParser from './TextParser.svelte';
+
+	export let description: string[],
+		blackboard = {};
 
 	//temp hack before the format for spTerrain replacement is sorted out
 	const percentKeys = ['atk', 'atk_scale', 'HP_RECOVERY_PER_SEC_BY_MAX_HP_RATIO'];
@@ -22,6 +25,6 @@
 
 <td class="border border-gray-400 px-2 py-1.5">
 	{#each fullDesc as line}
-		<p>{line}</p>
+		<TextParser {line} />
 	{/each}
 </td>

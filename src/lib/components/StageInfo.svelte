@@ -12,6 +12,7 @@
 		stageName: string,
 		selectedFloor,
 		eliteMods,
+		difficulty =0,
 		rogueTopic: RogueTopic = null;
 
 	
@@ -110,6 +111,6 @@
 	<StageDrops {mapConfig} {rogueTopic} {language} {selectedFloor} />
 {/if}
 {#if mapConfig.sp_terrain || rogueTopic === 'rogue_skz'}
-	<SpTerrain spTerrain={mapConfig.sp_terrain} {rogueTopic} {language} />
+	<SpTerrain {difficulty} spTerrain={mapConfig.sp_terrain} {rogueTopic} {language} />
 {/if}
 <EnemyWaves {mapConfig} {rogueTopic} {language} {eliteMods}/>
