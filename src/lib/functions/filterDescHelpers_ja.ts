@@ -160,6 +160,7 @@ const TYPE_TAGS = [
 	'drone',
 	'infection',
 	'sarkaz',
+	"machine",
 	'wildanimal',
 	'seamonster',
 	'type_stun',
