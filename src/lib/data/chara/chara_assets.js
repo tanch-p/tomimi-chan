@@ -38,6 +38,7 @@ import potential_5 from '$lib/images/chara_assets/potential_5.webp';
 import module_x from '$lib/images/chara_assets/x.webp';
 import module_y from '$lib/images/chara_assets/y.webp';
 import module_d from '$lib/images/chara_assets/d.webp';
+import module_a from "$lib/images/chara_assets/a.webp";
 import sp_cost from '$lib/images/chara_assets/sp_cost.webp';
 import sp_start from '$lib/images/chara_assets/sp_start.png';
 import solid_1 from '$lib/images/chara_assets/solid_1.webp';
@@ -83,6 +84,7 @@ export const charaAssets = {
 	x: module_x,
 	y: module_y,
 	d: module_d,
+	a: module_a,
 	sp_cost: sp_cost,
 	sp_start: sp_start,
 	solid_1: solid_1,
