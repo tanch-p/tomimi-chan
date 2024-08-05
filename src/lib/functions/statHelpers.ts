@@ -178,10 +178,11 @@ export const distillMods = (enemy: Enemy, stageId: string, mod: ModGroup) => {
 					) {
 						mods[statKey] += effect.mods[statKey];
 					} else if (
-						stageId === 'ro3_e_3_7' &&
-						enemy.key === 'enemy_1352_eslime' &&
-						(key === 'floorDiff' || key === 'diff') &&
-						statKey === 'atk'
+						(stageId === 'ro3_e_3_7' &&
+							enemy.key === 'enemy_1352_eslime' &&
+							(key === 'floor_diff' || key === 'difficulty') &&
+							statKey === 'atk') ||
+						(enemy.key === 'enemy_3001_upeopl' && (key === 'floor_diff' || key === 'difficulty'))
 					) {
 						continue;
 					} else {
@@ -379,10 +380,11 @@ const compileMods = (enemy: Enemy, stageId: string, mod: ModGroup) => {
 					} else if (statKey.includes('fixed') || statKey === 'dmg_reduction') {
 						mods[statKey] += effect.mods[statKey];
 					} else if (
-						stageId === 'ro3_e_3_7' &&
-						enemy.key === 'enemy_1352_eslime' &&
-						(key === 'floorDiff' || key === 'diff') &&
-						statKey === 'atk'
+						(stageId === 'ro3_e_3_7' &&
+							enemy.key === 'enemy_1352_eslime' &&
+							(key === 'floor_diff' || key === 'difficulty') &&
+							statKey === 'atk') ||
+						(enemy.key === 'enemy_3001_upeopl' && (key === 'floor_diff' || key === 'difficulty'))
 					) {
 						continue;
 					} else {
