@@ -115,7 +115,18 @@
 		"difficulty": 13,
 		"ruleDesc": "招募5星干员的希望消耗+1，博卓卡斯替，圣卫铳骑的圣卫坚盾持续时间减少",
 		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+13%\\n探险的年代进入鼎盛期\\n思维负担变为沉重",
-		"effects": [],
+		"effects": [
+			{
+				"targets": ["enemy_2082_skzdd"],
+				"mods": {
+					"special": {
+						"skzdd_2_3":{
+							"duration":80
+						}
+					}
+				}
+			}
+		],
 		"floorBuff": 0.13
 	},
 	{
