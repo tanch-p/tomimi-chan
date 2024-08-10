@@ -2195,8 +2195,8 @@
 	"taunt": {
 		"value": 1,
 		"tooltip": {
-			"en": ["Taunt - Higher Target Priority"],
-			"ja": ["挑発→狙われやすい"],
+			"en": ["Taunt - Target Priority +<v.value>"],
+			"ja": ["挑発レベル+<v.value>"],
 			"zh": ["嘲讽等级+<v.value>"]
 		}
 	},
@@ -4950,9 +4950,9 @@
 	},
 	"patrt_0": {
 		"tooltip": {
-			"en": ["Normal attack consist of 4 hits"],
-			"ja": ["通常攻撃は4連撃"],
-			"zh": ["普通攻击为4连击"]
+			"en": ["ATK +50%, DEF +200%, RES +100%, Normal attack consist of 4 hits"],
+			"ja": ["攻撃力+50%、防御力+200%、術耐性+100%、通常攻撃は4連撃"],
+			"zh": ["攻击力+50%，防御力+200%，法术抗性+100%，普通攻击为4连击"]
 		}
 	},
 	"patrt_1": {
@@ -4967,8 +4967,8 @@
 			}
 		],
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": ["When on field, grants all enemies (including self) ATK +20%, DEF +200 and Inspired buff"],
+			"ja": ["フィールドにいる間、自身を含む全ての敵は「戦術指揮状態」になり、攻撃力+20%、防御力+200"],
 			"zh": ["在场时，全体敌方单位(包括自身)攻击力+20%，防御力+200，获得战术命令状态"]
 		}
 	},
@@ -4979,8 +4979,15 @@
 			"zh": ["被击败时立刻触发【生命献祭】并释放当前波次，随后进行持续60s的重生，恢复100%生命值"]
 		}
 	},
+	"patrt_2_0": {
+		"tooltip": {
+			"en": ["Gains Atk Interval -0.4, Movespeed +0.1, Normal Attack becomes ranged and single hit"],
+			"ja": ["攻撃間隔-0.4、移動速度+0.1、通常攻撃が単発かつ攻撃半径0.85マスの遠距離物理攻撃へ変化"],
+			"zh": ["攻击间隔-0.4，移动速度+0.1，进行远程攻击，攻击半径0.85"]
+		}
+	},
 	"patrt_2_1": {
-		"suffix": { "en": "投枪", "ja": "投枪", "zh": "投枪" },
+		"suffix": { "en": "Throw Halberd", "ja": "槍投げ", "zh": "投枪" },
 		"hits": 1,
 		"atk": { "multiplier": 1.35 },
 		"dmg_element": "phys",

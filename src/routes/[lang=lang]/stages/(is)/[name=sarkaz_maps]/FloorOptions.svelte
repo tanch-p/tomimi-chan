@@ -5,12 +5,6 @@
 	import translations from '$lib/translations.json';
 	import disasters from '$lib/data/is/sarkaz/disasters.json';
 	import { difficulty } from './stores';
-	import disaster_1 from '$lib/images/is/sarkaz/rogue_4_disaster_1.webp';
-	import disaster_1_toast from '$lib/images/is/sarkaz/rogue_4_disaster_1_toast.webp';
-	import disaster_2 from '$lib/images/is/sarkaz/rogue_4_disaster_2.webp';
-	import disaster_2_toast from '$lib/images/is/sarkaz/rogue_4_disaster_2_toast.webp';
-	import disaster_5 from '$lib/images/is/sarkaz/rogue_4_disaster_5.webp';
-	import disaster_5_toast from '$lib/images/is/sarkaz/rogue_4_disaster_5_toast.webp';
 
 	export let optionsOpen: boolean,
 		language: Language,

@@ -61,7 +61,8 @@ export const statMods = derived(
 		return {
 			initial: [
 				{ key: 'elite_ops', mods: [$eliteMods], operation: 'times' },
-				{ key: 'floor_diff', mods: [$floorDifficultyMods], operation: 'times' }
+				{ key: 'floor_diff', mods: [$floorDifficultyMods], operation: 'times' },
+				...$otherBuffs
 			],
 			final: [
 				{ key: 'relic', mods: $selectedRelics.map((relic) => relic.effects), operation: 'times' },
@@ -70,8 +71,8 @@ export const statMods = derived(
 					mods: $disasterEffects.map((ele) => ele.effects),
 					operation: 'times'
 				},
-				{ key: 'difficulty', mods: $difficultyMods, operation: 'times' },
-				...$otherBuffs
+				{ key: 'difficulty', mods: $difficultyMods, operation: 'times' }
+				
 			]
 		};
 	}
