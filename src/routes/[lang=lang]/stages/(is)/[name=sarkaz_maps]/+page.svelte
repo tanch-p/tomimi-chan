@@ -7,7 +7,6 @@
 		eliteMods,
 		selectedRelics,
 		selectedFloor,
-		otherBuffs
 	} from './stores';
 	import EnemyStatDisplay from '$lib/components/EnemyStatDisplay.svelte';
 	import DifficultySelect from '../../../../../lib/components/DifficultySelect.svelte';
@@ -23,10 +22,6 @@
 	import EnemyCount from '$lib/components/EnemyCount.svelte';
 
 	export let data: PageData;
-
-	$: if (data.mapConfig || data.enemies) {
-		updateBuffs(otherBuffs, data.enemies, language);
-	}
 
 	$: language = data.language;
 	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods, $specialMods);
