@@ -42,6 +42,6 @@
 		<p class={`${selected ? 'text-[#ff382e] font-semibold' : ''}`}>
 			{name}
 		</p>
-		<p>{effect[`tooltip_${language}`]}</p>
+		<p>{effect[`tooltip_${language}`] || effect[`tooltip_zh`]}</p>
 	</div>
 </button>

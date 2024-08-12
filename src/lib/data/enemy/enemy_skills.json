@@ -337,9 +337,11 @@
 		"value": 0.5,
 		"tooltip": {
 			"en": [
-				"Attacks reduce target's DEF by <v.%value>% for <v.duration>s (does not stack, can be silenced)"
+				"Attacks reduce target's Final DEF by <v.%value>% for <v.duration>s (does not stack, can be silenced)"
 			],
-			"ja": ["攻撃が相手の防御力を<v.duration>秒<v.%value>％減少する (重複しない、無効化できる)"],
+			"ja": [
+				"攻撃が相手の最終防御力を<v.duration>秒<v.%value>％減少する (重複しない、無効化できる)"
+			],
 			"zh": ["攻击使目标防御力最终降低<v.%value>%，持续<v.duration>s（不叠加，可沉默）"]
 		}
 	},
@@ -4172,18 +4174,25 @@
 			]
 		}
 	},
+	"skzcan_0": {
+		"tooltip": {
+			"en": ["Cannot be blocked, does not attack"],
+			"ja": ["攻撃しない、ブロックされない"],
+			"zh": ["无法被阻挡，不进行普通攻击"]
+		}
+	},
 	"skzcan_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
-			"zh": ["每当生命值低75%/50%时，召唤数个迷珍巧械"]
+			"en": ["When HP drops to 75%/50%, summons 3 <迷珍巧械>"],
+			"ja": ["HPが75%/50%になる度、<迷珍巧械>を3体召喚する"],
+			"zh": ["每当生命值低75%/50%时，召唤3个迷珍巧械"]
 		}
 	},
 	"skzcan_2": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
-			"zh": ["当生命值低于25%时，移动速度+90%，受到的物理与法术伤害降低50%"]
+			"en": ["When HP drops to 25%, gains Movespeed +0.9 and 50% Damage Reduction"],
+			"ja": ["HP25%以下→移動速度+0.9、受ける物理・術ダメージが50%減少"],
+			"zh": ["当生命值低于25%时，移动速度+0.9，受到的物理与法术伤害降低50%"]
 		}
 	},
 	"steal_gold": {
@@ -4958,6 +4967,20 @@
 			"zh": ["开火 - 锁定攻击范围内随机一名我方单位，有70%的概率造成攻击力200%的物理普通伤害"]
 		}
 	},
+	"frtuna_2": {
+		"tooltip": {
+			"en": ["Gains ASPD +300 when Ammo count >= 1"],
+			"ja": ["弾薬数1以上なら、攻撃速度+300"],
+			"zh": ["自身技力大于0时，攻击速度+300"]
+		}
+	},
+	"frtuna_3": {
+		"tooltip": {
+			"en": ["When Ammo count is 0, only does melee attacks"],
+			"ja": ["弾薬数0の時は近接攻撃のみ行う"],
+			"zh": ["自身技力小于等于0时，仅进行近战攻击"]
+		}
+	},
 	"frtuna_reload": {
 		"tooltip": {
 			"en": ["Reload - Does not attack or move, recovers 1 Ammo every second."],
@@ -4996,7 +5019,7 @@
 	"patrt_2": {
 		"tooltip": {
 			"en": [""],
-			"ja": [""],
+			"ja": ["HPが0になると再生態勢に移行。","再生態勢 - 無敵。移動・通常攻撃しない。60秒掛けてHPを全回復し、その後撃滅態勢に移行。半径1.75マスの味方に、0.8秒ごとに攻撃力の5.21%の確定ダメージを与える"],
 			"zh": ["被击败时立刻触发【生命献祭】并释放当前波次，随后进行持续60s的重生，恢复100%生命值"]
 		}
 	},
@@ -5017,8 +5040,8 @@
 		"atk": { "multiplier": 1.35 },
 		"dmg_element": "phys",
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": ["Throw Halberd (Initial CD: 15s, ~CD: 20s)","Deals 135% ATK as Phys damage to the farthest high ground unit"],
+			"ja": ["槍投げ（初動15秒/再動20秒）","自分から最も遠い高台オペレーターに攻撃力の135%の物理ダメージを与える"],
 			"zh": [
 				"投枪（初次冷却15s，后20s）",
 				"锁定半径20范围内距离自身最远的部署于高台的我方单位，蓄力约3s后对其造成相当于攻击力135%的物理普通伤害 "
@@ -5031,8 +5054,12 @@
 		"atk": { "multiplier": 0.0521 },
 		"dmg_element": "true",
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": [
+				"Deals 5.21% of ATK as True damage every 0.8s to all allied units in range radius of 1.75 tiles"
+			],
+			"ja": [
+				"半径1.75マスの味方に、0.8秒ごとに攻撃力の5.21%（通常は100）に相当する確定ダメージが発生"
+			],
 			"zh": [
 				"每间隔0.8s触发一次【献祭】- 对自身半径1.75范围内的我方单位造成相当于攻击力5.21%的真实溅射伤害"
 			]
@@ -5044,8 +5071,12 @@
 		"atk": { "multiplier": 0.26 },
 		"dmg_element": "phys",
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": [
+				"Uses ranged attacks when not blocked, dealing 26% of ATK as Physical damage to the target and the 8 surrounding tiles, decreasing their DEF by 50% for 5s"
+			],
+			"ja": [
+				"非ブロック時、通常攻撃で榴弾射撃（遠距離範囲物理攻撃）を行う。榴弾射撃は標的と周囲8マスに攻撃力26%の物理ダメージと5秒間の防御力−50%デバフを与える"
+			],
 			"zh": [
 				"未被阻挡时会发射榴弹，爆炸范围为目标及其周围八格，使我方单位5秒内防御力下降50%，造成相当于攻击力26%的物理伤害"
 			]
@@ -5053,16 +5084,18 @@
 	},
 	"skulsr_2": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": ["HP↓50% - gains ATK +50%"],
+			"ja": ["HP50%以下→攻撃力が50%増加"],
 			"zh": ["生命值低于50%时攻击力提升50%"]
 		}
 	},
-	"durman_2": {
+	"durman_evasion": {
+		"duration": 20,
+		"silence": true,
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
-			"zh": ["初始获得100%物理闪避，持续30s（可被沉默）"]
+			"en": ["Starts with 100% Physical Dodge for <v.duration>s (Can be silenced)"],
+			"ja": ["出現から<v.duration>秒間、物理回避率+100%（無効化可能）"],
+			"zh": ["初始获得100%物理闪避，持续<v.duration>s（可被沉默）"]
 		}
 	}
 }
