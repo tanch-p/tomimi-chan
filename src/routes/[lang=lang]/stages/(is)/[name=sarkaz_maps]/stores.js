@@ -27,35 +27,35 @@ const floorDifficultyMods = derived(
 
 export const eliteMods = writable(null);
 export const disasterEffects = writable([]);
+const lowDiffHP = [0.8, 0.85, 0.9];
 const difficultyMods = derived([difficulty], ([$difficulty]) =>
-	difficultyModsList
-		.map((ele) => {
-			if (ele.difficulty <= $difficulty && ele.effects.length > 0) {
-				return ele.effects;
-			}
-		})
-		.filter(Boolean)
+	$difficulty <= 2
+		? [
+				[
+					{
+						targets: ['ALL'],
+						mods: {
+							hp: lowDiffHP[$difficulty]
+						}
+					}
+				]
+		  ]
+		: difficultyModsList
+				.map((ele) => {
+					if (ele.difficulty <= $difficulty && ele.effects.length > 0) {
+						return ele.effects;
+					}
+				})
+				.filter(Boolean)
 );
 
 export const statMods = derived(
-	[
-		selectedRelics,
-		floorDifficultyMods,
-		eliteMods,
-		disasterEffects,
-		difficultyMods,
-	],
-	([
-		$selectedRelics,
-		$floorDifficultyMods,
-		$eliteMods,
-		$disasterEffects,
-		$difficultyMods,
-	]) => {
+	[selectedRelics, floorDifficultyMods, eliteMods, disasterEffects, difficultyMods],
+	([$selectedRelics, $floorDifficultyMods, $eliteMods, $disasterEffects, $difficultyMods]) => {
 		return {
 			initial: [
 				{ key: 'elite_ops', mods: [$eliteMods], operation: 'times' },
-				{ key: 'floor_diff', mods: [$floorDifficultyMods], operation: 'times' },
+				{ key: 'floor_diff', mods: [$floorDifficultyMods], operation: 'times' }
 			],
 			final: [
 				{ key: 'relic', mods: $selectedRelics.map((relic) => relic.effects), operation: 'times' },
@@ -65,16 +65,17 @@ export const statMods = derived(
 					operation: 'times'
 				},
 				{ key: 'difficulty', mods: $difficultyMods, operation: 'times' }
-				
 			]
 		};
 	}
 );
 
-export const specialMods = derived([selectedRelics, eliteMods, difficultyMods], ([$selectedRelics, $eliteMods, $difficultyMods]) =>
-	compileSpecialMods(
-		$selectedRelics.map((relic) => relic.effects),
-		[$eliteMods],
-		$difficultyMods
-	)
+export const specialMods = derived(
+	[selectedRelics, eliteMods, difficultyMods],
+	([$selectedRelics, $eliteMods, $difficultyMods]) =>
+		compileSpecialMods(
+			$selectedRelics.map((relic) => relic.effects),
+			[$eliteMods],
+			$difficultyMods
+		)
 );
