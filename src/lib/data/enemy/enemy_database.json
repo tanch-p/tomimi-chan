@@ -21261,7 +21261,7 @@
 				"mods": {
 					"atk": 1.7,
 					"def": 3,
-					"fixed_def":200,
+					"fixed_def": 200,
 					"res": 2
 				},
 				"special": [
@@ -21287,8 +21287,8 @@
 			{
 				"title": "form.pt_ruin",
 				"mods": {
-					"atk":1.2,
-					"fixed_def":200,
+					"atk": 1.2,
+					"fixed_def": 200,
 					"fixed_ms": 0.1,
 					"atk_interval": -0.4,
 					"fixed_range": 0.85,
@@ -21296,7 +21296,7 @@
 				},
 				"special": [
 					{
-						"key":"patrt_2_0"
+						"key": "patrt_2_0"
 					},
 					{
 						"key": "invincible",
@@ -37128,6 +37128,42 @@
 			"hits": 1
 		},
 		"type": ["ranged", "sarkaz", "BOSS"]
+	},
+	"enemy_2073_skzrck": {
+		"id": "-",
+		"key": "enemy_2073_skzrck",
+		"sortId": 1002,
+		"name_zh": "饮泣之刺",
+		"name_ja": "",
+		"name_en": "",
+		"stats": [
+			{
+				"hp": 50000,
+				"atk": 0,
+				"def": 1000,
+				"res": 50.0,
+				"aspd": 5.0,
+				"range": 0.0,
+				"weight": 3,
+				"lifepoint": 0,
+				"ms": 0.5,
+				"epDamageResistance": 0.0,
+				"epResistance": 0.0
+			}
+		],
+		"special": [
+			{
+				"key": "taunt"
+			},
+			{ "key": "self_bind" },
+			{ "key": "skzrck_1" }
+		],
+		"status_immune": ["stun", "silence", "sleep", "freeze", "levitate", "fear"],
+		"normal_attack": {
+			"atk_type": ["no_attack"],
+			"hits": 1
+		},
+		"type": ["no_attack","ELITE"]
 	},
 	"enemy_2074_skzgly": {
 		"id": "GLT",

@@ -3,6 +3,7 @@
 	import translations from '$lib/translations.json';
 	import spTerrainList from '$lib/sp_terrain_list.json';
 	import SpTerrainDesc from './SpTerrainDesc.svelte';
+	import { getSkzdwzDesc } from '$lib/functions/rogueHelpers';
 	export let spTerrain, rogueTopic: RogueTopic, difficulty, language: Language;
 </script>
 
@@ -42,9 +43,7 @@
 							{spTerrainList.skzdwz[`name_${language}`]}
 						</td>
 						<SpTerrainDesc
-							description={spTerrainList.skzdwz[`description_${language}`].map((ele) =>
-								ele.replace('<value>', difficulty >= 9 ? '$130$' : '100')
-							)}
+							description={getSkzdwzDesc(spTerrainList.skzdwz[`description_${language}`],difficulty,language)}
 						/>
 					</tr>
 				{/if}

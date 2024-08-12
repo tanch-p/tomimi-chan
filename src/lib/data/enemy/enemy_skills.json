@@ -874,18 +874,21 @@
 		}
 	},
 	"mudrock_shield": {
+		"value": 16500,
+		"cooldown": 17.0,
+		"initCooldown": 17.0,
 		"tooltip": {
 			"en": [
-				"Skill→Every 17s creates shield which absorbs up to 16500 Arts damage",
+				"Skill→Every <v.cooldown>s creates shield which absorbs up to <v.value> Arts damage",
 				"Shield Active: Max HP+50%、ASPD+50%"
 			],
 			"ja": [
-				"スキル→17秒毎にシールドを張り、合計16500の術攻撃を吸収する",
+				"スキル→<v.cooldown>秒毎にシールドを張り、合計<v.value>の術攻撃を吸収する",
 				"シールド展開中：最大HP+50%、攻撃速度+50%"
 			],
 			"zh": [
-				"刷新护盾（初次冷却17s，后17s）",
-				"重置自身法术屏障；屏障能吸收16500法术伤害",
+				"刷新护盾（初次冷却<v.initCooldown>s，后<v.cooldown>s）",
+				"重置自身法术屏障；屏障能吸收<v.value>法术伤害",
 				"屏障存在时提升50%生命上限并增加50攻击速度"
 			]
 		}
@@ -4453,7 +4456,21 @@
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": ["死亡后在自身所在格部署1个饮泣之刺，击败<饮泣之刺>后掉落数个构想"]
+			"zh": ["死亡后在自身所在格部署1个饮泣之刺"]
+		}
+	},
+	"skzrck_1": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["在场期间，于所在地块中心召唤范围的年代印痕", "被击败后掉落3个构想"]
+		}
+	},
+	"self_bind": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["无法移动，失衡免疫，无法攻击/被阻挡"]
 		}
 	},
 	"direction_face_most_allies_mhkryk": {
@@ -4967,8 +4984,12 @@
 			}
 		],
 		"tooltip": {
-			"en": ["When on field, grants all enemies (including self) ATK +20%, DEF +200 and Inspired buff"],
-			"ja": ["フィールドにいる間、自身を含む全ての敵は「戦術指揮状態」になり、攻撃力+20%、防御力+200"],
+			"en": [
+				"When on field, grants all enemies (including self) ATK +20%, DEF +200 and Inspired buff"
+			],
+			"ja": [
+				"フィールドにいる間、自身を含む全ての敵は「戦術指揮状態」になり、攻撃力+20%、防御力+200"
+			],
 			"zh": ["在场时，全体敌方单位(包括自身)攻击力+20%，防御力+200，获得战术命令状态"]
 		}
 	},
@@ -4981,8 +5002,12 @@
 	},
 	"patrt_2_0": {
 		"tooltip": {
-			"en": ["Gains Atk Interval -0.4, Movespeed +0.1, Normal Attack becomes ranged and single hit"],
-			"ja": ["攻撃間隔-0.4、移動速度+0.1、通常攻撃が単発かつ攻撃半径0.85マスの遠距離物理攻撃へ変化"],
+			"en": [
+				"Gains Atk Interval -0.4, Movespeed +0.1, Normal Attack becomes ranged and single hit"
+			],
+			"ja": [
+				"攻撃間隔-0.4、移動速度+0.1、通常攻撃が単発かつ攻撃半径0.85マスの遠距離物理攻撃へ変化"
+			],
 			"zh": ["攻击间隔-0.4，移动速度+0.1，进行远程攻击，攻击半径0.85"]
 		}
 	},
