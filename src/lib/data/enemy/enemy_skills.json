@@ -124,11 +124,11 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"RPG → deals 100% splash dmg to target & surrounding 8 tiles, switches to Melee & ms+200% after firing"
+				"RPG → deals 100% {phys} splash dmg to target & surrounding 8 tiles, switches to Melee & ms+200% after firing"
 			],
-			"ja": ["RPG → 目標と周囲8マスにダメージ", "発射後は近接に切り替わって、移動速度+200%"],
+			"ja": ["RPG → 目標と周囲8マスに{phys}ダメージ", "発射後は近接に切り替わって、移動速度+200%"],
 			"zh": [
-				"榴弹 - 对主目标与周围8格造成攻击力200%物理伤害",
+				"榴弹 - 对主目标与周围8格造成攻击力200%{phys}伤害",
 				"发射榴弹后切换至冲锋模式",
 				"冲锋模式下移速提升200%，只进行近战攻击"
 			]
@@ -265,20 +265,23 @@
 	},
 	"drone_bomb": {
 		"tooltip": {
-			"en": ["Bomb does 100% AOE dmg 8sq around target", "After firing bomb - Movespeed +200%"],
-			"ja": ["爆弾→周囲8マスに100％ダメージ", "投下後移動速度+200%"],
-			"zh": ["爆弾→对目标及其周围八格造成100%群体物理伤害", "投弹后移速最终提升至200%"]
+			"en": [
+				"Bomb does 100% {phys} AOE damage 8 tiles around target",
+				"After firing bomb - Movespeed +200%"
+			],
+			"ja": ["爆弾→周囲8マスに100％{phys}ダメージ", "投下後移動速度+200%"],
+			"zh": ["爆弾→对目标及其周围八格造成100%群体{phys}伤害", "投弹后移速最终提升至200%"]
 		}
 	},
 	"drone_bomb_frost": {
 		"tooltip": {
 			"en": [
-				"Bomb does 100% AOE dmg + Cold❄ 8sq around target",
+				"Bomb does 100% {arts} AOE damage + Cold❄ 8 tiles around target",
 				"After firing bomb - Movespeed +200%"
 			],
-			"ja": ["爆弾→周囲8マスに100％ダメージ＋【寒冷❄】", "投下後移動速度+200%"],
+			"ja": ["爆弾→周囲8マスに100％{arts}ダメージ＋【寒冷❄】", "投下後移動速度+200%"],
 			"zh": [
-				"爆弾→对目标及其周围八格造成100%群体法术伤害并施加持续10秒的寒冷",
+				"爆弾→对目标及其周围八格造成100%群体{arts}伤害并施加持续10秒的寒冷",
 				"投弹后移速最终提升至200%"
 			]
 		}
@@ -379,17 +382,17 @@
 	"greytail_shield": {
 		"tooltip": {
 			"en": [
-				"Appears with a shield which absorbs up to 6000 Arts damage",
+				"Appears with a shield which absorbs up to 6000 {arts} damage",
 				"Shield Active: DEF+1250",
 				"Shield Broken: MS+200%"
 			],
 			"ja": [
-				"登場時、合計6000の術攻撃を吸収するシールドを持つ",
+				"登場時、合計6000の{arts}攻撃を吸収するシールドを持つ",
 				"シールド存在中は防御力+1250",
 				"シールドが破れると移動速度+200％"
 			],
 			"zh": [
-				"出场后获得可吸收6000法术伤害的屏障",
+				"出场后获得可吸收6000{arts}伤害的屏障",
 				"该屏障存在时防御力增加1250",
 				"该屏障被摧毁时移动速度提升200%"
 			]
@@ -398,17 +401,17 @@
 	"greytail_leader_shield": {
 		"tooltip": {
 			"en": [
-				"Appears with a shield which absorbs up to 10002 Arts damage",
+				"Appears with a shield which absorbs up to 10002 {arts} damage",
 				"Shield Active: DEF+1750",
 				"Shield Broken: MS+200%"
 			],
 			"ja": [
-				"登場時、合計10002の術攻撃を吸収するシールドを持つ",
+				"登場時、合計10002の{arts}攻撃を吸収するシールドを持つ",
 				"シールド存在中は防御力+1750",
 				"シールドが破れると移動速度+200％"
 			],
 			"zh": [
-				"出场后获得可吸收10002法术伤害的屏障",
+				"出场后获得可吸收10002{arts}伤害的屏障",
 				"该屏障存在时防御力增加1750",
 				"该屏障被摧毁时移动速度提升200%"
 			]
@@ -421,12 +424,12 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Explodes on death, dealing <v.atk.multiplier>% ATK dmg to nearby units (Can be silenced)"
+				"Explodes on death, dealing <v.atk.multiplier>% ATK as {phys} damage to nearby units (Can be silenced)"
 			],
 			"ja": [
-				"死亡時には爆発する、周囲に攻撃力<v.atk.multiplier>%の物理ダメージを与える（無効化可能）"
+				"死亡時には爆発する、周囲に攻撃力<v.atk.multiplier>%の{phys}ダメージを与える（無効化可能）"
 			],
-			"zh": ["死亡后对周围造成攻击力<v.atk.multiplier>%物理伤害"]
+			"zh": ["死亡后对周围造成攻击力<v.atk.multiplier>%{phys}伤害"]
 		}
 	},
 	"bug_explode_frost": {
@@ -437,13 +440,13 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Explodes on death, dealing <v.atk.multiplier>% ATK dmg + <v.duration>s Cold❄ to nearby units (Can be silenced)"
+				"Explodes on death, dealing <v.atk.multiplier>% ATK as {phys} damage + <v.duration>s Cold❄ to nearby units (Can be silenced)"
 			],
 			"ja": [
-				"死亡時には爆発する、周囲に攻撃力<v.atk.multiplier>%の物理ダメージと<v.duration>秒の寒冷を与える（無効化可能）"
+				"死亡時には爆発する、周囲に攻撃力<v.atk.multiplier>%の{phys}ダメージと<v.duration>秒の寒冷を与える（無効化可能）"
 			],
 			"zh": [
-				"死亡后对周围我造成攻击力<v.atk.multiplier>%的物理溅射伤害，并施加持续<v.duration>秒的寒冷"
+				"死亡后对周围我造成攻击力<v.atk.multiplier>%的{phys}溅射伤害，并施加持续<v.duration>秒的寒冷"
 			]
 		}
 	},
@@ -454,13 +457,13 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Explodes on death, giving all enemies +1 energy and deals <v.atk.multiplier>% ATK dmg to nearby units (Can be silenced)"
+				"Explodes on death, giving all enemies +1 energy and deals <v.atk.multiplier>% ATK as {arts} damage to nearby units (Can be silenced)"
 			],
 			"ja": [
-				"死亡時には爆発する、マップ上の敵のエネルギーを1点補充して、周囲に攻撃力<v.atk.multiplier>%の術ダメージを与える（無効化可能）"
+				"死亡時には爆発する、マップ上の敵のエネルギーを1点補充して、周囲に攻撃力<v.atk.multiplier>%の{arts}ダメージを与える（無効化可能）"
 			],
 			"zh": [
-				"死亡后使场上所有敌人获得1点能量，并对周围我造成攻击力<v.atk.multiplier>%的法术溅射伤害（可被沉默）"
+				"死亡后使场上所有敌人获得1点能量，并对周围我造成攻击力<v.atk.multiplier>%的{arts}溅射伤害（可被沉默）"
 			]
 		}
 	},
@@ -471,12 +474,12 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Explodes on death, leaving behind 源石污染区 tile and dealing <v.atk.multiplier>% ATK dmg to nearby units (Can be silenced)"
+				"Explodes on death, leaving behind 源石污染区 tile and dealing <v.atk.multiplier>% ATK as {phys} damage to nearby units (Can be silenced)"
 			],
 			"ja": [
-				"死亡時には爆発する、源石污染区を生成し、周囲に攻撃力<v.atk.multiplier>%の物理ダメージを与える（無効化可能）"
+				"死亡時には爆発する、源石污染区を生成し、周囲に攻撃力<v.atk.multiplier>%の{phys}ダメージを与える（無効化可能）"
 			],
-			"zh": ["死亡后在自身所在地块生成源石污染区，对周围造成攻击力<v.atk.multiplier>%物理伤害"]
+			"zh": ["死亡后在自身所在地块生成源石污染区，对周围造成攻击力<v.atk.multiplier>%{phys}伤害"]
 		}
 	},
 	"freeze_attack": {
@@ -497,9 +500,9 @@
 	},
 	"atk_arts_change": {
 		"tooltip": {
-			"en": ["Atk type - Arts"],
-			"ja": ["攻撃属性が術になる"],
-			"zh": ["攻击造成法术伤害"]
+			"en": ["Atk type - {arts}"],
+			"ja": ["攻撃属性が{arts}になる"],
+			"zh": ["攻击造成{arts}伤害"]
 		}
 	},
 	"invincible_type2": {
@@ -545,25 +548,25 @@
 	"evasion_phys_arts": {
 		"value": 40,
 		"tooltip": {
-			"en": ["Has <v.value>% Phys/Arts evasion"],
-			"ja": ["物理・術回避率+<v.value>%"],
-			"zh": ["持有<v.value>%物理/法术闪避"]
+			"en": ["Has <v.value>% {phys}/{arts} evasion"],
+			"ja": ["{phys}・{arts}回避率+<v.value>%"],
+			"zh": ["持有<v.value>%{phys}/{arts}闪避"]
 		}
 	},
 	"no_block_evasion_phys": {
 		"value": 40,
 		"tooltip": {
-			"en": ["Gains <v.value>% Physical evasion when not blocked"],
-			"ja": ["未ブロック時、物理回避率+<v.value>%"],
-			"zh": ["未被阻挡时获得<v.value>%物理闪避"]
+			"en": ["Gains <v.value>% {phys} evasion when not blocked"],
+			"ja": ["未ブロック時、{phys}回避率+<v.value>%"],
+			"zh": ["未被阻挡时获得<v.value>%{phys}闪避"]
 		}
 	},
 	"no_block_dmg_red": {
 		"value": 50,
 		"tooltip": {
-			"en": ["When not blocked, receives <v.value>% reduced Phys/Arts damage"],
-			"ja": ["未ブロック時、受ける物理と術ダメージが<v.value>%減少"],
-			"zh": ["未被阻挡时，受到的物理与法术伤害降低<v.value>%"]
+			"en": ["When not blocked, receives <v.value>% reduced {phys}/{arts} damage"],
+			"ja": ["未ブロック時、受ける{phys}と{arts}ダメージが<v.value>%減少"],
+			"zh": ["未被阻挡时，受到的{phys}与{arts}伤害降低<v.value>%"]
 		}
 	},
 	"tidal_caster_speedboat_defeat": {
@@ -578,9 +581,11 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "Runover", "ja": "轢", "zh": "撞" },
 		"tooltip": {
-			"en": ["Deals 100% ATK as Phys damage to allies that comes into contact while moving"],
-			"ja": ["轢かれる時攻撃力100%の物理ダメージを与える"],
-			"zh": ["自主移动时，对进入自身0.5半径范围内部署于地面的我方单位造成一次攻击力100%的物理伤害"]
+			"en": ["Deals 100% ATK as {phys} damage to allies that comes into contact while moving"],
+			"ja": ["轢かれる時攻撃力100%の{phys}ダメージを与える"],
+			"zh": [
+				"自主移动时，对进入自身0.5半径范围内部署于地面的我方单位造成一次攻击力100%的{phys}伤害"
+			]
 		}
 	},
 	"hvymot_defeat": {
@@ -626,15 +631,15 @@
 		"tooltip": {
 			"en": [
 				"Skill (Initial CD: 18s, ~CD: 18s)",
-				"Fires a special bolt that deals <v.atk.multiplier>% of ATK as Arts damage."
+				"Fires a special bolt that deals <v.atk.multiplier>% of ATK as {arts} damage."
 			],
 			"ja": [
 				"スキル（初動18秒/再動18秒）",
-				"攻撃力<v.atk.multiplier>%の術ダメージを与える特殊な矢を放つ"
+				"攻撃力<v.atk.multiplier>%の{arts}ダメージを与える特殊な矢を放つ"
 			],
 			"zh": [
 				"技能（初次冷却18s，后18s）",
-				"释放特殊弩箭进行攻击，造成相当于攻击力<v.atk.multiplier>%的法术普通伤害"
+				"释放特殊弩箭进行攻击，造成相当于攻击力<v.atk.multiplier>%的{arts}普通伤害"
 			]
 		}
 	},
@@ -650,17 +655,17 @@
 		"tooltip": {
 			"en": [
 				"Ice Nova (Initial CD: <v.cd1>s, ~CD: <v.cd2>s)",
-				"Deals <v.atk.multiplier>% of ATK as Arts damage to all allied units in a <v.radius> tile radius and applies Cold for <v.duration>s",
+				"Deals <v.atk.multiplier>% of ATK as {arts} damage to all allied units in a <v.radius> tile radius and applies Cold for <v.duration>s",
 				"Damage increased to 200% against Frozen targets."
 			],
 			"ja": [
 				"スキル（初動<v.cd1>秒/再動<v.cd2>秒）",
-				"自分周囲半径2.6マスへ攻撃力<v.atk.multiplier>%の術ダメージと<v.duration>秒間の【寒冷】効果を与える",
+				"自分周囲半径2.6マスへ攻撃力<v.atk.multiplier>%の{arts}ダメージと<v.duration>秒間の【寒冷】効果を与える",
 				"【凍結】している相手にはスキル攻撃力が<v.radius>倍になる"
 			],
 			"zh": [
 				"冰环（初次冷却<v.cd1>s，后<v.cd2>s）",
-				"对半径<v.radius>范围内所有我方单位造成相当于攻击力<v.atk.multiplier>%的法术溅射伤害并施加持续<v.duration>秒的寒冷",
+				"对半径<v.radius>范围内所有我方单位造成相当于攻击力<v.atk.multiplier>%的{arts}溅射伤害并施加持续<v.duration>秒的寒冷",
 				"对持有冻结的目标造成的伤害提升至200% "
 			]
 		}
@@ -683,17 +688,17 @@
 		"tooltip": {
 			"en": [
 				"Ice Nova (Initial CD: 12s, ~CD: 12s)",
-				"Deals 130% of ATK as Arts damage to all allied units in a 2.6 tile radius and applies Cold for 10s",
+				"Deals 130% of ATK as {arts} damage to all allied units in a 2.6 tile radius and applies Cold for 10s",
 				"Damage increased to 260% against Frozen targets."
 			],
 			"ja": [
 				"冰环（初動12秒/再動12秒）",
-				"自分周囲半径2.6マスへ攻撃力130%の術ダメージと10秒間の【寒冷】効果を与える",
+				"自分周囲半径2.6マスへ攻撃力130%の{arts}ダメージと10秒間の【寒冷】効果を与える",
 				"【凍結】している相手にはスキル攻撃力が2.6倍になる"
 			],
 			"zh": [
 				"冰环（初次冷却12s，后12s）",
-				"对半径2.6范围内所有我方单位造成相当于攻击力130%的法术溅射伤害并施加持续10秒的寒冷",
+				"对半径2.6范围内所有我方单位造成相当于攻击力130%的{arts}溅射伤害并施加持续10秒的寒冷",
 				"对持有冻结的目标造成的伤害提升至260% "
 			]
 		}
@@ -721,10 +726,10 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Uses ranged attacks when not blocked, dealing 40% of ATK as Physical damage to the target and the 8 surrounding tiles."
+				"Uses ranged attacks when not blocked, dealing 40% of ATK as {phys} damage to the target and the 8 surrounding tiles."
 			],
-			"ja": ["非ブロック時、通常攻撃で榴弾射撃（遠距離範囲物理攻撃）を行う"],
-			"zh": ["未被阻挡时会进行远程攻击，远程攻击对目标及其周围八格造成攻击力40%的物理伤害"]
+			"ja": ["非ブロック時、通常攻撃で榴弾射撃（遠距離範囲{phys}攻撃）を行う"],
+			"zh": ["未被阻挡时会进行远程攻击，远程攻击对目标及其周围八格造成攻击力40%的{phys}伤害"]
 		}
 	},
 	"gst_shield": {
@@ -751,7 +756,7 @@
 		"tooltip": {
 			"en": ["Skill→Every 22s unleashes charged attack"],
 			"ja": ["スキル→チャージ攻撃、CD22秒"],
-			"zh": ["蓄力锤（冷却22s）", "对目标及其周围四格造成攻击力300%的物理伤害"]
+			"zh": ["蓄力锤（冷却22s）", "对目标及其周围四格造成攻击力300%的{phys}伤害"]
 		}
 	},
 	"withered_knight_arrow_bomb": {
@@ -763,10 +768,10 @@
 			"en": [
 				"Skill→Every 22s unleashes charged attack → Fires a delayed exploding arrow on max 3 targets, deals damage to target + surrounding 4 tiles"
 			],
-			"ja": ["スキル→３体に爆発の矢を放つ、", "対象と隣接4マスに術ダメージ、CD22秒"],
+			"ja": ["スキル→３体に爆発の矢を放つ、", "対象と隣接4マスに{arts}ダメージ、CD22秒"],
 			"zh": [
 				"技能（冷却22s）",
-				"对最多3个目标发射爆炸箭，命中后2.5s爆炸，对目标及其周围四格造成攻击力<v.atk.multiplier>%的法术伤害"
+				"对最多3个目标发射爆炸箭，命中后2.5s爆炸，对目标及其周围四格造成攻击力<v.atk.multiplier>%的{arts}伤害"
 			]
 		}
 	},
@@ -791,7 +796,7 @@
 		"start": 0,
 		"skill": 3,
 		"tooltip": {
-			"en": ["Every 4th attack does 2 x 100% ATK phys dmg, Ignores 60% DEF"],
+			"en": ["Every 4th attack does 2 x 100% ATK {phys} damage, Ignores 60% DEF"],
 			"ja": ["攻撃3回の度に次の攻撃に2回攻撃、防御力60％無視"],
 			"zh": ["攻击3次后，下一次攻击会晕眩目标 "]
 		}
@@ -799,12 +804,15 @@
 	"rat_king_shield": {
 		"suffix": { "en": "barrier", "ja": "シールド", "zh": "盾" },
 		"tooltip": {
-			"en": ["Spawns with a barrier which absorbs up to 14001 Arts dmg", "Shield Active: DEF+3000"],
+			"en": [
+				"Spawns with a barrier which absorbs up to 14001 {arts} dmg",
+				"Shield Active: DEF+3000"
+			],
 			"ja": [
-				"スキル→15秒毎にシールドを張り、合計16500の術攻撃を吸収する",
+				"スキル→15秒毎にシールドを張り、合計16500の{arts}攻撃を吸収する",
 				"シールド展開中：防御力+3000"
 			],
-			"zh": ["出场时获得可吸收14001的法术伤害的屏障", "该屏障存在时防御力增加3000"]
+			"zh": ["出场时获得可吸收14001的{arts}伤害的屏障", "该屏障存在时防御力增加3000"]
 		}
 	},
 	"hp_50_rage_150": {
@@ -828,8 +836,8 @@
 		"hits": 1,
 		"tooltip": {
 			"en": ["Skill→Every 20s unleashes cross-shaped sand blast on unit with highest Max HP"],
-			"ja": ["スキル→20秒毎に最大HPが最も高いユニット及び十字方向3マスに物理ダメージ"],
-			"zh": ["以场上生命上限最高的我方单位为中心，对范围内的所有我方单位造成800物理溅射伤害"]
+			"ja": ["スキル→20秒毎に最大HPが最も高いユニット及び十字方向3マスに{phys}ダメージ"],
+			"zh": ["以场上生命上限最高的我方单位为中心，对范围内的所有我方单位造成800{phys}溅射伤害"]
 		}
 	},
 	"rat_king_sand_tomb": {
@@ -845,34 +853,34 @@
 				"スキル→60秒毎に最大HPが最も低いユニットを中心に砂の嵐を起こして、周囲8マス内のユニットの攻撃力-70%"
 			],
 			"zh": [
-				"以场上生命上限最低的我方单位为中心释放沙狱，沙狱每秒对范围内的所有我方单位造成70法术buff伤害，并最终下降70%攻击力。沙狱持续15s"
+				"以场上生命上限最低的我方单位为中心释放沙狱，沙狱每秒对范围内的所有我方单位造成70{arts}buff伤害，并最终下降70%攻击力。沙狱持续15s"
 			]
 		}
 	},
 	"MR_zealot_shield": {
 		"tooltip": {
 			"en": [
-				"Appears with a shield which absorbs up to 6000 Arts damage",
+				"Appears with a shield which absorbs up to 6000 {arts} damage",
 				"Shield Active: Max HP+50%、ASPD+50%"
 			],
 			"ja": [
-				"登場時、合計6000の術攻撃を吸収するシールドを持つ",
+				"登場時、合計6000の{arts}攻撃を吸収するシールドを持つ",
 				"シールド存在中は最大HP+50%、攻撃速度+50%"
 			],
-			"zh": ["护盾耐久6000(只吸收法术伤害)", "护盾存在时提升50%生命上限并增加50攻击速度"]
+			"zh": ["护盾耐久6000(只吸收{arts}伤害)", "护盾存在时提升50%生命上限并增加50攻击速度"]
 		}
 	},
 	"MR_zealot_leader_shield": {
 		"tooltip": {
 			"en": [
-				"Appears with a shield which absorbs up to 10002 Arts damage",
+				"Appears with a shield which absorbs up to 10002 {arts} damage",
 				"Shield Active: Max HP+50%、ASPD+50%"
 			],
 			"ja": [
-				"登場時、合計10002の術攻撃を吸収するシールドを持つ",
+				"登場時、合計10002の{arts}攻撃を吸収するシールドを持つ",
 				"シールド存在中は最大HP+50%、攻撃速度+50%"
 			],
-			"zh": ["护盾耐久10002(只吸收法术伤害)", "护盾存在时提升50%生命上限并增加50攻击速度"]
+			"zh": ["护盾耐久10002(只吸收{arts}伤害)", "护盾存在时提升50%生命上限并增加50攻击速度"]
 		}
 	},
 	"mudrock_shield": {
@@ -881,16 +889,16 @@
 		"initCooldown": 17.0,
 		"tooltip": {
 			"en": [
-				"Skill→Every <v.cooldown>s creates shield which absorbs up to <v.value> Arts damage",
+				"Skill→Every <v.cooldown>s creates shield which absorbs up to <v.value> {arts} damage",
 				"Shield Active: Max HP+50%、ASPD+50%"
 			],
 			"ja": [
-				"スキル→<v.cooldown>秒毎にシールドを張り、合計<v.value>の術攻撃を吸収する",
+				"スキル→<v.cooldown>秒毎にシールドを張り、合計<v.value>の{arts}攻撃を吸収する",
 				"シールド展開中：最大HP+50%、攻撃速度+50%"
 			],
 			"zh": [
 				"刷新护盾（初次冷却<v.initCooldown>s，后<v.cooldown>s）",
-				"重置自身法术屏障；屏障能吸收<v.value>法术伤害",
+				"重置自身法术屏障；屏障能吸收<v.value>{arts}伤害",
 				"屏障存在时提升50%生命上限并增加50攻击速度"
 			]
 		}
@@ -996,25 +1004,25 @@
 	"dt_neural": {
 		"value": 0.2,
 		"tooltip": {
-			"en": ["Attacks deal <v.%value>% ATK as Nervous Impairment"],
-			"ja": ["攻撃時、攻撃力の<v.%value>%の神経ダメージを与える"],
-			"zh": ["普通攻击附带自身攻击力<v.%value>%的神经损伤"]
+			"en": ["Attacks deal <v.%value>% ATK as {ba.dt.neural}"],
+			"ja": ["攻撃時、攻撃力の<v.%value>%の{ba.dt.neural}を与える"],
+			"zh": ["普通攻击附带自身攻击力<v.%value>%的{ba.dt.neural}"]
 		}
 	},
 	"dt_erosion": {
 		"value": 0.2,
 		"tooltip": {
-			"en": ["Attack deals <v.%value>% of ATK as Corrosion damage"],
-			"ja": ["攻撃で攻撃力の<v.%value>%の侵蝕ダメージを与える"],
-			"zh": ["攻击附加相当于攻击力<v.%value>%的侵蚀损伤 "]
+			"en": ["Attack deals <v.%value>% of ATK as {ba.dt.erosion}"],
+			"ja": ["攻撃で攻撃力の<v.%value>%の{ba.dt.erosion}を与える"],
+			"zh": ["攻击附加相当于攻击力<v.%value>%的{ba.dt.erosion}"]
 		}
 	},
 	"dt_apoptosis": {
 		"value": 0.25,
 		"tooltip": {
-			"en": ["Attack deals <v.%value>% of ATK as Necrosis damage"],
-			"ja": ["攻撃で攻撃力の<v.%value>%の凋亡ダメージを与える"],
-			"zh": ["攻击附加相当于攻击力<v.%value>%的凋亡损伤"]
+			"en": ["Attack deals <v.%value>% of ATK as {ba.dt.apoptosis}"],
+			"ja": ["攻撃で攻撃力の<v.%value>%の{ba.dt.apoptosis}を与える"],
+			"zh": ["攻击附加相当于攻击力<v.%value>%的{ba.dt.apoptosis}"]
 		}
 	},
 	"sy2_attackdef": {
@@ -1102,16 +1110,16 @@
 	"syrott_effect": {
 		"tooltip": {
 			"en": [
-				"If occupied, the allied unit receives 100% of ATK as True damage every 3s",
+				"If occupied, the allied unit receives 100% of ATK as {true} damage every 3s",
 				"If not occupied by allied units, restores 25SP for Islar-mla the Corrupted Heart every 3s",
 				"Note: Allied unit must be able to receive damage if not it will restore SP instead (no seaborn, landmines etc)"
 			],
 			"ja": [
-				"味方（※無敵のユニット（シーボーン、地雷等）はNG）がマス上にいる時、3秒毎攻撃力100%の確定ダメージを与える",
+				"味方（※無敵のユニット（シーボーン、地雷等）はNG）がマス上にいる時、3秒毎攻撃力100%の{true}ダメージを与える",
 				"いない時は3秒毎Ishar-mlaにSP25回復する"
 			],
 			"zh": [
-				"自身所在地块上的默认类我方单位每3秒受到攻击力100%的真实伤害(无视不可选中)",
+				"自身所在地块上的默认类我方单位每3秒受到攻击力100%的{true}伤害(无视不可选中)",
 				"每3s，若自身所在地块不存在默认类的我方单位，则为伊莎玛拉，腐化之心回复25点技力 "
 			]
 		}
@@ -1202,21 +1210,21 @@
 		"hits": null,
 		"tooltip": {
 			"en": [
-				"Every 5 <子代> eaten, gains ATK +40%, heals 15% of max HP, and does 100% ATK as Arts damage to all allied units (ignores stealth)"
+				"Every 5 <子代> eaten, gains ATK +40%, heals 15% of max HP, and does 100% ATK as {arts} damage to all allied units (ignores stealth)"
 			],
 			"ja": [
-				"<子代>を5体吸収した度、自身の攻击力+40%、HPの15%を回復して、味方全体に攻撃100%の術ダメージを与える（ステルス無視）"
+				"<子代>を5体吸収した度、自身の攻击力+40%、HPの15%を回復して、味方全体に攻撃100%の{arts}ダメージを与える（ステルス無視）"
 			],
 			"zh": [
-				"每吸收5个「子代」，自身获得1层攻击力+40%的强化(最多叠加4层)，治疗自身15%生命值，对场上所有我方单位造成攻击力100%的法术溅射伤害"
+				"每吸收5个「子代」，自身获得1层攻击力+40%的强化(最多叠加4层)，治疗自身15%生命值，对场上所有我方单位造成攻击力100%的{arts}溅射伤害"
 			]
 		}
 	},
 	"mzk_intepret_normal_attack": {
 		"tooltip": {
-			"en": ["Intepret State - Normal attack does 100% ATK phys + 100% ATK arts damage"],
-			"ja": ["阐释阶段 - 通常攻撃は攻撃力の100%の物理と100%の術ダメージを与える"],
-			"zh": ["普通攻击造成物理伤害，额外造成攻击力100%的法术普通伤害"]
+			"en": ["Intepret State - Normal attack does 100% ATK {phys} + 100% ATK {arts} damage"],
+			"ja": ["阐释阶段 - 通常攻撃は攻撃力の100%の{phys}と100%の{arts}ダメージを与える"],
+			"zh": ["普通攻击造成{phys}伤害，额外造成攻击力100%的{arts}普通伤害"]
 		}
 	},
 	"mzk_shock_hp": {
@@ -1231,15 +1239,15 @@
 			"en": [
 				"Shock [Intepret Mode] (Initial SP: 0, Cost:30)",
 				"causes all allied units to be stunned for 8s",
-				"and receive 12% ATK as Arts damage while being stunned by this skill",
+				"and receive 12% ATK as {arts} damage while being stunned by this skill",
 				"this skill does not target invisible/camouflaged units"
 			],
 			"ja": [
-				"スキル<阐释>形態（初期SP0、必要SP30）→味方全体を8秒スタンする、かつこのスキルにスタンされたユニットは毎秒攻撃力12%のアーツダメージを受ける",
+				"スキル<阐释>形態（初期SP0、必要SP30）→味方全体を8秒スタンする、かつこのスキルにスタンされたユニットは毎秒攻撃力12%の{arts}ダメージを受ける",
 				"このスキルは迷彩やステルスで回避可能"
 			],
 			"zh": [
-				"震撼 [阐释阶段]（初始0SP，消耗30SP）- 令场上所有我方单位获得8s晕眩，且在技能赋予的晕眩结束前每秒受到攻击力12%的法术普通伤害（不可叠加）",
+				"震撼 [阐释阶段]（初始0SP，消耗30SP）- 令场上所有我方单位获得8s晕眩，且在技能赋予的晕眩结束前每秒受到攻击力12%的{arts}普通伤害（不可叠加）",
 				"迷彩或隐匿的干员不会受该技能的影响"
 			]
 		}
@@ -1251,11 +1259,13 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Every 15% of max HP lost, deals 100% of ATK as Arts splash damage and Nervous Impairment in a 2 tile radius"
+				"Every 15% of max HP lost, deals 100% of ATK as {arts} splash damage and {ba.dt.neural} in a 2 tile radius"
 			],
-			"ja": ["HPが15%減るごとに、半径2マス以内の味方全員に攻撃力の100%の術・神経ダメージを与える"],
+			"ja": [
+				"HPが15%減るごとに、半径2マス以内の味方全員に攻撃力の100%の{arts}・{ba.dt.neural}を与える"
+			],
 			"zh": [
-				"每损失15%生命值，对半径2范围内所有我方单位造成攻击力100%法术溅射伤害与攻击力100%神经损伤"
+				"每损失15%生命值，对半径2范围内所有我方单位造成攻击力100%{arts}溅射伤害与攻击力100%{ba.dt.neural}"
 			]
 		}
 	},
@@ -1264,16 +1274,16 @@
 		"tooltip": {
 			"en": [
 				"Standby - Does not attack, switches to Combat Ready mode when HP below 99.99%",
-				"Combat Ready - Movement Speed is increased by 500% and loses 4% max HP every second. Deals 20% of ATK as Nervous Impairment to all allied units in a 2.5 tile radius (ignores camouflage)."
+				"Combat Ready - Movement Speed is increased by 500% and loses 4% max HP every second. Deals 20% of ATK as {ba.dt.neural} to all allied units in a 2.5 tile radius (ignores camouflage)."
 			],
 			"ja": [
 				"【待機状態】→攻撃しない、HPが99.99%未満になると【臨戦態勢】に移行",
 				"【臨戦態勢】→移動速度+500%、毎秒最大HPの4%分のダメージを受けて、",
-				"半径2.5マス以内の味方全員に、攻撃力の20%の神経ダメージを毎秒与える（迷彩無視）"
+				"半径2.5マス以内の味方全員に、攻撃力の20%の{ba.dt.neural}を毎秒与える（迷彩無視）"
 			],
 			"zh": [
 				"处于待命状态时，无法攻击/触发技能，低于99.99%时苏醒",
-				"临战状态下，移动速度提升500%，每秒流失最大生命值*4%的生命值，每秒对半径2.5范围内所有我方单位造成攻击力20%的神经损伤（该效果无视迷彩）"
+				"临战状态下，移动速度提升500%，每秒流失最大生命值*4%的生命值，每秒对半径2.5范围内所有我方单位造成攻击力20%的{ba.dt.neural}（该效果无视迷彩）"
 			]
 		}
 	},
@@ -1285,12 +1295,12 @@
 		"tooltip": {
 			"en": [
 				"Skill - Initial SP: 10, Cost:20",
-				"Attacks up to 5 times, dealing 60% of ATK as Physical damage and Nervous Impairment",
+				"Attacks up to 5 times, dealing 60% of ATK as {phys} damage and {ba.dt.neural}",
 				"While using skill, does not move and becomes invulnerable, "
 			],
 			"ja": [
 				"スキル→初期SP10、必要SP20",
-				"最大5回攻撃力の60%の物理・神経ダメージを与える",
+				"最大5回攻撃力の60%の{phys}・{ba.dt.neural}を与える",
 				"スキル発動中は無敵、移動しない、"
 			],
 			"zh": []
@@ -1322,28 +1332,28 @@
 		"tooltip": {
 			"en": [
 				"Has no normal attack",
-				"Deals 100% of ATK as Arts damage and 5% of ATK as Nervous Impairment every second to all allied units within range"
+				"Deals 100% of ATK as {arts} damage and 5% of ATK as {ba.dt.neural} every second to all allied units within range"
 			],
 			"ja": [
-				"通常攻撃しない、攻撃半径内の味方全員に、攻撃力の100%の術ダメージ、攻撃力の2%の神経ダメージを与える"
+				"通常攻撃しない、攻撃半径内の味方全員に、攻撃力の100%の{arts}ダメージ、攻撃力の2%の{ba.dt.neural}を与える"
 			],
 			"zh": [
 				"不进行普通攻击",
-				"每秒对攻击范围内所有我方单位造成攻击力5%的神经损伤和攻击力100%的无类型法术伤害"
+				"每秒对攻击范围内所有我方单位造成攻击力5%的{ba.dt.neural}和攻击力100%的无类型{arts}伤害"
 			]
 		}
 	},
 	"predator_evasion": {
 		"tooltip": {
 			"en": [
-				"Gains 80% Physical/Arts dodge",
+				"Gains 80% {phys}/{arts} dodge",
 				"(disabled when under the effects of Stun/Sleep/Frozen/Levitate/Bind/Silence)"
 			],
 			"ja": [
-				"物理・術回避率+80%",
+				"{phys}・{arts}回避率+80%",
 				"能力無効化・スタン・睡眠・凍結・浮遊・バインド中は無効化される"
 			],
-			"zh": ["获得80%的物理/法术闪避", "（处于晕眩/冻结/沉睡/浮空/束缚/沉默时失效）"]
+			"zh": ["获得80%的{phys}/{arts}闪避", "（处于晕眩/冻结/沉睡/浮空/束缚/沉默时失效）"]
 		}
 	},
 	"predator_brand_noblock": {
@@ -1387,10 +1397,10 @@
 		"suffix": { "en": "Gun", "ja": "拳銃", "zh": "手炮" },
 		"hits": 1,
 		"tooltip": {
-			"en": ["Handgun - Consumes 1 Ammo and deals 200% of ATK as Phys damage"],
-			"ja": ["弾薬数1以上なら、通常攻撃時に弾薬を1消費し、攻撃力の200%の物理ダメージを与える"],
+			"en": ["Handgun - Consumes 1 Ammo and deals 200% of ATK as {phys} damage"],
+			"ja": ["弾薬数1以上なら、通常攻撃時に弾薬を1消費し、攻撃力の200%の{phys}ダメージを与える"],
 			"zh": [
-				"自身技力大于等于1时，每次攻击时消耗1技力发射特殊弹药,对攻击范围内一名我方单位造成200%物理普通伤害"
+				"自身技力大于等于1时，每次攻击时消耗1技力发射特殊弹药,对攻击范围内一名我方单位造成200%{phys}普通伤害"
 			]
 		}
 	},
@@ -1551,7 +1561,7 @@
 			],
 			"zh": [
 				"微光之触（冷却<v.cd>s）",
-				"锁定2.2半径范围内一名我方单位所在位置，蓄力约7s后（蓄力期间隐匿效果失效）向该位置发射光弹，光弹对范围内所有我方单位造成<v.atk.multiplier>%的法术普通伤害，蓄力时失去隐匿"
+				"锁定2.2半径范围内一名我方单位所在位置，蓄力约7s后（蓄力期间隐匿效果失效）向该位置发射光弹，光弹对范围内所有我方单位造成<v.atk.multiplier>%的{arts}普通伤害，蓄力时失去隐匿"
 			]
 		}
 	},
@@ -1562,12 +1572,12 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Coalescing Fear - Does <v.atk.multiplier>% ATK phys damage to all Operators with no visibility on the tile behind them."
+				"Coalescing Fear - Does <v.atk.multiplier>% ATK {phys} damage to all Operators with no visibility on the tile behind them."
 			],
 			"ja": [
-				"スキル(凝聚する恐怖)→背後1マスが【暗闇】の味方ユニットの全員に、攻撃力の<v.atk.multiplier>%の物理ダメージを与える"
+				"スキル(凝聚する恐怖)→背後1マスが【暗闇】の味方ユニットの全員に、攻撃力の<v.atk.multiplier>%の{phys}ダメージを与える"
 			],
-			"zh": ["对场上所有身后一格没有视野的我方干员造成攻击力<v.atk.multiplier>%的物理普通伤害"]
+			"zh": ["对场上所有身后一格没有视野的我方干员造成攻击力<v.atk.multiplier>%的{phys}普通伤害"]
 		}
 	},
 	"tola_nightzmora_slash": {
@@ -1577,12 +1587,12 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Coalescing Fear - Does 85% ATK phys damage to all Operators with no visibility on the tile behind them."
+				"Coalescing Fear - Does 85% ATK {phys} damage to all Operators with no visibility on the tile behind them."
 			],
 			"ja": [
-				"スキル(凝聚する恐怖)→背後1マスが【暗闇】の味方ユニットの全員に、攻撃力の85%の物理ダメージを与える"
+				"スキル(凝聚する恐怖)→背後1マスが【暗闇】の味方ユニットの全員に、攻撃力の85%の{phys}ダメージを与える"
 			],
-			"zh": ["对场上所有身后一格没有视野的我方干员造成攻击力85%的物理普通伤害"]
+			"zh": ["对场上所有身后一格没有视野的我方干员造成攻击力85%的{phys}普通伤害"]
 		}
 	},
 	"refraction": {
@@ -1624,16 +1634,16 @@
 	"dublinn_fireball": {
 		"tooltip": {
 			"en": [
-				"Fireball explodes on contact with melee unit, dealing arts and burn damage to units within range 1.8",
+				"Fireball explodes on contact with melee unit, dealing {arts} and {ba.dt.burning} to units within range 1.8",
 				"Fireball's ATK decreases over distance travelled"
 			],
 			"ja": [
-				"火球は地上にいる味方に触れると爆発、半径1.8内に術と灼熱ダメージを与える",
+				"火球は地上にいる味方に触れると爆発、半径1.8内に{arts}と{ba.dt.burning}を与える",
 				"時間経過で火球の攻撃力が減少する"
 			],
 			"zh": [
 				"【净浊之焰】：在10s内线性降低至30%，移动速度2.5，在生成10秒后或到达路径终点后自动消失",
-				"爆炸对以净浊之焰为中心半径1.8范围内所有我方单位造成攻击力100%法术普通伤害和攻击力100%灼燃损伤，随后自身消失"
+				"爆炸对以净浊之焰为中心半径1.8范围内所有我方单位造成攻击力100%{arts}普通伤害和攻击力100%{ba.dt.burning}，随后自身消失"
 			]
 		}
 	},
@@ -1707,12 +1717,10 @@
 	},
 	"surpise_bomb": {
 		"tooltip": {
-			"en": [
-				"On defeat, deals 100% Arts dmg & Nervous Impairment to nearby units (Can be silenced)"
-			],
-			"ja": ["倒された時、周囲に攻撃力100%術ダメージと神経ダメージを与える（無効化可能）"],
+			"en": ["On defeat, deals 100% {arts} dmg & {ba.dt.neural} to nearby units (Can be silenced)"],
+			"ja": ["倒された時、周囲に攻撃力100%{arts}ダメージと{ba.dt.neural}を与える（無効化可能）"],
 			"zh": [
-				"死亡后对自身半径1.25范围内全体我方单位造成自身攻击力100%的法术溅射伤害和神经损伤（可被沉默） "
+				"死亡后对自身半径1.25范围内全体我方单位造成自身攻击力100%的{arts}溅射伤害和{ba.dt.neural}（可被沉默） "
 			]
 		}
 	},
@@ -1756,17 +1764,17 @@
 	"puppet_killer_melody": {
 		"tooltip": {
 			"en": [
-				"When not blocked, plays killer melody that deals 100 arts dmg /s to all units on map"
+				"When not blocked, plays killer melody that deals 100 {arts} dmg /s to all units on map"
 			],
-			"ja": ["未ブロック時、致死なメロディで味方全体に毎秒100術ダメージを与える"],
-			"zh": ["未被阻挡时，每秒对本层地图中全体我方单位造成100点无来源无类型法术伤害"]
+			"ja": ["未ブロック時、致死なメロディで味方全体に毎秒100{arts}ダメージを与える"],
+			"zh": ["未被阻挡时，每秒对本层地图中全体我方单位造成100点无来源无类型{arts}伤害"]
 		}
 	},
 	"PTM_evasion": {
 		"tooltip": {
-			"en": ["When not blocked, gains 40% phys & arts evasion"],
-			"ja": ["未ブロック時、物理と術回避率+40%"],
-			"zh": ["未被阻挡时，获得40%物理/法术闪避"]
+			"en": ["When not blocked, gains 40% {phys} & {arts} evasion"],
+			"ja": ["未ブロック時、{phys}と{arts}回避率+40%"],
+			"zh": ["未被阻挡时，获得40%{phys}/{arts}闪避"]
 		}
 	},
 	"PTM_blink": {
@@ -1785,15 +1793,15 @@
 	"PTM_aoe": {
 		"tooltip": {
 			"en": [
-				"AOE (Initial CD: 5s, ~CD: 10s) - does 80% ATK phys dmg & 20% ATK Nervous Impairment to all units within range. CD10s"
+				"AOE (Initial CD: 5s, ~CD: 10s) - does 80% ATK {phys} damage & 20% ATK {ba.dt.neural} to all units within range. CD10s"
 			],
 			"ja": [
 				"範囲攻撃（初動5秒/再動10秒）",
-				"半径2内の全味方に攻撃力80％の物理ダメージと攻撃力20%の神経ダメージを与える"
+				"半径2内の全味方に攻撃力80％の{phys}ダメージと攻撃力20%の{ba.dt.neural}を与える"
 			],
 			"zh": [
 				"AOE（初次冷却5s，后10s）",
-				"对半径2范围内全体我方单位造成自身攻击力80%的物理伤害和20%的神经损伤；该技能伤害无视迷彩"
+				"对半径2范围内全体我方单位造成自身攻击力80%的{phys}伤害和20%的{ba.dt.neural}；该技能伤害无视迷彩"
 			]
 		}
 	},
@@ -1868,33 +1876,33 @@
 	},
 	"sandstorm_evade_40": {
 		"tooltip": {
-			"en": ["Under sandstorm, gains 40% phys/arts evasion"],
-			"ja": ["砂嵐にさらされている時、物理・術回避率+40%"],
-			"zh": ["在<沙尘暴>中获得40%物理与法术闪避"]
+			"en": ["Under sandstorm, gains 40% {phys}/{arts} evasion"],
+			"ja": ["砂嵐にさらされている時、{phys}・{arts}回避率+40%"],
+			"zh": ["在<沙尘暴>中获得40%{phys}与{arts}闪避"]
 		}
 	},
 	"sgwlf_molotov": {
 		"tooltip": {
 			"en": [
-				"Every 30% of max HP lost, throws a fire bomb centered on itself, creating a permanent 1.5 tile radius area that burns allied units for 100 True damage every second (stacks infinitely)."
+				"Every 30% of max HP lost, throws a fire bomb centered on itself, creating a permanent 1.5 tile radius area that burns allied units for 100 {true} damage every second (stacks infinitely)."
 			],
 			"ja": [
-				"HPが30%減るごとに、自分中心に火炎瓶を投げ、範囲1.5半径内の味方に毎秒100確定ダメージを与える燃焼マスを起こす（疊ねます）"
+				"HPが30%減るごとに、自分中心に火炎瓶を投げ、範囲1.5半径内の味方に毎秒100{true}ダメージを与える燃焼マスを起こす（疊ねます）"
 			],
 			"zh": [
 				"每损失30%生命值，强制触发技能【燃烧弹】",
-				"以自身所在位置为中心，释放一个持续时间无限，半径1.5的燃烧区域，位于燃烧区域中的我方单位每秒受到100点无来源真实伤害（可叠加） "
+				"以自身所在位置为中心，释放一个持续时间无限，半径1.5的燃烧区域，位于燃烧区域中的我方单位每秒受到100点无来源{true}伤害（可叠加） "
 			]
 		}
 	},
 	"pathfinder_veles": {
 		"tooltip": {
-			"en": ["Prioritizes 'Gelato Stops' and attacks deal an extra 1000 Arts damage to them"],
+			"en": ["Prioritizes 'Gelato Stops' and attacks deal an extra 1000 {arts} damage to them"],
 			"ja": [
 				"ジェラート供給所を優先して攻撃する",
-				"ジェラート供給所を攻撃した時、追加で1000の術ダメージを与える"
+				"ジェラート供給所を攻撃した時、追加で1000の{arts}ダメージを与える"
 			],
-			"zh": ["优先攻击<“冰淇淋机”>", "每次攻击<“冰淇淋机”>时额外造成1000法术伤害"]
+			"zh": ["优先攻击<“冰淇淋机”>", "每次攻击<“冰淇淋机”>时额外造成1000{arts}伤害"]
 		}
 	},
 	"pathfinder_nuncio": {
@@ -1903,7 +1911,7 @@
 			"en": [""],
 			"ja": [""],
 			"zh": [
-				"技力大于等于1时：变为远程攻击，攻击时消耗1点技力，优先选择攻击范围内未处于攻击附加效果影响下的我方单位，造成攻击力150%法术普通伤害（对<冰淇淋机>额外造成5000法术伤害），并附加<v.duration>s无法攻击与使用技能的效果"
+				"技力大于等于1时：变为远程攻击，攻击时消耗1点技力，优先选择攻击范围内未处于攻击附加效果影响下的我方单位，造成攻击力150%{arts}普通伤害（对<冰淇淋机>额外造成5000{arts}伤害），并附加<v.duration>s无法攻击与使用技能的效果"
 			]
 		}
 	},
@@ -1918,10 +1926,10 @@
 	"sgprst": {
 		"tooltip": {
 			"en": [
-				"Gun - Consumes 1 Ammo and deals 100% ATK as Phys damage to target and decreases target's DEF by 300 permanently"
+				"Gun - Consumes 1 Ammo and deals 100% ATK as {phys} damage to target and decreases target's DEF by 300 permanently"
 			],
 			"ja": [
-				"弾薬数1以上なら、通常攻撃時に弾薬を1消費し、対象に攻撃力の100%の物理ダメージを与え、防御力を永久に-300"
+				"弾薬数1以上なら、通常攻撃時に弾薬を1消費し、対象に攻撃力の100%の{phys}ダメージを与え、防御力を永久に-300"
 			],
 			"zh": [
 				"自身技力大于等于1时，每次攻击时消耗1技力发射特殊弹药，特殊弹药使命中目标的防御力永久降低300"
@@ -1936,31 +1944,31 @@
 		"value": 3000,
 		"tooltip": {
 			"en": [
-				"Cannon - Consumes 1 Ammo and deals <v.atk.multiplier>% ATK as Phys damage to target and surrounding 8 tiles",
-				"deals extra <v.value> Arts damage to 'Gelato Stops'"
+				"Cannon - Consumes 1 Ammo and deals <v.atk.multiplier>% ATK as {phys} damage to target and surrounding 8 tiles",
+				"deals extra <v.value> {arts} damage to 'Gelato Stops'"
 			],
 			"ja": [
-				"弾薬数1以上なら、通常攻撃時に弾薬を1消費し、対象と周囲8マスに攻撃力の<v.atk.multiplier>%の物理ダメージを与える",
-				"ジェラート供給所には追加で<v.value>の術ダメージを与える"
+				"弾薬数1以上なら、通常攻撃時に弾薬を1消費し、対象と周囲8マスに攻撃力の<v.atk.multiplier>%の{phys}ダメージを与える",
+				"ジェラート供給所には追加で<v.value>の{arts}ダメージを与える"
 			],
 			"zh": [
-				"自身技力大于等于1时，消耗1点技力，对目标及对周围八格我方单位造成<v.atk.multiplier>%物理伤害",
-				"对<冰淇淋机>额外造成<v.value>点法术普通伤害"
+				"自身技力大于等于1时，消耗1点技力，对目标及对周围八格我方单位造成<v.atk.multiplier>%{phys}伤害",
+				"对<冰淇淋机>额外造成<v.value>点{arts}普通伤害"
 			]
 		}
 	},
 	"sarkaz_caster_bind": {
 		"tooltip": {
 			"en": [
-				"Skill - Uses chains to disable units (deals 35% of ATK as Arts dmg/s for 20s, only used once per battle)"
+				"Skill - Uses chains to disable units (deals 35% of ATK as {arts} dmg/s for 20s, only used once per battle)"
 			],
 			"ja": [
-				"スキル→20秒間味方ユニット1体を束縛し、1秒当たり攻撃力35%分の継続術ダメージを与える",
+				"スキル→20秒間味方ユニット1体を束縛し、1秒当たり攻撃力35%分の継続{arts}ダメージを与える",
 				"※本スキルは戦闘中1回使う"
 			],
 			"zh": [
 				"对半径3范围内一名我方单位持续施法，最长持续20s",
-				"施法期间目标每秒获得1s晕眩，并受到相当于攻击力35%的法术伤害",
+				"施法期间目标每秒获得1s晕眩，并受到相当于攻击力35%的{arts}伤害",
 				"※不会选择晕眩的单位为目标",
 				"※该技能只能发动一次"
 			]
@@ -2056,15 +2064,15 @@
 		"value": 100,
 		"tooltip": {
 			"en": [
-				"Normal attack inflicts a debuff dealing <v.value> Arts damage/s for 10s (this damage cannot kill)",
+				"Normal attack inflicts a debuff dealing <v.value> {arts} damage/s for 10s (this damage cannot kill)",
 				"Debuff is dispelled when target receives healing"
 			],
 			"ja": [
-				"通常攻撃→10秒間、毎秒<v.value>術ダメージを受けるデバフを与える",
+				"通常攻撃→10秒間、毎秒<v.value>{arts}ダメージを受けるデバフを与える",
 				"回復を受けるとデバフが消える"
 			],
 			"zh": [
-				"受到自身普通攻击的目标在10秒内每秒受到<v.value>点无来源法术普通伤害(该伤害无法致死)",
+				"受到自身普通攻击的目标在10秒内每秒受到<v.value>点无来源{arts}普通伤害(该伤害无法致死)",
 				"目标受到治疗效果后该效果立刻解除"
 			]
 		}
@@ -2181,12 +2189,15 @@
 		"tooltip": {
 			"en": [
 				"Sacrifice (Initial CD: 0, ~CD: 5s)",
-				"Deals 100% of ATK as Arts splash damage to allied Operators within a 1.5 tile radius."
+				"Deals 100% of ATK as {arts} splash damage to allied Operators within a 1.5 tile radius."
 			],
-			"ja": ["スキル（初動0秒/再動5秒）", "半径1.5内の味方全員に攻撃力の100%の術ダメージを与える"],
+			"ja": [
+				"スキル（初動0秒/再動5秒）",
+				"半径1.5内の味方全員に攻撃力の100%の{arts}ダメージを与える"
+			],
 			"zh": [
 				"献祭（初次冷却0s，后5s）",
-				"对半径1.5范围内的我方干员造成相当于100%攻击力的法术溅射伤害"
+				"对半径1.5范围内的我方干员造成相当于100%攻击力的{arts}溅射伤害"
 			]
 		}
 	},
@@ -2215,10 +2226,10 @@
 	"sarkaz_guerilla_fighter": {
 		"tooltip": {
 			"en": [
-				"When coming into contact with a Pulse Wave, takes no damage and will deal Arts damage with normal attacks."
+				"When coming into contact with a Pulse Wave, takes no damage and will deal {arts} damage with normal attacks."
 			],
-			"ja": ["源石衝撃波に触れると、ダメージを受けず、攻撃が術攻撃に変わる"],
-			"zh": ["接触脉冲波时，不受伤害且攻击切换成法术伤害 "]
+			"ja": ["源石衝撃波に触れると、ダメージを受けず、攻撃が{arts}攻撃に変わる"],
+			"zh": ["接触脉冲波时，不受伤害且攻击切换成{arts}伤害 "]
 		}
 	},
 	"scout_anti_stealth": {
@@ -2253,8 +2264,8 @@
 		"suffix": { "en": "melee", "ja": "近", "zh": "近" },
 		"hits": 1,
 		"tooltip": {
-			"en": ["When blocked, attacks deal <v.atk.multiplier>% ATK as physical damage"],
-			"ja": ["ブロック時、近接攻撃で攻撃力の<v.atk.multiplier>%の物理ダメージを与える"],
+			"en": ["When blocked, attacks deal <v.atk.multiplier>% ATK as {phys} damage"],
+			"ja": ["ブロック時、近接攻撃で攻撃力の<v.atk.multiplier>%の{phys}ダメージを与える"],
 			"zh": ["近战攻击造成攻击力<v.atk.multiplier>%的伤害"]
 		}
 	},
@@ -2287,10 +2298,10 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"When not blocked, uses ranged attacks that deal <v.atk.multiplier>% of ATK as Physical damage"
+				"When not blocked, uses ranged attacks that deal <v.atk.multiplier>% of ATK as {phys} damage"
 			],
-			"ja": ["非ブロック時、攻撃力の<v.atk.multiplier>%で遠距離物理攻撃を行う"],
-			"zh": ["未被阻挡时可进行远程攻击，远程攻击造成攻击力<v.atk.multiplier>%的物理伤害"]
+			"ja": ["非ブロック時、攻撃力の<v.atk.multiplier>%で遠距離{phys}攻撃を行う"],
+			"zh": ["未被阻挡时可进行远程攻击，远程攻击造成攻击力<v.atk.multiplier>%的{phys}伤害"]
 		}
 	},
 	"ursus_striker_hp50": {
@@ -2337,7 +2348,7 @@
 		"tooltip": {
 			"en": ["When blocked, creates an explosion around self every 10s"],
 			"ja": ["ブロックされると10秒毎に自分中心に爆発"],
-			"zh": ["被阻挡后，每10秒(被眩晕时暂停计时)对自身1.4半径范围内我方单位造成1000法术溅射伤害"]
+			"zh": ["被阻挡后，每10秒(被眩晕时暂停计时)对自身1.4半径范围内我方单位造成1000{arts}溅射伤害"]
 		}
 	},
 	"W_C4": {
@@ -2348,17 +2359,17 @@
 		"tooltip": {
 			"en": [
 				"C4 (Initial CD: 9s, ~CD: 20s)",
-				"plants bomb on 2 units, dealing <v.atk.multiplier>% ATK as Phys damage each",
+				"plants bomb on 2 units, dealing <v.atk.multiplier>% ATK as {phys} damage each",
 				"HP↓50% - plants bomb on 3 units, uses skill immediately"
 			],
 			"ja": [
 				"爆弾（初動9秒/再動20秒）",
-				"味方2体に爆弾設置する、攻撃力<v.atk.multiplier>%の物理ダメージを与える",
+				"味方2体に爆弾設置する、攻撃力<v.atk.multiplier>%の{phys}ダメージを与える",
 				"HP50%以下：爆弾2体ｰ>3体、即時爆弾設置する"
 			],
 			"zh": [
 				"C4（初次冷却9s，后20s）",
-				"为自身2.5半径范围内一个我方单位安装上C4，3.2秒后造成攻击力<v.atk.multiplier>%的物理普通伤害",
+				"为自身2.5半径范围内一个我方单位安装上C4，3.2秒后造成攻击力<v.atk.multiplier>%的{phys}普通伤害",
 				"生命值低于50%时，技能冷却立刻归0，技能C4最大目标数提升至3"
 			]
 		}
@@ -2375,7 +2386,7 @@
 			"ja": ["石投げ（初動13秒/再動13秒）", "25秒スタンする (スタンしてるユニットは無視）"],
 			"zh": [
 				"眩晕击（初次冷却13s，后13s）",
-				"对2.5半径内距离自身最近的未处于晕眩状态的目标投掷一块石头，造成25s晕眩和70%攻击力物理普通伤害"
+				"对2.5半径内距离自身最近的未处于晕眩状态的目标投掷一块石头，造成25s晕眩和70%攻击力{phys}普通伤害"
 			]
 		}
 	},
@@ -2396,9 +2407,11 @@
 	},
 	"DOL_counter": {
 		"tooltip": {
-			"en": ["Every 20 hits received, unleases a 100% ATK arts dmg counter to all units"],
-			"ja": ["20回攻撃を受けると、味方全体に攻撃力100％術ダメージのカウンターを放つ"],
-			"zh": ["每受到20次可触发受击回复的伤害后，对场上全体我方单位造成自身攻击力100%的法术溅射伤害"]
+			"en": ["Every 20 hits received, unleases a 100% ATK {arts} dmg counter to all units"],
+			"ja": ["20回攻撃を受けると、味方全体に攻撃力100％{arts}ダメージのカウンターを放つ"],
+			"zh": [
+				"每受到20次可触发受击回复的伤害后，对场上全体我方单位造成自身攻击力100%的{arts}溅射伤害"
+			]
 		}
 	},
 	"DOL_shield": {
@@ -2424,7 +2437,7 @@
 		"tooltip": {
 			"en": ["Self-destructs after 8mins, taking away 30 lifepoint"],
 			"ja": ["8分後自爆して、耐久値30点減る"],
-			"zh": ["8分后自爆，扣除30点关卡生命值，对场上全体我方单位造成自身攻击力200%的法术溅射伤害"]
+			"zh": ["8分后自爆，扣除30点关卡生命值，对场上全体我方单位造成自身攻击力200%的{arts}溅射伤害"]
 		}
 	},
 	"break_the_chains_1": {
@@ -2482,8 +2495,8 @@
 	},
 	"damage_1_arts": {
 		"tooltip": {
-			"en": ["Immune to Physical damage", "Takes 1 damage from attacks"],
-			"ja": ["物理攻撃無効", "受けたダメージは全て1になる"],
+			"en": ["Immune to {phys} damage", "Takes 1 damage from attacks"],
+			"ja": ["{phys}攻撃無効", "受けたダメージは全て1になる"],
 			"zh": []
 		}
 	},
@@ -2668,17 +2681,17 @@
 			"en": [
 				"Map AOE (Initial CD: 10s, ~CD: 20)",
 				"HP↓50% - (Initial CD: 5s, ~CD: 20s)",
-				"Targets all allied units, dealing 80% ATK as Arts damage to target and 4 tiles surrounding target"
+				"Targets all allied units, dealing 80% ATK as {arts} damage to target and 4 tiles surrounding target"
 			],
 			"ja": [
 				"全体攻撃（初動10秒/再動20秒）",
 				"HP50％以下（初動5秒/再動15秒）",
-				"味方全体に対象と隣接4マスに攻撃力80％の術ダメージを与える"
+				"味方全体に対象と隣接4マスに攻撃力80％の{arts}ダメージを与える"
 			],
 			"zh": [
 				"全屏攻击（初次冷却10s，后20s）",
 				"HP50%以下（初次冷却5s，后15s）",
-				"向场上所有我方单位施加法阵，每个法阵对目标和周围4格的所有我方单位造成80%法术普通伤害 "
+				"向场上所有我方单位施加法阵，每个法阵对目标和周围4格的所有我方单位造成80%{arts}普通伤害 "
 			]
 		}
 	},
@@ -2689,7 +2702,7 @@
 				"HP↓50% - (Initial CD: 10s, ~CD: 20s)",
 				"Casts a $infinite duration$ debuff on an operator:",
 				"Reduces ASPD by 50%,",
-				"Deals 4% of Target's Max HP as Arts damage every second,",
+				"Deals 4% of Target's Max HP as {arts} damage every second,",
 				"Seals tile occupied when target leaves",
 				"and increases redeployment time by 50%,",
 				"Does not target summoned units",
@@ -2700,7 +2713,7 @@
 				"眼差し（初動20秒/再動20秒）",
 				"HP50％以下（初動10秒/再動15秒）",
 				"味方単体に$継続時間無限$のデバフを与える：",
-				"攻撃速度-50、毎秒相手の最大HPの4％を術ダメージとして与える",
+				"攻撃速度-50、毎秒相手の最大HPの4％を{arts}ダメージとして与える",
 				"相手が離脱した後、元いたマスを封印する",
 				"相手の再出撃時間を50％増加",
 				"召喚ユニットやすでに効果下の味方は選択されない"
@@ -2710,7 +2723,7 @@
 				"HP50%以下（初次冷却10s，后15s）",
 				"选择场上一名我方干员施加永久持续的法术",
 				"攻击速度最终降低至50%",
-				"自身每秒对其造成目标最大生命值4%的法术伤害",
+				"自身每秒对其造成目标最大生命值4%的{arts}伤害",
 				"若法术持续时间内目标退场，则封印目标所在地块，且本次再部署时间延长至150%",
 				"※不选择已处于此技能影响下的单位为目标 "
 			]
@@ -2736,32 +2749,32 @@
 		"duration": 5,
 		"tooltip": {
 			"en": [
-				"Upon death, deals 130% of ATK as Arts damage in a 1.65 tile radius to all allied and enemy units and applies Cold for <v.duration>s",
+				"Upon death, deals 130% of ATK as {arts} damage in a 1.65 tile radius to all allied and enemy units and applies Cold for <v.duration>s",
 				"(can be silenced)."
 			],
 			"ja": [
-				"死亡すると、半径1.65以内の敵味方全員に攻撃力の130%の術ダメージを与え、<v.duration>秒間寒冷状態にする",
+				"死亡すると、半径1.65以内の敵味方全員に攻撃力の130%の{arts}ダメージを与え、<v.duration>秒間寒冷状態にする",
 				"無効化可能"
 			],
 			"zh": [
-				"被击倒时对周围所有单位造成攻击力150%的法术溅射伤害且施加<v.duration>s的寒冷（可被沉默）"
+				"被击倒时对周围所有单位造成攻击力150%的{arts}溅射伤害且施加<v.duration>s的寒冷（可被沉默）"
 			]
 		}
 	},
 	"unbalance_damage": {
 		"damage": 50,
 		"tooltip": {
-			"en": ["When unbalanced, takes <v.damage> True damage every 0.066s."],
-			"ja": ["強制移動中、0.066秒ごとに<v.damage>（1秒に約1200）の確定ダメージを受ける"],
-			"zh": ["处于失衡状态时，每0.066s受到<v.damage>点无来源真实伤害"]
+			"en": ["When unbalanced, takes <v.damage> {true} damage every 0.066s."],
+			"ja": ["強制移動中、0.066秒ごとに<v.damage>（1秒に約1200）の{true}ダメージを受ける"],
+			"zh": ["处于失衡状态时，每0.066s受到<v.damage>点无来源{true}伤害"]
 		}
 	},
 	"bleed_true": {
 		"value": 100,
 		"tooltip": {
-			"en": ["Takes <v.value> True damage every second"],
-			"ja": ["毎秒<v.value>の確定ダメージを受ける"],
-			"zh": ["自身每秒受到<v.value>真实伤害"]
+			"en": ["Takes <v.value> {true} damage every second"],
+			"ja": ["毎秒<v.value>の{true}ダメージを受ける"],
+			"zh": ["自身每秒受到<v.value>{true}伤害"]
 		}
 	},
 	"shaman_explode": {
@@ -2771,13 +2784,13 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Upon death, deals <v.atk.multiplier>% of ATK as Arts splash damage in a 1.5 tile radius to allied units"
+				"Upon death, deals <v.atk.multiplier>% of ATK as {arts} splash damage in a 1.5 tile radius to allied units"
 			],
 			"ja": [
-				"死亡時に自爆し、半径1.5以内の全ユニットに攻撃力の<v.atk.multiplier>%の術ダメージを与える"
+				"死亡時に自爆し、半径1.5以内の全ユニットに攻撃力の<v.atk.multiplier>%の{arts}ダメージを与える"
 			],
 			"zh": [
-				"死亡时施法对周围所有单位造成攻击力<v.atk.multiplier>%的法术溅射伤害并直接夺取“留声机”的控制权"
+				"死亡时施法对周围所有单位造成攻击力<v.atk.multiplier>%的{arts}溅射伤害并直接夺取“留声机”的控制权"
 			]
 		}
 	},
@@ -2785,10 +2798,10 @@
 		"tags": [],
 		"tooltip": {
 			"en": [
-				"When attacking targets outside of Realigned Flux, deals additional 40% ATK as Arts damage"
+				"When attacking targets outside of Realigned Flux, deals additional 40% ATK as {arts} damage"
 			],
-			"ja": ["指揮光線を受けていない味方に攻撃する時、追加で攻撃力の40%の術ダメージを与える"],
-			"zh": ["攻击未处于重整束流上的目标时，攻击额外造成一次攻击力40%的法术伤害"]
+			"ja": ["指揮光線を受けていない味方に攻撃する時、追加で攻撃力の40%の{arts}ダメージを与える"],
+			"zh": ["攻击未处于重整束流上的目标时，攻击额外造成一次攻击力40%的{arts}伤害"]
 		}
 	},
 	"sarks_performance": {
@@ -2801,15 +2814,15 @@
 		"tooltip": {
 			"en": [
 				"Skill (Initial CD: <v.initCooldown>s, ~CD: <v.cooldown>s)",
-				"Fires projectiles in all 4 directions, dealing 150% ATK as Physical damage to first allied unit hit"
+				"Fires projectiles in all 4 directions, dealing 150% ATK as {phys} damage to first allied unit hit"
 			],
 			"ja": [
 				"【全力演奏】（初動<v.initCooldown>秒/再動<v.cooldown>秒）",
-				"十字方向にに射程無限の光弾を発射し、触れた最初の味方に攻撃力の150%の物理ダメージを与える"
+				"十字方向にに射程無限の光弾を発射し、触れた最初の味方に攻撃力の150%の{phys}ダメージを与える"
 			],
 			"zh": [
 				"全力吹奏（初次冷却<v.initCooldown>s，后<v.cooldown>s）",
-				"向自身四方向发射弹道，对第一个触碰到的我方单位造成攻击力150%的物理普通伤害。"
+				"向自身四方向发射弹道，对第一个触碰到的我方单位造成攻击力150%的{phys}普通伤害。"
 			]
 		}
 	},
@@ -2836,25 +2849,25 @@
 	"durwar_evasion_hp50": {
 		"tags": [],
 		"tooltip": {
-			"en": ["When HP falls below 50%, gains 100% Physical evasion for 10s (can be silenced)"],
-			"ja": ["初めてHPが50%以下になると、10秒間、物理回避率+100%（無効化可能）"],
-			"zh": ["首次生命值降至50%后，获得100%物理闪避，持续10s（可被沉默）"]
+			"en": ["When HP falls below 50%, gains 100% {phys} evasion for 10s (can be silenced)"],
+			"ja": ["初めてHPが50%以下になると、10秒間、{phys}回避率+100%（無効化可能）"],
+			"zh": ["首次生命值降至50%后，获得100%{phys}闪避，持续10s（可被沉默）"]
 		}
 	},
 	"durwar2_evasion_hp50": {
 		"tags": [],
 		"tooltip": {
-			"en": ["When HP falls below 50%, gains 100% Physical evasion for 20s (can be silenced)"],
-			"ja": ["初めてHPが50%以下になると、20秒間、物理回避率+100%（無効化可能）"],
-			"zh": ["首次生命值降至50%后，获得100%物理闪避，持续20s（可被沉默）"]
+			"en": ["When HP falls below 50%, gains 100% {phys} evasion for 20s (can be silenced)"],
+			"ja": ["初めてHPが50%以下になると、20秒間、{phys}回避率+100%（無効化可能）"],
+			"zh": ["首次生命值降至50%后，获得100%{phys}闪避，持续20s（可被沉默）"]
 		}
 	},
 	"reduce_phys_arts_90": {
 		"tags": [],
 		"tooltip": {
-			"en": ["Takes 90% reduced Phys/Arts damage"],
-			"ja": ["受ける物理と術ダメージが90%減少"],
-			"zh": ["受到的物理与法术伤害降低90%"]
+			"en": ["Takes 90% reduced {phys}/{arts} damage"],
+			"ja": ["受ける{phys}と{arts}ダメージが90%減少"],
+			"zh": ["受到的{phys}与{arts}伤害降低90%"]
 		}
 	},
 	"creation_add_block_1": {
@@ -2894,15 +2907,15 @@
 		"tooltip": {
 			"en": [
 				"While present on the battlefield, increases the ATK of all 'Reborn Creations' on the field by 10% (stacking up to 5 times)",
-				"and grants them an extra 10% of ATK as Necrosis damage (can be silenced)."
+				"and grants them an extra 10% of ATK as {ba.dt.apoptosis} (can be silenced)."
 			],
 			"ja": [
 				"マップ上にいると、全ての再生造物の攻撃力+10%（5回まで重複する",
-				"さらに再生造物の通常攻撃に、攻撃力の10%の壊死ダメージが追加される"
+				"さらに再生造物の通常攻撃に、攻撃力の10%の{ba.dt.apoptosis}が追加される"
 			],
 			"zh": [
 				"在场时，场上所有【重生造物】攻击力提升10%（最多叠加5层）",
-				"且攻击时附加各自攻击力10%的凋亡损伤（可被沉默）"
+				"且攻击时附加各自攻击力10%的{ba.dt.apoptosis}（可被沉默）"
 			]
 		}
 	},
@@ -2936,11 +2949,11 @@
 		"tags": [],
 		"tooltip": {
 			"en": [
-				"[Military Training] - gains 80% Physical/Arts evasion",
+				"[Military Training] - gains 80% {phys}/Arts evasion",
 				"When hit by Londinium Artillery, lose this effect for 30s and become stunned for 8s"
 			],
 			"ja": [
-				"【軍事訓練】→物理・術回避率+80%",
+				"【軍事訓練】→{phys}・術回避率+80%",
 				"副砲に当たると、回避効果が30秒間無効化され、8秒間スタンする"
 			],
 			"zh": []
@@ -2978,9 +2991,12 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Normal attacks does 100% ATK Phys & 50% Arts damage and grants the Londinium Artillery 6 SP"
+				"Normal attacks does 100% ATK {phys} & 50% Arts damage and grants the Londinium Artillery 6 SP"
 			],
-			"ja": ["通常攻撃は攻撃力の100%の物理と50%の術ダメージを与え", "攻撃の度に、副砲のSPを+6する"],
+			"ja": [
+				"通常攻撃は攻撃力の100%の{phys}と50%の術ダメージを与え",
+				"攻撃の度に、副砲のSPを+6する"
+			],
 			"zh": []
 		}
 	},
@@ -3006,31 +3022,31 @@
 		"tooltip": {
 			"en": [
 				"Skill (Initial CD: 0s, ~CD: 10s)",
-				"Does 12% of ATK as Arts damage and 6% ATK as Burn Damage every 0.5s for 10.6s",
+				"Does 12% of ATK as {arts} damage and 6% ATK as {ba.dt.burning} every 0.5s for 10.6s",
 				"Resets cooldown if skill is used again while chanelling",
 				"6s after channeling, enters cooldown",
 				"Skill is stopped when silenced/stunned"
 			],
 			"ja": [
 				"火炎放射（初動0秒/再動10秒）",
-				"10.6秒間、0.5秒ごとに攻撃力の12%の術ダメージと6%の灼熱ダメージを与える",
+				"10.6秒間、0.5秒ごとに攻撃力の12%の{arts}ダメージと6%の{ba.dt.burning}を与える",
 				"無効化かスタンで中断できる"
 			],
-			"zh": ["技能（初次冷却0s，后10s）", "10.6s间对持续造成法术和灼燃损伤"]
+			"zh": ["技能（初次冷却0s，后10s）", "10.6s间对持续造成{arts}和{ba.dt.burning}"]
 		}
 	},
 	"flamerazer_explode": {
 		"tooltip": {
 			"en": [
-				"Explodes upon defeat, dealing 100% of ATK as Arts damage to ally units in 1.5 tile radius",
+				"Explodes upon defeat, dealing 100% of ATK as {arts} damage to ally units in 1.5 tile radius",
 				"Instant kills other flamerazers and destroys Tattered Pillars",
 				"Can be silenced"
 			],
 			"ja": [
-				"死亡時に爆発し、攻撃半径(1.5)内の全味方に攻撃力の100%の術ダメージを与える",
+				"死亡時に爆発し、攻撃半径(1.5)内の全味方に攻撃力の100%の{arts}ダメージを与える",
 				"ダブリン焼滅者系を即死させ、脆い石柱を破壊する（無効化可能）"
 			],
-			"zh": ["死亡时爆炸造成法术伤害，并击倒周围的破碎支柱与其他<深池焚毁者>"]
+			"zh": ["死亡时爆炸造成{arts}伤害，并击倒周围的破碎支柱与其他<深池焚毁者>"]
 		}
 	},
 	"doq_freeze_armor": {
@@ -3088,16 +3104,16 @@
 	},
 	"sailor_drown": {
 		"tooltip": {
-			"en": ["When underwater, takes 1000 True damage every second"],
-			"ja": ["水蝕状態で毎秒1000確定ダメージを受ける"],
-			"zh": ["“水蚀”状态每秒受到1000点无来源真实伤害"]
+			"en": ["When underwater, takes 1000 {true} damage every second"],
+			"ja": ["水蝕状態で毎秒1000{true}ダメージを受ける"],
+			"zh": ["“水蚀”状态每秒受到1000点无来源{true}伤害"]
 		}
 	},
 	"sailor_drown2": {
 		"tooltip": {
-			"en": ["When underwater, takes 1400 True damage every second"],
-			"ja": ["水蝕状態で毎秒1400確定ダメージを受ける"],
-			"zh": ["“水蚀”状态每秒受到1400点无来源真实伤害"]
+			"en": ["When underwater, takes 1400 {true} damage every second"],
+			"ja": ["水蝕状態で毎秒1400{true}ダメージを受ける"],
+			"zh": ["“水蚀”状态每秒受到1400点无来源{true}伤害"]
 		}
 	},
 	"dulin_buggy": {
@@ -3109,9 +3125,9 @@
 	},
 	"payback_sgbow": {
 		"tooltip": {
-			"en": ["During 'Payback Time', attacks deal Arts damage"],
-			"ja": ["「粛清の時」中は術攻撃に変化する"],
-			"zh": ["“清算时刻”状态下，攻击变为法术伤害"]
+			"en": ["During 'Payback Time', attacks deal {arts} damage"],
+			"ja": ["「粛清の時」中は{arts}攻撃に変化する"],
+			"zh": ["“清算时刻”状态下，攻击变为{arts}伤害"]
 		}
 	},
 	"blood_debt_inc": {
@@ -3162,7 +3178,7 @@
 			"ja": [
 				"【閃影】（攻撃回復/必要SP2）",
 				"ブロック相手をすりぬけ、進行ルートに沿って1.5マス移動",
-				"さらに、ブロックしていた相手に攻撃力の100%の物理ダメージを与える"
+				"さらに、ブロックしていた相手に攻撃力の100%の{phys}ダメージを与える"
 			],
 			"zh": ["攻击2次后，下一次攻击会对攻击目标造成攻击力150%的伤害，向下个检查点移动1.5格"]
 		}
@@ -3219,15 +3235,15 @@
 		"tooltip": {
 			"en": [
 				"Skill (Initial SP: 2, Cost: 2) Attack Recovery",
-				"Next attack does 100% ATK as Physical damage and releases a mist for 10s in a 2.0 tile radius which causes allied units to take <v.low>(Melee)/<v.high>(Ranged) True damage per second"
+				"Next attack does 100% ATK as {phys} damage and releases a mist for 10s in a 2.0 tile radius which causes allied units to take <v.low>(Melee)/<v.high>(Ranged) True damage per second"
 			],
 			"ja": [
 				"【汚染】（攻撃回復/初期SP2/必要SP2）",
-				"対象に攻撃力の100%の物理ダメージを与え、半径2.2で10秒持続する蝕む穢れを発生させる",
+				"対象に攻撃力の100%の{phys}ダメージを与え、半径2.2で10秒持続する蝕む穢れを発生させる",
 				"毎秒地上/高台ユニットにそれぞれ<v.low>/<v.high>確定ダメージ"
 			],
 			"zh": [
-				"攻击2次后，下一次攻击会对攻击目标造成攻击力100%的伤害并释放污染秽蚀",
+				"攻击2次后，下一次攻击会对攻击目标造成攻击力100%的{phys}伤害并释放污染秽蚀",
 				"使周围我方持续损失生命(地面<v.low>/高台<v.high>)"
 			]
 		}
@@ -3242,18 +3258,18 @@
 		"tooltip": {
 			"en": [
 				"Bombard (Initial CD: <v.cd1>s, ~CD: <v.cd2>s)",
-				"Centering on the allied unit with the highest max HP, spawns a bombardment area within the surrounding 8 tiles. For 6s, deals <v.atk.multiplier>% of ATK as Arts damage to the allied unit with the highest percentage HP",
+				"Centering on the allied unit with the highest max HP, spawns a bombardment area within the surrounding 8 tiles. For 6s, deals <v.atk.multiplier>% of ATK as {arts} damage to the allied unit with the highest percentage HP",
 				"During Skill, gains immunity to push/pull, stun, freeze, levitate and sleep"
 			],
 			"ja": [
 				"【爆撃】（初動<v.cd1>秒/再動<v.cd2>秒）",
 				"攻撃範囲内で最も最大HPが高い味方を中心に、3×3マスの爆撃区域を設定",
-				"爆撃区域内で最もHP割合が高い味方に対し、攻撃力の<v.atk.multiplier>%の術ダメージを与える",
+				"爆撃区域内で最もHP割合が高い味方に対し、攻撃力の<v.atk.multiplier>%の{arts}ダメージを与える",
 				"爆撃中、強制移動・スタン・睡眠・凍結・浮遊耐性を得る"
 			],
 			"zh": [
 				"轰炸（初次冷却<v.cd1>s，后<v.cd2>s）",
-				"锁定生命上限最高的目标进行数次轰炸，每次对范围内当前生命比例最高的单位造成法术伤害",
+				"锁定生命上限最高的目标进行数次轰炸，每次对范围内当前生命比例最高的单位造成{arts}伤害",
 				"技能期间免疫失衡，晕眩，冻结，浮空，沉睡"
 			]
 		}
@@ -3277,18 +3293,18 @@
 		"tooltip": {
 			"en": [
 				"Skill (Initial CD: 10s, ~CD: 24s)",
-				"Channels upon an allied unit, dealing 40% of ATK as Arts damage every second for 8s",
-				"When channel ends, deals 220% of ATK as Necrosis damage to target and adjacent 4 tiles."
+				"Channels upon an allied unit, dealing 40% of ATK as {arts} damage every second for 8s",
+				"When channel ends, deals 220% of ATK as {ba.dt.apoptosis} to target and adjacent 4 tiles."
 			],
 			"ja": [
 				"【死の瞳】（初動10秒/再動24秒）",
-				"味方1人に8秒間、攻撃力の40%の術ダメージを毎秒与える",
-				"その後、対象と周囲4マスに攻撃力の220%の壊死損傷を与える"
+				"味方1人に8秒間、攻撃力の40%の{arts}ダメージを毎秒与える",
+				"その後、対象と周囲4マスに攻撃力の220%の{ba.dt.apoptosis}を与える"
 			],
 			"zh": [
 				"死亡之眼（初次冷却10s，后24s）",
-				"对攻击范围内一名我方单位持续施法，每秒造成攻击力40%的法术伤害，持续8s",
-				"并在释放完成时对目标及其周围4格的的我方单位造成攻击力220%的凋亡损伤"
+				"对攻击范围内一名我方单位持续施法，每秒造成攻击力40%的{arts}伤害，持续8s",
+				"并在释放完成时对目标及其周围4格的的我方单位造成攻击力220%的{ba.dt.apoptosis}"
 			]
 		}
 	},
@@ -3302,7 +3318,7 @@
 				"Skill (Initial SP: 0, Cost :3) Attack recovery",
 				"Does <v.atk.multiplier>% ATK x 5 to target"
 			],
-			"ja": ["【連続斬り】（攻撃回復/必要SP3）", "対象に攻撃力の100%の物理ダメージを5回与える"],
+			"ja": ["【連続斬り】（攻撃回復/必要SP3）", "対象に攻撃力の100%の{phys}ダメージを5回与える"],
 			"zh": ["3次攻击后对目标发动五次连续斩击"]
 		}
 	},
@@ -3369,12 +3385,12 @@
 				"HPが70%,40%,10%以下になる時，3秒間【自己消滅】状態に入る",
 				"攻撃を停止、移动速度+200%",
 				"バインド、足止め無効、ブロック不可",
-				"受ける物理と術ダメージが80%減少"
+				"受ける{phys}と{arts}ダメージが80%減少"
 			],
 			"zh": [
 				"生命低于70%,40%,10%时，进入持续3s的【自我泯灭】",
 				"停止攻击，移动速度+200%，免疫束缚，停顿，不可被阻挡",
-				"受到的物理和法术伤害降低80%"
+				"受到的{phys}和{arts}伤害降低80%"
 			]
 		}
 	},
@@ -3389,18 +3405,20 @@
 	},
 	"smdeer_1": {
 		"tooltip": {
-			"en": ["【Icicle Fall】Attacks deal Physical damage to allied units in a column"],
-			"ja": ["【氷柱】通常攻撃時、対象の配置列にいる味方ユニット全員に物理ダメージを与える"],
-			"zh": ["【冰凌】攻击时对整列的我方单位造成物理伤害"]
+			"en": ["【Icicle Fall】Attacks deal {phys} damage to allied units in a column"],
+			"ja": ["【氷柱】通常攻撃時、対象の配置列にいる味方ユニット全員に{phys}ダメージを与える"],
+			"zh": ["【冰凌】攻击时对整列的我方单位造成{phys}伤害"]
 		}
 	},
 	"smdeer_2": {
 		"tooltip": {
 			"en": [
-				"【Surge of Nature】Stuns an allied unit for 10s and does 20% ATK as Arts damage every second"
+				"【Surge of Nature】Stuns an allied unit for 10s and does 20% ATK as {arts} damage every second"
 			],
-			"ja": ["【自然の奔流】味方ユニット1人を10秒間スタンする、毎秒攻撃力20％の術ダメージを与える"],
-			"zh": ["【自然涌动】使一名我方单位晕眩10s并持续受到攻击力20%法术伤害"]
+			"ja": [
+				"【自然の奔流】味方ユニット1人を10秒間スタンする、毎秒攻撃力20％の{arts}ダメージを与える"
+			],
+			"zh": ["【自然涌动】使一名我方单位晕眩10s并持续受到攻击力20%{arts}伤害"]
 		}
 	},
 	"smdeer_3": {
@@ -3411,20 +3429,20 @@
 				"【Icicle Fall】and 【Surge of Nature】 targets 1 more unit"
 			],
 			"ja": [
-				"HPが半分以下になると、物理・術の被ダメージが<v.value>%軽減され、【氷柱】と【自然の奔流】の対象が1体増加する"
+				"HPが半分以下になると、{phys}・{arts}の被ダメージが<v.value>%軽減され、【氷柱】と【自然の奔流】の対象が1体増加する"
 			],
 			"zh": [
-				"生命值低于一半时，受到的物理和法术伤害降低<v.value>%，【冰凌】和【自然涌动】额外选择一个目标"
+				"生命值低于一半时，受到的{phys}和{arts}伤害降低<v.value>%，【冰凌】和【自然涌动】额外选择一个目标"
 			]
 		}
 	},
 	"smdeer_4": {
 		"tooltip": {
 			"en": [
-				"After 600s, does 150% ATK as Arts damage to all allied units and decreases lifepoint by 30"
+				"After 600s, does 150% ATK as {arts} damage to all allied units and decreases lifepoint by 30"
 			],
-			"ja": ["戦闘経過600秒後、味方全体に攻撃力150％の術ダメージを与え、耐久値を-30"],
-			"zh": ["战斗经过600s后，对全场我方单位造成攻击力150%的法术伤害，并扣除30目标生命"]
+			"ja": ["戦闘経過600秒後、味方全体に攻撃力150％の{arts}ダメージを与え、耐久値を-30"],
+			"zh": ["战斗经过600s后，对全场我方单位造成攻击力150%的{arts}伤害，并扣除30目标生命"]
 		}
 	},
 	"smgia_1": {
@@ -3547,7 +3565,7 @@
 			"en": [
 				"Weak spot located on its front, damage dealt to the rear significantly decreased (-80%)"
 			],
-			"ja": ["【弱点】は正面。背面から受ける物理・術ダメージ-80%"],
+			"ja": ["【弱点】は正面。背面から受ける{phys}・術ダメージ-80%"],
 			"zh": ["弱点部位位于正面，背面所受伤害降低80%"]
 		}
 	},
@@ -3556,18 +3574,18 @@
 			"en": [
 				"Weak spot located on its rear, damage dealt to the front significantly decreased (-80%)"
 			],
-			"ja": ["【弱点】は背面。正面から受ける物理・術ダメージ-80%"],
+			"ja": ["【弱点】は背面。正面から受ける{phys}・術ダメージ-80%"],
 			"zh": ["弱点部位位于背面，正面所受伤害降低80%"]
 		}
 	},
 	"mhboar_2": {
 		"tooltip": {
 			"en": [
-				"Gradually accelerates when charging, dealing damage based on Movement Speed (1:800) to any target it passes through or is blocked by"
+				"Gradually accelerates when charging, dealing {phys} damage based on Movement Speed (1:800) to any target it passes through or is blocked by"
 			],
 			"ja": [
 				"0.333秒ごとに移動速度が33.3%増加する（上限35回）",
-				"移動時、接触した味方に「現在の移動速度×800」の物理ダメージを与える"
+				"移動時、接触した味方に「現在の移動速度×800」の{phys}ダメージを与える"
 			],
 			"zh": ["冲撞时逐渐加速，并对经过与阻挡自身的目标根据移动速度造成伤害（1:800）"]
 		}
@@ -3590,16 +3608,16 @@
 		"tooltip": {
 			"en": [
 				"Skill (Initial CD: 10s, ~CD: 35s)",
-				"after charging for 5s does <v.atk.multiplier>% dmg to target and gains ASPD +<v.value> for 20s"
+				"after charging for 5s does <v.atk.multiplier>% as {arts} damage to target and gains ASPD +<v.value> for 20s"
 			],
 			"ja": [
 				"スキル（初動10秒/再動35秒）",
-				"5秒間チャージした後、攻撃力の200%の術ダメージを与える",
+				"5秒間チャージした後、攻撃力の200%の{arts}ダメージを与える",
 				"その後20秒間、自身の攻撃速度+<v.value>"
 			],
 			"zh": [
 				"技能（初次冷却10s，后35s）",
-				"蓄力约5s后，对目标造成攻击力200%的法术伤害，之后攻击速度+<v.value>，持续20s"
+				"蓄力约5s后，对目标造成攻击力200%的{arts}伤害，之后攻击速度+<v.value>，持续20s"
 			]
 		}
 	},
@@ -3660,7 +3678,7 @@
 		"hits": 1,
 		"tooltip": {
 			"en": ["Deals AoE Damage to target and adjacent 4 tiles on the first attack"],
-			"ja": ["初回攻撃のみ、対象と周囲4マスに攻撃力の150%の物理ダメージを与える"],
+			"ja": ["初回攻撃のみ、対象と周囲4マスに攻撃力の150%の{phys}ダメージを与える"],
 			"zh": ["首次攻击时对目标和周围4格造成伤害"]
 		}
 	},
@@ -3692,12 +3710,12 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Detonates on defeat, dealing 200% ATK as Phys damage and 170% as Corrosion damage (Can be silenced)"
+				"Detonates on defeat, dealing 200% ATK as {phys} damage and 170% as {ba.dt.erosion} (Can be silenced)"
 			],
 			"ja": [
-				"死亡すると、半径1.25以内の全味方に攻撃力の200%の物理ダメージと170%の侵蝕損傷を与える（無効化可能）"
+				"死亡すると、半径1.25以内の全味方に攻撃力の200%の{phys}ダメージと170%の{ba.dt.erosion}を与える（無効化可能）"
 			],
-			"zh": ["死亡后对周围造成攻击力200%物理溅射伤害和170%侵蚀损伤（可被沉默）"]
+			"zh": ["死亡后对周围造成攻击力200%{phys}溅射伤害和170%{ba.dt.erosion}（可被沉默）"]
 		}
 	},
 	"lyengs_1": {
@@ -3737,16 +3755,16 @@
 		"tooltip": {
 			"en": [
 				"Overload (Initial CD: 0, ~CD: 20s)",
-				"Punches target 10 times over 10s, each punch does <v.atk.multiplier>% of ATK as Phys damage and stuns for 2s"
+				"Punches target 10 times over 10s, each punch does <v.atk.multiplier>% of ATK as {phys} damage and stuns for 2s"
 			],
 			"ja": [
 				"【過負荷】（初動0秒/再動20秒）",
 				"10秒間、攻撃間隔1秒のパンチを打ち続ける",
-				"パンチは1発ごとに、攻撃力の<v.atk.multiplier>%の物理ダメージと2秒のスタンを与える"
+				"パンチは1発ごとに、攻撃力の<v.atk.multiplier>%の{phys}ダメージと2秒のスタンを与える"
 			],
 			"zh": [
 				"超负载（初次冷却0s，后20s）",
-				"对目标连续攻击，每次造成攻击力<v.atk.multiplier>%的物理伤害和2s晕眩，持续10s"
+				"对目标连续攻击，每次造成攻击力<v.atk.multiplier>%的{phys}伤害和2s晕眩，持续10s"
 			]
 		}
 	},
@@ -3757,7 +3775,7 @@
 			],
 			"ja": [
 				"キッコウソウ系を倒すと「甲羅」を獲得する",
-				"甲羅所持中の【弱点】は背面。正面からの物理・術ダメージ-80%"
+				"甲羅所持中の【弱点】は背面。正面からの{phys}・術ダメージ-80%"
 			],
 			"zh": ["捕食<硬甲爪兽>后，会留下其甲壳充当防御工具，使背面以外所受伤害降低80%"]
 		}
@@ -3767,7 +3785,7 @@
 			"en": [
 				"Weak spot located on its front, damage dealt to the rear significantly decreased (-75%)"
 			],
-			"ja": ["【弱点】は正面。背面から受ける物理・術ダメージ-75%"],
+			"ja": ["【弱点】は正面。背面から受ける{phys}・術ダメージ-75%"],
 			"zh": ["弱点部位位于正面，背面所受伤害降低75%"]
 		}
 	},
@@ -3779,7 +3797,7 @@
 		"tooltip": {
 			"en": ["Deals damage in a semicircle to the rear at every 10% of HP lost"],
 			"ja": [
-				"HPが10%減るたび 、背面側180°・半径1.8以内の味方全員に攻撃力の110%の物理ダメージを与える"
+				"HPが10%減るたび 、背面側180°・半径1.8以内の味方全員に攻撃力の110%の{phys}ダメージを与える"
 			],
 			"zh": ["每损失10%生命值向背面半圆范围造成伤害"]
 		}
@@ -3851,9 +3869,9 @@
 	},
 	"nhfly_1": {
 		"tooltip": {
-			"en": ["Self-destructs when near an Operator, dealing Physical damage"],
+			"en": ["Self-destructs when near an Operator, dealing {phys} damage"],
 			"ja": ["通常攻撃後、死亡する"],
-			"zh": ["接近干员时，自毁并对其造成物理伤害"]
+			"zh": ["接近干员时，自毁并对其造成{phys}伤害"]
 		}
 	},
 	"duskls_1": {
@@ -3892,23 +3910,23 @@
 	"cbrush_1": {
 		"tooltip": {
 			"en": [
-				"When passing through allied units, does 40% of ATK and current Movespeed * 800 as Phys damage"
+				"When passing through allied units, does 40% of ATK and current Movespeed * 800 as {phys} damage"
 			],
 			"ja": [
-				"移動中、接触した味方に攻撃力の40%の物理ダメージと、現在の移動速度×800の物理ダメージを与える"
+				"移動中、接触した味方に攻撃力の40%の{phys}ダメージと、現在の移動速度×800の{phys}ダメージを与える"
 			],
-			"zh": ["经过干员时对其造成攻击力40%与自身移动速度*800的物理伤害"]
+			"zh": ["经过干员时对其造成攻击力40%与自身移动速度*800的{phys}伤害"]
 		}
 	},
 	"cbrush_2": {
 		"tooltip": {
 			"en": [
-				"When passing through allied units, does 40% of ATK and current Movespeed * 1000 as Phys damage"
+				"When passing through allied units, does 40% of ATK and current Movespeed * 1000 as {phys} damage"
 			],
 			"ja": [
-				"移動中、接触した味方に攻撃力の40%の物理ダメージと、現在の移動速度×1000の物理ダメージを与える"
+				"移動中、接触した味方に攻撃力の40%の{phys}ダメージと、現在の移動速度×1000の{phys}ダメージを与える"
 			],
-			"zh": ["经过干员时对其造成攻击力40%与自身移动速度*1000的物理伤害"]
+			"zh": ["经过干员时对其造成攻击力40%与自身移动速度*1000的{phys}伤害"]
 		}
 	},
 	"sgcar_1": {
@@ -3972,16 +3990,16 @@
 		"tooltip": {
 			"en": [
 				"Skill (Initial CD: 10s, ~CD: 15s) ",
-				"When blocked, deals 150% arts damage to blocking unit and blinks 1.5 tiles towards next checkpoint"
+				"When blocked, deals 150% ATK as {arts} damage to blocking unit and blinks 1.5 tiles towards next checkpoint"
 			],
 			"ja": [
 				"【回り込み】（初動10秒/再動15秒）",
 				"ブロック相手をすりぬけ、進行ルートに沿って1.5マス移動",
-				"さらに、ブロックしていた相手に攻撃力の100%の術ダメージを与える"
+				"さらに、ブロックしていた相手に攻撃力の100%の{arts}ダメージを与える"
 			],
 			"zh": [
 				"闪现（初次冷却10s，后15s）",
-				"下一次攻击会对攻击目标造成攻击力150%的法术伤害，向下个检查点移动1.5格"
+				"下一次攻击会对攻击目标造成攻击力150%的{arts}伤害，向下个检查点移动1.5格"
 			]
 		}
 	},
@@ -3993,15 +4011,15 @@
 		"tooltip": {
 			"en": [
 				"Skill (Initial CD: 10s, ~CD: 30s) ",
-				"After charging for 5s, fires an AOE attack at <Kharanduu Khagan, the Scourge of the Land>, dealing 200% of ATK as physical damage to all units caught up in the AOE and stuns for 10s"
+				"After charging for 5s, fires an AOE attack at <Kharanduu Khagan, the Scourge of the Land>, dealing 200% of ATK as {arts} damage to all units caught up in the AOE and stuns for 10s"
 			],
 			"ja": [
 				"【敕令】（初動25秒/再動30秒）",
-				"5秒チャージした後<「大地の鞭」ハランドゥハン>に大範囲砲撃を行う、範囲内全員に攻撃力200％の物理ダメージを与え、10秒スタンする"
+				"5秒チャージした後<「大地の鞭」ハランドゥハン>に大範囲砲撃を行う、範囲内全員に攻撃力200％の{arts}ダメージを与え、10秒スタンする"
 			],
 			"zh": [
 				"【敕令】（初次冷却25s，后30s）",
-				"蓄力5s后对<哈兰杜汗，大地之鞭>周围大范围所有单位造成攻击力300%法术伤害并施加10秒晕眩"
+				"蓄力5s后对<哈兰杜汗，大地之鞭>周围大范围所有单位造成攻击力300%{arts}伤害并施加10秒晕眩"
 			]
 		}
 	},
@@ -4060,15 +4078,15 @@
 		"tooltip": {
 			"en": [
 				"Skill (Initial CD: 10s, ~CD: 30s) ",
-				"After charging for 5s, fires an AOE attack at <Lugalszargus, the Overlord of Ages>, dealing 200% of ATK as physical damage to all units caught up in the AOE and stuns for 10s"
+				"After charging for 5s, fires an AOE attack at <Lugalszargus, the Overlord of Ages>, dealing 200% of ATK as {phys} damage to all units caught up in the AOE and stuns for 10s"
 			],
 			"ja": [
 				"【征服】（初動10秒/再動30秒）",
-				"5秒チャージした後<「暦法の王」ルガサルグス>に大範囲砲撃を行う、範囲内全員に攻撃力200％の物理ダメージを与え、10秒スタンする"
+				"5秒チャージした後<「暦法の王」ルガサルグス>に大範囲砲撃を行う、範囲内全員に攻撃力200％の{phys}ダメージを与え、10秒スタンする"
 			],
 			"zh": [
 				"【征服】（初次冷却10s，后30s）",
-				"蓄力5s后对<路加萨尔古斯，历法之王>周围大范围所有单位造成攻击力200%物理伤害并施加10秒晕眩"
+				"蓄力5s后对<路加萨尔古斯，历法之王>周围大范围所有单位造成攻击力200%{phys}伤害并施加10秒晕眩"
 			]
 		}
 	},
@@ -4150,15 +4168,15 @@
 	"cbsisy": {
 		"tooltip": {
 			"en": [
-				"Attacks in 4 directions while moving, dealing Arts damage and deals increased damage to nearby targets (50%/100%)"
+				"Attacks in 4 directions while moving, dealing {arts} damage and deals increased damage to nearby targets (50%/100%)"
 			],
 			"ja": [
 				"通常攻撃せず、強制移動無効",
-				"常に十字攻撃を放ち、命中した対象に距離が近いほど大きな術ダメージを与える(50%/100%)"
+				"常に十字攻撃を放ち、命中した対象に距離が近いほど大きな{arts}ダメージを与える(50%/100%)"
 			],
 			"zh": [
 				"不进行普通攻击，失衡免疫",
-				"不停止移动的四向攻击，造成法术伤害且对近处伤害更高(50%/100%)"
+				"不停止移动的四向攻击，造成{arts}伤害且对近处伤害更高(50%/100%)"
 			]
 		}
 	},
@@ -4191,8 +4209,8 @@
 	"skzcan_2": {
 		"tooltip": {
 			"en": ["When HP drops to 25%, gains Movespeed +0.9 and 50% Damage Reduction"],
-			"ja": ["HP25%以下→移動速度+0.9、受ける物理・術ダメージが50%減少"],
-			"zh": ["当生命值低于25%时，移动速度+0.9，受到的物理与法术伤害降低50%"]
+			"ja": ["HP25%以下→移動速度+0.9、受ける{phys}・{arts}ダメージが50%減少"],
+			"zh": ["当生命值低于25%时，移动速度+0.9，受到的{phys}与{arts}伤害降低50%"]
 		}
 	},
 	"steal_gold": {
@@ -4201,6 +4219,14 @@
 			"en": ["Steals <v.value> gold upon entering Protection Objective"],
 			"ja": ["防衛ラインに入ると源石錐<v.value>個を奪う"],
 			"zh": ["进入保护目标时，偷取<v.value>源石锭"]
+		}
+	},
+	"defeat_gold": {
+		"value": 5,
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["被击倒时战斗结束后额外获得<v.value>源石锭"]
 		}
 	},
 	"skzfbx_1": {
@@ -4225,7 +4251,7 @@
 			"en": [],
 			"ja": [],
 			"zh": [
-				"【圣城照护仪礼】距离博卓卡斯替，圣卫铳骑2.0格以外的单位对博卓卡斯替，圣卫铳骑造成的物理与法术伤害降低80%"
+				"【圣城照护仪礼】距离博卓卡斯替，圣卫铳骑2.0格以外的单位对博卓卡斯替，圣卫铳骑造成的{phys}与{arts}伤害降低80%"
 			]
 		}
 	},
@@ -4267,7 +4293,7 @@
 			"ja": [],
 			"zh": [
 				"【扫射仪礼】（初次冷却20s，后25s）",
-				"锁定场上所有高台位置，依次对所有高台进行一轮扫射造成一定物理伤害"
+				"锁定场上所有高台位置，依次对所有高台进行一轮扫射造成一定{phys}伤害"
 			]
 		}
 	},
@@ -4297,7 +4323,7 @@
 			"ja": [],
 			"zh": [
 				"出场3s后进入加速状态，加速状态下：每0.5s尝试一次加速，每次提升50%移动速度，最多28次",
-				"进入保护目标后，对全场所有单位造成攻击力100%的物理伤害"
+				"进入保护目标后，对全场所有单位造成攻击力100%的{phys}伤害"
 			]
 		}
 	},
@@ -4306,7 +4332,7 @@
 			"en": [],
 			"ja": [],
 			"zh": [
-				"【双子】特雷西斯与特蕾西娅离得越近造成的伤害越高，受到的物理与法术伤害也越低",
+				"【双子】特雷西斯与特蕾西娅离得越近造成的伤害越高，受到的{phys}与{arts}伤害也越低",
 				"与特蕾西娅，黑冠圣贤的距离>3.5/>2.5/>1.5/>1.0/≤1.0时，自身获得伤害倍率提升(0~200%)，减伤(35~90%)"
 			]
 		}
@@ -4321,7 +4347,7 @@
 			"ja": [],
 			"zh": [
 				"挥砍（初次冷却3s，后10s）",
-				"按左>上>右>下>左的循环，蓄力约9s后，向正方向挥砍出剑气，剑气碰撞半径0.5，对碰撞到的我方单位造成攻击力150%的物理伤害",
+				"按左>上>右>下>左的循环，蓄力约9s后，向正方向挥砍出剑气，剑气碰撞半径0.5，对碰撞到的我方单位造成攻击力150%的{phys}伤害",
 				"※此技能发动时，同时令场上所有尊主的残影发动一次【挥砍】"
 			]
 		}
@@ -4336,7 +4362,7 @@
 			"ja": [],
 			"zh": [
 				"卫护（初次冷却18s，后18s）",
-				"向特蕾西娅，黑冠圣贤发射能量球，能量球碰撞半径0.5，对首个碰撞到的我方单位造成攻击力100%的法术伤害，随后消失",
+				"向特蕾西娅，黑冠圣贤发射能量球，能量球碰撞半径0.5，对首个碰撞到的我方单位造成攻击力100%的{arts}伤害，随后消失",
 				"若该能量球成功抵达特蕾西娅，黑冠圣贤所在位置，则为特蕾西娅，黑冠圣贤回复35点sp "
 			]
 		}
@@ -4355,7 +4381,7 @@
 			"en": [],
 			"ja": [],
 			"zh": [
-				"【双子】特雷西斯与特蕾西娅离得越近造成的伤害越高，受到的物理与法术伤害也越低，特蕾西娅，黑冠圣贤技力回复速度越快",
+				"【双子】特雷西斯与特蕾西娅离得越近造成的伤害越高，受到的{phys}与{arts}伤害也越低，特蕾西娅，黑冠圣贤技力回复速度越快",
 				"与特蕾西娅，黑冠圣贤的距离>3.5/>2.5/>1.5/>1.0/≤1.0时，自身获得伤害倍率提升(0~200%)，减伤(35~90%)，令特蕾西娅，黑冠圣贤的技力自然回复速度(+1.0~5.0)"
 			]
 		}
@@ -4376,7 +4402,7 @@
 			"en": [],
 			"ja": [],
 			"zh": [
-				"出生时，对自身所在地块周围的所有友方单位造成攻击力50%的法术伤害并生成持续30s的年代印痕"
+				"出生时，对自身所在地块周围的所有友方单位造成攻击力50%的{arts}伤害并生成持续30s的年代印痕"
 			]
 		}
 	},
@@ -4385,7 +4411,7 @@
 			"en": [],
 			"ja": [],
 			"zh": [
-				"【即兴施展的防身术】每隔一段时间获得1颗攻击能量，下次攻击会将所有的攻击能量一起发射，每拥有一颗攻击能量，受到的物理与法术伤害降低30%(最多90%)，最多储存3颗攻击能量"
+				"【即兴施展的防身术】每隔一段时间获得1颗攻击能量，下次攻击会将所有的攻击能量一起发射，每拥有一颗攻击能量，受到的{phys}与{arts}伤害降低30%(最多90%)，最多储存3颗攻击能量"
 			]
 		}
 	},
@@ -4433,7 +4459,7 @@
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": ["换位或死亡后对2.0半径内所有友方单位造成物理伤害，并使其晕眩5秒"]
+			"zh": ["换位或死亡后对2.0半径内所有友方单位造成{phys}伤害，并使其晕眩5秒"]
 		}
 	},
 	"skklz_1": {
@@ -4444,7 +4470,7 @@
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": ["生命值低于一半时与迭代的怪物交换位置并对2.0半径内所有友方单位造成物理伤害并晕眩5秒"]
+			"zh": ["生命值低于一半时与迭代的怪物交换位置并对2.0半径内所有友方单位造成{phys}伤害并晕眩5秒"]
 		}
 	},
 	"skgly_1": {
@@ -4457,7 +4483,7 @@
 			"ja": [],
 			"zh": [
 				"技能（初始0SP，消耗3SP，攻击回复）",
-				"蓄力8.0s后进行强力攻击，对目标造成攻击力150%的物理伤害；目标以任意方式离场后，回复所消耗的技力"
+				"蓄力8.0s后进行强力攻击，对目标造成攻击力150%的{phys}伤害；目标以任意方式离场后，回复所消耗的技力"
 			]
 		}
 	},
@@ -4500,8 +4526,8 @@
 		"value": 80,
 		"tooltip": {
 			"en": ["Damage dealt to the front significantly decreased (-<v.value>%)"],
-			"ja": ["正面から受ける物理・術ダメージ-<v.value>%"],
-			"zh": ["正面所受的物理/法术伤害降低<v.value>%"]
+			"ja": ["正面から受ける{phys}・{arts}ダメージ-<v.value>%"],
+			"zh": ["正面所受的{phys}/{arts}伤害降低<v.value>%"]
 		}
 	},
 	"skzcy_1": {
@@ -4550,7 +4576,7 @@
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": ["首次攻击对目标及其周围4格造成攻击力150%的法术伤害，此后仅进行近战攻击"]
+			"zh": ["首次攻击对目标及其周围4格造成攻击力150%的{arts}伤害，此后仅进行近战攻击"]
 		}
 	},
 	"wdexg_1": {
@@ -4585,7 +4611,7 @@
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": ["可以抵挡<v.value>次物理或法术伤害"]
+			"zh": ["可以抵挡<v.value>次{phys}或{arts}伤害"]
 		}
 	},
 	"ltsmer_1": {
@@ -4617,7 +4643,7 @@
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": ["技能（初始0SP，消耗2SP，攻击回复）", "造成攻击力130%的物理伤害"]
+			"zh": ["技能（初始0SP，消耗2SP，攻击回复）", "造成攻击力130%的{phys}伤害"]
 		}
 	},
 	"ltnflu_2": {
@@ -4640,8 +4666,8 @@
 			"ja": [],
 			"zh": [
 				"凯歌（初始0SP，消耗2SP，攻击回复）",
-				"对目标及周围4格的我方单位造成攻击力100%的物理伤害",
-				"<@gold>激昂变奏</>持续期间：变为造成法术伤害"
+				"对目标及周围4格的我方单位造成攻击力100%的{phys}伤害",
+				"<@gold>激昂变奏</>持续期间：变为造成{arts}伤害"
 			]
 		}
 	},
@@ -4651,7 +4677,7 @@
 			"ja": [],
 			"zh": [
 				"<@purple>沉郁变奏</>持续期间：攻击力+20%，攻击速度-50，移动速度最终降低至50%",
-				"<@gold>激昂变奏</>持续期间：攻击速度+50，移动速度最终提升至200%，防御力-50%，攻击变为造成法术伤害"
+				"<@gold>激昂变奏</>持续期间：攻击速度+50，移动速度最终提升至200%，防御力-50%，攻击变为造成{arts}伤害"
 			]
 		}
 	},
@@ -4665,7 +4691,7 @@
 			"ja": [],
 			"zh": [
 				"重奏（初始0SP，消耗2SP，攻击回复）",
-				"仅攻击范围内存在目标时可触发：对2.0半径范围内所有我方单位造成攻击力100%的法术伤害",
+				"仅攻击范围内存在目标时可触发：对2.0半径范围内所有我方单位造成攻击力100%的{arts}伤害",
 				"<@gold>激昂变奏</>持续期间：伤害半径扩大至3.0"
 			]
 		}
@@ -4690,8 +4716,8 @@
 			"ja": [],
 			"zh": [
 				"劈音（初始0SP，消耗2SP，攻击回复）",
-				"对最多2个目标分别造成攻击力100%的物理伤害",
-				"<@gold>激昂变奏</>持续期间：变为造成法术伤害"
+				"对最多2个目标分别造成攻击力100%的{phys}伤害",
+				"<@gold>激昂变奏</>持续期间：变为造成{arts}伤害"
 			]
 		}
 	},
@@ -4701,7 +4727,7 @@
 			"ja": [],
 			"zh": [
 				"<@purple>沉郁变奏</>持续期间：攻击力+20%，攻击速度-50，移动速度最终降低至50%",
-				"<@gold>激昂变奏</>持续期间：攻击速度+50，移动速度最终提升至200%，防御力-50%，攻击变为造成法术伤害"
+				"<@gold>激昂变奏</>持续期间：攻击速度+50，移动速度最终提升至200%，防御力-50%，攻击变为造成{arts}伤害"
 			]
 		}
 	},
@@ -4730,7 +4756,7 @@
 			"ja": [],
 			"zh": [
 				"进入<@purple>沉郁变奏</>时获得10层护盾（退出沉郁变奏时清空此护盾，护盾不多于5层时出现外观变化）",
-				"该护盾成功抵挡伤害时，若伤害来源为默认类，则对伤害来源造成自身攻击力20%的无来源物理伤害"
+				"该护盾成功抵挡伤害时，若伤害来源为默认类，则对伤害来源造成自身攻击力20%的无来源{phys}伤害"
 			]
 		}
 	},
@@ -4749,8 +4775,8 @@
 			"en": [],
 			"ja": [],
 			"zh": [
-				"受源石污染区或活性源石风暴影响后会在自身周围半径1.2持续生成源石污染区，并且攻击转为造成法术伤害",
-				"源石污染区效果 - 技力自然回复速度倍率-80%，每0.5秒受到50真实持续伤害"
+				"受源石污染区或活性源石风暴影响后会在自身周围半径1.2持续生成源石污染区，并且攻击转为造成{arts}伤害",
+				"源石污染区效果 - 技力自然回复速度倍率-80%，每0.5秒受到50{true}持续伤害"
 			]
 		}
 	},
@@ -4790,7 +4816,7 @@
 			"zh": [
 				"巫术激流（初次冷却0s，后15s）",
 				"持有充能且自身十字范围内存在我方单位时可触发：消耗所有充能，向目标所在正方向持续发射激光（最多持续7.8s）",
-				"激光每秒对宽度0.65的区域内所有我方单位造成自身攻击力40%的法术伤害",
+				"激光每秒对宽度0.65的区域内所有我方单位造成自身攻击力40%的{arts}伤害",
 				"技能期间，自身攻击力每秒+40%，最多提升至+(消耗充能数*25)%"
 			]
 		}
@@ -4802,7 +4828,7 @@
 			"zh": [
 				"巫术激流（初次冷却0s，后15s）",
 				"持有充能且自身十字范围内存在我方单位时可触发：消耗所有充能，向目标所在正方向持续发射激光（最多持续7.8s）",
-				"激光每秒对宽度0.65的区域内所有我方单位造成自身攻击力50%的法术伤害",
+				"激光每秒对宽度0.65的区域内所有我方单位造成自身攻击力50%的{arts}伤害",
 				"技能期间，自身攻击力每秒+200%，最多提升至+(消耗充能数*40)%"
 			]
 		}
@@ -4833,7 +4859,7 @@
 			"ja": [],
 			"zh": [
 				"巫术旋流（初次冷却0s，后15s）",
-				"持有充能且法球数量未达到上限（3个）时可触发：消耗1层充能，在自身前方召唤一个以50°/s的角速度和0.9的公转半径逆时针围绕自身旋转的法球，法球碰撞半径0.45，碰撞我方单位时造成攻击力120%的法术伤害随后消失"
+				"持有充能且法球数量未达到上限（3个）时可触发：消耗1层充能，在自身前方召唤一个以50°/s的角速度和0.9的公转半径逆时针围绕自身旋转的法球，法球碰撞半径0.45，碰撞我方单位时造成攻击力120%的{arts}伤害随后消失"
 			]
 		}
 	},
@@ -4845,7 +4871,7 @@
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": ["技力大于等于1时：攻击时消耗1点技力，造成攻击力200%的物理普通伤害"]
+			"zh": ["技力大于等于1时：攻击时消耗1点技力，造成攻击力200%的{phys}普通伤害"]
 		}
 	},
 	"mmkonm_1": {
@@ -4946,14 +4972,14 @@
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": ["被阻挡后发生爆炸，对周围所有目标造成375点法术溅射伤害和250点灼燃损伤"]
+			"zh": ["被阻挡后发生爆炸，对周围所有目标造成375点{arts}溅射伤害和250点{ba.dt.burning}"]
 		}
 	},
 	"bomscr_2": {
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": ["被阻挡后发生爆炸，对周围所有目标造成550点法术溅射伤害和350点灼燃损伤"]
+			"zh": ["被阻挡后发生爆炸，对周围所有目标造成550点{arts}溅射伤害和350点{ba.dt.burning}"]
 		}
 	},
 	"frtuna_1": {
@@ -4964,7 +4990,7 @@
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": ["开火 - 锁定攻击范围内随机一名我方单位，有70%的概率造成攻击力200%的物理普通伤害"]
+			"zh": ["开火 - 锁定攻击范围内随机一名我方单位，有70%的概率造成攻击力200%的{phys}普通伤害"]
 		}
 	},
 	"frtuna_2": {
@@ -5044,7 +5070,7 @@
 			"ja": ["槍投げ（初動15秒/再動20秒）","自分から最も遠い高台オペレーターに攻撃力の135%の物理ダメージを与える"],
 			"zh": [
 				"投枪（初次冷却15s，后20s）",
-				"锁定半径20范围内距离自身最远的部署于高台的我方单位，蓄力约3s后对其造成相当于攻击力135%的物理普通伤害 "
+				"锁定半径20范围内距离自身最远的部署于高台的我方单位，蓄力约3s后对其造成相当于攻击力135%的{phys}普通伤害 "
 			]
 		}
 	},
@@ -5061,7 +5087,7 @@
 				"半径1.75マスの味方に、0.8秒ごとに攻撃力の5.21%（通常は100）に相当する確定ダメージが発生"
 			],
 			"zh": [
-				"每间隔0.8s触发一次【献祭】- 对自身半径1.75范围内的我方单位造成相当于攻击力5.21%的真实溅射伤害"
+				"每间隔0.8s触发一次【献祭】- 对自身半径1.75范围内的我方单位造成相当于攻击力5.21%{true}溅射伤害"
 			]
 		}
 	},
@@ -5078,7 +5104,7 @@
 				"非ブロック時、通常攻撃で榴弾射撃（遠距離範囲物理攻撃）を行う。榴弾射撃は標的と周囲8マスに攻撃力26%の物理ダメージと5秒間の防御力−50%デバフを与える"
 			],
 			"zh": [
-				"未被阻挡时会发射榴弹，爆炸范围为目标及其周围八格，使我方单位5秒内防御力下降50%，造成相当于攻击力26%的物理伤害"
+				"未被阻挡时会发射榴弹，爆炸范围为目标及其周围八格，使我方单位5秒内防御力下降50%，造成相当于攻击力26%的{phys}伤害"
 			]
 		}
 	},
@@ -5093,9 +5119,9 @@
 		"duration": 20,
 		"silence": true,
 		"tooltip": {
-			"en": ["Starts with 100% Physical Dodge for <v.duration>s (Can be silenced)"],
-			"ja": ["出現から<v.duration>秒間、物理回避率+100%（無効化可能）"],
-			"zh": ["初始获得100%物理闪避，持续<v.duration>s（可被沉默）"]
+			"en": ["Starts with 100% {phys} Dodge for <v.duration>s (Can be silenced)"],
+			"ja": ["出現から<v.duration>秒間、{phys}回避率+100%（無効化可能）"],
+			"zh": ["初始获得100%{phys}闪避，持续<v.duration>s（可被沉默）"]
 		}
 	}
 }

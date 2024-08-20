@@ -342,6 +342,7 @@
 		transition: transform 0.3s, opacity 0.2s, -webkit-transform 0.3s;
 		opacity: 0;
 		overflow-y: auto;
+		overflow-x: clip;
 		overscroll-behavior: contain;
 	}
 	.overlay.visible,

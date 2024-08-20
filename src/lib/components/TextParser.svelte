@@ -1,131 +1,142 @@
 <script lang="ts">
+	import { page } from '$app/stores';
+	import type { Language } from '$lib/types';
+	import translations from '$lib/translations.json';
+	import termDesc from '$lib/data/term_desc.json';
+	import { onMount } from 'svelte';
+
 	export let line: string,
 		className: string = '';
-	const patternsToIgnore = [
-		'<ba.magicfragile>',
-		'<ba.fragile>',
-		'<ba.elementfragile>',
-		'<ba.camou>',
-		'<ba.invisible>',
-		'<ba.steal>',
-		'<ba.stun>',
-		'<ba.sluggish>',
-		'<ba.root>',
-		'<ba.sleep>',
-		'<ba.tremble>',
-		'<ba.cold>',
-		'<ba.frozen>',
-		'<ba.levitate>',
-		'<ba.weightless>',
-		'<ba.debuff>',
-		'<ba.epbarrier>',
-		'<ba.protect>',
-		'<ba.dying>',
-		'<ba.dt.element>',
-		'<ba.berserk>',
-		'<ba.inspire>',
-		'<ba.strong>',
-		'<ba.barrier>',
-		'<ba.shield>',
-		'<ba.buffres>',
-		'<ba.physhield>',
-		'<ba.charged>',
-		'<ba.overdrive>',
-		'<ba.dt.apoptosis2>',
-		'<ba.dt.burning2>',
-		'<ba.weaken>',
-		'<ba.binding>',
-		'<@ba.dt.element>'
-	];
-	const patternsToParse = [
-		{ prefix: '<@rolv.rem>', suffix: '</>', style: 'text-[#FF4C22]' },
-		{ prefix: '<@ba.talpu>', suffix: '</>', style: 'text-[#0098DC]' },
-		{ prefix: '<@ba.vup>', suffix: '</>', style: 'text-[#20a8EC]' },
-		{ prefix: '<@ba.vdown>', suffix: '</>', style: 'text-[#FF6237]' },
-		{ prefix: '<@ba.rem>', suffix: '</>', style: 'text-[#F49800]' },
-		{ prefix: '<@ba.kw>', suffix: '</>', style: 'text-[#00B0FF]' },
-		{ prefix: '<@bluehl>', suffix: '</>', style: 'text-[#30c8FC]' },
-		{ prefix: '<@enemy>', suffix: '</>', style: 'text-[#FFA5AF]' },
-		{ prefix: '<@ally>', suffix: '</>', style: 'text-[#FFC89B]' },
-		{ prefix: '<@self>', suffix: '</>', style: 'text-[#C0E6FA]' },
-		{ prefix: '<@purple>', suffix: '</>', style: 'text-[#A48CE7]' },
-		{ prefix: '<@gold>', suffix: '</>', style: 'text-[#CDB07A]' },
-		{ prefix: '<@strike>', suffix: '</>', style: 'line-through text-neutral-400' },
-		{ prefix: '$', suffix: '$', style: 'text-red-400 font-semibold' }
-	];
-	//due to a difference in resolving <@rolv.rem> in rogue3_b-3-b and rogue3_b-4-b, this should be written to resolve by patterns first.
-	const parseText = (line: string) => {
-		for (const pattern of patternsToIgnore) {
-			const regex = new RegExp(`${pattern}(.*?)</>`, 'gs');
-			const splitText = line.split(regex);
-			if (splitText.length > 1) {
-				splitText.forEach((text, i) => i % 2 === 1 && (line = line.replace(regex, text)));
-			}
-		}
+	let language: Language = 'zh';
+	$: language = $page.data.language;
 
-		const lines = [{ text: line, style: null }];
-		for (const pattern of patternsToParse) {
-			traverseLines(lines, pattern);
-		}
-		return splitNewLines(lines.flat(patternsToParse.length + 1)).filter((ele) => Boolean(ele.text));
+	const patternsToParse = [{ prefix: '$', suffix: '$', style: 'text-red-400 font-semibold' }];
+	const textPatterns = {
+		'@rolv.rem': 'text-[#FF4C22]',
+		'@ba.talpu': 'text-[#0098DC]',
+		'@ba.vup': 'text-[#20a8EC]',
+		'@ba.vdown': 'text-[#FF6237]',
+		'@ba.rem': 'text-[#F49800]',
+		'@ba.kw': 'text-[#00B0FF]',
+		'@bluehl': 'text-[#30c8FC]',
+		'@enemy': 'text-[#FFA5AF]',
+		'@ally': 'text-[#FFC89B]',
+		'@self': 'text-[#C0E6FA]',
+		'@purple': 'text-[#A48CE7]',
+		'@gold': 'text-[#CDB07A]',
+		'@phys': 'text-[#FFB082]',
+		'@arts': 'text-[#A7C2FC]',
+		'@true': 'text-[#FF99CA]',
+		'@strike': 'line-through text-neutral-400'
 	};
-	const traverseLines = (arr, pattern) => {
-		arr.forEach((ele, index) => {
-			if (Array.isArray(ele)) {
-				traverseLines(ele, pattern);
+
+	function processText(input, pattern) {
+		if (pattern.prefix === '$') {
+			const regex = /\$(.*?)\$/g;
+			return input.replace(regex, (match, content) => {
+				return `<span class="${pattern.style}">${content}</span>`;
+			});
+		}
+		return input;
+	}
+	function addTooltip(pattern, content) {
+		let desc = termDesc?.[pattern]?.[`desc_${language}`] || termDesc?.[pattern]?.[`desc_zh`];
+		// determine if tooltip will exceed popup screen
+		if (!desc) {
+			return content;
+		}
+		const name = termDesc?.[pattern]?.[`name_${language}`] || termDesc?.[pattern]?.[`name_zh`];
+		// prepare depth+1 desc
+		let desc2 = [];
+		desc = desc.replace(/<(.*?)>(.*?)<\/>/g, (match, pattern, content) => {
+			if (pattern.includes('@')) {
+				return `<span class="${textPatterns[pattern]}">${content}</span>`;
 			} else {
-				if (ele.style === null) {
-					arr[index] = splitText(ele.text, pattern);
-				}
+				// because tailwind classes doesn't work with interpolated strings
+				const peerDesc =
+					desc2.length === 0
+						? 'one'
+						: desc2.length === 1
+						? 'two'
+						: desc2.length === 2
+						? 'three'
+						: 'four';
+				const peerClass =
+					desc2.length === 0
+						? 'peer-has-[.one:hover]:pointer-events-auto'
+						: desc2.length === 1
+						? 'peer-has-[.two:hover]:pointer-events-auto'
+						: desc2.length === 2
+						? 'peer-has-[.three:hover]:pointer-events-auto'
+						: 'peer-has-[.four:hover]:pointer-events-auto';
+				desc2.push(
+					`<div class="tooltiptext absolute opacity-0 pointer-events-none ${peerClass} hover:pointer-events-auto hover:opacity-100 top-[54px] bg-slate-300 text-[#222222] w-[220px] ${
+						language === 'en' ? 'min-h-[150px]' : ' min-h-[100px]'
+					} p-1.5 z-[1] rounded-md text-sm shadow-inner"><h6 class="font-semibold text-base">${content}</h6><div class="mt-1">${
+						termDesc[pattern][`desc_${language}`] || termDesc[pattern][`desc_zh`]
+					}</div></div>`
+				);
+				return `<div class="${peerDesc} relative inline-block underline underline-offset-2">${content}</div>`;
 			}
 		});
-	};
-	const splitNewLines = (lines: string[]) => {
-		return lines
-			.reduce((acc, curr) => {
-				curr.text = curr.text.replaceAll('\\n', '\n');
-				if (curr.text.includes('\n')) {
-					const parts = curr.text.split('\n');
-					for (let i = 0; i < parts.length; i++) {
-						acc.push({ text: parts[i], style: curr.style });
-						if (parts[i + 1] !== undefined) {
-							acc.push({ text: '\n', style: null });
-						}
-					}
-				} else {
-					acc.push(curr);
-				}
-				return acc;
-			}, [])
-			.filter((ele) => Boolean(ele.text));
-	};
-	const splitText = (string: string, pattern) => {
-		let returnArr = [];
-		const { prefix, suffix, style } = pattern;
-		if (prefix === suffix) {
-			const splitText = string.split(prefix);
-			splitText.forEach((text, index) => {
-				if (index % 2 === 0) {
-					returnArr.push({ text, style: null });
-				} else returnArr.push({ text, style });
-			});
-		} else {
-			const pattern = new RegExp(`${prefix}(.*?)${suffix}`, 'gs');
-			const parts = string.split(pattern);
-			returnArr = parts.map((text, i) => (i % 2 === 0 ? { text, style: null } : { text, style }));
+		return `<div class="tooltip relative inline-block underline underline-offset-2 group leading-tight bg-[linear-gradient(to_top,#fff6,transparent_75%)]">${content}<div class="tooltiptext absolute hidden peer group-hover:block bg-slate-200 text-[#222222] w-[220px] p-1.5 z-[1] rounded-md text-sm shadow-inner"><h6 class="font-semibold text-base">${name}</h6><div class="mt-1">${desc}</div></div>${desc2.join(
+			''
+		)}</div>`;
+	}
+
+	const parseText = (line: string, language) => {
+		// for {phys}/{arts}/{true} type keys
+		const regex = new RegExp(`{(.*?)}`, 'gs');
+		const matches = line.match(regex);
+		if (matches) {
+			for (const match of matches) {
+				const key = match.slice(1, -1);
+				const front = key.includes('ba.dt') ? `<${key}>` : `<@${key}>`;
+				line = line.replace(
+					match,
+					front + translations[language][key.replace('ba.dt.', '')] + '</>'
+				);
+			}
 		}
-		return returnArr;
+		line = line.replace(/<(.*?)>(.*?)<\/>/g, (match, pattern, content) => {
+			if (pattern.includes('@')) {
+				return `<span class="${textPatterns[pattern] ?? ''}">${content}</span>`;
+			} else {
+				return addTooltip(pattern, content);
+			}
+		});
+		for (const pattern of patternsToParse) {
+			line = processText(line, pattern);
+		}
+		line = line.replaceAll('\n', '<br/>');
+		line = line.replaceAll('\\n', '<br/>');
+		return line;
 	};
-	$: parsedTextArray = parseText(line);
-	// $: console.log(parsedTextArray);
+	function adjustTooltipPosition(tooltip) {
+		const container = tooltip.closest('.popup') || tooltip.closest('main');
+		const tooltipTexts = tooltip.querySelectorAll('.tooltiptext');
+		const containerRect = container.getBoundingClientRect();
+		const tooltipRect = tooltip.getBoundingClientRect();
+		const overflowRight = tooltipRect.right + 110 - containerRect.right;
+		const overflowLeft = containerRect.left - tooltipRect.left + 110;
+		tooltipTexts.forEach((ele) => {
+			if (overflowRight > 0) {
+				ele.style.right = `${tooltipRect.right - containerRect.right + 6}px`;
+			} else if (overflowLeft > 0) {
+				ele.style.left = `${containerRect.left - tooltipRect.left + 6}px`;
+			} else {
+				ele.style.left = `calc(50% - 110px)`;
+			}
+		});
+	}
+	onMount(() => {
+		const tooltips = document.querySelectorAll('.tooltip');
+		tooltips.forEach((tooltip) => {
+			adjustTooltipPosition(tooltip);
+		});
+	});
 </script>
 
-<p class={className}>
-	{#each parsedTextArray as { text, style }}
-		{#if text === '\n'}
-			<br />
-		{:else}
-			<span class={style}> {text}</span>
-		{/if}
-	{/each}
-</p>
+<div class="relative {className}">
+	{@html parseText(line, language)}
+</div>

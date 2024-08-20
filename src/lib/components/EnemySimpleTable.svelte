@@ -12,7 +12,7 @@
 </script>
 
 <EnemyTableOptions {language} />
-<div id="table-wrapper" class="w-screen sm:w-full overflow-auto">
+<div id="table-wrapper" class="w-screen sm:w-full">
 	<table class="border border-gray-400 border-collapse bg-neutral-800 text-near-white w-full">
 		<thead>
 			<tr>
