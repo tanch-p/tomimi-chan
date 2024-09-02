@@ -898,7 +898,7 @@
 			],
 			"zh": [
 				"刷新护盾（初次冷却<v.initCooldown>s，后<v.cooldown>s）",
-				"重置自身法术屏障；屏障能吸收<v.value>{arts}伤害",
+				"重置自身{arts}屏障；屏障能吸收<v.value>{arts}伤害",
 				"屏障存在时提升50%生命上限并增加50攻击速度"
 			]
 		}
@@ -3190,6 +3190,13 @@
 			"zh": ["失衡免疫"]
 		}
 	},
+	"teleport_immune": {
+		"tooltip": {
+			"en": ["Immune to Teleport (Shu)"],
+			"ja": ["転移（シュウ）無効"],
+			"zh": ["免疫传送 (黍)"]
+		}
+	},
 	"nhapos_pollution": {
 		"low": 50,
 		"high": 25,
@@ -4224,15 +4231,15 @@
 	"defeat_gold": {
 		"value": 5,
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": ["Drops <v.value> gold upon defeat"],
+			"ja": ["倒すと源石錐<v.value>個が貰える"],
 			"zh": ["被击倒时战斗结束后额外获得<v.value>源石锭"]
 		}
 	},
 	"skzfbx_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": ["Does not attack while Hover", "Gains Movespeed +0.35 when grounded"],
+			"ja": ["低空浮揚期間中攻撃しない", "低空浮揚解除後移動速度+0.35"],
 			"zh": [
 				"近地悬浮期间不进行普通攻击",
 				"受到晕眩/无法行动/冻结效果后解除近地悬浮，解除近地悬浮后移动速度+0.35，可进行近战攻击"
@@ -4241,15 +4248,21 @@
 	},
 	"skzdd_1_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"【劝谕仪礼】Taunt level +1, When manually retreated, allied units have redeployment time +100%"
+			],
+			"ja": ["【劝谕仪礼】挑発レベル+１、手動撤退のユニットの再配置時間+100%"],
 			"zh": ["【劝谕仪礼】更容易受到攻击，主动撤退的单位再部署时间大幅延长(+100%)"]
 		}
 	},
 	"skzdd_1_2": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"【圣城照护仪礼】- Receives 80% reduced {phys} and {arts} damage from units >2.0 tiles away"
+			],
+			"ja": [
+				"【圣城照护仪礼】- 半径2.0マス以上離れているユニットから受ける{phys}/{arts}ダメージが80%減少"
+			],
 			"zh": [
 				"【圣城照护仪礼】距离博卓卡斯替，圣卫铳骑2.0格以外的单位对博卓卡斯替，圣卫铳骑造成的{phys}与{arts}伤害降低80%"
 			]
@@ -4257,30 +4270,36 @@
 	},
 	"skzdd_1_3": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
-			"zh": ["受到博卓卡斯替，圣卫铳骑伤害后，获得攻击力+30%，受到的伤害提升至150%"]
+			"en": [
+				"Units attacked by <博卓卡斯替，圣卫铳骑> gains ATK +30% and receives 50% more damage, lasts indefinitely"
+			],
+			"ja": [
+				"<博卓卡斯替，圣卫铳骑>に攻撃されたユニットは攻撃力+30%、受けるダメージ+50%、効果時間無限"
+			],
+			"zh": ["受到博卓卡斯替，圣卫铳骑伤害后，获得攻击力+30%，受到的伤害提升至150% (持续时间无限)"]
 		}
 	},
 	"skzdd_1_4": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
-			"zh": ["【自动自卫仪礼】（初次冷却20s，后25s）", "召唤圣卫自动机"]
+			"en": ["【自动自卫仪礼】 (Initial CD: 20s, ~CD: 25s)", "Summons 1 <圣卫自动机>"],
+			"ja": ["【自动自卫仪礼】（初動20秒/再動25秒）", "<圣卫自动机>1体を召喚する"],
+			"zh": ["【自动自卫仪礼】（初次冷却20s，后25s）", "召唤1个圣卫自动机"]
 		}
 	},
 	"skzdd_1_5": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": ["When defeated, resurrects over 10s, recovers 100% HP and enters 2nd Form"],
+			"ja": ["倒されたとき、10秒かけてHPを全回復して、第二形態へ移行"],
 			"zh": ["被击倒后进行持续10s的重生，恢复100%生命值，进入第二形态并获得15s无敌"]
 		}
 	},
 	"skzdd_2_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
-			"zh": ["攻击变为远程，具有1.0的溅射半径"]
+			"en": ["When not blocked, carries out ranged attack with 1.1 tile splash radius"],
+			"ja": [
+				"未ブロック時、通常攻撃が遠距離範囲攻撃になる、範囲半径1.1マスの全ユニットに100%ダメージ"
+			],
+			"zh": ["未被阻挡时可进行远程攻击，远程攻击溅射半径1.1"]
 		}
 	},
 	"skzdd_2_2": {
@@ -4289,38 +4308,60 @@
 		"atk": { "multiplier": 0.5 },
 		"dmg_element": "phys",
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"【扫射仪礼】 (Initial CD: 0s, ~CD: 30s)",
+				"Locks on to all deployable high ground and does 50% of ATK as {phys} damage to units on locked on tiles"
+			],
+			"ja": [
+				"【扫射仪礼】（初動0秒/再動30秒）",
+				"全配置可能の高台をロックオンしてミサイルを射つ、その高台にいるユニットに攻撃力50%の{phys}ダメージを与える"
+			],
 			"zh": [
-				"【扫射仪礼】（初次冷却20s，后25s）",
-				"锁定场上所有高台位置，依次对所有高台进行一轮扫射造成一定{phys}伤害"
+				"【扫射仪礼】（初次冷却0s，后30s）",
+				"锁定场上所有可部署高台位置，以大致顺时针的方向进行扫射，对处于目标地块的我方单位造成攻击力50%的{phys}伤害"
 			]
 		}
 	},
 	"skzdd_2_3": {
 		"duration": 120,
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"【自动导引仪礼】- Summons 6 <圣卫坚盾> in fixed locations upon entering 2nd Form",
+				"<圣卫坚盾> - Reduces {phys}/{arts} damage taken by allied units in 4 adjacent tiles by 50%, lasts for <v.duration>s"
+			],
+			"ja": [
+				"【自动导引仪礼】- 第二形態に入った直後<圣卫坚盾>6個を決められた場所に召喚する",
+				"<圣卫坚盾>周囲4マスにいる味方が受ける{phys}/{arts}ダメージが50％減少、<v.duration>秒後消滅"
+			],
 			"zh": [
 				"【自动导引仪礼】进入第二形态后立刻召唤6个圣卫坚盾",
-				"圣卫坚盾 - 使周围4格所有友方单位受到的物理与法术伤害减少50%，持续<v.duration>s"
+				"圣卫坚盾 - 使周围4格所有友方单位受到的{phys}与{arts}伤害减少50%，持续<v.duration>s"
 			]
 		}
 	},
 	"skzdd_2_4": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"If defeated and <思维混乱>，resurrects over 10s, recovering 50% HP, gains 6s of invincibility, ATK +25% and summons 3 <Door>s at predesignated locations"
+			],
+			"ja": [
+				"<思维混乱>时，倒されたとき、10秒かけてHPを50%回復して、第3形態へ移行、6秒無敵になって、攻撃力+25%、決められた場所に門3体を召喚する"
+			],
 			"zh": [
-				"思维混乱时，被击倒后，进入持续10s的重生，恢复50%生命值，后进入第三形态并获得6s无敌，攻击力提升25%并召唤3个“门”"
+				"思维混乱时，被击倒后，进入持续10s的重生，恢复50%生命值，后进入第三形态并获得6s无敌，攻击力提升25%并在固定位置召唤3个“门”"
 			]
 		}
 	},
 	"skzirn_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Accelerates 3s after spawn, gaining Movespeed +50% every 0.5s, max 28 stacks",
+				"Does 100% of ATK as {phys} damage to all units (enemies included) upon entering Protection Objective"
+			],
+			"ja": [
+				"現れた3秒後加速する、0.5秒毎に移動速度+50%、最大28回",
+				"防衛ラインに入ると敵味方全体に攻撃力100%の{phys}を与える"
+			],
 			"zh": [
 				"出场3s后进入加速状态，加速状态下：每0.5s尝试一次加速，每次提升50%移动速度，最多28次",
 				"进入保护目标后，对全场所有单位造成攻击力100%的{phys}伤害"
@@ -4329,8 +4370,12 @@
 	},
 	"skztxs_1_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"【Twins】- the closer the distance between Theresis and Theresa (>3.5/>2.5/>1.5/>1.0/≤1.0), the greater Theresis' damage dealt is increased (0%~200%) and more damage reduction (35%~90%)"
+			],
+			"ja": [
+				"【双子】- テレシスとテレジアの距離が近いほど（>3.5/>2.5/>1.5/>1.0/≤1.0）、テレシスが与えるダメージが上昇（0~200%）、受けるダメージが減少する（35%~90%）"
+			],
 			"zh": [
 				"【双子】特雷西斯与特蕾西娅离得越近造成的伤害越高，受到的{phys}与{arts}伤害也越低",
 				"与特蕾西娅，黑冠圣贤的距离>3.5/>2.5/>1.5/>1.0/≤1.0时，自身获得伤害倍率提升(0~200%)，减伤(35~90%)"
@@ -4343,8 +4388,16 @@
 		"atk": { "multiplier": 1.5 },
 		"dmg_element": "phys",
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"挥砍 (Initial CD: 3s, ~CD: 10s)",
+				"After charging for 9s, unleashes a slash attack, dealing 150% ATK as {phys} damage to all allied units in its path. Changes direction clockwise after every usage (←/↑/→/↓)",
+				"All shadow clones will follow Theresis and use this skill"
+			],
+			"ja": [
+				"挥砍（初動3秒/再動10秒）",
+				"左>上>右>下>左の順に、9秒チャージした後、先方に剣気を放て、味方ユニットに攻撃力150%の{phys}ダメージを与える",
+				"スキル発動時、全残影もこのスキルを使う"
+			],
 			"zh": [
 				"挥砍（初次冷却3s，后10s）",
 				"按左>上>右>下>左的循环，蓄力约9s后，向正方向挥砍出剑气，剑气碰撞半径0.5，对碰撞到的我方单位造成攻击力150%的{phys}伤害",
@@ -4358,8 +4411,14 @@
 		"atk": { "multiplier": 1 },
 		"dmg_element": "arts",
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"卫护 (Initial CD: 18s, ~CD: 18s)",
+				"Shoots an energy ball towards Theresa, restoring 35sp for Theresa if it reaches her. If energy ball hits an allied unit, deals 100% ATK as {arts} damage and disappears"
+			],
+			"ja": [
+				"卫护（初動18秒/再動18秒）",
+				"テレジアに向かってエネルギーボールを放って、テレジアに辿り着くとテレジアに35点SPを回復する。エネルギーボールが味方ユニットに当たると、攻撃力100%の{arts}ダメージを与え、消滅する"
+			],
 			"zh": [
 				"卫护（初次冷却18s，后18s）",
 				"向特蕾西娅，黑冠圣贤发射能量球，能量球碰撞半径0.5，对首个碰撞到的我方单位造成攻击力100%的{arts}伤害，随后消失",
@@ -4369,17 +4428,28 @@
 	},
 	"skztxs_1_4": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"When HP drops below 50%, releases enemy wave",
+				"When defeated, resurrects over 3.95s, recovers 100% HP, teleports to right of Theresa, gains 7s invincibility, and enters 2nd Form"
+			],
+			"ja": [
+				"HP50%以下→次の敵ウェーブを解放する",
+				"倒されたとき、3.95秒かけてHPを全回復して、テレジアの右に転移、7秒間無敵、第二形態へ移行"
+			],
 			"zh": [
-				"被击败后，进行3.95s的重生，后闪现至(5,7)，获得7s无敌，不进行攻击，无法被阻挡，无法移动，结束后切换至第二形态"
+				"生命值低于50%时解放当前波次",
+				"被击败后，进行3.95s的重生，后闪现至特蕾西娅右侧，获得7s无敌，不进行攻击，无法被阻挡，无法移动，结束后切换至第二形态"
 			]
 		}
 	},
 	"skztxs_2_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"【Twins】- the closer the distance between Theresis and Theresa (>3.5/>2.5/>1.5/>1.0/≤1.0), the greater Theresis' damage dealt is increased (0%~200%) and more damage reduction (35%~90%), and Theresa gains increased SP regen (+1.0~5.0)"
+			],
+			"ja": [
+				"【双子】- テレシスとテレジアの距離が近いほど（>3.5/>2.5/>1.5/>1.0/≤1.0）、テレシスが与えるダメージが上昇（0~200%）、受けるダメージが減少する（35%~90%）、テレジアのSP回復速度（+1.0~5.0）"
+			],
 			"zh": [
 				"【双子】特雷西斯与特蕾西娅离得越近造成的伤害越高，受到的{phys}与{arts}伤害也越低，特蕾西娅，黑冠圣贤技力回复速度越快",
 				"与特蕾西娅，黑冠圣贤的距离>3.5/>2.5/>1.5/>1.0/≤1.0时，自身获得伤害倍率提升(0~200%)，减伤(35~90%)，令特蕾西娅，黑冠圣贤的技力自然回复速度(+1.0~5.0)"
@@ -4388,9 +4458,12 @@
 	},
 	"skztxs_2_2": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
-			"zh": ["第二形态下，不进行攻击，无法被阻挡，获得自缚；持续500s后，扣除99点目标生命值 "]
+			"en": [
+				"2nd Form - does not attack/move, cannot be blocked",
+				"After 500s, takes away 99 lifepoints"
+			],
+			"ja": ["第二形態 - 攻撃/移動しない、ブロックされない", "500秒後、耐久値99減少する"],
+			"zh": ["第二形态下，不进行攻击，无法被阻挡，获得自缚；持续500s后，扣除99点目标生命值"]
 		}
 	},
 	"skzjs_1": {
@@ -4399,8 +4472,12 @@
 		"atk": { "multiplier": 0.5 },
 		"dmg_element": "arts",
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Deals 50% ATK as {arts} damage to all surrounding allied units on spawn and spreads <年代印痕> over 30s"
+			],
+			"ja": [
+				"現れる時周囲の味方全体に攻撃力50%の{arts}ダメージを与え、30秒継続の<年代印痕>を生成する"
+			],
 			"zh": [
 				"出生时，对自身所在地块周围的所有友方单位造成攻击力50%的{arts}伤害并生成持续30s的年代印痕"
 			]
@@ -4408,8 +4485,12 @@
 	},
 	"skzlwy_1_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Mystic Caster - When unable to find a target, attacks can be stored up and fired all at once (Up to 3 charges). For every charge stored up, gains 30% Damage Reduction (Max 90%)"
+			],
+			"ja": [
+				"秘術師 - 攻撃の対象がいない場合はエネルギーをチャージして（最大3回）次の攻撃時に一斉発射する。チャージ毎に受ける{phys}/{arts}ダメージが30％減少（最大90％）"
+			],
 			"zh": [
 				"【即兴施展的防身术】每隔一段时间获得1颗攻击能量，下次攻击会将所有的攻击能量一起发射，每拥有一颗攻击能量，受到的{phys}与{arts}伤害降低30%(最多90%)，最多储存3颗攻击能量"
 			]
@@ -4417,8 +4498,12 @@
 	},
 	"skzlwy_1_2": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"【Coffin】- When Fremont is present, seals allied units upon retreat/defeat, halting their redeployment timer till the Coffin is defeated"
+			],
+			"ja": [
+				"【“放逐的黑棺”】- フレモントが戦場にいる時、味方ユニットが撤退/撃破されると“放逐的黑棺”に封印され、“放逐的黑棺”が倒されるまで再配置時間が停止"
+			],
 			"zh": [
 				"【“放逐的黑棺”】弗莱蒙特在场时，所有友方干员被击败或撤退时，将被封印于“放逐的黑棺”中，再部署时间暂停，直至“放逐的黑棺”被击败"
 			]
@@ -4426,15 +4511,25 @@
 	},
 	"skzlwy_1_3": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"When defeated, resurrects over 11.6s, recovers 100% HP, releases next enemy wave and enters 2nd Form"
+			],
+			"ja": [
+				"倒されたとき、11.6秒かけてHPを全回復する；次のエネミーウェーブを放つ、第二形態に移行"
+			],
 			"zh": ["被击倒后进行持续11.6s的重生，恢复100%生命值；随后结束当前波次，进入第二形态"]
 		}
 	},
 	"skzlwy_2_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Upon entering 2nd Form, uses 【Punishment of Foolishness】",
+				"【Punishment of Foolishness】- After charging for 5s, redeploys all operators randomly across the field"
+			],
+			"ja": [
+				"第二形態に入ると、【痴愚の懲戒】を使用",
+				"【痴愚の懲戒】- 5秒チャージした後、マップ上の味方オペレーター全員をランダムな配置可能マスに再配置する"
+			],
 			"zh": [
 				"首次进入第二形态时，立刻释放【痴愚惩戒】",
 				"蓄力5s+后，选择场上所有我方干员，将其分别强制移除再以随机方向部署于随机合法可部署地块"
@@ -4443,8 +4538,13 @@
 	},
 	"skzlwy_2_2": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"When defeated while <思维混乱>, resurrects over 22.6s, recovers 20% HP, and forces an operator to retreat",
+				"Removes all <Coffin> from the field, recovering 10% HP for each coffin, and uses【Punishment of Foolishness】"
+			],
+			"ja": [
+				"<思维混乱>時倒されると、22.6秒かけてHPを20%回復する；味方ユニット一体を強制退場させて、マップ上の全＜放逐的黑棺＞を退場されて、＜放逐的黑棺＞一体につきHPを10％回復する、【痴愚の懲戒】を使用"
+			],
 			"zh": [
 				"思维混乱时，被击倒后，进入持续2.6s的重生，恢复1%生命值；重生结束时立刻将令场上1名我方干员强制退场",
 				"随后不进行普通攻击，获得无敌，不可阻挡，不移动，每秒恢复最大生命值2%的生命，直到生命值高于20%时：令场上所有“放逐的黑棺”退场（每令1个“放逐的黑棺”退场治疗自身10%生命值），再次释放【痴愚惩戒】"
@@ -4457,8 +4557,12 @@
 		"atk": { "multiplier": 1.5 },
 		"dmg_element": "phys",
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Upon defeat or swap, deals 150% ATK as {phys} damage to all allied units in 2.0 radius and stuns for 5s"
+			],
+			"ja": [
+				"倒されか位置交換後、半径2.0マス内の味方ユニット全体に攻撃力の150%の{phys}ダメージを与え、5秒スタンする"
+			],
 			"zh": ["换位或死亡后对2.0半径内所有友方单位造成{phys}伤害，并使其晕眩5秒"]
 		}
 	},
@@ -4468,9 +4572,15 @@
 		"atk": { "multiplier": 1 },
 		"dmg_element": "phys",
 		"tooltip": {
-			"en": [],
-			"ja": [],
-			"zh": ["生命值低于一半时与迭代的怪物交换位置并对2.0半径内所有友方单位造成{phys}伤害并晕眩5秒"]
+			"en": [
+				"When HP drops below 50% for the first time, self and Mon2tr charges for 5s, swaps positions, and deals 150% ATK as {phys} damage to all allied units in 2.0 radius and stuns for 5s"
+			],
+			"ja": [
+				"HP50%以下→自分とMon2trが5秒チャージした後位置交換して、位置交換後半径2.0マス内の味方ユニット全体に攻撃力の150%の{phys}ダメージを与え、5秒スタンする"
+			],
+			"zh": [
+				"生命值低于一半时，自身与Mon2tr蓄力5s，与Mon2tr交换位置并对2.0半径内所有友方单位造成{phys}伤害并晕眩5秒"
+			]
 		}
 	},
 	"skgly_1": {
@@ -4479,46 +4589,52 @@
 		"atk": { "multiplier": 1.5 },
 		"dmg_element": "phys",
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Skill (Initial SP: 0, Cost :3) Attack recovery",
+				"After charging for 6s, deals 150% of ATK as {phys} damage to target; if target is defeated/retreats during skill duration, recovers 3 SP"
+			],
+			"ja": [
+				"スキル→初期SP0、必要SP3、攻撃回復",
+				"6秒チャージした後、対象に攻撃力150%の{phys}ダメージを与え、スキル期間中対象が倒されか撤退した場合、SP3点回復する"
+			],
 			"zh": [
 				"技能（初始0SP，消耗3SP，攻击回复）",
-				"蓄力8.0s后进行强力攻击，对目标造成攻击力150%的{phys}伤害；目标以任意方式离场后，回复所消耗的技力"
+				"蓄力6s后进行强力攻击，对目标造成攻击力150%的{phys}伤害；※技能期间若目标以任意方式离场，则自身回复3点技力"
 			]
 		}
 	},
 	"skdny_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": ["Upon defeat summons 1 <饮泣之刺>"],
+			"ja": ["倒されると<饮泣之刺>1個を召喚する"],
 			"zh": ["死亡后在自身所在格部署1个饮泣之刺"]
 		}
 	},
 	"skzrck_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": ["When on field, spreads <年代印痕> around itself", "Drops 3 构想 when defeated"],
+			"ja": ["フィールドにいる時、自分中心に年代印痕を伝播する", "倒されると构想3個を落とす"],
 			"zh": ["在场期间，于所在地块中心召唤范围的年代印痕", "被击败后掉落3个构想"]
 		}
 	},
 	"self_bind": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": ["Unable to move/attack, cannot be blocked, immune to unbalance"],
+			"ja": ["移動・攻撃しない、ブロックされない、強制移動無効"],
 			"zh": ["无法移动，失衡免疫，无法攻击/被阻挡"]
 		}
 	},
 	"direction_face_most_allies_mhkryk": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": ["When holding shell, will always face the direction that has more operators"],
+			"ja": ["甲羅所持時、常に味方ユニットが多い方に向く"],
 			"zh": ["持有甲壳时，始终面向我方干员数量较多的方向"]
 		}
 	},
 	"direction_face_most_allies": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": ["Will always face the direction that has more operators"],
+			"ja": ["常に味方ユニットが多い方に向く"],
 			"zh": ["始终面向我方干员数量较多的方向"]
 		}
 	},
@@ -4532,36 +4648,49 @@
 	},
 	"skzcy_1": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": [
+				"When defeated, removes the last deployed operator from team. Operator returns in E2 state upon entering next floor"
+			],
+			"ja": [
+				"倒されると、最後に配置した味方ユニットを連れ去り、チームから離脱される。次の層に入ると昇進2の状態で戻る"
+			],
 			"zh": ["被击败后会带走最后部署的干员，使其暂离队伍，下一层以精2状态回来"]
 		}
 	},
 	"skzwdd_1": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": ["When in 年代印痕, attacks hit twice"],
+			"ja": ["年代印痕にいる時、通常攻撃が二連攻撃になる"],
 			"zh": ["处于年代印痕时，攻击变为二连击"]
 		}
 	},
 	"skzlch_1": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
-			"zh": ["进入保护目标后，延长当前年代持续时间"]
+			"en": [
+				"Upon entering Protection Objective, extends the duration of the current era by 1 step"
+			],
+			"ja": ["防衛ラインに入ると、当時代を1歩延長する"],
+			"zh": ["进入保护目标后，则令该年代的剩余影响步数+1（可叠加）"]
 		}
 	},
 	"telex_1": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": ["Does not attack, does not consume lifepoints upon leaving the battlefield"],
+			"ja": ["攻撃しない、退場時ライフ取らない"],
 			"zh": ["无法被攻击、消失时不会扣除目标生命"]
 		}
 	},
 	"winfrz_1": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": [
+				"Spawns in frozen state, does not move/attack and gaining DEF +1000, RES +20 while frozen",
+				"Thaws after 200s or under effect of Emergency Heater"
+			],
+			"ja": [
+				"出現時、【待機】状態になる",
+				"【待機】中は移動・攻撃せず、防御力+1000・術耐性+20・睡眠無効",
+				"非常用ストーブの効果を受けるか、200秒経過すると【待機】状態を解除する"
+			],
 			"zh": [
 				"出场后进入【冬眠】状态：不移动，沉睡免疫，防御力+1000，法术抗性+20",
 				"受到紧急供暖器影响/经过200s后立刻离开【冬眠】状态"
@@ -4569,28 +4698,36 @@
 		}
 	},
 	"wingnt_1": {
-		"suffix": { "en": "First Attack", "ja": "", "zh": "首次攻击" },
+		"suffix": { "en": "First Attack", "ja": "初回攻撃", "zh": "首次攻击" },
 		"hits": 1,
 		"atk": { "multiplier": 1.5 },
 		"dmg_element": "arts",
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": ["First attack does 150% ATK as {arts} damage to target and surrounding 4 tiles"],
+			"ja": ["初回攻撃時、対象と周囲4マスの味方に攻撃力の150%の{arts}ダメージを与える"],
 			"zh": ["首次攻击对目标及其周围4格造成攻击力150%的{arts}伤害，此后仅进行近战攻击"]
 		}
 	},
 	"wdexg_1": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": [
+				"While holding Ammo, consumes 1 Ammo and unleashes a ranged attacks which reduces Cost by 3"
+			],
+			"ja": ["弾薬ある時、弾薬を1消費して遠距離攻撃を行う、ダメージを与えた時に所持コストを-3する"],
 			"zh": ["弹药大于等于1时：进行远程攻击，攻击时消耗1点技力，造成伤害后扣除3点已有部署费用"]
 		}
 	},
 	"skzlcp_1": {
 		"cd2": 60,
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Skill (Initial CD: 10s, ~CD: <v.cd2>s)",
+				"Stops attacking and summons 年代印痕 around the target for 20s, clears 年代印痕 when interrupted or skill duration ends"
+			],
+			"ja": [
+				"スキル（初動10秒/再動<v.cd2>秒）",
+				"攻撃を停止、20秒目標の周囲に年代印痕を構築し、中断されるかスキル終了後年代印痕は消える"
+			],
 			"zh": [
 				"织咒（初次冷却10s，后<v.cd2>s）",
 				"停止攻击，20s持续在目标周围创建年代印痕；持续施法结束/被打断清除自身召唤的年代印痕"
@@ -4601,23 +4738,34 @@
 		"duration": 3.5,
 		"value": 1100,
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"When blocked or touches <稳固锁链> for the first time, enters Hover for <v.duration>s",
+				"DEF -<v.value> when Hover ends"
+			],
+			"ja": [
+				"初回ブロックされるか＜稳固锁链＞に触れると<v.duration>秒間低空浮揚状態になる。低空浮揚終了後、防御力-<v.value>"
+			],
 			"zh": ["首次被阻挡/接触稳固锁链时获得<v.duration>s近地悬浮；持续时间结束后，防御力-<v.value>"]
 		}
 	},
 	"block_dmg_phys_arts": {
 		"value": 1,
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": ["Can block <v.value> instances of {phys}/{arts} damage"],
+			"ja": ["{phys}・{arts}ダメージを<v.value>回まで無効化可能"],
 			"zh": ["可以抵挡<v.value>次{phys}或{arts}伤害"]
 		}
 	},
 	"ltsmer_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Skill (Initial CD: 5s, ~CD: 15s)",
+				"Stops attacking and channels for 25s maximum on the nearest non-enemy controlled Gramophone, causing it to lose 2 SP every second"
+			],
+			"ja": [
+				"蓄音器奪取（初動5秒/再動15秒）",
+				"攻撃範囲内で敵が制御しておらず最も近い蓄音器に呪文を唱え続け、25秒間、SPを毎秒2減少させる。この行動中攻撃はしない"
+			],
 			"zh": [
 				"技能（初次冷却5s，后15s）",
 				"停止攻击，对攻击范围内距离自身最近的非敌方“留声机”持续施法，每秒扣除其2点技力，持续25秒"
@@ -4627,8 +4775,14 @@
 	"bldbat_1": {
 		"value": 30,
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Skill (Initial SP: 0, Cost: 1) Attack Recovery",
+				"Causes target to bleed, losing <v.value> HP every second for 5s (does not stack)"
+			],
+			"ja": [
+				"スキル→初期SP0、必要SP1、攻撃回復",
+				"攻撃対象に失血させ、5秒間毎秒<v.value>を失う (重複しない)"
+			],
 			"zh": [
 				"技能（初始0SP，消耗1SP，攻击回复）",
 				"使目标流血，5s内每秒流失<v.value>点生命（不可叠加）"
@@ -4641,15 +4795,21 @@
 		"atk": { "multiplier": 1.3 },
 		"dmg_element": "phys",
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": ["Skill (Initial SP: 0, Cost: 2) Attack Recovery", "Deals 130% ATK as {phys} damage"],
+			"ja": ["スキル→初期SP0、必要SP2、攻撃回復", "攻撃力130%の{phys}ダメージを与える"],
 			"zh": ["技能（初始0SP，消耗2SP，攻击回复）", "造成攻击力130%的{phys}伤害"]
 		}
 	},
 	"ltnflu_2": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"<@purple>Melancholic</>: ATK +20%, ASPD -50, Movespeed -50%",
+				"<@gold>Passionate</>: ASPD +50, Movespeed +100%, DEF -50%"
+			],
+			"ja": [
+				"<@purple>トーンダウン</>：攻撃力+20%、攻撃速度-50、移動速度-50%",
+				"<@gold>トーンアップ</>：攻撃速度+50、移動速度+100%、防御力-50%"
+			],
 			"zh": [
 				"<@purple>沉郁变奏</>持续期间：攻击力+20%，攻击速度-50，移动速度最终降低至50%",
 				"<@gold>激昂变奏</>持续期间：攻击速度+50，移动速度最终提升至200%，防御力-50%"
@@ -4661,9 +4821,18 @@
 		"hits": 1,
 		"atk": { "multiplier": 1.0 },
 		"dmg_element": "phys",
+		"silence": true,
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Skill (Initial SP: 0, Cost: 2) Attack Recovery",
+				"Deals 100% ATK as {phys} damage to target and surrounding 4 tiles",
+				"<@gold>Passionate</>: deals {arts} damage instead"
+			],
+			"ja": [
+				"スキル→初期SP0、必要SP2、攻撃回復",
+				"対象と隣接4マスに攻撃力100%の{phys}ダメージを与える",
+				"<@gold>トーンアップ</>：{arts}ダメージを与える"
+			],
 			"zh": [
 				"凯歌（初始0SP，消耗2SP，攻击回复）",
 				"对目标及周围4格的我方单位造成攻击力100%的{phys}伤害",
@@ -4673,8 +4842,14 @@
 	},
 	"ltntpt_2": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"<@purple>Melancholic</>: ATK +20%, ASPD -50, Movespeed -50%",
+				"<@gold>Passionate</>: ASPD +50, Movespeed +100%, DEF -50%, Attacks deal {arts} damage"
+			],
+			"ja": [
+				"<@purple>トーンダウン</>：攻撃力+20%、攻撃速度-50、移動速度-50%",
+				"<@gold>トーンアップ</>：攻撃速度+50、移動速度+100%、防御力-50%、攻撃が{arts}ダメージを与える"
+			],
 			"zh": [
 				"<@purple>沉郁变奏</>持续期间：攻击力+20%，攻击速度-50，移动速度最终降低至50%",
 				"<@gold>激昂变奏</>持续期间：攻击速度+50，移动速度最终提升至200%，防御力-50%，攻击变为造成{arts}伤害"
@@ -4687,8 +4862,16 @@
 		"atk": { "multiplier": 1.0 },
 		"dmg_element": "arts",
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Skill (Initial SP: 0, Cost: 2) Attack Recovery",
+				"Deals 100% ATK as {arts} damage to all allied units within 2.0 tile radius",
+				"<@gold>Passionate</>: Skill range increased to 3.0 tile radius"
+			],
+			"ja": [
+				"スキル→初期SP0、必要SP2、攻撃回復",
+				"半径2.0マス以内の味方全員に、攻撃力100%の{arts}ダメージを与える",
+				"<@gold>トーンアップ</>：スキル範囲が半径3.0になる"
+			],
 			"zh": [
 				"重奏（初始0SP，消耗2SP，攻击回复）",
 				"仅攻击范围内存在目标时可触发：对2.0半径范围内所有我方单位造成攻击力100%的{arts}伤害",
@@ -4698,8 +4881,14 @@
 	},
 	"ltndru_2": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"<@purple>Melancholic</>: ATK +20%, ASPD -50, Movespeed -50%",
+				"<@gold>Passionate</>: ASPD +50, Movespeed +100%, DEF -50%, Attack range increased to 2.2"
+			],
+			"ja": [
+				"<@purple>トーンダウン</>：攻撃力+20%、攻撃速度-50、移動速度-50%",
+				"<@gold>トーンアップ</>：攻撃速度+50、移動速度+100%、防御力-50%、攻撃範囲が半径2.2になる"
+			],
 			"zh": [
 				"<@purple>沉郁变奏</>持续期间：攻击力+20%，攻击速度-50，移动速度最终降低至50%",
 				"<@gold>激昂变奏</>持续期间：攻击速度+50，移动速度最终提升至200%，防御力-50%，攻击范围半径扩大至2.2"
@@ -4712,8 +4901,16 @@
 		"atk": { "multiplier": 1.0 },
 		"dmg_element": "phys",
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Skill (Initial SP: 0, Cost: 2) Attack Recovery",
+				"Deals 100% ATK as {phys} damage to 2 targets",
+				"<@gold>Passionate</>: deals {arts} damage instead"
+			],
+			"ja": [
+				"スキル→初期SP0、必要SP2、攻撃回復",
+				"最大2体に攻撃力100%の{phys}ダメージを与える",
+				"<@gold>トーンアップ</>：{arts}ダメージを与える"
+			],
 			"zh": [
 				"劈音（初始0SP，消耗2SP，攻击回复）",
 				"对最多2个目标分别造成攻击力100%的{phys}伤害",
@@ -4723,8 +4920,14 @@
 	},
 	"ltnhor_2": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"<@purple>Melancholic</>: ATK +20%, ASPD -50, Movespeed -50%",
+				"<@gold>Passionate</>: ASPD +50, Movespeed +100%, DEF -50%, Attacks deal {arts} damage"
+			],
+			"ja": [
+				"<@purple>トーンダウン</>：攻撃力+20%、攻撃速度-50、移動速度-50%",
+				"<@gold>トーンアップ</>：攻撃速度+50、移動速度+100%、防御力-50%、攻撃が{arts}ダメージを与える"
+			],
 			"zh": [
 				"<@purple>沉郁变奏</>持续期间：攻击力+20%，攻击速度-50，移动速度最终降低至50%",
 				"<@gold>激昂变奏</>持续期间：攻击速度+50，移动速度最终提升至200%，防御力-50%，攻击变为造成{arts}伤害"
@@ -4733,8 +4936,10 @@
 	},
 	"ltnclr_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"When not blocked, gains +30 final ATK buff every 0.5s (max 30 stacks), clears all stacks upon attack"
+			],
+			"ja": ["未ブロック時、0.5秒毎に最終攻撃+30のバフを獲得 (最大30回)、攻撃した後リセットする"],
 			"zh": [
 				"未被阻挡时，每0.5秒获得1层攻击力最终+30的增益（最多叠加30层），于进行攻击后清除所有增益"
 			]
@@ -4742,8 +4947,14 @@
 	},
 	"ltnclr_2": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"<@purple>Melancholic</>: ATK +150%, ASPD -25, Movespeed -30%, Attacks stun target for 10s",
+				"<@gold>Passionate</>: ASPD +25, Movespeed +100%, DEF -50%"
+			],
+			"ja": [
+				"<@purple>トーンダウン</>：攻撃力+150%、攻撃速度-25、移動速度-30%、攻撃が対象に10秒スタンを与える",
+				"<@gold>トーンアップ</>：攻撃速度+25、移動速度+100%、防御力-50%"
+			],
 			"zh": [
 				"<@purple>沉郁变奏</>持续期间：攻击速度-25，移动速度最终降低至70%，攻击力+150%，攻击使目标晕眩10s",
 				"<@gold>激昂变奏</>持续期间：攻击速度+25，移动速度提升至200%，防御力-50% "
@@ -4751,9 +4962,19 @@
 		}
 	},
 	"ltnclo_1": {
+		"suffix": { "en": "Shield", "ja": "シールド反撃", "zh": "护盾反伤" },
+		"hits": 1,
+		"atk": { "multiplier": 0.5 },
+		"dmg_element": "phys",
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Upon entering <@purple>Melancholic</> variation, gains 10 Shield stacks. Loses all stacks when exiting Melancholic variation",
+				"Deals 20% ATK as {phys} damage to targets while having a shield"
+			],
+			"ja": [
+				"<@purple>トーンダウン</>に入るとシールド10回を獲得する、トーンが替わるとシールドが消える",
+				"シールド存在中攻撃されると、対象に攻撃力20%の{phys}ダメージを与える"
+			],
 			"zh": [
 				"进入<@purple>沉郁变奏</>时获得10层护盾（退出沉郁变奏时清空此护盾，护盾不多于5层时出现外观变化）",
 				"该护盾成功抵挡伤害时，若伤害来源为默认类，则对伤害来源造成自身攻击力20%的无来源{phys}伤害"
@@ -4762,8 +4983,14 @@
 	},
 	"ltnclo_2": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"<@purple>Melancholic</>: ATK +150%, ASPD -25, Movespeed -30%",
+				"<@gold>Passionate</>: ASPD +25, Movespeed +100%, DEF -50%"
+			],
+			"ja": [
+				"<@purple>トーンダウン</>：攻撃力+150%、攻撃速度-25、移動速度-30%",
+				"<@gold>トーンアップ</>：攻撃速度+25、移動速度+100%、防御力-50%"
+			],
 			"zh": [
 				"<@purple>沉郁变奏</>持续期间：攻击速度-25，移动速度最终降低至70%，攻击力+150%",
 				"<@gold>激昂变奏</>持续期间：攻击速度+25，移动速度最终提升至200%，防御力-50%"
@@ -4901,57 +5128,70 @@
 	},
 	"lpeopl_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": ["Remains on field, does not retreat into Protection Objective"],
+			"ja": ["マップ上に彷徨く、防衛ラインに入らない"],
 			"zh": ["始终在场上不撤回保护目标点"]
 		}
 	},
 	"lpeopl_2": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": ["Panic (Initial SP: 0, Cost: 50, Recovers 2 SP/s)"],
+			"ja": ["パニック→初期SP0、必要SP50、毎秒SP2点回復する"],
 			"zh": ["恐慌（初始0SP，消耗50SP），每秒回复2点SP"]
 		}
 	},
 	"lpeopl_3": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": ["Becomes Terrified when Panic level is full, and loses 15HP/s"],
+			"ja": ["SPが50に達すると恐慌状態になり、毎秒HP15点を失う"],
 			"zh": ["恐慌满后进入“惶惶不安”状态，每秒流失15点生命"]
 		}
 	},
 	"lpeopl_4": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Will deplete a Life Point upon dying, does not count towards the defeated enemies counter"
+			],
+			"ja": ["死亡時、耐久値が1減少する"],
 			"zh": ["死亡时扣除1目标生命；不计入歼灭数"]
 		}
 	},
 	"ymtro_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"When next to enemies that are both non-Machine and non-Boss, they will be loaded inside as passengers (up to 4 max)"
+			],
+			"ja": [
+				"敵が自身の半径0.5以内に入った時、その敵を乗客として乗せ、一時的に消失させる（最大4人）",
+				"ボス・ロボット・空中の敵は乗せられない"
+			],
 			"zh": ["周围有领袖以外的非机械敌人时会将其装载为乘客（最多4个）"]
 		}
 	},
 	"harchn_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Spawn (Initial CD: 5s, ~CD: 5s)",
+				"Spawns 1 Originiutant Excrescence with the same route"
+			],
+			"ja": ["分裂（初動5秒/再動5秒）", "自分の進行経由を持つ変異腫瘍1体を召喚する"],
 			"zh": ["分裂（初次冷却5s，后5s）", "在自身位置以自身路径召唤1个畸变赘生物"]
 		}
 	},
 	"parasitic": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": ["Has a red mark, spawns a <恐卡兹> upon defeat"],
+			"ja": ["赤いマークを持つ、倒されると＜恐卡兹＞を召喚する"],
 			"zh": ["持有标记，被击败后便会生成恐卡兹"]
 		}
 	},
 	"rescar_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": ["Summon (Initial CD: 5s, ~CD: 10s) ", "If SP>1, consumes 1 SP to summon a Snack Cart"],
+			"ja": [
+				"召喚（初動5秒/再動10秒）",
+				"SPが1以上のみ使える、SP1点を消費し、キャンディカート1体を召喚する"
+			],
 			"zh": [
 				"召唤糖果车（初次冷却5s，后10s）",
 				"仅技力大于等于1时触发：消耗1点技力，延迟0.1s后在自身位置以自身路径召唤1个糖果车"
@@ -4960,8 +5200,14 @@
 	},
 	"rescar_2": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Summon (Initial CD: 5s, ~CD: 10s) ",
+				"If SP>1, consumes 1 SP to summon a Luscious Snack Cart"
+			],
+			"ja": [
+				"召喚（初動5秒/再動10秒）",
+				"SPが1以上のみ使える、SP1点を消費し、人気キャンディカート1体を召喚する"
+			],
 			"zh": [
 				"召唤糖果车（初次冷却5s，后10s）",
 				"仅技力大于等于1时触发：消耗1点技力，延迟0.1s后在自身位置以自身路径召唤1个精致糖果车"
@@ -4970,15 +5216,23 @@
 	},
 	"bomscr_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Detonates when blocked, inflicting 375 {arts} Damage and 250 {ba.dt.burning} to all nearby targets"
+			],
+			"ja": [
+				"ブロックされると自爆し、自身を中心とした3×3マス内の味方全員に375の{arts}ダメージと250の{ba.dt.burning}を与える"
+			],
 			"zh": ["被阻挡后发生爆炸，对周围所有目标造成375点{arts}溅射伤害和250点{ba.dt.burning}"]
 		}
 	},
 	"bomscr_2": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Detonates when blocked, inflicting 550 {arts} Damage and 350 {ba.dt.burning} to all nearby targets"
+			],
+			"ja": [
+				"ブロックされると自爆し、自身を中心とした3×3マス内の味方全員に550の{arts}ダメージと350の{ba.dt.burning}を与える"
+			],
 			"zh": ["被阻挡后发生爆炸，对周围所有目标造成550点{arts}溅射伤害和350点{ba.dt.burning}"]
 		}
 	},
@@ -4988,14 +5242,18 @@
 		"atk": { "multiplier": 2 },
 		"dmg_element": "phys",
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Pistol - spends ammo to deal 200% ATK as {phys} damage, randomly selecting targets within attack range with a 70% hit rate"
+			],
+			"ja": [
+				"発砲 - 攻撃範囲内のランダムな味方1人に、70%の確率で攻撃力200%の{phys}ダメージを与える、30%の確率で攻撃が外します"
+			],
 			"zh": ["开火 - 锁定攻击范围内随机一名我方单位，有70%的概率造成攻击力200%的{phys}普通伤害"]
 		}
 	},
 	"frtuna_2": {
 		"tooltip": {
-			"en": ["Gains ASPD +300 when Ammo count >= 1"],
+			"en": ["Gains ASPD +300 when having Ammo"],
 			"ja": ["弾薬数1以上なら、攻撃速度+300"],
 			"zh": ["自身技力大于0时，攻击速度+300"]
 		}
@@ -5045,7 +5303,10 @@
 	"patrt_2": {
 		"tooltip": {
 			"en": [""],
-			"ja": ["HPが0になると再生態勢に移行。","再生態勢 - 無敵。移動・通常攻撃しない。60秒掛けてHPを全回復し、その後撃滅態勢に移行。半径1.75マスの味方に、0.8秒ごとに攻撃力の5.21%の確定ダメージを与える"],
+			"ja": [
+				"HPが0になると再生態勢に移行。",
+				"再生態勢 - 無敵。移動・通常攻撃しない。60秒掛けてHPを全回復し、その後撃滅態勢に移行。半径1.75マスの味方に、0.8秒ごとに攻撃力の5.21%の確定ダメージを与える"
+			],
 			"zh": ["被击败时立刻触发【生命献祭】并释放当前波次，随后进行持续60s的重生，恢复100%生命值"]
 		}
 	},
@@ -5055,7 +5316,7 @@
 				"Gains Atk Interval -0.4, Movespeed +0.1, Normal Attack becomes ranged and single hit"
 			],
 			"ja": [
-				"攻撃間隔-0.4、移動速度+0.1、通常攻撃が単発かつ攻撃半径0.85マスの遠距離物理攻撃へ変化"
+				"攻撃間隔-0.4、移動速度+0.1、通常攻撃が単発かつ攻撃半径0.85マスの遠距離{phys}攻撃へ変化"
 			],
 			"zh": ["攻击间隔-0.4，移动速度+0.1，进行远程攻击，攻击半径0.85"]
 		}
@@ -5066,8 +5327,14 @@
 		"atk": { "multiplier": 1.35 },
 		"dmg_element": "phys",
 		"tooltip": {
-			"en": ["Throw Halberd (Initial CD: 15s, ~CD: 20s)","Deals 135% ATK as Phys damage to the farthest high ground unit"],
-			"ja": ["槍投げ（初動15秒/再動20秒）","自分から最も遠い高台オペレーターに攻撃力の135%の物理ダメージを与える"],
+			"en": [
+				"Throw Halberd (Initial CD: 15s, ~CD: 20s)",
+				"Deals 135% ATK as Phys damage to the farthest high ground unit"
+			],
+			"ja": [
+				"槍投げ（初動15秒/再動20秒）",
+				"自分から最も遠い高台オペレーターに攻撃力の135%の{phys}ダメージを与える"
+			],
 			"zh": [
 				"投枪（初次冷却15s，后20s）",
 				"锁定半径20范围内距离自身最远的部署于高台的我方单位，蓄力约3s后对其造成相当于攻击力135%的{phys}普通伤害 "
@@ -5101,7 +5368,7 @@
 				"Uses ranged attacks when not blocked, dealing 26% of ATK as Physical damage to the target and the 8 surrounding tiles, decreasing their DEF by 50% for 5s"
 			],
 			"ja": [
-				"非ブロック時、通常攻撃で榴弾射撃（遠距離範囲物理攻撃）を行う。榴弾射撃は標的と周囲8マスに攻撃力26%の物理ダメージと5秒間の防御力−50%デバフを与える"
+				"非ブロック時、通常攻撃で榴弾射撃（遠距離範囲{phys}攻撃）を行う。榴弾射撃は標的と周囲8マスに攻撃力26%の{phys}ダメージと5秒間の防御力−50%デバフを与える"
 			],
 			"zh": [
 				"未被阻挡时会发射榴弹，爆炸范围为目标及其周围八格，使我方单位5秒内防御力下降50%，造成相当于攻击力26%的{phys}伤害"
