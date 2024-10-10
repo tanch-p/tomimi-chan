@@ -14,7 +14,7 @@
 
 	export let tokens, chara, moduleIndex, moduleStage, language: Language;
 
-	const tokensWithoutIcon = ['token_10012_rosmon_shield', 'token_10015_dusk_drgn'];
+	const tokensWithoutIcon = ['token_10012_rosmon_shield', 'token_10015_dusk_drgn','token_10040_siege2_vlion'];
 	const statKeys = ['hp', 'respawnTime', 'atk', 'cost', 'def', 'blockCnt', 'res', 'aspd'];
 
 	let tokenSkillIndex = 0;
