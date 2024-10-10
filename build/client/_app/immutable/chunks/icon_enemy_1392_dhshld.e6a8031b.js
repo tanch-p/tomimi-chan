@@ -1,0 +1,1 @@
+const e=""+new URL("../assets/icon_enemy_1392_dhshld.0f5c3442.webp",import.meta.url).href;export{e as default};

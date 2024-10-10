@@ -1,0 +1,1 @@
+import{s as r}from"./is_stages_list.31e0a3a1.js";function f(n,t){return r.filter(e=>e.tags.includes(t)).find(e=>{const{code:s,name_zh:a,name_ja:i,name_en:o}=e;return[s+"_"+a,s+"_"+i,s+"_"+o].includes(n)})}export{f};
