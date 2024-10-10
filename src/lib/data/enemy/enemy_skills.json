@@ -1,5 +1,6 @@
 {
 	"stealth": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Stealth"],
 			"ja": ["ステルス"],
@@ -7,6 +8,7 @@
 		}
 	},
 	"stealth_fast": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Stealth (fast) - regains stealth 0s after not being blocked"],
 			"ja": ["ステルス（即）→ブロックされなくなる0秒後ステルス状態になる"],
@@ -15,15 +17,14 @@
 	},
 	"resist": {
 		"value": 50,
+		"silence": false,
 		"tooltip": {
-			"en": ["Resist - duration of Stun, Cold, Freeze, etc debuffs are reduced by <v.value>%"],
-			"ja": ["レジスト - スタン、寒冷、凍結などの状態異常の継続時間時間が<v.value>％減少"],
-			"zh": ["持有抵抗"]
+			"en": ["<ba.buffres>Resist</>"],
+			"ja": ["<ba.buffres>レジスト</>"],
+			"zh": ["持有<ba.buffres>抵抗</>"]
 		}
 	},
 	"no_block": {
-		"mods": null,
-		"value": null,
 		"tooltip": {
 			"en": ["Cannot be blocked"],
 			"ja": ["ブロックされない"],
@@ -67,6 +68,7 @@
 		"suffix": { "en": "HP↓50%", "ja": "HP50%以下", "zh": "HP50%以下" },
 		"hits": null,
 		"atk": { "multiplier": 2 },
+		"silence": false,
 		"tooltip": {
 			"en": ["HP↓50% - ATK increased to <v.atk.multiplier>%"],
 			"ja": ["HP50%以下→攻撃力が<v.atk.multiplier>%に増加"],
@@ -74,6 +76,7 @@
 		}
 	},
 	"attack_stun_4": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Attacks stun target for 4s"],
 			"ja": ["攻撃が相手を4秒スタンする"],
@@ -81,6 +84,7 @@
 		}
 	},
 	"crusher_stun": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Every 3rd attack stuns target for 7s"],
 			"ja": ["攻撃2回の度に次の攻撃に相手を７秒スタンする"],
@@ -88,6 +92,7 @@
 		}
 	},
 	"sailor_stun": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Every 4th attack stuns target for 7s"],
 			"ja": ["攻撃3回の度に次の攻撃に相手を7秒スタンする"],
@@ -95,6 +100,7 @@
 		}
 	},
 	"sniper_stun": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Every 3rd attack stuns target for 5s"],
 			"ja": ["攻撃2回の度に次の攻撃に相手を5秒スタンする"],
@@ -102,6 +108,7 @@
 		}
 	},
 	"sniper_leader_stun": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Every 3rd attack stuns target for 15s"],
 			"ja": ["攻撃2回の度に次の攻撃に相手を15秒スタンする"],
@@ -111,6 +118,7 @@
 	"atk_minus_block": {
 		"value": 1,
 		"duration": 5,
+		"silence": false,
 		"tooltip": {
 			"en": ["Reduces maximum Block of attacked unit by <v.value> for <v.duration>s"],
 			"ja": ["攻撃時、対象のブロック数上限を<v.duration>秒間-<v.value>する(重複しない)"],
@@ -122,6 +130,7 @@
 		"suffix": { "en": "RPG", "ja": "RPG", "zh": "RPG" },
 		"atk": { "multiplier": 2 },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"RPG → deals 100% {phys} splash dmg to target & surrounding 8 tiles, switches to Melee & ms+200% after firing"
@@ -135,6 +144,7 @@
 		}
 	},
 	"summon_scrap_normal": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Once per battle, after 2s summons Scrap to target's position when target present within attack range",
@@ -152,6 +162,7 @@
 		}
 	},
 	"summon_scrap_modelU": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Once per battle, after 2s summons Scrap Model-U to target's position when target present within attack range",
@@ -169,6 +180,7 @@
 		}
 	},
 	"summon_scrap_war_phantom": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Once per battle, summons Scrap before executing first attack"],
 			"ja": ["初回攻撃直前に、攻撃対象の位置に「破片」を向かわせる"],
@@ -178,6 +190,7 @@
 		}
 	},
 	"summon_scrap_legend_war_phantom": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Once per battle, summons Scrap Model-U before executing first attack"],
 			"ja": ["初回攻撃直前に、攻撃対象の位置に「破片タイプU」を向かわせる"],
@@ -187,6 +200,7 @@
 		}
 	},
 	"summon_anvil": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When HP drops below 50% for the first time, summons Anvil to own position."],
 			"ja": ["HPが初回50%以下になった時、自身の位置に「鉄砧」を向かわせる"],
@@ -196,6 +210,7 @@
 		}
 	},
 	"summon_anvil_modelB": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When HP drops below 50% for the first time, summons Anvil Model-B to own position."],
 			"ja": ["HPが初回50%以下になった時、自身の位置に「鉄砧タイプB」を向かわせる"],
@@ -205,6 +220,7 @@
 		}
 	},
 	"support_drone_ms_buff": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When present on battlefield, all Air Support Drones' MS increased by 200%"],
 			"ja": ["フィールドにいる時、空中支援ドローンの移動速度+200%"],
@@ -212,6 +228,7 @@
 		}
 	},
 	"anvil_healing_aura": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"All enemy units within attack range (excluding self) gains 200 DEF and restores 200HP/s",
@@ -226,6 +243,7 @@
 		}
 	},
 	"anvil_modelB_healing_aura": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"All enemy units within attack range (excluding self) gains 300 DEF and restores 250HP/s",
@@ -241,6 +259,7 @@
 	},
 	"mcv4_def_buff": {
 		"value": 300,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Buff→enemies within 2.5 tile range DEF +<v.value>, does not apply to self, does not stack",
@@ -254,6 +273,7 @@
 		}
 	},
 	"mrfly_buff": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Buff→enemies within 2.5 tile range RES +30, does not apply to self, does not stack",
@@ -264,6 +284,7 @@
 		}
 	},
 	"drone_bomb": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Bomb does 100% {phys} AOE damage 8 tiles around target",
@@ -274,6 +295,7 @@
 		}
 	},
 	"drone_bomb_frost": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Bomb does 100% {arts} AOE damage + Cold❄ 8 tiles around target",
@@ -287,6 +309,7 @@
 		}
 	},
 	"drone_frost_debuff": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Debuff→operators within range have ASPD -50 (can be silenced)"],
 			"ja": ["攻撃範囲内の味方の攻撃速度-50（無効化可能）"],
@@ -296,6 +319,7 @@
 	"splash": {
 		"value": 1,
 		"tiles": 8,
+		"silence": false,
 		"tooltip": {
 			"en": ["Attacks do <v.%value>% splash to <v.tiles> tiles surrounding target"],
 			"ja": ["通常攻撃→攻撃対象の隣接<v.tiles>マスに<v.%value>％ダメージ"],
@@ -303,6 +327,7 @@
 		}
 	},
 	"target_all": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Able to attack all targets within range"],
 			"ja": ["攻撃範囲内の目標全部攻撃できる"],
@@ -311,6 +336,7 @@
 	},
 	"multi_target": {
 		"value": 2,
+		"silence": false,
 		"tooltip": {
 			"en": ["Normal attack targets <v.value> units"],
 			"ja": ["<v.value>体同時攻撃"],
@@ -319,6 +345,7 @@
 	},
 	"multi_target_condense": {
 		"value": 2,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Normal attack targets <v.value> units (or if only 1 unit within range, deals <v.value> hits)"
@@ -329,6 +356,7 @@
 	},
 	"def_down_hit": {
 		"value": 10,
+		"silence": false,
 		"tooltip": {
 			"en": ["Attacks decreases target's DEF by <v.value>, lasts indefinitely"],
 			"ja": ["攻撃1回につき相手のDEF<v.value>低下", "(蓄積する、撤退まで永続)"],
@@ -338,6 +366,7 @@
 	"def_down_duration": {
 		"duration": 5,
 		"value": 0.5,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Attacks reduce target's Final DEF by <v.%value>% for <v.duration>s (does not stack, can be silenced)"
@@ -350,6 +379,7 @@
 	},
 	"ignore_def_percent": {
 		"value": 0.4,
+		"silence": false,
 		"tooltip": {
 			"en": ["Attacks ignores <v.%value>% DEF"],
 			"ja": ["攻撃は防御<v.%value>％無視"],
@@ -358,6 +388,7 @@
 	},
 	"hp_regen": {
 		"value": 150,
+		"silence": false,
 		"tooltip": {
 			"en": ["Recovers <v.value> hp/s"],
 			"ja": ["毎秒HP<v.value>回復する"],
@@ -366,6 +397,7 @@
 	},
 	"ms_inc": {
 		"value": 1.5,
+		"silence": false,
 		"tooltip": {
 			"en": ["Movespeed +<v.%value>%"],
 			"ja": ["移動速度＋<v.%value>％"],
@@ -373,6 +405,7 @@
 		}
 	},
 	"corrupted_knight_rage": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Gains ATK +80%, ASPD +100 and Movespeed +150%"],
 			"ja": ["攻撃力+80%、攻撃速度+100、移動速度＋150％"],
@@ -380,6 +413,7 @@
 		}
 	},
 	"greytail_shield": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Appears with a shield which absorbs up to 6000 {arts} damage",
@@ -399,6 +433,7 @@
 		}
 	},
 	"greytail_leader_shield": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Appears with a shield which absorbs up to 10002 {arts} damage",
@@ -422,6 +457,8 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"hits": 1,
+		"tags":["ignore_stealth","ignore_camou"],
+		"silence": true,
 		"tooltip": {
 			"en": [
 				"Explodes on death, dealing <v.atk.multiplier>% ATK as {phys} damage to nearby units (Can be silenced)"
@@ -438,6 +475,7 @@
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"duration": 10,
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Explodes on death, dealing <v.atk.multiplier>% ATK as {phys} damage + <v.duration>s Cold❄ to nearby units (Can be silenced)"
@@ -455,6 +493,7 @@
 		"dmg_element": "arts",
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Explodes on death, giving all enemies +1 energy and deals <v.atk.multiplier>% ATK as {arts} damage to nearby units (Can be silenced)"
@@ -472,6 +511,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Explodes on death, leaving behind 源石污染区 tile and dealing <v.atk.multiplier>% ATK as {phys} damage to nearby units (Can be silenced)"
@@ -484,6 +524,7 @@
 	},
 	"freeze_attack": {
 		"value": 5,
+		"silence": false,
 		"tooltip": {
 			"en": ["Normal attacks apply Cold to the target for <v.value>s"],
 			"ja": ["通常攻撃で対象に<v.value>秒間の【寒冷】効果を付与する"],
@@ -492,6 +533,7 @@
 	},
 	"ice_pick": {
 		"value": 1.5,
+		"silence": false,
 		"tooltip": {
 			"en": ["ATK is increased to <v.%value>% when attacking frozen units"],
 			"ja": ["【❄凍結】状態の対象を攻撃する時に攻撃力が<v.%value>%まで増加"],
@@ -499,6 +541,7 @@
 		}
 	},
 	"atk_arts_change": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Atk type - {arts}"],
 			"ja": ["攻撃属性が{arts}になる"],
@@ -506,6 +549,7 @@
 		}
 	},
 	"invincible_type2": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Cannot be attacked"],
 			"ja": ["攻撃を受け付けない"],
@@ -514,6 +558,7 @@
 	},
 	"invincible": {
 		"value": 5,
+		"silence": false,
 		"tooltip": {
 			"en": ["Invincible for <v.value>s"],
 			"ja": ["<v.value>秒間無敵"],
@@ -522,6 +567,7 @@
 	},
 
 	"erosion_immune": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Immune to Erosion"],
 			"ja": ["水蝕無効"],
@@ -529,6 +575,7 @@
 		}
 	},
 	"cs_blink": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When blocked, teleports past unit. CD15s"],
 			"ja": ["ブロックされた時、ユニットの背後に回り込む　CD15秒"],
@@ -539,6 +586,7 @@
 		"atk": { "multiplier": 1.4 },
 		"dmg_element": null,
 		"suffix": { "en": "underwater", "ja": "水中", "zh": "水中" },
+		"silence": false,
 		"tooltip": {
 			"en": ["While in water, gains +40% ATK and Stealth"],
 			"ja": ["水中にいる時、攻撃力+40%。ステルス状態になる"],
@@ -547,6 +595,7 @@
 	},
 	"evasion_phys_arts": {
 		"value": 40,
+		"silence": false,
 		"tooltip": {
 			"en": ["Has <v.value>% {phys}/{arts} evasion"],
 			"ja": ["{phys}・{arts}回避率+<v.value>%"],
@@ -555,6 +604,7 @@
 	},
 	"no_block_evasion_phys": {
 		"value": 40,
+		"silence": false,
 		"tooltip": {
 			"en": ["Gains <v.value>% {phys} evasion when not blocked"],
 			"ja": ["未ブロック時、{phys}回避率+<v.value>%"],
@@ -563,6 +613,7 @@
 	},
 	"no_block_dmg_red": {
 		"value": 50,
+		"silence": false,
 		"tooltip": {
 			"en": ["When not blocked, receives <v.value>% reduced {phys}/{arts} damage"],
 			"ja": ["未ブロック時、受ける{phys}と{arts}ダメージが<v.value>%減少"],
@@ -570,6 +621,7 @@
 		}
 	},
 	"tidal_caster_speedboat_defeat": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Upon defeat, spawns a Tidal Caster"],
 			"ja": ["死亡すると、同じ場所に造波術師が出現"],
@@ -580,6 +632,7 @@
 		"atk": { "multiplier": 1 },
 		"dmg_element": "phys",
 		"suffix": { "en": "Runover", "ja": "轢", "zh": "撞" },
+		"silence": false,
 		"tooltip": {
 			"en": ["Deals 100% ATK as {phys} damage to allies that comes into contact while moving"],
 			"ja": ["轢かれる時攻撃力100%の{phys}ダメージを与える"],
@@ -589,6 +642,7 @@
 		}
 	},
 	"hvymot_defeat": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Upon defeat, spawns a Dockworker Leader"],
 			"ja": ["死亡すると、同じ場所に水兵長が出現"],
@@ -596,6 +650,7 @@
 		}
 	},
 	"prisoner_atk_release": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Imprisoned state, gets released on 4th attack"],
 			"ja": ["禁固状態、攻撃4回→解放状態となる"],
@@ -603,6 +658,7 @@
 		}
 	},
 	"caster_prisoner_imprisoned": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Imprisoned state, does not attack"],
 			"ja": ["禁固状態中→攻撃しない"],
@@ -610,6 +666,7 @@
 		}
 	},
 	"prisoner_release_all": {
+		"silence": false,
 		"tooltip": {
 			"en": ["On release, releases all other prisoners on field as well"],
 			"ja": ["解放時フィールド上の敵全体解放状態にする"],
@@ -617,6 +674,7 @@
 		}
 	},
 	"aspd_buff_ALL": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Buff→All enemies on field gains +30% ASPD (Does not stack)"],
 			"ja": ["バフ→敵全体攻撃速度+30％（重複しない）"],
@@ -628,6 +686,7 @@
 		"dmg_element": "arts",
 		"suffix": { "en": "skill", "ja": "スキル", "zh": "技能" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill (Initial CD: 18s, ~CD: 18s)",
@@ -652,6 +711,7 @@
 		"dmg_element": "arts",
 		"suffix": { "en": "nova", "ja": "氷環", "zh": "冰环" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Ice Nova (Initial CD: <v.cd1>s, ~CD: <v.cd2>s)",
@@ -674,6 +734,7 @@
 		"cd1": 35,
 		"cd2": 35,
 		"value": 2,
+		"silence": false,
 		"tooltip": {
 			"en": ["Freeze Tile (Initial CD: <v.cd1>s, ~CD: <v.cd2>s)"],
 			"ja": ["地面封じ（初動<v.cd1>秒/再動<v.cd2>秒）"],
@@ -685,6 +746,7 @@
 		"dmg_element": "arts",
 		"suffix": { "en": "nova", "ja": "冰环", "zh": "冰环" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Ice Nova (Initial CD: 12s, ~CD: 12s)",
@@ -704,6 +766,7 @@
 		}
 	},
 	"fzm_freeze_redeploy": {
+		"silence": false,
 		"tooltip": {
 			"en": ["If an allied unit is retreated while Frozen, their redeployment time is doubled."],
 			"ja": [
@@ -713,6 +776,7 @@
 		}
 	},
 	"fzm_trap": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Every 75s, summons Originium Ice Crystals at target locations"],
 			"ja": ["75秒毎戦場の源石氷晶を起動させる"],
@@ -724,6 +788,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "ranged", "ja": "遠", "zh": "远" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Uses ranged attacks when not blocked, dealing 40% of ATK as {phys} damage to the target and the 8 surrounding tiles."
@@ -733,6 +798,7 @@
 		}
 	},
 	"gst_shield": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Shield (Initial CD: 10s, ~CD: 30s)",
@@ -753,6 +819,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "skill", "ja": "スキル", "zh": "蓄力击" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": ["Skill→Every 22s unleashes charged attack"],
 			"ja": ["スキル→チャージ攻撃、CD22秒"],
@@ -764,6 +831,7 @@
 		"dmg_element": "arts",
 		"suffix": { "en": "skill", "ja": "スキル", "zh": "技能" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill→Every 22s unleashes charged attack → Fires a delayed exploding arrow on max 3 targets, deals damage to target + surrounding 4 tiles"
@@ -782,6 +850,7 @@
 		"suffix": { "en": "skill", "ja": "強撃", "zh": "技能" },
 		"start": 0,
 		"skill": 3,
+		"silence": false,
 		"tooltip": {
 			"en": ["Every 4th attack targets 2 units & stuns for 3s"],
 			"ja": ["攻撃3回の度に次の攻撃に2体攻撃、3秒スタンを与える"],
@@ -795,6 +864,7 @@
 		"suffix": { "en": "skill", "ja": "強撃", "zh": "技能" },
 		"start": 0,
 		"skill": 3,
+		"silence": false,
 		"tooltip": {
 			"en": ["Every 4th attack does 2 x 100% ATK {phys} damage, Ignores 60% DEF"],
 			"ja": ["攻撃3回の度に次の攻撃に2回攻撃、防御力60％無視"],
@@ -803,6 +873,7 @@
 	},
 	"rat_king_shield": {
 		"suffix": { "en": "barrier", "ja": "シールド", "zh": "盾" },
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Spawns with a barrier which absorbs up to 14001 {arts} dmg",
@@ -816,6 +887,7 @@
 		}
 	},
 	"hp_50_rage_150": {
+		"silence": false,
 		"tooltip": {
 			"en": ["HP↓50% - Final Damage dealt increased by 1.5 times"],
 			"ja": ["HP50％以下 - 最終ダメージ+50％"],
@@ -823,6 +895,7 @@
 		}
 	},
 	"syskad_hp_50_rage_150": {
+		"silence": false,
 		"tooltip": {
 			"en": ["HP↓50% - ATK+50%", "Carried over to 2nd form"],
 			"ja": ["HP50％以下→攻撃力+50％", "第二形態に継続される"],
@@ -834,6 +907,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "➕", "ja": "➕", "zh": "➕" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": ["Skill→Every 20s unleashes cross-shaped sand blast on unit with highest Max HP"],
 			"ja": ["スキル→20秒毎に最大HPが最も高いユニット及び十字方向3マスに{phys}ダメージ"],
@@ -845,6 +919,7 @@
 		"dmg_element": "arts",
 		"suffix": { "en": "🌪", "ja": "竜巻", "zh": "🌪" },
 		"hits": 15,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill→Every 60s unleashes sand tornado on unit with lowest Max HP lasting 15s, reduces affected units ATK by 70%"
@@ -858,6 +933,7 @@
 		}
 	},
 	"MR_zealot_shield": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Appears with a shield which absorbs up to 6000 {arts} damage",
@@ -871,6 +947,7 @@
 		}
 	},
 	"MR_zealot_leader_shield": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Appears with a shield which absorbs up to 10002 {arts} damage",
@@ -887,6 +964,7 @@
 		"value": 16500,
 		"cooldown": 17.0,
 		"initCooldown": 17.0,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill→Every <v.cooldown>s creates shield which absorbs up to <v.value> {arts} damage",
@@ -904,6 +982,7 @@
 		}
 	},
 	"mudrock_hammer": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Every normal attack increase Mudrock's atk stat by 60%, Max 6 stacks"],
 			"ja": ["通常攻撃する度に攻撃力が60％増加、最大6回"],
@@ -912,6 +991,7 @@
 	},
 	"roarknight_barrier": {
 		"duration": 30,
+		"silence": false,
 		"tooltip": {
 			"en": ["Barrier→for <v.duration>s, DEF+3000, RES+95"],
 			"ja": ["バリア→<v.duration>秒間、防御力+3000、術耐性+95"],
@@ -925,6 +1005,7 @@
 		"atk_gain": 10,
 		"aspd_gain": 5,
 		"suffix": { "en": "MAX", "ja": "最大", "zh": "最大" },
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Each time an enemy is defeated, gains ATK +<v.atk_gain>% and ASPD +<v.aspd_gain>, max <v.stack> stacks."
@@ -936,6 +1017,7 @@
 		}
 	},
 	"bloodboil_骑士对决": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Each time an enemy is defeated, ATK +40% and ASPD +40, max 3 stacks."],
 			"ja": ["ほかの敵が倒される度に、攻撃力+40%・攻撃速度+40（最大3回）"],
@@ -943,6 +1025,7 @@
 		}
 	},
 	"left_hand_revive": {
+		"silence": false,
 		"tooltip": {
 			"en": ["On defeat, recovers with full HP (once per battle)"],
 			"ja": ["倒されると一度だけHP100％で復活する"],
@@ -954,6 +1037,7 @@
 		"cooldown": 15,
 		"duration": 25,
 		"debuff": 50,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill (Initial CD: <v.initCooldown>s, ~CD: <v.cooldown>s) ",
@@ -972,6 +1056,7 @@
 		}
 	},
 	"knight_sleep_120": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Spawns in Standby Mode - Does not move/attack",
@@ -985,6 +1070,7 @@
 		}
 	},
 	"armorless_assassin_atk_arts": {
+		"silence": false,
 		"tooltip": {
 			"en": ["While in areas without visiblity, attacks do Arts damage"],
 			"ja": ["【暗闇】内にいる時は術攻撃に変化"],
@@ -992,6 +1078,7 @@
 		}
 	},
 	"armorless_assassin_atk_stack": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"While in areas without visibility, ATK increases by 5% per second, max 40 stacks (200%)",
@@ -1003,6 +1090,7 @@
 	},
 	"dt_neural": {
 		"value": 0.2,
+		"silence": false,
 		"tooltip": {
 			"en": ["Attacks deal <v.%value>% ATK as {ba.dt.neural}"],
 			"ja": ["攻撃時、攻撃力の<v.%value>%の{ba.dt.neural}を与える"],
@@ -1011,6 +1099,7 @@
 	},
 	"dt_erosion": {
 		"value": 0.2,
+		"silence": false,
 		"tooltip": {
 			"en": ["Attack deals <v.%value>% of ATK as {ba.dt.erosion}"],
 			"ja": ["攻撃で攻撃力の<v.%value>%の{ba.dt.erosion}を与える"],
@@ -1019,6 +1108,7 @@
 	},
 	"dt_apoptosis": {
 		"value": 0.25,
+		"silence": false,
 		"tooltip": {
 			"en": ["Attack deals <v.%value>% of ATK as {ba.dt.apoptosis}"],
 			"ja": ["攻撃で攻撃力の<v.%value>%の{ba.dt.apoptosis}を与える"],
@@ -1026,6 +1116,7 @@
 		}
 	},
 	"sy2_attackdef": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When attacking for the first time, stops moving and gains 300 DEF for 20s."],
 			"ja": ["初回攻撃するとき、20秒動きを止め防御力+300"],
@@ -1033,6 +1124,7 @@
 		}
 	},
 	"atk_summon_sy4": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Attacks summon a <Baleful Broodling> on the tile occupied by the target"],
 			"ja": ["攻撃対象のマスに<見放されたダミー>を召喚する"],
@@ -1040,6 +1132,7 @@
 		}
 	},
 	"syboy_atk_summon": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Every 3rd attack summons a 分形 if there are less than 8 分形 on the field"],
 			"ja": ["分形が8体以下時、攻撃3回の度に、次の攻撃が分形を召喚する"],
@@ -1049,6 +1142,7 @@
 		}
 	},
 	"syboys_hp": {
+		"silence": false,
 		"tooltip": {
 			"en": ["On spawn, set its HP% to its summoner's HP%"],
 			"ja": ["出現時に自分のHP％を召喚者と同じHP%に設置する"],
@@ -1056,6 +1150,7 @@
 		}
 	},
 	"syboys_atk_summon": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Every 3rd attack summons a <Pathshaper Fractal> if there are less than 12 <Pathshaper Fractal> on the field"
@@ -1069,6 +1164,7 @@
 		}
 	},
 	"syboy_dmg_summon": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Every 10 damage instances taken, summons a SY6 if there are less than 8 SY6 on the field",
@@ -1085,6 +1181,7 @@
 		}
 	},
 	"syboy_dmg_summon2": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Every 5 damage instances taken, summons a SY6 if there are less than 8 SY6 on the field",
@@ -1101,6 +1198,7 @@
 		}
 	},
 	"tile_type": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Tile Type Enemy - Cannot be attacked. Does not block/move"],
 			"ja": ["床系敵→ブロック、移動しない、攻撃されない"],
@@ -1108,6 +1206,7 @@
 		}
 	},
 	"syrott_effect": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"If occupied, the allied unit receives 100% of ATK as {true} damage every 3s",
@@ -1125,6 +1224,7 @@
 		}
 	},
 	"syskad_heal": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Normal attack can heal the unit blocking it or damaged enemy units, up to 3 targets"],
 			"ja": ["通常攻撃はブロックしてる味方や傷ついてる敵を回復する、最大3体"],
@@ -1132,6 +1232,7 @@
 		}
 	},
 	"syskad_transform": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Transform - Initial SP: 0, Cost:120",
@@ -1148,6 +1249,7 @@
 		}
 	},
 	"syskad_summon_tears": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Summon Tears (Initial CD: 8s, ~CD 30s)",
@@ -1167,6 +1269,7 @@
 		}
 	},
 	"syskad_revert": {
+		"silence": false,
 		"tooltip": {
 			"en": ["On defeat - reverts back to 1st form and heals 2% of Max HP"],
 			"ja": ["倒された時、第一形態に戻って、最大HPの2%を回復する"],
@@ -1174,6 +1277,7 @@
 		}
 	},
 	"syjely_change": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Immediately turns into a random enemy when blocked"],
 			"ja": ["ブロックされた時、ランドムの敵に変身する"],
@@ -1181,6 +1285,7 @@
 		}
 	},
 	"mzk_hp_loss_start": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Spawns with 40% of max HP"],
 			"ja": ["出現時、HPが40%になる"],
@@ -1188,6 +1293,7 @@
 		}
 	},
 	"mzk_study": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Learning Mode - invincible, does not block or normal attack",
@@ -1208,6 +1314,7 @@
 		"dmg_element": null,
 		"suffix": { "en": "max buff", "ja": "4回強化", "zh": "4层强化" },
 		"hits": null,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Every 5 <子代> eaten, gains ATK +40%, heals 15% of max HP, and does 100% ATK as {arts} damage to all allied units (ignores stealth)"
@@ -1221,6 +1328,7 @@
 		}
 	},
 	"mzk_intepret_normal_attack": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Intepret State - Normal attack does 100% ATK {phys} + 100% ATK {arts} damage"],
 			"ja": ["阐释阶段 - 通常攻撃は攻撃力の100%の{phys}と100%の{arts}ダメージを与える"],
@@ -1228,6 +1336,7 @@
 		}
 	},
 	"mzk_shock_hp": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When HP drops to 75%/50%/25%, forcefully uses Shock skill"],
 			"ja": ["HPが75%/50%/25%になる度、スキルを使う"],
@@ -1235,6 +1344,7 @@
 		}
 	},
 	"mzk_shock_skill": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Shock [Intepret Mode] (Initial SP: 0, Cost:30)",
@@ -1257,6 +1367,7 @@
 		"dmg_element": "arts",
 		"suffix": { "en": "skill", "ja": "スキル", "zh": "技能" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Every 15% of max HP lost, deals 100% of ATK as {arts} splash damage and {ba.dt.neural} in a 2 tile radius"
@@ -1271,6 +1382,7 @@
 	},
 	"sea_reaper_awaken": {
 		"value": 0.2,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Standby - Does not attack, switches to Combat Ready mode when HP below 99.99%",
@@ -1292,6 +1404,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "skill/", "ja": "スキル", "zh": "技能" },
 		"hits": 5,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill - Initial SP: 10, Cost:20",
@@ -1313,6 +1426,7 @@
 			"ja": "HP50%以下",
 			"zh": "HP50%以下"
 		},
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"HP↓50% - generates 'Nethersea Brand' on the tiles it passes over (can be silenced)",
@@ -1329,6 +1443,7 @@
 		}
 	},
 	"swarmcaller": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Has no normal attack",
@@ -1344,6 +1459,7 @@
 		}
 	},
 	"predator_evasion": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Gains 80% {phys}/{arts} dodge",
@@ -1357,6 +1473,7 @@
 		}
 	},
 	"predator_brand_noblock": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Cannot be blocked when atop of 'Nethersea Brand'"],
 			"ja": ["溟痕上ではブロック不可"],
@@ -1364,6 +1481,7 @@
 		}
 	},
 	"spewer_brand_target": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Can attack and prioritises all targets atop of 'Nethersea Brand' from any range"],
 			"ja": ["溟痕上の味方に対しては、優先かつどこからでも攻撃可能"],
@@ -1371,6 +1489,7 @@
 		}
 	},
 	"highmore_aspd_down_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["All allied units within range have their ASPD reduced by 60"],
 			"ja": ["攻撃範囲内の味方の攻撃速度-60"],
@@ -1378,6 +1497,7 @@
 		}
 	},
 	"highmore_aspd_down_2": {
+		"silence": false,
 		"tooltip": {
 			"en": ["All allied units within range have their ASPD reduced by 80"],
 			"ja": ["攻撃範囲内の味方の攻撃速度-80"],
@@ -1385,6 +1505,7 @@
 		}
 	},
 	"highmore_revive": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Regains Hover after transiting to 2nd form"],
 			"ja": ["第二形態移行後、低空浮揚状態になる"],
@@ -1396,6 +1517,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "Gun", "ja": "拳銃", "zh": "手炮" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": ["Handgun - Consumes 1 Ammo and deals 200% of ATK as {phys} damage"],
 			"ja": ["弾薬数1以上なら、通常攻撃時に弾薬を1消費し、攻撃力の200%の{phys}ダメージを与える"],
@@ -1405,6 +1527,7 @@
 		}
 	},
 	"carmen_ammocheck": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Checks Ammo amount every 35s. If Ammo bar is empty, enters Reload Mode."],
 			"ja": ["35秒毎弾薬数を確認し、残弾なしの場合リロードを行う"],
@@ -1412,6 +1535,7 @@
 		}
 	},
 	"carmen_reload": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Reload - Does not attack or move, recovers 1 Ammo every 2s.",
@@ -1428,6 +1552,7 @@
 		}
 	},
 	"sev_revive": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Upon defeat, enters Fake Death state",
@@ -1450,6 +1575,7 @@
 		}
 	},
 	"smf_revive": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Upon defeat, enters Fake Death state",
@@ -1472,6 +1598,7 @@
 		}
 	},
 	"sms_revive": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Upon defeat, enters Fake Death state",
@@ -1494,6 +1621,7 @@
 		}
 	},
 	"cannot": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Invulnerable, does not attack/block"],
 			"ja": ["無敵、攻撃/ブロックしない"],
@@ -1501,6 +1629,7 @@
 		}
 	},
 	"cannot_spray_potion": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Skill (Initial SP: 0, Cost:23)", "Randomly activates one of the effects below:"],
 			"ja": ["スキル→初期SP0、必要SP23", "以下の効果から一つ発動する"],
@@ -1508,6 +1637,7 @@
 		}
 	},
 	"cannot_potion_effect_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Effect 1 - Puts all enemy units on the field who are not sleep immune to sleep for 10s, during which they recover 4% max HP/s"
@@ -1517,6 +1647,7 @@
 		}
 	},
 	"cannot_potion_effect_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Grants at random 2 enemy units on the field unkillable (HP will not fall below 1) for 12s, and ATK +100%, ASPD +100"
@@ -1532,6 +1663,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "skill", "ja": "スキル", "zh": "技能" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": ["Every 4th attack does 150% damage"],
 			"ja": ["攻撃3回の度に次の攻撃は1.5倍のダメージを与える"],
@@ -1548,6 +1680,7 @@
 		},
 		"cd": 20,
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill (CD<v.cd>s) ",
@@ -1570,6 +1703,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "skill", "ja": "スキル", "zh": "技能" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Coalescing Fear - Does <v.atk.multiplier>% ATK {phys} damage to all Operators with no visibility on the tile behind them."
@@ -1585,6 +1719,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "skill", "ja": "スキル", "zh": "技能" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Coalescing Fear - Does 85% ATK {phys} damage to all Operators with no visibility on the tile behind them."
@@ -1596,6 +1731,7 @@
 		}
 	},
 	"refraction": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Refraction - RES+70 (can be silenced)"],
 			"ja": ["屈折→術耐性+70 (無効化可能)"],
@@ -1603,6 +1739,7 @@
 		}
 	},
 	"hover": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Hover - cannot be blocked, can only be affected by ranged attacks",
@@ -1617,6 +1754,7 @@
 		}
 	},
 	"dublinn_evocator": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Has no normal attack, summons Fireball",
@@ -1632,6 +1770,7 @@
 		}
 	},
 	"dublinn_fireball": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Fireball explodes on contact with melee unit, dealing {arts} and {ba.dt.burning} to units within range 1.8",
@@ -1648,6 +1787,7 @@
 		}
 	},
 	"ggy_pillar_smash": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Does not transit to 2nd form if defeated using Tattered Pillar"],
 			"ja": ["脆い石柱によるダメージで倒された場合、形態移行せずそのまま消滅する"],
@@ -1661,6 +1801,7 @@
 			"ja": "石像形態",
 			"zh": "石像形态"
 		},
+		"silence": false,
 		"tooltip": {
 			"en": ["Stone Form - DEF +800 RES +30 for 10s, changes to flying mode thereafter"],
 			"ja": ["石像形態 - 10秒間、防御力+800、術耐性+30。終了後、飛行形態に"],
@@ -1668,6 +1809,7 @@
 		}
 	},
 	"duck_dash": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When attacked, Movespeed +400%"],
 			"ja": ["攻撃された時、移動速度+400%"],
@@ -1677,11 +1819,13 @@
 	"fsk_powerup_10": {
 		"atk": { "multiplier": 1.7 },
 		"suffix": { "en": "10 stacks", "ja": "10回", "zh": "10次" },
+		"silence": false,
 		"tooltip": null
 	},
 	"fsk_powerup": {
 		"atk": { "multiplier": 2.4 },
 		"suffix": { "en": "20 stacks", "ja": "20回", "zh": "20次" },
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Every attack increases ATK by 7%, ASPD by 5, max 28 stacks",
@@ -1698,6 +1842,7 @@
 		}
 	},
 	"singer_aspd_buff": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Upon every 20 hits received, increases all enemies' ASPD by 100 for 10s (does not stack)"
@@ -1709,6 +1854,7 @@
 		}
 	},
 	"aoe_all_atk": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Attacks hit all units within attack range"],
 			"ja": ["攻撃範囲内全ユニットにダメージを与える"],
@@ -1716,6 +1862,7 @@
 		}
 	},
 	"surpise_bomb": {
+		"silence": false,
 		"tooltip": {
 			"en": ["On defeat, deals 100% {arts} dmg & {ba.dt.neural} to nearby units (Can be silenced)"],
 			"ja": ["倒された時、周囲に攻撃力100%{arts}ダメージと{ba.dt.neural}を与える（無効化可能）"],
@@ -1725,6 +1872,7 @@
 		}
 	},
 	"JTM_jetpack": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When blocked activates Jetpack, ms+50% and flies for 7s. CD25s"],
 			"ja": ["ブロックされたらジェットパックを起動→7秒間飛行する＆移動速度＋50％、CD25秒"],
@@ -1732,6 +1880,7 @@
 		}
 	},
 	"HST_invincible": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Invincible - cannot be attacked, lasts indefinitely",
@@ -1745,6 +1894,7 @@
 		}
 	},
 	"HST_summon_helper": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Summon (Initial CD: 10s, ~CD 45s)", "Summons 2 Host's Assistants"],
 			"ja": ["召喚（初動10秒/再動45秒）", "助手を2体召喚する"],
@@ -1752,6 +1902,7 @@
 		}
 	},
 	"HST_summon_helper_revival": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"On revival summons 10 Host's Assistants which are invincible for 10s",
@@ -1762,6 +1913,7 @@
 		}
 	},
 	"puppet_killer_melody": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When not blocked, plays killer melody that deals 100 {arts} dmg /s to all units on map"
@@ -1771,6 +1923,7 @@
 		}
 	},
 	"PTM_evasion": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When not blocked, gains 40% {phys} & {arts} evasion"],
 			"ja": ["未ブロック時、{phys}と{arts}回避率+40%"],
@@ -1778,6 +1931,7 @@
 		}
 	},
 	"PTM_blink": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Blink (Initial CD: 10s, ~CD: 15s)",
@@ -1791,6 +1945,7 @@
 		}
 	},
 	"PTM_aoe": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"AOE (Initial CD: 5s, ~CD: 10s) - does 80% ATK {phys} damage & 20% ATK {ba.dt.neural} to all units within range. CD10s"
@@ -1806,6 +1961,7 @@
 		}
 	},
 	"PTS_copy": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Same as above except no blink skill"],
 			"ja": ["回り込みスキルがない以外、上と同じ"],
@@ -1814,6 +1970,7 @@
 	},
 	"mutant_spawn": {
 		"value": 2,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"On death, this unit will spawn <v.value> Originiutant Excrescence.",
@@ -1828,9 +1985,11 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "melee", "ja": "近", "zh": "近" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": null
 	},
 	"redmark_sniper": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Ranged Attack only targets units in sandstorm"],
 			"ja": ["砂嵐にさらされているユニットに射程無限の遠距離攻撃"],
@@ -1838,6 +1997,7 @@
 		}
 	},
 	"redmark_hologram": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Summons hologram when attacked",
@@ -1853,6 +2013,7 @@
 		}
 	},
 	"redmark_hologram_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Summons <Holographic Mirage MK2> when attacked",
@@ -1868,6 +2029,7 @@
 		}
 	},
 	"no_move": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Does not move"],
 			"ja": ["移動しない"],
@@ -1875,6 +2037,7 @@
 		}
 	},
 	"sandstorm_evade_40": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Under sandstorm, gains 40% {phys}/{arts} evasion"],
 			"ja": ["砂嵐にさらされている時、{phys}・{arts}回避率+40%"],
@@ -1882,6 +2045,7 @@
 		}
 	},
 	"sgwlf_molotov": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Every 30% of max HP lost, throws a fire bomb centered on itself, creating a permanent 1.5 tile radius area that burns allied units for 100 {true} damage every second (stacks infinitely)."
@@ -1896,6 +2060,7 @@
 		}
 	},
 	"pathfinder_veles": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Prioritizes 'Gelato Stops' and attacks deal an extra 1000 {arts} damage to them"],
 			"ja": [
@@ -1907,6 +2072,7 @@
 	},
 	"pathfinder_nuncio": {
 		"duration": 10,
+		"silence": false,
 		"tooltip": {
 			"en": [""],
 			"ja": [""],
@@ -1917,6 +2083,7 @@
 	},
 	"ammo": {
 		"value": 3,
+		"silence": false,
 		"tooltip": {
 			"en": ["Has <v.value> Initial/Max Ammo"],
 			"ja": ["弾薬上限数<v.value>"],
@@ -1924,6 +2091,7 @@
 		}
 	},
 	"sgprst": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Gun - Consumes 1 Ammo and deals 100% ATK as {phys} damage to target and decreases target's DEF by 300 permanently"
@@ -1942,6 +2110,7 @@
 		"suffix": { "en": "Bazooka", "ja": "大砲", "zh": "大炮" },
 		"hits": 1,
 		"value": 3000,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Cannon - Consumes 1 Ammo and deals <v.atk.multiplier>% ATK as {phys} damage to target and surrounding 8 tiles",
@@ -1958,6 +2127,7 @@
 		}
 	},
 	"sarkaz_caster_bind": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill - Uses chains to disable units (deals 35% of ATK as {arts} dmg/s for 20s, only used once per battle)"
@@ -1975,6 +2145,7 @@
 		}
 	},
 	"lancer_accelerate": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Accelerates every 0.5s, inc ms by 50%, does extra damage which scales with ms for 1 attack, after attacking ms stack resets"
@@ -1991,6 +2162,7 @@
 		}
 	},
 	"lancer_leader_accelerate": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Accelerates every 0.5s, inc ms by 50%, does extra damage which scales with ms for 1 attack, after attacking ms stack resets"
@@ -2007,6 +2179,7 @@
 		}
 	},
 	"sarkaz_sentinel_alert": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"On HP loss sounds alarm, turns units on standby to combat-ready mode, increases all enemies ATK & DEF by 30% (Stacks with other Sentinels)"
@@ -2023,6 +2196,7 @@
 		}
 	},
 	"sarkaz_sentinel_leader_alert": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"On HP loss sounds alarm, turns units on standby to combat-ready mode, increases all enemies ATK & DEF by 50% (Stacks with other Sentinels)"
@@ -2040,6 +2214,7 @@
 	},
 	"standby": {
 		"value": 150,
+		"silence": false,
 		"tooltip": {
 			"en": ["On Standby for <v.value> seconds"],
 			"ja": ["<v.value>待機する"],
@@ -2047,6 +2222,7 @@
 		}
 	},
 	"sarkaz_standby": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Does not attack while on standby", "Combat Ready - ms +200%"],
 			"ja": ["待機中攻撃しない", "【臨戦】態勢 - 移動速度+200%"],
@@ -2054,6 +2230,7 @@
 		}
 	},
 	"sarkaz_nac10_consume": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When blocked, swallows the blocking unit", "gaining DEF +700 and MS -30%"],
 			"ja": ["ブロックされると、ブロックしたユニットを食べて、防御力+700、移動速度-30%"],
@@ -2062,6 +2239,7 @@
 	},
 	"dog_bleed": {
 		"value": 100,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Normal attack inflicts a debuff dealing <v.value> {arts} damage/s for 10s (this damage cannot kill)",
@@ -2078,6 +2256,7 @@
 		}
 	},
 	"yinyang_target_opposite": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Targets units of opposing element first"],
 			"ja": ["反対属性の相手を優先して攻撃する"],
@@ -2085,6 +2264,7 @@
 		}
 	},
 	"yinyang_same_block": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Can only be blocked by units of same element"],
 			"ja": ["同じ属性の味方でのみブロックできる"],
@@ -2095,6 +2275,7 @@
 		"atk": { "multiplier": 4 },
 		"dmg_element": "arts",
 		"suffix": { "en": "💥on kill", "ja": "撃破時", "zh": "击破时" },
+		"silence": false,
 		"tooltip": {
 			"en": ["Self-destructs when defeated"],
 			"ja": ["撃破時自爆する"],
@@ -2105,6 +2286,7 @@
 		"atk": { "multiplier": 15 },
 		"dmg_element": "arts",
 		"suffix": { "en": "💥💥", "ja": "心中", "zh": "💥" },
+		"silence": false,
 		"tooltip": {
 			"en": ["Big Explosion on contact with another Smarty of opposite element"],
 			"ja": ["反対属性の「オニビ」に接触すると爆発する（心中）"],
@@ -2112,6 +2294,7 @@
 		}
 	},
 	"deyi_yinyang_tooltip": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Same Element Explosion dmg * 0.9", "Opposite Element Explosion dmg * 1.1"],
 			"ja": ["同じ属性への爆発ダメージ*0.9", "反対属性への爆発ダメージ*1.1"],
@@ -2123,6 +2306,7 @@
 		"dmg_element": "arts",
 		"suffix": { "en": "skill", "ja": "溜め攻撃", "zh": "技能" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Uses Charged Atk every 60s - after 5s does 200% Arts damage to single target, and inverts tile element target is on"
@@ -2132,6 +2316,7 @@
 		}
 	},
 	"guerilla_fighter_buff": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Special buff - Movespeed +30%"],
 			"ja": ["特殊強化→移動速度+30％"],
@@ -2139,6 +2324,7 @@
 		}
 	},
 	"guerilla_sniper_buff": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Special buff - Targets 2 units"],
 			"ja": ["特殊強化→同時2体攻撃になる"],
@@ -2146,6 +2332,7 @@
 		}
 	},
 	"guerilla_siegebreaker_buff": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Special buff - ATK +50%"],
 			"ja": ["特殊強化→攻撃力+50%"],
@@ -2154,6 +2341,7 @@
 	},
 	"guerilla_siegebreaker_leader_buff": {
 		"value": 80,
+		"silence": false,
 		"tooltip": {
 			"en": ["Special buff - ATK +<v.value>%"],
 			"ja": ["特殊強化→攻撃力+<v.value>%"],
@@ -2161,6 +2349,7 @@
 		}
 	},
 	"guerilla_mortar_buff": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Special buff - ASPD +50"],
 			"ja": ["特殊強化→攻撃速度+50"],
@@ -2168,6 +2357,7 @@
 		}
 	},
 	"guerilla_herald_buff": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Buff - Grants all enemies ATK +10%, DEF +100",
@@ -2179,6 +2369,7 @@
 		}
 	},
 	"guerilla_caster_no_attack": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Does not normal attack"],
 			"ja": ["通常攻撃しない"],
@@ -2186,6 +2377,7 @@
 		}
 	},
 	"guerilla_caster_sacrifice": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Sacrifice (Initial CD: 0, ~CD: 5s)",
@@ -2202,6 +2394,7 @@
 		}
 	},
 	"lower_target_priority": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Lower Target Priority"],
 			"ja": ["狙われにくい"],
@@ -2210,6 +2403,7 @@
 	},
 	"taunt": {
 		"value": 1,
+		"silence": false,
 		"tooltip": {
 			"en": ["Taunt - Target Priority +<v.value>"],
 			"ja": ["挑発レベル+<v.value>"],
@@ -2217,6 +2411,7 @@
 		}
 	},
 	"atk_priority_low_def": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Prioritizes attacking the target with the lowest DEF"],
 			"ja": ["防御力の最も低い味方を優先して狙う"],
@@ -2224,6 +2419,7 @@
 		}
 	},
 	"sarkaz_guerilla_fighter": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When coming into contact with a Pulse Wave, takes no damage and will deal {arts} damage with normal attacks."
@@ -2233,6 +2429,7 @@
 		}
 	},
 	"scout_anti_stealth": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Removes nearby operators' stealth/camouflage"],
 			"ja": ["3.3半径内の味方のステルスと迷彩効果を解除"],
@@ -2242,6 +2439,7 @@
 	"blocked_res_up": {
 		"res": { "fixed": 40 },
 		"suffix": { "en": "blocked", "ja": "ブロック中", "zh": "被阻挡时" },
+		"silence": false,
 		"tooltip": {
 			"en": ["Gains <v.res.fixed> RES when blocked"],
 			"ja": ["ブロック→術耐性 +<v.res.fixed>"],
@@ -2252,6 +2450,7 @@
 	"blocked_def_up": {
 		"def": { "fixed": 100 },
 		"suffix": { "en": "blocked", "ja": "ブロック中", "zh": "被阻挡时" },
+		"silence": false,
 		"tooltip": {
 			"en": ["Blocked - DEF+<v.def.fixed>"],
 			"ja": ["ブロック→防御力+<v.def.fixed>"],
@@ -2263,6 +2462,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "melee", "ja": "近", "zh": "近" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": ["When blocked, attacks deal <v.atk.multiplier>% ATK as {phys} damage"],
 			"ja": ["ブロック時、近接攻撃で攻撃力の<v.atk.multiplier>%の{phys}ダメージを与える"],
@@ -2276,6 +2476,7 @@
 			"ja": "ブロック中",
 			"zh": "被阻挡时"
 		},
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When blocked, only takes damage from blocking unit",
@@ -2296,6 +2497,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "ranged", "ja": "遠", "zh": "远" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When not blocked, uses ranged attacks that deal <v.atk.multiplier>% of ATK as {phys} damage"
@@ -2305,6 +2507,7 @@
 		}
 	},
 	"ursus_striker_hp50": {
+		"silence": false,
 		"tooltip": {
 			"en": ["HP↓50% - ATK +100%"],
 			"ja": ["HP50%以下→攻撃力+100%"],
@@ -2312,6 +2515,7 @@
 		}
 	},
 	"ursus_civ_attack": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Can use long-ranged weapons to attack Ursus Civilians"],
 			"ja": ["ウルサス民間人に対して遠距離攻撃を行う"],
@@ -2320,6 +2524,7 @@
 	},
 	"ursus_civ_death": {
 		"name": "civ_death",
+		"silence": false,
 		"tooltip": {
 			"en": ["Friendly Unit - Reduces lifepoint by 1 when defeated", "Cannot be healed"],
 			"ja": ["要介護ユニット→死亡すると耐久値減る", "回復受け付けない"],
@@ -2327,6 +2532,7 @@
 		}
 	},
 	"pompeii_aspd_inc": {
+		"silence": false,
 		"tooltip": {
 			"en": ["HP↓50% - ASPD +40"],
 			"ja": ["HP↓50%→攻撃速度+40"],
@@ -2334,6 +2540,7 @@
 		}
 	},
 	"pompeii_burn": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Attacks inflict Burn (20 Arts dmg every 0.33s) for 10s"],
 			"ja": ["攻撃で10秒火傷・術(20/0.33秒)付与される"],
@@ -2345,6 +2552,7 @@
 		"dmg_element": "arts",
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": ["When blocked, creates an explosion around self every 10s"],
 			"ja": ["ブロックされると10秒毎に自分中心に爆発"],
@@ -2356,6 +2564,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "C4", "ja": "爆弾", "zh": "C4" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"C4 (Initial CD: 9s, ~CD: 20s)",
@@ -2379,6 +2588,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "Skill", "ja": "石投げ", "zh": "技能" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Rock Throw (Initial CD: 13s, ~CD: 13s) - stuns unit for 25 sec, does not target stunned units"
@@ -2392,6 +2602,7 @@
 	},
 	"caster_frost_attack": {
 		"value": 10,
+		"silence": false,
 		"tooltip": {
 			"en": ["Every 3rd attack inflicts Cold❄ for <v.value>s"],
 			"ja": ["攻撃2回の度に次の攻撃に相手を<v.value>秒【寒冷❄】効果を与える"],
@@ -2399,6 +2610,7 @@
 		}
 	},
 	"DOL_regen": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Recovers 0.25% Max Hp/s (Can be disabled by a relic)"],
 			"ja": ["毎秒最大HPの0.25％を回復する（ある秘宝で無効化可能）"],
@@ -2406,6 +2618,7 @@
 		}
 	},
 	"DOL_counter": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Every 20 hits received, unleases a 100% ATK {arts} dmg counter to all units"],
 			"ja": ["20回攻撃を受けると、味方全体に攻撃力100％{arts}ダメージのカウンターを放つ"],
@@ -2415,6 +2628,7 @@
 		}
 	},
 	"DOL_shield": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Shield absorbs up to 15% Max Hp of ALL damage types",
@@ -2434,6 +2648,7 @@
 		}
 	},
 	"DOL_self_destruct": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Self-destructs after 8mins, taking away 30 lifepoint"],
 			"ja": ["8分後自爆して、耐久値30点減る"],
@@ -2449,6 +2664,7 @@
 			"zh": "破桎而出"
 		},
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": ["'Break the Chains' - Initial Cast: 30s, Thereafter: 70s"],
 			"ja": ["「破桎而出」初動30秒/再動70秒"],
@@ -2464,6 +2680,7 @@
 			"zh": "破桎而出"
 		},
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": ["'Break the Chains(Rage)' - Initial Cast: 30s, Thereafter: 70s"],
 			"ja": ["「破桎而出（凶暴）」初動30秒/再動70秒"],
@@ -2471,6 +2688,7 @@
 		}
 	},
 	"dublinn_phalanx": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Buff - Dublinn Phalanx within 1.5 tile range DEF+200, stacks with other Dublinn Phalanx",
@@ -2487,6 +2705,7 @@
 		}
 	},
 	"damage_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Takes 1 damage from attacks"],
 			"ja": ["受けたダメージは全て1になる"],
@@ -2494,6 +2713,7 @@
 		}
 	},
 	"damage_1_arts": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Immune to {phys} damage", "Takes 1 damage from attacks"],
 			"ja": ["{phys}攻撃無効", "受けたダメージは全て1になる"],
@@ -2501,6 +2721,7 @@
 		}
 	},
 	"spawn_woodenseal": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Spawns 2 Wooden Seals when defeated", "cannot be Silenced"],
 			"ja": ["死亡すると「木製瑞印」を2体召喚する", "無効化不可能"],
@@ -2508,6 +2729,7 @@
 		}
 	},
 	"spawn_redwoodseal": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Spawns 2 Redwood Seals when defeated", "cannot be Silenced"],
 			"ja": ["死亡すると「紅木瑞印」を2体召喚する", "無効化不可能"],
@@ -2515,6 +2737,7 @@
 		}
 	},
 	"spawn_novelscroll": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Spawns 3 Novel Scrolls when defeated", "cannot be Silenced"],
 			"ja": ["死亡すると「小説の巻物」を3体召喚する", "無効化不可能"],
@@ -2522,6 +2745,7 @@
 		}
 	},
 	"spawn_paintingscroll": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Spawns 3 Painting Scrolls when defeated", "cannot be Silenced"],
 			"ja": ["死亡すると「詩画の巻物」を3体召喚する", "無効化不可能"],
@@ -2529,6 +2753,7 @@
 		}
 	},
 	"spawn_bronzemirror": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Spawns 1 Bronze Mirror when defeated", "cannot be Silenced"],
 			"ja": ["死亡すると「青銅の鏡」を1体召喚する", "無効化不可能"],
@@ -2536,6 +2761,7 @@
 		}
 	},
 	"spawn_brassmirror": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Spawns 1 Brass Mirror when defeated", "cannot be Silenced"],
 			"ja": ["死亡すると「黄銅の鏡」を1体召喚する", "無効化不可能"],
@@ -2543,6 +2769,7 @@
 		}
 	},
 	"spawn_woodenpaperweight": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Spawns 15 Wooden Paperweights when defeated", "cannot be Silenced"],
 			"ja": ["死亡すると「木製文鎮」を15体召喚する", "無効化不可能"],
@@ -2550,6 +2777,7 @@
 		}
 	},
 	"spawn_rosewoodpaperweight": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Spawns 15 Rosewood Paperweights when defeated", "cannot be Silenced"],
 			"ja": ["死亡すると「紅木文鎮」を15体召喚する", "無効化不可能"],
@@ -2557,6 +2785,7 @@
 		}
 	},
 	"spawn_celadonteaware": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Spawns 4 Celadon Teawares when defeated", "cannot be Silenced"],
 			"ja": ["死亡すると「青磁の茶器」を4体召喚する", "無効化不可能"],
@@ -2564,6 +2793,7 @@
 		}
 	},
 	"spawn_porcelainteaware": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Spawns 4 Porcelain Teawares when defeated", "cannot be Silenced"],
 			"ja": ["死亡すると「彩磁の茶器」を4体召喚する", "無効化不可能"],
@@ -2571,6 +2801,7 @@
 		}
 	},
 	"spawn_celadonvase": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Spawns 1 Celadon Vase when defeated", "cannot be Silenced"],
 			"ja": ["死亡すると「青磁の花器」を1体召喚する", "無効化不可能"],
@@ -2578,6 +2809,7 @@
 		}
 	},
 	"spawn_porcelainvase": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Spawns 1 Porcelain Vase when defeated", "cannot be Silenced"],
 			"ja": ["死亡すると「彩磁の茶器」を1体召喚する", "無効化不可能"],
@@ -2585,6 +2817,7 @@
 		}
 	},
 	"encroaching_stream": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill - Initial SP: 3, Cost:5, Attack Recovery, can be Silenced",
@@ -2600,6 +2833,7 @@
 		}
 	},
 	"spawn_ironspearhead": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Spawns Bronze Spearheads equal to the remaining stacks of Broken Blade (at least 1) when defeated",
@@ -2610,6 +2844,7 @@
 		}
 	},
 	"spawn_bronzespearhead": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Spawns 2 Redwood Seals when defeated", "cannot be Silenced"],
 			"ja": [
@@ -2623,6 +2858,7 @@
 		"atk": { "multiplier": 1.7 },
 		"dmg_element": null,
 		"suffix": { "en": "broken blade", "ja": "断刃", "zh": "断刃" },
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Gains 4 [Broken Blade] upon appearance",
@@ -2636,6 +2872,7 @@
 		"atk": { "multiplier": 1.8 },
 		"dmg_element": null,
 		"suffix": { "en": "broken blade", "ja": "断刃", "zh": "断刃" },
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Gains 4 [Broken Blade] upon appearance",
@@ -2646,6 +2883,7 @@
 		}
 	},
 	"spawn_bronzelampstand": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Spawns 1 Bronze Lampstand when defeated", "cannot be Silenced"],
 			"ja": ["死亡すると「銅の燭台」を1体召喚する", "無効化不可能"],
@@ -2653,6 +2891,7 @@
 		}
 	},
 	"spawn_ironlampstand": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Spawns 1 Iron Lampstand when defeated", "cannot be Silenced"],
 			"ja": ["死亡すると「鉄の燭台」を1体召喚する", "無効化不可能"],
@@ -2660,6 +2899,7 @@
 		}
 	},
 	"glorious_shine": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill - Initial SP: 5, Cost:15",
@@ -2677,6 +2917,7 @@
 		"dmg_element": "arts",
 		"suffix": { "en": "Map AOE", "ja": "全体攻撃", "zh": "技能" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Map AOE (Initial CD: 10s, ~CD: 20)",
@@ -2696,6 +2937,7 @@
 		}
 	},
 	"playwright_gaze": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Playwright's Gaze (Initial CD: 20s, ~CD: 20s)",
@@ -2730,6 +2972,7 @@
 		}
 	},
 	"playwright_hp50": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"HP↓50% - All skills cooldown are decreased,",
@@ -2747,6 +2990,7 @@
 	},
 	"icefield_arts_fighter_explode": {
 		"duration": 5,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Upon death, deals 130% of ATK as {arts} damage in a 1.65 tile radius to all allied and enemy units and applies Cold for <v.duration>s",
@@ -2763,6 +3007,7 @@
 	},
 	"unbalance_damage": {
 		"damage": 50,
+		"silence": false,
 		"tooltip": {
 			"en": ["When unbalanced, takes <v.damage> {true} damage every 0.066s."],
 			"ja": ["強制移動中、0.066秒ごとに<v.damage>（1秒に約1200）の{true}ダメージを受ける"],
@@ -2771,6 +3016,7 @@
 	},
 	"bleed_true": {
 		"value": 100,
+		"silence": false,
 		"tooltip": {
 			"en": ["Takes <v.value> {true} damage every second"],
 			"ja": ["毎秒<v.value>の{true}ダメージを受ける"],
@@ -2782,6 +3028,7 @@
 		"dmg_element": "arts",
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Upon death, deals <v.atk.multiplier>% of ATK as {arts} splash damage in a 1.5 tile radius to allied units"
@@ -2796,6 +3043,7 @@
 	},
 	"ltmob_add_arts": {
 		"tags": [],
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When attacking targets outside of Realigned Flux, deals additional 40% ATK as {arts} damage"
@@ -2811,6 +3059,7 @@
 		"hits": 1,
 		"cooldown": 20.0,
 		"initCooldown": 10.0,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill (Initial CD: <v.initCooldown>s, ~CD: <v.cooldown>s)",
@@ -2828,6 +3077,7 @@
 	},
 	"dublinn_companion_guard": {
 		"tags": [],
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When Companion Shadowblade is within 1.4 tile radius of self, decreases ASPD of all allied units within a 1.1 tile radius by 30"
@@ -2838,6 +3088,7 @@
 	},
 	"dublinn_companion_shadowblade": {
 		"tags": [],
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When Companion Guard is within a 1.4 tile radius of self, self's ATK interval is decreased by 1.3s"
@@ -2848,6 +3099,7 @@
 	},
 	"durwar_evasion_hp50": {
 		"tags": [],
+		"silence": false,
 		"tooltip": {
 			"en": ["When HP falls below 50%, gains 100% {phys} evasion for 10s (can be silenced)"],
 			"ja": ["初めてHPが50%以下になると、10秒間、{phys}回避率+100%（無効化可能）"],
@@ -2856,6 +3108,7 @@
 	},
 	"durwar2_evasion_hp50": {
 		"tags": [],
+		"silence": false,
 		"tooltip": {
 			"en": ["When HP falls below 50%, gains 100% {phys} evasion for 20s (can be silenced)"],
 			"ja": ["初めてHPが50%以下になると、20秒間、{phys}回避率+100%（無効化可能）"],
@@ -2864,6 +3117,7 @@
 	},
 	"reduce_phys_arts_90": {
 		"tags": [],
+		"silence": false,
 		"tooltip": {
 			"en": ["Takes 90% reduced {phys}/{arts} damage"],
 			"ja": ["受ける{phys}と{arts}ダメージが90%減少"],
@@ -2872,6 +3126,7 @@
 	},
 	"creation_add_block_1": {
 		"tags": [],
+		"silence": false,
 		"tooltip": {
 			"en": ["Units blocking this gains +1 Block (up to max +6)"],
 			"ja": ["ブロックされうとブロックしたユニットのブロック数上限+1（最大+6まで）"],
@@ -2880,6 +3135,7 @@
 	},
 	"london_arti_sp1": {
 		"tags": [],
+		"silence": false,
 		"tooltip": {
 			"en": ["Every attack grants the Londinium Artillery 1 SP"],
 			"ja": ["通常攻撃時、副砲のSP+1"],
@@ -2888,6 +3144,7 @@
 	},
 	"spawn_sci1": {
 		"tags": [],
+		"silence": false,
 		"tooltip": {
 			"en": ["Spawns 1 Touch of the Sanguinarch upon death"],
 			"ja": ["死亡すると、大君の触手を1体召喚する"],
@@ -2896,6 +3153,7 @@
 	},
 	"spawn_sci3": {
 		"tags": [],
+		"silence": false,
 		"tooltip": {
 			"en": ["Spawns 1 Gift of the Sanguinarch upon death"],
 			"ja": ["死亡すると、大君の祝福を1体召喚する"],
@@ -2904,6 +3162,7 @@
 	},
 	"heirbearer_ASV_buff": {
 		"tags": [],
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"While present on the battlefield, increases the ATK of all 'Reborn Creations' on the field by 10% (stacking up to 5 times)",
@@ -2921,6 +3180,7 @@
 	},
 	"hateweaver_atk_buff": {
 		"tags": [],
+		"silence": false,
 		"tooltip": {
 			"en": ["For every 'Reborn Creations' on field, ATK is increased by 15%, max 6 stacks"],
 			"ja": ["マップ上の再生造物1体につき、攻撃力+15%（6体まで）"],
@@ -2929,6 +3189,7 @@
 	},
 	"recharge_london_arti": {
 		"tags": [],
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Recharge Cannon - Stops attacking and grants 1SP to Londinium Artillery every second",
@@ -2947,6 +3208,7 @@
 	},
 	"manfred_military_training": {
 		"tags": [],
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"[Military Training] - gains 80% {phys}/Arts evasion",
@@ -2961,6 +3223,7 @@
 	},
 	"manfred_focus": {
 		"tags": [],
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"[Focus] - When attacking the same target, ASPD+60, max 5 stacks",
@@ -2978,6 +3241,7 @@
 		"dmg_element": "arts",
 		"suffix": { "en": "ranged", "ja": "遠", "zh": "远" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": ["Normal attacks does 50% ATK as Arts damage and grants the Londinium Artillery 3 SP"],
 			"ja": ["通常攻撃は攻撃力の50%の術ダメージを与え", "攻撃の度に、副砲のSPを+3する"],
@@ -2989,6 +3253,7 @@
 		"dmg_element": "arts",
 		"suffix": { "en": "ranged", "ja": "遠", "zh": "远" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Normal attacks does 100% ATK {phys} & 50% Arts damage and grants the Londinium Artillery 6 SP"
@@ -3001,6 +3266,7 @@
 		}
 	},
 	"manfred_rebirth": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When defeated, resurrects over 20s and uses [From Withered Trunk, New Branches]",
@@ -3019,6 +3285,7 @@
 		"dmg_element": "arts",
 		"suffix": { "en": "🔥", "ja": "🔥", "zh": "🔥" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill (Initial CD: 0s, ~CD: 10s)",
@@ -3036,6 +3303,7 @@
 		}
 	},
 	"flamerazer_explode": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Explodes upon defeat, dealing 100% of ATK as {arts} damage to ally units in 1.5 tile radius",
@@ -3050,6 +3318,7 @@
 		}
 	},
 	"doq_freeze_armor": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When taking damage, apply 2s Chill to the damage source.",
@@ -3071,6 +3340,7 @@
 		}
 	},
 	"doq_revive": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When defeated, releases next wave of enemies and revives over 30s restoring to 25% of Max HP"
@@ -3080,6 +3350,7 @@
 		}
 	},
 	"doq_invincible": {
+		"silence": false,
 		"tooltip": {
 			"en": ["After resurrecting, gains 2s of invulnerability"],
 			"ja": ["2秒間無敵"],
@@ -3087,6 +3358,7 @@
 		}
 	},
 	"doq_charge": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Charging Mode - Movespeed is decreased by 50% and cannot be blocked"],
 			"ja": ["突撃形態→移動速度が-50%、ブロックされなくなる"],
@@ -3096,6 +3368,7 @@
 	"doq_bone": {
 		"suffix": { "en": "relic", "ja": "骨", "zh": "骨血" },
 		"def": { "multiplier": 0.2 },
+		"silence": false,
 		"tooltip": {
 			"en": ["While in possession of the relic - 'The Knight's Corpus', DEF is lowered by 80%"],
 			"ja": ["秘宝【騎士の血骨】所持しているとき、防御力が80%減少する"],
@@ -3103,6 +3376,7 @@
 		}
 	},
 	"sailor_drown": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When underwater, takes 1000 {true} damage every second"],
 			"ja": ["水蝕状態で毎秒1000{true}ダメージを受ける"],
@@ -3110,6 +3384,7 @@
 		}
 	},
 	"sailor_drown2": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When underwater, takes 1400 {true} damage every second"],
 			"ja": ["水蝕状態で毎秒1400{true}ダメージを受ける"],
@@ -3117,6 +3392,7 @@
 		}
 	},
 	"dulin_buggy": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Can carry up to 3 passengers"],
 			"ja": ["敵を最大3人乗客として乗せられる"],
@@ -3124,6 +3400,7 @@
 		}
 	},
 	"payback_sgbow": {
+		"silence": false,
 		"tooltip": {
 			"en": ["During 'Payback Time', attacks deal {arts} damage"],
 			"ja": ["「粛清の時」中は{arts}攻撃に変化する"],
@@ -3132,6 +3409,7 @@
 	},
 	"blood_debt_inc": {
 		"value": 80,
+		"silence": false,
 		"tooltip": {
 			"en": ["Upon death, increases 'Blood Debt' by <v.value>"],
 			"ja": ["倒されると、「血債」のSP+<v.value>"],
@@ -3139,6 +3417,7 @@
 		}
 	},
 	"payback_sgkill": {
+		"silence": false,
 		"tooltip": {
 			"en": ["During 'Payback Time', gains ATK +15%, DEF +15% and ASPD +50"],
 			"ja": ["「粛清の時」中、攻撃力・防御力+15%、攻撃速度+50"],
@@ -3150,6 +3429,7 @@
 		"dmg_element": null,
 		"suffix": { "en": "First Attack", "ja": "初撃", "zh": "初次攻击" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"After Inspection has completed, gains Movespeed +0.05, and the damage of the next attack is increased to 200% of ATK"
@@ -3159,6 +3439,7 @@
 		}
 	},
 	"wdyjd_inspection": {
+		"silence": false,
 		"tooltip": {
 			"en": ["After Inspection has completed, gains Movespeed +0.2 and Stealth"],
 			"ja": ["正体判明後、移動速度+0.2、ステルスを獲得"],
@@ -3170,6 +3451,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "Blink", "ja": "閃影", "zh": "闪现" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill (Initial SP: 0, Cost:2) Attack Recovery",
@@ -3184,6 +3466,7 @@
 		}
 	},
 	"imbalance_immune": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Immune to Imbalance"],
 			"ja": ["強制移動無効"],
@@ -3191,6 +3474,7 @@
 		}
 	},
 	"teleport_immune": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Immune to Teleport (Shu)"],
 			"ja": ["転移（シュウ）無効"],
@@ -3200,6 +3484,7 @@
 	"nhapos_pollution": {
 		"low": 50,
 		"high": 25,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Pollution - Allied units in a 1.1 tile radius receive <v.low>(Melee)/<v.high>(Ranged) True damage per second"
@@ -3211,6 +3496,7 @@
 		}
 	},
 	"nhapos_stat_change": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Upon spawn, max HP/ATK/DEF is lowered to the percentage of enemies defeated",
@@ -3225,6 +3511,7 @@
 	"nhpbr_pollution": {
 		"low": 50,
 		"high": 25,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Upon death, releases a mist for 8s in a 2.0 tile radius which causes allied units to take <v.low>(Melee)/<v.high>(Ranged) True damage per second"
@@ -3239,6 +3526,7 @@
 	"nhtank_pollution": {
 		"low": 50,
 		"high": 25,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill (Initial SP: 2, Cost: 2) Attack Recovery",
@@ -3262,6 +3550,7 @@
 		"dmg_element": "arts",
 		"suffix": { "en": "Skill", "ja": "爆撃", "zh": "技能" },
 		"hits": 10,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Bombard (Initial CD: <v.cd1>s, ~CD: <v.cd2>s)",
@@ -3282,6 +3571,7 @@
 		}
 	},
 	"enemy_1274_stmram_hp50": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When HP drops below 50%, gains Movespeed +100%, Attackspeed +100, and gains immunity to stun, sleep, freeze, levitate"
@@ -3297,6 +3587,7 @@
 		"dmg_element": "arts",
 		"suffix": { "en": "Skill", "ja": "死の瞳", "zh": "技能" },
 		"hits": 8,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill (Initial CD: 10s, ~CD: 24s)",
@@ -3320,6 +3611,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "Skill", "ja": "技", "zh": "技能" },
 		"hits": 5,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill (Initial SP: 0, Cost :3) Attack recovery",
@@ -3330,6 +3622,7 @@
 		}
 	},
 	"smedzi_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Invincible"],
 			"ja": ["永久无敌、装置で剥がせる"],
@@ -3337,6 +3630,7 @@
 		}
 	},
 	"smedzi_2": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Targets 2 units, deals extra +100% damage to units on【Seedbeds】tiles"],
 			"ja": ["2体同時攻撃、【苗床】マスにいる対象のダメージ+100%"],
@@ -3344,6 +3638,7 @@
 		}
 	},
 	"smedzi_3": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Every movement turns 2 tiles within attack range to【Seedbeds】"],
 			"ja": ["移動する毎に攻撃範囲内のマスを【苗床】に転換する"],
@@ -3351,6 +3646,7 @@
 		}
 	},
 	"smedzi_4": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When defeated once, ATK +50%"],
 			"ja": ["初回倒された後、攻击力+50%"],
@@ -3358,6 +3654,7 @@
 		}
 	},
 	"smedzi_5": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"After 600s，self-destructs and turns all tiles to【Seedbeds】and takes away 30 lifepoints"
@@ -3367,6 +3664,7 @@
 		}
 	},
 	"smedzi_6": {
+		"silence": false,
 		"tooltip": {
 			"en": ["For movement route please check stage info at the top"],
 			"ja": ["移動法則は上の情報に載せている"],
@@ -3374,6 +3672,7 @@
 		}
 	},
 	"smlead_2": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Every 5s applies Cold (4.5s) to all nearby allied units"],
 			"ja": ["5秒毎に範囲内の味方に4.5秒の寒冷を与える"],
@@ -3381,6 +3680,7 @@
 		}
 	},
 	"smlead_4": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When HP reaches 70%,40%,10%，enters【Self-Destruction】state for 3s",
@@ -3402,6 +3702,7 @@
 		}
 	},
 	"smlead_5": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When entering and exiting【Self-Destruction】state, inflicts 5s cold to all nearby allies"
@@ -3411,6 +3712,7 @@
 		}
 	},
 	"smdeer_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["【Icicle Fall】Attacks deal {phys} damage to allied units in a column"],
 			"ja": ["【氷柱】通常攻撃時、対象の配置列にいる味方ユニット全員に{phys}ダメージを与える"],
@@ -3418,6 +3720,7 @@
 		}
 	},
 	"smdeer_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"【Surge of Nature】Stuns an allied unit for 10s and does 20% ATK as {arts} damage every second"
@@ -3430,6 +3733,7 @@
 	},
 	"smdeer_3": {
 		"value": 60,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"HP↓50% - gains <v.value>% damage reduction",
@@ -3444,6 +3748,7 @@
 		}
 	},
 	"smdeer_4": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"After 600s, does 150% ATK as {arts} damage to all allied units and decreases lifepoint by 30"
@@ -3453,6 +3758,7 @@
 		}
 	},
 	"smgia_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Gains a +100% Fragile effect for 10s after taking damage from environmental effects"],
 			"ja": ["自然環境からのダメージを受けたとき、10秒間効果100%の脆弱状態になる"],
@@ -3460,6 +3766,7 @@
 		}
 	},
 	"smgia_2": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Every 3rd attack stuns target for 15s"],
 			"ja": ["攻撃2回の度に次の攻撃に相手を15秒スタンする"],
@@ -3467,6 +3774,7 @@
 		}
 	},
 	"smsha2_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Attacks jump further between 4 targets. Each jump deals 15% less damage and applies Cold to the target for 4.5s"
@@ -3479,6 +3787,7 @@
 		}
 	},
 	"smsha2_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"【反自然馈赠】Attacks enemies, dealing 10% ATK as arts damage, granting them Movespeed +100% and ASPD +100, and jump further between 4 targets (excluding self)"
@@ -3493,6 +3802,7 @@
 		}
 	},
 	"smsha_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Attacks jump between 3 targets. Each jump deals 15% less damage and applies Cold to the target for 4.5s"
@@ -3505,6 +3815,7 @@
 		}
 	},
 	"smsha_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"【反自然馈赠】Attacks enemies, dealing 10% ATK as arts damage, granting them Movespeed +100% and ASPD +100, and jump further between 3 targets (excluding self)"
@@ -3523,6 +3834,7 @@
 		"dmg_element": null,
 		"suffix": { "en": "2.5x", "ja": "2.5倍", "zh": "2.5倍" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": ["Does 250% damage to units on 'Dominion' tiles"],
 			"ja": ["【国土】にいる味方ユニットに与えるダメージが250％に増加"],
@@ -3530,6 +3842,7 @@
 		}
 	},
 	"smgrd2_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Spreads 'Dominion' over a greater radius",
@@ -3540,6 +3853,7 @@
 		}
 	},
 	"smgrd_2": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Spreads 'Dominion' around self", "Allied units on 'Dominion' tiles have ASPD -50"],
 			"ja": ["自分の周囲に【国土】を展開する", "【国土】にいる味方ユニットは攻撃速度-50"],
@@ -3547,6 +3861,7 @@
 		}
 	},
 	"mhshep_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Starts battle Resting",
@@ -3561,6 +3876,7 @@
 		}
 	},
 	"mhwolf_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Prioritizes attacking hornbeasts"],
 			"ja": ["ツノシゲミ系を優先に攻撃する"],
@@ -3568,6 +3884,7 @@
 		}
 	},
 	"mhtrtl_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Weak spot located on its front, damage dealt to the rear significantly decreased (-80%)"
@@ -3577,6 +3894,7 @@
 		}
 	},
 	"mhrhcr_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Weak spot located on its rear, damage dealt to the front significantly decreased (-80%)"
@@ -3586,6 +3904,7 @@
 		}
 	},
 	"mhboar_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Gradually accelerates when charging, dealing {phys} damage based on Movement Speed (1:800) to any target it passes through or is blocked by"
@@ -3601,6 +3920,7 @@
 		"atk": { "multiplier": 2 },
 		"suffix": { "en": "Stealth", "ja": "ステルス", "zh": "隐匿" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": ["Attacks from Stealth state does 200% damage"],
 			"ja": ["ステルス状態からの攻撃の倍率が200%に増加"],
@@ -3612,6 +3932,7 @@
 		"suffix": { "en": "skill", "ja": "スキル", "zh": "技能" },
 		"hits": 1,
 		"value": 100,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill (Initial CD: 10s, ~CD: 35s)",
@@ -3629,6 +3950,7 @@
 		}
 	},
 	"smsbr_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When attacked gains Movespeed +300% for 2s", "CD 5s"],
 			"ja": ["ダメージを受けると移动速度が2秒間300%増加、CD5秒"],
@@ -3636,6 +3958,7 @@
 		}
 	},
 	"smwiz_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["After not attacking for 5s，gains Movespeed +400%", "Resets after attacking"],
 			"ja": ["5秒間攻撃を行わなかったら、移動速度が400%増加", "攻撃を行うとリセットされる"],
@@ -3643,6 +3966,7 @@
 		}
 	},
 	"smdrn_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Flying Unit"],
 			"ja": ["飛行ユニット"],
@@ -3650,6 +3974,7 @@
 		}
 	},
 	"cbrokt_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"If Movement Speed is higher than starting speed for 1s, gains Low-Altitude Hovering and takes off!",
@@ -3666,6 +3991,7 @@
 		}
 	},
 	"cbshld_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Loses 50 DEF and 2 RES for instance of damage taken"],
 			"ja": ["ダメージを受けるたび、防御力-50・術耐性-2（80回まで累積する）"],
@@ -3673,6 +3999,7 @@
 		}
 	},
 	"wdfmpm_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When not blocked, all unidentified Civilians and Agents cannot be blocked"],
 			"ja": ["未ブロック時、身分確認前のユニットがブロックできなくなる"],
@@ -3683,6 +4010,7 @@
 		"atk": { "multiplier": 1.5 },
 		"suffix": { "en": "First Attack", "ja": "初撃", "zh": "首次攻击" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": ["Deals AoE Damage to target and adjacent 4 tiles on the first attack"],
 			"ja": ["初回攻撃のみ、対象と周囲4マスに攻撃力の150%の{phys}ダメージを与える"],
@@ -3690,6 +4018,7 @@
 		}
 	},
 	"alymot_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Priority target for enemies, deducts lifepoint upon destruction"],
 			"ja": ["敵から優先に攻撃される，死亡すると耐久値が減る"],
@@ -3697,6 +4026,7 @@
 		}
 	},
 	"bmbmot_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Does not attack，immune to corrosion"],
 			"ja": ["通常攻撃しない，水蝕無効"],
@@ -3704,6 +4034,7 @@
 		}
 	},
 	"bmbmot_2": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Loses 4% of Max HP every second"],
 			"ja": ["毎秒、最大HPの4%分のダメージを受ける"],
@@ -3715,6 +4046,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Detonates on defeat, dealing 200% ATK as {phys} damage and 170% as {ba.dt.erosion} (Can be silenced)"
@@ -3726,6 +4058,7 @@
 		}
 	},
 	"lyengs_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Repair (Initial CD: 5s, ~CD: 30s)",
@@ -3744,6 +4077,7 @@
 	},
 	"lysyta": {
 		"value": 50,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Leaves battlefield when touching an inactive R-Series Power Armor, the Power Armor recovers <v.value>SP"
@@ -3759,6 +4093,7 @@
 		"dmg_element": null,
 		"suffix": { "en": "skill", "ja": "スキル", "zh": "超负载" },
 		"hits": 10,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Overload (Initial CD: 0, ~CD: 20s)",
@@ -3776,6 +4111,7 @@
 		}
 	},
 	"mhkryk_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"After feeding on a Chitotex Clawbeast, leaves its shell to use as a defensive tool, significantly lowering all damage except to the rear."
@@ -3788,6 +4124,7 @@
 		}
 	},
 	"mhprpn_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Weak spot located on its front, damage dealt to the rear significantly decreased (-75%)"
@@ -3801,6 +4138,7 @@
 		"dmg_element": null,
 		"suffix": { "en": "skill", "ja": "ソーンス", "zh": "棘刺" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": ["Deals damage in a semicircle to the rear at every 10% of HP lost"],
 			"ja": [
@@ -3811,6 +4149,7 @@
 	},
 	"vampire_heal_scale": {
 		"value": 150,
+		"silence": false,
 		"tooltip": {
 			"en": ["Attacks recover <v.value>% of total damage dealt"],
 			"ja": ["合計与ダメージの<v.value>%のHPを回復する"],
@@ -3818,6 +4157,7 @@
 		}
 	},
 	"ltsmag_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Prioritizes attacking units linked to Realigned Flux"],
 			"ja": ["指揮光線を受けている味方を優先的に攻撃する"],
@@ -3825,6 +4165,7 @@
 		}
 	},
 	"ltsmag_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Attacks can travel along Realigned Flux, dealing 50% ATK as Arts damage to all connected units"
@@ -3836,6 +4177,7 @@
 		}
 	},
 	"ltgint_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When in Realigned Flux, has DEF -1000, RES -50"],
 			"ja": ["指揮光線を受けると、防御力-1000、術耐性-50"],
@@ -3843,6 +4185,7 @@
 		}
 	},
 	"ltgint_2": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When in Realigned Flux, has DEF -1200, RES -50"],
 			"ja": ["指揮光線を受けると、防御力-1200、術耐性-50"],
@@ -3850,6 +4193,7 @@
 		}
 	},
 	"ltmage_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When attacking targets outside of Realigned Flux, deals splash damage to 8 tiles surrounding target"
@@ -3861,6 +4205,7 @@
 		}
 	},
 	"wdarft_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Summons 3 <Seed of Withering> every 10s"],
 			"ja": ["10秒毎に<枯朽の種>3体を召喚する"],
@@ -3868,6 +4213,7 @@
 		}
 	},
 	"wdarft_2": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Summons 3 <Seed of Decay> every 10s"],
 			"ja": ["10秒毎に<腐敗の種>3体を召喚する"],
@@ -3875,6 +4221,7 @@
 		}
 	},
 	"nhfly_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Self-destructs when near an Operator, dealing {phys} damage"],
 			"ja": ["通常攻撃後、死亡する"],
@@ -3882,6 +4229,7 @@
 		}
 	},
 	"duskls_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When defeated, turns into an Invisible Ember of Resentment that must be damaged 5 times to defeat, respawns after a period of time"
@@ -3895,6 +4243,7 @@
 		}
 	},
 	"duskld_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When defeated, turns into an Invisible Ember of Avarice that must be damaged 10 times to defeat, respawns after a period of time"
@@ -3908,6 +4257,7 @@
 		}
 	},
 	"dubmb_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["After two attacks, the next attack deals Splash damage"],
 			"ja": ["攻撃2回の度に次の攻撃は対象と周囲8マスの味方にダメージを与える"],
@@ -3915,6 +4265,7 @@
 		}
 	},
 	"cbrush_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When passing through allied units, does 40% of ATK and current Movespeed * 800 as {phys} damage"
@@ -3926,6 +4277,7 @@
 		}
 	},
 	"cbrush_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When passing through allied units, does 40% of ATK and current Movespeed * 1000 as {phys} damage"
@@ -3937,6 +4289,7 @@
 		}
 	},
 	"sgcar_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Unloads 3 Famiglia Soldiers if this unit is defeated while blocked"],
 			"ja": ["ブロック中に倒されると、その場にマフィアの準構成員を3体召喚する"],
@@ -3944,6 +4297,7 @@
 		}
 	},
 	"sgcar_2": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Unloads 3 Elite Famiglia Soldiers if this unit is defeated while blocked"],
 			"ja": ["ブロック中に倒されると、その場にマフィアの構成員を3体召喚する"],
@@ -3952,6 +4306,7 @@
 	},
 	"speople_1": {
 		"dead": 40,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Gradually reduces 'Blood Debt' by 1/s when on the field, but increases 'Blood Debt' by <v.dead> when defeated"
@@ -3965,6 +4320,7 @@
 	},
 	"byokai_buff": {
 		"duration": 20,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When destroyed, grants all allied units 100 ASPD and 50% increased DEF for <v.duration>s"
@@ -3974,6 +4330,7 @@
 		}
 	},
 	"avenger_revive": {
+		"silence": false,
 		"tooltip": {
 			"en": ["On defeat, recovers with 50% HP (once per battle) and gains invincibility for 0s"],
 			"ja": ["倒されると一度だけHP50％で復活する、0秒間無敵になる"],
@@ -3981,6 +4338,7 @@
 		}
 	},
 	"avenger_charge": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Assault Charge - locks on and charges towards an allied unit, gaining +200% Movespeed for 4.5s"
@@ -3994,6 +4352,7 @@
 		"dmg_element": "arts",
 		"suffix": { "en": "Blink", "ja": "回り込み", "zh": "闪现" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill (Initial CD: 10s, ~CD: 15s) ",
@@ -4015,6 +4374,7 @@
 		"dmg_element": "arts",
 		"suffix": { "en": "Edict", "ja": "勅令", "zh": "敕令" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill (Initial CD: 10s, ~CD: 30s) ",
@@ -4031,6 +4391,7 @@
 		}
 	},
 	"smlion_victory": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When <Kharanduu Khagan, the Scourge of the Land> is defeated or leaves the battlefield, gains DEF +2000, RES +50, ASPD +100, MS +100%",
@@ -4048,6 +4409,7 @@
 		}
 	},
 	"smkght_victory": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When <Lugalszargus, the Overlord of Ages> is defeated or leaves the battlefield, gains DEF +2000, RES +50, ASPD +100, MS +100%",
@@ -4065,6 +4427,7 @@
 		}
 	},
 	"smkght_attackup": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Every attack increases ATK by 30%, ASPD by 30, max 10 stacks",
@@ -4082,6 +4445,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "Edict", "ja": "征服", "zh": "征服" },
 		"hits": 1,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill (Initial CD: 10s, ~CD: 30s) ",
@@ -4100,6 +4464,7 @@
 	"e_enemy_energy": {
 		"min": 0,
 		"max": 20,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Spawns with <v.min>/<v.max> energy，enters <Overload> state when energy caps",
@@ -4117,6 +4482,7 @@
 		}
 	},
 	"e_enemy_overload": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"【Overload】- gains ASPD +120, DEF +100%, RES +30 for 20s, clears all energy thereafter"
@@ -4124,10 +4490,13 @@
 			"ja": [
 				"【過負荷】- 20秒間、最終防御力+100%、術耐性+30、攻撃速度+120。その後、エネルギーは0になる"
 			],
-			"zh": ["【过载】- 20s内攻击速度+120、防御力最终提升至200%、法术抗性+30，持续时间结束后清空能量"]
+			"zh": [
+				"【过载】- 20s内攻击速度+120、防御力最终提升至200%、法术抗性+30，持续时间结束后清空能量"
+			]
 		}
 	},
 	"egun_charge": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill (Initial CD: 5s, ~CD: 28s)",
@@ -4144,6 +4513,7 @@
 		}
 	},
 	"erob_steal": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When not in Overload state, drains 1 energy from all nearby enemies not in Overload State within 2.2 tiles every 2 seconds"
@@ -4155,6 +4525,7 @@
 		}
 	},
 	"durgrd_buff_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"After taking damage for the first time, gains 100 ASPD and 100% increased Movement Speed for 30s."
@@ -4164,6 +4535,7 @@
 		}
 	},
 	"durgrd_buff": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"After taking damage for the first time, gains 150 ASPD and 150% increased Movement Speed for 30s."
@@ -4173,6 +4545,7 @@
 		}
 	},
 	"cbsisy": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Attacks in 4 directions while moving, dealing {arts} damage and deals increased damage to nearby targets (50%/100%)"
@@ -4189,6 +4562,7 @@
 	},
 	"bldrat_bleed": {
 		"value": 20,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Every 2nd attack causes target (excluding non-structure/summoned unit) to bleed and lose <v.value>HP/s for 5 seconds (Does not stack)"
@@ -4200,6 +4574,7 @@
 		}
 	},
 	"skzcan_0": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Cannot be blocked, does not attack"],
 			"ja": ["攻撃しない、ブロックされない"],
@@ -4207,6 +4582,7 @@
 		}
 	},
 	"skzcan_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When HP drops to 75%/50%, summons 3 <迷珍巧械>"],
 			"ja": ["HPが75%/50%になる度、<迷珍巧械>を3体召喚する"],
@@ -4214,6 +4590,7 @@
 		}
 	},
 	"skzcan_2": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When HP drops to 25%, gains Movespeed +0.9 and 50% Damage Reduction"],
 			"ja": ["HP25%以下→移動速度+0.9、受ける{phys}・{arts}ダメージが50%減少"],
@@ -4222,6 +4599,7 @@
 	},
 	"steal_gold": {
 		"value": 5,
+		"silence": false,
 		"tooltip": {
 			"en": ["Steals <v.value> gold upon entering Protection Objective"],
 			"ja": ["防衛ラインに入ると源石錐<v.value>個を奪う"],
@@ -4230,6 +4608,7 @@
 	},
 	"defeat_gold": {
 		"value": 5,
+		"silence": false,
 		"tooltip": {
 			"en": ["Drops <v.value> gold upon defeat"],
 			"ja": ["倒すと源石錐<v.value>個が貰える"],
@@ -4237,6 +4616,7 @@
 		}
 	},
 	"skzfbx_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Does not attack while Hover", "Gains Movespeed +0.35 when grounded"],
 			"ja": ["低空浮揚期間中攻撃しない", "低空浮揚解除後移動速度+0.35"],
@@ -4247,6 +4627,7 @@
 		}
 	},
 	"skzdd_1_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"【劝谕仪礼】Taunt level +1, When manually retreated, allied units have redeployment time +100%"
@@ -4256,6 +4637,7 @@
 		}
 	},
 	"skzdd_1_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"【圣城照护仪礼】- Receives 80% reduced {phys} and {arts} damage from units >2.0 tiles away"
@@ -4269,6 +4651,7 @@
 		}
 	},
 	"skzdd_1_3": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Units attacked by <博卓卡斯替，圣卫铳骑> gains ATK +30% and receives 50% more damage, lasts indefinitely"
@@ -4280,6 +4663,7 @@
 		}
 	},
 	"skzdd_1_4": {
+		"silence": false,
 		"tooltip": {
 			"en": ["【自动自卫仪礼】 (Initial CD: 20s, ~CD: 25s)", "Summons 1 <圣卫自动机>"],
 			"ja": ["【自动自卫仪礼】（初動20秒/再動25秒）", "<圣卫自动机>1体を召喚する"],
@@ -4287,6 +4671,7 @@
 		}
 	},
 	"skzdd_1_5": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When defeated, resurrects over 10s, recovers 100% HP and enters 2nd Form"],
 			"ja": ["倒されたとき、10秒かけてHPを全回復して、第二形態へ移行"],
@@ -4294,6 +4679,7 @@
 		}
 	},
 	"skzdd_2_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When not blocked, carries out ranged attack with 1.1 tile splash radius"],
 			"ja": [
@@ -4307,6 +4693,7 @@
 		"hits": 1,
 		"atk": { "multiplier": 0.5 },
 		"dmg_element": "phys",
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"【扫射仪礼】 (Initial CD: 0s, ~CD: 30s)",
@@ -4324,6 +4711,7 @@
 	},
 	"skzdd_2_3": {
 		"duration": 120,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"【自动导引仪礼】- Summons 6 <圣卫坚盾> in fixed locations upon entering 2nd Form",
@@ -4340,6 +4728,7 @@
 		}
 	},
 	"skzdd_2_4": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"If defeated and <思维混乱>，resurrects over 10s, recovering 50% HP, gains 6s of invincibility, ATK +25% and summons 3 <Door>s at predesignated locations"
@@ -4353,6 +4742,7 @@
 		}
 	},
 	"skzirn_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Accelerates 3s after spawn, gaining Movespeed +50% every 0.5s, max 28 stacks",
@@ -4369,6 +4759,7 @@
 		}
 	},
 	"skztxs_1_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"【Twins】- the closer the distance between Theresis and Theresa (>3.5/>2.5/>1.5/>1.0/≤1.0), the greater Theresis' damage dealt is increased (0%~200%) and more damage reduction (35%~90%)"
@@ -4387,6 +4778,7 @@
 		"hits": 1,
 		"atk": { "multiplier": 1.5 },
 		"dmg_element": "phys",
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"挥砍 (Initial CD: 3s, ~CD: 10s)",
@@ -4410,6 +4802,7 @@
 		"hits": 1,
 		"atk": { "multiplier": 1 },
 		"dmg_element": "arts",
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"卫护 (Initial CD: 18s, ~CD: 18s)",
@@ -4427,6 +4820,7 @@
 		}
 	},
 	"skztxs_1_4": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When HP drops below 50%, releases enemy wave",
@@ -4443,6 +4837,7 @@
 		}
 	},
 	"skztxs_2_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"【Twins】- the closer the distance between Theresis and Theresa (>3.5/>2.5/>1.5/>1.0/≤1.0), the greater Theresis' damage dealt is increased (0%~200%) and more damage reduction (35%~90%), and Theresa gains increased SP regen (+1.0~5.0)"
@@ -4457,6 +4852,7 @@
 		}
 	},
 	"skztxs_2_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"2nd Form - does not attack/move, cannot be blocked",
@@ -4471,6 +4867,7 @@
 		"hits": 1,
 		"atk": { "multiplier": 0.5 },
 		"dmg_element": "arts",
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Deals 50% ATK as {arts} damage to all surrounding allied units on spawn and spreads <年代印痕> over 30s"
@@ -4484,6 +4881,7 @@
 		}
 	},
 	"skzlwy_1_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Mystic Caster - When unable to find a target, attacks can be stored up and fired all at once (Up to 3 charges). For every charge stored up, gains 30% Damage Reduction (Max 90%)"
@@ -4497,6 +4895,7 @@
 		}
 	},
 	"skzlwy_1_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"【Coffin】- When Fremont is present, seals allied units upon retreat/defeat, halting their redeployment timer till the Coffin is defeated"
@@ -4510,6 +4909,7 @@
 		}
 	},
 	"skzlwy_1_3": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When defeated, resurrects over 11.6s, recovers 100% HP, releases next enemy wave and enters 2nd Form"
@@ -4521,6 +4921,7 @@
 		}
 	},
 	"skzlwy_2_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Upon entering 2nd Form, uses 【Punishment of Foolishness】",
@@ -4537,6 +4938,7 @@
 		}
 	},
 	"skzlwy_2_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When defeated while <思维混乱>, resurrects over 22.6s, recovers 20% HP, and forces an operator to retreat",
@@ -4556,6 +4958,7 @@
 		"hits": 1,
 		"atk": { "multiplier": 1.5 },
 		"dmg_element": "phys",
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Upon defeat or swap, deals 150% ATK as {phys} damage to all allied units in 2.0 radius and stuns for 5s"
@@ -4571,6 +4974,7 @@
 		"hits": 1,
 		"atk": { "multiplier": 1 },
 		"dmg_element": "phys",
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When HP drops below 50% for the first time, self and Mon2tr charges for 5s, swaps positions, and deals 150% ATK as {phys} damage to all allied units in 2.0 radius and stuns for 5s"
@@ -4588,6 +4992,7 @@
 		"hits": 1,
 		"atk": { "multiplier": 1.5 },
 		"dmg_element": "phys",
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill (Initial SP: 0, Cost :3) Attack recovery",
@@ -4604,6 +5009,7 @@
 		}
 	},
 	"skdny_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Upon defeat summons 1 <饮泣之刺>"],
 			"ja": ["倒されると<饮泣之刺>1個を召喚する"],
@@ -4611,6 +5017,7 @@
 		}
 	},
 	"skzrck_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When on field, spreads <年代印痕> around itself", "Drops 3 构想 when defeated"],
 			"ja": ["フィールドにいる時、自分中心に年代印痕を伝播する", "倒されると构想3個を落とす"],
@@ -4618,6 +5025,7 @@
 		}
 	},
 	"self_bind": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Unable to move/attack, cannot be blocked, immune to unbalance"],
 			"ja": ["移動・攻撃しない、ブロックされない、強制移動無効"],
@@ -4625,6 +5033,7 @@
 		}
 	},
 	"direction_face_most_allies_mhkryk": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When holding shell, will always face the direction that has more operators"],
 			"ja": ["甲羅所持時、常に味方ユニットが多い方に向く"],
@@ -4632,6 +5041,7 @@
 		}
 	},
 	"direction_face_most_allies": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Will always face the direction that has more operators"],
 			"ja": ["常に味方ユニットが多い方に向く"],
@@ -4640,6 +5050,7 @@
 	},
 	"front_dmg_red": {
 		"value": 80,
+		"silence": false,
 		"tooltip": {
 			"en": ["Damage dealt to the front significantly decreased (-<v.value>%)"],
 			"ja": ["正面から受ける{phys}・{arts}ダメージ-<v.value>%"],
@@ -4647,6 +5058,7 @@
 		}
 	},
 	"skzcy_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When defeated, removes the last deployed operator from team. Operator returns in E2 state upon entering next floor"
@@ -4658,6 +5070,7 @@
 		}
 	},
 	"skzwdd_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When in 年代印痕, attacks hit twice"],
 			"ja": ["年代印痕にいる時、通常攻撃が二連攻撃になる"],
@@ -4665,6 +5078,7 @@
 		}
 	},
 	"skzlch_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Upon entering Protection Objective, extends the duration of the current era by 1 step"
@@ -4674,6 +5088,7 @@
 		}
 	},
 	"telex_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Does not attack, does not consume lifepoints upon leaving the battlefield"],
 			"ja": ["攻撃しない、退場時ライフ取らない"],
@@ -4681,6 +5096,7 @@
 		}
 	},
 	"winfrz_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Spawns in frozen state, does not move/attack and gaining DEF +1000, RES +20 while frozen",
@@ -4702,6 +5118,7 @@
 		"hits": 1,
 		"atk": { "multiplier": 1.5 },
 		"dmg_element": "arts",
+		"silence": false,
 		"tooltip": {
 			"en": ["First attack does 150% ATK as {arts} damage to target and surrounding 4 tiles"],
 			"ja": ["初回攻撃時、対象と周囲4マスの味方に攻撃力の150%の{arts}ダメージを与える"],
@@ -4709,6 +5126,7 @@
 		}
 	},
 	"wdexg_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"While holding Ammo, consumes 1 Ammo and unleashes a ranged attacks which reduces Cost by 3"
@@ -4719,6 +5137,7 @@
 	},
 	"skzlcp_1": {
 		"cd2": 60,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill (Initial CD: 10s, ~CD: <v.cd2>s)",
@@ -4737,6 +5156,7 @@
 	"mmjump_1": {
 		"duration": 3.5,
 		"value": 1100,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When blocked or touches <稳固锁链> for the first time, enters Hover for <v.duration>s",
@@ -4750,6 +5170,7 @@
 	},
 	"block_dmg_phys_arts": {
 		"value": 1,
+		"silence": false,
 		"tooltip": {
 			"en": ["Can block <v.value> instances of {phys}/{arts} damage"],
 			"ja": ["{phys}・{arts}ダメージを<v.value>回まで無効化可能"],
@@ -4757,6 +5178,7 @@
 		}
 	},
 	"ltsmer_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill (Initial CD: 5s, ~CD: 15s)",
@@ -4774,6 +5196,7 @@
 	},
 	"bldbat_1": {
 		"value": 30,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill (Initial SP: 0, Cost: 1) Attack Recovery",
@@ -4794,6 +5217,7 @@
 		"hits": 1,
 		"atk": { "multiplier": 1.3 },
 		"dmg_element": "phys",
+		"silence": false,
 		"tooltip": {
 			"en": ["Skill (Initial SP: 0, Cost: 2) Attack Recovery", "Deals 130% ATK as {phys} damage"],
 			"ja": ["スキル→初期SP0、必要SP2、攻撃回復", "攻撃力130%の{phys}ダメージを与える"],
@@ -4801,6 +5225,7 @@
 		}
 	},
 	"ltnflu_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"<@purple>Melancholic</>: ATK +20%, ASPD -50, Movespeed -50%",
@@ -4822,6 +5247,7 @@
 		"atk": { "multiplier": 1.0 },
 		"dmg_element": "phys",
 		"silence": true,
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill (Initial SP: 0, Cost: 2) Attack Recovery",
@@ -4841,6 +5267,7 @@
 		}
 	},
 	"ltntpt_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"<@purple>Melancholic</>: ATK +20%, ASPD -50, Movespeed -50%",
@@ -4861,6 +5288,7 @@
 		"hits": 1,
 		"atk": { "multiplier": 1.0 },
 		"dmg_element": "arts",
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill (Initial SP: 0, Cost: 2) Attack Recovery",
@@ -4880,6 +5308,7 @@
 		}
 	},
 	"ltndru_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"<@purple>Melancholic</>: ATK +20%, ASPD -50, Movespeed -50%",
@@ -4900,6 +5329,7 @@
 		"hits": 1,
 		"atk": { "multiplier": 1.0 },
 		"dmg_element": "phys",
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Skill (Initial SP: 0, Cost: 2) Attack Recovery",
@@ -4919,6 +5349,7 @@
 		}
 	},
 	"ltnhor_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"<@purple>Melancholic</>: ATK +20%, ASPD -50, Movespeed -50%",
@@ -4935,6 +5366,7 @@
 		}
 	},
 	"ltnclr_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When not blocked, gains +30 final ATK buff every 0.5s (max 30 stacks), clears all stacks upon attack"
@@ -4946,6 +5378,7 @@
 		}
 	},
 	"ltnclr_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"<@purple>Melancholic</>: ATK +150%, ASPD -25, Movespeed -30%, Attacks stun target for 10s",
@@ -4966,6 +5399,7 @@
 		"hits": 1,
 		"atk": { "multiplier": 0.5 },
 		"dmg_element": "phys",
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Upon entering <@purple>Melancholic</> variation, gains 10 Shield stacks. Loses all stacks when exiting Melancholic variation",
@@ -4982,6 +5416,7 @@
 		}
 	},
 	"ltnclo_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"<@purple>Melancholic</>: ATK +150%, ASPD -25, Movespeed -30%",
@@ -4998,6 +5433,7 @@
 		}
 	},
 	"lrcmra_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [],
 			"ja": [],
@@ -5008,6 +5444,7 @@
 		}
 	},
 	"lrnazg_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [],
 			"ja": [],
@@ -5017,6 +5454,7 @@
 		}
 	},
 	"lrboom_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [],
 			"ja": [],
@@ -5030,6 +5468,7 @@
 		"hits": 3,
 		"atk": { "multiplier": 1 },
 		"dmg_element": "phys",
+		"silence": false,
 		"tooltip": {
 			"en": [],
 			"ja": [],
@@ -5037,6 +5476,7 @@
 		}
 	},
 	"lrwzrd_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [],
 			"ja": [],
@@ -5049,6 +5489,7 @@
 		}
 	},
 	"lrwzrd_2_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [],
 			"ja": [],
@@ -5061,6 +5502,7 @@
 		}
 	},
 	"lrwzrd_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [],
 			"ja": [],
@@ -5070,6 +5512,7 @@
 		}
 	},
 	"lrrook_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [],
 			"ja": [],
@@ -5081,6 +5524,7 @@
 		"hits": 1,
 		"atk": { "multiplier": 1.2 },
 		"dmg_element": "arts",
+		"silence": false,
 		"tooltip": {
 			"en": [],
 			"ja": [],
@@ -5095,6 +5539,7 @@
 		"hits": 1,
 		"atk": { "multiplier": 2 },
 		"dmg_element": "phys",
+		"silence": false,
 		"tooltip": {
 			"en": [],
 			"ja": [],
@@ -5102,6 +5547,7 @@
 		}
 	},
 	"mmkonm_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [],
 			"ja": [],
@@ -5113,6 +5559,7 @@
 		"hits": 1,
 		"atk": { "multiplier": 2 },
 		"dmg_element": "phys",
+		"silence": false,
 		"tooltip": {
 			"en": [],
 			"ja": [],
@@ -5120,6 +5567,7 @@
 		}
 	},
 	"mmcike_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [],
 			"ja": [],
@@ -5127,6 +5575,7 @@
 		}
 	},
 	"lpeopl_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Remains on field, does not retreat into Protection Objective"],
 			"ja": ["マップ上に彷徨く、防衛ラインに入らない"],
@@ -5134,6 +5583,7 @@
 		}
 	},
 	"lpeopl_2": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Panic (Initial SP: 0, Cost: 50, Recovers 2 SP/s)"],
 			"ja": ["パニック→初期SP0、必要SP50、毎秒SP2点回復する"],
@@ -5141,6 +5591,7 @@
 		}
 	},
 	"lpeopl_3": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Becomes Terrified when Panic level is full, and loses 15HP/s"],
 			"ja": ["SPが50に達すると恐慌状態になり、毎秒HP15点を失う"],
@@ -5148,6 +5599,7 @@
 		}
 	},
 	"lpeopl_4": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Will deplete a Life Point upon dying, does not count towards the defeated enemies counter"
@@ -5157,6 +5609,7 @@
 		}
 	},
 	"ymtro_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When next to enemies that are both non-Machine and non-Boss, they will be loaded inside as passengers (up to 4 max)"
@@ -5169,6 +5622,7 @@
 		}
 	},
 	"harchn_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Spawn (Initial CD: 5s, ~CD: 5s)",
@@ -5179,6 +5633,7 @@
 		}
 	},
 	"parasitic": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Has a red mark, spawns a <恐卡兹> upon defeat"],
 			"ja": ["赤いマークを持つ、倒されると＜恐卡兹＞を召喚する"],
@@ -5186,6 +5641,7 @@
 		}
 	},
 	"rescar_1": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Summon (Initial CD: 5s, ~CD: 10s) ", "If SP>1, consumes 1 SP to summon a Snack Cart"],
 			"ja": [
@@ -5199,6 +5655,7 @@
 		}
 	},
 	"rescar_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Summon (Initial CD: 5s, ~CD: 10s) ",
@@ -5215,6 +5672,7 @@
 		}
 	},
 	"bomscr_1": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Detonates when blocked, inflicting 375 {arts} Damage and 250 {ba.dt.burning} to all nearby targets"
@@ -5226,6 +5684,7 @@
 		}
 	},
 	"bomscr_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Detonates when blocked, inflicting 550 {arts} Damage and 350 {ba.dt.burning} to all nearby targets"
@@ -5241,6 +5700,7 @@
 		"hits": 1,
 		"atk": { "multiplier": 2 },
 		"dmg_element": "phys",
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Pistol - spends ammo to deal 200% ATK as {phys} damage, randomly selecting targets within attack range with a 70% hit rate"
@@ -5252,6 +5712,7 @@
 		}
 	},
 	"frtuna_2": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Gains ASPD +300 when having Ammo"],
 			"ja": ["弾薬数1以上なら、攻撃速度+300"],
@@ -5259,6 +5720,7 @@
 		}
 	},
 	"frtuna_3": {
+		"silence": false,
 		"tooltip": {
 			"en": ["When Ammo count is 0, only does melee attacks"],
 			"ja": ["弾薬数0の時は近接攻撃のみ行う"],
@@ -5266,6 +5728,7 @@
 		}
 	},
 	"frtuna_reload": {
+		"silence": false,
 		"tooltip": {
 			"en": ["Reload - Does not attack or move, recovers 1 Ammo every second."],
 			"ja": ["リロード→移動、攻撃しなくなる。毎秒弾薬数1回復する"],
@@ -5273,6 +5736,7 @@
 		}
 	},
 	"patrt_0": {
+		"silence": false,
 		"tooltip": {
 			"en": ["ATK +50%, DEF +200%, RES +100%, Normal attack consist of 4 hits"],
 			"ja": ["攻撃力+50%、防御力+200%、術耐性+100%、通常攻撃は4連撃"],
@@ -5290,6 +5754,7 @@
 				}
 			}
 		],
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"When on field, grants all enemies (including self) ATK +20%, DEF +200 and Inspired buff"
@@ -5301,6 +5766,7 @@
 		}
 	},
 	"patrt_2": {
+		"silence": false,
 		"tooltip": {
 			"en": [""],
 			"ja": [
@@ -5311,6 +5777,7 @@
 		}
 	},
 	"patrt_2_0": {
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Gains Atk Interval -0.4, Movespeed +0.1, Normal Attack becomes ranged and single hit"
@@ -5326,6 +5793,7 @@
 		"hits": 1,
 		"atk": { "multiplier": 1.35 },
 		"dmg_element": "phys",
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Throw Halberd (Initial CD: 15s, ~CD: 20s)",
@@ -5346,6 +5814,7 @@
 		"hits": 1,
 		"atk": { "multiplier": 0.0521 },
 		"dmg_element": "true",
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Deals 5.21% of ATK as True damage every 0.8s to all allied units in range radius of 1.75 tiles"
@@ -5363,6 +5832,7 @@
 		"hits": 1,
 		"atk": { "multiplier": 0.26 },
 		"dmg_element": "phys",
+		"silence": false,
 		"tooltip": {
 			"en": [
 				"Uses ranged attacks when not blocked, dealing 26% of ATK as Physical damage to the target and the 8 surrounding tiles, decreasing their DEF by 50% for 5s"
@@ -5376,6 +5846,7 @@
 		}
 	},
 	"skulsr_2": {
+		"silence": false,
 		"tooltip": {
 			"en": ["HP↓50% - gains ATK +50%"],
 			"ja": ["HP50%以下→攻撃力が50%増加"],
