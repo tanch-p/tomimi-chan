@@ -1,4 +1,5 @@
 import translations from '$lib/translations.json';
+import type { Enemy } from '$lib/types';
 
 export const BONUS_ENEMY_KEYS = [
 	'enemy_2001_duckmi',
@@ -6,26 +7,26 @@ export const BONUS_ENEMY_KEYS = [
 	'enemy_2034_sythef',
 	'enemy_2059_smbox',
 	'enemy_2085_skzjxd',
-	"enemy_2069_skzbox"
+	'enemy_2069_skzbox'
 ];
 
 export function isEquals(obj1, obj2) {
 	if (obj1 === null || obj2 === null) return false;
 	if (typeof obj1 !== 'object' || typeof obj2 !== 'object') {
-	  return obj1 === obj2;
+		return obj1 === obj2;
 	}
-  	const keys1 = Object.keys(obj1);
+	const keys1 = Object.keys(obj1);
 	const keys2 = Object.keys(obj2);
 	if (keys1.length !== keys2.length) {
-	  return false;
+		return false;
 	}
 	for (const key of keys1) {
-	  if (!keys2.includes(key) || !isEquals(obj1[key], obj2[key])) {
-		return false;
-	  }
+		if (!keys2.includes(key) || !isEquals(obj1[key], obj2[key])) {
+			return false;
+		}
 	}
 	return true;
-  }
+}
 
 export function convertToOrdinal(number: number) {
 	const lastDigit = number % 10;
@@ -80,6 +81,17 @@ const getEnemyWeight = (key, type) => {
 	return type.includes('BOSS') ? 0 : type.includes('ELITE') ? 1 : 2;
 };
 
-export const sortEnemies = (a, b) => {
+export const sortEnemies = (a: Enemy, b: Enemy) => {
 	return getEnemyWeight(a.key, a.type) - getEnemyWeight(b.key, b.type);
+};
+
+export const getTooltipEndIndex = (text: string) => {
+	if (text[text.length - 1] === '}') {
+		for (let i = text.length - 1; i > 0; i--) {
+			if (text[i] === '{' && text?.[i - 1] !== '}') {
+				return i;
+			}
+		}
+	}
+	return text.length - 1;
 };

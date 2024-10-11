@@ -14,6 +14,7 @@ type Stats = {
 	ms: number;
 	eleRes: number;
 	eleDmgRes: number;
+	dmg_reduction?: number;
 };
 type StatusImmune = 'stun' | 'silence' | 'freeze' | 'sleep' | 'levitate' | 'disarmCombat';
 type AttackType = 'no_attack' | 'melee' | 'ranged';
@@ -57,9 +58,6 @@ export interface Enemy {
 	stats: Stats[];
 	special?: Skill[];
 	forms?: EnemyFormType[] | undefined;
-	powerup?: EnemyFormType;
-	imprisoned?: EnemyFormType;
-	released?: EnemyFormType;
 	status_immune: StatusImmune[];
 	normal_attack?: {
 		atk_type: [AttackType, AttackAttribute];
@@ -121,6 +119,20 @@ export type Effects = [{ targets: string[]; mods: Mods }];
 export type Skill = {
 	key: string;
 	value?: number;
+	initCooldown?: number;
+	cooldown?: number;
+	init?: number;
+	spCost?: number;
+	dmg_element?: 'phys' | 'arts' | 'true' | 'heal';
+	suffix?: Tooltip;
+	hits?: number;
+	tooltip: Tooltip | null;
+};
+
+type Tooltip = {
+	zh: [string];
+	ja: [string];
+	en: [string];
 };
 
 export type sortOrder = -1 | 0 | 1;

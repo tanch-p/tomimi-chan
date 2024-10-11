@@ -31,3 +31,24 @@ div {
 .side-triangle {
 	clip-path: polygon(100% 0, 0% 100%, 100% 100%);
 }
+
+.skilltag {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 0.8rem;
+	width: max-content;
+	border-radius: 5px;
+	line-height: 1.25rem;
+	padding: 0 4px;
+	margin-left: 4px;
+}
+.skilltag.ignore_stealth{
+	background-color: #204d91;
+}
+.skilltag.ignore_camou {
+	background-color: #265624;
+}
+.skilltag.can_silence {
+	background-color: #737373;
+}
