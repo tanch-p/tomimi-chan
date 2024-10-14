@@ -223,8 +223,9 @@ const calculateModdedStat = (
 			return (
 				Math.round(
 					((base_stat + atk_interval) /
-						((((aspd + initial_fixed_value) * initial_multiplier + final_fixed_value) *
-							final_multiplier) /
+						(((aspd + initial_fixed_value + final_fixed_value) *
+							final_multiplier *
+							initial_multiplier) /
 							100)) *
 						100
 				) / 100
