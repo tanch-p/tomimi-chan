@@ -124,11 +124,11 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"RPG → deals 100% {phys} splash dmg to target & surrounding 8 tiles, switches to Melee & ms+200% after firing"
+				"RPG → deals 100% {phys} splash dmg to target & surrounding 8 tiles{ignore_camou}, switches to Melee & ms+200% after firing"
 			],
-			"ja": ["RPG → 目標と周囲8マスに{phys}ダメージ", "発射後は近接に切り替わって、移動速度+200%"],
+			"ja": ["RPG → 目標と周囲8マスに{phys}ダメージ{ignore_camou}", "発射後は近接に切り替わって、移動速度+200%"],
 			"zh": [
-				"榴弹 - 对主目标与周围8格造成攻击力200%{phys}伤害",
+				"榴弹 - 对主目标与周围8格造成攻击力200%{phys}伤害{ignore_camou}","被索敌后进入隐匿攻击还是会命中",
 				"发射榴弹后切换至冲锋模式",
 				"冲锋模式下移速提升200%，只进行近战攻击"
 			]
@@ -259,22 +259,22 @@
 	"drone_bomb": {
 		"tooltip": {
 			"en": [
-				"Bomb does 100% {phys} AOE damage 8 tiles around target",
+				"Bomb does 100% {phys} AOE damage 8 tiles around target{ignore_camou}",
 				"After firing bomb - Movespeed +200%"
 			],
-			"ja": ["爆弾→周囲8マスに100％{phys}ダメージ", "投下後移動速度+200%"],
-			"zh": ["爆弾→对目标及其周围八格造成100%群体{phys}伤害", "投弹后移速最终提升至200%"]
+			"ja": ["爆弾→周囲8マスに100％{phys}ダメージ{ignore_camou}", "投下後移動速度+200%"],
+			"zh": ["爆弾→对目标及其周围八格造成100%群体{phys}伤害{ignore_camou}", "投弹后移速最终提升至200%"]
 		}
 	},
 	"drone_bomb_frost": {
 		"tooltip": {
 			"en": [
-				"Bomb does 100% {arts} AOE damage + Cold❄ 8 tiles around target",
+				"Bomb does 100% {arts} AOE damage + Cold❄ 8 tiles around target{ignore_camou}",
 				"After firing bomb - Movespeed +200%"
 			],
-			"ja": ["爆弾→周囲8マスに100％{arts}ダメージ＋【寒冷❄】", "投下後移動速度+200%"],
+			"ja": ["爆弾→周囲8マスに100％{arts}ダメージ＋【寒冷❄】{ignore_camou}", "投下後移動速度+200%"],
 			"zh": [
-				"爆弾→对目标及其周围八格造成100%群体{arts}伤害并施加持续10秒的寒冷",
+				"爆弾→对目标及其周围八格造成100%群体{arts}伤害并施加持续10秒的寒冷{ignore_camou}",
 				"投弹后移速最终提升至200%"
 			]
 		}
@@ -282,9 +282,9 @@
 	"drone_frost_debuff": {
 		"tags": ["can_silence"],
 		"tooltip": {
-			"en": ["Debuff→operators within range have ASPD -50{can_silence}"],
-			"ja": ["攻撃範囲内の味方の攻撃速度-50{can_silence}"],
-			"zh": ["处于自身攻击范围内的所有我方单位攻击速度降低50%{can_silence}"]
+			"en": ["Debuff→operators within range have ASPD -50{can_silence}{ignore_stealth}"],
+			"ja": ["攻撃範囲内の味方の攻撃速度-50{can_silence}{ignore_stealth}"],
+			"zh": ["处于自身攻击范围内的所有我方单位攻击速度降低50%{can_silence}{ignore_stealth}"]
 		}
 	},
 	"splash": {
@@ -842,9 +842,9 @@
 		"suffix": { "en": "➕", "ja": "➕", "zh": "➕" },
 		"hits": 1,
 		"tooltip": {
-			"en": ["Skill→Every 20s unleashes cross-shaped sand blast on unit with highest Max HP"],
-			"ja": ["スキル→20秒毎に最大HPが最も高いユニット及び十字方向3マスに{phys}ダメージ"],
-			"zh": ["以场上生命上限最高的我方单位为中心，对范围内的所有我方单位造成800{phys}溅射伤害"]
+			"en": ["Skill→Every 20s unleashes cross-shaped sand blast on unit with highest Max HP{ignore_stealth}"],
+			"ja": ["スキル→20秒毎に最大HPが最も高いユニット及び十字方向3マスに{phys}ダメージ{ignore_stealth}"],
+			"zh": ["以场上生命上限最高的我方单位为中心，对范围内的所有我方单位造成800{phys}溅射伤害{ignore_stealth}"]
 		}
 	},
 	"rat_king_sand_tomb": {
@@ -1266,13 +1266,13 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Every 15% of max HP lost, deals 100% of ATK as {arts} splash damage and {ba.dt.neural} in a 2 tile radius"
+				"Every 15% of max HP lost, deals 100% of ATK as {arts} splash damage and {ba.dt.neural} in a 2 tile radius{ignore_camou}"
 			],
 			"ja": [
-				"HPが15%減るごとに、半径2マス以内の味方全員に攻撃力の100%の{arts}・{ba.dt.neural}を与える"
+				"HPが15%減るごとに、半径2マス以内の味方全員に攻撃力の100%の{arts}・{ba.dt.neural}を与える{ignore_camou}"
 			],
 			"zh": [
-				"每损失15%生命值，对半径2范围内所有我方单位造成攻击力100%{arts}溅射伤害与攻击力100%{ba.dt.neural}"
+				"每损失15%生命值，对半径2范围内所有我方单位造成攻击力100%{arts}溅射伤害与攻击力100%{ba.dt.neural}{ignore_camou}"
 			]
 		}
 	},
@@ -1281,16 +1281,16 @@
 		"tooltip": {
 			"en": [
 				"Standby - Does not attack, switches to Combat Ready mode when HP below 99.99%",
-				"Combat Ready - Movement Speed is increased by 500% and loses 4% max HP every second. Deals 20% of ATK as {ba.dt.neural} to all allied units in a 2.5 tile radius (ignores camouflage)."
+				"Combat Ready - Movement Speed is increased by 500% and loses 4% max HP every second. Deals 20% of ATK as {ba.dt.neural} to all allied units in a 2.5 tile radius {ignore_camou}."
 			],
 			"ja": [
 				"【待機状態】→攻撃しない、HPが99.99%未満になると【臨戦態勢】に移行",
 				"【臨戦態勢】→移動速度+500%、毎秒最大HPの4%分のダメージを受けて、",
-				"半径2.5マス以内の味方全員に、攻撃力の20%の{ba.dt.neural}を毎秒与える (迷彩無視) "
+				"半径2.5マス以内の味方全員に、攻撃力の20%の{ba.dt.neural}を毎秒与える {ignore_camou}"
 			],
 			"zh": [
 				"处于待命状态时，无法攻击/触发技能，低于99.99%时苏醒",
-				"临战状态下，移动速度提升500%，每秒流失最大生命值*4%的生命值，每秒对半径2.5范围内所有我方单位造成攻击力20%的{ba.dt.neural} (该效果无视迷彩) "
+				"临战状态下，移动速度提升500%，每秒流失最大生命值*4%的生命值，每秒对半径2.5范围内所有我方单位造成攻击力20%的{ba.dt.neural}{ignore_camou}"
 			]
 		}
 	},
@@ -1339,14 +1339,14 @@
 		"tooltip": {
 			"en": [
 				"Has no normal attack",
-				"Deals 100% of ATK as {arts} damage and 5% of ATK as {ba.dt.neural} every second to all allied units within range"
+				"Deals 100% of ATK as {arts} damage and 5% of ATK as {ba.dt.neural} every second to all allied units within range{ignore_stealth}"
 			],
 			"ja": [
-				"通常攻撃しない、攻撃半径内の味方全員に、攻撃力の100%の{arts}ダメージ、攻撃力の2%の{ba.dt.neural}を与える"
+				"通常攻撃しない、攻撃半径内の味方全員に、攻撃力の100%の{arts}ダメージ、攻撃力の2%の{ba.dt.neural}を与える{ignore_stealth}"
 			],
 			"zh": [
 				"不进行普通攻击",
-				"每秒对攻击范围内所有我方单位造成攻击力5%的{ba.dt.neural}和攻击力100%的无类型{arts}伤害"
+				"每秒对攻击范围内所有我方单位造成攻击力5%的{ba.dt.neural}和攻击力100%的无类型{arts}伤害{ignore_stealth}"
 			]
 		}
 	},
@@ -1724,10 +1724,10 @@
 	},
 	"surpise_bomb": {
 		"tooltip": {
-			"en": ["On defeat, deals 100% {arts} dmg & {ba.dt.neural} to nearby units {can_silence}"],
-			"ja": ["倒された時、周囲に攻撃力100%{arts}ダメージと{ba.dt.neural}を与える{can_silence}"],
+			"en": ["On defeat, deals 100% {arts} dmg & {ba.dt.neural} to nearby units {can_silence}{ignore_camou}"],
+			"ja": ["倒された時、周囲に攻撃力100%{arts}ダメージと{ba.dt.neural}を与える{can_silence}{ignore_camou}"],
 			"zh": [
-				"死亡后对自身半径1.25范围内全体我方单位造成自身攻击力100%的{arts}溅射伤害和{ba.dt.neural}{can_silence}"
+				"死亡后对自身半径1.25范围内全体我方单位造成自身攻击力100%的{arts}溅射伤害和{ba.dt.neural}{can_silence}{ignore_camou}"
 			]
 		}
 	},
@@ -1948,15 +1948,15 @@
 		"value": 3000,
 		"tooltip": {
 			"en": [
-				"Cannon - Consumes 1 Ammo and deals <v.atk.multiplier>% ATK as {phys} damage to target and surrounding 8 tiles",
+				"Cannon - Consumes 1 Ammo and deals <v.atk.multiplier>% ATK as {phys} damage to target and surrounding 8 tiles{ignore_camou}",
 				"deals extra <v.value> {arts} damage to 'Gelato Stops'"
 			],
 			"ja": [
-				"弾薬数1以上なら、通常攻撃時に弾薬を1消費し、対象と周囲8マスに攻撃力の<v.atk.multiplier>%の{phys}ダメージを与える",
+				"弾薬数1以上なら、通常攻撃時に弾薬を1消費し、対象と周囲8マスに攻撃力の<v.atk.multiplier>%の{phys}ダメージを与える{ignore_camou}",
 				"ジェラート供給所には追加で<v.value>の{arts}ダメージを与える"
 			],
 			"zh": [
-				"自身技力大于等于1时，消耗1点技力，对目标及对周围八格我方单位造成<v.atk.multiplier>%{phys}伤害",
+				"自身技力大于等于1时，消耗1点技力，对目标及对周围八格我方单位造成<v.atk.multiplier>%{phys}伤害{ignore_camou}",
 				"对<冰淇淋机>额外造成<v.value>点{arts}普通伤害"
 			]
 		}
@@ -2193,15 +2193,15 @@
 		"tooltip": {
 			"en": [
 				"Sacrifice (Initial CD: 0, ~CD: 5s)",
-				"Deals 100% of ATK as {arts} splash damage to allied Operators within a 1.5 tile radius."
+				"Deals 100% of ATK as {arts} splash damage to allied Operators within a 1.5 tile radius{ignore_camou}"
 			],
 			"ja": [
 				"スキル (初動0秒/再動5秒) ",
-				"半径1.5内の味方全員に攻撃力の100%の{arts}ダメージを与える"
+				"半径1.5内の味方全員に攻撃力の100%の{arts}ダメージを与える{ignore_camou}"
 			],
 			"zh": [
 				"献祭 (初次冷却0s，后5s) ",
-				"对半径1.5范围内的我方干员造成相当于100%攻击力的{arts}溅射伤害"
+				"对半径1.5范围内的我方干员造成相当于100%攻击力的{arts}溅射伤害{ignore_camou}"
 			]
 		}
 	},
@@ -2350,9 +2350,9 @@
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"hits": 1,
 		"tooltip": {
-			"en": ["When blocked, creates an explosion around self every 10s"],
-			"ja": ["ブロックされると10秒毎に自分中心に爆発"],
-			"zh": ["被阻挡后，每10秒(被眩晕时暂停计时)对自身1.4半径范围内我方单位造成1000{arts}溅射伤害"]
+			"en": ["When blocked, creates an 1000 {arts} damage explosion around self every 10s{ignore_camou}"],
+			"ja": ["ブロックされると10秒毎に自分中心に1000{arts}ダメージを与える爆発を起こす{ignore_camou}"],
+			"zh": ["被阻挡后，每10秒(被眩晕时暂停计时)对自身1.4半径范围内我方单位造成1000{arts}溅射伤害{ignore_camou}"]
 		}
 	},
 	"W_C4": {
@@ -2747,13 +2747,13 @@
 		"duration": 5,
 		"tooltip": {
 			"en": [
-				"Upon death, deals 130% of ATK as {arts} damage in a 1.65 tile radius to all allied and enemy units and applies Cold for <v.duration>s{can_silence}"
+				"Upon death, deals 130% of ATK as {arts} damage in a 1.65 tile radius to all allied and enemy units and applies Cold for <v.duration>s{can_silence}{ignore_camou}"
 			],
 			"ja": [
-				"死亡すると、半径1.65以内の敵味方全員に攻撃力の130%の{arts}ダメージを与え、<v.duration>秒間寒冷状態にする{can_silence}"
+				"死亡すると、半径1.65以内の敵味方全員に攻撃力の130%の{arts}ダメージを与え、<v.duration>秒間寒冷状態にする{can_silence}{ignore_camou}"
 			],
 			"zh": [
-				"被击倒时对周围所有单位造成攻击力150%的{arts}溅射伤害且施加<v.duration>s的寒冷{can_silence}"
+				"被击倒时对周围所有单位造成攻击力150%的{arts}溅射伤害且施加<v.duration>s的寒冷{can_silence}{ignore_camou}"
 			]
 		}
 	},
@@ -2780,13 +2780,13 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Upon death, deals <v.atk.multiplier>% of ATK as {arts} splash damage in a 1.5 tile radius to allied units"
+				"Upon death, deals <v.atk.multiplier>% of ATK as {arts} splash damage in a 1.5 tile radius to allied units{ignore_camou}"
 			],
 			"ja": [
-				"死亡時に自爆し、半径1.5以内の全ユニットに攻撃力の<v.atk.multiplier>%の{arts}ダメージを与える"
+				"死亡時に自爆し、半径1.5以内の全ユニットに攻撃力の<v.atk.multiplier>%の{arts}ダメージを与える{ignore_camou}"
 			],
 			"zh": [
-				"死亡时施法对周围所有单位造成攻击力<v.atk.multiplier>%的{arts}溅射伤害并直接夺取“留声机”的控制权"
+				"死亡时施法对周围所有单位造成攻击力<v.atk.multiplier>%的{arts}溅射伤害并直接夺取“留声机”的控制权{ignore_camou}"
 			]
 		}
 	},
@@ -3195,12 +3195,12 @@
 		"high": 25,
 		"tooltip": {
 			"en": [
-				"Pollution - Allied units in a 1.1 tile radius receive <v.low>(Melee)/<v.high>(Ranged) True damage per second"
+				"Pollution - Allied units in a 1.1 tile radius receive <v.low>(Melee)/<v.high>(Ranged) True damage per second{ignore_stealth}"
 			],
 			"ja": [
-				"自身の半径1.1以内に蝕む穢れ与える (毎秒地上/高台ユニットにそれぞれ<v.low>/<v.high>確定ダメージ) "
+				"自身の半径1.1以内に蝕む穢れ与える (毎秒地上/高台ユニットにそれぞれ<v.low>/<v.high>確定ダメージ{ignore_stealth})"
 			],
-			"zh": ["释放污染秽蚀，使周围我方持续损失生命(地面<v.low>/高台<v.high>)"]
+			"zh": ["释放污染秽蚀，使周围我方持续损失生命(地面<v.low>/高台<v.high>){ignore_stealth}"]
 		}
 	},
 	"nhapos_stat_change": {
@@ -3220,13 +3220,13 @@
 		"high": 25,
 		"tooltip": {
 			"en": [
-				"Upon death, releases a mist for 8s in a 2.0 tile radius which causes allied units to take <v.low>(Melee)/<v.high>(Ranged) True damage per second{can_silence}"
+				"Upon death, releases a mist for 8s in a 2.0 tile radius which causes allied units to take <v.low>(Melee)/<v.high>(Ranged) True damage per second{can_silence}{ignore_stealth}"
 			],
 			"ja": [
 				"死亡時、その場に蝕む穢れが発生{can_silence}",
-				"毎秒地上/高台ユニットにそれぞれ<v.low>/<v.high>確定ダメージ"
+				"毎秒地上/高台ユニットにそれぞれ<v.low>/<v.high>確定ダメージ{ignore_stealth}"
 			],
-			"zh": ["被击倒时释放污染秽蚀，使周围我方持续损失生命(地面<v.low>/高台<v.high>){can_silence}"]
+			"zh": ["被击倒时释放污染秽蚀，使周围我方持续损失生命(地面<v.low>/高台<v.high>){can_silence}{ignore_stealth}"]
 		}
 	},
 	"nhtank_pollution": {
@@ -3235,16 +3235,16 @@
 		"tooltip": {
 			"en": [
 				"Skill (Initial SP: 2, Cost: 2) Attack Recovery",
-				"Next attack does 100% ATK as {phys} damage and releases a mist for 10s in a 2.0 tile radius which causes allied units to take <v.low>(Melee)/<v.high>(Ranged) True damage per second"
+				"Next attack does 100% ATK as {phys} damage and releases a mist for 10s in a 2.0 tile radius which causes allied units to take <v.low>(Melee)/<v.high>(Ranged) True damage per second{ignore_stealth}"
 			],
 			"ja": [
 				"【汚染】 (攻撃回復/初期SP2/必要SP2) ",
 				"対象に攻撃力の100%の{phys}ダメージを与え、半径2.2で10秒持続する蝕む穢れを発生させる",
-				"毎秒地上/高台ユニットにそれぞれ<v.low>/<v.high>確定ダメージ"
+				"毎秒地上/高台ユニットにそれぞれ<v.low>/<v.high>確定ダメージ{ignore_stealth}"
 			],
 			"zh": [
 				"攻击2次后，下一次攻击会对攻击目标造成攻击力100%的{phys}伤害并释放污染秽蚀",
-				"使周围我方持续损失生命(地面<v.low>/高台<v.high>)"
+				"使周围我方持续损失生命(地面<v.low>/高台<v.high>){ignore_stealth}"
 			]
 		}
 	},
@@ -3680,9 +3680,9 @@
 		"suffix": { "en": "First Attack", "ja": "初撃", "zh": "首次攻击" },
 		"hits": 1,
 		"tooltip": {
-			"en": ["Deals AoE Damage to target and adjacent 4 tiles on the first attack"],
-			"ja": ["初回攻撃のみ、対象と周囲4マスに攻撃力の150%の{phys}ダメージを与える"],
-			"zh": ["首次攻击时对目标和周围4格造成伤害"]
+			"en": ["Deals AoE Damage to target and adjacent 4 tiles on the first attack{ignore_stealth}"],
+			"ja": ["初回攻撃のみ、対象と周囲4マスに攻撃力の150%の{phys}ダメージを与える{ignore_stealth}"],
+			"zh": ["首次攻击时对目标和周围4格造成伤害{ignore_stealth}"]
 		}
 	},
 	"alymot_1": {
@@ -3713,12 +3713,12 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Detonates on defeat, dealing 200% ATK as {phys} damage and 170% as {ba.dt.erosion} {can_silence}"
+				"Detonates on defeat, dealing 200% ATK as {phys} damage and 170% as {ba.dt.erosion}{can_silence}{ignore_camou}"
 			],
 			"ja": [
-				"死亡すると、半径1.25以内の全味方に攻撃力の200%の{phys}ダメージと170%の{ba.dt.erosion}を与える{can_silence}"
+				"死亡すると、半径1.25以内の全味方に攻撃力の200%の{phys}ダメージと170%の{ba.dt.erosion}を与える{can_silence}{ignore_camou}"
 			],
-			"zh": ["死亡后对周围造成攻击力200%{phys}溅射伤害和170%{ba.dt.erosion} {can_silence}"]
+			"zh": ["死亡后对周围造成攻击力200%{phys}溅射伤害和170%{ba.dt.erosion}{can_silence}{ignore_camou}"]
 		}
 	},
 	"lyengs_1": {
@@ -4014,15 +4014,15 @@
 		"tooltip": {
 			"en": [
 				"Skill (Initial CD: 10s, ~CD: 30s) ",
-				"After charging for 5s, fires an AOE attack at <Kharanduu Khagan, the Scourge of the Land>, dealing 200% of ATK as {arts} damage to all units caught up in the AOE and stuns for 10s"
+				"After charging for 5s, fires an AOE attack at <Kharanduu Khagan, the Scourge of the Land>, dealing 200% of ATK as {arts} damage to all units caught up in the AOE and stuns for 10s{ignore_stealth}"
 			],
 			"ja": [
 				"【敕令】 (初動25秒/再動30秒) ",
-				"5秒チャージした後<「大地の鞭」ハランドゥハン>に大範囲砲撃を行う、範囲内全員に攻撃力200％の{arts}ダメージを与え、10秒スタンする"
+				"5秒チャージした後<「大地の鞭」ハランドゥハン>に大範囲砲撃を行う、範囲内全員に攻撃力200％の{arts}ダメージを与え、10秒スタンする{ignore_stealth}"
 			],
 			"zh": [
 				"【敕令】 (初次冷却25s，后30s) ",
-				"蓄力5s后对<哈兰杜汗，大地之鞭>周围大范围所有单位造成攻击力300%{arts}伤害并施加10秒晕眩"
+				"蓄力5s后对<哈兰杜汗，大地之鞭>周围大范围所有单位造成攻击力300%{arts}伤害并施加10秒晕眩{ignore_stealth}"
 			]
 		}
 	},
@@ -4081,15 +4081,15 @@
 		"tooltip": {
 			"en": [
 				"Skill (Initial CD: 10s, ~CD: 30s) ",
-				"After charging for 5s, fires an AOE attack at <Lugalszargus, the Overlord of Ages>, dealing 200% of ATK as {phys} damage to all units caught up in the AOE and stuns for 10s"
+				"After charging for 5s, fires an AOE attack at <Lugalszargus, the Overlord of Ages>, dealing 200% of ATK as {phys} damage to all units caught up in the AOE and stuns for 10s{ignore_stealth}"
 			],
 			"ja": [
 				"【征服】 (初動10秒/再動30秒) ",
-				"5秒チャージした後<「暦法の王」ルガサルグス>に大範囲砲撃を行う、範囲内全員に攻撃力200％の{phys}ダメージを与え、10秒スタンする"
+				"5秒チャージした後<「暦法の王」ルガサルグス>に大範囲砲撃を行う、範囲内全員に攻撃力200％の{phys}ダメージを与え、10秒スタンする{ignore_stealth}"
 			],
 			"zh": [
 				"【征服】 (初次冷却10s，后30s) ",
-				"蓄力5s后对<路加萨尔古斯，历法之王>周围大范围所有单位造成攻击力200%{phys}伤害并施加10秒晕眩"
+				"蓄力5s后对<路加萨尔古斯，历法之王>周围大范围所有单位造成攻击力200%{phys}伤害并施加10秒晕眩{ignore_stealth}"
 			]
 		}
 	},
@@ -5227,13 +5227,13 @@
 	"bomscr_1": {
 		"tooltip": {
 			"en": [
-				"Detonates when blocked, inflicting 375 {arts} Damage and 250 {ba.dt.burning} to all nearby targets{can_silence}"
+				"Detonates when blocked, inflicting 375 {arts} Damage and 250 {ba.dt.burning} to all nearby targets{can_silence}{ignore_camou}"
 			],
 			"ja": [
-				"ブロックされると自爆し、自身を中心とした3×3マス内の味方全員に375の{arts}ダメージと250の{ba.dt.burning}を与える{can_silence}"
+				"ブロックされると自爆し、自身を中心とした3×3マス内の味方全員に375の{arts}ダメージと250の{ba.dt.burning}を与える{can_silence}{ignore_camou}"
 			],
 			"zh": [
-				"被阻挡后发生爆炸，对周围所有目标造成375点{arts}溅射伤害和250点{ba.dt.burning}{can_silence}"
+				"被阻挡后发生爆炸，对周围所有目标造成375点{arts}溅射伤害和250点{ba.dt.burning}{can_silence}{ignore_camou}"
 			]
 		}
 	},
