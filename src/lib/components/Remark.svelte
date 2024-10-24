@@ -1,11 +1,25 @@
 <script lang="ts">
-	import type { Language } from '$lib/types';
+	import type { Language, Skill } from '$lib/types';
 	import TextParser from './TextParser.svelte';
+	import { getTooltipEndIndex } from '$lib/functions/lib';
 
 	export let skill,
 		language: Language,
 		mode = 'table',
-		enemyStats;
+		enemyStats,
+		statusImmuneList;
+
+	const getTooltip = (skill: Skill, language: Language) => {
+		if (!skill.tooltip) return;
+
+		return skill.tooltip[language].map((line) => {
+			line = parseValues(line);
+			if(statusImmuneList.includes("silence")){
+				line=line.replace("{can_silence}","")
+			}
+			return line;
+		});
+	};
 
 	const parseValues = (text: string) => {
 		const regex = new RegExp(`<v.*?>`, 'g');
@@ -25,7 +39,10 @@
 						)
 					);
 					if (statKey === 'atk' && mode === 'handbook') {
-						text = text + ` (${Math.round(enemyStats[statKey] * skill[statKey][valueKey])})`;
+						//check for skilltag
+						const endIndex = getTooltipEndIndex(text);
+						const value = ` (${Math.round(enemyStats[statKey] * skill[statKey][valueKey])})`;
+						text = text.slice(0, endIndex) + value + text.slice(endIndex);
 					}
 				} else {
 					text = text.replace(string, skill[statKey][valueKey]);
@@ -50,7 +67,7 @@
 		}
 		return string;
 	};
-	$: tooltips = skill.tooltip && skill.tooltip[language].map((line) => parseValues(line));
+	$: tooltips = getTooltip(skill, language);
 </script>
 
 {#if tooltips}

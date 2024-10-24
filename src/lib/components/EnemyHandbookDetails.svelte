@@ -18,6 +18,14 @@
 	const enemyLevels = ['NORMAL', 'ELITE', 'BOSS'];
 
 	let formIndex = 0;
+
+	$: statusImmuneList = getStatusImmune(
+		enemy,
+		enemy?.forms
+			? enemy.forms[formIndex].mods?.status_immune ?? enemy.status_immune
+			: enemy.status_immune,
+		$specialMods
+	);
 </script>
 
 <div id={enemy.stageId} class="scroll-mt-16 px-2 bg-neutral-900 bg-opacity-40">
@@ -112,17 +120,7 @@
 		{/if}
 	</div>
 	<div class="flex flex-col mt-3">
-		<HandbookAbilities {enemy} {language} {specialMods} />
-		<StatusImmune
-			statusImmuneList={getStatusImmune(
-				enemy,
-				enemy?.forms
-					? enemy.forms[formIndex].mods?.status_immune ?? enemy.status_immune
-					: enemy.status_immune,
-				$specialMods
-			)}
-			{language}
-			mode="handbook"
-		/>
+		<HandbookAbilities {enemy} {language} {specialMods} {statusImmuneList}/>
+		<StatusImmune {statusImmuneList} {language} mode="handbook" />
 	</div>
 </div>

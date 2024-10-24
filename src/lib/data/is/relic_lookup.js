@@ -55,6 +55,8 @@ import rogue_4_relic_hand_3 from "$lib/images/is/relics/rogue_4_relic_hand_3.web
 import rogue_4_relic_hand_4 from "$lib/images/is/relics/rogue_4_relic_hand_4.webp"
 import rogue_4_relic_hand_5 from "$lib/images/is/relics/rogue_4_relic_hand_5.webp"
 import rogue_4_relic_hand_6 from "$lib/images/is/relics/rogue_4_relic_hand_6.webp"
+import rogue_4_relic_final_6 from "$lib/images/is/relics/rogue_4_relic_final_6.webp"
+import rogue_4_relic_explore_7 from "$lib/images/is/relics/rogue_4_relic_explore_7.webp"
 
 export const relicLookup = {
 	rogue_1_relic_c01: relic_ursus_chachek,
@@ -164,5 +166,7 @@ export const relicLookup = {
 	rogue_4_relic_hand_3: rogue_4_relic_hand_3,
 	rogue_4_relic_hand_4: rogue_4_relic_hand_4,
 	rogue_4_relic_hand_5: rogue_4_relic_hand_5,
-	rogue_4_relic_hand_6: rogue_4_relic_hand_6
+	rogue_4_relic_hand_6: rogue_4_relic_hand_6,
+	rogue_4_relic_final_6:rogue_4_relic_final_6,
+	rogue_4_relic_explore_7:rogue_4_relic_explore_7
 };

@@ -6,7 +6,7 @@
 		specialMods,
 		eliteMods,
 		selectedRelics,
-		selectedFloor,
+		selectedFloor
 	} from './stores';
 	import EnemyStatDisplay from '$lib/components/EnemyStatDisplay.svelte';
 	import DifficultySelect from '../../../../../lib/components/DifficultySelect.svelte';
@@ -20,14 +20,34 @@
 	import { applyMods, compileStatModsForChecking, updateBuffs } from '$lib/functions/statHelpers';
 	import ModsCheck from '$lib/components/ModsCheck.svelte';
 	import EnemyCount from '$lib/components/EnemyCount.svelte';
+	import skzRelics from '$lib/data/is/sarkaz/relics_sarkaz.json';
 
 	export let data: PageData;
+
+	const ro4_ALTER_BOSS_STAGES = ['level_rogue4_b-4-b', 'level_rogue4_b-5-b'];
 
 	$: language = data.language;
 	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods, $specialMods);
 	$: modsCheck = compileStatModsForChecking(data.enemies, data.mapConfig.id, $statMods);
 	const rogueTopic = 'rogue_skz';
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
+
+	$: if (data.mapConfig) {
+		if (
+			ro4_ALTER_BOSS_STAGES.includes(data.mapConfig.levelId) &&
+			!$selectedRelics.find((item) => item.id === 'rogue_4_relic_explore_7')
+		) {
+			const relic = skzRelics.find((item) => item.id === 'rogue_4_relic_explore_7');
+			selectedRelics.update((list) => (list = [...list, relic]));
+		}
+		if (
+			data.mapConfig.levelId === "level_rogue4_b-7" &&
+			!$selectedRelics.find((item) => item.id === 'rogue_4_relic_final_6')
+		) {
+			const relic = skzRelics.find((item) => item.id === 'rogue_4_relic_final_6');
+			selectedRelics.update((list) => (list = [...list, relic]));
+		}
+	}
 </script>
 
 <svelte:head>
@@ -68,7 +88,13 @@
 			{language}
 		/>
 		{#if data.mapConfig.elite_mods}
-			<EliteToggle mapEliteMods={data.mapConfig.elite_mods} {eliteMods} {rogueTopic} />
+			<EliteToggle
+				mapEliteMods={data.mapConfig.elite_mods}
+				{eliteMods}
+				{rogueTopic}
+				{selectedRelics}
+				stageId={data.mapConfig.levelId}
+			/>
 		{/if}
 		<EnemyStatDisplay enemies={moddedEnemies} {language} {specialMods} />
 		<div id="stageNav" class="mt-8 sm:mt-16 scroll-mt-20">

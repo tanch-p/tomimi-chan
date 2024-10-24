@@ -14,7 +14,7 @@
 
 	export let tokens, chara, moduleIndex, moduleStage, language: Language;
 
-	const tokensWithoutIcon = ['token_10012_rosmon_shield', 'token_10015_dusk_drgn'];
+	const tokensWithoutIcon = ['token_10012_rosmon_shield', 'token_10015_dusk_drgn','token_10040_siege2_vlion'];
 	const statKeys = ['hp', 'respawnTime', 'atk', 'cost', 'def', 'blockCnt', 'res', 'aspd'];
 
 	let tokenSkillIndex = 0;
@@ -179,17 +179,5 @@
 		border-radius: 5px;
 		padding: 0 6px 1px;
 		text-align: center;
-	}
-	.pill.PASSIVE {
-		background-color: #737373;
-	}
-	.pill.INCREASE_WHEN_ATTACK {
-		background-color: #fc793e;
-	}
-	.pill.INCREASE_WHEN_TAKEN_DAMAGE {
-		background-color: #ffb400;
-	}
-	.pill.INCREASE_WITH_TIME {
-		background-color: #8ec31f;
 	}
 </style>

@@ -7,23 +7,20 @@
 	import translations from '$lib/translations.json';
 
 	export let enemy: Enemy, row: number, language: Language, specialMods;
-	$: skills = getEnemySkills(
-		enemy,
-		row,
-		$specialMods
-	);
-</script>
-
-<div>
-	<EnemyFormTitle {enemy} {row} {language} />
-	<StatusImmune
-		statusImmuneList={getStatusImmune(
+	$: skills = getEnemySkills(enemy, row, $specialMods);
+	$: statusImmuneList = getStatusImmune(
 			enemy,
 			enemy?.forms
 				? enemy.forms[row].mods?.status_immune ?? enemy.status_immune
 				: enemy.status_immune,
 			$specialMods
-		)}
+		)
+</script>
+
+<div>
+	<EnemyFormTitle {enemy} {row} {language} />
+	<StatusImmune
+		{statusImmuneList}
 		{language}
 		mode="table"
 	/>
@@ -34,7 +31,12 @@
 			</li>
 		{/if}
 		{#each skills as skill}
-			<Remark {skill} {language} enemyStats={enemy.stats[row]} />
+			<Remark
+				{skill}
+				{language}
+				enemyStats={enemy.stats[row]}
+				{statusImmuneList}
+			/>
 		{/each}
 	</ul>
 </div>

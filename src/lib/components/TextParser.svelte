@@ -10,6 +10,7 @@
 	let language: Language = 'zh';
 	$: language = $page.data.language;
 
+	const tagPatterns = ['can_silence', 'ignore_camou', 'ignore_stealth','INCREASE_WHEN_ATTACK'];
 	const patternsToParse = [{ prefix: '$', suffix: '$', style: 'text-red-400 font-semibold' }];
 	const textPatterns = {
 		'@rolv.rem': 'text-[#FF4C22]',
@@ -91,19 +92,26 @@
 		if (matches) {
 			for (const match of matches) {
 				const key = match.slice(1, -1);
-				const front = key.includes('ba.dt') ? `<${key}>` : `<@${key}>`;
+				const front = key.includes('ba.dt')
+					? `<${key}>`
+					: tagPatterns.includes(key)
+					? `<@skilltag ${key}>`
+					: `<@${key}>`;
 				line = line.replace(
 					match,
 					front + translations[language][key.replace('ba.dt.', '')] + '</>'
 				);
 			}
 		}
-		line = line.replace(/<(.*?)>(.*?)<\/>/g, (match, pattern, content) => {
-			if (pattern.includes('@')) {
-				return `<span class="${textPatterns[pattern] ?? ''}">${content}</span>`;
-			} else {
-				return addTooltip(pattern, content);
+		//parsed separately to deal with cathy case
+		line = line.replace(/<@(.*?)>(.*?)<\/>/g, (match, pattern, content) => {
+			if (pattern.includes('skilltag')) {
+				return `<span class="${pattern}">${content}</span>`;
 			}
+			return `<span class="${textPatterns?.['@' + pattern] ?? ''}">${content}</span>`;
+		});
+		line = line.replace(/<(.*?)>(.*?)<\/>/g, (match, pattern, content) => {
+			return addTooltip(pattern, content);
 		});
 		for (const pattern of patternsToParse) {
 			line = processText(line, pattern);

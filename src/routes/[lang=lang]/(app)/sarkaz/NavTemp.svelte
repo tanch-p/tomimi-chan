@@ -7,29 +7,50 @@
 	import encounter from '$lib/images/is/sarkaz/node_inv.webp';
 	import translations from '$lib/translations.json';
 	import duelIcon from '$lib/images/is/sarkaz/node_duel.webp';
-	import shop from "$lib/images/is/sarkaz/node_shop.webp";
+	import shop from '$lib/images/is/sarkaz/node_shop.webp';
 
 	export let language: Language;
 
 	let allNormalStages = [
 		['坏邻居', '公害', '安全检查', '夺路而跳'],
-		['见闻峰会', '拆东补西', '排风口', '炉工志愿队', '有序清场'],
-		['大棋一盘', '血脉之辩', '遮天蔽日', '劳作的清晨', '溃乱魔典', '盲盒商场'],
-		['年代断层', '朽败考察', '飞越大水坑', '猩红甬道', '现代战争法则', '假想对冲', '幽灵城'],
-		['寄人城池下', '计划耕种', '巫咒同盟', '通道封锁', '无罪净土', '浮空城接舷战', '残损学院'],
-		['谋求共识', '神圣的渴求']
+		['见闻峰会', '拆东补西', '排风口', '炉工志愿队', '有序清场', '卡兹瀑布'],
+		['大棋一盘', '血脉之辩', '遮天蔽日', '劳作的清晨', '溃乱魔典', '盲盒商场', '火力小队'],
+		[
+			'年代断层',
+			'朽败考察',
+			'飞越大水坑',
+			'猩红甬道',
+			'现代战争法则',
+			'假想对冲',
+			'幽灵城',
+			'神出鬼没',
+			'混沌'
+		],
+		[
+			'寄人城池下',
+			'计划耕种',
+			'巫咒同盟',
+			'通道封锁',
+			'无罪净土',
+			'浮空城接舷战',
+			'残损学院',
+			'建制'
+		]
 	];
 
+	let floor6n_1 = ['谋求共识', '神圣的渴求'];
+	let floor6n_2 = ['洞天福地', '“外道”'];
 	let floor3t = ['守望的河水', '卫士不语功', '存亡之战'];
 	let floor3b = ['或然面纱', '奉献', '斩首'];
 	let floor3c = ['离歌的庭院', '赴敌者', '王冠之下'];
 	let floor4b = ['时光凯旋'];
 	let floor5b = ['紧急授课', '朝谒'];
-	let floor6b = ['圣城'];
+	let floor5bd = ['思维矫正', '魂灵朝谒'];
+	let floor6b = ['圣城', '授法'];
 	let du = ['失败的试胆', '信号灯', '劫虚济实', '鸭速公路'];
-	let sp = ['战场侧面', '继承','玩具的报复'];
+	let sp = ['战场侧面', '继承', '玩具的报复'];
 	let sp2 = ['物权纠纷', '叙事要约'];
-	let duel = ['以血还血', '善恶同道', '石心双子'];
+	let duel = ['以血还血', '善恶同道', '石心双子', '轻舟共渡'];
 	//max per row = 4
 </script>
 
@@ -51,12 +72,19 @@
 				</th>
 			</tr>
 			{#each allNormalStages as stages, i}
-				{@const rowSpan = stages.length <= 4 ? 1 : 2}
+				{@const rowSpan = stages.length > 8 ? 3 : stages.length <= 4 ? 1 : 2}
 				<tr>
 					<td colspan="2" rowspan={rowSpan}>
 						{i + 1}
 					</td>
-					{#if rowSpan === 2}
+					{#if rowSpan === 3}
+						{@const topRowStages = stages.slice(0, 4)}
+						{#each topRowStages as stageName}
+							<td colspan={Math.floor(24 / topRowStages.length)}>
+								<StageNavButton {stageName} {language} />
+							</td>
+						{/each}
+					{:else if rowSpan === 2}
 						{@const topRowStages = stages.slice(0, 4)}
 						{#each topRowStages as stageName}
 							<td colspan={Math.floor(24 / topRowStages.length)}>
@@ -71,24 +99,62 @@
 						{/each}
 					{/if}
 				</tr>
-				{#if rowSpan === 2}
+				{#if rowSpan === 3}
+					{@const midRowStages = stages.slice(4, 7)}
+					{@const btmRowStages = stages.slice(7)}
+					<tr>
+						{#each midRowStages as stageName}
+							<td colspan={Math.floor(24 / midRowStages.length)}>
+								<StageNavButton {stageName} {language} />
+							</td>
+						{/each}
+					</tr>
+					<tr>
+						{#each btmRowStages as stageName}
+							<td colspan={Math.floor(24 / btmRowStages.length)}>
+								<StageNavButton {stageName} {language} />
+							</td>
+						{/each}
+					</tr>
+				{:else if rowSpan === 2}
 					{@const btmRowStages = stages.slice(4)}
-					{#if btmRowStages.length >= 3}
-						{#each btmRowStages as stageName}
-							<td colspan={Math.floor(24 / btmRowStages.length)}>
-								<StageNavButton {stageName} {language} />
-							</td>
-						{/each}
-					{:else}
-						{#each btmRowStages as stageName}
-							<td colspan={Math.floor(24 / btmRowStages.length)}>
-								<StageNavButton {stageName} {language} />
-							</td>
-						{/each}
-					{/if}
+					<tr>
+						{#if btmRowStages.length >= 3}
+							{#each btmRowStages as stageName}
+								<td colspan={Math.floor(24 / btmRowStages.length)}>
+									<StageNavButton {stageName} {language} />
+								</td>
+							{/each}
+						{:else}
+							{#each btmRowStages as stageName}
+								<td colspan={Math.floor(24 / btmRowStages.length)}>
+									<StageNavButton {stageName} {language} />
+								</td>
+							{/each}
+						{/if}
+					</tr>
 				{/if}
 			{/each}
-
+			<tr>
+				<td colspan="2" rowspan="1">
+					{6}
+				</td>
+				{#each floor6n_1 as stageName}
+					<td colspan={Math.floor(24 / floor6n_1.length)}>
+						<StageNavButton {stageName} {language} />
+					</td>
+				{/each}
+			</tr>
+			<tr>
+				<td colspan="2" rowspan="1">
+					{6}
+				</td>
+				{#each floor6n_2 as stageName}
+					<td colspan={Math.floor(24 / floor6n_2.length)}>
+						<StageNavButton {stageName} {language} />
+					</td>
+				{/each}
+			</tr>
 			<!-- boss -->
 			<tr>
 				<th colspan="2" class="empty" />
@@ -155,6 +221,16 @@
 					{5}
 				</td>
 				{#each floor5b as stageName}
+					<td colspan={Math.floor(24 / floor5b.length)}>
+						<StageNavButton {stageName} {language} />
+					</td>
+				{/each}
+			</tr>
+			<tr>
+				<td colspan="2" rowspan="1">
+					{5}
+				</td>
+				{#each floor5bd as stageName}
 					<td colspan={Math.floor(24 / floor5b.length)}>
 						<StageNavButton {stageName} {language} />
 					</td>
