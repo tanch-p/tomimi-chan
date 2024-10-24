@@ -7,6 +7,7 @@ import { overwriteBlackboard } from './skillHelpers';
 export const stageLoad = async (stageName: string, rogueTopic: string | null) => {
 	const mapConfig: MapConfig = findStage(stageName, rogueTopic);
 	const enemies = mapConfig.enemies.map(({ id, prefabKey, level, overwrittenData }) => {
+		console.log(prefabKey);
 		const enemy: Enemy = JSON.parse(JSON.stringify(enemyDatabase[prefabKey]));
 		enemy.stageId = id;
 		enemy.stats = { ...enemyDatabase[prefabKey].stats[level] };

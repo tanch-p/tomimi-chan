@@ -126,9 +126,13 @@
 			"en": [
 				"RPG → deals 100% {phys} splash dmg to target & surrounding 8 tiles{ignore_camou}, switches to Melee & ms+200% after firing"
 			],
-			"ja": ["RPG → 目標と周囲8マスに{phys}ダメージ{ignore_camou}", "発射後は近接に切り替わって、移動速度+200%"],
+			"ja": [
+				"RPG → 目標と周囲8マスに{phys}ダメージ{ignore_camou}",
+				"発射後は近接に切り替わって、移動速度+200%"
+			],
 			"zh": [
-				"榴弹 - 对主目标与周围8格造成攻击力200%{phys}伤害{ignore_camou}","被索敌后进入隐匿攻击还是会命中",
+				"榴弹 - 对主目标与周围8格造成攻击力200%{phys}伤害{ignore_camou}",
+				"被索敌后进入隐匿攻击还是会命中",
 				"发射榴弹后切换至冲锋模式",
 				"冲锋模式下移速提升200%，只进行近战攻击"
 			]
@@ -263,7 +267,10 @@
 				"After firing bomb - Movespeed +200%"
 			],
 			"ja": ["爆弾→周囲8マスに100％{phys}ダメージ{ignore_camou}", "投下後移動速度+200%"],
-			"zh": ["爆弾→对目标及其周围八格造成100%群体{phys}伤害{ignore_camou}", "投弹后移速最终提升至200%"]
+			"zh": [
+				"爆弾→对目标及其周围八格造成100%群体{phys}伤害{ignore_camou}",
+				"投弹后移速最终提升至200%"
+			]
 		}
 	},
 	"drone_bomb_frost": {
@@ -842,9 +849,15 @@
 		"suffix": { "en": "➕", "ja": "➕", "zh": "➕" },
 		"hits": 1,
 		"tooltip": {
-			"en": ["Skill→Every 20s unleashes cross-shaped sand blast on unit with highest Max HP{ignore_stealth}"],
-			"ja": ["スキル→20秒毎に最大HPが最も高いユニット及び十字方向3マスに{phys}ダメージ{ignore_stealth}"],
-			"zh": ["以场上生命上限最高的我方单位为中心，对范围内的所有我方单位造成800{phys}溅射伤害{ignore_stealth}"]
+			"en": [
+				"Skill→Every 20s unleashes cross-shaped sand blast on unit with highest Max HP{ignore_stealth}"
+			],
+			"ja": [
+				"スキル→20秒毎に最大HPが最も高いユニット及び十字方向3マスに{phys}ダメージ{ignore_stealth}"
+			],
+			"zh": [
+				"以场上生命上限最高的我方单位为中心，对范围内的所有我方单位造成800{phys}溅射伤害{ignore_stealth}"
+			]
 		}
 	},
 	"rat_king_sand_tomb": {
@@ -1724,8 +1737,12 @@
 	},
 	"surpise_bomb": {
 		"tooltip": {
-			"en": ["On defeat, deals 100% {arts} dmg & {ba.dt.neural} to nearby units {can_silence}{ignore_camou}"],
-			"ja": ["倒された時、周囲に攻撃力100%{arts}ダメージと{ba.dt.neural}を与える{can_silence}{ignore_camou}"],
+			"en": [
+				"On defeat, deals 100% {arts} dmg & {ba.dt.neural} to nearby units {can_silence}{ignore_camou}"
+			],
+			"ja": [
+				"倒された時、周囲に攻撃力100%{arts}ダメージと{ba.dt.neural}を与える{can_silence}{ignore_camou}"
+			],
 			"zh": [
 				"死亡后对自身半径1.25范围内全体我方单位造成自身攻击力100%的{arts}溅射伤害和{ba.dt.neural}{can_silence}{ignore_camou}"
 			]
@@ -2350,9 +2367,15 @@
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"hits": 1,
 		"tooltip": {
-			"en": ["When blocked, creates an 1000 {arts} damage explosion around self every 10s{ignore_camou}"],
-			"ja": ["ブロックされると10秒毎に自分中心に1000{arts}ダメージを与える爆発を起こす{ignore_camou}"],
-			"zh": ["被阻挡后，每10秒(被眩晕时暂停计时)对自身1.4半径范围内我方单位造成1000{arts}溅射伤害{ignore_camou}"]
+			"en": [
+				"When blocked, creates an 1000 {arts} damage explosion around self every 10s{ignore_camou}"
+			],
+			"ja": [
+				"ブロックされると10秒毎に自分中心に1000{arts}ダメージを与える爆発を起こす{ignore_camou}"
+			],
+			"zh": [
+				"被阻挡后，每10秒(被眩晕时暂停计时)对自身1.4半径范围内我方单位造成1000{arts}溅射伤害{ignore_camou}"
+			]
 		}
 	},
 	"W_C4": {
@@ -2360,19 +2383,21 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "C4", "ja": "爆弾", "zh": "C4" },
 		"hits": 1,
+		"cooldown": 20,
+		"initCooldown": 9,
 		"tooltip": {
 			"en": [
-				"C4 (Initial CD: 9s, ~CD: 20s)",
+				"C4 (Initial CD: <v.initCooldown>s, ~CD: <v.cooldown>s)",
 				"plants bomb on 2 units, dealing <v.atk.multiplier>% ATK as {phys} damage each",
 				"HP↓50% - plants bomb on 3 units, uses skill immediately"
 			],
 			"ja": [
-				"爆弾 (初動9秒/再動20秒) ",
+				"爆弾 (初動<v.initCooldown>秒/再動<v.cooldown>秒) ",
 				"味方2体に爆弾設置する、攻撃力<v.atk.multiplier>%の{phys}ダメージを与える",
 				"HP50%以下：爆弾2体ｰ>3体、即時爆弾設置する"
 			],
 			"zh": [
-				"C4 (初次冷却9s，后20s) ",
+				"C4 (初次冷却<v.initCooldown>s，后<v.cooldown>s) ",
 				"为自身2.5半径范围内一个我方单位安装上C4，3.2秒后造成攻击力<v.atk.multiplier>%的{phys}普通伤害",
 				"生命值低于50%时，技能冷却立刻归0，技能C4最大目标数提升至3"
 			]
@@ -3226,7 +3251,9 @@
 				"死亡時、その場に蝕む穢れが発生{can_silence}",
 				"毎秒地上/高台ユニットにそれぞれ<v.low>/<v.high>確定ダメージ{ignore_stealth}"
 			],
-			"zh": ["被击倒时释放污染秽蚀，使周围我方持续损失生命(地面<v.low>/高台<v.high>){can_silence}{ignore_stealth}"]
+			"zh": [
+				"被击倒时释放污染秽蚀，使周围我方持续损失生命(地面<v.low>/高台<v.high>){can_silence}{ignore_stealth}"
+			]
 		}
 	},
 	"nhtank_pollution": {
@@ -3718,7 +3745,9 @@
 			"ja": [
 				"死亡すると、半径1.25以内の全味方に攻撃力の200%の{phys}ダメージと170%の{ba.dt.erosion}を与える{can_silence}{ignore_camou}"
 			],
-			"zh": ["死亡后对周围造成攻击力200%{phys}溅射伤害和170%{ba.dt.erosion}{can_silence}{ignore_camou}"]
+			"zh": [
+				"死亡后对周围造成攻击力200%{phys}溅射伤害和170%{ba.dt.erosion}{can_silence}{ignore_camou}"
+			]
 		}
 	},
 	"lyengs_1": {
@@ -4293,7 +4322,9 @@
 	},
 	"skzdd_2_1": {
 		"tooltip": {
-			"en": ["When not blocked, carries out ranged attack with 1.1 tile splash radius{ignore_camou}"],
+			"en": [
+				"When not blocked, carries out ranged attack with 1.1 tile splash radius{ignore_camou}"
+			],
 			"ja": [
 				"未ブロック時、通常攻撃が遠距離範囲攻撃になる、範囲半径1.1マスの全ユニットに100%ダメージ{ignore_camou}"
 			],
@@ -4828,7 +4859,6 @@
 		"hits": 1,
 		"atk": { "multiplier": 1.0 },
 		"dmg_element": "phys",
-		"silence": true,
 		"tooltip": {
 			"en": [
 				"Skill (Initial SP: 0, Cost: 2) {INCREASE_WHEN_ATTACK}{can_silence}",
@@ -5398,11 +5428,188 @@
 	},
 	"durman_evasion": {
 		"duration": 20,
-		"silence": true,
 		"tooltip": {
 			"en": ["Starts with 100% {phys} Dodge for <v.duration>s {can_silence}"],
 			"ja": ["出現から<v.duration>秒間、{phys}回避率+100%{can_silence}"],
 			"zh": ["初始获得100%{phys}闪避，持续<v.duration>s{can_silence}"]
+		}
+	},
+	"skzgds": {
+		"tooltip": {
+			"en": ["被击倒时，进入繁荣年代"],
+			"ja": ["被击倒时，进入繁荣年代"],
+			"zh": ["被击倒时，进入繁荣年代"]
+		}
+	},
+	"skzjbc_1": {
+		"tooltip": {
+			"en": [
+				"碰触到我方干员时，强制击杀此干员，若自身未达到装载上限(上限为3)，则将此干员装载。{ignore_stealth}自身已装载乘客时，移动速度最终-50% "
+			],
+			"ja": [
+				"碰触到我方干员时，强制击杀此干员，若自身未达到装载上限(上限为3)，则将此干员装载。{ignore_stealth}自身已装载乘客时，移动速度最终-50% "
+			],
+			"zh": [
+				"碰触到我方干员时，强制击杀此干员，若自身未达到装载上限(上限为3)，则将此干员装载。{ignore_stealth}自身已装载乘客时，移动速度最终-50% "
+			]
+		}
+	},
+	"skzjbc_2": {
+		"tooltip": {
+			"en": ["进入保护目标后，不扣除目标生命值，装载的我方单位将无法上场"],
+			"ja": ["进入保护目标后，不扣除目标生命值，装载的我方单位将无法上场"],
+			"zh": ["进入保护目标后，不扣除目标生命值，装载的我方单位将无法上场"]
+		}
+	},
+	"skzjkl_1_0": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"抵达路径终点时，强制击杀场上其他敌人；持有抵抗，免疫传送",
+				"场上每存在一个尼卢火，自身受到的物理/法术伤害降低至80%（乘算叠加）"
+			]
+		}
+	},
+	"skzjkl_fire": {
+		"tooltip": {
+			"en": [
+				"清火执 (Initial CD: 30s, ~CD: 10s)"
+			],
+			"ja": [
+				"【清火执】(初動30秒/再動10秒)"
+			],
+			"zh": [
+				"清火执 (初次冷却30s，后10s){ignore_stealth}",
+				"以场上每个尼卢火为中心，对十字范围内的我方单位分别造成一次自身攻击力100%的{arts}伤害"
+			]
+		}
+	},
+	"skzjkl_1_1": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["【不着相】不可阻挡，不进行普通攻击，无敌95s后进入自在阶段"]
+		}
+	},
+	"skzjkl_1_2": {
+		"tooltip": {
+			"en": [
+				""
+			],
+			"ja": [
+				""
+			],
+			"zh": [
+				"每25s，在场上预设位置召唤尼卢火；每55s，以预设路径召唤敌人"
+			]
+		}
+	},
+	"skzjkl_2_1": {
+		"tooltip": {
+			"en": [
+				""
+			],
+			"ja": [
+				""
+			],
+			"zh": [
+				"普通攻击命中目标时，触发一次【清火执】效果"
+			]
+		}
+	},
+	"skzjkl_2_2": {
+		"tooltip": {
+			"en": [
+				""
+			],
+			"ja": [
+				""
+			],
+			"zh": [
+				"每35s，在场上预设位置召唤尼卢火；每38s，以预设路径召唤敌人（思维混乱时召唤不同敌人）"
+			]
+		}
+	},
+	"skzjkl_2_3": {
+		"tooltip": {
+			"en": [
+				""
+			],
+			"ja": [
+				""
+			],
+			"zh": [
+				"生命比例首次不高于75%/50%/25%时，强制触发技能【承三身】"
+			]
+		}
+	},
+	"skzjkl_2_4": {
+		"tooltip": {
+			"en": [
+				""
+			],
+			"ja": [
+				""
+			],
+			"zh": [
+				"承三身 - 持续施法；持续施法开始时，以预设路径在场上召唤托生莲座；持续施法期间，自身持有无敌，失衡免疫，不可阻挡；持续施法于托生莲座退场时结束"
+			]
+		}
+	},
+	"skzjkl_2_5": {
+		"tooltip": {
+			"en": [
+				""
+			],
+			"ja": [
+				""
+			],
+			"zh": [
+				"首次被击倒时，进行7.33s的重生（恢复100%生命值），随后强制击杀场上其他敌人(包括尼卢火)与干员，将待部署区中未被托生莲座装载进入保护目标的干员全部隐藏，闪现至指定位置并以新路径行动，释放当前波次，移动关卡地图至区域作战，解除托生莲座的带来的不可部署状态并清空我方单位剩余再部署时间"
+			]
+		}
+	},
+	"skzjkl_five": {
+		"tooltip": {
+			"tooltip": {
+			"en": [
+				"惩五戒 (Initial CD: 10s, ~CD: 20s)"
+			],
+			"ja": [
+				"【惩五戒】(初動10秒/再動20秒)"
+			],
+			"zh": [
+				"惩五戒 (初次冷却10s，后20s)",
+				"对目标连续进行5次攻击，每次造成攻击力100%物理伤害，并于每次命中目标时触发一次【清火执】效果"
+			]
+		}
+		}
+	},
+	"skzjkl_3_1": {
+		"tooltip": {
+			"en": [
+				""
+			],
+			"ja": [
+				""
+			],
+			"zh": [
+				"普通攻击变为2连击，且在每次命中目标时触发一次【清火执】效果"
+			]
+		}
+	},
+	"skzjkl_3_2": {
+		"tooltip": {
+			"en": [
+				""
+			],
+			"ja": [
+				""
+			],
+			"zh": [
+				"每10s，在场上预设位置召唤尼卢火；每20s，以预设路径召唤敌人（思维混乱时召唤不同敌人） "
+			]
 		}
 	}
 }
