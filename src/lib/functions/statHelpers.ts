@@ -93,7 +93,7 @@ export function parseStats(
 ) {
 	let modsList = [];
 	for (const mod of statMods.initial) {
-		modsList.push(distillMods(enemy, stageId, mod));
+		modsList.push(distillMods(enemy, stageId, mod, row));
 	}
 	if (enemy?.forms) {
 		if (specialMods?.[enemy.key]?.[`mods_${row}`]) {
@@ -114,7 +114,7 @@ export function parseStats(
 	});
 	modsList = [];
 	for (const mod of statMods.final) {
-		modsList.push(distillMods(enemy, stageId, mod));
+		modsList.push(distillMods(enemy, stageId, mod, row));
 	}
 	const finalMods = modsList.reduce((acc, curr) => {
 		for (const statKey in curr) {
@@ -146,7 +146,7 @@ export function parseStats(
 }
 
 //return mods: {atk:...}
-export const distillMods = (enemy: Enemy, stageId: string, mod: ModGroup) => {
+export const distillMods = (enemy: Enemy, stageId: string, mod: ModGroup, row: number) => {
 	const { key, mods: effectsList, operation } = mod;
 	const mods = {
 		hp: 1,
@@ -186,7 +186,15 @@ export const distillMods = (enemy: Enemy, stageId: string, mod: ModGroup) => {
 							enemy.key === 'enemy_1352_eslime' &&
 							(key === 'floor_diff' || key === 'difficulty') &&
 							statKey === 'atk') ||
-						(enemy.key === 'enemy_3001_upeopl' && (key === 'floor_diff' || key === 'difficulty'))
+						(enemy.key === 'enemy_3001_upeopl' && (key === 'floor_diff' || key === 'difficulty')) ||
+						([
+							'enemy_1288_duskls',
+							'enemy_1288_duskls_2',
+							'enemy_1292_duskld',
+							'enemy_1292_duskld_2'
+						].includes(enemy.key) &&
+							key === 'elite_ops' &&
+							row === 1)
 					) {
 						continue;
 					} else {
@@ -297,10 +305,10 @@ export const compileStatModsForChecking = (
 				const modsList = [];
 				modsList.push({ type: 'initial', key: 'multiform_suffix', mods: form.mods });
 				for (const mod of statMods.initial) {
-					modsList.push({ type: 'initial', ...compileMods(enemy, stageId, mod) });
+					modsList.push({ type: 'initial', ...compileMods(enemy, stageId, mod, i) });
 				}
 				for (const mod of statMods.final) {
-					modsList.push({ type: 'final', ...compileMods(enemy, stageId, mod) });
+					modsList.push({ type: 'final', ...compileMods(enemy, stageId, mod, i) });
 				}
 				returnList.push({
 					key: enemy.key,
@@ -326,10 +334,10 @@ export const compileStatModsForChecking = (
 		} else {
 			const modsList = [];
 			for (const mod of statMods.initial) {
-				modsList.push({ type: 'initial', ...compileMods(enemy, stageId, mod) });
+				modsList.push({ type: 'initial', ...compileMods(enemy, stageId, mod, 0) });
 			}
 			for (const mod of statMods.final) {
-				modsList.push({ type: 'final', ...compileMods(enemy, stageId, mod) });
+				modsList.push({ type: 'final', ...compileMods(enemy, stageId, mod, 0) });
 			}
 			returnList.push({
 				key: enemy.key,
@@ -354,7 +362,7 @@ export const compileStatModsForChecking = (
 	return returnList;
 };
 
-const compileMods = (enemy: Enemy, stageId: string, mod: ModGroup) => {
+const compileMods = (enemy: Enemy, stageId: string, mod: ModGroup, row: number) => {
 	const { key, mods: effectsList, operation } = mod;
 	const mods = {
 		hp: 1,
@@ -389,7 +397,15 @@ const compileMods = (enemy: Enemy, stageId: string, mod: ModGroup) => {
 							enemy.key === 'enemy_1352_eslime' &&
 							(key === 'floor_diff' || key === 'difficulty') &&
 							statKey === 'atk') ||
-						(enemy.key === 'enemy_3001_upeopl' && (key === 'floor_diff' || key === 'difficulty'))
+						(enemy.key === 'enemy_3001_upeopl' && (key === 'floor_diff' || key === 'difficulty')) ||
+						([
+							'enemy_1288_duskls',
+							'enemy_1288_duskls_2',
+							'enemy_1292_duskld',
+							'enemy_1292_duskld_2'
+						].includes(enemy.key) &&
+							key === 'elite_ops' &&
+							row === 1)
 					) {
 						continue;
 					} else {
