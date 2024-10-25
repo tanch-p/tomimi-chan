@@ -32,21 +32,24 @@
 	const rogueTopic = 'rogue_skz';
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 
-	$: if (data.mapConfig) {
+	function updateReqRelic(levelId, selectedRelics) {
 		if (
-			ro4_ALTER_BOSS_STAGES.includes(data.mapConfig.levelId) &&
+			ro4_ALTER_BOSS_STAGES.includes(levelId) &&
 			!$selectedRelics.find((item) => item.id === 'rogue_4_relic_explore_7')
 		) {
 			const relic = skzRelics.find((item) => item.id === 'rogue_4_relic_explore_7');
 			selectedRelics.update((list) => (list = [...list, relic]));
 		}
 		if (
-			data.mapConfig.levelId === "level_rogue4_b-7" &&
+			levelId === 'level_rogue4_b-7' &&
 			!$selectedRelics.find((item) => item.id === 'rogue_4_relic_final_6')
 		) {
 			const relic = skzRelics.find((item) => item.id === 'rogue_4_relic_final_6');
 			selectedRelics.update((list) => (list = [...list, relic]));
 		}
+	}
+	$: if (data.mapConfig) {
+		updateReqRelic(data.mapConfig.levelId, selectedRelics);
 	}
 </script>
 
