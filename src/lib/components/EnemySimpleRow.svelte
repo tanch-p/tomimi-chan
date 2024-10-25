@@ -27,10 +27,12 @@
 	};
 	$: multispanKeys = getMultispanKeys(enemy?.forms);
 
+	const SHARE_HP_FORMS = ['prisoner_imprisoned', 'rage'];
+
 	const getMultispanKeys = (forms: EnemyFormType[] | undefined) => {
 		const statKeys: string[] = [];
 		if (forms) {
-			if (forms[0].title === 'form') {
+			if (!SHARE_HP_FORMS.includes(forms[0].title)) {
 				statKeys.push('hp');
 				statKeys.push('e_hp');
 			}
