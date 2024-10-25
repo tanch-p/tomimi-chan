@@ -28,7 +28,18 @@ export const stageLoad = async (stageName: string, rogueTopic: string | null) =>
 		}
 		return enemy;
 	});
-	if (!mapConfig.id.includes('duel')) {
+	const weights = {};
+	enemies.forEach((enemy, i) => {
+		if (!weights[enemy.id]) {
+			weights[enemy.id] = i;
+		}
+	});
+	enemies.sort((a: Enemy, b: Enemy) => weights[a.id] - weights[b.id]);
+	if (
+		!mapConfig.id.includes('duel') &&
+		!mapConfig.id.includes('_t_') &&
+		!mapConfig.id.includes('_ev_')
+	) {
 		enemies.sort(sortEnemies);
 	}
 	const data = await Promise.all(

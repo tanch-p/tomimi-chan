@@ -7,7 +7,11 @@ export const BONUS_ENEMY_KEYS = [
 	'enemy_2034_sythef',
 	'enemy_2059_smbox',
 	'enemy_2085_skzjxd',
-	'enemy_2069_skzbox'
+	'enemy_2069_skzbox',
+	'enemy_2070_skzfbx',
+	'enemy_2091_skzgds',
+	'enemy_2067_skzcy',
+	'enemy_2065_skzjs'
 ];
 
 export function isEquals(obj1, obj2) {
@@ -78,7 +82,7 @@ const getEnemyWeight = (key, type) => {
 	if (BONUS_ENEMY_KEYS.includes(key)) {
 		return 99;
 	}
-	return type.includes('BOSS') ? 0 : type.includes('ELITE') ? 1 : 2;
+	return type.includes('BOSS') ? 0 : 1;
 };
 
 export const sortEnemies = (a: Enemy, b: Enemy) => {
