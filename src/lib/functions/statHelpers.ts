@@ -128,8 +128,12 @@ export function parseStats(
 	});
 	const enemy_stats = {};
 	for (const stat of STATS) {
+		let statToUse = enemy.stats[stat];
+		if (enemy?.forms?.[row]?.mods?.[`set_${stat}`]) {
+			statToUse = enemy?.forms?.[row]?.mods?.[`set_${stat}`];
+		}
 		enemy_stats[stat] = calculateModdedStat(
-			enemy.stats[stat],
+			statToUse,
 			stat,
 			initialMods?.[`fixed_${stat}`] ?? 0,
 			initialMods[stat],

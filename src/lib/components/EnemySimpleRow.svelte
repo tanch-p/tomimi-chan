@@ -36,6 +36,10 @@
 			}
 			forms.forEach((form) => {
 				for (const statKey of Object.keys(form.mods)) {
+					if (statKey.includes('set')) {
+						statKeys.push(statKey.replace('set_', ''));
+						continue;
+					}
 					const key = statKey.replace('fixed_', '');
 					if (!statKeys.includes(key)) {
 						statKeys.push(key);
