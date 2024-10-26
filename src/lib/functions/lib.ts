@@ -97,5 +97,5 @@ export const getTooltipEndIndex = (text: string) => {
 			}
 		}
 	}
-	return text.length - 1;
+	return text.length;
 };
