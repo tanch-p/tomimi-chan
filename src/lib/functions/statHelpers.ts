@@ -61,6 +61,15 @@ const SARKAZ_BOSSES = [
 	'enemy_2072_skdny2'
 ];
 
+const NOT_AFFECTED_BY_DIFFICULTY_KEYS = [
+	'enemy_3001_upeopl',
+	'enemy_1196_msfyin_2',
+	'enemy_1200_msfjin_2',
+	'enemy_1202_msfzhi_2',
+	'enemy_1208_msfji_2',
+	'enemy_1210_msfden_2'
+];
+
 export const getMaxRowSpan = (enemy: Enemy) => {
 	if (enemy?.forms) {
 		return enemy.forms.length;
@@ -186,7 +195,7 @@ export const distillMods = (enemy: Enemy, stageId: string, mod: ModGroup, row: n
 							enemy.key === 'enemy_1352_eslime' &&
 							(key === 'floor_diff' || key === 'difficulty') &&
 							statKey === 'atk') ||
-						(enemy.key === 'enemy_3001_upeopl' && (key === 'floor_diff' || key === 'difficulty')) ||
+						(NOT_AFFECTED_BY_DIFFICULTY_KEYS.includes(enemy.key) && (key === 'floor_diff' || key === 'difficulty')) ||
 						([
 							'enemy_1288_duskls',
 							'enemy_1288_duskls_2',
@@ -397,7 +406,7 @@ const compileMods = (enemy: Enemy, stageId: string, mod: ModGroup, row: number) 
 							enemy.key === 'enemy_1352_eslime' &&
 							(key === 'floor_diff' || key === 'difficulty') &&
 							statKey === 'atk') ||
-						(enemy.key === 'enemy_3001_upeopl' && (key === 'floor_diff' || key === 'difficulty')) ||
+						(NOT_AFFECTED_BY_DIFFICULTY_KEYS.includes(enemy.key) && (key === 'floor_diff' || key === 'difficulty')) ||
 						([
 							'enemy_1288_duskls',
 							'enemy_1288_duskls_2',
