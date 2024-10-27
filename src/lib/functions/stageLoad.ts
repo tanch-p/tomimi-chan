@@ -56,7 +56,8 @@ const STAGES_WITH_ELITE_IMG = [
 	'ro3_e_5_2',
 	'ro4_e_2_2',
 	'ro4_e_3_2',
-	'ro4_e_3_5'
+	'ro4_e_3_5',
+	'ro4_e_5_8'
 ];
 export const getStageImg = (id, eliteMods) => {
 	if (
