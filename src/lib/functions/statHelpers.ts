@@ -195,7 +195,11 @@ export const distillMods = (enemy: Enemy, stageId: string, mod: ModGroup, row: n
 							enemy.key === 'enemy_1352_eslime' &&
 							(key === 'floor_diff' || key === 'difficulty') &&
 							statKey === 'atk') ||
-						(NOT_AFFECTED_BY_DIFFICULTY_KEYS.includes(enemy.key) && (key === 'floor_diff' || key === 'difficulty')) ||
+						(['enemy_1126_spslme', 'enemy_1126_spslme_2'].includes(enemy.key) &&
+							['floor_diff', 'relic'].includes(key) &&
+							statKey === 'atk') ||
+						(NOT_AFFECTED_BY_DIFFICULTY_KEYS.includes(enemy.key) &&
+							(key === 'floor_diff' || key === 'difficulty')) ||
 						([
 							'enemy_1288_duskls',
 							'enemy_1288_duskls_2',
@@ -406,7 +410,11 @@ const compileMods = (enemy: Enemy, stageId: string, mod: ModGroup, row: number) 
 							enemy.key === 'enemy_1352_eslime' &&
 							(key === 'floor_diff' || key === 'difficulty') &&
 							statKey === 'atk') ||
-						(NOT_AFFECTED_BY_DIFFICULTY_KEYS.includes(enemy.key) && (key === 'floor_diff' || key === 'difficulty')) ||
+						(['enemy_1126_spslme', 'enemy_1126_spslme_2'].includes(enemy.key) &&
+							['floor_diff', 'relic'].includes(key) &&
+							statKey === 'atk') ||
+						(NOT_AFFECTED_BY_DIFFICULTY_KEYS.includes(enemy.key) &&
+							(key === 'floor_diff' || key === 'difficulty')) ||
 						([
 							'enemy_1288_duskls',
 							'enemy_1288_duskls_2',
