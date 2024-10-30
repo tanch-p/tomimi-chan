@@ -724,10 +724,11 @@ export const getModuleTalentDesc = (idx, module, stage: number) => {
 			return part.upgradeDesc;
 	}
 };
-export const getTokenModuleTalent = (module, stage: number) => {
+export const getTokenModuleTalent = (idx,module, stage: number) => {
 	if (!module?.combatData) return;
 	for (const part of module.combatData.phases[stage].parts) {
-		if (part.isToken && part.target.includes('TALENT') && part.upgradeDesc) return part.upgradeDesc;
+		if (part.isToken && part.target.includes('TALENT') &&
+		part.talentIndex === idx && part.upgradeDesc) return part.upgradeDesc;
 	}
 };
 export const getModuleUpdatedRange = (rangeId, module, stage, talentIndex = -1) => {

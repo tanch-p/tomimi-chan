@@ -104,6 +104,7 @@
 				<p class="mt-6 text-[#999] text-lg">{translations[language].talent}</p>
 				{#each token.talents as talent, idx}
 					{@const moduleTalentDesc = getTokenModuleTalent(
+						idx,
 						chara.uniequip[moduleIndex],
 						moduleStage,
 						language
