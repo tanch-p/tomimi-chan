@@ -90,7 +90,7 @@ export interface MapConfig {
 	[key: `name_${string}`]: string;
 	[key: `description_${string}`]: string;
 	[key: `eliteDesc_${string}`]: string;
-	hard_mods: Mods | null;
+	elite_mods: Mods | null;
 	enemies: mapConfigEnemy[];
 }
 

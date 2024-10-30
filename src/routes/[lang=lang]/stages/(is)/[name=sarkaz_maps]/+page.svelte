@@ -21,6 +21,7 @@
 	import ModsCheck from '$lib/components/ModsCheck.svelte';
 	import EnemyCount from '$lib/components/EnemyCount.svelte';
 	import skzRelics from '$lib/data/is/sarkaz/relics_sarkaz.json';
+	import StageDrops from './StageDrops.svelte';
 
 	export let data: PageData;
 
@@ -79,9 +80,10 @@
 			{stageName}
 			eliteMods={$eliteMods}
 			{rogueTopic}
-			{selectedFloor}
 			difficulty={$difficulty}
-		/>
+		>
+			<StageDrops slot="drops" mapConfig={data.mapConfig} {language} {rogueTopic} {selectedFloor} />
+		</StageInfo>
 		<DifficultySelect {language} {difficulty} {rogueTopic} />
 		<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 		<EnemyCount

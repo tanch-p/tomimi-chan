@@ -42,7 +42,7 @@
 
 <main class="bg-neutral-800 text-near-white pb-32 pt-8 sm:pt-16 md:pb-28">
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
-		<StageInfo mapConfig={data.mapConfig} {language} {stageName} eliteMods={$eliteMods} {selectedFloor} {rogueTopic} />
+		<StageInfo mapConfig={data.mapConfig} {language} {stageName} eliteMods={$eliteMods} {rogueTopic} />
 		<div class="mt-8">
 			<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 			{#if data.mapConfig.elite_mods}

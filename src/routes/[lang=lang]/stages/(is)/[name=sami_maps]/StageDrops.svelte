@@ -10,11 +10,11 @@
 	import totem from '$lib/images/is/totem.webp';
 	import vision from '$lib/images/is/vision.webp';
 	import drops from '$lib/data/is/drops.json';
-	import TogglePanel from './TogglePanel.svelte';
-	import Icon from './Icon.svelte';
+	import TogglePanel from '$lib/components/TogglePanel.svelte';
+	import Icon from '$lib/components/Icon.svelte';
 
 	export let mapConfig, rogueTopic: string, language: Language, selectedFloor;
-	const stagesToExclude = ['ro3_b_7','ro3_b_7_b'];
+	const stagesToExclude = ['ro3_b_7', 'ro3_b_7_b'];
 	$: isBossStage = mapConfig.id.includes('_b_');
 	$: isEventStage = mapConfig.id.includes('_ev_') || mapConfig.id.includes('_t_');
 	$: isCombatStage = !isBossStage && !isEventStage;
@@ -59,7 +59,7 @@
 											alt="combat ops"
 											class=""
 										/>
-										<Icon name="right-arrow"/>
+										<Icon name="right-arrow" />
 										<img
 											src={combat_icon}
 											width="50px"
@@ -92,7 +92,7 @@
 											alt="combat ops"
 											class=""
 										/>
-										<Icon name="right-arrow"/>
+										<Icon name="right-arrow" />
 										<img
 											src={emergency_icon}
 											width="50px"
@@ -192,7 +192,7 @@
 											alt="combat ops"
 											class=""
 										/>
-										<Icon name="right-arrow"/>
+										<Icon name="right-arrow" />
 										<img
 											src={combat_icon}
 											width="50px"

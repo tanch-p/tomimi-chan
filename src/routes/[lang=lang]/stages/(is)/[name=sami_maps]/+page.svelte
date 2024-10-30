@@ -20,6 +20,7 @@
 	import { applyMods, compileStatModsForChecking } from '$lib/functions/statHelpers';
 	import ModsCheck from '$lib/components/ModsCheck.svelte';
 	import EnemyCount from '$lib/components/EnemyCount.svelte';
+	import StageDrops from './StageDrops.svelte';
 
 	export let data: PageData;
 	$: language = data.language;
@@ -49,10 +50,23 @@
 
 <main class="bg-neutral-800 text-near-white pb-32 pt-8 sm:pt-16 md:pb-28">
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
-		<StageInfo mapConfig={data.mapConfig} {language} {stageName} eliteMods={$eliteMods} {rogueTopic} {selectedFloor} />
+		<StageInfo
+			mapConfig={data.mapConfig}
+			{language}
+			{stageName}
+			eliteMods={$eliteMods}
+			{rogueTopic}
+		>
+			<StageDrops slot="drops" mapConfig={data.mapConfig} {language} {rogueTopic} {selectedFloor} />
+		</StageInfo>
 		<DifficultySelect {language} {difficulty} {rogueTopic} />
 		<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
-		<EnemyCount mapConfig={data.mapConfig} enemies={moddedEnemies} eliteMods={$eliteMods} {language} />
+		<EnemyCount
+			mapConfig={data.mapConfig}
+			enemies={moddedEnemies}
+			eliteMods={$eliteMods}
+			{language}
+		/>
 		{#if data.mapConfig.elite_mods}
 			<EliteToggle mapEliteMods={data.mapConfig.elite_mods} {eliteMods} {rogueTopic} />
 		{/if}

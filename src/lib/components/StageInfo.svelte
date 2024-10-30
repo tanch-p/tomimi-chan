@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { Language, RogueTopic } from '$lib/types';
 	import SpTerrain from './SpTerrain.svelte';
-	import StageDrops from './StageDrops.svelte';
 	import EnemyWaves from './EnemyWaves.svelte';
 	import translations from '$lib/translations.json';
 	import TextParser from './TextParser.svelte';
@@ -10,12 +9,10 @@
 	export let mapConfig,
 		language: Language,
 		stageName: string,
-		selectedFloor,
 		eliteMods,
-		difficulty =0,
+		difficulty = 0,
 		rogueTopic: RogueTopic = null;
 
-	
 	const getEliteDescColor = (rogueTopic: string | null) => {
 		switch (rogueTopic) {
 			case 'rogue_sami':
@@ -107,10 +104,8 @@
 		</div>
 	</div>
 </div>
-{#if rogueTopic === 'rogue_sami'}
-	<StageDrops {mapConfig} {rogueTopic} {language} {selectedFloor} />
-{/if}
+<slot name="drops" />
 {#if mapConfig.sp_terrain || rogueTopic === 'rogue_skz'}
 	<SpTerrain {difficulty} spTerrain={mapConfig.sp_terrain} {rogueTopic} {language} />
 {/if}
-<EnemyWaves {mapConfig} {rogueTopic} {language} {eliteMods}/>
+<EnemyWaves {mapConfig} {rogueTopic} {language} {eliteMods} />

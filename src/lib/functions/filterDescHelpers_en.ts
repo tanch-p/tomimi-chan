@@ -376,7 +376,7 @@ export const generateSkillDesc = (
 						if (category === 'priority' || category === 'type') translated = 'frightened';
 						break;
 					case 'fear':
-						if (category === 'priority' || category === 'type') translated = 'fearful';
+						if (category === 'priority' || category === 'type') translated = 'terrorized';
 						break;
 					case 'sp_gain':
 						post = ' to self';
