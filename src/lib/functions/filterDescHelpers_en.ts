@@ -36,6 +36,7 @@ const DEBUFFS = [
 	'levitate',
 	'root',
 	'tremble',
+	'fear',
 	'damage_scale',
 	'weightless',
 	'cancel_stealth',
@@ -373,6 +374,9 @@ export const generateSkillDesc = (
 						break;
 					case 'tremble':
 						if (category === 'priority' || category === 'type') translated = 'frightened';
+						break;
+					case 'fear':
+						if (category === 'priority' || category === 'type') translated = 'fearful';
 						break;
 					case 'sp_gain':
 						post = ' to self';

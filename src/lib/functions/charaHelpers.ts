@@ -141,6 +141,7 @@ const SEARCH_IN_BLACKBOARD = [
 	'levitate',
 	'root',
 	'tremble',
+	'fear',
 	'max_hp',
 	'def',
 	'res',
@@ -830,6 +831,7 @@ export const getPrioritySortValues = (char, sortOptions, secFilters) => {
 					'levitate',
 					'root',
 					'tremble',
+					'fear',
 					'ally_sp_regen',
 					'shield',
 					'ally_shield',
@@ -1522,6 +1524,7 @@ export const getSortOptions = (key) => {
 			'ally_camouflage',
 			'ally_reflect_dmg',
 			'tremble',
+			'fear',
 			'ally_cost_down',
 			'ally_block_dmg'
 		].includes(key):

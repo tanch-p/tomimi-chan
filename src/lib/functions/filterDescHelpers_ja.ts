@@ -26,6 +26,7 @@ const DEBUFFS = [
 	'levitate',
 	'root',
 	'tremble',
+	'fear',
 	'damage_scale',
 	'weightless',
 	'cancel_stealth',
