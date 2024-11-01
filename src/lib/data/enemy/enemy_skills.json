@@ -1927,10 +1927,19 @@
 		}
 	},
 	"pathfinder_nuncio": {
+		"atk": { "multiplier": 1.5 },
+		"dmg_element": "arts",
+		"suffix": { "en": "Ammo", "ja": "弾薬", "zh": "弹药" },
+		"hits": 1,
 		"duration": 10,
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": [
+				"While having at least 1 ammo, consumes 1 ammo and does 150% ATK as {arts} damage, disarms the target for {duration} seconds as well as dealing an additional instance of 5000 Arts damage against 'Gelato Stops'"
+			],
+			"ja": [
+				"弾薬数1以上なら、通常攻撃時に弾薬を1消費し、対象に攻撃力の150%の術ダメージを与え、{duration}秒間攻撃・治癒行動ができない状態にする",
+				"ジェラート供給所には追加で5000の術ダメージを与える"
+			],
 			"zh": [
 				"技力大于等于1时：变为远程攻击，攻击时消耗1点技力，优先选择攻击范围内未处于攻击附加效果影响下的我方单位，造成攻击力150%{arts}普通伤害 (对<冰淇淋机>额外造成5000{arts}伤害) ，并附加<v.duration>s无法攻击与使用技能的效果"
 			]
@@ -1981,17 +1990,17 @@
 	"sarkaz_caster_bind": {
 		"tooltip": {
 			"en": [
-				"Skill - Uses chains to disable units (deals 35% of ATK as {arts} dmg/s for 20s, only used once per battle) {can_silence}"
+				"Skill {once_only}{can_silence}",
+				"Channels on a friendly unit within a range of 3 for up to 20 seconds, stunning the target and dealing 35% of ATK as {arts} damage every second",
+				"Will not use this ability on stunned units"
 			],
 			"ja": [
-				"スキル→20秒間味方ユニット1体を束縛し、1秒当たり攻撃力35%分の継続{arts}ダメージを与える{can_silence}",
-				"※本スキルは戦闘中1回使う"
+				"スキル→20秒間味方ユニット1体を束縛し、1秒当たり攻撃力35%分の継続{arts}ダメージを与える{once_only}{can_silence}"
 			],
 			"zh": [
-				"对半径3范围内一名我方单位持续施法，最长持续20s{can_silence}",
+				"对半径3范围内一名我方单位持续施法，最长持续20s{once_only}{can_silence}",
 				"施法期间目标每秒获得1s晕眩，并受到相当于攻击力35%的{arts}伤害",
-				"※不会选择晕眩的单位为目标",
-				"※该技能只能发动一次"
+				"※不会选择晕眩的单位为目标"
 			]
 		}
 	},
@@ -2165,8 +2174,8 @@
 	},
 	"fury_buff": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": [],
+			"ja": [],
 			"zh": [
 				"对同属性单位进行攻击时，攻击力倍率降低至60%；对异属性单位进行攻击时，攻击力倍率提升至252%"
 			]
@@ -2880,7 +2889,6 @@
 		}
 	},
 	"dublinn_companion_guard": {
-		"tags": [],
 		"tooltip": {
 			"en": [
 				"When Companion Shadowblade is within 1.4 tile radius of self, decreases ASPD of all allied units within a 1.1 tile radius by 30"
@@ -2890,7 +2898,6 @@
 		}
 	},
 	"dublinn_companion_shadowblade": {
-		"tags": [],
 		"tooltip": {
 			"en": [
 				"When Companion Guard is within a 1.4 tile radius of self, self's ATK interval is decreased by 1.3s"
@@ -2900,7 +2907,6 @@
 		}
 	},
 	"durwar_evasion_hp50": {
-		"tags": [],
 		"tooltip": {
 			"en": ["When HP falls below 50%, gains 100% {phys} evasion for 10s{can_silence}"],
 			"ja": ["初めてHPが50%以下になると、10秒間、{phys}回避率+100%{can_silence}"],
@@ -2908,7 +2914,6 @@
 		}
 	},
 	"durwar2_evasion_hp50": {
-		"tags": [],
 		"tooltip": {
 			"en": ["When HP falls below 50%, gains 100% {phys} evasion for 20s{can_silence}"],
 			"ja": ["初めてHPが50%以下になると、20秒間、{phys}回避率+100%{can_silence}"],
@@ -2916,7 +2921,6 @@
 		}
 	},
 	"reduce_phys_arts_90": {
-		"tags": [],
 		"tooltip": {
 			"en": ["Takes 90% reduced {phys}/{arts} damage"],
 			"ja": ["受ける{phys}と{arts}ダメージが90%減少"],
@@ -2924,7 +2928,6 @@
 		}
 	},
 	"creation_add_block_1": {
-		"tags": [],
 		"tooltip": {
 			"en": ["Units blocking this gains +1 Block (up to max +6)"],
 			"ja": ["ブロックされうとブロックしたユニットのブロック数上限+1 (最大+6まで) "],
@@ -2932,7 +2935,6 @@
 		}
 	},
 	"london_arti_sp1": {
-		"tags": [],
 		"tooltip": {
 			"en": ["Every attack grants the Londinium Artillery 1 SP"],
 			"ja": ["通常攻撃時、副砲のSP+1"],
@@ -2940,7 +2942,6 @@
 		}
 	},
 	"spawn_sci1": {
-		"tags": [],
 		"tooltip": {
 			"en": ["Spawns 1 Touch of the Sanguinarch upon death"],
 			"ja": ["死亡すると、大君の触手を1体召喚する"],
@@ -2948,7 +2949,6 @@
 		}
 	},
 	"spawn_sci3": {
-		"tags": [],
 		"tooltip": {
 			"en": ["Spawns 1 Gift of the Sanguinarch upon death"],
 			"ja": ["死亡すると、大君の祝福を1体召喚する"],
@@ -2956,7 +2956,6 @@
 		}
 	},
 	"heirbearer_ASV_buff": {
-		"tags": [],
 		"tooltip": {
 			"en": [
 				"While present on the battlefield, increases the ATK of all 'Reborn Creations' on the field by 10% (stacking up to 5 times)",
@@ -2972,7 +2971,6 @@
 		}
 	},
 	"hateweaver_atk_buff": {
-		"tags": [],
 		"tooltip": {
 			"en": ["For every 'Reborn Creations' on field, ATK is increased by 15%, max 6 stacks"],
 			"ja": ["マップ上の再生造物1体につき、攻撃力+15% (6体まで) "],
@@ -2980,7 +2978,6 @@
 		}
 	},
 	"recharge_london_arti": {
-		"tags": [],
 		"tooltip": {
 			"en": [
 				"Recharge Cannon - Stops attacking and grants 1SP to Londinium Artillery every second {can_silence}",
@@ -2998,7 +2995,6 @@
 		}
 	},
 	"manfred_military_training": {
-		"tags": [],
 		"tooltip": {
 			"en": [
 				"[Military Training] - gains 80% {phys}/Arts evasion",
@@ -3012,7 +3008,6 @@
 		}
 	},
 	"manfred_focus": {
-		"tags": [],
 		"tooltip": {
 			"en": [
 				"[Focus] - When attacking the same target, ASPD+60, max 5 stacks",
@@ -4581,15 +4576,15 @@
 		"tooltip": {
 			"en": [
 				"Upon entering 2nd Form, uses 【Punishment of Foolishness】",
-				"【Punishment of Foolishness】- After charging for 5s, redeploys all operators randomly across the field"
+				"【Punishment of Foolishness】- After charging for 5s, redeploys all operators randomly across the field{ignore_stealth}"
 			],
 			"ja": [
 				"第二形態に入ると、【痴愚の懲戒】を使用",
-				"【痴愚の懲戒】- 5秒チャージした後、マップ上の味方オペレーター全員をランダムな配置可能マスに再配置する"
+				"【痴愚の懲戒】- 5秒チャージした後、マップ上の味方オペレーター全員をランダムな配置可能マスに再配置する{ignore_stealth}"
 			],
 			"zh": [
 				"首次进入第二形态时，立刻释放【痴愚惩戒】",
-				"蓄力5s+后，选择场上所有我方干员，将其分别强制移除再以随机方向部署于随机合法可部署地块"
+				"蓄力5s+后，选择场上所有我方干员，将其分别强制移除再以随机方向部署于随机合法可部署地块{ignore_stealth}"
 			]
 		}
 	},
@@ -5064,8 +5059,15 @@
 	},
 	"lrcmra_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"When affected by Originium Pollution or Active Originium Storm, Attacks deal {arts} damage instead and creates a miniature Active Originium Storm over a radius of 1.2 that follows the Chimera",
+				"Active Originium Storm - reduces SP regen by 80% and deals 50 {true} damage every second"
+			],
+			"ja": [
+				"源石汚染エリアや活性源石の嵐の影響を受けると汚染状態になる",
+				"汚染状態では{arts}攻撃になり、自身の半径1.2以内に敵味方問わず源石汚染エリアの効果を与える",
+				"源石汚染エリアの効果 - SP回復速度-80%、毎秒50{true}ダメージを受ける"
+			],
 			"zh": [
 				"受源石污染区或活性源石风暴影响后会在自身周围半径1.2持续生成源石污染区，并且攻击转为造成{arts}伤害",
 				"源石污染区效果 - 技力自然回复速度倍率-80%，每0.5秒受到50{true}持续伤害"
@@ -5074,8 +5076,12 @@
 	},
 	"lrnazg_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"While in Originium Pollution or Active Originium Storm, attacks also hit all friendly units in Originium Pollution/Active Originium Storm regardless of distance"
+			],
+			"ja": [
+				"自身が源石汚染エリアや活性源石の嵐の影響を受けている間は、源石汚染エリアや活性源石の嵐の影響を受けている味方も攻撃対象に含まれる"
+			],
 			"zh": [
 				"自身受源石污染区/活性源石风暴影响期间，可无视攻击范围，同时攻击受源石污染区/活性源石风暴影响的所有我方单位"
 			]
@@ -5083,8 +5089,10 @@
 	},
 	"lrboom_2": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Gets defeated instantly when coming into contact with Active Originium Storm and increase the Storm's strength by 1 stage"
+			],
+			"ja": ["活性源石の嵐の効果を受けるとすぐに死亡し、活性源石の嵐が1層強化される"],
 			"zh": [
 				"受活性源石风暴影响时立刻死亡：此时不再生成源石污染区，并使活性源石风暴立刻获得1层增幅"
 			]
@@ -5096,8 +5104,14 @@
 		"atk": { "multiplier": 1 },
 		"dmg_element": "phys",
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Skill (Initial CD: 2s, ~CD: 5s){can_silence}",
+				"Fires 3 bolts in succession towards the target, each dealing 100% ATK as {phys} damage{ignore_camou}"
+			],
+			"ja": [
+				"【直線射撃】 (初動2秒/再動5秒){can_silence}",
+				"対象の方向に3本の矢を発射。それぞれの矢は、最初に触れた対象に攻撃力の100%の{phys}ダメージを与える{ignore_camou}"
+			],
 			"zh": [
 				"直击 (初次冷却2s，后5s) {can_silence}",
 				"与我方处于同一直线上时进行直击：向目标方向发射3支弩箭{ignore_camou}"
@@ -5106,8 +5120,16 @@
 	},
 	"lrwzrd_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Soul Maelstrom (Initial CD: 0s, ~CD: 15s){can_silence}{ignore_camou}",
+				"When carrying Soul Maelstroms and allied unit within line of fire, continuously fire a beam over 7.8 seconds, dealing 50% ATK as {arts} damage every second to all affected allied units",
+				"ATK increases by 40% every second, up to a maximum of (absorbed Soul Maelstroms × 25%)"
+			],
+			"ja": [
+				"【巫術の渦流】(初動0秒/再動15秒){can_silence}{ignore_camou}",
+				"ソウルボルテックスを保持しており、自身の縦横直線上に味方がいる場合に使用可能",
+				"保持したソウルボルテックスをすべて消費し、対象の方向に射程無限のレーザーを最大7.8秒間発射。範囲内の味方全員に毎秒攻撃力の50%の{arts}ダメージを与える。このスキル中は自身の攻撃力が毎秒+40%される（ソウルボルテックス消費数×25%が上限）"
+			],
 			"zh": [
 				"巫术激流 (初次冷却0s，后15s) {can_silence}{ignore_camou}",
 				"持有充能且自身十字范围内存在我方单位时可触发：消耗所有充能，向目标所在正方向持续发射激光 (最多持续7.8s) ",
@@ -5118,8 +5140,16 @@
 	},
 	"lrwzrd_2_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Soul Maelstrom (Initial CD: 0s, ~CD: 15s){can_silence}{ignore_camou}",
+				"When carrying Soul Maelstroms and allied unit within line of fire, continuously fire a beam over 7.8 seconds, dealing 50% ATK as {arts} damage every second to all affected allied units",
+				"ATK increases by 200% every second, up to a maximum of (absorbed Soul Maelstroms × 40%)"
+			],
+			"ja": [
+				"【巫術の渦流】(初動0秒/再動15秒){can_silence}{ignore_camou}",
+				"ソウルボルテックスを保持しており、自身の縦横直線上に味方がいる場合に使用可能",
+				"保持したソウルボルテックスをすべて消費し、対象の方向に射程無限のレーザーを最大7.8秒間発射。範囲内の味方全員に毎秒攻撃力の50%の{arts}ダメージを与える。このスキル中は自身の攻撃力が毎秒+200%される（ソウルボルテックス消費数×40%が上限）"
+			],
 			"zh": [
 				"巫术激流 (初次冷却0s，后15s) {can_silence}{ignore_camou}",
 				"持有充能且自身十字范围内存在我方单位时可触发：消耗所有充能，向目标所在正方向持续发射激光 (最多持续7.8s) ",
@@ -5130,8 +5160,10 @@
 	},
 	"lrwzrd_2": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": ["Absorbs a Soul Maelstrom that comes within 0.25 radius, up to a maximum of 3"],
+			"ja": [
+				"ソウルボルテックスの保持数が3つ未満の時にソウルボルテックスに触れると、それを吸収して保持する"
+			],
 			"zh": [
 				"魂灵涡流进入自身半径0.25范围内时，若自身充能未达到上限 (3层) ，则获得1层充能，并令此魂灵涡流立刻退场"
 			]
@@ -5139,21 +5171,33 @@
 	},
 	"lrrook_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
-			"zh": ["分摊95%自身周围半径1.7内敌方非空中单位受到的伤害 "]
+			"en": [
+				"Reduces the damage taken by nearby ground enemies within a radius of 1.7 to 5%, and transfers the reduced damage as {true} damage to self"
+			],
+			"ja": [
+				"半径1.7以内の地上敵が受ける全タイプのダメージを5%に減少させ（重複しない）、減少させた分のダメージを{true}ダメージとして自身が受ける"
+			],
+			"zh": [
+				"半径1.7范围内的敌方地面单位受到的伤害降低至5%，以此减少的伤害以{true}伤害的形式由自身承担"
+			]
 		}
 	},
 	"lrmzrd_1": {
-		"suffix": { "en": "Skill", "ja": "スキル", "zh": "巫术旋流" },
+		"suffix": { "en": "Skill", "ja": "巫術の渦流", "zh": "巫术旋流" },
 		"hits": 1,
 		"atk": { "multiplier": 1.2 },
 		"dmg_element": "arts",
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Soul Maelstrom (Initial CD: 0s, ~CD: 15s) ",
+				"Creates up to three Soul Orbs, one for each consumed Maelstrom, that orbits the Soul Husk. When an Orb comes into contact with a friendly unit, it explodes to deal 100% ATK as {arts} damage and disappears"
+			],
+			"ja": [
+				"【巫術の渦流】 (初動0秒/再動15秒)",
+				"ソウルボルテックスを保持しており、魂の欠片が3個未満の場合に使用可能。ソウルボルテックスを1つ消費し、半径0.9で自身の周囲を回転する魂の欠片を1つ召喚。魂の欠片は、味方に触れると攻撃力の100%の{arts}ダメージを与えて消滅する"
+			],
 			"zh": [
-				"巫术旋流 (初次冷却0s，后15s) ",
+				"巫术旋流 (初次冷却0s，后15s)",
 				"持有充能且法球数量未达到上限 (3个) 时可触发：消耗1层充能，在自身前方召唤一个以50°/s的角速度和0.9的公转半径逆时针围绕自身旋转的法球，法球碰撞半径0.45，碰撞我方单位时造成攻击力120%的{arts}伤害随后消失"
 			]
 		}
@@ -5164,15 +5208,17 @@
 		"atk": { "multiplier": 2 },
 		"dmg_element": "phys",
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"While holding Ammo, consumes 1 Ammo and next attack does 200% of ATK as {phys} damage"
+			],
+			"ja": ["弾薬数1以上なら、通常攻撃時に弾薬を1消費し、攻撃力の200%の{phys}ダメージを与える"],
 			"zh": ["技力大于等于1时：攻击时消耗1点技力，造成攻击力200%的{phys}普通伤害"]
 		}
 	},
 	"mmkonm_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": ["When losing Hover, Attack Range decreases by 70%"],
+			"ja": ["低空浮揚を失った後、攻撃半径が30%に縮小する（半径1.2）"],
 			"zh": ["失去近地悬浮后，攻击范围缩小至30%"]
 		}
 	},
@@ -5182,16 +5228,24 @@
 		"atk": { "multiplier": 2 },
 		"dmg_element": "phys",
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": ["Increases the ATK of the next attack after the invisibility is lost to 200%"],
+			"ja": ["ステルスが解除されるたび強化状態になり、次の攻撃の倍率が200%に増加"],
 			"zh": ["隐匿效果失效后的下一次攻击造成更高伤害"]
 		}
 	},
 	"mmcike_2": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
-			"zh": ["仅生命值低于50%且被阻挡时可触发闪现", "向下个检查点方向>当前移动方向闪现1.5格距离"]
+			"en": [
+				"When blocked after HP falls below 50%, dashes a short distance (1.5 tiles) past the blocking unit {once_only}"
+			],
+			"ja": [
+				"【すり抜け】（HP50%以下で一度だけ使用）",
+				"ブロックした味方をすり抜け、1.5マス移動する"
+			],
+			"zh": [
+				"仅生命值低于50%且被阻挡时可触发闪现",
+				"向下个检查点方向>当前移动方向闪现1.5格距离{once_only}"
+			]
 		}
 	},
 	"lpeopl_1": {
@@ -5374,7 +5428,9 @@
 	},
 	"patrt_2": {
 		"tooltip": {
-			"en": [""],
+			"en": [
+				"When defeated, resurrects over 60s while emitting an aura, recovers 100% HP and enters 2nd Form"
+			],
 			"ja": [
 				"HPが0になると再生態勢に移行。",
 				"再生態勢 - 無敵。移動・通常攻撃しない。60秒掛けてHPを全回復し、その後撃滅態勢に移行。半径1.75マスの味方に、0.8秒ごとに攻撃力の5.21%の確定ダメージを与える"
@@ -5414,7 +5470,7 @@
 		}
 	},
 	"patrt_2_2": {
-		"suffix": { "en": "献祭", "ja": "献祭", "zh": "献祭" },
+		"suffix": { "en": "Aura", "ja": "オーラ", "zh": "献祭" },
 		"hits": 1,
 		"atk": { "multiplier": 0.0521 },
 		"dmg_element": "true",
@@ -5598,15 +5654,25 @@
 	},
 	"lrsldr": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": [
+				"While inside Originium Pollution or Active Originium Storm, attacks deal {arts} damage instead"
+			],
+			"ja": ["源石汚染エリアや活性源石の嵐の影響を受けている間、通常攻撃が{arts}ダメージになる"],
 			"zh": ["位于源石污染区内时，攻击造成{arts}伤害"]
 		}
 	},
 	"wdsmgc": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": [
+				"When HP falls below 50% for the first time, spawns a Virtual Image on the spot{can_silence}",
+				"Virtual Image - has identical stats with main body but with an aggression level of +1, does not move or attack.",
+				"Despawns when main body leaves the map"
+			],
+			"ja": [
+				"HPが50%以下になった時、自身の位置に分身を1体召喚する{can_silence}",
+				"分身のステータスは自身と同じ。虚像は移動・攻撃せず、味方から狙われやすい",
+				"退場時、自身の分身を消滅させる"
+			],
 			"zh": [
 				"生命值低于50%时，在自身所在地块中心0.5边长正方形范围内随机位置以自身路径召唤1只虚像{can_silence}",
 				"虚像 - 属性与本体相同，无法移动，不进行攻击，自身嘲讽等级增加1",

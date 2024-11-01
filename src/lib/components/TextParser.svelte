@@ -10,7 +10,7 @@
 	let language: Language = 'zh';
 	$: language = $page.data.language;
 
-	const tagPatterns = ['can_silence', 'ignore_camou', 'ignore_stealth','INCREASE_WHEN_ATTACK'];
+	const tagPatterns = ['can_silence', 'ignore_camou', 'ignore_stealth','once_only','INCREASE_WHEN_ATTACK'];
 	const patternsToParse = [{ prefix: '$', suffix: '$', style: 'text-red-400 font-semibold' }];
 	const textPatterns = {
 		'@rolv.rem': 'text-[#FF4C22]',
