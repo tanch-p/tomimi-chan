@@ -145,6 +145,7 @@ const SQUAD_TAGS = [
 	'rhine',
 	'karlan',
 	'minos',
+	'siracusa',
 	'position_ranged',
 	'PIONEER',
 	'WARRIOR',

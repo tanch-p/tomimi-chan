@@ -106,6 +106,7 @@ const SEARCH_IN_TAGS = [
 	'rhine',
 	'karlan',
 	'minos',
+	'siracusa',
 	'position_ranged',
 	'skill_invincible',
 	'skill_manual_off',
