@@ -1,7 +1,7 @@
 <script lang="ts">
 	import rangeTable from '$lib/data/range_table.json';
 	export let rangeId,
-		size ="normal",
+		size = 'normal',
 		extend = 0;
 
 	let grids,
@@ -32,10 +32,10 @@
 	}
 
 	function extendGrids(grids, extend) {
-		if (extend <= 0) {
+		if (extend === 0) {
 			return grids;
 		}
-		const newGrids = [...grids];
+		let newGrids = [...grids];
 		const lastColOfRow = {};
 		for (const { row, col } of grids) {
 			if (!lastColOfRow[row]) {
@@ -44,9 +44,22 @@
 				if (col > lastColOfRow[row]) lastColOfRow[row] = col;
 			}
 		}
-		for (let i = 0; i < extend; i++) {
-			for (const row in lastColOfRow) {
-				newGrids.push({ row, col: lastColOfRow[row] + i + 1 });
+		if (extend < 0) {
+			const adjustedLastCols = Object.keys(lastColOfRow).reduce((acc, curr) => {
+				acc[curr] = lastColOfRow[curr] + extend;
+				return acc;
+			}, {});
+			newGrids = grids.reduce((acc, { row, col }) => {
+				if (col <= adjustedLastCols[row]) {
+					acc.push({ row, col });
+				}
+				return acc;
+			}, []);
+		} else {
+			for (let i = 0; i < extend; i++) {
+				for (const row in lastColOfRow) {
+					newGrids.push({ row, col: lastColOfRow[row] + i + 1 });
+				}
 			}
 		}
 		return newGrids;

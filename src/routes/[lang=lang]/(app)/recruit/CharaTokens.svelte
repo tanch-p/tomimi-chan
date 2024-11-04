@@ -9,12 +9,17 @@
 		getModuleStat,
 		getSkillImgUrl,
 		getTokenModuleTalent,
+		getTokenModuleTrait,
 		getTokenPosition
 	} from '$lib/functions/charaHelpers';
 
 	export let tokens, chara, moduleIndex, moduleStage, language: Language;
 
-	const tokensWithoutIcon = ['token_10012_rosmon_shield', 'token_10015_dusk_drgn','token_10040_siege2_vlion'];
+	const tokensWithoutIcon = [
+		'token_10012_rosmon_shield',
+		'token_10015_dusk_drgn',
+		'token_10040_siege2_vlion'
+	];
 	const statKeys = ['hp', 'respawnTime', 'atk', 'cost', 'def', 'blockCnt', 'res', 'aspd'];
 
 	let tokenSkillIndex = 0;
@@ -86,9 +91,7 @@
 							<img src={charaAssets[statKey]} width="18px" height="18px" alt="" />
 						</div>
 						<p class="text-near-white whitespace-nowrap">
-							{getFullCharStat(statKey, token, moduleStat, 0)}{statKey === 'respawnTime'
-								? 's'
-								: ''}
+							{getFullCharStat(statKey, token, moduleStat, 0)}{statKey === 'respawnTime' ? 's' : ''}
 							{#if moduleStat}
 								<span class="text-red-400 text-sm">({moduleStat > 0 ? '+' : ''}{moduleStat})</span>
 							{/if}
@@ -99,15 +102,17 @@
 		</div>
 		<div class="px-1.5 mt-3">
 			<p class="text-[#999] text-lg">{translations[language].trait}</p>
-			<TextParser line={token.desc} className="mt-1.5" />
+			<TextParser
+				line={getTokenModuleTrait(token.desc, chara.uniequip[moduleIndex], moduleStage)}
+				className="mt-1.5"
+			/>
 			{#if token.talents && token.talents.length > 0}
 				<p class="mt-6 text-[#999] text-lg">{translations[language].talent}</p>
 				{#each token.talents as talent, idx}
 					{@const moduleTalentDesc = getTokenModuleTalent(
 						idx,
 						chara.uniequip[moduleIndex],
-						moduleStage,
-						language
+						moduleStage
 					)}
 					<p class="py-[1px] px-2 mt-4 w-max bg-[#f9f9f9] rounded-md font-medium text-[#333]">
 						{talent.name}

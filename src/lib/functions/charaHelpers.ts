@@ -67,7 +67,7 @@ const SEARCH_IN_TAGS = [
 	'drone',
 	'infection',
 	'sarkaz',
-	"machine",
+	'machine',
 	'wildanimal',
 	'seamonster',
 	'cost_under_10',
@@ -108,7 +108,7 @@ const SEARCH_IN_TAGS = [
 	'minos',
 	'position_ranged',
 	'skill_invincible',
-	"skill_manual_off",
+	'skill_manual_off',
 	'ally_apoptosis',
 	'ignore_stealth',
 	'weaken',
@@ -236,7 +236,7 @@ const DISPLAY_KEYS_TABLE = {
 	bonus_drone: 'drone',
 	bonus_infection: 'infection',
 	bonus_sarkaz: 'sarkaz',
-	bonus_machine:"machine",
+	bonus_machine: 'machine',
 	bonus_wildanimal: 'wildanimal',
 	bonus_seamonster: 'seamonster',
 	bonus_blocked: 'blocked',
@@ -508,6 +508,8 @@ const revertStatKey = (statKey) => {
 			return 'attack_speed';
 		case 'blockCnt':
 			return 'block_cnt';
+		case 'res':
+			return 'magic_resistance';
 		default:
 			return statKey;
 	}
@@ -705,7 +707,7 @@ export const getModuleNewTalent = (module, stage: number) => {
 export const getModuleTrait = (trait, module, stage: number) => {
 	if (!module?.combatData) return trait;
 	for (const part of module.combatData.phases[stage].parts) {
-		if ((!part.isToken && part.target.includes('TRAIT')) || part.target === 'DISPLAY') {
+		if (!part.isToken && (part.target.includes('TRAIT') || part.target === 'DISPLAY')) {
 			if (part.addDesc) return trait + '\n' + part.addDesc;
 			if (part.overrideDesc) return part.overrideDesc;
 		}
@@ -724,11 +726,26 @@ export const getModuleTalentDesc = (idx, module, stage: number) => {
 			return part.upgradeDesc;
 	}
 };
-export const getTokenModuleTalent = (idx,module, stage: number) => {
+export const getTokenModuleTrait = (trait, module, stage: number) => {
+	if (!module?.combatData) return trait;
+	for (const part of module.combatData.phases[stage].parts) {
+		if (part.isToken && (part.target.includes('TRAIT') || part.target === 'DISPLAY')) {
+			if (part.addDesc) return trait + '\n' + part.addDesc;
+			if (part.overrideDesc) return part.overrideDesc;
+		}
+	}
+	return trait;
+};
+export const getTokenModuleTalent = (idx, module, stage: number) => {
 	if (!module?.combatData) return;
 	for (const part of module.combatData.phases[stage].parts) {
-		if (part.isToken && part.target.includes('TALENT') &&
-		part.talentIndex === idx && part.upgradeDesc) return part.upgradeDesc;
+		if (
+			part.isToken &&
+			part.target.includes('TALENT') &&
+			part.talentIndex === idx &&
+			part.upgradeDesc
+		)
+			return part.upgradeDesc;
 	}
 };
 export const getModuleUpdatedRange = (rangeId, module, stage, talentIndex = -1) => {
