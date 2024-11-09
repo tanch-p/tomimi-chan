@@ -1230,13 +1230,13 @@
 		"hits": null,
 		"tooltip": {
 			"en": [
-				"Every 5 <子代> eaten, gains ATK +40%, heals 15% of max HP, and does 100% ATK as {arts} damage to all allied units (ignores stealth)"
+				"Every 5 <子代> eaten, gains ATK +40%, heals 15% of max HP, and does 100% ATK as {arts} damage to all allied units {ignore_camou}"
 			],
 			"ja": [
-				"<子代>を5体吸収した度、自身の攻击力+40%、HPの15%を回復して、味方全体に攻撃100%の{arts}ダメージを与える (ステルス無視) "
+				"<子代>を5体吸収した度、自身の攻击力+40%、HPの15%を回復して、味方全体に攻撃100%の{arts}ダメージを与える{ignore_camou}"
 			],
 			"zh": [
-				"每吸收5个「子代」，自身获得1层攻击力+40%的强化(最多叠加4层)，治疗自身15%生命值，对场上所有我方单位造成攻击力100%的{arts}溅射伤害"
+				"每吸收5个「子代」，自身获得1层攻击力+40%的强化(最多叠加4层)，治疗自身15%生命值，对场上所有我方单位造成攻击力100%的{arts}溅射伤害{ignore_camou}"
 			]
 		}
 	},
@@ -1259,8 +1259,7 @@
 			"en": [
 				"Shock [Intepret Mode] (Initial SP: 0, Cost:30)",
 				"causes all allied units to be stunned for 8s",
-				"and receive 12% ATK as {arts} damage while being stunned by this skill",
-				"this skill does not target invisible/camouflaged units"
+				"and receive 12% ATK as {arts} damage while being stunned by this skill"
 			],
 			"ja": [
 				"スキル<阐释>形態 (初期SP0、必要SP30) →味方全体を8秒スタンする、かつこのスキルにスタンされたユニットは毎秒攻撃力12%の{arts}ダメージを受ける",
@@ -1392,16 +1391,16 @@
 	},
 	"highmore_aspd_down_1": {
 		"tooltip": {
-			"en": ["All allied units within range have their ASPD reduced by 60"],
-			"ja": ["攻撃範囲内の味方の攻撃速度-60"],
-			"zh": ["攻击范围内的所有我方单位(包括装置类)攻击速度-60"]
+			"en": ["All allied units within range have their ASPD reduced by 60{ignore_stealth}"],
+			"ja": ["攻撃範囲内の味方の攻撃速度-60{ignore_stealth}"],
+			"zh": ["攻击范围内的所有我方单位(包括装置类)攻击速度-60{ignore_stealth}"]
 		}
 	},
 	"highmore_aspd_down_2": {
 		"tooltip": {
-			"en": ["All allied units within range have their ASPD reduced by 80"],
-			"ja": ["攻撃範囲内の味方の攻撃速度-80"],
-			"zh": ["攻击范围内的所有我方单位(包括装置类)攻击速度-80"]
+			"en": ["All allied units within range have their ASPD reduced by 80{ignore_stealth}"],
+			"ja": ["攻撃範囲内の味方の攻撃速度-80{ignore_stealth}"],
+			"zh": ["攻击范围内的所有我方单位(包括装置类)攻击速度-80{ignore_stealth}"]
 		}
 	},
 	"highmore_revive": {
@@ -1817,7 +1816,7 @@
 	"PTM_aoe": {
 		"tooltip": {
 			"en": [
-				"AOE (Initial CD: 5s, ~CD: 10s) - does 80% ATK {phys} damage & 20% ATK {ba.dt.neural} to all units within range. CD10s"
+				"AOE (Initial CD: 5s, ~CD: 10s)","does 80% ATK {phys} damage & 20% ATK {ba.dt.neural} to all allied units within range 2.0 tile radius {ignore_camou}"
 			],
 			"ja": [
 				"範囲攻撃 (初動5秒/再動10秒) ",
