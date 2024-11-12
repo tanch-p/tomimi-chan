@@ -62,6 +62,7 @@ const SARKAZ_BOSSES = [
 ];
 
 const NOT_AFFECTED_BY_DIFFICULTY_KEYS = [
+	'enemy_1352_eslime',
 	'enemy_3001_upeopl',
 	'enemy_1196_msfyin_2',
 	'enemy_1200_msfjin_2',
@@ -191,10 +192,6 @@ export const distillMods = (enemy: Enemy, stageId: string, mod: ModGroup, row: n
 					) {
 						mods[statKey] += effect.mods[statKey];
 					} else if (
-						(stageId === 'ro3_e_3_7' &&
-							enemy.key === 'enemy_1352_eslime' &&
-							(key === 'floor_diff' || key === 'difficulty') &&
-							statKey === 'atk') ||
 						(['enemy_1126_spslme', 'enemy_1126_spslme_2'].includes(enemy.key) &&
 							['floor_diff', 'relic'].includes(key) &&
 							statKey === 'atk') ||
@@ -406,10 +403,6 @@ const compileMods = (enemy: Enemy, stageId: string, mod: ModGroup, row: number) 
 					} else if (statKey.includes('fixed') || statKey === 'dmg_reduction') {
 						mods[statKey] += effect.mods[statKey];
 					} else if (
-						(stageId === 'ro3_e_3_7' &&
-							enemy.key === 'enemy_1352_eslime' &&
-							(key === 'floor_diff' || key === 'difficulty') &&
-							statKey === 'atk') ||
 						(['enemy_1126_spslme', 'enemy_1126_spslme_2'].includes(enemy.key) &&
 							['floor_diff', 'relic'].includes(key) &&
 							statKey === 'atk') ||
