@@ -6,7 +6,8 @@
 		specialMods,
 		eliteMods,
 		selectedRelics,
-		selectedFloor
+		selectedFloor,
+		otherBuffsList
 	} from './stores';
 	import EnemyStatDisplay from '$lib/components/EnemyStatDisplay.svelte';
 	import DifficultySelect from '../../../../../lib/components/DifficultySelect.svelte';
@@ -22,6 +23,9 @@
 	import EnemyCount from '$lib/components/EnemyCount.svelte';
 	import skzRelics from '$lib/data/is/sarkaz/relics_sarkaz.json';
 	import StageDrops from './StageDrops.svelte';
+	import TrapContainer from '$lib/components/TrapContainer.svelte';
+	import { applyTrapMods } from '$lib/functions/trapHelpers';
+	import { setOtherBuffsList } from '$lib/functions/lib';
 
 	export let data: PageData;
 
@@ -29,6 +33,7 @@
 
 	$: language = data.language;
 	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods, $specialMods);
+	$: moddedTraps = applyTrapMods(data.traps, $statMods);
 	$: modsCheck = compileStatModsForChecking(data.enemies, data.mapConfig.id, $statMods);
 	const rogueTopic = 'rogue_skz';
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
@@ -42,12 +47,15 @@
 			selectedRelics.update((list) => (list = [...list, relic]));
 		}
 		if (
-			levelId === 'level_rogue4_b-7' &&
+			['level_rogue4_b-7'].includes(levelId) &&
 			!$selectedRelics.find((item) => item.id === 'rogue_4_relic_final_6')
 		) {
 			const relic = skzRelics.find((item) => item.id === 'rogue_4_relic_final_6');
 			selectedRelics.update((list) => (list = [...list, relic]));
 		}
+	}
+	$: if (data.mapConfig) {
+		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies);
 	}
 	$: if (data.mapConfig) {
 		updateReqRelic(data.mapConfig.levelId, selectedRelics);
@@ -84,6 +92,7 @@
 		>
 			<StageDrops slot="drops" mapConfig={data.mapConfig} {language} {rogueTopic} {selectedFloor} />
 		</StageInfo>
+		<TrapContainer {language} traps={moddedTraps} {otherBuffsList} />
 		<DifficultySelect {language} {difficulty} {rogueTopic} />
 		<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 		<EnemyCount

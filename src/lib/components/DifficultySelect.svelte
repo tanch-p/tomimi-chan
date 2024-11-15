@@ -4,17 +4,18 @@
 	import { spring } from 'svelte/motion';
 	import translations from '$lib/translations.json';
 	import { browser } from '$app/environment';
-	export let language: Language, difficulty,rogueTopic:RogueTopic;
+	
+	export let language: Language, difficulty, rogueTopic: RogueTopic;
 
 	const getStorageKey = (rogueTopic) => {
 		switch (rogueTopic) {
-			case "rogue_mizuki":
-				return "difficulty"		
+			case 'rogue_mizuki':
+				return 'difficulty';
 			default:
-				const topic = rogueTopic.split("_")[1];
+				const topic = rogueTopic.split('_')[1];
 				return `${topic}_difficulty`;
 		}
-	}
+	};
 
 	function updateDifficulty(n: number) {
 		if (n < 0 || n > 15) {
@@ -58,7 +59,7 @@
 	}
 </script>
 
-<div class="px-2 sm:px-6 select-none">
+<div class="px-2 sm:px-6 select-none mt-2.5">
 	<p class="text-subheading">{translations[language].difficulty}</p>
 	<div class="counter">
 		<button

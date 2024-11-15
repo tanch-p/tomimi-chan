@@ -51,7 +51,7 @@
 		>
 			<div class="w-full max-w-7xl mx-auto py-36">
 				<div
-					class="grid lg:grid-cols-3 gap-x-10 gap-y-8 w-full overflow-x-auto md:overflow-visible my-auto mx-auto px-4 sm:px-24"
+					class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-8 w-full overflow-x-auto md:overflow-visible my-auto mx-auto px-4 sm:px-24"
 				>
 					{#each relicsList as relic}
 						<RelicDiv {relic} {language} {rogueTopic} {selectedRelics} />

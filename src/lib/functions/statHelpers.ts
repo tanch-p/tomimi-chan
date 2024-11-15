@@ -224,7 +224,7 @@ export const distillMods = (enemy: Enemy, stageId: string, mod: ModGroup, row: n
 	return mods;
 };
 
-const calculateModdedStat = (
+export const calculateModdedStat = (
 	base_stat: number,
 	stat: string,
 	initial_fixed_value: number,
@@ -280,7 +280,7 @@ export const checkIsTarget = (enemy: Enemy, target: string) => {
 		case 'BOSS':
 		case 'collapsal':
 		case 'sarkaz':
-			return type.includes(target);
+			return type?.includes(target);
 		case 'PHCS_BOSS':
 			return PHCS_BOSSES.includes(id);
 		case 'NOT_PHCS_BOSS':

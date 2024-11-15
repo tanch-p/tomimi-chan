@@ -25,6 +25,8 @@
 	import rogue_4_fragment_F_19 from '$lib/images/is/sarkaz/rogue_4_fragment_F_19.webp';
 	import rogue_4_fragment_F_20 from '$lib/images/is/sarkaz/rogue_4_fragment_F_20.webp';
 	import rogue_4_fragment_F_21 from '$lib/images/is/sarkaz/rogue_4_fragment_F_21.webp';
+	import rogue_4_fragment_F_27 from '$lib/images/is/sarkaz/rogue_4_fragment_F_27.webp';
+	import rogue_4_fragment_F_28 from '$lib/images/is/sarkaz/rogue_4_fragment_F_28.webp';
 	import TextParser from '$lib/components/TextParser.svelte';
 
 	const lookup = {
@@ -49,7 +51,9 @@
 		rogue_4_fragment_F_17: rogue_4_fragment_F_17,
 		rogue_4_fragment_F_19: rogue_4_fragment_F_19,
 		rogue_4_fragment_F_20: rogue_4_fragment_F_20,
-		rogue_4_fragment_F_21: rogue_4_fragment_F_21
+		rogue_4_fragment_F_21: rogue_4_fragment_F_21,
+		rogue_4_fragment_F_27: rogue_4_fragment_F_27,
+		rogue_4_fragment_F_28: rogue_4_fragment_F_28
 	};
 
 	export let language: Language;

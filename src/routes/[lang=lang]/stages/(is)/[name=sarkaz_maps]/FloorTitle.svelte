@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
+	import { page } from '$app/stores';
 	import { clickOutside } from '$lib/functions/clickOutside.js';
 	import FloorOptions from './FloorOptions.svelte';
 	import { selectedFloor, disasterEffects } from './stores';
@@ -28,7 +29,20 @@
 
 	export let stageFloors: number[], language: Language;
 	let optionsOpen = false;
+	let floor6Index = 5;
 
+	$: if ($page.data.mapConfig) {
+		switch ($page.data.mapConfig.levelId) {
+			case 'level_rogue4_b-7':
+			case 'level_rogue4_7-1':
+			case 'level_rogue4_7-2':
+				floor6Index = 6;
+				break;
+			default:
+				floor6Index = 5;
+				break;
+		}
+	}
 	function updateFloor(floors: number[]) {
 		if (!floors.includes($selectedFloor)) {
 			selectedFloor.set(Math.min(...stageFloors));
@@ -37,14 +51,20 @@
 	$: updateFloor(stageFloors);
 </script>
 
-<div use:clickOutside on:outclick={() => (optionsOpen = false)} class="self-center mx-auto select-none">
+<div
+	use:clickOutside
+	on:outclick={() => (optionsOpen = false)}
+	class="self-center mx-auto select-none"
+>
 	<button id="floor-options" on:click={() => (optionsOpen = !optionsOpen)}>
 		<p class="flex items-center justify-center relative text-center">
 			<img
 				class="h-[20px] mt-[1px]"
 				src={lookup[`roman_${$selectedFloor}`]}
 				alt={$selectedFloor}
-			/>&nbsp;{translations[language].sarkaz_levels[$selectedFloor - 1]}
+			/>&nbsp;{$selectedFloor === 6
+				? translations[language].sarkaz_levels[floor6Index]
+				: translations[language].sarkaz_levels[$selectedFloor - 1]}
 		</p>
 		{#if $disasterEffects.length > 0}
 			<div class="flex gap-x-2.5 my-0.5 justify-center">

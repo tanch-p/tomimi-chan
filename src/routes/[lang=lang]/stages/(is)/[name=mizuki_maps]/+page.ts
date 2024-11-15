@@ -2,11 +2,12 @@ import type { PageLoad } from './$types';
 import type { Language } from '$lib/types';
 import { stageLoad } from '$lib/functions/stageLoad';
 export const load = (async ({ params }) => {
-	const language:Language = params.lang;
-	const { mapConfig, enemies } = await stageLoad(params.name, 'rogue_mizuki');
+	const language: Language = params.lang;
+	const { mapConfig, enemies, traps } = await stageLoad(params.name, 'rogue_mizuki',language);
 	return {
 		mapConfig,
 		enemies,
-		language
+		language,
+		traps
 	};
 }) satisfies PageLoad;

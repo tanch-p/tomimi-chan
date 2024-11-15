@@ -1,5 +1,7 @@
 import translations from '$lib/translations.json';
-import type { Enemy } from '$lib/types';
+import type { Enemy, RogueTopic } from '$lib/types';
+import rogue_4_fragment_F_25 from '$lib/images/is/sarkaz/rogue_4_fragment_F_25.webp';
+
 
 export const BONUS_ENEMY_KEYS = [
 	'enemy_2001_duckmi',
@@ -78,6 +80,18 @@ export function getFormTitle(title: string | undefined | null, row: number, lang
 	return translations[language][title];
 }
 
+export const getTrapFormIndex = (list, index) => {
+	const holder = {};
+	let counter = 0;
+	list.forEach((item, i) => {
+		if (typeof item !== 'string') {
+			holder[i] = counter;
+			counter += 1;
+		}
+	});
+	return holder[index];
+};
+
 const getEnemyWeight = (key, type) => {
 	if (BONUS_ENEMY_KEYS.includes(key)) {
 		return 99;
@@ -98,4 +112,49 @@ export const getTooltipEndIndex = (text: string) => {
 		}
 	}
 	return text.length;
+};
+
+export const setOtherBuffsList = (store, rogueTopic: RogueTopic, enemies: Enemy[]) => {
+	const buffsList = [];
+	if (rogueTopic === 'rogue_skz') {
+		buffsList.push({
+			key: 'fragment_boom',
+			img: rogue_4_fragment_F_25,
+			name: '爆破',
+			targets: ['trap_760_skztzs'],
+			activeTargets: [],
+			mods: {
+				hp: 0.5
+			},
+			maxCount: 1
+		});
+	}
+	store.set(buffsList);
+};
+
+export const getOtherBuffsCount = (list, buffKey, key) => {
+	const buff = list.find((item) => item.key === buffKey);
+	const targetIndex = buff.activeTargets.findIndex((ele) => ele.key === key);
+	if (targetIndex === -1) {
+		return 0;
+	}
+	return buff.activeTargets[targetIndex].count;
+};
+
+export const updateOtherBuffsList = (store, buffKey, key) => {
+	store.update((list) => {
+		const buff = list.find((item) => item.key === buffKey);
+		const targetIndex = buff.activeTargets.findIndex((ele) => ele.key === key);
+		if (targetIndex === -1) {
+			buff.activeTargets.push({ key, count: 1 });
+		} else {
+			const currentCount = buff.activeTargets[targetIndex].count;
+			if (currentCount < buff.maxCount) {
+				buff.activeTargets[targetIndex].count += 1;
+			} else if (currentCount === buff.maxCount) {
+				buff.activeTargets[targetIndex].count = 0;
+			}
+		}
+		return list;
+	});
 };

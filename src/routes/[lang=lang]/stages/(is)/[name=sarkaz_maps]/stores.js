@@ -27,6 +27,34 @@ const floorDifficultyMods = derived(
 
 export const eliteMods = writable(null);
 export const disasterEffects = writable([]);
+export const otherBuffsList = writable([]);
+const otherMods = derived([otherBuffsList], ([$otherBuffsList]) => {
+	const modsList = [];
+	$otherBuffsList.forEach((buff) => {
+		buff.activeTargets.forEach((ele) => {
+			if (ele.count > 0) {
+				modsList.push({
+					key: buff.key,
+					mods: [
+						[
+							{
+								targets: [ele.key],
+								mods: Object.fromEntries(
+									Object.entries(buff.mods).map(([key, value]) => [
+										key,
+										value > 1 ? 1 + (value - 1) * ele.count : value * ele.count
+									])
+								)
+							}
+						]
+					],
+					operation: 'times'
+				});
+			}
+		});
+	});
+	return modsList;
+});
 const lowDiffHP = [0.8, 0.85, 0.9];
 const difficultyMods = derived([difficulty], ([$difficulty]) =>
 	$difficulty <= 2
@@ -50,14 +78,22 @@ const difficultyMods = derived([difficulty], ([$difficulty]) =>
 );
 
 export const statMods = derived(
-	[selectedRelics, floorDifficultyMods, eliteMods, disasterEffects, difficultyMods],
-	([$selectedRelics, $floorDifficultyMods, $eliteMods, $disasterEffects, $difficultyMods]) => {
+	[selectedRelics, floorDifficultyMods, eliteMods, disasterEffects, difficultyMods, otherMods],
+	([
+		$selectedRelics,
+		$floorDifficultyMods,
+		$eliteMods,
+		$disasterEffects,
+		$difficultyMods,
+		$otherMods
+	]) => {
 		return {
 			initial: [
 				{ key: 'elite_ops', mods: [$eliteMods], operation: 'times' },
 				{ key: 'floor_diff', mods: [$floorDifficultyMods], operation: 'times' }
 			],
 			final: [
+				...$otherMods,
 				{ key: 'relic', mods: $selectedRelics.map((relic) => relic.effects), operation: 'times' },
 				{
 					key: 'sarkaz_disaster',

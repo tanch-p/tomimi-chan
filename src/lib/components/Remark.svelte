@@ -7,7 +7,7 @@
 		language: Language,
 		mode = 'table',
 		enemyStats,
-		statusImmuneList;
+		statusImmuneList=[];
 
 	const getTooltip = (skill: Skill, language: Language) => {
 		if (!skill.tooltip) return;

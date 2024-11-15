@@ -1,10 +1,15 @@
-import type { MapConfig, Enemy } from '$lib/types';
+import type { MapConfig, Enemy, Language } from '$lib/types';
 import enemyDatabase from '$lib/data/enemy/enemy_database.json';
 import findStage from '$lib/functions/findStage';
 import { sortEnemies } from './lib';
 import { overwriteBlackboard } from './skillHelpers';
+import { parseTraps } from './trapHelpers';
 
-export const stageLoad = async (stageName: string, rogueTopic: string | null) => {
+export const stageLoad = async (
+	stageName: string,
+	rogueTopic: string | null,
+	language: Language
+) => {
 	const mapConfig: MapConfig = findStage(stageName, rogueTopic);
 	const enemies = mapConfig.enemies.map(({ id, prefabKey, level, overwrittenData }) => {
 		const enemy: Enemy = JSON.parse(JSON.stringify(enemyDatabase[prefabKey]));
@@ -42,12 +47,17 @@ export const stageLoad = async (stageName: string, rogueTopic: string | null) =>
 	) {
 		enemies.sort(sortEnemies);
 	}
-	const data = await Promise.all(
+	const enemyPromises = await Promise.all(
 		enemies.map((enemy) => import(`../images/enemy_icons/icon_${enemy.key}.webp`))
 	);
-	enemies.forEach((enemy, index) => (enemy.img = data[index].default));
+	enemies.forEach((enemy, index) => (enemy.img = enemyPromises[index].default));
 
-	return { mapConfig, enemies };
+	const traps = parseTraps(mapConfig.traps, language);
+	const trapPromises = await Promise.all(
+		traps.map((trap) => import(`../images/chara_icons/icon_${trap.key}.webp`))
+	);
+	traps.forEach((trap, index) => (trap.img = trapPromises[index].default));
+	return { mapConfig, enemies, traps };
 };
 
 const STAGES_WITH_ELITE_IMG = [

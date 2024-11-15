@@ -1,0 +1,32 @@
+<script lang="ts">
+	import type { Trap } from '$lib/types';
+	import { charaAssets } from '$lib/data/chara/chara_assets';
+	import { page } from '$app/stores';
+	import translations from '$lib/translations.json';
+	export let trap: Trap;
+
+	$: language = $page.data.language;
+
+	$: statKeys = ['hp', 'blockCnt', 'atk', 'aspd', 'def', 'res'];
+</script>
+
+<div class="grid grid-cols-2 2 gap-x-2 gap-y-1.5 h-min text-sm">
+	{#each statKeys as statKey}
+		<div class="grid grid-cols-[14px_1fr] gap-x-1 pl-1 pr-1.5 py-0.5 bg-[#161616] bg-opacity-80">
+			<img src={charaAssets[statKey]} width="14px" height="14px" alt="" class="mt-[3px]" />
+			<div>
+				<span
+					class="text-[#858585] font-semibold {language === 'en' &&
+					['aspd', 'eleDmgRes'].includes(statKey)
+						? 'text-xs'
+						: ''}"
+				>
+					{translations[language].table_headers[statKey]}
+				</span>
+				<p data-id="{statKey}-value" class="text-near-white">
+					{trap.stats[statKey] ?? '0'}
+				</p>
+			</div>
+		</div>
+	{/each}
+</div>

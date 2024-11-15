@@ -16,7 +16,7 @@ type Stats = {
 	eleDmgRes: number;
 	dmg_reduction?: number;
 };
-type StatusImmune = 'stun' | 'silence' | 'freeze' | 'sleep' | 'levitate' | 'disarmCombat';
+type StatusImmune = 'stun' | 'silence' | 'freeze' | 'sleep' | 'levitate' | 'disarmCombat' | 'fear';
 type AttackType = 'no_attack' | 'melee' | 'ranged';
 type AttackAttribute = 'phys' | 'arts' | 'true' | 'heal';
 type EnemyType =
@@ -68,6 +68,36 @@ export interface Enemy {
 	ignore_diff: true | undefined;
 }
 
+export interface Trap {
+	key:string;
+	name: string;
+	desc: string;
+	stats: trapStats;
+	talents: [];
+	skills: [];
+	status_immune: StatusImmune[];
+}
+export interface TrapData {
+	name_zh: string;
+	name_ja: string;
+	name_en: string;
+	desc_zh: string;
+	desc_ja: string;
+	desc_en: string;
+	stats: trapStats[];
+	special: string[];
+	status_immune: StatusImmune[];
+}
+type trapStats = {
+	hp: number;
+	atk: number;
+	def: number;
+	res: number;
+	blockCnt: number;
+	aspd: number;
+	rangeId: string | null;
+};
+
 type overwrittenData = {
 	[key: string]: number;
 };
@@ -91,8 +121,15 @@ export interface MapConfig {
 	[key: `description_${string}`]: string;
 	[key: `eliteDesc_${string}`]: string;
 	elite_mods: Mods | null;
+	traps: mapConfigTrap[];
 	enemies: mapConfigEnemy[];
 }
+
+export type mapConfigTrap = {
+	key: string;
+	level: number;
+	mainSkillLvl: number;
+};
 
 export type StatMods = {
 	initial: ModGroup[];
