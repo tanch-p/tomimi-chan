@@ -3,6 +3,7 @@
 	import combat_icon from '$lib/images/is/combat_icon.webp';
 	import emergency_icon from '$lib/images/is/emergency_icon.webp';
 	import skzRelics from '$lib/data/is/sarkaz/relics_sarkaz.json';
+	import { relicLookup } from '$lib/data/is/relic_lookup';
 
 	export let mapEliteMods: any,
 		rogueTopic: string,
@@ -86,12 +87,22 @@
 			}`}
 			on:click={() => updateEliteMods(true)}
 		>
+			{#if ro4_SP7_BOSS_STAGES.includes(stageId)}
+				<img
+					src={relicLookup['rogue_4_relic_final_6']}
+					width="50px"
+					decoding="async"
+					loading="lazy"
+					alt="anasa"
+					class=""
+				/>
+			{/if}
 			<img
 				src={emergency_icon}
 				width="50px"
 				decoding="async"
 				loading="lazy"
-				alt="combat ops"
+				alt="elite ops"
 				class=""
 			/>
 		</button>
