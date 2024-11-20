@@ -110,7 +110,7 @@
 			}
 			return `<span class="${textPatterns?.['@' + pattern] ?? ''}">${content}</span>`;
 		});
-		line = line.replace(/<(.*?)>(.*?)<\/>/g, (match, pattern, content) => {
+		line = line.replace(/<(b.*?)>(.*?)<\/>/g, (match, pattern, content) => {
 			return addTooltip(pattern, content);
 		});
 		for (const pattern of patternsToParse) {
