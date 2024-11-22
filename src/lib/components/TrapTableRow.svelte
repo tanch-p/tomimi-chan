@@ -36,10 +36,10 @@
 				</div>
 			</td> -->
 		{:else if key === 'range_display'}
-			<td class={`border border-gray-400 text-center`}>
+			<td class={`border border-gray-400 text-center px-1`}>
 				{#if trap.stats.rangeId}
 					<div
-						class="flex flex-col items-center w-[72px] p-2 pb-1 bg-[#161616] bg-opacity-80 rounded h-max"
+						class="flex flex-col items-center w-[72px] mx-auto p-2 pb-1 bg-[#161616] bg-opacity-80 rounded h-max"
 					>
 						<div class="flex items-center">
 							<RangeParser rangeId={trap.stats.rangeId} size="small" />
@@ -51,7 +51,7 @@
 				{/if}
 			</td>
 		{:else if key === 'remarks'}
-			<td class={`border border-gray-400 text-start px-2 py-2`}>
+			<td class={`border border-gray-400 text-start px-2 py-2 max-w-[500px]`}>
 				<StatusImmune statusImmuneList={trap.status_immune} {language} mode="table" />
 				<TrapAbilities {trap} mode="table" />
 			</td>
