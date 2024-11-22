@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { RogueTopic } from '$lib/types';
 	import type { PageData } from './$types';
 	import {
 		statMods,
@@ -35,8 +36,8 @@
 	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods, $specialMods);
 	$: moddedTraps = applyTrapMods(data.traps, $statMods);
 	$: modsCheck = compileStatModsForChecking(data.enemies, data.mapConfig.id, $statMods);
-	const rogueTopic = 'rogue_skz';
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
+	const rogueTopic: RogueTopic = data.rogueTopic;
 
 	function updateReqRelic(levelId, selectedRelics) {
 		if (
@@ -92,8 +93,8 @@
 		>
 			<StageDrops slot="drops" mapConfig={data.mapConfig} {language} {rogueTopic} {selectedFloor} />
 		</StageInfo>
-		<TrapContainer {language} traps={moddedTraps} {otherBuffsList} />
 		<DifficultySelect {language} {difficulty} {rogueTopic} />
+		<TrapContainer {language} traps={moddedTraps} {otherBuffsList} />
 		<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 		<EnemyCount
 			mapConfig={data.mapConfig}

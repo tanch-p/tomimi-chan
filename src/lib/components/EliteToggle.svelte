@@ -4,6 +4,7 @@
 	import emergency_icon from '$lib/images/is/emergency_icon.webp';
 	import skzRelics from '$lib/data/is/sarkaz/relics_sarkaz.json';
 	import { relicLookup } from '$lib/data/is/relic_lookup';
+	import { getEliteColors } from '$lib/functions/lib';
 
 	export let mapEliteMods: any,
 		rogueTopic: string,
@@ -30,19 +31,6 @@
 		eliteMods.set(null);
 	});
 
-	const getColors = (rogueTopic: string) => {
-		switch (rogueTopic) {
-			case 'rogue_sami':
-				return ['bg-[#544a8a]', 'bg-[#8f3033]'];
-			case 'rogue_mizuki':
-				return ['bg-[#5645a4]', 'bg-[#92344e]'];
-			case 'rogue_phantom':
-				return ['bg-[#dea41b]', 'bg-[#cb710c]'];
-			case 'rogue_skz':
-				return ['bg-[#5a4b90]', 'bg-[#bb2210]'];
-		}
-		return [];
-	};
 	const updateEliteMods = (option: boolean) => {
 		eliteMode = option;
 		if (option) {
@@ -59,7 +47,7 @@
 			eliteMods.set(null);
 		}
 	};
-	$: [combatOpsColor, eliteOpsColor] = getColors(rogueTopic);
+	$: [combatOpsColor, eliteOpsColor] = getEliteColors(rogueTopic);
 </script>
 
 {#if stageId !== 'level_rogue4_b-7'}

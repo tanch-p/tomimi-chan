@@ -51,7 +51,7 @@
 	{/each}
 </div>
 <span />
-<p class="text-[#858585] font-semibold mt-1.5">
+<p class="text-[#858585] font-semibold mt-1.5 text-sm">
 	{translations[language].table_headers.range}:
 	<span data-id="range-value" class="text-near-white">{enemy.stats[formIndex].range ?? '0'}</span>
 </p>

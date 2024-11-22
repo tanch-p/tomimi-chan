@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { RogueTopic } from '$lib/types';
 	import type { PageData } from './$types';
 	import {
 		statMods,
@@ -26,8 +27,8 @@
 	$: language = data.language;
 	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods);
 	$: modsCheck = compileStatModsForChecking(data.enemies, data.mapConfig.id, $statMods);
-	const rogueTopic = 'rogue_sami';
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
+	const rogueTopic:RogueTopic = data.rogueTopic;
 </script>
 
 <svelte:head>

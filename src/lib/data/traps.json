@@ -6,6 +6,7 @@
 		"desc_zh": null,
 		"desc_ja": null,
 		"desc_en": null,
+		"tauntLevel": 0,
 		"group": "ally",
 		"stats": [
 			{
@@ -30,6 +31,7 @@
 		"desc_zh": null,
 		"desc_ja": null,
 		"desc_en": null,
+		"tauntLevel": 0,
 		"group": "ally",
 		"stats": [
 			{
@@ -53,7 +55,7 @@
 		],
 		"skills": ["sktok_emp"],
 		"talents": [],
-		"special": [],
+		"special": ["roadblock", "self_destruct"],
 		"status_immune": []
 	},
 	"trap_005_sensor": {
@@ -63,6 +65,7 @@
 		"desc_zh": null,
 		"desc_ja": null,
 		"desc_en": null,
+		"tauntLevel": 0,
 		"group": "ally",
 		"stats": [
 			{
@@ -87,6 +90,7 @@
 		"desc_zh": null,
 		"desc_ja": null,
 		"desc_en": null,
+		"tauntLevel": 0,
 		"group": "enemy",
 		"stats": [
 			{
@@ -120,6 +124,7 @@
 		"desc_zh": "被摧毁时扣除1点关卡生命值",
 		"desc_ja": "破壊された場合耐久値-1",
 		"desc_en": "When destroyed, deduct 1 Life Point.",
+		"tauntLevel": 0,
 		"group": "ally",
 		"stats": [
 			{
@@ -134,7 +139,7 @@
 		],
 		"skills": ["sktok_farm"],
 		"talents": [],
-		"special": [],
+		"special": ["roadblock", "farm_1"],
 		"status_immune": []
 	},
 	"trap_010_frosts": {
@@ -144,6 +149,7 @@
 		"desc_zh": null,
 		"desc_ja": null,
 		"desc_en": null,
+		"tauntLevel": 0,
 		"group": "enemy",
 		"stats": [
 			{
@@ -168,6 +174,7 @@
 		"desc_zh": null,
 		"desc_ja": null,
 		"desc_en": null,
+		"tauntLevel": 0,
 		"group": "enemy",
 		"stats": [
 			{
@@ -192,6 +199,7 @@
 		"desc_zh": null,
 		"desc_ja": null,
 		"desc_en": null,
+		"tauntLevel": 0,
 		"group": "ally",
 		"stats": [
 			{
@@ -206,7 +214,7 @@
 		],
 		"skills": ["sktok_blower"],
 		"talents": [],
-		"special": [],
+		"special": ["blower_ally", "blower_enemy"],
 		"status_immune": []
 	},
 	"trap_014_tower": {
@@ -216,6 +224,7 @@
 		"desc_zh": "优先攻击生命上限最高的单位",
 		"desc_ja": "最大HPが最も高い敵を優先して攻撃",
 		"desc_en": "Attacks the enemy with the highest Max HP first",
+		"tauntLevel": 0,
 		"group": "ally",
 		"stats": [
 			{
@@ -230,7 +239,7 @@
 		],
 		"skills": ["sktok_tower"],
 		"talents": [],
-		"special": [],
+		"special": ["tower_1", "tower_2", "tower_3"],
 		"status_immune": []
 	},
 	"trap_022_frosts_friend": {
@@ -240,6 +249,7 @@
 		"desc_zh": "友好单位",
 		"desc_ja": "味方ユニット",
 		"desc_en": "Friendly Unit",
+		"tauntLevel": 0,
 		"group": "ally",
 		"stats": [
 			{
@@ -264,6 +274,7 @@
 		"desc_zh": "<@ba.kw>无法</>被友方角色治疗",
 		"desc_ja": "味方からの治療効果を<@ba.kw>受けない</>",
 		"desc_en": "<@ba.kw>Cannot</> be healed by allies",
+		"tauntLevel": 0,
 		"group": "ally",
 		"stats": [
 			{
@@ -288,6 +299,7 @@
 		"desc_zh": "改变敌人行径路线",
 		"desc_ja": "敵の進行ルートを変更",
 		"desc_en": "Change the enemy's route",
+		"tauntLevel": 0,
 		"group": "ally",
 		"stats": [
 			{
@@ -312,6 +324,7 @@
 		"desc_zh": "可以阻挡<@ba.kw>沙尘暴</>",
 		"desc_ja": "<@ba.kw>砂嵐</>を遮ることができる",
 		"desc_en": "Can block <@ba.kw>Sandstorm</>",
+		"tauntLevel": 0,
 		"group": "ally",
 		"stats": [
 			{
@@ -336,6 +349,7 @@
 		"desc_zh": "仅可被相邻的我方单位攻击",
 		"desc_ja": "隣接する味方ユニットのみに攻撃される  ",
 		"desc_en": "Can only be attacked by adjacent allied units",
+		"tauntLevel": 0,
 		"group": "ally",
 		"stats": [
 			{
@@ -360,6 +374,7 @@
 		"desc_zh": "不容易受到我方单位的攻击",
 		"desc_ja": "味方から攻撃されにくい",
 		"desc_en": "Less likely to get attacked by your units",
+		"tauntLevel": 0,
 		"group": "ally",
 		"stats": [
 			{
@@ -384,6 +399,7 @@
 		"desc_zh": "不容易受到攻击，每秒回复75点生命值",
 		"desc_ja": "敵に狙われにくい\nHPが1秒ごと75回復",
 		"desc_en": "Less likely to be attacked, and restores 75 HP per second",
+		"tauntLevel": -1,
 		"group": "ally",
 		"stats": [
 			{
@@ -396,9 +412,9 @@
 				"rangeId": "x-1"
 			}
 		],
-		"skills": ["sktok_wpnsts_1", "sktok_wpnsts_2"],
+		"skills": ["sktok_wpnsts"],
 		"talents": [],
-		"special": [],
+		"special": ["wpnsts_1", "wpnsts_2", "wpnsts_3"],
 		"status_immune": []
 	},
 	"trap_058_gunctrl": {
@@ -408,6 +424,7 @@
 		"desc_zh": null,
 		"desc_ja": null,
 		"desc_en": null,
+		"tauntLevel": 0,
 		"group": "enemy",
 		"stats": [
 			{
@@ -422,7 +439,7 @@
 		],
 		"skills": ["sktok_gunctrl"],
 		"talents": [],
-		"special": [],
+		"special": ["gunctrl_1"],
 		"status_immune": []
 	},
 	"trap_065_normbox": {
@@ -432,6 +449,7 @@
 		"desc_zh": null,
 		"desc_ja": null,
 		"desc_en": null,
+		"tauntLevel": -1,
 		"group": "enemy",
 		"stats": [
 			{
@@ -465,6 +483,7 @@
 		"desc_zh": null,
 		"desc_ja": null,
 		"desc_en": null,
+		"tauntLevel": -1,
 		"group": "enemy",
 		"stats": [
 			{
@@ -498,6 +517,7 @@
 		"desc_zh": null,
 		"desc_ja": null,
 		"desc_en": null,
+		"tauntLevel": -1,
 		"group": "enemy",
 		"stats": [
 			{
@@ -531,6 +551,7 @@
 		"desc_zh": "免疫控制效果",
 		"desc_ja": "状態異常無効",
 		"desc_en": "Immune to control effects",
+		"tauntLevel": 0,
 		"group": "enemy",
 		"stats": [
 			{
@@ -555,6 +576,7 @@
 		"desc_zh": "免疫控制效果",
 		"desc_ja": "状態異常無効",
 		"desc_en": "Immune to control effects",
+		"tauntLevel": 0,
 		"group": "enemy",
 		"stats": [
 			{
@@ -579,6 +601,7 @@
 		"desc_zh": "免疫控制效果",
 		"desc_ja": "状態異常無効",
 		"desc_en": "Immune to control effects",
+		"tauntLevel": 0,
 		"group": "enemy",
 		"stats": [
 			{
@@ -603,6 +626,7 @@
 		"desc_zh": null,
 		"desc_ja": null,
 		"desc_en": null,
+		"tauntLevel": -1,
 		"group": "enemy",
 		"stats": [
 			{
@@ -617,7 +641,7 @@
 		],
 		"skills": ["sktok_larva"],
 		"talents": [],
-		"special": [],
+		"special": ["larva_1", "larva_2", "larva_3"],
 		"status_immune": []
 	},
 	"trap_096_gflag": {
@@ -627,6 +651,7 @@
 		"desc_zh": "在场时，强化所有敌军的攻击速度与移动速度",
 		"desc_ja": "戦場滞在中、敵全員の攻撃速度と移動速度を強化する。",
 		"desc_en": "When this unit is on the field, increases all enemy ASPD and Movement Speed",
+		"tauntLevel": 0,
 		"group": "enemy",
 		"stats": [
 			{
@@ -660,6 +685,7 @@
 		"desc_zh": "可以阻挡多名敌人",
 		"desc_ja": "複数の敵をブロックできる",
 		"desc_en": "Blocks multiple enemies",
+		"tauntLevel": 0,
 		"group": "ally",
 		"stats": [
 			{
@@ -683,7 +709,7 @@
 		],
 		"skills": [],
 		"talents": [],
-		"special": [],
+		"special": ["roadblock"],
 		"status_immune": []
 	},
 	"trap_107_smpow": {
@@ -693,6 +719,7 @@
 		"desc_zh": null,
 		"desc_ja": null,
 		"desc_en": null,
+		"tauntLevel": 0,
 		"group": "ally",
 		"stats": [
 			{
@@ -717,6 +744,7 @@
 		"desc_zh": null,
 		"desc_ja": null,
 		"desc_en": null,
+		"tauntLevel": -1,
 		"group": "enemy",
 		"stats": [
 			{
@@ -750,6 +778,7 @@
 		"desc_zh": null,
 		"desc_ja": null,
 		"desc_en": null,
+		"tauntLevel": -1,
 		"group": "enemy",
 		"stats": [
 			{
@@ -783,6 +812,7 @@
 		"desc_zh": null,
 		"desc_ja": null,
 		"desc_en": null,
+		"tauntLevel": -1,
 		"group": "enemy",
 		"stats": [
 			{
@@ -816,6 +846,7 @@
 		"desc_zh": "被击败后恢复5点费用上限及费用",
 		"desc_ja": "破壊すると、所持コストとコスト上限+5",
 		"desc_en": "Recover 5 DP and raise 5 cost limit when defeated",
+		"tauntLevel": 0,
 		"group": "ally",
 		"stats": [
 			{
@@ -828,7 +859,7 @@
 				"rangeId": null
 			}
 		],
-		"skills": ["sktok_wdfarm"],
+		"skills": [],
 		"talents": [],
 		"special": [],
 		"status_immune": []
@@ -840,6 +871,7 @@
 		"desc_zh": null,
 		"desc_ja": null,
 		"desc_en": null,
+		"tauntLevel": -1,
 		"group": "ally",
 		"stats": [
 			{
@@ -854,16 +886,17 @@
 		],
 		"skills": ["sktok_eradio"],
 		"talents": [],
-		"special": [],
+		"special": ["lone"],
 		"status_immune": []
 	},
 	"trap_134_condtr": {
 		"name_zh": "调谐节点",
 		"name_ja": "調律器",
 		"name_en": "Tuning Node",
-		"desc_zh": "不容易受到我方单位的攻击；拥有单向防御护盾时可抵挡来源于盾侧的攻击（不抵挡真实伤害）",
-		"desc_ja": "味方から狙われにくい\n指向性シールドにより、シールド側からの物理・術の被ダメージを無効化する",
-		"desc_en": "Less likely to be attacked by your units; can block attacks from the shield side when equipped with a one-way shield (True Damage cannot be blocked)",
+		"desc_zh": "不容易受到我方单位的攻击；拥有单向防御护盾时可抵挡来源于盾侧的攻击（不抵挡{true}伤害）",
+		"desc_ja": "味方から狙われにくい\n指向性シールドにより、シールド側からの{phys}・{arts}の被ダメージを無効化する",
+		"desc_en": "Less likely to be attacked by your units; can block attacks from the shield side when equipped with a one-way shield ({true} Damage cannot be blocked)",
+		"tauntLevel": -1,
 		"group": "enemy",
 		"stats": [
 			{
@@ -878,7 +911,7 @@
 		],
 		"skills": ["sktok_condtr"],
 		"talents": [],
-		"special": [],
+		"special": ["lone", "condtr_1", "condtr_2"],
 		"status_immune": []
 	},
 	"trap_480_roadblockxb": {
@@ -888,6 +921,7 @@
 		"desc_zh": null,
 		"desc_ja": null,
 		"desc_en": null,
+		"tauntLevel": 0,
 		"group": "ally",
 		"stats": [
 			{
@@ -902,7 +936,7 @@
 		],
 		"skills": ["sktok_roadblock"],
 		"talents": [],
-		"special": [],
+		"special": ["roadblock"],
 		"status_immune": []
 	},
 	"trap_757_skzbox": {
@@ -912,6 +946,7 @@
 		"desc_zh": null,
 		"desc_ja": "",
 		"desc_en": "",
+		"tauntLevel": -1,
 		"group": "enemy",
 		"stats": [
 			{
@@ -945,6 +980,7 @@
 		"desc_zh": null,
 		"desc_ja": "",
 		"desc_en": "",
+		"tauntLevel": -1,
 		"group": "enemy",
 		"stats": [
 			{
@@ -978,6 +1014,7 @@
 		"desc_zh": null,
 		"desc_ja": "",
 		"desc_en": "",
+		"tauntLevel": 0,
 		"group": "enemy",
 		"stats": [
 			{
@@ -1011,6 +1048,7 @@
 		"desc_zh": "更容易受到攻击，击败后掉落1缕构想",
 		"desc_ja": "",
 		"desc_en": "",
+		"tauntLevel": 1,
 		"group": "enemy",
 		"stats": [
 			{
@@ -1026,7 +1064,7 @@
 		"skills": [],
 		"talents": ["skztzs"],
 		"special": [],
-		"status_immune": ["stun","sleep","freeze"],
+		"status_immune": ["stun", "sleep", "freeze"],
 		"type": ["trap"]
 	},
 	"trap_761_skzthx": {
@@ -1036,6 +1074,7 @@
 		"desc_zh": null,
 		"desc_ja": "",
 		"desc_en": "",
+		"tauntLevel": 0,
 		"group": "enemy",
 		"stats": [
 			{
@@ -1050,7 +1089,7 @@
 		],
 		"skills": [],
 		"talents": [],
-		"special": [],
+		"special": ["skzthx_1","skzthx_2"],
 		"status_immune": []
 	},
 	"trap_762_skztxy": {
@@ -1060,6 +1099,7 @@
 		"desc_zh": "每个萨卡兹敌人死亡后回复3点技力",
 		"desc_ja": "",
 		"desc_en": "",
+		"tauntLevel": 0,
 		"group": "enemy",
 		"stats": [
 			{
@@ -1081,9 +1121,10 @@
 		"name_zh": "圣卫坚盾",
 		"name_ja": "",
 		"name_en": "",
-		"desc_zh": "周围4格所有友方单位减少50%的物理与法术伤害",
-		"desc_ja": "",
-		"desc_en": "",
+		"desc_zh": "周围4格所有友方单位减少50%的{phys}与{arts}伤害",
+		"desc_ja": "周囲4マスにいる味方が受ける{phys}/{arts}ダメージが50％減少する",
+		"desc_en": "Reduces {phys}/{arts} damage taken by allied units in 4 adjacent tiles by 50%",
+		"tauntLevel": 0,
 		"group": "ally",
 		"stats": [
 			{
@@ -1098,7 +1139,7 @@
 		],
 		"skills": [],
 		"talents": [],
-		"special": [],
+		"special": ["neutral", "skzddd_0", "skzddd_1"],
 		"status_immune": []
 	},
 	"trap_779_skzth": {
@@ -1108,6 +1149,7 @@
 		"desc_zh": "治疗后消失",
 		"desc_ja": "",
 		"desc_en": "",
+		"tauntLevel": 0,
 		"group": "enemy",
 		"stats": [
 			{
@@ -1122,7 +1164,7 @@
 		],
 		"skills": [],
 		"talents": [],
-		"special": [],
+		"special": ["skzth_1", "skzth_2", "skzth_3", "skzth_4"],
 		"status_immune": []
 	}
 }

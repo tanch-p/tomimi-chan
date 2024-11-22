@@ -53,10 +53,10 @@ export const stageLoad = async (
 	enemies.forEach((enemy, index) => (enemy.img = enemyPromises[index].default));
 
 	const traps = parseTraps(mapConfig.traps, language);
-	const trapPromises = await Promise.all(
-		traps.map((trap) => import(`../images/chara_icons/icon_${trap.key}.webp`))
-	);
-	traps.forEach((trap, index) => (trap.img = trapPromises[index].default));
+	// const trapPromises = await Promise.all(
+	// 	traps.map((trap) => import(`../images/chara_icons/icon_${trap.key}.webp`))
+	// );
+	// traps.forEach((trap, index) => (trap.img = trapPromises[index].default));
 	return { mapConfig, enemies, traps };
 };
 

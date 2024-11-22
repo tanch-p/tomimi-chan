@@ -17,7 +17,7 @@
 					class="grid grid-flow-row sm:flex auto-rows-max gap-2.5 px-2.5 h-[calc(100vh-172px)] sm:h-auto overflow-scroll no-scrollbar sticky sm:static top-20"
 				>
 					{#each traps as trap}
-						<a href={`#${trap.key}`}>
+						<a href={`#${trap.key}${trap.ops ? '_' + trap.ops : ''}`}>
 							<div class="relative">
 								<img
 									class="select-none"
@@ -32,7 +32,7 @@
 					{/each}
 				</div>
 				<div class="flex flex-col">
-					{#each traps as trap, index (trap.key)}
+					{#each traps as trap, index}
 						{#if index !== 0}
 							<div class="bg-neutral-700 mx-1 h-0.5" />
 						{/if}

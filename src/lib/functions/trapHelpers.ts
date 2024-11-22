@@ -7,6 +7,31 @@ const TRAPS_AFFECTED_BY_DIFFICULTY = ['trap_757_skzbox', 'trap_760_skztzs'];
 
 const STATS = ['hp', 'atk', 'aspd', 'def', 'res'];
 
+const getTrapWeight = (key) => {
+	switch (key) {
+		case 'trap_762_skztxy':
+		case 'trap_763_skzddd':
+		case 'trap_779_skzth':
+			return 0;
+		case 'trap_760_skztzs':
+			return 1;
+		case 'trap_065_normbox':
+		case 'trap_108_smbox':
+		case 'trap_757_skzbox':
+			return 100;
+		case 'trap_066_rarebox':
+		case 'trap_109_smrbox':
+		case 'trap_759_skzwyx':
+			return 101;
+		case 'trap_068_badbox':
+		case 'trap_110_smbbox':
+		case 'trap_758_skzmbx':
+			return 102;
+		default:
+			return 50;
+	}
+};
+
 const getTrapStats = (trap: TrapData, level: number) => {
 	if (trap.stats.length === 1 || level === 1) {
 		return { ...trap.stats[0] };
@@ -33,7 +58,7 @@ const getTrapStats = (trap: TrapData, level: number) => {
 
 export const parseTraps = (traps: mapConfigTrap[], language: Language) => {
 	const holder: Trap[] = [];
-	for (const { key, level, mainSkillLvl } of traps) {
+	for (const { key, level, mainSkillLvl, eliteSkillLvl } of traps) {
 		const trap: TrapData = trapLookup[key];
 		const talents = trap?.talents?.map((key) => {
 			const talent = trapSkills[key];
@@ -44,16 +69,24 @@ export const parseTraps = (traps: mapConfigTrap[], language: Language) => {
 			};
 		});
 		const skills = trap.skills?.map((key) => {
+			console.log(key);
 			const skill = trapSkills[key];
+			let eliteSpData;
+			if (eliteSkillLvl) {
+				eliteSpData = skill.levels[eliteSkillLvl - 1].spData;
+			}
 			return {
+				skillId: key,
 				name: skill[`name_${language}`] || skill[`name_zh`],
 				desc: skill[`desc_${language}`] || skill[`desc_zh`],
+				level: mainSkillLvl + '/' + skill.levels.length,
 				skillType: skill.skillType,
 				durationType: skill.durationType,
 				spType: skill.spType,
 				rangeId: skill.rangeId,
 				duration: skill.levels[mainSkillLvl - 1].duration,
-				spData: skill.levels[mainSkillLvl - 1].spData
+				spData: skill.levels[mainSkillLvl - 1].spData,
+				eliteSpData
 			};
 		});
 		const stats = getTrapStats(trap, level);
@@ -61,6 +94,7 @@ export const parseTraps = (traps: mapConfigTrap[], language: Language) => {
 			key: key,
 			name: trap[`name_${language}`] || trap[`name_zh`],
 			desc: trap[`desc_${language}`] || trap[`desc_zh`],
+			tauntLevel: trap.tauntLevel,
 			stats: stats,
 			talents: talents,
 			skills: skills,
@@ -68,7 +102,7 @@ export const parseTraps = (traps: mapConfigTrap[], language: Language) => {
 			status_immune: trap.status_immune
 		});
 	}
-	return holder;
+	return holder.sort((a, b) => getTrapWeight(a.key) - getTrapWeight(b.key));
 };
 
 export function applyTrapMods(traps: Trap[], statMods: StatMods) {

@@ -12,14 +12,14 @@
 	let language: Language;
 	$: language = $page.data.language;
 
-	// console.log(trap);
+	console.log(trap);
 </script>
 
 <div
 	id={trap.key}
 	class="scroll-mt-16 p-2 bg-neutral-900 bg-opacity-40 sm:max-w-[500px] w-full mx-auto"
 >
-	<div class="relative">
+	<div class="relative pt-3">
 		<div class="flex items-center">
 			<p class="ml-1 font-semibold">{trap.name}</p>
 		</div>
@@ -42,12 +42,12 @@
 			</div> -->
 			{#if trap.stats.rangeId}
 				<div
-					class="flex flex-col items-center w-[72px] p-2 pb-1 bg-[#161616] bg-opacity-80 rounded h-max"
+					class="flex flex-col items-center w-[75px] p-2 pb-1 bg-[#161616] bg-opacity-80 rounded h-max"
 				>
 					<div class="flex items-center">
 						<RangeParser rangeId={trap.stats.rangeId} size="small" />
 					</div>
-					<p class="mt-1 text-sm">{translations[language].attack_range}</p>
+					<p class="mt-1 text-xs">{translations[language].attack_range}</p>
 				</div>
 			{/if}
 		</div>

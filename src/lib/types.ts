@@ -72,10 +72,12 @@ export interface Trap {
 	key:string;
 	name: string;
 	desc: string;
+	tauntLevel: number;
 	stats: trapStats;
 	talents: [];
 	skills: [];
 	status_immune: StatusImmune[];
+	ops: "elite"|"normal"|null;
 }
 export interface TrapData {
 	name_zh: string;

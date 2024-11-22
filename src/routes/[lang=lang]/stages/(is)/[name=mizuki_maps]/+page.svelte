@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import type { RogueTopic } from '$lib/types';
 	import {
 		statMods,
 		difficulty,
@@ -25,7 +26,7 @@
 	$: language = data.language;
 	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods);
 	$: modsCheck = compileStatModsForChecking(data.enemies, data.mapConfig.id, $statMods);
-	const rogueTopic = 'rogue_mizuki';
+	const rogueTopic:RogueTopic = data.rogueTopic;
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 </script>
 

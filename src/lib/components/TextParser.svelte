@@ -85,7 +85,7 @@
 		)}</div>`;
 	}
 
-	const parseText = (line: string, language) => {
+	const parseText = (line: string, language:Language) => {
 		// for {phys}/{arts}/{true} type keys
 		const regex = new RegExp(`{(.*?)}`, 'gs');
 		const matches = line.match(regex);

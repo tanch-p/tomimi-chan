@@ -18,14 +18,22 @@
 {#if trap.desc}
 	{#if mode === 'handbook'}
 		<p class="bg-[#383838] px-3.5 py-0.5 text-[#a2a5a5] font-bold">
-			{translations[language].trait}<span class="font-normal">/</span>{translations[language]
-				.handbook_ability}
+			{translations[language].trait}<span class="font-normal" />
 		</p>
 	{/if}
 	<ul class="list-disc pl-4 py-1">
 		<li class="py-1">
 			<TextParser line={trap.desc} />
 		</li>
+	</ul>
+{/if}
+{#if trap.special.length > 0}
+	{#if mode === 'handbook'}
+		<p class="bg-[#383838] px-3.5 py-0.5 text-[#a2a5a5] font-bold">
+			{translations[language].handbook_mechanics}<span class="font-normal" />
+		</p>
+	{/if}
+	<ul class="list-disc pl-4 py-1">
 		{#each trap.special as item, i}
 			{#if typeof item === 'string'}
 				<Remark skill={trapSkills[item]} {language} mode={'handbook'} enemyStats={trap.stats} />
@@ -64,7 +72,7 @@
 							<div class="flex items-center h-full">
 								<RangeParser rangeId={talent.rangeId} size="small" />
 							</div>
-							<p class="mt-1 text-sm">{translations[language].effect_range}</p>
+							<p class="mt-1 text-xs">{translations[language].effect_range}</p>
 						</div>
 					{/if}
 				</div>
@@ -76,7 +84,7 @@
 	<p class="bg-[#383838] px-3.5 py-0.5 text-[#a2a5a5] font-bold">
 		{translations[language].skill}
 	</p>
-	<div class="py-1.5">
+	<div class="pb-1.5">
 		{#each trap.skills as skill}
 			<TrapSkill {skill} {language} />
 		{/each}
