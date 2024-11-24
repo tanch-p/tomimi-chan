@@ -60,7 +60,7 @@
 <div class="grid grid-cols-[1fr_80px] gap-x-3 mt-6">
 	<div class="self-end">
 		<div class="relative h-max w-[90px]">
-			{#await import(`../../../../lib/images/skill_icons/skill_icon_${getSkillImgUrl(skill.skillId)}.webp`) then { default: src }}
+			{#await import(`../images/skill_icons/skill_icon_${getSkillImgUrl(skill.skillId)}.webp`) then { default: src }}
 				<img {src} width="90" height="90" loading="lazy" alt={''} />
 			{/await}
 			{#if skill.skillType !== 'PASSIVE'}
