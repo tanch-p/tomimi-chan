@@ -21,6 +21,9 @@
 >
 	<div class="relative pt-3">
 		<div class="flex items-center">
+			{#if trap.overwritten}
+				<p class="text-xs text-center bg-[#981313] py-0.5 w-[1.75rem]">Sp.</p>
+			{/if}
 			<p class="ml-1 font-semibold">{trap.name}</p>
 		</div>
 	</div>

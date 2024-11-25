@@ -146,9 +146,9 @@ export function parseStats(
 			statToUse,
 			stat,
 			initialMods?.[`fixed_${stat}`] ?? 0,
-			initialMods[stat],
+			initialMods[stat] ?? 1,
 			finalMods?.[`fixed_${stat}`] ?? 0,
-			finalMods[stat],
+			finalMods[stat] ?? 1,
 			stat === 'aspd' ? (initialMods?.atk_interval ?? 0) + (finalMods?.atk_interval ?? 0) : 0
 		);
 	}

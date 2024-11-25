@@ -20,7 +20,7 @@
 	export let data: PageData;
 	$: language = data.language;
 	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods);
-	$: moddedTraps = applyTrapMods(data.traps, $statMods);
+	$: moddedTraps = applyTrapMods(data.traps, $statMods, $specialMods);
 	$: modsCheck = compileStatModsForChecking(data.enemies, data.mapConfig.id, $statMods);
 	const rogueTopic: RogueTopic = data.rogueTopic;
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;

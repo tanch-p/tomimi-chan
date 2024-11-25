@@ -66,14 +66,14 @@
 			{#if skill.skillType !== 'PASSIVE'}
 				<div class="absolute flex -bottom-0.5 -right-0.5">
 					{#if skill?.[spKey]?.initSp}
-						<div class="grid grid-cols-[9px_1fr] items-center bg-[#434343] pl-[4px] pr-[1px]">
+						<div class="grid grid-cols-[11px_1fr] items-center bg-[#434343] pl-[4px] pr-[1px]">
 							<img src={charaAssets.sp_start} alt="start" />
-							<p class="text-sm leading-tight">{skill?.[spKey]?.initSp}</p>
+							<p class="text-[20px] leading-tight">{skill?.[spKey]?.initSp}</p>
 						</div>
 					{/if}
-					<div class="ml-1 grid grid-cols-[12px_1fr] items-center bg-[#434343] pr-[1px]">
+					<div class="ml-1 grid grid-cols-[16px_1fr] items-center bg-[#434343] pr-[1px]">
 						<img src={charaAssets.sp_cost} alt="cost" />
-						<p class="text-sm leading-tight">{skill?.[spKey]?.spCost}</p>
+						<p class="text-[20px] leading-tight">{skill?.[spKey]?.spCost}</p>
 					</div>
 				</div>
 			{/if}
@@ -84,7 +84,7 @@
 	</div>
 	{#if skill.rangeId}
 		<div
-			class="flex flex-col items-center min-w-[72px] p-2 pb-1 bg-[#161616] bg-opacity-80 rounded"
+			class="flex flex-col items-center justify-center min-w-[72px] h-max min-h-[60px] p-2 pb-1 bg-[#161616] bg-opacity-80 rounded"
 		>
 			<div class="flex items-center h-full">
 				<RangeParser rangeId={skill.rangeId} size="small" />
