@@ -32,16 +32,26 @@ const floorDifficultyMods = derived(
 		}
 	]
 );
-
+export const eliteMode = writable(false);
+export const normalMods = writable(null);
 export const eliteMods = writable(null);
 export const activeFloorEffects = writable([]);
 export const missionMods = writable(null);
 
 export const statMods = derived(
-	[selectedRelics, floorDifficultyMods, eliteMods, activeFloorEffects, missionMods, difficultyMods],
+	[
+		selectedRelics,
+		floorDifficultyMods,
+		normalMods,
+		eliteMods,
+		activeFloorEffects,
+		missionMods,
+		difficultyMods
+	],
 	([
 		$selectedRelics,
 		$floorDifficultyMods,
+		$normalMods,
 		$eliteMods,
 		$activeFloorEffects,
 		$missionMods,
@@ -49,12 +59,17 @@ export const statMods = derived(
 	]) => {
 		return {
 			initial: [
+				{ key: 'combat_ops', mods: [$normalMods], operation: 'times' },
 				{ key: 'elite_ops', mods: [$eliteMods], operation: 'times' },
 				{ key: 'floor_diff', mods: [$floorDifficultyMods], operation: 'times' }
 			],
 			final: [
 				{ key: 'relic', mods: $selectedRelics.map((relic) => relic.effects), operation: 'times' },
-				{ key: 'mizuki_seaborn_call', mods: $activeFloorEffects.map((ele) => ele.effects), operation: 'times' },
+				{
+					key: 'mizuki_seaborn_call',
+					mods: $activeFloorEffects.map((ele) => ele.effects),
+					operation: 'times'
+				},
 				{ key: 'mizuki_mission', mods: [$missionMods], operation: 'times' },
 				{ key: 'difficulty', mods: $difficultyMods, operation: 'times' }
 			]

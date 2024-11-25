@@ -3,7 +3,16 @@ import trapLookup from '$lib/data/traps.json';
 import trapSkills from '$lib/data/traps_skills.json';
 import { calculateModdedStat, distillMods } from './statHelpers';
 
-const TRAPS_AFFECTED_BY_DIFFICULTY = ['trap_757_skzbox', 'trap_760_skztzs'];
+const TRAPS_AFFECTED_BY_DIFFICULTY = [
+	'trap_086_larva',
+	'trap_065_normbox',
+	'trap_066_rarebox',
+	'trap_108_smbox',
+	'trap_109_smrbox',
+	'trap_757_skzbox',
+	'trap_760_skztzs',
+	'trap_761_skzthx'
+];
 
 const STATS = ['hp', 'atk', 'aspd', 'def', 'res'];
 
@@ -12,6 +21,7 @@ const getTrapWeight = (key) => {
 		case 'trap_762_skztxy':
 		case 'trap_763_skzddd':
 		case 'trap_779_skzth':
+		case 'trap_761_skzthx':
 			return 0;
 		case 'trap_760_skztzs':
 			return 1;
@@ -31,7 +41,6 @@ const getTrapWeight = (key) => {
 			return 50;
 	}
 };
-
 const getTrapStats = (trap: TrapData, level: number) => {
 	if (trap.stats.length === 1 || level === 1) {
 		return { ...trap.stats[0] };
@@ -115,16 +124,24 @@ export function applyTrapMods(traps: Trap[], statMods: StatMods) {
 	});
 }
 
+function isAdditionMod(mod, target) {
+	switch (target) {
+		case 'trap_760_skztzs':
+			return (
+				!['floor_diff', 'relic', 'sarkaz_disaster'].includes(mod.key) ||
+				(mod.key === 'sarkaz_disaster' && mod.mods?.[0]?.[0]?.targets?.includes('trap_760_skztzs'))
+			);
+		default:
+			return ['combat_ops', 'elite_ops'].includes(mod.key);
+	}
+}
+
 function parseStats(trap: Trap, statMods: StatMods) {
 	if (!TRAPS_AFFECTED_BY_DIFFICULTY.includes(trap.key)) {
 		return trap.stats;
 	}
 	const relevantMods = [...statMods.initial, ...statMods.final];
-	const additionModsList = relevantMods.filter(
-		(mod) =>
-			!['floor_diff', 'relic', 'sarkaz_disaster'].includes(mod.key) ||
-			(mod.key === 'sarkaz_disaster' && mod.mods?.[0]?.[0]?.targets?.includes('trap_760_skztzs'))
-	);
+	const additionModsList = relevantMods.filter((mod) => isAdditionMod(mod, trap.key));
 	const finalModsList = relevantMods.filter(
 		(mod) => !additionModsList.some((addMod) => addMod.key === mod.key)
 	);
@@ -132,17 +149,18 @@ function parseStats(trap: Trap, statMods: StatMods) {
 	let modsList = [];
 	for (const mod of additionModsList) {
 		// runes have a char or enemy target in arknights map data, over here there is no such separation because traps were not taken into account for initially
-		if (mod.key === 'elite_ops') {
-			mod.mods = mod.mods
+		const applicableMods = {
+			...mod,
+			mods: mod.mods
 				.filter(Boolean)
 				.map((effects) => {
 					return effects.filter((effect) =>
 						effect.targets.some((target) => target.includes(trap.key))
 					);
 				})
-				.filter(Boolean);
-		}
-		modsList.push(distillMods(trap, '', mod, 0));
+				.filter(Boolean)
+		};
+		modsList.push(distillMods(trap, '', applicableMods, 0));
 	}
 
 	const initialMods = modsList.reduce((acc, curr) => {

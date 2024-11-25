@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type{ RogueTopic } from '$lib/types';
+	import type { RogueTopic } from '$lib/types';
 	import type { PageData } from './$types';
-	import { statMods, specialMods, eliteMods, selectedRelics, selectedUniqueRelic } from './stores';
+	import { statMods, specialMods, eliteMods, selectedRelics, selectedUniqueRelic,eliteMode,normalMods } from './stores';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import EliteToggle from '$lib/components/EliteToggle.svelte';
 	import EnemyStatDisplay from '$lib/components/EnemyStatDisplay.svelte';
@@ -23,7 +23,7 @@
 	$: moddedTraps = applyTrapMods(data.traps, $statMods);
 	$: modsCheck = compileStatModsForChecking(data.enemies, data.mapConfig.id, $statMods);
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
-	const rogueTopic:RogueTopic = data.rogueTopic;
+	const rogueTopic: RogueTopic = data.rogueTopic;
 </script>
 
 <svelte:head>
@@ -46,12 +46,25 @@
 
 <main class="bg-neutral-800 text-near-white pb-32 pt-8 sm:pt-16 md:pb-28">
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
-		<StageInfo mapConfig={data.mapConfig} {language} {stageName} eliteMods={$eliteMods} {rogueTopic} />
+		<StageInfo
+			mapConfig={data.mapConfig}
+			{language}
+			{stageName}
+			eliteMods={$eliteMods}
+			{rogueTopic}
+		/>
 		<div class="mt-8">
 			<!-- <TrapContainer {language} traps={moddedTraps} /> -->
 			<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 			{#if data.mapConfig.elite_mods}
-				<EliteToggle mapEliteMods={data.mapConfig.elite_mods} {eliteMods} {rogueTopic} />
+				<EliteToggle
+					{eliteMode}
+					{normalMods}
+					mapNormalMods={data.mapConfig.n_mods}
+					mapEliteMods={data.mapConfig.elite_mods}
+					{eliteMods}
+					{rogueTopic}
+				/>
 			{/if}
 			<EnemyStatDisplay enemies={moddedEnemies} {language} {specialMods} />
 		</div>

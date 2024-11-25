@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { Language, Trap } from '$lib/types';
-	import translations from '$lib/translations.json';
 	import RangeParser from './RangeParser.svelte';
 	import StatusImmune from './StatusImmune.svelte';
 	import TrapAbilities from './TrapAbilities.svelte';
@@ -44,7 +43,6 @@
 						<div class="flex items-center">
 							<RangeParser rangeId={trap.stats.rangeId} size="small" />
 						</div>
-						<p class="mt-1 text-sm">{translations[language].attack_range}</p>
 					</div>
 				{:else}
 					-

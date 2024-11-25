@@ -7,7 +7,9 @@
 		specialMods,
 		eliteMods,
 		selectedRelics,
-		selectedFloor
+		selectedFloor,
+		normalMods,
+		eliteMode
 	} from './stores';
 	import EnemyStatDisplay from '$lib/components/EnemyStatDisplay.svelte';
 	import DifficultySelect from '../../../../../lib/components/DifficultySelect.svelte';
@@ -31,7 +33,7 @@
 	$: moddedTraps = applyTrapMods(data.traps, $statMods);
 	$: modsCheck = compileStatModsForChecking(data.enemies, data.mapConfig.id, $statMods);
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
-	const rogueTopic:RogueTopic = data.rogueTopic;
+	const rogueTopic: RogueTopic = data.rogueTopic;
 </script>
 
 <svelte:head>
@@ -73,7 +75,14 @@
 			{language}
 		/>
 		{#if data.mapConfig.elite_mods}
-			<EliteToggle mapEliteMods={data.mapConfig.elite_mods} {eliteMods} {rogueTopic} />
+			<EliteToggle
+				{eliteMode}
+				{normalMods}
+				mapNormalMods={data.mapConfig.n_mods}
+				mapEliteMods={data.mapConfig.elite_mods}
+				{eliteMods}
+				{rogueTopic}
+			/>
 		{/if}
 		<EnemyStatDisplay enemies={moddedEnemies} {language} {specialMods} />
 		<div id="stageNav" class="mt-8 sm:mt-16 scroll-mt-20">

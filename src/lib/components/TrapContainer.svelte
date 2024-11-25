@@ -10,7 +10,12 @@
 </script>
 
 {#if traps?.length > 0}
-	<TogglePanel title={translations[language].trap} isOpen={true} size="subheading" className="my-4">
+	<TogglePanel
+		title={translations[language].trap}
+		isOpen={false}
+		size="subheading"
+		className="my-4"
+	>
 		<MediaQuery>
 			<div class="grid grid-cols-[80px_auto] sm:flex flex-col" slot="mobile">
 				<div

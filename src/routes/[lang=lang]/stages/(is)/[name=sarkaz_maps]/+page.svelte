@@ -8,7 +8,9 @@
 		eliteMods,
 		selectedRelics,
 		selectedFloor,
-		otherBuffsList
+		otherBuffsList,
+		eliteMode,
+		normalMods
 	} from './stores';
 	import EnemyStatDisplay from '$lib/components/EnemyStatDisplay.svelte';
 	import DifficultySelect from '../../../../../lib/components/DifficultySelect.svelte';
@@ -19,7 +21,7 @@
 	import translations from '$lib/translations.json';
 	import FloorTitle from './FloorTitle.svelte';
 	import StageHeader from '$lib/components/StageHeader.svelte';
-	import { applyMods, compileStatModsForChecking, updateBuffs } from '$lib/functions/statHelpers';
+	import { applyMods, compileStatModsForChecking } from '$lib/functions/statHelpers';
 	import ModsCheck from '$lib/components/ModsCheck.svelte';
 	import EnemyCount from '$lib/components/EnemyCount.svelte';
 	import skzRelics from '$lib/data/is/sarkaz/relics_sarkaz.json';
@@ -56,10 +58,10 @@
 		}
 	}
 	$: if (data.mapConfig) {
-		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies);
-	}
-	$: if (data.mapConfig) {
 		updateReqRelic(data.mapConfig.levelId, selectedRelics);
+		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies);
+		eliteMode.set(false);
+		normalMods.set(data.mapConfig.n_mods);
 	}
 </script>
 
@@ -104,6 +106,9 @@
 		/>
 		{#if data.mapConfig.elite_mods}
 			<EliteToggle
+				{eliteMode}
+				{normalMods}
+				mapNormalMods={data.mapConfig.n_mods}
 				mapEliteMods={data.mapConfig.elite_mods}
 				{eliteMods}
 				{rogueTopic}
