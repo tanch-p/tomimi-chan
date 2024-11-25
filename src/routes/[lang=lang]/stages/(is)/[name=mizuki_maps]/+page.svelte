@@ -7,7 +7,6 @@
 		specialMods,
 		eliteMods,
 		selectedRelics,
-		selectedFloor
 	} from './stores';
 	import EnemyStatDisplay from '$lib/components/EnemyStatDisplay.svelte';
 	import DifficultySelect from '$lib/components/DifficultySelect.svelte';
@@ -21,10 +20,13 @@
 	import FloorTitle from './FloorTitle.svelte';
 	import StageHeader from '$lib/components/StageHeader.svelte';
 	import ModsCheck from '$lib/components/ModsCheck.svelte';
+	import TrapContainer from '$lib/components/TrapContainer.svelte';
+	import { applyTrapMods } from '$lib/functions/trapHelpers';
 
 	export let data: PageData;
 	$: language = data.language;
 	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods);
+	$: moddedTraps = applyTrapMods(data.traps, $statMods);
 	$: modsCheck = compileStatModsForChecking(data.enemies, data.mapConfig.id, $statMods);
 	const rogueTopic:RogueTopic = data.rogueTopic;
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
@@ -53,6 +55,7 @@
 		<StageInfo mapConfig={data.mapConfig} {language} {stageName} eliteMods={$eliteMods} {rogueTopic} />
 		<Mission {language} />
 		<DifficultySelect {language} {difficulty} {rogueTopic} />
+		<!-- <TrapContainer {language} traps={moddedTraps} /> -->
 		<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 		{#if data.mapConfig.elite_mods}
 			<EliteToggle mapEliteMods={data.mapConfig.elite_mods} {eliteMods} {rogueTopic} />

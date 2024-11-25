@@ -27,6 +27,15 @@
 			"en": ["Destroys self after skill usage"]
 		}
 	},
+	"thorn_box": {
+		"tooltip": {
+			"zh": [
+				"受到伤害时，若伤害来源为默认类，则对伤害来源造成相当于本次伤害40%的无来源{true}普通伤害"
+			],
+			"ja": ["受けたダメージの40%で{true}ダメージとして反撃する"],
+			"en": ["Reflect 40% of damage received as {true} damage back to damage source"]
+		}
+	},
 	"sktok_crate": {
 		"skillId": "sktok_crate",
 		"name_zh": "阻挡路线",
@@ -108,10 +117,10 @@
 		"skillType": "AUTO",
 		"durationType": "NONE",
 		"spType": "INCREASE_WITH_TIME",
-		"desc_zh": "向前方射出一支弩箭，对碰到的第一名我方干员造成物理伤害",
-		"desc_ja": "前方に向けて矢を射出し、一番最初に命中した味方にダメージを与える",
-		"desc_en": "Shoots a bolt forwards, dealing Physical damage to the first Operator hit",
-		"rangeId": "1-1",
+		"desc_zh": "向前方射出一支弩箭，对碰到的第一名我方干员造成攻击力100%的{phys}伤害",
+		"desc_ja": "前方に向けて矢を射出し、一番最初に命中した味方に攻撃力100%の{phys}ダメージを与える",
+		"desc_en": "Shoots a bolt forwards, dealing 100% ATK as {phys} damage to the first Operator hit",
+		"rangeId": null,
 		"levels": [
 			{
 				"spData": {

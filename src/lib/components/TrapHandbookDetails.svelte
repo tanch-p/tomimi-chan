@@ -54,7 +54,7 @@
 		<TrapStats {trap} />
 	</div>
 	<div class="mt-3">
-		{#if trap.key === 'trap_760_skztzs'}
+		{#if otherBuffsList && trap.key === 'trap_760_skztzs'}
 			<p class="bg-[#383838] px-3.5 py-0.5 text-[#a2a5a5] font-bold">
 				{translations[language].other_buffs}
 			</p>

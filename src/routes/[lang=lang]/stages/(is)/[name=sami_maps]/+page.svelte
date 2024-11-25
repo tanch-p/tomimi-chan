@@ -22,10 +22,13 @@
 	import ModsCheck from '$lib/components/ModsCheck.svelte';
 	import EnemyCount from '$lib/components/EnemyCount.svelte';
 	import StageDrops from './StageDrops.svelte';
+	import TrapContainer from '$lib/components/TrapContainer.svelte';
+	import { applyTrapMods } from '$lib/functions/trapHelpers';
 
 	export let data: PageData;
 	$: language = data.language;
 	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods);
+	$: moddedTraps = applyTrapMods(data.traps, $statMods);
 	$: modsCheck = compileStatModsForChecking(data.enemies, data.mapConfig.id, $statMods);
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 	const rogueTopic:RogueTopic = data.rogueTopic;
@@ -61,6 +64,7 @@
 			<StageDrops slot="drops" mapConfig={data.mapConfig} {language} {rogueTopic} {selectedFloor} />
 		</StageInfo>
 		<DifficultySelect {language} {difficulty} {rogueTopic} />
+		<!-- <TrapContainer {language} traps={moddedTraps}/> -->
 		<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 		<EnemyCount
 			mapConfig={data.mapConfig}

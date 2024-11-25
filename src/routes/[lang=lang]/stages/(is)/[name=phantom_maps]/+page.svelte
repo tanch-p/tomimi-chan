@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type{ RogueTopic } from '$lib/types';
 	import type { PageData } from './$types';
-	import { statMods, specialMods, eliteMods, selectedRelics, selectedUniqueRelic, selectedFloor } from './stores';
+	import { statMods, specialMods, eliteMods, selectedRelics, selectedUniqueRelic } from './stores';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import EliteToggle from '$lib/components/EliteToggle.svelte';
 	import EnemyStatDisplay from '$lib/components/EnemyStatDisplay.svelte';
@@ -14,10 +14,13 @@
 	import FloorTitle from './FloorTitle.svelte';
 	import StageNav from './StageNav.svelte';
 	import ModsCheck from '$lib/components/ModsCheck.svelte';
+	import TrapContainer from '$lib/components/TrapContainer.svelte';
+	import { applyTrapMods } from '$lib/functions/trapHelpers';
 
 	export let data: PageData;
 	$: language = data.language;
 	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods);
+	$: moddedTraps = applyTrapMods(data.traps, $statMods);
 	$: modsCheck = compileStatModsForChecking(data.enemies, data.mapConfig.id, $statMods);
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 	const rogueTopic:RogueTopic = data.rogueTopic;
@@ -45,6 +48,7 @@
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
 		<StageInfo mapConfig={data.mapConfig} {language} {stageName} eliteMods={$eliteMods} {rogueTopic} />
 		<div class="mt-8">
+			<!-- <TrapContainer {language} traps={moddedTraps} /> -->
 			<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 			{#if data.mapConfig.elite_mods}
 				<EliteToggle mapEliteMods={data.mapConfig.elite_mods} {eliteMods} {rogueTopic} />
