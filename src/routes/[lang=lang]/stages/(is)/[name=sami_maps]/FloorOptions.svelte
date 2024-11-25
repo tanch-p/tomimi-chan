@@ -52,6 +52,7 @@
 				{translations[language].sami_portal}
 			</p>
 			<button
+				id="sami-portal"
 				class={`grid grid-cols-[75px_auto] gap-x-2 mt-2 hover:cursor-pointer text-start ${
 					portalSelected ? 'bg-neutral-700' : 'hover:bg-neutral-700'
 				}`}
@@ -70,7 +71,9 @@
 					{/if}
 				</div>
 				<div class="flex flex-col">
-					<p class={`${portalSelected ? 'text-[#FF99CA] font-semibold' : ''}`}>{translations[language].sami_portal_buff}</p>
+					<p class={`${portalSelected ? 'text-[#FF99CA] font-semibold' : ''}`}>
+						{translations[language].sami_portal_buff}
+					</p>
 					<p>{portalDesc[language]}</p>
 				</div>
 			</button>
