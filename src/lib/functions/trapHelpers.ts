@@ -3,9 +3,11 @@ import trapLookup from '$lib/data/traps.json';
 import trapSkills from '$lib/data/traps_skills.json';
 import { calculateModdedStat, distillMods } from './statHelpers';
 
-const TRAPS_AFFECTED_BY_DIFFICULTY = ['trap_086_larva', 'trap_760_skztzs', 'trap_761_skzthx'];
-
-const CHESTS = [
+const TRAPS_AFFECTED_BY_DIFFICULTY = [
+	'trap_086_larva',
+	'trap_760_skztzs',
+	'trap_761_skzthx',
+	'trap_480_roadblockxb',
 	'trap_065_normbox',
 	'trap_066_rarebox',
 	'trap_108_smbox',
@@ -143,9 +145,6 @@ function isAdditionMod(mod, target) {
 function getRelevantMods(list, target) {
 	if (TRAPS_AFFECTED_BY_DIFFICULTY.includes(target)) {
 		return list;
-	}
-	if (CHESTS.includes(target)) {
-		return list.filter((mod) => ['floor_diff'].includes(mod.key));
 	}
 	return list.filter((mod) => ['combat_ops', 'elite_ops'].includes(mod.key));
 }

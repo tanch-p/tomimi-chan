@@ -11,7 +11,7 @@
 	import combat_icon from '$lib/images/is/combat_icon.webp';
 	import emergency_icon from '$lib/images/is/emergency_icon.webp';
 
-	export let skill, language: Language;
+	export let skill, language: Language, mode;
 
 	let eliteMode = false,
 		spKey = 'spData';
@@ -21,7 +21,7 @@
 	$: spKey = eliteMode ? 'eliteSpData' : 'spData';
 </script>
 
-{#if skill.eliteSpData}
+<!-- {#if skill.eliteSpData}
 	<div class="grid grid-cols-2 font-bold text-lg text-gray-700 select-none">
 		<button
 			id="normal-toggle"
@@ -56,28 +56,30 @@
 			/>
 		</button>
 	</div>
-{/if}
+{/if} -->
 <div class="grid grid-cols-[1fr_80px] gap-x-3 mt-6">
 	<div class="self-end">
-		<div class="relative h-max w-[90px]">
-			{#await import(`../images/skill_icons/skill_icon_${getSkillImgUrl(skill.skillId)}.webp`) then { default: src }}
-				<img {src} width="90" height="90" loading="lazy" alt={''} />
-			{/await}
-			{#if skill.skillType !== 'PASSIVE'}
-				<div class="absolute flex -bottom-0.5 -right-0.5">
-					{#if skill?.[spKey]?.initSp}
-						<div class="grid grid-cols-[11px_1fr] items-center bg-[#434343] pl-[4px] pr-[1px]">
-							<img src={charaAssets.sp_start} alt="start" />
-							<p class="text-[20px] leading-tight">{skill?.[spKey]?.initSp}</p>
+		{#if mode === 'handbook'}
+			<div class="relative h-max w-[90px]">
+				{#await import(`../images/skill_icons/skill_icon_${getSkillImgUrl(skill.skillId)}.webp`) then { default: src }}
+					<img {src} width="90" height="90" loading="lazy" alt={''} />
+				{/await}
+				{#if skill.skillType !== 'PASSIVE'}
+					<div class="absolute flex -bottom-0.5 -right-0.5">
+						{#if skill?.[spKey]?.initSp}
+							<div class="grid grid-cols-[11px_1fr] items-center bg-[#434343] pl-[4px] pr-[1px]">
+								<img src={charaAssets.sp_start} alt="start" />
+								<p class="text-[20px] leading-tight">{skill?.[spKey]?.initSp}</p>
+							</div>
+						{/if}
+						<div class="ml-1 grid grid-cols-[16px_1fr] items-center bg-[#434343] pr-[1px]">
+							<img src={charaAssets.sp_cost} alt="cost" />
+							<p class="text-[20px] leading-tight">{skill?.[spKey]?.spCost}</p>
 						</div>
-					{/if}
-					<div class="ml-1 grid grid-cols-[16px_1fr] items-center bg-[#434343] pr-[1px]">
-						<img src={charaAssets.sp_cost} alt="cost" />
-						<p class="text-[20px] leading-tight">{skill?.[spKey]?.spCost}</p>
 					</div>
-				</div>
-			{/if}
-		</div>
+				{/if}
+			</div>
+		{/if}
 		<p class="mt-1.5 {language !== 'en' ? 'text-center max-w-[90px] whitespace-nowrap' : ''}">
 			{skill.name}
 		</p>

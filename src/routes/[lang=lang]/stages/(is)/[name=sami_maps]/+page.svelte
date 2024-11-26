@@ -54,7 +54,7 @@
 	<FloorTitle slot="floorTitle" stageFloors={data.mapConfig.floors} {language} />
 </StageHeader>
 
-<main class="bg-neutral-800 text-near-white pb-32 pt-8 sm:pt-16 md:pb-28">
+<main class="bg-neutral-800 text-near-white pb-72 pt-8 sm:pt-16 md:pb-28">
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
 		<StageInfo
 			mapConfig={data.mapConfig}

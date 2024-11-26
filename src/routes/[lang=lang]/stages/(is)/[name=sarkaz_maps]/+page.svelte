@@ -83,7 +83,7 @@
 	<FloorTitle slot="floorTitle" stageFloors={data.mapConfig.floors} {language} />
 </StageHeader>
 
-<main class="bg-neutral-800 text-near-white pb-32 pt-8 sm:pt-16 md:pb-28">
+<main class="bg-neutral-800 text-near-white pb-72 pt-8 sm:pt-16 md:pb-28">
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
 		<StageInfo
 			mapConfig={data.mapConfig}
@@ -104,21 +104,23 @@
 			eliteMods={$eliteMods}
 			{language}
 		/>
-		{#if data.mapConfig.elite_mods}
-			<EliteToggle
-				{eliteMode}
-				{normalMods}
-				mapNormalMods={data.mapConfig.n_mods}
-				mapEliteMods={data.mapConfig.elite_mods}
-				{eliteMods}
-				{rogueTopic}
-				{selectedRelics}
-				stageId={data.mapConfig.levelId}
-			/>
-		{/if}
-		<EnemyStatDisplay enemies={moddedEnemies} {language} {specialMods} />
-		<div id="stageNav" class="mt-8 sm:mt-16 scroll-mt-20">
-			<NavTemp {language} />
+		<div class="sm:px-6">
+			{#if data.mapConfig.elite_mods}
+				<EliteToggle
+					{eliteMode}
+					{normalMods}
+					mapNormalMods={data.mapConfig.n_mods}
+					mapEliteMods={data.mapConfig.elite_mods}
+					{eliteMods}
+					{rogueTopic}
+					{selectedRelics}
+					stageId={data.mapConfig.levelId}
+				/>
+			{/if}
+			<EnemyStatDisplay enemies={moddedEnemies} {language} {specialMods} />
+			<div id="stageNav" class="mt-8 sm:mt-16 scroll-mt-20">
+				<NavTemp {language} />
+			</div>
 		</div>
 	</div>
 </main>
