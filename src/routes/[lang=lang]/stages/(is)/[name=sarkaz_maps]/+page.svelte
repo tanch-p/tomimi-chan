@@ -29,9 +29,15 @@
 	import TrapContainer from '$lib/components/TrapContainer.svelte';
 	import { applyTrapMods } from '$lib/functions/trapHelpers';
 	import { setOtherBuffsList } from '$lib/functions/lib';
-
+	
 	export let data: PageData;
-
+	
+	$: if (data.mapConfig) {
+		updateReqRelic(data.mapConfig.levelId, selectedRelics);
+		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies);
+		eliteMode.set(false);
+		normalMods.set(data.mapConfig.n_mods);
+	}
 	const ro4_ALTER_BOSS_STAGES = ['level_rogue4_b-4-b', 'level_rogue4_b-5-b'];
 
 	$: language = data.language;
@@ -56,12 +62,6 @@
 			const relic = skzRelics.find((item) => item.id === 'rogue_4_relic_final_6');
 			selectedRelics.update((list) => (list = [...list, relic]));
 		}
-	}
-	$: if (data.mapConfig) {
-		updateReqRelic(data.mapConfig.levelId, selectedRelics);
-		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies);
-		eliteMode.set(false);
-		normalMods.set(data.mapConfig.n_mods);
 	}
 </script>
 
@@ -96,7 +96,7 @@
 			<StageDrops slot="drops" mapConfig={data.mapConfig} {language} {rogueTopic} {selectedFloor} />
 		</StageInfo>
 		<DifficultySelect {language} {difficulty} {rogueTopic} />
-		<TrapContainer {language} traps={moddedTraps} {otherBuffsList} eliteMode={$eliteMode} />
+		<TrapContainer {language} traps={moddedTraps} {otherBuffsList} />
 		<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 		<EnemyCount
 			mapConfig={data.mapConfig}

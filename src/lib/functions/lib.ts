@@ -103,17 +103,6 @@ export const sortEnemies = (a: Enemy, b: Enemy) => {
 	return getEnemyWeight(a.key, a.type) - getEnemyWeight(b.key, b.type);
 };
 
-export const getTooltipEndIndex = (text: string) => {
-	if (text[text.length - 1] === '}') {
-		for (let i = text.length - 1; i > 0; i--) {
-			if (text[i] === '{' && text?.[i - 1] !== '}') {
-				return i;
-			}
-		}
-	}
-	return text.length;
-};
-
 export const setOtherBuffsList = (store, rogueTopic: RogueTopic, enemies: Enemy[]) => {
 	const buffsList = [];
 	if (rogueTopic === 'rogue_skz') {

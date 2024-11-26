@@ -35,11 +35,12 @@ export const statMods = derived(
 );
 
 export const specialMods = derived(
-	[selectedRelics, eliteMods, activeFloorEffects],
-	([$selectedRelics, $eliteMods, $activeFloorEffects]) =>
+	[selectedRelics, eliteMods, normalMods, activeFloorEffects],
+	([$selectedRelics, $eliteMods, $normalMods, $activeFloorEffects]) =>
 		compileSpecialMods(
 			$selectedRelics.map((relic) => relic.effects),
 			[$eliteMods],
+			[$normalMods],
 			$activeFloorEffects.map((ele) => ele.effects)
 		)
 );

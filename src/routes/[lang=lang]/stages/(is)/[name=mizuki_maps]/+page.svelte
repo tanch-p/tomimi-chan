@@ -1,7 +1,15 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import type { RogueTopic } from '$lib/types';
-	import { statMods, difficulty, specialMods, eliteMods, selectedRelics,eliteMode,normalMods } from './stores';
+	import {
+		statMods,
+		difficulty,
+		specialMods,
+		eliteMods,
+		selectedRelics,
+		eliteMode,
+		normalMods
+	} from './stores';
 	import EnemyStatDisplay from '$lib/components/EnemyStatDisplay.svelte';
 	import DifficultySelect from '$lib/components/DifficultySelect.svelte';
 	import MizukiNav from '../../../(app)/mizuki/MizukiNav.svelte';
@@ -18,6 +26,10 @@
 	import { applyTrapMods } from '$lib/functions/trapHelpers';
 
 	export let data: PageData;
+	$: if (data.mapConfig) {
+		eliteMode.set(false);
+		normalMods.set(data.mapConfig.n_mods);
+	}
 	$: language = data.language;
 	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods);
 	$: moddedTraps = applyTrapMods(data.traps, $statMods, $specialMods);
@@ -55,7 +67,7 @@
 		/>
 		<Mission {language} />
 		<DifficultySelect {language} {difficulty} {rogueTopic} />
-		<!-- <TrapContainer {language} traps={moddedTraps} eliteMode={$eliteMode}/> -->
+		<TrapContainer {language} traps={moddedTraps} />
 		<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 		{#if data.mapConfig.elite_mods}
 			<EliteToggle

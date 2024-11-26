@@ -36,6 +36,7 @@
 		eliteMode.set(option);
 		if (option) {
 			eliteMods.set(mapEliteMods);
+			normalMods.set(null);
 			if (
 				rogueTopic === 'rogue_skz' &&
 				ro4_SP7_BOSS_STAGES.includes(stageId) &&

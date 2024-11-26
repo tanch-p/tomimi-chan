@@ -7,7 +7,7 @@
 	import TrapTable from './TrapTable.svelte';
 	import trapIcon from "$lib/images/skill_icons/skill_icon_sktok_emp.webp"
 
-	export let language: Language, traps: Trap[], otherBuffsList, eliteMode;
+	export let language: Language, traps: Trap[], otherBuffsList;
 </script>
 
 {#if traps?.length > 0}
@@ -43,11 +43,11 @@
 						{#if index !== 0}
 							<div class="bg-neutral-700 mx-1 h-0.5" />
 						{/if}
-						<TrapHandbookDetails {trap} {otherBuffsList} {eliteMode} />
+						<TrapHandbookDetails {trap} {otherBuffsList} />
 					{/each}
 				</div>
 			</div>
-			<TrapTable {traps} {language} {eliteMode} slot="pc" />
+			<TrapTable {traps} {language} slot="pc" />
 		</MediaQuery>
 	</TogglePanel>
 {/if}

@@ -140,10 +140,11 @@
 		"name_en": "Startup!",
 		"skillType": "MANUAL",
 		"durationType": "NONE",
+		"cost": 20,
 		"spType": "INCREASE_WITH_TIME",
-		"desc_zh": "消耗<@ba.vup>20</>点部署费用，防御力<@ba.vup>+200%</>，法术抗性<@ba.vup>+20</>，每秒回复10点生命，部署干员单位数<@ba.vup>+1</>",
-		"desc_ja": "所持コストを<@ba.vup>20</>消費して次の効果を発動させる：防御力<@ba.vup>+200%</>、術耐性<@ba.vup>+20</>、1秒ごとHPが10回復、配置可能数<@ba.vup>+1</>",
-		"desc_en": "Consume <@ba.vup>20</> DP to activate: DEF <@ba.vup>+200%</>, RES <@ba.vup>+20</>, restores 10 HP per second, and increases Operator Deployment Limit by <@ba.vup>+1</>",
+		"desc_zh": "消耗<@ba.vup><v.cost></>点部署费用，防御力<@ba.vup>+200%</>，法术抗性<@ba.vup>+20</>，每秒回复10点生命，部署干员单位数<@ba.vup>+1</>",
+		"desc_ja": "所持コストを<@ba.vup><v.cost></>消費して次の効果を発動させる：防御力<@ba.vup>+200%</>、術耐性<@ba.vup>+20</>、1秒ごとHPが10回復、配置可能数<@ba.vup>+1</>",
+		"desc_en": "Consume <@ba.vup><v.cost></> DP to activate: DEF <@ba.vup>+200%</>, RES <@ba.vup>+20</>, restores 10 HP per second, and increases Operator Deployment Limit by <@ba.vup>+1</>",
 		"rangeId": null,
 		"levels": [
 			{
@@ -239,7 +240,7 @@
 	"blower_ally": {
 		"tooltip": {
 			"zh": [
-				"对于<@ally>友方干员</>：与气流<@ba.vup>同向</>/<@ba.vdown>逆向</>部署的干员攻击<@ba.vup>提升30%</>/<@ba.vdown>降低30%</>",
+				"对于<@self>友方干员</>：与气流<@ba.vup>同向</>/<@ba.vdown>逆向</>部署的干员攻击<@ba.vup>提升30%</>/<@ba.vdown>降低30%</>",
 				"所有攻击力提升效果为<@ba.vup>直接乘算</>；所有攻击力降低效果为<@ba.vdown>最终乘算</>"
 			],
 			"ja": ["<@ba.vup>同方向</> - 味方は攻撃力<@ba.vup>+30%</>、敵は移動速度<@ba.vdown>+80%</>"],
@@ -418,9 +419,9 @@
 		"skillType": "AUTO",
 		"durationType": "NONE",
 		"spType": "INCREASE_WITH_TIME",
-		"desc_zh": "阻挡<@ba.vup>沙尘暴</>，加固后立即回复所有生命值、防御力<@ba.vup>+{def}</>且不再受到<@ba.vup>沙尘暴</>的伤害但可以被<高能源石炸弹>直接摧毁。",
-		"desc_ja": "<@ba.vup>砂嵐</>を遮り、補強完成後HPを全回復し、防御力<@ba.vup>+{def}</>かつ<@ba.vup>砂嵐</>によるダメージを受けなくなる。<高威力源石爆弾>を使うことで破壊できる。",
-		"desc_en": "Blocks the <@ba.vup>Sandstorm</>. When fortified, immediately recovers all HP, DEF <@ba.vup>+{def}</> and no longer receives damage from the <@ba.vup>Sandstorm</>, but can still be instantly destroyed by <High-Energy Originium Bomb>.",
+		"desc_zh": "阻挡<@ba.vup>沙尘暴</>，加固后立即回复所有生命值、防御力<@ba.vup>+400</>且不再受到<@ba.vup>沙尘暴</>的伤害但可以被<高能源石炸弹>直接摧毁。",
+		"desc_ja": "<@ba.vup>砂嵐</>を遮り、補強完成後HPを全回復し、防御力<@ba.vup>+400</>かつ<@ba.vup>砂嵐</>によるダメージを受けなくなる。<高威力源石爆弾>を使うことで破壊できる。",
+		"desc_en": "Blocks the <@ba.vup>Sandstorm</>. When fortified, immediately recovers all HP, DEF <@ba.vup>+400</> and no longer receives damage from the <@ba.vup>Sandstorm</>, but can still be instantly destroyed by <High-Energy Originium Bomb>.",
 		"rangeId": null,
 		"levels": [
 			{
@@ -434,12 +435,19 @@
 			}
 		]
 	},
+	"mound_1": {
+		"tooltip": {
+			"zh": ["可通过<加固装置>进入加固状态（最多加固一次）"],
+			"ja": ["<補強装置>を使って補強できる"],
+			"en": ["Can be reinforced by <Reinforcement Device>"]
+		}
+	},
 	"sktok_dupilr": {
 		"skillId": "sktok_dupilr",
 		"name_zh": "支柱坍塌",
 		"name_ja": "倒壊",
 		"name_en": "Collapsing Pillar",
-		"skillType": "MANUAL",
+		"skillType": "PASSIVE",
 		"durationType": "NONE",
 		"spType": 8,
 		"desc_zh": "被击倒后，对倒下两格造成真实伤害与晕眩并使范围内的友方单位强制撤退，并在可部署地块上生成阻挡路线的<战场废墟>",
@@ -465,9 +473,9 @@
 		"skillType": "PASSIVE",
 		"durationType": "NONE",
 		"spType": 8,
-		"desc_zh": "使周围的友方单位攻击力<@ba.vdown>-30%</>并持续受到真实伤害",
-		"desc_ja": "周囲の味方全員の攻撃力<@ba.vdown>-30%</>、確定ダメージを受け続ける",
-		"desc_en": "Nearby allies have ATK <@ba.vdown>-30%</> and continuously receive True damage",
+		"desc_zh": "使周围的友方单位攻击力<@ba.vdown>-30%</>(最终乘算)并每0.5秒造成攻击力50%的无类型{true}伤害",
+		"desc_ja": "周囲の味方全員の攻撃力<@ba.vdown>-30%</>、0.5秒毎に攻撃力50%の{true}ダメージを与える",
+		"desc_en": "Nearby allies have ATK <@ba.vdown>-30%</> and receive 50% of trap's ATK as {true} damage every 0.5 seconds",
 		"rangeId": "x-4",
 		"levels": [
 			{
@@ -863,6 +871,30 @@
 			}
 		]
 	},
+	"sktok_rmtarmn_1": {
+		"skillId": "sktok_rmtarmn_1",
+		"name_zh": "研究成功",
+		"name_ja": "研究成功",
+		"name_en": "Research Success",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"desc_zh": "吸收范围内的实验产物回复技力，技力满时启动",
+		"desc_ja": "範囲内の実験産物を吸収してSPを回復し、SPが最大値に到達する時に起動する",
+		"desc_en": "Absorbs experiment products within range to recover SP. Activates when SP is full",
+		"rangeId": null,
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 100,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
 	"sktok_allydonq": {
 		"skillId": "sktok_allydonq",
 		"name_zh": "冲锋",
@@ -964,15 +996,26 @@
 		"skillType": "AUTO",
 		"durationType": "NONE",
 		"spType": "INCREASE_WITH_TIME",
-		"desc_zh": "使【无垠回荡克雷松】的无敌<@ba.vup>{duration}</>秒内失效；\\n<ba.charged>蓄力</>额外效果：无敌失效延长至<@ba.vup>{enhance_duration}</>秒，并清除范围内的所有【苗圃】",
-		"desc_ja": "【天地に揺蕩う、クレイズセオン】の無敵状態を<@ba.vup>{duration}</>秒間無効化する\n<ba.charged>オーバーチャージ</>追加効果：無効化の持続時間が<@ba.vup>{enhance_duration}</>秒に延長し、範囲内にある【苗床】をすべて除去する",
-		"desc_en": "Removes the invulnerability of [Crazelyseon, the Ascendant of Cosmoi] for <@ba.vup>{duration}</> seconds;\n<ba.charged>Charged</> Effect: Extends the invulnerability removal effect to <@ba.vup>{enhance_duration}</> seconds, and additionally clears all [Seedbeds]",
+		"duration1": 5,
+		"enhance_duration": 10,
+		"desc_zh": "使【无垠回荡克雷松】的无敌<@ba.vup><v.duration1></>秒内失效；\\n<ba.charged>蓄力</>额外效果：无敌失效延长至<@ba.vup><v.enhance_duration></>秒，并清除范围内的所有【苗圃】",
+		"desc_ja": "【天地に揺蕩う、クレイズセオン】の無敵状態を<@ba.vup><v.duration1></>秒間無効化する\n<ba.charged>オーバーチャージ</>追加効果：無効化の持続時間が<@ba.vup><v.enhance_duration></>秒に延長し、範囲内にある【苗床】をすべて除去する",
+		"desc_en": "Removes the invulnerability of [Crazelyseon, the Ascendant of Cosmoi] for <@ba.vup><v.duration1></> seconds;\n<ba.charged>Charged</> Effect: Extends the invulnerability removal effect to <@ba.vup><v.enhance_duration></> seconds, and additionally clears all [Seedbeds]",
 		"rangeId": "x-2",
 		"levels": [
 			{
 				"spData": {
 					"maxChargeTime": 2,
 					"spCost": 40,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": -1.0
+			},
+			{
+				"spData": {
+					"maxChargeTime": 2,
+					"spCost": 20,
 					"initSp": 0,
 					"increment": 1.0
 				},

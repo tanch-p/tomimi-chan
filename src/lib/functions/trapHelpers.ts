@@ -2,6 +2,7 @@ import type { Language, Trap, mapConfigTrap, TrapData, StatMods } from '$lib/typ
 import trapLookup from '$lib/data/traps.json';
 import trapSkills from '$lib/data/traps_skills.json';
 import { calculateModdedStat, distillMods } from './statHelpers';
+import { getOverwrittenKeys } from './skillHelpers';
 
 const TRAPS_AFFECTED_BY_DIFFICULTY = [
 	'trap_086_larva',
@@ -15,7 +16,9 @@ const TRAPS_AFFECTED_BY_DIFFICULTY = [
 	'trap_757_skzbox'
 ];
 
-const STATS = ['hp', 'atk', 'aspd', 'def', 'res'];
+const STATS = ['hp', 'atk', 'aspd', 'def', 'res', 'blockCnt'];
+
+const skillValueKeys = ['cost', 'duration1', 'enhance_duration'];
 
 const getTrapWeight = (key) => {
 	switch (key) {
@@ -26,6 +29,8 @@ const getTrapWeight = (key) => {
 			return 0;
 		case 'trap_760_skztzs':
 			return 1;
+		case 'trap_024_npcsld':
+			return 51;
 		case 'trap_079_allydonq':
 		case 'trap_764_skzshp':
 			return 99;
@@ -87,6 +92,10 @@ export const parseTraps = (traps: mapConfigTrap[], language: Language) => {
 			if (eliteSkillLvl) {
 				eliteSpData = skill.levels[eliteSkillLvl - 1].spData;
 			}
+			const otherKeys = {};
+			for (const valueKey of skillValueKeys) {
+				if (skill?.[valueKey]) otherKeys[valueKey] = skill[valueKey];
+			}
 			return {
 				skillId: key,
 				name: skill[`name_${language}`] || skill[`name_zh`],
@@ -98,7 +107,9 @@ export const parseTraps = (traps: mapConfigTrap[], language: Language) => {
 				rangeId: skill.rangeId,
 				duration: skill.levels[mainSkillLvl - 1].duration,
 				spData: skill.levels[mainSkillLvl - 1].spData,
-				eliteSpData
+				eliteSpData,
+				overwrittenKeys: [],
+				...otherKeys
 			};
 		});
 		const stats = getTrapStats(trap, level);
@@ -118,11 +129,13 @@ export const parseTraps = (traps: mapConfigTrap[], language: Language) => {
 };
 
 export function applyTrapMods(traps: Trap[], statMods: StatMods, specialMods) {
+	console.log(statMods)
 	return traps.map((trap) => {
 		const moddedStats = parseStats(trap, statMods);
 		let skill = { ...trap.skills?.[0] };
 		if (skill && specialMods[trap.key]) {
 			skill = { ...skill, ...specialMods[trap.key] };
+			skill.overwrittenKeys = getOverwrittenKeys(trap.skills?.[0], skill, skill);
 		}
 		return {
 			...trap,
@@ -152,7 +165,9 @@ function getRelevantMods(list, target) {
 }
 
 function parseStats(trap: Trap, statMods: StatMods) {
-	const relevantMods = getRelevantMods([...statMods.initial, ...statMods.final], trap.key);
+	const relevantMods = getRelevantMods([...statMods.initial, ...statMods.final], trap.key).filter(
+		(mod) => mod.mods?.filter(Boolean)?.length > 0
+	);
 	const additionModsList = relevantMods.filter((mod) => isAdditionMod(mod, trap.key));
 	const finalModsList = relevantMods.filter(
 		(mod) => !additionModsList.some((addMod) => addMod.key === mod.key)
@@ -164,7 +179,6 @@ function parseStats(trap: Trap, statMods: StatMods) {
 		const applicableMods = {
 			...mod,
 			mods: mod.mods
-				.filter(Boolean)
 				.map((effects) => {
 					return effects.filter((effect) =>
 						effect.targets.some((target) => target.includes(trap.key))
@@ -223,6 +237,7 @@ function parseStats(trap: Trap, statMods: StatMods) {
 			return acc;
 		});
 	}
+
 	const trap_stats = {};
 	for (const stat of STATS) {
 		let statToUse = trap.stats[stat];

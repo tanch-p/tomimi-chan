@@ -18,6 +18,10 @@
 	import { applyTrapMods } from '$lib/functions/trapHelpers';
 
 	export let data: PageData;
+	$: if (data.mapConfig) {
+		eliteMode.set(false);
+		normalMods.set(data.mapConfig.n_mods);
+	}
 	$: language = data.language;
 	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods);
 	$: moddedTraps = applyTrapMods(data.traps, $statMods, $specialMods);
@@ -54,7 +58,7 @@
 			{rogueTopic}
 		/>
 		<div class="mt-8">
-			<!-- <TrapContainer {language} traps={moddedTraps} eliteMode={$eliteMode}/> -->
+			<TrapContainer {language} traps={moddedTraps} />
 			<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 			{#if data.mapConfig.elite_mods}
 				<EliteToggle
