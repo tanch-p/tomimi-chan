@@ -129,7 +129,6 @@ export const parseTraps = (traps: mapConfigTrap[], language: Language) => {
 };
 
 export function applyTrapMods(traps: Trap[], statMods: StatMods, specialMods) {
-	console.log(statMods)
 	return traps.map((trap) => {
 		const moddedStats = parseStats(trap, statMods);
 		let skill = { ...trap.skills?.[0] };
