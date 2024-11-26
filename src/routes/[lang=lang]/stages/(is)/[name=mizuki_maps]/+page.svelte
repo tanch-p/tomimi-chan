@@ -55,7 +55,7 @@
 		/>
 		<Mission {language} />
 		<DifficultySelect {language} {difficulty} {rogueTopic} />
-		<!-- <TrapContainer {language} traps={moddedTraps} /> -->
+		<!-- <TrapContainer {language} traps={moddedTraps} eliteMode={$eliteMode}/> -->
 		<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 		{#if data.mapConfig.elite_mods}
 			<EliteToggle

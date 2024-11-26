@@ -69,8 +69,8 @@
 		"durationType": "NONE",
 		"spType": "INCREASE_WITH_TIME",
 		"desc_zh": "消耗<@ba.vup>10</>点部署费用，立即对周围所有敌人造成攻击力100%的{arts}伤害，并使全部命中目标<ba.stun>晕眩</><@ba.vup>7</>秒",
-		"desc_ja": "コスト<@ba.vup>{cost}</>で使用可能、使用後周囲の敵全員に攻撃力100％の{arts}ダメージを与え、<@ba.vup>{stun}</>秒間<ba.stun>スタン</>させる",
-		"desc_en": "Consumes <@ba.vup>{cost}</> DP to immediately deal 100% of ATK as {arts} damage to all nearby enemies and <ba.stun>Stun</> the targets hit for <@ba.vup>{stun}</> seconds",
+		"desc_ja": "コスト<@ba.vup>10</>で使用可能、使用後周囲の敵全員に攻撃力100％の{arts}ダメージを与え、<@ba.vup>{stun}</>秒間<ba.stun>スタン</>させる",
+		"desc_en": "Consumes <@ba.vup>10</> DP to immediately deal 100% of ATK as {arts} damage to all nearby enemies and <ba.stun>Stun</> the targets hit for <@ba.vup>{stun}</> seconds",
 		"rangeId": "x-4",
 		"levels": [
 			{
@@ -117,7 +117,7 @@
 		"skillType": "AUTO",
 		"durationType": "NONE",
 		"spType": "INCREASE_WITH_TIME",
-		"desc_zh": "向前方射出一支弩箭，对碰到的第一名我方干员造成攻击力100%的{phys}伤害",
+		"desc_zh": "向前方射出一支弩箭，对碰到的第一名友方干员造成攻击力100%的{phys}伤害",
 		"desc_ja": "前方に向けて矢を射出し、一番最初に命中した味方に攻撃力100%の{phys}ダメージを与える",
 		"desc_en": "Shoots a bolt forwards, dealing 100% ATK as {phys} damage to the first Operator hit",
 		"rangeId": null,
@@ -172,7 +172,7 @@
 		"skillType": "AUTO",
 		"durationType": "NONE",
 		"spType": "INCREASE_WITH_TIME",
-		"desc_zh": "发射一道寒霜冲击波，使周围我方单位陷入<ba.cold>寒冷</>状态10秒",
+		"desc_zh": "发射一道寒霜冲击波，使周围友方单位陷入<ba.cold>寒冷</>状态10秒",
 		"desc_ja": "一定時間ごとに、周囲一定範囲内の味方に10秒間<ba.cold>寒冷</>状態を付与する衝撃波を発生する",
 		"desc_en": "Launches a frigid shockwave, inflicting the <ba.cold>Cold</> status to ally units hit for 10 seconds",
 		"rangeId": "x-1",
@@ -196,7 +196,7 @@
 		"skillType": "AUTO",
 		"durationType": "NONE",
 		"spType": "INCREASE_WITH_TIME",
-		"desc_zh": "向四周喷发脉冲波，对周围所有我方与敌方单位造成<@ba.vup>500</>{true}伤害。{ignore_camou}并使特殊敌人获得强化。",
+		"desc_zh": "向四周喷发脉冲波，对周围所有友方与敌方单位造成<@ba.vup>500</>{true}伤害。{ignore_camou}并使特殊敌人获得强化。",
 		"desc_ja": "衝撃波を発生させ、周囲一定範囲内の敵味方ユニット全員に<@ba.vup>500</>の{true}ダメージを与え{ignore_camou}、一部の敵を強化する",
 		"desc_en": "Emits a pulse wave in the surrounding tiles, dealing <@ba.vup>500</> {true} Damage to all allied and enemy units{ignore_camou}; Certain enemies are strengthened",
 		"rangeId": "x-1",
@@ -239,7 +239,7 @@
 	"blower_ally": {
 		"tooltip": {
 			"zh": [
-				"对于<@ally>我方干员</>：与气流<@ba.vup>同向</>/<@ba.vdown>逆向</>部署的干员攻击<@ba.vup>提升30%</>/<@ba.vdown>降低30%</>",
+				"对于<@ally>友方干员</>：与气流<@ba.vup>同向</>/<@ba.vdown>逆向</>部署的干员攻击<@ba.vup>提升30%</>/<@ba.vdown>降低30%</>",
 				"所有攻击力提升效果为<@ba.vup>直接乘算</>；所有攻击力降低效果为<@ba.vdown>最终乘算</>"
 			],
 			"ja": ["<@ba.vup>同方向</> - 味方は攻撃力<@ba.vup>+30%</>、敵は移動速度<@ba.vdown>+80%</>"],
@@ -317,7 +317,7 @@
 	"tower_2": {
 		"tooltip": {
 			"zh": [
-				"每个部署在法术传输协议范围内的我方单位(装置除外)每秒将为留声机增加1SP，同时部分敌人可通过技能或天赋降低留声机的SP"
+				"每个部署在法术传输协议范围内的友方单位(装置除外)每秒将为留声机增加1SP，同时部分敌人可通过技能或天赋降低留声机的SP"
 			],
 			"ja": ["隣接する位置（稲妻マークのあるマス）に味方ユニットを配置することで味方毎にSP+1"],
 			"en": [
@@ -328,7 +328,7 @@
 	"tower_3": {
 		"tooltip": {
 			"zh": [
-				"SP达到0时变为<@enemy>“敌方占领”</>状态；SP达到100时变为<@self>“我方占领”</>状态，并持续释放技能（治疗友方/攻击敌方）。控制状态将一直持续到SP归零/蓄满或被强制夺取为止。"
+				"SP达到0时变为<@enemy>“敌方占领”</>状态；SP达到100时变为<@self>“友方占领”</>状态，并持续释放技能（治疗友方/攻击敌方）。控制状态将一直持续到SP归零/蓄满或被强制夺取为止。"
 			],
 			"ja": [
 				"SPが0になると<@enemy>敵（赤色）</>になり、SPが100になると<@self>味方（青色）</>になる"
@@ -442,7 +442,7 @@
 		"skillType": "MANUAL",
 		"durationType": "NONE",
 		"spType": 8,
-		"desc_zh": "被击倒后，对倒下两格造成真实伤害与晕眩并使范围内的我方单位强制撤退，并在可部署地块上生成阻挡路线的<战场废墟>",
+		"desc_zh": "被击倒后，对倒下两格造成真实伤害与晕眩并使范围内的友方单位强制撤退，并在可部署地块上生成阻挡路线的<战场废墟>",
 		"desc_ja": "倒された方向の直線2マス内の敵全員に確定ダメージを与え、スタンさせ、範囲内の味方全員を強制撤退させる。その後、範囲内の配置可能なマスに通行不可な<瓦礫>を生成する",
 		"desc_en": "After being knocked down, deals True damage to enemies within the two tiles and Stuns them; Allied units within the two tiles will be forcibly retreated. <Battlefield Ruins> that blocks the enemy's route will be created on the deployable tiles",
 		"rangeId": "2-2",
@@ -465,7 +465,7 @@
 		"skillType": "PASSIVE",
 		"durationType": "NONE",
 		"spType": 8,
-		"desc_zh": "使周围的我方单位攻击力<@ba.vdown>-30%</>并持续受到真实伤害",
+		"desc_zh": "使周围的友方单位攻击力<@ba.vdown>-30%</>并持续受到真实伤害",
 		"desc_ja": "周囲の味方全員の攻撃力<@ba.vdown>-30%</>、確定ダメージを受け続ける",
 		"desc_en": "Nearby allies have ATK <@ba.vdown>-30%</> and continuously receive True damage",
 		"rangeId": "x-4",
@@ -548,7 +548,7 @@
 		"skillType": "AUTO",
 		"durationType": "NONE",
 		"spType": "INCREASE_WITH_TIME",
-		"desc_zh": "锁定阻挡数最高的我方单位，对范围内的全部单位造成3000点{true}伤害{ignore_stealth}",
+		"desc_zh": "锁定阻挡数最高的友方单位，对范围内的全部单位造成3000点{true}伤害{ignore_stealth}",
 		"desc_ja": "ブロック数の最も大きい味方ユニットを対象に砲撃を行う、砲撃は対象を中心とした範囲に存在する敵味方双方の全ユニットに3000の{true}ダメージを与える{ignore_stealth}",
 		"desc_en": "Once fully charged, deals 3000 splash {true} damage to both allies and enemies, centered on the friendly unit with the highest Block{ignore_stealth}",
 		"rangeId": "x-2",
@@ -863,6 +863,43 @@
 			}
 		]
 	},
+	"sktok_allydonq": {
+		"skillId": "sktok_allydonq",
+		"name_zh": "冲锋",
+		"name_ja": "突貫",
+		"name_en": "Charge",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WHEN_ATTACK",
+		"desc_zh": "下次攻击造成相当于攻击力<@ba.vup>200%</>的物理伤害，并较大力地弹开目标",
+		"desc_ja": "次の通常攻撃時、攻撃対象に攻撃力の<@ba.vup>200%</>の物理ダメージを与え、<@ba.vup>力強く</>突き飛ばす",
+		"desc_en": "The next attack deals <@ba.vup>200%</> ATK as Physical damage and pushes the enemy away with great force",
+		"rangeId": "1-1",
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 4,
+					"initSp": 0,
+					"increment": 1.0
+				}
+			}
+		]
+	},
+	"allydonq_1": {
+		"tooltip": {
+			"zh": ["可享受尖兵相关的加成"],
+			"ja": ["味方の回復対象にならない、認知形成と秘宝の効果を受ける(先鋒オペレーター扱い)"],
+			"en": ["Cannot be healed, treated as Vanguard operator"]
+		}
+	},
+	"allydonq_2": {
+		"tooltip": {
+			"zh": ["持有收藏品【骑士骨血】时，基础防御力降低80%"],
+			"ja": ["【騎士の血肉】所持時、防御力-80%"],
+			"en": ["While in possession of the relic 'The Knight's Corpus', DEF is lowered by 80%"]
+		}
+	},
 	"sktok_larva": {
 		"skillId": "sktok_larva",
 		"name_zh": "汲营枯枝",
@@ -871,7 +908,7 @@
 		"skillType": "AUTO",
 		"durationType": "NONE",
 		"spType": "INCREASE_WITH_TIME",
-		"desc_zh": "释放【污染秽蚀】，使周围的我方单位持续流失生命，生命降至一半后对周围造成{ba.dt.apoptosis}",
+		"desc_zh": "释放【污染秽蚀】，使周围的友方单位持续流失生命，生命降至一半后对周围造成{ba.dt.apoptosis}",
 		"desc_ja": "【蝕む穢れ】を放ち、周囲一定範囲内の味方全員のHPを減少させ続ける。HPが最大値の50％以下になると、一定時間ごとに周囲にいる味方全員に{ba.dt.apoptosis}を与える",
 		"desc_en": "Releases [Corruption], causing your units to lose HP over time. Deals {ba.dt.apoptosis} around itself when HP drops to 50%.",
 		"rangeId": "x-5",
@@ -951,7 +988,7 @@
 		"skillType": "AUTO",
 		"durationType": "NONE",
 		"spType": "INCREASE_WITH_TIME",
-		"desc_zh": "被动：受到攻击时回复<@ba.vup>2</>点技力\\n开启后<@ba.vup>10</>秒内每秒对攻击范围内所有地面敌人和我方单位造成<@ba.vdown>200</>点{arts}伤害，额外使敌人移动速度<@ba.vup>-70%</>并获得<@ba.vdown>1</>点能量",
+		"desc_zh": "被动：受到攻击时回复<@ba.vup>2</>点技力\\n开启后<@ba.vup>10</>秒内每秒对攻击范围内所有地面敌人和友方单位造成<@ba.vdown>200</>点{arts}伤害，额外使敌人移动速度<@ba.vup>-70%</>并获得<@ba.vdown>1</>点能量",
 		"desc_ja": "【パッシブ：攻撃された時、SPを<@ba.vup>2</>回復する\n発動後<@ba.vup>10</>秒間1秒ごとに攻撃範囲内にいる地面上の敵味方ユニット全員に<@ba.vdown>200</>の{arts}ダメージを与え、敵の移動速度<@ba.vup>-70%</>、さらにエネルギーを<@ba.vdown>1</>獲得する",
 		"desc_en": "Passive: Restores <@ba.vup>2</> SP upon being attacked\nActivation Effect: Deals <@ba.vdown>200</> {arts} damage per second to all friendly and ground enemy units in range for <@ba.vup>10</> seconds, and additionally slows the Movement Speed of enemies by <@ba.vup>-70%</> and causes them to gain <@ba.vdown>1</> Energy",
 		"rangeId": "5-1",
@@ -975,7 +1012,7 @@
 		"skillType": "MANUAL",
 		"durationType": "NONE",
 		"spType": "INCREASE_WHEN_TAKEN_DAMAGE",
-		"desc_zh": "变奏期间开启可以切换<@gold>激昂</>/<@purple>沉郁</>变奏，并使我方获得持续<@ba.vup>20s</>的加成效果：\\n切换到激昂变奏下，攻击速度<@ba.vup>+50</>；\\n切换到沉郁变奏下，攻击力<@ba.vup>+60%</>但攻击速度<@ba.vup>-10</>；\\n场上每多一个调谐节点开启时获得的效果<@ba.vup>叠加</>一层",
+		"desc_zh": "变奏期间开启可以切换<@gold>激昂</>/<@purple>沉郁</>变奏，并使友方获得持续<@ba.vup>20s</>的加成效果：\\n切换到激昂变奏下，攻击速度<@ba.vup>+50</>；\\n切换到沉郁变奏下，攻击力<@ba.vup>+60%</>但攻击速度<@ba.vup>-10</>；\\n场上每多一个调谐节点开启时获得的效果<@ba.vup>叠加</>一层",
 		"desc_ja": "変奏中に発動すると、<@gold>トーンアップ</>/<@purple>トーンダウン</>の間で切り替えられ、味方に<@ba.vup>20秒</>間バフ効果を付与できる\nトーンアップに切り替えると、攻撃速度<@ba.vup>+50</>\nトーンダウンに切り替えると、攻撃力<@ba.vup>+60%</>、攻撃速度<@ba.vup>-10</>\n戦場中で起動状態の調律器の数が増えるごとに、バフ効果が1回<@ba.vup>重複付与</>される",
 		"desc_en": "When activated during a variation, enables switching between <@gold>passionate</> and <@purple>melancholic</> variations, and gives allies a buff for <@ba.vup>20s</>:\nWhen passionate variation is active, ASPD <@ba.vup>+50</>;\nwhen melancholic variation is active, ATK <@ba.vup>+60%</> but ASPD <@ba.vup>-10</>;\nfor every Tuning Node on the battlefield, <@ba.vup>gain</> 1 additional stack",
 		"rangeId": "x-1",
@@ -1033,7 +1070,7 @@
 	"condtr_2": {
 		"tooltip": {
 			"zh": [
-				"开启技能时，消耗所有同名装置的SP并仅切换当前的变奏至相反风格，清除当前给予我方的增益效果并赋予新的增益效果"
+				"开启技能时，消耗所有同名装置的SP并仅切换当前的变奏至相反风格，清除当前给予友方的增益效果并赋予新的增益效果"
 			],
 			"ja": ["スキル発動すると調律器全機のSPが空になる"],
 			"en": ["Activating Area Tuning depletes the SP from all other Tuning Nodes on the map"]
@@ -1047,7 +1084,7 @@
 		"skillType": "PASSIVE",
 		"durationType": "NONE",
 		"spType": 8,
-		"desc_zh": "可以阻挡乌萨斯平民与斗士塔露拉前进。可被我方单位击毁",
+		"desc_zh": "可以阻挡乌萨斯平民与斗士塔露拉前进。可被友方单位击毁",
 		"desc_ja": "<ウルサス民間人>と<闘士タルラ>の進路を塞ぐ。味方の攻撃によって破壊可能",
 		"desc_en": "Blocks the advance of Talulah, the Fighter, and Ursus Civilians; Able to be destroyed by your units",
 		"rangeId": null,
@@ -1097,7 +1134,7 @@
 	"skzthx_2": {
 		"tooltip": {
 			"zh": [
-				"【挥砍】：仅可由特雷西斯，黑冠尊主触发：蓄力约9s后，向自身部署方向挥砍出剑气，剑气碰撞半径0.5，对碰撞到的我方单位造成攻击力150%的{phys}伤害{ignore_camou}"
+				"【挥砍】：仅可由特雷西斯，黑冠尊主触发：蓄力约9s后，向自身部署方向挥砍出剑气，剑气碰撞半径0.5，对碰撞到的友方单位造成攻击力150%的{phys}伤害{ignore_camou}"
 			],
 			"ja": [
 				"【挥砍】：<特雷西斯，黑冠尊主>が同じスキルを使用した時のみ発動する；9秒チャージした後、先方に剣気を放て、味方ユニットに攻撃力150%の{phys}ダメージを与える{ignore_camou}"
@@ -1174,7 +1211,7 @@
 	"skztxy_2_2": {
 		"tooltip": {
 			"zh": [
-				"特雷西斯，黑冠尊主第二形态被击倒时，自身对场上所有我方单位造成攻击力500%的{arts}伤害，随后退场；思维混乱时，额外召唤精英敌人（7个裹骸死士）"
+				"特雷西斯，黑冠尊主第二形态被击倒时，自身对场上所有友方单位造成攻击力500%的{arts}伤害，随后退场；思维混乱时，额外召唤精英敌人（7个裹骸死士）"
 			],
 			"ja": [
 				"<特雷西斯，黑冠尊主>の第二形態が倒された時、味方全体に攻撃力500%の{arts}ダメージを与え、撤退する",
@@ -1213,7 +1250,7 @@
 	},
 	"skzth_1": {
 		"tooltip": {
-			"zh": ["属于我方单位，可被我方单位治疗；嘲讽等级-1，不会被敌人攻击"],
+			"zh": ["属于友方单位，可被友方单位治疗；嘲讽等级-1，不会被敌人攻击"],
 			"ja": ["味方ユニット扱い、味方から治癒可能；挑発レベル-1、敵から攻撃されない"],
 			"en": [
 				"Regarded as friendly unit, can be healed by allies; Taunt level -1, will not be attacked by enemies"

@@ -8,11 +8,9 @@
 	import TrapAbilities from './TrapAbilities.svelte';
 	import { getOtherBuffsCount, updateOtherBuffsList } from '$lib/functions/lib';
 
-	export let trap: Trap, otherBuffsList;
+	export let trap: Trap, otherBuffsList,eliteMode;
 	let language: Language;
 	$: language = $page.data.language;
-
-	console.log(trap);
 </script>
 
 <div
@@ -77,7 +75,7 @@
 				{/each}
 			</div>
 		{/if}
-		<TrapAbilities {trap} />
+		<TrapAbilities {trap} {eliteMode}/>
 		<StatusImmune statusImmuneList={trap.status_immune} {language} mode="handbook" />
 	</div>
 </div>

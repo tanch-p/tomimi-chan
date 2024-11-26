@@ -168,7 +168,7 @@ export const getEliteColors = (rogueTopic: string) => {
 		case 'rogue_phantom':
 			return ['bg-[#dea41b]', 'bg-[#cb710c]'];
 		case 'rogue_skz':
-			return ['bg-[#5a4b90]', 'bg-[#bb2210]'];
+			return ['bg-[#5a4b90]', 'bg-[#cb3220]'];
 	}
 	return [];
 };

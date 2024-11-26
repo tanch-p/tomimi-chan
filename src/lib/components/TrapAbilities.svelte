@@ -10,6 +10,7 @@
 	import RangeParser from './RangeParser.svelte';
 
 	export let trap: Trap,
+		eliteMode,
 		mode = 'handbook';
 	let language: Language;
 	$: language = $page.data.language;
@@ -51,11 +52,7 @@
 
 {#if trap.talents?.length > 0}
 	{#if mode === 'handbook'}
-		<p
-			class="px-3.5 py-0.5 font-bold {mode === 'table'
-				? 'bg-[#4f4f4f]'
-				: 'bg-[#383838] text-[#a2a5a5] '}"
-		>
+		<p class="px-3.5 py-0.5 font-bold bg-[#383838] text-[#a2a5a5]">
 			{translations[language].talent}
 		</p>
 	{/if}
@@ -94,7 +91,7 @@
 	</p>
 	<div class="pb-1.5 {mode === 'table' ? 'pl-4' : ''}">
 		{#each trap.skills as skill}
-			<TrapSkill {skill} {language} {mode} />
+			<TrapSkill {skill} {language} {mode} {eliteMode} />
 		{/each}
 	</div>
 {/if}

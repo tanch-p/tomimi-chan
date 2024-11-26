@@ -6,7 +6,7 @@
 	import MediaQuery from './MediaQuery.svelte';
 	import TrapTable from './TrapTable.svelte';
 
-	export let language: Language, traps: Trap[], otherBuffsList;
+	export let language: Language, traps: Trap[], otherBuffsList, eliteMode;
 </script>
 
 {#if traps?.length > 0}
@@ -41,11 +41,11 @@
 						{#if index !== 0}
 							<div class="bg-neutral-700 mx-1 h-0.5" />
 						{/if}
-						<TrapHandbookDetails {trap} {otherBuffsList} />
+						<TrapHandbookDetails {trap} {otherBuffsList} {eliteMode} />
 					{/each}
 				</div>
 			</div>
-			<TrapTable {traps} {language} slot="pc" />
+			<TrapTable {traps} {language} {eliteMode} slot="pc" />
 		</MediaQuery>
 	</TogglePanel>
 {/if}

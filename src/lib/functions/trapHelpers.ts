@@ -26,6 +26,9 @@ const getTrapWeight = (key) => {
 			return 0;
 		case 'trap_760_skztzs':
 			return 1;
+		case 'trap_079_allydonq':
+		case 'trap_764_skzshp':
+			return 99;
 		case 'trap_065_normbox':
 		case 'trap_108_smbox':
 		case 'trap_757_skzbox':
@@ -79,7 +82,6 @@ export const parseTraps = (traps: mapConfigTrap[], language: Language) => {
 			};
 		});
 		const skills = trap.skills?.map((key) => {
-			console.log(key);
 			const skill = trapSkills[key];
 			let eliteSpData;
 			if (eliteSkillLvl) {

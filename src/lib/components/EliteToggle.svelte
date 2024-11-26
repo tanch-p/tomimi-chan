@@ -100,7 +100,7 @@
 	<button
 		slot="mobile"
 		id="elite-toggle"
-		class={`fixed z-[3] bottom-[210px] right-[20px] flex items-center justify-center rounded-full w-[45px] h-[45px] bg-opacity-90 pointer-events-auto ${
+		class={`fixed z-[3] bottom-[210px] right-[20px] flex items-center justify-center rounded-full w-[45px] h-[45px] pointer-events-auto ${
 			$eliteMode ? `${eliteOpsColor}` : `${combatOpsColor}`
 		}`}
 		on:click={() => updateEliteMods(!$eliteMode)}
