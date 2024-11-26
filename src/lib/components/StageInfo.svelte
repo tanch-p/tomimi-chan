@@ -26,8 +26,8 @@
 		}
 	};
 	const globalWarning = {
-		ja: '※注意：このステージでは’門’を召喚できません（DLC1後はできる）',
-		en: '※Note to global players: You cannot summon "Door" on this stage until DLC1'
+		ja: '※注意：ボスステージでは’門’を召喚できません（DLC1後はできる）',
+		en: '※Note to global players: You cannot summon "Door" on boss stages until DLC1'
 	};
 </script>
 
