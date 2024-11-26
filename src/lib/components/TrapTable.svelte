@@ -14,6 +14,7 @@
 		'range_display',
 		'def',
 		'res',
+		'blockCnt',
 		'remarks'
 	];
 </script>
