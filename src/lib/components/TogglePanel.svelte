@@ -5,7 +5,8 @@
 	export let title = 'title',
 		isOpen = false,
 		size = 'large',
-		className="";
+		className = '',
+		titleIcon = '';
 
 	const toggle = () => (isOpen = !isOpen);
 </script>
@@ -16,7 +17,12 @@
 		class="flex justify-between items-center px-2 sm:px-0 hover:cursor-pointer"
 		on:click={toggle}
 	>
-		<h2 class={`${size === 'subheading' ? 'text-subheading' : 'text-3xl'}`}>{title}</h2>
+		<div class="flex items-center gap-x-3">
+			<h2 class={`${size === 'subheading' ? 'text-subheading' : 'text-3xl'}`}>{title}</h2>
+			{#if titleIcon}
+				<img src={titleIcon} width="40" height="40" loading="lazy" alt={''} />
+			{/if}
+		</div>
 		{#if isOpen}
 			<Icon name="icon-minus" className="w-6 h-6 sm:w-8 sm:h-8 mt-2" />
 		{:else}

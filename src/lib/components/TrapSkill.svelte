@@ -17,23 +17,23 @@
 {#if mode === 'handbook'}
 	<div class="grid grid-cols-[1fr_80px] gap-x-3 mt-6">
 		<div class="self-end">
-			<div class="relative h-max w-[90px]">
+			<div class="relative h-max w-[80px]">
 				{#await import(`../images/skill_icons/skill_icon_${getSkillImgUrl(skill.skillId)}.webp`) then { default: src }}
-					<img {src} width="90" height="90" loading="lazy" alt={''} />
+					<img {src} width="80" height="80" loading="lazy" alt={''} />
 				{/await}
 				{#if skill.skillType !== 'PASSIVE'}
 					<div class="absolute flex -bottom-0.5 -right-0.5">
 						{#if skill?.[spKey]?.initSp}
 							<div
-								class="grid grid-cols-[11px_1fr] items-center gap-x-[1px] bg-[#434343] pl-[4px] pr-[1px]"
+								class="grid grid-cols-[10px_1fr] items-center gap-x-[1px] bg-[#434343] pl-[4px] pr-[1px]"
 							>
 								<img src={charaAssets.sp_start} alt="start" />
-								<p class="text-[20px] leading-tight">{skill?.[spKey]?.initSp}</p>
+								<p class="leading-tight">{skill?.[spKey]?.initSp}</p>
 							</div>
 						{/if}
-						<div class="ml-1 grid grid-cols-[16px_1fr] items-center bg-[#434343] pr-[1px]">
+						<div class="ml-1 grid grid-cols-[14px_1fr] items-center bg-[#434343] pr-[1px]">
 							<img src={charaAssets.sp_cost} alt="cost" />
-							<p class="text-[20px] leading-tight">{skill?.[spKey]?.spCost}</p>
+							<p class="leading-tight">{skill?.[spKey]?.spCost}</p>
 						</div>
 					</div>
 				{/if}
@@ -73,16 +73,16 @@
 		<div class="flex gap-x-2.5">
 			<p>{skill.name}</p>
 			{#if skill.skillType !== 'PASSIVE'}
-				<div class="flex">
+				<div class="flex h-max self-center">
 					{#if skill?.[spKey]?.initSp}
 						<div
-							class="grid grid-cols-[10px_1fr] gap-x-[1px] items-center bg-[#434343] pl-[4px] pr-[1px]"
+							class="grid grid-cols-[10px_1fr] gap-x-[1px] items-center bg-[#434343] pl-[4px] p-0.5"
 						>
 							<img src={charaAssets.sp_start} alt="start" />
 							<p class="leading-tight">{skill?.[spKey]?.initSp}</p>
 						</div>
 					{/if}
-					<div class="ml-1 grid grid-cols-[14px_1fr] items-center bg-[#434343] pr-[1px]">
+					<div class="ml-1 grid grid-cols-[14px_1fr] items-center bg-[#434343] py-0.5 pr-0.5">
 						<img src={charaAssets.sp_cost} alt="cost" />
 						<p class="leading-tight">{skill?.[spKey]?.spCost}</p>
 					</div>

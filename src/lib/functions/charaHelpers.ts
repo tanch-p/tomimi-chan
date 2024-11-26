@@ -681,6 +681,8 @@ export const getSkillImgUrl = (skillId) => {
 			return 'skcom_enchant[1]';
 		case 'skchr_catap_1':
 			return 'skcom_blowrange_up[1]';
+		case 'sktok_gunctrl':
+			return 'skcom_withdraw';
 		default:
 			return skillId;
 	}
