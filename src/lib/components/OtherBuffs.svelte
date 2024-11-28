@@ -16,7 +16,7 @@
 	<p class="bg-[#383838] px-3.5 py-0.5 text-[#a2a5a5] font-bold">
 		{translations[language].other_buffs}
 	</p>
-	<div class="grid grid-cols-3 justify-items-center py-2">
+	<div class="grid grid-cols-3 justify-items-center gap-y-1.5 py-2">
 		{#each applicableBuffsList as buff}
 			{@const currentCount = getOtherBuffsCount($otherBuffsList, buff.key, entity.key)}
 			<button
@@ -30,11 +30,7 @@
 					{/if}
 					<img src={buff.img} alt={buff.name} width="60" height="60" />
 				</div>
-				<p
-					class={language !== 'en'
-						? 'text-center max-w-[90px] w-full whitespace-nowrap'
-						: 'text-sm'}
-				>
+				<p class="text-sm">
 					{buff.name}
 				</p>
 			</button>
