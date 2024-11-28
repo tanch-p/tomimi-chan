@@ -21,7 +21,7 @@
 			{translations[language].trait}<span class="font-normal" />
 		</p>
 	{/if}
-	<ul class="list-disc pl-4 py-1">
+	<ul class="list-disc pl-4 {mode === 'handbook' ? "py-1" : ""}">
 		<li class="py-1">
 			<TextParser line={trap.desc} />
 		</li>
