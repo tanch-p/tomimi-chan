@@ -1,6 +1,6 @@
 import type { Language, Trap, mapConfigTrap, TrapData, StatMods } from '$lib/types';
-import trapLookup from '$lib/data/traps.json';
-import trapSkills from '$lib/data/traps_skills.json';
+import trapLookup from '$lib/data/trap/traps.json';
+import trapSkills from '$lib/data/trap/traps_skills.json';
 import { calculateModdedStat, distillMods } from './statHelpers';
 import { getOverwrittenKeys } from './skillHelpers';
 

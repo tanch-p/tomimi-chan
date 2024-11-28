@@ -1,5 +1,6 @@
 import type { Enemy, Skill, SpecialMods } from '$lib/types';
 import enemySkills from '$lib/data/enemy/enemy_skills.json';
+import trapSkills from '$lib/data/trap/traps_skills.json';
 import enemyDb from '$lib/data/enemy/enemy_database.json';
 import { checkIsTarget } from '$lib/functions/statHelpers';
 import { isEquals } from './lib';
@@ -44,6 +45,10 @@ export const getStatSkills = (
 		}
 	});
 	return currentSkills;
+};
+
+export const getTrapStatSkills = (trap) => {
+	return trap.special.map((key) => trapSkills[key]).filter((skill) => skill?.atk);
 };
 
 export const getEnemySkills = (enemy: Enemy, row: number, specialMods: SpecialMods): Skill[] => {

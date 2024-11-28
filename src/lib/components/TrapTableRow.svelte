@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { getTrapStatSkills } from '$lib/functions/skillHelpers';
 	import type { Language, Trap } from '$lib/types';
 	import RangeParser from './RangeParser.svelte';
+	import StatSkills from './StatSkills.svelte';
 	import StatusImmune from './StatusImmune.svelte';
 	import TrapAbilities from './TrapAbilities.svelte';
 
@@ -54,11 +56,19 @@
 				<TrapAbilities {trap} mode="table" />
 			</td>
 		{:else}
-			<td class={`border border-gray-400 h-[65px] text-center px-1`}>
+			<td class="border border-gray-400 h-[65px] {key === 'atk' ? 'text-start px-3' : 'text-center px-1'}">
 				<div>
-					<p class={`whitespace-nowrap text-center`}>
-						{trap.stats[key] === -1 ? '-' : trap.stats[key]}
+					<p class={`whitespace-nowrap`}>
+						{trap.stats[key] < 0 ? '-' : trap.stats[key]}
 					</p>
+					{#if key === 'atk'}
+						<StatSkills
+							skills={getTrapStatSkills(trap)}
+							stat={key}
+							statValue={trap.stats[key]}
+							{language}
+						/>
+					{/if}
 				</div>
 			</td>
 		{/if}

@@ -4,7 +4,7 @@
 	import translations from '$lib/translations.json';
 	import TextParser from './TextParser.svelte';
 	import TrapSkill from './TrapSkill.svelte';
-	import trapSkills from '$lib/data/traps_skills.json';
+	import trapSkills from '$lib/data/trap/traps_skills.json';
 	import Remark from './Remark.svelte';
 	import { getFormTitle, getTrapFormIndex } from '$lib/functions/lib';
 	import RangeParser from './RangeParser.svelte';

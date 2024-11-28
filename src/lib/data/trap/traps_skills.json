@@ -421,7 +421,7 @@
 		"spType": "INCREASE_WITH_TIME",
 		"desc_zh": "阻挡<@ba.vup>沙尘暴</>，加固后立即回复所有生命值、防御力<@ba.vup>+400</>且不再受到<@ba.vup>沙尘暴</>的伤害但可以被<高能源石炸弹>直接摧毁。",
 		"desc_ja": "<@ba.vup>砂嵐</>を遮り、補強完成後HPを全回復し、防御力<@ba.vup>+400</>かつ<@ba.vup>砂嵐</>によるダメージを受けなくなる。<高威力源石爆弾>を使うことで破壊できる。",
-		"desc_en": "Blocks the <@ba.vup>Sandstorm</>. When fortified, immediately recovers all HP, DEF <@ba.vup>+400</> and no longer receives damage from the <@ba.vup>Sandstorm</>, but can still be instantly destroyed by <High-Energy Originium Bomb>.",
+		"desc_en": "Blocks the <@ba.vup>Sandstorm</>. When fortified, immediately recovers all HP, DEF <@ba.vup>+400</> and no longer receives damage from the <@ba.vup>Sandstorm</>, but can still be instantly destroyed by &lt;High-Energy Originium Bomb*gt;",
 		"rangeId": null,
 		"levels": [
 			{
@@ -439,7 +439,7 @@
 		"tooltip": {
 			"zh": ["可通过<加固装置>进入加固状态（最多加固一次）"],
 			"ja": ["<補強装置>を使って補強できる"],
-			"en": ["Can be reinforced by <Reinforcement Device>"]
+			"en": ["Can be reinforced by &lt;Reinforcement Device&gt;"]
 		}
 	},
 	"sktok_dupilr": {
@@ -452,7 +452,7 @@
 		"spType": 8,
 		"desc_zh": "被击倒后，对倒下两格造成真实伤害与晕眩并使范围内的友方单位强制撤退，并在可部署地块上生成阻挡路线的<战场废墟>",
 		"desc_ja": "倒された方向の直線2マス内の敵全員に確定ダメージを与え、スタンさせ、範囲内の味方全員を強制撤退させる。その後、範囲内の配置可能なマスに通行不可な<瓦礫>を生成する",
-		"desc_en": "After being knocked down, deals True damage to enemies within the two tiles and Stuns them; Allied units within the two tiles will be forcibly retreated. <Battlefield Ruins> that blocks the enemy's route will be created on the deployable tiles",
+		"desc_en": "After being knocked down, deals True damage to enemies within the two tiles and Stuns them; Allied units within the two tiles will be forcibly retreated. &lt;Battlefield Ruins&gt; that blocks the enemy's route will be created on the deployable tiles",
 		"rangeId": "2-2",
 		"levels": [
 			{
@@ -606,7 +606,7 @@
 				"<ロンディニウム都市防衛副砲>がいる時、現在のSP蓄積量が画面上部にゲージとして表示される"
 			],
 			"en": [
-				"When <Londinium Secondary Defense Artillery> is present, a meter showing the charging progress will be shown at the top of the screen"
+				"When Londinium Secondary Defense Artillery is present, a meter showing the charging progress will be shown at the top of the screen"
 			]
 		}
 	},
@@ -806,14 +806,14 @@
 		"tooltip": {
 			"zh": ["受到攻击后撤退自身，在自身位置以预设路径召唤1只巨壳藤蔓"],
 			"ja": ["ダメージを受けると撤退し、自分の位置に敵<巨殻のツル>を召喚する"],
-			"en": ["Turns into enemy <Testaceous Vinecreeps> upon taking damage"]
+			"en": ["Turns into enemy &lt;Testaceous Vinecreeps&gt; upon taking damage"]
 		}
 	},
 	"badbox": {
 		"tooltip": {
 			"zh": ["受到攻击后撤退自身，在自身位置以预设路径召唤1只箱形恐鱼"],
 			"ja": ["ダメージを受けると撤退し、自分の位置に敵<宝箱形恐魚>を召喚する"],
-			"en": ["Turns into enemy <Chest Seaborn> upon taking damage"]
+			"en": ["Turns into enemy &lt;Chest Seaborn&gt; upon taking damage"]
 		}
 	},
 	"skzmbx": {
@@ -1175,6 +1175,10 @@
 		}
 	},
 	"skzthx_2": {
+		"suffix": { "en": "挥砍", "ja": "挥砍", "zh": "挥砍" },
+		"hits": 1,
+		"atk": { "multiplier": 1.5 },
+		"dmg_element": "phys",
 		"tooltip": {
 			"zh": [
 				"【挥砍】：仅可由特雷西斯，黑冠尊主触发：蓄力约9s后，向自身部署方向挥砍出剑气，剑气碰撞半径0.5，对碰撞到的友方单位造成攻击力150%的{phys}伤害{ignore_camou}"
@@ -1262,7 +1266,7 @@
 			],
 			"en": [
 				"When <特雷西斯，黑冠尊主> is defeated for the second time, <特蕾西娅，黑冠圣贤> does 500% of ATK as {arts} damage to all allied units and leaves the field.",
-				"If 思维混乱, summons 7 <Deathveil Assassin>"
+				"If 思维混乱, summons 7 &lt;Deathveil Assassin&gt;"
 			]
 		}
 	},

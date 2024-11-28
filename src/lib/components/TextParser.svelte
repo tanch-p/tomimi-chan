@@ -5,6 +5,7 @@
 	import termDesc from '$lib/data/term_desc.json';
 	import { onMount } from 'svelte';
 
+	// note to self do not ever use <text> for special parsing usage when using inner HTML...
 	export let line: string,
 		className: string = '';
 	let language: Language = 'zh';
