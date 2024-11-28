@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.use({
-	viewport: { width: 390, height: 844 }
+	viewport: { width: 375, height: 844 }
 });
 
 test('mizuki difficulty mods', async ({ page }) => {

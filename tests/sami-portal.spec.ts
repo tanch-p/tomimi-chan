@@ -1,16 +1,16 @@
 import { test, expect } from '@playwright/test';
 
 test.use({
-	viewport: { width: 390, height: 844 }
+	viewport: { width: 375, height: 844 }
 });
 
-test('sami difficulty + elite + chaos mods', async ({ page }) => {
+test('sami difficulty + elite + portal mods', async ({ page }) => {
 	await page.goto('http://localhost:4173/en/stages/ISW-NO_Rational_Fracture');
 
 	// Expect a title "to contain" a substring.
 	await expect(page).toHaveTitle(/Rational_Fracture/);
 	const diffIncreButton = await page.$('#diff-plus');
-
+	await page.waitForTimeout(500);
 	let def = await page.$eval('#enemy_2046_smwar p[data-id="def-value"]', (el) => el.textContent);
 	expect(def).toBe('800');
 	let res = await page.$eval('#enemy_2046_smwar p[data-id="res-value"]', (el) => el.textContent);

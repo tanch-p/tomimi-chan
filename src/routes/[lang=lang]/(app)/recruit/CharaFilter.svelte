@@ -250,6 +250,7 @@
 		{@const selectedOptions = getSelectedFilterOptions(categories, $filtersStore)}
 		<div class="bg-near-white rounded-md overflow-hidden">
 			<CharaFilterToggle
+				id={title}
 				title={translations[language][title]}
 				isOpen={false}
 				innerClassName="border-t p-3 md:p-4"
@@ -263,6 +264,7 @@
 							{#each filterOptions[optionKey] as value}
 								{@const key = getDisplayKey(value)}
 								<button
+									id={value}
 									class="filter-btn"
 									class:active={isSelected(getCategory(value), value)}
 									on:click={() => updateFilters(getCategory(value), value, filtersStore)}

@@ -123,6 +123,7 @@
 										{:else}
 											{#each options as { value, selected }}
 												<button
+												id="sec-{value}"
 													class="filter-btn"
 													class:active={selected}
 													on:click={() => updateSecFilters(key, subKey, value, type)}

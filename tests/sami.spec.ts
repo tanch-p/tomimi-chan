@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.use({
-	viewport: { width: 390, height: 844 }
+	viewport: { width: 375, height: 844 }
 });
 
 test('sami difficulty + elite + chaos mods', async ({ page }) => {
@@ -10,7 +10,7 @@ test('sami difficulty + elite + chaos mods', async ({ page }) => {
 	// Expect a title "to contain" a substring.
 	await expect(page).toHaveTitle(/Instinct_Contamination/);
 	const diffIncreButton = await page.$('#diff-plus');
-
+	await page.waitForTimeout(500);
 	let hp = await page.$eval('#enemy_2046_smwar p[data-id="hp-value"]', (el) => el.textContent);
 	expect(hp).toBe('20000');
 	let atk = await page.$eval('#enemy_2046_smwar p[data-id="atk-value"]', (el) => el.textContent);
