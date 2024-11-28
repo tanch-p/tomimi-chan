@@ -58,7 +58,7 @@
 			{rogueTopic}
 		/>
 		<div class="mt-8">
-			<TrapContainer {language} traps={moddedTraps} />
+			<TrapContainer {language} traps={moddedTraps} specialMods={$specialMods} />
 			<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 			{#if data.mapConfig.elite_mods}
 				<EliteToggle

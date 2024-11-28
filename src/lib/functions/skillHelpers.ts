@@ -25,6 +25,7 @@ export const getOverwrittenKeys = (originalSkillRef: Skill, skillRef: Skill, ski
 				list.push(key);
 			}
 		} else if (skill?.[key] && !isEquals(skillRef[key], skill[key])) {
+			// what is the purpose of this case?
 			list.push(key);
 		}
 	}

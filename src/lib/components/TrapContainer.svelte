@@ -5,9 +5,9 @@
 	import TrapHandbookDetails from './TrapHandbookDetails.svelte';
 	import MediaQuery from './MediaQuery.svelte';
 	import TrapTable from './TrapTable.svelte';
-	import trapIcon from "$lib/images/skill_icons/skill_icon_sktok_emp.webp"
+	import trapIcon from '$lib/images/skill_icons/skill_icon_sktok_emp.webp';
 
-	export let language: Language, traps: Trap[], otherBuffsList;
+	export let language: Language, traps: Trap[], otherBuffsList, specialMods;
 </script>
 
 {#if traps?.length > 0}
@@ -43,11 +43,11 @@
 						{#if index !== 0}
 							<div class="bg-neutral-700 mx-1 h-0.5" />
 						{/if}
-						<TrapHandbookDetails {trap} {otherBuffsList} />
+						<TrapHandbookDetails {trap} {otherBuffsList} {specialMods} />
 					{/each}
 				</div>
 			</div>
-			<TrapTable {traps} {language} slot="pc" />
+			<TrapTable {traps} {language} {specialMods} slot="pc" />
 		</MediaQuery>
 	</TogglePanel>
 {/if}

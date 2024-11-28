@@ -4,13 +4,14 @@
 	import translations from '$lib/translations.json';
 	import TextParser from './TextParser.svelte';
 	import TrapSkill from './TrapSkill.svelte';
-	import trapSkills from '$lib/data/trap/traps_skills.json';
 	import Remark from './Remark.svelte';
 	import { getFormTitle, getTrapFormIndex } from '$lib/functions/lib';
 	import RangeParser from './RangeParser.svelte';
+	import { getTrapSpecialSkill } from '$lib/functions/trapHelpers';
 
 	export let trap: Trap,
-		mode = 'handbook';
+		mode = 'handbook',
+		specialMods;
 	let language: Language;
 	$: language = $page.data.language;
 </script>
@@ -21,7 +22,7 @@
 			{translations[language].trait}<span class="font-normal" />
 		</p>
 	{/if}
-	<ul class="list-disc pl-4 {mode === 'handbook' ? "py-1" : ""}">
+	<ul class="list-disc pl-4 {mode === 'handbook' ? 'py-1' : ''}">
 		<li class="py-1">
 			<TextParser line={trap.desc} />
 		</li>
@@ -36,13 +37,23 @@
 	<ul class="list-disc pl-4 py-1">
 		{#each trap.special as item, i}
 			{#if typeof item === 'string'}
-				<Remark skill={trapSkills[item]} {language} mode={'handbook'} enemyStats={trap.stats} />
+				<Remark
+					skill={getTrapSpecialSkill(trap.key, item, specialMods)}
+					{language}
+					mode={'handbook'}
+					enemyStats={trap.stats}
+				/>
 			{:else}
 				{@const formIndex = getTrapFormIndex(trap.special, i)}
 				{@const formTitle = getFormTitle('form', formIndex, language)}
 				<div class="text-red-400 py-1">{formTitle}</div>
 				{#each item as key}
-					<Remark skill={trapSkills[key]} {language} mode={'handbook'} enemyStats={trap.stats} />
+					<Remark
+						skill={getTrapSpecialSkill(trap.key, key, specialMods)}
+						{language}
+						mode={'handbook'}
+						enemyStats={trap.stats}
+					/>
 				{/each}
 			{/if}
 		{/each}

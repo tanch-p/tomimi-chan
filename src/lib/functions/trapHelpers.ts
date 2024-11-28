@@ -18,7 +18,7 @@ const TRAPS_AFFECTED_BY_DIFFICULTY = [
 
 const STATS = ['hp', 'atk', 'aspd', 'def', 'res', 'blockCnt'];
 
-const skillValueKeys = ['cost', 'duration1', 'enhance_duration'];
+const skillValueKeys = ['cost', 'duration1', 'enhance_duration', 'value'];
 
 const getTrapWeight = (key) => {
 	switch (key) {
@@ -132,8 +132,8 @@ export function applyTrapMods(traps: Trap[], statMods: StatMods, specialMods) {
 	return traps.map((trap) => {
 		const moddedStats = parseStats(trap, statMods);
 		let skill = { ...trap.skills?.[0] };
-		if (skill && specialMods[trap.key]) {
-			skill = { ...skill, ...specialMods[trap.key] };
+		if (skill && specialMods[trap.key]?.[skill.skillId]) {
+			skill = { ...skill, ...specialMods[trap.key]?.[skill.skillId] };
 			skill.overwrittenKeys = getOverwrittenKeys(trap.skills?.[0], skill, skill);
 		}
 		return {
@@ -143,6 +143,16 @@ export function applyTrapMods(traps: Trap[], statMods: StatMods, specialMods) {
 			overwritten: specialMods[trap.key] ? true : false
 		};
 	});
+}
+
+export function getTrapSpecialSkill(key, skillRef, specialMods) {
+	let skill = trapSkills[skillRef];
+	skill.overwrittenKeys = [];
+	if (skill && specialMods[key]?.[skillRef]) {
+		skill = { ...skill, ...specialMods[key][skillRef] };
+		skill.overwrittenKeys = getOverwrittenKeys(trapSkills[skillRef], skill, skill);
+	}
+	return skill;
 }
 
 function isAdditionMod(mod, target) {

@@ -6,7 +6,7 @@
 	import StatusImmune from './StatusImmune.svelte';
 	import TrapAbilities from './TrapAbilities.svelte';
 
-	export let trap: Trap, tableHeaders, index, language: Language;
+	export let trap: Trap, tableHeaders, index, language: Language, specialMods;
 </script>
 
 <tr id={trap.key} class={`scroll-mt-24 ${index % 2 === 1 ? ' bg-[#333333]' : 'bg-neutral-800'}`}>
@@ -53,10 +53,14 @@
 		{:else if key === 'remarks'}
 			<td class={`border border-gray-400 text-start px-2 py-2 max-w-[500px]`}>
 				<StatusImmune statusImmuneList={trap.status_immune} {language} mode="table" />
-				<TrapAbilities {trap} mode="table" />
+				<TrapAbilities {trap} {specialMods} mode="table" />
 			</td>
 		{:else}
-			<td class="border border-gray-400 h-[65px] {key === 'atk' ? 'text-start px-3' : 'text-center px-1'}">
+			<td
+				class="border border-gray-400 h-[65px] {key === 'atk'
+					? 'text-start px-3'
+					: 'text-center px-1'}"
+			>
 				<div>
 					<p class={`whitespace-nowrap`}>
 						{trap.stats[key] < 0 ? '-' : trap.stats[key]}
