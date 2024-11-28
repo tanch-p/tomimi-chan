@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { RogueTopic } from '$lib/types';
 	import type { PageData } from './$types';
-	import { statMods, specialMods, eliteMods, selectedRelics, selectedUniqueRelic,eliteMode,normalMods } from './stores';
+	import { statMods, specialMods, eliteMods, selectedRelics, selectedUniqueRelic,eliteMode,normalMods, otherBuffsList } from './stores';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import EliteToggle from '$lib/components/EliteToggle.svelte';
 	import EnemyStatDisplay from '$lib/components/EnemyStatDisplay.svelte';
@@ -17,9 +17,11 @@
 	import TrapContainer from '$lib/components/TrapContainer.svelte';
 	import { applyTrapMods } from '$lib/functions/trapHelpers';
 	import EnemyCount from '$lib/components/EnemyCount.svelte';
+	import { setOtherBuffsList } from '$lib/functions/lib';
 
 	export let data: PageData;
 	$: if (data.mapConfig) {
+		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies, data.mapConfig, language);
 		eliteMode.set(false);
 		normalMods.set(data.mapConfig.n_mods);
 	}
@@ -77,7 +79,7 @@
 					{rogueTopic}
 				/>
 			{/if}
-			<EnemyStatDisplay enemies={moddedEnemies} {language} {specialMods} />
+			<EnemyStatDisplay enemies={moddedEnemies} {language} {specialMods} {otherBuffsList}/>
 		</div>
 		<div id="stageNav" class="mt-4 scroll-mt-20">
 			<StageNav {language} />

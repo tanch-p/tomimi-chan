@@ -1,3 +1,4 @@
+import { consolidateOtherMods } from '$lib/functions/lib';
 import { compileSpecialMods } from '$lib/functions/statHelpers';
 import { writable, derived } from 'svelte/store';
 
@@ -8,14 +9,19 @@ export const eliteMods = writable(null);
 export const selectedUniqueRelic = writable(null);
 export const selectedFloor = writable(1);
 export const activeFloorEffects = writable([]);
+export const otherBuffsList = writable([]);
+const otherMods = derived([otherBuffsList], ([$otherBuffsList]) =>
+	consolidateOtherMods($otherBuffsList)
+);
 
 export const statMods = derived(
-	[selectedRelics, selectedUniqueRelic, normalMods, eliteMods, activeFloorEffects],
-	([$selectedRelics, $selectedUniqueRelic, $normalMods, $eliteMods, $activeFloorEffects]) => {
+	[selectedRelics, selectedUniqueRelic, normalMods, eliteMods, activeFloorEffects,otherMods],
+	([$selectedRelics, $selectedUniqueRelic, $normalMods, $eliteMods, $activeFloorEffects, $otherMods]) => {
 		return {
 			initial: [
 				{ key: 'elite_ops', mods: [$eliteMods], operation: 'times' },
-				{ key: 'combat_ops', mods: [$normalMods], operation: 'times' }
+				{ key: 'combat_ops', mods: [$normalMods], operation: 'times' },
+				...$otherMods
 			],
 			final: [
 				{ key: 'relic', mods: $selectedRelics.map((relic) => relic.effects), operation: 'times' },

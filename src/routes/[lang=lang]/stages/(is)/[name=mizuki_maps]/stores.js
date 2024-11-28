@@ -3,6 +3,7 @@ import difficultyModsList from '$lib/data/is/mizuki/difficulty_mods_mizuki.json'
 import { browser } from '$app/environment';
 import { cookiesEnabled } from '../../../../stores';
 import { compileSpecialMods } from '$lib/functions/statHelpers';
+import { consolidateOtherMods } from '$lib/functions/lib';
 
 let storedDifficulty = 0;
 if (browser && cookiesEnabled) {
@@ -37,6 +38,10 @@ export const normalMods = writable(null);
 export const eliteMods = writable(null);
 export const activeFloorEffects = writable([]);
 export const missionMods = writable(null);
+export const otherBuffsList = writable([]);
+const otherMods = derived([otherBuffsList], ([$otherBuffsList]) =>
+	consolidateOtherMods($otherBuffsList)
+);
 
 export const statMods = derived(
 	[
@@ -46,7 +51,8 @@ export const statMods = derived(
 		eliteMods,
 		activeFloorEffects,
 		missionMods,
-		difficultyMods
+		difficultyMods,
+		otherMods
 	],
 	([
 		$selectedRelics,
@@ -55,13 +61,15 @@ export const statMods = derived(
 		$eliteMods,
 		$activeFloorEffects,
 		$missionMods,
-		$difficultyMods
+		$difficultyMods,
+		$otherMods
 	]) => {
 		return {
 			initial: [
 				{ key: 'combat_ops', mods: [$normalMods], operation: 'times' },
 				{ key: 'elite_ops', mods: [$eliteMods], operation: 'times' },
-				{ key: 'floor_diff', mods: [$floorDifficultyMods], operation: 'times' }
+				{ key: 'floor_diff', mods: [$floorDifficultyMods], operation: 'times' },
+				...$otherMods
 			],
 			final: [
 				{ key: 'relic', mods: $selectedRelics.map((relic) => relic.effects), operation: 'times' },

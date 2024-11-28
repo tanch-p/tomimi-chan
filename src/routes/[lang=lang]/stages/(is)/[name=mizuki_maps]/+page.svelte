@@ -8,7 +8,8 @@
 		eliteMods,
 		selectedRelics,
 		eliteMode,
-		normalMods
+		normalMods,
+		otherBuffsList
 	} from './stores';
 	import EnemyStatDisplay from '$lib/components/EnemyStatDisplay.svelte';
 	import DifficultySelect from '$lib/components/DifficultySelect.svelte';
@@ -25,9 +26,11 @@
 	import TrapContainer from '$lib/components/TrapContainer.svelte';
 	import { applyTrapMods } from '$lib/functions/trapHelpers';
 	import EnemyCount from '$lib/components/EnemyCount.svelte';
+	import { setOtherBuffsList } from '$lib/functions/lib';
 
 	export let data: PageData;
 	$: if (data.mapConfig) {
+		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies, data.mapConfig, language);
 		eliteMode.set(false);
 		normalMods.set(data.mapConfig.n_mods);
 	}
@@ -68,7 +71,7 @@
 		/>
 		<Mission {language} />
 		<DifficultySelect {language} {difficulty} {rogueTopic} />
-		<TrapContainer {language} traps={moddedTraps} specialMods={$specialMods}/>
+		<TrapContainer {language} traps={moddedTraps} specialMods={$specialMods} />
 		<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 		<EnemyCount
 			mapConfig={data.mapConfig}
@@ -86,7 +89,7 @@
 				{rogueTopic}
 			/>
 		{/if}
-		<EnemyStatDisplay enemies={moddedEnemies} {language} {specialMods} />
+		<EnemyStatDisplay enemies={moddedEnemies} {language} {specialMods} {otherBuffsList} />
 		<div id="stageNav" class="mt-8 sm:mt-16 scroll-mt-20">
 			<MizukiNav {language} />
 		</div>

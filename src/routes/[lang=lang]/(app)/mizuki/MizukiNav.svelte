@@ -8,6 +8,7 @@
 	import aegir6 from '$lib/images/is/mizuki/aegir_6.webp';
 	import aegirQn from '$lib/images/is/mizuki/aegir_qn.webp';
 	import knt from '$lib/images/is/mizuki/knt_100px.webp';
+	import bossIcon from '$lib/images/is/boss_icon.webp';
 
 	export let language: Language;
 	import StageNavButton from './StageNavButton.svelte';
@@ -81,7 +82,7 @@
 			{/each}
 		</tr>
 		<tr class="floor3">
-			<td rowspan="4" class="corner" colspan="4">
+			<td rowspan="2" class="corner" colspan="4">
 				<img src={aegir3} width="30px" alt="3" class="mt-2 sm:mt-3 ml-0.5 sm:ml-2" />
 			</td>
 			{#each floor3t as stageName}
@@ -99,6 +100,9 @@
 			{/each}
 		</tr>
 		<tr class="floor3">
+			<td rowspan="2" class="corner" colspan="4">
+				<img src={bossIcon} width="40px" alt="boss" class="mt-2.5 sm:mt-1 ml-0.5 sm:ml-1.5" />
+			</td>
 			{#each floor3boss as stageName}
 				<td colspan={Math.floor(60 / floor3boss.length)}>
 					<StageNavButton {stageName} {language} />
@@ -131,7 +135,7 @@
 			{/each}
 		</tr>
 		<tr class="floor5">
-			<td rowspan="3" class="corner" colspan="4">
+			<td rowspan="2" class="corner" colspan="4">
 				<img src={aegir5} width="30px" alt="5" class="mt-2 sm:mt-3 ml-0.5 sm:ml-2" />
 			</td>
 			{#each floor5t as stageName}
@@ -149,6 +153,9 @@
 			{/each}
 		</tr>
 		<tr class="floor5">
+			<td rowspan="1" colspan="4">
+				<img src={bossIcon} width="40px" alt="boss" class="ml-0.5 sm:ml-1.5" />
+			</td>
 			{#each floor5b as stageName}
 				<td colspan={Math.floor(60 / floor5b.length)}>
 					<StageNavButton {stageName} {language} />
@@ -156,8 +163,8 @@
 			{/each}
 		</tr>
 		<tr class="floor6">
-			<td rowspan="2" class="corner" colspan="4">
-				<img src={aegir6} width="30px" alt="6" class="mt-2 sm:mt-3 ml-0.5 sm:ml-2" />
+			<td rowspan="1" colspan="4">
+				<img src={aegir6} width="30px" alt="6" class="ml-0.5 sm:ml-2" />
 			</td>
 			{#each floor6 as stageName}
 				<td colspan={Math.floor(60 / floor6.length)}>
@@ -167,6 +174,9 @@
 			<td rowspan="2" class="corner" colspan="4" />
 		</tr>
 		<tr class="floor6">
+			<td rowspan="1" colspan="4">
+				<img src={bossIcon} width="40px" alt="boss" class="ml-0.5 sm:ml-1.5" />
+			</td>
 			{#each floor6b as stageName}
 				<td colspan={Math.floor(60 / floor6b.length)}>
 					<StageNavButton {stageName} {language} />
@@ -174,8 +184,8 @@
 			{/each}
 		</tr>
 		<tr class="floorEX">
-			<td class="corner" colspan="4">
-				<img src={aegirQn} width="30px" alt="?" class="mt-0.5 ml-0.5 sm:ml-2 py-1 sm:py-1.5" />
+			<td colspan="4">
+				<img src={aegirQn} width="30px" alt="?" class="ml-0.5 sm:ml-2 py-1 sm:py-1.5" />
 			</td>
 			{#each floorEX as stageName}
 				<td colspan={Math.floor(60 / floorEX.length)}>
