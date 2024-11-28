@@ -148,7 +148,4 @@
 		padding: 4px 0 4px 8px;
 		min-width: 35px;
 	}
-	td > p {
-		text-align: center;
-	}
 </style>

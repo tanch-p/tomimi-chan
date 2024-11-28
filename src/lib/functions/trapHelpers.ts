@@ -130,6 +130,7 @@ export const parseTraps = (traps: mapConfigTrap[], language: Language) => {
 
 export function applyTrapMods(traps: Trap[], statMods: StatMods, specialMods) {
 	return traps.map((trap) => {
+		const rangeId = trap.stats.rangeId;
 		const moddedStats = parseStats(trap, statMods);
 		let skill = { ...trap.skills?.[0] };
 		if (skill && specialMods[trap.key]?.[skill.skillId]) {
@@ -139,7 +140,7 @@ export function applyTrapMods(traps: Trap[], statMods: StatMods, specialMods) {
 		return {
 			...trap,
 			skills: trap.skills.length > 0 ? [skill] : [],
-			stats: moddedStats,
+			stats: {...moddedStats,rangeId},
 			overwritten: specialMods[trap.key] ? true : false
 		};
 	});

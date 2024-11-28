@@ -6,7 +6,6 @@
 	import TrapStats from './TrapStats.svelte';
 	import RangeParser from './RangeParser.svelte';
 	import TrapAbilities from './TrapAbilities.svelte';
-	import { getOtherBuffsCount, updateOtherBuffsList } from '$lib/functions/lib';
 	import OtherBuffs from './OtherBuffs.svelte';
 
 	export let trap: Trap, otherBuffsList, specialMods;
