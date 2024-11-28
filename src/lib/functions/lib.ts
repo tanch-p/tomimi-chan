@@ -1,7 +1,7 @@
 import translations from '$lib/translations.json';
 import type { Enemy, Language, MapConfig, RogueTopic } from '$lib/types';
 import rogue_4_fragment_F_25 from '$lib/images/is/sarkaz/rogue_4_fragment_F_25.webp';
-import skill_icon_sktok_cdroneb from '$lib/images/skill_icons/skill_icon_sktok_cdroneb.webp';
+import tileImg from '$lib/images/tiles/tile_infection.webp';
 import { checkIsTarget } from './statHelpers';
 import enemySkills from '$lib/data/enemy/enemy_skills.json';
 
@@ -130,7 +130,7 @@ export const setOtherBuffsList = (
 	if (tileInfection) {
 		buffsList.push({
 			key: 'tile_infection',
-			img: skill_icon_sktok_cdroneb,
+			img: tileImg,
 			name: translations[language].tile_infection,
 			targets: ['not_flying&not_trap'],
 			activeTargets: [],
