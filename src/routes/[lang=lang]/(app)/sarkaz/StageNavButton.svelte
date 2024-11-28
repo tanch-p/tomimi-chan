@@ -6,7 +6,17 @@
 	if (!stageInfo) {
 		throw new Error(`${stageName} is not found!`);
 	}
-	const stagesToHide = [];
+	const stagesToHide = [
+		'卡兹瀑布',
+		'火力小队',
+		'神出鬼没',
+		'混沌',
+		'建制',
+		'思维矫正',
+		'魂灵朝谒',
+		'授法',
+		'轻舟共渡'
+	];
 	$: name = stageInfo[`name_${language}`] || stageInfo['name_zh'];
 	$: stageUrl = stageInfo.code + '_' + name;
 </script>

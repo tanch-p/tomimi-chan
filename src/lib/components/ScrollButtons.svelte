@@ -41,7 +41,7 @@
 			hidden={!showBtm}
 			class="absolute bottom-[90px] right-[20px] md:right-[40px] pointer-events-auto"
 			on:click={scrollToNav}
-			id="scroll-top-button"
+			id="scroll-btm-button"
 		>
 			<div
 				class="flex items-center justify-center h-[45px] w-[45px] rounded-full bg-slate-700 hover:bg-[rgb(40,51,69)]"

@@ -146,9 +146,9 @@ export function parseStats(
 			statToUse,
 			stat,
 			initialMods?.[`fixed_${stat}`] ?? 0,
-			initialMods[stat],
+			initialMods[stat] ?? 1,
 			finalMods?.[`fixed_${stat}`] ?? 0,
-			finalMods[stat],
+			finalMods[stat] ?? 1,
 			stat === 'aspd' ? (initialMods?.atk_interval ?? 0) + (finalMods?.atk_interval ?? 0) : 0
 		);
 	}
@@ -457,23 +457,4 @@ export const compileSpecialMods = (...modsList: [[Effects]]) => {
 			}
 	}
 	return specialMods;
-};
-
-export const updateBuffs = (otherBuffs, enemies, language) => {
-	const buffs = [];
-	for (const enemy of enemies) {
-		if (enemy.special) {
-			for (const skillRef of enemy.special) {
-				const skill = enemySkills[skillRef.key];
-				if (skill?.type === 'buff') {
-					buffs.push({
-						key: enemy[`name_${language}`],
-						mods: [skill.effects],
-						operation: 'times'
-					});
-				}
-			}
-		}
-	}
-	otherBuffs.set(buffs);
 };

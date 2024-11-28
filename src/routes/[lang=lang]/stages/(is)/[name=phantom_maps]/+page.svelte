@@ -1,6 +1,7 @@
 <script lang="ts">
+	import type { RogueTopic } from '$lib/types';
 	import type { PageData } from './$types';
-	import { statMods, specialMods, eliteMods, selectedRelics, selectedUniqueRelic, selectedFloor } from './stores';
+	import { statMods, specialMods, eliteMods, selectedRelics, selectedUniqueRelic,eliteMode,normalMods } from './stores';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import EliteToggle from '$lib/components/EliteToggle.svelte';
 	import EnemyStatDisplay from '$lib/components/EnemyStatDisplay.svelte';
@@ -13,13 +14,20 @@
 	import FloorTitle from './FloorTitle.svelte';
 	import StageNav from './StageNav.svelte';
 	import ModsCheck from '$lib/components/ModsCheck.svelte';
+	import TrapContainer from '$lib/components/TrapContainer.svelte';
+	import { applyTrapMods } from '$lib/functions/trapHelpers';
 
 	export let data: PageData;
+	$: if (data.mapConfig) {
+		eliteMode.set(false);
+		normalMods.set(data.mapConfig.n_mods);
+	}
 	$: language = data.language;
 	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods);
+	$: moddedTraps = applyTrapMods(data.traps, $statMods, $specialMods);
 	$: modsCheck = compileStatModsForChecking(data.enemies, data.mapConfig.id, $statMods);
-	const rogueTopic = 'rogue_phantom';
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
+	const rogueTopic: RogueTopic = data.rogueTopic;
 </script>
 
 <svelte:head>
@@ -40,13 +48,27 @@
 	<FloorTitle slot="floorTitle" stageFloors={data.mapConfig.floors} {language} />
 </StageHeader>
 
-<main class="bg-neutral-800 text-near-white pb-32 pt-8 sm:pt-16 md:pb-28">
+<main class="bg-neutral-800 text-near-white pb-72 pt-8 sm:pt-16 md:pb-28">
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
-		<StageInfo mapConfig={data.mapConfig} {language} {stageName} eliteMods={$eliteMods} {rogueTopic} />
+		<StageInfo
+			mapConfig={data.mapConfig}
+			{language}
+			{stageName}
+			eliteMods={$eliteMods}
+			{rogueTopic}
+		/>
 		<div class="mt-8">
+			<TrapContainer {language} traps={moddedTraps} />
 			<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 			{#if data.mapConfig.elite_mods}
-				<EliteToggle mapEliteMods={data.mapConfig.elite_mods} {eliteMods} {rogueTopic} />
+				<EliteToggle
+					{eliteMode}
+					{normalMods}
+					mapNormalMods={data.mapConfig.n_mods}
+					mapEliteMods={data.mapConfig.elite_mods}
+					{eliteMods}
+					{rogueTopic}
+				/>
 			{/if}
 			<EnemyStatDisplay enemies={moddedEnemies} {language} {specialMods} />
 		</div>

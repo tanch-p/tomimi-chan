@@ -1,7 +1,8 @@
 <script lang="ts">
+	import { getTrapStatSkills } from '$lib/functions/skillHelpers';
 	import type { Language, Trap } from '$lib/types';
-	import translations from '$lib/translations.json';
 	import RangeParser from './RangeParser.svelte';
+	import StatSkills from './StatSkills.svelte';
 	import StatusImmune from './StatusImmune.svelte';
 	import TrapAbilities from './TrapAbilities.svelte';
 
@@ -36,31 +37,38 @@
 				</div>
 			</td> -->
 		{:else if key === 'range_display'}
-			<td class={`border border-gray-400 text-center`}>
+			<td class={`border border-gray-400 text-center px-1`}>
 				{#if trap.stats.rangeId}
 					<div
-						class="flex flex-col items-center w-[72px] p-2 pb-1 bg-[#161616] bg-opacity-80 rounded h-max"
+						class="flex flex-col items-center w-[72px] mx-auto p-2 pb-1 bg-[#161616] bg-opacity-80 rounded h-max"
 					>
 						<div class="flex items-center">
 							<RangeParser rangeId={trap.stats.rangeId} size="small" />
 						</div>
-						<p class="mt-1 text-sm">{translations[language].attack_range}</p>
 					</div>
 				{:else}
 					-
 				{/if}
 			</td>
 		{:else if key === 'remarks'}
-			<td class={`border border-gray-400 text-start px-2 py-2`}>
+			<td class={`border border-gray-400 text-start px-2 py-2 max-w-[500px]`}>
 				<StatusImmune statusImmuneList={trap.status_immune} {language} mode="table" />
 				<TrapAbilities {trap} mode="table" />
 			</td>
 		{:else}
-			<td class={`border border-gray-400 h-[65px] text-center`}>
+			<td class="border border-gray-400 h-[65px] {key === 'atk' ? 'text-start px-3' : 'text-center px-1'}">
 				<div>
-					<p class={`whitespace-nowrap text-center`}>
-						{trap.stats[key] === -1 ? '-' : trap.stats[key]}
+					<p class={`whitespace-nowrap`}>
+						{trap.stats[key] < 0 ? '-' : trap.stats[key]}
 					</p>
+					{#if key === 'atk'}
+						<StatSkills
+							skills={getTrapStatSkills(trap)}
+							stat={key}
+							statValue={trap.stats[key]}
+							{language}
+						/>
+					{/if}
 				</div>
 			</td>
 		{/if}

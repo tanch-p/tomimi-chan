@@ -14,6 +14,7 @@
 		'range_display',
 		'def',
 		'res',
+		'blockCnt',
 		'remarks'
 	];
 </script>
@@ -37,7 +38,7 @@
 		</thead>
 		<tbody>
 			{#each traps as trap, index}
-				<TrapTableRow {trap} {index} {tableHeaders} {language} />
+				<TrapTableRow {trap} {index} {tableHeaders} {language}/>
 			{/each}
 		</tbody>
 	</table>

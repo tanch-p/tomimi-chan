@@ -72,10 +72,12 @@ export interface Trap {
 	key:string;
 	name: string;
 	desc: string;
+	tauntLevel: number;
 	stats: trapStats;
 	talents: [];
 	skills: [];
 	status_immune: StatusImmune[];
+	ops: "elite"|"normal"|null;
 }
 export interface TrapData {
 	name_zh: string;
@@ -120,6 +122,7 @@ export interface MapConfig {
 	[key: `name_${string}`]: string;
 	[key: `description_${string}`]: string;
 	[key: `eliteDesc_${string}`]: string;
+	n_mods: Mods | null;
 	elite_mods: Mods | null;
 	traps: mapConfigTrap[];
 	enemies: mapConfigEnemy[];

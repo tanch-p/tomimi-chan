@@ -60,27 +60,47 @@
 		<h2 class="px-2 sm:px-0 text-subheading mt-4">{translations[language].hidden_enemy_prob}</h2>
 		<hr class="border-gray-500 my-1" />
 		<div class="flex flex-col gap-y-4 px-2 sm:px-0">
-			<div class="flex items-center">
-				<img src={DLD} width="50px" alt="DLD" /> <span>5%</span>
-				<img src={GPN} width="50px" alt="GPN" /> <span>5%</span>
+			<div class="flex flex-wrap gap-y-1 items-center">
+				<div class="flex items-center">
+					<img src={DLD} width="50px" alt="DLD" /> <span>5%</span>
+				</div>
+				<div class="flex items-center">
+					<img src={GPN} width="50px" alt="GPN" /> <span>5%</span>
+				</div>
 				{#if rogueTopic !== 'rogue_phantom'}
-					<img src={THF} width="50px" alt="THF" /> <span>5%</span>
+					<div class="flex items-center">
+						<img src={THF} width="50px" alt="THF" /> <span>5%</span>
+					</div>
 				{/if}
 				{#if rogueTopic === 'rogue_skz'}
-					<img src={FAT} width="50px" alt="FAT" /> <span>5%</span>
+					<div class="flex items-center">
+						<img src={FAT} width="50px" alt="FAT" /> <span>5%</span>
+					</div>
 				{/if}
 			</div>
 			{#if ['rogue_sami', 'rogue_mizuki'].includes(rogueTopic)}
-				<div class="flex items-center">
-					<img src={sami_smbox} width="50px" alt="smbox" /> <span>10.5%</span>
-					<img src={sami_smrbox} width="50px" alt="smrbox" /> <span>3%</span>
-					<img src={sami_smbbox} width="50px" alt="smbbox" /> <span>1.5%</span>
+				<div class="flex flex-wrap gap-y-1 items-center">
+					<div class="flex items-center">
+						<img src={sami_smbox} width="50px" alt="smbox" /> <span>10.5%</span>
+					</div>
+					<div class="flex items-center">
+						<img src={sami_smrbox} width="50px" alt="smrbox" /> <span>3%</span>
+					</div>
+					<div class="flex items-center">
+						<img src={sami_smbbox} width="50px" alt="smbbox" /> <span>1.5%</span>
+					</div>
 				</div>
 			{:else if rogueTopic === 'rogue_skz'}
-				<div class="flex items-center">
-					<img src={skzbox} width="50px" alt="skzbox" /> <span>10.5%</span>
-					<img src={skzmbx} width="50px" alt="skzmbx" /> <span>3%</span>
-					<img src={skzwyx} width="50px" alt="skzwyx" /> <span>1.5%</span>
+				<div class="flex flex-wrap gap-y-1 items-center">
+					<div class="flex items-center">
+						<img src={skzbox} width="50px" alt="skzbox" /> <span>10.5%</span>
+					</div>
+					<div class="flex items-center">
+						<img src={skzwyx} width="50px" alt="skzwyx" /> <span>3%</span>
+					</div>
+					<div class="flex items-center">
+						<img src={skzmbx} width="50px" alt="skzmbx" /> <span>1.5%</span>
+					</div>
 				</div>
 			{/if}
 		</div>

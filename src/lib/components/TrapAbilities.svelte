@@ -4,7 +4,7 @@
 	import translations from '$lib/translations.json';
 	import TextParser from './TextParser.svelte';
 	import TrapSkill from './TrapSkill.svelte';
-	import trapSkills from '$lib/data/traps_skills.json';
+	import trapSkills from '$lib/data/trap/traps_skills.json';
 	import Remark from './Remark.svelte';
 	import { getFormTitle, getTrapFormIndex } from '$lib/functions/lib';
 	import RangeParser from './RangeParser.svelte';
@@ -18,14 +18,22 @@
 {#if trap.desc}
 	{#if mode === 'handbook'}
 		<p class="bg-[#383838] px-3.5 py-0.5 text-[#a2a5a5] font-bold">
-			{translations[language].trait}<span class="font-normal">/</span>{translations[language]
-				.handbook_ability}
+			{translations[language].trait}<span class="font-normal" />
 		</p>
 	{/if}
 	<ul class="list-disc pl-4 py-1">
 		<li class="py-1">
 			<TextParser line={trap.desc} />
 		</li>
+	</ul>
+{/if}
+{#if trap.special.length > 0}
+	{#if mode === 'handbook'}
+		<p class="bg-[#383838] px-3.5 py-0.5 text-[#a2a5a5] font-bold">
+			{translations[language].handbook_mechanics}<span class="font-normal" />
+		</p>
+	{/if}
+	<ul class="list-disc pl-4 py-1">
 		{#each trap.special as item, i}
 			{#if typeof item === 'string'}
 				<Remark skill={trapSkills[item]} {language} mode={'handbook'} enemyStats={trap.stats} />
@@ -43,11 +51,11 @@
 
 {#if trap.talents?.length > 0}
 	{#if mode === 'handbook'}
-		<p class="bg-[#383838] px-3.5 py-0.5 text-[#a2a5a5] font-bold">
+		<p class="px-3.5 py-0.5 font-bold bg-[#383838] text-[#a2a5a5]">
 			{translations[language].talent}
 		</p>
 	{/if}
-	<ul class="py-1 h-max {mode === 'table' ? 'list-disc pl-4' : ''}">
+	<ul class="py-1 h-max {mode === 'table' ? 'pl-4 list-disc' : ''}">
 		{#each trap.talents as talent}
 			<li>
 				{#if mode === 'handbook'}
@@ -64,7 +72,7 @@
 							<div class="flex items-center h-full">
 								<RangeParser rangeId={talent.rangeId} size="small" />
 							</div>
-							<p class="mt-1 text-sm">{translations[language].effect_range}</p>
+							<p class="mt-1 text-xs">{translations[language].effect_range}</p>
 						</div>
 					{/if}
 				</div>
@@ -73,12 +81,16 @@
 	</ul>
 {/if}
 {#if trap.skills?.length > 0}
-	<p class="bg-[#383838] px-3.5 py-0.5 text-[#a2a5a5] font-bold">
+	<p
+		class="px-3.5 py-0.5 font-bold {mode === 'table'
+			? 'bg-[#4f4f4f]'
+			: 'bg-[#383838] text-[#a2a5a5]'}"
+	>
 		{translations[language].skill}
 	</p>
-	<div class="py-1.5">
+	<div class="pb-1.5 {mode === 'table' ? 'pl-4' : ''}">
 		{#each trap.skills as skill}
-			<TrapSkill {skill} {language} />
+			<TrapSkill {skill} {language} {mode} />
 		{/each}
 	</div>
 {/if}

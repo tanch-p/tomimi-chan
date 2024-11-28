@@ -11,16 +11,17 @@
 	export let trap: Trap, otherBuffsList;
 	let language: Language;
 	$: language = $page.data.language;
-
-	// console.log(trap);
 </script>
 
 <div
 	id={trap.key}
 	class="scroll-mt-16 p-2 bg-neutral-900 bg-opacity-40 sm:max-w-[500px] w-full mx-auto"
 >
-	<div class="relative">
+	<div class="relative pt-3">
 		<div class="flex items-center">
+			{#if trap.overwritten}
+				<p class="text-xs text-center bg-[#981313] py-0.5 w-[1.75rem]">Sp.</p>
+			{/if}
 			<p class="ml-1 font-semibold">{trap.name}</p>
 		</div>
 	</div>
@@ -42,19 +43,19 @@
 			</div> -->
 			{#if trap.stats.rangeId}
 				<div
-					class="flex flex-col items-center w-[72px] p-2 pb-1 bg-[#161616] bg-opacity-80 rounded h-max"
+					class="flex flex-col items-center w-[75px] p-2 pb-1 bg-[#161616] bg-opacity-80 rounded h-max"
 				>
 					<div class="flex items-center">
 						<RangeParser rangeId={trap.stats.rangeId} size="small" />
 					</div>
-					<p class="mt-1 text-sm">{translations[language].attack_range}</p>
+					<p class="mt-1 text-xs">{translations[language].attack_range}</p>
 				</div>
 			{/if}
 		</div>
 		<TrapStats {trap} />
 	</div>
 	<div class="mt-3">
-		{#if trap.key === 'trap_760_skztzs'}
+		{#if otherBuffsList && trap.key === 'trap_760_skztzs'}
 			<p class="bg-[#383838] px-3.5 py-0.5 text-[#a2a5a5] font-bold">
 				{translations[language].other_buffs}
 			</p>
@@ -74,7 +75,7 @@
 				{/each}
 			</div>
 		{/if}
-		<TrapAbilities {trap} />
+		<TrapAbilities {trap}/>
 		<StatusImmune statusImmuneList={trap.status_immune} {language} mode="handbook" />
 	</div>
 </div>

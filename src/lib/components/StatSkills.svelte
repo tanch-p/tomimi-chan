@@ -2,16 +2,11 @@
 	import type { Language, Skill } from '$lib/types';
 	import { getDmgEleHighlight } from '$lib/functions/parseAtkType';
 	import translations from '$lib/translations.json';
-	import enemySkills from '$lib/data/enemy/enemy_skills.json';
-	export let skills: Skill[],
-		stat: string,
-		statValue: number,
-		language: Language;
 
+	export let skills: Skill[], stat: string, statValue: number, language: Language;
 	$: separator = language === 'en' ? '/' : '・';
 	$: skillsToParse = skills
-		.map((skillRef) => {
-			let skill = { ...enemySkills[skillRef.key], ...skillRef };
+		.map((skill) => {
 			if (skill[stat]) {
 				const { suffix, hits, dmg_element } = skill;
 				let value = statValue;

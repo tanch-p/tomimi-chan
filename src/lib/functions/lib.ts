@@ -103,17 +103,6 @@ export const sortEnemies = (a: Enemy, b: Enemy) => {
 	return getEnemyWeight(a.key, a.type) - getEnemyWeight(b.key, b.type);
 };
 
-export const getTooltipEndIndex = (text: string) => {
-	if (text[text.length - 1] === '}') {
-		for (let i = text.length - 1; i > 0; i--) {
-			if (text[i] === '{' && text?.[i - 1] !== '}') {
-				return i;
-			}
-		}
-	}
-	return text.length;
-};
-
 export const setOtherBuffsList = (store, rogueTopic: RogueTopic, enemies: Enemy[]) => {
 	const buffsList = [];
 	if (rogueTopic === 'rogue_skz') {
@@ -157,4 +146,18 @@ export const updateOtherBuffsList = (store, buffKey, key) => {
 		}
 		return list;
 	});
+};
+
+export const getEliteColors = (rogueTopic: string) => {
+	switch (rogueTopic) {
+		case 'rogue_sami':
+			return ['bg-[#544a8a]', 'bg-[#8f3033]'];
+		case 'rogue_mizuki':
+			return ['bg-[#5645a4]', 'bg-[#92344e]'];
+		case 'rogue_phantom':
+			return ['bg-[#dea41b]', 'bg-[#cb710c]'];
+		case 'rogue_skz':
+			return ['bg-[#5a4b90]', 'bg-[#cb3220]'];
+	}
+	return [];
 };

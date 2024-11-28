@@ -1,0 +1,1341 @@
+{
+	"lone": {
+		"tooltip": {
+			"zh": ["可被友方单位攻击，且不会受到伤害"],
+			"ja": ["味方に攻撃可能かつダメージを受けない"],
+			"en": ["Can be attacked by friendly units and does not take any damage"]
+		}
+	},
+	"roadblock": {
+		"tooltip": {
+			"zh": ["可改变敌人的行进路线"],
+			"ja": ["敵の進路を変える"],
+			"en": ["Can reroute ground enemies"]
+		}
+	},
+	"neutral": {
+		"tooltip": {
+			"zh": ["无敌，不可阻挡，不进行攻击"],
+			"ja": ["無敵、ブロックしない、攻撃しない"],
+			"en": ["Invincible, does not block or attack"]
+		}
+	},
+	"self_destruct": {
+		"tooltip": {
+			"zh": ["技能释放后销毁自身"],
+			"ja": ["スキル発動後自滅する"],
+			"en": ["Destroys self after skill usage"]
+		}
+	},
+	"thorn_box": {
+		"tooltip": {
+			"zh": [
+				"受到伤害时，若伤害来源为默认类，则对伤害来源造成相当于本次伤害40%的无来源{true}普通伤害"
+			],
+			"ja": ["受けたダメージの40%で{true}ダメージとして反撃する"],
+			"en": ["Reflect 40% of damage received as {true} damage back to damage source"]
+		}
+	},
+	"sktok_crate": {
+		"skillId": "sktok_crate",
+		"name_zh": "阻挡路线",
+		"name_ja": "進路妨害",
+		"name_en": "Obstruct",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"desc_zh": "设置障碍，改变敌人的行进路线\\n<@ba.rem>如果障碍阻挡了敌人，敌人会破坏此障碍</>",
+		"desc_ja": "障害物を設置して敵の進路を変える\n<@ba.rem>障害物が敵をブロックすると、敵に破壊される</>",
+		"desc_en": "Deploy a Roadblock, changing enemies' route\n<@ba.rem>If the Roadblock is deployed on enemies, they will destroy it</>",
+		"rangeId": null,
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": -1.0
+			}
+		]
+	},
+	"sktok_emp": {
+		"skillId": "sktok_emp",
+		"name_zh": "EMP爆炸",
+		"name_ja": "電磁パルス",
+		"name_en": "EMP Blast",
+		"skillType": "MANUAL",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"desc_zh": "消耗<@ba.vup>10</>点部署费用，立即对周围所有敌人造成攻击力100%的{arts}伤害，并使全部命中目标<ba.stun>晕眩</><@ba.vup>7</>秒",
+		"desc_ja": "コスト<@ba.vup>10</>で使用可能、使用後周囲の敵全員に攻撃力100％の{arts}ダメージを与え、<@ba.vup>{stun}</>秒間<ba.stun>スタン</>させる",
+		"desc_en": "Consumes <@ba.vup>10</> DP to immediately deal 100% of ATK as {arts} damage to all nearby enemies and <ba.stun>Stun</> the targets hit for <@ba.vup>{stun}</> seconds",
+		"rangeId": "x-4",
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 5,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+
+	"sktok_sensor": {
+		"skillId": "sktok_sensor",
+		"name_zh": "反隐",
+		"name_ja": "アンチステルス",
+		"name_en": "Detection",
+		"skillType": "MANUAL",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"desc_zh": "开启时周围敌方单位的<ba.invisible>隐匿</>效果失效",
+		"desc_ja": "起動後周囲一定範囲内の敵全員の<ba.invisible>ステルス</>状態を無効化する",
+		"desc_en": "Reveals nearby <ba.invisible>Invisible</> enemies when activated",
+		"rangeId": "x-3",
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 15,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": 20.0
+			}
+		]
+	},
+	"sktok_ballis": {
+		"skillId": "sktok_ballis",
+		"name_zh": "发射弩箭",
+		"name_ja": "射撃",
+		"name_en": "Bolt Launching",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"desc_zh": "向前方射出一支弩箭，对碰到的第一名友方干员造成攻击力100%的{phys}伤害",
+		"desc_ja": "前方に向けて矢を射出し、一番最初に命中した味方に攻撃力100%の{phys}ダメージを与える",
+		"desc_en": "Shoots a bolt forwards, dealing 100% ATK as {phys} damage to the first Operator hit",
+		"rangeId": null,
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 5,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"sktok_farm": {
+		"skillId": "sktok_farm",
+		"name_zh": "启动！",
+		"name_ja": "アクティベート！",
+		"name_en": "Startup!",
+		"skillType": "MANUAL",
+		"durationType": "NONE",
+		"cost": 20,
+		"spType": "INCREASE_WITH_TIME",
+		"desc_zh": "消耗<@ba.vup><v.cost></>点部署费用，防御力<@ba.vup>+200%</>，法术抗性<@ba.vup>+20</>，每秒回复10点生命，部署干员单位数<@ba.vup>+1</>",
+		"desc_ja": "所持コストを<@ba.vup><v.cost></>消費して次の効果を発動させる：防御力<@ba.vup>+200%</>、術耐性<@ba.vup>+20</>、1秒ごとHPが10回復、配置可能数<@ba.vup>+1</>",
+		"desc_en": "Consume <@ba.vup><v.cost></> DP to activate: DEF <@ba.vup>+200%</>, RES <@ba.vup>+20</>, restores 10 HP per second, and increases Operator Deployment Limit by <@ba.vup>+1</>",
+		"rangeId": null,
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 120,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"farm_1": {
+		"tooltip": {
+			"zh": ["“可部署数量+1”为全局效果，生效后不会因为装置被破坏或技能结束而消失，可叠加。"],
+			"ja": ["最大配置数+1の効果は破壊されても継続する"],
+			"en": ["Deployment Limit +1 effect continues even if Command Terminal is destroyed"]
+		}
+	},
+	"sktok_frosts": {
+		"skillId": "sktok_frosts",
+		"name_zh": "寒潮",
+		"name_ja": "氷結衝撃波",
+		"name_en": "Frigid Tide",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"desc_zh": "发射一道寒霜冲击波，使周围友方单位陷入<ba.cold>寒冷</>状态10秒",
+		"desc_ja": "一定時間ごとに、周囲一定範囲内の味方に10秒間<ba.cold>寒冷</>状態を付与する衝撃波を発生する",
+		"desc_en": "Launches a frigid shockwave, inflicting the <ba.cold>Cold</> status to ally units hit for 10 seconds",
+		"rangeId": "x-1",
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 15,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"sktok_ore": {
+		"skillId": "sktok_ore",
+		"name_zh": "脉冲波",
+		"name_ja": "源石衝撃波",
+		"name_en": "Pulse Wave",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"desc_zh": "向四周喷发脉冲波，对周围所有友方与敌方单位造成<@ba.vup>500</>{true}伤害。{ignore_camou}并使特殊敌人获得强化。",
+		"desc_ja": "衝撃波を発生させ、周囲一定範囲内の敵味方ユニット全員に<@ba.vup>500</>の{true}ダメージを与え{ignore_camou}、一部の敵を強化する",
+		"desc_en": "Emits a pulse wave in the surrounding tiles, dealing <@ba.vup>500</> {true} Damage to all allied and enemy units{ignore_camou}; Certain enemies are strengthened",
+		"rangeId": "x-1",
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 7,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"sktok_blower": {
+		"skillId": "sktok_blower",
+		"name_zh": "气流",
+		"name_ja": "源石気流",
+		"name_en": "Airflow",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"desc_zh": "向前方3格吹出气流；与气流<@ba.vup>同向</>/<@ba.vdown>逆向</>部署的干员攻击<@ba.vup>提升</>/<@ba.vdown>降低</>；<@ba.vdown>同向</>/<@ba.vup>逆向</>移动的敌人移速<@ba.vdown>提升</>/<@ba.vup>降低</>",
+		"desc_ja": "前方3マスに気流を排出し、気流範囲内、気流と<@ba.vup>同方向</>/<@ba.vdown>逆方向</>に配置する味方の攻撃力<@ba.vup>上昇</>/<@ba.vdown>低下</>、気流と<@ba.vup>同方向</>/<@ba.vdown>逆方向</>に移動する敵の移動速度<@ba.vup>上昇</>/<@ba.vdown>低下</>",
+		"desc_en": "Blows out an airflow towards the 3 frontal tiles; Operators deployed <@ba.vup>downstream</>/<@ba.vdown>upstream</> from the airflow have <@ba.vup>increased</>/<@ba.vdown>decreased</> ATK; Enemies moving <@ba.vdown>downstream</>/<@ba.vup>upstream</> from the airflow have <@ba.vdown>increased</>/<@ba.vup>decreased</> Movement Speed",
+		"rangeId": null,
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"blower_ally": {
+		"tooltip": {
+			"zh": [
+				"对于<@self>友方干员</>：与气流<@ba.vup>同向</>/<@ba.vdown>逆向</>部署的干员攻击<@ba.vup>提升30%</>/<@ba.vdown>降低30%</>",
+				"所有攻击力提升效果为<@ba.vup>直接乘算</>；所有攻击力降低效果为<@ba.vdown>最终乘算</>"
+			],
+			"ja": ["<@ba.vup>同方向</> - 味方は攻撃力<@ba.vup>+30%</>、敵は移動速度<@ba.vdown>+80%</>"],
+			"en": [
+				"<@ba.vup>Downstream</> - Operators have ATK <@ba.vup>+30%</>, Enemies have Movespeed <@ba.vdown>+80%</>"
+			]
+		}
+	},
+	"blower_enemy": {
+		"tooltip": {
+			"zh": [
+				"对于<@enemy>敌方单位</>：<@ba.vdown>同向</>/<@ba.vup>逆向</>移动的敌人移速<@ba.vdown>提升80%</>/<@ba.vup>最终降低50%</>。对隐匿单位不生效。"
+			],
+			"ja": ["<@ba.vdown>逆方向</> - 味方は攻撃力<@ba.vdown>-30%</>、敵は移動速度<@ba.vup>-50%</>"],
+			"en": [
+				"<@ba.vdown>Upstream</> - Operators have ATK <@ba.vdown>-30%</>, Enemies have Movespeed <@ba.vup>-50%</>"
+			]
+		}
+	},
+	"sktok_tower": {
+		"skillId": "sktok_tower",
+		"name_zh": "法术传输协议",
+		"name_ja": "アーツ転送プロトコル",
+		"name_en": "Arts Transfer Protocol",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"desc_zh": "每次攻击对一名敌方单位造成<@ba.vup>5%</>生命上限的{arts}伤害；每5秒恢复一名友方单位<@ba.vup>10%</>生命值",
+		"desc_ja": "攻撃時、敵1体に最大HPの<@ba.vup>5%</>の{arts}ダメージを与える。5秒ごとに味方1人のHPを最大HPの<@ba.vup>10%</>回復",
+		"desc_en": "Each attack deals {arts} damage to an enemy equal to <@ba.vup>5%</> of its Max HP; Every 5 seconds, restores <@ba.vup>10%</> HP to an allied unit",
+		"rangeId": "x-5",
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 100,
+					"initSp": 50,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			},
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 100,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			},
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 100,
+					"initSp": 100,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"tower_1": {
+		"tooltip": {
+			"zh": [
+				"一般情况下，初始状态为“无占领”，不进行攻击，SP恢复速度为0（即正常情况下不会自然回复SP）"
+			],
+			"ja": [
+				"多くの場合はどちらの制御でも無い状態(SP50)で開始するが、ステージによっては味方の制御済み、敵の制御済みの状態から始まる"
+			],
+			"en": [
+				"Usually appears initially in 'neutral' state, does not attack and does not recover SP naturally"
+			]
+		}
+	},
+	"tower_2": {
+		"tooltip": {
+			"zh": [
+				"每个部署在法术传输协议范围内的友方单位(装置除外)每秒将为留声机增加1SP，同时部分敌人可通过技能或天赋降低留声机的SP"
+			],
+			"ja": ["隣接する位置（稲妻マークのあるマス）に味方ユニットを配置することで味方毎にSP+1"],
+			"en": [
+				"Units deployed on a Gramophone's adjacent tiles, marked by a lightning symbol on it, restore 1 SP to the Gramophone every second"
+			]
+		}
+	},
+	"tower_3": {
+		"tooltip": {
+			"zh": [
+				"SP达到0时变为<@enemy>“敌方占领”</>状态；SP达到100时变为<@self>“友方占领”</>状态，并持续释放技能（治疗友方/攻击敌方）。控制状态将一直持续到SP归零/蓄满或被强制夺取为止。"
+			],
+			"ja": [
+				"SPが0になると<@enemy>敵（赤色）</>になり、SPが100になると<@self>味方（青色）</>になる"
+			],
+			"en": [
+				"When the Gramophone's SP reaches 100, it will activate and become <@self>friendly (blue)</>. Should SP be depleted, it will become <@enemy>hostile (red)</>."
+			]
+		}
+	},
+	"sktok_frosts_friend": {
+		"skillId": "sktok_frosts_friend",
+		"name_zh": "寒潮",
+		"name_ja": "氷結衝撃波",
+		"name_en": "Frigid Tide",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"desc_zh": "发射一道寒霜冲击波，使周围敌方单位陷入<ba.cold>寒冷</>状态10秒",
+		"desc_ja": "一定時間ごとに、周囲一定範囲内の敵全員に10秒の<ba.cold>寒冷</>状態を付与する衝撃波を発生させる",
+		"desc_en": "Launches a frigid shockwave, inflicting the <ba.cold>Cold</> status to enemy units hit for 10 seconds",
+		"rangeId": "x-1",
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 15,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"sktok_npcsld": {
+		"skillId": "sktok_npcsld",
+		"name_zh": "列阵！",
+		"name_ja": "構え！",
+		"name_en": "Form Up!",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"desc_zh": "更容易受到敌方的攻击",
+		"desc_ja": "敵から攻撃されやすい",
+		"desc_en": "More likely to be attacked by enemies",
+		"rangeId": null,
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": -1.0
+			}
+		]
+	},
+	"sktok_stone": {
+		"skillId": "sktok_stone",
+		"name_zh": "阻挡路线",
+		"name_ja": "進路妨害",
+		"name_en": "Obstruct",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"desc_zh": "初始部署在场景中，改变敌人的行进路线\\n<@ba.rem>如果障碍阻挡了敌人，敌人会破坏此障碍</>",
+		"desc_ja": "作戦開始時ステージ内に配置され、敵の進行ルートを変える\n<@ba.rem>障害物が敵をブロックすると、敵に破壊される</>",
+		"desc_en": "Will be deployed at the start of the stage, changing enemies' route\n<@ba.rem>If the Rubble blocks enemies, they will destroy it</>",
+		"rangeId": null,
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"sktok_mound": {
+		"skillId": "sktok_mound",
+		"name_zh": "风沙掩体",
+		"name_ja": "防風壁",
+		"name_en": "Sandstorm Protection",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"desc_zh": "阻挡<@ba.vup>沙尘暴</>，加固后立即回复所有生命值、防御力<@ba.vup>+400</>且不再受到<@ba.vup>沙尘暴</>的伤害但可以被<高能源石炸弹>直接摧毁。",
+		"desc_ja": "<@ba.vup>砂嵐</>を遮り、補強完成後HPを全回復し、防御力<@ba.vup>+400</>かつ<@ba.vup>砂嵐</>によるダメージを受けなくなる。<高威力源石爆弾>を使うことで破壊できる。",
+		"desc_en": "Blocks the <@ba.vup>Sandstorm</>. When fortified, immediately recovers all HP, DEF <@ba.vup>+400</> and no longer receives damage from the <@ba.vup>Sandstorm</>, but can still be instantly destroyed by &lt;High-Energy Originium Bomb*gt;",
+		"rangeId": null,
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 10,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"mound_1": {
+		"tooltip": {
+			"zh": ["可通过<加固装置>进入加固状态（最多加固一次）"],
+			"ja": ["<補強装置>を使って補強できる"],
+			"en": ["Can be reinforced by &lt;Reinforcement Device&gt;"]
+		}
+	},
+	"sktok_dupilr": {
+		"skillId": "sktok_dupilr",
+		"name_zh": "支柱坍塌",
+		"name_ja": "倒壊",
+		"name_en": "Collapsing Pillar",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"desc_zh": "被击倒后，对倒下两格造成真实伤害与晕眩并使范围内的友方单位强制撤退，并在可部署地块上生成阻挡路线的<战场废墟>",
+		"desc_ja": "倒された方向の直線2マス内の敵全員に確定ダメージを与え、スタンさせ、範囲内の味方全員を強制撤退させる。その後、範囲内の配置可能なマスに通行不可な<瓦礫>を生成する",
+		"desc_en": "After being knocked down, deals True damage to enemies within the two tiles and Stuns them; Allied units within the two tiles will be forcibly retreated. &lt;Battlefield Ruins&gt; that blocks the enemy's route will be created on the deployable tiles",
+		"rangeId": "2-2",
+		"levels": [
+			{
+				"spData": {
+					"spCost": 10,
+					"initSp": 10,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"sktok_dancdol": {
+		"skillId": "sktok_dancdol",
+		"name_zh": "剧目宣告",
+		"name_ja": "カーテンコール",
+		"name_en": "Repertoire Announcement",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"desc_zh": "使周围的友方单位攻击力<@ba.vdown>-30%</>(最终乘算)并每0.5秒造成攻击力50%的无类型{true}伤害",
+		"desc_ja": "周囲の味方全員の攻撃力<@ba.vdown>-30%</>、0.5秒毎に攻撃力50%の{true}ダメージを与える",
+		"desc_en": "Nearby allies have ATK <@ba.vdown>-30%</> and receive 50% of trap's ATK as {true} damage every 0.5 seconds",
+		"rangeId": "x-4",
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"sktok_wpnsts": {
+		"skillId": "sktok_wpnsts",
+		"name_zh": "拉特兰式冰淇淋",
+		"name_ja": "ジェラート供給",
+		"name_en": "Laterano-Style Gelato",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"desc_zh": "使周围所有友方单位每<@ba.vup>2</>秒回复<@ba.vup>1</>点技力\\n被夺取后立刻对周围所有友方单位造成<@ba.vup>1000</>点法术伤害并<ba.stun>晕眩</><@ba.vup>5</>秒",
+		"desc_ja": "周囲の味方全員が<@ba.vup>2</>秒ごとSPが<@ba.vup>1</>回復。\n制御権が奪取されると、周囲の味方全員に<@ba.vup>1000</>の術ダメージを与え、<@ba.vup>5</>秒間<ba.stun>スタン</>させる",
+		"desc_en": "Restores <@ba.vup>1</> SP to nearby allies every <@ba.vup>2</> seconds; \nAfter being captured, immediately inflicts <@ba.vup>1000</> Arts Damage to nearby allies and <ba.stun>stuns</> them for <@ba.vup>5</> seconds",
+		"rangeId": "x-1",
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"wpnsts_1": {
+		"tooltip": {
+			"zh": ["根据地图设置不同，“冰淇淋机”分为初始敌占和初始我占两种状态"],
+			"ja": [
+				"味方状態（青色）と敵状態（赤色）の二つの状態を持つ、ステージ開始時には味方状態か敵状態のいずれかになっている"
+			],
+			"en": ["Begins in friendly or hostile state according to stage settings"]
+		}
+	},
+	"wpnsts_2": {
+		"tooltip": {
+			"zh": [
+				"生命值降低至0后触发技能，对当前控制方的单位造成伤害和晕眩效果，随后控制权转移，进入20秒的中间状态，期间无法被选中，技能失效，状态持续时间内恢复生命值至100%"
+			],
+			"ja": [
+				"HPが0になった時、範囲内のそれまで所持していた陣営に1000の術ダメージと5秒のスタンを与える。その後、20秒の移行期間を経てHPが全回復し、奪った陣営に制御権が移行する。移行期間中は【ジェラート供給】が無効化される。"
+			],
+			"en": [
+				"When HP reaches 0, releases a wave that deals Arts damage and Stuns allies/enemies in a 2 tile radius, recovers to 100% HP over 20 seconds then switches to friendly/hostile"
+			]
+		}
+	},
+	"wpnsts_3": {
+		"tooltip": {
+			"zh": [
+				"中间状态结束后技能重新生效，为新控制方的单位周期性提供技力（对于敌人则为“为弹药技能/天赋回复弹药”）。多个“冰淇淋机”的技能效果不叠加"
+			],
+			"ja": [
+				"<@self>味方状態</>なら、範囲内の味方のSPを2秒ごとに1回復。<@enemy>敵状態</>なら、範囲内の敵の弾薬を2秒ごとに1補充"
+			],
+			"en": [
+				"Friendly - recovers 1 SP every 2 seconds for allies, Hostile - recovers 1 ammo every 2 seconds for enemies"
+			]
+		}
+	},
+	"sktok_gunctrl": {
+		"skillId": "sktok_gunctrl",
+		"name_zh": "开火",
+		"name_ja": "発射",
+		"name_en": "Open Fire",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"desc_zh": "锁定阻挡数最高的友方单位，对范围内的全部单位造成3000点{true}伤害{ignore_stealth}",
+		"desc_ja": "ブロック数の最も大きい味方ユニットを対象に砲撃を行う、砲撃は対象を中心とした範囲に存在する敵味方双方の全ユニットに3000の{true}ダメージを与える{ignore_stealth}",
+		"desc_en": "Once fully charged, deals 3000 splash {true} damage to both allies and enemies, centered on the friendly unit with the highest Block{ignore_stealth}",
+		"rangeId": "x-2",
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 120,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": -1.0
+			},
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 90,
+					"initSp": 40,
+					"increment": 1.0
+				},
+				"duration": -1.0
+			},
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 120,
+					"initSp": 60,
+					"increment": 1.0
+				},
+				"duration": -1.0
+			},
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 120,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": -1.0
+			}
+		]
+	},
+	"gunctrl_1": {
+		"tooltip": {
+			"zh": ["在存在<伦蒂尼姆城防副炮>的地图中，屏幕正上方会显示该装置的充能进度"],
+			"ja": [
+				"<ロンディニウム都市防衛副砲>がいる時、現在のSP蓄積量が画面上部にゲージとして表示される"
+			],
+			"en": [
+				"When Londinium Secondary Defense Artillery is present, a meter showing the charging progress will be shown at the top of the screen"
+			]
+		}
+	},
+	"sktok_normbox": {
+		"skillId": "sktok_normbox",
+		"name_zh": "诱人珍宝",
+		"name_ja": "財宝のいざない",
+		"name_en": "Alluring Treasures",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"desc_zh": "击破额外获得2源石锭",
+		"desc_ja": "倒されると戦闘勝利報酬に源石錐を2個追加",
+		"desc_en": "Gives +2 Originium Ingots when defeated",
+		"rangeId": null,
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"sktok_smbox": {
+		"skillId": "sktok_smbox",
+		"name_zh": "诱人珍宝",
+		"name_ja": "財宝のいざない",
+		"name_en": "Alluring Treasures",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"desc_zh": "击破额外获得2源石锭",
+		"desc_ja": "倒されると戦闘勝利報酬に源石錐を2個追加",
+		"desc_en": "Gives +2 Originium Ingots when defeated",
+		"rangeId": null,
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"sktok_skzbox": {
+		"skillId": "sktok_skzbox",
+		"name_zh": "诱人珍宝",
+		"name_ja": "財宝のいざない",
+		"name_en": "Alluring Treasures",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"desc_zh": "击破额外获得2源石锭",
+		"desc_ja": "倒されると戦闘勝利報酬に源石錐を2個追加",
+		"desc_en": "Gives +2 Originium Ingots when defeated",
+		"rangeId": null,
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"sktok_rarebox": {
+		"skillId": "sktok_rarebox",
+		"name_zh": "更诱人珍宝",
+		"name_ja": "財宝の蠱惑",
+		"name_en": "More Alluring Treasures",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"desc_zh": "反弹部分受到的伤害，击破额外获得4源石锭",
+		"desc_ja": "被ダメージの一部を攻撃してきた対象にも与える\n倒されると戦闘勝利報酬に源石錐を4個追加",
+		"desc_en": "Reflect some damage taken, gives +4 Originium Ingots when defeated",
+		"rangeId": null,
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"sktok_smrbox": {
+		"skillId": "sktok_smrbox",
+		"name_zh": "刺人珍宝",
+		"name_ja": "財宝に刺あり",
+		"name_en": "Spiky Treasures",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"desc_zh": "反弹部分受到的伤害，击破额外获得4源石锭",
+		"desc_ja": "被ダメージの一部を攻撃してきた対象にも与える\n倒されると戦闘勝利報酬に源石錐を4個追加",
+		"desc_en": "Reflect some damage taken, gives +4 Originium Ingots when defeated",
+		"rangeId": null,
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"sktok_badbox": {
+		"skillId": "sktok_badbox",
+		"name_zh": "极诱人珍宝",
+		"name_ja": "財宝の蕩めき",
+		"name_en": "Really Alluring Treasures",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"desc_zh": "击破额外获得10源石锭",
+		"desc_ja": "倒されると戦闘勝利報酬に源石錐を10個追加",
+		"desc_en": "Gives +10 Originium Ingots when defeated",
+		"rangeId": null,
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"sktok_smbbox": {
+		"skillId": "sktok_smbbox",
+		"name_zh": "诱人珍宝？",
+		"name_ja": "財宝？の誘惑",
+		"name_en": "Alluring Treasures?",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"desc_zh": "击破额外获得10源石锭",
+		"desc_ja": "倒されると戦闘勝利報酬に源石錐を10個追加",
+		"desc_en": "Gives +10 Originium Ingots when defeated",
+		"rangeId": null,
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"sktok_skzmbx": {
+		"skillId": "sktok_skzmbx",
+		"name_zh": "诱人珍宝？",
+		"name_ja": "財宝？の誘惑",
+		"name_en": "Alluring Treasures?",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"desc_zh": "击破额外获得10源石锭",
+		"desc_ja": "倒されると戦闘勝利報酬に源石錐を10個追加",
+		"desc_en": "Gives +10 Originium Ingots when defeated",
+		"rangeId": null,
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"smbbox": {
+		"tooltip": {
+			"zh": ["受到攻击后撤退自身，在自身位置以预设路径召唤1只巨壳藤蔓"],
+			"ja": ["ダメージを受けると撤退し、自分の位置に敵<巨殻のツル>を召喚する"],
+			"en": ["Turns into enemy &lt;Testaceous Vinecreeps&gt; upon taking damage"]
+		}
+	},
+	"badbox": {
+		"tooltip": {
+			"zh": ["受到攻击后撤退自身，在自身位置以预设路径召唤1只箱形恐鱼"],
+			"ja": ["ダメージを受けると撤退し、自分の位置に敵<宝箱形恐魚>を召喚する"],
+			"en": ["Turns into enemy &lt;Chest Seaborn&gt; upon taking damage"]
+		}
+	},
+	"skzmbx": {
+		"tooltip": {
+			"zh": ["受到攻击后撤退自身，在自身位置以预设路径召唤1只迷珍巧械"],
+			"ja": ["ダメージを受けると撤退し、自分の位置に敵<迷珍巧械>を召喚する"],
+			"en": ["Turns into enemy <迷珍巧械> upon taking damage"]
+		}
+	},
+	"sktok_bgarms_1": {
+		"skillId": "sktok_bgarms_1",
+		"name_zh": "研究成功",
+		"name_ja": "研究成功",
+		"name_en": "Research Success",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"desc_zh": "吸收范围内的实验产物回复技力，技力满时启动",
+		"desc_ja": "範囲内の実験産物を吸収してSPを回復し、SPが最大値に到達する時に起動する",
+		"desc_en": "Absorbs experiment products within range to recover SP. Activates when SP is full",
+		"rangeId": null,
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 100,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"sktok_bgarmn_1": {
+		"skillId": "sktok_bgarmn_1",
+		"name_zh": "研究成功",
+		"name_ja": "研究成功",
+		"name_en": "Research Success",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"desc_zh": "吸收范围内的实验产物回复技力，技力满时启动",
+		"desc_ja": "範囲内の実験産物を吸収してSPを回復し、SPが最大値に到達する時に起動する",
+		"desc_en": "Absorbs experiment products within range to recover SP. Activates when SP is full",
+		"rangeId": null,
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 100,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"sktok_rmtarmn_1": {
+		"skillId": "sktok_rmtarmn_1",
+		"name_zh": "研究成功",
+		"name_ja": "研究成功",
+		"name_en": "Research Success",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"desc_zh": "吸收范围内的实验产物回复技力，技力满时启动",
+		"desc_ja": "範囲内の実験産物を吸収してSPを回復し、SPが最大値に到達する時に起動する",
+		"desc_en": "Absorbs experiment products within range to recover SP. Activates when SP is full",
+		"rangeId": null,
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 100,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"sktok_allydonq": {
+		"skillId": "sktok_allydonq",
+		"name_zh": "冲锋",
+		"name_ja": "突貫",
+		"name_en": "Charge",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WHEN_ATTACK",
+		"desc_zh": "下次攻击造成相当于攻击力<@ba.vup>200%</>的物理伤害，并较大力地弹开目标",
+		"desc_ja": "次の通常攻撃時、攻撃対象に攻撃力の<@ba.vup>200%</>の物理ダメージを与え、<@ba.vup>力強く</>突き飛ばす",
+		"desc_en": "The next attack deals <@ba.vup>200%</> ATK as Physical damage and pushes the enemy away with great force",
+		"rangeId": "1-1",
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 4,
+					"initSp": 0,
+					"increment": 1.0
+				}
+			}
+		]
+	},
+	"allydonq_1": {
+		"tooltip": {
+			"zh": ["可享受尖兵相关的加成"],
+			"ja": ["味方の回復対象にならない、認知形成と秘宝の効果を受ける(先鋒オペレーター扱い)"],
+			"en": ["Cannot be healed, treated as Vanguard operator"]
+		}
+	},
+	"allydonq_2": {
+		"tooltip": {
+			"zh": ["持有收藏品【骑士骨血】时，基础防御力降低80%"],
+			"ja": ["【騎士の血肉】所持時、防御力-80%"],
+			"en": ["While in possession of the relic 'The Knight's Corpus', DEF is lowered by 80%"]
+		}
+	},
+	"sktok_larva": {
+		"skillId": "sktok_larva",
+		"name_zh": "汲营枯枝",
+		"name_ja": "渇欲の枯枝",
+		"name_en": "Twigs That Crave",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"desc_zh": "释放【污染秽蚀】，使周围的友方单位持续流失生命，生命降至一半后对周围造成{ba.dt.apoptosis}",
+		"desc_ja": "【蝕む穢れ】を放ち、周囲一定範囲内の味方全員のHPを減少させ続ける。HPが最大値の50％以下になると、一定時間ごとに周囲にいる味方全員に{ba.dt.apoptosis}を与える",
+		"desc_en": "Releases [Corruption], causing your units to lose HP over time. Deals {ba.dt.apoptosis} around itself when HP drops to 50%.",
+		"rangeId": "x-5",
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				}
+			}
+		]
+	},
+	"larva_1": {
+		"tooltip": {
+			"zh": [
+				"在自身周围1.1半径范围内释放【污染秽蚀】- 部署于地面/高台的友方单位每秒受到50/25点{true}伤害{ignore_stealth}"
+			],
+			"ja": [
+				"自身の半径1.1以内に【蝕む穢れ】を与える (毎秒地上/高台ユニットにそれぞれ50/25{true}ダメージ){ignore_stealth}"
+			],
+			"en": [
+				"Pollution - Allied units in a 1.1 tile radius receive 50(Melee)/25(Ranged) {true} damage per second{ignore_stealth}"
+			]
+		}
+	},
+	"larva_2": {
+		"tooltip": {
+			"zh": ["自身生命值降至50%时，每4秒对自身1.1半径范围内的友方单位造成250点{ba.dt.apoptosis}"],
+			"ja": ["HP50%以下の時、自身の半径1.1以内に4秒毎に250の{ba.dt.apoptosis}を与える"],
+			"en": [
+				"HP↓50% - deals 250 {ba.dt.apoptosis} to allied units in a 1.1 tile radius every 4 seconds"
+			]
+		}
+	},
+	"larva_3": {
+		"tooltip": {
+			"zh": [
+				"自身被摧毁，或者关卡内所有预配置的敌方单位被击倒（战斗即将结束）时立即在自身位置以预设路径召唤一只食腐使徒，若自身未被摧毁则在召唤后立即撤退自身"
+			],
+			"ja": ["HPが0になるか、敵ユニットが全て退場した時、【ナハツェーラーの使徒】に変化する"],
+			"en": [
+				"When defeated or all other enemies in the stage are defeated, spawns a Rot Eater in its place"
+			]
+		}
+	},
+	"sktok_smpow": {
+		"skillId": "sktok_smpow",
+		"name_zh": "启动",
+		"name_ja": "起動",
+		"name_en": "Activate",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"duration1": 5,
+		"enhance_duration": 10,
+		"desc_zh": "使【无垠回荡克雷松】的无敌<@ba.vup><v.duration1></>秒内失效；\\n<ba.charged>蓄力</>额外效果：无敌失效延长至<@ba.vup><v.enhance_duration></>秒，并清除范围内的所有【苗圃】",
+		"desc_ja": "【天地に揺蕩う、クレイズセオン】の無敵状態を<@ba.vup><v.duration1></>秒間無効化する\n<ba.charged>オーバーチャージ</>追加効果：無効化の持続時間が<@ba.vup><v.enhance_duration></>秒に延長し、範囲内にある【苗床】をすべて除去する",
+		"desc_en": "Removes the invulnerability of [Crazelyseon, the Ascendant of Cosmoi] for <@ba.vup><v.duration1></> seconds;\n<ba.charged>Charged</> Effect: Extends the invulnerability removal effect to <@ba.vup><v.enhance_duration></> seconds, and additionally clears all [Seedbeds]",
+		"rangeId": "x-2",
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 2,
+					"spCost": 40,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": -1.0
+			},
+			{
+				"spData": {
+					"maxChargeTime": 2,
+					"spCost": 20,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": -1.0
+			}
+		]
+	},
+	"sktok_eradio": {
+		"skillId": "sktok_eradio",
+		"name_zh": "喷气散热",
+		"name_ja": "蒸気放出",
+		"name_en": "Jet Cooling",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"desc_zh": "被动：受到攻击时回复<@ba.vup>2</>点技力\\n开启后<@ba.vup>10</>秒内每秒对攻击范围内所有地面敌人和友方单位造成<@ba.vdown>200</>点{arts}伤害，额外使敌人移动速度<@ba.vup>-70%</>并获得<@ba.vdown>1</>点能量",
+		"desc_ja": "【パッシブ：攻撃された時、SPを<@ba.vup>2</>回復する\n発動後<@ba.vup>10</>秒間1秒ごとに攻撃範囲内にいる地面上の敵味方ユニット全員に<@ba.vdown>200</>の{arts}ダメージを与え、敵の移動速度<@ba.vup>-70%</>、さらにエネルギーを<@ba.vdown>1</>獲得する",
+		"desc_en": "Passive: Restores <@ba.vup>2</> SP upon being attacked\nActivation Effect: Deals <@ba.vdown>200</> {arts} damage per second to all friendly and ground enemy units in range for <@ba.vup>10</> seconds, and additionally slows the Movement Speed of enemies by <@ba.vup>-70%</> and causes them to gain <@ba.vdown>1</> Energy",
+		"rangeId": "5-1",
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 50,
+					"initSp": 25,
+					"increment": 1.0
+				},
+				"duration": 10.0
+			}
+		]
+	},
+	"sktok_condtr": {
+		"skillId": "sktok_condtr",
+		"name_zh": "广域调谐",
+		"name_ja": "広域調律",
+		"name_en": "Area Tuning",
+		"skillType": "MANUAL",
+		"durationType": "NONE",
+		"spType": "INCREASE_WHEN_TAKEN_DAMAGE",
+		"desc_zh": "变奏期间开启可以切换<@gold>激昂</>/<@purple>沉郁</>变奏，并使友方获得持续<@ba.vup>20s</>的加成效果：\\n切换到激昂变奏下，攻击速度<@ba.vup>+50</>；\\n切换到沉郁变奏下，攻击力<@ba.vup>+60%</>但攻击速度<@ba.vup>-10</>；\\n场上每多一个调谐节点开启时获得的效果<@ba.vup>叠加</>一层",
+		"desc_ja": "変奏中に発動すると、<@gold>トーンアップ</>/<@purple>トーンダウン</>の間で切り替えられ、味方に<@ba.vup>20秒</>間バフ効果を付与できる\nトーンアップに切り替えると、攻撃速度<@ba.vup>+50</>\nトーンダウンに切り替えると、攻撃力<@ba.vup>+60%</>、攻撃速度<@ba.vup>-10</>\n戦場中で起動状態の調律器の数が増えるごとに、バフ効果が1回<@ba.vup>重複付与</>される",
+		"desc_en": "When activated during a variation, enables switching between <@gold>passionate</> and <@purple>melancholic</> variations, and gives allies a buff for <@ba.vup>20s</>:\nWhen passionate variation is active, ASPD <@ba.vup>+50</>;\nwhen melancholic variation is active, ATK <@ba.vup>+60%</> but ASPD <@ba.vup>-10</>;\nfor every Tuning Node on the battlefield, <@ba.vup>gain</> 1 additional stack",
+		"rangeId": "x-1",
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 5,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": 0.0
+			},
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 10,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": 0.0
+			},
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 15,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": 0.0
+			},
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 20,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"condtr_1": {
+		"tooltip": {
+			"zh": [
+				"SP充满时自身获得不可选中",
+				"仅场上所有同名装置SP充满，且场地内正在演奏变奏时可开启技能（否则获得静默）"
+			],
+			"ja": ["マップ上すべての調律器が準備完了状態になると手動発動で起動可能"],
+			"en": [
+				"Area Tuning can only be activated when every Tuning Node on the map has full SP and a variation is in effect"
+			]
+		}
+	},
+	"condtr_2": {
+		"tooltip": {
+			"zh": [
+				"开启技能时，消耗所有同名装置的SP并仅切换当前的变奏至相反风格，清除当前给予友方的增益效果并赋予新的增益效果"
+			],
+			"ja": ["スキル発動すると調律器全機のSPが空になる"],
+			"en": ["Activating Area Tuning depletes the SP from all other Tuning Nodes on the map"]
+		}
+	},
+	"sktok_roadblock": {
+		"skillId": "sktok_roadblock",
+		"name_zh": "道路阻塞",
+		"name_ja": "進路封鎖",
+		"name_en": "Obstruction",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"desc_zh": "可以阻挡乌萨斯平民与斗士塔露拉前进。可被友方单位击毁",
+		"desc_ja": "<ウルサス民間人>と<闘士タルラ>の進路を塞ぐ。味方の攻撃によって破壊可能",
+		"desc_en": "Blocks the advance of Talulah, the Fighter, and Ursus Civilians; Able to be destroyed by your units",
+		"rangeId": null,
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": -1.0
+			}
+		]
+	},
+	"sktok_skzwyx": {
+		"skillId": "sktok_skzwyx",
+		"name_zh": "更诱人珍宝",
+		"name_ja": "財宝の蠱惑",
+		"name_en": "Alluring Treasures",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"desc_zh": "治疗后额外获得5源石锭",
+		"desc_ja": "治癒すると戦闘勝利報酬に源石錐を4個追加",
+		"desc_en": "Gives +4 Originium Ingots when fully healed",
+		"rangeId": null,
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"skzthx_1": {
+		"tooltip": {
+			"zh": ["不可阻挡，不进行普通攻击，出场250s后自动退场"],
+			"ja": ["ブロックしない、通常攻撃しない、出現から250秒後自動撤退する"],
+			"en": ["Cannot be blocked, has no normal attack, automatically retreats after 250 seconds"]
+		}
+	},
+	"skzthx_2": {
+		"suffix": { "en": "挥砍", "ja": "挥砍", "zh": "挥砍" },
+		"hits": 1,
+		"atk": { "multiplier": 1.5 },
+		"dmg_element": "phys",
+		"tooltip": {
+			"zh": [
+				"【挥砍】：仅可由特雷西斯，黑冠尊主触发：蓄力约9s后，向自身部署方向挥砍出剑气，剑气碰撞半径0.5，对碰撞到的友方单位造成攻击力150%的{phys}伤害{ignore_camou}"
+			],
+			"ja": [
+				"【挥砍】：<特雷西斯，黑冠尊主>が同じスキルを使用した時のみ発動する；9秒チャージした後、先方に剣気を放て、味方ユニットに攻撃力150%の{phys}ダメージを与える{ignore_camou}"
+			],
+			"en": [
+				"【挥砍】- Only used when <特雷西斯，黑冠尊主> does the same action; After charging for 9s, unleashes a slash attack, dealing 150% ATK as {phys} damage to all allied units in its path{ignore_camou}"
+			]
+		}
+	},
+	"sktok_skztxy": {
+		"skillId": "sktok_skztxy",
+		"name_zh": "意志震荡",
+		"name_ja": "意志震荡",
+		"name_en": "意志震荡",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"desc_zh": "对场上所有友方单位造成一次{arts}伤害，并召唤数个敌人，每次释放意志震荡造成的伤害逐渐提升\n初始攻击倍率50%，每次释放此技能后，攻击倍率+20%（最大倍率不超过500%）",
+		"desc_ja": "对场上所有友方单位造成一次{arts}伤害，并召唤数个敌人，每次释放意志震荡造成的伤害逐渐提升\n初始攻击倍率50%，每次释放此技能后，攻击倍率+20%（最大倍率不超过500%）",
+		"desc_en": "对场上所有友方单位造成一次{arts}伤害，并召唤数个敌人，每次释放意志震荡造成的伤害逐渐提升\n初始攻击倍率50%，每次释放此技能后，攻击倍率+20%（最大倍率不超过500%）",
+		"rangeId": null,
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 1,
+					"spCost": 100,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": -1.0
+			}
+		]
+	},
+	"skztxy_0": {
+		"tooltip": {
+			"zh": ["无敌，不可阻挡，不进行普通攻击；自身技力自然回复速度-1.0"],
+			"ja": ["無敵、ブロックしない、攻撃しない；SP自然回復速度-1"],
+			"en": ["Invincible, does not block or attack; SP regen -1"]
+		}
+	},
+	"skztxy_1_1": {
+		"tooltip": {
+			"zh": ["非技能期间，每10s，在场上预设位置召唤/刷新一个尊主的残影（期间持有静默)"],
+			"ja": ["10秒毎に指定の位置に<尊主的残影>一体を召喚する"],
+			"en": ["Every 10 seconds, summons a <尊主的残影> at pre-designated location"]
+		}
+	},
+	"skztxy_1_2": {
+		"tooltip": {
+			"zh": [
+				"特雷西斯，黑冠尊主第一形态被击倒/到达路径终点时，自身进入持续12.3s的重生，期间持有静默，结束后自身切换至第二形态"
+			],
+			"ja": [
+				"<特雷西斯，黑冠尊主>の第一形態が倒された又は防衛ラインに入った時、自身は12.3秒かけて再生して、第二形態へ移行"
+			],
+			"en": [
+				"When <特雷西斯，黑冠尊主> is defeated for the first time or enters Protection Objective, <特蕾西娅，黑冠圣贤> stops for 12.3, thereafter enters 2nd state"
+			]
+		}
+	},
+	"skztxy_2_1": {
+		"tooltip": {
+			"zh": [
+				"与特雷西斯，黑冠尊主的距离≤1.0/≤1.5/≤2.5/≤3.5/>3.5时，自身技力自然回复速度+5.0/+3.5/+3.0/+2.0/+1.0"
+			],
+			"ja": [
+				"テレシスとテレジアの距離が近いほど (≤1.0/≤1.5/≤2.5/≤3.5/>3.5) 、テレジアのSP回復速度+5.0/+3.5/+3.0/+2.0/+1.0"
+			],
+			"en": [
+				"The closer the distance between Theresis and Theresa (≤1.0/≤1.5/≤2.5/≤3.5/>3.5), Theresa gains increased SP regen (+5.0/+3.5/+3.0/+2.0/+1.0)"
+			]
+		}
+	},
+	"skztxy_2_2": {
+		"tooltip": {
+			"zh": [
+				"特雷西斯，黑冠尊主第二形态被击倒时，自身对场上所有友方单位造成攻击力500%的{arts}伤害，随后退场；思维混乱时，额外召唤精英敌人（7个裹骸死士）"
+			],
+			"ja": [
+				"<特雷西斯，黑冠尊主>の第二形態が倒された時、味方全体に攻撃力500%の{arts}ダメージを与え、撤退する",
+				"思维混乱時、<捨身の死士>7体召喚する"
+			],
+			"en": [
+				"When <特雷西斯，黑冠尊主> is defeated for the second time, <特蕾西娅，黑冠圣贤> does 500% of ATK as {arts} damage to all allied units and leaves the field.",
+				"If 思维混乱, summons 7 &lt;Deathveil Assassin&gt;"
+			]
+		}
+	},
+	"skztzs": {
+		"name_zh": "年代印痕",
+		"name_ja": "年代印痕",
+		"name_en": "年代印痕",
+		"desc_zh": "周围产生年代印痕，处于年代印痕中的友方单位持续受到凋亡损伤",
+		"desc_ja": "周围产生年代印痕，处于年代印痕中的友方单位持续受到凋亡损伤",
+		"desc_en": "周围产生年代印痕，处于年代印痕中的友方单位持续受到凋亡损伤",
+		"rangeId": "x-4"
+	},
+	"skzddd_0": {
+		"tooltip": {
+			"zh": ["出场120s后自动退场"],
+			"ja": ["120秒後自動撤退する"],
+			"en": ["Automatically retreats after 120s"]
+		}
+	},
+	"skzddd_1": {
+		"tooltip": {
+			"zh": ["圣卫自动机进入自身所在地块时，令其立刻退场并触发自爆效果，随后自身立刻退场"],
+			"ja": ["<圣卫自动>がぶつかった時、<圣卫坚盾>が消滅し、<圣卫自动>が即時倒される"],
+			"en": [
+				"When a <圣卫自动机> comes into contact, the <圣卫自动机> is defeated instantly and <圣卫坚盾> is removed"
+			]
+		}
+	},
+	"skzth_1": {
+		"tooltip": {
+			"zh": ["属于友方单位，可被友方单位治疗；嘲讽等级-1，不会被敌人攻击"],
+			"ja": ["味方ユニット扱い、味方から治癒可能；挑発レベル-1、敵から攻撃されない"],
+			"en": [
+				"Regarded as friendly unit, can be healed by allies; Taunt level -1, will not be attacked by enemies"
+			]
+		}
+	},
+	"skzth_2": {
+		"tooltip": {
+			"zh": ["每个在场的<尼卢火>使<奎隆>获得20%减伤（乘算叠加）"],
+			"ja": ["戦場にいる<尼卢火>1体ごとに<奎隆>の受ける{phys}/{arts}ダメージが20％減少（乗算）"],
+			"en": [
+				"Every <尼卢火> on field grants <奎隆> 20% Damage Resistance (stacks multiplicatively)"
+			]
+		}
+	},
+	"skzth_3": {
+		"tooltip": {
+			"zh": ["出场时流失100%生命值；出场后存在5s保护期，期间无法响应奎隆的【清火执】效果"],
+			"ja": ["HP0％の状態に出現する；出現後5秒間<奎隆>の【清火执】に応答しない"],
+			"en": [
+				"Spawns with 0% HP; For the first 5 seconds after appearing, does not respond to <奎隆>'s【清火执】"
+			]
+		}
+	},
+	"skzth_4": {
+		"tooltip": {
+			"zh": [
+				"出场50s后/生命值回满时退场；因持续时间结束退场时，令场上未受此效果影响的攻击力最高的干员攻击力-50%（不叠加，持续50s），并对攻击范围内的友方单位造成3500点{arts}伤害{ignore_stealth}"
+			],
+			"ja": [
+				"出現から50秒経つ又はHP全回復すると退場する；時間原因で退場する時、①最も攻撃力が高い味方の攻撃力を50秒50％減少する（既にこのデバフの効果を受けている味方は対象にならない）",
+				"②攻撃範囲内の味方ユニット全体に3500{arts}ダメージを与える{ignore_stealth}"
+			],
+			"en": [
+				"Retreats after HP is fully healed or after 50s has passed",
+				"If retreated by duration, ① applies a -50% Atk debuff to operator with highest ATK stat for 50s (ignores units with this debuff already)",
+				"② deals 3500 {arts} damage to all allied units within attack range {ignore_stealth}"
+			]
+		}
+	}
+}
