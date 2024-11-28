@@ -34,7 +34,7 @@
 	
 	$: if (data.mapConfig) {
 		updateReqRelic(data.mapConfig.levelId, selectedRelics);
-		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies);
+		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies, data.mapConfig,language);
 		eliteMode.set(false);
 		normalMods.set(data.mapConfig.n_mods);
 	}
@@ -101,7 +101,7 @@
 		<EnemyCount
 			mapConfig={data.mapConfig}
 			enemies={moddedEnemies}
-			eliteMods={$eliteMods}
+			eliteMode={$eliteMode}
 			{language}
 		/>
 		<div class="sm:px-6">
@@ -117,7 +117,7 @@
 					stageId={data.mapConfig.levelId}
 				/>
 			{/if}
-			<EnemyStatDisplay enemies={moddedEnemies} {language} {specialMods} />
+			<EnemyStatDisplay enemies={moddedEnemies} {language} {specialMods} {otherBuffsList} />
 			<div id="stageNav" class="mt-8 sm:mt-16 scroll-mt-20">
 				<NavTemp {language} />
 			</div>

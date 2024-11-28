@@ -38,7 +38,7 @@
 				<span
 					class="text-[#858585] font-semibold {language === 'en' &&
 					['aspd', 'eleDmgRes'].includes(statKey)
-						? 'text-xs'
+						? 'text-xs leading-[20px]'
 						: ''}"
 				>
 					{translations[language].table_headers[statKey]}

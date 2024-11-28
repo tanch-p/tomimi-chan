@@ -4,12 +4,12 @@
 	import TogglePanel from './TogglePanel.svelte';
 	import { BONUS_ENEMY_KEYS } from '$lib/functions/lib';
 
-	export let mapConfig: MapConfig, enemies, eliteMods, language: Language;
+	export let mapConfig: MapConfig, enemies, eliteMode:boolean, language: Language;
 
-	function getMinMaxCount(id, eliteMods) {
+	function getMinMaxCount(id, eliteMode) {
 		const data = mapConfig.enemies.find((enemy) => id === enemy.id);
 		if (data) {
-			return eliteMods
+			return eliteMode
 				? {
 						min: data.elite_min_count,
 						max: data.elite_max_count
@@ -18,8 +18,8 @@
 		}
 		return { min: 0, max: 0 };
 	}
-	function getTotalCountStr(mapConfig, eliteMods) {
-		const data = eliteMods ? mapConfig.e_count ?? mapConfig.n_count : mapConfig.n_count;
+	function getTotalCountStr(mapConfig, eliteMode) {
+		const data = eliteMode ? mapConfig.e_count ?? mapConfig.n_count : mapConfig.n_count;
 		const lastIndex = data.length - 1;
 		let min = data[0];
 		let max = data[lastIndex];
@@ -31,7 +31,7 @@
 </script>
 
 <TogglePanel
-	title={translations[language].enemy_count + ` (${getTotalCountStr(mapConfig, eliteMods)})`}
+	title={translations[language].enemy_count + ` (${getTotalCountStr(mapConfig, eliteMode)})`}
 	isOpen={true}
 	size="subheading"
 	className="my-4"
@@ -39,7 +39,7 @@
 	<div class="flex flex-wrap gap-x-3 gap-y-2 px-2.5 md:px-0">
 		{#each enemies as enemy}
 			{#if !((mapConfig.id.includes('_n_') || mapConfig.id.includes('_e_')) && BONUS_ENEMY_KEYS.includes(enemy.key))}
-				{@const { min, max } = getMinMaxCount(enemy.stageId, eliteMods)}
+				{@const { min, max } = getMinMaxCount(enemy.stageId, eliteMode)}
 				<a href="#{enemy.stageId}" class="flex items-center pr-1.5 hover:bg-neutral-700">
 					<img
 						class="select-none"

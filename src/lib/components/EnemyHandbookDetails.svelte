@@ -12,8 +12,9 @@
 	import life_red from '$lib/images/is/sprite_base_hp_red.webp';
 	import weightIcon from '$lib/images/is/weight.webp';
 	import { getStatusImmune } from '$lib/functions/skillHelpers';
+	import OtherBuffs from './OtherBuffs.svelte';
 
-	export let enemy: Enemy, language: Language, specialMods;
+	export let enemy: Enemy, language: Language, specialMods,otherBuffsList;
 
 	const enemyLevels = ['NORMAL', 'ELITE', 'BOSS'];
 
@@ -126,6 +127,7 @@
 		{/if}
 	</div>
 	<div class="flex flex-col mt-3">
+		<OtherBuffs {otherBuffsList} {language} entity={enemy} />
 		<HandbookAbilities {enemy} {language} {specialMods} {statusImmuneList} />
 		<StatusImmune {statusImmuneList} {language} mode="handbook" />
 	</div>

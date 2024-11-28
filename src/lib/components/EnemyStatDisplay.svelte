@@ -4,10 +4,10 @@
 	import EnemySimpleTable from './EnemySimpleTable.svelte';
 	import EnemyHandbookDisplay from './EnemyHandbookDisplay.svelte';
 
-	export let enemies: Enemy[], language: Language, specialMods;
+	export let enemies: Enemy[], language: Language, specialMods,otherBuffsList;
 </script>
 
 <MediaQuery>
-	<EnemyHandbookDisplay {enemies} {language} {specialMods} slot="mobile" />
+	<EnemyHandbookDisplay {enemies} {language} {specialMods} {otherBuffsList} slot="mobile" />
 	<EnemySimpleTable {enemies} {language} {specialMods} slot="pc" />
 </MediaQuery>

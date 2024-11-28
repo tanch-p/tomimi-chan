@@ -3,6 +3,7 @@ import difficultyModsList from '$lib/data/is/sami/difficulty_mods_sami.json';
 import { browser } from '$app/environment';
 import { cookiesEnabled } from '../../../../stores';
 import { compileSpecialMods } from '$lib/functions/statHelpers';
+import { consolidateOtherMods } from '$lib/functions/lib';
 
 let storedDifficulty = 0;
 if (browser && cookiesEnabled) {
@@ -38,9 +39,22 @@ const difficultyMods = derived([difficulty], ([$difficulty]) =>
 		})
 		.filter(Boolean)
 );
+export const otherBuffsList = writable([]);
+const otherMods = derived([otherBuffsList], ([$otherBuffsList]) =>
+	consolidateOtherMods($otherBuffsList)
+);
 
 export const statMods = derived(
-	[selectedRelics, floorDifficultyMods, normalMods, eliteMods, activeChaosEffects, portalMods, difficultyMods],
+	[
+		selectedRelics,
+		floorDifficultyMods,
+		normalMods,
+		eliteMods,
+		activeChaosEffects,
+		portalMods,
+		difficultyMods,
+		otherMods
+	],
 	([
 		$selectedRelics,
 		$floorDifficultyMods,
@@ -48,17 +62,23 @@ export const statMods = derived(
 		$eliteMods,
 		$activeChaosEffects,
 		$portalMods,
-		$difficultyMods
+		$difficultyMods,
+		$otherMods
 	]) => {
 		return {
 			initial: [
 				{ key: 'elite_ops', mods: [$eliteMods], operation: 'times' },
 				{ key: 'combat_ops', mods: [$normalMods], operation: 'times' },
-				{ key: 'floor_diff', mods: [$floorDifficultyMods], operation: 'times' }
+				{ key: 'floor_diff', mods: [$floorDifficultyMods], operation: 'times' },
+				...$otherMods
 			],
 			final: [
 				{ key: 'relic', mods: $selectedRelics.map((relic) => relic.effects), operation: 'times' },
-				{ key: 'sami_chaos', mods: $activeChaosEffects.map((ele) => ele.effects), operation: 'times' },
+				{
+					key: 'sami_chaos',
+					mods: $activeChaosEffects.map((ele) => ele.effects),
+					operation: 'times'
+				},
 				{ key: 'sami_portal', mods: [$portalMods], operation: 'times' },
 				{ key: 'difficulty', mods: $difficultyMods, operation: 'add' }
 			]
@@ -66,10 +86,12 @@ export const statMods = derived(
 	}
 );
 
-export const specialMods = derived([selectedRelics, normalMods, eliteMods], ([$selectedRelics, $normalMods, $eliteMods]) =>
-	compileSpecialMods(
-		$selectedRelics.map((relic) => relic.effects),
-		[$normalMods],
-		[$eliteMods]
-	)
+export const specialMods = derived(
+	[selectedRelics, normalMods, eliteMods],
+	([$selectedRelics, $normalMods, $eliteMods]) =>
+		compileSpecialMods(
+			$selectedRelics.map((relic) => relic.effects),
+			[$normalMods],
+			[$eliteMods]
+		)
 );

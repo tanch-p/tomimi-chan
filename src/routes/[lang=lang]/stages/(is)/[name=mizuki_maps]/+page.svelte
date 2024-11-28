@@ -24,6 +24,7 @@
 	import ModsCheck from '$lib/components/ModsCheck.svelte';
 	import TrapContainer from '$lib/components/TrapContainer.svelte';
 	import { applyTrapMods } from '$lib/functions/trapHelpers';
+	import EnemyCount from '$lib/components/EnemyCount.svelte';
 
 	export let data: PageData;
 	$: if (data.mapConfig) {
@@ -69,6 +70,12 @@
 		<DifficultySelect {language} {difficulty} {rogueTopic} />
 		<TrapContainer {language} traps={moddedTraps} specialMods={$specialMods}/>
 		<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
+		<EnemyCount
+			mapConfig={data.mapConfig}
+			enemies={moddedEnemies}
+			eliteMode={$eliteMode}
+			{language}
+		/>
 		{#if data.mapConfig.elite_mods}
 			<EliteToggle
 				{eliteMode}

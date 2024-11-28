@@ -5,7 +5,7 @@
 	import EnemyFormTitle from './EnemyFormTitle.svelte';
 	import { getEnemySkills } from '$lib/functions/skillHelpers';
 
-	export let enemy: Enemy, language: Language, specialMods,statusImmuneList;
+	export let enemy: Enemy, language: Language, specialMods, statusImmuneList;
 </script>
 
 {#if enemy?.special?.length > 0 || enemy.forms || enemy.stats[0].dmg_reduction}
@@ -24,7 +24,13 @@
 						</li>
 					{/if}
 					{#each skills as skill}
-						<Remark {skill} {language} mode={'handbook'} enemyStats={enemy.stats[i]} {statusImmuneList}/>
+						<Remark
+							{skill}
+							{language}
+							mode={'handbook'}
+							enemyStats={enemy.stats[i]}
+							{statusImmuneList}
+						/>
 					{/each}
 				</ul>
 			{/each}
@@ -37,7 +43,13 @@
 					</li>
 				{/if}
 				{#each skills as skill}
-					<Remark {skill} {language} mode={'handbook'} enemyStats={enemy.stats[0]} {statusImmuneList} />
+					<Remark
+						{skill}
+						{language}
+						mode={'handbook'}
+						enemyStats={enemy.stats[0]}
+						{statusImmuneList}
+					/>
 				{/each}
 			</ul>
 		{/if}

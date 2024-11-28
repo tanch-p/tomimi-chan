@@ -270,6 +270,13 @@ export const calculateModdedStat = (
 };
 
 export const checkIsTarget = (enemy: Enemy, target: string) => {
+	if (target.includes('&')) {
+		const targets = target.split('&');
+		return targets.reduce((acc, curr) => {
+			acc = acc && checkIsTarget(enemy, curr);
+			return acc;
+		}, true);
+	}
 	const { id, key, type } = enemy;
 	switch (target) {
 		case 'ALL':
@@ -297,6 +304,10 @@ export const checkIsTarget = (enemy: Enemy, target: string) => {
 			return SARKAZ_BOSSES.includes(key);
 		case 'NOT_SARKAZ_BOSS':
 			return !SARKAZ_BOSSES.includes(key);
+		case 'not_flying':
+			return !type?.includes(target.replace('not_', ''));
+		case 'not_trap':
+			return !key.includes('trap');
 		default:
 			return target === id || target === key;
 	}

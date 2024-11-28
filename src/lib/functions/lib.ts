@@ -1,7 +1,9 @@
 import translations from '$lib/translations.json';
-import type { Enemy, RogueTopic } from '$lib/types';
+import type { Enemy, Language, MapConfig, RogueTopic } from '$lib/types';
 import rogue_4_fragment_F_25 from '$lib/images/is/sarkaz/rogue_4_fragment_F_25.webp';
-
+import skill_icon_sktok_cdroneb from '$lib/images/skill_icons/skill_icon_sktok_cdroneb.webp';
+import { checkIsTarget } from './statHelpers';
+import enemySkills from '$lib/data/enemy/enemy_skills.json';
 
 export const BONUS_ENEMY_KEYS = [
 	'enemy_2001_duckmi',
@@ -103,7 +105,13 @@ export const sortEnemies = (a: Enemy, b: Enemy) => {
 	return getEnemyWeight(a.key, a.type) - getEnemyWeight(b.key, b.type);
 };
 
-export const setOtherBuffsList = (store, rogueTopic: RogueTopic, enemies: Enemy[]) => {
+export const setOtherBuffsList = (
+	store,
+	rogueTopic: RogueTopic,
+	enemies: Enemy[],
+	mapConfig: MapConfig,
+	language: Language
+) => {
 	const buffsList = [];
 	if (rogueTopic === 'rogue_skz') {
 		buffsList.push({
@@ -117,6 +125,43 @@ export const setOtherBuffsList = (store, rogueTopic: RogueTopic, enemies: Enemy[
 			},
 			maxCount: 1
 		});
+	}
+	const tileInfection = mapConfig.sp_terrain?.find((item) => item.tileKey === 'tile_infection');
+	if (tileInfection) {
+		buffsList.push({
+			key: 'tile_infection',
+			img: skill_icon_sktok_cdroneb,
+			name: translations[language].tile_infection,
+			targets: ['not_flying&not_trap'],
+			activeTargets: [],
+			mods: {
+				atk: 1 + tileInfection.blackboard['atk'],
+				fixed_aspd: tileInfection.blackboard['attack_speed']
+			},
+			maxCount: 1
+		});
+	}
+	for (const enemy of enemies) {
+		if (enemy.forms) {
+			continue;
+		}
+		const enemyCount = mapConfig.enemies.find((ele) => ele.id === enemy.stageId);
+		const maxCount = Math.max(enemyCount.max_count, enemyCount.elite_max_count);
+		for (const skillRef of enemy.special) {
+			const skill = enemySkills[skillRef.key];
+			if (skill.type === 'buff') {
+				buffsList.push({
+					key: enemy[`name_${language}`],
+					img: enemy.img,
+					name: enemy[`name_${language}`],
+					targets: skill.effects.targets,
+					activeTargets: skill.effects.activeTargets,
+					mods: skill.effects.mods,
+					stackType: skill.effects.stackType,
+					maxCount: maxCount
+				});
+			}
+		}
 	}
 	store.set(buffsList);
 };
@@ -147,6 +192,50 @@ export const updateOtherBuffsList = (store, buffKey, key) => {
 		return list;
 	});
 };
+
+export const consolidateOtherMods = (otherBuffsList) => {
+	const modsList = [];
+	otherBuffsList.forEach((buff) => {
+		buff.activeTargets.forEach((ele) => {
+			if (ele.count > 0) {
+				modsList.push({
+					key: buff.key,
+					mods: [
+						[
+							{
+								targets: [ele.key],
+								mods: Object.fromEntries(
+									Object.entries(buff.mods).map(([key, value]) => {
+										const stackType = buff.stackType || 'add';
+										if (stackType === 'add') {
+											if (key.includes('fixed')) {
+												return [key, value * ele.count];
+											}
+											return [key, value > 1 ? 1 + (value - 1) * ele.count : value * ele.count];
+										} else {
+											return [key, value ** ele.count];
+										}
+									})
+								)
+							}
+						]
+					],
+					operation: 'times'
+				});
+			}
+		});
+	});
+	return modsList;
+};
+
+export function getApplicableBuffsList(otherBuffsList, entity) {
+	if (!otherBuffsList) {
+		return [];
+	}
+	return otherBuffsList.filter((buff) =>
+		buff.targets.some((target) => checkIsTarget(entity, target))
+	);
+}
 
 export const getEliteColors = (rogueTopic: string) => {
 	switch (rogueTopic) {

@@ -7,6 +7,7 @@
 	import RangeParser from './RangeParser.svelte';
 	import TrapAbilities from './TrapAbilities.svelte';
 	import { getOtherBuffsCount, updateOtherBuffsList } from '$lib/functions/lib';
+	import OtherBuffs from './OtherBuffs.svelte';
 
 	export let trap: Trap, otherBuffsList, specialMods;
 	let language: Language;
@@ -55,27 +56,10 @@
 		<TrapStats {trap} />
 	</div>
 	<div class="mt-3">
-		{#if otherBuffsList && trap.key === 'trap_760_skztzs'}
-			<p class="bg-[#383838] px-3.5 py-0.5 text-[#a2a5a5] font-bold">
-				{translations[language].other_buffs}
-			</p>
-			<div class="flex flex-wrap px-2.5 py-2">
-				{#each $otherBuffsList as buff}
-					{@const currentCount = getOtherBuffsCount($otherBuffsList, buff.key, trap.key)}
-					<button
-						class:brightness-50={currentCount === 0}
-						class="flex flex-col gap-y-0.5"
-						on:click={() => updateOtherBuffsList(otherBuffsList, buff.key, trap.key)}
-					>
-						<img src={buff.img} alt={buff.name} width="60" height="60" />
-						<p class={language !== 'en' ? 'text-center max-w-[90px] w-full whitespace-nowrap' : ''}>
-							{buff.name}
-						</p>
-					</button>
-				{/each}
-			</div>
+		{#if trap.key === 'trap_760_skztzs'}
+			<OtherBuffs {otherBuffsList} {language} entity={trap} />
 		{/if}
-		<TrapAbilities {trap} {specialMods}/>
+		<TrapAbilities {trap} {specialMods} />
 		<StatusImmune statusImmuneList={trap.status_immune} {language} mode="handbook" />
 	</div>
 </div>

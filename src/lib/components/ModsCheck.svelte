@@ -103,7 +103,7 @@
 			>
 				{#each enemy.modsList as mod, i}
 					<button on:click={() => (modIndex = i)} class="px-2">
-						<p class="select-none {i !== modIndex ? 'brightness-50' : ''}">
+						<p class="select-none whitespace-nowrap {i !== modIndex ? 'brightness-50' : ''}">
 							{translations[language][mod.key] ?? mod.key}
 						</p>
 					</button>
