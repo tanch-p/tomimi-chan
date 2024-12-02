@@ -33,27 +33,29 @@ export const otherBuffsList = writable([]);
 const otherMods = derived([otherBuffsList], ([$otherBuffsList]) =>
 	consolidateOtherMods($otherBuffsList)
 );
-const lowDiffHP = [0.8, 0.85, 0.9];
 const difficultyMods = derived([difficulty], ([$difficulty]) =>
-	$difficulty <= 2
-		? [
-				[
-					{
-						targets: ['ALL'],
-						mods: {
-							hp: lowDiffHP[$difficulty]
-						}
-					}
-				]
-		  ]
-		: difficultyModsList
-				.map((ele) => {
-					if (ele.difficulty <= $difficulty && ele.effects.length > 0) {
-						return ele.effects;
-					}
-				})
-				.filter(Boolean)
+	difficultyModsList
+		.map((ele) => {
+			if (ele.difficulty <= $difficulty && ele.effects.length > 0) {
+				return ele.effects;
+			}
+		})
+		.filter(Boolean)
 );
+export const noobHelp = derived([difficulty], ([$difficulty]) => {
+	const lowDiffHP = [0.8, 0.85, 0.9];
+	if ($difficulty <= 2) {
+		return [
+			{
+				targets: ['ALL'],
+				mods: {
+					hp: lowDiffHP[$difficulty]
+				}
+			}
+		];
+	}
+	return null;
+});
 
 export const statMods = derived(
 	[
@@ -63,7 +65,8 @@ export const statMods = derived(
 		eliteMods,
 		disasterEffects,
 		difficultyMods,
-		otherMods
+		otherMods,
+		noobHelp
 	],
 	([
 		$selectedRelics,
@@ -72,7 +75,8 @@ export const statMods = derived(
 		$eliteMods,
 		$disasterEffects,
 		$difficultyMods,
-		$otherMods
+		$otherMods,
+		$noobHelp
 	]) => {
 		return {
 			initial: [
@@ -88,7 +92,8 @@ export const statMods = derived(
 					mods: $disasterEffects.map((ele) => ele.effects),
 					operation: 'times'
 				},
-				{ key: 'difficulty', mods: $difficultyMods, operation: 'times' }
+				{ key: 'difficulty', mods: $difficultyMods, operation: 'times' },
+				{ key: 'low_diff', mods: [$noobHelp], operation: 'times' }
 			]
 		};
 	}
