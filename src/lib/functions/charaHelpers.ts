@@ -643,9 +643,6 @@ export const updateSortPriority = (sortOptions, index) => {
 	});
 };
 
-export const getCharImages = (chara_list) =>
-	chara_list.map((char) => import(`../images/chara_icons/icon_${char.id}.webp`));
-
 export const getCharaList = async (language) => {
 	const data = (await import(`../data/chara/characters_${language}.json`)).default;
 	const images = await Promise.all(
