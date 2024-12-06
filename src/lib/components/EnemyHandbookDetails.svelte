@@ -14,7 +14,7 @@
 	import { getStatusImmune } from '$lib/functions/skillHelpers';
 	import OtherBuffs from './OtherBuffs.svelte';
 
-	export let enemy: Enemy, language: Language, specialMods,otherBuffsList;
+	export let enemy: Enemy, language: Language, specialMods, otherBuffsList,mode;
 
 	const enemyLevels = ['NORMAL', 'ELITE', 'BOSS'];
 
@@ -48,8 +48,7 @@
 				class="absolute top-0 right-[6%] opacity-20"
 			/>
 		{/if}
-		<div class="h-4" />
-		<div class="flex gap-x-2">
+		<div class="flex gap-x-2 pt-4">
 			{#each enemy.type.filter((ele) => !enemyLevels.includes(ele)) as type}
 				<p class="whitespace-nowrap text-[#83a39f] text-sm">{translations[language].types[type]}</p>
 			{/each}
@@ -120,15 +119,15 @@
 						{/each}
 					</div>
 				</div>
-				<HandBookStats {enemy} {language} {formIndex} />
+				<HandBookStats {enemy} {language} {formIndex} {mode}/>
 			</div>
 		{:else}
-			<HandBookStats {enemy} {language} {formIndex} />
+			<HandBookStats {enemy} {language} {formIndex} {mode}/>
 		{/if}
 	</div>
 	<div class="flex flex-col mt-3">
+		<StatusImmune {statusImmuneList} {language} mode="handbook" />
 		<OtherBuffs {otherBuffsList} {language} entity={enemy} />
 		<HandbookAbilities {enemy} {language} {specialMods} {statusImmuneList} />
-		<StatusImmune {statusImmuneList} {language} mode="handbook" />
 	</div>
 </div>

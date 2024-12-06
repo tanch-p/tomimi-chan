@@ -7,7 +7,14 @@ Provides a list of svg icons that can be referenced through the `Icon` component
 		<rect id="sq-blue" fill="#27a6f3" width="22" height="22" />
 		<rect id="sq-outline" fill="none" stroke="gray" stroke-width="1.5" width="22" height="22" />
 		<rect id="sq-white" fill="#f6f6f6" width="10" height="10" />
-		<rect id="sq-outline-sm" fill="none" stroke="#acacac" stroke-width="1.5" width="10" height="10" />
+		<rect
+			id="sq-outline-sm"
+			fill="none"
+			stroke="#acacac"
+			stroke-width="1.5"
+			width="10"
+			height="10"
+		/>
 		<symbol id="x-mark" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
 			<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
 		</symbol>
@@ -79,6 +86,19 @@ Provides a list of svg icons that can be referenced through the `Icon` component
 			<path
 				d="M1,1h4v4H1V1z M6,1h4v4H6V1z M11,1h4v4h-4V1z M1,6h4v4H1V6z M6,6h4v4H6V6z M11,6h4v4h-4V6z M1,11h4v4H1V11z M6,11h4v4H6V11z M11,11h4v4h-4V11z"
 			/>
+		</symbol>
+		<symbol
+			id="layout-view"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		>
+			<rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+			<line x1="3" y1="9" x2="21" y2="9" />
+			<line x1="9" y1="21" x2="9" y2="9" />
 		</symbol>
 	</svg>
 </div>

@@ -17,11 +17,11 @@
 	}
 </script>
 
-<div class="border border-gray-400 my-4">
+<div class="border border-gray-400 mt-3 mb-4">
 	<div class="flex flex-wrap gap-x-4 gap-y-3 p-4">
 		{#each $tableHeaders as { key, show }}
 			<button class={`rounded-full px-4 py-1 ${show ? "bg-sky-600" : "bg-gray-400"}`} on:click={() => updateHeaders(key)}>
-				{translations[language].table_headers[key]}
+				{translations[language].table_headers[key] || translations[language][key]}
 			</button>
 		{/each}
 	</div>

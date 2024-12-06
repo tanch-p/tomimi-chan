@@ -148,7 +148,7 @@ export const setOtherBuffsList = (
 		const maxCount = Math.max(enemyCount.max_count, enemyCount.elite_max_count);
 		for (const skillRef of enemy.special) {
 			const skill = enemySkills[skillRef.key];
-			if(!skill){
+			if (!skill) {
 				// case for new skills added from specialMods
 				continue;
 			}

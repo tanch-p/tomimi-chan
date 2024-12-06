@@ -54,7 +54,7 @@
 </script>
 
 <MediaQuery>
-	<div class="grid grid-cols-2 font-bold text-lg text-gray-700 mt-8 mb-3 select-none" slot="pc">
+	<div class="grid grid-cols-2 font-bold text-lg text-gray-700 mt-8 select-none" slot="pc">
 		<button
 			id="normal-toggle"
 			class={`flex justify-center items-center py-1 ${combatOpsColor} ${

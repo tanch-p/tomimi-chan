@@ -3,10 +3,10 @@
 	import EnemyHandbookDetails from './EnemyHandbookDetails.svelte';
 	import bossIcon from '$lib/images/is/boss_icon.webp';
 
-	export let enemies: Enemy[], language: Language, specialMods,otherBuffsList;
+	export let enemies: Enemy[], language: Language, specialMods,otherBuffsList,mode="mobile";
 </script>
 
-<div class="grid grid-cols-[80px_auto]">
+<div class="grid grid-cols-[80px_auto] md:justify-center md:mt-4">
 	<div
 		class="grid grid-flow-row auto-rows-max gap-2.5 px-2.5 h-[calc(100vh-172px)] overflow-scroll no-scrollbar sticky top-20"
 	>
@@ -36,12 +36,12 @@
 			</a>
 		{/each}
 	</div>
-	<div class="flex flex-col">
+	<div class="flex flex-col md:max-w-[550px]">
 		{#each enemies as enemy, index (enemy.stageId)}
 			{#if index !== 0}
 				<div class="bg-neutral-700 mx-1 h-0.5" />
 			{/if}
-			<EnemyHandbookDetails {enemy} {language} {specialMods} {otherBuffsList}/>
+			<EnemyHandbookDetails {enemy} {language} {specialMods} {otherBuffsList} {mode}/>
 		{/each}
 	</div>
 </div>

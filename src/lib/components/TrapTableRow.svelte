@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { getTrapStatSkills } from '$lib/functions/skillHelpers';
 	import type { Language, Trap } from '$lib/types';
+	import OtherBuffs from './OtherBuffs.svelte';
 	import RangeParser from './RangeParser.svelte';
 	import StatSkills from './StatSkills.svelte';
 	import StatusImmune from './StatusImmune.svelte';
 	import TrapAbilities from './TrapAbilities.svelte';
 
-	export let trap: Trap, tableHeaders, index, language: Language, specialMods;
+	export let trap: Trap, tableHeaders, index, language: Language, specialMods, otherBuffsList;
 </script>
 
 <tr id={trap.key} class={`scroll-mt-24 ${index % 2 === 1 ? ' bg-[#333333]' : 'bg-neutral-800'}`}>
@@ -54,6 +55,12 @@
 			<td class={`border border-gray-400 text-start px-2 py-2 max-w-[500px]`}>
 				<StatusImmune statusImmuneList={trap.status_immune} {language} mode="table" />
 				<TrapAbilities {trap} {specialMods} mode="table" />
+			</td>
+		{:else if key === 'other_buffs'}
+			<td class="border border-gray-400 px-1.5">
+				{#if trap.key === 'trap_760_skztzs'}
+					<OtherBuffs {otherBuffsList} {language} entity={trap} mode="table" />
+				{/if}
 			</td>
 		{:else}
 			<td

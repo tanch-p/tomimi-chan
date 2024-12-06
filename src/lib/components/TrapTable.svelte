@@ -2,7 +2,7 @@
 	import type { Trap, Language } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import TrapTableRow from './TrapTableRow.svelte';
-	export let traps: Trap[], language: Language, specialMods;
+	export let traps: Trap[], language: Language, specialMods, otherBuffsList;
 
 	const tableHeaders = [
 		'icon',
@@ -15,6 +15,7 @@
 		'def',
 		'res',
 		'blockCnt',
+		'other_buffs',
 		'remarks'
 	];
 </script>
@@ -30,7 +31,7 @@
 						}`}
 					>
 						<div class="relative group">
-							{translations[language].table_headers[key]}
+							{translations[language].table_headers[key] || translations[language][key]}
 						</div>
 					</th>
 				{/each}
@@ -38,7 +39,7 @@
 		</thead>
 		<tbody>
 			{#each traps as trap, index}
-				<TrapTableRow {trap} {index} {tableHeaders} {language} {specialMods}/>
+				<TrapTableRow {trap} {index} {tableHeaders} {language} {specialMods} {otherBuffsList}/>
 			{/each}
 		</tbody>
 	</table>

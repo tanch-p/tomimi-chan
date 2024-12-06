@@ -7,16 +7,23 @@
 		updateOtherBuffsList
 	} from '$lib/functions/lib';
 
-	export let language: Language, otherBuffsList, entity;
+	export let language: Language,
+		otherBuffsList,
+		entity,
+		mode = 'handbook';
 
 	$: applicableBuffsList = getApplicableBuffsList($otherBuffsList, entity);
 </script>
 
 {#if applicableBuffsList?.length > 0}
-	<p class="bg-[#383838] px-3.5 py-0.5 text-[#a2a5a5] font-bold">
+	<p class="bg-[#383838] px-3.5 py-0.5 text-[#a2a5a5] font-bold {mode === 'table' ? 'hidden' : ''}">
 		{translations[language].other_buffs}
 	</p>
-	<div class="grid grid-cols-3 justify-items-center gap-y-1.5 py-2">
+	<div
+		class="justify-items-center gap-y-1.5 py-2 {mode === 'table'
+			? 'flex flex-col'
+			: 'grid grid-cols-3 md:flex md:pl-4'}"
+	>
 		{#each applicableBuffsList as buff}
 			{@const currentCount = getOtherBuffsCount($otherBuffsList, buff.key, entity.key)}
 			<button
@@ -30,7 +37,7 @@
 					{/if}
 					<img src={buff.img} alt={buff.name} width="60" height="60" />
 				</div>
-				<p class="text-sm">
+				<p class="text-sm {mode === 'table' ? 'hidden' : ''}">
 					{buff.name}
 				</p>
 			</button>

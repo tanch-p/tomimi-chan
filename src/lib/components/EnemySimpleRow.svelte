@@ -7,8 +7,14 @@
 	import AtkSuffix from '$lib/components/AtkSuffix.svelte';
 	import StatSkills from '$lib/components/StatSkills.svelte';
 	import translations from '$lib/translations.json';
+	import OtherBuffs from './OtherBuffs.svelte';
 
-	export let enemy: Enemy, index: number, filteredTableHeaders, language: Language, specialMods;
+	export let enemy: Enemy,
+		index: number,
+		filteredTableHeaders,
+		language: Language,
+		specialMods,
+		otherBuffsList;
 	$: maxRowSpan = getMaxRowSpan(enemy);
 
 	let textAlign = function (statKey: string) {
@@ -98,6 +104,10 @@
 			{:else if key === 'remarks'}
 				<td class={`border border-gray-400 h-[65px] ${textAlign(key)}`}>
 					<RemarksContainer {enemy} {language} {row} {specialMods} />
+				</td>
+			{:else if key === 'other_buffs' && row === 0}
+				<td class="border border-gray-400 px-1.5" rowspan={maxRowSpan}>
+					<OtherBuffs {otherBuffsList} {language} entity={enemy} mode="table" />
 				</td>
 			{:else if !(row !== 0 && !multispanKeys.includes(key))}
 				<td

@@ -15,6 +15,7 @@ let initialTableHeaders = [
 	{ key: 'weight', show: true },
 	{ key: 'ms', show: true },
 	{ key: 'lifepoint', show: true },
+	{ key: 'other_buffs', show: true },
 	{ key: 'remarks', show: true }
 ];
 

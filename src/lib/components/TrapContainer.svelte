@@ -47,7 +47,7 @@
 					{/each}
 				</div>
 			</div>
-			<TrapTable {traps} {language} {specialMods} slot="pc" />
+			<TrapTable {traps} {language} {specialMods} {otherBuffsList} slot="pc" />
 		</MediaQuery>
 	</TogglePanel>
 {/if}

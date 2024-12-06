@@ -25,13 +25,13 @@
 			<p class="ml-1 font-semibold">{trap.name}</p>
 		</div>
 	</div>
-	<div class="flex gap-x-2.5 mt-1">
-		<div class="space-y-2.5">
+	<div class="grid grid-cols-[minmax(75px,auto)_1fr] gap-x-1.5 mt-1">
+		<div class="space-y-2.5 max-[390px]:w-[75px]">
 			<img
 				class="select-none"
 				src={trap.img}
-				height="75px"
-				width="75px"
+				height="95px"
+				width="95px"
 				decoding="async"
 				loading="lazy"
 				alt={trap.name}
@@ -43,7 +43,7 @@
 			</div> -->
 			{#if trap.stats.rangeId}
 				<div
-					class="flex flex-col items-center w-[75px] p-2 pb-1 bg-[#161616] bg-opacity-80 rounded h-max"
+					class="flex flex-col items-center max-w-[90px] w-full mx-auto p-2 pb-1 bg-[#161616] bg-opacity-80 rounded h-max"
 				>
 					<div class="flex items-center">
 						<RangeParser rangeId={trap.stats.rangeId} size="small" />

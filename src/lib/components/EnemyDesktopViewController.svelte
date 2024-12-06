@@ -1,0 +1,40 @@
+<script lang="ts">
+	import type { Enemy, Language } from '$lib/types';
+	import Icon from './Icon.svelte';
+	import EnemySimpleTable from './EnemySimpleTable.svelte';
+	import translations from '$lib/translations.json';
+	import EnemyHandbookDisplay from './EnemyHandbookDisplay.svelte';
+
+	export let enemies: Enemy[], language: Language, specialMods, otherBuffsList;
+	let displayMode = 'table';
+</script>
+
+<div class="grid grid-cols-2 place-items-center h-[58px] mt-3">
+	<button
+		class="flex items-center justify-center gap-x-1.5 w-full h-full bg-gray-500 {displayMode ===
+		'table'
+			? ''
+			: 'brightness-50'}"
+		on:click={() => (displayMode = 'table')}
+	>
+		<Icon name="icon-list" size={22} />
+
+		<span class="text-lg">{translations[language].table_view}</span>
+	</button>
+	<button
+		class="flex items-center justify-center gap-x-1.5 w-full h-full bg-gray-500 {displayMode ===
+		'handbook'
+			? ''
+			: 'brightness-50'}"
+		on:click={() => (displayMode = 'handbook')}
+	>
+		<Icon name="layout-view" size={28} />
+		<span class="text-lg">{translations[language].handbook_view}</span>
+	</button>
+</div>
+
+{#if displayMode === 'table'}
+	<EnemySimpleTable {enemies} {language} {specialMods} {otherBuffsList} />
+{:else}
+	<EnemyHandbookDisplay {enemies} {language} {specialMods} {otherBuffsList} mode="desktop" />
+{/if}

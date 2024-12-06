@@ -5,7 +5,7 @@
 	import EnemyTableOptions from './EnemyTableOptions.svelte';
 	import translations from '$lib/translations.json';
 	import Tooltip from './Tooltip.svelte';
-	export let enemies: Enemy[], language: Language, specialMods;
+	export let enemies: Enemy[], language: Language, specialMods,otherBuffsList;
 	$: filteredTableHeaders = $tableHeaders.filter(({ key, show }) => show);
 
 	const tooltips = { e_hp: 'tooltip_ehp' };
@@ -23,7 +23,7 @@
 						}`}
 					>
 						<div class="relative group">
-							{translations[language].table_headers[key]}
+							{translations[language].table_headers[key] || translations[language][key]}
 							{#if Boolean(tooltips?.[key])}
 								&#9432;
 								<Tooltip text={translations[language][tooltips[key]]} />
@@ -35,7 +35,7 @@
 		</thead>
 		<tbody>
 			{#each enemies as enemy, index}
-				<EnemySimpleRow {enemy} {filteredTableHeaders} {index} {language} {specialMods} />
+				<EnemySimpleRow {enemy} {filteredTableHeaders} {index} {language} {specialMods} {otherBuffsList}/>
 			{/each}
 		</tbody>
 	</table>
