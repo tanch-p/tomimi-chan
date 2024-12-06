@@ -19,6 +19,7 @@
 	import TextParser from '$lib/components/TextParser.svelte';
 	import RangeParser from '$lib/components/RangeParser.svelte';
 	import CharaTokens from './CharaTokens.svelte';
+	import DraggableContainer from '$lib/components/DraggableContainer.svelte';
 
 	export let language: Language;
 
@@ -189,68 +190,66 @@
 							{#if $selectedChara.uniequip.length === 0}
 								<div class="module none" />
 							{:else}
-								<div
-									class="flex overflow-x-auto overflow-y-visible no-scrollbar pb-8 min-[520px]:px-10 gap-x-[calc((min(100vw-15px,550px)/2)-135px)] min-[520px]:gap-x-[calc((min(100vw-15px,550px)/2)-175px)] snap-mandatory snap-x"
-								>
-									{#each $selectedChara.uniequip as equip, idx}
-										{@const typeIcon = equip.typeIcon.toLowerCase()}
-										<div class="relative">
-											<button
-												class:active={$moduleIndex === idx}
-												class="module flex-col snap-center shrink-0"
-												on:click={() => moduleIndex.set(idx)}
-											>
-												<div class="grid place-items-center h-[48px]">
-													{#await import(`../../../../lib/images/equip_icons/icon_${typeIcon}.webp`) then { default: src }}
-														<img {src} height="40" alt={typeIcon} class="max-h-[40px]" />
-													{/await}
-												</div>
-												<div class="flex gap-x-0.5 text-xs font-light uppercase">
-													{#if typeIcon !== 'original'}
-														{@const parts = typeIcon.split('-')}
-														{parts[0]}
-														<img src={charaAssets[parts[1]]} alt={parts[1]} width="12px" />
-													{:else}
-														{typeIcon}
-													{/if}
-												</div>
-											</button>
-											{#if idx !== 0}
-												{#if $moduleIndex === idx}
-													<button
-														class="absolute bottom-[-30px] left-1/2 -translate-x-1/2 flex items-center justify-center border border-[#3d3d3d] bg-[#272727] mt-1.5 py-[1px] px-4"
-														on:click={() => {
-															if (moduleStage === 2) return (moduleStage = 0);
-															return (moduleStage += 1);
-														}}
-													>
-														<p class="text-[#7d7d7d] font-bold text-sm">STAGE</p>
-														<div class="w-[11px] ml-1.5 mt-0.5">
-															<img
-																src={charaAssets[`solid_${moduleStage + 1}`]}
-																alt="7"
-																class="max-h-[15px]"
-															/>
-														</div>
-													</button>
-												{:else}
-													<div
-														class="absolute bottom-[-30px] left-1/2 -translate-x-1/2 flex items-center justify-center border border-[#3d3d3d] bg-[#272727] mt-1.5 py-[1px] px-4"
-													>
-														<p class="text-[#7d7d7d] font-bold text-sm">STAGE</p>
-														<div class="w-[11px] ml-1.5 mt-0.5">
-															<img
-																src={charaAssets[`solid_3`]}
-																alt="7"
-																class="max-h-[15px]"
-															/>
-														</div>
+								<DraggableContainer className="overflow-y-visible no-scrollbar snap-mandatory snap-x md:snap-none">
+									<div
+										class="flex pb-8 w-max min-[520px]:px-10 gap-x-[calc((min(100vw-15px,550px)/2)-135px)] min-[520px]:gap-x-[calc((min(100vw-15px,550px)/2)-175px)]"
+									>
+										{#each $selectedChara.uniequip as equip, idx}
+											{@const typeIcon = equip.typeIcon.toLowerCase()}
+											<div class="relative select-none">
+												<button
+													class:active={$moduleIndex === idx}
+													class="module flex-col snap-center shrink-0"
+													on:click={() => moduleIndex.set(idx)}
+												>
+													<div class="grid place-items-center h-[48px]">
+														{#await import(`../../../../lib/images/equip_icons/icon_${typeIcon}.webp`) then { default: src }}
+															<img {src} height="40" alt={typeIcon} class="max-h-[40px]" />
+														{/await}
 													</div>
+													<div class="flex gap-x-0.5 text-xs font-light uppercase">
+														{#if typeIcon !== 'original'}
+															{@const parts = typeIcon.split('-')}
+															{parts[0]}
+															<img src={charaAssets[parts[1]]} alt={parts[1]} width="12px" />
+														{:else}
+															{typeIcon}
+														{/if}
+													</div>
+												</button>
+												{#if idx !== 0}
+													{#if $moduleIndex === idx}
+														<button
+															class="absolute bottom-[-30px] left-1/2 -translate-x-1/2 flex items-center justify-center border border-[#3d3d3d] bg-[#272727] mt-1.5 py-[1px] px-4"
+															on:click={() => {
+																if (moduleStage === 2) return (moduleStage = 0);
+																return (moduleStage += 1);
+															}}
+														>
+															<p class="text-[#7d7d7d] font-bold text-sm">STAGE</p>
+															<div class="w-[11px] ml-1.5 mt-0.5">
+																<img
+																	src={charaAssets[`solid_${moduleStage + 1}`]}
+																	alt="{moduleStage + 1}"
+																	class="max-h-[15px]"
+																/>
+															</div>
+														</button>
+													{:else}
+														<div
+															class="absolute bottom-[-30px] left-1/2 -translate-x-1/2 flex items-center justify-center border border-[#3d3d3d] bg-[#272727] mt-1.5 py-[1px] px-4"
+														>
+															<p class="text-[#7d7d7d] font-bold text-sm">STAGE</p>
+															<div class="w-[11px] ml-1.5 mt-0.5">
+																<img src={charaAssets[`solid_3`]} alt="3" class="max-h-[15px]" />
+															</div>
+														</div>
+													{/if}
 												{/if}
-											{/if}
-										</div>
-									{/each}
-								</div>
+											</div>
+										{/each}
+									</div>
+								</DraggableContainer>
 								<div
 									class="flex justify-center mt-1 text-center {language !== 'en'
 										? 'whitespace-nowrap'

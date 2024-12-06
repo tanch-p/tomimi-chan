@@ -25,14 +25,16 @@ export const createSlider = (classname) => {
 		if (!isDown) return;
 		e.preventDefault();
 		const x = e.pageX - slider.offsetLeft;
-		const walk = (x - startX) * 3; //scroll-fast
+		const walk = (x - startX) * 1.5; //scroll-speed
 		slider.scrollLeft = scrollLeft - walk;
 	};
 
-	slider.addEventListener('mousedown', handleMousedown);
-	slider.addEventListener('mouseleave', handleMouseleave);
-	slider.addEventListener('mouseup', handleMouseup);
-	slider.addEventListener('mousemove', handleMousemove);
+	if (slider) {
+		slider.addEventListener('mousedown', handleMousedown);
+		slider.addEventListener('mouseleave', handleMouseleave);
+		slider.addEventListener('mouseup', handleMouseup);
+		slider.addEventListener('mousemove', handleMousemove);
+	}
 
 	return function () {
 		slider.removeEventListener('mousedown', handleMousedown);
