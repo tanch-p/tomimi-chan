@@ -186,9 +186,12 @@ const SEARCH_IN_BLACKBOARD = [
 	'hitrate_down',
 	'block_no_attack',
 	'force',
-	'trigger_time'
+	'trigger_time',
+	'ct',
+	'heal_scale_down'
 ];
 
+// keys not here will just use their respective key in translations 
 const DISPLAY_KEYS_TABLE = {
 	MELEE: 'position_melee',
 	RANGED: 'position_ranged',

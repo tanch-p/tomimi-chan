@@ -26,7 +26,7 @@ const BUFF_TAGS = [
 	'weaken',
 	'barrier'
 ];
-const STAT_DEBUFFS = ['atk_down', 'def_down', 'res_down', 'aspd_down', 'ms_down', 'hitrate_down'];
+const STAT_DEBUFFS = ['atk_down', 'def_down', 'res_down', 'aspd_down', 'ms_down', 'hitrate_down','heal_scale_down'];
 const DEBUFFS = [
 	'stun',
 	'sluggish',
