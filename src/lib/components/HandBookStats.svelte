@@ -52,13 +52,13 @@
 					</span>
 				</div>
 				<p data-id="{statKey}-value" class="text-near-white px-[18px]">
-					{enemy.stats[formIndex][statKey] ?? '0'}
+					{enemy.forms[formIndex].stats[statKey] ?? '0'}
 				</p>
 			</div>
 		{/each}
 	</div>
 	<p class="text-[#858585] font-semibold mt-1.5 text-sm">
 		{translations[language].table_headers.range}:
-		<span data-id="range-value" class="text-near-white">{enemy.stats[formIndex].range <= 0 ? '0' : enemy.stats[formIndex].range}</span>
+		<span data-id="range-value" class="text-near-white">{enemy.forms[formIndex].stats.range <= 0 ? '0' : enemy.forms[formIndex].stats.range}</span>
 	</p>
 </div>

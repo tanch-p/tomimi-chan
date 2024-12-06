@@ -17,7 +17,7 @@
 	import unknown from '$lib/images/is/skz_unknown.webp';
 	import skz_4_1a from '$lib/images/stages/level_ro4_n_4_1_a.webp';
 	import skz_4_1b from '$lib/images/stages/level_ro4_n_4_1_b.webp';
-	import { getStageImg } from '$lib/functions/stageLoad';
+	import { getStageImg } from '$lib/functions/lib';
 	export let mapConfig, rogueTopic: RogueTopic, language: Language, eliteMods;
 
 	const stagesWithMultipleImgs = ['level_rogue4_4-1'];

@@ -253,3 +253,23 @@ export const getEliteColors = (rogueTopic: string) => {
 	}
 	return [];
 };
+
+const STAGES_WITH_ELITE_IMG = [
+	'ro3_e_3_2',
+	'ro3_e_4_2',
+	'ro3_e_5_2',
+	'ro4_e_2_2',
+	'ro4_e_3_2',
+	'ro4_e_3_5',
+	'ro4_e_5_8'
+];
+export const getStageImg = (id, eliteMods) => {
+	if (
+		!(eliteMods && STAGES_WITH_ELITE_IMG.includes(id)) &&
+		!id.includes('ev') &&
+		!id.includes('duel')
+	) {
+		id = id.replace('e', 'n');
+	}
+	return id;
+};

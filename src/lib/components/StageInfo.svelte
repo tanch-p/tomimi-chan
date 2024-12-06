@@ -4,7 +4,7 @@
 	import EnemyWaves from './EnemyWaves.svelte';
 	import translations from '$lib/translations.json';
 	import TextParser from './TextParser.svelte';
-	import { getStageImg } from '$lib/functions/stageLoad';
+	import { getStageImg } from '$lib/functions/lib';
 
 	export let mapConfig,
 		language: Language,
