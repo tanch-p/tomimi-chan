@@ -12,7 +12,6 @@ export const BONUS_ENEMY_KEYS = [
 	'enemy_2059_smbox',
 	'enemy_2085_skzjxd',
 	'enemy_2069_skzbox',
-	'enemy_2070_skzfbx',
 	'enemy_2091_skzgds',
 	'enemy_2067_skzcy',
 	'enemy_2065_skzjs'
