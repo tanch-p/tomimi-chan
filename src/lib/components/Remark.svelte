@@ -24,7 +24,6 @@
 	};
 
 	$: tooltips = getTooltip(skill, language);
-
 	$: showSilenceIcon = skill.can_silence && !statusImmuneList.includes('silence');
 </script>
 

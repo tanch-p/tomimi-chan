@@ -123,6 +123,6 @@
 	<div class="flex flex-col mt-3">
 		<StatusImmune {statusImmuneList} {language} mode="handbook" />
 		<OtherBuffs {otherBuffsList} {language} entity={enemy} />
-		<HandbookAbilities {enemy} {language} {specialMods} {statusImmuneList} />
+		<HandbookAbilities {enemy} {language} {specialMods} {statusImmuneList} {formIndex} />
 	</div>
 </div>

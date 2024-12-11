@@ -8,11 +8,11 @@
 		language: Language,
 		mode = 'table',
 		statusImmuneList: StatusImmune[] = [];
-	const skillType = skill.initCooldown ? 'COOLDOWN' : skill.skillType;
+	const skillType = skill.skillType || "COOLDOWN";
 </script>
 
 {#if mode === 'table'}
-	<div class="flex flex-wrap items-center mb-0.5">
+<div class="flex flex-wrap items-center mb-0.5">
 		<p class="whitespace-nowrap mr-1.5">{skill.suffix[language]}</p>
 		{#if skillType === 'COOLDOWN'}
 			<div>
@@ -69,10 +69,10 @@
 			<span class="skilltag can_silence !ml-0">{translations[language].can_silence}</span>
 		{/if}
 	</div>
-	{#if enemy.forms.length > 1}
+	{#if enemy.forms.length > 1 && skill.formIndexes}
 		<p class="text-xs text-gray-400">
 			&lt;{#each skill.formIndexes as idx, i}
-				{#if i > 1}{translations[language].comma}{/if}<span
+				{#if i > 0}{translations[language].comma}{/if}<span
 					>{getFormTitle(enemy?.forms?.[idx]?.title, idx, language)}</span
 				>{/each}&gt;
 		</p>

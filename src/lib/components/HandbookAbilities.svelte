@@ -7,8 +7,8 @@
 	import HandbookSkills from './HandbookSkills.svelte';
 	import { isEquals } from '$lib/functions/lib';
 
-	export let enemy: Enemy, language: Language, specialMods, statusImmuneList;
-	$: traits = getEnemySkills(enemy, enemy.traits, 0, $specialMods, 'trait');
+	export let enemy: Enemy, language: Language, specialMods, statusImmuneList, formIndex;
+	$: traits = getEnemySkills(enemy, enemy.traits, 0, $specialMods, 'trait').filter(skill => skill.type !=="skill");
 	$: skills = getHandbookEnemySkills(enemy, $specialMods);
 </script>
 
@@ -19,7 +19,7 @@
 		}
 		return acc;
 	}, true)}
-	<HandbookSkills {enemy} {skills} {language} {statusImmuneList} />
+	<HandbookSkills {enemy} {skills} {language} {statusImmuneList} {formIndex} />
 	<p class="bg-[#383838] px-3.5 py-0.5 text-[#a2a5a5] font-bold">
 		{translations[language].handbook_ability}
 	</p>
@@ -38,7 +38,7 @@
 					{skill}
 					{language}
 					mode={'handbook'}
-					enemyStats={enemy.forms[0].stats}
+					enemyStats={enemy.forms[formIndex].stats}
 					{statusImmuneList}
 				/>
 			{/each}
@@ -57,7 +57,14 @@
 			<EnemyFormTitle {enemy} row={i} {language} />
 			<ul class="list-disc pl-4">
 				{#each specialList as skill}
-					<Remark {enemy} {skill} {language} mode={'handbook'} enemyStats={form.stats} {statusImmuneList} />
+					<Remark
+						{enemy}
+						{skill}
+						{language}
+						mode={'handbook'}
+						enemyStats={form.stats}
+						{statusImmuneList}
+					/>
 				{/each}
 			</ul>
 		{/each}

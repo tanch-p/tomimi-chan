@@ -70,6 +70,12 @@ export const getTrapStatSkills = (trap) => {
 
 export const getHandbookEnemySkills = (enemy, specialMods) => {
 	const skills = [];
+	const traitSkills = getEnemySkills(enemy, enemy.traits, 0, specialMods, 'trait').filter(
+		(skill) => skill.type === 'skill'
+	);
+	for (const skill of traitSkills) {
+		skills.push({ ...skill, formIndexes: enemy.forms.map((_, i) => i) });
+	}
 	enemy.forms.forEach((form, i) => {
 		const special = getEnemySkills(enemy, form.special, i, specialMods, 'special').filter(
 			(skill) => skill.type === 'skill'
