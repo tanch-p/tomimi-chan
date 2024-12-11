@@ -712,9 +712,13 @@
 		"suffix": { "en": "Freeze Tile", "ja": "地面封じ", "zh": "冻结" },
 		"value": 2,
 		"tooltip": {
-			"en": ["Freeze Tile (Initial CD: <v.cd1>s, ~CD: <v.cd2>s)"],
-			"ja": ["地面封じ (初動<v.cd1>秒/再動<v.cd2>秒) "],
-			"zh": ["冻结 (初次冷却<v.cd1>s，后<v.cd2>s) ", "在半径2的范围内随机冻结<v.value>格地面"]
+			"en": [
+				"Freezes <v.value> random tiles within FrostNova's attack range, preventing friendly units from being deployed on the frozen tiles and instantly defeating units on those tiles"
+			],
+			"ja": [
+				"半径2.0以内に存在する、このスキルが未適用の配置可能マスをランダムに<v.value>マス選択して破壊し、封じられた地面に変える。封じられた地面となったマスは戦闘終了まで配置不可マスとなり、既に乗っていた味方は強制撤退させられる"
+			],
+			"zh": ["在半径2的范围内随机冻结<v.value>格地面"]
 		}
 	},
 	"fzm_nova": {
@@ -5382,15 +5386,9 @@
 		"cooldown": 10,
 		"suffix": { "en": "Summon", "ja": "召喚", "zh": "召唤糖果车" },
 		"tooltip": {
-			"en": [
-				"If SP>1, consumes 1 SP to summon a Luscious Snack Cart"
-			],
-			"ja": [
-				"SPが1以上のみ使える、SP1点を消費し、人気キャンディカート1体を召喚する"
-			],
-			"zh": [
-				"仅技力大于等于1时触发：消耗1点技力，延迟0.1s后在自身位置以自身路径召唤1个精致糖果车"
-			]
+			"en": ["If SP>1, consumes 1 SP to summon a Luscious Snack Cart"],
+			"ja": ["SPが1以上のみ使える、SP1点を消費し、人気キャンディカート1体を召喚する"],
+			"zh": ["仅技力大于等于1时触发：消耗1点技力，延迟0.1s后在自身位置以自身路径召唤1个精致糖果车"]
 		}
 	},
 	"bomscr_1": {
