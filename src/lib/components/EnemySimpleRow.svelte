@@ -54,9 +54,6 @@
 
 		return statKeys;
 	};
-	if (enemy.forms.length > 1) {
-		console.log(enemy);
-	}
 </script>
 
 <!-- {@debug enemy} -->

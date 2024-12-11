@@ -2,7 +2,6 @@
 	import type { Enemy, Language, Skill, StatusImmune } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import { charaAssets } from '$lib/data/chara/chara_assets';
-	import EnemyFormTitle from './EnemyFormTitle.svelte';
 	import { getFormTitle } from '$lib/functions/lib';
 	export let enemy: Enemy,
 		skill: Skill,
@@ -10,7 +9,6 @@
 		mode = 'table',
 		statusImmuneList: StatusImmune[] = [];
 	const skillType = skill.initCooldown ? 'COOLDOWN' : skill.skillType;
-	console.log(skill);
 </script>
 
 {#if mode === 'table'}
