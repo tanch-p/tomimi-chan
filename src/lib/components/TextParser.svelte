@@ -26,9 +26,9 @@
 		'@self': 'text-[#C0E6FA]',
 		'@purple': 'text-[#A48CE7]',
 		'@gold': 'text-[#CDB07A]',
-		'@phys': 'text-[#FFB082]',
-		'@arts': 'text-[#A7C2FC]',
-		'@true': 'text-[#FF99CA]',
+		'@phys': 'text-[#FFB082] capitalize',
+		'@arts': 'text-[#A7C2FC] capitalize',
+		'@true': 'text-[#FF99CA] capitalize',
 		'@strike': 'line-through text-neutral-400'
 	};
 

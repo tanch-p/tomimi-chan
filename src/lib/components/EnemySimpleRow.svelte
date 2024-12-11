@@ -7,6 +7,7 @@
 	import StatSkills from '$lib/components/StatSkills.svelte';
 	import translations from '$lib/translations.json';
 	import OtherBuffs from './OtherBuffs.svelte';
+	import { isEquals } from '$lib/functions/lib';
 
 	export let enemy: Enemy,
 		index: number,
@@ -15,7 +16,7 @@
 		specialMods,
 		otherBuffsList;
 
-	const maxRowSpan = enemy.forms.length;
+	$: maxRowSpan = enemy.forms.length;
 	let textAlign = function (statKey: string) {
 		switch (statKey) {
 			case 'hp':
@@ -40,19 +41,22 @@
 			statKeys.push('hp');
 			statKeys.push('e_hp');
 		}
-		// forms.forEach((form) => {
-		// 	form.stats.forEach((stat,i) => {
-
-		// 	})
-		// });
-		// const sameAtkType =
-		// 	JSON.stringify(forms[0].normal_attack) === JSON.stringify(forms[1].normal_attack);
-		// if (!sameAtkType && !statKeys.includes('atk')) {
-		// 	statKeys.push('atk');
-		// }
+		for (const form of forms) {
+			for (const statKey of Object.keys(form.stats)) {
+				if (form.stats[statKey] !== forms[0].stats[statKey]) {
+					statKeys.push(statKey);
+				}
+			}
+			if (!isEquals(form.normal_attack, forms[0].normal_attack)) {
+				statKeys.push('atk');
+			}
+		}
 
 		return statKeys;
 	};
+	if (enemy.forms.length > 1) {
+		console.log(enemy);
+	}
 </script>
 
 <!-- {@debug enemy} -->
@@ -112,12 +116,12 @@
 									<AtkSuffix attack={getNormalAtk(enemy, row)} {language} />
 								{/if}
 							</p>
-							<!-- <StatSkills
+							<StatSkills
 								skills={getStatSkills(enemy, form.special, $specialMods)}
 								stat={key}
 								statValue={form.stats[key]}
 								{language}
-							/> -->
+							/>
 						</div>
 					{/if}
 				</td>

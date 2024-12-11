@@ -3560,7 +3560,7 @@
 				"epResistance": 0.0,
 				"traits": [
 					{
-						"key": "crusher_stun"
+						"key": "atk_recv_stun"
 					}
 				],
 				"special": []
@@ -3599,7 +3599,7 @@
 				"epResistance": 0.0,
 				"traits": [
 					{
-						"key": "crusher_stun"
+						"key": "atk_recv_stun"
 					}
 				],
 				"special": []
@@ -3708,7 +3708,8 @@
 				"epResistance": 0.0,
 				"traits": [
 					{
-						"key": "sniper_stun"
+						"key": "atk_recv_stun",
+						"duration": 5
 					}
 				],
 				"special": []
@@ -3747,7 +3748,8 @@
 				"epResistance": 0.0,
 				"traits": [
 					{
-						"key": "sniper_leader_stun"
+						"key": "atk_recv_stun",
+						"duration": 15
 					}
 				],
 				"special": []
@@ -9046,13 +9048,18 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "prisoner_atk_release"
-							}
-						]
+						{
+							"key": "prisoner_aspd_down"
+						},
+						{
+							"key": "prisoner_atk_release"
+						}
 					],
-					[[]]
+					[
+						{
+							"key": "prisoner_atk_inc"
+						}
+					]
 				],
 				"form_mods": [
 					{
@@ -9106,13 +9113,18 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "prisoner_atk_release"
-							}
-						]
+						{
+							"key": "prisoner_aspd_down"
+						},
+						{
+							"key": "prisoner_atk_release"
+						}
 					],
-					[[]]
+					[
+						{
+							"key": "prisoner_atk_inc"
+						}
+					]
 				],
 				"form_mods": [
 					{
@@ -9166,18 +9178,20 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "prisoner_atk_release"
-							}
-						]
+						{
+							"key": "prisoner_aspd_down"
+						},
+						{
+							"key": "prisoner_atk_release"
+						}
 					],
 					[
-						[
-							{
-								"key": "atk_arts_change"
-							}
-						]
+						{
+							"key": "prisoner_atk_inc"
+						},
+						{
+							"key": "atk_arts_change"
+						}
 					]
 				],
 				"form_mods": [
@@ -9232,18 +9246,20 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "prisoner_atk_release"
-							}
-						]
+						{
+							"key": "prisoner_aspd_down"
+						},
+						{
+							"key": "prisoner_atk_release"
+						}
 					],
 					[
-						[
-							{
-								"key": "atk_arts_change"
-							}
-						]
+						{
+							"key": "prisoner_atk_inc"
+						},
+						{
+							"key": "atk_arts_change"
+						}
 					]
 				],
 				"form_mods": [
@@ -9298,19 +9314,21 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "prisoner_atk_release"
-							}
-						]
+						{
+							"key": "prisoner_aspd_down"
+						},
+						{
+							"key": "prisoner_atk_release"
+						}
 					],
 					[
-						[
-							{
-								"key": "ignore_def_percent",
-								"value": 0.6
-							}
-						]
+						{
+							"key": "prisoner_atk_inc"
+						},
+						{
+							"key": "ignore_def_percent",
+							"value": 0.6
+						}
 					]
 				],
 				"form_mods": [
@@ -9365,19 +9383,21 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "prisoner_atk_release"
-							}
-						]
+						{
+							"key": "prisoner_aspd_down"
+						},
+						{
+							"key": "prisoner_atk_release"
+						}
 					],
 					[
-						[
-							{
-								"key": "ignore_def_percent",
-								"value": 0.8
-							}
-						]
+						{
+							"key": "prisoner_atk_inc"
+						},
+						{
+							"key": "ignore_def_percent",
+							"value": 0.8
+						}
 					]
 				],
 				"form_mods": [
@@ -9432,18 +9452,20 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "prisoner_atk_release"
-							}
-						]
+						{
+							"key": "prisoner_aspd_down"
+						},
+						{
+							"key": "prisoner_atk_release"
+						}
 					],
 					[
-						[
-							{
-								"key": "hp_regen"
-							}
-						]
+						{
+							"key": "vofsd_freed"
+						},
+						{
+							"key": "hp_regen"
+						}
 					]
 				],
 				"form_mods": [
@@ -9499,18 +9521,22 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "prisoner_atk_release"
-							}
-						]
+						{
+							"key": "prisoner_aspd_down"
+						},
+						{
+							"key": "prisoner_atk_release"
+						}
 					],
 					[
-						[
-							{
-								"key": "hp_regen"
-							}
-						]
+						{
+							"key": "vofsd_freed",
+							"res": 60
+						},
+						{
+							"key": "hp_regen",
+							"value": 300
+						}
 					]
 				],
 				"form_mods": [
@@ -9519,7 +9545,7 @@
 					},
 					{
 						"atk": 1.5,
-						"res": 40
+						"res": 60
 					}
 				]
 			}
@@ -9563,28 +9589,14 @@
 				"ms": 0.5,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{
+						"key": "aspd_buff_ALL"
+					}
+				],
 				"special": [
-					[
-						[
-							{
-								"key": "caster_prisoner_imprisoned"
-							},
-							{
-								"key": "aspd_buff_ALL"
-							}
-						]
-					],
-					[
-						[
-							{
-								"key": "multi_target"
-							},
-							{
-								"key": "aspd_buff_ALL"
-							}
-						]
-					]
+					[{ "key": "vofwiz_imprisoned" }, { "key": "caster_prisoner_imprisoned" }],
+					[{ "key": "prisoner_atk_inc" }, { "key": "multi_target" }]
 				],
 				"form_mods": [
 					{
@@ -9636,28 +9648,15 @@
 				"ms": 0.5,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{
+						"key": "aspd_buff_ALL",
+						"value": 50
+					}
+				],
 				"special": [
-					[
-						[
-							{
-								"key": "caster_prisoner_imprisoned"
-							},
-							{
-								"key": "aspd_buff_ALL"
-							}
-						]
-					],
-					[
-						[
-							{
-								"key": "multi_target"
-							},
-							{
-								"key": "aspd_buff_ALL"
-							}
-						]
-					]
+					[{ "key": "vofwiz_imprisoned" }, { "key": "caster_prisoner_imprisoned" }],
+					[{ "key": "prisoner_atk_inc" }, { "key": "multi_target" }]
 				],
 				"form_mods": [
 					{
@@ -9712,16 +9711,19 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "prisoner_atk_release"
-							},
-							{
-								"key": "prisoner_release_all"
-							}
-						]
+						{ "key": "vofwiz_imprisoned" },
+						{
+							"key": "prisoner_atk_release"
+						},
+						{
+							"key": "prisoner_release_all"
+						}
 					],
-					[[]]
+					[
+						{
+							"key": "prisoner_atk_inc"
+						}
+					]
 				],
 				"form_mods": [
 					{
@@ -9776,16 +9778,19 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "prisoner_atk_release"
-							},
-							{
-								"key": "prisoner_release_all"
-							}
-						]
+						{ "key": "vofwiz_imprisoned" },
+						{
+							"key": "prisoner_atk_release"
+						},
+						{
+							"key": "prisoner_release_all"
+						}
 					],
-					[[]]
+					[
+						{
+							"key": "prisoner_atk_inc"
+						}
+					]
 				],
 				"form_mods": [
 					{
@@ -12541,7 +12546,8 @@
 				"epResistance": 0.0,
 				"traits": [
 					{
-						"key": "sailor_stun"
+						"key": "atk_recv_stun",
+						"count": 3
 					},
 					{
 						"key": "sailor_drown"
@@ -12583,7 +12589,8 @@
 				"epResistance": 0.0,
 				"traits": [
 					{
-						"key": "sailor_stun"
+						"key": "atk_recv_stun",
+						"count": 3
 					},
 					{
 						"key": "sailor_drown2"
@@ -13606,27 +13613,21 @@
 				"ms": 0.5,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{
+						"key": "refraction"
+					}
+				],
 				"special": [
 					[
-						[
-							{
-								"key": "refraction"
-							},
-							{
-								"key": "ggy_pillar_smash"
-							}
-						]
+						{
+							"key": "ggy_pillar_smash"
+						}
 					],
 					[
-						[
-							{
-								"key": "ggy_stone_form"
-							},
-							{
-								"key": "refraction"
-							}
-						]
+						{
+							"key": "ggy_stone_form"
+						}
 					]
 				],
 				"form_mods": [
@@ -13676,27 +13677,22 @@
 				"ms": 0.5,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{
+						"key": "refraction"
+					}
+				],
 				"special": [
 					[
-						[
-							{
-								"key": "refraction"
-							},
-							{
-								"key": "ggy_pillar_smash"
-							}
-						]
+						{
+							"key": "ggy_pillar_smash"
+						}
 					],
+
 					[
-						[
-							{
-								"key": "ggy_stone_form"
-							},
-							{
-								"key": "refraction"
-							}
-						]
+						{
+							"key": "ggy_stone_form"
+						}
 					]
 				],
 				"form_mods": [
@@ -14680,8 +14676,7 @@
 						"key": "glimmering_touch",
 						"atk": {
 							"multiplier": 2.5
-						},
-						"cd": 25
+						}
 					}
 				],
 				"special": []
@@ -14723,8 +14718,7 @@
 						"key": "glimmering_touch",
 						"atk": {
 							"multiplier": 2.5
-						},
-						"cd": 25
+						}
 					}
 				],
 				"special": []
@@ -14763,7 +14757,9 @@
 				"epResistance": 0.0,
 				"traits": [
 					{
-						"key": "glimmering_touch"
+						"key": "glimmering_touch",
+						"initCooldown": 20,
+						"cooldown": 20
 					}
 				],
 				"special": []
@@ -14899,7 +14895,7 @@
 				"epResistance": 0.0,
 				"traits": [
 					{
-						"key": "tola_nightzmora_slash"
+						"key": "nightzmora_slash"
 					}
 				],
 				"special": []
@@ -22596,11 +22592,9 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "duskls_1"
-							}
-						]
+						{
+							"key": "duskls_1"
+						}
 					],
 					[
 						[
@@ -22666,24 +22660,20 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "duskls_1"
-							}
-						]
+						{
+							"key": "duskls_1"
+						}
 					],
 					[
-						[
-							{
-								"key": "stealth"
-							},
-							{
-								"key": "damage_1"
-							},
-							{
-								"key": "du_fire"
-							}
-						]
+						{
+							"key": "stealth"
+						},
+						{
+							"key": "damage_1"
+						},
+						{
+							"key": "du_fire"
+						}
 					]
 				],
 				"form_mods": [
@@ -22954,24 +22944,20 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "duskld_1"
-							}
-						]
+						{
+							"key": "duskld_1"
+						}
 					],
 					[
-						[
-							{
-								"key": "stealth"
-							},
-							{
-								"key": "damage_1"
-							},
-							{
-								"key": "du_fire"
-							}
-						]
+						{
+							"key": "stealth"
+						},
+						{
+							"key": "damage_1"
+						},
+						{
+							"key": "du_fire"
+						}
 					]
 				],
 				"form_mods": [
@@ -23024,24 +23010,20 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "duskld_1"
-							}
-						]
+						{
+							"key": "duskld_1"
+						}
 					],
 					[
-						[
-							{
-								"key": "stealth"
-							},
-							{
-								"key": "damage_1"
-							},
-							{
-								"key": "du_fire"
-							}
-						]
+						{
+							"key": "stealth"
+						},
+						{
+							"key": "damage_1"
+						},
+						{
+							"key": "du_fire"
+						}
 					]
 				],
 				"form_mods": [
@@ -23491,14 +23473,7 @@
 				"ms": 1.1,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [
-					{
-						"key": "stealth"
-					},
-					{
-						"key": "ymkilr_2"
-					}
-				],
+				"traits": [{ "key": "stealth" }, { "key": "stealth_atk" }],
 				"special": []
 			}
 		],
@@ -23533,11 +23508,7 @@
 				"ms": 1.1,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [
-					{
-						"key": "ymkilr_2"
-					}
-				],
+				"traits": [{ "key": "stealth_atk" }],
 				"special": []
 			}
 		],
@@ -25153,40 +25124,35 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "fnf_nova",
-								"cd1": 8.5,
-								"cd2": 8.5,
-								"atk": {
-									"multiplier": 1.5
-								},
-								"duration": 8
+						{
+							"key": "fnf_nova",
+							"initCooldown": 8.5,
+							"cooldown": 8.5,
+							"atk": {
+								"multiplier": 1.5
 							},
-							{
-								"key": "fnf_seal_tile",
-								"cd1": 30,
-								"cd2": 30
-							}
-						]
+							"duration": 8
+						},
+						{
+							"key": "fnf_seal_tile",
+							"initCooldown": 30,
+							"cooldown": 30
+						}
 					],
 					[
-						[
-							{
-								"key": "fnf_nova",
-								"atk": {
-									"multiplier": 1.5
-								},
-								"tooltip": null
-							}
-						]
+						{
+							"key": "fnf_nova",
+							"atk": {
+								"multiplier": 1.5
+							},
+							"tooltip": null
+						}
 					]
 				],
 				"form_mods": [
 					{},
 					{
-						"atk": 1.5,
-						"status_immune": ["stun", "silence", "freeze", "levitate"]
+						"atk": 1.5
 					}
 				]
 			},
@@ -25205,40 +25171,35 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "fnf_nova",
-								"cd1": 8.5,
-								"cd2": 8.5,
-								"atk": {
-									"multiplier": 1.5
-								},
-								"duration": 8
+						{
+							"key": "fnf_nova",
+							"initCooldown": 8.5,
+							"cooldown": 8.5,
+							"atk": {
+								"multiplier": 1.5
 							},
-							{
-								"key": "fnf_seal_tile",
-								"cd1": 30,
-								"cd2": 30
-							}
-						]
+							"duration": 8
+						},
+						{
+							"key": "fnf_seal_tile",
+							"initCooldown": 21,
+							"cooldown": 21
+						}
 					],
 					[
-						[
-							{
-								"key": "fnf_nova",
-								"atk": {
-									"multiplier": 1.5
-								},
-								"tooltip": null
-							}
-						]
+						{
+							"key": "fnf_nova",
+							"atk": {
+								"multiplier": 1.5
+							},
+							"tooltip": null
+						}
 					]
 				],
 				"form_mods": [
 					{},
 					{
-						"atk": 1.5,
-						"status_immune": ["stun", "silence", "freeze", "levitate"]
+						"atk": 1.5
 					}
 				]
 			}
@@ -25258,7 +25219,7 @@
 					"atk_type": ["ranged", "arts"],
 					"hits": 1
 				},
-				"status_immune": ["stun", "sleep", "silence", "freeze", "levitate"]
+				"status_immune": ["stun", "silence", "freeze", "levitate"]
 			}
 		],
 		"type": ["ranged", "BOSS"]
@@ -25387,7 +25348,7 @@
 						"key": "rat_king_shield"
 					},
 					{
-						"key": "hp_50_rage_150"
+						"key": "hp_50_rage"
 					},
 					{
 						"key": "rat_king_sand_cross"
@@ -25412,16 +25373,23 @@
 				"epResistance": 0.0,
 				"traits": [
 					{
-						"key": "rat_king_shield"
+						"key": "rat_king_shield",
+						"value": 22002
 					},
 					{
-						"key": "hp_50_rage_150"
+						"key": "hp_50_rage",
+						"value": 170
 					},
 					{
-						"key": "rat_king_sand_cross"
+						"key": "rat_king_sand_cross",
+						"initCooldown": 10,
+						"atk": { "value": 1500 }
 					},
 					{
-						"key": "rat_king_sand_tomb"
+						"key": "rat_king_sand_tomb",
+						"initCooldown": 15,
+						"cooldown": 20,
+						"atk": { "value": 100 }
 					}
 				],
 				"special": []
@@ -25461,36 +25429,32 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "freeze_attack"
-							},
-							{
-								"key": "fnf_nova"
-							},
-							{
-								"key": "fzm_freeze_redeploy"
-							},
-							{
-								"key": "fnf_seal_tile"
-							}
-						]
+						{
+							"key": "freeze_attack"
+						},
+						{
+							"key": "fnf_nova"
+						},
+						{
+							"key": "fzm_freeze_redeploy"
+						},
+						{
+							"key": "fnf_seal_tile"
+						}
 					],
 					[
-						[
-							{
-								"key": "invincible",
-								"value": 20
-							},
-							{
-								"key": "fnf_nova",
-								"radius": 3.3
-							},
-							{
-								"key": "fnf_seal_tile",
-								"value": 3
-							}
-						]
+						{
+							"key": "invincible",
+							"value": 20
+						},
+						{
+							"key": "fnf_nova",
+							"radius": 3.3
+						},
+						{
+							"key": "fnf_seal_tile",
+							"value": 3
+						}
 					]
 				],
 				"form_mods": [
@@ -25515,36 +25479,32 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "freeze_attack"
-							},
-							{
-								"key": "fnf_nova"
-							},
-							{
-								"key": "fzm_freeze_redeploy"
-							},
-							{
-								"key": "fnf_seal_tile"
-							}
-						]
+						{
+							"key": "freeze_attack"
+						},
+						{
+							"key": "fnf_nova"
+						},
+						{
+							"key": "fzm_freeze_redeploy"
+						},
+						{
+							"key": "fnf_seal_tile"
+						}
 					],
 					[
-						[
-							{
-								"key": "invincible",
-								"value": 20
-							},
-							{
-								"key": "fnf_nova",
-								"radius": 3.3
-							},
-							{
-								"key": "fnf_seal_tile",
-								"value": 3
-							}
-						]
+						{
+							"key": "invincible",
+							"value": 20
+						},
+						{
+							"key": "fnf_nova",
+							"radius": 3.3
+						},
+						{
+							"key": "fnf_seal_tile",
+							"value": 3
+						}
 					]
 				],
 				"form_mods": [
@@ -25597,38 +25557,34 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "taunt",
-								"value": 2
-							},
-							{
-								"key": "patrt_0"
-							},
-							{
-								"key": "patrt_1"
-							},
-							{
-								"key": "patrt_2"
-							}
-						]
+						{
+							"key": "taunt",
+							"value": 2
+						},
+						{
+							"key": "patrt_0"
+						},
+						{
+							"key": "patrt_1"
+						},
+						{
+							"key": "patrt_2"
+						}
 					],
 					[
-						[
-							{
-								"key": "patrt_2_0"
-							},
-							{
-								"key": "invincible",
-								"value": 15
-							},
-							{
-								"key": "patrt_2_1"
-							},
-							{
-								"key": "patrt_2_2"
-							}
-						]
+						{
+							"key": "patrt_2_0"
+						},
+						{
+							"key": "invincible",
+							"value": 15
+						},
+						{
+							"key": "patrt_2_1"
+						},
+						{
+							"key": "patrt_2_2"
+						}
 					]
 				],
 				"form_mods": [
@@ -25663,38 +25619,34 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "taunt",
-								"value": 2
-							},
-							{
-								"key": "patrt_0"
-							},
-							{
-								"key": "patrt_1"
-							},
-							{
-								"key": "patrt_2"
-							}
-						]
+						{
+							"key": "taunt",
+							"value": 2
+						},
+						{
+							"key": "patrt_0"
+						},
+						{
+							"key": "patrt_1"
+						},
+						{
+							"key": "patrt_2"
+						}
 					],
 					[
-						[
-							{
-								"key": "patrt_2_0"
-							},
-							{
-								"key": "invincible",
-								"value": 15
-							},
-							{
-								"key": "patrt_2_1"
-							},
-							{
-								"key": "patrt_2_2"
-							}
-						]
+						{
+							"key": "patrt_2_0"
+						},
+						{
+							"key": "invincible",
+							"value": 15
+						},
+						{
+							"key": "patrt_2_1"
+						},
+						{
+							"key": "patrt_2_2"
+						}
 					]
 				],
 				"form_mods": [
@@ -25781,7 +25733,10 @@
 						"key": "mudrock_hammer"
 					},
 					{
-						"key": "mudrock_shield"
+						"key": "mudrock_shield",
+						"initCooldown": 15,
+						"cooldown": 15,
+						"value": 20001
 					}
 				],
 				"special": []
@@ -25868,28 +25823,26 @@
 				"ms": 0.65,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{
+						"key": "splash",
+						"tiles": 4
+					}
+				],
 				"special": [
 					[
-						[
-							{
-								"key": "splash",
-								"tiles": 4
-							},
-							{
-								"key": "corrupted_knight_charge_atk"
-							}
-						]
+						{
+							"key": "corrupted_knight_charge_atk"
+						}
 					],
 					[
-						[
-							{
-								"key": "corrupted_knight_charge_atk"
-							},
-							{
-								"key": "corrupted_knight_rage"
-							}
-						]
+						{
+							"key": "corrupted_knight_charge_atk",
+							"tooltip": null
+						},
+						{
+							"key": "corrupted_knight_rage"
+						}
 					]
 				],
 				"form_mods": [
@@ -25913,28 +25866,26 @@
 				"ms": 0.65,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{
+						"key": "splash",
+						"tiles": 4
+					}
+				],
 				"special": [
 					[
-						[
-							{
-								"key": "splash",
-								"tiles": 4
-							},
-							{
-								"key": "corrupted_knight_charge_atk"
-							}
-						]
+						{
+							"key": "corrupted_knight_charge_atk"
+						}
 					],
 					[
-						[
-							{
-								"key": "corrupted_knight_charge_atk"
-							},
-							{
-								"key": "corrupted_knight_rage"
-							}
-						]
+						{
+							"key": "corrupted_knight_charge_atk",
+							"tooltip": null
+						},
+						{
+							"key": "corrupted_knight_rage"
+						}
 					]
 				],
 				"form_mods": [
@@ -25989,25 +25940,21 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "multi_target"
-							},
-							{
-								"key": "withered_knight_arrow_bomb"
-							}
-						]
+						{
+							"key": "multi_target"
+						},
+						{
+							"key": "withered_knight_arrow_bomb"
+						}
 					],
 					[
-						[
-							{
-								"key": "withered_knight_arrow_bomb",
-								"tooltip": null
-							},
-							{
-								"key": "corrupted_knight_rage"
-							}
-						]
+						{
+							"key": "withered_knight_arrow_bomb",
+							"tooltip": null
+						},
+						{
+							"key": "corrupted_knight_rage"
+						}
 					]
 				],
 				"form_mods": [
@@ -26034,25 +25981,21 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "multi_target"
-							},
-							{
-								"key": "withered_knight_arrow_bomb"
-							}
-						]
+						{
+							"key": "multi_target"
+						},
+						{
+							"key": "withered_knight_arrow_bomb"
+						}
 					],
 					[
-						[
-							{
-								"key": "withered_knight_arrow_bomb",
-								"tooltip": null
-							},
-							{
-								"key": "corrupted_knight_rage"
-							}
-						]
+						{
+							"key": "withered_knight_arrow_bomb",
+							"tooltip": null
+						},
+						{
+							"key": "corrupted_knight_rage"
+						}
 					]
 				],
 				"form_mods": [
@@ -26207,18 +26150,14 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "JAK_strong_wine_attack"
-							}
-						]
+						{
+							"key": "JAK_strong_wine_attack"
+						}
 					],
 					[
-						[
-							{
-								"key": "JAK_strong_sword_attack"
-							}
-						]
+						{
+							"key": "JAK_strong_sword_attack"
+						}
 					]
 				],
 				"form_mods": [
@@ -26249,18 +26188,14 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "JAK_strong_wine_attack"
-							}
-						]
+						{
+							"key": "JAK_strong_wine_attack"
+						}
 					],
 					[
-						[
-							{
-								"key": "JAK_strong_sword_attack"
-							}
-						]
+						{
+							"key": "JAK_strong_sword_attack"
+						}
 					]
 				],
 				"form_mods": [
@@ -26268,7 +26203,7 @@
 						"fixed_res": 50
 					},
 					{
-						"fixed_atk": 700,
+						"fixed_atk": 800,
 						"fixed_def": 1000,
 						"fixed_aspd": -1.5,
 						"fixed_ms": 0.3,
@@ -26903,36 +26838,32 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "manfred_military_training"
-							},
-							{
-								"key": "manfred_focus"
-							},
-							{
-								"key": "manfred_range_atk_1"
-							},
-							{
-								"key": "manfred_rebirth"
-							}
-						]
+						{
+							"key": "manfred_military_training"
+						},
+						{
+							"key": "manfred_focus"
+						},
+						{
+							"key": "manfred_range_atk_1"
+						},
+						{
+							"key": "manfred_rebirth"
+						}
 					],
 					[
-						[
-							{
-								"key": "invincible"
-							},
-							{
-								"key": "manfred_military_training"
-							},
-							{
-								"key": "manfred_focus"
-							},
-							{
-								"key": "manfred_range_atk_2"
-							}
-						]
+						{
+							"key": "invincible"
+						},
+						{
+							"key": "manfred_military_training"
+						},
+						{
+							"key": "manfred_focus"
+						},
+						{
+							"key": "manfred_range_atk_2"
+						}
 					]
 				],
 				"form_mods": [{}, {}]
@@ -26952,36 +26883,32 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "manfred_military_training"
-							},
-							{
-								"key": "manfred_focus"
-							},
-							{
-								"key": "manfred_range_atk_1"
-							},
-							{
-								"key": "manfred_rebirth"
-							}
-						]
+						{
+							"key": "manfred_military_training"
+						},
+						{
+							"key": "manfred_focus"
+						},
+						{
+							"key": "manfred_range_atk_1"
+						},
+						{
+							"key": "manfred_rebirth"
+						}
 					],
 					[
-						[
-							{
-								"key": "invincible"
-							},
-							{
-								"key": "manfred_military_training"
-							},
-							{
-								"key": "manfred_focus"
-							},
-							{
-								"key": "manfred_range_atk_2"
-							}
-						]
+						{
+							"key": "invincible"
+						},
+						{
+							"key": "manfred_military_training"
+						},
+						{
+							"key": "manfred_focus"
+						},
+						{
+							"key": "manfred_range_atk_2"
+						}
 					]
 				],
 				"form_mods": [{}, {}]
@@ -27710,36 +27637,32 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "invincible",
-								"value": 80
-							},
-							{
-								"key": "freeze_attack"
-							},
-							{
-								"key": "fzm_nova"
-							},
-							{
-								"key": "fzm_freeze_redeploy"
-							},
-							{
-								"key": "fzm_trap"
-							}
-						]
+						{
+							"key": "invincible",
+							"value": 80
+						},
+						{
+							"key": "freeze_attack"
+						},
+						{
+							"key": "fzm_nova"
+						},
+						{
+							"key": "fzm_freeze_redeploy"
+						},
+						{
+							"key": "fzm_trap"
+						}
 					],
 					[
-						[
-							{
-								"key": "invincible",
-								"value": 30
-							},
-							{
-								"key": "fzm_nova",
-								"tooltip": null
-							}
-						]
+						{
+							"key": "invincible",
+							"value": 30
+						},
+						{
+							"key": "fzm_nova",
+							"tooltip": null
+						}
 					]
 				],
 				"form_mods": [
@@ -27871,25 +27794,18 @@
 				"ms": 0.6,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{
+						"key": "freeze_attack"
+					}
+				],
 				"special": [
+					[],
 					[
-						[
-							{
-								"key": "freeze_attack"
-							}
-						]
-					],
-					[
-						[
-							{
-								"key": "freeze_attack"
-							},
-							{
-								"key": "ice_pick",
-								"value": 2.5
-							}
-						]
+						{
+							"key": "ice_pick",
+							"value": 2.5
+						}
 					]
 				],
 				"form_mods": [
@@ -27940,26 +27856,18 @@
 				"ms": 0.6,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{
+						"key": "ice_pick",
+						"value": 2.5
+					}
+				],
 				"special": [
+					[],
 					[
-						[
-							{
-								"key": "ice_pick",
-								"value": 2.5
-							}
-						]
-					],
-					[
-						[
-							{
-								"key": "freeze_attack"
-							},
-							{
-								"key": "ice_pick",
-								"value": 2.5
-							}
-						]
+						{
+							"key": "freeze_attack"
+						}
 					]
 				],
 				"form_mods": [
@@ -28112,39 +28020,27 @@
 				"ms": 0.5,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{
+						"key": "HST_invincible"
+					},
+					{
+						"key": "multi_target"
+					},
+					{
+						"key": "dt_neural"
+					}
+				],
 				"special": [
 					[
-						[
-							{
-								"key": "HST_invincible"
-							},
-							{
-								"key": "HST_summon_helper"
-							},
-							{
-								"key": "multi_target"
-							},
-							{
-								"key": "dt_neural"
-							}
-						]
+						{
+							"key": "HST_summon_helper"
+						}
 					],
 					[
-						[
-							{
-								"key": "HST_summon_helper_revival"
-							},
-							{
-								"key": "HST_invincible"
-							},
-							{
-								"key": "multi_target"
-							},
-							{
-								"key": "dt_neural"
-							}
-						]
+						{
+							"key": "HST_summon_helper_revival"
+						}
 					]
 				],
 				"form_mods": [{}, {}]
@@ -28547,40 +28443,36 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "hover"
-							},
-							{
-								"key": "multi_target_condense",
-								"value": 3
-							},
-							{
-								"key": "dt_erosion",
-								"value": 0.6
-							},
-							{
-								"key": "highmore_aspd_down_1"
-							}
-						]
+						{
+							"key": "hover"
+						},
+						{
+							"key": "multi_target_condense",
+							"value": 3
+						},
+						{
+							"key": "dt_erosion",
+							"value": 0.6
+						},
+						{
+							"key": "highmore_aspd_down_1"
+						}
 					],
 					[
-						[
-							{
-								"key": "highmore_revive"
-							},
-							{
-								"key": "multi_target_condense",
-								"value": 5
-							},
-							{
-								"key": "dt_erosion",
-								"value": 0.6
-							},
-							{
-								"key": "highmore_aspd_down_2"
-							}
-						]
+						{
+							"key": "highmore_revive"
+						},
+						{
+							"key": "multi_target_condense",
+							"value": 5
+						},
+						{
+							"key": "dt_erosion",
+							"value": 0.6
+						},
+						{
+							"key": "highmore_aspd_down_2"
+						}
 					]
 				],
 				"form_mods": [
@@ -28632,37 +28524,32 @@
 				"ms": 0.6,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{
+						"key": "doq_bone"
+					},
+					{
+						"key": "doq_freeze_armor"
+					}
+				],
 				"special": [
 					[
-						[
-							{
-								"key": "doq_bone"
-							},
-							{
-								"key": "ice_pick",
-								"value": 1.75
-							},
-							{
-								"key": "doq_freeze_armor"
-							},
-							{
-								"key": "doq_revive"
-							}
-						]
+						{
+							"key": "ice_pick",
+							"value": 1.75
+						},
+
+						{
+							"key": "doq_revive"
+						}
 					],
 					[
-						[
-							{
-								"key": "doq_bone"
-							},
-							{
-								"key": "doq_invincible"
-							},
-							{
-								"key": "doq_charge"
-							}
-						]
+						{
+							"key": "doq_invincible"
+						},
+						{
+							"key": "doq_charge"
+						}
 					]
 				],
 				"form_mods": [
@@ -28715,31 +28602,27 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "syskad_heal"
-							},
-							{
-								"key": "syskad_hp_50_rage_150"
-							},
-							{
-								"key": "syskad_summon_tears"
-							},
-							{
-								"key": "syskad_transform"
-							}
-						]
+						{
+							"key": "syskad_heal"
+						},
+						{
+							"key": "syskad_hp_50_rage_150"
+						},
+						{
+							"key": "syskad_summon_tears"
+						},
+						{
+							"key": "syskad_transform"
+						}
 					],
 					[
-						[
-							{
-								"key": "multi_target",
-								"value": 3
-							},
-							{
-								"key": "syskad_revert"
-							}
-						]
+						{
+							"key": "multi_target",
+							"value": 3
+						},
+						{
+							"key": "syskad_revert"
+						}
 					]
 				],
 				"form_mods": [
@@ -40083,10 +39966,10 @@
 						"key": "evasion_phys_arts"
 					},
 					{
-						"key": "mmcike_1"
+						"key": "stealth_atk"
 					},
 					{
-						"key": "mmcike_2"
+						"key": "mmcike_1"
 					}
 				],
 				"special": []
@@ -44640,31 +44523,27 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "skzlwy_1_1"
-							},
-							{
-								"key": "skzlwy_1_2"
-							},
-							{
-								"key": "skzlwy_1_3"
-							}
-						]
+						{
+							"key": "skzlwy_1_1"
+						},
+						{
+							"key": "skzlwy_1_2"
+						},
+						{
+							"key": "skzlwy_1_3"
+						}
 					],
 					[
-						[
-							{
-								"key": "dt_apoptosis",
-								"value": 0.1
-							},
-							{
-								"key": "skzlwy_2_1"
-							},
-							{
-								"key": "skzlwy_2_2"
-							}
-						]
+						{
+							"key": "dt_apoptosis",
+							"value": 0.1
+						},
+						{
+							"key": "skzlwy_2_1"
+						},
+						{
+							"key": "skzlwy_2_2"
+						}
 					]
 				],
 				"form_mods": [{}, {}]
@@ -44712,30 +44591,26 @@
 				"traits": [],
 				"special": [
 					[
-						[
-							{
-								"key": "skztxs_1_1"
-							},
-							{
-								"key": "skztxs_1_2"
-							},
-							{
-								"key": "skztxs_1_3"
-							},
-							{
-								"key": "skztxs_1_4"
-							}
-						]
+						{
+							"key": "skztxs_1_1"
+						},
+						{
+							"key": "skztxs_1_2"
+						},
+						{
+							"key": "skztxs_1_3"
+						},
+						{
+							"key": "skztxs_1_4"
+						}
 					],
 					[
-						[
-							{
-								"key": "skztxs_2_1"
-							},
-							{
-								"key": "skztxs_2_2"
-							}
-						]
+						{
+							"key": "skztxs_2_1"
+						},
+						{
+							"key": "skztxs_2_2"
+						}
 					]
 				],
 				"form_mods": [{}, {}]
@@ -44780,44 +44655,41 @@
 				"ms": 0.35,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{
+						"key": "skzdd_1_1"
+					},
+					{
+						"key": "skzdd_1_2"
+					},
+					{
+						"key": "skzdd_1_3"
+					},
+					{
+						"key": "skzdd_1_4"
+					}
+				],
 				"special": [
 					[
-						[
-							{
-								"key": "skzdd_1_1"
-							},
-							{
-								"key": "skzdd_1_2"
-							},
-							{
-								"key": "skzdd_1_3"
-							},
-							{
-								"key": "skzdd_1_4"
-							},
-							{
-								"key": "skzdd_1_5"
-							}
-						]
+						{
+							"key": "skzdd_1_5"
+						}
 					],
 					[
-						[
-							{
-								"key": "skzdd_2_1"
-							},
-							{
-								"key": "skzdd_2_2"
-							},
-							{
-								"key": "skzdd_2_3"
-							},
-							{
-								"key": "skzdd_2_4"
-							}
-						]
+						{
+							"key": "skzdd_2_1"
+						},
+						{
+							"key": "skzdd_2_2"
+						},
+						{
+							"key": "skzdd_2_3"
+						},
+						{
+							"key": "skzdd_2_4"
+						}
 					],
-					[[]]
+					[]
 				],
 				"form_mods": [
 					{
@@ -44924,7 +44796,7 @@
 					},
 					{
 						"key": "steal_gold",
-						"value": "?"
+						"value": 99
 					}
 				],
 				"special": []
@@ -47056,58 +46928,51 @@
 				"ms": 0.5,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{ "key": "skzjkl_1_0" },
+					{
+						"key": "skzjkl_fire"
+					}
+				],
 				"special": [
 					[
-						[
-							{
-								"key": "skzjkl_1_0"
-							},
-							{
-								"key": "skzjkl_fire"
-							},
-							{
-								"key": "skzjkl_1_1"
-							},
-							{
-								"key": "skzjkl_1_2"
-							}
-						]
+						{
+							"key": "skzjkl_1_1"
+						},
+						{
+							"key": "skzjkl_1_2"
+						}
 					],
 					[
-						[
-							{
-								"key": "skzjkl_five"
-							},
-							{
-								"key": "skzjkl_2_1"
-							},
-							{
-								"key": "skzjkl_2_2"
-							},
-							{
-								"key": "skzjkl_2_3"
-							},
-							{
-								"key": "skzjkl_2_4"
-							},
-							{
-								"key": "skzjkl_2_5"
-							}
-						]
+						{
+							"key": "skzjkl_five"
+						},
+						{
+							"key": "skzjkl_2_1"
+						},
+						{
+							"key": "skzjkl_2_2"
+						},
+						{
+							"key": "skzjkl_2_3"
+						},
+						{
+							"key": "skzjkl_2_4"
+						},
+						{
+							"key": "skzjkl_2_5"
+						}
 					],
 					[
-						[
-							{
-								"key": "skzjkl_five"
-							},
-							{
-								"key": "skzjkl_3_1"
-							},
-							{
-								"key": "skzjkl_3_2"
-							}
-						]
+						{
+							"key": "skzjkl_five"
+						},
+						{
+							"key": "skzjkl_3_1"
+						},
+						{
+							"key": "skzjkl_3_2"
+						}
 					]
 				],
 				"form_mods": [{}, {}, {}]

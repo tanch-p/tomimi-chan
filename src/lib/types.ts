@@ -33,7 +33,7 @@ type EnemyDBStats = {
 	special: [Skill[]];
 	form_mods?: Mods[];
 };
-type StatusImmune = 'stun' | 'silence' | 'freeze' | 'sleep' | 'levitate' | 'disarmCombat' | 'fear';
+export type StatusImmune = 'stun' | 'silence' | 'freeze' | 'sleep' | 'levitate' | 'disarmCombat' | 'fear';
 type AttackType = 'no_attack' | 'melee' | 'ranged';
 type AttackAttribute = 'phys' | 'arts' | 'true' | 'heal';
 type EnemyType =
@@ -193,8 +193,9 @@ export type Skill = {
 	value?: number;
 	initCooldown?: number;
 	cooldown?: number;
-	init?: number;
+	initSp?: number;
 	spCost?: number;
+	can_silence?: boolean;
 	dmg_element?: 'phys' | 'arts' | 'true' | 'heal';
 	suffix?: Tooltip;
 	hits?: number;

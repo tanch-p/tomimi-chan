@@ -5,6 +5,7 @@
 	import EnemyFormTitle from './EnemyFormTitle.svelte';
 	import { getEnemySkills, getStatusImmune } from '$lib/functions/skillHelpers';
 	import translations from '$lib/translations.json';
+	import { isEquals } from '$lib/functions/lib';
 
 	export let enemy: Enemy, row: number, language: Language, specialMods;
 	$: traits = getEnemySkills(enemy, enemy.traits, row, $specialMods, 'trait');
@@ -22,16 +23,25 @@
 				</li>
 			{/if}
 			{#each traits as skill}
-				<Remark {skill} {language} enemyStats={enemy.forms[row].stats} {statusImmuneList} />
+				<Remark {enemy} {skill} {language} enemyStats={enemy.forms[row].stats} {statusImmuneList} />
 			{/each}
 		</ul>
 		<ul class="list-disc pl-5">
 			{#each specialList as skill}
-				<Remark {skill} {language} enemyStats={enemy.forms[row].stats} {statusImmuneList} />
+				<Remark {enemy} {skill} {language} enemyStats={enemy.forms[row].stats} {statusImmuneList} />
 			{/each}
 		</ul>
 	{:else}
+		{@const statusImmuneSameAcrossForms = enemy.forms.reduce((acc, curr, i, list) => {
+			if (i + 1 < list.length) {
+				acc = acc && isEquals(list[i].status_immune, list[i + 1].status_immune);
+			}
+			return acc;
+		}, true)}
 		{#if row === 0}
+			{#if statusImmuneSameAcrossForms}
+				<StatusImmune {statusImmuneList} {language} mode="table" />
+			{/if}
 			<ul class="list-disc pl-5">
 				{#if enemy.forms[row].stats.dmg_reduction}
 					<li class="py-1">
@@ -39,15 +49,23 @@
 					</li>
 				{/if}
 				{#each traits as skill}
-					<Remark {skill} {language} enemyStats={enemy.forms[row].stats} {statusImmuneList} />
+					<Remark
+						{enemy}
+						{skill}
+						{language}
+						enemyStats={enemy.forms[row].stats}
+						{statusImmuneList}
+					/>
 				{/each}
 			</ul>
 		{/if}
 		<EnemyFormTitle {enemy} {row} {language} />
-		<StatusImmune {statusImmuneList} {language} mode="table" />
+		{#if !statusImmuneSameAcrossForms}
+			<StatusImmune {statusImmuneList} {language} mode="table" />
+		{/if}
 		<ul class="list-disc pl-5">
 			{#each specialList as skill}
-				<Remark {skill} {language} enemyStats={enemy.forms[row].stats} {statusImmuneList} />
+				<Remark {enemy} {skill} {language} enemyStats={enemy.forms[row].stats} {statusImmuneList} />
 			{/each}
 		</ul>
 	{/if}

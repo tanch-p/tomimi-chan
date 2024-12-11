@@ -42,7 +42,6 @@ export const getOverwrittenKeys = (enemyDBSkillRef: Skill, skillRef: Skill, skil
 				list.push(key);
 			}
 		} else if (skill?.[key] && !isEquals(skillRef[key], skill[key])) {
-			// what is the purpose of this case?
 			list.push(key);
 		}
 	}
@@ -54,8 +53,8 @@ export const getStatSkills = (
 	skillRefs: Skill[],
 	specialMods: SpecialMods
 ): Skill[] => {
-	let currentSkills = skillRefs;
-	currentSkills = skillRefs.map((skillRef) => {
+	let currentSkills = [...skillRefs, ...enemy.traits];
+	currentSkills = currentSkills.map((skillRef) => {
 		if (specialMods[enemy.key] && Object.keys(specialMods[enemy.key]).includes(skillRef.key)) {
 			return { ...enemySkills[skillRef.key], ...skillRef, ...specialMods[enemy.key][skillRef.key] };
 		} else {
@@ -78,11 +77,9 @@ export const getHandbookEnemySkills = (enemy, specialMods) => {
 		for (const skill of special) {
 			const item = skills.find((ele) => ele.key === skill.key);
 			if (item) {
-				if (item.formIndexes) {
-					item.formIndexes.push(i);
-				}
+				item.formIndexes.push(i);
 			} else {
-				skills.push({ ...skills, formIndexes: [i] });
+				skills.push({ ...skill, formIndexes: [i] });
 			}
 		}
 	});
@@ -168,7 +165,7 @@ export const parseValues = (skill, text: string, mode, enemyStats) => {
 						statKey
 					)
 				);
-				if (statKey === 'atk' && mode === 'handbook') {
+				if (statKey === 'atk' && mode !== 'table') {
 					//check for skilltag
 					const endIndex = getTooltipEndIndex(text);
 					const value = ` (${Math.round(enemyStats[statKey] * skill[statKey][valueKey])})`;

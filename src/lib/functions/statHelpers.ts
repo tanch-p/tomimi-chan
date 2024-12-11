@@ -80,8 +80,8 @@ export function applyMods(
 	return enemies.map((enemy) => {
 		const holder = { ...enemy };
 		for (let i = 0; i < holder.forms.length; i++) {
-			holder.forms[0].special = holder.stats.special[i] || [];
-			holder.forms[0].stats = parseStats(holder, stageId, statMods, i, specialMods);
+			holder.forms[i].special = holder.stats.special?.[i] || [];
+			holder.forms[i].stats = parseStats(holder, stageId, statMods, i, specialMods);
 		}
 		delete holder.stats;
 		return {

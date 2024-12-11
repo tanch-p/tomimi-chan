@@ -1,13 +1,15 @@
 <script lang="ts">
-	import type { Language, Skill } from '$lib/types';
+	import type { Enemy, Language, Skill, StatusImmune } from '$lib/types';
 	import TextParser from './TextParser.svelte';
 	import { parseValues } from '$lib/functions/skillHelpers';
+	import SkillHead from './SkillHead.svelte';
 
-	export let skill,
+	export let enemy: Enemy,
+		skill: Skill,
 		language: Language,
 		mode = 'table',
 		enemyStats,
-		statusImmuneList = [];
+		statusImmuneList: StatusImmune[] = [];
 
 	const getTooltip = (skill: Skill, language: Language) => {
 		if (!skill.tooltip) return;
@@ -22,10 +24,15 @@
 	};
 
 	$: tooltips = getTooltip(skill, language);
+
+	$: showSilenceIcon = skill.can_silence && !statusImmuneList.includes('silence');
 </script>
 
 {#if tooltips}
-	<li class="py-1">
+	<li class="py-1 {showSilenceIcon ? 'list-none' : ''}">
+		{#if skill.type === 'skill'}
+			<SkillHead {enemy} {skill} {language} {mode} {statusImmuneList} />
+		{/if}
 		{#each tooltips as line}
 			<TextParser {line} />
 		{/each}
