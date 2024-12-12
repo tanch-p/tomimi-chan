@@ -15,22 +15,38 @@
 	<p class="whitespace-nowrap {mode === 'table' ? 'mr-1.5' : 'mr-2.5'}">{skill.suffix[language]}</p>
 	{#if skillType === 'COOLDOWN'}
 		<div class={mode === 'table' ? '' : 'pill default bg-[#555]'}>
-			({translations[language].initCooldown}{#if language === 'en'}<sub>init</sub
-				>&nbsp;{/if}{skill.initCooldown}{translations[language].seconds_abbr} / {translations[
-				language
-			].cooldown}{#if language === 'en'}<sub>n</sub>&nbsp;{/if}{skill.cooldown}{translations[
-				language
-			].seconds_abbr})
+			{#if mode === 'table'}({/if}{translations[language].initCooldown}{#if language === 'en'}<sub
+					>init</sub
+				>&nbsp;{/if}<span
+				class={skill?.overwrittenKeys?.includes('initCooldown') ? 'text-red-400 font-semibold' : ''}
+				>{skill.initCooldown}</span
+			>{translations[language].seconds_abbr} / {translations[language]
+				.cooldown}{#if language === 'en'}<sub>n</sub>&nbsp;{/if}<span
+				class={skill.overwrittenKeys.includes('cooldown') ? 'text-red-400 font-semibold' : ''}
+				>{skill.cooldown}</span
+			>{translations[language].seconds_abbr}{#if mode === 'table'}){/if}
 		</div>
 	{:else}
 		<div class="flex items-center gap-x-1 rounded-[5px] text-sm bg-[#434343]">
 			<div class="grid grid-cols-[9px_1fr] gap-x-[1px] items-center pl-[4px] p-0.5">
 				<img src={charaAssets.sp_start} alt="start" />
-				<p class="leading-tight">{skill?.initSp}</p>
+				<p
+					class="leading-tight {skill?.overwrittenKeys?.includes('initSp')
+						? 'text-red-400 font-semibold'
+						: ''}"
+				>
+					{skill?.initSp}
+				</p>
 			</div>
 			<div class="grid grid-cols-[12px_1fr] items-center py-0.5 pr-0.5">
 				<img src={charaAssets.sp_cost} alt="cost" />
-				<p class="leading-tight">{skill?.spCost}</p>
+				<p
+					class="leading-tight {skill?.overwrittenKeys?.includes('spCost')
+						? 'text-red-400 font-semibold'
+						: ''}"
+				>
+					{skill?.spCost}
+				</p>
 			</div>
 		</div>
 	{/if}

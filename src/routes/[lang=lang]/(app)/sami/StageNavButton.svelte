@@ -29,7 +29,7 @@
 
 <style>
 	div.active {
-		background-color: #4e4c49;
+		background-color: #4b555b;
 		color: #38bdf8;
 	}
 </style>
