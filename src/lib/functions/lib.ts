@@ -141,12 +141,16 @@ export const setOtherBuffsList = (
 		});
 	}
 	for (const enemy of enemies) {
-		if (enemy.forms) {
-			continue;
-		}
 		const enemyCount = mapConfig.enemies.find((ele) => ele.id === enemy.stageId);
 		const maxCount = Math.max(enemyCount.max_count, enemyCount.elite_max_count);
-		for (const skillRef of enemy.special) {
+		const list = [
+			...enemy.traits,
+			...enemy.stats.special.reduce((acc, curr) => {
+				acc = [...acc, ...curr];
+				return acc;
+			}, [])
+		];
+		for (const skillRef of list) {
 			const skill = enemySkills[skillRef.key];
 			if (!skill) {
 				// case for new skills added from specialMods

@@ -21,15 +21,6 @@ export const stageLoad = async (
 			for (const key in overwrittenData) {
 				if (key === 'talentBlackboard') {
 					overwriteBlackboard(enemy.stats, overwrittenData[key]);
-					// const special = enemy.stats.special;
-
-					// if (enemy?.forms) {
-					// 	overwrittenData[key].forEach((ele, index) => {
-					// 		enemy.forms[index].special = overwriteBlackboard(enemy.forms[index].special, ele);
-					// 	});
-					// } else {
-					// 	enemy.special = overwriteBlackboard(enemy.special, overwrittenData[key]);
-					// }
 				} else {
 					enemy.stats[key] = overwrittenData[key];
 				}
