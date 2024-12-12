@@ -92,13 +92,17 @@
 		}
 	},
 	"atk_recv_stun": {
-		"count": 2,
+		"type": "skill",
+		"initSp": 0,
+		"spCost": 2,
+		"skillType": "INCREASE_WHEN_ATTACK",
+		"suffix": { "en": "Stun Attack", "ja": "スタン攻撃", "zh": "晕眩攻击" },
 		"duration": 7,
 		"can_silence": true,
 		"tooltip": {
-			"en": ["After <v.count> attacks, the next attack stuns the target for <v.duration> seconds"],
-			"ja": ["攻撃<v.count>回の度に次の攻撃に相手を<v.duration>秒スタンする"],
-			"zh": ["攻击<v.count>次后，下一次攻击会晕眩目标<v.duration>s"]
+			"en": ["After <v.spCost> attacks, the next attack stuns the target for <v.duration> seconds"],
+			"ja": ["攻撃<v.spCost>回の度に次の攻撃に相手を<v.duration>秒スタンする"],
+			"zh": ["攻击<v.spCost>次后，下一次攻击会晕眩目标<v.duration>s"]
 		}
 	},
 	"atk_minus_block": {
@@ -382,10 +386,11 @@
 		}
 	},
 	"corrupted_knight_rage": {
+		"value":80,
 		"tooltip": {
-			"en": ["Gains ATK +80%, ASPD +100 and Movespeed +150%"],
-			"ja": ["攻撃力+80%、攻撃速度+100、移動速度＋150％"],
-			"zh": ["自身攻击力提升80%，攻击速度增加100，移动速度提升150%"]
+			"en": ["Gains ATK +<v.value>%, ASPD +100 and Movespeed +150%"],
+			"ja": ["攻撃力+<v.value>%、攻撃速度+100、移動速度＋150％"],
+			"zh": ["自身攻击力提升<v.value>%，攻击速度增加100，移动速度提升150%"]
 		}
 	},
 	"greytail_shield": {
@@ -466,15 +471,16 @@
 		"dmg_element": "arts",
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"hits": 1,
+		"value":1,
 		"tooltip": {
 			"en": [
-				"Explodes on death, giving all enemies +1 energy and deals <v.atk.multiplier>% ATK as {arts} damage to nearby units{can_silence}{ignore_camou}"
+				"Explodes on death, giving all enemies +<v.value> energy and deals <v.atk.multiplier>% ATK as {arts} damage to nearby units{can_silence}{ignore_camou}"
 			],
 			"ja": [
-				"死亡時には爆発する、マップ上の敵のエネルギーを1点補充して、周囲に攻撃力<v.atk.multiplier>%の{arts}ダメージを与える{can_silence}{ignore_camou}"
+				"死亡時には爆発する、マップ上の敵のエネルギーを<v.value>点補充して、周囲に攻撃力<v.atk.multiplier>%の{arts}ダメージを与える{can_silence}{ignore_camou}"
 			],
 			"zh": [
-				"死亡后使场上所有敌人获得1点能量，并对半径1.25范围内的友方单位造成攻击力<v.atk.multiplier>%的{arts}溅射伤害{can_silence}{ignore_camou}"
+				"死亡后使场上所有敌人获得<v.value>点能量，并对半径1.25范围内的友方单位造成攻击力<v.atk.multiplier>%的{arts}溅射伤害{can_silence}{ignore_camou}"
 			]
 		}
 	},
@@ -885,10 +891,13 @@
 		}
 	},
 	"syskad_hp_50_rage_150": {
+		"suffix": { "en": "HP↓50%", "ja": "HP50%以下", "zh": "HP50%以下" },
+		"hits": null,
+		"atk": { "multiplier": 1.5 },
 		"tooltip": {
-			"en": ["HP↓50% - ATK+50%", "Carried over to 2nd form"],
-			"ja": ["HP50％以下→攻撃力+50％", "第二形態に継続される"],
-			"zh": ["生命值低于50%时，攻击力提升50%", "(变身/重生均保留)"]
+			"en": ["HP↓50% - ATK increased to <v.atk.multiplier>%", "Carried over to 2nd form"],
+			"ja": ["HP50%以下→攻撃力が<v.atk.multiplier>%に増加", "第二形態に継続される"],
+			"zh": ["生命值低于50%时，攻击力提升至<v.atk.multiplier>%","(变身/重生均保留)"]
 		}
 	},
 	"rat_king_sand_cross": {
@@ -1116,10 +1125,14 @@
 	},
 	"syboy_atk_summon": {
 		"tooltip": {
-			"en": ["Every 3rd attack summons a 分形 if there are less than 8 分形 on the field"],
-			"ja": ["分形が8体以下時、攻撃3回の度に、次の攻撃が分形を召喚する"],
+			"en": [
+				"Every 3rd attack summons a &lt;Pathshaper Fractal&gt; if there are less than 8 &lt;Pathshaper Fractal&gt; on the field"
+			],
+			"ja": [
+				"<パスファインダーの影>が8体以下時、攻撃3回の度に、次の攻撃が<パスファインダーの影>を召喚する"
+			],
 			"zh": [
-				"若场上塑路者分形数量<8，则额外在距离自身最近的可通行地块内随机位置以自身路径召唤1只塑路者分形"
+				"每攻击2次后，若场上塑路者分形数量<8，下次攻击则额外在距离自身最近的可通行地块内随机位置以自身路径召唤1只塑路者分形"
 			]
 		}
 	},
@@ -1139,7 +1152,7 @@
 				"<パスファインダーの影>が12体以下場合、攻撃3回の度に、次の攻撃が<パスファインダーの影>を召喚する"
 			],
 			"zh": [
-				"若场上塑路者分形数量<12，则额外在距离自身最近的可通行地块内范围内随机位置以自身路径召唤1只塑路者分形"
+				"每攻击2次后，若场上塑路者分形数量<12，下次攻击则额外在距离自身最近的可通行地块内随机位置以自身路径召唤1只塑路者分形"
 			]
 		}
 	},
@@ -1383,6 +1396,13 @@
 			]
 		}
 	},
+	"brandguider_1": {
+		"tooltip": {
+			"en": ["HP↓50% - generates 'Nethersea Brand' on the tiles it passes over{can_silence}"],
+			"ja": ["HP50%以下→自身が存在するマスに溟痕が発生する{can_silence}"],
+			"zh": ["生命值低于50%时，在自身经过的地块生成“溟痕”{can_silence}"]
+		}
+	},
 	"brandguider": {
 		"def": { "multiplier": 4 },
 		"suffix": {
@@ -1391,18 +1411,9 @@
 			"zh": "HP50%以下"
 		},
 		"tooltip": {
-			"en": [
-				"HP↓50% - generates 'Nethersea Brand' on the tiles it passes over{can_silence}",
-				"and DEF +300%, Block count +1"
-			],
-			"ja": [
-				"HP50%以下→自身が存在するマスに溟痕が発生する{can_silence}",
-				"また防御力+300%、必要ブロック数+1"
-			],
-			"zh": [
-				"生命值低于50%时，在自身经过的地块生成“溟痕”{can_silence}",
-				"且自身防御力提升300%，占用阻挡数+1 "
-			]
+			"en": ["HP↓50% - DEF +300%, Block count +1"],
+			"ja": ["HP50%以下→防御力+300%、必要ブロック数+1"],
+			"zh": ["生命值低于50%时，防御力提升300%，占用阻挡数+1 "]
 		}
 	},
 	"swarmcaller": {
@@ -1463,9 +1474,9 @@
 	},
 	"highmore_revive": {
 		"tooltip": {
-			"en": ["Regains Hover after transiting to 2nd form"],
-			"ja": ["第二形態移行後、低空浮揚状態になる"],
-			"zh": ["进入第二形态时，重置自身近地悬浮效果"]
+			"en": ["Regains <ba.float>Low-Altitude Hovering</> after transiting to 2nd form"],
+			"ja": ["第二形態移行後、再び<ba.float>低空浮揚</>状態になる"],
+			"zh": ["进入第二形态时，重置自身<ba.float>近地悬浮</>效果"]
 		}
 	},
 	"carmen_handgun": {
@@ -1582,6 +1593,7 @@
 		"initSp": 0,
 		"spCost": 23,
 		"skillType": "INCREASE_WITH_TIME",
+		"suffix":{"en":"Potion","ja":"薬剤散布","zh":"药剂喷洒"},
 		"tooltip": {
 			"en": ["Randomly activates one of the effects below:"],
 			"ja": ["以下の効果から一つ発動する"],
@@ -1594,7 +1606,7 @@
 				"Effect 1 - Puts all enemy units on the field who are not sleep immune to sleep for 10s, during which they recover 4% max HP/s"
 			],
 			"ja": ["効果①→敵全体を10秒睡眠状態に与え、毎秒最大HPの4%を回復する"],
-			"zh": ["1.使场上所有不免疫睡眠的敌方单位睡眠10s，期间每秒受到4%最大生命值的治疗"]
+			"zh": ["①使场上所有不免疫睡眠的敌方单位睡眠10s，期间每秒受到4%最大生命值的治疗"]
 		}
 	},
 	"cannot_potion_effect_2": {
@@ -1605,7 +1617,7 @@
 			"ja": [
 				"効果②→敵2体に12秒「致命的なダメージを受けてもHPが１残る」状態を与え、さらに攻撃力+100%、攻撃速度+100"
 			],
-			"zh": ["2.使场上2名敌方单位获得12s不死+攻击力提升100%+攻击速度增加100"]
+			"zh": ["②使场上2名敌方单位获得12s不死+攻击力提升100%+攻击速度增加100"]
 		}
 	},
 	"lazurite_power_strike": {
@@ -1677,16 +1689,16 @@
 	},
 	"hover": {
 		"tooltip": {
-			"en": [
-				"Hover - cannot be blocked, can only be affected by ranged attacks",
-				"becomes ground unit when affected by stun/sleep/frozen",
-				"and normal attack becomes melee"
-			],
-			"ja": [
-				"低空浮揚→ブロック不可、近接攻撃の対象にならない",
-				"スタン/睡眠/凍結を受けると解除されて、通常攻撃が近接攻撃になる"
-			],
-			"zh": ["近地悬浮"]
+			"en": ["<ba.float>Low-Altitude Hovering</>"],
+			"ja": ["<ba.float>低空浮揚</>"],
+			"zh": ["<ba.float>近地悬浮</>"]
+		}
+	},
+	"hover_off_melee": {
+		"tooltip": {
+			"en": ["Attacks changes to melee when grounded"],
+			"ja": ["低空浮揚が解除されると、通常攻撃が近接攻撃になる"],
+			"zh": ["解除近地悬浮后，普通攻击切换为近战"]
 		}
 	},
 	"dublinn_evocator": {
@@ -3398,7 +3410,7 @@
 				"爆撃中、強制移動・スタン・睡眠・凍結・浮遊耐性を得る"
 			],
 			"zh": [
-				"锁定生命上限最高的目标进行数次轰炸，每次对范围内当前生命比例最高的单位造成{arts}伤害",
+				"锁定生命上限最高的目标进行数次轰炸，每次对范围内当前生命比例最高的单位造成攻击力<v.atk.multiplier>%的{arts}伤害",
 				"技能期间免疫失衡，晕眩，冻结，浮空，沉睡"
 			]
 		}
@@ -3584,13 +3596,6 @@
 			"zh": ["受到来自自然环境的伤害时，自身获得10s高额脆弱(100%)"]
 		}
 	},
-	"smgia_2": {
-		"tooltip": {
-			"en": ["Every 3rd attack stuns target for 15s"],
-			"ja": ["攻撃2回の度に次の攻撃に相手を15秒スタンする"],
-			"zh": ["能在2次攻击后下一次攻击晕眩(15s)友方单位"]
-		}
-	},
 	"smsha2_1": {
 		"tooltip": {
 			"en": [
@@ -3772,17 +3777,12 @@
 	"cbrokt_1": {
 		"tooltip": {
 			"en": [
-				"If Movement Speed is higher than starting speed for 1s, gains Low-Altitude Hovering and takes off!",
-				"Loses Hover effect when affected by stun/sleep/frozen/silence"
+				"If Movement Speed is higher than starting speed for 1s, gains <ba.float>Low-Altitude Hovering</> and takes off!"
 			],
 			"ja": [
-				"移動速度が初期状態より高い状態で1秒間移動すると、1度だけ低空浮揚状態になる",
-				"効果中に能力無効化・スタン・凍結状態になると、効果は全て解除される"
+				"移動速度が初期状態より高い状態で1秒間移動すると、1度だけ<ba.float>低空浮揚</>状態になる"
 			],
-			"zh": [
-				"移动速度高于初始速度累计持续1s时，获得近地悬浮",
-				"受到沉默/晕眩/冻结效果后近地悬浮失效"
-			]
+			"zh": ["移动速度高于初始速度累计持续1s时，获得<ba.float>近地悬浮</>"]
 		}
 	},
 	"cbshld_1": {
@@ -4365,11 +4365,14 @@
 	},
 	"skzfbx_1": {
 		"tooltip": {
-			"en": ["Does not attack while Hover", "Gains Movespeed +0.35 when grounded"],
-			"ja": ["低空浮揚期間中攻撃しない", "低空浮揚解除後移動速度+0.35"],
+			"en": [
+				"Does not attack while <ba.float>Low-Altitude Hovering</>",
+				"Gains Movespeed +0.35 when grounded"
+			],
+			"ja": ["<ba.float>低空浮揚</>期間中攻撃しない", "低空浮揚解除後移動速度+0.35"],
 			"zh": [
-				"近地悬浮期间不进行普通攻击",
-				"受到晕眩/无法行动/冻结效果后解除近地悬浮，解除近地悬浮后移动速度+0.35，可进行近战攻击"
+				"<ba.float>近地悬浮</>期间不进行普通攻击",
+				"解除近地悬浮后移动速度+0.35，可进行近战攻击"
 			]
 		}
 	},
@@ -4870,13 +4873,15 @@
 		"value": 1100,
 		"tooltip": {
 			"en": [
-				"When blocked or touches Stabilizer Chain for the first time, enters Hover for <v.duration>s",
-				"DEF -<v.value> when Hover ends"
+				"When blocked or touches Stabilizer Chain for the first time, enters <ba.float>Low-Altitude Hovering</> for <v.duration>s",
+				"DEF -<v.value> when Low-Altitude Hovering ends"
 			],
 			"ja": [
-				"初回ブロックされるか＜セーフティチェーン＞に触れると<v.duration>秒間低空浮揚状態になる。低空浮揚終了後、防御力-<v.value>"
+				"初回ブロックされるか＜セーフティチェーン＞に触れると<v.duration>秒間<ba.float>低空浮揚</>状態になる。低空浮揚終了後、防御力-<v.value>"
 			],
-			"zh": ["首次被阻挡/接触稳固锁链时获得<v.duration>s近地悬浮；持续时间结束后，防御力-<v.value>"]
+			"zh": [
+				"首次被阻挡/接触稳固锁链时获得<v.duration>s<ba.float>近地悬浮</>；持续时间结束后，防御力-<v.value>"
+			]
 		}
 	},
 	"block_dmg_phys_arts": {
@@ -5471,7 +5476,6 @@
 		}
 	},
 	"patrt_1": {
-		"type": "buff",
 		"effects": [
 			{
 				"targets": ["enemy_1506_patrt"],

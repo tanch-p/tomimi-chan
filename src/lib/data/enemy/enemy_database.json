@@ -13538,6 +13538,9 @@
 				"traits": [
 					{
 						"key": "hover"
+					},
+					{
+						"key": "hover_off_melee"
 					}
 				],
 				"special": []
@@ -13577,6 +13580,9 @@
 				"traits": [
 					{
 						"key": "hover"
+					},
+					{
+						"key": "hover_off_melee"
 					}
 				],
 				"special": []
@@ -18575,6 +18581,9 @@
 				"traits": [
 					{
 						"key": "brandguider"
+					},
+					{
+						"key": "brandguider_1"
 					}
 				],
 				"special": []
@@ -18614,6 +18623,9 @@
 				"traits": [
 					{
 						"key": "brandguider"
+					},
+					{
+						"key": "brandguider_1"
 					}
 				],
 				"special": []
@@ -24427,6 +24439,9 @@
 					},
 					{
 						"key": "hover"
+					},
+					{
+						"key": "hover_off_melee"
 					}
 				],
 				"special": []
@@ -25821,14 +25836,13 @@
 				"ms": 0.65,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [
-					{
-						"key": "splash",
-						"tiles": 4
-					}
-				],
+				"traits": [],
 				"special": [
 					[
+						{
+							"key": "splash",
+							"tiles": 4
+						},
 						{
 							"key": "corrupted_knight_charge_atk"
 						}
@@ -27632,34 +27646,31 @@
 				"ms": 0.5,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{
+						"key": "fzm_nova"
+					},
+					{
+						"key": "freeze_attack"
+					},
+					{
+						"key": "fzm_trap"
+					},
+					{
+						"key": "fzm_freeze_redeploy"
+					}
+				],
 				"special": [
 					[
 						{
 							"key": "invincible",
 							"value": 80
-						},
-						{
-							"key": "freeze_attack"
-						},
-						{
-							"key": "fzm_nova"
-						},
-						{
-							"key": "fzm_freeze_redeploy"
-						},
-						{
-							"key": "fzm_trap"
 						}
 					],
 					[
 						{
 							"key": "invincible",
 							"value": 30
-						},
-						{
-							"key": "fzm_nova",
-							"tooltip": null
 						}
 					]
 				],
@@ -27792,13 +27803,13 @@
 				"ms": 0.6,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [
-					{
-						"key": "freeze_attack"
-					}
-				],
+				"traits": [],
 				"special": [
-					[],
+					[
+						{
+							"key": "freeze_attack"
+						}
+					],
 					[
 						{
 							"key": "ice_pick",
@@ -27854,14 +27865,14 @@
 				"ms": 0.6,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [
-					{
-						"key": "ice_pick",
-						"value": 2.5
-					}
-				],
+				"traits": [],
 				"special": [
-					[],
+					[
+						{
+							"key": "ice_pick",
+							"value": 2.5
+						}
+					],
 					[
 						{
 							"key": "freeze_attack"
@@ -28438,7 +28449,12 @@
 				"ms": 0.5,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{
+						"key": "dt_erosion",
+						"value": 0.6
+					}
+				],
 				"special": [
 					[
 						{
@@ -28448,10 +28464,7 @@
 							"key": "multi_target_condense",
 							"value": 3
 						},
-						{
-							"key": "dt_erosion",
-							"value": 0.6
-						},
+
 						{
 							"key": "highmore_aspd_down_1"
 						}
@@ -28463,10 +28476,6 @@
 						{
 							"key": "multi_target_condense",
 							"value": 5
-						},
-						{
-							"key": "dt_erosion",
-							"value": 0.6
 						},
 						{
 							"key": "highmore_aspd_down_2"
@@ -28597,15 +28606,17 @@
 				"ms": 0.6,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{
+						"key": "syskad_hp_50_rage_150"
+					}
+				],
 				"special": [
 					[
 						{
 							"key": "syskad_heal"
 						},
-						{
-							"key": "syskad_hp_50_rage_150"
-						},
+
 						{
 							"key": "syskad_summon_tears"
 						},
@@ -33690,7 +33701,8 @@
 						"key": "smgia_1"
 					},
 					{
-						"key": "smgia_2"
+						"key": "atk_recv_stun",
+						"duration": 15
 					}
 				],
 				"special": []
@@ -33732,7 +33744,8 @@
 						"key": "smgia_1"
 					},
 					{
-						"key": "smgia_2"
+						"key": "atk_recv_stun",
+						"duration": 15
 					}
 				],
 				"special": []

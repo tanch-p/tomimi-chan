@@ -11,7 +11,7 @@
 		enemyStats,
 		statusImmuneList: StatusImmune[] = [];
 
-	const getTooltip = (skill: Skill, language: Language) => {
+	const getTooltip = (skill: Skill, language: Language, enemyStats) => {
 		if (!skill.tooltip) return;
 
 		return skill.tooltip[language].map((line) => {
@@ -23,8 +23,10 @@
 		});
 	};
 
-	$: tooltips = getTooltip(skill, language);
-	$: showSilenceIcon = skill.can_silence && !statusImmuneList.includes('silence');
+	$: tooltips = getTooltip(skill, language, enemyStats);
+	$: showSilenceIcon =
+		(skill.can_silence || skill.tooltip?.zh?.some((line) => line.includes('can_silence'))) &&
+		!statusImmuneList.includes('silence');
 </script>
 
 {#if tooltips}

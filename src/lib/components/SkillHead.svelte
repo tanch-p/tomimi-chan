@@ -34,7 +34,7 @@
 			</div>
 		</div>
 	{/if}
-	<p class="pill default {skillType !== 'COOLDOWN' ? 'ml-1' : ''}{skillType}">
+	<p class="pill default {skillType} ml-0.5">
 		{translations[language][skillType]}
 	</p>
 	{#if skill.can_silence && !statusImmuneList.includes('silence')}

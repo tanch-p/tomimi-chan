@@ -314,14 +314,23 @@ export const checkIsTarget = (enemy: Enemy, target: string) => {
 export const compileStatModsForChecking = (
 	enemies: Enemy[],
 	stageId: string,
-	statMods: StatMods
+	statMods: StatMods,
+	specialMods
 ) => {
 	const returnList = [];
 	for (const enemy of enemies) {
 		if (enemy.stats?.form_mods) {
 			enemy.stats?.form_mods.forEach((mods, i) => {
 				const modsList = [];
-				modsList.push({ type: 'initial', key: 'multiform_suffix', mods: mods });
+				if (specialMods?.[enemy.key]?.[`mods_${i}`]) {
+					modsList.push({
+						type: 'initial',
+						key: 'multiform_suffix',
+						mods: specialMods?.[enemy.key]?.[`mods_${i}`]
+					});
+				} else {
+					modsList.push({ type: 'initial', key: 'multiform_suffix', mods: mods });
+				}
 				for (const mod of statMods.initial) {
 					modsList.push({ type: 'initial', ...compileMods(enemy, stageId, mod, i) });
 				}

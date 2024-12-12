@@ -14,12 +14,14 @@ export const overwriteBlackboard = (stats, blackboard) => {
 			continue;
 		}
 		let specialIndex = -1;
-		for (const list of stats.special) {
+		for (let i = 0; i < stats.special.length; i++) {
 			if (specialIndex === -1) {
-				specialIndex = list.findIndex((ele) => ele.key === skillRef.key);
+				specialIndex = stats.special[i].findIndex(
+					(ele) => ele.key === skillRef.key && i === skillRef.formIndex
+				);
 			}
 			if (specialIndex !== -1) {
-				list.splice(specialIndex, 1, skillRef);
+				stats.special[i].splice(specialIndex, 1, skillRef);
 				break;
 			}
 		}
