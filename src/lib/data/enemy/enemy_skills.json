@@ -541,11 +541,24 @@
 			"zh": ["免疫水蚀"]
 		}
 	},
-	"cs_blink": {
+	"blink": {
+		"type": "skill",
+		"initCooldown": 15,
+		"cooldown": 15,
+		"suffix": { "en": "Blink", "ja": "回り込み", "zh": "闪现" },
+		"can_silence": true,
 		"tooltip": {
-			"en": ["When blocked, teleports past unit. CD15s"],
-			"ja": ["ブロックされた時、ユニットの背後に回り込む　CD15秒"],
-			"zh": ["被阻挡时，使用闪现，冷却15秒"]
+			"en": [
+				"When blocked, teleports 1.5 tiles towards next checkpoint (or in current direction if no other checkpoints), becomes unblockable, invincible, and immune to push/pull for 1s"
+			],
+			"ja": [
+				"ブロックされた時、次の通過点に向かって1.5マス転移する（通過点が無い時は移動方向）、1秒のブロック不可、無敵、強制移動無効を獲得"
+			],
+			"zh": [
+				"被被阻挡时可触发：",
+				"①获得持续1秒的不可阻挡效果",
+				"②即将瞬移的目的地位于可通行地块时：向下个检查点方向瞬移1.5格（不存在下个检查点时瞬移方向变为移动方向），期间拥有不可阻挡，无敌，失衡免疫。"
+			]
 		}
 	},
 	"diver_underwater": {

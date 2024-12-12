@@ -28,7 +28,7 @@
 			case 'remarks':
 				return 'text-left px-2 py-2';
 			default:
-				return 'text-center py-1';
+				return 'text-center py-1 px-1';
 		}
 	};
 	$: multispanKeys = getMultispanKeys(enemy?.forms);

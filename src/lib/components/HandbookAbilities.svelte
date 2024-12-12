@@ -8,18 +8,20 @@
 	import { isEquals } from '$lib/functions/lib';
 
 	export let enemy: Enemy, language: Language, specialMods, statusImmuneList, formIndex;
-	$: traits = getEnemySkills(enemy, enemy.traits, 0, $specialMods, 'trait').filter(skill => skill.type !=="skill");
+	$: traits = getEnemySkills(enemy, enemy.traits, 0, $specialMods, 'trait').filter(
+		(skill) => skill.type !== 'skill'
+	);
 	$: skills = getHandbookEnemySkills(enemy, $specialMods);
 </script>
 
-{#if enemy?.traits?.length > 0 || enemy.forms.some((form) => form.stats.dmg_reduction > 0 || form.special.length > 0)}
+<HandbookSkills {enemy} {skills} {language} {statusImmuneList} {formIndex} />
+{#if traits.length > 0 || enemy.forms.some((form) => form.stats.dmg_reduction > 0 || form.special.length > 0)}
 	{@const sameDmgRedAcrossForms = enemy.forms.reduce((acc, curr, i, list) => {
 		if (i + 1 < list.length) {
 			acc = acc && isEquals(list[i].stats.dmg_reduction, list[i + 1].stats.dmg_reduction);
 		}
 		return acc;
 	}, true)}
-	<HandbookSkills {enemy} {skills} {language} {statusImmuneList} {formIndex} />
 	<p class="bg-[#383838] px-3.5 py-0.5 text-[#a2a5a5] font-bold">
 		{translations[language].handbook_ability}
 	</p>

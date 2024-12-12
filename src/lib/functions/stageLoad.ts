@@ -15,7 +15,7 @@ export const stageLoad = async (
 		const enemy: Enemy = JSON.parse(JSON.stringify(enemyDatabase[prefabKey]));
 		enemy.stageId = id;
 		enemy.level = level;
-		enemy.stats = { ...enemyDatabase[prefabKey].stats[level] };
+		enemy.stats = { ...enemy.stats[level] };
 		if (overwrittenData) {
 			enemy.overwritten = true;
 			for (const key in overwrittenData) {
