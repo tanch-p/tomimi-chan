@@ -22,7 +22,7 @@
 	<div
 		class="justify-items-center gap-y-1.5 py-2 {mode === 'table'
 			? 'flex flex-col'
-			: 'grid grid-cols-3 md:flex md:pl-4'}"
+			: 'grid grid-cols-3 md:flex md:gap-x-8 md:pl-4'}"
 	>
 		{#each applicableBuffsList as buff}
 			{@const currentCount = getOtherBuffsCount($otherBuffsList, buff.key, entity.key)}

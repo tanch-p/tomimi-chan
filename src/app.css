@@ -31,6 +31,16 @@ div {
 .side-triangle {
 	clip-path: polygon(100% 0, 0% 100%, 100% 100%);
 }
+li.list-cross{
+	position: relative;
+	list-style: none;
+}
+.list-cross::after{
+	content:url("../src/lib/images/is/list_x.svg");
+	position: absolute;
+	top: 6px;
+	left: -18px;
+}
 
 .skilltag {
 	display: inline-flex;
@@ -45,6 +55,9 @@ div {
 }
 .PASSIVE,.skilltag.can_silence {
 	background-color: #737373;
+}
+.COOLDOWN{
+	background-color: #2678b7;
 }
 .INCREASE_WHEN_ATTACK {
 	background-color: #fc793e;

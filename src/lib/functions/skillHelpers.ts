@@ -5,27 +5,45 @@ import enemyDb from '$lib/data/enemy/enemy_database.json';
 import { checkIsTarget } from '$lib/functions/statHelpers';
 import { isEquals } from './lib';
 
-export const overwriteBlackboard = (specialList, blackboard) => {
+export const overwriteBlackboard = (stats, blackboard) => {
+	const traits = stats.traits;
 	for (const skillRef of blackboard) {
-		const index = specialList.findIndex((ele) => ele.key === skillRef.key);
-		if (index === -1) {
-			specialList.push(skillRef);
-		} else {
-			specialList.splice(index, 1, skillRef);
+		const traitIndex = traits.findIndex((ele) => ele.key === skillRef.key);
+		if (traitIndex !== -1) {
+			traits.splice(traitIndex, 1, skillRef);
+			continue;
+		}
+		let specialIndex = -1;
+		for (let i = 0; i < stats.special.length; i++) {
+			if (specialIndex === -1) {
+				specialIndex = stats.special[i].findIndex(
+					(ele) => ele.key === skillRef.key && i === skillRef.formIndex
+				);
+			}
+			if (specialIndex !== -1) {
+				stats.special[i].splice(specialIndex, 1, skillRef);
+				break;
+			}
+		}
+		if (specialIndex === -1) {
+			// new trait
+			traits.push(skillRef);
+			continue;
 		}
 	}
-	return specialList;
 };
 
-export const getOverwrittenKeys = (originalSkillRef: Skill, skillRef: Skill, skill: Skill) => {
+export const getOverwrittenKeys = (enemyDBSkillRef: Skill, skillRef: Skill, skill: Skill) => {
+	// first param is skillRef from trap/enemy data.json
+	// second param is skillRef after mods
+	// last skill is the skillRef in trap/enemy skills.json
 	const list = [];
 	for (const key of Object.keys(skillRef)) {
-		if (originalSkillRef?.[key]) {
-			if (!isEquals(skillRef[key], originalSkillRef[key])) {
+		if (enemyDBSkillRef?.[key]) {
+			if (!isEquals(skillRef[key], enemyDBSkillRef[key])) {
 				list.push(key);
 			}
 		} else if (skill?.[key] && !isEquals(skillRef[key], skill[key])) {
-			// what is the purpose of this case?
 			list.push(key);
 		}
 	}
@@ -37,8 +55,8 @@ export const getStatSkills = (
 	skillRefs: Skill[],
 	specialMods: SpecialMods
 ): Skill[] => {
-	let currentSkills = skillRefs;
-	currentSkills = skillRefs.map((skillRef) => {
+	let currentSkills = [...skillRefs, ...enemy.traits];
+	currentSkills = currentSkills.map((skillRef) => {
 		if (specialMods[enemy.key] && Object.keys(specialMods[enemy.key]).includes(skillRef.key)) {
 			return { ...enemySkills[skillRef.key], ...skillRef, ...specialMods[enemy.key][skillRef.key] };
 		} else {
@@ -52,24 +70,57 @@ export const getTrapStatSkills = (trap) => {
 	return trap.special.map((key) => trapSkills[key]).filter((skill) => skill?.atk);
 };
 
-export const getEnemySkills = (enemy: Enemy, row: number, specialMods: SpecialMods): Skill[] => {
-	let currentSkills = enemy?.forms ? enemy.forms[row].special : enemy.special;
+export const getHandbookEnemySkills = (enemy, specialMods) => {
+	const skills = [];
+	const traitSkills = getEnemySkills(enemy, enemy.traits, 0, specialMods, 'trait').filter(
+		(skill) => skill.type === 'skill'
+	);
+	for (const skill of traitSkills) {
+		skills.push({ ...skill, formIndexes: enemy.forms.map((_, i) => i) });
+	}
+	enemy.forms.forEach((form, i) => {
+		const special = getEnemySkills(enemy, form.special, i, specialMods, 'special').filter(
+			(skill) => skill.type === 'skill'
+		);
+		for (const skill of special) {
+			const item = skills.find((ele) => ele.key === skill.key);
+			if (item) {
+				item.formIndexes.push(i);
+			} else {
+				skills.push({ ...skill, formIndexes: [i] });
+			}
+		}
+	});
+	return skills;
+};
+
+export const getEnemySkills = (
+	enemy,
+	currentSkills,
+	row: number,
+	specialMods: SpecialMods,
+	skillType: 'trait' | 'special'
+): Skill[] => {
+	const { key: enemyKey, level } = enemy;
 	let extraSkills = [];
 	currentSkills = currentSkills.map((skillRef) => {
-		const baseEnemy = enemyDb[enemy.key];
-		const originalSkillRef = baseEnemy?.forms
-			? baseEnemy.forms[row].special.find((ele) => ele.key === skillRef.key)
-			: baseEnemy.special.find((ele) => ele.key === skillRef.key);
-		if (specialMods[enemy.key] && Object.keys(specialMods[enemy.key]).includes(skillRef.key)) {
+		const baseEnemy = enemyDb[enemyKey];
+		let enemyDBSkillRef;
+		if (skillType === 'trait') {
+			enemyDBSkillRef = baseEnemy.stats[level].traits.find((ele) => ele.key === skillRef.key);
+		} else {
+			enemyDBSkillRef = baseEnemy.stats[level].special[row].find((ele) => ele.key === skillRef.key);
+		}
+		if (specialMods[enemyKey] && Object.keys(specialMods[enemyKey]).includes(skillRef.key)) {
 			skillRef.overwrittenKeys = getOverwrittenKeys(
-				originalSkillRef,
-				{ ...skillRef, ...specialMods[enemy.key][skillRef.key] },
+				enemyDBSkillRef,
+				{ ...skillRef, ...specialMods[enemyKey][skillRef.key] },
 				enemySkills[skillRef.key]
 			);
-			return { ...enemySkills[skillRef.key], ...skillRef, ...specialMods[enemy.key][skillRef.key] };
+			return { ...enemySkills[skillRef.key], ...skillRef, ...specialMods[enemyKey][skillRef.key] };
 		} else {
 			skillRef.overwrittenKeys = getOverwrittenKeys(
-				originalSkillRef,
+				enemyDBSkillRef,
 				skillRef,
 				enemySkills[skillRef.key]
 			);
@@ -77,25 +128,21 @@ export const getEnemySkills = (enemy: Enemy, row: number, specialMods: SpecialMo
 		}
 	});
 
-	for (const target in specialMods) {
-		if (checkIsTarget(enemy, target)) {
-			extraSkills = Object.keys(specialMods[target])
-				.map((key) => {
-					if (key === 'status_immune' || key.includes('mods_')) {
-						return;
-					}
-					if (enemy.forms) {
-						for (const form of enemy.forms) {
-							if (form.special.find((ref) => ref.key === key)) {
-								return;
-							}
+	if (skillType === 'trait') {
+		// extra skills
+		for (const target in specialMods) {
+			if (checkIsTarget(enemy, target)) {
+				extraSkills = Object.keys(specialMods[target])
+					.map((key) => {
+						if (key === 'status_immune' || key.includes('mods_')) {
+							return;
 						}
-						return specialMods[target][key];
-					} else if (!currentSkills.find((ref) => ref.key === key)) {
-						return specialMods[target][key];
-					}
-				})
-				.filter(Boolean);
+						if (!currentSkills.find((ref) => ref.key === key)) {
+							return specialMods[target][key];
+						}
+					})
+					.filter(Boolean);
+			}
 		}
 	}
 
@@ -126,7 +173,7 @@ export const parseValues = (skill, text: string, mode, enemyStats) => {
 						statKey
 					)
 				);
-				if (statKey === 'atk' && mode === 'handbook') {
+				if (statKey === 'atk' && mode !== 'table') {
 					//check for skilltag
 					const endIndex = getTooltipEndIndex(text);
 					const value = ` (${Math.round(enemyStats[statKey] * skill[statKey][valueKey])})`;

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { Enemy, Language, EnemyFormType } from '$lib/types';
-	import { getMaxRowSpan } from '$lib/functions/statHelpers';
 	import { getNormalAtk } from '$lib/functions/parseAtkType';
 	import { getStatSkills } from '$lib/functions/skillHelpers';
 	import RemarksContainer from '$lib/components/RemarksContainer.svelte';
@@ -8,6 +7,7 @@
 	import StatSkills from '$lib/components/StatSkills.svelte';
 	import translations from '$lib/translations.json';
 	import OtherBuffs from './OtherBuffs.svelte';
+	import { isEquals } from '$lib/functions/lib';
 
 	export let enemy: Enemy,
 		index: number,
@@ -15,8 +15,8 @@
 		language: Language,
 		specialMods,
 		otherBuffsList;
-	$: maxRowSpan = getMaxRowSpan(enemy);
 
+	$: maxRowSpan = enemy.forms.length;
 	let textAlign = function (statKey: string) {
 		switch (statKey) {
 			case 'hp':
@@ -28,48 +28,37 @@
 			case 'remarks':
 				return 'text-left px-2 py-2';
 			default:
-				return 'text-center py-1';
+				return 'text-center py-1 px-1';
 		}
 	};
 	$: multispanKeys = getMultispanKeys(enemy?.forms);
 
-	const SHARE_HP_FORMS = ['prisoner_imprisoned', 'rage'];
+	const SHARE_HP_FORMS = ['prisoner_imprisoned', 'rage','normal_state'];
 
-	const getMultispanKeys = (forms: EnemyFormType[] | undefined) => {
+	const getMultispanKeys = (forms: EnemyFormType[]) => {
 		const statKeys: string[] = [];
-		if (forms) {
-			if (!SHARE_HP_FORMS.includes(forms[0].title)) {
-				statKeys.push('hp');
-				statKeys.push('e_hp');
-			}
-			forms.forEach((form) => {
-				for (const statKey of Object.keys(form.mods)) {
-					if (statKey.includes('set')) {
-						statKeys.push(statKey.replace('set_', ''));
-						continue;
-					}
-					const key = statKey.replace('fixed_', '');
-					if (!statKeys.includes(key)) {
-						statKeys.push(key);
-					}
-					if (key === 'atk_interval') {
-						statKeys.push('aspd');
-					}
+		if (!SHARE_HP_FORMS.includes(forms[0].title)) {
+			statKeys.push('hp');
+			statKeys.push('e_hp');
+		}
+		for (const form of forms) {
+			for (const statKey of Object.keys(form.stats)) {
+				if (form.stats[statKey] !== forms[0].stats[statKey]) {
+					statKeys.push(statKey);
 				}
-			});
-			const sameAtkType =
-				JSON.stringify(forms[0].normal_attack) === JSON.stringify(forms[1].normal_attack);
-			if (!sameAtkType && !statKeys.includes('atk')) {
+			}
+			if (!isEquals(form.normal_attack, forms[0].normal_attack)) {
 				statKeys.push('atk');
 			}
 		}
+
 		return statKeys;
 	};
 </script>
 
 <!-- {@debug enemy} -->
 
-{#each new Array(maxRowSpan) as _blank, row (enemy.key.concat('-', row.toString()))}
+{#each enemy.forms as form, row (enemy.key.concat('-', row.toString()))}
 	<tr
 		id={enemy.stageId}
 		class={`scroll-mt-24 ${index % 2 === 1 ? ' bg-[#333333]' : 'bg-neutral-800'}`}
@@ -115,23 +104,19 @@
 					rowspan={multispanKeys.includes(key) ? 1 : maxRowSpan}
 				>
 					{#if key === 'e_hp'}
-						<p>{Math.round(enemy.stats[row].hp / (1 - enemy.stats[row].dmg_reduction / 100))}</p>
+						<p>{Math.round(form.stats.hp / (1 - form.stats.dmg_reduction / 100))}</p>
 					{:else}
 						<div>
 							<p class={`whitespace-nowrap ${key === 'atk' ? 'flex' : ''}`}>
-								{enemy.stats[row][key] === -1 ? '-' : enemy.stats[row][key]}
+								{form.stats[key] === -1 ? '-' : form.stats[key]}
 								{#if key === 'atk'}
 									<AtkSuffix attack={getNormalAtk(enemy, row)} {language} />
 								{/if}
 							</p>
 							<StatSkills
-								skills={getStatSkills(
-									enemy,
-									enemy?.forms ? enemy.forms[row].special : enemy.special,
-									$specialMods
-								)}
+								skills={getStatSkills(enemy, form.special, $specialMods)}
 								stat={key}
-								statValue={enemy.stats[row][key]}
+								statValue={form.stats[key]}
 								{language}
 							/>
 						</div>

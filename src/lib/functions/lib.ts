@@ -141,12 +141,16 @@ export const setOtherBuffsList = (
 		});
 	}
 	for (const enemy of enemies) {
-		if (enemy.forms) {
-			continue;
-		}
 		const enemyCount = mapConfig.enemies.find((ele) => ele.id === enemy.stageId);
 		const maxCount = Math.max(enemyCount.max_count, enemyCount.elite_max_count);
-		for (const skillRef of enemy.special) {
+		const list = [
+			...enemy.traits,
+			...enemy.stats.special.reduce((acc, curr) => {
+				acc = [...acc, ...curr];
+				return acc;
+			}, [])
+		];
+		for (const skillRef of list) {
 			const skill = enemySkills[skillRef.key];
 			if (!skill) {
 				// case for new skills added from specialMods
@@ -252,4 +256,24 @@ export const getEliteColors = (rogueTopic: string) => {
 			return ['bg-[#5a4b90]', 'bg-[#cb3220]'];
 	}
 	return [];
+};
+
+const STAGES_WITH_ELITE_IMG = [
+	'ro3_e_3_2',
+	'ro3_e_4_2',
+	'ro3_e_5_2',
+	'ro4_e_2_2',
+	'ro4_e_3_2',
+	'ro4_e_3_5',
+	'ro4_e_5_8'
+];
+export const getStageImg = (id, eliteMods) => {
+	if (
+		!(eliteMods && STAGES_WITH_ELITE_IMG.includes(id)) &&
+		!id.includes('ev') &&
+		!id.includes('duel')
+	) {
+		id = id.replace('e', 'n');
+	}
+	return id;
 };

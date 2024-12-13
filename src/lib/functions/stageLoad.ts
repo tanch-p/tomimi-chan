@@ -1,4 +1,4 @@
-import type { MapConfig, Enemy, Language } from '$lib/types';
+import type { MapConfig, Language, Enemy } from '$lib/types';
 import enemyDatabase from '$lib/data/enemy/enemy_database.json';
 import findStage from '$lib/functions/findStage';
 import { sortEnemies } from './lib';
@@ -14,23 +14,19 @@ export const stageLoad = async (
 	const enemies = mapConfig.enemies.map(({ id, prefabKey, level, overwrittenData }) => {
 		const enemy: Enemy = JSON.parse(JSON.stringify(enemyDatabase[prefabKey]));
 		enemy.stageId = id;
-		enemy.stats = { ...enemyDatabase[prefabKey].stats[level] };
+		enemy.level = level;
+		enemy.stats = { ...enemy.stats[level] };
 		if (overwrittenData) {
 			enemy.overwritten = true;
 			for (const key in overwrittenData) {
 				if (key === 'talentBlackboard') {
-					if (enemy?.forms) {
-						overwrittenData[key].forEach((ele, index) => {
-							enemy.forms[index].special = overwriteBlackboard(enemy.forms[index].special, ele);
-						});
-					} else {
-						enemy.special = overwriteBlackboard(enemy.special, overwrittenData[key]);
-					}
+					overwriteBlackboard(enemy.stats, overwrittenData[key]);
 				} else {
 					enemy.stats[key] = overwrittenData[key];
 				}
 			}
 		}
+		enemy.traits = enemy.stats.traits;
 		return enemy;
 	});
 	const weights = {};
@@ -58,24 +54,4 @@ export const stageLoad = async (
 	);
 	traps.forEach((trap, index) => (trap.img = trapPromises[index].default));
 	return { mapConfig, enemies, traps };
-};
-
-const STAGES_WITH_ELITE_IMG = [
-	'ro3_e_3_2',
-	'ro3_e_4_2',
-	'ro3_e_5_2',
-	'ro4_e_2_2',
-	'ro4_e_3_2',
-	'ro4_e_3_5',
-	'ro4_e_5_8'
-];
-export const getStageImg = (id, eliteMods) => {
-	if (
-		!(eliteMods && STAGES_WITH_ELITE_IMG.includes(id)) &&
-		!id.includes('ev') &&
-		!id.includes('duel')
-	) {
-		id = id.replace('e', 'n');
-	}
-	return id;
 };

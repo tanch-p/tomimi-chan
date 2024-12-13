@@ -13,20 +13,15 @@
 	import weightIcon from '$lib/images/is/weight.webp';
 	import { getStatusImmune } from '$lib/functions/skillHelpers';
 	import OtherBuffs from './OtherBuffs.svelte';
+	import DraggableContainer from './DraggableContainer.svelte';
 
-	export let enemy: Enemy, language: Language, specialMods, otherBuffsList,mode;
+	export let enemy: Enemy, language: Language, specialMods, otherBuffsList, mode;
 
 	const enemyLevels = ['NORMAL', 'ELITE', 'BOSS'];
 
 	let formIndex = 0;
 
-	$: statusImmuneList = getStatusImmune(
-		enemy,
-		enemy?.forms
-			? enemy.forms[formIndex].mods?.status_immune ?? enemy.status_immune
-			: enemy.status_immune,
-		$specialMods
-	);
+	$: statusImmuneList = getStatusImmune(enemy, enemy.forms[formIndex].status_immune, $specialMods);
 </script>
 
 <div id={enemy.stageId} class="scroll-mt-16 px-2 bg-neutral-900 bg-opacity-40">
@@ -62,8 +57,8 @@
 		</div>
 		<div class="flex justify-between">
 			<HandbookAtkType {enemy} {language} {formIndex} />
-			{#if enemy.stats[0].lifepoint !== 1}
-				{@const isBlue = enemy.stats[0].lifepoint === 0}
+			{#if enemy.forms[formIndex].stats.lifepoint !== 1}
+				{@const isBlue = enemy.forms[formIndex].stats.lifepoint === 0}
 				<div class="flex items-center justify-between w-16">
 					<img
 						src={isBlue ? life_blue : life_red}
@@ -73,7 +68,7 @@
 						class="z-[1]"
 					/>
 					<span class={`text-2xl font-bold ${isBlue ? 'text-[#0288c4]' : 'text-red-600'}`}>
-						{enemy.stats[0].lifepoint}
+						{enemy.forms[formIndex].stats.lifepoint}
 					</span>
 				</div>
 			{/if}
@@ -99,12 +94,14 @@
 						{translations[language].table_headers.weight}
 					</span>
 				</div>
-				<span class="text-[#a2a5a5] text-lg font-bold ml-auto">{enemy.stats[0].weight}</span>
+				<span class="text-[#a2a5a5] text-lg font-bold ml-auto"
+					>{enemy.forms[formIndex].stats.weight}</span
+				>
 			</div>
 		</div>
-		{#if enemy?.forms}
-			<div class="overflow-auto">
-				<div class="overflow-auto no-scrollbar">
+		<div class="overflow-auto">
+			{#if enemy.forms.length > 1}
+				<DraggableContainer>
 					<div class="flex whitespace-nowrap">
 						{#each enemy.forms as form, index}
 							<button
@@ -118,16 +115,14 @@
 							</button>
 						{/each}
 					</div>
-				</div>
-				<HandBookStats {enemy} {language} {formIndex} {mode}/>
-			</div>
-		{:else}
-			<HandBookStats {enemy} {language} {formIndex} {mode}/>
-		{/if}
+				</DraggableContainer>
+			{/if}
+			<HandBookStats {enemy} {language} {formIndex} {mode} />
+		</div>
 	</div>
 	<div class="flex flex-col mt-3">
 		<StatusImmune {statusImmuneList} {language} mode="handbook" />
 		<OtherBuffs {otherBuffsList} {language} entity={enemy} />
-		<HandbookAbilities {enemy} {language} {specialMods} {statusImmuneList} />
+		<HandbookAbilities {enemy} {language} {specialMods} {statusImmuneList} {formIndex} />
 	</div>
 </div>

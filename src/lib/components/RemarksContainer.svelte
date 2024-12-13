@@ -5,38 +5,68 @@
 	import EnemyFormTitle from './EnemyFormTitle.svelte';
 	import { getEnemySkills, getStatusImmune } from '$lib/functions/skillHelpers';
 	import translations from '$lib/translations.json';
+	import { isEquals } from '$lib/functions/lib';
 
 	export let enemy: Enemy, row: number, language: Language, specialMods;
-	$: skills = getEnemySkills(enemy, row, $specialMods);
-	$: statusImmuneList = getStatusImmune(
-			enemy,
-			enemy?.forms
-				? enemy.forms[row].mods?.status_immune ?? enemy.status_immune
-				: enemy.status_immune,
-			$specialMods
-		)
+	$: traits = getEnemySkills(enemy, enemy.traits, row, $specialMods, 'trait');
+	$: specialList = getEnemySkills(enemy, enemy.forms[row].special, row, $specialMods, 'special');
+	$: statusImmuneList = getStatusImmune(enemy, enemy.forms[row].status_immune, $specialMods);
 </script>
 
 <div>
-	<EnemyFormTitle {enemy} {row} {language} />
-	<StatusImmune
-		{statusImmuneList}
-		{language}
-		mode="table"
-	/>
-	<ul class="list-disc pl-5">
-		{#if enemy.stats[row].dmg_reduction}
-			<li class="py-1">
-				{translations[language].dmg_reduction} - {enemy.stats[row].dmg_reduction}%
-			</li>
+	{#if enemy.forms.length === 1}
+		<StatusImmune {statusImmuneList} {language} mode="table" />
+		<ul class="list-disc pl-5">
+			{#if enemy.forms[row].stats.dmg_reduction}
+				<li class="py-1">
+					{translations[language].dmg_reduction} - {enemy.forms[row].stats.dmg_reduction}%
+				</li>
+			{/if}
+			{#each traits as skill}
+				<Remark {enemy} {skill} {language} enemyStats={enemy.forms[row].stats} {statusImmuneList} />
+			{/each}
+		</ul>
+		<ul class="list-disc pl-5">
+			{#each specialList as skill}
+				<Remark {enemy} {skill} {language} enemyStats={enemy.forms[row].stats} {statusImmuneList} />
+			{/each}
+		</ul>
+	{:else}
+		{@const statusImmuneSameAcrossForms = enemy.forms.reduce((acc, curr, i, list) => {
+			if (i + 1 < list.length) {
+				acc = acc && isEquals(list[i].status_immune, list[i + 1].status_immune);
+			}
+			return acc;
+		}, true)}
+		{#if row === 0}
+			{#if statusImmuneSameAcrossForms}
+				<StatusImmune {statusImmuneList} {language} mode="table" />
+			{/if}
+			<ul class="list-disc pl-5">
+				{#if enemy.forms[row].stats.dmg_reduction}
+					<li class="py-1">
+						{translations[language].dmg_reduction} - {enemy.forms[row].stats.dmg_reduction}%
+					</li>
+				{/if}
+				{#each traits as skill}
+					<Remark
+						{enemy}
+						{skill}
+						{language}
+						enemyStats={enemy.forms[row].stats}
+						{statusImmuneList}
+					/>
+				{/each}
+			</ul>
 		{/if}
-		{#each skills as skill}
-			<Remark
-				{skill}
-				{language}
-				enemyStats={enemy.stats[row]}
-				{statusImmuneList}
-			/>
-		{/each}
-	</ul>
+		<EnemyFormTitle {enemy} {row} {language} />
+		{#if !statusImmuneSameAcrossForms}
+			<StatusImmune {statusImmuneList} {language} mode="table" />
+		{/if}
+		<ul class="list-disc pl-5">
+			{#each specialList as skill}
+				<Remark {enemy} {skill} {language} enemyStats={enemy.forms[row].stats} {statusImmuneList} />
+			{/each}
+		</ul>
+	{/if}
 </div>

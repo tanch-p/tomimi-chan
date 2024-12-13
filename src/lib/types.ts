@@ -16,7 +16,24 @@ type Stats = {
 	eleDmgRes: number;
 	dmg_reduction?: number;
 };
-type StatusImmune = 'stun' | 'silence' | 'freeze' | 'sleep' | 'levitate' | 'disarmCombat' | 'fear';
+type EnemyDBStats = {
+	hp: number;
+	atk: number;
+	def: number;
+	res: number;
+	aspd: number;
+	range: number;
+	weight: number;
+	lifepoint: number;
+	ms: number;
+	eleRes: number;
+	eleDmgRes: number;
+	dmg_reduction?: number;
+	traits: Skill[];
+	special: [Skill[]];
+	form_mods?: Mods[];
+};
+export type StatusImmune = 'stun' | 'silence' | 'freeze' | 'sleep' | 'levitate' | 'disarmCombat' | 'fear';
 type AttackType = 'no_attack' | 'melee' | 'ranged';
 type AttackAttribute = 'phys' | 'arts' | 'true' | 'heal';
 type EnemyType =
@@ -40,32 +57,45 @@ type EnemyType =
 
 export type EnemyFormType = {
 	title: string | null;
-	mods: Mods;
-	special: Skill[];
-	status_immune: StatusImmune[];
 	normal_attack: {
 		atk_type: [AttackType, AttackAttribute];
 		hits: number;
 	};
+	status_immune: StatusImmune[];
+	stats: Stats;
+	special: Skill[];
 };
 
+type EnemyDBFormType = {
+	title: string | null;
+	normal_attack: {
+		atk_type: [AttackType, AttackAttribute];
+		hits: number;
+	};
+	status_immune: StatusImmune[];
+};
+
+// used in all stages and stat display
 export interface Enemy {
 	id: string;
 	key: string;
 	stageId: string;
+	level: number;
 	img: string;
 	[key: `name_${string}`]: string;
-	stats: Stats[];
-	special?: Skill[];
-	forms?: EnemyFormType[] | undefined;
-	status_immune: StatusImmune[];
-	normal_attack?: {
-		atk_type: [AttackType, AttackAttribute];
-		hits: number;
-	};
+	forms: EnemyFormType[];
+	traits: Skill[]; //traits = active throughout all enemy forms
 	type: EnemyType[];
 	overwritten?: true | false;
-	ignore_diff: true | undefined;
+}
+
+export interface EnemyDBEntry {
+	id: string;
+	key: string;
+	[key: `name_${string}`]: string;
+	stats: EnemyDBStats[];
+	forms: EnemyDBFormType[];
+	type: EnemyType[];
 }
 
 export interface Trap {
@@ -159,14 +189,17 @@ export type Effects = [{ targets: string[]; mods: Mods }];
 
 export type Skill = {
 	key: string;
+	type?: 'skill' | 'buff' | undefined;
 	value?: number;
 	initCooldown?: number;
 	cooldown?: number;
-	init?: number;
+	initSp?: number;
 	spCost?: number;
+	can_silence?: boolean;
 	dmg_element?: 'phys' | 'arts' | 'true' | 'heal';
 	suffix?: Tooltip;
 	hits?: number;
+	formIndexes?: number[];
 	tooltip: Tooltip | null;
 };
 

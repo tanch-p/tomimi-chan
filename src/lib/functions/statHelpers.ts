@@ -1,6 +1,5 @@
 /* takes in a list of enemies and statMods and returns enemy with modifiers applied */
 import type { Enemy, StatMods, ModGroup, Effects } from '$lib/types';
-import enemySkills from '$lib/data/enemy/enemy_skills.json';
 
 const STATS = [
 	'hp',
@@ -71,24 +70,22 @@ const NOT_AFFECTED_BY_DIFFICULTY_KEYS = [
 	'enemy_1210_msfden_2'
 ];
 
-export const getMaxRowSpan = (enemy: Enemy) => {
-	if (enemy?.forms) {
-		return enemy.forms.length;
-	}
-	return 1;
-};
-
-// enemy stats type is being changed from {} to [{}] here
-export function applyMods(enemies: Enemy[], stageId: string, statMods: StatMods, specialMods) {
+//after applying mods, move stats under forms
+export function applyMods(
+	enemies: Enemy[],
+	stageId: string,
+	statMods: StatMods,
+	specialMods
+): Enemy[] {
 	return enemies.map((enemy) => {
-		const maxRowSpan = getMaxRowSpan(enemy);
-		const moddedStats = [];
-		for (let i = 0; i < maxRowSpan; i++) {
-			moddedStats.push(parseStats(enemy, stageId, statMods, i, specialMods));
+		const holder = { ...enemy };
+		for (let i = 0; i < holder.forms.length; i++) {
+			holder.forms[i].special = holder.stats.special?.[i] || [];
+			holder.forms[i].stats = parseStats(holder, stageId, statMods, i, specialMods);
 		}
+		delete holder.stats;
 		return {
-			...enemy,
-			stats: moddedStats
+			...holder
 		};
 	});
 }
@@ -105,11 +102,11 @@ export function parseStats(
 	for (const mod of statMods.initial) {
 		modsList.push(distillMods(enemy, stageId, mod, row));
 	}
-	if (enemy?.forms) {
+	if (enemy.stats?.form_mods) {
 		if (specialMods?.[enemy.key]?.[`mods_${row}`]) {
 			modsList.push(specialMods?.[enemy.key]?.[`mods_${row}`]);
 		} else {
-			modsList.push(enemy.forms[row].mods);
+			modsList.push(enemy.stats.form_mods[row]);
 		}
 	}
 	const initialMods = modsList.reduce((acc, curr) => {
@@ -139,8 +136,8 @@ export function parseStats(
 	const enemy_stats = {};
 	for (const stat of STATS) {
 		let statToUse = enemy.stats[stat];
-		if (enemy?.forms?.[row]?.mods?.[`set_${stat}`]) {
-			statToUse = enemy?.forms?.[row]?.mods?.[`set_${stat}`];
+		if (enemy.stats?.form_mods?.[row]?.[`set_${stat}`]) {
+			statToUse = enemy.stats?.form_mods?.[row]?.[`set_${stat}`];
 		}
 		enemy_stats[stat] = calculateModdedStat(
 			statToUse,
@@ -317,14 +314,23 @@ export const checkIsTarget = (enemy: Enemy, target: string) => {
 export const compileStatModsForChecking = (
 	enemies: Enemy[],
 	stageId: string,
-	statMods: StatMods
+	statMods: StatMods,
+	specialMods
 ) => {
 	const returnList = [];
 	for (const enemy of enemies) {
-		if (enemy.forms) {
-			enemy.forms.forEach((form, i) => {
+		if (enemy.stats?.form_mods) {
+			enemy.stats?.form_mods.forEach((mods, i) => {
 				const modsList = [];
-				modsList.push({ type: 'initial', key: 'multiform_suffix', mods: form.mods });
+				if (specialMods?.[enemy.key]?.[`mods_${i}`]) {
+					modsList.push({
+						type: 'initial',
+						key: 'multiform_suffix',
+						mods: specialMods?.[enemy.key]?.[`mods_${i}`]
+					});
+				} else {
+					modsList.push({ type: 'initial', key: 'multiform_suffix', mods: mods });
+				}
 				for (const mod of statMods.initial) {
 					modsList.push({ type: 'initial', ...compileMods(enemy, stageId, mod, i) });
 				}
@@ -338,7 +344,7 @@ export const compileStatModsForChecking = (
 					name_en: enemy.name_en,
 					img: enemy.img,
 					type: enemy.type,
-					form: form,
+					form: enemy.forms[i].title,
 					formIndex: i,
 					modsList: modsList.filter((ele) => {
 						for (const stat of STATS.filter(

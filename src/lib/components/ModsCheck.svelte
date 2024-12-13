@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import TogglePanel from './TogglePanel.svelte';
 	import { getFormTitle } from '$lib/functions/lib';
@@ -92,7 +93,7 @@
 				</p>
 				{#if enemy.form}
 					<p class="text-gray-400">
-						{getFormTitle(enemy.form?.title, enemy.formIndex, language)}
+						{getFormTitle(enemy.form, enemy.formIndex, language)}
 					</p>
 				{/if}
 			</div>

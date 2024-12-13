@@ -1,0 +1,38 @@
+<script lang="ts">
+	import type { Enemy, Language } from '$lib/types';
+	import translations from '$lib/translations.json';
+	import RangeParser from './RangeParser.svelte';
+	import Remark from './Remark.svelte';
+
+	export let enemy: Enemy, skills, language: Language, statusImmuneList, formIndex;
+</script>
+
+{#if skills.length > 0}
+	<p class="bg-[#383838] px-3.5 py-0.5 text-[#a2a5a5] font-bold">
+		{translations[language].skill}
+	</p>
+	<ul class="list-disc pl-4">
+		{#each skills as skill}
+			<div class="flex gap-x-2.5">
+				<Remark
+					{enemy}
+					{skill}
+					{language}
+					mode={'skill'}
+					enemyStats={enemy.forms[formIndex].stats}
+					{statusImmuneList}
+				/>
+				<!-- {#if skill.rangeId}
+						<div
+							class="flex flex-col items-center justify-center min-w-[72px] h-max min-h-[60px] p-2 pb-1 bg-[#161616] bg-opacity-80 rounded"
+						>
+							<div class="flex items-center h-full">
+								<RangeParser rangeId={skill.rangeId} size="small" />
+							</div>
+							<p class="mt-1 text-xs">{translations[language].effect_range}</p>
+						</div>
+					{/if} -->
+			</div>
+		{/each}
+	</ul>
+{/if}
