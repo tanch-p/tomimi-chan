@@ -386,7 +386,7 @@
 		}
 	},
 	"corrupted_knight_rage": {
-		"value":80,
+		"value": 80,
 		"tooltip": {
 			"en": ["Gains ATK +<v.value>%, ASPD +100 and Movespeed +150%"],
 			"ja": ["攻撃力+<v.value>%、攻撃速度+100、移動速度＋150％"],
@@ -471,7 +471,7 @@
 		"dmg_element": "arts",
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"hits": 1,
-		"value":1,
+		"value": 1,
 		"tooltip": {
 			"en": [
 				"Explodes on death, giving all enemies +<v.value> energy and deals <v.atk.multiplier>% ATK as {arts} damage to nearby units{can_silence}{ignore_camou}"
@@ -897,7 +897,7 @@
 		"tooltip": {
 			"en": ["HP↓50% - ATK increased to <v.atk.multiplier>%", "Carried over to 2nd form"],
 			"ja": ["HP50%以下→攻撃力が<v.atk.multiplier>%に増加", "第二形態に継続される"],
-			"zh": ["生命值低于50%时，攻击力提升至<v.atk.multiplier>%","(变身/重生均保留)"]
+			"zh": ["生命值低于50%时，攻击力提升至<v.atk.multiplier>%", "(变身/重生均保留)"]
 		}
 	},
 	"rat_king_sand_cross": {
@@ -1593,7 +1593,7 @@
 		"initSp": 0,
 		"spCost": 23,
 		"skillType": "INCREASE_WITH_TIME",
-		"suffix":{"en":"Potion","ja":"薬剤散布","zh":"药剂喷洒"},
+		"suffix": { "en": "Potion", "ja": "薬剤散布", "zh": "药剂喷洒" },
 		"tooltip": {
 			"en": ["Randomly activates one of the effects below:"],
 			"ja": ["以下の効果から一つ発動する"],
@@ -2242,25 +2242,21 @@
 		}
 	},
 	"envy_beam": {
-		"atk": { "multiplier": 2 },
-		"dmg_element": "arts",
-		"suffix": { "en": "skill", "ja": "溜め攻撃", "zh": "蓄力法术" },
-		"hits": 1,
+		"type": "skill",
 		"initCooldown": 10,
 		"cooldown": 60,
+		"atk": { "multiplier": 2 },
+		"dmg_element": "arts",
+		"suffix": { "en": "Charged Attack", "ja": "溜め攻撃", "zh": "蓄力法术" },
+		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Charged Atk (Initial CD: <v.initCooldown>s, ~CD: <v.cooldown>s)",
-				"after charging for 5s, deals 200% {arts} damage to single target, and inverts tile element target is on"
+				"After charging for 5s, deals 200% ATK as {arts} damage to single target, and inverts tile element target is on"
 			],
 			"ja": [
-				"溜め攻撃 (初動<v.initCooldown>秒/再動<v.cooldown>秒)",
-				"5秒チャージした後単体に200%{arts}ダメージを与え、目標所在の床属性を反転させる"
+				"5秒チャージした後単体に攻撃力200%の{arts}ダメージを与え、目標所在の床属性を反転させる"
 			],
-			"zh": [
-				"蓄力法术 (初次冷却<v.initCooldown>s，后<v.cooldown>s)",
-				"蓄力5秒后造成攻击力200%的{arts}普通伤害，并改变目标所在晦明之印的属性"
-			]
+			"zh": ["蓄力5秒后造成攻击力200%的{arts}普通伤害，并改变目标所在晦明之印的属性"]
 		}
 	},
 	"fury_buff": {
@@ -2337,19 +2333,16 @@
 		}
 	},
 	"guerilla_caster_sacrifice": {
+		"type": "skill",
+		"initCooldown": 0,
+		"cooldown": 5,
+		"suffix": { "en": "Sacrifice", "ja": "スキル", "zh": "献祭" },
 		"tooltip": {
 			"en": [
-				"Sacrifice (Initial CD: 0, ~CD: 5s)",
 				"Deals 100% of ATK as {arts} splash damage to allied Operators within a 1.5 tile radius{ignore_camou}"
 			],
-			"ja": [
-				"スキル (初動0秒/再動5秒) ",
-				"半径1.5内の味方全員に攻撃力の100%の{arts}ダメージを与える{ignore_camou}"
-			],
-			"zh": [
-				"献祭 (初次冷却0s，后5s) ",
-				"对半径1.5范围内的友方干员造成相当于100%攻击力的{arts}溅射伤害{ignore_camou}"
-			]
+			"ja": ["半径1.5内の味方全員に攻撃力の100%の{arts}ダメージを与える{ignore_camou}"],
+			"zh": ["对半径1.5范围内的友方干员造成相当于100%攻击力的{arts}溅射伤害{ignore_camou}"]
 		}
 	},
 	"lower_target_priority": {
@@ -4203,15 +4196,12 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Skill (Initial CD: 10s, ~CD: 30s) ",
 				"After charging for 5s, fires an AOE attack at &lt;Lugalszargus, the Overlord of Ages&gt;, dealing 200% of ATK as {phys} damage to all units caught up in the AOE and stuns for 10s{ignore_camou}"
 			],
 			"ja": [
-				"【征服】 (初動10秒/再動30秒) ",
 				"5秒チャージした後<「暦法の王」ルガサルグス>に大範囲砲撃を行う、範囲内全員に攻撃力200％の{phys}ダメージを与え、10秒スタンする{ignore_camou}"
 			],
 			"zh": [
-				"【征服】 (初次冷却10s，后30s) ",
 				"蓄力5s后对<路加萨尔古斯，历法之王>周围大范围所有单位造成攻击力200%{phys}伤害并施加10秒晕眩{ignore_camou}"
 			]
 		}
@@ -4249,17 +4239,18 @@
 		}
 	},
 	"egun_charge": {
+		"type":"skill",
+		"initCooldown":5,
+		"cooldown":28,
+		"suffix":{"en":"Recharge","ja":"エネルギー補充","zh":"充能"},
 		"tooltip": {
 			"en": [
-				"Skill (Initial CD: 5s, ~CD: 28s)",
 				"Restores 1 energy for all enemies within attack range every second"
 			],
 			"ja": [
-				"スキル (初動5秒/再動28秒) ",
 				"5秒間移動しない、毎秒攻撃範囲内の敵全員のエネルギーを1点補充する"
 			],
 			"zh": [
-				"技能 (初次冷却5s，后28s) ",
 				"5秒间不移动且每秒为自身半径2.2范围内的所有敌人(含自身)回复1点能量的效果"
 			]
 		}
@@ -5370,7 +5361,7 @@
 		"type": "skill",
 		"initCooldown": 5,
 		"cooldown": 5,
-		"can_silence":true,
+		"can_silence": true,
 		"suffix": { "en": "Spawn", "ja": "分裂", "zh": "分裂" },
 		"tooltip": {
 			"en": ["Spawns 1 Originiutant Excrescence with the same route"],
@@ -5529,15 +5520,12 @@
 		"dmg_element": "phys",
 		"tooltip": {
 			"en": [
-				"Throw Halberd (Initial CD: 15s, ~CD: 20s)",
 				"Deals 135% ATK as Phys damage to the farthest high ground unit"
 			],
 			"ja": [
-				"槍投げ (初動15秒/再動20秒)",
 				"自分から最も遠い高台オペレーターに攻撃力の135%の{phys}ダメージを与える"
 			],
 			"zh": [
-				"投枪 (初次冷却15s，后20s)",
 				"锁定半径20范围内距离自身最远的部署于高台的友方单位，蓄力约3s后对其造成相当于攻击力135%的{phys}普通伤害 "
 			]
 		}
@@ -5637,11 +5625,14 @@
 		"atk": { "multiplier": 1 },
 		"dmg_element": "arts",
 		"tooltip": {
-			"en": ["清火执 (Initial CD: 30s, ~CD: 10s)"],
-			"ja": ["【清火执】(初動30秒/再動10秒)"],
+			"en": [
+				"以场上每个尼卢火为中心，对十字范围内的友方单位分别造成一次自身攻击力100%的{arts}伤害{ignore_stealth}"
+			],
+			"ja": [
+				"以场上每个尼卢火为中心，对十字范围内的友方单位分别造成一次自身攻击力100%的{arts}伤害{ignore_stealth}"
+			],
 			"zh": [
-				"清火执 (初次冷却30s，后10s){ignore_stealth}",
-				"以场上每个尼卢火为中心，对十字范围内的友方单位分别造成一次自身攻击力100%的{arts}伤害"
+				"以场上每个尼卢火为中心，对十字范围内的友方单位分别造成一次自身攻击力100%的{arts}伤害{ignore_stealth}"
 			]
 		}
 	},
@@ -5707,10 +5698,13 @@
 		"atk": { "multiplier": 1 },
 		"dmg_element": "phys",
 		"tooltip": {
-			"en": ["惩五戒 (Initial CD: 10s, ~CD: 20s)"],
-			"ja": ["【惩五戒】(初動10秒/再動20秒)"],
+			"en": [
+				"对目标连续进行5次攻击，每次造成攻击力100%{phys}伤害，并于每次命中目标时触发一次【清火执】效果"
+			],
+			"ja": [
+				"对目标连续进行5次攻击，每次造成攻击力100%{phys}伤害，并于每次命中目标时触发一次【清火执】效果"
+			],
 			"zh": [
-				"惩五戒 (初次冷却10s，后20s)",
 				"对目标连续进行5次攻击，每次造成攻击力100%{phys}伤害，并于每次命中目标时触发一次【清火执】效果"
 			]
 		}
