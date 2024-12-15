@@ -3,6 +3,7 @@
 	import translations from '$lib/translations.json';
 	import TogglePanel from './TogglePanel.svelte';
 	import { getFormTitle } from '$lib/functions/lib';
+	import DraggableContainer from './DraggableContainer.svelte';
 
 	const STATS = [
 		{ key: 'hp', displayKey: 'hp' },
@@ -53,14 +54,14 @@
 
 <TogglePanel title={translations[language].mods_check} size="subheading">
 	{#if listToShow.length > 0}
-		<div class="max-w-[100vw] overflow-auto no-scrollbar">
+	<DraggableContainer className="no-scrollbar">
 			<div
 				class="flex w-max min-w-full font-bold text-lg text-white text-center select-none py-1 border-b border-b-gray-500"
 			>
 				{#each listToShow as enemy, i}
 					<button on:click={() => (enemyIndex = i)} class="px-1">
 						<img
-							class="select-none {i !== enemyIndex ? 'brightness-50' : ''}"
+							class="pointer-events-none {i !== enemyIndex ? 'brightness-50' : ''}"
 							src={enemy.img}
 							height="70px"
 							width="70px"
@@ -70,7 +71,7 @@
 					</button>
 				{/each}
 			</div>
-		</div>
+	</DraggableContainer>
 		<div class="flex">
 			<img
 				class="select-none"
