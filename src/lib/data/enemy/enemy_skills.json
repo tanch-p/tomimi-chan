@@ -292,9 +292,9 @@
 	"drone_frost_debuff": {
 		"tags": ["can_silence"],
 		"tooltip": {
-			"en": ["Debuff→operators within range have ASPD -50{can_silence}{ignore_stealth}"],
-			"ja": ["攻撃範囲内の味方の攻撃速度-50{can_silence}{ignore_stealth}"],
-			"zh": ["处于自身攻击范围内的所有友方单位攻击速度降低50%{can_silence}{ignore_stealth}"]
+			"en": ["Debuff→operators within range have ASPD -50{can_silence}{ignore_stealth}{ignore_camou}"],
+			"ja": ["攻撃範囲内の味方の攻撃速度-50{can_silence}{ignore_stealth}{ignore_camou}"],
+			"zh": ["处于自身攻击范围内的所有友方单位攻击速度降低50%{can_silence}{ignore_stealth}{ignore_camou}"]
 		}
 	},
 	"splash": {
@@ -910,13 +910,13 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Unleashes cross-shaped sand blast on unit with highest Max HP dealing <v.atk.value> {phys} damage{ignore_stealth}"
+				"Unleashes cross-shaped sand blast on unit with highest Max HP dealing <v.atk.value> {phys} damage{ignore_stealth}{ignore_camou}"
 			],
 			"ja": [
-				"最大HPが最も高いユニット及び十字方向3マスに<v.atk.value>{phys}ダメージを与える{ignore_stealth}"
+				"最大HPが最も高いユニット及び十字方向3マスに<v.atk.value>{phys}ダメージを与える{ignore_stealth}{ignore_camou}"
 			],
 			"zh": [
-				"以场上生命上限最高的友方单位为中心，对长度3十字范围内的所有友方单位造成<v.atk.value>{phys}溅射伤害{ignore_stealth}"
+				"以场上生命上限最高的友方单位为中心，对长度3十字范围内的所有友方单位造成<v.atk.value>{phys}溅射伤害{ignore_stealth}{ignore_camou}"
 			]
 		}
 	},
@@ -1420,14 +1420,14 @@
 		"tooltip": {
 			"en": [
 				"Has no normal attack",
-				"Deals 100% of ATK as {arts} damage and 5% of ATK as {ba.dt.neural} every second to all allied units within range{ignore_stealth}"
+				"Deals 100% of ATK as {arts} damage and 5% of ATK as {ba.dt.neural} every second to all allied units within range{ignore_stealth}{ignore_camou}"
 			],
 			"ja": [
-				"通常攻撃しない、攻撃半径内の味方全員に、攻撃力の100%の{arts}ダメージ、攻撃力の2%の{ba.dt.neural}を与える{ignore_stealth}"
+				"通常攻撃しない、攻撃半径内の味方全員に、攻撃力の100%の{arts}ダメージ、攻撃力の2%の{ba.dt.neural}を与える{ignore_stealth}{ignore_camou}"
 			],
 			"zh": [
 				"不进行普通攻击",
-				"每秒对攻击范围内所有友方单位造成攻击力5%的{ba.dt.neural}和攻击力100%的无类型{arts}伤害{ignore_stealth}"
+				"每秒对攻击范围内所有友方单位造成攻击力5%的{ba.dt.neural}和攻击力100%的无类型{arts}伤害{ignore_stealth}{ignore_camou}"
 			]
 		}
 	},
@@ -1460,16 +1460,16 @@
 	},
 	"highmore_aspd_down_1": {
 		"tooltip": {
-			"en": ["All allied units within range have their ASPD reduced by 60{ignore_stealth}"],
-			"ja": ["攻撃範囲内の味方の攻撃速度-60{ignore_stealth}"],
-			"zh": ["攻击范围内的所有友方单位(包括装置类)攻击速度-60{ignore_stealth}"]
+			"en": ["All allied units within range have their ASPD reduced by 60{ignore_stealth}{ignore_camou}"],
+			"ja": ["攻撃範囲内の味方の攻撃速度-60{ignore_stealth}{ignore_camou}"],
+			"zh": ["攻击范围内的所有友方单位(包括装置类)攻击速度-60{ignore_stealth}{ignore_camou}"]
 		}
 	},
 	"highmore_aspd_down_2": {
 		"tooltip": {
-			"en": ["All allied units within range have their ASPD reduced by 80{ignore_stealth}"],
-			"ja": ["攻撃範囲内の味方の攻撃速度-80{ignore_stealth}"],
-			"zh": ["攻击范围内的所有友方单位(包括装置类)攻击速度-80{ignore_stealth}"]
+			"en": ["All allied units within range have their ASPD reduced by 80{ignore_stealth}{ignore_camou}"],
+			"ja": ["攻撃範囲内の味方の攻撃速度-80{ignore_stealth}{ignore_camou}"],
+			"zh": ["攻击范围内的所有友方单位(包括装置类)攻击速度-80{ignore_stealth}{ignore_camou}"]
 		}
 	},
 	"highmore_revive": {
@@ -3324,13 +3324,13 @@
 		"high": 25,
 		"tooltip": {
 			"en": [
-				"Pollution - Allied units in a 1.1 tile radius receive <v.low>(Melee)/<v.high>(Ranged) {true} damage per second{ignore_stealth}"
+				"Pollution - Allied units in a 1.1 tile radius receive <v.low>(Melee)/<v.high>(Ranged) {true} damage per second{ignore_stealth}{ignore_camou}"
 			],
 			"ja": [
-				"自身の半径1.1以内の味方ユニットに【蝕む穢れ】を与える (毎秒地上/高台ユニットにそれぞれ<v.low>/<v.high>{true}ダメージ){ignore_stealth}"
+				"自身の半径1.1以内の味方ユニットに【蝕む穢れ】を与える (毎秒地上/高台ユニットにそれぞれ<v.low>/<v.high>{true}ダメージ){ignore_stealth}{ignore_camou}"
 			],
 			"zh": [
-				"释放【污染秽蚀】- 使范围内地面/高台的友方单位每秒受到<v.low>/<v.high>点{true}伤害{ignore_stealth}"
+				"释放【污染秽蚀】- 使范围内地面/高台的友方单位每秒受到<v.low>/<v.high>点{true}伤害{ignore_stealth}{ignore_camou}"
 			]
 		}
 	},
@@ -3351,14 +3351,14 @@
 		"high": 25,
 		"tooltip": {
 			"en": [
-				"Upon death, releases a mist for 8s in a 2.0 tile radius which causes allied units to take <v.low>(Melee)/<v.high>(Ranged) {true} damage per second{can_silence}{ignore_stealth}"
+				"Upon death, releases a mist for 8s in a 2.0 tile radius which causes allied units to take <v.low>(Melee)/<v.high>(Ranged) {true} damage per second{can_silence}{ignore_stealth}{ignore_camou}"
 			],
 			"ja": [
 				"死亡時、その場に【蝕む穢れ】が発生{can_silence}",
-				"毎秒地上/高台ユニットにそれぞれ<v.low>/<v.high>{true}ダメージ{ignore_stealth}"
+				"毎秒地上/高台ユニットにそれぞれ<v.low>/<v.high>{true}ダメージ{ignore_stealth}{ignore_camou}"
 			],
 			"zh": [
-				"被击倒时释放【污染秽蚀】- 使范围内地面/高台的友方单位每秒受到<v.low>/<v.high>点{true}伤害{can_silence}{ignore_stealth}"
+				"被击倒时释放【污染秽蚀】- 使范围内地面/高台的友方单位每秒受到<v.low>/<v.high>点{true}伤害{can_silence}{ignore_stealth}{ignore_camou}"
 			]
 		}
 	},
@@ -3372,15 +3372,15 @@
 		"high": 25,
 		"tooltip": {
 			"en": [
-				"Next attack does 100% ATK as {phys} damage and releases a mist for 10s in a 2.0 tile radius which causes allied units to take <v.low>(Melee)/<v.high>(Ranged) {true} damage per second{ignore_stealth}"
+				"Next attack does 100% ATK as {phys} damage and releases a mist for 10s in a 2.0 tile radius which causes allied units to take <v.low>(Melee)/<v.high>(Ranged) {true} damage per second{ignore_stealth}{ignore_camou}"
 			],
 			"ja": [
 				"対象に攻撃力の100%の{phys}ダメージを与え、半径2.2で10秒持続する【蝕む穢れ】を発生させる",
-				"毎秒地上/高台ユニットにそれぞれ<v.low>/<v.high>{true}ダメージ{ignore_stealth}"
+				"毎秒地上/高台ユニットにそれぞれ<v.low>/<v.high>{true}ダメージ{ignore_stealth}{ignore_camou}"
 			],
 			"zh": [
 				"下一次攻击会对攻击目标造成攻击力100%的{phys}伤害并释放【污染秽蚀】",
-				"使范围内地面/高台的友方单位每秒受到<v.low>/<v.high>点{true}伤害{ignore_stealth}"
+				"使范围内地面/高台的友方单位每秒受到<v.low>/<v.high>点{true}伤害{ignore_stealth}{ignore_camou}"
 			]
 		}
 	},
@@ -3797,9 +3797,9 @@
 		"suffix": { "en": "First Attack", "ja": "初撃", "zh": "首次攻击" },
 		"hits": 1,
 		"tooltip": {
-			"en": ["Deals AoE Damage to target and adjacent 4 tiles on the first attack{ignore_stealth}"],
-			"ja": ["初回攻撃のみ、対象と周囲4マスに攻撃力の150%の{phys}ダメージを与える{ignore_stealth}"],
-			"zh": ["首次攻击时对目标和周围4格造成伤害{ignore_stealth}"]
+			"en": ["Deals AoE Damage to target and adjacent 4 tiles on the first attack{ignore_stealth}{ignore_camou}"],
+			"ja": ["初回攻撃のみ、対象と周囲4マスに攻撃力の150%の{phys}ダメージを与える{ignore_stealth}{ignore_camou}"],
+			"zh": ["首次攻击时对目标和周围4格造成伤害{ignore_stealth}{ignore_camou}"]
 		}
 	},
 	"alymot_1": {
@@ -4650,15 +4650,15 @@
 		"tooltip": {
 			"en": [
 				"Upon entering 2nd Form, uses 【Punishment of Foolishness】",
-				"【Punishment of Foolishness】- Selects all operators currently on field, after charging for 5s, redeploys them randomly across the field{ignore_stealth}"
+				"【Punishment of Foolishness】- Selects all operators currently on field, after charging for 5s, redeploys them randomly across the field{ignore_stealth}{ignore_camou}"
 			],
 			"ja": [
 				"第二形態に入ると、【痴愚の懲戒】を使用",
-				"【痴愚の懲戒】- 現時点マップ上の味方オペレーター全員を選択し、5秒チャージした後、全員をランダムな配置可能マスに再配置する{ignore_stealth}"
+				"【痴愚の懲戒】- 現時点マップ上の味方オペレーター全員を選択し、5秒チャージした後、全員をランダムな配置可能マスに再配置する{ignore_stealth}{ignore_camou}"
 			],
 			"zh": [
 				"首次进入第二形态时，立刻释放【痴愚惩戒】",
-				"选择场上所有友方干员，蓄力5s+后，将其分别强制移除再以随机方向部署于随机合法可部署地块{ignore_stealth}"
+				"选择场上所有友方干员，蓄力5s+后，将其分别强制移除再以随机方向部署于随机合法可部署地块{ignore_stealth}{ignore_camou}"
 			]
 		}
 	},
@@ -5589,13 +5589,13 @@
 	"skzjbc_1": {
 		"tooltip": {
 			"en": [
-				"碰触到友方干员时，强制击杀此干员，若自身未达到装载上限(上限为3)，则将此干员装载。{ignore_stealth}\n自身已装载乘客时，移动速度最终-50% "
+				"碰触到友方干员时，强制击杀此干员，若自身未达到装载上限(上限为3)，则将此干员装载。{ignore_stealth}{ignore_camou}\n自身已装载乘客时，移动速度最终-50% "
 			],
 			"ja": [
-				"碰触到友方干员时，强制击杀此干员，若自身未达到装载上限(上限为3)，则将此干员装载。{ignore_stealth}\n自身已装载乘客时，移动速度最终-50% "
+				"碰触到友方干员时，强制击杀此干员，若自身未达到装载上限(上限为3)，则将此干员装载。{ignore_stealth}{ignore_camou}\n自身已装载乘客时，移动速度最终-50% "
 			],
 			"zh": [
-				"碰触到友方干员时，强制击杀此干员，若自身未达到装载上限(上限为3)，则将此干员装载。{ignore_stealth}\n自身已装载乘客时，移动速度最终-50% "
+				"碰触到友方干员时，强制击杀此干员，若自身未达到装载上限(上限为3)，则将此干员装载。{ignore_stealth}{ignore_camou}\n自身已装载乘客时，移动速度最终-50% "
 			]
 		}
 	},
@@ -5626,13 +5626,13 @@
 		"dmg_element": "arts",
 		"tooltip": {
 			"en": [
-				"以场上每个尼卢火为中心，对十字范围内的友方单位分别造成一次自身攻击力100%的{arts}伤害{ignore_stealth}"
+				"以场上每个尼卢火为中心，对十字范围内的友方单位分别造成一次自身攻击力100%的{arts}伤害{ignore_stealth}{ignore_camou}"
 			],
 			"ja": [
-				"以场上每个尼卢火为中心，对十字范围内的友方单位分别造成一次自身攻击力100%的{arts}伤害{ignore_stealth}"
+				"以场上每个尼卢火为中心，对十字范围内的友方单位分别造成一次自身攻击力100%的{arts}伤害{ignore_stealth}{ignore_camou}"
 			],
 			"zh": [
-				"以场上每个尼卢火为中心，对十字范围内的友方单位分别造成一次自身攻击力100%的{arts}伤害{ignore_stealth}"
+				"以场上每个尼卢火为中心，对十字范围内的友方单位分别造成一次自身攻击力100%的{arts}伤害{ignore_stealth}{ignore_camou}"
 			]
 		}
 	},

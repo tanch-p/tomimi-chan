@@ -556,9 +556,9 @@
 		"skillType": "AUTO",
 		"durationType": "NONE",
 		"spType": "INCREASE_WITH_TIME",
-		"desc_zh": "锁定阻挡数最高的友方单位，对范围内的全部单位造成3000点{true}伤害{ignore_stealth}",
-		"desc_ja": "ブロック数の最も大きい味方ユニットを対象に砲撃を行う、砲撃は対象を中心とした範囲に存在する敵味方双方の全ユニットに3000の{true}ダメージを与える{ignore_stealth}",
-		"desc_en": "Once fully charged, deals 3000 splash {true} damage to both allies and enemies, centered on the friendly unit with the highest Block{ignore_stealth}",
+		"desc_zh": "锁定阻挡数最高的友方单位，对范围内的全部单位造成3000点{true}伤害{ignore_stealth}{ignore_camou}",
+		"desc_ja": "ブロック数の最も大きい味方ユニットを対象に砲撃を行う、砲撃は対象を中心とした範囲に存在する敵味方双方の全ユニットに3000の{true}ダメージを与える{ignore_stealth}{ignore_camou}",
+		"desc_en": "Once fully charged, deals 3000 splash {true} damage to both allies and enemies, centered on the friendly unit with the highest Block{ignore_stealth}{ignore_camou}",
 		"rangeId": "x-2",
 		"levels": [
 			{
@@ -958,13 +958,13 @@
 	"larva_1": {
 		"tooltip": {
 			"zh": [
-				"在自身周围1.1半径范围内释放【污染秽蚀】- 部署于地面/高台的友方单位每秒受到50/25点{true}伤害{ignore_stealth}"
+				"在自身周围1.1半径范围内释放【污染秽蚀】- 部署于地面/高台的友方单位每秒受到50/25点{true}伤害{ignore_stealth}{ignore_camou}"
 			],
 			"ja": [
-				"自身の半径1.1以内に【蝕む穢れ】を与える (毎秒地上/高台ユニットにそれぞれ50/25{true}ダメージ){ignore_stealth}"
+				"自身の半径1.1以内に【蝕む穢れ】を与える (毎秒地上/高台ユニットにそれぞれ50/25{true}ダメージ){ignore_stealth}{ignore_camou}"
 			],
 			"en": [
-				"Pollution - Allied units in a 1.1 tile radius receive 50(Melee)/25(Ranged) {true} damage per second{ignore_stealth}"
+				"Pollution - Allied units in a 1.1 tile radius receive 50(Melee)/25(Ranged) {true} damage per second{ignore_stealth}{ignore_camou}"
 			]
 		}
 	},
@@ -1327,16 +1327,16 @@
 	"skzth_4": {
 		"tooltip": {
 			"zh": [
-				"出场50s后/生命值回满时退场；因持续时间结束退场时，令场上未受此效果影响的攻击力最高的干员攻击力-50%（不叠加，持续50s），并对攻击范围内的友方单位造成3500点{arts}伤害{ignore_stealth}"
+				"出场50s后/生命值回满时退场；因持续时间结束退场时，令场上未受此效果影响的攻击力最高的干员攻击力-50%（不叠加，持续50s），并对攻击范围内的友方单位造成3500点{arts}伤害{ignore_stealth}{ignore_camou}"
 			],
 			"ja": [
 				"出現から50秒経つ又はHP全回復すると退場する；時間原因で退場する時、①最も攻撃力が高い味方の攻撃力を50秒50％減少する（既にこのデバフの効果を受けている味方は対象にならない）",
-				"②攻撃範囲内の味方ユニット全体に3500{arts}ダメージを与える{ignore_stealth}"
+				"②攻撃範囲内の味方ユニット全体に3500{arts}ダメージを与える{ignore_stealth}{ignore_camou}"
 			],
 			"en": [
 				"Retreats after HP is fully healed or after 50s has passed",
 				"If retreated by duration, ① applies a -50% Atk debuff to operator with highest ATK stat for 50s (ignores units with this debuff already)",
-				"② deals 3500 {arts} damage to all allied units within attack range {ignore_stealth}"
+				"② deals 3500 {arts} damage to all allied units within attack range {ignore_stealth}{ignore_camou}"
 			]
 		}
 	}
