@@ -113,6 +113,31 @@ export const filters = derived(
 						return () => true;
 					case Boolean(relic.subProfessionId):
 						return (char) => relic.subProfessionId.includes(char.subProfessionId);
+					case relic.id === 'rogue_4_relic_explore_6':
+						return (char) =>
+							![
+								'aoesniper',
+								'phalanx',
+								'bombarder',
+								'corecaster',
+								'primcaster',
+								'ritualist',
+								'stalker',
+								'merchant',
+								'geek',
+								'splashcaster',
+								'chain',
+								'funnel',
+								'reaper',
+								'musha',
+								'fighter',
+								'pioneer',
+								'charger',
+								'tactician',
+								'slower',
+								'underminer',
+								'blessing'
+							].includes(char.subProfessionId) && char.rarity === "TIER_6";
 					default:
 						return () => true;
 				}
