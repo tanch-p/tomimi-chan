@@ -190,7 +190,7 @@ export const distillMods = (enemy: Enemy, stageId: string, mod: ModGroup, row: n
 						mods[statKey] += effect.mods[statKey];
 					} else if (
 						(['enemy_1126_spslme', 'enemy_1126_spslme_2'].includes(enemy.key) &&
-							['floor_diff', 'relic','combat_ops'].includes(key) &&
+							['floor_diff', 'relic'].includes(key) &&
 							statKey === 'atk') ||
 						(NOT_AFFECTED_BY_DIFFICULTY_KEYS.includes(enemy.key) &&
 							(key === 'floor_diff' || key === 'difficulty')) ||
@@ -421,7 +421,7 @@ const compileMods = (enemy: Enemy, stageId: string, mod: ModGroup, row: number) 
 						mods[statKey] += effect.mods[statKey];
 					} else if (
 						(['enemy_1126_spslme', 'enemy_1126_spslme_2'].includes(enemy.key) &&
-							['floor_diff', 'relic','combat_ops'].includes(key) &&
+							['floor_diff', 'relic'].includes(key) &&
 							statKey === 'atk') ||
 						(NOT_AFFECTED_BY_DIFFICULTY_KEYS.includes(enemy.key) &&
 							(key === 'floor_diff' || key === 'difficulty')) ||
