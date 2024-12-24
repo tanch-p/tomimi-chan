@@ -68,10 +68,11 @@ export const statMods = derived(
 			initial: [
 				{ key: 'combat_ops', mods: [$normalMods], operation: 'times' },
 				{ key: 'elite_ops', mods: [$eliteMods], operation: 'times' },
-				{ key: 'floor_diff', mods: [$floorDifficultyMods], operation: 'times' },
 				...$otherMods
 			],
 			final: [
+				{ key: 'floor_diff', mods: [$floorDifficultyMods], operation: 'times' },
+				{ key: 'difficulty', mods: $difficultyMods, operation: 'times' },
 				{ key: 'relic', mods: $selectedRelics.map((relic) => relic.effects), operation: 'times' },
 				{
 					key: 'mizuki_seaborn_call',
@@ -79,7 +80,6 @@ export const statMods = derived(
 					operation: 'times'
 				},
 				{ key: 'mizuki_mission', mods: [$missionMods], operation: 'times' },
-				{ key: 'difficulty', mods: $difficultyMods, operation: 'times' }
 			]
 		};
 	}
