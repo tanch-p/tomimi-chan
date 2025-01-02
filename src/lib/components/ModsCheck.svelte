@@ -54,7 +54,7 @@
 
 <TogglePanel title={translations[language].mods_check} size="subheading">
 	{#if listToShow.length > 0}
-	<DraggableContainer className="no-scrollbar">
+		<DraggableContainer className="no-scrollbar">
 			<div
 				class="flex w-max min-w-full font-bold text-lg text-white text-center select-none py-1 border-b border-b-gray-500"
 			>
@@ -71,7 +71,7 @@
 					</button>
 				{/each}
 			</div>
-	</DraggableContainer>
+		</DraggableContainer>
 		<div class="flex">
 			<img
 				class="select-none"
@@ -83,7 +83,7 @@
 			/>
 			<div class="flex flex-col ml-2">
 				<div class="flex gap-x-2 mt-1.5 h-[20px]">
-					{#each enemy.type.filter((ele) => !['melee', 'ranged','NORMAL'].includes(ele)) as type}
+					{#each enemy.type.filter((ele) => !['melee', 'ranged', 'NORMAL'].includes(ele)) as type}
 						<p class="whitespace-nowrap text-[#83a39f] text-sm">
 							{translations[language].types[type]}
 						</p>
@@ -106,7 +106,16 @@
 				{#each enemy.modsList as mod, i}
 					<button on:click={() => (modIndex = i)} class="px-2">
 						<p class="select-none whitespace-nowrap {i !== modIndex ? 'brightness-50' : ''}">
-							{translations[language][mod.key] ?? mod.key}
+							{#if Array.isArray(mod.key)}
+								{#each mod.key as modKey, i}
+									{#if i > 0}
+										<span class="">&nbsp;+</span>
+									{/if}
+									{translations[language][modKey] ?? modKey}
+								{/each}
+							{:else}
+								{translations[language][mod.key] ?? mod.key}
+							{/if}
 						</p>
 					</button>
 				{/each}

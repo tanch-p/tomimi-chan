@@ -21,7 +21,7 @@
 	</p>
 	<div
 		class="justify-items-center gap-y-1.5 py-2 {mode === 'table'
-			? 'flex flex-col'
+			? 'flex flex-col min-w-[50px]'
 			: 'grid grid-cols-3 md:flex md:gap-x-8 md:pl-4'}"
 	>
 		{#each applicableBuffsList as buff}

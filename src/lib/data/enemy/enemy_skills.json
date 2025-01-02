@@ -292,9 +292,13 @@
 	"drone_frost_debuff": {
 		"tags": ["can_silence"],
 		"tooltip": {
-			"en": ["Debuff→operators within range have ASPD -50{can_silence}{ignore_stealth}{ignore_camou}"],
+			"en": [
+				"Debuff→operators within range have ASPD -50{can_silence}{ignore_stealth}{ignore_camou}"
+			],
 			"ja": ["攻撃範囲内の味方の攻撃速度-50{can_silence}{ignore_stealth}{ignore_camou}"],
-			"zh": ["处于自身攻击范围内的所有友方单位攻击速度降低50%{can_silence}{ignore_stealth}{ignore_camou}"]
+			"zh": [
+				"处于自身攻击范围内的所有友方单位攻击速度降低50%{can_silence}{ignore_stealth}{ignore_camou}"
+			]
 		}
 	},
 	"splash": {
@@ -708,6 +712,13 @@
 			"zh": ["释放特殊弩箭进行攻击，造成相当于攻击力<v.atk.multiplier>%的{arts}普通伤害"]
 		}
 	},
+	"fnf_form_2": {
+		"tooltip": {
+			"en": ["ATK +50%"],
+			"ja": ["攻撃力+50%"],
+			"zh": ["攻击力提升50%"]
+		}
+	},
 	"fnf_nova": {
 		"type": "skill",
 		"initCooldown": 18,
@@ -874,6 +885,21 @@
 			"en": ["Next attack does 2 x 100% ATK {phys} damage, ignores 60% DEF"],
 			"ja": ["次の攻撃は防御力60％無視の2回攻撃"],
 			"zh": ["下一次攻击对目标造成2次攻击力100%且无视60%防御力的物理普通伤害"]
+		}
+	},
+	"jak_form_1": {
+		"tooltip": {
+			"en": ["RES +50"],
+			"ja": ["術耐性+50"],
+			"zh": ["法术抗性+50"]
+		}
+	},
+	"jak_form_2": {
+		"value": 700,
+		"tooltip": {
+			"en": ["ATK +<v.value>, DEF +1000, Attack Interval -1.5, Movespeed +0.3"],
+			"ja": ["攻撃力+<v.value>，防御力+1000，攻撃間隔-1.5，移動速度+0.3"],
+			"zh": ["攻击力+<v.value>，防御力+1000，攻击间隔-1.5，移动速度+0.3"]
 		}
 	},
 	"rat_king_shield": {
@@ -1469,14 +1495,18 @@
 	},
 	"highmore_aspd_down_1": {
 		"tooltip": {
-			"en": ["All allied units within range have their ASPD reduced by 60{ignore_stealth}{ignore_camou}"],
+			"en": [
+				"All allied units within range have their ASPD reduced by 60{ignore_stealth}{ignore_camou}"
+			],
 			"ja": ["攻撃範囲内の味方の攻撃速度-60{ignore_stealth}{ignore_camou}"],
 			"zh": ["攻击范围内的所有友方单位(包括装置类)攻击速度-60{ignore_stealth}{ignore_camou}"]
 		}
 	},
 	"highmore_aspd_down_2": {
 		"tooltip": {
-			"en": ["All allied units within range have their ASPD reduced by 80{ignore_stealth}{ignore_camou}"],
+			"en": [
+				"All allied units within range have their ASPD reduced by 80{ignore_stealth}{ignore_camou}"
+			],
 			"ja": ["攻撃範囲内の味方の攻撃速度-80{ignore_stealth}{ignore_camou}"],
 			"zh": ["攻击范围内的所有友方单位(包括装置类)攻击速度-80{ignore_stealth}{ignore_camou}"]
 		}
@@ -2226,9 +2256,15 @@
 		"dmg_element": "arts",
 		"suffix": { "en": "💥on kill", "ja": "撃破時", "zh": "击破时" },
 		"tooltip": {
-			"en": ["Self-destructs when defeated, dealing <v.atk.multiplier>% of ATK as {arts} damage to all friendly units in 1.25 tile radius{ignore_camou}"],
-			"ja": ["撃破時自爆する、半径1.25の味方全体に攻撃力<v.atk.multiplier>%の{arts}ダメージを与える{ignore_camou}"],
-			"zh": ["被击杀后自爆，对1.25半径内全体友方单位造成攻击力<v.atk.multiplier>%的{arts}溅射伤害{ignore_camou}"]
+			"en": [
+				"Self-destructs when defeated, dealing <v.atk.multiplier>% of ATK as {arts} damage to all friendly units in 1.25 tile radius{ignore_camou}"
+			],
+			"ja": [
+				"撃破時自爆する、半径1.25の味方全体に攻撃力<v.atk.multiplier>%の{arts}ダメージを与える{ignore_camou}"
+			],
+			"zh": [
+				"被击杀后自爆，对1.25半径内全体友方单位造成攻击力<v.atk.multiplier>%的{arts}溅射伤害{ignore_camou}"
+			]
 		}
 	},
 	"deyi_explode": {
@@ -2236,8 +2272,12 @@
 		"dmg_element": "arts",
 		"suffix": { "en": "💥💥", "ja": "心中", "zh": "💥" },
 		"tooltip": {
-			"en": ["Creates a big explosion with another Smarty of opposite element, dealing <v.atk.multiplier>% of ATK as {arts} damage to all friendly units in 2 tile radius{ignore_camou}"],
-			"ja": ["反対属性の「オニビ」に接触すると爆発する (心中)、半径2の味方全体に攻撃力<v.atk.multiplier>%の{arts}ダメージを与える{ignore_camou}"],
+			"en": [
+				"Creates a big explosion with another Smarty of opposite element, dealing <v.atk.multiplier>% of ATK as {arts} damage to all friendly units in 2 tile radius{ignore_camou}"
+			],
+			"ja": [
+				"反対属性の「オニビ」に接触すると爆発する (心中)、半径2の味方全体に攻撃力<v.atk.multiplier>%の{arts}ダメージを与える{ignore_camou}"
+			],
 			"zh": [
 				"异属性“得意”距离小于1时自爆，对2半径内全体友方单位造成攻击力<v.atk.multiplier>%的{arts}溅射伤害{ignore_camou}"
 			]
@@ -3806,8 +3846,12 @@
 		"suffix": { "en": "First Attack", "ja": "初撃", "zh": "首次攻击" },
 		"hits": 1,
 		"tooltip": {
-			"en": ["Deals AoE Damage to target and adjacent 4 tiles on the first attack{ignore_stealth}{ignore_camou}"],
-			"ja": ["初回攻撃のみ、対象と周囲4マスに攻撃力の150%の{phys}ダメージを与える{ignore_stealth}{ignore_camou}"],
+			"en": [
+				"Deals AoE Damage to target and adjacent 4 tiles on the first attack{ignore_stealth}{ignore_camou}"
+			],
+			"ja": [
+				"初回攻撃のみ、対象と周囲4マスに攻撃力の150%の{phys}ダメージを与える{ignore_stealth}{ignore_camou}"
+			],
 			"zh": ["首次攻击时对目标和周围4格造成伤害{ignore_stealth}{ignore_camou}"]
 		}
 	},
@@ -4248,20 +4292,14 @@
 		}
 	},
 	"egun_charge": {
-		"type":"skill",
-		"initCooldown":5,
-		"cooldown":28,
-		"suffix":{"en":"Recharge","ja":"エネルギー補充","zh":"充能"},
+		"type": "skill",
+		"initCooldown": 5,
+		"cooldown": 28,
+		"suffix": { "en": "Recharge", "ja": "エネルギー補充", "zh": "充能" },
 		"tooltip": {
-			"en": [
-				"Restores 1 energy for all enemies within attack range every second"
-			],
-			"ja": [
-				"5秒間移動しない、毎秒攻撃範囲内の敵全員のエネルギーを1点補充する"
-			],
-			"zh": [
-				"5秒间不移动且每秒为自身半径2.2范围内的所有敌人(含自身)回复1点能量的效果"
-			]
+			"en": ["Restores 1 energy for all enemies within attack range every second"],
+			"ja": ["5秒間移動しない、毎秒攻撃範囲内の敵全員のエネルギーを1点補充する"],
+			"zh": ["5秒间不移动且每秒为自身半径2.2范围内的所有敌人(含自身)回复1点能量的效果"]
 		}
 	},
 	"erob_steal": {
@@ -5528,12 +5566,8 @@
 		"atk": { "multiplier": 1.35 },
 		"dmg_element": "phys",
 		"tooltip": {
-			"en": [
-				"Deals 135% ATK as Phys damage to the farthest high ground unit"
-			],
-			"ja": [
-				"自分から最も遠い高台オペレーターに攻撃力の135%の{phys}ダメージを与える"
-			],
+			"en": ["Deals 135% ATK as Phys damage to the farthest high ground unit"],
+			"ja": ["自分から最も遠い高台オペレーターに攻撃力の135%の{phys}ダメージを与える"],
 			"zh": [
 				"锁定半径20范围内距离自身最远的部署于高台的友方单位，蓄力约3s后对其造成相当于攻击力135%的{phys}普通伤害 "
 			]
