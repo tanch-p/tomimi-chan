@@ -5,7 +5,7 @@
 	import translations from '$lib/translations.json';
 	import { browser } from '$app/environment';
 	
-	export let language: Language, difficulty, rogueTopic: RogueTopic;
+	export let language: Language, difficulty, rogueTopic: RogueTopic, maxDiff = 15;
 
 	const getStorageKey = (rogueTopic) => {
 		switch (rogueTopic) {
@@ -18,7 +18,7 @@
 	};
 
 	function updateDifficulty(n: number) {
-		if (n < 0 || n > 15) {
+		if (n < 0 || n > maxDiff) {
 			return;
 		}
 		difficulty.update(() => n);
@@ -50,7 +50,7 @@
 		}
 	}
 	function startIncrement(timeout: number) {
-		if (selectedDifficulty < 15) {
+		if (selectedDifficulty < maxDiff) {
 			timer = setTimeout(function () {
 				updateDifficulty(selectedDifficulty + 1);
 				startIncrement(Math.max(timeout - 100, minTimeout));
@@ -89,7 +89,7 @@
 			on:mouseup={() => clearTimeout(timer)}
 			on:mouseleave={() => clearTimeout(timer)}
 			on:click={() => updateDifficulty(selectedDifficulty + 1)}
-			disabled={selectedDifficulty >= 15}
+			disabled={selectedDifficulty >= maxDiff}
 			aria-label="Increase the counter by one"
 			class="group"
 			id="diff-plus"
