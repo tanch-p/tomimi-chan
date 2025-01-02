@@ -19,8 +19,8 @@ const floorDifficultyMods = derived(
 		{
 			targets: ['ALL'],
 			mods: {
-				hp: (1 + difficultyModsList[$difficulty].floorBuff) ** $selectedFloor,
-				atk: (1 + difficultyModsList[$difficulty].floorBuff) ** $selectedFloor
+				hp: (1 + difficultyModsList[$difficulty]?.floorBuff) ** $selectedFloor,
+				atk: (1 + difficultyModsList[$difficulty]?.floorBuff) ** $selectedFloor
 			}
 		}
 	]
