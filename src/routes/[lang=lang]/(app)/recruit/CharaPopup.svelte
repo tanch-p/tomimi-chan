@@ -204,14 +204,14 @@
 												>
 													<div class="grid place-items-center h-[48px]">
 														{#await import(`../../../../lib/images/equip_icons/icon_${typeIcon}.webp`) then { default: src }}
-															<img {src} height="40" alt={typeIcon} class="max-h-[40px]" />
+															<img {src} height="40" alt={typeIcon} class="max-h-[40px] pointer-events-none" />
 														{/await}
 													</div>
 													<div class="flex gap-x-0.5 text-xs font-light uppercase">
 														{#if typeIcon !== 'original'}
 															{@const parts = typeIcon.split('-')}
 															{parts[0]}
-															<img src={charaAssets[parts[1]]} alt={parts[1]} width="12px" />
+															<img src={charaAssets[parts[1]]} alt={parts[1]} width="12px" class="pointer-events-none"/>
 														{:else}
 															{typeIcon}
 														{/if}
@@ -231,7 +231,7 @@
 																<img
 																	src={charaAssets[`solid_${moduleStage + 1}`]}
 																	alt="{moduleStage + 1}"
-																	class="max-h-[15px]"
+																	class="max-h-[15px] pointer-events-none"
 																/>
 															</div>
 														</button>
@@ -241,7 +241,7 @@
 														>
 															<p class="text-[#7d7d7d] font-bold text-sm">STAGE</p>
 															<div class="w-[11px] ml-1.5 mt-0.5">
-																<img src={charaAssets[`solid_3`]} alt="3" class="max-h-[15px]" />
+																<img src={charaAssets[`solid_3`]} alt="3" class="max-h-[15px] pointer-events-none" />
 															</div>
 														</div>
 													{/if}
