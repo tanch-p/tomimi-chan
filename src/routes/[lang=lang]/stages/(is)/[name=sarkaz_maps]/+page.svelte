@@ -95,7 +95,7 @@
 		>
 			<StageDrops slot="drops" mapConfig={data.mapConfig} {language} {rogueTopic} {selectedFloor} />
 		</StageInfo>
-		<DifficultySelect {language} {difficulty} {rogueTopic} />
+		<DifficultySelect {language} {difficulty} {rogueTopic} maxDiff={18} />
 		<TrapContainer {language} traps={moddedTraps} {otherBuffsList} specialMods={$specialMods}/>
 		<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 		<EnemyCount

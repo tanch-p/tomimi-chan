@@ -136,7 +136,10 @@ export const filters = derived(
 								'tactician',
 								'slower',
 								'underminer',
-								'blessing'
+								'blessing',
+								'fastshot',
+								'loopshooter',
+								'shotprotector'
 							].includes(char.subProfessionId) && char.rarity === "TIER_6";
 					default:
 						return () => true;
