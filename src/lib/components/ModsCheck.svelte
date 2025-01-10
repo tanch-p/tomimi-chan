@@ -35,7 +35,7 @@
 			return '-';
 		}
 		if (stat === 'atk_interval') {
-			return idx % 2 === 0 ? mod.mods[stat] ?? '-' : '-';
+			return idx % 2 === 0 ? mod.mods[stat] || '-' : '-';
 		}
 		if (idx % 2 === 0) {
 			return mod.mods[`fixed_${stat}`] || '-';
