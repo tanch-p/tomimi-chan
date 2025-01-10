@@ -272,7 +272,7 @@
 				</th>
 			</tr>
 			<tr>
-				<td colspan="2" rowspan="7p"> ? </td>
+				<td colspan="2" rowspan="7"> ? </td>
 				{#each du as stageName}
 					<td colspan={Math.floor(24 / du.length)}>
 						<StageNavButton {stageName} {language} />

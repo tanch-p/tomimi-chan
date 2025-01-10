@@ -14,9 +14,15 @@
 	$: name_ja = mapConfig?.name_ja;
 	$: name_en = mapConfig?.name_en;
 	$: if (mapConfig && !mapConfig.contracts) {
-		pathEN = `/en/stages/${code}_${name_en || name_zh}`;
-		pathJA = `/ja/stages/${code}_${name_ja || name_zh}`;
-		pathZH = `/zh/stages/${code}_${name_zh}`;
+		if (name_zh === '「」') {
+			pathEN = `/en/stages/ro4_b_9`;
+			pathJA = `/ja/stages/ro4_b_9`;
+			pathZH = `/zh/stages/ro4_b_9`;
+		} else {
+			pathEN = `/en/stages/${code}_${name_en || name_zh}`;
+			pathJA = `/ja/stages/${code}_${name_ja || name_zh}`;
+			pathZH = `/zh/stages/${code}_${name_zh}`;
+		}
 	} else {
 		pathEN = pathname.replace(language, 'en');
 		pathJA = pathname.replace(language, 'ja');
@@ -28,7 +34,7 @@
 <div class="relative" use:clickOutside on:outclick={() => (showOptions = false)}>
 	<button on:click={() => (showOptions = !showOptions)} class="sm:py-1 px-2 hover:underline h-full">
 		<span class="flex gap-x-1.5">
-			<Icon name="icon-language" size=20 className="mb-0.5"/>
+			<Icon name="icon-language" size="20" className="mb-0.5" />
 			{languageCodes[language]}</span
 		>
 	</button>
