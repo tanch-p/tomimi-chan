@@ -22,6 +22,7 @@
 		roman_4: roman_4,
 		roman_5: roman_5,
 		roman_6: roman_6,
+		roman_7: roman_6,
 		rogue_4_disaster_1: disaster_1,
 		rogue_4_disaster_2: disaster_2,
 		rogue_4_disaster_5: disaster_5
@@ -36,6 +37,10 @@
 			case 'level_rogue4_b-7':
 			case 'level_rogue4_7-1':
 			case 'level_rogue4_7-2':
+				floor6Index = 7;
+				break;
+			case 'level_rogue4_b-8':
+			case 'level_rogue4_b-8':
 				floor6Index = 6;
 				break;
 			default:

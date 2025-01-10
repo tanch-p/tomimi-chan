@@ -143,7 +143,7 @@ export function applyTrapMods(traps: Trap[], statMods: StatMods, specialMods) {
 		return {
 			...trap,
 			skills: trap.skills.length > 0 ? [skill] : [],
-			stats: {...moddedStats,rangeId},
+			stats: { ...moddedStats, rangeId },
 			overwritten: specialMods[trap.key] ? true : false
 		};
 	});
@@ -185,7 +185,6 @@ function parseStats(trap: Trap, statMods: StatMods) {
 	const finalModsList = relevantMods.filter(
 		(mod) => !additionModsList.some((addMod) => addMod.key === mod.key)
 	);
-
 	let modsList = [];
 	for (const mod of additionModsList) {
 		// runes have a char or enemy target in arknights map data, over here there is no such separation because traps were not taken into account for initially
@@ -199,7 +198,8 @@ function parseStats(trap: Trap, statMods: StatMods) {
 				})
 				.filter(Boolean)
 		};
-		modsList.push(distillMods(trap, '', applicableMods, 0));
+		const { mods } = distillMods(trap, '', applicableMods, 0);
+		modsList.push(mods);
 	}
 	let initialMods = {};
 	if (modsList.length > 0) {
@@ -227,7 +227,8 @@ function parseStats(trap: Trap, statMods: StatMods) {
 	}
 	modsList = [];
 	for (const mod of finalModsList) {
-		modsList.push(distillMods(trap, '', mod, 0));
+		const { mods } = distillMods(trap, '', mod, 0);
+		modsList.push(mods);
 	}
 	// different list from enemy final mods
 	let finalMods = {};

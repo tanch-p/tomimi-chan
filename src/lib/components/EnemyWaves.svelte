@@ -35,6 +35,7 @@
 		'level_rogue4_5-4',
 		'level_rogue4_t-1'
 	];
+	const stagesWithoutCalamity = ['level_rogue4_b-8','level_rogue4_b-9']
 	const multipleImgLookup = {
 		'level_rogue4_4-1': [
 			{ key: 'a', img: skz_4_1a },
@@ -144,7 +145,7 @@
 			{/await}
 		{/if}
 
-		{#if rogueTopic === 'rogue_skz'}
+		{#if rogueTopic === 'rogue_skz' && !stagesWithoutCalamity.includes(mapConfig.levelId)}
 			<div class="flex flex-wrap gap-x-4 gap-y-1.5 mt-1.5">
 				<div class="flex">
 					<img src={skz_calamity} width="24px" height="24px" alt="calamity" />

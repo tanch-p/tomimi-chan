@@ -14,7 +14,8 @@ export const BONUS_ENEMY_KEYS = [
 	'enemy_2069_skzbox',
 	'enemy_2091_skzgds',
 	'enemy_2067_skzcy',
-	'enemy_2065_skzjs'
+	'enemy_2065_skzjs',
+	'enemy_2093_skzams'
 ];
 
 export function isEquals(obj1, obj2) {

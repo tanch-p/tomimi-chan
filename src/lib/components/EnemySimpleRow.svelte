@@ -33,7 +33,7 @@
 	};
 	$: multispanKeys = getMultispanKeys(enemy?.forms);
 
-	const SHARE_HP_FORMS = ['prisoner_imprisoned', 'rage','normal_state'];
+	const SHARE_HP_FORMS = ['prisoner_imprisoned', 'rage', 'normal_state'];
 
 	const getMultispanKeys = (forms: EnemyFormType[]) => {
 		const statKeys: string[] = [];
@@ -114,7 +114,16 @@
 								{/if}
 							</p>
 							<StatSkills
-								skills={getStatSkills(enemy, form.special, $specialMods)}
+								skills={getStatSkills(
+									enemy,
+									key === 'atk' && !multispanKeys.includes('atk')
+										? enemy.forms.reduce((acc, curr) => {
+												acc = [...acc, ...curr.special];
+												return acc;
+										  }, [])
+										: form.special,
+									$specialMods
+								)}
 								stat={key}
 								statValue={form.stats[key]}
 								{language}

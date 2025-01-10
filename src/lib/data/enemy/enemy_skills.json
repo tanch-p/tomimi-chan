@@ -74,6 +74,14 @@
 			"zh": ["优先攻击范围内生命比例最低的目标"]
 		}
 	},
+	"dmg_res": {
+		"value":50,
+		"tooltip": {
+			"en": ["Gains <v.value>% Damage Reduction"],
+			"ja": ["受ける{phys}と{arts}ダメージが<v.value>%減少"],
+			"zh": ["获得<v.value>%的{phys}/{arts}减伤"]
+		}
+	},
 	"avenger": {
 		"suffix": { "en": "HP↓50%", "ja": "HP50%以下", "zh": "HP50%以下" },
 		"hits": null,
@@ -3115,14 +3123,14 @@
 	"manfred_military_training": {
 		"tooltip": {
 			"en": [
-				"[Military Training] - gains 80% {phys}/Arts evasion",
+				"[Military Training] - gains 80% {phys}/{arts} evasion",
 				"When hit by Londinium Artillery, lose this effect for 30s and become stunned for 8s"
 			],
 			"ja": [
-				"【軍事訓練】→{phys}・術回避率+80%",
+				"【軍事訓練】→{phys}・{arts}回避率+80%",
 				"副砲に当たると、回避効果が30秒間無効化され、8秒間スタンする"
 			],
-			"zh": []
+			"zh": ["【军事训练】：获得80%{phys}/{arts}闪避。<伦蒂尼姆城防副炮>对自身造成伤害后，闪避效果失效30s，且自身获得8s晕眩"]
 		}
 	},
 	"manfred_focus": {
@@ -3135,7 +3143,7 @@
 				"【集中】→同じ対象に攻撃する度に、攻撃速度+60 (最大5回まで) ",
 				"攻撃対象が切り替わるか、6秒間攻撃を行わなかった時、このバフはリセットされる"
 			],
-			"zh": []
+			"zh": ["【专注】：普通攻击持续攻击相同目标时，每次攻击使自身攻击速度增加60，最多叠加5层。切换目标/6s未进行攻击，则清除全部增益"]
 		}
 	},
 	"manfred_range_atk_1": {
@@ -3819,19 +3827,69 @@
 	"cbrokt_1": {
 		"tooltip": {
 			"en": [
-				"If Movement Speed is higher than starting speed for 1s, gains <ba.float>Low-Altitude Hovering</> and takes off!"
+				"If Movement Speed is higher than starting speed for 1s, takes off! and gains <ba.float>Low-Altitude Hovering</> and Movespeed +10%{can_silence}{once_only}"
 			],
 			"ja": [
-				"移動速度が初期状態より高い状態で1秒間移動すると、1度だけ<ba.float>低空浮揚</>状態になる"
+				"移動速度が初期状態より高い状態で1秒間移動すると、1度だけ<ba.float>低空浮揚</>状態になる、移動速度+10%{can_silence}{once_only}"
 			],
-			"zh": ["移动速度高于初始速度累计持续1s时，获得<ba.float>近地悬浮</>"]
+			"zh": [
+				"移动速度高于初始速度累计持续1s时，获得<ba.float>近地悬浮</>，移动速度+10%{can_silence}{once_only}"
+			]
 		}
 	},
-	"cbshld_1": {
+	"def_res_shield": {
+		"dval": 50,
+		"rval": 2,
+		"value": 80,
 		"tooltip": {
-			"en": ["Loses 50 DEF and 2 RES for instance of damage taken"],
-			"ja": ["ダメージを受けるたび、防御力-50・術耐性-2 (80回まで累積する) "],
-			"zh": ["每次受到伤害后防御-50，法术抗性-2"]
+			"en": [
+				"Loses <v.dval> DEF and <v.rval> RES for instance of damage taken (max <v.value> times)"
+			],
+			"ja": ["ダメージを受けるたび、防御力-<v.dval>・術耐性-<v.rval> (<v.value>回まで累積する) "],
+			"zh": ["每次受到伤害时，自身防御-<v.dval>，法术抗性-<v.rval>，最多叠加<v.value>次"]
+		}
+	},
+	"cbterm_explode": {
+		"atk": { "multiplier": 2 },
+		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
+		"tooltip": {
+			"en": [
+				"Explodes when defeated, dealing {phys} damage equal to <v.atk.multiplier>% ATK to nearby friendly units within a radius of 1.25{can_silence}"
+			],
+			"ja": [
+				"倒されると1秒後に自爆し、半径1.25以内の味方全員に攻撃力の<v.atk.multiplier>%の{phys}ダメージを与え{can_silence}"
+			],
+			"zh": [
+				"被击倒约1s后自爆，对半径1.25范围内的我方单位造成攻击力<v.atk.multiplier>%的{phys}溅射伤害{can_silence}"
+			]
+		}
+	},
+	"cbterm1": {
+		"tooltip": {
+			"en": ["When defeated, spawns a <Traffic Officer>"],
+			"ja": ["倒されると、自身の位置に「交通巡査」を1体召喚する"],
+			"zh": ["被击倒后在自身所在地块中心以自身路径召唤1个“交通警察”"]
+		}
+	},
+	"cbterm2": {
+		"tooltip": {
+			"en": ["When defeated, spawns a <Traffic Officer Captain>"],
+			"ja": ["倒されると、自身の位置に「交通巡査長」を1体召喚する"],
+			"zh": ["被击倒后在自身所在地块中心以自身路径召唤1个“交通警长”"]
+		}
+	},
+	"cbbgen_1": {
+		"duration": 4,
+		"tooltip": {
+			"en": [
+				"Gains a special Stealth for <v.duration>s, that is not nullified when blocked, and Movespeed +110%"
+			],
+			"ja": [
+				"出現から<v.duration>秒間特殊なステルス状態（ブロックされても解除されない）になり、移動速度+110%"
+			],
+			"zh": [
+				"出场后进入持续<v.duration>s的【潜行】状态：移动速度+110%，获得特殊隐匿（被阻挡后不会被解除）"
+			]
 		}
 	},
 	"wdfmpm_1": {
@@ -5597,7 +5655,7 @@
 		"dmg_element": "phys",
 		"tooltip": {
 			"en": [
-				"Uses ranged attacks when not blocked, dealing 26% of ATK as Physical damage to the target and the 8 surrounding tiles, decreasing their DEF by 50% for 5s{ignore_camou}"
+				"Uses ranged attacks when not blocked, dealing 26% of ATK as {phys} damage to the target and the 8 surrounding tiles, decreasing their DEF by 50% for 5s{ignore_camou}"
 			],
 			"ja": [
 				"非ブロック時、通常攻撃で榴弾射撃(遠距離範囲{phys}攻撃)を行う。榴弾射撃は標的と周囲8マスに攻撃力26%の{phys}ダメージと5秒間の防御力−50%デバフを与える{ignore_camou}"
@@ -5793,6 +5851,142 @@
 				"生命值低于50%时，在自身所在地块中心0.5边长正方形范围内随机位置以自身路径召唤1只虚像{can_silence}",
 				"虚像 - 属性与本体相同，无法移动，不进行攻击，自身嘲讽等级增加1",
 				"自身退场时，令自身召唤物退场"
+			]
+		}
+	},
+	"skzams_1": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["到达路径终点后，在战斗结算时额外掉落1件收藏品"]
+		}
+	},
+	"skzams_2": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"每次到达终点后，于下次出现时重设自身生命值比例，保持与前一次到达路径终点时的生命值比例相等"
+			]
+		}
+	},
+	"skzamy_mech_1": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"在场时我方单位在部署（不包括移动）时被封印：晕眩+不可选中+阻挡数-99，持续时间无限（可以因“仅剩的创意”的效果解除）"
+			]
+		}
+	},
+	"skzamy_mech_2": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"【仅剩的创意】战场上存在若干“仅剩的创意”，“仅剩的创意”会在触碰到<昔日道标>或地形时改变移动方向，若触碰<昔日道标>则释放其中的敌人或友方干员"
+			]
+		}
+	},
+	"skzamy_0_1": {
+		"type": "skill",
+		"initCooldown": 15,
+		"cooldown": 15,
+		"suffix": { "en": "无言的期盼", "ja": "无言的期盼", "zh": "无言的期盼" },
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["【无言的期盼】召唤一个“仅剩的创意”"]
+		}
+	},
+	"skzamy_1_0": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["生命值首次低于50%时，获得无敌至作战第三阶段"]
+		}
+	},
+	"skzamy_1_1": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"【尽头重现】当博卓卡斯替，圣卫铳骑、特雷西斯，黑冠尊主、奎隆，摩诃萨埵权化、曼弗雷德被击倒或离开战场时回复技力，技力满时施放【存续先兆】"
+			]
+		}
+	},
+	"skzamy_1_2": {
+		"type": "skill",
+		"initSp": 0,
+		"spCost": "180/280",
+		"skillType": "INCREASE_WITH_TIME",
+		"suffix": { "en": "存续先兆", "ja": "存续先兆", "zh": "存续先兆" },
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"<作战第一二 / 三阶段>停止攻击，逐渐消灭所有场地及其上的单位，每消灭一个昔日道标或敌人，扣除相应敌人的目标生命值，随后进入下一场地作战。思维混乱时，作战第三阶段存续先兆所需的技力降低至180"
+			]
+		}
+	},
+	"skzamy_1_3": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["被击败后，进行10s的重生，结束后切换至第二阶段"]
+		}
+	},
+	"skzamy_2_1": {
+		"atk": { "multiplier": 2.5 },
+		"dmg_element": "true",
+		"suffix": { "en": "黑冠余威", "ja": "黑冠余威", "zh": "黑冠余威" },
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"【黑冠余威】进入第二形态后或接触“仅剩的创意”时，对周围最多7个目标造成一次攻击力<v.atk.multiplier>%{true}伤害"
+			]
+		}
+	},
+	"skzamy_2_2": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["半径0.5范围内接触“仅剩的创意”时令其退场"]
+		}
+	},
+	"skzamy_2_3": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"被击倒后进行持续2.5s的重生，进入第三形态并释放【永恒存续】",
+				"【永恒存续】消灭场上所有单位，随后结束作战"
+			]
+		}
+	},
+	"skzfmf_1": {
+		"atk": { "multiplier": 0.5 },
+		"dmg_element": "arts",
+		"suffix": { "en": "ranged", "ja": "遠", "zh": "远" },
+		"hits": 1,
+		"tooltip": {
+			"en": ["Normal attacks does 50% ATK as {arts} damage"],
+			"ja": ["通常攻撃は攻撃力の50%の{arts]ダメージを与え"],
+			"zh": ["普通攻击造成攻击力50%的{arts}普通伤害"]
+		}
+	},
+	"trwlpl_1": {
+		"type": "skill",
+		"initCooldown": 0,
+		"cooldown": 0,
+		"suffix": { "en": "Devour", "ja": "丸呑み", "zh": "吞食" },
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"自身所在地块及周围8格内存在我方单位时触发：将目标强制击倒，随后40s内进入消化食物状态，停止移动且无法【吞食】",
+				"被击倒的干员再部署时间归零但在消化完成前无法再部署，召唤物则进入再部署时间"
 			]
 		}
 	}

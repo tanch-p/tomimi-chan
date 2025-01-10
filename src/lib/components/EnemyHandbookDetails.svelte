@@ -59,7 +59,7 @@
 			<HandbookAtkType {enemy} {language} {formIndex} />
 			{#if enemy.forms[formIndex].stats.lifepoint !== 1}
 				{@const isBlue = enemy.forms[formIndex].stats.lifepoint === 0}
-				<div class="flex items-center justify-between w-16">
+				<div class="flex items-center justify-between min-w-16">
 					<img
 						src={isBlue ? life_blue : life_red}
 						width="28px"

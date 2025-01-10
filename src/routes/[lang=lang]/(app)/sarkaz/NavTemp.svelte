@@ -12,9 +12,9 @@
 	export let language: Language;
 
 	let allNormalStages = [
-		['坏邻居', '公害', '安全检查', '夺路而跳'],
-		['见闻峰会', '拆东补西', '排风口', '炉工志愿队', '有序清场', '卡兹瀑布'],
-		['大棋一盘', '血脉之辩', '遮天蔽日', '劳作的清晨', '溃乱魔典', '盲盒商场', '火力小队'],
+		['坏邻居', '公害', '安全检查', '夺路而跳','冰川期'],
+		['见闻峰会', '拆东补西', '排风口', '炉工志愿队', '有序清场', '卡兹瀑布','丛林密布'],
+		['大棋一盘', '血脉之辩', '遮天蔽日', '劳作的清晨', '溃乱魔典', '盲盒商场', '火力小队','机动队'],
 		[
 			'年代断层',
 			'朽败考察',
@@ -24,7 +24,8 @@
 			'假想对冲',
 			'幽灵城',
 			'神出鬼没',
-			'混沌'
+			'混沌',
+			'争议频发'
 		],
 		[
 			'寄人城池下',
@@ -34,7 +35,8 @@
 			'无罪净土',
 			'浮空城接舷战',
 			'残损学院',
-			'建制'
+			'建制',
+			'莱茵卫士'
 		]
 	];
 
@@ -47,6 +49,8 @@
 	let floor5b = ['紧急授课', '朝谒'];
 	let floor5bd = ['思维矫正', '魂灵朝谒'];
 	let floor6b = ['圣城', '授法'];
+	let floor67 = ['不容拒绝']
+	let floorUnknown = ['「」']
 	let du = ['失败的试胆', '信号灯', '劫虚济实', '鸭速公路'];
 	let sp = ['战场侧面', '继承', '玩具的报复'];
 	let sp2 = ['物权纠纷', '叙事要约'];
@@ -240,6 +244,16 @@
 					</td>
 				{/each}
 			</tr>
+			<tr>
+				<td colspan="2" rowspan="1">
+					{"6/7"}
+				</td>
+				{#each floor67 as stageName}
+					<td colspan={Math.floor(24 / floor67.length)}>
+						<StageNavButton {stageName} {language} />
+					</td>
+				{/each}
+			</tr>
 
 			<!-- encounter -->
 
@@ -258,7 +272,7 @@
 				</th>
 			</tr>
 			<tr>
-				<td colspan="2" rowspan="6"> ? </td>
+				<td colspan="2" rowspan="7p"> ? </td>
 				{#each du as stageName}
 					<td colspan={Math.floor(24 / du.length)}>
 						<StageNavButton {stageName} {language} />
@@ -268,6 +282,13 @@
 			<tr>
 				{#each sp as stageName}
 					<td colspan={Math.floor(24 / sp.length)}>
+						<StageNavButton {stageName} {language} />
+					</td>
+				{/each}
+			</tr>
+			<tr>
+				{#each floorUnknown as stageName}
+					<td colspan={Math.floor(24 / floorUnknown.length)}>
 						<StageNavButton {stageName} {language} />
 					</td>
 				{/each}

@@ -88,6 +88,16 @@
 					class=""
 				/>
 			{/if}
+			{#if stageId === "level_rogue4_b-8"}
+				<img
+					src={relicLookup['rogue_4_relic_final_10']}
+					width="50px"
+					decoding="async"
+					loading="lazy"
+					alt="amy_final_3"
+					class=""
+				/>
+			{/if}
 			<img
 				src={emergency_icon}
 				width="50px"

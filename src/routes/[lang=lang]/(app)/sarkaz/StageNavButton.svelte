@@ -12,6 +12,13 @@
 		throw new Error(`${stageName} is not found!`);
 	}
 	const stagesToHide = [
+		'冰川期',
+		'丛林密布',
+		'机动队',
+		'争议频发',
+		'莱茵卫士',
+		'不容拒绝',
+		"「」",
 		'卡兹瀑布',
 		'火力小队',
 		'神出鬼没',
@@ -23,7 +30,7 @@
 		'轻舟共渡'
 	];
 	$: name = stageInfo[`name_${language}`] || stageInfo['name_zh'];
-	$: stageUrl = stageInfo.code + '_' + name;
+	$: stageUrl = name==="「」" ? "ro4_b_9" :stageInfo.code + '_' + name;
 </script>
 
 <a data-sveltekit-preload-code="eager" href={`/${language}/stages/${stageUrl}`}>

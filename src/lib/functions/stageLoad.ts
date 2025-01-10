@@ -21,6 +21,10 @@ export const stageLoad = async (
 			for (const key in overwrittenData) {
 				if (key === 'talentBlackboard') {
 					overwriteBlackboard(enemy.stats, overwrittenData[key]);
+				} else if (key === 'levelType') {
+					if (overwrittenData[key] === 'NORMAL') {
+						enemy.type = enemy.type.filter((ele) => !['BOSS', 'ELITE'].includes(ele));
+					}
 				} else {
 					enemy.stats[key] = overwrittenData[key];
 				}

@@ -32199,7 +32199,7 @@
 				"epResistance": 0.0,
 				"traits": [
 					{
-						"key": "cbshld_1"
+						"key": "def_res_shield"
 					}
 				],
 				"special": []
@@ -32238,7 +32238,8 @@
 				"epResistance": 0.0,
 				"traits": [
 					{
-						"key": "cbshld_1"
+						"key": "def_res_shield",
+						"value": 85
 					}
 				],
 				"special": []
@@ -32398,7 +32399,11 @@
 				"ms": 0.8,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{
+						"key": "cbsisy"
+					}
+				],
 				"special": []
 			}
 		],
@@ -32433,7 +32438,12 @@
 				"ms": 0.8,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{ "key": "block", "value": 4 },
+					{ "key": "def_res_shield", "rval": 1, "value": 110 },
+					{ "key": "cbterm_explode" },
+					{ "key": "cbterm1" }
+				],
 				"special": []
 			}
 		],
@@ -32468,7 +32478,12 @@
 				"ms": 0.8,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{ "key": "block", "value": 4 },
+					{ "key": "def_res_shield", "rval": 1, "value": 115 },
+					{ "key": "cbterm_explode" },
+					{ "key": "cbterm2" }
+				],
 				"special": []
 			}
 		],
@@ -32503,7 +32518,7 @@
 				"ms": 1.2,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [{ "key": "cbbgen_1" }, { "key": "atk_minus_block", "duration": 3 }],
 				"special": []
 			}
 		],
@@ -32538,7 +32553,10 @@
 				"ms": 1.2,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{ "key": "cbbgen_1", "duration": 5 },
+					{ "key": "atk_minus_block", "duration": 3 }
+				],
 				"special": []
 			}
 		],
@@ -45087,7 +45105,7 @@
 				"ms": 0.6,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [{ "key": "trwlpl_1" }],
 				"special": []
 			}
 		],
@@ -45122,7 +45140,7 @@
 				"ms": 0.6,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [{ "key": "trwlpl_1" }],
 				"special": []
 			}
 		],
@@ -46650,13 +46668,13 @@
 			{
 				"title": null,
 				"normal_attack": {
-					"atk_type": ["all", "phys"],
+					"atk_type": ["phys", "phys"],
 					"hits": 1
 				},
 				"status_immune": []
 			}
 		],
-		"type": ["all", "machine", "ELITE"]
+		"type": ["phys", "ranged", "machine", "ELITE"]
 	},
 	"enemy_10028_vtswd": {
 		"id": "LUD26",
@@ -46886,13 +46904,13 @@
 			{
 				"title": null,
 				"normal_attack": {
-					"atk_type": ["all", "arts"],
+					"atk_type": ["ranged", "arts"],
 					"hits": 1
 				},
 				"status_immune": []
 			}
 		],
-		"type": ["all", "BOSS"]
+		"type": ["ranged", "BOSS"]
 	},
 	"enemy_1558_sgactr": {
 		"id": "ZYA",
@@ -47295,13 +47313,13 @@
 			{
 				"title": null,
 				"normal_attack": {
-					"atk_type": ["all", "arts"],
+					"atk_type": ["ranged", "arts"],
 					"hits": 1
 				},
 				"status_immune": ["stun", "silence", "sleep", "freeze", "levitate"]
 			}
 		],
-		"type": ["all", "BOSS"]
+		"type": ["ranged", "BOSS"]
 	},
 	"enemy_8007_eltrsm_2": {
 		"id": "SFR03",
@@ -47330,13 +47348,13 @@
 			{
 				"title": null,
 				"normal_attack": {
-					"atk_type": ["all", "arts"],
+					"atk_type": ["ranged", "arts"],
 					"hits": 1
 				},
 				"status_immune": ["stun", "silence", "sleep", "freeze", "levitate"]
 			}
 		],
-		"type": ["all", "BOSS"]
+		"type": ["ranged", "BOSS"]
 	},
 	"enemy_8007_eltrsm_3": {
 		"id": "SFR03",
@@ -47365,13 +47383,13 @@
 			{
 				"title": null,
 				"normal_attack": {
-					"atk_type": ["all", "arts"],
+					"atk_type": ["ranged", "arts"],
 					"hits": 1
 				},
 				"status_immune": ["stun", "silence", "sleep", "freeze", "levitate"]
 			}
 		],
-		"type": ["all", "BOSS"]
+		"type": ["ranged", "BOSS"]
 	},
 	"enemy_7047_xbdit": {
 		"id": "SD42",
@@ -47677,14 +47695,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["melee", "NORMAL"]
 	},
 	"enemy_10031_cnvsld_2": {
@@ -47711,14 +47731,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["melee", "NORMAL"]
 	},
 	"enemy_10032_cnvsnp": {
@@ -47745,14 +47767,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["ranged", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["ranged", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["ranged", "NORMAL"]
 	},
 	"enemy_10032_cnvsnp_2": {
@@ -47779,14 +47803,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["ranged", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["ranged", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["ranged", "NORMAL"]
 	},
 	"enemy_10033_cnvbsk": {
@@ -47813,14 +47839,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["ranged", "arts"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["ranged", "arts"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["ranged", "NORMAL"]
 	},
 	"enemy_10033_cnvbsk_2": {
@@ -47847,14 +47875,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["ranged", "arts"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["ranged", "arts"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["ranged", "NORMAL"]
 	},
 	"enemy_10034_cnvsax": {
@@ -47881,15 +47911,17 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["all", "arts"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
-		"type": ["all", "ELITE"]
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["ranged", "arts"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
+		"type": ["ranged", "ELITE"]
 	},
 	"enemy_10034_cnvsax_2": {
 		"id": "CNV8",
@@ -47915,15 +47947,17 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["all", "arts"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
-		"type": ["all", "ELITE"]
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["ranged", "arts"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
+		"type": ["ranged", "ELITE"]
 	},
 	"enemy_10035_cnvdnc": {
 		"id": "CNV9",
@@ -47949,14 +47983,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["ranged", "arts"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["ranged", "arts"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["ranged", "NORMAL"]
 	},
 	"enemy_10035_cnvdnc_2": {
@@ -47983,14 +48019,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["ranged", "arts"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["ranged", "arts"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["ranged", "NORMAL"]
 	},
 	"enemy_10036_cnvpvd": {
@@ -48017,14 +48055,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "arts"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "arts"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["melee", "NORMAL"]
 	},
 	"enemy_10036_cnvpvd_2": {
@@ -48051,14 +48091,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "arts"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "arts"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["melee", "NORMAL"]
 	},
 	"enemy_10037_cnvpcar": {
@@ -48085,14 +48127,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "arts"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "arts"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["melee", "NORMAL"]
 	},
 	"enemy_10037_cnvpcar_2": {
@@ -48119,14 +48163,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "arts"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "arts"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["melee", "NORMAL"]
 	},
 	"enemy_10038_cnvpiz": {
@@ -48153,14 +48199,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["melee", "ELITE"]
 	},
 	"enemy_10038_cnvpiz_2": {
@@ -48187,14 +48235,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["melee", "ELITE"]
 	},
 	"enemy_10039_cnvber": {
@@ -48221,15 +48271,17 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["all", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
-		"type": ["all", "ELITE"]
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["ranged", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
+		"type": ["ranged", "ELITE"]
 	},
 	"enemy_10039_cnvber_2": {
 		"id": "CNV18",
@@ -48255,15 +48307,17 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["all", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
-		"type": ["all", "ELITE"]
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["ranged", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
+		"type": ["ranged", "ELITE"]
 	},
 	"enemy_10040_cnvbln": {
 		"id": "CNV19",
@@ -48289,14 +48343,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["no_attack", null],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["no_attack", null],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["no_attack", "NORMAL"]
 	},
 	"enemy_10040_cnvbln_2": {
@@ -48323,14 +48379,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["no_attack", null],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["no_attack", null],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["no_attack", "NORMAL"]
 	},
 	"enemy_10042_prtrop": {
@@ -48357,14 +48415,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["melee", "NORMAL"]
 	},
 	"enemy_10042_prtrop_2": {
@@ -48391,14 +48451,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["melee", "NORMAL"]
 	},
 	"enemy_10043_sailor": {
@@ -48425,14 +48487,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["melee", "NORMAL"]
 	},
 	"enemy_10043_sailor_2": {
@@ -48459,14 +48523,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["melee", "NORMAL"]
 	},
 	"enemy_10044_wintun": {
@@ -48493,14 +48559,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["melee", "NORMAL"]
 	},
 	"enemy_10044_wintun_2": {
@@ -48527,14 +48595,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["melee", "NORMAL"]
 	},
 	"enemy_10045_parrot": {
@@ -48561,14 +48631,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["no_attack", null],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["no_attack", null],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["no_attack", "NORMAL"]
 	},
 	"enemy_10045_parrot_2": {
@@ -48595,14 +48667,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["no_attack", null],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["no_attack", null],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["no_attack", "NORMAL"]
 	},
 	"enemy_10046_pshark": {
@@ -48629,14 +48703,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["melee", "ELITE"]
 	},
 	"enemy_10046_pshark_2": {
@@ -48663,14 +48739,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["melee", "ELITE"]
 	},
 	"enemy_10047_shrknt": {
@@ -48697,14 +48775,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["ranged", "arts"],
-				"hits": 1
-			},
-			"status_immune": ["silence"]
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["ranged", "arts"],
+					"hits": 1
+				},
+				"status_immune": ["silence"]
+			}
+		],
 		"type": ["ranged", "ELITE"]
 	},
 	"enemy_10047_shrknt_2": {
@@ -48731,14 +48811,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["ranged", "arts"],
-				"hits": 1
-			},
-			"status_immune": ["silence"]
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["ranged", "arts"],
+					"hits": 1
+				},
+				"status_immune": ["silence"]
+			}
+		],
 		"type": ["ranged", "ELITE"]
 	},
 	"enemy_10048_prtsld": {
@@ -48765,14 +48847,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "phys"],
-				"hits": 1
-			},
-			"status_immune": ["silence"]
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": ["silence"]
+			}
+		],
 		"type": ["melee", "ELITE"]
 	},
 	"enemy_10048_prtsld_2": {
@@ -48799,14 +48883,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "phys"],
-				"hits": 1
-			},
-			"status_immune": ["silence"]
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": ["silence"]
+			}
+		],
 		"type": ["melee", "ELITE"]
 	},
 	"enemy_10049_pcaptn": {
@@ -48833,15 +48919,17 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["all", "phys"],
-				"hits": 1
-			},
-			"status_immune": ["silence"]
-		},
-		"type": ["all", "ELITE"]
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["ranged", "phys"],
+					"hits": 1
+				},
+				"status_immune": ["silence"]
+			}
+		],
+		"type": ["ranged", "ELITE"]
 	},
 	"enemy_10049_pcaptn_2": {
 		"id": "P16",
@@ -48867,15 +48955,17 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["all", "phys"],
-				"hits": 1
-			},
-			"status_immune": ["silence"]
-		},
-		"type": ["all", "ELITE"]
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["ranged", "phys"],
+					"hits": 1
+				},
+				"status_immune": ["silence"]
+			}
+		],
+		"type": ["ranged", "ELITE"]
 	},
 	"enemy_2093_skzams": {
 		"id": "SFF11",
@@ -48897,7 +48987,7 @@
 				"ms": 0.9,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [{ "key": "no_block" }, { "key": "skzams_1" }, { "key": "skzams_2" }],
 				"special": []
 			},
 			{
@@ -48912,18 +49002,20 @@
 				"ms": 0.9,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [{ "key": "no_block" }, { "key": "skzams_1" }, { "key": "skzams_2" }],
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["ranged", "arts"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["ranged", "arts"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["ranged", "BOSS"]
 	},
 	"enemy_1560_cnvlap": {
@@ -48965,15 +49057,17 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["all", "arts"],
-				"hits": 1
-			},
-			"status_immune": ["stun", "silence", "levitate", "tremble", "fear"]
-		},
-		"type": ["all", "BOSS"]
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["ranged", "arts"],
+					"hits": 1
+				},
+				"status_immune": ["stun", "silence", "levitate", "tremble", "fear"]
+			}
+		],
+		"type": ["ranged", "BOSS"]
 	},
 	"enemy_1561_crzjdg": {
 		"id": "AR",
@@ -49014,15 +49108,17 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["all", "phys"],
-				"hits": 1
-			},
-			"status_immune": ["silence", "sleep"]
-		},
-		"type": ["all", "BOSS"]
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["ranged", "phys"],
+					"hits": 1
+				},
+				"status_immune": ["silence", "sleep"]
+			}
+		],
+		"type": ["ranged", "BOSS"]
 	},
 	"enemy_2092_skzamy": {
 		"id": "AFF",
@@ -49044,18 +49140,38 @@
 				"ms": 0.35,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
-				"special": []
+				"traits": [
+					{ "key": "skzamy_mech_1" },
+					{ "key": "skzamy_mech_2" },
+					{ "key": "dmg_res" },
+					{ "key": "skzamy_0_1" },
+					{ "key": "skzamy_1_2" }
+				],
+				"special": [
+					[{ "key": "skzamy_1_0" }, { "key": "skzamy_1_1" }, { "key": "skzamy_1_3" }],
+					[{ "key": "skzamy_2_1" }, { "key": "skzamy_2_2" }, { "key": "skzamy_2_3" }]
+				],
+				"form_mods": [{}, {}]
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["ranged", "arts"],
-				"hits": 1
+		"forms": [
+			{
+				"title": "form",
+				"normal_attack": {
+					"atk_type": ["ranged", "arts"],
+					"hits": 1
+				},
+				"status_immune": ["stun", "silence", "sleep", "freeze", "levitate", "tremble", "fear"]
 			},
-			"status_immune": ["stun", "silence", "sleep", "freeze", "levitate", "tremble", "fear"]
-		},
+			{
+				"title": "form",
+				"normal_attack": {
+					"atk_type": ["ranged", "arts"],
+					"hits": 1
+				},
+				"status_immune": ["stun", "silence", "sleep", "freeze", "levitate", "tremble", "fear"]
+			}
+		],
 		"type": ["ranged", "BOSS"]
 	},
 	"enemy_2097_skzfdd": {
@@ -49078,19 +49194,31 @@
 				"ms": 0.35,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{
+						"key": "skzdd_1_1"
+					},
+					{
+						"key": "skzdd_1_2"
+					},
+					{
+						"key": "skzdd_1_3"
+					}
+				],
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["all", "phys"],
-				"hits": 1
-			},
-			"status_immune": ["stun", "silence", "sleep", "freeze", "levitate", "tremble"]
-		},
-		"type": ["all", "sarkaz", "BOSS"]
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": ["stun", "silence", "sleep", "freeze", "levitate", "tremble"]
+			}
+		],
+		"type": ["melee", "sarkaz", "BOSS"]
 	},
 	"enemy_2098_skzftx": {
 		"id": "TRS",
@@ -49112,18 +49240,28 @@
 				"ms": 0.35,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
-				"special": []
+				"traits": [{ "key": "dmg_res" }],
+				"special": [
+					[
+						{
+							"key": "skztxs_1_2",
+							"initCooldown": 5,
+							"cooldown": 20
+						}
+					]
+				]
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "phys"],
-				"hits": 1
-			},
-			"status_immune": ["stun", "silence", "sleep", "freeze", "levitate", "tremble"]
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": ["stun", "silence", "sleep", "freeze", "levitate", "tremble"]
+			}
+		],
 		"type": ["melee", "sarkaz", "BOSS"]
 	},
 	"enemy_2099_skzfkl": {
@@ -49146,18 +49284,22 @@
 				"ms": 0.35,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{ "key": "skzjkl_five", "atk": { "multiplier": 0.9 }, "initCooldown": 15, "cooldown": 30 }
+				],
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "phys"],
-				"hits": 1
-			},
-			"status_immune": ["stun", "silence", "sleep", "freeze", "levitate", "tremble"]
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": ["stun", "silence", "sleep", "freeze", "levitate", "tremble"]
+			}
+		],
 		"type": ["melee", "sarkaz", "BOSS"]
 	},
 	"enemy_2100_skzfmf": {
@@ -49180,18 +49322,30 @@
 				"ms": 0.5,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{
+						"key": "manfred_military_training"
+					},
+					{
+						"key": "manfred_focus"
+					},
+					{
+						"key": "skzfmf_1"
+					}
+				],
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["ranged", "phys"],
-				"hits": 1
-			},
-			"status_immune": ["silence", "sleep"]
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["raw"],
+					"hits": 1
+				},
+				"status_immune": ["silence", "sleep"]
+			}
+		],
 		"type": ["ranged", "sarkaz", "BOSS"]
 	},
 	"enemy_6028_cosgia": {
@@ -49218,14 +49372,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["melee", "originiumartscraft", "BOSS"]
 	},
 	"enemy_9001_ayokai": {
@@ -49252,14 +49408,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["ranged", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["ranged", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["ranged", "drone", "flying", "ELITE"]
 	},
 	"enemy_9002_adsham": {
@@ -49286,14 +49444,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["ranged", "arts"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["ranged", "arts"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["ranged", "sarkaz", "ELITE"]
 	},
 	"enemy_9003_askate": {
@@ -49320,14 +49480,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["melee", "ELITE"]
 	},
 	"enemy_9004_anlock": {
@@ -49354,14 +49516,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["melee", "ELITE"]
 	},
 	"enemy_9005_aicemn": {
@@ -49388,14 +49552,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["ranged", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["ranged", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["ranged", "ELITE"]
 	},
 	"enemy_5501_arcbank": {
@@ -49422,14 +49588,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["melee", "ELITE"]
 	},
 	"enemy_5502_arcthf": {
@@ -49456,14 +49624,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["no_attack", null],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["no_attack", null],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["no_attack", "ELITE"]
 	},
 	"enemy_5503_arcslma": {
@@ -49490,14 +49660,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["melee", "ELITE"]
 	},
 	"enemy_5504_arcslmi": {
@@ -49524,14 +49696,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["melee", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["melee", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["melee", "NORMAL"]
 	},
 	"enemy_5505_arctxi": {
@@ -49558,14 +49732,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["none", "phys"],
-				"hits": 1
-			},
-			"status_immune": []
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["none", "phys"],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
 		"type": ["none", "machine", "NORMAL"]
 	},
 	"enemy_5506_arcgo": {
@@ -49592,14 +49768,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["no_attack", null],
-				"hits": 1
-			},
-			"status_immune": ["stun", "silence", "sleep", "freeze", "levitate", "tremble", "fear"]
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["no_attack", null],
+					"hits": 1
+				},
+				"status_immune": ["stun", "silence", "sleep", "freeze", "levitate", "tremble", "fear"]
+			}
+		],
 		"type": ["no_attack", "machine", "NORMAL"]
 	},
 	"enemy_5507_arctolm": {
@@ -49626,14 +49804,16 @@
 				"special": []
 			}
 		],
-		"forms": {
-			"title": null,
-			"normal_attack": {
-				"atk_type": ["no_attack", null],
-				"hits": 1
-			},
-			"status_immune": ["stun", "silence", "sleep", "freeze", "levitate", "tremble", "fear"]
-		},
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["no_attack", null],
+					"hits": 1
+				},
+				"status_immune": ["stun", "silence", "sleep", "freeze", "levitate", "tremble", "fear"]
+			}
+		],
 		"type": ["no_attack", "NORMAL"]
 	}
 }

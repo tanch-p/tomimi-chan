@@ -3,7 +3,7 @@
 	import { selectedFloor } from './stores.js';
 	import translations from '$lib/translations.json';
 	export let language: Language;
-	let floors = new Array(6);
+	let floors = new Array(7);
 </script>
 
 <div class="w-[70%] mx-auto py-3 mt-4">
