@@ -37,13 +37,18 @@
 		if (option) {
 			eliteMods.set(mapEliteMods);
 			normalMods.set(null);
-			if (
-				rogueTopic === 'rogue_skz' &&
-				ro4_SP7_BOSS_STAGES.includes(stageId) &&
-				!$selectedRelics.find((item) => item.id === 'rogue_4_relic_final_6')
-			) {
-				const relic = skzRelics.find((item) => item.id === 'rogue_4_relic_final_6');
-				selectedRelics.update((list) => (list = [...list, relic]));
+			if (rogueTopic === 'rogue_skz') {
+				let relicId = '';
+				if (ro4_SP7_BOSS_STAGES.includes(stageId)) {
+					relicId = 'rogue_4_relic_final_6';
+				}
+				if (stageId === 'level_rogue4_b-8') {
+					relicId = 'rogue_4_relic_final_10';
+				}
+				if (!$selectedRelics.find((item) => item.id === relicId)) {
+					const relic = skzRelics.find((item) => item.id === relicId);
+					selectedRelics.update((list) => (list = [...list, relic]));
+				}
 			}
 		} else {
 			eliteMods.set(null);
@@ -51,6 +56,16 @@
 		}
 	};
 	$: [combatOpsColor, eliteOpsColor] = getEliteColors(rogueTopic);
+
+	function getEliteIcon(stageId) {
+		if (ro4_SP7_BOSS_STAGES.includes(stageId)) {
+			return relicLookup['rogue_4_relic_final_6'];
+		}
+		if (stageId === 'level_rogue4_b-8') {
+			return relicLookup['rogue_4_relic_final_10'];
+		}
+		return emergency_icon;
+	}
 </script>
 
 <MediaQuery>
@@ -88,7 +103,7 @@
 					class=""
 				/>
 			{/if}
-			{#if stageId === "level_rogue4_b-8"}
+			{#if stageId === 'level_rogue4_b-8'}
 				<img
 					src={relicLookup['rogue_4_relic_final_10']}
 					width="50px"
@@ -117,11 +132,7 @@
 		on:click={() => updateEliteMods(!$eliteMode)}
 	>
 		<img
-			src={$eliteMode
-				? ro4_SP7_BOSS_STAGES.includes(stageId)
-					? relicLookup['rogue_4_relic_final_6']
-					: emergency_icon
-				: combat_icon}
+			src={$eliteMode ? getEliteIcon(stageId) : combat_icon}
 			width="40px"
 			decoding="async"
 			loading="lazy"
