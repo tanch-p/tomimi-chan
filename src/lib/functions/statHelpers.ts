@@ -142,8 +142,16 @@ export function parseStats(
 	modsList.push(consolidatedModsToAdd);
 	const initialMods = modsList.reduce((acc, curr) => {
 		for (const statKey in curr) {
-			if (statKey.includes('fixed') || statKey === 'dmg_reduction' || statKey === 'atk_interval') {
+			if (statKey.includes('fixed') || statKey === 'atk_interval') {
 				acc[statKey] += curr[statKey];
+			} else if (statKey === 'dmg_reduction') {
+				if (acc[statKey] === 0) {
+					acc[statKey] += curr[statKey];
+				} else {
+					acc[statKey] = Math.round(
+						(1 - ((100 - acc[statKey]) / 100) * ((100 - curr[statKey]) / 100)) * 100
+					);
+				}
 			} else {
 				acc[statKey] *= curr[statKey];
 			}
@@ -157,8 +165,16 @@ export function parseStats(
 	}
 	const finalMods = modsList.reduce((acc, curr) => {
 		for (const statKey in curr) {
-			if (statKey.includes('fixed') || statKey === 'dmg_reduction' || statKey === 'atk_interval') {
+			if (statKey.includes('fixed') || statKey === 'atk_interval') {
 				acc[statKey] += curr[statKey];
+			} else if (statKey === 'dmg_reduction') {
+				if (acc[statKey] === 0) {
+					acc[statKey] += curr[statKey];
+				} else {
+					acc[statKey] = Math.round(
+						(1 - ((100 - acc[statKey]) / 100) * ((100 - curr[statKey]) / 100)) * 100
+					);
+				}
 			} else {
 				acc[statKey] *= curr[statKey];
 			}
@@ -214,12 +230,16 @@ export const distillMods = (enemy: Enemy, stageId: string, mod: ModGroup, row: n
 				for (const statKey in effect.mods) {
 					if (!mods[statKey]) {
 						mods[statKey] = effect.mods[statKey];
-					} else if (
-						statKey.includes('fixed') ||
-						statKey === 'dmg_reduction' ||
-						statKey === 'atk_interval'
-					) {
+					} else if (statKey.includes('fixed') || statKey === 'atk_interval') {
 						mods[statKey] += effect.mods[statKey];
+					} else if (statKey === 'dmg_reduction') {
+						if (mods[statKey] === 0 || operation === 'add') {
+							mods[statKey] += effect.mods[statKey];
+						} else {
+							mods[statKey] = Math.round(
+								(1 - ((100 - mods[statKey]) / 100) * ((100 - effect.mods[statKey]) / 100)) * 100
+							);
+						}
 					} else if (
 						(['enemy_1126_spslme', 'enemy_1126_spslme_2'].includes(enemy.key) &&
 							['floor_diff', 'relic'].includes(key) &&
