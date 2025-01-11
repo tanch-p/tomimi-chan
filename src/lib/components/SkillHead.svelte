@@ -8,7 +8,7 @@
 		language: Language,
 		mode = 'table',
 		statusImmuneList: StatusImmune[] = [];
-	const skillType = skill.skillType || 'COOLDOWN';
+	$: skillType = skill.skillType || 'COOLDOWN';
 </script>
 
 <div class="flex flex-wrap items-center mb-0.5">
