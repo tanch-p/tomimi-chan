@@ -196,9 +196,16 @@
 				{/each}
 			</tr>
 			<tr>
-				<th colspan="2" class="empty">?</th>
+				<th colspan="2" rowspan="2" class="empty">?</th>
 				{#each floor4b as stageName}
 					<td colspan={Math.floor(24 / floor4b.length)}>
+						<StageNavButton {stageName} {language} />
+					</td>
+				{/each}
+			</tr>
+			<tr>
+				{#each floorUnknown as stageName}
+					<td colspan={Math.floor(24 / floorUnknown.length)}>
 						<StageNavButton {stageName} {language} />
 					</td>
 				{/each}
@@ -272,7 +279,7 @@
 				</th>
 			</tr>
 			<tr>
-				<td colspan="2" rowspan="7"> ? </td>
+				<td colspan="2" rowspan="6"> ? </td>
 				{#each du as stageName}
 					<td colspan={Math.floor(24 / du.length)}>
 						<StageNavButton {stageName} {language} />
@@ -282,13 +289,6 @@
 			<tr>
 				{#each sp as stageName}
 					<td colspan={Math.floor(24 / sp.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
-			<tr>
-				{#each floorUnknown as stageName}
-					<td colspan={Math.floor(24 / floorUnknown.length)}>
 						<StageNavButton {stageName} {language} />
 					</td>
 				{/each}

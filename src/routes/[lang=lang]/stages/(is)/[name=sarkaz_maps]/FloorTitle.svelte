@@ -11,6 +11,7 @@
 	import roman_4 from '$lib/images/is/sarkaz/icon_zone_4.webp';
 	import roman_5 from '$lib/images/is/sarkaz/icon_zone_5.webp';
 	import roman_6 from '$lib/images/is/sarkaz/icon_zone_6.webp';
+	import omega from '$lib/images/is/sarkaz/icon_zone_7.webp';
 	import disaster_1 from '$lib/images/is/sarkaz/rogue_4_disaster_1.webp';
 	import disaster_2 from '$lib/images/is/sarkaz/rogue_4_disaster_2.webp';
 	import disaster_5 from '$lib/images/is/sarkaz/rogue_4_disaster_5.webp';
@@ -22,7 +23,7 @@
 		roman_4: roman_4,
 		roman_5: roman_5,
 		roman_6: roman_6,
-		roman_7: roman_6,
+		roman_7: omega,
 		rogue_4_disaster_1: disaster_1,
 		rogue_4_disaster_2: disaster_2,
 		rogue_4_disaster_5: disaster_5
