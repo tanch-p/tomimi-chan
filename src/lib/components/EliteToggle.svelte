@@ -45,9 +45,11 @@
 				if (stageId === 'level_rogue4_b-8') {
 					relicId = 'rogue_4_relic_final_10';
 				}
-				if (!$selectedRelics.find((item) => item.id === relicId)) {
-					const relic = skzRelics.find((item) => item.id === relicId);
-					selectedRelics.update((list) => (list = [...list, relic]));
+				if (relicId) {
+					if (!$selectedRelics.find((item) => item.id === relicId)) {
+						const relic = skzRelics.find((item) => item.id === relicId);
+						selectedRelics.update((list) => (list = [...list, relic]));
+					}
 				}
 			}
 		} else {
