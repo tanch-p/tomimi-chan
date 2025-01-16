@@ -6,7 +6,6 @@
 	import lumen from '$lib/images/is/lumen.webp';
 	import chest from '$lib/images/is/mizuki/chest.webp';
 	import translations from '$lib/translations.json';
-	import VideoPlayer from './VideoPlayer.svelte';
 
 	export let routes: [], rogueTopic: RogueTopic | null, language: Language;
 
@@ -65,23 +64,5 @@
 				{/each}
 			</ul>
 		{/if}
-		{#each routes as route, index}
-			{#if selected === index}
-				{#if route.type === 'img'}
-					<img
-						srcset="https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_400/v1680366257/tomimi.dev/{folder}/{route.title}/{route.src}.webp 400w, 
-					https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_640/v1680366257/tomimi.dev/{folder}/{route.title}/{route.src}.webp 600w"
-						sizes="(max-width: 480px) 400px, 600px"
-						src="https://res.cloudinary.com/dbqz7mebk/image/upload/c_fit,w_640/v1680366257/tomimi.dev/{folder}/{route.title}/{route.src}.webp"
-						alt={route.title}
-						loading="lazy"
-						decoding="async"
-						class="aspect-[1062/600] w-screen max-h-max sm:aspect-auto sm:w-[40rem] sm:h-[360px]"
-					/>
-				{:else}
-					<VideoPlayer {route} {language} />
-				{/if}
-			{/if}
-		{/each}
 	</div>
 {/if}
