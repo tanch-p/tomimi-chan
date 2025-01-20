@@ -3,12 +3,24 @@
 	import translations from '$lib/translations.json';
 	import TogglePanel from './TogglePanel.svelte';
 	import EliteToggle from './EliteToggle.svelte';
-	import { relicLookup } from '$lib/data/relic_lookup';
+	import { relicLookup } from "$lib/data/is/relic_lookup";
 	import byokai from '$lib/images/enemy_icons/icon_enemy_1106_byokai.webp';
 	import DLDGPN from '$lib/images/is/DLDGPN.webp';
-	import { arrayCompare, getTimelineFile } from '$lib/functions/lib';
+	// import { arrayCompare, getTimelineFile } from '$lib/functions/lib';
+	import DLD from '$lib/images/enemy_icons/icon_enemy_2001_duckmi.webp';
+	import GPN from '$lib/images/enemy_icons/icon_enemy_2002_bearmi.webp';
+	import THF from '$lib/images/enemy_icons/icon_enemy_2034_sythef.webp';
+	import FAT from '$lib/images/enemy_icons/icon_enemy_2085_skzjxd.webp';
+	import sami_smbox from '$lib/images/is/sami/sktok_smbox.webp';
+	import sami_smrbox from '$lib/images/is/sami/sktok_smrbox.webp';
+	import sami_smbbox from '$lib/images/is/sami/sktok_smbbox.webp';
+	import skzbox from '$lib/images/is/sarkaz/skzbox.webp';
+	import skzmbx from '$lib/images/is/sarkaz/skzmbx.webp';
+	import skzwyx from '$lib/images/is/sarkaz/skzwyx.webp';
+	import SpEnemy from '$lib/components/SpEnemy.svelte';
+	import { getWaveData } from '$lib/functions/waveHelpers';
 
-	export let language: Language, mapConfig, eliteMods, rogueTopic, enemies;
+	export let language: Language, mapConfig, rogueTopic, eliteMods;
 	let options = [
 		{ key: 'bossrelic', src: relicLookup['rogue_3_relic_boss_2b'], selected: false },
 		{ key: 'totem1', src: byokai, selected: false }
@@ -17,7 +29,7 @@
 	let selectedCountIndex = 0;
 	let selectedPatternIndex = 0;
 
-	$: promise = getTimelineFile(rogueTopic, mapConfig.levelId);
+	$: promise = getWaveData(rogueTopic, mapConfig.levelId);
 
 	const getTimelineOption = (options = [], eliteMods, timeline) => {
 		let baseTag = 'NORMAL';
@@ -31,17 +43,16 @@
 		});
 		return timeline[tagKey];
 	};
-    const getBonusChance = (data) => {
-        
-    }
+	const getBonusChance = (data) => {};
 </script>
 
 {#await promise}
 	Loading ...
-{:then timeline}
-	{#if timeline && Object.keys(timeline).length > 0}
-		{@const a = console.log(timeline)}
-		{@const data = getTimelineOption(options, $eliteMods, timeline)}
+{:then waveData}
+
+	{#if waveData && Object.keys(waveData).length > 0}
+		{@const a = console.log(waveData)}
+		{@const data = getTimelineOption(options, $eliteMods, waveData)}
 		{@const counts = data
 			.reduce((acc, curr) => {
 				if (!acc.includes(curr.count)) {
@@ -73,7 +84,7 @@
 				</div>
 				<p class="title">{translations[language].max_permutations}</p>
 				<p class="flex justify-center items-center text-center text-xl truncate">
-					{timeline?.permutations?.max_permutations}
+					{waveData?.permutations?.max_permutations}
 				</p>
 				<p class="title">
 					<span>{translations[language].table_headers.enemy}</span><span
