@@ -1,6 +1,6 @@
 import adapter from '@sveltejs/adapter-cloudflare';
 import { vitePreprocess } from '@sveltejs/kit/vite';
-import { pagesToRender } from './src/lib/pagesList.js';
+import { pagesToRender } from './src/lib/pagesList.ts';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {

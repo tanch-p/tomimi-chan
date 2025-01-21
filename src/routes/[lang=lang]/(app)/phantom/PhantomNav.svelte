@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import StageNavButton from './StageNavButton.svelte';
 	import combat_ops from '$lib/images/is/phantom/combat_ops.webp';
 	import boss from '$lib/images/is/phantom/boss.webp';
@@ -6,7 +7,7 @@
 	import translations from '$lib/translations.json';
 	import romanNumerals from '$lib/roman_numerals.json';
 
-	export let language: string;
+	export let language: Language;
 
 	let allNormalStages = [
 		['与虫为伴', '驯兽小屋', '礼炮小队', '意外', '死斗'],

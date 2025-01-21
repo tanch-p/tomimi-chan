@@ -7,6 +7,6 @@ export const getWaveData = (rogueTopic, levelId) => {
 			: rogueTopic === 'rogue_mzk'
 			? 'ro2'
 			: 'ro1';
-	const promise = fetch(`/wave_data/${folder}/${levelId}.json`)
+	const promise = fetch(`/wave_data/${folder}/${levelId}.json`).then(res => res.json())
 	return promise;
 };

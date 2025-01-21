@@ -1,0 +1,5780 @@
+{
+    "id": "ro1_e_3_6",
+    "levelId": "level_rogue1_3-6",
+    "tags": [
+        "rogue_phantom"
+    ],
+    "category": "combat_ops",
+    "characterLimit": 6,
+    "initialCost": 7,
+    "costIncreaseTime": 1.0,
+    "code": "ISW-NO",
+    "name_zh": "首演",
+    "name_ja": "初演",
+    "name_en": "Premiere",
+    "description_zh": "有些观众是第一次观赏剧团的演出，在舞者曼妙身姿的煽惑下，许多人都变得冲动而易怒，他们容不下半点对舞者的批评。",
+    "description_ja": "この劇団の舞台を初めて鑑賞する観客も少なくないが、踊り子が美しく艶めかしい姿態で観衆を煽ると、誰もが興奮し、逆上する。彼らは踊り子への批評を許さない。",
+    "description_en": "This is the first time some members of the audience are watching a performance of the troupe. The dancers' alluring postures have made many of them impetuous and easily angered. They will not tolerate even a single word of criticism against the dancers.",
+    "addInfo_zh": null,
+    "addInfo_ja": null,
+    "addInfo_en": null,
+    "eliteDesc_zh": [
+        "所有敌方单位的攻击力，生命值+15%",
+        "绯红歌伶的防御力+50%"
+    ],
+    "eliteDesc_ja": [
+        "敵全員の攻撃力、最大HP+15%",
+        "&lt;緋色の歌姫&gt;の防御力+50%"
+    ],
+    "eliteDesc_en": [
+        "All enemy units have +15% ATK, and +15% Max HP",
+        "All &lt;Scarlet Singer&gt; have +50% DEF"
+    ],
+    "n_mods": null,
+    "elite_mods": [
+        {
+            "targets": [
+                "ALL"
+            ],
+            "mods": {
+                "atk": 1.15,
+                "hp": 1.15
+            }
+        },
+        {
+            "targets": [
+                "CS2"
+            ],
+            "mods": {
+                "def": 1.5
+            }
+        }
+    ],
+    "routes": [
+        {
+            "motionMode": "E_NUM",
+            "startPosition": {
+                "row": 0,
+                "col": 0
+            },
+            "endPosition": {
+                "row": 0,
+                "col": 0
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": null,
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 3
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 3
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 1
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 4,
+                        "col": 1
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_CURRENT_FRAGMENT_TIME",
+                    "time": 20.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 3,
+                        "col": 1
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 3,
+                        "col": 2
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_FOR_SECONDS",
+                    "time": 4.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 3,
+                        "col": 1
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_FOR_SECONDS",
+                    "time": 4.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 3,
+                        "col": 3
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_FOR_SECONDS",
+                    "time": 4.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 3,
+                        "col": 1
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 2,
+                        "col": 1
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_FOR_SECONDS",
+                    "time": 4.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 1,
+                        "col": 1
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 1,
+                        "col": 7
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 2,
+                        "col": 7
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 2,
+                        "col": 9
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 3
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 3
+                    },
+                    "reachOffset": {
+                        "x": -0.44,
+                        "y": -0.03
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_CURRENT_FRAGMENT_TIME",
+                    "time": 65.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 3
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 3
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_CURRENT_FRAGMENT_TIME",
+                    "time": 65.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 3
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 3
+                    },
+                    "reachOffset": {
+                        "x": 0.35,
+                        "y": -0.03
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_CURRENT_FRAGMENT_TIME",
+                    "time": 65.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 3
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 4
+                    },
+                    "reachOffset": {
+                        "x": -0.32,
+                        "y": -0.04
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_CURRENT_FRAGMENT_TIME",
+                    "time": 65.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 5
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 4
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_CURRENT_FRAGMENT_TIME",
+                    "time": 65.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 5
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 4
+                    },
+                    "reachOffset": {
+                        "x": 0.29,
+                        "y": -0.02
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_CURRENT_FRAGMENT_TIME",
+                    "time": 64.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 5
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 5
+                    },
+                    "reachOffset": {
+                        "x": -0.34,
+                        "y": -0.05
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_CURRENT_FRAGMENT_TIME",
+                    "time": 60.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 5
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 5
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_CURRENT_FRAGMENT_TIME",
+                    "time": 60.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 5
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 5
+                    },
+                    "reachOffset": {
+                        "x": 0.26,
+                        "y": -0.05
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_CURRENT_FRAGMENT_TIME",
+                    "time": 60.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 0,
+                "col": 3
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 1,
+                        "col": 3
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_CURRENT_FRAGMENT_TIME",
+                    "time": 35.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 0,
+                "col": 5
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 1,
+                        "col": 5
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_CURRENT_FRAGMENT_TIME",
+                    "time": 20.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 5
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 5
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 7
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 4,
+                        "col": 7
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_FOR_SECONDS",
+                    "time": 15.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 3,
+                        "col": 7
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 3,
+                        "col": 6
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_FOR_SECONDS",
+                    "time": 6.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 3,
+                        "col": 7
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_FOR_SECONDS",
+                    "time": 6.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 3,
+                        "col": 5
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_FOR_SECONDS",
+                    "time": 6.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 3,
+                        "col": 7
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 2,
+                        "col": 7
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_FOR_SECONDS",
+                    "time": 30.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 2,
+                        "col": 9
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 3
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 3
+                    },
+                    "reachOffset": {
+                        "x": -0.44,
+                        "y": -0.03
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_CURRENT_FRAGMENT_TIME",
+                    "time": 75.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 3
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 3
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_CURRENT_FRAGMENT_TIME",
+                    "time": 75.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 3
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 3
+                    },
+                    "reachOffset": {
+                        "x": 0.35,
+                        "y": -0.03
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_CURRENT_FRAGMENT_TIME",
+                    "time": 75.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 3
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 4
+                    },
+                    "reachOffset": {
+                        "x": -0.32,
+                        "y": -0.04
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_CURRENT_FRAGMENT_TIME",
+                    "time": 70.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 5
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 4
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_CURRENT_FRAGMENT_TIME",
+                    "time": 70.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 5
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 4
+                    },
+                    "reachOffset": {
+                        "x": 0.29,
+                        "y": -0.02
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_CURRENT_FRAGMENT_TIME",
+                    "time": 65.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 5
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 5
+                    },
+                    "reachOffset": {
+                        "x": -0.34,
+                        "y": -0.05
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_CURRENT_FRAGMENT_TIME",
+                    "time": 65.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 5
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 5
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_CURRENT_FRAGMENT_TIME",
+                    "time": 65.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 5
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 6
+                    },
+                    "reachOffset": {
+                        "x": -0.03,
+                        "y": -0.07
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_FOR_SECONDS",
+                    "time": 1.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 6
+                    },
+                    "reachOffset": {
+                        "x": -0.23,
+                        "y": -0.08
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_FOR_SECONDS",
+                    "time": 1.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 6
+                    },
+                    "reachOffset": {
+                        "x": -0.38,
+                        "y": -0.12
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_FOR_SECONDS",
+                    "time": 1.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 5
+                    },
+                    "reachOffset": {
+                        "x": 0.49,
+                        "y": -0.12
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_FOR_SECONDS",
+                    "time": 1.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_CURRENT_FRAGMENT_TIME",
+                    "time": 60.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 0,
+                "col": 5
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 1,
+                        "col": 5
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_FOR_SECONDS",
+                    "time": 3.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 0,
+                "col": 3
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 1,
+                        "col": 3
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_FOR_SECONDS",
+                    "time": 10.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 5
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 5
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 7
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 3,
+                        "col": 7
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 3,
+                        "col": 6
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_FOR_SECONDS",
+                    "time": 5.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 3,
+                        "col": 7
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 1,
+                        "col": 7
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 1,
+                        "col": 1
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 1
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 7
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 2,
+                        "col": 7
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 2,
+                        "col": 10
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 10
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 9
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 3
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 3
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 1
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 3,
+                        "col": 1
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 3,
+                        "col": 3
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "WAIT_FOR_SECONDS",
+                    "time": 8.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 3,
+                        "col": 1
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 1,
+                        "col": 1
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 1,
+                        "col": 7
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 2,
+                        "col": 7
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 2,
+                        "col": 10
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 10
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 9
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        }
+    ],
+    "floors": [
+        3
+    ],
+    "sp_terrain": null,
+    "sp_enemy": {
+        "normal": 32,
+        "elite": null,
+        "fixed": true
+    },
+    "n_count": [
+        31
+    ],
+    "e_count": null,
+    "traps": [],
+    "enemies": [
+        {
+            "id": "enemy_1002_nsabr",
+            "prefabKey": "enemy_1002_nsabr",
+            "level": 0,
+            "min_count": 7,
+            "max_count": 9,
+            "elite_min_count": 7,
+            "elite_max_count": 9,
+            "overwrittenData": null
+        },
+        {
+            "id": "enemy_1032_katar",
+            "prefabKey": "enemy_1032_katar",
+            "level": 0,
+            "min_count": 10,
+            "max_count": 10,
+            "elite_min_count": 10,
+            "elite_max_count": 10,
+            "overwrittenData": null
+        },
+        {
+            "id": "enemy_1030_wteeth",
+            "prefabKey": "enemy_1030_wteeth",
+            "level": 0,
+            "min_count": 6,
+            "max_count": 11,
+            "elite_min_count": 6,
+            "elite_max_count": 11,
+            "overwrittenData": null
+        },
+        {
+            "id": "enemy_2001_duckmi",
+            "prefabKey": "enemy_2001_duckmi",
+            "level": 0,
+            "min_count": 0,
+            "max_count": 1,
+            "elite_min_count": 0,
+            "elite_max_count": 1,
+            "overwrittenData": null
+        },
+        {
+            "id": "enemy_2002_bearmi",
+            "prefabKey": "enemy_2002_bearmi",
+            "level": 0,
+            "min_count": 0,
+            "max_count": 1,
+            "elite_min_count": 0,
+            "elite_max_count": 1,
+            "overwrittenData": null
+        },
+        {
+            "id": "enemy_2009_csaudc",
+            "prefabKey": "enemy_2009_csaudc",
+            "level": 0,
+            "min_count": 1,
+            "max_count": 4,
+            "elite_min_count": 1,
+            "elite_max_count": 4,
+            "overwrittenData": null
+        },
+        {
+            "id": "enemy_2010_csdcr",
+            "prefabKey": "enemy_2010_csdcr",
+            "level": 0,
+            "min_count": 2,
+            "max_count": 2,
+            "elite_min_count": 2,
+            "elite_max_count": 2,
+            "overwrittenData": null
+        }
+    ],
+    "mapData": {
+        "map": [
+            [
+                72,
+                73,
+                74,
+                75,
+                76,
+                77,
+                78,
+                79,
+                80,
+                81,
+                82,
+                83
+            ],
+            [
+                60,
+                61,
+                62,
+                63,
+                64,
+                65,
+                66,
+                67,
+                68,
+                69,
+                70,
+                71
+            ],
+            [
+                48,
+                49,
+                50,
+                51,
+                52,
+                53,
+                54,
+                55,
+                56,
+                57,
+                58,
+                59
+            ],
+            [
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                47
+            ],
+            [
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34,
+                35
+            ],
+            [
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23
+            ],
+            [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11
+            ]
+        ],
+        "tiles": [
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_start",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_start",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_road",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_road",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_floor",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_floor",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_floor",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_road",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_road",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_wall",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_wall",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_floor",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_wall",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_wall",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_wall",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_floor",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_road",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_road",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_road",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_floor",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_floor",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_road",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_fence",
+                0,
+                1,
+                null
+            ],
+            [
+                "tile_road",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_floor",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_floor",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_wall",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_wall",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_road",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_floor",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_wall",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_wall",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_wall",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_floor",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_wall",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_wall",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_road",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_road",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_floor",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_floor",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_floor",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_floor",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_floor",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_road",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_wall",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_road",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_road",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_start",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_start",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_end",
+                0,
+                0,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ],
+            [
+                "tile_forbidden",
+                1,
+                1,
+                null
+            ]
+        ]
+    },
+    "NORMAL": {
+        "groupKey": null,
+        "max_permutations": 64,
+        "permutations": [
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            }
+        ]
+    },
+    "ELITE": {
+        "groupKey": null,
+        "max_permutations": 64,
+        "permutations": [
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 0,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 0
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 0,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 0,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 0,
+                        "s5": 1
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 0
+                    }
+                }
+            },
+            {
+                "count": 31,
+                "permutation": {
+                    "w0f2": {
+                        "s2": 1,
+                        "s1": 1
+                    },
+                    "w0f4": {
+                        "g1": 1,
+                        "g3": 1,
+                        "s2": 1,
+                        "s5": 1
+                    }
+                }
+            }
+        ]
+    },
+    "waves": [
+        {
+            "preDelay": 0.0,
+            "postDelay": 0.0,
+            "maxTimeWaitingForNextWave": -1.0,
+            "fragments": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "ACTIVATE_PREDEFINED",
+                            "managedByScheduler": true,
+                            "key": "trap_051_vultres#1",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 0,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": "g1",
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 50,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "ACTIVATE_PREDEFINED",
+                            "managedByScheduler": true,
+                            "key": "trap_051_vultres#2",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 0,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": "g1",
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 50,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        }
+                    ]
+                },
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_2010_csdcr",
+                            "count": 1,
+                            "preDelay": 3.0,
+                            "interval": 1.0,
+                            "routeIndex": 1,
+                            "blockFragment": false,
+                            "autoPreviewRoute": true,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": null,
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 75,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        }
+                    ]
+                },
+                {
+                    "preDelay": 7.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1002_nsabr",
+                            "count": 1,
+                            "preDelay": 3.0,
+                            "interval": 1.0,
+                            "routeIndex": 2,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": "s2",
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 50,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1030_wteeth",
+                            "count": 1,
+                            "preDelay": 3.0,
+                            "interval": 1.0,
+                            "routeIndex": 2,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": "s2",
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 50,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1002_nsabr",
+                            "count": 1,
+                            "preDelay": 4.0,
+                            "interval": 1.0,
+                            "routeIndex": 3,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": null,
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 75,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1002_nsabr",
+                            "count": 1,
+                            "preDelay": 5.0,
+                            "interval": 1.0,
+                            "routeIndex": 4,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": "s1",
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 50,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1030_wteeth",
+                            "count": 1,
+                            "preDelay": 5.0,
+                            "interval": 1.0,
+                            "routeIndex": 4,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": "s1",
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 50,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1002_nsabr",
+                            "count": 1,
+                            "preDelay": 6.0,
+                            "interval": 1.0,
+                            "routeIndex": 5,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": null,
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 75,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1002_nsabr",
+                            "count": 1,
+                            "preDelay": 7.0,
+                            "interval": 1.0,
+                            "routeIndex": 6,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": null,
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 75,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1002_nsabr",
+                            "count": 1,
+                            "preDelay": 3.0,
+                            "interval": 1.0,
+                            "routeIndex": 7,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": null,
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 75,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1002_nsabr",
+                            "count": 1,
+                            "preDelay": 4.0,
+                            "interval": 1.0,
+                            "routeIndex": 8,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": null,
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 75,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1002_nsabr",
+                            "count": 1,
+                            "preDelay": 5.0,
+                            "interval": 1.0,
+                            "routeIndex": 9,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": null,
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 75,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1002_nsabr",
+                            "count": 1,
+                            "preDelay": 6.0,
+                            "interval": 1.0,
+                            "routeIndex": 10,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": null,
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 75,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1032_katar",
+                            "count": 1,
+                            "preDelay": 3.0,
+                            "interval": 1.0,
+                            "routeIndex": 11,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": null,
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 75,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1032_katar",
+                            "count": 1,
+                            "preDelay": 3.0,
+                            "interval": 1.0,
+                            "routeIndex": 12,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": null,
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 75,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        }
+                    ]
+                },
+                {
+                    "preDelay": 80.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_2010_csdcr",
+                            "count": 1,
+                            "preDelay": 3.0,
+                            "interval": 1.0,
+                            "routeIndex": 13,
+                            "blockFragment": false,
+                            "autoPreviewRoute": true,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": null,
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 50,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        }
+                    ]
+                },
+                {
+                    "preDelay": 3.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1030_wteeth",
+                            "count": 1,
+                            "preDelay": 3.0,
+                            "interval": 1.0,
+                            "routeIndex": 14,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": "g1",
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 50,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1030_wteeth",
+                            "count": 1,
+                            "preDelay": 3.0,
+                            "interval": 1.0,
+                            "routeIndex": 14,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": "g1",
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 50,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_2009_csaudc",
+                            "count": 1,
+                            "preDelay": 4.0,
+                            "interval": 1.0,
+                            "routeIndex": 15,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": null,
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 40,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_2009_csaudc",
+                            "count": 1,
+                            "preDelay": 5.0,
+                            "interval": 1.0,
+                            "routeIndex": 16,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": "g3",
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 50,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1030_wteeth",
+                            "count": 1,
+                            "preDelay": 5.0,
+                            "interval": 1.0,
+                            "routeIndex": 16,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": "g3",
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 50,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_2009_csaudc",
+                            "count": 1,
+                            "preDelay": 6.0,
+                            "interval": 1.0,
+                            "routeIndex": 17,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": "s2",
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 50,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1030_wteeth",
+                            "count": 1,
+                            "preDelay": 6.0,
+                            "interval": 1.0,
+                            "routeIndex": 17,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": "s2",
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 50,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_2009_csaudc",
+                            "count": 1,
+                            "preDelay": 7.0,
+                            "interval": 1.0,
+                            "routeIndex": 18,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": "s5",
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 50,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1030_wteeth",
+                            "count": 1,
+                            "preDelay": 7.0,
+                            "interval": 1.0,
+                            "routeIndex": 18,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": "s5",
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 50,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1030_wteeth",
+                            "count": 1,
+                            "preDelay": 3.0,
+                            "interval": 1.0,
+                            "routeIndex": 19,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": null,
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 75,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1030_wteeth",
+                            "count": 1,
+                            "preDelay": 4.0,
+                            "interval": 1.0,
+                            "routeIndex": 20,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": null,
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 75,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1030_wteeth",
+                            "count": 1,
+                            "preDelay": 5.0,
+                            "interval": 1.0,
+                            "routeIndex": 21,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": null,
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 75,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1030_wteeth",
+                            "count": 1,
+                            "preDelay": 6.0,
+                            "interval": 1.0,
+                            "routeIndex": 10,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": null,
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 75,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1030_wteeth",
+                            "count": 1,
+                            "preDelay": 7.0,
+                            "interval": 1.0,
+                            "routeIndex": 22,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": null,
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 75,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1032_katar",
+                            "count": 4,
+                            "preDelay": 3.0,
+                            "interval": 14.0,
+                            "routeIndex": 23,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": null,
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 50,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_1032_katar",
+                            "count": 4,
+                            "preDelay": 3.0,
+                            "interval": 14.0,
+                            "routeIndex": 24,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": null,
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 50,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        }
+                    ]
+                }
+            ],
+            "advancedWaveTag": null
+        },
+        {
+            "preDelay": 0.0,
+            "postDelay": 0.0,
+            "maxTimeWaitingForNextWave": -1.0,
+            "fragments": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_2001_duckmi",
+                            "count": 1,
+                            "preDelay": 5.0,
+                            "interval": 1.0,
+                            "routeIndex": 25,
+                            "blockFragment": false,
+                            "autoPreviewRoute": true,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": "g1",
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 5,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_2002_bearmi",
+                            "count": 1,
+                            "preDelay": 5.0,
+                            "interval": 1.0,
+                            "routeIndex": 26,
+                            "blockFragment": false,
+                            "autoPreviewRoute": true,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": "g1",
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 5,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 0,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": "g1",
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 90,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        }
+                    ]
+                }
+            ],
+            "advancedWaveTag": null
+        }
+    ],
+    "bonus": {
+        "type": "wave",
+        "data": {
+            "preDelay": 0.0,
+            "postDelay": 0.0,
+            "maxTimeWaitingForNextWave": -1.0,
+            "fragments": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_2001_duckmi",
+                            "count": 1,
+                            "preDelay": 5.0,
+                            "interval": 1.0,
+                            "routeIndex": 33,
+                            "blockFragment": false,
+                            "autoPreviewRoute": true,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": "g1",
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 5,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_2002_bearmi",
+                            "count": 1,
+                            "preDelay": 5.0,
+                            "interval": 1.0,
+                            "routeIndex": 34,
+                            "blockFragment": false,
+                            "autoPreviewRoute": true,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": "g1",
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 5,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 35,
+                            "blockFragment": false,
+                            "autoPreviewRoute": false,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": "g1",
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 90,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
+                        }
+                    ]
+                }
+            ],
+            "advancedWaveTag": null
+        },
+        "wave_index": 1,
+        "frag_index": -1
+    }
+}

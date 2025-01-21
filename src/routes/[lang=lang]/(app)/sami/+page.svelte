@@ -28,7 +28,7 @@
 			/>
 		</div>
 		<div class="space-y-6">
-			<TogglePanel title={translations[language].how_to_use}>
+			<TogglePanel title={translations[language].how_to_use} isOpen={true}>
 				<HowToUse {language} rogueTopic={'rogue_sami'} />
 			</TogglePanel>
 			<TogglePanel title={translations[language].stage_nav} isOpen={true} >

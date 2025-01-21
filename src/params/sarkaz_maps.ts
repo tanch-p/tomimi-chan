@@ -1,6 +1,6 @@
 import type { ParamMatcher } from '@sveltejs/kit';
-import findStage from '$lib/functions/findStage';
+import validateStage from '$lib/functions/validateStage';
 
 export const match = ((param) => {
-	return !!findStage(param, 'rogue_skz');
+	return !!validateStage(param, 'rogue_skz');
 }) satisfies ParamMatcher;
