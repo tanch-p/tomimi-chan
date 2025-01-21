@@ -29,12 +29,13 @@
 	import TrapContainer from '$lib/components/TrapContainer.svelte';
 	import { applyTrapMods } from '$lib/functions/trapHelpers';
 	import { setOtherBuffsList } from '$lib/functions/lib';
-	
+	import EnemyWaves from '$lib/components/EnemyWaves.svelte';
+
 	export let data: PageData;
-	
+
 	$: if (data.mapConfig) {
 		updateReqRelic(data.mapConfig.levelId, selectedRelics);
-		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies, data.mapConfig,language);
+		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies, data.mapConfig, language);
 		eliteMode.set(false);
 		normalMods.set(data.mapConfig.n_mods);
 	}
@@ -43,7 +44,12 @@
 	$: language = data.language;
 	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods, $specialMods);
 	$: moddedTraps = applyTrapMods(data.traps, $statMods, $specialMods);
-	$: modsCheck = compileStatModsForChecking(data.enemies, data.mapConfig.id, $statMods,$specialMods);
+	$: modsCheck = compileStatModsForChecking(
+		data.enemies,
+		data.mapConfig.id,
+		$statMods,
+		$specialMods
+	);
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 	const rogueTopic: RogueTopic = data.rogueTopic;
 
@@ -96,7 +102,21 @@
 			<StageDrops slot="drops" mapConfig={data.mapConfig} {language} {rogueTopic} {selectedFloor} />
 		</StageInfo>
 		<DifficultySelect {language} {difficulty} {rogueTopic} maxDiff={18} />
-		<TrapContainer {language} traps={moddedTraps} {otherBuffsList} specialMods={$specialMods}/>
+		<EnemyWaves mapConfig={data.mapConfig} {language} eliteMode={$eliteMode} {rogueTopic}>
+			<EliteToggle
+				slot="eliteMods"
+				inWaveOptions={true}
+				{eliteMode}
+				{normalMods}
+				mapNormalMods={data.mapConfig.n_mods}
+				mapEliteMods={data.mapConfig.elite_mods}
+				{eliteMods}
+				{rogueTopic}
+				{selectedRelics}
+				stageId={data.mapConfig.levelId}
+			/>
+		</EnemyWaves>
+		<TrapContainer {language} traps={moddedTraps} {otherBuffsList} specialMods={$specialMods} />
 		<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 		<EnemyCount
 			mapConfig={data.mapConfig}
@@ -105,18 +125,16 @@
 			{language}
 		/>
 		<div class="sm:px-6">
-			{#if data.mapConfig.elite_mods}
-				<EliteToggle
-					{eliteMode}
-					{normalMods}
-					mapNormalMods={data.mapConfig.n_mods}
-					mapEliteMods={data.mapConfig.elite_mods}
-					{eliteMods}
-					{rogueTopic}
-					{selectedRelics}
-					stageId={data.mapConfig.levelId}
-				/>
-			{/if}
+			<EliteToggle
+				{eliteMode}
+				{normalMods}
+				mapNormalMods={data.mapConfig.n_mods}
+				mapEliteMods={data.mapConfig.elite_mods}
+				{eliteMods}
+				{rogueTopic}
+				{selectedRelics}
+				stageId={data.mapConfig.levelId}
+			/>
 			<EnemyStatDisplay enemies={moddedEnemies} {language} {specialMods} {otherBuffsList} />
 			<div id="stageNav" class="mt-8 sm:mt-16 scroll-mt-20">
 				<NavTemp {language} />

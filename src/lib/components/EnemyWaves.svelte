@@ -1,96 +1,122 @@
 <script lang="ts">
 	import type { Language, RogueTopic } from '$lib/types';
 	import translations from '$lib/translations.json';
-	import SpEnemy from '$lib/components/SpEnemy.svelte';
-	import skz_calamity from '$lib/images/is/sarkaz/skz_calamity.webp';
-	import unknown from '$lib/images/is/skz_unknown.webp';
-	import { getStageImg } from '$lib/functions/lib';
 	import TogglePanel from './TogglePanel.svelte';
-	import WaveOptions from './WaveOptions.svelte';
-	export let mapConfig, rogueTopic: RogueTopic, language: Language, eliteMods;
+	import {
+		generateWaveTimeline,
+		getEnemyCountPermutations,
+		getOptions,
+		handleOptionsUpdate
+	} from '$lib/functions/waveHelpers';
+	import DraggableContainer from './DraggableContainer.svelte';
+	import DLDGPN from '$lib/images/is/DLDGPN.webp';
+	import StageSimulator from '$lib/components/StageSimulator/index.svelte';
 
-	const stagesWithMultipleImgs = ['level_rogue4_4-1'];
-	const stagesWithRNG = [
-		'level_rogue4_1-3',
-		'level_rogue4_2-1',
-		'level_rogue4_2-3',
-		'level_rogue4_2-4',
-		'level_rogue4_2-5',
-		'level_rogue4_3-3',
-		'level_rogue4_3-4',
-		'level_rogue4_3-6',
-		'level_rogue4_4-3',
-		'level_rogue4_4-6',
-		'level_rogue4_5-4',
-		'level_rogue4_t-1'
-	];
-	const stagesWithoutCalamity = ['level_rogue4_b-8', 'level_rogue4_b-9'];
-	const multipleImgLookup = {
-		'level_rogue4_4-1': [
-			{ key: 'a', img: '/images/stages/level_ro4_n_4_1_a.webp' },
-			{ key: 'b', img: '/images/stages/level_ro4_n_4_1_b.webp' }
-		]
-	};
+	export let mapConfig, rogueTopic: RogueTopic, language: Language, eliteMode: Boolean;
+
+	let hiddenGroups = [],
+		enemyCounts = [],
+		selectedCountIndex = 0,
+		selectedPermutationIdx = 0,
+		waveTimeline;
 	$: hasAnalysis = !mapConfig.id.includes('_duel_');
+	$: hasHiddenGroups = ['rogue_sami', 'rogue_skz'].includes(rogueTopic);
+	$: options = getOptions(rogueTopic, language);
+	$: permutations = getEnemyCountPermutations(mapConfig, hiddenGroups, eliteMode);
+	$: enemyCounts = permutations.reduce((acc, { count }) => {
+		if (!acc.includes(count)) {
+			acc.push(count);
+		}
+		return acc;
+	}, []);
+	$: permutationsToShow = permutations.reduce((acc, { count, permutation, bonus }) => {
+		if (count === enemyCounts[selectedCountIndex]) {
+			acc.push({ count, permutation, bonus: Boolean(bonus) });
+		}
+		return acc;
+	}, []);
 </script>
 
-<div class="sm:px-6">
-	<p class="px-2 sm:px-0 text-subheading mt-4">{translations[language].map}</p>
-	<hr class="border-gray-500 mt-1" />
-	<div class="max-w-[600px] w-full mx-auto px-3 sm:px-0 mt-3">
-		{#if stagesWithMultipleImgs.includes(mapConfig.levelId)}
-			<div
-				class="grid grid-flow-col auto-cols-fr font-bold text-lg text-near-white text-center select-none divide-x divide-gray-500 py-1"
-			>
-				{#each multipleImgLookup[mapConfig.levelId] as { key }, i}
-					<button class={index === i ? '' : 'text-gray-400'} on:click={() => (index = i)}
-						>{key}</button
-					>
-				{/each}
-			</div>
-			<img
-				src={multipleImgLookup[mapConfig.levelId][index].img}
-				width="600"
-				height="338px"
-				alt={mapConfig.levelId + '_' + multipleImgLookup[mapConfig.levelId][index].key}
-				loading="lazy"
-			/>
-		{:else}
-			<img
-				src="/images/stages/level_{getStageImg(mapConfig.id, eliteMods)}.webp"
-				width="600"
-				height="338px"
-				alt={mapConfig.levelId}
-				loading="lazy"
-			/>
-		{/if}
-
-		{#if rogueTopic === 'rogue_skz' && !stagesWithoutCalamity.includes(mapConfig.levelId)}
-			<div class="flex flex-wrap gap-x-4 gap-y-1.5 mt-1.5">
-				<div class="flex">
-					<img src={skz_calamity} width="24px" height="24px" alt="calamity" />
-					<p>{translations[language].skz_calamity}</p>
-				</div>
-				{#if stagesWithRNG.includes(mapConfig.levelId)}
-					<div class="flex">
-						<div class="rounded-full bg-[#f14c4c]">
-							<img src={unknown} width="24px" height="24px" alt="?" />
-						</div>
-						<p class="ml-1">{translations[language].stageinfo_random}</p>
-					</div>
-				{/if}
-			</div>
-		{/if}
-	</div>
-	<div class="w-screen sm:w-full">
-		{#if mapConfig.sp_enemy}
-			<SpEnemy spEnemyInfo={mapConfig.sp_enemy} {language} />
-		{/if}
-	</div>
-</div>
-
 {#if hasAnalysis}
-	<TogglePanel title={translations[language].enemy_routes} size="subheading">
-		<WaveOptions {mapConfig} {language} {rogueTopic} {eliteMods} />
+	<TogglePanel title={translations[language].enemy_routes} size="subheading" isOpen={true}>
+		<StageSimulator
+			waveData={generateWaveTimeline(
+				mapConfig,
+				hiddenGroups,
+				eliteMode,
+				permutationsToShow[selectedPermutationIdx],
+				mapConfig.levelId
+			)}
+		/>
+
+		<div class="grid grid-cols-[120px_1fr] divide-y divide-neutral-700">
+			<p class="title border-t border-neutral-700">{translations[language].operation_type}</p>
+			<slot name="eliteMods" />
+			{#if hasHiddenGroups}
+				<p class="title border-t border-neutral-700">{translations[language].hidden_options}</p>
+				<DraggableContainer
+					className="grid grid-flow-col auto-cols-[minmax(100px,1fr)] pt-1 pb-0.5"
+				>
+					{#each options as { key, src, name }}
+						{@const selected = hiddenGroups.includes(key)}
+						<button
+							class="flex flex-col items-center border-r border-neutral-700 {selected
+								? 'bg-gray-600'
+								: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
+							on:click={() => (hiddenGroups = handleOptionsUpdate(hiddenGroups, key, rogueTopic))}
+						>
+							<img {src} width="56" height="56" alt={name} />
+							<span>{name}</span>
+						</button>
+					{/each}
+				</DraggableContainer>
+			{/if}
+			<p class="title border-t border-neutral-700">{translations[language].enemy_count}</p>
+			<DraggableContainer className="grid grid-flow-col auto-cols-[minmax(100px,1fr)]">
+				{#each enemyCounts as count, i}
+					<button
+						class="flex justify-center items-center border-r border-neutral-700 font-semibold text-xl {selectedCountIndex ===
+						i
+							? 'bg-gray-600'
+							: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
+						on:click={() => (selectedCountIndex = i)}
+					>
+						{count}
+					</button>
+				{/each}
+			</DraggableContainer>
+			{#if permutationsToShow.length > 0}
+				<p class="title border-t border-neutral-700">{translations[language].permutation}</p>
+				<DraggableContainer className="grid grid-flow-col auto-cols-[minmax(120px,1fr)]">
+					{#each permutationsToShow as { bonus }, i}
+						<button
+							class="flex justify-center items-center border-r border-neutral-700 font-semibold text-xl {selectedPermutationIdx ===
+							i
+								? 'bg-neutral-600'
+								: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
+							on:click={() => (selectedPermutationIdx = i)}
+						>
+							{i + 1}
+							{#if bonus}
+								<span class="mx-3">+</span>
+								<img src={DLDGPN} width="56" height="56" alt="bonus" />
+							{/if}
+						</button>
+					{/each}
+				</DraggableContainer>
+			{/if}
+		</div>
 	</TogglePanel>
 {/if}
+
+<style>
+	.title {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		min-height: 58px;
+		padding: 0 6px;
+		background-color: rgb(23, 23, 23);
+	}
+</style>

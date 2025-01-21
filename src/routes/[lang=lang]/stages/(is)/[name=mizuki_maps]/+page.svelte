@@ -40,7 +40,12 @@
 	$: language = data.language;
 	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods);
 	$: moddedTraps = applyTrapMods(data.traps, $statMods, $specialMods);
-	$: modsCheck = compileStatModsForChecking(data.enemies, data.mapConfig.id, $statMods,$specialMods);
+	$: modsCheck = compileStatModsForChecking(
+		data.enemies,
+		data.mapConfig.id,
+		$statMods,
+		$specialMods
+	);
 	const rogueTopic: RogueTopic = data.rogueTopic;
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 </script>
@@ -88,6 +93,8 @@
 				{normalMods}
 				mapNormalMods={data.mapConfig.n_mods}
 				mapEliteMods={data.mapConfig.elite_mods}
+				{selectedRelics}
+				stageId={data.mapConfig.levelId}
 				{eliteMods}
 				{rogueTopic}
 			/>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Language, RogueTopic } from '$lib/types';
 	import SpTerrain from './SpTerrain.svelte';
-	import EnemyWaves from './EnemyWaves.svelte';
+	import StageMap from './StageMap.svelte';
 	import translations from '$lib/translations.json';
 	import TextParser from './TextParser.svelte';
 	import { getStageImg } from '$lib/functions/lib';
@@ -116,4 +116,4 @@
 {#if mapConfig.sp_terrain || rogueTopic === 'rogue_skz'}
 	<SpTerrain {difficulty} spTerrain={mapConfig.sp_terrain} {rogueTopic} {language} />
 {/if}
-<EnemyWaves {mapConfig} {rogueTopic} {language} {eliteMods} />
+<StageMap {mapConfig} {rogueTopic} {language} {eliteMods} />
