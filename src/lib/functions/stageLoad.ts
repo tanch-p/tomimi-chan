@@ -1,16 +1,16 @@
 import type { MapConfig, Language, Enemy } from '$lib/types';
 import enemyDatabase from '$lib/data/enemy/enemy_database.json';
-import findStage from '$lib/functions/findStage';
-import { sortEnemies } from './lib';
+import { getStageData, sortEnemies } from './lib';
 import { overwriteBlackboard } from './skillHelpers';
 import { parseTraps } from './trapHelpers';
+
 
 export const stageLoad = async (
 	stageName: string,
 	rogueTopic: string | null,
 	language: Language
 ) => {
-	const mapConfig: MapConfig = findStage(stageName, rogueTopic);
+	const mapConfig: MapConfig = await getStageData(stageName);
 	const enemies = mapConfig.enemies.map(({ id, prefabKey, level, overwrittenData }) => {
 		const enemy: Enemy = JSON.parse(JSON.stringify(enemyDatabase[prefabKey]));
 		enemy.stageId = id;

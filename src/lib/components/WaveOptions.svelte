@@ -49,19 +49,18 @@
 {#await promise}
 	Loading ...
 {:then waveData}
-
+	{@const a = console.log(waveData)}
 	{#if waveData && Object.keys(waveData).length > 0}
-		{@const a = console.log(waveData)}
-		{@const data = getTimelineOption(options, $eliteMods, waveData)}
-		{@const counts = data
+		<!-- {@const data = getTimelineOption(options, $eliteMods, waveData)} -->
+		<!-- {@const counts = data
 			.reduce((acc, curr) => {
 				if (!acc.includes(curr.count)) {
 					acc.push(curr.count);
 				}
 				return acc;
 			}, [])
-			.sort()}
-		<TogglePanel title="出怪波次分析" size="subheading">
+			.sort()} -->
+		<!-- <TogglePanel title="出怪波次分析" size="subheading">
 			<div class="grid grid-cols-[120px_1fr] px-1.5 divide-y divide-neutral-700">
 				{#if mapConfig.elite_mods}
 					<p class="title border-t border-neutral-700">{translations[language].operation_type}</p>
@@ -180,7 +179,7 @@
 					{/each}
 				{/if}
 			</div>
-		</TogglePanel>
+		</TogglePanel> -->
 	{/if}
 {/await}
 
