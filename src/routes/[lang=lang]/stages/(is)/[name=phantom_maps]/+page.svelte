@@ -12,7 +12,7 @@
 	import RelicDivUnique from '$lib/components/RelicDivUnique.svelte';
 	import StageHeader from '$lib/components/StageHeader.svelte';
 	import FloorTitle from './FloorTitle.svelte';
-	import StageNav from './StageNav.svelte';
+	import StageNav from '../../../(app)/phantom/PhantomNav.svelte';
 	import ModsCheck from '$lib/components/ModsCheck.svelte';
 	import TrapContainer from '$lib/components/TrapContainer.svelte';
 	import { applyTrapMods } from '$lib/functions/trapHelpers';

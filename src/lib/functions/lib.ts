@@ -4,6 +4,7 @@ import rogue_4_fragment_F_25 from '$lib/images/is/sarkaz/rogue_4_fragment_F_25.w
 import tileImg from '$lib/images/tiles/tile_infection.webp';
 import { checkIsTarget } from './statHelpers';
 import enemySkills from '$lib/data/enemy/enemy_skills.json';
+import ISStages from '$lib/data/stages/stage_name_lookup_table.json';
 
 export const BONUS_ENEMY_KEYS = [
 	'enemy_2001_duckmi',
@@ -81,6 +82,15 @@ export function getFormTitle(title: string | undefined | null, row: number, lang
 
 	return translations[language][title];
 }
+
+export const getStageData = async (stageName) => {
+	const levelId = ISStages[stageName]?.key;
+	if (!levelId) return;
+	const data = await import(
+		`../data/stages/ro_stage_data/level_${levelId.replace('level_', '')}.json`
+	);
+	return data;
+};
 
 export const getTrapFormIndex = (list, index) => {
 	const holder = {};
