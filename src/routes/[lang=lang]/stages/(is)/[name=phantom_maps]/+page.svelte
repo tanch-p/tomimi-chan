@@ -75,6 +75,8 @@
 					{normalMods}
 					mapNormalMods={data.mapConfig.n_mods}
 					mapEliteMods={data.mapConfig.elite_mods}
+					{selectedRelics}
+				stageId={data.mapConfig.levelId}
 					{eliteMods}
 					{rogueTopic}
 				/>

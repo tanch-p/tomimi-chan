@@ -28,6 +28,7 @@
 	import TrapContainer from '$lib/components/TrapContainer.svelte';
 	import { applyTrapMods } from '$lib/functions/trapHelpers';
 	import { setOtherBuffsList } from '$lib/functions/lib';
+	import EnemyWaves from '$lib/components/EnemyWaves.svelte';
 
 	export let data: PageData;
 	$: if (data.mapConfig) {
@@ -38,7 +39,12 @@
 	$: language = data.language;
 	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods);
 	$: moddedTraps = applyTrapMods(data.traps, $statMods, $specialMods);
-	$: modsCheck = compileStatModsForChecking(data.enemies, data.mapConfig.id, $statMods,$specialMods);
+	$: modsCheck = compileStatModsForChecking(
+		data.enemies,
+		data.mapConfig.id,
+		$statMods,
+		$specialMods
+	);
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 	const rogueTopic: RogueTopic = data.rogueTopic;
 </script>
@@ -73,6 +79,20 @@
 			<StageDrops slot="drops" mapConfig={data.mapConfig} {language} {rogueTopic} {selectedFloor} />
 		</StageInfo>
 		<DifficultySelect {language} {difficulty} {rogueTopic} />
+		<EnemyWaves mapConfig={data.mapConfig} {language} eliteMode={$eliteMode} {rogueTopic}>
+			<EliteToggle
+				slot="eliteMods"
+				inWaveOptions={true}
+				{eliteMode}
+				{normalMods}
+				mapNormalMods={data.mapConfig.n_mods}
+				mapEliteMods={data.mapConfig.elite_mods}
+				{eliteMods}
+				{rogueTopic}
+				{selectedRelics}
+				stageId={data.mapConfig.levelId}
+			/>
+		</EnemyWaves>
 		<TrapContainer {language} traps={moddedTraps} specialMods={$specialMods} />
 		<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 		<EnemyCount
@@ -87,6 +107,8 @@
 				{normalMods}
 				mapNormalMods={data.mapConfig.n_mods}
 				mapEliteMods={data.mapConfig.elite_mods}
+				{selectedRelics}
+				stageId={data.mapConfig.levelId}
 				{eliteMods}
 				{rogueTopic}
 			/>
