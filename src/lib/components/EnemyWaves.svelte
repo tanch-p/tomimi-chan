@@ -12,13 +12,13 @@
 	import DLDGPN from '$lib/images/is/DLDGPN.webp';
 	import StageSimulator from '$lib/components/StageSimulator/index.svelte';
 
-	export let mapConfig, rogueTopic: RogueTopic, language: Language, eliteMode: Boolean;
+	export let mapConfig,enemies, rogueTopic: RogueTopic, language: Language, eliteMode: Boolean;
 
 	let hiddenGroups = [],
 		enemyCounts = [],
 		selectedCountIndex = 0,
-		selectedPermutationIdx = 0,
-		waveTimeline;
+		selectedPermutationIdx = 0;
+		
 	$: hasAnalysis = !mapConfig.id.includes('_duel_');
 	$: hasHiddenGroups = ['rogue_sami', 'rogue_skz'].includes(rogueTopic);
 	$: options = getOptions(rogueTopic, language);
@@ -39,28 +39,16 @@
 
 {#if hasAnalysis}
 	<TogglePanel title={translations[language].enemy_routes} size="subheading" isOpen={true}>
-		<StageSimulator
-			waveData={generateWaveTimeline(
-				mapConfig,
-				hiddenGroups,
-				eliteMode,
-				permutationsToShow[selectedPermutationIdx],
-				mapConfig.levelId
-			)}
-		/>
-
 		<div class="grid grid-cols-[120px_1fr] divide-y divide-neutral-700">
 			<p class="title border-t border-neutral-700">{translations[language].operation_type}</p>
 			<slot name="eliteMods" />
 			{#if hasHiddenGroups}
 				<p class="title border-t border-neutral-700">{translations[language].hidden_options}</p>
-				<DraggableContainer
-					className="grid grid-flow-col auto-cols-[minmax(100px,1fr)] pt-1 pb-0.5"
-				>
+				<DraggableContainer className="grid grid-flow-col auto-cols-[minmax(100px,1fr)]">
 					{#each options as { key, src, name }}
 						{@const selected = hiddenGroups.includes(key)}
 						<button
-							class="flex flex-col items-center border-r border-neutral-700 {selected
+							class="flex flex-col items-center border-r border-neutral-700 pt-1 pb-0.5 {selected
 								? 'bg-gray-600'
 								: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
 							on:click={() => (hiddenGroups = handleOptionsUpdate(hiddenGroups, key, rogueTopic))}
@@ -106,6 +94,17 @@
 				</DraggableContainer>
 			{/if}
 		</div>
+		<StageSimulator
+			{mapConfig}
+			{enemies}
+			waveData={generateWaveTimeline(
+				mapConfig,
+				hiddenGroups,
+				eliteMode,
+				permutationsToShow[selectedPermutationIdx],
+				mapConfig.levelId
+			)}
+		/>
 	</TogglePanel>
 {/if}
 

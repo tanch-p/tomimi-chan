@@ -12,7 +12,8 @@ const ALWAYS_KILLED_KEYS = [
 	'enemy_2073_skzrck',
 	'enemy_2094_skzamb',
 	'enemy_2094_skzamb_2',
-	'enemy_2096_skzamj'
+	'enemy_2096_skzamj',
+	'enemy_1106_byokai_b'
 ];
 
 const getFragmentName = (id, language: Language) => {
@@ -93,7 +94,7 @@ export const getEnemyCountPermutations = (mapConfig, hiddenGroups, eliteMode) =>
 			if (bonus?.type === 'fragment' && waveIdx === bonus.wave_index && i === bonus.frag_index)
 				return;
 			fragment.actions.forEach((action) => {
-				if (hiddenGroups.includes(action['hiddenGroup'])) {
+				if (hiddenGroups.includes(action['hiddenGroup']) && !ALWAYS_KILLED_KEYS.includes(action["key"])) {
 					acc += action['count'];
 				}
 			});

@@ -102,7 +102,7 @@
 			<StageDrops slot="drops" mapConfig={data.mapConfig} {language} {rogueTopic} {selectedFloor} />
 		</StageInfo>
 		<DifficultySelect {language} {difficulty} {rogueTopic} maxDiff={18} />
-		<EnemyWaves mapConfig={data.mapConfig} {language} eliteMode={$eliteMode} {rogueTopic}>
+		<EnemyWaves mapConfig={data.mapConfig} enemies={moddedEnemies} {language} eliteMode={$eliteMode} {rogueTopic}>
 			<EliteToggle
 				slot="eliteMods"
 				inWaveOptions={true}
