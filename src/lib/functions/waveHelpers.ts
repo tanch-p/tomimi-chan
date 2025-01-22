@@ -243,24 +243,25 @@ export const generateWaveTimeline = (mapConfig, hiddenGroups, eliteMode, permuta
 			const packedGroups = randomGroupResolver(random_groups);
 			const key = `w${waveIdx}f${fragIndex}`;
 			let groupActions = [];
+			console.log(packedGroups);
 			for (const [groupKey, list] of Object.entries(packedGroups)) {
 				const choice = permutation.permutation?.[key]?.[groupKey];
 				if (list?.[choice]) {
 					groupActions = list[choice];
 				}
 			}
-			for (const action of groupActions) {
-				handleAction(action, spawns, waveBlockingSpawns, prevPhaseTime);
-				if (
-					!(
-						action['key'].includes('trap') ||
-						action['key'] === '' ||
-						ALWAYS_KILLED_KEYS.includes(action['key'])
-					)
-				) {
-					totalCount += action['count'];
-				}
-			}
+			// for (const action of groupActions) {
+			// 	handleAction(action, spawns, waveBlockingSpawns, prevPhaseTime);
+			// 	if (
+			// 		!(
+			// 			action['key'].includes('trap') ||
+			// 			action['key'] === '' ||
+			// 			ALWAYS_KILLED_KEYS.includes(action['key'])
+			// 		)
+			// 	) {
+			// 		totalCount += action['count'];
+			// 	}
+			// }
 
 			for (const action of fragment['actions']) {
 				if (action['actionType'] !== 'SPAWN') {

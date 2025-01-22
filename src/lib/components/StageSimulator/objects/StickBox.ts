@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { GameConfig } from "./GameConfig";
 
 export class StickBox {
+  group: THREE.Group;
   constructor(width = 1, height = 1, depth = 1, color = 'blue',z=50 ) {
     this.group = new THREE.Group();
     const hexCode = color === "blue" ? 0x359dde : 0xca1d00
