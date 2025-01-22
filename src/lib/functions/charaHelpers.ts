@@ -111,6 +111,7 @@ const SEARCH_IN_TAGS = [
 	'skill_invincible',
 	'skill_manual_off',
 	'ally_apoptosis',
+	'ally_burning',
 	'ignore_stealth',
 	'weaken',
 	'teleport_enemy',
@@ -120,7 +121,8 @@ const SEARCH_IN_TAGS = [
 	'elementfragile',
 	'magicfragile',
 	'fragile',
-	'protect'
+	'protect',
+	'attract_enemy'
 ];
 const SEARCH_IN_BLACKBOARD = [
 	'max_target',

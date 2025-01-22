@@ -63,6 +63,7 @@ const ALLY_BUFFS = [
 	'ally_camouflage',
 	'ally_taunt',
 	'ally_apoptosis',
+	'ally_burning',
 	'ally_lower_target_priority',
 	'ally_spareshot'
 ];
@@ -90,7 +91,8 @@ const SELF_CAN_TAGS = [
 	'ailment_but_skill_cont',
 	'target_air',
 	"max_target",
-	'fast_redeploy'
+	'fast_redeploy',
+	'attract_enemy'
 ];
 const SELF_BUFF_TAGS = [
 	'evasion',
