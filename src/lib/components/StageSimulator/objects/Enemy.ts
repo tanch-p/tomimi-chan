@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import * as spine from "$lib/spine";
 import { GameConfig } from "./GameConfig";
-import { getVectorCoordinates as getVectorCoordinates } from "$lib/functions/lib";
+import { getVectorCoordinates } from "$lib/functions/mazeHelpers";
 
 export class Enemy {
   actions: any[];
@@ -153,7 +153,7 @@ export class Enemy {
           .normalize();
         if (direction.x !== 0) {
           this.direction = direction.x;
-          this.skel.scale.x = this.direction;
+          this.skel.scale.x = direction.x < 0 ? -1 : 1;
         }
         const distance = this.mesh.position.distanceTo(this.targetPos);
         const adjustedSpeed = this.speed * delta * GameConfig.gridSize;

@@ -2,11 +2,18 @@ import { GameConfig } from '$lib/components/StageSimulator/objects/GameConfig';
 
 // tiles: [tile_type,heightType,mask,blackboard]
 // 0 is path, 1 is wall
+const HIGH_WEIGHT_TILES = ['tile_hole'];
+
 export const generateMaze = (map, tiles) => {
 	return map.reduce((acc, curr) => {
 		const row = [];
 		for (const index of curr) {
-			row.push(tiles[index][2]);
+			const tileName = tiles[index][0];
+			if (HIGH_WEIGHT_TILES.includes(tileName)) {
+				row.push(1);
+			} else {
+				row.push(tiles[index][2]);
+			}
 		}
 		acc.push(row);
 		return acc;

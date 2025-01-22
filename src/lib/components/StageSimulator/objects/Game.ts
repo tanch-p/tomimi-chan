@@ -6,6 +6,7 @@ import SpawnManager from './SpawnManager';
 import { GameConfig } from './GameConfig';
 import { generateMaze } from '$lib/functions/mazeHelpers';
 import { Theta } from './Theta';
+import { SpineScaleManager } from './SpineScaleManager';
 
 export class Game {
 	scene: THREE.Scene;
@@ -16,6 +17,7 @@ export class Game {
 	spawnManager: SpawnManager;
 	config;
 	spineAssetManager: spine.AssetManager;
+	spineScaleManager: SpineScaleManager;
 	enemyRefs: Enemy[];
 	gameTime: number;
 	public scaledElapsedTime = 0; // Total game-time elapsed
@@ -25,6 +27,7 @@ export class Game {
 		this.enemyRefs = enemies;
 
 		const mazeLayout = generateMaze(config.mapData.map, config.mapData.tiles);
+		console.log(mazeLayout);
 		GameConfig.mazeLayout = mazeLayout;
 		GameConfig.pathFinder = new Theta(mazeLayout);
 
@@ -62,7 +65,8 @@ export class Game {
 		});
 		this.renderer.setSize(window.innerWidth, window.innerHeight);
 		window.addEventListener('resize', this.onWindowResize);
-		this.map = new GameMap(this.scene, config, this.spineAssetManager);
+		this.spineScaleManager = new SpineScaleManager(this.camera);
+		this.map = new GameMap(this.scene, config,  this.spineAssetManager);
 		this.spawnManager = new SpawnManager(waves, this.map);
 		this.load();
 	}
@@ -87,6 +91,7 @@ export class Game {
 		const deltaTime = this.clock.getDelta() * GameConfig.speedFactor;
 		this.scaledElapsedTime += deltaTime;
 		this.spawnManager.update(deltaTime, this.scaledElapsedTime);
+		this.spineScaleManager.updateAll();
 		this.map.update(deltaTime);
 		this.renderer.render(this.scene, this.camera);
 	}
