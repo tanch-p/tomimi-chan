@@ -11,6 +11,7 @@ import { StickBox } from "./StickBox";
 import { TileManager } from "./TileManager";
 
 export class GameMap {
+  config;
   scene: THREE.Scene;
   enemies: Enemy[] = [];
   cubeGeo: THREE.BoxGeometry;
@@ -60,13 +61,13 @@ export class GameMap {
     // this.scene.add(rollOverMesh);
 
     // cubes
-    const map = new THREE.TextureLoader().load("/square-outline-textured.png");
-    map.colorSpace = THREE.SRGBColorSpace;
-    this.cubeGeo = new THREE.BoxGeometry(100, 100, 50);
-    this.cubeMaterial = new THREE.MeshLambertMaterial({
-      color: 0xfeb74c,
-      map: map,
-    });
+    // const map = new THREE.TextureLoader().load("/textures/square-outline-textured.png");
+    // map.colorSpace = THREE.SRGBColorSpace;
+    // this.cubeGeo = new THREE.BoxGeometry(100, 100, 50);
+    // this.cubeMaterial = new THREE.MeshLambertMaterial({
+    //   color: 0xfeb74c,
+    //   map: map,
+    // });
     this.setTiles(config.mapData);
 
     const geometry = new THREE.PlaneGeometry(
@@ -85,9 +86,9 @@ export class GameMap {
 
   initTextures() {
     let texture;
-    const shadow = this.textureLoader.load("sprite_shadow.png");
+    const shadow = this.textureLoader.load("/textures/sprite_shadow.png");
     GameConfig.sprites.set("shadow", { texture: shadow, config: null });
-    texture = this.textureLoader.load("floor_icons.png");
+    texture = this.textureLoader.load("/textures/floor_icons.png");
     texture.magFilter = THREE.NearestFilter; // Keeps pixel art sharp
     texture.minFilter = THREE.NearestFilter;
     GameConfig.sprites.set("floorIcons", {
@@ -157,13 +158,13 @@ export class GameMap {
         uvOffsetY: 0,
       },
     });
-    texture = this.textureLoader.load("floor_icons_e.png");
+    texture = this.textureLoader.load("/textures/floor_icons_e.png");
     texture.magFilter = THREE.NearestFilter; // Keeps pixel art sharp
     texture.minFilter = THREE.NearestFilter;
     GameConfig.sprites.set("tel_e_map", {
       texture: texture,
     });
-    const mapObjTexture = this.textureLoader.load("map_object_texture.png");
+    const mapObjTexture = this.textureLoader.load("/textures/map_object_texture.png");
     mapObjTexture.colorSpace = THREE.SRGBColorSpace;
     GameConfig.sprites.set("blueBox", {
       texture: mapObjTexture,
@@ -174,17 +175,17 @@ export class GameMap {
         uvOffsetY: 0.49,
       },
     });
-    texture = this.textureLoader.load("red_mask.png");
+    texture = this.textureLoader.load("/textures/red_mask.png");
     GameConfig.sprites.set("red", {
       texture: texture,
       config: null,
     });
-    texture = this.textureLoader.load("blue_mask.png");
+    texture = this.textureLoader.load("/textures/blue_mask.png");
     GameConfig.sprites.set("blue", {
       texture: texture,
       config: null,
     });
-    texture = this.textureLoader.load("T_Map_Trainingroom_A.png");
+    texture = this.textureLoader.load("/textures/T_Map_Trainingroom_A.png");
     texture.colorSpace = THREE.SRGBColorSpace;
 
     texture.magFilter = THREE.NearestFilter; // Keeps pixel art sharp
@@ -198,7 +199,7 @@ export class GameMap {
         uvOffsetY: 0.62,
       },
     });
-    texture = this.textureLoader.load("T_common_A.png");
+    texture = this.textureLoader.load("/textures/T_common_A.png");
     texture.magFilter = THREE.NearestFilter; // Keeps pixel art sharp
     texture.minFilter = THREE.NearestFilter;
     GameConfig.sprites.set("tile_floor", {
@@ -237,7 +238,7 @@ export class GameMap {
         const [tileName, heightType, mask, blackboard] = tiles[tileIndex];
         const group = this.tileManager.get(tileName, blackboard);
 
-        const { x, y } = getVectorCoordinates({ row: rowIdx, col: colIdx });
+        const { x, y } = getVectorCoordinates({ row: rowIdx, col: colIdx },null);
         let z = 100; //elevation for everything if not -z things will get truncated
         switch (tileName) {
           case "tile_end":
