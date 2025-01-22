@@ -120,6 +120,7 @@ const SEARCH_IN_TAGS = [
 	'target_air',
 	'elementfragile',
 	'magicfragile',
+	'physicfragile',
 	'fragile',
 	'protect',
 	'attract_enemy'

@@ -11,6 +11,7 @@ const BUFF_TAGS = [
 	'protect',
 	'fragile',
 	'magicfragile',
+	'physicfragile',
 	'elementfragile',
 	'vigor',
 	'weaken',
