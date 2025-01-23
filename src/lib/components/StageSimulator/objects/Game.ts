@@ -10,7 +10,7 @@ import { SpineScaleManager } from './SpineScaleManager';
 
 export class Game {
 	scene: THREE.Scene;
-	camera: THREE.PerspectiveCamera;
+	camera: THREE.OrthographicCamera;
 	clock: THREE.Clock;
 	renderer: THREE.WebGLRenderer;
 	map: GameMap;
@@ -27,18 +27,21 @@ export class Game {
 		this.enemyRefs = enemies;
 
 		const mazeLayout = generateMaze(config.mapData.map, config.mapData.tiles);
-		console.log(mazeLayout);
 		GameConfig.mazeLayout = mazeLayout;
 		GameConfig.pathFinder = new Theta(mazeLayout);
 
 		// threejs
 		this.scene = new THREE.Scene();
 		this.scene.background = new THREE.Color(0xf0f0f0);
-		this.camera = new THREE.PerspectiveCamera(
-			75,
-			window.innerWidth / window.innerHeight,
-			0.1,
-			1000
+		const frustumSize = 1000;
+		const aspect = window.innerWidth / window.innerHeight;
+		this.camera = new THREE.OrthographicCamera(
+			(frustumSize * aspect) / -2, // left
+			(frustumSize * aspect) / 2, // right
+			frustumSize / 2, // top
+			frustumSize / -2, // bottom
+			1, // near
+			1000 // far
 		);
 		this.camera.position.set(0, -300, 850);
 		this.camera.lookAt(0, 0, 0);
@@ -66,7 +69,7 @@ export class Game {
 		this.renderer.setSize(window.innerWidth, window.innerHeight);
 		window.addEventListener('resize', this.onWindowResize);
 		this.spineScaleManager = new SpineScaleManager(this.camera);
-		this.map = new GameMap(this.scene, config,  this.spineAssetManager);
+		this.map = new GameMap(this.scene, config, this.spineAssetManager);
 		this.spawnManager = new SpawnManager(waves, this.map);
 		this.load();
 	}

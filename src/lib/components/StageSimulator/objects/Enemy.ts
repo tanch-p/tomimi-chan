@@ -200,7 +200,7 @@ export class Enemy {
         this.currentActionIndex++;
         break;
       default:
-        console.log(type);
+        // console.log(type);
     }
   }
 
