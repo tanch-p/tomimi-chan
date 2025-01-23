@@ -21,6 +21,7 @@ const BUFF_TAGS = [
 	'protect',
 	'fragile',
 	'magicfragile',
+	'physicfragile',
 	'elementfragile',
 	'vigor',
 	'weaken',
@@ -68,6 +69,7 @@ const ALLY_BUFFS = [
 	'ally_camouflage',
 	'ally_taunt',
 	'ally_apoptosis',
+	'ally_burning',
 	'ally_lower_target_priority',
 	'ally_spareshot',
 	'ally_heal_scale'
@@ -88,7 +90,8 @@ const SELF_CAN_TAGS = [
 	'erase_projectile',
 	'reallocate_hp',
 	'ailment_but_skill_cont',
-	'target_air'
+	'target_air',
+	'attract_enemy'
 ];
 const SELF_STAT_BUFFS = ['sp_regen', 'sp_stock', 'def', 'res'];
 const HAVE_TAGS = [

@@ -11,6 +11,7 @@ const BUFF_TAGS = [
 	'protect',
 	'fragile',
 	'magicfragile',
+	'physicfragile',
 	'elementfragile',
 	'vigor',
 	'weaken',
@@ -47,6 +48,7 @@ const ALLY_NORMAL = [
 	'change_target_priority',
 	'ally_damage_scale',
 	'ally_apoptosis',
+	'ally_burning',
 	'ally_heal_scale',
 	'ally_sp_gain',
 	'ally_spareshot',
@@ -81,7 +83,8 @@ const SELF_CAN_TAGS = [
 	'execute',
 	'slow_projectile',
 	'erase_projectile',
-	'reallocate_hp'
+	'reallocate_hp',
+	'attract_enemy'
 ];
 const SELF_BUFF_TAGS = [
 	'evasion',
