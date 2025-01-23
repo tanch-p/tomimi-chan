@@ -69,7 +69,7 @@ class SpawnManager {
 				break;
 			default:
 				this.spawnEnemy(action);
-				console.warn(`Unknown action type: ${action.actionType}`);
+				// console.warn(`Unknown action type: ${action.actionType}`);
 		}
 	}
 
