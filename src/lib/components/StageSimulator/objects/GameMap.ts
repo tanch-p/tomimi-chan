@@ -267,7 +267,7 @@ export class GameMap {
 
   addEnemy(action: any): void {
     const originalRoute = this.config.routes[action["routeIndex"]];
-    const route = convertMovementConfig(originalRoute);
+    const route = convertMovementConfig(structuredClone(originalRoute));
 
     // Create two geometries with different sizes
     const hitBoxGeo = new THREE.CircleGeometry(GameConfig.gridSize * 0.1, 32);
