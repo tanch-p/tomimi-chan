@@ -80,7 +80,9 @@ export class Game {
 		} else requestAnimationFrame(() => this.load());
 	}
 
-	reset() {}
+	reset() {
+		
+	}
 
 	onWindowResize() {
 		this.camera.aspect = window.innerWidth / window.innerHeight;
