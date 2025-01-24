@@ -1,17 +1,20 @@
 import * as THREE from "three";
-import { GameConfig } from "./GameConfig";
+import { AssetManager } from "./AssetManager";
 
 export class StickBox {
   group: THREE.Group;
-  constructor(width = 1, height = 1, depth = 1, color = 'blue',z=50 ) {
+
+  constructor(width = 1, height = 1, depth = 1, color = "blue", z = 50) {
+    this.assetManager = AssetManager.getInstance();
+
     this.group = new THREE.Group();
-    const hexCode = color === "blue" ? 0x359dde : 0xca1d00
+    const hexCode = color === "blue" ? 0x359dde : 0xca1d00;
 
     const stickMaterial = new THREE.MeshLambertMaterial({
       color: hexCode,
       // alphaMap: GameConfig.sprites.get(color).texture,
-      transparent:true,
-      opacity:0.8
+      transparent: true,
+      opacity: 0.8,
     });
 
     // Stick dimensions
@@ -37,7 +40,7 @@ export class StickBox {
     );
 
     // Create front face with texture
-    const frontTexture = GameConfig.sprites.get("blueBox").texture;
+    const frontTexture = this.assetManager.textures.get("blueBox").texture;
     const frontMaterial = new THREE.MeshStandardMaterial({
       map: frontTexture,
       transparent: true,
@@ -47,7 +50,7 @@ export class StickBox {
     const frontPlane = new THREE.Mesh(frontGeometry, frontMaterial);
 
     const { UVWidth, UVHeight, uvOffsetX, uvOffsetY } =
-      GameConfig.sprites.get("blueBox").config;
+      this.assetManager.textures.get("blueBox").config;
 
     // Modify UV coordinates to match the specific tile in the sprite sheet
     const uvs = frontGeometry.attributes.uv;
@@ -83,7 +86,7 @@ export class StickBox {
       const stick = new THREE.Mesh(verticalStickGeometry, stickMaterial);
       stick.position.set(corner.x, corner.y, 0);
       this.group.add(stick);
-      stick.renderOrder=-1;
+      stick.renderOrder = -1;
     });
 
     // Create horizontal frame at front and back
@@ -93,8 +96,7 @@ export class StickBox {
         const stick = new THREE.Mesh(horizontalStickGeometryX, stickMaterial);
         stick.position.set(0, y, zPos);
         this.group.add(stick);
-        stick.renderOrder=-1;
-
+        stick.renderOrder = -1;
       });
 
       // Y-axis sticks (left and right)
@@ -102,8 +104,7 @@ export class StickBox {
         const stick = new THREE.Mesh(horizontalStickGeometryY, stickMaterial);
         stick.position.set(x, 0, zPos);
         this.group.add(stick);
-        stick.renderOrder=-1;
-
+        stick.renderOrder = -1;
       });
     };
 
@@ -112,8 +113,9 @@ export class StickBox {
     createHorizontalFrame(depth / 2); // Front frame
 
     // Add front plane
+    frontPlane.renderOrder = -1;
     this.group.add(frontPlane);
-    this.group.position.set(0,0,z)
+    this.group.position.set(0, 0, z);
   }
 
   getMesh() {
