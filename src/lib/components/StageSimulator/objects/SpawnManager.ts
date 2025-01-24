@@ -12,9 +12,9 @@ class SpawnManager {
 		this.waves = waves;
 		this.currentWaveIndex = 0;
 		this.actionIndex = 0;
-		this.preDelayTimer = waves[0].preDelay;
-		this.postDelayTimer = waves[0].postDelay;
-		this.nextWaveTimer = waves?.[0]?.maxTimeWaitingForNextWave || -1;
+		this.preDelayTimer = this.waves[0].preDelay;
+		this.postDelayTimer = this.waves[0].postDelay;
+		this.nextWaveTimer = this.waves[0].maxTimeWaitingForNextWave || -1;
 	}
 
 	// Main update function to be called in animation loop
@@ -69,7 +69,7 @@ class SpawnManager {
 				break;
 			default:
 				this.spawnEnemy(action);
-				// console.warn(`Unknown action type: ${action.actionType}`);
+				console.warn(`Unknown action type: ${action.actionType}`);
 		}
 	}
 

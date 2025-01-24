@@ -1,33 +1,57 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import { Game } from './objects/Game';
+	import { AssetManager } from './objects/AssetManager';
+	import LoadingScreen from './LoadingScreen.svelte';
 
 	export let waveData, mapConfig, enemies;
 
-	let count,
-		waves,
-		isMounted = false,
-		game: Game,
-		canvasElement: HTMLCanvasElement;
+	let count, waves;
+	let assetManager: AssetManager,
+		canvasElement: HTMLCanvasElement,
+		isLoading = true,
+		game: Game;
+	// let gameInstances: Game[] = [];
 
 	$: count = waveData.count;
 	$: waves = waveData.waves;
 
-	$: if (isMounted && mapConfig && waveData) {
-		if (!game) {
-			game = new Game(mapConfig, enemies, waves, canvasElement);
-		}
-		else{
-			
+	$: if (mapConfig) {
+		loadAssets(enemies);
+		// if (game) {
+		// 	game.reset();
+		// }
+	}
+
+	async function loadAssets(enemies) {
+		isLoading = true;
+		if (assetManager) {
+			await assetManager.loadAssets(enemies);
+			assetManager.texturesLoaded = true;
+			isLoading = false;
 		}
 	}
 
-	onMount(() => {
-		isMounted = true;
+	onMount(async () => {
+		isLoading = true;
+		assetManager = AssetManager.getInstance();
+		await assetManager.loadAssets(mapConfig.enemies);
+		assetManager.texturesLoaded = true;
+		isLoading = false;
+		game = new Game(mapConfig, waves, canvasElement);
+	});
+
+	onDestroy(() => {
+		if (game) {
+			game.cleanup();
+		}
 	});
 </script>
 
-<div>
+<div class="relative">
+	{#if isLoading}
+		<LoadingScreen />
+	{/if}
 	<canvas bind:this={canvasElement} />
 </div>
 
