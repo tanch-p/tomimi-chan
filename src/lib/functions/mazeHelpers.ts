@@ -58,12 +58,5 @@ export const getVectorCoordinates = (pos, reachOffset) => {
 const getCoordinate = (coordinate, type = 'x') => {
 	const center =
 		type === 'x' ? GameConfig.mazeLayout[0].length / 2 : GameConfig.mazeLayout.length / 2;
-	if (coordinate === center) {
-		if (center % 2 === 0) {
-			return GameConfig.gridSize / 2;
-		} else {
-			return 0;
-		}
-	}
 	return (coordinate - center) * GameConfig.gridSize + GameConfig.gridSize / 2;
 };
