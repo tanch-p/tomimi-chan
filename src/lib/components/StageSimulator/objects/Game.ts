@@ -35,8 +35,8 @@ export class Game {
 
 		// threejs
 		const frustumSize = 1000;
-		// const aspect = window.innerWidth / window.innerHeight;
-		const aspect = 1.3264248704663213;
+		const rect = canvasElement.getBoundingClientRect(); 
+		const aspect = rect.width / rect.height;
 		this.camera = new THREE.OrthographicCamera(
 			(frustumSize * aspect) / -2, // left
 			(frustumSize * aspect) / 2, // right
@@ -46,7 +46,7 @@ export class Game {
 			1500 // far
 		);
 		this.scene = new THREE.Scene();
-		this.scene.background = new THREE.Color(0xf0f0f0);
+		// this.scene.background = new THREE.Color(0xf0f0f0);
 		this.camera.position.set(0, -300, 850);
 		this.camera.lookAt(0, 0, 0);
 		this.camera.rotation.x = 0.4; // Tilt up slightly
@@ -67,7 +67,8 @@ export class Game {
 			canvas: canvasElement,
 			antialias: true
 		});
-		this.renderer.setSize(window.innerWidth, window.innerHeight);
+		this.renderer.setClearColor( 0x000000, 0 )
+		this.renderer.setSize(rect.width, rect.height);
 		window.addEventListener('resize', this.onWindowResize);
 		document.addEventListener('pointerdown', this.onPointerDown);
 
