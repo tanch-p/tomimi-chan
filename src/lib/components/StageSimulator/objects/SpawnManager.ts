@@ -7,6 +7,7 @@ class SpawnManager {
 	currentWaveIndex: number;
 	nextWaveTimer: number;
 	actionIndex: number;
+	spawnCount = 0;
 	constructor(waves, map) {
 		this.map = map;
 		this.waves = waves;
@@ -28,6 +29,7 @@ class SpawnManager {
 			if (elapsedTime >= fragment.t) {
 				for (const action of fragment.actions) {
 					this.spawnEntity(action);
+					this.spawnCount += 1;
 				}
 				this.actionIndex += 1;
 			} else {
@@ -69,7 +71,7 @@ class SpawnManager {
 				break;
 			default:
 				this.spawnEnemy(action);
-				console.warn(`Unknown action type: ${action.actionType}`);
+			// console.warn(`Unknown action type: ${action.actionType}`);
 		}
 	}
 
