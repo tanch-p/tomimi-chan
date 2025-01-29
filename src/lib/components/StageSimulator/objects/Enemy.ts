@@ -300,7 +300,7 @@ export class Enemy {
 			const material = new THREE.LineBasicMaterial({
 				color: 0xff0000,
 				transparent: true,
-				depthTest: false
+				depthTest: false,
 			}); // Red line
 
 			// Create the line
@@ -331,31 +331,33 @@ export class Enemy {
 					}
 					break;
 				case 'WAIT_FOR_SECONDS':
-					const geometry = new THREE.CircleGeometry(GameConfig.gridSize / 4, 32);
-					const material = new THREE.MeshBasicMaterial({
-						color: 0xb1b1b1,
-						transparent: true,
-						depthTest: false
-					});
-					const circle = new THREE.Mesh(geometry, material);
-					const ringGeometry = new THREE.RingGeometry(
-						GameConfig.gridSize / 4 - 2,
-						GameConfig.gridSize / 4,
-						32
-					);
-					const ringMaterial = new THREE.MeshBasicMaterial({
-						color: 0xdc143c,
-						transparent: true,
-						depthTest: false
-					});
-					const ring = new THREE.Mesh(ringGeometry, ringMaterial);
-					ring.position.z = 2;
-					const waitPosition = i === 0 ? startPos : paths[i - 1].position;
-					const { x, y } = this.gameManager.getVectorCoordinates(waitPosition, reachOffset);
-					const textMesh = this.gameManager.getTextSprite(time.toFixed() + 's', 16);
-					textMesh.position.z = 5;
-					group.add(textMesh, ring, circle);
-					group.position.set(x, y, GameConfig.baseZIndex + 15);
+					{
+						const geometry = new THREE.CircleGeometry(GameConfig.gridSize / 4, 32);
+						const material = new THREE.MeshBasicMaterial({
+							color: 0xb1b1b1,
+							transparent: true,
+							depthTest: false
+						});
+						const circle = new THREE.Mesh(geometry, material);
+						const ringGeometry = new THREE.RingGeometry(
+							GameConfig.gridSize / 4 - 2,
+							GameConfig.gridSize / 4,
+							32
+						);
+						const ringMaterial = new THREE.MeshBasicMaterial({
+							color: 0xdc143c,
+							transparent: true,
+							depthTest: false
+						});
+						const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+						ring.position.z = 2;
+						const waitPosition = i === 0 ? startPos : paths[i - 1].position;
+						const { x, y } = this.gameManager.getVectorCoordinates(waitPosition, reachOffset);
+						const textMesh = this.gameManager.getTextSprite(time.toFixed() + 's', 16);
+						textMesh.position.z = 5;
+						group.add(textMesh, ring, circle);
+						group.position.set(x, y, GameConfig.baseZIndex + 15);
+					}
 					break;
 				default:
 					break;
@@ -369,7 +371,11 @@ export class Enemy {
 		const group = new THREE.Group();
 		const circleGeometry = new THREE.CircleGeometry(GameConfig.gridSize / 4, 32);
 		const color = parseInt(text) <= 5 ? 0xdc143c : 0xf08080;
-		const circleMaterial = new THREE.MeshBasicMaterial({ color: color,transparent:true, depthTest:false });
+		const circleMaterial = new THREE.MeshBasicMaterial({
+			color: color,
+			transparent: true,
+			depthTest: false
+		});
 		const circle = new THREE.Mesh(circleGeometry, circleMaterial);
 		const ringGeometry = new THREE.RingGeometry(
 			GameConfig.gridSize / 4 - 1,
@@ -386,7 +392,7 @@ export class Enemy {
 		const textMesh = this.gameManager.getTextSprite(text, 16);
 		group.position.set(0, this.skel.skeleton.data.height * 0.4 + GameConfig.gridSize / 5, 0);
 		group.add(ring, circle, textMesh);
-    group.renderOrder=1;
+		group.renderOrder = 1;
 		return group;
 	};
 

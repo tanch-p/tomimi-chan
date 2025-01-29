@@ -4,12 +4,10 @@ import { TextSprite } from './TextSprite';
 import { AssetManager } from './AssetManager';
 
 export class TileManager {
+	assetManager: AssetManager;
 	edgesMaterial: THREE.LineBasicMaterial;
 	constructor(map = '') {
 		this.assetManager = AssetManager.getInstance();
-
-		const gridSize = GameConfig.gridSize;
-		const floorIcons = this.assetManager.textures.get('floorIcons');
 		this.edgesMaterial = new THREE.LineBasicMaterial({
 			color: 0x484848,
 			transparent: true,
@@ -17,16 +15,16 @@ export class TileManager {
 		});
 	}
 
-	get(tileName: string, blackboard) {
+	get(tile) {
+		const [tileName, heightType, mask, blackboard] = tile;
 		const boxGroup = new THREE.Group();
 		let geometry;
 		let topTexture;
 		let depth = 0,
 			size = 1;
-
-		switch (tileName) {
-			case 'tile_telin':
-			case 'tile_telout':
+		switch (true) {
+			case tileName === 'tile_telin':
+			case tileName === 'tile_telout':
 				boxGroup.add(
 					this.createTeleport(
 						blackboard.direction,
@@ -36,11 +34,9 @@ export class TileManager {
 					)
 				);
 				return boxGroup;
-			case 'tile_forbidden':
+			case tileName === 'tile_forbidden':
 				return this.createBox(0, 0xb8b8b8, 0x292929);
-			case 'tile_wall':
-				return this.createBox(40, 0xff8108, 0xc1c1c1, 'tile_wall');
-			case 'tile_hole': {
+			case tileName === 'tile_hole': {
 				const hollowBox = this.createHollowBox();
 				boxGroup.add(hollowBox);
 				const material = new THREE.MeshStandardMaterial({
@@ -198,6 +194,33 @@ export class TileManager {
 
 				return boxGroup;
 			}
+			default:
+				break;
+		}
+		switch (tileName) {
+			case 'tile_forbidden':
+				return this.createBox(0, 0xb8b8b8, 0x292929);
+			case 'tile_wall':
+				return this.createBox(40, 0xff8108, 0xc1c1c1, 'tile_wall');
+			case 'tile_flystart':
+				console.log(heightType);
+				topTexture = this.assetManager.textures.get('fly_box');
+				size = 0.85;
+				// const frontPlane = this.getTopTexture(topTexture, null, size, depth);
+				// boxGroup.add(frontPlane);
+				break;
+			case 'tile_infection':
+				console.log(heightType);
+
+				topTexture = this.assetManager.textures.get('tile_infection');
+				break;
+			case 'tile_fence_bound':
+				{
+					const model = this.assetManager.models.get('curse').clone();
+					model.scale.set(100, 100, 100);
+					boxGroup.add(model);
+				}
+				break;
 			case 'tile_floor':
 				topTexture = this.assetManager.textures.get('tile_floor');
 				size = 0.84;
@@ -221,7 +244,9 @@ export class TileManager {
 			const frontPlane = this.getTopTexture(topTexture, null, size, depth);
 			boxGroup.add(frontPlane);
 		}
-		if (!['tile_floor', 'tile_road', 'tile_end', 'tile_start'].includes(tileName)) {
+		if (
+			!['tile_floor', 'tile_road', 'tile_end', 'tile_start', 'tile_infection'].includes(tileName)
+		) {
 			const sprite = new TextSprite(tileName.replace('tile_', '')).get();
 			sprite.position.z = 1;
 			sprite.position.x = -5;
@@ -272,7 +297,7 @@ export class TileManager {
 		return frontPlane;
 	}
 
-	createBox(depth, sideColor, topColor, topTextureName?: any) {
+	createBox(depth, sideColor, topColor, topTextureName?: any, size = 1) {
 		const group = new THREE.Group();
 		const geometry = new THREE.BoxGeometry(GameConfig.gridSize, GameConfig.gridSize, 40);
 		const sideMaterial = new THREE.MeshStandardMaterial({
@@ -298,7 +323,7 @@ export class TileManager {
 		group.add(edgeLines);
 		if (topTextureName) {
 			const topTexture = this.assetManager.textures.get(topTextureName);
-			const frontPlane = this.getTopTexture(topTexture, null, 1, depth);
+			const frontPlane = this.getTopTexture(topTexture, null, size, depth);
 			group.add(frontPlane);
 		}
 		return group;
