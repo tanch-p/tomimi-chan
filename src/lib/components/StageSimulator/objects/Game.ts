@@ -7,6 +7,7 @@ import { AssetManager } from './AssetManager';
 
 export class Game {
 	assetManager: AssetManager;
+	canvas: HTMLCanvasElement;
 	scene: THREE.Scene;
 	camera: THREE.PerspectiveCamera;
 	pointer: THREE.Vector2;
@@ -24,6 +25,7 @@ export class Game {
 	public scaledElapsedTime = 0; // Total game-time elapsed
 
 	constructor(config, waves, canvasElement: HTMLCanvasElement) {
+		this.canvas = canvasElement;
 		this.config = config;
 		this.waves = waves;
 		this.enemies = config.enemies;
@@ -35,7 +37,7 @@ export class Game {
 
 		// threejs
 		const frustumSize = 1000;
-		const rect = canvasElement.getBoundingClientRect(); 
+		const rect = this.canvas.getBoundingClientRect();
 		const aspect = rect.width / rect.height;
 		this.camera = new THREE.OrthographicCamera(
 			(frustumSize * aspect) / -2, // left
@@ -64,10 +66,10 @@ export class Game {
 		this.clock = new THREE.Clock();
 
 		this.renderer = new THREE.WebGLRenderer({
-			canvas: canvasElement,
+			canvas: this.canvas,
 			antialias: true
 		});
-		this.renderer.setClearColor( 0x000000, 0 )
+		this.renderer.setClearColor(0x000000, 0);
 		this.renderer.setSize(rect.width, rect.height);
 		window.addEventListener('resize', this.onWindowResize);
 		document.addEventListener('pointerdown', this.onPointerDown);
@@ -80,19 +82,23 @@ export class Game {
 	}
 
 	reset() {
-		console.log('hi');
 		this.clearScene(this.scene);
 	}
 
 	onWindowResize() {
-		this.camera.aspect = window.innerWidth / window.innerHeight;
+		const rect = this.canvas.getBoundingClientRect();
+		const aspect = rect.width / rect.height;
+		this.camera.aspect = aspect;
 		this.camera.updateProjectionMatrix();
 
-		this.renderer.setSize(window.innerWidth, window.innerHeight);
+		this.renderer.setSize(rect.width, rect.height);
 
 		this.render();
 	}
 	onPointerDown(event) {
+		if (!event.target.isSameNode(this.canvas)) {
+			return;
+		}
 		const rect = this.renderer.domElement.getBoundingClientRect(); // Get canvas size and position
 		this.pointer.set(
 			((event.clientX - rect.left) / rect.width) * 2 - 1,
@@ -118,6 +124,13 @@ export class Game {
 				}
 				enemy.selected = !enemy.selected;
 			}
+		
+				const enemiesObjs = this.objects.filter((ele) => ele.userData.enemy);
+				enemiesObjs.forEach((ele) => {
+					if(ele.uuid !== intersect.object.uuid){
+						ele.userData.enemy.hidePath();
+					}
+			})
 		}
 	}
 	render() {
