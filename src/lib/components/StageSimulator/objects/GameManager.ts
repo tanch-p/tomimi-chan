@@ -21,7 +21,6 @@ export class GameManager {
     this.camera = camera;
     this.objects = objects;
     const mazeLayout = generateMaze(config.mapData.map, config.mapData.tiles);
-    console.log(mazeLayout);
     this.mazeLayout = mazeLayout;
     this.pathFinder = new Theta(mazeLayout);
   }

@@ -52,8 +52,8 @@ export class GameMap {
 		const { map, tiles } = mapData;
 		map.forEach((row, rowIdx) =>
 			row.forEach((tileIndex, colIdx) => {
-				const [tileName, heightType, mask, blackboard] = tiles[tileIndex];
-				const group = this.tileManager.get(tileName, blackboard);
+				const [tileName, heightType, mask] = tiles[tileIndex];
+				const group = this.tileManager.get(tiles[tileIndex]);
 				const { x, y } = this.gameManager.getVectorCoordinates({
 					row: rowIdx,
 					col: colIdx
@@ -134,12 +134,12 @@ export class GameMap {
 			parameters.depthTest = false;
 			parameters.alphaTest = 0.001;
 		});
-		console.log(
-			'height:',
-			skeletonMesh.skeleton.data.height,
-			'width:',
-			skeletonMesh.skeleton.data.width
-		);
+		// console.log(
+		// 	'height:',
+		// 	skeletonMesh.skeleton.data.height,
+		// 	'width:',
+		// 	skeletonMesh.skeleton.data.width
+		// );
 		group.add(skeletonMesh);
 		const size = new spine.Vector2(50, 100);
 		const spriteMaterial = new THREE.SpriteMaterial({
