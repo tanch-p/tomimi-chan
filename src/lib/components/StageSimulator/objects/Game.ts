@@ -82,6 +82,7 @@ export class Game {
 	}
 
 	reset() {
+		this.isRunning = false;
 		this.clearScene(this.scene);
 	}
 

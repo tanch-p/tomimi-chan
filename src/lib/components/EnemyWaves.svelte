@@ -12,13 +12,13 @@
 	import DLDGPN from '$lib/images/is/DLDGPN.webp';
 	import StageSimulator from '$lib/components/StageSimulator/index.svelte';
 
-	export let mapConfig,enemies, rogueTopic: RogueTopic, language: Language, eliteMode: Boolean;
+	export let mapConfig, enemies, rogueTopic: RogueTopic, language: Language, eliteMode: Boolean;
 
 	let hiddenGroups = [],
 		enemyCounts = [],
 		selectedCountIndex = 0,
 		selectedPermutationIdx = 0;
-		
+
 	$: hasAnalysis = !mapConfig.id.includes('_duel_');
 	$: hasHiddenGroups = ['rogue_sami', 'rogue_skz'].includes(rogueTopic);
 	$: options = getOptions(rogueTopic, language);
@@ -40,8 +40,10 @@
 {#if hasAnalysis}
 	<TogglePanel title={translations[language].enemy_routes} size="subheading" isOpen={true}>
 		<div class="grid grid-cols-[120px_1fr] divide-y divide-neutral-700">
-			<p class="title border-t border-neutral-700">{translations[language].operation_type}</p>
-			<slot name="eliteMods" />
+			{#if mapConfig.elite_mods}
+				<p class="title border-t border-neutral-700">{translations[language].operation_type}</p>
+				<slot name="eliteMods" />
+			{/if}
 			{#if hasHiddenGroups}
 				<p class="title border-t border-neutral-700">{translations[language].hidden_options}</p>
 				<DraggableContainer className="grid grid-flow-col auto-cols-[minmax(100px,1fr)]">

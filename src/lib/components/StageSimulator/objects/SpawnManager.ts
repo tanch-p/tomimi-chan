@@ -36,6 +36,10 @@ class SpawnManager {
 				break;
 			}
 		}
+		if(this.actionIndex >= currentWave.timeline.length){
+			this.currentWaveIndex+=1;
+			this.actionIndex=0;
+		}
 
 		// // Handle wave pre-delay
 		// if (this.preDelayTimer < currentWave.preDelay) {
@@ -55,7 +59,6 @@ class SpawnManager {
 		// } else {
 		//   // Move to next wave
 		//   this.currentWaveIndex++;
-		//   this.currentFragmentIndex = 0;
 		//   this.preDelayTimer = 0;
 		//   this.postDelayTimer = 0;
 		// }
