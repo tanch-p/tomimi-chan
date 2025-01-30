@@ -99,7 +99,7 @@ const texturesToLoad = [
 		textures: [
 			['blueBox', { UVWidth: 0.43, UVHeight: 0.42, uvOffsetX: 0.49, uvOffsetY: 0.49 }],
 			['fly_icon', { UVWidth: 0.5, UVHeight: 0.5, uvOffsetX: 0, uvOffsetY: 0 }],
-      ['fly_box', { UVWidth: 0.5, UVHeight: 0.5, uvOffsetX: 0.5, uvOffsetY: 0 }]
+			['fly_box', { UVWidth: 0.5, UVHeight: 0.5, uvOffsetX: 0.5, uvOffsetY: 0 }]
 		]
 	},
 	{
@@ -232,7 +232,7 @@ export class AssetManager {
 					}
 				);
 			}).then((gltf) => {
-        console.log(gltf)
+				console.log(gltf);
 				this.models.set('curse', gltf.scene);
 			})
 		);
