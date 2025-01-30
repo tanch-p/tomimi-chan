@@ -705,12 +705,15 @@ export class AnimationState {
 
   /** Sets an animation by name.
    *
-   * {@link #setAnimationWith(}. */
+   * {@link #setAnimationWith}. */
   setAnimation(trackIndex: number, animationName: string, loop: boolean) {
     let animation = this.data.skeletonData.findAnimation(animationName);
     if (animation == null)
       throw new Error("Animation not found: " + animationName);
     return this.setAnimationWith(trackIndex, animation, loop);
+  }
+  hasAnimation(animationName: string){
+      return Boolean(this.data.skeletonData.findAnimation(animationName));
   }
 
   /** Sets the current animation for a track, discarding any queued animations. If the formerly current track entry was never

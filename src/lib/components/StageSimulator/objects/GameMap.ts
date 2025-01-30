@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import * as spine from '$lib/spine';
+import type { MapConfig } from '$lib/types';
 import { Enemy } from './Enemy';
 import { GameConfig } from './GameConfig';
 import { StickBox } from './StickBox';
@@ -8,6 +9,7 @@ import { AssetManager } from './AssetManager';
 import { GameManager } from './GameManager';
 
 export class GameMap {
+	config: MapConfig;
 	scene: THREE.Scene;
 	enemies: Enemy[] = [];
 	cubeGeo: THREE.BoxGeometry;
@@ -85,6 +87,11 @@ export class GameMap {
 	}
 
 	addEnemy(action: any): void {
+		const prefabKey = this.config.enemies.find((enemy) => enemy.id === action.key)?.prefabKey;
+		if (!prefabKey) {
+			console.log(action.key, ' prefabKey not found');
+			return;
+		}
 		const originalRoute = this.config.routes[action['routeIndex']];
 		const route = this.gameManager.convertMovementConfig(structuredClone(originalRoute));
 
@@ -129,7 +136,9 @@ export class GameMap {
 			}
 		};
 
-		const skeletonData = this.assetManager.spineMap.get('enemy_1111_ucommd_2');
+		const skeletonData = this.assetManager.spineMap.get(prefabKey);
+		console.log(prefabKey);
+		console.log(skeletonData);
 		const skeletonMesh = new spine.SkeletonMesh(skeletonData, (parameters) => {
 			parameters.depthTest = false;
 			parameters.alphaTest = 0.001;

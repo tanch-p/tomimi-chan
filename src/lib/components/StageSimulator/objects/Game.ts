@@ -20,6 +20,7 @@ export class Game {
 	config;
 	waves;
 	enemies: any[];
+	state = "load";
 	isRunning = false;
 	gameManager: GameManager;
 	public scaledElapsedTime = 0; // Total game-time elapsed
@@ -55,14 +56,8 @@ export class Game {
 
 		this.raycaster = new THREE.Raycaster();
 		this.pointer = new THREE.Vector2();
-		// lights
 
-		const ambientLight = new THREE.AmbientLight(0xcccccc, 3);
-		this.scene.add(ambientLight);
-
-		const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
-		directionalLight.position.set(-1, 1, 1).normalize();
-		this.scene.add(directionalLight);
+		this.initLights();
 		this.clock = new THREE.Clock();
 
 		this.renderer = new THREE.WebGLRenderer({
@@ -80,10 +75,28 @@ export class Game {
 
 		this.renderer.setAnimationLoop(() => this.render());
 	}
+	initLights(){
+		// lights
+		const ambientLight = new THREE.AmbientLight(0xcccccc, 3);
+		this.scene.add(ambientLight);
 
-	reset() {
-		this.isRunning = false;
+		const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
+		directionalLight.position.set(-1, 1, 1).normalize();
+		this.scene.add(directionalLight);
+	}
+
+	reset(config,waves) {
+		this.config = config;
+		this.waves = waves;
+		this.objects = [];
+		this.state = 'reset';
+		this.renderer.setAnimationLoop(null);
 		this.clearScene(this.scene);
+		this.gameManager = new GameManager(this.config, this.scene, this.camera, this.objects);
+		this.map = new GameMap(this.scene, this.config, this.objects, this.gameManager);
+		this.spawnManager = new SpawnManager(this.waves, this.map);
+		this.initLights();
+		this.renderer.setAnimationLoop(() => this.render());
 	}
 
 	onWindowResize() {
@@ -106,8 +119,8 @@ export class Game {
 			-((event.clientY - rect.top) / rect.height) * 2 + 1
 		);
 
-		if (!this.isRunning) {
-			return (this.isRunning = true);
+		if (this.state !== "ready") {
+			return (this.state = "running");
 		}
 
 		this.raycaster.setFromCamera(this.pointer, this.camera);
@@ -136,7 +149,7 @@ export class Game {
 	}
 	render() {
 		const deltaTime = this.clock.getDelta() * GameConfig.speedFactor;
-		if (this.isRunning) {
+		if (this.state==="running") {
 			this.scaledElapsedTime += deltaTime;
 			this.spawnManager.update(deltaTime, this.scaledElapsedTime);
 			this.map.update(deltaTime);
