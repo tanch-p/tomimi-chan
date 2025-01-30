@@ -36,7 +36,7 @@ const texturesToLoad = [
 				'tel_arrow_1',
 				{
 					UVWidth: 0.04,
-					UVHeight: 0.18,
+					UVHeight: 0.17,
 					uvOffsetX: 0.85,
 					uvOffsetY: 0.26
 				}
@@ -45,7 +45,7 @@ const texturesToLoad = [
 				'tel_arrow_2',
 				{
 					UVWidth: 0.04,
-					UVHeight: 0.18,
+					UVHeight: 0.17,
 					uvOffsetX: 0.799,
 					uvOffsetY: 0.26
 				}
@@ -54,7 +54,7 @@ const texturesToLoad = [
 				'tel_arrow_3',
 				{
 					UVWidth: 0.04,
-					UVHeight: 0.18,
+					UVHeight: 0.17,
 					uvOffsetX: 0.739,
 					uvOffsetY: 0.26
 				}
@@ -63,7 +63,7 @@ const texturesToLoad = [
 				'tel_arrow_-1',
 				{
 					UVWidth: 0.04,
-					UVHeight: 0.18,
+					UVHeight: 0.17,
 					uvOffsetX: 0.95,
 					uvOffsetY: 0.26
 				}
@@ -232,7 +232,6 @@ export class AssetManager {
 					}
 				);
 			}).then((gltf) => {
-				console.log(gltf);
 				this.models.set('curse', gltf.scene);
 			})
 		);
