@@ -30,6 +30,7 @@ export class Enemy {
 	isEnding = false;
 	gameManager: GameManager;
 	pathGroup;
+	idleAnim = 'Idile';
 	sprite: THREE.Sprite;
 
 	constructor(data, route, mesh, skeletonMesh, sprite, gameManager) {
@@ -44,8 +45,11 @@ export class Enemy {
 		this.skel = skeletonMesh;
 		this.hp = data.stats.hp;
 		this.speed = data.stats.speed;
-		this.state = 'Idile';
-		this.skel.state.setAnimation(0, 'Idile', true);
+		this.state = this.idleAnim;
+		if (!this.skel.state.hasAnimation('Idile')) {
+			this.idleAnim = 'Idle';
+		}
+		this.skel.state.setAnimation(0, this.idleAnim, true);
 		this.skel.skeleton.color.r = 0.2;
 		this.skel.skeleton.color.g = 0.2;
 		this.skel.skeleton.color.b = 0.2;
@@ -212,8 +216,8 @@ export class Enemy {
 			case 'WAIT_FOR_SECONDS':
 				if (this.waitElapsedTime === 0) {
 					this.mesh.add(this.waitTimer);
-					this.state = 'Idile';
-					this.skel.state.setAnimation(0, 'Idile', true);
+					this.state = 'idle';
+					this.skel.state.setAnimation(0, this.idleAnim, true);
 					this.waitElapsedTime += delta;
 				} else {
 					this.updateCountdownSprite(this.waitTimer, time - this.waitElapsedTime);
@@ -300,7 +304,7 @@ export class Enemy {
 			const material = new THREE.LineBasicMaterial({
 				color: 0xff0000,
 				transparent: true,
-				depthTest: false,
+				depthTest: false
 			}); // Red line
 
 			// Create the line

@@ -18,11 +18,15 @@
 		enemyCounts = [],
 		selectedCountIndex = 0,
 		selectedPermutationIdx = 0;
+	$: if (mapConfig) {
+		selectedCountIndex = 0;
+		selectedPermutationIdx = 0;
+	}
 
 	$: hasAnalysis = !mapConfig.id.includes('_duel_');
 	$: hasHiddenGroups = ['rogue_sami', 'rogue_skz'].includes(rogueTopic);
 	$: options = getOptions(rogueTopic, language);
-	$: permutations = getEnemyCountPermutations(mapConfig, hiddenGroups, eliteMode);
+$: permutations = getEnemyCountPermutations(mapConfig, hiddenGroups, eliteMode);
 	$: enemyCounts = permutations.reduce((acc, { count }) => {
 		if (!acc.includes(count)) {
 			acc.push(count);

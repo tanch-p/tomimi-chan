@@ -235,13 +235,20 @@ export class AssetManager {
 				this.models.set('curse', gltf.scene);
 			})
 		);
-
-		for (const enemy of enemies) {
-			const key = 'enemy_1111_ucommd_2';
+		const enemyKeys = enemies.reduce((acc, curr) => {
+			if (!acc.includes(curr.prefabKey)) {
+				acc.push(curr.prefabKey);
+			}
+			return acc;
+		}, []);
+		for (const key of enemyKeys) {
+			if (this.spineMap.has(key)) {
+				continue;
+			}
 			promises.push(
 				new Promise((resolve, reject) => {
-					this.spineAssetManager.loadBinary(`${key}.skel`);
-					this.spineAssetManager.loadTextureAtlas(`${key}.atlas`);
+					this.spineAssetManager.loadBinary(`${key.replace('enemy_', '')}/${key}.skel`);
+					this.spineAssetManager.loadTextureAtlas(`${key.replace('enemy_', '')}/${key}.atlas`);
 
 					const checkLoading = () => {
 						if (this.spineAssetManager.isLoadingComplete()) {
@@ -253,12 +260,12 @@ export class AssetManager {
 
 					checkLoading();
 				}).then(() => {
-					const atlas = this.spineAssetManager.get(`${key}.atlas`);
+					const atlas = this.spineAssetManager.get(`${key.replace('enemy_', '')}/${key}.atlas`);
 					const atlasLoader = new spine.AtlasAttachmentLoader(atlas);
 					const skeletonBinary = new spine.SkeletonBinary(atlasLoader);
 					skeletonBinary.scale = 0.4;
 					const skeletonData = skeletonBinary.readSkeletonData(
-						this.spineAssetManager.get(`${key}.skel`)
+						this.spineAssetManager.get(`${key.replace('enemy_', '')}/${key}.skel`)
 					);
 					this.spineMap.set(key, skeletonData);
 				})
