@@ -18,9 +18,15 @@
 
 	$: if (mapConfig) {
 		loadAssets(enemies);
-		// if (game) {
-		// 	game.reset();
-		// }
+		resetGame();
+	}
+	$: if (waveData) {
+		resetGame();
+	}
+	function resetGame() {
+		if (game) {
+			game.reset(mapConfig,waves);
+		}
 	}
 
 	async function loadAssets(enemies) {

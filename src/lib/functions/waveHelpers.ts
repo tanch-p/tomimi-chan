@@ -109,7 +109,9 @@ export const getEnemyCountPermutations = (mapConfig, hiddenGroups, eliteMode) =>
 	});
 	return list.reduce((acc, { count, permutation }) => {
 		acc.push({ count: count, permutation });
-		acc.push({ count: count + 1, permutation, bonus: true });
+		if (bonus) {
+			acc.push({ count: count + 1, permutation, bonus: true });
+		}
 		return acc;
 	}, []);
 };
