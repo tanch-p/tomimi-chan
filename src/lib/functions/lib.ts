@@ -287,6 +287,7 @@ export const getEliteColors = (rogueTopic: string) => {
 };
 
 const STAGES_WITH_ELITE_IMG = [
+	'ro1_e_4_8',
 	'ro3_e_3_2',
 	'ro3_e_4_2',
 	'ro3_e_5_2',
