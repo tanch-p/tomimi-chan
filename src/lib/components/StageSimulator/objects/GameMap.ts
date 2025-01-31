@@ -150,7 +150,11 @@ export class GameMap {
 		// 	skeletonMesh.skeleton.data.width
 		// );
 		group.add(skeletonMesh);
-		const size = new spine.Vector2(50, 100);
+		group.renderOrder = 1;
+		const size = new spine.Vector2(
+			Math.max(50, Math.min(100, skeletonMesh.skeleton.data.width * 0.3)),
+			Math.max(75, Math.min(110, skeletonMesh.skeleton.data.height * 0.3))
+		);
 		const spriteMaterial = new THREE.SpriteMaterial({
 			transparent: false,
 			depthTest: false,
@@ -160,7 +164,8 @@ export class GameMap {
 		const sprite = new THREE.Sprite(spriteMaterial);
 		sprite.scale.set(size.x, size.y, 1);
 		sprite.position.z = GameConfig.gridSize;
-		skeletonMesh.add(sprite);
+		sprite.position.y = skeletonMesh.skeleton.data.height < 300 ? -GameConfig.gridSize * 0.15 : 0;
+		group.add(sprite);
 		const enemy = new Enemy(enemyData, route, group, skeletonMesh, sprite, this.gameManager);
 		sprite.userData.enemy = enemy;
 		this.objects.push(sprite);

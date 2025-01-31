@@ -20,10 +20,8 @@ export class Game {
 	config;
 	waves;
 	enemies: any[];
-	state = "load";
-	isRunning = false;
+	state = 'load';
 	gameManager: GameManager;
-	public scaledElapsedTime = 0; // Total game-time elapsed
 
 	constructor(config, waves, canvasElement: HTMLCanvasElement) {
 		this.canvas = canvasElement;
@@ -71,11 +69,11 @@ export class Game {
 
 		this.gameManager = new GameManager(config, this.scene, this.camera, this.objects);
 		this.map = new GameMap(this.scene, config, this.objects, this.gameManager);
-		this.spawnManager = new SpawnManager(waves, this.map);
+		this.spawnManager = new SpawnManager(waves, this.map, this.gameManager);
 
 		this.renderer.setAnimationLoop(() => this.render());
 	}
-	initLights(){
+	initLights() {
 		// lights
 		const ambientLight = new THREE.AmbientLight(0xcccccc, 3);
 		this.scene.add(ambientLight);
@@ -85,7 +83,7 @@ export class Game {
 		this.scene.add(directionalLight);
 	}
 
-	reset(config,waves) {
+	reset(config, waves) {
 		this.config = config;
 		this.waves = waves;
 		this.objects = [];
@@ -94,8 +92,9 @@ export class Game {
 		this.clearScene(this.scene);
 		this.gameManager = new GameManager(this.config, this.scene, this.camera, this.objects);
 		this.map = new GameMap(this.scene, this.config, this.objects, this.gameManager);
-		this.spawnManager = new SpawnManager(this.waves, this.map);
+		this.spawnManager = new SpawnManager(this.waves, this.map, this.gameManager);
 		this.initLights();
+		this.state = 'ready';
 		this.renderer.setAnimationLoop(() => this.render());
 	}
 
@@ -118,9 +117,11 @@ export class Game {
 			((event.clientX - rect.left) / rect.width) * 2 - 1,
 			-((event.clientY - rect.top) / rect.height) * 2 + 1
 		);
-
-		if (this.state !== "ready") {
-			return (this.state = "running");
+		if (['reset', 'loading'].includes(this.state)) {
+			return;
+		}
+		if (this.state === 'ready') {
+			return (this.state = 'running');
 		}
 
 		this.raycaster.setFromCamera(this.pointer, this.camera);
@@ -138,20 +139,21 @@ export class Game {
 				}
 				enemy.selected = !enemy.selected;
 			}
-		
-				const enemiesObjs = this.objects.filter((ele) => ele.userData.enemy);
-				enemiesObjs.forEach((ele) => {
-					if(ele.uuid !== intersect.object.uuid){
-						ele.userData.enemy.hidePath();
-					}
-			})
+
+			const enemiesObjs = this.objects.filter((ele) => ele.userData.enemy);
+			enemiesObjs.forEach((ele) => {
+				if (ele.uuid !== intersect.object.uuid) {
+					ele.userData.enemy.hidePath();
+				}
+			});
 		}
 	}
 	render() {
 		const deltaTime = this.clock.getDelta() * GameConfig.speedFactor;
-		if (this.state==="running") {
-			this.scaledElapsedTime += deltaTime;
-			this.spawnManager.update(deltaTime, this.scaledElapsedTime);
+		if (this.state === 'running') {
+			this.gameManager.scaledElapsedTime += deltaTime;
+			this.gameManager.waveElapsedTime += deltaTime;
+			this.spawnManager.update();
 			this.map.update(deltaTime);
 		}
 		this.renderer.render(this.scene, this.camera);
