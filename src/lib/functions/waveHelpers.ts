@@ -1,9 +1,5 @@
 import type { Language, RogueTopic } from '$lib/types';
 import fragments from '$lib/data/is/sarkaz/fragments.json';
-import byokai from '$lib/images/enemy_icons/icon_enemy_1106_byokai.webp';
-import skzams from '$lib/images/enemy_icons/icon_enemy_2093_skzams.webp';
-import skzgds from '$lib/images/enemy_icons/icon_enemy_2091_skzgds.webp';
-import skzcy from '$lib/images/enemy_icons/icon_enemy_2067_skzcy.webp';
 import f27 from '$lib/images/is/sarkaz/rogue_4_fragment_F_27.webp';
 import f28 from '$lib/images/is/sarkaz/rogue_4_fragment_F_28.webp';
 import relic_routeweave_net from '$lib/images/is/relics/relic_routeweave_net.webp';
@@ -25,19 +21,19 @@ export const getOptions = (rogueTopic: RogueTopic, language: Language) => {
 	switch (rogueTopic) {
 		case 'rogue_sami':
 			return [
-				{ key: 'totem1', src: byokai, name: '' },
+				{ key: 'totem1', src: '/images/enemy_icons/enemy_1106_byokai.webp', name: '' },
 				{ key: 'bossrelic', src: relic_routeweave_net, name: '' }
 			];
 		case 'rogue_skz':
 			return [
 				{
 					key: 'hidden_door',
-					src: skzcy,
+					src: '/images/enemy_icons/enemy_2067_skzcy.webp',
 					name: getFragmentName('rogue_4_fragment_F_08', language)
 				},
 				{
 					key: 'hidden_window',
-					src: skzgds,
+					src: '/images/enemy_icons/enemy_2091_skzgds.webp',
 					name: getFragmentName('rogue_4_fragment_F_29', language)
 				},
 				{
@@ -50,7 +46,7 @@ export const getOptions = (rogueTopic: RogueTopic, language: Language) => {
 					src: f28,
 					name: getFragmentName('rogue_4_fragment_F_28', language)
 				},
-				{ key: 'shadow', src: skzams, name: '' }
+				{ key: 'shadow', src: '/images/enemy_icons/enemy_2093_skzams.webp', name: '' }
 			];
 		default:
 			return;

@@ -3,12 +3,13 @@ import ISStages from './data/stages/stage_name_lookup_table.json' assert { type:
 const LANGUAGES = ['en', 'ja', 'zh'];
 const PAGES = ['about', 'credits', 'laoli', 'recruit', 'mizuki', 'phantom', 'sarkaz', 'sami'];
 
-const IS_STAGES_LIST = Object.keys(ISStages).reduce((acc, { key, lang }) => {
+const IS_STAGES_LIST = Object.entries(ISStages).reduce((acc, [name,value]) => {
+	const {lang} = value;
 	if (lang === 'ALL') {
-		const list = LANGUAGES.map((language) => `/${language}/stages/${key}`);
+		const list = LANGUAGES.map((language) => `/${language}/stages/${name}`);
 		acc = acc.concat(list);
 	} else {
-		acc.push(`/${lang}/stages/${key}`);
+		acc.push(`/${lang}/stages/${name}`);
 	}
 	return acc;
 }, []);
