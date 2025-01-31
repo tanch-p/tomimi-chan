@@ -7,7 +7,8 @@ const ENEMY_KEYS_TO_IGNORE = [
 	'enemy_2047_smtree',
 	'enemy_1177_dufrbl_2',
 	'enemy_1177_dufrbl',
-	'enemy_2083_skzhg'
+	'enemy_2083_skzhg',
+	"enemy_2040_syrott"
 ];
 const ENEMY_KEYS_TO_REPLACE = {
 	enemy_2097_skzfdd: 'enemy_2082_skzdd',

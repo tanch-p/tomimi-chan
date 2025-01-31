@@ -269,7 +269,6 @@ export class Enemy {
 		}
 	}
 	onEnd(): void {
-		this.handleDefault();
 		this.exit = true;
 	}
 
@@ -444,8 +443,11 @@ export class Enemy {
 				case 'enemy_1425_lrcmra':
 				case 'enemy_1425_lrcmra_2':
 				case 'enemy_1506_patrt':
+				case 'enemy_2013_csbot':
 					animName = 'Idle_1';
 					break;
+				case 'enemy_1158_divman':
+				case 'enemy_1158_divman_2':
 				case 'enemy_1171_durokt':
 				case 'enemy_1171_durokt_2':
 				case 'enemy_2014_csicer':
@@ -453,6 +455,9 @@ export class Enemy {
 					break;
 				case 'enemy_2070_skzfbx':
 					animName = 'Idle1';
+					break;
+				case 'enemy_2025_syufo':
+					animName = 'Idle_01';
 					break;
 				case 'enemy_1271_nhkodo':
 				case 'enemy_1271_nhkodo_2':
@@ -474,6 +479,8 @@ export class Enemy {
 				case 'enemy_2089_skzjkl':
 					animName = 'C_Idle';
 					break;
+				case 'enemy_1516_jakill':
+				case 'enemy_2037_sygirl':
 				case 'enemy_2081_skztxs':
 				case 'enemy_2082_skzdd':
 					animName = 'C1_Idle';
@@ -507,9 +514,12 @@ export class Enemy {
 				case 'enemy_1002_nsabr':
 				case 'enemy_1000_gopro':
 				case 'enemy_1000_gopro_2':
+				case 'enemy_1000_gopro_3':
 				case 'enemy_1064_snsbr':
 				case 'enemy_1077_sotihd':
 				case 'enemy_1077_sotihd_2':
+				case 'enemy_1087_ltwolf':
+				case 'enemy_1087_ltwolf_2':
 				case 'enemy_1165_duhond':
 				case 'enemy_1165_duhond_2':
 					animName = 'Run_Loop';
@@ -524,12 +534,15 @@ export class Enemy {
 				case 'enemy_1506_patrt':
 					animName = 'Move_1';
 					break;
+				case 'enemy_1158_divman':
+				case 'enemy_1158_divman_2':
 				case 'enemy_1171_durokt':
 				case 'enemy_1171_durokt_2':
 				case 'enemy_2014_csicer':
 					animName = 'Move01';
 					break;
 				case 'enemy_2004_balloon':
+				case 'enemy_2025_syufo':
 					animName = 'Move_01';
 					break;
 				case 'enemy_2070_skzfbx':
@@ -558,6 +571,8 @@ export class Enemy {
 				case 'enemy_2089_skzjkl':
 					animName = 'C_Move';
 					break;
+				case 'enemy_1516_jakill':
+				case 'enemy_2037_sygirl':
 				case 'enemy_2081_skztxs':
 				case 'enemy_2082_skzdd':
 					animName = 'C1_Move';
@@ -582,63 +597,5 @@ export class Enemy {
 		this.skel.state.setAnimation(0, animName, true);
 	}
 	handleDeath() {}
-	handleDefault() {
-		let animName = 'Default';
-		if (!this.skel.state.hasAnimation('Default')) {
-			switch (this.key) {
-				case 'enemy_1118_lidbox':
-					animName = 'Default_grey';
-					break;
-
-				case 'enemy_1327_cbrokt':
-				case 'enemy_1327_cbrokt_2':
-				case 'enemy_1412_mmjump':
-				case 'enemy_1412_mmjump_2':
-				case 'enemy_1425_lrcmra':
-				case 'enemy_1425_lrcmra_2':
-					animName = 'Default_1';
-					break;
-				case 'enemy_1171_durokt':
-				case 'enemy_1171_durokt_2':
-				case 'enemy_2014_csicer':
-					animName = 'Default01';
-					break;
-				case 'enemy_1216_cansld':
-				case 'enemy_1216_cansld_2':
-				case 'enemy_1311_mhkryk':
-				case 'enemy_1311_mhkryk_2':
-					animName = 'Default_A';
-					break;
-				case 'enemy_1388_wingnt':
-					animName = 'A_Default';
-					break;
-				case 'enemy_1418_mmkonm':
-					animName = 'Default_b';
-					break;
-				case 'enemy_1135_redman':
-				case 'enemy_1135_redman_2':
-					animName = 'C_Default';
-					break;
-				case 'enemy_2081_skztxs':
-				case 'enemy_2082_skzdd':
-					animName = 'C1_Default';
-					break;
-				case 'enemy_1384_winfrz':
-					animName = 'C2_Default';
-					break;
-				case 'enemy_1267_nhpbr':
-				case 'enemy_1267_nhpbr_2':
-					animName = 'F_Default';
-					break;
-				default:
-					break;
-			}
-			if (!this.skel.state.hasAnimation(animName)) {
-				console.log(this.key);
-				return;
-			}
-			this.skel.state.setAnimation(0, animName, false);
-		}
-	}
 	handleSkill() {}
 }
