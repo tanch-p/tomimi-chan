@@ -26,7 +26,7 @@
 					{/if}
 					<img
 						class="select-none"
-						src={enemy.img}
+						src={`/images/enemy_icons/${enemy.key}.webp`}
 						height="60px"
 						width="60px"
 						decoding="async"

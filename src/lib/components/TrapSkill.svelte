@@ -15,9 +15,13 @@
 	<div class="grid grid-cols-[1fr_80px] gap-x-3 mt-6">
 		<div class="self-end">
 			<div class="relative h-max w-[80px]">
-				{#await import(`../images/skill_icons/skill_icon_${getSkillImgUrl(skill.skillId)}.webp`) then { default: src }}
-					<img {src} width="80" height="80" loading="lazy" alt={''} />
-				{/await}
+				<img
+					src="/images/skill_icons/skill_icon_{getSkillImgUrl(skill.skillId)}.webp"
+					width="80"
+					height="80"
+					loading="lazy"
+					alt={''}
+				/>
 				{#if skill.skillType !== 'PASSIVE'}
 					<div class="absolute flex -bottom-0.5 -right-0.5">
 						{#if skill.spData?.initSp}

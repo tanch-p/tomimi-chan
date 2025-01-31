@@ -16,7 +16,7 @@
 			<td class={`border border-gray-400 w-[75px]`}>
 				<img
 					class="select-none"
-					src={trap.img}
+					src={`/images/chara_icons/${trap.key}.webp`}
 					height="75px"
 					width="75px"
 					decoding="async"

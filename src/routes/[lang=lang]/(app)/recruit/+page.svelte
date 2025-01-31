@@ -10,7 +10,6 @@
 	import CharaSecFilter from './CharaSecFilter.svelte';
 	import CharaPopup from './CharaPopup.svelte';
 	import translations from '$lib/translations.json';
-	import { onMount } from 'svelte';
 	import ClearButton from './ClearButton.svelte';
 	import Settings from './Settings.svelte';
 
@@ -21,18 +20,10 @@
 	let loading = true;
 	let characters = [];
 
-	const loadData = async (language) => {
-		loading = true;
+	const loadData = async (language:Language) => {
 		characters = await getCharaList(language);
-		loading = false;
-	};
-	onMount(async () => {
-		await loadData(language);
 		secFilterOptions.set(genSecFilterOptions(characters));
-	});
-	$: if (language) {
-		loadData(language);
-	}
+	};
 </script>
 
 <svelte:head>
@@ -50,14 +41,16 @@
 			<CharaSortOptions {language} />
 			<CharaSecFilter {language} />
 		</div>
-		{#if loading}
+		{#await loadData(language)}
 			<p class="text-center">{translations[language].data_loading}</p>
-		{:else}
+		{:then}
 			<DisplayContainer
 				characters={characters.filter($globalCheck).filter($filters).sort($sortFunction)}
 				{language}
 			/>
-		{/if}
+		{:catch error}
+			<p class="text-center">An Error occured while loading <br />{error.message}</p>
+		{/await}
 	</div>
 	<CharaFilterDesc {language} />
 	<CharaPopup {language} />

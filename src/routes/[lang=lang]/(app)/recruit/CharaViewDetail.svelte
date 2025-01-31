@@ -67,7 +67,7 @@
 					/>
 				</div>
 				<div class="feathered">
-					<img src={chara.icon} width="100" height="100" alt={chara.appellation} class="rounded" />
+					<img src={`/images/chara_icons/${chara.id}.webp`} width="100" height="100" alt={chara.appellation} class="rounded" />
 				</div>
 				<div class="absolute z-[1] bottom-4 left-0">
 					{#if chara.potential.length > 0}

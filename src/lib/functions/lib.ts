@@ -159,8 +159,7 @@ export const setOtherBuffsList = (
 			}
 			if (skill.type === 'buff') {
 				buffsList.push({
-					key: enemy[`name_${language}`],
-					img: enemy.img,
+					key: enemy.key,
 					name: enemy[`name_${language}`],
 					targets: skill.effects.targets,
 					activeTargets: skill.effects.activeTargets,
@@ -278,3 +277,19 @@ export const getStageImg = (id, eliteMods) => {
 	}
 	return id;
 };
+
+export async function decompressGzipToJson(url) {
+	try {
+		const response = await fetch(url);
+		const decompressionStream = new DecompressionStream('gzip');
+		const decompressedStream = response.body.pipeThrough(decompressionStream);
+		const decompressedText = await new Response(decompressedStream).text();
+		return JSON.parse(decompressedText);
+	} catch (error) {
+		const response = await fetch(url);
+		const arrayBuffer = await response.arrayBuffer();
+		const textDecoder = new TextDecoder('utf-8');
+		const text = textDecoder.decode(arrayBuffer);
+		return JSON.parse(text);
+	}
+}

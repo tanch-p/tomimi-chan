@@ -5,7 +5,6 @@
 	import TrapHandbookDetails from './TrapHandbookDetails.svelte';
 	import MediaQuery from './MediaQuery.svelte';
 	import TrapTable from './TrapTable.svelte';
-	import trapIcon from '$lib/images/skill_icons/skill_icon_sktok_emp.webp';
 
 	export let language: Language, traps: Trap[], otherBuffsList, specialMods;
 </script>
@@ -13,7 +12,7 @@
 {#if traps?.length > 0}
 	<TogglePanel
 		title={translations[language].trap}
-		titleIcon={trapIcon}
+		titleIcon={'/images/skill_icons/skill_icon_sktok_emp.webp'}
 		isOpen={false}
 		size="subheading"
 		className="my-4"
@@ -28,7 +27,7 @@
 							<div class="relative">
 								<img
 									class="select-none"
-									src={trap.img}
+									src={`/images/chara_icons/${trap.key}.webp`}
 									height="60px"
 									width="60px"
 									decoding="async"

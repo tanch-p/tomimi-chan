@@ -78,7 +78,7 @@
 		<div class="flex flex-col gap-y-1 max-[390px]:w-[75px]">
 			<img
 				class="select-none"
-				src={enemy.img}
+				src={`/images/enemy_icons/${enemy.key}.webp`}
 				height="95px"
 				width="95px"
 				decoding="async"

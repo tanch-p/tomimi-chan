@@ -54,7 +54,7 @@
 				: 2}
 			<div class="grid grid-cols-[100px_1fr] pr-10">
 				<img
-					src={$selectedChara.icon}
+					src={`/images/chara_icons/${$selectedChara.id}.webp`}
 					width="100"
 					height="100"
 					alt={$selectedChara.appellation}

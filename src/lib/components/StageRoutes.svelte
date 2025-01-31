@@ -1,9 +1,5 @@
 <script lang="ts">
 	import type { Language, RogueTopic } from '$lib/types';
-	import DLD from '$lib/images/enemy_icons/icon_enemy_2001_duckmi.webp';
-	import GPN from '$lib/images/enemy_icons/icon_enemy_2002_bearmi.webp';
-	import THF from '$lib/images/enemy_icons/icon_enemy_2034_sythef.webp';
-	import DOQ from '$lib/images/enemy_icons/icon_enemy_2038_sydonq.webp';
 	import boss_icon from '$lib/images/is/boss_icon.webp';
 	import combat_ops_icon from '$lib/images/is/combat_icon.webp';
 	import emergency_ops_icon from '$lib/images/is/emergency_icon.webp';
@@ -15,10 +11,10 @@
 	export let routes: [], rogueTopic: RogueTopic | null, language: Language;
 
 	const icons = [
-		{ title: 'duck', src: DLD },
-		{ title: 'gpn', src: GPN },
-		{ title: 'thf', src: THF },
-		{ title: 'doq', src: DOQ },
+		{ title: 'duck', src: '/images/enemy_icons/enemy_2001_duckmi.webp' },
+		{ title: 'gpn', src: '/images/enemy_icons/enemy_2002_bearmi.webp' },
+		{ title: 'thf', src: `/images/enemy_icons/enemy_2034_sythef.webp` },
+		{ title: 'doq', src: `/images/enemy_icons/enemy_2038_sydonq.webp` },
 		{ title: 'chest', src: chest },
 		{ title: 'lumen', src: lumen },
 		{ title: 'boss', src: boss_icon },

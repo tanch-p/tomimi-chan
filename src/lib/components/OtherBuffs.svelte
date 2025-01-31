@@ -35,7 +35,12 @@
 					{#if buff.maxCount > 1 && currentCount > 0}
 						<p class="absolute right-0 bottom-0 bg-almost-black px-1 text-xs">x{currentCount}</p>
 					{/if}
-					<img src={buff.img} alt={buff.name} width="60" height="60" />
+					<img
+						src={buff.img || `/images/enemy_icons/icon_${buff.key}.webp`}
+						alt={buff.name}
+						width="60"
+						height="60"
+					/>
 				</div>
 				<p class="text-sm {mode === 'table' ? 'hidden' : ''}">
 					{buff.name}

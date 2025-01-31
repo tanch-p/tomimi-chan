@@ -33,14 +33,18 @@
 {#if tokenToSkill1to1Linked || tokenToSkillManyLinked}
 	<div class="flex justify-evenly mt-6">
 		{#each chara.skills as skill, skillIdx}
-			{#await import(`../../../../lib/images/skill_icons/skill_icon_${getSkillImgUrl(skill.skillId)}.webp`) then { default: src }}
-				<button class="relative" on:click={() => (tokenSkillIndex = skillIdx)}>
-					{#if tokenSkillIndex === skillIdx}
-						<div class="absolute w-full h-full border-[3px] border-[#0098dc]" />
-					{/if}
-					<img {src} width="80" height="80" loading="lazy" alt={''} />
-				</button>
-			{/await}
+			<button class="relative" on:click={() => (tokenSkillIndex = skillIdx)}>
+				{#if tokenSkillIndex === skillIdx}
+					<div class="absolute w-full h-full border-[3px] border-[#0098dc]" />
+				{/if}
+				<img
+					src="/images/skill_icons/skill_icon_{getSkillImgUrl(skill.skillId)}.webp"
+					width="80"
+					height="80"
+					loading="lazy"
+					alt={''}
+				/>
+			</button>
 		{/each}
 	</div>
 {/if}
