@@ -43,13 +43,13 @@ $: permutations = getEnemyCountPermutations(mapConfig, hiddenGroups, eliteMode);
 
 {#if hasAnalysis}
 	<TogglePanel title={translations[language].enemy_routes} size="subheading" isOpen={true}>
-		<div class="grid grid-cols-[120px_1fr] divide-y divide-neutral-700">
+		<div class="grid grid-cols-[120px_1fr] divide-y divide-neutral-700 border-y border-neutral-700">
 			{#if mapConfig.elite_mods}
-				<p class="title border-t border-neutral-700">{translations[language].operation_type}</p>
+				<p class="title">{translations[language].operation_type}</p>
 				<slot name="eliteMods" />
 			{/if}
 			{#if hasHiddenGroups}
-				<p class="title border-t border-neutral-700">{translations[language].hidden_options}</p>
+				<p class="title">{translations[language].hidden_options}</p>
 				<DraggableContainer className="grid grid-flow-col auto-cols-[minmax(100px,1fr)]">
 					{#each options as { key, src, name }}
 						{@const selected = hiddenGroups.includes(key)}
@@ -65,7 +65,7 @@ $: permutations = getEnemyCountPermutations(mapConfig, hiddenGroups, eliteMode);
 					{/each}
 				</DraggableContainer>
 			{/if}
-			<p class="title border-t border-neutral-700">{translations[language].enemy_count}</p>
+			<p class="title">{translations[language].enemy_count}</p>
 			<DraggableContainer className="grid grid-flow-col auto-cols-[minmax(100px,1fr)]">
 				{#each enemyCounts as count, i}
 					<button
@@ -80,7 +80,7 @@ $: permutations = getEnemyCountPermutations(mapConfig, hiddenGroups, eliteMode);
 				{/each}
 			</DraggableContainer>
 			{#if permutationsToShow.length > 0}
-				<p class="title border-t border-neutral-700">{translations[language].permutation}</p>
+				<p class="title">{translations[language].permutation}</p>
 				<DraggableContainer className="grid grid-flow-col auto-cols-[minmax(120px,1fr)]">
 					{#each permutationsToShow as { bonus }, i}
 						<button
