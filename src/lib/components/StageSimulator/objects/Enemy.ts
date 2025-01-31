@@ -8,6 +8,7 @@ export class Enemy {
 	assetManager: AssetManager;
 	private countdownTexture: THREE.CanvasTexture;
 	private countdownCanvas: HTMLCanvasElement;
+	key: string;
 	actions: any[];
 	hp: number;
 	speed: number;
@@ -30,10 +31,10 @@ export class Enemy {
 	isEnding = false;
 	gameManager: GameManager;
 	pathGroup;
-	idleAnim = 'Idile';
 	sprite: THREE.Sprite;
 
 	constructor(data, route, mesh, skeletonMesh, sprite, gameManager) {
+		this.key = data.key;
 		this.gameManager = gameManager;
 		this.assetManager = AssetManager.getInstance();
 		this.timerText = null;
@@ -45,11 +46,7 @@ export class Enemy {
 		this.skel = skeletonMesh;
 		this.hp = data.stats.hp;
 		this.speed = data.stats.speed;
-		this.state = this.idleAnim;
-		if (!this.skel.state.hasAnimation('Idile')) {
-			this.idleAnim = 'Idle';
-		}
-		this.skel.state.setAnimation(0, this.idleAnim, true);
+		this.handleIdle();
 		this.skel.skeleton.color.r = 0.2;
 		this.skel.skeleton.color.g = 0.2;
 		this.skel.skeleton.color.b = 0.2;
@@ -186,8 +183,7 @@ export class Enemy {
 					const { x, y } = this.gameManager.getVectorCoordinates(position, reachOffset);
 					this.targetPos = new THREE.Vector3(x, y, GameConfig.baseZIndex);
 					this.isMoving = true;
-					this.state = 'Move';
-					this.skel.state.setAnimation(0, 'Move', true);
+					this.handleMove();
 				}
 				const direction = new THREE.Vector3()
 					.subVectors(this.targetPos, this.mesh.position)
@@ -216,8 +212,7 @@ export class Enemy {
 			case 'WAIT_FOR_SECONDS':
 				if (this.waitElapsedTime === 0) {
 					this.mesh.add(this.waitTimer);
-					this.state = 'idle';
-					this.skel.state.setAnimation(0, this.idleAnim, true);
+					this.handleIdle();
 					this.waitElapsedTime += delta;
 				} else {
 					this.updateCountdownSprite(this.waitTimer, time - this.waitElapsedTime);
@@ -255,7 +250,7 @@ export class Enemy {
 		}
 	}
 	onEnd(): void {
-		this.skel.state.setAnimation(0, 'Default', false);
+		this.handleDefault();
 		this.exit = true;
 	}
 
@@ -406,4 +401,61 @@ export class Enemy {
 		this.mesh.add(newMesh);
 		this.waitTimer = newMesh;
 	}
+
+	handleIdle() {
+		let animName = 'Idile';
+		if (!this.skel.state.hasAnimation('Idile')) {
+			console.log(this.key);
+			switch (this.key) {
+				case 'enemy_1118_lidbox':
+					animName = 'Idle_grey';
+					break;
+
+				default:
+					animName = 'Idle';
+			}
+		}
+		this.state = 'idle';
+		this.skel.state.setAnimation(0, animName, true);
+	}
+
+	handleMove() {
+		let animName = 'Move';
+		if (!this.skel.state.hasAnimation('Move')) {
+			console.log(this.key);
+			switch (this.key) {
+				case 'enemy_1118_lidbox':
+					animName = 'Move_grey';
+					break;
+				case 'enemy_1007_slime':
+				case 'enemy_1007_slime_2':
+					animName = 'Move_Loop';
+					break;
+				case 'enemy_1002_nsabr':
+					animName = 'Run_Loop';
+					break;
+
+				default:
+					break;
+			}
+		}
+		this.state = 'move';
+		this.skel.state.setAnimation(0, animName, true);
+	}
+	handleDeath() {}
+	handleDefault() {
+		let animName = 'Default';
+		if (!this.skel.state.hasAnimation('Default')) {
+			console.log(this.key);
+			switch (this.key) {
+				case 'enemy_1118_lidbox':
+					animName = 'Default_grey';
+					break;
+				default:
+					break;
+			}
+			this.skel.state.setAnimation(0, animName, false);
+		}
+	}
+	handleSkill() {}
 }
