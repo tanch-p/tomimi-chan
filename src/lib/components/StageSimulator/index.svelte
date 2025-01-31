@@ -17,7 +17,7 @@
 	$: waves = waveData.waves;
 
 	$: if (mapConfig) {
-		loadAssets(enemies);
+		loadAssets(mapConfig.enemies);
 		resetGame();
 	}
 	$: if (waveData) {

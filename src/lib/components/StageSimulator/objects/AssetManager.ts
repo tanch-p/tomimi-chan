@@ -241,10 +241,12 @@ export class AssetManager {
 			}
 			return acc;
 		}, []);
+		console.log(enemyKeys);
 		for (const key of enemyKeys) {
 			if (this.spineMap.has(key)) {
 				continue;
 			}
+			console.log(key)
 			promises.push(
 				new Promise((resolve, reject) => {
 					this.spineAssetManager.loadBinary(`${key.replace('enemy_', '')}/${key}.skel`);
