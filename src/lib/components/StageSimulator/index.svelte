@@ -25,7 +25,7 @@
 	}
 	function resetGame() {
 		if (game) {
-			game.reset(mapConfig,waves);
+			game.reset(mapConfig, waves);
 		}
 	}
 
@@ -45,6 +45,7 @@
 		assetManager.texturesLoaded = true;
 		isLoading = false;
 		game = new Game(mapConfig, waves, canvasElement);
+		game.state = 'ready';
 	});
 
 	onDestroy(() => {

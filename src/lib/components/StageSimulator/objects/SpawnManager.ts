@@ -1,3 +1,4 @@
+import { GameManager } from './GameManager';
 import { GameMap } from './GameMap';
 
 class SpawnManager {
@@ -8,9 +9,11 @@ class SpawnManager {
 	nextWaveTimer: number;
 	actionIndex: number;
 	spawnCount = 0;
-	constructor(waves, map) {
+	gameManager: GameManager;
+	constructor(waves, map, gameManager) {
 		this.map = map;
 		this.waves = waves;
+		this.gameManager = gameManager;
 		this.currentWaveIndex = 0;
 		this.actionIndex = 0;
 		this.preDelayTimer = this.waves[0].preDelay;
@@ -19,14 +22,14 @@ class SpawnManager {
 	}
 
 	// Main update function to be called in animation loop
-	update(delta, elapsedTime) {
+	update() {
 		if (this.currentWaveIndex >= this.waves.length) {
 			return; // All waves completed
 		}
 		const currentWave = this.waves[this.currentWaveIndex];
 		for (let i = this.actionIndex; i < currentWave.timeline.length; i++) {
 			const fragment = currentWave.timeline[i];
-			if (elapsedTime >= fragment.t) {
+			if (this.gameManager.waveElapsedTime >= fragment.t) {
 				for (const action of fragment.actions) {
 					this.spawnEntity(action);
 					this.spawnCount += 1;
@@ -36,9 +39,12 @@ class SpawnManager {
 				break;
 			}
 		}
-		if(this.actionIndex >= currentWave.timeline.length){
-			this.currentWaveIndex+=1;
-			this.actionIndex=0;
+		if (this.actionIndex >= currentWave.timeline.length) {
+			this.currentWaveIndex += 1;
+			this.actionIndex = 0;
+			if (this.waves[this.currentWaveIndex]) {
+				this.gameManager.waveElapsedTime = 0;
+			}
 		}
 
 		// // Handle wave pre-delay

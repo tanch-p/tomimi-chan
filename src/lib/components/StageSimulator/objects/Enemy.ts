@@ -208,7 +208,26 @@ export class Enemy {
 				}
 
 				break;
+			case 'WAIT_CURRENT_FRAGMENT_TIME':
+			case 'WAIT_CURRENT_WAVE_TIME':
+				if (this.waitElapsedTime === 0) {
+					this.mesh.add(this.waitTimer);
+					this.handleIdle();
+					this.waitElapsedTime += delta;
+				} else {
+					this.updateCountdownSprite(
+						this.waitTimer,
+						time - this.gameManager.waveElapsedTime - this.waitElapsedTime
+					);
+					this.waitElapsedTime += delta;
+				}
 
+				if (this.waitElapsedTime >= time - this.gameManager.waveElapsedTime) {
+					this.mesh.remove(this.waitTimer);
+					this.waitElapsedTime = 0;
+					this.currentActionIndex++;
+				}
+				break;
 			case 'WAIT_FOR_SECONDS':
 				if (this.waitElapsedTime === 0) {
 					this.mesh.add(this.waitTimer);
@@ -278,6 +297,7 @@ export class Enemy {
 	visualisePath(paths, currentActionIndex, startPos) {
 		const remainingPaths = paths.filter((ele, i) => i >= currentActionIndex);
 		const returnGroup = new THREE.Group();
+		returnGroup.renderOrder = 50;
 		const lineGroup = new THREE.Group();
 		const movePaths = paths.filter((ele) => ele.type === 'MOVE' || ele.type === 'APPEAR_AT_POS');
 		for (let i = 0; i < movePaths.length; i++) {
@@ -324,8 +344,8 @@ export class Enemy {
 						sprite.scale.set(GameConfig.gridSize * 0.6, GameConfig.gridSize * 0.6, 1);
 						const { x, y } = this.gameManager.getVectorCoordinates(position, reachOffset);
 						sprite.position.set(x + 2, y + GameConfig.gridSize * 0.3, GameConfig.baseZIndex + 10);
-						group.renderOrder = 1;
-						sprite.renderOrder = 1;
+						group.renderOrder = 50;
+						sprite.renderOrder = 50;
 						group.add(sprite);
 					}
 					break;
@@ -356,6 +376,10 @@ export class Enemy {
 						textMesh.position.z = 5;
 						group.add(textMesh, ring, circle);
 						group.position.set(x, y, GameConfig.baseZIndex + 15);
+						group.renderOrder = 50;
+						circle.renderOrder = 50;
+						textMesh.renderOrder = 50;
+						ring.renderOrder = 50;
 					}
 					break;
 				default:
@@ -391,7 +415,7 @@ export class Enemy {
 		const textMesh = this.gameManager.getTextSprite(text, 16);
 		group.position.set(0, this.skel.skeleton.data.height * 0.4 + GameConfig.gridSize / 5, 0);
 		group.add(ring, circle, textMesh);
-		group.renderOrder = 1;
+		group.renderOrder = 10;
 		return group;
 	};
 
@@ -403,56 +427,215 @@ export class Enemy {
 	}
 
 	handleIdle() {
-		let animName = 'Idile';
-		if (!this.skel.state.hasAnimation('Idile')) {
-			console.log(this.key);
+		let animName = 'Idle';
+		if (!this.skel.state.hasAnimation('Idle')) {
 			switch (this.key) {
 				case 'enemy_1118_lidbox':
 					animName = 'Idle_grey';
 					break;
-
+				case 'enemy_1024_mortar':
+				case 'enemy_1024_mortar_2':
+				case 'enemy_1082_soticn':
+				case 'enemy_1082_soticn_2':
+				case 'enemy_1327_cbrokt':
+				case 'enemy_1327_cbrokt_2':
+				case 'enemy_1412_mmjump':
+				case 'enemy_1412_mmjump_2':
+				case 'enemy_1425_lrcmra':
+				case 'enemy_1425_lrcmra_2':
+				case 'enemy_1506_patrt':
+					animName = 'Idle_1';
+					break;
+				case 'enemy_1171_durokt':
+				case 'enemy_1171_durokt_2':
+				case 'enemy_2014_csicer':
+					animName = 'Idle01';
+					break;
+				case 'enemy_2070_skzfbx':
+					animName = 'Idle1';
+					break;
+				case 'enemy_1271_nhkodo':
+				case 'enemy_1271_nhkodo_2':
+				case 'enemy_1311_mhkryk':
+				case 'enemy_1311_mhkryk_2':
+				case 'enemy_1314_wdnjd':
+				case 'enemy_1315_wdyjd':
+				case 'enemy_1316_wdpjd':
+					animName = 'Idle_A';
+					break;
+				case 'enemy_1388_wingnt':
+					animName = 'A_Idle';
+					break;
+				case 'enemy_1418_mmkonm':
+					animName = 'Idle_b';
+					break;
+				case 'enemy_1135_redman':
+				case 'enemy_1135_redman_2':
+				case 'enemy_2089_skzjkl':
+					animName = 'C_Idle';
+					break;
+				case 'enemy_2081_skztxs':
+				case 'enemy_2082_skzdd':
+					animName = 'C1_Idle';
+					break;
+				case 'enemy_1384_winfrz':
+					animName = 'C1_Idle';
+					break;
+				case 'enemy_1267_nhpbr':
+				case 'enemy_1267_nhpbr_2':
+					animName = 'F_Idle';
+					break;
 				default:
-					animName = 'Idle';
+					animName = 'Idile';
 			}
 		}
 		this.state = 'idle';
+		if (!this.skel.state.hasAnimation(animName)) {
+			console.log(this.key);
+			return;
+		}
 		this.skel.state.setAnimation(0, animName, true);
 	}
 
 	handleMove() {
 		let animName = 'Move';
 		if (!this.skel.state.hasAnimation('Move')) {
-			console.log(this.key);
 			switch (this.key) {
 				case 'enemy_1118_lidbox':
 					animName = 'Move_grey';
 					break;
-				case 'enemy_1007_slime':
-				case 'enemy_1007_slime_2':
-					animName = 'Move_Loop';
-					break;
 				case 'enemy_1002_nsabr':
+				case 'enemy_1000_gopro':
+				case 'enemy_1000_gopro_2':
+				case 'enemy_1064_snsbr':
+				case 'enemy_1077_sotihd':
+				case 'enemy_1077_sotihd_2':
+				case 'enemy_1165_duhond':
+				case 'enemy_1165_duhond_2':
 					animName = 'Run_Loop';
 					break;
 
+				case 'enemy_1327_cbrokt':
+				case 'enemy_1327_cbrokt_2':
+				case 'enemy_1412_mmjump':
+				case 'enemy_1412_mmjump_2':
+				case 'enemy_1425_lrcmra':
+				case 'enemy_1425_lrcmra_2':
+				case 'enemy_1506_patrt':
+					animName = 'Move_1';
+					break;
+				case 'enemy_1171_durokt':
+				case 'enemy_1171_durokt_2':
+				case 'enemy_2014_csicer':
+					animName = 'Move01';
+					break;
+				case 'enemy_2004_balloon':
+					animName = 'Move_01';
+					break;
+				case 'enemy_2070_skzfbx':
+				case 'enemy_2084_skzcan':
+					animName = 'Move1';
+					break;
+
+				case 'enemy_1388_wingnt':
+					animName = 'A_Move';
+					break;
+				case 'enemy_1418_mmkonm':
+					animName = 'Move_b';
+					break;
+				case 'enemy_1271_nhkodo':
+				case 'enemy_1271_nhkodo_2':
+				case 'enemy_1311_mhkryk':
+				case 'enemy_1311_mhkryk_2':
+				case 'enemy_1314_wdnjd':
+				case 'enemy_1316_wdpjd':
+				case 'enemy_1315_wdyjd':
+				case 'enemy_2055_smlead':
+					animName = 'Move_B';
+					break;
+				case 'enemy_1135_redman':
+				case 'enemy_1135_redman_2':
+				case 'enemy_2089_skzjkl':
+					animName = 'C_Move';
+					break;
+				case 'enemy_2081_skztxs':
+				case 'enemy_2082_skzdd':
+					animName = 'C1_Move';
+					break;
+				case 'enemy_1384_winfrz':
+					animName = 'C2_Move';
+					break;
+				case 'enemy_1267_nhpbr':
+				case 'enemy_1267_nhpbr_2':
+					animName = 'F_Move';
+					break;
 				default:
+					animName = 'Move_Loop';
 					break;
 			}
 		}
 		this.state = 'move';
+		if (!this.skel.state.hasAnimation(animName)) {
+			console.log(this.key);
+			return;
+		}
 		this.skel.state.setAnimation(0, animName, true);
 	}
 	handleDeath() {}
 	handleDefault() {
 		let animName = 'Default';
 		if (!this.skel.state.hasAnimation('Default')) {
-			console.log(this.key);
 			switch (this.key) {
 				case 'enemy_1118_lidbox':
 					animName = 'Default_grey';
 					break;
+
+				case 'enemy_1327_cbrokt':
+				case 'enemy_1327_cbrokt_2':
+				case 'enemy_1412_mmjump':
+				case 'enemy_1412_mmjump_2':
+				case 'enemy_1425_lrcmra':
+				case 'enemy_1425_lrcmra_2':
+					animName = 'Default_1';
+					break;
+				case 'enemy_1171_durokt':
+				case 'enemy_1171_durokt_2':
+				case 'enemy_2014_csicer':
+					animName = 'Default01';
+					break;
+				case 'enemy_1216_cansld':
+				case 'enemy_1216_cansld_2':
+				case 'enemy_1311_mhkryk':
+				case 'enemy_1311_mhkryk_2':
+					animName = 'Default_A';
+					break;
+				case 'enemy_1388_wingnt':
+					animName = 'A_Default';
+					break;
+				case 'enemy_1418_mmkonm':
+					animName = 'Default_b';
+					break;
+				case 'enemy_1135_redman':
+				case 'enemy_1135_redman_2':
+					animName = 'C_Default';
+					break;
+				case 'enemy_2081_skztxs':
+				case 'enemy_2082_skzdd':
+					animName = 'C1_Default';
+					break;
+				case 'enemy_1384_winfrz':
+					animName = 'C2_Default';
+					break;
+				case 'enemy_1267_nhpbr':
+				case 'enemy_1267_nhpbr_2':
+					animName = 'F_Default';
+					break;
 				default:
 					break;
+			}
+			if (!this.skel.state.hasAnimation(animName)) {
+				console.log(this.key);
+				return;
 			}
 			this.skel.state.setAnimation(0, animName, false);
 		}

@@ -9,6 +9,8 @@
 	import { getStageImg } from '$lib/functions/lib';
 	export let mapConfig, rogueTopic: RogueTopic, language: Language, eliteMods;
 
+	let index = 0;
+
 	const stagesWithMultipleImgs = ['level_rogue4_4-1'];
 	const stagesWithRNG = [
 		'level_rogue4_1-3',
