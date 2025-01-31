@@ -297,6 +297,9 @@ const STAGES_WITH_ELITE_IMG = [
 	'ro4_e_5_8'
 ];
 export const getStageImg = (id, eliteMods) => {
+	if (id.includes('_t_')) {
+		id = id.replace('_e', '');
+	}
 	if (
 		!(eliteMods && STAGES_WITH_ELITE_IMG.includes(id)) &&
 		!id.includes('ev') &&
