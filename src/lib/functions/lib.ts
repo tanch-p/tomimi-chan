@@ -282,10 +282,11 @@ export const getStageImg = (id, eliteMods) => {
 export async function decompressGzipToJson(url) {
 	try {
 		const response = await fetch(url);
-		const arrayBuffer = await response.arrayBuffer();
-		const textDecoder = new TextDecoder('utf-8');
-		const text = textDecoder.decode(arrayBuffer);
-		return JSON.parse(text);
+		console.log(response);
+		const decompressionStream = new DecompressionStream('gzip');
+		const decompressedStream = response.body.pipeThrough(decompressionStream);
+		const decompressedText = await new Response(decompressedStream).text();
+		return JSON.parse(decompressedText);
 	} catch (error) {
 		console.error('Decompression error:', error);
 		throw error;
