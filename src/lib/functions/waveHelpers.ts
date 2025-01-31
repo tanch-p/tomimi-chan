@@ -113,7 +113,7 @@ export const getEnemyCountPermutations = (mapConfig, hiddenGroups, eliteMode) =>
 			acc.push({ count: count + 1, permutation, bonus: true });
 		}
 		return acc;
-	}, []);
+	}, []).sort((a,b) => a.count - b.count);
 };
 
 function addPackToGroup(action, groups) {

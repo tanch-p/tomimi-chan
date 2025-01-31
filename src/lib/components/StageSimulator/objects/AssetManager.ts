@@ -3,6 +3,18 @@ import * as spine from '$lib/spine';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+const ENEMY_KEYS_TO_IGNORE = [
+	'enemy_2047_smtree',
+	'enemy_1177_dufrbl_2',
+	'enemy_1177_dufrbl',
+	'enemy_2083_skzhg'
+];
+const ENEMY_KEYS_TO_REPLACE = {
+	enemy_2097_skzfdd: 'enemy_2082_skzdd',
+	enemy_2098_skzftx: 'enemy_2081_skztxs',
+	enemy_2099_skzfkl: 'enemy_2089_skzjkl',
+	enemy_2100_skzfmf: 'enemy_1528_manfri'
+};
 const texturesToLoad = [
 	{
 		fileName: 'sprite_shadow.png',
@@ -243,14 +255,16 @@ export class AssetManager {
 		}, []);
 		console.log(enemyKeys);
 		for (const key of enemyKeys) {
-			if (this.spineMap.has(key)) {
+			if (ENEMY_KEYS_TO_IGNORE.includes(key) || this.spineMap.has(key)) {
 				continue;
 			}
-			console.log(key)
+			let fileKey = ENEMY_KEYS_TO_REPLACE[key] || key;
 			promises.push(
 				new Promise((resolve, reject) => {
-					this.spineAssetManager.loadBinary(`${key.replace('enemy_', '')}/${key}.skel`);
-					this.spineAssetManager.loadTextureAtlas(`${key.replace('enemy_', '')}/${key}.atlas`);
+					this.spineAssetManager.loadBinary(`${fileKey.replace('enemy_', '')}/${fileKey}.skel`);
+					this.spineAssetManager.loadTextureAtlas(
+						`${fileKey.replace('enemy_', '')}/${fileKey}.atlas`
+					);
 
 					const checkLoading = () => {
 						if (this.spineAssetManager.isLoadingComplete()) {
@@ -262,12 +276,14 @@ export class AssetManager {
 
 					checkLoading();
 				}).then(() => {
-					const atlas = this.spineAssetManager.get(`${key.replace('enemy_', '')}/${key}.atlas`);
+					const atlas = this.spineAssetManager.get(
+						`${fileKey.replace('enemy_', '')}/${fileKey}.atlas`
+					);
 					const atlasLoader = new spine.AtlasAttachmentLoader(atlas);
 					const skeletonBinary = new spine.SkeletonBinary(atlasLoader);
-					skeletonBinary.scale = 0.4;
+					skeletonBinary.scale = 0.3;
 					const skeletonData = skeletonBinary.readSkeletonData(
-						this.spineAssetManager.get(`${key.replace('enemy_', '')}/${key}.skel`)
+						this.spineAssetManager.get(`${fileKey.replace('enemy_', '')}/${fileKey}.skel`)
 					);
 					this.spineMap.set(key, skeletonData);
 				})

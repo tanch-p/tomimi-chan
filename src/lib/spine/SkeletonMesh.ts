@@ -200,7 +200,7 @@ export class SkeletonMesh extends THREE.Object3D {
         vertices = this.vertices;
         numFloats = (mesh.worldVerticesLength >> 1) * vertexSize;
         if (numFloats > vertices.length) {
-          vertices = this.vertices = spine.Utils.newFloatArray(numFloats);
+          vertices = this.vertices = Utils.newFloatArray(numFloats);
         }
         mesh.computeWorldVertices(
           slot,

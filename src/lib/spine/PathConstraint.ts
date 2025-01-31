@@ -27,6 +27,10 @@
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
+import { PathAttachment } from "./attachments/PathAttachment";
+import { PositionMode, RotateMode, SpacingMode } from "./PathConstraintData";
+import { MathUtils, Utils } from "./Utils";
+
 /** Stores the current pose for a path constraint. A path constraint adjusts the rotation, translation, and scale of the
  * constrained bones so they follow a {@link PathAttachment}.
  *

@@ -27,6 +27,7 @@
 	import { applyTrapMods } from '$lib/functions/trapHelpers';
 	import EnemyCount from '$lib/components/EnemyCount.svelte';
 	import { setOtherBuffsList } from '$lib/functions/lib';
+	import EnemyWaves from '$lib/components/EnemyWaves.svelte';
 
 	export let data: PageData;
 	$: if (data.mapConfig) {
@@ -76,6 +77,20 @@
 		/>
 		<Mission {language} />
 		<DifficultySelect {language} {difficulty} {rogueTopic} />
+		<EnemyWaves mapConfig={data.mapConfig} enemies={moddedEnemies} {language} eliteMode={$eliteMode} {rogueTopic}>
+			<EliteToggle
+				slot="eliteMods"
+				inWaveOptions={true}
+				{eliteMode}
+				{normalMods}
+				mapNormalMods={data.mapConfig.n_mods}
+				mapEliteMods={data.mapConfig.elite_mods}
+				{eliteMods}
+				{rogueTopic}
+				{selectedRelics}
+				stageId={data.mapConfig.levelId}
+			/>
+		</EnemyWaves>
 		<TrapContainer {language} traps={moddedTraps} specialMods={$specialMods} />
 		<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 		<EnemyCount
