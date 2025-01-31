@@ -13,7 +13,8 @@ const config = {
             routes: {
 				include: ['/*'],
 				exclude: ['<all>']
-            }
+            },
+			concurrency: 1
         }),
 		prerender: {
 			handleMissingId:"ignore",

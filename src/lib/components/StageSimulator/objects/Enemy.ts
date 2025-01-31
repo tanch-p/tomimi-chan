@@ -6,8 +6,6 @@ import { AssetManager } from './AssetManager';
 
 export class Enemy {
 	assetManager: AssetManager;
-	private countdownTexture: THREE.CanvasTexture;
-	private countdownCanvas: HTMLCanvasElement;
 	key: string;
 	actions: any[];
 	hp: number;
@@ -32,6 +30,8 @@ export class Enemy {
 	gameManager: GameManager;
 	pathGroup;
 	sprite: THREE.Sprite;
+	height: number;
+	width: number;
 
 	constructor(data, route, mesh, skeletonMesh, sprite, gameManager) {
 		this.key = data.key;
