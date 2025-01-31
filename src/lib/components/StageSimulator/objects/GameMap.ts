@@ -94,6 +94,7 @@ export class GameMap {
 		}
 		const originalRoute = this.config.routes[action['routeIndex']];
 		const route = this.gameManager.convertMovementConfig(structuredClone(originalRoute));
+		console.log(route);
 
 		// Create two geometries with different sizes
 		const hitBoxGeo = new THREE.CircleGeometry(GameConfig.gridSize * 0.1, 32);
@@ -137,7 +138,6 @@ export class GameMap {
 		};
 
 		const skeletonData = this.assetManager.spineMap.get(prefabKey);
-		console.log(prefabKey);
 		console.log(skeletonData);
 		const skeletonMesh = new spine.SkeletonMesh(skeletonData, (parameters) => {
 			parameters.depthTest = false;
