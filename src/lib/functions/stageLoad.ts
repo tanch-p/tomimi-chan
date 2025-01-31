@@ -47,10 +47,6 @@ export const stageLoad = async (
 	) {
 		enemies.sort(sortEnemies);
 	}
-	const enemyPromises = await Promise.all(
-		enemies.map((enemy) => import(`../images/enemy_icons/icon_${enemy.key}.webp`))
-	);
-	enemies.forEach((enemy, index) => (enemy.img = enemyPromises[index].default));
 
 	const traps = parseTraps(mapConfig.traps, language);
 	return { mapConfig, enemies, traps };

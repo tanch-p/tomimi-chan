@@ -1,10 +1,6 @@
 <script lang="ts">
 	import type { Language, RogueTopic } from '$lib/types';
 	import translations from '$lib/translations.json';
-	import DLD from '$lib/images/enemy_icons/icon_enemy_2001_duckmi.webp';
-	import GPN from '$lib/images/enemy_icons/icon_enemy_2002_bearmi.webp';
-	import THF from '$lib/images/enemy_icons/icon_enemy_2034_sythef.webp';
-	import FAT from '$lib/images/enemy_icons/icon_enemy_2085_skzjxd.webp';
 	import sami_smbox from '$lib/images/is/sami/sktok_smbox.webp';
 	import sami_smrbox from '$lib/images/is/sami/sktok_smrbox.webp';
 	import sami_smbbox from '$lib/images/is/sami/sktok_smbbox.webp';
@@ -35,7 +31,7 @@
 		'level_rogue4_5-4',
 		'level_rogue4_t-1'
 	];
-	const stagesWithoutCalamity = ['level_rogue4_b-8','level_rogue4_b-9']
+	const stagesWithoutCalamity = ['level_rogue4_b-8', 'level_rogue4_b-9'];
 	const multipleImgLookup = {
 		'level_rogue4_4-1': [
 			{ key: 'a', img: skz_4_1a },
@@ -63,19 +59,25 @@
 		<div class="flex flex-col gap-y-4 px-2 sm:px-0">
 			<div class="flex flex-wrap gap-y-1 items-center">
 				<div class="flex items-center">
-					<img src={DLD} width="50px" alt="DLD" /> <span>5%</span>
+					<img src={'/images/enemy_icons/enemy_2001_duckmi.webp'} width="50px" alt="DLD" />
+					<span>5%</span>
 				</div>
 				<div class="flex items-center">
-					<img src={GPN} width="50px" alt="GPN" /> <span>5%</span>
+					<img src={'/images/enemy_icons/enemy_2002_bearmi.webp'} width="50px" alt="GPN" />
+					<span>5%</span>
 				</div>
 				{#if rogueTopic !== 'rogue_phantom'}
 					<div class="flex items-center">
-						<img src={THF} width="50px" alt="THF" /> <span>5%</span>
+						<img
+							src={`/images/enemy_icons/enemy_2034_sythef.webp`}
+							width="50px"
+							alt="THF"
+						/> <span>5%</span>
 					</div>
 				{/if}
 				{#if rogueTopic === 'rogue_skz'}
 					<div class="flex items-center">
-						<img src={FAT} width="50px" alt="FAT" /> <span>5%</span>
+						<img src={`/images/enemy_icons/enemy_2085_skzjxd.webp`} width="50px" alt="FAT" /> <span>5%</span>
 					</div>
 				{/if}
 			</div>

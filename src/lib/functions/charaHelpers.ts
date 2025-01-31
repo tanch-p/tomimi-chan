@@ -2,6 +2,7 @@ import type { Language } from '$lib/types';
 import filterOptions from '$lib/data/chara/filter_options.json';
 import translations from '$lib/translations.json';
 import { decompressGzipToJson } from './lib';
+import { dev } from '$app/environment';
 
 const SEARCH_IN_TAGS = [
 	'phys',
@@ -651,7 +652,13 @@ export const updateSortPriority = (sortOptions, index) => {
 };
 
 export const getCharaList = async (language) => {
-	const data = await decompressGzipToJson(`/data/characters_${language}.gz`);
+	let data;
+	if (dev) {
+		const res = await import(`../data/chara/characters_${language}.json`);
+		data = res.default;
+	} else {
+		data = await decompressGzipToJson(`/data/characters_${language}.gz`);
+	}
 	data.forEach((char, index) => {
 		char.activeModuleIndex = 0;
 		char.activeTalents = [];

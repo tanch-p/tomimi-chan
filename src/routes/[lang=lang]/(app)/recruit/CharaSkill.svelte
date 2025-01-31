@@ -27,9 +27,13 @@
 	<div class="grid grid-cols-[200px_1fr] gap-x-3 mt-6">
 		<div class="self-end">
 			<div class="relative h-max w-[90px]">
-				{#await import(`../../../../lib/images/skill_icons/skill_icon_${getSkillImgUrl(skill.skillId)}.webp`) then { default: src }}
-					<img {src} width="90" height="90" loading="lazy" alt={''} />
-				{/await}
+				<img
+					src="/images/skill_icons/skill_icon_{getSkillImgUrl(skill.skillId)}.webp"
+					width="90"
+					height="90"
+					loading="lazy"
+					alt={''}
+				/>
 				{#if skill.skillType !== 'PASSIVE'}
 					<div class="absolute flex -bottom-0.5 -right-0.5">
 						{#if skill.levels?.[mastery]?.spData?.initSp}
@@ -101,9 +105,13 @@
 				class="relative flex items-center justify-center w-[70px] h-[70px] shadow-md"
 				on:click={() => (mastery = getMasteryLvl(mastery))}
 			>
-				{#await import(`../../../../lib/images/skill_icons/skill_icon_${getSkillImgUrl(skill.skillId)}.webp`) then { default: src }}
-					<img {src} width="65" height="65" loading="lazy" alt={''} />
-				{/await}
+				<img
+					src="/images/skill_icons/skill_icon_{getSkillImgUrl(skill.skillId)}.webp"
+					width="65"
+					height="65"
+					loading="lazy"
+					alt={''}
+				/>
 				{#if hasMastery}
 					<img
 						src={charaAssets.mastery[mastery]}

@@ -159,8 +159,7 @@ export const setOtherBuffsList = (
 			}
 			if (skill.type === 'buff') {
 				buffsList.push({
-					key: enemy[`name_${language}`],
-					img: enemy.img,
+					key: enemy.key,
 					name: enemy[`name_${language}`],
 					targets: skill.effects.targets,
 					activeTargets: skill.effects.activeTargets,

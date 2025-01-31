@@ -43,7 +43,7 @@
 				<a href="#{enemy.stageId}" class="flex items-center pr-1.5 hover:bg-neutral-700">
 					<img
 						class="select-none"
-						src={enemy.img}
+						src={`/images/enemy_icons/${enemy.key}.webp`}
 						height="65"
 						width="65"
 						decoding="async"

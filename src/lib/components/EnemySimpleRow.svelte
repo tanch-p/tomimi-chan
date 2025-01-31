@@ -68,7 +68,7 @@
 				<td class={`border border-gray-400 w-[75px] ${textAlign(key)}`} rowspan={maxRowSpan}>
 					<img
 						class="select-none"
-						src={enemy.img}
+						src={`/images/enemy_icons/${enemy.key}.webp`}
 						height="75px"
 						width="75px"
 						decoding="async"
