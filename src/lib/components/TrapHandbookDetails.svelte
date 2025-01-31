@@ -29,7 +29,7 @@
 		<div class="space-y-2.5 max-[390px]:w-[75px]">
 			<img
 				class="select-none"
-				src={trap.img}
+				src={`/images/chara_icons/${trap.key}.webp`}
 				height="95px"
 				width="95px"
 				decoding="async"

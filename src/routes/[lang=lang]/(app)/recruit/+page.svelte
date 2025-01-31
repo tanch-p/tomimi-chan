@@ -30,9 +30,9 @@
 		await loadData(language);
 		secFilterOptions.set(genSecFilterOptions(characters));
 	});
-	$: if (language) {
-		loadData(language);
-	}
+	// $: if (language) {
+	// 	loadData(language);
+	// }
 </script>
 
 <svelte:head>

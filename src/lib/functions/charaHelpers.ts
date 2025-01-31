@@ -1,6 +1,7 @@
 import type { Language } from '$lib/types';
 import filterOptions from '$lib/data/chara/filter_options.json';
 import translations from '$lib/translations.json';
+import { decompressGzipToJson } from './lib';
 
 const SEARCH_IN_TAGS = [
 	'phys',
@@ -194,7 +195,7 @@ const SEARCH_IN_BLACKBOARD = [
 	'heal_scale_down'
 ];
 
-// keys not here will just use their respective key in translations 
+// keys not here will just use their respective key in translations
 const DISPLAY_KEYS_TABLE = {
 	MELEE: 'position_melee',
 	RANGED: 'position_ranged',
@@ -650,12 +651,8 @@ export const updateSortPriority = (sortOptions, index) => {
 };
 
 export const getCharaList = async (language) => {
-	const data = (await import(`../data/chara/characters_${language}.json`)).default;
-	const images = await Promise.all(
-		data.map((char) => import(`../images/chara_icons/icon_${char.id}.webp`))
-	);
+	const data = await decompressGzipToJson(`/data/characters_${language}.gz`);
 	data.forEach((char, index) => {
-		char.icon = images[index].default;
 		char.activeModuleIndex = 0;
 		char.activeTalents = [];
 		char.activeSkills = [];

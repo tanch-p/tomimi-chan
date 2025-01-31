@@ -28,7 +28,7 @@
 							<div class="relative">
 								<img
 									class="select-none"
-									src={trap.img}
+									src={`/images/chara_icons/${trap.key}.webp`}
 									height="60px"
 									width="60px"
 									decoding="async"

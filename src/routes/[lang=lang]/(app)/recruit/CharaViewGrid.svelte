@@ -56,7 +56,7 @@
 				/>
 			{/await}
 		{/if}
-		<img src={chara.icon} width="100" height="100" alt={chara.appellation} />
+		<img src={`/images/chara_icons/${chara.id}.webp`} width="100" height="100" alt={chara.appellation} />
 	</div>
 </button>
 
