@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import type { MapConfig } from '$lib/types';
 import { GameMap } from './GameMap';
 import SpawnManager from './SpawnManager';
 import { GameConfig } from './GameConfig';
@@ -9,7 +10,7 @@ export class Game {
 	assetManager: AssetManager;
 	canvas: HTMLCanvasElement;
 	scene: THREE.Scene;
-	camera: THREE.PerspectiveCamera;
+	camera: THREE.OrthographicCamera;
 	pointer: THREE.Vector2;
 	objects;
 	raycaster: THREE.Raycaster;
@@ -23,11 +24,11 @@ export class Game {
 	state = 'load';
 	gameManager: GameManager;
 
-	constructor(config, waves, canvasElement: HTMLCanvasElement) {
+	constructor(canvasElement: HTMLCanvasElement, config: MapConfig, waves, enemies) {
 		this.canvas = canvasElement;
 		this.config = config;
 		this.waves = waves;
-		this.enemies = config.enemies;
+		this.enemies = enemies;
 		this.objects = [];
 		this.assetManager = AssetManager.getInstance();
 
@@ -67,8 +68,8 @@ export class Game {
 		window.addEventListener('resize', this.onWindowResize);
 		document.addEventListener('pointerdown', this.onPointerDown);
 
-		this.gameManager = new GameManager(config, this.scene, this.camera, this.objects);
-		this.map = new GameMap(this.scene, config, this.objects, this.gameManager);
+		this.gameManager = new GameManager(config, this.scene, this.camera, this.objects, enemies);
+		this.map = new GameMap(this.gameManager);
 		this.spawnManager = new SpawnManager(waves, this.map, this.gameManager);
 
 		this.renderer.setAnimationLoop(() => this.render());
@@ -83,16 +84,16 @@ export class Game {
 		this.scene.add(directionalLight);
 	}
 
-	reset(config, waves) {
+	reset(config, waves, enemies) {
 		this.config = config;
 		this.waves = waves;
 		this.objects = [];
 		this.state = 'reset';
 		this.renderer.setAnimationLoop(null);
 		this.clearScene(this.scene);
-		this.gameManager = new GameManager(this.config, this.scene, this.camera, this.objects);
-		this.map = new GameMap(this.scene, this.config, this.objects, this.gameManager);
-		this.spawnManager = new SpawnManager(this.waves, this.map, this.gameManager);
+		this.gameManager = new GameManager(config, this.scene, this.camera, this.objects, enemies);
+		this.map = new GameMap(this.gameManager);
+		this.spawnManager = new SpawnManager(waves, this.map, this.gameManager);
 		this.initLights();
 		this.state = 'ready';
 		this.renderer.setAnimationLoop(() => this.render());
@@ -151,10 +152,8 @@ export class Game {
 	render() {
 		const deltaTime = this.clock.getDelta() * GameConfig.speedFactor;
 		if (this.state === 'running') {
-			this.gameManager.scaledElapsedTime += deltaTime;
-			this.gameManager.waveElapsedTime += deltaTime;
 			this.spawnManager.update();
-			this.map.update(deltaTime);
+			this.gameManager.update(deltaTime);
 		}
 		this.renderer.render(this.scene, this.camera);
 	}

@@ -1,9 +1,11 @@
 import * as THREE from 'three';
+import type { Enemy as EnemyType, MapConfig } from '$lib/types';
 import { Theta } from './Theta';
 import { GameConfig } from './GameConfig';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { AssetManager } from './AssetManager';
 import { generateMaze } from '$lib/functions/mazeHelpers';
+import { Enemy } from './Enemy';
 
 export class GameManager {
 	assetManager: AssetManager;
@@ -14,9 +16,19 @@ export class GameManager {
 	config;
 	mazeLayout: [number[]];
 	pathFinder;
+	enemies: EnemyType[];
+	enemiesOnMap: Enemy[] = [];
 	public scaledElapsedTime = 0; // Total game-time elapsed
 	public waveElapsedTime = 0;
-	constructor(config, scene, camera, objects) {
+	constructor(
+		config: MapConfig,
+		scene: THREE.Scene,
+		camera: THREE.OrthographicCamera,
+		objects,
+		enemies: Enemy[]
+	) {
+		this.enemies = enemies;
+		this.config = config;
 		this.assetManager = AssetManager.getInstance();
 		this.cost = config.initialCost;
 		this.scene = scene;
@@ -90,5 +102,13 @@ export class GameManager {
 		mesh.position.x = centerOffset;
 		mesh.position.y = yOffset;
 		return mesh;
+	}
+
+	update(deltaTime) {
+		this.scaledElapsedTime += deltaTime;
+		this.waveElapsedTime += deltaTime;
+		for (const enemy of this.enemiesOnMap) {
+			enemy.update(deltaTime);
+		}
 	}
 }
