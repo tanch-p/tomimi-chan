@@ -1,54 +1,40 @@
 <script lang="ts">
-	import { onDestroy, onMount } from 'svelte';
+	import type { Enemy, MapConfig } from '$lib/types';
+	import { onDestroy } from 'svelte';
 	import { Game } from './objects/Game';
 	import { AssetManager } from './objects/AssetManager';
 	import LoadingScreen from './LoadingScreen.svelte';
 
-	export let waveData, mapConfig, enemies;
+	export let waveData, mapConfig: MapConfig, enemies: Enemy[];
 
 	let count, waves;
-	let assetManager: AssetManager,
-		canvasElement: HTMLCanvasElement,
-		isLoading = true,
-		game: Game;
+	let assetManager: AssetManager, canvasElement: HTMLCanvasElement, game: Game;
 	// let gameInstances: Game[] = [];
 
 	$: count = waveData.count;
 	$: waves = waveData.waves;
 
-	$: if (mapConfig) {
-		loadAssets(mapConfig.enemies);
-		resetGame();
-	}
 	$: if (waveData) {
 		resetGame();
 	}
 	function resetGame() {
 		if (game) {
-			game.reset(mapConfig, waves);
+			game.reset(mapConfig, waves, enemies);
 		}
 	}
 
-	async function loadAssets(enemies) {
-		isLoading = true;
-		if (assetManager) {
-			await assetManager.loadAssets(enemies);
-			assetManager.texturesLoaded = true;
-			isLoading = false;
-		}
-	}
-
-	onMount(async () => {
-		isLoading = true;
+	async function loadGame(mapConfig) {
+		resetGame();
 		assetManager = AssetManager.getInstance();
-		await assetManager.loadAssets(mapConfig.enemies);
-		assetManager.texturesLoaded = true;
-		isLoading = false;
-		game = new Game(mapConfig, waves, canvasElement);
-		game.state = 'ready';
-	});
+		await assetManager.loadAssets(mapConfig);
+		if (!game) {
+			game = new Game(canvasElement, mapConfig, waves, enemies);
+			game.state = 'ready';
+		}
+	}
 
 	onDestroy(() => {
+		assetManager.cleanup();
 		if (game) {
 			game.cleanup();
 		}
@@ -56,9 +42,11 @@
 </script>
 
 <div class="relative">
-	{#if isLoading}
+	{#await loadGame(mapConfig)}
 		<LoadingScreen />
-	{/if}
+	{:catch error}
+		<p class="text-center">An error occured while loading: <br />{error.message}</p>
+	{/await}
 	<canvas bind:this={canvasElement} />
 </div>
 

@@ -3,53 +3,53 @@ import * as spine from '$lib/spine';
 import { GameConfig } from './GameConfig';
 import { GameManager } from './GameManager';
 import { AssetManager } from './AssetManager';
+import type { Enemy as EnemyType } from '$lib/types';
 
 export class Enemy {
 	assetManager: AssetManager;
+	data;
 	key: string;
-	actions: any[];
+	actions;
 	hp: number;
 	speed: number;
 	route;
-	currentActionIndex: number = 0;
+	currentActionIndex = 0;
 	mesh: THREE.Mesh;
 	state: string;
 	skel: spine.SkeletonMesh;
-	alive: boolean = true;
+	alive = true;
 	direction = 1;
 	motionMode: 'WALK' | 'FLY';
 	currentPos: THREE.Vector3;
-	targetPos: THREE.Vector3;
 	isMoving = false;
-	waitElapsedTime: number = 0;
-	entry: boolean = true;
-	entryElapsedTime: number = 0;
-	exit: boolean = false;
-	exitElapsedTime: number = 0;
+	waitElapsedTime = 0;
+	entry = true;
+	entryElapsedTime = 0;
+	exit = false;
+	exitElapsedTime = 0;
 	isEnding = false;
 	gameManager: GameManager;
 	pathGroup;
 	sprite: THREE.Sprite;
 	height: number;
 	width: number;
+	meshGroup: THREE.Group;
+	formIndex = 0;
+	waitTimer;
 
-	constructor(data, route, mesh, skeletonMesh, sprite, gameManager) {
-		this.key = data.key;
+	constructor(enemyData: EnemyType, route, gameManager) {
+		gameManager.enemiesOnMap.push(this);
+		this.data = enemyData;
+		this.key = enemyData.key;
 		this.gameManager = gameManager;
 		this.assetManager = AssetManager.getInstance();
-		this.timerText = null;
 		this.route = route;
-		this.sprite = sprite;
 		this.motionMode = route.motionMode;
 		this.actions = this.getActions(route);
-		this.mesh = mesh;
-		this.skel = skeletonMesh;
-		this.hp = data.stats.hp;
-		this.speed = data.stats.speed;
-		this.handleIdle();
-		this.skel.skeleton.color.r = 0.2;
-		this.skel.skeleton.color.g = 0.2;
-		this.skel.skeleton.color.b = 0.2;
+		this.hp = enemyData.forms[0].stats.hp;
+		this.speed = enemyData.forms[0].stats.ms;
+		this.meshGroup = new THREE.Group();
+		this.initModel();
 		this.pathGroup = this.visualisePath(
 			this.actions,
 			this.currentActionIndex,
@@ -57,8 +57,66 @@ export class Enemy {
 		);
 		this.waitTimer = this.createCountdownSprite();
 		const { x, y } = this.gameManager.getVectorCoordinates(route.startPosition);
-		this.mesh.position.set(x, y, GameConfig.baseZIndex);
+		this.meshGroup.position.set(x, y, GameConfig.baseZIndex);
 		this.currentPos = new THREE.Vector3(x, y, GameConfig.baseZIndex);
+	}
+
+	initModel() {
+		const hitBoxGeo = new THREE.CircleGeometry(GameConfig.gridSize * 0.1, 32);
+		const shadowGeometry = new THREE.PlaneGeometry(
+			GameConfig.gridSize * 0.8,
+			GameConfig.gridSize * 0.4
+		);
+		const hitBoxMaterial = new THREE.MeshBasicMaterial({
+			color: 0xc51009,
+			depthTest: false
+			// transparent:true
+		});
+		const shadowMaterial = new THREE.MeshBasicMaterial({
+			map: this.assetManager.textures.get('sprite_shadow').texture,
+			depthTest: false,
+			opacity: 0.85,
+			transparent: true
+		});
+		const hitBoxMesh = new THREE.Mesh(hitBoxGeo, hitBoxMaterial);
+		const shadowMesh = new THREE.Mesh(shadowGeometry, shadowMaterial);
+		hitBoxMesh.position.set(0.5, 0.5, 0.5);
+		shadowMesh.renderOrder = -1;
+		shadowMesh.userData.name = 'shadow';
+		hitBoxMesh.userData.name = 'hitbox';
+		this.meshGroup.add(shadowMesh, hitBoxMesh);
+
+		const skeletonData = this.assetManager.spineMap.get(this.key);
+		// console.log(skeletonData);
+		const skeletonMesh = new spine.SkeletonMesh(skeletonData, (parameters) => {
+			parameters.depthTest = false;
+			parameters.alphaTest = 0.001;
+		});
+		this.meshGroup.add(skeletonMesh);
+		this.meshGroup.renderOrder = 1;
+		this.width = Math.min(100, skeletonMesh.skeleton.data.width * 0.3);
+		this.height = Math.min(110, skeletonMesh.skeleton.data.height * 0.3);
+		const size = new spine.Vector2(Math.max(50, this.width), Math.max(75, this.height));
+		const spriteMaterial = new THREE.SpriteMaterial({
+			transparent: false,
+			depthTest: false,
+			opacity: 0,
+			color: 0x000021
+		});
+		const sprite = new THREE.Sprite(spriteMaterial);
+		sprite.scale.set(size.x, size.y, 1);
+		sprite.position.z = GameConfig.gridSize;
+		sprite.position.y = skeletonMesh.skeleton.data.height < 300 ? -GameConfig.gridSize * 0.15 : 0;
+		this.meshGroup.add(sprite);
+		this.sprite = sprite;
+		this.skel = skeletonMesh;
+		sprite.userData.enemy = this;
+		this.gameManager.objects.push(sprite);
+		this.gameManager.scene.add(this.meshGroup);
+		this.handleIdle();
+		this.skel.skeleton.color.r = 0.2;
+		this.skel.skeleton.color.g = 0.2;
+		this.skel.skeleton.color.b = 0.2;
 	}
 
 	getActions(route) {
@@ -186,23 +244,23 @@ export class Enemy {
 					this.handleMove();
 				}
 				const direction = new THREE.Vector3()
-					.subVectors(this.targetPos, this.mesh.position)
+					.subVectors(this.targetPos, this.meshGroup.position)
 					.normalize();
 				if (direction.x !== 0) {
 					this.direction = direction.x;
 					this.skel.scale.x = direction.x < 0 ? -1 : 1;
 				}
-				const distance = this.mesh.position.distanceTo(this.targetPos);
+				const distance = this.meshGroup.position.distanceTo(this.targetPos);
 				const adjustedSpeed = this.speed * delta * GameConfig.gridSize;
 				if (distance > adjustedSpeed) {
 					// speed = 1 means 1 tile/s
-					const dx = this.targetPos.x - this.mesh.position.x;
-					const dy = this.targetPos.y - this.mesh.position.y;
-					this.mesh.position.x += (dx / distance) * adjustedSpeed;
-					this.mesh.position.y += (dy / distance) * adjustedSpeed;
+					const dx = this.targetPos.x - this.meshGroup.position.x;
+					const dy = this.targetPos.y - this.meshGroup.position.y;
+					this.meshGroup.position.x += (dx / distance) * adjustedSpeed;
+					this.meshGroup.position.y += (dy / distance) * adjustedSpeed;
 				} else {
 					// Movement complete
-					this.mesh.position.copy(this.targetPos);
+					this.meshGroup.position.copy(this.targetPos);
 					this.isMoving = false;
 					this.currentActionIndex++;
 				}
@@ -211,7 +269,7 @@ export class Enemy {
 			case 'WAIT_CURRENT_FRAGMENT_TIME':
 			case 'WAIT_CURRENT_WAVE_TIME':
 				if (this.waitElapsedTime === 0) {
-					this.mesh.add(this.waitTimer);
+					this.meshGroup.add(this.waitTimer);
 					this.handleIdle();
 					this.waitElapsedTime += delta;
 				} else {
@@ -223,14 +281,14 @@ export class Enemy {
 				}
 
 				if (this.waitElapsedTime >= time - this.gameManager.waveElapsedTime) {
-					this.mesh.remove(this.waitTimer);
+					this.meshGroup.remove(this.waitTimer);
 					this.waitElapsedTime = 0;
 					this.currentActionIndex++;
 				}
 				break;
 			case 'WAIT_FOR_SECONDS':
 				if (this.waitElapsedTime === 0) {
-					this.mesh.add(this.waitTimer);
+					this.meshGroup.add(this.waitTimer);
 					this.handleIdle();
 					this.waitElapsedTime += delta;
 				} else {
@@ -239,26 +297,26 @@ export class Enemy {
 				}
 
 				if (this.waitElapsedTime >= time) {
-					this.mesh.remove(this.waitTimer);
+					this.meshGroup.remove(this.waitTimer);
 					this.waitElapsedTime = 0;
 					this.currentActionIndex++;
 				}
 				break;
 
 			case 'DISAPPEAR':
-				this.mesh.visible = false;
+				this.meshGroup.visible = false;
 				this.currentActionIndex++;
 				break;
 
 			case 'APPEAR_AT_POS':
-				this.mesh.visible = true;
+				this.meshGroup.visible = true;
 				const { x, y } = this.gameManager.getVectorCoordinates(position, reachOffset);
-				this.mesh.position.set(x, y, GameConfig.baseZIndex);
+				this.meshGroup.position.set(x, y, GameConfig.baseZIndex);
 				this.currentPos = new THREE.Vector3(x, y, GameConfig.baseZIndex);
 				this.currentActionIndex++;
 				break;
 			default:
-				console.log(type);
+				console.log(type, ' action is undefined');
 		}
 	}
 
@@ -283,7 +341,7 @@ export class Enemy {
 			this.gameManager.objects.splice(index, 1);
 		}
 		this.hidePath();
-		this.gameManager.scene.remove(this.mesh);
+		this.gameManager.scene.remove(this.meshGroup);
 	}
 
 	showPath() {
@@ -419,9 +477,9 @@ export class Enemy {
 	};
 
 	updateCountdownSprite(mesh, timer: number) {
-		this.mesh.remove(mesh);
+		this.meshGroup.remove(mesh);
 		const newMesh = this.createCountdownSprite(timer.toFixed());
-		this.mesh.add(newMesh);
+		this.meshGroup.add(newMesh);
 		this.waitTimer = newMesh;
 	}
 
@@ -469,6 +527,7 @@ export class Enemy {
 					animName = 'Idle_A';
 					break;
 				case 'enemy_1388_wingnt':
+				case 'enemy_2092_skzamy':
 					animName = 'A_Idle';
 					break;
 				case 'enemy_1418_mmkonm':
@@ -551,6 +610,7 @@ export class Enemy {
 					break;
 
 				case 'enemy_1388_wingnt':
+				case 'enemy_2092_skzamy':
 					animName = 'A_Move';
 					break;
 				case 'enemy_1418_mmkonm':
