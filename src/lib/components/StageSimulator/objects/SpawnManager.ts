@@ -1,10 +1,11 @@
+import { Enemy } from './Enemy';
 import { GameManager } from './GameManager';
 import { GameMap } from './GameMap';
 
 class SpawnManager {
 	map: GameMap;
-	routes: any;
-	waves: any;
+	routes;
+	waves;
 	currentWaveIndex: number;
 	nextWaveTimer: number;
 	actionIndex: number;
@@ -14,6 +15,7 @@ class SpawnManager {
 		this.map = map;
 		this.waves = waves;
 		this.gameManager = gameManager;
+		this.routes = gameManager.config.routes;
 		this.currentWaveIndex = 0;
 		this.actionIndex = 0;
 		this.preDelayTimer = this.waves[0].preDelay;
@@ -85,7 +87,14 @@ class SpawnManager {
 	}
 
 	spawnEnemy(action) {
-		this.map.addEnemy(action);
+		const originalRoute = this.routes[action['routeIndex']];
+		const route = this.gameManager.convertMovementConfig(structuredClone(originalRoute));
+		const enemyData = this.gameManager.enemies.find((ele) => ele.stageId === action.key);
+		if (!enemyData) {
+			console.log(action.key, ' key not found in enemies list');
+			return;
+		}
+		const enemy = new Enemy(enemyData, route, this.gameManager);
 	}
 
 	activatePredefined(action) {

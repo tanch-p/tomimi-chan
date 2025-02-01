@@ -8,7 +8,7 @@ const ENEMY_KEYS_TO_IGNORE = [
 	'enemy_1177_dufrbl_2',
 	'enemy_1177_dufrbl',
 	'enemy_2083_skzhg',
-	"enemy_2040_syrott"
+	'enemy_2040_syrott'
 ];
 const ENEMY_KEYS_TO_REPLACE = {
 	enemy_2097_skzfdd: 'enemy_2082_skzdd',
@@ -192,7 +192,7 @@ export class AssetManager {
 		return AssetManager.instance;
 	}
 
-	async loadAssets(enemies) {
+	async loadAssets(mapConfig) {
 		const promises = [];
 
 		if (!this.texturesLoaded) {
@@ -248,13 +248,13 @@ export class AssetManager {
 				this.models.set('curse', gltf.scene);
 			})
 		);
-		const enemyKeys = enemies.reduce((acc, curr) => {
+		const enemyKeys = mapConfig.enemies.reduce((acc, curr) => {
 			if (!acc.includes(curr.prefabKey)) {
 				acc.push(curr.prefabKey);
 			}
 			return acc;
 		}, []);
-		console.log(enemyKeys);
+		// console.log(enemyKeys);
 		for (const key of enemyKeys) {
 			if (ENEMY_KEYS_TO_IGNORE.includes(key) || this.spineMap.has(key)) {
 				continue;
@@ -290,10 +290,11 @@ export class AssetManager {
 				})
 			);
 		}
+		this.texturesLoaded = true;
 		return Promise.all(promises);
 	}
 
-	clear() {
+	cleanup() {
 		this.spineMap.clear();
 		this.textures.clear();
 		this.models.clear();
