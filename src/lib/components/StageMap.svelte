@@ -57,9 +57,13 @@
 				loading="lazy"
 			/>
 		{:else}
-			{#await import(`../../lib/images/stages/level_${getStageImg(mapConfig.id, eliteMods)}.webp`) then { default: src }}
-				<img {src} width="600" height="338px" alt={mapConfig.levelId} loading="lazy" />
-			{/await}
+			<img
+				src="/images/stages/level_{getStageImg(mapConfig.id, eliteMods)}.webp"
+				width="600"
+				height="338px"
+				alt={mapConfig.levelId}
+				loading="lazy"
+			/>
 		{/if}
 
 		{#if rogueTopic === 'rogue_skz' && !stagesWithoutCalamity.includes(mapConfig.levelId)}
