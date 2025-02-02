@@ -2,7 +2,6 @@ import type { Language, RogueTopic } from '$lib/types';
 import fragments from '$lib/data/is/sarkaz/fragments.json';
 import f27 from '$lib/images/is/sarkaz/rogue_4_fragment_F_27.webp';
 import f28 from '$lib/images/is/sarkaz/rogue_4_fragment_F_28.webp';
-import relic_routeweave_net from '$lib/images/is/relics/relic_routeweave_net.webp';
 
 const ALWAYS_KILLED_KEYS = [
 	'enemy_2073_skzrck',
@@ -22,7 +21,7 @@ export const getOptions = (rogueTopic: RogueTopic, language: Language) => {
 		case 'rogue_sami':
 			return [
 				{ key: 'totem1', src: '/images/enemy_icons/enemy_1106_byokai.webp', name: '' },
-				{ key: 'bossrelic', src: relic_routeweave_net, name: '' }
+				{ key: 'bossrelic', src: '/images/relics/relic_routeweave_net.webp', name: '' }
 			];
 		case 'rogue_skz':
 			return [

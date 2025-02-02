@@ -4,8 +4,6 @@
 	import SpEnemy from '$lib/components/SpEnemy.svelte';
 	import skz_calamity from '$lib/images/is/sarkaz/skz_calamity.webp';
 	import unknown from '$lib/images/is/skz_unknown.webp';
-	import skz_4_1a from '$lib/images/stages/level_ro4_n_4_1_a.webp';
-	import skz_4_1b from '$lib/images/stages/level_ro4_n_4_1_b.webp';
 	import { getStageImg } from '$lib/functions/lib';
 	export let mapConfig, rogueTopic: RogueTopic, language: Language, eliteMods;
 
@@ -29,8 +27,8 @@
 	const stagesWithoutCalamity = ['level_rogue4_b-8', 'level_rogue4_b-9'];
 	const multipleImgLookup = {
 		'level_rogue4_4-1': [
-			{ key: 'a', img: skz_4_1a },
-			{ key: 'b', img: skz_4_1b }
+			{ key: 'a', img: '/images/stages/level_ro4_n_4_1_a.webp' },
+			{ key: 'b', img: '/images/stages/level_ro4_n_4_1_b.webp' }
 		]
 	};
 </script>
