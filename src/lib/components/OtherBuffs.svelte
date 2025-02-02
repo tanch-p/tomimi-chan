@@ -36,7 +36,7 @@
 						<p class="absolute right-0 bottom-0 bg-almost-black px-1 text-xs">x{currentCount}</p>
 					{/if}
 					<img
-						src={buff.img || `/images/enemy_icons/icon_${buff.key}.webp`}
+						src={buff.img || `/images/enemy_icons/${buff.key}.webp`}
 						alt={buff.name}
 						width="60"
 						height="60"

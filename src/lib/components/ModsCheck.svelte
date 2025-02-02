@@ -62,7 +62,7 @@
 					<button on:click={() => (enemyIndex = i)} class="px-1">
 						<img
 							class="pointer-events-none {i !== enemyIndex ? 'brightness-50' : ''}"
-							src={`/images/enemy_icons/icon_${enemy.key}.webp`}
+							src={`/images/enemy_icons/${enemy.key}.webp`}
 							height="70px"
 							width="70px"
 							decoding="async"
@@ -75,7 +75,7 @@
 		<div class="flex">
 			<img
 				class="select-none"
-				src={`/images/enemy_icons/icon_${enemy.key}.webp`}
+				src={`/images/enemy_icons/${enemy.key}.webp`}
 				height="90px"
 				width="90px"
 				decoding="async"

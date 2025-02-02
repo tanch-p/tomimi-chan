@@ -163,9 +163,11 @@
 					{/if}
 					<div class="grid grid-cols-[70px_1fr] items-center">
 						<div class="flex items-center justify-center w-[65px] h-[65px] bg-neutral-900">
-							{#await import(`../../../../lib/images/chara_assets/sub_${$selectedChara.subProfessionId}_icon.webp`) then { default: src }}
-								<img {src} width="50" alt={$selectedChara.subProfessionId} />
-							{/await}
+							<img
+								src="/images/chara_assets/sub_{$selectedChara.subProfessionId}_icon.webp"
+								width="50"
+								alt={$selectedChara.subProfessionId}
+							/>
 						</div>
 						<p class="ml-3 text-xl">
 							{translations[language][$selectedChara.subProfessionId]}
@@ -190,7 +192,9 @@
 							{#if $selectedChara.uniequip.length === 0}
 								<div class="module none" />
 							{:else}
-								<DraggableContainer className="overflow-y-visible no-scrollbar snap-mandatory snap-x md:snap-none">
+								<DraggableContainer
+									className="overflow-y-visible no-scrollbar snap-mandatory snap-x md:snap-none"
+								>
 									<div
 										class="flex pb-8 w-max min-[520px]:px-10 gap-x-[calc((min(100vw-15px,550px)/2)-135px)] min-[520px]:gap-x-[calc((min(100vw-15px,550px)/2)-175px)]"
 									>
@@ -203,15 +207,23 @@
 													on:click={() => moduleIndex.set(idx)}
 												>
 													<div class="grid place-items-center h-[48px]">
-														{#await import(`../../../../lib/images/equip_icons/icon_${typeIcon}.webp`) then { default: src }}
-															<img {src} height="40" alt={typeIcon} class="max-h-[40px] pointer-events-none" />
-														{/await}
+														<img
+															src="/images/equip_icons/{typeIcon}.webp"
+															height="40"
+															alt={typeIcon}
+															class="max-h-[40px] pointer-events-none"
+														/>
 													</div>
 													<div class="flex gap-x-0.5 text-xs font-light uppercase">
 														{#if typeIcon !== 'original'}
 															{@const parts = typeIcon.split('-')}
 															{parts[0]}
-															<img src={charaAssets[parts[1]]} alt={parts[1]} width="12px" class="pointer-events-none"/>
+															<img
+																src={charaAssets[parts[1]]}
+																alt={parts[1]}
+																width="12px"
+																class="pointer-events-none"
+															/>
 														{:else}
 															{typeIcon}
 														{/if}
@@ -230,7 +242,7 @@
 															<div class="w-[11px] ml-1.5 mt-0.5">
 																<img
 																	src={charaAssets[`solid_${moduleStage + 1}`]}
-																	alt="{moduleStage + 1}"
+																	alt={moduleStage + 1}
 																	class="max-h-[15px] pointer-events-none"
 																/>
 															</div>
@@ -241,7 +253,11 @@
 														>
 															<p class="text-[#7d7d7d] font-bold text-sm">STAGE</p>
 															<div class="w-[11px] ml-1.5 mt-0.5">
-																<img src={charaAssets[`solid_3`]} alt="3" class="max-h-[15px] pointer-events-none" />
+																<img
+																	src={charaAssets[`solid_3`]}
+																	alt="3"
+																	class="max-h-[15px] pointer-events-none"
+																/>
 															</div>
 														</div>
 													{/if}

@@ -11,8 +11,6 @@
 	import StageRoutes from '$lib/components/StageRoutes.svelte';
 	import skz_calamity from '$lib/images/is/sarkaz/skz_calamity.webp';
 	import unknown from '$lib/images/is/skz_unknown.webp';
-	import skz_4_1a from '$lib/images/stages/level_ro4_n_4_1_a.webp';
-	import skz_4_1b from '$lib/images/stages/level_ro4_n_4_1_b.webp';
 	import { getStageImg } from '$lib/functions/lib';
 	export let mapConfig, rogueTopic: RogueTopic, language: Language, eliteMods;
 
@@ -34,8 +32,8 @@
 	const stagesWithoutCalamity = ['level_rogue4_b-8', 'level_rogue4_b-9'];
 	const multipleImgLookup = {
 		'level_rogue4_4-1': [
-			{ key: 'a', img: skz_4_1a },
-			{ key: 'b', img: skz_4_1b }
+			{ key: 'a', img: '/images/stages/level_ro4_n_4_1_a.webp' },
+			{ key: 'b', img: '/images/stages/level_ro4_n_4_1_b.webp' }
 		]
 	};
 	let index = 0;
@@ -68,16 +66,14 @@
 				</div>
 				{#if rogueTopic !== 'rogue_phantom'}
 					<div class="flex items-center">
-						<img
-							src={`/images/enemy_icons/enemy_2034_sythef.webp`}
-							width="50px"
-							alt="THF"
-						/> <span>5%</span>
+						<img src={`/images/enemy_icons/enemy_2034_sythef.webp`} width="50px" alt="THF" />
+						<span>5%</span>
 					</div>
 				{/if}
 				{#if rogueTopic === 'rogue_skz'}
 					<div class="flex items-center">
-						<img src={`/images/enemy_icons/enemy_2085_skzjxd.webp`} width="50px" alt="FAT" /> <span>5%</span>
+						<img src={`/images/enemy_icons/enemy_2085_skzjxd.webp`} width="50px" alt="FAT" />
+						<span>5%</span>
 					</div>
 				{/if}
 			</div>
@@ -142,9 +138,13 @@
 				loading="lazy"
 			/>
 		{:else}
-			{#await import(`../../lib/images/stages/level_${getStageImg(mapConfig.id, eliteMods)}.webp`) then { default: src }}
-				<img {src} width="600" height="338px" alt={mapConfig.levelId} loading="lazy" />
-			{/await}
+			<img
+				src="/images/stages/level_{getStageImg(mapConfig.id, eliteMods)}.webp"
+				width="600"
+				height="338px"
+				alt={mapConfig.levelId}
+				loading="lazy"
+			/>
 		{/if}
 
 		{#if rogueTopic === 'rogue_skz' && !stagesWithoutCalamity.includes(mapConfig.levelId)}

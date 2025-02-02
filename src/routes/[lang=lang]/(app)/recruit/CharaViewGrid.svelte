@@ -49,14 +49,17 @@
 
 		{#if equip}
 			{@const typeIcon = equip.typeIcon.toLowerCase()}
-			{#await import(`../../../../lib/images/color_equip_icons/icon_${typeIcon}.webp`) then { default: src }}
-				<div
-					class="absolute -right-1 -top-1 w-[40px] h-[40px] bg-center bg-cover"
-					style="background-image: url({src});"
-				/>
-			{/await}
+			<div
+				class="absolute -right-1 -top-1 w-[40px] h-[40px] bg-center bg-cover"
+				style="background-image: url(/images/color_equip_icons/{typeIcon}.webp);"
+			/>
 		{/if}
-		<img src={`/images/chara_icons/${chara.id}.webp`} width="100" height="100" alt={chara.appellation} />
+		<img
+			src={`/images/chara_icons/${chara.id}.webp`}
+			width="100"
+			height="100"
+			alt={chara.appellation}
+		/>
 	</div>
 </button>
 

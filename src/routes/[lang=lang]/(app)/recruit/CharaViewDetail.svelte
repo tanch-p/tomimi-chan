@@ -67,7 +67,13 @@
 					/>
 				</div>
 				<div class="feathered">
-					<img src={`/images/chara_icons/${chara.id}.webp`} width="100" height="100" alt={chara.appellation} class="rounded" />
+					<img
+						src={`/images/chara_icons/${chara.id}.webp`}
+						width="100"
+						height="100"
+						alt={chara.appellation}
+						class="rounded"
+					/>
 				</div>
 				<div class="absolute z-[1] bottom-4 left-0">
 					{#if chara.potential.length > 0}
@@ -120,9 +126,11 @@
 							<div
 								class="flex shrink-0 items-center justify-center mt-3 w-[40px] h-[40px] bg-[#313131]"
 							>
-								{#await import(`../../../../lib/images/chara_assets/sub_${chara.subProfessionId}_icon.webp`) then { default: src }}
-									<img {src} width="30" alt={chara.subProfessionId} />
-								{/await}
+								<img
+									src="/images/chara_assets/sub_{chara.subProfessionId}_icon.webp"
+									width="30"
+									alt={chara.subProfessionId}
+								/>
 							</div>
 							{#if chara.uniequip.length === 0}
 								<div
@@ -137,12 +145,10 @@
 									{#if chara.activeModuleIndex}
 										{@const typeIcon =
 											chara.uniequip[chara.activeModuleIndex].typeIcon.toLowerCase()}
-										{#await import(`../../../../lib/images/equip_icons/icon_${typeIcon}.webp`) then { default: src }}
-											<div
-												class="w-[32px] h-[32px] bg-center bg-contain bg-no-repeat"
-												style="background-image: url({src});"
-											/>
-										{/await}
+										<div
+											class="w-[32px] h-[32px] bg-center bg-contain bg-no-repeat"
+											style="background-image: url(/images/color_equip_icons/{typeIcon}.webp);"
+										/>
 									{/if}
 								</div>
 							{/if}

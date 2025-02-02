@@ -55,9 +55,7 @@
 				<div
 					class="flex items-center justify-center border-4 border-[#3a3a3a] bg-[#181818] w-[100px] h-[100px]"
 				>
-					{#await import(`../../../../lib/images/chara_icons/icon_${token.id}.webp`) then { default: src }}
-						<img {src} alt={''} />
-					{/await}
+					<img src="/images/chara_icons/{token.id}.webp" alt={''} />
 				</div>
 			{/if}
 			<div>
@@ -137,13 +135,9 @@
 									: 'border-4 border-white bg-[linear-gradient(#191919,#666)]'}"
 							>
 								{#if skill.iconId}
-									{#await import(`../../../../lib/images/skill_icons/skill_icon_${skill.iconId}.webp`) then { default: src }}
-										<img {src} alt={''} />
-									{/await}
+									<img src="/images/skill_icons/skill_icon_{skill.iconId}.webp" alt={''} />
 								{:else if !tokensWithoutIcon.includes(token.id)}
-									{#await import(`../../../../lib/images/chara_icons/icon_${token.id}.webp`) then { default: src }}
-										<img {src} alt={''} />
-									{/await}
+									<img src="/images/chara_icons/{token.id}.webp" alt={''} />
 								{/if}
 								<div class="absolute flex -bottom-0.5 -right-0.5">
 									{#if skill?.spData?.spCost}
