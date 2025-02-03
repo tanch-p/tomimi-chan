@@ -49,7 +49,7 @@ export class Game {
 		);
 		this.scene = new THREE.Scene();
 		// this.scene.background = new THREE.Color(0xf0f0f0);
-		this.camera.position.set(0, -300, 850);
+		this.camera.position.set(0, -300, 800);
 		this.camera.lookAt(0, 0, 0);
 		this.camera.rotation.x = 0.4; // Tilt up slightly
 
@@ -64,6 +64,7 @@ export class Game {
 			antialias: true
 		});
 		this.renderer.setClearColor(0x000000, 0);
+		this.renderer.setPixelRatio(window.devicePixelRatio);
 		this.renderer.setSize(rect.width, rect.height);
 		window.addEventListener('resize', this.onWindowResize);
 		document.addEventListener('pointerdown', this.onPointerDown);
@@ -102,11 +103,13 @@ export class Game {
 	onWindowResize() {
 		const rect = this.canvas.getBoundingClientRect();
 		const aspect = rect.width / rect.height;
-		this.camera.aspect = aspect;
+		// Update camera frustum
+		const frustumSize = 1000;
+		this.camera.left = (frustumSize * aspect) / -2;
+		this.camera.right = (frustumSize * aspect) / 2;
+		this.camera.top = frustumSize / 2;
+		this.camera.bottom = frustumSize / -2;
 		this.camera.updateProjectionMatrix();
-
-		this.renderer.setSize(rect.width, rect.height);
-
 		this.render();
 	}
 	onPointerDown(event) {

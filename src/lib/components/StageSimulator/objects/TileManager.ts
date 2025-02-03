@@ -216,9 +216,11 @@ export class TileManager {
 				break;
 			case 'tile_fence_bound':
 				{
-					const model = this.assetManager.models.get('curse').clone();
-					model.scale.set(100, 100, 100);
-					boxGroup.add(model);
+					// const model = this.assetManager.models.get('curse').clone();
+					// model.scale.set(100, 100, 100);
+					// boxGroup.add(model);
+					const attachmentGroup = this.createBoundingAttachments(GameConfig.gridSize * 0.1);
+					boxGroup.add(attachmentGroup);
 				}
 				break;
 			case 'tile_floor':
@@ -245,7 +247,14 @@ export class TileManager {
 			boxGroup.add(frontPlane);
 		}
 		if (
-			!['tile_floor', 'tile_road', 'tile_end', 'tile_start', 'tile_infection'].includes(tileName)
+			![
+				'tile_floor',
+				'tile_road',
+				'tile_end',
+				'tile_start',
+				'tile_infection',
+				'tile_fence_bound'
+			].includes(tileName)
 		) {
 			const sprite = new TextSprite(tileName.replace('tile_', '')).get();
 			sprite.position.z = 1;
@@ -254,7 +263,7 @@ export class TileManager {
 		}
 		return boxGroup;
 	}
-	getTopTexture(topTexture, eMapName, size = 1, depth, customGeometry?: any) {
+	getTopTexture(topTexture, eMapName, size = 1, depth, customGeometry) {
 		const { texture, config } = topTexture;
 		const { UVWidth, UVHeight, uvOffsetX, uvOffsetY } = config;
 		const materialAddons = {};
@@ -326,6 +335,33 @@ export class TileManager {
 			const frontPlane = this.getTopTexture(topTexture, null, size, depth);
 			group.add(frontPlane);
 		}
+		return group;
+	}
+	createBoundingAttachments(inset: number) {
+		const group = new THREE.Group();
+		const material = new THREE.MeshStandardMaterial({
+			color: 0xa1a1a1,
+			side: THREE.DoubleSide
+		});
+		const attachmentDepth = 7;
+		const btm = new THREE.Mesh(
+			new THREE.BoxGeometry(GameConfig.gridSize - inset * 2, attachmentDepth, attachmentDepth),
+			material
+		);
+		btm.position.z = attachmentDepth / 2;
+		const top = btm.clone();
+		btm.position.y = -GameConfig.gridSize / 2 + attachmentDepth / 2 + inset;
+		top.position.y = GameConfig.gridSize / 2 - attachmentDepth / 2 - inset;
+
+		const left = new THREE.Mesh(
+			new THREE.BoxGeometry(attachmentDepth, GameConfig.gridSize - inset * 2, attachmentDepth),
+			material
+		);
+		left.position.z = attachmentDepth / 2;
+		const right = left.clone();
+		left.position.x = -GameConfig.gridSize / 2 + attachmentDepth / 2 + inset;
+		right.position.x = GameConfig.gridSize / 2 - attachmentDepth / 2 - inset;
+		group.add(btm, top, left, right);
 		return group;
 	}
 
