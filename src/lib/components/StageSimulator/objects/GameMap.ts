@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import * as spine from '$lib/spine';
 import type { MapConfig } from '$lib/types';
 import { Enemy } from './Enemy';
 import { GameConfig } from './GameConfig';
@@ -82,6 +81,10 @@ export class GameMap {
 				this.scene.add(group);
 			})
 		);
+	}
+
+	getTile(row, col) {
+		// return this.tiles.get(`${x},${y}`);
 	}
 
 	getMaxWaitTime(routes) {

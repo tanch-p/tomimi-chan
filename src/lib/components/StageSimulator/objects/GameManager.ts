@@ -1,11 +1,11 @@
 import * as THREE from 'three';
 import type { Enemy as EnemyType, MapConfig } from '$lib/types';
-import { Theta } from './Theta';
 import { GameConfig } from './GameConfig';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { AssetManager } from './AssetManager';
 import { generateMaze } from '$lib/functions/mazeHelpers';
 import { Enemy } from './Enemy';
+import { SPFA } from './SPFA';
 
 export class GameManager {
 	assetManager: AssetManager;
@@ -36,7 +36,7 @@ export class GameManager {
 		this.objects = objects;
 		const mazeLayout = generateMaze(config.mapData.map, config.mapData.tiles);
 		this.mazeLayout = mazeLayout;
-		this.pathFinder = new Theta(mazeLayout);
+		this.pathFinder = new SPFA(mazeLayout);
 	}
 
 	getVectorCoordinates = (pos, reachOffset?: any | undefined) => {
