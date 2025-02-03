@@ -203,11 +203,22 @@ export class TileManager {
 			case 'tile_wall':
 				return this.createBox(40, 0xff8108, 0xc1c1c1, 'tile_wall');
 			case 'tile_flystart':
-				console.log(heightType);
-				topTexture = this.assetManager.textures.get('fly_box');
-				size = 0.85;
-				// const frontPlane = this.getTopTexture(topTexture, null, size, depth);
-				// boxGroup.add(frontPlane);
+				{
+					const backing = this.createBox(0, 0xb8b8b8, 0x292929);
+					const box = this.assetManager.textures.get('fly_box');
+					const icon = this.assetManager.textures.get('fly_icon');
+					size = 0.85;
+					// const btmBoxPlane = this.getTopTexture(box, null, size, 0, null);
+					const iconPlane = this.getTopTexture(icon, null, size, 0, null);
+					// const topBoxPlane = btmBoxPlane.clone();
+					// btmBoxPlane.position.z = 40 + 10;
+					iconPlane.position.z = 40 + 30;
+					// topBoxPlane.position.z = 40 + 90;
+					backing.position.z = 40 / 2;
+					boxGroup.add(backing,  iconPlane);
+					boxGroup.position.z = 40;
+					return boxGroup;
+				}
 				break;
 			case 'tile_infection':
 				console.log(heightType);
