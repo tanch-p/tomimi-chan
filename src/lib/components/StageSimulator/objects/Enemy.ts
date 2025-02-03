@@ -14,9 +14,7 @@ export class Enemy {
 	speed: number;
 	route;
 	currentActionIndex = 0;
-	mesh: THREE.Mesh;
 	state: string;
-	skel: spine.SkeletonMesh;
 	alive = true;
 	direction = 1;
 	motionMode: 'WALK' | 'FLY';
@@ -30,6 +28,7 @@ export class Enemy {
 	isEnding = false;
 	gameManager: GameManager;
 	pathGroup;
+	skel: spine.SkeletonMesh;
 	sprite: THREE.Sprite;
 	height: number;
 	width: number;
@@ -151,7 +150,7 @@ export class Enemy {
 						const paths = this.gameManager.pathFinder.findPath(currentPosition, position);
 						const relevantPaths = paths?.slice(1);
 						if (relevantPaths) {
-							relevantPaths.forEach(({ row, col }) => {
+							relevantPaths.forEach(([col, row]) => {
 								const isCheckPoint =
 									pathType === 'cp' && row === position.row && col === position.col;
 								acc.push({
