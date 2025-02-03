@@ -207,6 +207,7 @@ export const generateWaveTimeline = (mapConfig, hiddenGroups, eliteMode, permuta
 	}
 	const waveTimelines = [];
 	const { waves, bonus } = mapConfig;
+	console.log(bonus)
 	waves.forEach((wave, waveIdx) => {
 		if (bonus?.type === 'wave' && waveIdx === bonus.wave_index) return;
 

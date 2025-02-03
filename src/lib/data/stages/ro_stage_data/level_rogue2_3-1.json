@@ -1278,12 +1278,12 @@
     ],
     "traps": [
         {
-            "key": "trap_066_rarebox",
+            "key": "trap_065_normbox",
             "level": 2,
             "mainSkillLvl": 1
         },
         {
-            "key": "trap_065_normbox",
+            "key": "trap_066_rarebox",
             "level": 2,
             "mainSkillLvl": 1
         },
@@ -1429,6 +1429,16 @@
         {
             "id": "enemy_2035_sybox",
             "prefabKey": "enemy_2035_sybox",
+            "level": 1,
+            "min_count": 0,
+            "max_count": 0,
+            "elite_min_count": 0,
+            "elite_max_count": 0,
+            "overwrittenData": null
+        },
+        {
+            "id": "enemy_2085_skzjxd",
+            "prefabKey": "enemy_2085_skzjxd",
             "level": 1,
             "min_count": 0,
             "max_count": 0,
@@ -3123,6 +3133,27 @@
                             "weight": 5,
                             "dontBlockWave": false,
                             "forceBlockWaveInBranch": false
+                        },
+                        {
+                            "actionType": "SPAWN",
+                            "managedByScheduler": true,
+                            "key": "enemy_2085_skzjxd",
+                            "count": 1,
+                            "preDelay": 3.0,
+                            "interval": 1.0,
+                            "routeIndex": 19,
+                            "blockFragment": false,
+                            "autoPreviewRoute": true,
+                            "autoDisplayEnemyInfo": false,
+                            "isUnharmfulAndAlwaysCountAsKilled": false,
+                            "hiddenGroup": null,
+                            "randomSpawnGroupKey": "g6",
+                            "randomSpawnGroupPackKey": null,
+                            "randomType": "ALWAYS",
+                            "refreshType": "ALWAYS",
+                            "weight": 5,
+                            "dontBlockWave": false,
+                            "forceBlockWaveInBranch": false
                         }
                     ]
                 }
@@ -3132,103 +3163,6 @@
     ],
     "bonus": {
         "type": "wave",
-        "data": {
-            "preDelay": 0.0,
-            "postDelay": 0.0,
-            "maxTimeWaitingForNextWave": -1.0,
-            "fragments": [
-                {
-                    "preDelay": 0.0,
-                    "actions": [
-                        {
-                            "actionType": "SPAWN",
-                            "managedByScheduler": true,
-                            "key": "",
-                            "count": 1,
-                            "preDelay": 0.0,
-                            "interval": 1.0,
-                            "routeIndex": 44,
-                            "blockFragment": false,
-                            "autoPreviewRoute": false,
-                            "autoDisplayEnemyInfo": false,
-                            "isUnharmfulAndAlwaysCountAsKilled": false,
-                            "hiddenGroup": null,
-                            "randomSpawnGroupKey": "g6",
-                            "randomSpawnGroupPackKey": null,
-                            "randomType": "ALWAYS",
-                            "refreshType": "ALWAYS",
-                            "weight": 85,
-                            "dontBlockWave": false,
-                            "forceBlockWaveInBranch": false
-                        },
-                        {
-                            "actionType": "SPAWN",
-                            "managedByScheduler": true,
-                            "key": "enemy_2034_sythef",
-                            "count": 1,
-                            "preDelay": 3.0,
-                            "interval": 1.0,
-                            "routeIndex": 45,
-                            "blockFragment": false,
-                            "autoPreviewRoute": true,
-                            "autoDisplayEnemyInfo": false,
-                            "isUnharmfulAndAlwaysCountAsKilled": false,
-                            "hiddenGroup": null,
-                            "randomSpawnGroupKey": "g6",
-                            "randomSpawnGroupPackKey": null,
-                            "randomType": "ALWAYS",
-                            "refreshType": "ALWAYS",
-                            "weight": 5,
-                            "dontBlockWave": false,
-                            "forceBlockWaveInBranch": false
-                        },
-                        {
-                            "actionType": "SPAWN",
-                            "managedByScheduler": true,
-                            "key": "enemy_2001_duckmi",
-                            "count": 1,
-                            "preDelay": 3.0,
-                            "interval": 1.0,
-                            "routeIndex": 46,
-                            "blockFragment": false,
-                            "autoPreviewRoute": true,
-                            "autoDisplayEnemyInfo": false,
-                            "isUnharmfulAndAlwaysCountAsKilled": false,
-                            "hiddenGroup": null,
-                            "randomSpawnGroupKey": "g6",
-                            "randomSpawnGroupPackKey": null,
-                            "randomType": "ALWAYS",
-                            "refreshType": "ALWAYS",
-                            "weight": 5,
-                            "dontBlockWave": false,
-                            "forceBlockWaveInBranch": false
-                        },
-                        {
-                            "actionType": "SPAWN",
-                            "managedByScheduler": true,
-                            "key": "enemy_2002_bearmi",
-                            "count": 1,
-                            "preDelay": 3.0,
-                            "interval": 1.0,
-                            "routeIndex": 47,
-                            "blockFragment": false,
-                            "autoPreviewRoute": true,
-                            "autoDisplayEnemyInfo": false,
-                            "isUnharmfulAndAlwaysCountAsKilled": false,
-                            "hiddenGroup": null,
-                            "randomSpawnGroupKey": "g6",
-                            "randomSpawnGroupPackKey": null,
-                            "randomType": "ALWAYS",
-                            "refreshType": "ALWAYS",
-                            "weight": 5,
-                            "dontBlockWave": false,
-                            "forceBlockWaveInBranch": false
-                        }
-                    ]
-                }
-            ],
-            "advancedWaveTag": null
-        },
         "wave_index": 1,
         "frag_index": -1
     }
