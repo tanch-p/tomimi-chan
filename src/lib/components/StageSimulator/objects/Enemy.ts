@@ -516,6 +516,8 @@ export class Enemy {
 				case 'enemy_2025_syufo':
 					animName = 'Idle_01';
 					break;
+				case 'enemy_1143_merrpg':
+				case 'enemy_1143_merrpg_2':
 				case 'enemy_1271_nhkodo':
 				case 'enemy_1271_nhkodo_2':
 				case 'enemy_1311_mhkryk':
@@ -615,6 +617,8 @@ export class Enemy {
 				case 'enemy_1418_mmkonm':
 					animName = 'Move_b';
 					break;
+				case 'enemy_1143_merrpg':
+				case 'enemy_1143_merrpg_2':
 				case 'enemy_1271_nhkodo':
 				case 'enemy_1271_nhkodo_2':
 				case 'enemy_1311_mhkryk':
