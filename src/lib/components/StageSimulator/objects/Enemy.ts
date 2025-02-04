@@ -384,18 +384,18 @@ export class Enemy {
 	showPath() {
 		this.meshGroup.add(this.glowSpine);
 		this.gameManager.scene.add(this.pathGroup);
-		this.pathFinder.grid.nodes.forEach((value, key) => {
-			const [x, y] = key.split(',');
-			const pos = this.gameManager.getVectorCoordinates(
-				{ row: parseInt(y), col: parseInt(x) },
-				null
-			);
-			const sprite = this.gameManager.getTextSprite(value.nextNode?.join(',') || '');
-			const group = new THREE.Group();
-			group.position.set(pos.x, pos.y, 10);
-			group.add(sprite);
-			this.gameManager.scene.add(group);
-		});
+		// this.pathFinder.grid.nodes.forEach((value, key) => {
+		// 	const [x, y] = key.split(',');
+		// 	const pos = this.gameManager.getVectorCoordinates(
+		// 		{ row: parseInt(y), col: parseInt(x) },
+		// 		null
+		// 	);
+		// 	const sprite = this.gameManager.getTextSprite(value.nextNode?.join(',') || '');
+		// 	const group = new THREE.Group();
+		// 	group.position.set(pos.x, pos.y, 10);
+		// 	group.add(sprite);
+		// 	this.gameManager.scene.add(group);
+		// });
 	}
 	hidePath() {
 		this.meshGroup.remove(this.glowSpine);
