@@ -399,7 +399,7 @@ export class Enemy {
 	}
 	hidePath() {
 		this.meshGroup.remove(this.glowSpine);
-		// this.gameManager.scene.remove(this.pathGroup);
+		this.gameManager.scene.remove(this.pathGroup);
 	}
 
 	visualisePath(paths, currentActionIndex, startPos) {

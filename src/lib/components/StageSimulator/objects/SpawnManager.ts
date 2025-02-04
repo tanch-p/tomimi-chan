@@ -28,7 +28,7 @@ class SpawnManager {
 		if (this.currentWaveIndex >= this.waves.length) {
 			return; // All waves completed
 		}
-    if(this.actionIndex > 0){
+    if(this.actionIndex > 1){
       return;
     }
 		const currentWave = this.waves[this.currentWaveIndex];
