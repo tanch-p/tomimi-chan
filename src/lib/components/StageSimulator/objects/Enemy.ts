@@ -4,6 +4,7 @@ import { GameConfig } from './GameConfig';
 import { GameManager } from './GameManager';
 import { AssetManager } from './AssetManager';
 import type { Enemy as EnemyType } from '$lib/types';
+import { SPFA } from './SPFA';
 
 export class Enemy {
 	assetManager: AssetManager;
@@ -29,21 +30,26 @@ export class Enemy {
 	gameManager: GameManager;
 	pathGroup;
 	skel: spine.SkeletonMesh;
+	glowSpine: spine.SkeletonMesh;
 	sprite: THREE.Sprite;
 	height: number;
 	width: number;
 	meshGroup: THREE.Group;
+	hitbox;
 	formIndex = 0;
-	waitTimer;
+	waitTimer: THREE.Group;
+	pathFinder: SPFA;
 
 	constructor(enemyData: EnemyType, route, gameManager) {
 		gameManager.enemiesOnMap.push(this);
+		this.pathFinder = new SPFA(gameManager.mazeLayout);
 		this.data = enemyData;
 		this.key = enemyData.key;
 		this.gameManager = gameManager;
 		this.assetManager = AssetManager.getInstance();
 		this.route = route;
 		this.motionMode = route.motionMode;
+		this.state = 'Idle';
 		this.actions = this.getActions(route);
 		this.hp = enemyData.forms[0].stats.hp;
 		this.speed = enemyData.forms[0].stats.ms;
@@ -68,8 +74,9 @@ export class Enemy {
 		);
 		const hitBoxMaterial = new THREE.MeshBasicMaterial({
 			color: 0xc51009,
-			depthTest: false
-			// transparent:true
+			depthTest: false,
+			// transparent:true,
+			opacity: 0
 		});
 		const shadowMaterial = new THREE.MeshBasicMaterial({
 			map: this.assetManager.textures.get('sprite_shadow').texture,
@@ -84,6 +91,7 @@ export class Enemy {
 		shadowMesh.userData.name = 'shadow';
 		hitBoxMesh.userData.name = 'hitbox';
 		this.meshGroup.add(shadowMesh, hitBoxMesh);
+		this.hitbox = hitBoxMesh;
 
 		const skeletonData = this.assetManager.spineMap.get(this.key);
 		// console.log(skeletonData);
@@ -97,7 +105,7 @@ export class Enemy {
 		this.height = Math.min(110, skeletonMesh.skeleton.data.height * 0.3);
 		const size = new spine.Vector2(Math.max(50, this.width), Math.max(75, this.height));
 		const spriteMaterial = new THREE.SpriteMaterial({
-			transparent: false,
+			transparent: true,
 			depthTest: false,
 			opacity: 0,
 			color: 0x000021
@@ -112,6 +120,17 @@ export class Enemy {
 		sprite.userData.enemy = this;
 		this.gameManager.objects.push(sprite);
 		this.gameManager.scene.add(this.meshGroup);
+
+		const glowSpine = new spine.SkeletonMesh(skeletonData, (parameters) => {
+			parameters.depthTest = false;
+		});
+		glowSpine.scale.set(1.25, 1.1, 1.1);
+		glowSpine.skeleton.color.r = 0;
+		glowSpine.skeleton.color.g = 0;
+		glowSpine.skeleton.color.b = 0;
+		glowSpine.position.y = GameConfig.gridSize * 0.1;
+		this.glowSpine = glowSpine;
+
 		this.handleIdle();
 		this.skel.skeleton.color.r = 0.2;
 		this.skel.skeleton.color.g = 0.2;
@@ -147,7 +166,7 @@ export class Enemy {
 			switch (type) {
 				case 'MOVE':
 					{
-						const paths = this.gameManager.pathFinder.findPath(currentPosition, position);
+						const paths = this.pathFinder.findPath(currentPosition, position);
 						const relevantPaths = paths?.slice(1);
 						if (relevantPaths) {
 							relevantPaths.forEach(([col, row]) => {
@@ -214,6 +233,7 @@ export class Enemy {
 
 	update(delta: number) {
 		this.skel.update(delta);
+		this.glowSpine.update(delta);
 		if (this.entry) {
 			this.entryColorChange(delta);
 		}
@@ -242,13 +262,31 @@ export class Enemy {
 					this.isMoving = true;
 					this.handleMove();
 				}
-				const direction = new THREE.Vector3()
+				let direction = new THREE.Vector3()
 					.subVectors(this.targetPos, this.meshGroup.position)
 					.normalize();
-				if (direction.x !== 0) {
-					this.direction = direction.x;
-					this.skel.scale.x = direction.x < 0 ? -1 : 1;
+				if (direction.x === 0) {
+					let nextCheckPoint;
+					for (let i = this.currentActionIndex; i < this.actions.length; i++) {
+						if (this.actions[i].pathType === 'cp') {
+							nextCheckPoint = this.actions[i].position;
+						}
+					}
+					if (!nextCheckPoint) {
+						nextCheckPoint = this.actions[this.actions.length - 1];
+					}
+					const { x, y } = this.gameManager.getVectorCoordinates(nextCheckPoint, reachOffset);
+					direction = new THREE.Vector3()
+						.subVectors(new THREE.Vector3(x, y, GameConfig.baseZIndex), this.meshGroup.position)
+						.normalize();
 				}
+				this.direction = direction.x;
+				this.skel.scale.x = direction.x < 0 ? -1 : 1;
+				this.glowSpine.scale.x =
+					direction.x < 0
+						? -1 * Math.abs(this.glowSpine.scale.x)
+						: Math.abs(this.glowSpine.scale.x);
+
 				const distance = this.meshGroup.position.distanceTo(this.targetPos);
 				const adjustedSpeed = this.speed * delta * GameConfig.gridSize;
 				if (distance > adjustedSpeed) {
@@ -344,10 +382,24 @@ export class Enemy {
 	}
 
 	showPath() {
+		this.meshGroup.add(this.glowSpine);
 		this.gameManager.scene.add(this.pathGroup);
+		this.pathFinder.grid.nodes.forEach((value, key) => {
+			const [x, y] = key.split(',');
+			const pos = this.gameManager.getVectorCoordinates(
+				{ row: parseInt(y), col: parseInt(x) },
+				null
+			);
+			const sprite = this.gameManager.getTextSprite(value.nextNode?.join(',') || '');
+			const group = new THREE.Group();
+			group.position.set(pos.x, pos.y, 10);
+			group.add(sprite);
+			this.gameManager.scene.add(group);
+		});
 	}
 	hidePath() {
-		this.gameManager.scene.remove(this.pathGroup);
+		this.meshGroup.remove(this.glowSpine);
+		// this.gameManager.scene.remove(this.pathGroup);
 	}
 
 	visualisePath(paths, currentActionIndex, startPos) {
@@ -446,7 +498,7 @@ export class Enemy {
 		returnGroup.add(lineGroup);
 		return returnGroup;
 	}
-	createCountdownSprite = (text: string = ''): THREE.Sprite => {
+	createCountdownSprite = (text = ''): THREE.Group => {
 		const group = new THREE.Group();
 		const circleGeometry = new THREE.CircleGeometry(GameConfig.gridSize / 4, 32);
 		const color = parseInt(text) <= 5 ? 0xdc143c : 0xf08080;
@@ -557,11 +609,7 @@ export class Enemy {
 			}
 		}
 		this.state = 'idle';
-		if (!this.skel.state.hasAnimation(animName)) {
-			console.log(this.key);
-			return;
-		}
-		this.skel.state.setAnimation(0, animName, true);
+		this.changeAnimation(animName);
 	}
 
 	handleMove() {
@@ -653,11 +701,18 @@ export class Enemy {
 			}
 		}
 		this.state = 'move';
-		if (!this.skel.state.hasAnimation(animName)) {
+		this.changeAnimation(animName);
+	}
+	changeAnimation(animationName) {
+		if (!this.skel.state.hasAnimation(animationName)) {
 			console.log(this.key);
 			return;
 		}
-		this.skel.state.setAnimation(0, animName, true);
+		if (animationName === this.skel.state.currentAnimation) {
+			return;
+		}
+		this.skel.state.setAnimation(0, animationName, true);
+		this.glowSpine.state.setAnimation(0, animationName, true);
 	}
 	handleDeath() {}
 	handleSkill() {}

@@ -2,11 +2,14 @@ import * as THREE from 'three';
 import { GameConfig } from './GameConfig';
 import { TextSprite } from './TextSprite';
 import { AssetManager } from './AssetManager';
+import { GameManager } from './GameManager';
 
 export class TileManager {
 	assetManager: AssetManager;
 	edgesMaterial: THREE.LineBasicMaterial;
-	constructor(map = '') {
+	gameManager: GameManager;
+	constructor(gameManager: GameManager) {
+		this.gameManager = gameManager;
 		this.assetManager = AssetManager.getInstance();
 		this.edgesMaterial = new THREE.LineBasicMaterial({
 			color: 0x484848,
@@ -16,15 +19,15 @@ export class TileManager {
 	}
 
 	get(tile) {
-		const [tileName, heightType, mask, blackboard] = tile;
+		const [tileName, heightType, mask, blackboard, buildableType] = tile;
 		const boxGroup = new THREE.Group();
-		let geometry;
+		let topTextureName = tileName;
 		let topTexture;
 		let depth = 0,
 			size = 1;
-		switch (true) {
-			case tileName === 'tile_telin':
-			case tileName === 'tile_telout':
+		switch (tileName) {
+			case 'tile_telin':
+			case 'tile_telout':
 				boxGroup.add(
 					this.createTeleport(
 						blackboard.direction,
@@ -34,9 +37,11 @@ export class TileManager {
 					)
 				);
 				return boxGroup;
-			case tileName === 'tile_forbidden':
+			case 'tile_forbidden':
 				return this.createBox(0, 0xb8b8b8, 0x292929);
-			case tileName === 'tile_hole': {
+			case 'tile_deepsea':
+				return this.createDeepSeaBox();
+			case 'tile_hole': {
 				const hollowBox = this.createHollowBox();
 				boxGroup.add(hollowBox);
 				const material = new THREE.MeshStandardMaterial({
@@ -48,6 +53,7 @@ export class TileManager {
 				const topHazardWidth = GameConfig.gridSize - topAttachmentDepth * 2;
 				const vertHazard = this.assetManager.textures.get('hole_hazard_vert');
 				const vertHazardTexture = this.getTopTexture(
+					tileName,
 					vertHazard,
 					null,
 					size,
@@ -56,6 +62,7 @@ export class TileManager {
 				);
 				const horizHazard = this.assetManager.textures.get('hole_hazard_horiz');
 				const horizHazardTexture = this.getTopTexture(
+					tileName,
 					horizHazard,
 					null,
 					size,
@@ -194,54 +201,64 @@ export class TileManager {
 
 				return boxGroup;
 			}
+			case 'tile_flystart': {
+				const backing = this.createBox(0, 0xb8b8b8, 0x292929);
+				const icon = this.assetManager.textures.get('fly_icon');
+				size = 0.85;
+				// const btmBoxPlane = this.getTopTexture(box, null, size, 0, null);
+				const iconPlane = this.getTopTexture(tileName, icon, null, size, 0, null);
+				// const topBoxPlane = btmBoxPlane.clone();
+				// btmBoxPlane.position.z = 40 + 10;
+				iconPlane.position.z = 40 + 30;
+				// topBoxPlane.position.z = 40 + 90;
+				backing.position.z = 40 / 2;
+				boxGroup.add(backing, iconPlane);
+				boxGroup.position.z = 40;
+				return boxGroup;
+			}
+		}
+		if (heightType === 1) {
+			if (['tile_pollution_wall', 'tile_toxicwall'].includes(tileName)) {
+				topTextureName = 'tile_wall';
+			}
+			return this.createBox(40, 0xff8108, 0xc1c1c1, topTextureName, 0.84);
+		}
+		// const model = this.assetManager.models.get('curse').clone();
+		// model.scale.set(100, 100, 100);
+		// boxGroup.add(model);
+		switch (tileName) {
+			case 'tile_volcano':
+				break;
 			default:
+				size = 0.84;
 				break;
 		}
 		switch (tileName) {
-			case 'tile_forbidden':
-				return this.createBox(0, 0xb8b8b8, 0x292929);
-			case 'tile_wall':
-				return this.createBox(40, 0xff8108, 0xc1c1c1, 'tile_wall');
-			case 'tile_flystart':
-				{
-					const backing = this.createBox(0, 0xb8b8b8, 0x292929);
-					const box = this.assetManager.textures.get('fly_box');
-					const icon = this.assetManager.textures.get('fly_icon');
-					size = 0.85;
-					// const btmBoxPlane = this.getTopTexture(box, null, size, 0, null);
-					const iconPlane = this.getTopTexture(icon, null, size, 0, null);
-					// const topBoxPlane = btmBoxPlane.clone();
-					// btmBoxPlane.position.z = 40 + 10;
-					iconPlane.position.z = 40 + 30;
-					// topBoxPlane.position.z = 40 + 90;
-					backing.position.z = 40 / 2;
-					boxGroup.add(backing,  iconPlane);
-					boxGroup.position.z = 40;
-					return boxGroup;
-				}
-				break;
-			case 'tile_infection':
-				console.log(heightType);
-
-				topTexture = this.assetManager.textures.get('tile_infection');
-				break;
 			case 'tile_fence_bound':
-				{
-					// const model = this.assetManager.models.get('curse').clone();
-					// model.scale.set(100, 100, 100);
-					// boxGroup.add(model);
-					const attachmentGroup = this.createBoundingAttachments(GameConfig.gridSize * 0.1);
-					boxGroup.add(attachmentGroup);
-				}
+			case 'tile_fence':
+				boxGroup.add(this.createBoundingAttachments(GameConfig.gridSize * 0.1));
 				break;
-			case 'tile_floor':
-				topTexture = this.assetManager.textures.get('tile_floor');
-				size = 0.84;
+			case 'tile_creep':
+			case 'tile_creepf':
+				if (blackboard.mode) {
+					const sprite = new TextSprite(tileName.replace('tile_', '')).get();
+					sprite.position.z = 1;
+					sprite.position.x = -5;
+					boxGroup.add(sprite);
+				}
 				break;
 			default:
+				topTexture = this.assetManager.textures.get(topTextureName);
 				break;
 		}
-		geometry = new THREE.PlaneGeometry(GameConfig.gridSize, GameConfig.gridSize);
+
+		if (buildableType == 0 && !['tile_start', 'tile_end', 'tile_floor'].includes(tileName)) {
+			const floorTexture = this.assetManager.textures.get('tile_floor');
+			const frontPlane = this.getTopTexture('tile_floor', floorTexture, null, size, depth, null);
+			boxGroup.add(frontPlane);
+			size = 0.7;
+		}
+		const geometry = new THREE.PlaneGeometry(GameConfig.gridSize, GameConfig.gridSize);
 		const box = new THREE.Mesh(
 			geometry,
 			new THREE.MeshStandardMaterial({
@@ -254,7 +271,7 @@ export class TileManager {
 		boxGroup.add(box);
 		boxGroup.add(edgeLines);
 		if (topTexture) {
-			const frontPlane = this.getTopTexture(topTexture, null, size, depth);
+			const frontPlane = this.getTopTexture(topTextureName, topTexture, null, size, depth, null);
 			boxGroup.add(frontPlane);
 		}
 		if (
@@ -264,7 +281,18 @@ export class TileManager {
 				'tile_end',
 				'tile_start',
 				'tile_infection',
-				'tile_fence_bound'
+				'tile_fence',
+				'tile_fence_bound',
+				'tile_defbreak',
+				'tile_healing',
+				'tile_volcano',
+				'tile_defup',
+				'tile_pollution_road',
+				'tile_toxic',
+				'tile_toxicroad',
+				'tile_creep',
+				'tile_creepf',
+				'tile_bigforce'
 			].includes(tileName)
 		) {
 			const sprite = new TextSprite(tileName.replace('tile_', '')).get();
@@ -274,7 +302,7 @@ export class TileManager {
 		}
 		return boxGroup;
 	}
-	getTopTexture(topTexture, eMapName, size = 1, depth, customGeometry) {
+	getTopTexture(tileName, topTexture, eMapName, size = 1, depth, customGeometry) {
 		const { texture, config } = topTexture;
 		const { UVWidth, UVHeight, uvOffsetX, uvOffsetY } = config;
 		const materialAddons = {};
@@ -314,10 +342,22 @@ export class TileManager {
 		frontPlane.position.z = depth / 2 + 1;
 		frontPlane.rotateZ(Math.PI);
 		frontPlane.renderOrder = -10;
+		if (
+			[
+				'tile_infection',
+				'tile_defbreak',
+				'tile_healing',
+				'tile_defup',
+				'tile_bigforce',
+				'tile_gazebo'
+			].includes(tileName)
+		) {
+			frontPlane.scale.x = -1;
+		}
 		return frontPlane;
 	}
 
-	createBox(depth, sideColor, topColor, topTextureName?: any, size = 1) {
+	createBox(depth, sideColor, topColor, topTextureName, size = 1) {
 		const group = new THREE.Group();
 		const geometry = new THREE.BoxGeometry(GameConfig.gridSize, GameConfig.gridSize, 40);
 		const sideMaterial = new THREE.MeshStandardMaterial({
@@ -343,8 +383,10 @@ export class TileManager {
 		group.add(edgeLines);
 		if (topTextureName) {
 			const topTexture = this.assetManager.textures.get(topTextureName);
-			const frontPlane = this.getTopTexture(topTexture, null, size, depth);
-			group.add(frontPlane);
+			if (topTexture) {
+				const frontPlane = this.getTopTexture(topTextureName, topTexture, null, size, depth, null);
+				group.add(frontPlane);
+			}
 		}
 		return group;
 	}
@@ -376,6 +418,26 @@ export class TileManager {
 		return group;
 	}
 
+	createDeepSeaBox() {
+		const geometry = new THREE.BoxGeometry(
+			GameConfig.gridSize,
+			GameConfig.gridSize,
+			GameConfig.gridSize
+		);
+		const material = new THREE.MeshPhysicalMaterial({
+			color: 0x45b6fe, // White base color
+			transmission: 0.5, // Makes the material translucent
+			transparent: true, // Enable transparency
+			opacity: 0.7, // Overall opacity
+			blending: THREE.NoBlending,
+			depthWrite: false,
+			depthTest: true,
+			alphaToCoverage: false
+		});
+		const box = new THREE.Mesh(geometry, material);
+		return box;
+	}
+
 	createHollowBox() {
 		const group = new THREE.Group();
 		const material = new THREE.MeshStandardMaterial({
@@ -403,49 +465,58 @@ export class TileManager {
 	}
 
 	createTeleport(direction = 'left', tileName, index = 0, type = 'arrow') {
+		if (this.gameManager.config.levelId === 'level_rogue3_b-1') {
+			if (tileName === 'tile_telin') {
+				tileName = 'tile_telout';
+			} else {
+				tileName = 'tile_telin';
+			}
+		}
 		const group = new THREE.Group();
 		const darkMaterial = new THREE.MeshStandardMaterial({
 			color: 0x666666,
 			side: THREE.DoubleSide
 		});
-		const bottomWall = new THREE.Mesh(
-			new THREE.BoxGeometry(GameConfig.gridSize, 2, GameConfig.gridSize),
-			darkMaterial
-		);
-		bottomWall.position.y = -GameConfig.gridSize / 2;
-		const topWall = bottomWall.clone();
-		topWall.position.y = GameConfig.gridSize / 2;
-		const leftWall = new THREE.Mesh(
-			new THREE.BoxGeometry(2, GameConfig.gridSize, GameConfig.gridSize),
-			darkMaterial
-		);
-		leftWall.position.x = -GameConfig.gridSize / 2;
-		const rightWall = leftWall.clone();
-		rightWall.position.x = GameConfig.gridSize / 2;
-		group.add(bottomWall, topWall, leftWall, rightWall);
-		const stepMaterial = new THREE.MeshStandardMaterial({
-			color: 0xc1c1c1,
-			side: THREE.DoubleSide
-		});
-		const stepWidth = (GameConfig.gridSize * 4) / 10;
-		const stepHeight = 30;
-		const stepGeometry = new THREE.BoxGeometry(stepWidth, GameConfig.gridSize, stepHeight);
-		const stepEdges = new THREE.EdgesGeometry(stepGeometry);
+		if (type === 'arrow') {
+			const bottomWall = new THREE.Mesh(
+				new THREE.BoxGeometry(GameConfig.gridSize, 2, GameConfig.gridSize),
+				darkMaterial
+			);
+			bottomWall.position.y = -GameConfig.gridSize / 2;
+			const topWall = bottomWall.clone();
+			topWall.position.y = GameConfig.gridSize / 2;
+			const leftWall = new THREE.Mesh(
+				new THREE.BoxGeometry(2, GameConfig.gridSize, GameConfig.gridSize),
+				darkMaterial
+			);
+			leftWall.position.x = -GameConfig.gridSize / 2;
+			const rightWall = leftWall.clone();
+			rightWall.position.x = GameConfig.gridSize / 2;
+			group.add(bottomWall, topWall, leftWall, rightWall);
+			const stepMaterial = new THREE.MeshStandardMaterial({
+				color: 0xc1c1c1,
+				side: THREE.DoubleSide
+			});
+			const stepWidth = (GameConfig.gridSize * 4) / 10;
+			const stepHeight = 30;
+			const stepGeometry = new THREE.BoxGeometry(stepWidth, GameConfig.gridSize, stepHeight);
+			const stepEdges = new THREE.EdgesGeometry(stepGeometry);
 
-		[20, 50, 80].map((zOffset, i) => {
-			const stepGroup = new THREE.Group();
-			const step = new THREE.Mesh(stepGeometry, stepMaterial);
-			const stepLines = new THREE.LineSegments(stepEdges, this.edgesMaterial);
-			stepGroup.add(step, stepLines);
-			stepGroup.position.z = GameConfig.gridSize / 2 - stepHeight / 2 - zOffset;
-			stepGroup.position.x =
-				(i === 0
-					? GameConfig.gridSize / 2 - stepWidth / 2
-					: i === 1
-					? 0
-					: -GameConfig.gridSize / 2 + stepWidth / 2) - 2.5;
-			group.add(stepGroup);
-		});
+			[20, 50, 80].map((zOffset, i) => {
+				const stepGroup = new THREE.Group();
+				const step = new THREE.Mesh(stepGeometry, stepMaterial);
+				const stepLines = new THREE.LineSegments(stepEdges, this.edgesMaterial);
+				stepGroup.add(step, stepLines);
+				stepGroup.position.z = GameConfig.gridSize / 2 - stepHeight / 2 - zOffset;
+				stepGroup.position.x =
+					(i === 0
+						? GameConfig.gridSize / 2 - stepWidth / 2
+						: i === 1
+						? 0
+						: -GameConfig.gridSize / 2 + stepWidth / 2) - 2.5;
+				group.add(stepGroup);
+			});
+		}
 		const teleport = this.assetManager.textures.get(
 			type === 'arrow'
 				? `tel_arrow_${index}`
@@ -459,7 +530,14 @@ export class TileManager {
 			type === 'arrow' ? arrowWidth : GameConfig.gridSize,
 			GameConfig.gridSize
 		);
-		const arrowTexture = this.getTopTexture(teleport, 'tel_e_map', 1, 0, arrowPlaneGeometry);
+		const arrowTexture = this.getTopTexture(
+			tileName,
+			teleport,
+			'tel_e_map',
+			1,
+			0,
+			arrowPlaneGeometry
+		);
 		const arrowPlane = new THREE.Mesh(
 			arrowPlaneGeometry,
 			new THREE.MeshStandardMaterial({
@@ -496,6 +574,12 @@ export class TileManager {
 					? 0
 					: -Math.PI / 2;
 			if (tileName === 'tile_telout') {
+				if (direction === 'up') {
+					rotation = 0;
+				}
+				if (direction === 'down') {
+					rotation = Math.PI;
+				}
 				rotation = -rotation;
 			}
 		}

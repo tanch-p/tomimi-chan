@@ -29,8 +29,10 @@ class PathGrid {
 		}
 	}
 
-	isValid(x, y) {
-		return x >= 0 && x < this.width && y >= 0 && y < this.height;
+	isValid(x: number, y: number): boolean {
+		if (x < 0 || y < 0 || x >= this.width || y >= this.height) return false;
+		if (this.grid[y][x] === Number.POSITIVE_INFINITY) return false;
+		return true;
 	}
 
 	getNode(x, y) {
@@ -121,64 +123,40 @@ export class SPFA {
 				if (!currentNode.nextNode) continue;
 
 				// Try to connect to nodes further away
-				let [nextX, nextY] = currentNode.nextNode;
-				const nextNode = this.grid.getNode(nextX, nextY);
-				if (!nextNode.nextNode) continue;
-
-				const [targetX, targetY] = nextNode.nextNode;
-
-				// Check if we can go directly to target
-				if (this.canMoveDiagonally(x, y, targetX, targetY)) {
-					currentNode.nextNode = [targetX, targetY];
+				const [nextX, nextY] = currentNode.nextNode;
+				let nextNode = this.grid.getNode(nextX, nextY);
+				while (nextNode) {
+					if (this.canSkipNode({ x, y }, { x: nextX, y: nextY })) {
+						currentNode.nextNode = nextNode.nextNode;
+					}
+					nextNode = nextNode.nextNode;
 				}
 			}
 		}
 	}
-
-	canMoveDiagonally(x1, y1, x2, y2) {
-		// Check all cells along the line using modified Bresenham
-		const points = this.getBresenhamLine(x1, y1, x2, y2);
-		for (const [x, y] of points) {
-			if (!this.grid.isValid(x, y)) return false;
-			if (this.grid.grid[y][x] === Infinity) return false;
-		}
-		return true;
-	}
-
-	getBresenhamLine(x0, y0, x1, y1) {
-		const points = [];
+	private canSkipNode(start, end): boolean {
+		let { x: x0, y: y0 } = start;
+		const { x: x1, y: y1 } = end;
 		const dx = Math.abs(x1 - x0);
 		const dy = Math.abs(y1 - y0);
 		const sx = x0 < x1 ? 1 : -1;
 		const sy = y0 < y1 ? 1 : -1;
-
 		let err = dx - dy;
-		let x = x0;
-		let y = y0;
 
-		while (true) {
-			points.push([x, y]);
-
-			// Special case for adjacent cells
-			if (dx === 1 || dy === 1) {
-				points.push([x, y + sy]);
-				points.push([x + sx, y]);
-			}
-
-			if (x === x1 && y === y1) break;
-
+		while (x0 !== x1 || y0 !== y1) {
+			if (!this.grid.isValid(x0, y0)) return false;
 			const e2 = 2 * err;
 			if (e2 > -dy) {
 				err -= dy;
-				x += sx;
+				x0 += sx;
 			}
 			if (e2 < dx) {
 				err += dx;
-				y += sy;
+				y0 += sy;
 			}
 		}
 
-		return points;
+		return true;
 	}
 
 	buildPath(startX, startY) {

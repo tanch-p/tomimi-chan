@@ -28,6 +28,9 @@ class SpawnManager {
 		if (this.currentWaveIndex >= this.waves.length) {
 			return; // All waves completed
 		}
+    if(this.actionIndex > 0){
+      return;
+    }
 		const currentWave = this.waves[this.currentWaveIndex];
 		for (let i = this.actionIndex; i < currentWave.timeline.length; i++) {
 			const fragment = currentWave.timeline[i];

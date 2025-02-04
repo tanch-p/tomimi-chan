@@ -94,6 +94,7 @@ export class AnimationState {
   queue = new EventQueue(this);
   propertyIDs = new IntSet();
   animationsChanged = false;
+  currentAnimation = '';
 
   trackEntryPool = new Pool<TrackEntry>(() => new TrackEntry());
 
@@ -710,6 +711,7 @@ export class AnimationState {
     let animation = this.data.skeletonData.findAnimation(animationName);
     if (animation == null)
       throw new Error("Animation not found: " + animationName);
+    this.currentAnimation = animationName;
     return this.setAnimationWith(trackIndex, animation, loop);
   }
   hasAnimation(animationName: string){
