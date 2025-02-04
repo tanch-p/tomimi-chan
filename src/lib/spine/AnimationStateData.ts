@@ -27,6 +27,8 @@
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
+import { SkeletonData } from "./SkeletonData";
+
 /** Stores mix (crossfade) durations to be applied when {@link AnimationState} animations are changed. */
 export class AnimationStateData {
   /** The SkeletonData to look up animations when they are specified by name. */

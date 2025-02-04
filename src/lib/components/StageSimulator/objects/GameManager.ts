@@ -5,7 +5,6 @@ import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { AssetManager } from './AssetManager';
 import { generateMaze } from '$lib/functions/mazeHelpers';
 import { Enemy } from './Enemy';
-import { SPFA } from './SPFA';
 
 export class GameManager {
 	assetManager: AssetManager;
@@ -15,7 +14,6 @@ export class GameManager {
 	objects;
 	config;
 	mazeLayout: [number[]];
-	pathFinder;
 	enemies: EnemyType[];
 	enemiesOnMap: Enemy[] = [];
 	public scaledElapsedTime = 0; // Total game-time elapsed
@@ -36,10 +34,9 @@ export class GameManager {
 		this.objects = objects;
 		const mazeLayout = generateMaze(config.mapData.map, config.mapData.tiles);
 		this.mazeLayout = mazeLayout;
-		this.pathFinder = new SPFA(mazeLayout);
 	}
 
-	getVectorCoordinates = (pos, reachOffset?: any | undefined) => {
+	getVectorCoordinates = (pos, reachOffset) => {
 		let offSetX = 0,
 			offSetY = 0;
 		if (reachOffset) {

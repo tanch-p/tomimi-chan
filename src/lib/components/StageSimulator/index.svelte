@@ -35,6 +35,7 @@
 
 	onDestroy(() => {
 		assetManager.cleanup();
+		assetManager.texturesLoaded=false;
 		if (game) {
 			game.cleanup();
 		}

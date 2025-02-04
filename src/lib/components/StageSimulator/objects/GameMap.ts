@@ -31,7 +31,7 @@ export class GameMap {
 		this.scene = gameManager.scene;
 		this.objects = gameManager.objects;
 		this.textureLoader = new THREE.TextureLoader();
-		this.tileManager = new TileManager();
+		this.tileManager = new TileManager(gameManager);
 
 		this.setTiles(this.config.mapData);
 
@@ -57,7 +57,7 @@ export class GameMap {
 					row: rowIdx,
 					col: colIdx
 				});
-				let z = 0; //elevation for everything if not -z things will get truncated
+				let z = 0;
 				switch (tileName) {
 					case 'tile_end':
 						group.add(new StickBox(100, 100, 100, 'blue').getMesh());
@@ -68,13 +68,18 @@ export class GameMap {
 					case 'tile_telin':
 					case 'tile_telout':
 					case 'tile_hole':
+					case 'tile_deepsea':
 						z = -50;
 						break;
 					case 'tile_forbidden':
-					case 'tile_wall':
 						z = 20;
 						break;
+					case 'tile_flystart':
+						break;
 					default:
+						if (heightType === 1) {
+							z = 20;
+						}
 						break;
 				}
 				group.position.set(x, y, z);

@@ -28,12 +28,57 @@ const texturesToLoad = [
 		textures: [
 			['floorIcons', null],
 			[
+				'tile_healing',
+				{
+					UVWidth: 0.21,
+					UVHeight: 0.21,
+					uvOffsetX: 0.278,
+					uvOffsetY: 0.774
+				}
+			],
+			[
+				'tile_defup',
+				{
+					UVWidth: 0.21,
+					UVHeight: 0.21,
+					uvOffsetX: 0.545,
+					uvOffsetY: 0.774
+				}
+			],
+			[
+				'tile_gazebo',
+				{
+					UVWidth: 0.21,
+					UVHeight: 0.21,
+					uvOffsetX: 0.02,
+					uvOffsetY: 0.52
+				}
+			],
+			[
 				'tile_infection',
 				{
+					UVWidth: 0.21,
+					UVHeight: 0.21,
+					uvOffsetX: 0.276,
+					uvOffsetY: 0.516
+				}
+			],
+			[
+				'tile_bigforce',
+				{
+					UVWidth: 0.21,
+					UVHeight: 0.21,
+					uvOffsetX: 0.545,
+					uvOffsetY: 0.516
+				}
+			],
+			[
+				'tile_defbreak',
+				{
 					UVWidth: 0.25,
-					UVHeight: 0.25,
-					uvOffsetX: 0.26,
-					uvOffsetY: 0.5
+					UVHeight: 0.24,
+					uvOffsetX: 0.773,
+					uvOffsetY: 0.49
 				}
 			],
 			[
@@ -111,8 +156,8 @@ const texturesToLoad = [
 		options: ['colorSpace'],
 		textures: [
 			['blueBox', { UVWidth: 0.43, UVHeight: 0.42, uvOffsetX: 0.49, uvOffsetY: 0.49 }],
-			['fly_icon', { UVWidth: 0.5, UVHeight: 0.5, uvOffsetX: 0, uvOffsetY: 0 }],
-			['fly_box', { UVWidth: 0.5, UVHeight: 0.5, uvOffsetX: 0.5, uvOffsetY: 0 }]
+			['fly_icon', { UVWidth: 0.5, UVHeight: 0.5, uvOffsetX: 0, uvOffsetY: 0 }]
+			// ['fly_box', { UVWidth: 0.5, UVHeight: 0.5, uvOffsetX: 0.5, uvOffsetY: 0 }]
 		]
 	},
 	{
@@ -126,6 +171,15 @@ const texturesToLoad = [
 					UVHeight: 0.1445,
 					uvOffsetX: 0.324,
 					uvOffsetY: 0.62
+				}
+			],
+			[
+				'tile_volcano',
+				{
+					UVWidth: 0.12,
+					UVHeight: 0.12,
+					uvOffsetX: 0.6,
+					uvOffsetY: 0
 				}
 			]
 		]
