@@ -6,4 +6,5 @@ export class GameConfig {
 	static FrustumSize = 900;
 	static showAllRange = true;
 	static showAllTimers = true;
+  static showTimeline = true;
 }

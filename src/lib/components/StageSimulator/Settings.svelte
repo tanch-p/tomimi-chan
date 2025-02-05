@@ -19,6 +19,10 @@
 		{
 			key: 'showAllTimers',
 			texts: { zh: '显示待机倒数', ja: '待機残り時間表示', en: 'Show Wait Timer' }
+		},
+		{
+			key: 'showTimeline',
+			texts: { zh: '显示出怪顺序', ja: '敵出現表表示', en: 'Show Enemy Spawn Timeline' }
 		}
 	];
 </script>
