@@ -44,6 +44,7 @@ export class Enemy {
 	pathFinder: SPFA;
 	atkRangeMesh: THREE.Group;
 	skillRangeMeshes: THREE.Group[] = [];
+	buffs = [];
 
 	constructor(enemyData: EnemyType, route, gameManager: GameManager) {
 		gameManager.enemiesOnMap.push(this);
@@ -179,9 +180,17 @@ export class Enemy {
 			{},
 			'special'
 		);
-		const skillsWithRange = traits
-			.filter((skill) => skill.skillRange && skill.skillRange !== range)
-			.concat(specialList.filter((skill) => skill.skillRange && skill.skillRange !== range));
+		const allSkills = traits.concat(specialList);
+		if(allSkills.some(skill => skill.key.includes("stealth"))){
+			this.buffs.push("stealth");
+			
+
+		}	
+
+
+		const skillsWithRange = allSkills.filter(
+			(skill) => skill.skillRange && skill.skillRange !== range
+		);
 		for (const skill of skillsWithRange) {
 			const group = new THREE.Group();
 			const radius = skill.skillRange * GameConfig.gridSize;
@@ -456,6 +465,7 @@ export class Enemy {
 	onSelect() {
 		this.meshGroup.add(this.glowSpine);
 		this.gameManager.scene.add(this.pathGroup);
+		this.selected = true;
 		// this.pathFinder.grid.nodes.forEach((value, key) => {
 		// 	const [x, y] = key.split(',');
 		// 	const pos = this.gameManager.getVectorCoordinates(
@@ -472,6 +482,7 @@ export class Enemy {
 	onDeselect() {
 		this.meshGroup.remove(this.glowSpine);
 		this.gameManager.scene.remove(this.pathGroup);
+		this.selected = false;
 	}
 
 	visualisePath(paths, currentActionIndex, startPos) {
