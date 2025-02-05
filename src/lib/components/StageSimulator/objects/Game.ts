@@ -145,7 +145,6 @@ export class Game {
 				} else {
 					enemy.onSelect();
 				}
-				enemy.selected = !enemy.selected;
 			}
 
 			const enemiesObjs = this.objects.filter((ele) => ele.userData.enemy);

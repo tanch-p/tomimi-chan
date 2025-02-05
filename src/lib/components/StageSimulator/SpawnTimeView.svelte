@@ -13,6 +13,7 @@
 		currWaveIndex = 0;
 	let index = 0;
 	let language: Language;
+	let showTimeline = true;
 
 	$: language = $page.data.language;
 
@@ -45,11 +46,10 @@
 		}
 	}
 	$: trackAndScrollContainer(waveElapsedTime);
+	$: GameConfig.showTimeline.subscribe((v) => (showTimeline = v));
 </script>
 
-<div
-	class="absolute w-64 h-full p-4 {GameConfig.showTimeline ? '' : 'opacity-0 pointer-events-none'}"
->
+<div class="absolute w-64 h-full p-4 {showTimeline ? '' : 'opacity-0 pointer-events-none'}">
 	<div bind:this={timelineContainer} class="w-full h-full overflow-y-scroll no-scrollbar">
 		<div bind:this={actionsContainer} class="pb-[100vh]">
 			{#each waves as { maxTimeWaitingForNextWave, postDelay, preDelay, timeline }, i}

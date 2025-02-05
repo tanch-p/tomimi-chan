@@ -1,3 +1,5 @@
+import { writable } from "svelte/store";
+
 export class GameConfig {
 	static gridSize = 100;
 	static speedFactor = 4;
@@ -6,5 +8,5 @@ export class GameConfig {
 	static FrustumSize = 900;
 	static showAllRange = true;
 	static showAllTimers = true;
-  static showTimeline = true;
+	static showTimeline = writable(true);
 }

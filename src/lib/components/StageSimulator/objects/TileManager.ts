@@ -354,7 +354,7 @@ export class TileManager {
 		const frontPlane = new THREE.Mesh(frontGeometry, frontMaterial);
 
 		// Position front plane at the front of the box
-		frontPlane.position.z = depth / 2 + 1;
+		frontPlane.position.z = depth / 2 + 0.1;
 		frontPlane.rotateZ(Math.PI);
 		frontPlane.renderOrder = -10;
 		if (
@@ -405,7 +405,7 @@ export class TileManager {
 		}
 		if (topTextureName === 'tile_smog') {
 			const grater = this.createTileSmog();
-			grater.position.z=19;
+			grater.position.z = 19;
 			group.add(grater);
 		}
 		return group;
@@ -465,7 +465,7 @@ export class TileManager {
 			side: THREE.DoubleSide
 		});
 		const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-		plane.position.z = 1;
+		plane.position.z = 1.01;
 		group.add(plane);
 		const boundary = this.createBoundingAttachments(0);
 		group.add(boundary);
@@ -486,7 +486,7 @@ export class TileManager {
 					: i === 0
 					? (GameConfig.gridSize - 14) / 3.5
 					: -(GameConfig.gridSize - 14) / 3.5;
-			line.position.z = 2;
+			line.position.z = 1.02;
 			group.add(line);
 		}
 
@@ -502,7 +502,7 @@ export class TileManager {
 					: i === 0
 					? (GameConfig.gridSize - 14) / 3.5
 					: -(GameConfig.gridSize - 14) / 3.5;
-			line.position.z = 2;
+			line.position.z = 1.02;
 			group.add(line);
 		}
 		return group;
