@@ -221,30 +221,41 @@ export class TileManager {
 			if (['tile_pollution_wall', 'tile_toxicwall'].includes(tileName)) {
 				topTextureName = 'tile_wall';
 			}
-			return this.createBox(40, 0xff8108, 0xc1c1c1, topTextureName, 0.84);
+			if (!['tile_wall', 'tile_grass'].includes(topTextureName)) {
+				size = 0.84;
+			}
+			return this.createBox(40, 0xff8108, 0xc1c1c1, topTextureName, size);
 		}
 		// const model = this.assetManager.models.get('curse').clone();
 		// model.scale.set(100, 100, 100);
 		// boxGroup.add(model);
+
 		switch (tileName) {
+			// texture size
 			case 'tile_volcano':
+			case 'tile_grass':
+			case 'tile_smog':
 				break;
 			default:
 				size = 0.84;
 				break;
 		}
+
 		switch (tileName) {
+			// additional layers
 			case 'tile_fence_bound':
 			case 'tile_fence':
 				boxGroup.add(this.createBoundingAttachments(GameConfig.gridSize * 0.1));
 				break;
+			case 'tile_smog':
+				boxGroup.add(this.createTileSmog());
+				break;
 			case 'tile_creep':
 			case 'tile_creepf':
 				if (blackboard.mode) {
-					const sprite = new TextSprite(tileName.replace('tile_', '')).get();
-					sprite.position.z = 1;
-					sprite.position.x = -5;
-					boxGroup.add(sprite);
+					const texture = this.assetManager.textures.get('creep');
+					const creep = this.getTopTexture('tile_creep', texture, null, 1, 2, null);
+					boxGroup.add(creep);
 				}
 				break;
 			default:
@@ -292,7 +303,9 @@ export class TileManager {
 				'tile_toxicroad',
 				'tile_creep',
 				'tile_creepf',
-				'tile_bigforce'
+				'tile_bigforce',
+				'tile_grass',
+				'tile_smog'
 			].includes(tileName)
 		) {
 			const sprite = new TextSprite(tileName.replace('tile_', '')).get();
@@ -304,7 +317,28 @@ export class TileManager {
 	}
 	getTopTexture(tileName, topTexture, eMapName, size = 1, depth, customGeometry) {
 		const { texture, config } = topTexture;
-		const { UVWidth, UVHeight, uvOffsetX, uvOffsetY } = config;
+		const frontGeometry =
+			customGeometry ||
+			new THREE.PlaneGeometry(GameConfig.gridSize * size, GameConfig.gridSize * size);
+		if (config) {
+			const { UVWidth, UVHeight, uvOffsetX, uvOffsetY } = config;
+			// Modify UV coordinates to match the specific tile in the sprite sheet
+			const uvs = frontGeometry.attributes.uv;
+			const uvArray = uvs.array;
+			// Set UV coordinates for each vertex
+			// Bottom left
+			uvArray[0] = uvOffsetX;
+			uvArray[1] = uvOffsetY;
+			// Bottom right
+			uvArray[2] = uvOffsetX + UVWidth;
+			uvArray[3] = uvOffsetY;
+			// Top left
+			uvArray[4] = uvOffsetX;
+			uvArray[5] = uvOffsetY + UVHeight;
+			// Top right
+			uvArray[6] = uvOffsetX + UVWidth;
+			uvArray[7] = uvOffsetY + UVHeight;
+		}
 		const materialAddons = {};
 		if (eMapName) {
 			materialAddons.emissiveMap = this.assetManager.textures.get(eMapName).texture;
@@ -315,28 +349,7 @@ export class TileManager {
 			transparent: true,
 			...materialAddons
 		});
-		const frontGeometry =
-			customGeometry ||
-			new THREE.PlaneGeometry(GameConfig.gridSize * size, GameConfig.gridSize * size);
 		const frontPlane = new THREE.Mesh(frontGeometry, frontMaterial);
-
-		// Modify UV coordinates to match the specific tile in the sprite sheet
-		const uvs = frontGeometry.attributes.uv;
-		const uvArray = uvs.array;
-
-		// Set UV coordinates for each vertex
-		// Bottom left
-		uvArray[0] = uvOffsetX;
-		uvArray[1] = uvOffsetY;
-		// Bottom right
-		uvArray[2] = uvOffsetX + UVWidth;
-		uvArray[3] = uvOffsetY;
-		// Top left
-		uvArray[4] = uvOffsetX;
-		uvArray[5] = uvOffsetY + UVHeight;
-		// Top right
-		uvArray[6] = uvOffsetX + UVWidth;
-		uvArray[7] = uvOffsetY + UVHeight;
 
 		// Position front plane at the front of the box
 		frontPlane.position.z = depth / 2 + 1;
@@ -388,6 +401,11 @@ export class TileManager {
 				group.add(frontPlane);
 			}
 		}
+		if (topTextureName === 'tile_smog') {
+			const grater = this.createTileSmog();
+			grater.position.z=19;
+			group.add(grater);
+		}
 		return group;
 	}
 	createBoundingAttachments(inset: number) {
@@ -436,6 +454,56 @@ export class TileManager {
 		});
 		const box = new THREE.Mesh(geometry, material);
 		return box;
+	}
+	createTileSmog() {
+		const group = new THREE.Group();
+		const planeGeometry = new THREE.PlaneGeometry(GameConfig.gridSize, GameConfig.gridSize);
+		const planeMaterial = new THREE.MeshBasicMaterial({
+			color: 0x000000,
+			side: THREE.DoubleSide
+		});
+		const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+		plane.position.z = 1;
+		group.add(plane);
+		const boundary = this.createBoundingAttachments(0);
+		group.add(boundary);
+		const graterMaterial = new THREE.MeshStandardMaterial({
+			color: 0xa1a1a1,
+			side: THREE.DoubleSide
+		});
+		// horizontal
+		for (let i = 0; i < 3; i++) {
+			const line = new THREE.Mesh(
+				new THREE.PlaneGeometry(GameConfig.gridSize, (GameConfig.gridSize - 14) / 7),
+				graterMaterial
+			);
+
+			line.position.y =
+				i === 1
+					? 0
+					: i === 0
+					? (GameConfig.gridSize - 14) / 3.5
+					: -(GameConfig.gridSize - 14) / 3.5;
+			line.position.z = 2;
+			group.add(line);
+		}
+
+		// vertical
+		for (let i = 0; i < 3; i++) {
+			const line = new THREE.Mesh(
+				new THREE.PlaneGeometry((GameConfig.gridSize - 14) / 7, GameConfig.gridSize),
+				graterMaterial
+			);
+			line.position.x =
+				i === 1
+					? 0
+					: i === 0
+					? (GameConfig.gridSize - 14) / 3.5
+					: -(GameConfig.gridSize - 14) / 3.5;
+			line.position.z = 2;
+			group.add(line);
+		}
+		return group;
 	}
 
 	createHollowBox() {

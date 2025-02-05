@@ -23,6 +23,11 @@ const texturesToLoad = [
 		textures: [['sprite_shadow', null]]
 	},
 	{
+		fileName: 'Special_juntan_02.png',
+		options: [],
+		textures: [['creep', null]]
+	},
+	{
 		fileName: 'floor_icons.png',
 		options: ['colorSpace', 'filter'],
 		textures: [
@@ -171,6 +176,15 @@ const texturesToLoad = [
 					UVHeight: 0.1445,
 					uvOffsetX: 0.324,
 					uvOffsetY: 0.62
+				}
+			],
+			[
+				'tile_grass',
+				{
+					UVWidth: 0.09,
+					UVHeight: 0.09,
+					uvOffsetX: 0.615,
+					uvOffsetY: 0.133
 				}
 			],
 			[
