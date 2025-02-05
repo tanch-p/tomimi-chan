@@ -5,6 +5,8 @@ import { GameManager } from './GameManager';
 import { AssetManager } from './AssetManager';
 import type { Enemy as EnemyType } from '$lib/types';
 import { SPFA } from './SPFA';
+import { CountdownSprite } from './CountdownSprite';
+import { getEnemySkills } from '$lib/functions/skillHelpers';
 
 export class Enemy {
 	assetManager: AssetManager;
@@ -27,6 +29,7 @@ export class Enemy {
 	exit = false;
 	exitElapsedTime = 0;
 	isEnding = false;
+	selected = false;
 	gameManager: GameManager;
 	pathGroup;
 	skel: spine.SkeletonMesh;
@@ -37,11 +40,14 @@ export class Enemy {
 	meshGroup: THREE.Group;
 	hitbox;
 	formIndex = 0;
-	waitTimer: THREE.Group;
+	waitTimer: CountdownSprite;
 	pathFinder: SPFA;
+	atkRangeMesh: THREE.Group;
+	skillRangeMeshes: THREE.Group[] = [];
 
-	constructor(enemyData: EnemyType, route, gameManager) {
+	constructor(enemyData: EnemyType, route, gameManager: GameManager) {
 		gameManager.enemiesOnMap.push(this);
+		// console.log(enemyData);
 		this.pathFinder = new SPFA(gameManager.mazeLayout);
 		this.data = enemyData;
 		this.key = enemyData.key;
@@ -54,15 +60,16 @@ export class Enemy {
 		this.hp = enemyData.forms[0].stats.hp;
 		this.speed = enemyData.forms[0].stats.ms;
 		this.meshGroup = new THREE.Group();
+		this.waitTimer = new CountdownSprite(this.gameManager);
 		this.initModel();
 		this.pathGroup = this.visualisePath(
 			this.actions,
 			this.currentActionIndex,
 			this.route.startPosition
 		);
-		this.waitTimer = this.createCountdownSprite();
-		const { x, y } = this.gameManager.getVectorCoordinates(route.startPosition);
+		const { x, y } = this.gameManager.getVectorCoordinates(route.startPosition, null);
 		this.meshGroup.position.set(x, y, GameConfig.baseZIndex);
+		this.meshGroup.add(this.waitTimer.getMesh());
 		this.currentPos = new THREE.Vector3(x, y, GameConfig.baseZIndex);
 	}
 
@@ -103,6 +110,7 @@ export class Enemy {
 		this.meshGroup.renderOrder = 1;
 		this.width = Math.min(100, skeletonMesh.skeleton.data.width * 0.3);
 		this.height = Math.min(110, skeletonMesh.skeleton.data.height * 0.3);
+		this.waitTimer.setPosition(this.height);
 		const size = new spine.Vector2(Math.max(50, this.width), Math.max(75, this.height));
 		const spriteMaterial = new THREE.SpriteMaterial({
 			transparent: true,
@@ -135,6 +143,71 @@ export class Enemy {
 		this.skel.skeleton.color.r = 0.2;
 		this.skel.skeleton.color.g = 0.2;
 		this.skel.skeleton.color.b = 0.2;
+
+		const range = this.data.forms[this.formIndex].stats.range;
+		if (range > 0) {
+			const group = new THREE.Group();
+			const radius = range * GameConfig.gridSize;
+			const circleGeometry = new THREE.CircleGeometry(radius, 32);
+			const ringGeometry = new THREE.RingGeometry(radius - 2, radius, 64);
+			const circleMaterial = new THREE.MeshBasicMaterial({
+				color: 0xcc526e,
+				transparent: true,
+				opacity: 0.05,
+				depthWrite: false,
+				depthTest: false
+			});
+
+			const ringMaterial = new THREE.MeshBasicMaterial({
+				color: 0xcc526e,
+				transparent: true,
+				opacity: 0.8,
+				depthWrite: false,
+				depthTest: false
+			});
+			const circle = new THREE.Mesh(circleGeometry, circleMaterial);
+			const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+			group.add(ring, circle);
+			this.atkRangeMesh = group;
+			this.meshGroup.add(group);
+		}
+		const traits = getEnemySkills(this.data, this.data.traits, this.formIndex, {}, 'trait');
+		const specialList = getEnemySkills(
+			this.data,
+			this.data.forms[this.formIndex].special,
+			this.formIndex,
+			{},
+			'special'
+		);
+		const skillsWithRange = traits
+			.filter((skill) => skill.skillRange && skill.skillRange !== range)
+			.concat(specialList.filter((skill) => skill.skillRange && skill.skillRange !== range));
+		for (const skill of skillsWithRange) {
+			const group = new THREE.Group();
+			const radius = skill.skillRange * GameConfig.gridSize;
+			const circleGeometry = new THREE.CircleGeometry(radius, 32);
+			const ringGeometry = new THREE.RingGeometry(radius - 2, radius, 64);
+			const circleMaterial = new THREE.MeshBasicMaterial({
+				color: 0x3f5ad7,
+				transparent: true,
+				opacity: 0.05,
+				depthWrite: false,
+				depthTest: false
+			});
+
+			const ringMaterial = new THREE.MeshBasicMaterial({
+				color: 0x3f5ad7,
+				transparent: true,
+				opacity: 0.8,
+				depthWrite: false,
+				depthTest: false
+			});
+			const circle = new THREE.Mesh(circleGeometry, circleMaterial);
+			const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+			group.add(ring, circle);
+			this.skillRangeMeshes.push(group);
+			this.meshGroup.add(group);
+		}
 	}
 
 	getActions(route) {
@@ -252,7 +325,7 @@ export class Enemy {
 				this.pathOn = true;
 			}
 		}
-
+		const showTimer = GameConfig.showAllTimers || this.selected;
 		switch (type) {
 			case 'MOVE':
 				if (!this.isMoving) {
@@ -306,36 +379,34 @@ export class Enemy {
 			case 'WAIT_CURRENT_FRAGMENT_TIME':
 			case 'WAIT_CURRENT_WAVE_TIME':
 				if (this.waitElapsedTime === 0) {
-					this.meshGroup.add(this.waitTimer);
+					console.log(this.actions[this.currentActionIndex]);
+					this.waitTimer.getMesh().visible = true;
 					this.handleIdle();
 					this.waitElapsedTime += delta;
 				} else {
-					this.updateCountdownSprite(
-						this.waitTimer,
-						time - this.gameManager.waveElapsedTime - this.waitElapsedTime
-					);
+					this.waitTimer.updateTimer(time - this.gameManager.waveElapsedTime);
 					this.waitElapsedTime += delta;
 				}
 
-				if (this.waitElapsedTime >= time - this.gameManager.waveElapsedTime) {
-					this.meshGroup.remove(this.waitTimer);
+				if (this.gameManager.waveElapsedTime >= time) {
 					this.waitElapsedTime = 0;
+					this.waitTimer.getMesh().visible = false;
 					this.currentActionIndex++;
 				}
 				break;
 			case 'WAIT_FOR_SECONDS':
 				if (this.waitElapsedTime === 0) {
-					this.meshGroup.add(this.waitTimer);
 					this.handleIdle();
+					this.waitTimer.getMesh().visible = true;
 					this.waitElapsedTime += delta;
 				} else {
-					this.updateCountdownSprite(this.waitTimer, time - this.waitElapsedTime);
+					this.waitTimer.updateTimer(time - this.waitElapsedTime);
 					this.waitElapsedTime += delta;
 				}
 
 				if (this.waitElapsedTime >= time) {
-					this.meshGroup.remove(this.waitTimer);
 					this.waitElapsedTime = 0;
+					this.waitTimer.getMesh().visible = false;
 					this.currentActionIndex++;
 				}
 				break;
@@ -377,11 +448,12 @@ export class Enemy {
 		if (index !== -1) {
 			this.gameManager.objects.splice(index, 1);
 		}
-		this.hidePath();
+		this.onDeselect();
 		this.gameManager.scene.remove(this.meshGroup);
+		this.gameManager.killedCount.update((v) => v + 1);
 	}
 
-	showPath() {
+	onSelect() {
 		this.meshGroup.add(this.glowSpine);
 		this.gameManager.scene.add(this.pathGroup);
 		// this.pathFinder.grid.nodes.forEach((value, key) => {
@@ -397,7 +469,7 @@ export class Enemy {
 		// 	this.gameManager.scene.add(group);
 		// });
 	}
-	hidePath() {
+	onDeselect() {
 		this.meshGroup.remove(this.glowSpine);
 		this.gameManager.scene.remove(this.pathGroup);
 	}
@@ -497,41 +569,6 @@ export class Enemy {
 		}
 		returnGroup.add(lineGroup);
 		return returnGroup;
-	}
-	createCountdownSprite = (text = ''): THREE.Group => {
-		const group = new THREE.Group();
-		const circleGeometry = new THREE.CircleGeometry(GameConfig.gridSize / 4, 32);
-		const color = parseInt(text) <= 5 ? 0xdc143c : 0xf08080;
-		const circleMaterial = new THREE.MeshBasicMaterial({
-			color: color,
-			transparent: true,
-			depthTest: false
-		});
-		const circle = new THREE.Mesh(circleGeometry, circleMaterial);
-		const ringGeometry = new THREE.RingGeometry(
-			GameConfig.gridSize / 4 - 1,
-			GameConfig.gridSize / 4,
-			32
-		);
-		const ringMaterial = new THREE.MeshBasicMaterial({
-			color: 0x666666,
-			transparent: true,
-			depthTest: false
-		});
-		const ring = new THREE.Mesh(ringGeometry, ringMaterial);
-		ring.position.z = 2;
-		const textMesh = this.gameManager.getTextSprite(text, 16);
-		group.position.set(0, this.skel.skeleton.data.height * 0.4 + GameConfig.gridSize / 5, 0);
-		group.add(ring, circle, textMesh);
-		group.renderOrder = 10;
-		return group;
-	};
-
-	updateCountdownSprite(mesh, timer: number) {
-		this.meshGroup.remove(mesh);
-		const newMesh = this.createCountdownSprite(timer.toFixed());
-		this.meshGroup.add(newMesh);
-		this.waitTimer = newMesh;
 	}
 
 	handleIdle() {
@@ -649,6 +686,7 @@ export class Enemy {
 				case 'enemy_2014_csicer':
 					animName = 'Move01';
 					break;
+				case 'enemy_1500_skulsr':
 				case 'enemy_2004_balloon':
 				case 'enemy_2025_syufo':
 					animName = 'Move_01';

@@ -1,6 +1,9 @@
 export class GameConfig {
-  static gridSize: number = 100;
-  static pathFinder;
-  static speedFactor: number = 4;
-  static baseZIndex = 0;
+	static gridSize = 100;
+	static speedFactor = 4;
+	static baseZIndex = 0;
+	static isPaused = false;
+	static FrustumSize = 900;
+	static showAllRange = true;
+	static showAllTimers = true;
 }

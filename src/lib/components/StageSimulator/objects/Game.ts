@@ -1,10 +1,11 @@
 import * as THREE from 'three';
-import type { MapConfig } from '$lib/types';
+import type { Enemy as EnemyType, MapConfig } from '$lib/types';
 import { GameMap } from './GameMap';
 import SpawnManager from './SpawnManager';
 import { GameConfig } from './GameConfig';
 import { GameManager } from './GameManager';
 import { AssetManager } from './AssetManager';
+import { writable } from 'svelte/store';
 
 export class Game {
 	assetManager: AssetManager;
@@ -21,10 +22,10 @@ export class Game {
 	config;
 	waves;
 	enemies: any[];
-	state = 'load';
+	state = writable('load');
 	gameManager: GameManager;
 
-	constructor(canvasElement: HTMLCanvasElement, config: MapConfig, waves, enemies) {
+	constructor(canvasElement: HTMLCanvasElement, config: MapConfig, waves, enemies: EnemyType[]) {
 		this.canvas = canvasElement;
 		this.config = config;
 		this.waves = waves;
@@ -36,7 +37,7 @@ export class Game {
 		this.onPointerDown = this.onPointerDown.bind(this);
 
 		// threejs
-		const frustumSize = 1000;
+		const frustumSize = GameConfig.FrustumSize;
 		const rect = this.canvas.getBoundingClientRect();
 		const aspect = rect.width / rect.height;
 		this.camera = new THREE.OrthographicCamera(
@@ -89,27 +90,27 @@ export class Game {
 		this.config = config;
 		this.waves = waves;
 		this.objects = [];
-		this.state = 'reset';
+		this.state.set('reset');
 		this.renderer.setAnimationLoop(null);
 		this.clearScene(this.scene);
-		this.gameManager = new GameManager(config, this.scene, this.camera, this.objects, enemies);
+		this.gameManager.reset(config, enemies);
 		this.map = new GameMap(this.gameManager);
 		this.spawnManager = new SpawnManager(waves, this.map, this.gameManager);
 		this.initLights();
-		this.state = 'ready';
+		this.state.set('ready');
 		this.renderer.setAnimationLoop(() => this.render());
 	}
 
 	onWindowResize() {
-		const rect = this.canvas.getBoundingClientRect();
+		const rect = this.canvas.parentElement.getBoundingClientRect();
 		const aspect = rect.width / rect.height;
-		// Update camera frustum
-		const frustumSize = 1000;
+		const frustumSize = GameConfig.FrustumSize;
 		this.camera.left = (frustumSize * aspect) / -2;
 		this.camera.right = (frustumSize * aspect) / 2;
 		this.camera.top = frustumSize / 2;
 		this.camera.bottom = frustumSize / -2;
 		this.camera.updateProjectionMatrix();
+		this.renderer.setSize(rect.width, rect.height);
 		this.render();
 	}
 	onPointerDown(event) {
@@ -121,11 +122,14 @@ export class Game {
 			((event.clientX - rect.left) / rect.width) * 2 - 1,
 			-((event.clientY - rect.top) / rect.height) * 2 + 1
 		);
-		if (['reset', 'loading'].includes(this.state)) {
+		let state;
+		this.state.subscribe((v) => (state = v));
+		if (['reset', 'loading'].includes(state)) {
 			return;
 		}
-		if (this.state === 'ready') {
-			return (this.state = 'running');
+		console.log();
+		if (state === 'ready') {
+			return this.state.set('running');
 		}
 
 		this.raycaster.setFromCamera(this.pointer, this.camera);
@@ -137,9 +141,9 @@ export class Game {
 			if (intersect?.object?.userData?.enemy) {
 				const enemy = intersect?.object?.userData?.enemy;
 				if (enemy.selected) {
-					enemy.hidePath();
+					enemy.onDeselect();
 				} else {
-					enemy.showPath();
+					enemy.onSelect();
 				}
 				enemy.selected = !enemy.selected;
 			}
@@ -147,16 +151,21 @@ export class Game {
 			const enemiesObjs = this.objects.filter((ele) => ele.userData.enemy);
 			enemiesObjs.forEach((ele) => {
 				if (ele.uuid !== intersect.object.uuid) {
-					ele.userData.enemy.hidePath();
+					ele.userData.enemy.onDeselect();
 				}
 			});
 		}
 	}
 	render() {
+		let state;
+		this.state.subscribe((v) => (state = v));
 		const deltaTime = this.clock.getDelta() * GameConfig.speedFactor;
-		if (this.state === 'running') {
+		if (state === 'running' && !GameConfig.isPaused) {
 			this.spawnManager.update();
 			this.gameManager.update(deltaTime);
+		}
+		if (this.spawnManager.isFinished && this.gameManager.noEnemyAlive) {
+			this.state.set('end');
 		}
 		this.renderer.render(this.scene, this.camera);
 	}
