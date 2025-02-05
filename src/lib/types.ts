@@ -195,6 +195,7 @@ export type Skill = {
 	cooldown?: number;
 	initSp?: number;
 	spCost?: number;
+	skillRange?: number;
 	can_silence?: boolean;
 	dmg_element?: 'phys' | 'arts' | 'true' | 'heal';
 	suffix?: Tooltip;

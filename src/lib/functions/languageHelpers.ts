@@ -19,6 +19,17 @@ export function floorPrefixSuffix(floor: number, language: Language) {
 			return floor + 'F';
 	}
 }
+export function wavePrefixSuffix(val: number, language: Language) {
+	switch (language) {
+		case 'zh':
+			return '第' + val + '波';
+		case 'ja':
+			return '第' + val + 'ウェーブ';
+		case 'en':
+		default:
+			return 'Wave #' + val;
+	}
+}
 export function parseConditions(key, language: Language) {
 	if (key.includes('gt') || key.includes('lt')) {
 		const splitStr = key.split('_');

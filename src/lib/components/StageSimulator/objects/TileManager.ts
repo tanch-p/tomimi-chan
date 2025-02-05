@@ -279,6 +279,8 @@ export class TileManager {
 		);
 		const edges = new THREE.EdgesGeometry(geometry);
 		const edgeLines = new THREE.LineSegments(edges, this.edgesMaterial);
+		edgeLines.position.z = 0.01;
+
 		boxGroup.add(box);
 		boxGroup.add(edgeLines);
 		if (topTexture) {

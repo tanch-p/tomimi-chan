@@ -11,6 +11,7 @@ class SpawnManager {
 	actionIndex: number;
 	spawnCount = 0;
 	gameManager: GameManager;
+	isFinished = false;
 	constructor(waves, map, gameManager) {
 		this.map = map;
 		this.waves = waves;
@@ -26,6 +27,7 @@ class SpawnManager {
 	// Main update function to be called in animation loop
 	update() {
 		if (this.currentWaveIndex >= this.waves.length) {
+			this.isFinished = true;
 			return; // All waves completed
 		}
 		const currentWave = this.waves[this.currentWaveIndex];

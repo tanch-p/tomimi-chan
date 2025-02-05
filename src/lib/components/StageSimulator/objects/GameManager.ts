@@ -5,10 +5,10 @@ import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { AssetManager } from './AssetManager';
 import { generateMaze } from '$lib/functions/mazeHelpers';
 import { Enemy } from './Enemy';
+import { writable } from 'svelte/store';
 
 export class GameManager {
 	assetManager: AssetManager;
-	cost: number;
 	scene: THREE.Scene;
 	camera: THREE.OrthographicCamera;
 	objects;
@@ -16,8 +16,10 @@ export class GameManager {
 	mazeLayout: [number[]];
 	enemies: EnemyType[];
 	enemiesOnMap: Enemy[] = [];
-	public scaledElapsedTime = 0; // Total game-time elapsed
+	scaledElapsedTime = writable(0); // Total game-time elapsed
 	public waveElapsedTime = 0;
+	noEnemyAlive = false;
+	killedCount = writable(0);
 	constructor(
 		config: MapConfig,
 		scene: THREE.Scene,
@@ -28,7 +30,6 @@ export class GameManager {
 		this.enemies = enemies;
 		this.config = config;
 		this.assetManager = AssetManager.getInstance();
-		this.cost = config.initialCost;
 		this.scene = scene;
 		this.camera = camera;
 		this.objects = objects;
@@ -101,10 +102,24 @@ export class GameManager {
 		return mesh;
 	}
 
-	update(deltaTime) {
-		this.scaledElapsedTime += deltaTime;
+	reset(config, enemies) {
+		this.scaledElapsedTime.set(0);
+		this.enemies = enemies;
+		this.config = config;
+		const mazeLayout = generateMaze(config.mapData.map, config.mapData.tiles);
+		this.mazeLayout = mazeLayout;
+		this.waveElapsedTime = 0;
+		this.enemiesOnMap = [];
+		this.noEnemyAlive = false;
+	}
+
+	update(deltaTime: number) {
+		this.noEnemyAlive = this.enemiesOnMap.every((enemy) => !enemy.alive);
+		let totalTime = 0;
+		this.scaledElapsedTime.subscribe((v) => (totalTime = v));
+		this.scaledElapsedTime.set(totalTime + deltaTime);
 		this.waveElapsedTime += deltaTime;
-		for (const enemy of this.enemiesOnMap) {
+		for (const enemy of this.enemiesOnMap.filter((ele) => ele.alive)) {
 			enemy.update(deltaTime);
 		}
 	}
