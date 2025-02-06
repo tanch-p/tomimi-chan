@@ -5,6 +5,8 @@ import tileImg from '$lib/images/tiles/tile_infection.webp';
 import { checkIsTarget } from './statHelpers';
 import enemySkills from '$lib/data/enemy/enemy_skills.json';
 import ISStages from '$lib/data/stages/stage_name_lookup_table.json';
+import { browser } from '$app/environment';
+import { cookiesEnabled } from '../../routes/stores';
 
 export const BONUS_ENEMY_KEYS = [
 	'enemy_2001_duckmi',
@@ -323,5 +325,11 @@ export async function decompressGzipToJson(url) {
 		const textDecoder = new TextDecoder('utf-8');
 		const text = textDecoder.decode(arrayBuffer);
 		return JSON.parse(text);
+	}
+}
+
+export function setLocalStorage(key,value){
+	if(browser && cookiesEnabled){
+		localStorage.setItem(key,value);
 	}
 }

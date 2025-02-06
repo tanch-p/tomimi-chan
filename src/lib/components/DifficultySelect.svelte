@@ -1,11 +1,13 @@
 <script lang="ts">
 	import type { Language, RogueTopic } from '$lib/types';
-	import { cookiesEnabled } from '../../routes/stores.js';
 	import { spring } from 'svelte/motion';
 	import translations from '$lib/translations.json';
-	import { browser } from '$app/environment';
-	
-	export let language: Language, difficulty, rogueTopic: RogueTopic, maxDiff = 15;
+	import { setLocalStorage } from '$lib/functions/lib.js';
+
+	export let language: Language,
+		difficulty,
+		rogueTopic: RogueTopic,
+		maxDiff = 15;
 
 	const getStorageKey = (rogueTopic) => {
 		switch (rogueTopic) {
@@ -22,14 +24,13 @@
 			return;
 		}
 		difficulty.update(() => n);
+		setLocalStorage(getStorageKey(rogueTopic), n.toString())
 	}
 	let selectedDifficulty: number;
 	difficulty.subscribe((value) => {
 		selectedDifficulty = value;
 	});
-	$: if (browser && cookiesEnabled) {
-		localStorage.setItem(getStorageKey(rogueTopic), selectedDifficulty.toString());
-	}
+
 	const displayed_count = spring();
 	$: displayed_count.set(selectedDifficulty);
 	$: offset = modulo($displayed_count, 1);
