@@ -266,6 +266,7 @@ export class TileManager {
 		if (buildableType == 0 && !['tile_start', 'tile_end', 'tile_floor'].includes(tileName)) {
 			const floorTexture = this.assetManager.textures.get('tile_floor');
 			const frontPlane = this.getTopTexture('tile_floor', floorTexture, null, size, depth, null);
+			frontPlane.position.z = 0.01
 			boxGroup.add(frontPlane);
 			size = 0.7;
 		}

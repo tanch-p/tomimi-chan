@@ -1,4 +1,4 @@
-import type { Language, Trap, mapConfigTrap, TrapData, StatMods } from '$lib/types';
+import type { Language, Trap, MapConfigTrap, TrapData, StatMods } from '$lib/types';
 import trapLookup from '$lib/data/trap/traps.json';
 import trapSkills from '$lib/data/trap/traps_skills.json';
 import { calculateModdedStat, distillMods } from './statHelpers';
@@ -77,7 +77,7 @@ const getTrapStats = (trap: TrapData, level: number) => {
 	};
 };
 
-export const parseTraps = (traps: mapConfigTrap[], language: Language) => {
+export const parseTraps = (traps: MapConfigTrap[], language: Language) => {
 	const holder: Trap[] = [];
 	for (const { key, level, mainSkillLvl, eliteSkillLvl } of traps) {
 		const trap: TrapData = trapLookup[key];
@@ -267,3 +267,14 @@ function parseStats(trap: Trap, statMods: StatMods) {
 	}
 	return trap_stats;
 }
+
+export const isRoadblock = (key) => {
+	const trap = trapLookup[key];
+	if (!trap) {
+		return;
+	}
+	return (
+		trap.special.some((skillRef) => ['roadblock'].includes(skillRef)) ||
+		trap.skills.some((skillRef) => ['sktok_crate','sktok_stone'].includes(skillRef))
+	);
+};

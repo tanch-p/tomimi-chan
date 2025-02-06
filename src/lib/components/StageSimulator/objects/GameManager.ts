@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import type { Enemy as EnemyType, MapConfig } from '$lib/types';
+import type { Enemy as EnemyType, MapConfig, Position } from '$lib/types';
 import { GameConfig } from './GameConfig';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { AssetManager } from './AssetManager';
@@ -13,7 +13,7 @@ export class GameManager {
 	camera: THREE.OrthographicCamera;
 	objects;
 	config;
-	mazeLayout: [number[]];
+	mazeLayout: number[][];
 	enemies: EnemyType[];
 	enemiesOnMap: Enemy[] = [];
 	scaledElapsedTime = writable(0); // Total game-time elapsed
@@ -77,6 +77,17 @@ export class GameManager {
 		};
 	};
 
+	gameToWorldPos(pos: Position) {
+		const height = this.mazeLayout.length;
+		return { row: height - 1 - pos.row, col: pos.col };
+	}
+
+	updateMazeLayout(pos: Position, value: number) {
+		const { row, col } = pos;
+		this.mazeLayout[row][col] = value;
+		// update enemy pathfinding
+	}
+
 	getTextSprite(text, size = 20, color = 0xffffff) {
 		if (typeof text !== 'string') {
 			text = text.toString();
@@ -102,10 +113,11 @@ export class GameManager {
 		return mesh;
 	}
 
-	reset(config, enemies) {
+	reset(config, enemies, objects) {
 		this.scaledElapsedTime.set(0);
 		this.enemies = enemies;
 		this.config = config;
+		this.objects = objects;
 		const mazeLayout = generateMaze(config.mapData.map, config.mapData.tiles);
 		this.mazeLayout = mazeLayout;
 		this.waveElapsedTime = 0;
