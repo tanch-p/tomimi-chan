@@ -115,7 +115,7 @@ export class Enemy {
 		this.meshGroup.renderOrder = 1;
 		this.width = Math.min(100, skeletonMesh.skeleton.data.width * 0.3);
 		this.height = Math.min(110, skeletonMesh.skeleton.data.height * 0.3);
-		this.waitTimer.setPosition(Math.max(this.height,75));
+		this.waitTimer.setPosition(Math.max(this.height, 75));
 		const size = new spine.Vector2(Math.max(50, this.width), Math.max(75, this.height));
 		const spriteMaterial = new THREE.SpriteMaterial({
 			transparent: true,
@@ -173,6 +173,7 @@ export class Enemy {
 			const circle = new THREE.Mesh(circleGeometry, circleMaterial);
 			const ring = new THREE.Mesh(ringGeometry, ringMaterial);
 			group.add(ring, circle);
+			group.visible = GameConfig.showAllRange;
 			this.atkRangeMesh = group;
 			this.meshGroup.add(group);
 		}
@@ -187,7 +188,7 @@ export class Enemy {
 		const allSkills = traits.concat(specialList);
 		if (allSkills.some((skill) => skill.key.includes('stealth'))) {
 			this.buffs.push('stealth');
-			this.darkness = 0.5;
+			this.darkness = 0.2;
 		}
 
 		const skillsWithRange = allSkills.filter(
@@ -216,6 +217,7 @@ export class Enemy {
 			const circle = new THREE.Mesh(circleGeometry, circleMaterial);
 			const ring = new THREE.Mesh(ringGeometry, ringMaterial);
 			group.add(ring, circle);
+			group.visible = GameConfig.showAllRange;
 			this.skillRangeMeshes.push(group);
 			this.meshGroup.add(group);
 		}
@@ -391,7 +393,7 @@ export class Enemy {
 			case 'WAIT_CURRENT_WAVE_TIME':
 				if (this.waitElapsedTime === 0) {
 					console.log(this.actions[this.currentActionIndex]);
-					this.waitTimer.getMesh().visible = true;
+					this.waitTimer.getMesh().visible = GameConfig.showAllTimers || this.selected;
 					this.handleIdle();
 					this.waitElapsedTime += delta;
 				} else {
@@ -408,7 +410,7 @@ export class Enemy {
 			case 'WAIT_FOR_SECONDS':
 				if (this.waitElapsedTime === 0) {
 					this.handleIdle();
-					this.waitTimer.getMesh().visible = true;
+					this.waitTimer.getMesh().visible = GameConfig.showAllTimers || this.selected;
 					this.waitElapsedTime += delta;
 				} else {
 					this.waitTimer.updateTimer(time - this.waitElapsedTime);
@@ -468,23 +470,35 @@ export class Enemy {
 		this.meshGroup.add(this.glowSpine);
 		this.gameManager.scene.add(this.pathGroup);
 		this.selected = true;
-		// this.pathFinder.grid.nodes.forEach((value, key) => {
-		// 	const [x, y] = key.split(',');
-		// 	const pos = this.gameManager.getVectorCoordinates(
-		// 		{ row: parseInt(y), col: parseInt(x) },
-		// 		null
-		// 	);
-		// 	const sprite = this.gameManager.getTextSprite(value.nextNode?.join(',') || '');
-		// 	const group = new THREE.Group();
-		// 	group.position.set(pos.x, pos.y, 10);
-		// 	group.add(sprite);
-		// 	this.gameManager.scene.add(group);
-		// });
+		if (this.atkRangeMesh) {
+			this.atkRangeMesh.visible = true;
+		}
+		this.skillRangeMeshes.forEach((mesh) => (mesh.visible = true));
+		this.waitTimer.getMesh().visible = this.waitElapsedTime > 0;
+		console.log(this.route);
+		this.pathFinder.grid.nodes.forEach((value, key) => {
+			const [x, y] = key.split(',');
+			const pos = this.gameManager.getVectorCoordinates(
+				{ row: parseInt(y), col: parseInt(x) },
+				null
+			);
+			const text = value.nextNode?.join(',') || '';
+			const sprite = this.gameManager.getTextSprite(text);
+			const group = new THREE.Group();
+			group.position.set(pos.x, pos.y, 10);
+			group.add(sprite);
+			this.gameManager.scene.add(group);
+		});
 	}
 	onDeselect() {
 		this.meshGroup.remove(this.glowSpine);
 		this.gameManager.scene.remove(this.pathGroup);
 		this.selected = false;
+		if (this.atkRangeMesh) {
+			this.atkRangeMesh.visible = GameConfig.showAllRange;
+		}
+		this.skillRangeMeshes.forEach((mesh) => (mesh.visible = GameConfig.showAllRange));
+		this.waitTimer.getMesh().visible = this.waitElapsedTime > 0 && GameConfig.showAllTimers;
 	}
 
 	visualisePath(paths, currentActionIndex, startPos) {

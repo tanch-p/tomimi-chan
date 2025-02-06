@@ -6,13 +6,12 @@ import { StickBox } from './StickBox';
 import { TileManager } from './TileManager';
 import { AssetManager } from './AssetManager';
 import { GameManager } from './GameManager';
+import { isRoadblock } from '$lib/functions/trapHelpers';
 
 export class GameMap {
 	config: MapConfig;
 	scene: THREE.Scene;
 	enemies: Enemy[] = [];
-	cubeGeo: THREE.BoxGeometry;
-	cubeMaterial: THREE.MeshLambertMaterial;
 	objects: THREE.Mesh[];
 	raycaster: THREE.Raycaster;
 	pointer: THREE.Vector2;
@@ -33,7 +32,7 @@ export class GameMap {
 		this.textureLoader = new THREE.TextureLoader();
 		this.tileManager = new TileManager(gameManager);
 
-		this.setTiles(this.config.mapData);
+		this.setup(this.config.mapData, this.config.trap_pos);
 
 		const geometry = new THREE.PlaneGeometry(
 			this.gameManager.mazeLayout[0].length * GameConfig.gridSize,
@@ -47,16 +46,19 @@ export class GameMap {
 		this.pointer = new THREE.Vector2();
 	}
 
-	setTiles(mapData) {
+	setup(mapData, trapPos) {
 		const { map, tiles } = mapData;
 		map.forEach((row, rowIdx) =>
 			row.forEach((tileIndex, colIdx) => {
 				const [tileName, heightType, mask] = tiles[tileIndex];
 				const group = this.tileManager.get(tiles[tileIndex]);
-				const { x, y } = this.gameManager.getVectorCoordinates({
-					row: rowIdx,
-					col: colIdx
-				});
+				const { x, y } = this.gameManager.getVectorCoordinates(
+					{
+						row: rowIdx,
+						col: colIdx
+					},
+					null
+				);
 				let z = 0;
 				switch (tileName) {
 					case 'tile_end':
@@ -83,6 +85,24 @@ export class GameMap {
 						break;
 				}
 				group.position.set(x, y, z);
+
+				const trap = trapPos.find((ele) => {
+					const pos = this.gameManager.gameToWorldPos(ele.pos);
+					return pos.row == rowIdx && pos.col == colIdx && !ele.hidden;
+				});
+				if (trap) {
+					if (isRoadblock(trap.key)) {
+						this.gameManager.updateMazeLayout(this.gameManager.gameToWorldPos(trap.pos), 1000);
+					}
+					const geometry = new THREE.BoxGeometry(GameConfig.gridSize, GameConfig.gridSize, 50);
+					const material = new THREE.MeshStandardMaterial({
+						color: 0x000000,
+						side: THREE.DoubleSide
+					});
+					const box = new THREE.Mesh(geometry, material);
+					group.add(box);
+				}
+
 				this.scene.add(group);
 			})
 		);
@@ -90,20 +110,5 @@ export class GameMap {
 
 	getTile(row, col) {
 		// return this.tiles.get(`${x},${y}`);
-	}
-
-	getMaxWaitTime(routes) {
-		let maxTime = 0;
-		for (const route of routes) {
-			if (route.checkpoints) {
-				for (const cp of route.checkpoints) {
-					const { type, time } = cp;
-					if (type === 'WAIT_FOR_SECONDS' && time > maxTime) {
-						maxTime = time;
-					}
-				}
-			}
-		}
-		return maxTime;
 	}
 }

@@ -93,7 +93,7 @@ export class Game {
 		this.state.set('reset');
 		this.renderer.setAnimationLoop(null);
 		this.clearScene(this.scene);
-		this.gameManager.reset(config, enemies);
+		this.gameManager.reset(config, enemies,this.objects);
 		this.map = new GameMap(this.gameManager);
 		this.spawnManager = new SpawnManager(waves, this.map, this.gameManager);
 		this.initLights();

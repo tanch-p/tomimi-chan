@@ -33,7 +33,14 @@ type EnemyDBStats = {
 	special: [Skill[]];
 	form_mods?: Mods[];
 };
-export type StatusImmune = 'stun' | 'silence' | 'freeze' | 'sleep' | 'levitate' | 'disarmCombat' | 'fear';
+export type StatusImmune =
+	| 'stun'
+	| 'silence'
+	| 'freeze'
+	| 'sleep'
+	| 'levitate'
+	| 'disarmCombat'
+	| 'fear';
 type AttackType = 'no_attack' | 'melee' | 'ranged';
 type AttackAttribute = 'phys' | 'arts' | 'true' | 'heal';
 type EnemyType =
@@ -134,7 +141,7 @@ type overwrittenData = {
 	[key: string]: number;
 };
 
-type mapConfigEnemy = {
+type MapConfigEnemy = {
 	id: string;
 	level: number;
 	overwrittenData: overwrittenData;
@@ -154,15 +161,28 @@ export interface MapConfig {
 	[key: `eliteDesc_${string}`]: string;
 	n_mods: Mods | null;
 	elite_mods: Mods | null;
-	traps: mapConfigTrap[];
-	enemies: mapConfigEnemy[];
+	traps: MapConfigTrap[];
+	trap_pos: TrapPos[];
+	enemies: MapConfigEnemy[];
 	sp_terrain: [];
 }
 
-export type mapConfigTrap = {
+export type MapConfigTrap = {
 	key: string;
 	level: number;
 	mainSkillLvl: number;
+};
+
+type TrapPos = {
+	alias: string;
+	position;
+	direction: 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
+	hidden: boolean;
+};
+
+export type Position = {
+	row: number;
+	col: number;
 };
 
 export type StatMods = {

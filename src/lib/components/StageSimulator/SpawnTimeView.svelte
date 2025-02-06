@@ -76,6 +76,9 @@
 						</div>
 					</div>
 				{/each}
+				<p>maxTime: {maxTimeWaitingForNextWave}</p>
+				<p>postDelay: {postDelay}</p>
+				<p>preDelay: {preDelay}</p>
 			{/each}
 		</div>
 	</div>
