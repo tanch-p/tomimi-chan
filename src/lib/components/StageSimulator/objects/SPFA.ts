@@ -202,10 +202,11 @@ export class SPFA {
 
                 let [nextX, nextY] = currentNode.nextNode;
                 let nextNode = this.grid.getNode(nextX, nextY);
-				this.debug = x === 7 && y === 2;
+				// this.debug = x === 7 && y === 2 ;
+				this.debug = x === 1 && y === 6;
                 while (nextNode.nextNode) {
                     const [targetX, targetY] = nextNode.nextNode;
-					this.debug && console.log(nextNode.distance)
+					this.debug && console.log(nextNode.distance);
                     if (this.canMoveDiagonally(x, y, targetX, targetY)) {
                         // Keep the original distance to maintain path cost
                         const originalDist = currentNode.distance;

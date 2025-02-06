@@ -1,5 +1,6 @@
 import { browser } from '$app/environment';
 import { writable } from 'svelte/store';
+import { GameConfig } from '$lib/components/StageSimulator/objects/GameConfig';
 
 let initialTableHeaders = [
 	{ key: 'enemy', show: true },
@@ -37,6 +38,12 @@ if (browser && cookiesEnabled) {
 			return { key, show: showValue };
 		});
 	}
+	const showAllRange = localStorage.getItem('showAllRange');
+	if (showAllRange == 0) GameConfig.showAllRange = false;
+	const showAllTimers = localStorage.getItem('showAllTimers');
+	if (showAllTimers == 0) GameConfig.showAllTimers = false;
+	const showTimeline = localStorage.getItem('showTimeline');
+	if (showTimeline == 0) GameConfig.showTimeline.set(false);
 }
 
 export const tableHeaders = writable(initialTableHeaders);

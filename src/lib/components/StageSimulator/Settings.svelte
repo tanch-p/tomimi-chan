@@ -3,6 +3,7 @@
 	import { GameConfig } from './objects/GameConfig';
 	import { page } from '$app/stores';
 	import { Game } from './objects/Game';
+	import { setLocalStorage } from '$lib/functions/lib';
 
 	export let game: Game;
 	let language: Language;
@@ -21,6 +22,7 @@
 			},
 			fn: (key) => {
 				GameConfig[key] = !GameConfig[key];
+				setLocalStorage('showAllRange', GameConfig[key] ? 1 : 0);
 				game.gameManager.enemiesOnMap
 					.filter((enemy) => enemy.alive)
 					.forEach((enemy) => {
@@ -37,6 +39,7 @@
 			texts: { zh: '显示待机倒数', ja: '待機残り時間表示', en: 'Show Wait Timer' },
 			fn: (key) => {
 				GameConfig[key] = !GameConfig[key];
+				setLocalStorage('showAllTimers', GameConfig[key] ? 1 : 0);
 				game.gameManager.enemiesOnMap
 					.filter((enemy) => enemy.alive)
 					.forEach((enemy) => {
@@ -50,7 +53,10 @@
 			type: 'store',
 			texts: { zh: '显示出怪顺序', ja: '敵出現表表示', en: 'Show Enemy Spawn Timeline' },
 			fn: () => {
-				GameConfig.showTimeline.update((v) => !v);
+				GameConfig.showTimeline.update((v) => {
+					setLocalStorage('showTimeline', !v ? 1 : 0);
+					return !v;
+				});
 			}
 		}
 	];

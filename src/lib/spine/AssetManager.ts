@@ -115,11 +115,11 @@ export class AssetManager {
       (state: number, responseText: string): void => {
         this.errors[
           path
-        ] = `Couldn't load binary ${path}: status ${status}, ${responseText}`;
+        ] = `Couldn't load binary ${path}: ${responseText}`;
         if (error)
           error(
             path,
-            `Couldn't load binary ${path}: status ${status}, ${responseText}`
+            `Couldn't load binary ${path}: ${responseText}`
           );
         this.toLoad--;
         this.loaded++;
@@ -146,11 +146,11 @@ export class AssetManager {
       (state: number, responseText: string): void => {
         this.errors[
           path
-        ] = `Couldn't load text ${path}: status ${status}, ${responseText}`;
+        ] = `Couldn't load text ${path}: ${responseText}`;
         if (error)
           error(
             path,
-            `Couldn't load text ${path}: status ${status}, ${responseText}`
+            `Couldn't load text ${path}: ${responseText}`
           );
         this.toLoad--;
         this.loaded++;
@@ -291,11 +291,11 @@ export class AssetManager {
       (state: number, responseText: string): void => {
         this.errors[
           path
-        ] = `Couldn't load texture atlas ${path}: status , ${responseText}`;
+        ] = `Couldn't load texture atlas ${path}: ${responseText}`;
         if (error)
           error(
             path,
-            `Couldn't load texture atlas ${path}: status , ${responseText}`
+            `Couldn't load texture atlas ${path}: ${responseText}`
           );
         this.toLoad--;
         this.loaded++;

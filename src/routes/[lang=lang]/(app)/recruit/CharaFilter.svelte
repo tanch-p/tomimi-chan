@@ -15,6 +15,7 @@
 		getSelectedFilterOptions,
 		updateFilters
 	} from '$lib/functions/charaHelpers';
+	import { setLocalStorage } from '$lib/functions/lib';
 
 	export let language: Language;
 
@@ -96,9 +97,7 @@
 	};
 	const updateReleaseStatus = (val) => {
 		releaseStatusStore.set(val);
-		if (browser && cookiesEnabled) {
-			localStorage.setItem('releaseStatus', val);
-		}
+		setLocalStorage('releaseStatus', val);
 	};
 </script>
 
