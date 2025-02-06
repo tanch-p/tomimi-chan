@@ -28,6 +28,11 @@ const texturesToLoad = [
 		textures: [['creep', null]]
 	},
 	{
+		fileName: 'smoke_72.png',
+		options: [],
+		textures: [['smoke', null]]
+	},
+	{
 		fileName: 'floor_icons.png',
 		options: ['colorSpace', 'filter'],
 		textures: [

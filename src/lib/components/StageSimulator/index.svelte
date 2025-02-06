@@ -7,6 +7,7 @@
 	import Interface from './Interface.svelte';
 	import SpawnTimeView from './SpawnTimeView.svelte';
 	import Settings from './Settings.svelte';
+	import { GameConfig } from './objects/GameConfig';
 
 	export let waveData, mapConfig: MapConfig, enemies: Enemy[];
 
@@ -21,6 +22,7 @@
 		resetGame();
 	}
 	function resetGame() {
+		GameConfig.isPaused=false;
 		if (game) {
 			game.reset(mapConfig, waves, enemies);
 		}

@@ -60,16 +60,19 @@ export class SkeletonMeshMaterial extends THREE.ShaderMaterial {
 			`;
     let fragmentShader = `
 				uniform sampler2D map;
+        uniform float darkness;
 				varying vec2 vUv;
 				varying vec4 vColor;
 				void main(void) {
 					gl_FragColor = texture2D(map, vUv)*vColor;
+          gl_FragColor.rgb *= darkness;
 				}
 			`;
 
     let parameters: THREE.ShaderMaterialParameters = {
       uniforms: {
         map: { type: "t", value: null },
+        darkness: { value: 1.0 },
       },
       vertexShader: vertexShader,
       fragmentShader: fragmentShader,
