@@ -45,6 +45,7 @@ export class Enemy {
 	atkRangeMesh: THREE.Group;
 	skillRangeMeshes: THREE.Group[] = [];
 	buffs = [];
+	darkness = 1;
 
 	constructor(enemyData: EnemyType, route, gameManager: GameManager) {
 		gameManager.enemiesOnMap.push(this);
@@ -100,18 +101,21 @@ export class Enemy {
 		hitBoxMesh.userData.name = 'hitbox';
 		this.meshGroup.add(shadowMesh, hitBoxMesh);
 		this.hitbox = hitBoxMesh;
-
 		const skeletonData = this.assetManager.spineMap.get(this.key);
 		// console.log(skeletonData);
 		const skeletonMesh = new spine.SkeletonMesh(skeletonData, (parameters) => {
 			parameters.depthTest = false;
 			parameters.alphaTest = 0.001;
+			parameters.uniforms = {
+				map: { type: 't', value: null },
+				darkness: { value: this.darkness }
+			};
 		});
 		this.meshGroup.add(skeletonMesh);
 		this.meshGroup.renderOrder = 1;
 		this.width = Math.min(100, skeletonMesh.skeleton.data.width * 0.3);
 		this.height = Math.min(110, skeletonMesh.skeleton.data.height * 0.3);
-		this.waitTimer.setPosition(this.height);
+		this.waitTimer.setPosition(Math.max(this.height,75));
 		const size = new spine.Vector2(Math.max(50, this.width), Math.max(75, this.height));
 		const spriteMaterial = new THREE.SpriteMaterial({
 			transparent: true,
@@ -181,12 +185,10 @@ export class Enemy {
 			'special'
 		);
 		const allSkills = traits.concat(specialList);
-		if(allSkills.some(skill => skill.key.includes("stealth"))){
-			this.buffs.push("stealth");
-			
-
-		}	
-
+		if (allSkills.some((skill) => skill.key.includes('stealth'))) {
+			this.buffs.push('stealth');
+			this.darkness = 0.5;
+		}
 
 		const skillsWithRange = allSkills.filter(
 			(skill) => skill.skillRange && skill.skillRange !== range
@@ -632,6 +634,7 @@ export class Enemy {
 					animName = 'A_Idle';
 					break;
 				case 'enemy_1418_mmkonm':
+				case 'enemy_1418_mmkonm_2':
 					animName = 'Idle_b';
 					break;
 				case 'enemy_1135_redman':
@@ -712,6 +715,7 @@ export class Enemy {
 					animName = 'A_Move';
 					break;
 				case 'enemy_1418_mmkonm':
+				case 'enemy_1418_mmkonm_2':
 					animName = 'Move_b';
 					break;
 				case 'enemy_1143_merrpg':
