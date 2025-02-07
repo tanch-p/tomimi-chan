@@ -82,6 +82,10 @@
 			"zh": ["获得<v.value>%的{phys}/{arts}减伤"]
 		}
 	},
+	"transform": {
+		"value": "",
+		"tooltip": null
+	},
 	"avenger": {
 		"suffix": { "en": "HP↓50%", "ja": "HP50%以下", "zh": "HP50%以下" },
 		"hits": null,
@@ -2216,10 +2220,19 @@
 		}
 	},
 	"sarkaz_standby": {
+		"value": 150,
 		"tooltip": {
-			"en": ["Does not attack while on standby", "Combat Ready - ms +200%"],
-			"ja": ["待機中攻撃しない", "【臨戦】態勢 - 移動速度+200%"],
-			"zh": ["初始处于待命状态，不进行攻击", "受伤后进入临战状态，移动速度+200%"]
+			"en": [
+				"On Standby for <v.value> seconds",
+				"Does not attack while on standby, enters Combat Ready state when HP decreases",
+				"Combat Ready - Movespeed +200%"
+			],
+			"ja": [
+				"<v.value>待機する",
+				"待機中攻撃しない、HPが減ると【臨戦】態勢に入る",
+				"【臨戦】態勢 - 移動速度+200%"
+			],
+			"zh": ["待命<v.value>秒", "初始处于待命状态，不进行攻击", "受伤后进入临战状态，移动速度+200%"]
 		}
 	},
 	"sarkaz_nac10_consume": {

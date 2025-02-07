@@ -23,6 +23,14 @@ const STATS = ['hp', 'atk', 'aspd', 'def', 'res', 'blockCnt'];
 
 const skillValueKeys = ['cost', 'duration1', 'enhance_duration', 'value'];
 
+export const getTrapModelType = (key) => {
+	const trap = trapLookup[key];
+	if(!trap){
+		return;
+	}
+	return trap.modelType;
+}
+
 const getTrapWeight = (key) => {
 	switch (key) {
 		case 'trap_762_skztxy':
@@ -267,14 +275,3 @@ function parseStats(trap: Trap, statMods: StatMods) {
 	}
 	return trap_stats;
 }
-
-export const isRoadblock = (key) => {
-	const trap = trapLookup[key];
-	if (!trap) {
-		return;
-	}
-	return (
-		trap.special.some((skillRef) => ['roadblock'].includes(skillRef)) ||
-		trap.skills.some((skillRef) => ['sktok_crate','sktok_stone'].includes(skillRef))
-	);
-};
