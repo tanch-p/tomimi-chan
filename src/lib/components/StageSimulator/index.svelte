@@ -22,16 +22,21 @@
 		resetGame();
 	}
 	function resetGame() {
-		GameConfig.isPaused=false;
+		GameConfig.isPaused = false;
 		if (game) {
 			game.reset(mapConfig, waves, enemies);
 		}
 	}
 
 	async function loadGame(mapConfig) {
-		resetGame();
-		assetManager = AssetManager.getInstance();
+		if(game){
+			game.stop();
+		}
+		if (!assetManager) {
+			assetManager = AssetManager.getInstance();
+		}
 		await assetManager.loadAssets(mapConfig);
+		resetGame();
 		if (!game) {
 			game = new Game(canvasElement, mapConfig, waves, enemies);
 			game.state.set('ready');
@@ -47,7 +52,7 @@
 	});
 </script>
 
-<Settings {game}/>
+<Settings {game} />
 <div class="relative">
 	{#await loadGame(mapConfig)}
 		<LoadingScreen />

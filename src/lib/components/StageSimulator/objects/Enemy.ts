@@ -8,7 +8,10 @@ import { SPFA } from './SPFA';
 import { CountdownSprite } from './CountdownSprite';
 import { getEnemySkills } from '$lib/functions/skillHelpers';
 
+const moveMultiplier = 0.5;
 export class Enemy {
+	raycastPos: THREE.Vector3; //光标坐标在移动逻辑中被大量使用，造成了一些反直觉的现象
+	targetPos: THREE.Vector3;
 	assetManager: AssetManager;
 	data;
 	key: string;
@@ -21,7 +24,6 @@ export class Enemy {
 	alive = true;
 	direction = 1;
 	motionMode: 'WALK' | 'FLY';
-	currentPos: THREE.Vector3;
 	isMoving = false;
 	waitElapsedTime = 0;
 	entry = true;
@@ -50,12 +52,16 @@ export class Enemy {
 	constructor(enemyData: EnemyType, route, gameManager: GameManager) {
 		gameManager.enemiesOnMap.push(this);
 		// console.log(enemyData);
-		this.pathFinder = new SPFA(gameManager.mazeLayout);
+		// this.pathFinder = new SPFA(gameManager.mazeLayout);
+		this.pathFinder = gameManager.pathFinder;
 		this.data = enemyData;
 		this.key = enemyData.key;
 		this.gameManager = gameManager;
 		this.assetManager = AssetManager.getInstance();
 		this.route = route;
+		if (!route.allowDiagonalMove) {
+			console.warn('help no allowDiagonalMove');
+		}
 		this.motionMode = route.motionMode;
 		this.state = 'Idle';
 		this.actions = this.getActions(route);
@@ -64,15 +70,20 @@ export class Enemy {
 		this.meshGroup = new THREE.Group();
 		this.waitTimer = new CountdownSprite(this.gameManager);
 		this.initModel();
+		const { x: actualX, y: actualY } = this.gameManager.getVectorCoordinates(
+			route.startPosition,
+			route.spawnOffset
+		);
+		this.meshGroup.position.set(actualX, actualY, GameConfig.baseZIndex); //实体坐标：即敌人中点实际所在位置。敌人处于什么位置，应该判定哪个地块的效果，是否处于我方部分效果的范围内，都是判断的实体坐标
+		this.meshGroup.add(this.waitTimer.getMesh());
+		const { x, y } = this.gameManager.getVectorCoordinates(route.startPosition, null);
+		this.raycastPos = new THREE.Vector3(x, y, GameConfig.baseZIndex);
 		this.pathGroup = this.visualisePath(
 			this.actions,
 			this.currentActionIndex,
-			this.route.startPosition
+			this.route.startPosition,
+			this.route.spawnOffset
 		);
-		const { x, y } = this.gameManager.getVectorCoordinates(route.startPosition, null);
-		this.meshGroup.position.set(x, y, GameConfig.baseZIndex);
-		this.meshGroup.add(this.waitTimer.getMesh());
-		this.currentPos = new THREE.Vector3(x, y, GameConfig.baseZIndex);
 	}
 
 	initModel() {
@@ -223,6 +234,12 @@ export class Enemy {
 		}
 	}
 
+	getFootpoint() {
+		// 足坐标在计算避障力时被使用
+		const { x, y, z } = this.pos;
+		return new THREE.Vector3(x, y - GameConfig.gridSize * 0.2, z);
+	}
+
 	getActions(route) {
 		const actions = [
 			...route.checkpoints.map((cp) => {
@@ -246,7 +263,7 @@ export class Enemy {
 		}
 
 		// WALK
-		let currentPosition = this.route.startPosition;
+		let currentPosition = this.route.startPosition; //spawnOffset not applied
 		const routedActions = actions.reduce((acc, action) => {
 			const { type, pathType, position, reachOffset } = action;
 			switch (type) {
@@ -338,7 +355,6 @@ export class Enemy {
 				this.pathOn = true;
 			}
 		}
-		const showTimer = GameConfig.showAllTimers || this.selected;
 		switch (type) {
 			case 'MOVE':
 				if (!this.isMoving) {
@@ -348,9 +364,7 @@ export class Enemy {
 					this.isMoving = true;
 					this.handleMove();
 				}
-				let direction = new THREE.Vector3()
-					.subVectors(this.targetPos, this.meshGroup.position)
-					.normalize();
+				let direction = new THREE.Vector3().subVectors(this.targetPos, this.raycastPos).normalize();
 				if (direction.x === 0) {
 					let nextCheckPoint;
 					for (let i = this.currentActionIndex; i < this.actions.length; i++) {
@@ -363,7 +377,7 @@ export class Enemy {
 					}
 					const { x, y } = this.gameManager.getVectorCoordinates(nextCheckPoint, reachOffset);
 					direction = new THREE.Vector3()
-						.subVectors(new THREE.Vector3(x, y, GameConfig.baseZIndex), this.meshGroup.position)
+						.subVectors(new THREE.Vector3(x, y, GameConfig.baseZIndex), this.raycastPos)
 						.normalize();
 				}
 				this.direction = direction.x;
@@ -373,17 +387,19 @@ export class Enemy {
 						? -1 * Math.abs(this.glowSpine.scale.x)
 						: Math.abs(this.glowSpine.scale.x);
 
-				const distance = this.meshGroup.position.distanceTo(this.targetPos);
-				const adjustedSpeed = this.speed * delta * GameConfig.gridSize;
+				const distance = this.raycastPos.distanceTo(this.targetPos);
+				const adjustedSpeed = this.speed * delta * GameConfig.gridSize * moveMultiplier;
 				if (distance > adjustedSpeed) {
 					// speed = 1 means 1 tile/s
-					const dx = this.targetPos.x - this.meshGroup.position.x;
-					const dy = this.targetPos.y - this.meshGroup.position.y;
+					const dx = this.targetPos.x - this.raycastPos.x;
+					const dy = this.targetPos.y - this.raycastPos.y;
 					this.meshGroup.position.x += (dx / distance) * adjustedSpeed;
+					this.raycastPos.x += (dx / distance) * adjustedSpeed;
 					this.meshGroup.position.y += (dy / distance) * adjustedSpeed;
+					this.raycastPos.y += (dy / distance) * adjustedSpeed;
 				} else {
 					// Movement complete
-					this.meshGroup.position.copy(this.targetPos);
+					this.raycastPos.copy(this.targetPos);
 					this.isMoving = false;
 					this.currentActionIndex++;
 				}
@@ -433,7 +449,7 @@ export class Enemy {
 				this.meshGroup.visible = true;
 				const { x, y } = this.gameManager.getVectorCoordinates(position, reachOffset);
 				this.meshGroup.position.set(x, y, GameConfig.baseZIndex);
-				this.currentPos = new THREE.Vector3(x, y, GameConfig.baseZIndex);
+				this.raycastPos = new THREE.Vector3(x, y, GameConfig.baseZIndex);
 				this.currentActionIndex++;
 				break;
 			default:
@@ -476,19 +492,21 @@ export class Enemy {
 		this.skillRangeMeshes.forEach((mesh) => (mesh.visible = true));
 		this.waitTimer.getMesh().visible = this.waitElapsedTime > 0;
 		console.log(this.route);
-		this.pathFinder.grid.nodes.forEach((value, key) => {
-			const [x, y] = key.split(',');
-			const pos = this.gameManager.getVectorCoordinates(
-				{ row: parseInt(y), col: parseInt(x) },
-				null
-			);
-			const text = value.nextNode?.join(',') || '';
-			const sprite = this.gameManager.getTextSprite(text);
-			const group = new THREE.Group();
-			group.position.set(pos.x, pos.y, 10);
-			group.add(sprite);
-			this.gameManager.scene.add(group);
-		});
+
+		// const cache = this.gameManager.pathFinder.pathCache.get(4,4)
+		// cache.nodes.forEach((value, key) => {
+		// 	const [x, y] = key.split(',');
+		// 	const pos = this.gameManager.getVectorCoordinates(
+		// 		{ row: parseInt(y), col: parseInt(x) },
+		// 		null
+		// 	);
+		// 	const text = value.nextNode?.join(',') || '';
+		// 	const sprite = this.gameManager.getTextSprite(text);
+		// 	const group = new THREE.Group();
+		// 	group.position.set(pos.x, pos.y, 10);
+		// 	group.add(sprite);
+		// 	this.gameManager.scene.add(group);
+		// });
 	}
 	onDeselect() {
 		this.meshGroup.remove(this.glowSpine);
@@ -501,7 +519,7 @@ export class Enemy {
 		this.waitTimer.getMesh().visible = this.waitElapsedTime > 0 && GameConfig.showAllTimers;
 	}
 
-	visualisePath(paths, currentActionIndex, startPos) {
+	visualisePath(paths, currentActionIndex, startPos, spawnOffset) {
 		const remainingPaths = paths.filter((ele, i) => i >= currentActionIndex);
 		const returnGroup = new THREE.Group();
 		returnGroup.renderOrder = 50;
@@ -509,7 +527,7 @@ export class Enemy {
 		const movePaths = paths.filter((ele) => ele.type === 'MOVE' || ele.type === 'APPEAR_AT_POS');
 		for (let i = 0; i < movePaths.length; i++) {
 			const startCoordinates = movePaths?.[i - 1]?.position || startPos;
-			const startOffSet = i - 1 === -1 ? null : movePaths?.[i - 1].reachOffset;
+			const startOffSet = i - 1 === -1 ? spawnOffset : movePaths?.[i - 1].reachOffset;
 			const endCoordinates = movePaths[i].position;
 			const endOffset = movePaths?.[i].reachOffset;
 
@@ -578,7 +596,8 @@ export class Enemy {
 						const ring = new THREE.Mesh(ringGeometry, ringMaterial);
 						ring.position.z = 2;
 						const waitPosition = i === 0 ? startPos : paths[i - 1].position;
-						const { x, y } = this.gameManager.getVectorCoordinates(waitPosition, reachOffset);
+						const offset = i === 0 ? spawnOffset : reachOffset;
+						const { x, y } = this.gameManager.getVectorCoordinates(waitPosition, offset);
 						const textMesh = this.gameManager.getTextSprite(time.toFixed() + 's', 16);
 						textMesh.position.z = 5;
 						group.add(textMesh, ring, circle);

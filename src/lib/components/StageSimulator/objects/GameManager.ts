@@ -6,6 +6,7 @@ import { AssetManager } from './AssetManager';
 import { generateMaze } from '$lib/functions/mazeHelpers';
 import { Enemy } from './Enemy';
 import { writable } from 'svelte/store';
+import { SPFA } from './SPFA';
 
 export class GameManager {
 	assetManager: AssetManager;
@@ -18,6 +19,7 @@ export class GameManager {
 	enemiesOnMap: Enemy[] = [];
 	scaledElapsedTime = writable(0); // Total game-time elapsed
 	public waveElapsedTime = 0;
+	pathFinder: SPFA;
 	noEnemyAlive = false;
 	killedCount = writable(0);
 	constructor(
@@ -35,6 +37,7 @@ export class GameManager {
 		this.objects = objects;
 		const mazeLayout = generateMaze(config.mapData.map, config.mapData.tiles);
 		this.mazeLayout = mazeLayout;
+		this.pathFinder = new SPFA(mazeLayout);
 	}
 
 	getVectorCoordinates = (pos, reachOffset) => {
@@ -65,7 +68,7 @@ export class GameManager {
 			row: height - 1 - route.endPosition.row,
 			col: route.endPosition.col
 		};
-		const checkpoints = [...route.checkpoints];
+		const checkpoints = route.checkpoints ? [...route.checkpoints] : [];
 		for (const checkpoint of checkpoints) {
 			checkpoint.position.row = height - 1 - checkpoint.position.row;
 		}
@@ -85,6 +88,7 @@ export class GameManager {
 	updateMazeLayout(pos: Position, value: number) {
 		const { row, col } = pos;
 		this.mazeLayout[row][col] = value;
+		this.pathFinder = new SPFA(this.mazeLayout);
 		// update enemy pathfinding
 	}
 
@@ -123,6 +127,7 @@ export class GameManager {
 		this.waveElapsedTime = 0;
 		this.enemiesOnMap = [];
 		this.noEnemyAlive = false;
+		this.pathFinder = new SPFA(mazeLayout);
 	}
 
 	update(deltaTime: number) {
