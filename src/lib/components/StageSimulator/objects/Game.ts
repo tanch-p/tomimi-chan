@@ -85,15 +85,18 @@ export class Game {
 		directionalLight.position.set(-1, 1, 1).normalize();
 		this.scene.add(directionalLight);
 	}
+	stop(){
+		this.state.set('stop');
+		this.renderer.setAnimationLoop(null);
+	}
 
 	reset(config, waves, enemies) {
+		this.stop();
 		this.config = config;
 		this.waves = waves;
 		this.objects = [];
-		this.state.set('reset');
-		this.renderer.setAnimationLoop(null);
 		this.clearScene(this.scene);
-		this.gameManager.reset(config, enemies,this.objects);
+		this.gameManager.reset(config, enemies, this.objects);
 		this.map = new GameMap(this.gameManager);
 		this.spawnManager = new SpawnManager(waves, this.map, this.gameManager);
 		this.initLights();
@@ -124,10 +127,9 @@ export class Game {
 		);
 		let state;
 		this.state.subscribe((v) => (state = v));
-		if (['reset', 'loading'].includes(state)) {
+		if (['reset', 'loading','stop'].includes(state)) {
 			return;
 		}
-		console.log();
 		if (state === 'ready') {
 			return this.state.set('running');
 		}
@@ -156,10 +158,14 @@ export class Game {
 		}
 	}
 	render() {
-		let state;
+		let state, scaledElapsedTime;
 		this.state.subscribe((v) => (state = v));
+		this.gameManager.scaledElapsedTime.subscribe((v) => (scaledElapsedTime = v));
 		const deltaTime = this.clock.getDelta() * GameConfig.speedFactor;
-		if (state === 'running' && !GameConfig.isPaused) {
+		if (
+			((state === 'ready' && scaledElapsedTime < 0.5) || state === 'running') &&
+			!GameConfig.isPaused
+		) {
 			this.spawnManager.update();
 			this.gameManager.update(deltaTime);
 		}
