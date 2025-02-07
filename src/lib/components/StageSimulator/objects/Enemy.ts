@@ -7,6 +7,7 @@ import type { Enemy as EnemyType } from '$lib/types';
 import { SPFA } from './SPFA';
 import { CountdownSprite } from './CountdownSprite';
 import { getEnemySkills } from '$lib/functions/skillHelpers';
+import { getIdleAnimName, getMoveAnimName } from '$lib/functions/spineHelpers';
 
 const moveMultiplier = 0.5;
 export class Enemy {
@@ -43,6 +44,7 @@ export class Enemy {
 	hitbox;
 	formIndex = 0;
 	waitTimer: CountdownSprite;
+	standbyTime = 0;
 	pathFinder: SPFA;
 	atkRangeMesh: THREE.Group;
 	skillRangeMeshes: THREE.Group[] = [];
@@ -69,6 +71,7 @@ export class Enemy {
 		this.speed = enemyData.forms[0].stats.ms;
 		this.meshGroup = new THREE.Group();
 		this.waitTimer = new CountdownSprite(this.gameManager);
+		this.traits = getEnemySkills(this.data, this.data.traits, this.formIndex, {}, 'trait');
 		this.initModel();
 		const { x: actualX, y: actualY } = this.gameManager.getVectorCoordinates(
 			route.startPosition,
@@ -84,6 +87,11 @@ export class Enemy {
 			this.route.startPosition,
 			this.route.spawnOffset
 		);
+		const standby = this.traits.find((skill) => ['sarkaz_standby', 'standby'].includes(skill.key));
+		if (standby) {
+			this.state = 'wait';
+			this.standbyTime = standby.value;
+		}
 	}
 
 	initModel() {
@@ -188,7 +196,6 @@ export class Enemy {
 			this.atkRangeMesh = group;
 			this.meshGroup.add(group);
 		}
-		const traits = getEnemySkills(this.data, this.data.traits, this.formIndex, {}, 'trait');
 		const specialList = getEnemySkills(
 			this.data,
 			this.data.forms[this.formIndex].special,
@@ -196,7 +203,7 @@ export class Enemy {
 			{},
 			'special'
 		);
-		const allSkills = traits.concat(specialList);
+		const allSkills = this.traits.concat(specialList);
 		if (allSkills.some((skill) => skill.key.includes('stealth'))) {
 			this.buffs.push('stealth');
 			this.darkness = 0.2;
@@ -269,6 +276,18 @@ export class Enemy {
 			switch (type) {
 				case 'MOVE':
 					{
+						// Special case where Movement in same position but with reachOffset ro2_4_5
+						if (currentPosition.row === position.row && currentPosition.col === position.col) {
+							acc.push({
+								type: 'MOVE',
+								time: 0.0,
+								position: position,
+								reachOffset: reachOffset,
+								reachDistance: 0.0,
+								pathType: 'cp'
+							});
+							break;
+						}
 						const paths = this.pathFinder.findPath(currentPosition, position);
 						const relevantPaths = paths?.slice(1);
 						if (relevantPaths) {
@@ -347,6 +366,25 @@ export class Enemy {
 			this.onEnd();
 			return;
 		}
+
+		if (this.standbyTime > 0) {
+			if (this.waitElapsedTime === 0) {
+				this.handleIdle();
+				this.waitTimer.getMesh().visible = GameConfig.showAllTimers || this.selected;
+				this.waitElapsedTime += delta;
+			} else {
+				this.waitTimer.updateTimer(this.standbyTime - this.waitElapsedTime);
+				this.waitElapsedTime += delta;
+			}
+
+			if (this.waitElapsedTime >= this.standbyTime) {
+				this.standbyTime = 0;
+				this.waitElapsedTime = 0;
+				this.waitTimer.getMesh().visible = false;
+			}
+			return;
+		}
+
 		const { type, position, pathType, time, reachOffset } = this.actions[this.currentActionIndex];
 
 		if (this.selected) {
@@ -618,174 +656,13 @@ export class Enemy {
 	}
 
 	handleIdle() {
-		let animName = 'Idle';
-		if (!this.skel.state.hasAnimation('Idle')) {
-			switch (this.key) {
-				case 'enemy_1118_lidbox':
-					animName = 'Idle_grey';
-					break;
-				case 'enemy_1024_mortar':
-				case 'enemy_1024_mortar_2':
-				case 'enemy_1082_soticn':
-				case 'enemy_1082_soticn_2':
-				case 'enemy_1327_cbrokt':
-				case 'enemy_1327_cbrokt_2':
-				case 'enemy_1412_mmjump':
-				case 'enemy_1412_mmjump_2':
-				case 'enemy_1425_lrcmra':
-				case 'enemy_1425_lrcmra_2':
-				case 'enemy_1506_patrt':
-				case 'enemy_2013_csbot':
-					animName = 'Idle_1';
-					break;
-				case 'enemy_1158_divman':
-				case 'enemy_1158_divman_2':
-				case 'enemy_1171_durokt':
-				case 'enemy_1171_durokt_2':
-				case 'enemy_2014_csicer':
-					animName = 'Idle01';
-					break;
-				case 'enemy_2070_skzfbx':
-					animName = 'Idle1';
-					break;
-				case 'enemy_2025_syufo':
-					animName = 'Idle_01';
-					break;
-				case 'enemy_1143_merrpg':
-				case 'enemy_1143_merrpg_2':
-				case 'enemy_1271_nhkodo':
-				case 'enemy_1271_nhkodo_2':
-				case 'enemy_1311_mhkryk':
-				case 'enemy_1311_mhkryk_2':
-				case 'enemy_1314_wdnjd':
-				case 'enemy_1315_wdyjd':
-				case 'enemy_1316_wdpjd':
-					animName = 'Idle_A';
-					break;
-				case 'enemy_1388_wingnt':
-				case 'enemy_2092_skzamy':
-					animName = 'A_Idle';
-					break;
-				case 'enemy_1418_mmkonm':
-				case 'enemy_1418_mmkonm_2':
-					animName = 'Idle_b';
-					break;
-				case 'enemy_1135_redman':
-				case 'enemy_1135_redman_2':
-				case 'enemy_2089_skzjkl':
-					animName = 'C_Idle';
-					break;
-				case 'enemy_1516_jakill':
-				case 'enemy_2037_sygirl':
-				case 'enemy_2081_skztxs':
-				case 'enemy_2082_skzdd':
-					animName = 'C1_Idle';
-					break;
-				case 'enemy_1384_winfrz':
-					animName = 'C1_Idle';
-					break;
-				case 'enemy_1267_nhpbr':
-				case 'enemy_1267_nhpbr_2':
-					animName = 'F_Idle';
-					break;
-				default:
-					animName = 'Idile';
-			}
-		}
+		const animName = getIdleAnimName(this.key, this.skel);
 		this.state = 'idle';
 		this.changeAnimation(animName);
 	}
 
 	handleMove() {
-		let animName = 'Move';
-		if (!this.skel.state.hasAnimation('Move')) {
-			switch (this.key) {
-				case 'enemy_1118_lidbox':
-					animName = 'Move_grey';
-					break;
-				case 'enemy_1002_nsabr':
-				case 'enemy_1000_gopro':
-				case 'enemy_1000_gopro_2':
-				case 'enemy_1000_gopro_3':
-				case 'enemy_1064_snsbr':
-				case 'enemy_1077_sotihd':
-				case 'enemy_1077_sotihd_2':
-				case 'enemy_1087_ltwolf':
-				case 'enemy_1087_ltwolf_2':
-				case 'enemy_1165_duhond':
-				case 'enemy_1165_duhond_2':
-					animName = 'Run_Loop';
-					break;
-
-				case 'enemy_1327_cbrokt':
-				case 'enemy_1327_cbrokt_2':
-				case 'enemy_1412_mmjump':
-				case 'enemy_1412_mmjump_2':
-				case 'enemy_1425_lrcmra':
-				case 'enemy_1425_lrcmra_2':
-				case 'enemy_1506_patrt':
-					animName = 'Move_1';
-					break;
-				case 'enemy_1158_divman':
-				case 'enemy_1158_divman_2':
-				case 'enemy_1171_durokt':
-				case 'enemy_1171_durokt_2':
-				case 'enemy_2014_csicer':
-					animName = 'Move01';
-					break;
-				case 'enemy_1500_skulsr':
-				case 'enemy_2004_balloon':
-				case 'enemy_2025_syufo':
-					animName = 'Move_01';
-					break;
-				case 'enemy_2070_skzfbx':
-				case 'enemy_2084_skzcan':
-					animName = 'Move1';
-					break;
-
-				case 'enemy_1388_wingnt':
-				case 'enemy_2092_skzamy':
-					animName = 'A_Move';
-					break;
-				case 'enemy_1418_mmkonm':
-				case 'enemy_1418_mmkonm_2':
-					animName = 'Move_b';
-					break;
-				case 'enemy_1143_merrpg':
-				case 'enemy_1143_merrpg_2':
-				case 'enemy_1271_nhkodo':
-				case 'enemy_1271_nhkodo_2':
-				case 'enemy_1311_mhkryk':
-				case 'enemy_1311_mhkryk_2':
-				case 'enemy_1314_wdnjd':
-				case 'enemy_1316_wdpjd':
-				case 'enemy_1315_wdyjd':
-				case 'enemy_2055_smlead':
-					animName = 'Move_B';
-					break;
-				case 'enemy_1135_redman':
-				case 'enemy_1135_redman_2':
-				case 'enemy_2089_skzjkl':
-					animName = 'C_Move';
-					break;
-				case 'enemy_1516_jakill':
-				case 'enemy_2037_sygirl':
-				case 'enemy_2081_skztxs':
-				case 'enemy_2082_skzdd':
-					animName = 'C1_Move';
-					break;
-				case 'enemy_1384_winfrz':
-					animName = 'C2_Move';
-					break;
-				case 'enemy_1267_nhpbr':
-				case 'enemy_1267_nhpbr_2':
-					animName = 'F_Move';
-					break;
-				default:
-					animName = 'Move_Loop';
-					break;
-			}
-		}
+		const animName = getMoveAnimName(this.key, this.skel);
 		this.state = 'move';
 		this.changeAnimation(animName);
 	}

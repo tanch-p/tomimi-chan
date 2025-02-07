@@ -17,6 +17,7 @@ export class GameManager {
 	mazeLayout: number[][];
 	enemies: EnemyType[];
 	enemiesOnMap: Enemy[] = [];
+	traps = [];
 	scaledElapsedTime = writable(0); // Total game-time elapsed
 	public waveElapsedTime = 0;
 	pathFinder: SPFA;
@@ -126,6 +127,7 @@ export class GameManager {
 		this.mazeLayout = mazeLayout;
 		this.waveElapsedTime = 0;
 		this.enemiesOnMap = [];
+		this.traps = [];
 		this.noEnemyAlive = false;
 		this.pathFinder = new SPFA(mazeLayout);
 	}
@@ -138,6 +140,9 @@ export class GameManager {
 		this.waveElapsedTime += deltaTime;
 		for (const enemy of this.enemiesOnMap.filter((ele) => ele.alive)) {
 			enemy.update(deltaTime);
+		}
+		for (const trap of this.traps) {
+			trap.update(deltaTime);
 		}
 	}
 }

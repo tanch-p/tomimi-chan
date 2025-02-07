@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import * as spine from '$lib/spine';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { getTrapModelType } from '$lib/functions/trapHelpers';
 
 const ENEMY_KEYS_TO_IGNORE = [
 	'enemy_2047_smtree',
@@ -362,6 +363,46 @@ export class AssetManager {
 					this.spineMap.set(key, skeletonData);
 				})
 			);
+		}
+
+		console.log(mapConfig.traps);
+		for (const trap of mapConfig.traps) {
+			if (this.spineMap.has(trap.key)) {
+				continue;
+			}
+			const modelType = getTrapModelType(trap.key);
+			switch (modelType) {
+				case 'spine':
+					promises.push(
+						new Promise<void>((resolve, reject) => {
+							this.spineAssetManager.loadBinary(`${trap.key}/${trap.key}.skel`);
+							this.spineAssetManager.loadTextureAtlas(`${trap.key}/${trap.key}.atlas`);
+
+							const checkLoading = () => {
+								if (this.spineAssetManager.isLoadingComplete()) {
+									resolve();
+								} else {
+									requestAnimationFrame(checkLoading);
+								}
+							};
+
+							checkLoading();
+						}).then(() => {
+							const atlas = this.spineAssetManager.get(`${trap.key}/${trap.key}.atlas`);
+							const atlasLoader = new spine.AtlasAttachmentLoader(atlas);
+							const skeletonBinary = new spine.SkeletonBinary(atlasLoader);
+							skeletonBinary.scale = 0.3;
+							const skeletonData = skeletonBinary.readSkeletonData(
+								this.spineAssetManager.get(`${trap.key}/${trap.key}.skel`)
+							);
+							this.spineMap.set(trap.key, skeletonData);
+						})
+					);
+					break;
+
+				default:
+					break;
+			}
 		}
 		this.texturesLoaded = true;
 		return Promise.all(promises);

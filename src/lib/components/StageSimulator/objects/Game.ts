@@ -163,7 +163,7 @@ export class Game {
 		this.gameManager.scaledElapsedTime.subscribe((v) => (scaledElapsedTime = v));
 		const deltaTime = this.clock.getDelta() * GameConfig.speedFactor;
 		if (
-			((state === 'ready' && scaledElapsedTime < 0.5) || state === 'running') &&
+			((state === 'ready' && scaledElapsedTime < 0.4) || state === 'running') &&
 			!GameConfig.isPaused
 		) {
 			this.spawnManager.update();

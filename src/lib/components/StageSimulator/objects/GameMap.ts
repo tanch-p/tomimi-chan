@@ -6,7 +6,7 @@ import { StickBox } from './StickBox';
 import { TileManager } from './TileManager';
 import { AssetManager } from './AssetManager';
 import { GameManager } from './GameManager';
-import { isRoadblock } from '$lib/functions/trapHelpers';
+import { Trap } from './Trap';
 
 export class GameMap {
 	config: MapConfig;
@@ -86,21 +86,16 @@ export class GameMap {
 				}
 				group.position.set(x, y, z);
 
-				const trap = trapPos.find((ele) => {
+				const trapData = trapPos.find((ele) => {
 					const pos = this.gameManager.gameToWorldPos(ele.pos);
 					return pos.row == rowIdx && pos.col == colIdx && !ele.hidden;
 				});
-				if (trap) {
-					if (isRoadblock(trap.key)) {
-						this.gameManager.updateMazeLayout(this.gameManager.gameToWorldPos(trap.pos), 1000);
+				if (trapData) {
+					const trap = new Trap(trapData.key, this.gameManager);
+					if (trap.isRoadblock) {
+						this.gameManager.updateMazeLayout(this.gameManager.gameToWorldPos(trapData.pos), 1000);
 					}
-					const geometry = new THREE.BoxGeometry(GameConfig.gridSize, GameConfig.gridSize, 50);
-					const material = new THREE.MeshStandardMaterial({
-						color: 0x000000,
-						side: THREE.DoubleSide
-					});
-					const box = new THREE.Mesh(geometry, material);
-					group.add(box);
+					group.add(trap.getMesh());
 				}
 
 				this.scene.add(group);
