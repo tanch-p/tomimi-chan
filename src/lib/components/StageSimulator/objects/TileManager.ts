@@ -226,9 +226,6 @@ export class TileManager {
 			}
 			return this.createBox(40, 0xff8108, 0xc1c1c1, topTextureName, size);
 		}
-		// const model = this.assetManager.models.get('curse').clone();
-		// model.scale.set(100, 100, 100);
-		// boxGroup.add(model);
 
 		switch (tileName) {
 			// texture size

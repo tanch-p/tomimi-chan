@@ -411,7 +411,7 @@ export class Enemy {
 						}
 					}
 					if (!nextCheckPoint) {
-						nextCheckPoint = this.actions[this.actions.length - 1];
+						nextCheckPoint = this.actions[this.actions.length - 1]?.position;
 					}
 					const { x, y } = this.gameManager.getVectorCoordinates(nextCheckPoint, reachOffset);
 					direction = new THREE.Vector3()

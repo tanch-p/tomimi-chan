@@ -43,7 +43,7 @@ export class Trap {
 					if (!skeletonData) {
 						return;
 					}
-                    console.log(skeletonData);
+					console.log(skeletonData);
 					const skeletonMesh = new spine.SkeletonMesh(skeletonData, (parameters) => {
 						parameters.depthTest = false;
 					});
@@ -55,7 +55,11 @@ export class Trap {
 					this.meshGroup.add(skeletonMesh);
 				}
 				return;
-
+			case 'model':
+				const model = this.assetManager.models.get(this.key).clone();
+				model.scale.set(100, 100, 100);
+				this.meshGroup.add(model);
+				return;
 			default:
 				break;
 		}
