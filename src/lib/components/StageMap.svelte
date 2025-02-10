@@ -16,6 +16,7 @@
 		'level_rogue4_2-3',
 		'level_rogue4_2-4',
 		'level_rogue4_2-5',
+		'level_rogue4_2-7',
 		'level_rogue4_3-3',
 		'level_rogue4_3-4',
 		'level_rogue4_3-6',
