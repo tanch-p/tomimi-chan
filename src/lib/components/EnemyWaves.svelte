@@ -17,7 +17,8 @@
 	let hiddenGroups = [],
 		enemyCounts = [],
 		selectedCountIndex = 0,
-		selectedPermutationIdx = 0;
+		selectedPermutationIdx = 0,
+		showChest = 1;
 	$: if (mapConfig) {
 		selectedCountIndex = 0;
 		selectedPermutationIdx = 0;
@@ -26,7 +27,7 @@
 	$: hasAnalysis = !mapConfig.id.includes('_duel_');
 	$: hasHiddenGroups = ['rogue_sami', 'rogue_skz'].includes(rogueTopic);
 	$: options = getOptions(rogueTopic, language);
-$: permutations = getEnemyCountPermutations(mapConfig, hiddenGroups, eliteMode);
+	$: permutations = getEnemyCountPermutations(mapConfig, hiddenGroups, eliteMode);
 	$: enemyCounts = permutations.reduce((acc, { count }) => {
 		if (!acc.includes(count)) {
 			acc.push(count);
@@ -99,6 +100,20 @@ $: permutations = getEnemyCountPermutations(mapConfig, hiddenGroups, eliteMode);
 					{/each}
 				</DraggableContainer>
 			{/if}
+			<p class="title">{translations[language].trap}</p>
+			<div class="grid grid-cols-2">
+				{#each ['not_show', 'show'] as option, i}
+					<button
+						class="flex justify-center items-center border-r border-neutral-700 font-semibold {showChest ===
+						i
+							? 'bg-gray-600'
+							: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'}"
+						on:click={() => (showChest = i)}
+					>
+						{translations[language][option]}
+					</button>
+				{/each}
+			</div>
 		</div>
 		<StageSimulator
 			{mapConfig}
