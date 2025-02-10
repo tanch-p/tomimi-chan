@@ -57,7 +57,7 @@ export class Trap {
 				return;
 			case 'model':
 				const model = this.assetManager.models.get(this.key).clone();
-				model.scale.set(100, 100, 100);
+				model.scale.set(-100, 100, 100);
 				this.meshGroup.add(model);
 				return;
 			default:
