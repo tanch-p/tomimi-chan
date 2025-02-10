@@ -309,7 +309,7 @@ export class AssetManager {
 		promises.push(
 			new Promise((resolve, reject) => {
 				this.gltfLoader.load(
-					`supply.glb`,
+					`curse.glb`,
 					(gltf) => {
 						resolve(gltf);
 					},
@@ -365,18 +365,18 @@ export class AssetManager {
 			);
 		}
 
-		console.log(mapConfig.traps);
 		for (const trap of mapConfig.traps) {
-			if (this.spineMap.has(trap.key)) {
+			const key = trap.key;
+			if (this.spineMap.has(key)) {
 				continue;
 			}
-			const modelType = getTrapModelType(trap.key);
+			const modelType = getTrapModelType(key);
 			switch (modelType) {
 				case 'spine':
 					promises.push(
 						new Promise<void>((resolve, reject) => {
-							this.spineAssetManager.loadBinary(`${trap.key}/${trap.key}.skel`);
-							this.spineAssetManager.loadTextureAtlas(`${trap.key}/${trap.key}.atlas`);
+							this.spineAssetManager.loadBinary(`${key}/${key}.skel`);
+							this.spineAssetManager.loadTextureAtlas(`${key}/${key}.atlas`);
 
 							const checkLoading = () => {
 								if (this.spineAssetManager.isLoadingComplete()) {
@@ -388,18 +388,35 @@ export class AssetManager {
 
 							checkLoading();
 						}).then(() => {
-							const atlas = this.spineAssetManager.get(`${trap.key}/${trap.key}.atlas`);
+							const atlas = this.spineAssetManager.get(`${key}/${key}.atlas`);
 							const atlasLoader = new spine.AtlasAttachmentLoader(atlas);
 							const skeletonBinary = new spine.SkeletonBinary(atlasLoader);
 							skeletonBinary.scale = 0.3;
 							const skeletonData = skeletonBinary.readSkeletonData(
-								this.spineAssetManager.get(`${trap.key}/${trap.key}.skel`)
+								this.spineAssetManager.get(`${key}/${key}.skel`)
 							);
-							this.spineMap.set(trap.key, skeletonData);
+							this.spineMap.set(key, skeletonData);
 						})
 					);
 					break;
-
+				case 'model':
+					promises.push(
+						new Promise((resolve, reject) => {
+							this.gltfLoader.load(
+								`${key}.glb`,
+								(gltf) => {
+									resolve(gltf);
+								},
+								undefined,
+								(error) => {
+									reject(error);
+								}
+							);
+						}).then((gltf) => {
+							this.models.set(key, gltf.scene);
+						})
+					);
+					break;
 				default:
 					break;
 			}

@@ -5,7 +5,7 @@
 	import { page } from '$app/stores';
 	import { wavePrefixSuffix } from '$lib/functions/languageHelpers';
 
-	export let game: Game, waves;
+	export let game: Game, waves,mapConfig;
 
 	let timelineContainer: HTMLDivElement, actionsContainer: HTMLDivElement;
 	let waveElapsedTime: number, scaledElapsedTime: number;
@@ -65,8 +65,9 @@
 						</p>
 						<div class="flex flex-wrap">
 							{#each actions as { key }}
+								{@const prefabKey = mapConfig.enemies.find(enemy => enemy.id === key)?.prefabKey}
 								<img
-									src="/images/enemy_icons/{key}.webp"
+									src="/images/enemy_icons/{prefabKey}.webp"
 									width="50px"
 									height="50px"
 									alt={key}

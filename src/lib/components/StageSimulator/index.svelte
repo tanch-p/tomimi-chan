@@ -57,7 +57,7 @@
 	{#await loadGame(mapConfig)}
 		<LoadingScreen />
 	{:then}
-		<SpawnTimeView {game} {waves} />
+		<SpawnTimeView {game} {waves} {mapConfig} />
 		<Interface {game} initialCost={mapConfig.initialCost} />
 	{:catch error}
 		<p class="text-center">An error occured while loading: <br />{error.message}</p>
