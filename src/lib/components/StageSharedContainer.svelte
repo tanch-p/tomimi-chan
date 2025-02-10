@@ -1,0 +1,62 @@
+<script lang="ts">
+	import { pruneExtraEnemies } from '$lib/functions/lib';
+	import { applyMods, compileStatModsForChecking } from '$lib/functions/statHelpers';
+	import { applyTrapMods } from '$lib/functions/trapHelpers';
+	import EliteToggle from './EliteToggle.svelte';
+	import EnemyCount from './EnemyCount.svelte';
+	import EnemyStatDisplay from './EnemyStatDisplay.svelte';
+	import EnemyWaves from './EnemyWaves.svelte';
+	import ModsCheck from './ModsCheck.svelte';
+	import TrapContainer from './TrapContainer.svelte';
+
+	export let language,
+		traps,
+		enemies,
+		otherBuffsList,
+		statMods,
+		specialMods,
+		mapConfig,
+		eliteMode,
+		normalMods,
+		eliteMods,
+		rogueTopic,
+		selectedRelics;
+
+	$: moddedEnemies = applyMods(enemies, mapConfig.id, $statMods, $specialMods);
+	$: moddedTraps = applyTrapMods(traps, $statMods, $specialMods);
+	$: modsCheck = compileStatModsForChecking(pruneExtraEnemies(enemies,mapConfig.levelId), mapConfig.id, $statMods, $specialMods);
+</script>
+
+<EnemyWaves {mapConfig} enemies={moddedEnemies} {language} eliteMode={$eliteMode} {rogueTopic}>
+	<EliteToggle
+		slot="eliteMods"
+		inWaveOptions={true}
+		{eliteMode}
+		{normalMods}
+		mapNormalMods={mapConfig.n_mods}
+		mapEliteMods={mapConfig.elite_mods}
+		{eliteMods}
+		{rogueTopic}
+		{selectedRelics}
+		stageId={mapConfig.levelId}
+	/>
+</EnemyWaves>
+<TrapContainer {language} traps={moddedTraps} {otherBuffsList} specialMods={$specialMods} />
+<ModsCheck {language} {modsCheck} {mapConfig} />
+<EnemyCount {mapConfig} enemies={pruneExtraEnemies(moddedEnemies,mapConfig.levelId)} eliteMode={$eliteMode} {language} />
+<div class="sm:px-6">
+	<EliteToggle
+		{eliteMode}
+		{normalMods}
+		mapNormalMods={mapConfig.n_mods}
+		mapEliteMods={mapConfig.elite_mods}
+		{eliteMods}
+		{rogueTopic}
+		{selectedRelics}
+		stageId={mapConfig.levelId}
+	/>
+	<EnemyStatDisplay enemies={pruneExtraEnemies(moddedEnemies,mapConfig.levelId)} {language} {specialMods} {otherBuffsList} />
+	<div id="stageNav" class="mt-8 sm:mt-16 scroll-mt-20">
+		<slot name="nav" />
+	</div>
+</div>

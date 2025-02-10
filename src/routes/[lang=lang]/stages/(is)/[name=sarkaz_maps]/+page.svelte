@@ -12,24 +12,17 @@
 		eliteMode,
 		normalMods
 	} from './stores';
-	import EnemyStatDisplay from '$lib/components/EnemyStatDisplay.svelte';
 	import DifficultySelect from '../../../../../lib/components/DifficultySelect.svelte';
 	import NavTemp from '../../../(app)/sarkaz/NavTemp.svelte';
 	import StageInfo from '$lib/components/StageInfo.svelte';
-	import EliteToggle from '$lib/components/EliteToggle.svelte';
 	import FooterBar from '$lib/components/FooterBar.svelte';
 	import translations from '$lib/translations.json';
 	import FloorTitle from './FloorTitle.svelte';
 	import StageHeader from '$lib/components/StageHeader.svelte';
-	import { applyMods, compileStatModsForChecking } from '$lib/functions/statHelpers';
-	import ModsCheck from '$lib/components/ModsCheck.svelte';
-	import EnemyCount from '$lib/components/EnemyCount.svelte';
 	import skzRelics from '$lib/data/is/sarkaz/relics_sarkaz.json';
 	import StageDrops from './StageDrops.svelte';
-	import TrapContainer from '$lib/components/TrapContainer.svelte';
-	import { applyTrapMods } from '$lib/functions/trapHelpers';
 	import { setOtherBuffsList } from '$lib/functions/lib';
-	import EnemyWaves from '$lib/components/EnemyWaves.svelte';
+	import StageSharedContainer from '$lib/components/StageSharedContainer.svelte';
 
 	export let data: PageData;
 
@@ -42,14 +35,6 @@
 	const ro4_ALTER_BOSS_STAGES = ['level_rogue4_b-4-b', 'level_rogue4_b-5-b'];
 
 	$: language = data.language;
-	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods, $specialMods);
-	$: moddedTraps = applyTrapMods(data.traps, $statMods, $specialMods);
-	$: modsCheck = compileStatModsForChecking(
-		data.enemies,
-		data.mapConfig.id,
-		$statMods,
-		$specialMods
-	);
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 	const rogueTopic: RogueTopic = data.rogueTopic;
 
@@ -102,44 +87,22 @@
 			<StageDrops slot="drops" mapConfig={data.mapConfig} {language} {rogueTopic} {selectedFloor} />
 		</StageInfo>
 		<DifficultySelect {language} {difficulty} {rogueTopic} maxDiff={18} />
-		<EnemyWaves mapConfig={data.mapConfig} enemies={moddedEnemies} {language} eliteMode={$eliteMode} {rogueTopic}>
-			<EliteToggle
-				slot="eliteMods"
-				inWaveOptions={true}
-				{eliteMode}
-				{normalMods}
-				mapNormalMods={data.mapConfig.n_mods}
-				mapEliteMods={data.mapConfig.elite_mods}
-				{eliteMods}
-				{rogueTopic}
-				{selectedRelics}
-				stageId={data.mapConfig.levelId}
-			/>
-		</EnemyWaves>
-		<TrapContainer {language} traps={moddedTraps} {otherBuffsList} specialMods={$specialMods} />
-		<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
-		<EnemyCount
-			mapConfig={data.mapConfig}
-			enemies={moddedEnemies}
-			eliteMode={$eliteMode}
+		<StageSharedContainer
 			{language}
-		/>
-		<div class="sm:px-6">
-			<EliteToggle
-				{eliteMode}
-				{normalMods}
-				mapNormalMods={data.mapConfig.n_mods}
-				mapEliteMods={data.mapConfig.elite_mods}
-				{eliteMods}
-				{rogueTopic}
-				{selectedRelics}
-				stageId={data.mapConfig.levelId}
-			/>
-			<EnemyStatDisplay enemies={moddedEnemies} {language} {specialMods} {otherBuffsList} />
-			<div id="stageNav" class="mt-8 sm:mt-16 scroll-mt-20">
-				<NavTemp {language} />
-			</div>
-		</div>
+			traps={data.traps}
+			{otherBuffsList}
+			{statMods}
+			{specialMods}
+			mapConfig={data.mapConfig}
+			enemies={data.enemies}
+			{eliteMode}
+			{normalMods}
+			{eliteMods}
+			{rogueTopic}
+			{selectedRelics}
+		>
+			<NavTemp {language} slot="nav" />
+		</StageSharedContainer>
 	</div>
 </main>
 

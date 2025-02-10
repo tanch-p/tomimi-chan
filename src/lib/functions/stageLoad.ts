@@ -6,7 +6,7 @@ import { parseTraps } from './trapHelpers';
 
 export const stageLoad = async (stageName: string, language: Language, rogueTopic: RogueTopic) => {
 	const mapConfig: MapConfig = await getStageData(stageName);
-	let enemies = mapConfig.enemies.map(({ id, prefabKey, level, overwrittenData }) => {
+	const enemies = mapConfig.enemies.map(({ id, prefabKey, level, overwrittenData }) => {
 		const enemy: Enemy = structuredClone(enemyDatabase[prefabKey]);
 
 		enemy.stageId = id;
@@ -42,10 +42,6 @@ export const stageLoad = async (stageName: string, language: Language, rogueTopi
 		!mapConfig.id.includes('_ev_')
 	) {
 		enemies.sort(sortEnemies);
-	}
-	if (['level_rogue2_ev-3', 'level_rogue2_b-7', 'level_rogue4_b-8'].includes(mapConfig.levelId)) {
-		const keys = enemies.map((enemy) => enemy.key);
-		enemies = enemies.filter((enemy) => keys.includes(enemy.stageId));
 	}
 
 	const traps = parseTraps(mapConfig.traps, language);

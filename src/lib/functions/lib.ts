@@ -310,8 +310,17 @@ export async function decompressGzipToJson(url) {
 	}
 }
 
-export function setLocalStorage(key,value){
-	if(browser && cookiesEnabled){
-		localStorage.setItem(key,value);
+export function setLocalStorage(key, value) {
+	if (browser && cookiesEnabled) {
+		localStorage.setItem(key, value);
 	}
+}
+
+export function pruneExtraEnemies(enemies, levelId) {
+	if (!['level_rogue2_ev-3', 'level_rogue2_b-7', 'level_rogue4_b-8'].includes(levelId)) {
+		return enemies;
+	}
+
+	const keys = enemies.map((enemy) => enemy.key);
+	return enemies.filter((enemy) => keys.includes(enemy.stageId));
 }
