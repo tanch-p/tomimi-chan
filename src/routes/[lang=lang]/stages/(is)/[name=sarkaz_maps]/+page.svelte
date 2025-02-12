@@ -10,7 +10,8 @@
 		selectedFloor,
 		otherBuffsList,
 		eliteMode,
-		normalMods
+		normalMods,
+		disasterEffects
 	} from './stores';
 	import DifficultySelect from '../../../../../lib/components/DifficultySelect.svelte';
 	import NavTemp from '../../../(app)/sarkaz/NavTemp.svelte';
@@ -100,6 +101,7 @@
 			{eliteMods}
 			{rogueTopic}
 			{selectedRelics}
+			otherStores={{ disaster: disasterEffects, difficulty: difficulty }}
 		>
 			<NavTemp {language} slot="nav" />
 		</StageSharedContainer>

@@ -76,7 +76,7 @@
 			{rogueTopic}
 			{selectedRelics}
 		>
-			<MizukiNav {language} />
+			<MizukiNav slot="nav" {language} />
 		</StageSharedContainer>
 	</div>
 </main>

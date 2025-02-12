@@ -22,6 +22,7 @@ export class GameMap {
 	maxWaitTime = 0;
 	assetManager: AssetManager;
 	gameManager: GameManager;
+	tiles = new Map();
 
 	constructor(gameManager) {
 		this.assetManager = AssetManager.getInstance();
@@ -32,7 +33,7 @@ export class GameMap {
 		this.textureLoader = new THREE.TextureLoader();
 		this.tileManager = new TileManager(gameManager);
 
-		this.setup(this.config.mapData, this.config.trap_pos);
+		this.setup(this.config.mapData, this.config.traps);
 
 		const geometry = new THREE.PlaneGeometry(
 			this.gameManager.mazeLayout[0].length * GameConfig.gridSize,
@@ -46,12 +47,13 @@ export class GameMap {
 		this.pointer = new THREE.Vector2();
 	}
 
-	setup(mapData, trapPos) {
+	setup(mapData, traps) {
 		const { map, tiles } = mapData;
 		map.forEach((row, rowIdx) =>
 			row.forEach((tileIndex, colIdx) => {
-				const [tileName, heightType, mask] = tiles[tileIndex];
-				const group = this.tileManager.get(tiles[tileIndex]);
+				const group = new THREE.Group();
+				const [tileName, heightType] = tiles[tileIndex];
+				const tileGroup = this.tileManager.get(tiles[tileIndex]);
 				const { x, y } = this.gameManager.getVectorCoordinates(
 					{
 						row: rowIdx,
@@ -62,10 +64,10 @@ export class GameMap {
 				let z = 0;
 				switch (tileName) {
 					case 'tile_end':
-						group.add(new StickBox(100, 100, 100, 'blue').getMesh());
+						tileGroup.add(new StickBox(100, 100, 100, 'blue').getMesh());
 						break;
 					case 'tile_start':
-						group.add(new StickBox(100, 100, 100, 'red').getMesh());
+						tileGroup.add(new StickBox(100, 100, 100, 'red').getMesh());
 						break;
 					case 'tile_telin':
 					case 'tile_telout':
@@ -84,17 +86,26 @@ export class GameMap {
 						}
 						break;
 				}
+				const mapKey = `${colIdx},${rowIdx}`;
+				this.tiles.set(mapKey, tiles[tileIndex]);
+				group.add(tileGroup);
 				group.position.set(x, y, z);
 
-				const trapData = trapPos.find((ele) => {
+				const trapData = traps.find((ele) => {
 					const pos = this.gameManager.gameToWorldPos(ele.pos);
 					return pos.row == rowIdx && pos.col == colIdx && !ele.hidden;
 				});
 				if (trapData) {
-					const trap = new Trap(trapData.key, this.gameManager);
+					const trap = new Trap(trapData, this.gameManager);
 					if (trap.isRoadblock) {
 						this.gameManager.updateMazeLayout(this.gameManager.gameToWorldPos(trapData.pos), 1000);
 					}
+					if (trap.hideTile) {
+						tileGroup.visible = false;
+					} else {
+						trap.getMesh().position.z = z + 0.05;
+					}
+
 					group.add(trap.getMesh());
 				}
 

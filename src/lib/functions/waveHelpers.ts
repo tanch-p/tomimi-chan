@@ -1,7 +1,10 @@
-import type { Language, RogueTopic } from '$lib/types';
+import type { Language, MapConfig, RogueTopic } from '$lib/types';
 import fragments from '$lib/data/is/sarkaz/fragments.json';
 import f27 from '$lib/images/is/sarkaz/rogue_4_fragment_F_27.webp';
 import f28 from '$lib/images/is/sarkaz/rogue_4_fragment_F_28.webp';
+import translations from '$lib/translations.json';
+import calamity from '$lib/images/is/sarkaz/rogue_4_disaster_1_toast.webp';
+import disasters from '$lib/data/is/sarkaz/disasters.json';
 
 const ALWAYS_KILLED_KEYS = [
 	'enemy_2073_skzrck',
@@ -16,7 +19,137 @@ const getFragmentName = (id, language: Language) => {
 	return fragment[`name_${language}`] || fragment['name_zh'];
 };
 
-export const getOptions = (rogueTopic: RogueTopic, language: Language) => {
+export const getOptions = (mapConfig: MapConfig, rogueTopic: RogueTopic, language: Language) => {
+	const options = [];
+	const list = [];
+	for (const wave of mapConfig.waves) {
+		for (const fragment of wave.fragments) {
+			for (const action of fragment.actions) {
+				if (action.actionType === 'ACTIVATE_PREDEFINED') {
+					list.push(action.key.split('#')[0]);
+				}
+			}
+		}
+	}
+	const predefines = [...new Set(list)];
+	switch (rogueTopic) {
+		case 'rogue_phantom':
+			if (predefines.includes('trap_051_vultres')) {
+				options.push({
+					key: 'trap_051_vultres',
+					src: '/images/chara_icons/trap_051_vultres.webp',
+					name: translations[language].treasure
+				});
+			}
+			break;
+		case 'rogue_mizuki':
+			for (const key of predefines) {
+				if (key === 'trap_068_badbox') {
+					options.push({ key: 'trap_068_badbox', src: '', name: translations[language].treasure });
+					continue;
+				}
+				if (key === 'trap_079_allydonq') {
+					options.push({
+						key: 'trap_079_allydonq',
+						src: '/images/enemy_icons/enemy_2038_sydonq.webp',
+						name: { zh: '猎潮的骑士', ja: '猟潮の騎士', en: 'Tide-Hunt Knight' }[language]
+					});
+					continue;
+				}
+			}
+			break;
+		case 'rogue_sami':
+			for (const key of predefines) {
+				if (key === 'trap_110_smbbox') {
+					options.push({
+						key: 'trap_110_smbbox',
+						src: '/images/chara_icons/trap_110_smbbox.webp',
+						name: translations[language].treasure
+					});
+					continue;
+				}
+			}
+			options.push(
+				...[
+					{
+						key: 'trap_024_npcsld',
+						src: '/images/chara_icons/trap_024_npcsld.webp',
+						name: { zh: '盾卫', ja: '盾兵', en: 'Shieldguard' }[language]
+					},
+					{
+						key: 'totem1',
+						src: '/images/enemy_icons/enemy_1106_byokai.webp',
+						name: { zh: '斗志昂扬无人机', ja: '闘志高揚ドローン', en: 'Cheering Sponsor Drone' }[
+							language
+						]
+					},
+					{
+						key: 'bossrelic',
+						src: '/images/relics/relic_routeweave_net.webp',
+						name: { zh: '路网', ja: '導きの網織', en: 'Routeweave Net' }[language]
+					}
+				]
+			);
+			break;
+		case 'rogue_skz':
+			for (const key of predefines) {
+				if (key === 'trap_758_skzmbx') {
+					options.push({
+						key: 'trap_758_skzmbx',
+						src: '/images/chara_icons/trap_758_skzmbx.webp',
+						name: translations[language].treasure
+					});
+					continue;
+				}
+				if (key === 'trap_764_skzshp') {
+					options.push({
+						key: 'trap_764_skzshp',
+						src: '/images/chara_icons/trap_764_skzshp.webp',
+						name: { zh: '驮兽旅行家', ja: '', en: '' }[language]
+					});
+					continue;
+				}
+			}
+			options.push(
+				...[
+					{
+						key: 'calamity',
+						src: calamity,
+						name: { zh: '天灾年代', ja: null, en: null }[language]
+					},
+					{
+						key: 'hidden_door',
+						src: '/images/enemy_icons/enemy_2067_skzcy.webp',
+						name: getFragmentName('rogue_4_fragment_F_08', language)
+					},
+					{
+						key: 'hidden_window',
+						src: '/images/enemy_icons/enemy_2091_skzgds.webp',
+						name: getFragmentName('rogue_4_fragment_F_29', language)
+					},
+					{
+						key: 'box_1',
+						src: f27,
+						name: getFragmentName('rogue_4_fragment_F_27', language)
+					},
+					{
+						key: 'box_3',
+						src: f28,
+						name: getFragmentName('rogue_4_fragment_F_28', language)
+					},
+					{
+						key: 'shadow',
+						src: '/images/enemy_icons/enemy_2093_skzams.webp',
+						name: { zh: '终曲合声', ja: '', en: '' }[language]
+					}
+				]
+			);
+			break;
+	}
+	return options;
+};
+
+export const getTrapOptions = (rogueTopic: RogueTopic, language: Language) => {
 	switch (rogueTopic) {
 		case 'rogue_sami':
 			return [
@@ -52,8 +185,22 @@ export const getOptions = (rogueTopic: RogueTopic, language: Language) => {
 	}
 };
 
-export const handleOptionsUpdate = (hiddenGroups, key, rogueTopic: RogueTopic) => {
+export const handleOptionsUpdate = (hiddenGroups, key, rogueTopic: RogueTopic, otherStores) => {
 	const fragmentKeys = ['hidden_door', 'hidden_window', 'box_1', 'box_3'];
+	if (key === 'calamity') {
+		const disasterEffects = otherStores.disaster;
+		let difficulty = 0;
+		const level = $difficulty < 5 ? 1 : $difficulty < 11 ? 2 : 3;
+		const effect = disasters.find(
+			(ele) => ele.iconId === 'rogue_4_disaster_1' && ele.level === level
+		);
+
+		if (!$disasterEffects.find((ele) => ele.id === effect.id)) {
+			disasterEffects.set([effect]);
+		} else {
+			disasterEffects.set([]);
+		}
+	}
 	switch (rogueTopic) {
 		case 'rogue_sami':
 			if (hiddenGroups.includes(key)) {
@@ -72,6 +219,7 @@ export const handleOptionsUpdate = (hiddenGroups, key, rogueTopic: RogueTopic) =
 			} else {
 				hiddenGroups.push(key);
 			}
+
 			break;
 		default:
 			break;
@@ -102,13 +250,15 @@ export const getEnemyCountPermutations = (mapConfig, hiddenGroups, eliteMode) =>
 	const list = permutations.map(({ count, permutation }) => {
 		return { count: count + countToAdd, permutation };
 	});
-	return list.reduce((acc, { count, permutation }) => {
-		acc.push({ count: count, permutation });
-		if (bonus) {
-			acc.push({ count: count + 1, permutation, bonus: true });
-		}
-		return acc;
-	}, []).sort((a,b) => a.count - b.count);
+	return list
+		.reduce((acc, { count, permutation }) => {
+			acc.push({ count: count, permutation });
+			if (bonus) {
+				acc.push({ count: count + 1, permutation, bonus: true });
+			}
+			return acc;
+		}, [])
+		.sort((a, b) => a.count - b.count);
 };
 
 function addPackToGroup(action, groups) {
@@ -207,7 +357,7 @@ export const generateWaveTimeline = (mapConfig, hiddenGroups, eliteMode, permuta
 	}
 	const waveTimelines = [];
 	const { waves, bonus } = mapConfig;
-	console.log(bonus)
+	console.log(bonus);
 	waves.forEach((wave, waveIdx) => {
 		if (bonus?.type === 'wave' && waveIdx === bonus.wave_index) return;
 

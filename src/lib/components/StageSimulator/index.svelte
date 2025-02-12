@@ -21,6 +21,7 @@
 	$: if (waveData) {
 		resetGame();
 	}
+	
 	function resetGame() {
 		GameConfig.isPaused = false;
 		if (game) {
@@ -29,7 +30,8 @@
 	}
 
 	async function loadGame(mapConfig) {
-		if(game){
+		console.log('running');
+		if (game) {
 			game.stop();
 		}
 		if (!assetManager) {

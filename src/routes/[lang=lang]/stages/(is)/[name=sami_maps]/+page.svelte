@@ -78,7 +78,7 @@
 			{rogueTopic}
 			{selectedRelics}
 		>
-			<SamiNav {language} />
+			<SamiNav slot="nav" {language} />
 		</StageSharedContainer>
 	</div>
 </main>
