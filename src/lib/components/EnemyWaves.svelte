@@ -12,21 +12,24 @@
 	import DLDGPN from '$lib/images/is/DLDGPN.webp';
 	import StageSimulator from '$lib/components/StageSimulator/index.svelte';
 
-	export let mapConfig, enemies, rogueTopic: RogueTopic, language: Language, eliteMode: Boolean;
+	export let mapConfig,
+		enemies,
+		rogueTopic: RogueTopic,
+		language: Language,
+		eliteMode: Boolean,
+		otherStores;
 
 	let hiddenGroups = [],
 		enemyCounts = [],
 		selectedCountIndex = 0,
-		selectedPermutationIdx = 0,
-		showChest = 1;
+		selectedPermutationIdx = 0;
 	$: if (mapConfig) {
 		selectedCountIndex = 0;
 		selectedPermutationIdx = 0;
 	}
 
 	$: hasAnalysis = !mapConfig.id.includes('_duel_');
-	$: hasHiddenGroups = ['rogue_sami', 'rogue_skz'].includes(rogueTopic);
-	$: options = getOptions(rogueTopic, language);
+	$: options = getOptions(mapConfig, rogueTopic, language);
 	$: permutations = getEnemyCountPermutations(mapConfig, hiddenGroups, eliteMode);
 	$: enemyCounts = permutations.reduce((acc, { count }) => {
 		if (!acc.includes(count)) {
@@ -40,6 +43,16 @@
 		}
 		return acc;
 	}, []);
+
+	if (rogueTopic === 'rogue_skz') {
+		otherStores.disaster.subscribe((v) => {
+			if (v[0]?.iconId === 'rogue_4_disaster_1') {
+				hiddenGroups.push('calamity');
+			} else {
+				hiddenGroups = hiddenGroups.filter((key) => key !== 'calamity');
+			}
+		});
+	}
 </script>
 
 {#if hasAnalysis}
@@ -49,22 +62,24 @@
 				<p class="title">{translations[language].operation_type}</p>
 				<slot name="eliteMods" />
 			{/if}
-			{#if hasHiddenGroups}
+			{#if options?.length > 0}
 				<p class="title">{translations[language].hidden_options}</p>
-				<DraggableContainer className="grid grid-flow-col auto-cols-[minmax(100px,1fr)]">
+				<div class="grid grid-cols-3 md:grid-cols-5">
 					{#each options as { key, src, name }}
 						{@const selected = hiddenGroups.includes(key)}
 						<button
-							class="flex flex-col items-center border-r border-neutral-700 pt-1 pb-0.5 {selected
+							class="flex flex-col items-center border border-neutral-700 py-1 {selected
 								? 'bg-gray-600'
 								: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
-							on:click={() => (hiddenGroups = handleOptionsUpdate(hiddenGroups, key, rogueTopic))}
+							on:click={() => (hiddenGroups = handleOptionsUpdate(hiddenGroups, key, rogueTopic, otherStores))}
 						>
-							<img {src} width="56" height="56" alt={name} />
-							<span>{name}</span>
+							<div class="flex items-center justify-center h-[56px]">
+								<img {src} width="56" height="56" alt={name} class="" />
+							</div>
+							<span class="mt-1 text-xs md:text-sm">{name}</span>
 						</button>
 					{/each}
-				</DraggableContainer>
+				</div>
 			{/if}
 			<p class="title">{translations[language].enemy_count}</p>
 			<DraggableContainer className="grid grid-flow-col auto-cols-[minmax(100px,1fr)]">
@@ -100,20 +115,6 @@
 					{/each}
 				</DraggableContainer>
 			{/if}
-			<p class="title">{translations[language].trap}</p>
-			<div class="grid grid-cols-2">
-				{#each ['not_show', 'show'] as option, i}
-					<button
-						class="flex justify-center items-center border-r border-neutral-700 font-semibold {showChest ===
-						i
-							? 'bg-gray-600'
-							: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'}"
-						on:click={() => (showChest = i)}
-					>
-						{translations[language][option]}
-					</button>
-				{/each}
-			</div>
 		</div>
 		<StageSimulator
 			{mapConfig}

@@ -107,9 +107,13 @@ export interface EnemyDBEntry {
 
 export interface Trap {
 	key: string;
+	stageId: string;
 	name: string;
 	desc: string;
 	tauntLevel: number;
+	mainSkillLvl: number;
+	modelType:string;
+	hideTile:boolean;
 	stats: trapStats;
 	talents: [];
 	skills: [];

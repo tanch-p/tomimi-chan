@@ -75,7 +75,7 @@
 				{rogueTopic}
 				{selectedRelics}
 			>
-				<StageNav {language} />
+				<StageNav slot="nav" {language} />
 			</StageSharedContainer>
 		</div>
 	</div>

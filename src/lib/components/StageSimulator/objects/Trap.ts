@@ -13,14 +13,20 @@ export class Trap {
 	key;
 	type;
 	skel;
+	direction;
+	position;
+	hideTile:boolean;
 	meshGroup = new THREE.Group();
 	gameManager: GameManager;
-	constructor(key, gameManager: GameManager) {
+	constructor(data, gameManager: GameManager) {
 		this.assetManager = AssetManager.getInstance();
-		const trap = trapLookup[key];
+		const trap = trapLookup[data.key];
 		this.data = trap;
-		this.key = key;
-		console.log(key);
+		this.key = data.key;
+		this.hideTile = trap.hideTile;
+		this.direction = data.direction;
+		this.position = data.position;
+		console.log(data.key, this.direction);
 		this.type = trap.modelType;
 		this.initModel(trap.modelType);
 		this.gameManager = gameManager;
@@ -54,11 +60,38 @@ export class Trap {
 					this.skel.state.setAnimation(0, animName, true);
 					this.meshGroup.add(skeletonMesh);
 				}
+				switch (this.direction) {
+					case 'LEFT':
+						this.meshGroup.scale.x *= -1;
+						break;
+					case 'UP':
+						break;
+					case 'DOWN':
+						break;
+					default:
+						break;
+				}
 				return;
 			case 'model':
-				const model = this.assetManager.models.get(this.key).clone();
-				model.scale.set(-100, 100, 100);
+				const model = this.assetManager.models.get(this.key)?.clone();
+				if (!model) {
+					return;
+				}
+				model.scale.set(100, 100, 100);
 				this.meshGroup.add(model);
+				switch (this.direction) {
+					case 'LEFT':
+						this.meshGroup.rotation.z = Math.PI;
+						break;
+					case 'UP':
+						this.meshGroup.rotation.z = -Math.PI / 2;
+						break;
+					case 'DOWN':
+						this.meshGroup.rotation.z = Math.PI / 2;
+						break;
+					default:
+						break;
+				}
 				return;
 			default:
 				break;

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { pruneExtraEnemies } from '$lib/functions/lib';
 	import { applyMods, compileStatModsForChecking } from '$lib/functions/statHelpers';
-	import { applyTrapMods } from '$lib/functions/trapHelpers';
+	import { applyTrapMods, filterTraps } from '$lib/functions/trapHelpers';
 	import EliteToggle from './EliteToggle.svelte';
 	import EnemyCount from './EnemyCount.svelte';
 	import EnemyStatDisplay from './EnemyStatDisplay.svelte';
@@ -20,14 +20,20 @@
 		normalMods,
 		eliteMods,
 		rogueTopic,
-		selectedRelics;
+		selectedRelics,
+		otherStores;
 
 	$: moddedEnemies = applyMods(enemies, mapConfig.id, $statMods, $specialMods);
 	$: moddedTraps = applyTrapMods(traps, $statMods, $specialMods);
-	$: modsCheck = compileStatModsForChecking(pruneExtraEnemies(enemies,mapConfig.levelId), mapConfig.id, $statMods, $specialMods);
+	$: modsCheck = compileStatModsForChecking(
+		pruneExtraEnemies(enemies, mapConfig.levelId),
+		mapConfig.id,
+		$statMods,
+		$specialMods
+	);
 </script>
 
-<EnemyWaves {mapConfig} enemies={moddedEnemies} {language} eliteMode={$eliteMode} {rogueTopic}>
+<EnemyWaves {mapConfig} enemies={moddedEnemies} {language} eliteMode={$eliteMode} {rogueTopic} {otherStores}>
 	<EliteToggle
 		slot="eliteMods"
 		inWaveOptions={true}
@@ -41,9 +47,19 @@
 		stageId={mapConfig.levelId}
 	/>
 </EnemyWaves>
-<TrapContainer {language} traps={moddedTraps} {otherBuffsList} specialMods={$specialMods} />
+<TrapContainer
+	{language}
+	traps={filterTraps(moddedTraps)}
+	{otherBuffsList}
+	specialMods={$specialMods}
+/>
 <ModsCheck {language} {modsCheck} {mapConfig} />
-<EnemyCount {mapConfig} enemies={pruneExtraEnemies(moddedEnemies,mapConfig.levelId)} eliteMode={$eliteMode} {language} />
+<EnemyCount
+	{mapConfig}
+	enemies={pruneExtraEnemies(moddedEnemies, mapConfig.levelId)}
+	eliteMode={$eliteMode}
+	{language}
+/>
 <div class="sm:px-6">
 	<EliteToggle
 		{eliteMode}
@@ -55,7 +71,12 @@
 		{selectedRelics}
 		stageId={mapConfig.levelId}
 	/>
-	<EnemyStatDisplay enemies={pruneExtraEnemies(moddedEnemies,mapConfig.levelId)} {language} {specialMods} {otherBuffsList} />
+	<EnemyStatDisplay
+		enemies={pruneExtraEnemies(moddedEnemies, mapConfig.levelId)}
+		{language}
+		{specialMods}
+		{otherBuffsList}
+	/>
 	<div id="stageNav" class="mt-8 sm:mt-16 scroll-mt-20">
 		<slot name="nav" />
 	</div>

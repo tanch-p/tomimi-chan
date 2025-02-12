@@ -306,22 +306,6 @@ export class AssetManager {
 				);
 			}
 		}
-		promises.push(
-			new Promise((resolve, reject) => {
-				this.gltfLoader.load(
-					`curse.glb`,
-					(gltf) => {
-						resolve(gltf);
-					},
-					undefined,
-					(error) => {
-						reject(error);
-					}
-				);
-			}).then((gltf) => {
-				this.models.set('curse', gltf.scene);
-			})
-		);
 		const enemyKeys = mapConfig.enemies.reduce((acc, curr) => {
 			if (!acc.includes(curr.prefabKey)) {
 				acc.push(curr.prefabKey);
@@ -367,12 +351,12 @@ export class AssetManager {
 
 		for (const trap of mapConfig.traps) {
 			const key = trap.key;
-			if (this.spineMap.has(key)) {
-				continue;
-			}
 			const modelType = getTrapModelType(key);
 			switch (modelType) {
 				case 'spine':
+					if (this.spineMap.has(key)) {
+						continue;
+					}
 					promises.push(
 						new Promise<void>((resolve, reject) => {
 							this.spineAssetManager.loadBinary(`${key}/${key}.skel`);
@@ -400,6 +384,9 @@ export class AssetManager {
 					);
 					break;
 				case 'model':
+					if (this.models.has(key)) {
+						continue;
+					}
 					promises.push(
 						new Promise((resolve, reject) => {
 							this.gltfLoader.load(
@@ -429,5 +416,6 @@ export class AssetManager {
 		this.spineMap.clear();
 		this.textures.clear();
 		this.models.clear();
+		this.spineAssetManager.removeAll();
 	}
 }

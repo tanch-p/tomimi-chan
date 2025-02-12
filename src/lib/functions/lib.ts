@@ -91,7 +91,7 @@ export const getStageData = async (stageName) => {
 	const data = await import(
 		`../data/stages/ro_stage_data/level_${levelId.replace('level_', '')}.json`
 	);
-	return data;
+	return data?.default;
 };
 
 export const getTrapFormIndex = (list, index) => {

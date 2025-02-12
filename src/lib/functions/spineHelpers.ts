@@ -65,7 +65,7 @@ export function getIdleAnimName(key, skel, state) {
 		case 'enemy_2037_sygirl':
 		case 'enemy_2081_skztxs':
 		case 'enemy_2082_skzdd':
-        case 'trap_762_skztxy':
+		case 'trap_762_skztxy':
 			return 'C1_Idle';
 
 		case 'enemy_1384_winfrz':
@@ -76,7 +76,10 @@ export function getIdleAnimName(key, skel, state) {
 			return 'F_Idle';
 
 		default:
-			return 'Idile';
+			if (skel.state.hasAnimation('Idile')) {
+				return 'Idile';
+			}
+			return 'Default';
 	}
 }
 
