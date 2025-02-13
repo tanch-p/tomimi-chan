@@ -15,14 +15,14 @@ export class GameConfig {
 	static state = 'loading';
 	static subscribers = new Set();
 
-	static subscribe(key,callback) {
-		this.subscribers.add(callback);
-		return () => this.subscribers.delete(callback);
+	static subscribe(key, callback) {
+		this.subscribers.add({ key, callback });
+		return () => this.subscribers.delete({ key, callback });
 	}
 
 	static setValue(key, value) {
 		this[key] = value;
-		this.subscribers.forEach((callback) => callback(value));
+		this.subscribers.forEach(({ key: cbKey, callback }) => cbKey === key && callback(value));
 	}
 
 	static getValue(key) {

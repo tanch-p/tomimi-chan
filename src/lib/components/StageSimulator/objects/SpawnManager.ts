@@ -35,7 +35,7 @@ class SpawnManager {
 	// Main update function to be called in animation loop
 	update(delta) {
 		GameConfig.scaledElapsedTime += delta;
-		GameConfig.waveElapsedTime += delta;
+		GameConfig.setValue("waveElapsedTime", GameConfig.waveElapsedTime + delta);
 		GameConfig.fragmentElapsedTime += delta;
 		if (this.currentWaveIndex >= this.waves.length) {
 			this.isFinished = true;

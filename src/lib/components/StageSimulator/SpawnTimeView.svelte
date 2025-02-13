@@ -5,7 +5,7 @@
 	import { page } from '$app/stores';
 	import { wavePrefixSuffix } from '$lib/functions/languageHelpers';
 	import { writable } from 'svelte/store';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 
 	export let game: Game, waves, mapConfig;
 
@@ -15,19 +15,16 @@
 	let index = 0;
 	let language: Language;
 	let showTimeline = true;
-	let waveElapsedTime = writable(0);
+	let waveElapsedTime = 0;
 
 	$: language = $page.data.language;
-	$: trackAndScrollContainer($waveElapsedTime);
 	$: GameConfig.showTimeline.subscribe((v) => (showTimeline = v));
 
 	// Sync class -> store
 	let unsubscribe;
 	onMount(() => {
-		unsubscribe = GameConfig.subscribe('scaledElapsedTime', (value) => {
-			if ($waveElapsedTime !== value) {
-				waveElapsedTime.set(value);
-			}
+		unsubscribe = GameConfig.subscribe('waveElapsedTime', (value) => {
+			trackAndScrollContainer(value);
 		});
 	});
 
