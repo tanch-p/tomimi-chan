@@ -9,28 +9,27 @@
 	import Settings from './Settings.svelte';
 	import { GameConfig } from './objects/GameConfig';
 
-	export let waveData, mapConfig: MapConfig, enemies: Enemy[];
+	export let timeline, mapConfig: MapConfig, waveData, enemies: Enemy[];
 
 	let count, waves;
 	let assetManager: AssetManager, canvasElement: HTMLCanvasElement, game: Game;
 	// let gameInstances: Game[] = [];
 
-	$: count = waveData.count;
-	$: waves = waveData.waves;
+	$: count = timeline.count;
+	$: waves = timeline.waves;
 
-	$: if (waveData) {
+	$: if (timeline) {
 		resetGame();
 	}
-	
+
 	function resetGame() {
 		GameConfig.isPaused = false;
 		if (game) {
-			game.reset(mapConfig, waves, enemies);
+			game.reset(mapConfig, waveData, enemies);
 		}
 	}
 
 	async function loadGame(mapConfig) {
-		console.log('running');
 		if (game) {
 			game.stop();
 		}
@@ -40,8 +39,8 @@
 		await assetManager.loadAssets(mapConfig);
 		resetGame();
 		if (!game) {
-			game = new Game(canvasElement, mapConfig, waves, enemies);
-			game.state.set('ready');
+			game = new Game(canvasElement, mapConfig, waveData, enemies);
+			GameConfig.state = 'ready';
 		}
 	}
 

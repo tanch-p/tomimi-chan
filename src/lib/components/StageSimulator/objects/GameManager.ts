@@ -7,6 +7,7 @@ import { generateMaze } from '$lib/functions/mazeHelpers';
 import { Enemy } from './Enemy';
 import { writable } from 'svelte/store';
 import { SPFA } from './SPFA';
+import { Trap } from './Trap';
 
 export class GameManager {
 	assetManager: AssetManager;
@@ -17,9 +18,7 @@ export class GameManager {
 	mazeLayout: number[][];
 	enemies: EnemyType[];
 	enemiesOnMap: Enemy[] = [];
-	traps = [];
-	scaledElapsedTime = writable(0); // Total game-time elapsed
-	public waveElapsedTime = 0;
+	traps: Trap[] = [];
 	pathFinder: SPFA;
 	noEnemyAlive = false;
 	killedCount = writable(0);
@@ -119,13 +118,11 @@ export class GameManager {
 	}
 
 	reset(config, enemies, objects) {
-		this.scaledElapsedTime.set(0);
 		this.enemies = enemies;
 		this.config = config;
 		this.objects = objects;
 		const mazeLayout = generateMaze(config.mapData.map, config.mapData.tiles);
 		this.mazeLayout = mazeLayout;
-		this.waveElapsedTime = 0;
 		this.enemiesOnMap = [];
 		this.traps = [];
 		this.noEnemyAlive = false;
@@ -134,10 +131,6 @@ export class GameManager {
 
 	update(deltaTime: number) {
 		this.noEnemyAlive = this.enemiesOnMap.every((enemy) => !enemy.alive);
-		let totalTime = 0;
-		this.scaledElapsedTime.subscribe((v) => (totalTime = v));
-		this.scaledElapsedTime.set(totalTime + deltaTime);
-		this.waveElapsedTime += deltaTime;
 		for (const enemy of this.enemiesOnMap.filter((ele) => ele.alive)) {
 			enemy.update(deltaTime);
 		}

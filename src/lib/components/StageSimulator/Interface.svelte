@@ -5,7 +5,6 @@
 
 	let state,
 		totalTime = 0,
-		waveElapsedTime = 0,
 		min = 0,
 		sec = 0;
 	function handleSpeedFactor() {
@@ -21,23 +20,18 @@
 	function handlePause() {
 		GameConfig.isPaused = !GameConfig.isPaused;
 	}
-	game.state.subscribe((v) => (state = v));
-	game.gameManager.scaledElapsedTime.subscribe((v) => {
-		totalTime = v;
-		waveElapsedTime = game.gameManager.waveElapsedTime;
-	});
-	$: min = Math.floor(waveElapsedTime / 60);
-	$: sec = Math.floor(waveElapsedTime % 60);
+	$: min = Math.floor(GameConfig.scaledElapsedTime / 60);
+	$: sec = Math.floor(GameConfig.scaledElapsedTime % 60);
 </script>
 
-{#if state === 'ready'}
+{#if GameConfig.state === 'ready'}
 	<div
 		class="absolute z-[2] inset-0 flex items-center justify-center bg-black bg-opacity-10 pointer-events-none"
 	>
 		<p>Touch to begin</p>
 	</div>
 {/if}
-{#if state === 'end'}
+{#if GameConfig.state === 'end'}
 	<div
 		class="absolute z-[2] inset-0 flex items-center justify-center bg-black bg-opacity-10 pointer-events-none"
 	>

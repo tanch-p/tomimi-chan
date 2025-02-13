@@ -95,6 +95,7 @@ export class Enemy {
 	}
 
 	initModel() {
+		console.log(this.key);
 		const hitBoxGeo = new THREE.CircleGeometry(GameConfig.gridSize * 0.1, 32);
 		const shadowGeometry = new THREE.PlaneGeometry(
 			GameConfig.gridSize * 0.8,
@@ -121,6 +122,9 @@ export class Enemy {
 		this.meshGroup.add(shadowMesh, hitBoxMesh);
 		this.hitbox = hitBoxMesh;
 		const skeletonData = this.assetManager.spineMap.get(this.key);
+		if (!skeletonData) {
+			return;
+		}
 		// console.log(skeletonData);
 		const skeletonMesh = new spine.SkeletonMesh(skeletonData, (parameters) => {
 			parameters.depthTest = false;
@@ -354,6 +358,9 @@ export class Enemy {
 	}
 
 	update(delta: number) {
+		if (!this.skel) {
+			return;
+		}
 		this.skel.update(delta);
 		this.glowSpine.update(delta);
 		if (this.entry) {
@@ -369,6 +376,7 @@ export class Enemy {
 
 		if (this.standbyTime > 0) {
 			if (this.waitElapsedTime === 0) {
+				this.waitTimer.setColor(0x5f7af7);
 				this.handleIdle();
 				this.waitTimer.getMesh().visible = GameConfig.showAllTimers || this.selected;
 				this.waitElapsedTime += delta;
@@ -381,6 +389,7 @@ export class Enemy {
 				this.standbyTime = 0;
 				this.waitElapsedTime = 0;
 				this.waitTimer.getMesh().visible = false;
+				this.waitTimer.setColor(0xf08080);
 			}
 			return;
 		}
@@ -451,11 +460,11 @@ export class Enemy {
 					this.handleIdle();
 					this.waitElapsedTime += delta;
 				} else {
-					this.waitTimer.updateTimer(time - this.gameManager.waveElapsedTime);
+					this.waitTimer.updateTimer(time - GameConfig.waveElapsedTime);
 					this.waitElapsedTime += delta;
 				}
 
-				if (this.gameManager.waveElapsedTime >= time) {
+				if (GameConfig.waveElapsedTime >= time) {
 					this.waitElapsedTime = 0;
 					this.waitTimer.getMesh().visible = false;
 					this.currentActionIndex++;

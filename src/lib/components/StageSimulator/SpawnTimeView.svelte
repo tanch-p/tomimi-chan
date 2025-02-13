@@ -4,22 +4,35 @@
 	import { GameConfig } from './objects/GameConfig';
 	import { page } from '$app/stores';
 	import { wavePrefixSuffix } from '$lib/functions/languageHelpers';
+	import { writable } from 'svelte/store';
+	import { onMount } from 'svelte';
 
-	export let game: Game, waves,mapConfig;
+	export let game: Game, waves, mapConfig;
 
 	let timelineContainer: HTMLDivElement, actionsContainer: HTMLDivElement;
-	let waveElapsedTime: number, scaledElapsedTime: number;
 	let prevActionIndex = 0,
 		currWaveIndex = 0;
 	let index = 0;
 	let language: Language;
 	let showTimeline = true;
+	let waveElapsedTime = writable(0);
 
 	$: language = $page.data.language;
+	$: trackAndScrollContainer($waveElapsedTime);
+	$: GameConfig.showTimeline.subscribe((v) => (showTimeline = v));
 
-	game.gameManager.scaledElapsedTime.subscribe((v) => {
-		scaledElapsedTime = v;
-		waveElapsedTime = game.gameManager.waveElapsedTime;
+	// Sync class -> store
+	let unsubscribe;
+	onMount(() => {
+		unsubscribe = GameConfig.subscribe('scaledElapsedTime', (value) => {
+			if ($waveElapsedTime !== value) {
+				waveElapsedTime.set(value);
+			}
+		});
+	});
+
+	onDestroy(() => {
+		if (unsubscribe) unsubscribe();
 	});
 
 	function trackAndScrollContainer(val: number) {
@@ -45,8 +58,6 @@
 			}
 		}
 	}
-	$: trackAndScrollContainer(waveElapsedTime);
-	$: GameConfig.showTimeline.subscribe((v) => (showTimeline = v));
 </script>
 
 <div class="absolute w-64 h-full p-4 {showTimeline ? '' : 'opacity-0 pointer-events-none'}">
@@ -65,14 +76,18 @@
 						</p>
 						<div class="flex flex-wrap">
 							{#each actions as { key }}
-								{@const prefabKey = mapConfig.enemies.find(enemy => enemy.id === key)?.prefabKey}
-								<img
-									src="/images/enemy_icons/{prefabKey}.webp"
-									width="50px"
-									height="50px"
-									alt={key}
-									class=""
-								/>
+								{#if !key.includes('trap')}
+									{@const prefabKey = mapConfig.enemies.find(
+										(enemy) => enemy.id === key
+									)?.prefabKey}
+									<img
+										src="/images/enemy_icons/{prefabKey}.webp"
+										width="50px"
+										height="50px"
+										alt={key}
+										class=""
+									/>
+								{/if}
 							{/each}
 						</div>
 					</div>
