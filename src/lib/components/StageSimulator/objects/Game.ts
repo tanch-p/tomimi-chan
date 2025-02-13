@@ -20,15 +20,15 @@ export class Game {
 	map: GameMap;
 	spawnManager: SpawnManager;
 	config;
-	waves;
+	waveData;
 	enemies: any[];
 	state = writable('load');
 	gameManager: GameManager;
 
-	constructor(canvasElement: HTMLCanvasElement, config: MapConfig, waves, enemies: EnemyType[]) {
+	constructor(canvasElement: HTMLCanvasElement, config: MapConfig, waveData, enemies: EnemyType[]) {
 		this.canvas = canvasElement;
 		this.config = config;
-		this.waves = waves;
+		this.waveData = waveData;
 		this.enemies = enemies;
 		this.objects = [];
 		this.assetManager = AssetManager.getInstance();
@@ -72,7 +72,7 @@ export class Game {
 
 		this.gameManager = new GameManager(config, this.scene, this.camera, this.objects, enemies);
 		this.map = new GameMap(this.gameManager);
-		this.spawnManager = new SpawnManager(waves, this.map, this.gameManager);
+		this.spawnManager = new SpawnManager(waveData, this.map, this.gameManager);
 
 		this.renderer.setAnimationLoop(() => this.render());
 	}
@@ -85,22 +85,25 @@ export class Game {
 		directionalLight.position.set(-1, 1, 1).normalize();
 		this.scene.add(directionalLight);
 	}
-	stop(){
-		this.state.set('stop');
+	stop() {
+		GameConfig.state = 'stop';
 		this.renderer.setAnimationLoop(null);
 	}
 
-	reset(config, waves, enemies) {
+	reset(config, waveData, enemies) {
+		GameConfig.scaledElapsedTime = 0;
+		GameConfig.waveElapsedTime = 0;
+		GameConfig.fragmentElapsedTime = 0;
 		this.stop();
 		this.config = config;
-		this.waves = waves;
+		this.waveData = waveData;
 		this.objects = [];
 		this.clearScene(this.scene);
 		this.gameManager.reset(config, enemies, this.objects);
 		this.map = new GameMap(this.gameManager);
-		this.spawnManager = new SpawnManager(waves, this.map, this.gameManager);
+		this.spawnManager = new SpawnManager(waveData, this.map, this.gameManager);
 		this.initLights();
-		this.state.set('ready');
+		GameConfig.state = 'ready';
 		this.renderer.setAnimationLoop(() => this.render());
 	}
 
@@ -125,13 +128,11 @@ export class Game {
 			((event.clientX - rect.left) / rect.width) * 2 - 1,
 			-((event.clientY - rect.top) / rect.height) * 2 + 1
 		);
-		let state;
-		this.state.subscribe((v) => (state = v));
-		if (['reset', 'loading','stop'].includes(state)) {
+		if (['reset', 'loading', 'stop'].includes(GameConfig.state)) {
 			return;
 		}
-		if (state === 'ready') {
-			return this.state.set('running');
+		if (GameConfig.state === 'ready') {
+			return (GameConfig.state = 'running');
 		}
 
 		this.raycaster.setFromCamera(this.pointer, this.camera);
@@ -158,19 +159,17 @@ export class Game {
 		}
 	}
 	render() {
-		let state, scaledElapsedTime;
-		this.state.subscribe((v) => (state = v));
-		this.gameManager.scaledElapsedTime.subscribe((v) => (scaledElapsedTime = v));
 		const deltaTime = this.clock.getDelta() * GameConfig.speedFactor;
 		if (
-			((state === 'ready' && scaledElapsedTime < 0.4) || state === 'running') &&
+			((GameConfig.state === 'ready' && GameConfig.scaledElapsedTime < 0.4) ||
+				GameConfig.state === 'running') &&
 			!GameConfig.isPaused
 		) {
-			this.spawnManager.update();
+			this.spawnManager.update(deltaTime);
 			this.gameManager.update(deltaTime);
 		}
 		if (this.spawnManager.isFinished && this.gameManager.noEnemyAlive) {
-			this.state.set('end');
+			GameConfig.state = 'end';
 		}
 		this.renderer.render(this.scene, this.camera);
 	}

@@ -5,6 +5,7 @@ import { GameManager } from './GameManager';
 export class CountdownSprite {
 	private group: THREE.Group;
 	private textMesh: THREE.Mesh;
+	private color = 0xf08080;
 	private circleMaterial: THREE.MeshBasicMaterial;
 	private circle: THREE.Mesh;
 	private static circleGeometry: THREE.CircleGeometry;
@@ -28,7 +29,7 @@ export class CountdownSprite {
 	private setupMeshes(): void {
 		// Create materials
 		this.circleMaterial = new THREE.MeshBasicMaterial({
-			color: 0xf08080,
+			color: this.color,
 			transparent: true,
 			depthTest: false
 		});
@@ -55,7 +56,7 @@ export class CountdownSprite {
 
 	public updateTimer(time: number): void {
 		// Update color based on time
-		const color = time <= 5 ? 0xdc143c : 0xf08080;
+		const color = time <= 5 ? 0xdc143c : this.color;
 		this.circleMaterial.color.setHex(color);
 
 		// Update text
@@ -100,6 +101,10 @@ export class CountdownSprite {
 		while (this.group.children.length > 0) {
 			this.group.remove(this.group.children[0]);
 		}
+	}
+
+	public setColor(val): void {
+		this.color = val;
 	}
 
 	// Static cleanup method

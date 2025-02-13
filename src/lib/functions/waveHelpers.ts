@@ -188,18 +188,21 @@ export const getTrapOptions = (rogueTopic: RogueTopic, language: Language) => {
 export const handleOptionsUpdate = (hiddenGroups, key, rogueTopic: RogueTopic, otherStores) => {
 	const fragmentKeys = ['hidden_door', 'hidden_window', 'box_1', 'box_3'];
 	if (key === 'calamity') {
-		const disasterEffects = otherStores.disaster;
-		let difficulty = 0;
-		const level = $difficulty < 5 ? 1 : $difficulty < 11 ? 2 : 3;
+		let level = 1;
+		otherStores.difficulty.subscribe((n) => {
+			level = n < 5 ? 1 : n < 11 ? 2 : 3;
+		});
 		const effect = disasters.find(
 			(ele) => ele.iconId === 'rogue_4_disaster_1' && ele.level === level
 		);
-
-		if (!$disasterEffects.find((ele) => ele.id === effect.id)) {
-			disasterEffects.set([effect]);
-		} else {
-			disasterEffects.set([]);
-		}
+		otherStores.disaster.update((list) => {
+			if (list.find((ele) => ele.id === effect.id)) {
+				list = [];
+			} else {
+				list = [effect];
+			}
+			return list;
+		});
 	}
 	switch (rogueTopic) {
 		case 'rogue_sami':
@@ -346,56 +349,24 @@ function randomGroupResolver(randomGroups) {
 	return groupCollector;
 }
 
-export const generateWaveTimeline = (mapConfig, hiddenGroups, eliteMode, permutation, levelId) => {
-	console.log(permutation);
+export const generateWaveTimeline = (mapConfig, hiddenGroups, permutation, levelId) => {
 	if (!permutation) return;
 
 	let totalCount = 0;
-	const modeKey = eliteMode ? mapConfig['ELITE'].groupKey : mapConfig['NORMAL'].groupKey;
-	if (modeKey) {
-		hiddenGroups = [...hiddenGroups, modeKey];
-	}
 	const waveTimelines = [];
-	const { waves, bonus } = mapConfig;
-	console.log(bonus);
+	const { waves } = mapConfig;
 	waves.forEach((wave, waveIdx) => {
-		if (bonus?.type === 'wave' && waveIdx === bonus.wave_index) return;
-
 		let prevPhaseTime = 0;
 		let spawns = {};
 		let waveBlockingSpawns = {};
 		wave['fragments'].forEach((fragment, fragIndex) => {
-			if (
-				bonus?.type === 'fragment' &&
-				waveIdx === bonus.wave_index &&
-				fragIndex === bonus.frag_index
-			) {
-				return;
-			}
-
 			prevPhaseTime += fragment['preDelay'];
 
-			const groups = [];
-			for (const action of fragment['actions']) {
-				const { actionType, randomSpawnGroupKey, randomSpawnGroupPackKey, hiddenGroup } = action;
-				if (actionType !== 'SPAWN') {
-					if (!(levelId == 'level_rogue4_4-10' && action['key'] == 'trap_760_skztzs#0')) {
-						continue;
-					}
-				}
-				if (hiddenGroup && !hiddenGroups.includes(hiddenGroup)) {
-					continue;
-				}
-				if (randomSpawnGroupKey || randomSpawnGroupPackKey) {
-					groups.push(action);
-				}
-			}
-			const random_groups = groupResolver(groups);
-			const packedGroups = randomGroupResolver(random_groups);
+			const packedGroups = getRandomGroups(fragment, hiddenGroups);
 			const key = `w${waveIdx}f${fragIndex}`;
 			let groupActions = [];
 			for (const [groupKey, list] of Object.entries(packedGroups)) {
-				const choice = permutation.permutation?.[key]?.[groupKey];
+				const choice = permutation?.[key]?.[groupKey];
 				if (list?.[choice]) {
 					groupActions = groupActions.concat(list[choice]);
 				}
@@ -450,9 +421,45 @@ export const generateWaveTimeline = (mapConfig, hiddenGroups, eliteMode, permuta
 			timeline: spawnList
 		});
 	});
-	console.log(totalCount);
-	console.log(waveTimelines);
+	// console.log(waveTimelines);
 	return { waves: waveTimelines, count: totalCount };
+};
+
+export const parseWaves = (mapConfig, permutation, hiddenGroups) => {
+	const waves = structuredClone(mapConfig.waves);
+	waves.forEach((wave, waveIdx) => {
+		const fragments = [];
+		wave['fragments'].forEach((fragment, fragIndex) => {
+			const copy = structuredClone(fragment);
+			const key = `w${waveIdx}f${fragIndex}`;
+			const actions = [];
+
+			let groupActions = [];
+			const packedGroups = getRandomGroups(fragment, hiddenGroups);
+			for (const [groupKey, list] of Object.entries(packedGroups)) {
+				const choice = permutation?.[key]?.[groupKey];
+				if (list?.[choice]) {
+					groupActions = groupActions.concat(list[choice]);
+				}
+			}
+			for (const action of groupActions) {
+				actions.push(action);
+			}
+			for (const action of fragment['actions']) {
+				if (action['randomSpawnGroupKey'] || action['randomSpawnGroupPackKey']) {
+					continue;
+				}
+				if (action['hiddenGroup'] && !hiddenGroups.includes(action['hiddenGroup'])) {
+					continue;
+				}
+				actions.push(action);
+			}
+			copy.actions = actions;
+			fragments.push(copy);
+		});
+		wave.fragments = fragments;
+	});
+	return waves;
 };
 
 const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime) => {
@@ -505,4 +512,81 @@ const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime) => {
 			}
 		}
 	}
+};
+
+export const getRandomGroups = (fragment, hiddenGroups) => {
+	const groups = [];
+	for (const action of fragment['actions']) {
+		const { actionType, randomSpawnGroupKey, randomSpawnGroupPackKey, hiddenGroup } = action;
+		if (!['SPAWN', 'ACTIVATE_PREDEFINED'].includes(actionType)) {
+			continue;
+		}
+		if (hiddenGroup && !hiddenGroups.includes(hiddenGroup)) {
+			continue;
+		}
+		if (randomSpawnGroupKey || randomSpawnGroupPackKey) {
+			groups.push(action);
+		}
+	}
+	const random_groups = groupResolver(groups);
+	const packedGroups = randomGroupResolver(random_groups);
+	return packedGroups;
+};
+
+export const compileHiddenGroups = (hiddenGroups, eliteMode, mapConfig) => {
+	const modeKey = eliteMode ? mapConfig['ELITE'].groupKey : mapConfig['NORMAL'].groupKey;
+	let groups = structuredClone(hiddenGroups);
+	if (modeKey) {
+		groups = [...groups, modeKey];
+	}
+	return groups;
+};
+
+export const initialisePermGroupsChoices = (mapConfig, eliteMode) => {
+	const modeKey = eliteMode ? mapConfig['ELITE'].groupKey : mapConfig['NORMAL'].groupKey;
+	const hiddenGroups = [];
+	if (modeKey) {
+		hiddenGroups.push(modeKey);
+	}
+	const permutation = {};
+	mapConfig.waves.forEach((wave, waveIdx) => {
+		wave.fragments.forEach((fragment, fragIdx) => {
+			const key = `w${waveIdx}f${fragIdx}`;
+			const groups = {};
+			for (const action of fragment.actions) {
+				const { hiddenGroup, randomSpawnGroupKey } = action;
+				if (hiddenGroup && !hiddenGroups.includes(hiddenGroup)) {
+					continue;
+				}
+				if (randomSpawnGroupKey && !groups[randomSpawnGroupKey]) {
+					groups[randomSpawnGroupKey] = 0;
+				}
+			}
+			if (Object.keys(groups).length > 0) {
+				permutation[key] = {};
+				for (const [groupKey, val] of Object.entries(groups)) {
+					permutation[key][groupKey] = val;
+				}
+			}
+		});
+	});
+	return structuredClone(permutation);
+};
+
+export const getRandomChance = (weight, choice) => {
+	if (Array.isArray(weight)) {
+		const actions = weight;
+		const w = actions.find((action) => action.randomSpawnGroupKey)?.weight;
+		const totalWeight = choice.reduce((acc, pack) => {
+			const curr = pack.find((action) => action.randomSpawnGroupKey)?.weight;
+			acc += curr;
+			return acc;
+		}, 0);
+		return Math.round((w / totalWeight) * 100);
+	}
+	const totalWeight = choice.reduce((acc, curr) => {
+		acc += curr.weight;
+		return acc;
+	}, 0);
+	return Math.round((weight / totalWeight) * 1000) / 10;
 };

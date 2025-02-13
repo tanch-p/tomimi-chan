@@ -15,7 +15,7 @@ export class Trap {
 	skel;
 	direction;
 	position;
-	hideTile:boolean;
+	hideTile: boolean;
 	meshGroup = new THREE.Group();
 	gameManager: GameManager;
 	constructor(data, gameManager: GameManager) {
@@ -26,7 +26,6 @@ export class Trap {
 		this.hideTile = trap.hideTile;
 		this.direction = data.direction;
 		this.position = data.position;
-		console.log(data.key, this.direction);
 		this.type = trap.modelType;
 		this.initModel(trap.modelType);
 		this.gameManager = gameManager;
@@ -49,7 +48,7 @@ export class Trap {
 					if (!skeletonData) {
 						return;
 					}
-					console.log(skeletonData);
+					// console.log(skeletonData);
 					const skeletonMesh = new spine.SkeletonMesh(skeletonData, (parameters) => {
 						parameters.depthTest = false;
 					});

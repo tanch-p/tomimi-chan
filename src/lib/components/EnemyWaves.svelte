@@ -3,14 +3,17 @@
 	import translations from '$lib/translations.json';
 	import TogglePanel from './TogglePanel.svelte';
 	import {
+		compileHiddenGroups,
 		generateWaveTimeline,
 		getEnemyCountPermutations,
 		getOptions,
-		handleOptionsUpdate
+		handleOptionsUpdate,
+		parseWaves
 	} from '$lib/functions/waveHelpers';
 	import DraggableContainer from './DraggableContainer.svelte';
 	import DLDGPN from '$lib/images/is/DLDGPN.webp';
 	import StageSimulator from '$lib/components/StageSimulator/index.svelte';
+	import RandomGroupList from './RandomGroupList.svelte';
 
 	export let mapConfig,
 		enemies,
@@ -21,14 +24,10 @@
 
 	let hiddenGroups = [],
 		enemyCounts = [],
+		selectedPermGroups = {},
 		selectedCountIndex = 0,
-		selectedPermutationIdx = 0;
-	$: if (mapConfig) {
-		selectedCountIndex = 0;
-		selectedPermutationIdx = 0;
-	}
-
-	$: hasAnalysis = !mapConfig.id.includes('_duel_');
+		selectedPermutationIdx = 0,
+		mode = 'predefined';
 	$: options = getOptions(mapConfig, rogueTopic, language);
 	$: permutations = getEnemyCountPermutations(mapConfig, hiddenGroups, eliteMode);
 	$: enemyCounts = permutations.reduce((acc, { count }) => {
@@ -44,20 +43,31 @@
 		return acc;
 	}, []);
 
-	if (rogueTopic === 'rogue_skz') {
-		otherStores.disaster.subscribe((v) => {
-			if (v[0]?.iconId === 'rogue_4_disaster_1') {
-				hiddenGroups.push('calamity');
-			} else {
-				hiddenGroups = hiddenGroups.filter((key) => key !== 'calamity');
-			}
-		});
+	$: if (mapConfig) {
+		selectedCountIndex = 0;
+		selectedPermutationIdx = 0;
 	}
+	$: if (rogueTopic) {
+		hiddenGroups = [];
+	}
+
+	$: hasAnalysis = !mapConfig.id.includes('_duel_');
+
+	otherStores?.disaster?.subscribe((v) => {
+		if (v?.[0]?.iconId === 'rogue_4_disaster_1') {
+			hiddenGroups = [...hiddenGroups, 'calamity'];
+		} else {
+			hiddenGroups = hiddenGroups.filter((key) => key !== 'calamity');
+		}
+	});
+	$: console.log(selectedPermGroups);
 </script>
 
 {#if hasAnalysis}
 	<TogglePanel title={translations[language].enemy_routes} size="subheading" isOpen={true}>
-		<div class="grid grid-cols-[120px_1fr] divide-y divide-neutral-700 border-y border-neutral-700">
+		<div
+			class="grid grid-cols-[75px_1fr] md:grid-cols-[120px_1fr] divide-y divide-neutral-700 border-y border-neutral-700 text-sm md:text-base"
+		>
 			{#if mapConfig.elite_mods}
 				<p class="title">{translations[language].operation_type}</p>
 				<slot name="eliteMods" />
@@ -71,59 +81,92 @@
 							class="flex flex-col items-center border border-neutral-700 py-1 {selected
 								? 'bg-gray-600'
 								: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
-							on:click={() => (hiddenGroups = handleOptionsUpdate(hiddenGroups, key, rogueTopic, otherStores))}
+							on:click={() =>
+								(hiddenGroups = handleOptionsUpdate(hiddenGroups, key, rogueTopic, otherStores))}
 						>
 							<div class="flex items-center justify-center h-[56px]">
 								<img {src} width="56" height="56" alt={name} class="" />
 							</div>
-							<span class="mt-1 text-xs md:text-sm">{name}</span>
+							<span class="mt-1 text-xs md:text-sm truncate">{name}</span>
 						</button>
 					{/each}
 				</div>
 			{/if}
-			<p class="title">{translations[language].enemy_count}</p>
-			<DraggableContainer className="grid grid-flow-col auto-cols-[minmax(100px,1fr)]">
-				{#each enemyCounts as count, i}
+			<p class="title">{translations[language].permutation_mode}</p>
+			<div class="grid grid-cols-2">
+				{#each ['predefined', 'user-select'] as key}
 					<button
-						class="flex justify-center items-center border-r border-neutral-700 font-semibold text-xl {selectedCountIndex ===
-						i
-							? 'bg-gray-600'
+						class="flex justify-center items-center border-r border-neutral-700 font-semibold text-xl {mode ===
+						key
+							? 'bg-slate-700'
 							: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
-						on:click={() => (selectedCountIndex = i)}
+						on:click={() => (mode = key)}
 					>
-						{count}
+						{translations[language][key]}
 					</button>
 				{/each}
-			</DraggableContainer>
-			{#if permutationsToShow.length > 0}
-				<p class="title">{translations[language].permutation}</p>
-				<DraggableContainer className="grid grid-flow-col auto-cols-[minmax(120px,1fr)]">
-					{#each permutationsToShow as { bonus }, i}
+			</div>
+			{#if mode === 'predefined'}
+				<p class="title">{translations[language].enemy_count}</p>
+				<DraggableContainer className="grid grid-flow-col auto-cols-[minmax(100px,1fr)]">
+					{#each enemyCounts as count, i}
 						<button
-							class="flex justify-center items-center border-r border-neutral-700 font-semibold text-xl {selectedPermutationIdx ===
+							class="flex justify-center items-center border-r border-neutral-700 font-semibold text-xl {selectedCountIndex ===
 							i
-								? 'bg-neutral-600'
+								? 'bg-gray-600'
 								: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
-							on:click={() => (selectedPermutationIdx = i)}
+							on:click={() => (selectedCountIndex = i)}
 						>
-							{i + 1}
-							{#if bonus}
-								<span class="mx-3">+</span>
-								<img src={DLDGPN} width="56" height="56" alt="bonus" />
-							{/if}
+							{count}
 						</button>
 					{/each}
 				</DraggableContainer>
+				{#if permutationsToShow.length > 0}
+					<p class="title">{translations[language].permutation}</p>
+					<DraggableContainer className="grid grid-flow-col auto-cols-[minmax(120px,1fr)]">
+						{#each permutationsToShow as { bonus }, i}
+							<button
+								class="flex justify-center items-center border-r border-neutral-700 font-semibold text-xl {selectedPermutationIdx ===
+								i
+									? 'bg-neutral-600'
+									: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
+								on:click={() => (selectedPermutationIdx = i)}
+							>
+								{i + 1}
+								{#if bonus}
+									<span class="mx-3">+</span>
+									<img src={DLDGPN} width="56" height="56" alt="bonus" />
+								{/if}
+							</button>
+						{/each}
+					</DraggableContainer>
+				{/if}
+			{:else}
+				<RandomGroupList
+					bind:selectedPermGroups
+					{eliteMode}
+					{mapConfig}
+					hiddenGroups={compileHiddenGroups(hiddenGroups, eliteMode, mapConfig)}
+					{language}
+				/>
 			{/if}
 		</div>
 		<StageSimulator
 			{mapConfig}
 			{enemies}
-			waveData={generateWaveTimeline(
+			waveData={parseWaves(
 				mapConfig,
-				hiddenGroups,
-				eliteMode,
-				permutationsToShow[selectedPermutationIdx],
+				mode === 'predefined'
+					? permutationsToShow[selectedPermutationIdx]?.permutation
+					: selectedPermGroups,
+				compileHiddenGroups(hiddenGroups, eliteMode, mapConfig)
+			)}
+			timeline={generateWaveTimeline(
+				mapConfig,
+				compileHiddenGroups(hiddenGroups, eliteMode, mapConfig),
+				mode === 'predefined'
+					? permutationsToShow[selectedPermutationIdx]?.permutation
+					: selectedPermGroups,
 				mapConfig.levelId
 			)}
 		/>
