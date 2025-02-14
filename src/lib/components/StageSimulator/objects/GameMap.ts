@@ -42,7 +42,7 @@ export class GameMap {
 		map.forEach((row, rowIdx) =>
 			row.forEach((tileIndex, colIdx) => {
 				const group = new THREE.Group();
-				const [tileName, heightType] = tiles[tileIndex];
+				const [tileName, heightType,mask, blackboard, buildableType] = tiles[tileIndex];
 				const tileGroup = this.gameManager.tileManager.get(tiles[tileIndex]);
 				const { x, y } = this.gameManager.getVectorCoordinates(
 					{
@@ -76,9 +76,12 @@ export class GameMap {
 						}
 						break;
 				}
-				this.gameManager.tiles.set(`${rowIdx},${colIdx}`, {
+				this.gameManager.tiles.set(`${colIdx},${rowIdx}`, {
 					tileName,
 					heightType,
+					mask,
+					buildableType,
+					blackboard,
 					mesh: tileGroup,
 					group: group
 				});

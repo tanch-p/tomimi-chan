@@ -212,7 +212,7 @@ export class Enemy {
 		const allSkills = this.traits.concat(specialList);
 		if (allSkills.some((skill) => skill.key.includes('stealth'))) {
 			this.buffs.push('stealth');
-			this.darkness = 0.2;
+			this.darkness = 0.4;
 		}
 
 		const skillsWithRange = allSkills.filter(
@@ -542,7 +542,7 @@ export class Enemy {
 		// cache.nodes.forEach((value, key) => {
 		// 	const [x, y] = key.split(',');
 		// 	const pos = this.gameManager.getVectorCoordinates(
-		// 		{ row: parseInt(y), col: parseInt(x) },
+		// 		{ row:y, col: x },
 		// 		null
 		// 	);
 		// 	const text = value.nextNode?.join(',') || '';

@@ -27,6 +27,8 @@ export class GameManager {
 	spawnManager: SpawnManager;
 	tiles = new Map();
 	tileManager: TileManager;
+	rollOverMeshes = new Map();
+	vectorToGridMap = new Map();
 
 	constructor(
 		config: MapConfig,
@@ -45,6 +47,9 @@ export class GameManager {
 		this.mazeLayout = mazeLayout;
 		this.pathFinder = new SPFA(mazeLayout);
 		this.tileManager = new TileManager(config.levelId);
+		this.initPlane();
+		this.initRollOverMeshes();
+		this.initVectorToGridMap();
 	}
 
 	getVectorCoordinates = (pos, reachOffset) => {
@@ -55,8 +60,8 @@ export class GameManager {
 			offSetY = reachOffset.y;
 		}
 		const { row, col } = pos;
-		const x = this.getCoordinate(col + offSetX, 'x');
-		const y = -this.getCoordinate(row - offSetY, 'y');
+		const x = this.getCoordinate(parseInt(col) + offSetX, 'x');
+		const y = -this.getCoordinate(parseInt(row) - offSetY, 'y');
 		return { x, y };
 	};
 
@@ -64,6 +69,16 @@ export class GameManager {
 		const center = type === 'x' ? this.mazeLayout[0].length / 2 : this.mazeLayout.length / 2;
 		return (coordinate - center) * GameConfig.gridSize + GameConfig.gridSize / 2;
 	};
+
+	initVectorToGridMap() {
+		this.vectorToGridMap.clear();
+		this.mazeLayout.forEach((row, rowIdx) =>
+			row.forEach((_, colIdx) => {
+				const { x, y } = this.getVectorCoordinates({ row: rowIdx, col: colIdx }, null);
+				this.vectorToGridMap.set(`${x},${y}`, `${colIdx},${rowIdx}`);
+			})
+		);
+	}
 
 	convertMovementConfig = (route) => {
 		const height = this.mazeLayout.length;
@@ -124,6 +139,34 @@ export class GameManager {
 		return mesh;
 	}
 
+	initPlane() {
+		const geometry = new THREE.PlaneGeometry(
+			this.mazeLayout[0].length * GameConfig.gridSize,
+			this.mazeLayout.length * GameConfig.gridSize
+		);
+		// geometry.rotateX(-Math.PI / 2);
+		const plane = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ visible: false }));
+		plane.userData.name = 'plane';
+		this.scene.add(plane);
+		this.objects.push(plane);
+	}
+	initRollOverMeshes() {
+		this.rollOverMeshes.clear();
+		if (GameConfig.tokenCard) {
+			const key = 'trap_001_crate';
+			const trap = new Trap({
+				key,
+				direction: 'UP',
+				position: { row: 0, col: 0 }
+			});
+			this.rollOverMeshes.set('trap_001_crate', trap);
+			const mesh = trap.getMesh();
+			mesh.visible = false;
+			mesh.position.set(0, 0, 0);
+			this.scene.add(mesh);
+		}
+	}
+
 	initTraps(traps) {
 		const trapsToInit = traps.filter((ele) => !ele.hidden);
 		for (const trapData of trapsToInit) {
@@ -131,18 +174,19 @@ export class GameManager {
 		}
 	}
 
-	addTrap(data, actionKey) {
+	addTrap(data, actionKey, posType = 'game') {
 		if (!data) {
 			data = this.config.traps.find((ele) => ele.alias === actionKey || ele.key === actionKey);
 		}
 		console.log(data, actionKey);
+		const pos = posType === 'game' ? this.gameToWorldPos(data.pos) : data.pos;
+		data.pos = pos;
 		const trap = new Trap(data);
 		if (trap.isRoadblock) {
-			this.updateMazeLayout(this.gameToWorldPos(data.pos), 1000);
+			this.updateMazeLayout(pos, 1000);
 		}
-		const worldPos = this.gameToWorldPos(data.pos);
-		const { x, y } = this.getVectorCoordinates(worldPos, null);
-		const tile = this.tiles.get(`${worldPos.row},${worldPos.col}`);
+		const { x, y } = this.getVectorCoordinates(pos, null);
+		const tile = this.tiles.get(`${pos.col},${pos.row}`);
 		let z = 0;
 		if (trap.hideTile) {
 			tile.mesh.visible = false;
@@ -151,7 +195,7 @@ export class GameManager {
 		if (tile.heightType === 1) {
 			z = 40;
 		}
-		this.traps.set(`${worldPos.row},${worldPos.col}`, trap);
+		this.traps.set(`${pos.col},${pos.row}`, trap);
 
 		trap.getMesh().position.set(x, y, z + 0.03);
 		this.scene.add(trap.getMesh());
@@ -169,6 +213,9 @@ export class GameManager {
 		this.pathFinder = new SPFA(mazeLayout);
 		this.tiles.clear();
 		this.tileManager = new TileManager(config.levelId);
+		this.initPlane();
+		this.initRollOverMeshes();
+		this.initVectorToGridMap();
 	}
 
 	update(delta: number) {
