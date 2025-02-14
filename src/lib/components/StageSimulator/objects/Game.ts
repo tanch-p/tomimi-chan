@@ -32,6 +32,7 @@ export class Game {
 		this.enemies = enemies;
 		this.objects = [];
 		this.assetManager = AssetManager.getInstance();
+		GameConfig.setValue('tokenCard', null);
 		if (config.token_cards?.length > 0) {
 			const card = config.token_cards.find((ele) => ele.key === 'trap_001_crate');
 			card && GameConfig.setValue('tokenCard', { ...card, selected: true });
@@ -100,12 +101,13 @@ export class Game {
 		this.config = config;
 		this.waveData = waveData;
 		this.enemies = enemies;
-		this.softReset;
+		this.softReset();
 	}
 	softReset() {
 		this.stop();
 		GameConfig.setValue('scaledElapsedTime', 0);
 		GameConfig.setValue('waveElapsedTime', 0);
+		GameConfig.setValue('tokenCard', null);
 		if (this.config.token_cards?.length > 0) {
 			const card = this.config.token_cards.find((ele) => ele.key === 'trap_001_crate');
 			card && GameConfig.setValue('tokenCard', card);

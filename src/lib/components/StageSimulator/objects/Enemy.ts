@@ -26,6 +26,7 @@ export class Enemy {
 	direction = 1;
 	motionMode: 'WALK' | 'FLY';
 	isMoving = false;
+	moveDirection: 'H' | 'V' | 'D' = 'H';
 	waitElapsedTime = 0;
 	entry = true;
 	entryElapsedTime = 0;
@@ -36,12 +37,12 @@ export class Enemy {
 	gameManager: GameManager;
 	pathGroup;
 	skel: spine.SkeletonMesh;
-	glowSpine: spine.SkeletonMesh;
 	sprite: THREE.Sprite;
 	height: number;
 	width: number;
 	meshGroup: THREE.Group;
 	hitbox;
+	shadow;
 	formIndex = 0;
 	waitTimer: CountdownSprite;
 	timeToWait = 0;
@@ -52,6 +53,7 @@ export class Enemy {
 	buffs = [];
 	darkness = 1;
 	fragmentKey: string;
+	arrivalThreshold = 0;
 
 	constructor(enemyData: EnemyType, route, gameManager: GameManager, fragmentKey) {
 		gameManager.enemiesOnMap.push(this);
@@ -66,6 +68,11 @@ export class Enemy {
 		this.fragmentKey = fragmentKey;
 		if (!route.allowDiagonalMove) {
 			console.warn('help no allowDiagonalMove');
+		}
+		if (!route.checkpoints?.length > 0) {
+			this.arrivalThreshold = GameConfig.gridSize * 0.25;
+		} else if (route.visitEveryNodeCenter) {
+			this.arrivalThreshold = GameConfig.gridSize * 0.05;
 		}
 		this.motionMode = route.motionMode;
 		this.state = 'Idle';
@@ -123,6 +130,7 @@ export class Enemy {
 		hitBoxMesh.userData.name = 'hitbox';
 		this.meshGroup.add(shadowMesh, hitBoxMesh);
 		this.hitbox = hitBoxMesh;
+		this.shadow = shadowMesh;
 		const skeletonData = this.assetManager.spineMap.get(this.key);
 		if (!skeletonData) {
 			return;
@@ -158,16 +166,6 @@ export class Enemy {
 		sprite.userData.enemy = this;
 		this.gameManager.objects.push(sprite);
 		this.gameManager.scene.add(this.meshGroup);
-
-		const glowSpine = new spine.SkeletonMesh(skeletonData, (parameters) => {
-			parameters.depthTest = false;
-		});
-		glowSpine.scale.set(1.25, 1.1, 1.1);
-		glowSpine.skeleton.color.r = 0;
-		glowSpine.skeleton.color.g = 0;
-		glowSpine.skeleton.color.b = 0;
-		glowSpine.position.y = GameConfig.gridSize * 0.1;
-		this.glowSpine = glowSpine;
 
 		this.handleIdle();
 		this.skel.skeleton.color.r = 0.2;
@@ -364,7 +362,6 @@ export class Enemy {
 			return;
 		}
 		this.skel.update(delta);
-		this.glowSpine.update(delta);
 		if (this.entry) {
 			this.entryColorChange(delta);
 		}
@@ -431,24 +428,24 @@ export class Enemy {
 				}
 				this.direction = direction.x;
 				this.skel.scale.x = direction.x < 0 ? -1 : 1;
-				this.glowSpine.scale.x =
-					direction.x < 0
-						? -1 * Math.abs(this.glowSpine.scale.x)
-						: Math.abs(this.glowSpine.scale.x);
 
 				const distance = this.raycastPos.distanceTo(this.targetPos);
 				const adjustedSpeed = this.speed * delta * GameConfig.gridSize * moveMultiplier;
-				if (distance > adjustedSpeed) {
-					// speed = 1 means 1 tile/s
+				if (distance > this.arrivalThreshold) {
+					// If we would overshoot the threshold in this frame, move only to the threshold
+					const moveDistance = Math.min(adjustedSpeed, distance - this.arrivalThreshold);
+
 					const dx = this.targetPos.x - this.raycastPos.x;
 					const dy = this.targetPos.y - this.raycastPos.y;
-					this.meshGroup.position.x += (dx / distance) * adjustedSpeed;
-					this.raycastPos.x += (dx / distance) * adjustedSpeed;
-					this.meshGroup.position.y += (dy / distance) * adjustedSpeed;
-					this.raycastPos.y += (dy / distance) * adjustedSpeed;
+
+					this.meshGroup.position.x += (dx / distance) * moveDistance;
+					this.raycastPos.x += (dx / distance) * moveDistance;
+					this.meshGroup.position.y += (dy / distance) * moveDistance;
+					this.raycastPos.y += (dy / distance) * moveDistance;
 				} else {
-					// Movement complete
+					console.log(distance,this.arrivalThreshold)
 					this.raycastPos.copy(this.targetPos);
+					this.meshGroup.position.copy(this.targetPos);
 					this.isMoving = false;
 					this.currentActionIndex++;
 				}
@@ -528,7 +525,6 @@ export class Enemy {
 	}
 
 	onSelect() {
-		this.meshGroup.add(this.glowSpine);
 		this.gameManager.scene.add(this.pathGroup);
 		this.selected = true;
 		if (this.atkRangeMesh) {
@@ -554,7 +550,6 @@ export class Enemy {
 		// });
 	}
 	onDeselect() {
-		this.meshGroup.remove(this.glowSpine);
 		this.gameManager.scene.remove(this.pathGroup);
 		this.selected = false;
 		if (this.atkRangeMesh) {
@@ -682,7 +677,6 @@ export class Enemy {
 			return;
 		}
 		this.skel.state.setAnimation(0, animationName, true);
-		this.glowSpine.state.setAnimation(0, animationName, true);
 	}
 	handleDeath() {}
 	handleSkill() {}
