@@ -11,7 +11,6 @@ export class GameConfig {
 	static showTimeline = writable(true);
 	static scaledElapsedTime = 0;
 	static waveElapsedTime = 0;
-	static fragmentElapsedTime = 0;
 	static state = 'loading';
 	static subscribers = new Set();
 

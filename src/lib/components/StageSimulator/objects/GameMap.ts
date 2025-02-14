@@ -3,26 +3,18 @@ import type { MapConfig } from '$lib/types';
 import { Enemy } from './Enemy';
 import { GameConfig } from './GameConfig';
 import { StickBox } from './StickBox';
-import { TileManager } from './TileManager';
 import { AssetManager } from './AssetManager';
 import { GameManager } from './GameManager';
-import { Trap } from './Trap';
 
 export class GameMap {
 	config: MapConfig;
 	scene: THREE.Scene;
 	enemies: Enemy[] = [];
 	objects: THREE.Mesh[];
-	raycaster: THREE.Raycaster;
-	pointer: THREE.Vector2;
-	gameTime: number;
-	cost: number;
-	tileManager: TileManager;
 	textureLoader: THREE.TextureLoader;
 	maxWaitTime = 0;
 	assetManager: AssetManager;
 	gameManager: GameManager;
-	tiles = new Map();
 
 	constructor(gameManager) {
 		this.assetManager = AssetManager.getInstance();
@@ -31,9 +23,8 @@ export class GameMap {
 		this.scene = gameManager.scene;
 		this.objects = gameManager.objects;
 		this.textureLoader = new THREE.TextureLoader();
-		this.tileManager = new TileManager(gameManager);
 
-		this.setup(this.config.mapData, this.config.traps);
+		this.setup(this.config.mapData);
 
 		const geometry = new THREE.PlaneGeometry(
 			this.gameManager.mazeLayout[0].length * GameConfig.gridSize,
@@ -43,17 +34,16 @@ export class GameMap {
 		plane.userData.name = 'plane';
 		this.scene.add(plane);
 		this.objects.push(plane);
-		this.raycaster = new THREE.Raycaster();
-		this.pointer = new THREE.Vector2();
+		this.gameManager.initTraps(this.gameManager.config.traps);
 	}
 
-	setup(mapData, traps) {
+	setup(mapData) {
 		const { map, tiles } = mapData;
 		map.forEach((row, rowIdx) =>
 			row.forEach((tileIndex, colIdx) => {
 				const group = new THREE.Group();
 				const [tileName, heightType] = tiles[tileIndex];
-				const tileGroup = this.tileManager.get(tiles[tileIndex]);
+				const tileGroup = this.gameManager.tileManager.get(tiles[tileIndex]);
 				const { x, y } = this.gameManager.getVectorCoordinates(
 					{
 						row: rowIdx,
@@ -86,35 +76,16 @@ export class GameMap {
 						}
 						break;
 				}
-				const mapKey = `${colIdx},${rowIdx}`;
-				this.tiles.set(mapKey, tiles[tileIndex]);
+				this.gameManager.tiles.set(`${rowIdx},${colIdx}`, {
+					tileName,
+					heightType,
+					mesh: tileGroup,
+					group: group
+				});
 				group.add(tileGroup);
 				group.position.set(x, y, z);
-
-				const trapData = traps.find((ele) => {
-					const pos = this.gameManager.gameToWorldPos(ele.pos);
-					return pos.row == rowIdx && pos.col == colIdx && !ele.hidden;
-				});
-				if (trapData) {
-					const trap = new Trap(trapData, this.gameManager);
-					if (trap.isRoadblock) {
-						this.gameManager.updateMazeLayout(this.gameManager.gameToWorldPos(trapData.pos), 1000);
-					}
-					if (trap.hideTile) {
-						tileGroup.visible = false;
-					} else {
-						trap.getMesh().position.z = z + 0.05;
-					}
-
-					group.add(trap.getMesh());
-				}
-
 				this.scene.add(group);
 			})
 		);
-	}
-
-	getTile(row, col) {
-		// return this.tiles.get(`${x},${y}`);
 	}
 }

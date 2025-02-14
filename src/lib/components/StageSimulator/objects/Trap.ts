@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import * as spine from '$lib/spine';
-import { GameManager } from './GameManager';
 import trapLookup from '$lib/data/trap/traps.json';
 import { AssetManager } from './AssetManager';
 import { GameConfig } from './GameConfig';
@@ -17,8 +16,7 @@ export class Trap {
 	position;
 	hideTile: boolean;
 	meshGroup = new THREE.Group();
-	gameManager: GameManager;
-	constructor(data, gameManager: GameManager) {
+	constructor(data) {
 		this.assetManager = AssetManager.getInstance();
 		const trap = trapLookup[data.key];
 		this.data = trap;
@@ -28,12 +26,10 @@ export class Trap {
 		this.position = data.position;
 		this.type = trap.modelType;
 		this.initModel(trap.modelType);
-		this.gameManager = gameManager;
 		this.meshGroup.renderOrder = 1;
 		this.isRoadblock =
 			trap.special.some((skillRef) => ['roadblock'].includes(skillRef)) ||
 			trap.skills.some((skillRef) => ['sktok_crate', 'sktok_stone'].includes(skillRef));
-		this.gameManager.traps.push(this);
 	}
 
 	getMesh() {

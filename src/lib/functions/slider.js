@@ -1,5 +1,5 @@
-export const createSlider = (classname) => {
-	const slider = document.querySelector(classname);
+export const createSlider = (container) => {
+	const slider = container;
 	let isDown = false;
 	let startX;
 	let scrollLeft;

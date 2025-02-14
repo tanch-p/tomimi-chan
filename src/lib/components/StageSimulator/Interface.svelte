@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onDestroy, onMount } from 'svelte';
 	import { GameConfig } from './objects/GameConfig';
 
 	export let game, initialCost;
@@ -20,8 +21,19 @@
 	function handlePause() {
 		GameConfig.isPaused = !GameConfig.isPaused;
 	}
-	$: min = Math.floor(GameConfig.scaledElapsedTime / 60);
-	$: sec = Math.floor(GameConfig.scaledElapsedTime % 60);
+	// Sync class -> store
+	let unsubscribe;
+	onMount(() => {
+		unsubscribe = GameConfig.subscribe('scaledElapsedTime', (value) => {
+			totalTime = value;
+			min = Math.floor(value / 60);
+			sec = Math.floor(value % 60);
+		});
+	});
+
+	onDestroy(() => {
+		if (unsubscribe) unsubscribe();
+	});
 </script>
 
 {#if GameConfig.state === 'ready'}

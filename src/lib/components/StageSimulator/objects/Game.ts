@@ -91,9 +91,8 @@ export class Game {
 	}
 
 	reset(config, waveData, enemies) {
-		GameConfig.scaledElapsedTime = 0;
-		GameConfig.waveElapsedTime = 0;
-		GameConfig.fragmentElapsedTime = 0;
+		GameConfig.setValue('scaledElapsedTime', 0);
+		GameConfig.setValue('waveElapsedTime', 0);
 		this.stop();
 		this.config = config;
 		this.waveData = waveData;
@@ -183,6 +182,8 @@ export class Game {
 		if (this.scene) {
 			this.clearScene(this.scene);
 		}
+		GameConfig.setValue('scaledElapsedTime', 0);
+		GameConfig.setValue('waveElapsedTime', 0);
 
 		this.scene = null;
 		this.camera = null;

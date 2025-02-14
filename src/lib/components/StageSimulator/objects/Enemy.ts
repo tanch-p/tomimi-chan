@@ -44,14 +44,16 @@ export class Enemy {
 	hitbox;
 	formIndex = 0;
 	waitTimer: CountdownSprite;
+	timeToWait = 0;
 	standbyTime = 0;
 	pathFinder: SPFA;
 	atkRangeMesh: THREE.Group;
 	skillRangeMeshes: THREE.Group[] = [];
 	buffs = [];
 	darkness = 1;
+	fragmentKey: string;
 
-	constructor(enemyData: EnemyType, route, gameManager: GameManager) {
+	constructor(enemyData: EnemyType, route, gameManager: GameManager, fragmentKey) {
 		gameManager.enemiesOnMap.push(this);
 		// console.log(enemyData);
 		// this.pathFinder = new SPFA(gameManager.mazeLayout);
@@ -61,6 +63,7 @@ export class Enemy {
 		this.gameManager = gameManager;
 		this.assetManager = AssetManager.getInstance();
 		this.route = route;
+		this.fragmentKey = fragmentKey;
 		if (!route.allowDiagonalMove) {
 			console.warn('help no allowDiagonalMove');
 		}
@@ -95,7 +98,6 @@ export class Enemy {
 	}
 
 	initModel() {
-		console.log(this.key);
 		const hitBoxGeo = new THREE.CircleGeometry(GameConfig.gridSize * 0.1, 32);
 		const shadowGeometry = new THREE.PlaneGeometry(
 			GameConfig.gridSize * 0.8,
@@ -454,33 +456,29 @@ export class Enemy {
 				break;
 			case 'WAIT_CURRENT_FRAGMENT_TIME':
 			case 'WAIT_CURRENT_WAVE_TIME':
-				if (this.waitElapsedTime === 0) {
-					console.log(this.actions[this.currentActionIndex]);
-					this.waitTimer.getMesh().visible = GameConfig.showAllTimers || this.selected;
-					this.handleIdle();
-					this.waitElapsedTime += delta;
-				} else {
-					this.waitTimer.updateTimer(time - GameConfig.waveElapsedTime);
-					this.waitElapsedTime += delta;
-				}
-
-				if (GameConfig.waveElapsedTime >= time) {
-					this.waitElapsedTime = 0;
-					this.waitTimer.getMesh().visible = false;
-					this.currentActionIndex++;
-				}
-				break;
 			case 'WAIT_FOR_SECONDS':
 				if (this.waitElapsedTime === 0) {
 					this.handleIdle();
 					this.waitTimer.getMesh().visible = GameConfig.showAllTimers || this.selected;
 					this.waitElapsedTime += delta;
+					switch (type) {
+						case 'WAIT_CURRENT_FRAGMENT_TIME':
+							this.timeToWait =
+								time - this.gameManager.spawnManager.fragmentsTimeTracker.get(this.fragmentKey);
+							break;
+						case 'WAIT_CURRENT_WAVE_TIME':
+							this.timeToWait = time - GameConfig.waveElapsedTime;
+							break;
+						default:
+							this.timeToWait = time;
+							break;
+					}
 				} else {
-					this.waitTimer.updateTimer(time - this.waitElapsedTime);
+					this.waitTimer.updateTimer(this.timeToWait - this.waitElapsedTime);
 					this.waitElapsedTime += delta;
 				}
 
-				if (this.waitElapsedTime >= time) {
+				if (this.waitElapsedTime >= this.timeToWait) {
 					this.waitElapsedTime = 0;
 					this.waitTimer.getMesh().visible = false;
 					this.currentActionIndex++;
