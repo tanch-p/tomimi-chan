@@ -111,7 +111,9 @@ export class GameManager {
 		const { row, col } = pos;
 		this.mazeLayout[row][col] = value;
 		this.pathFinder = new SPFA(this.mazeLayout);
-		// update enemy pathfinding
+		for(const enemy of this.enemiesOnMap.filter((ele) => ele.alive)){
+			
+		}
 	}
 
 	getTextSprite(text, size = 20, color = 0xffffff) {
@@ -178,7 +180,7 @@ export class GameManager {
 		if (!data) {
 			data = this.config.traps.find((ele) => ele.alias === actionKey || ele.key === actionKey);
 		}
-		console.log(data, actionKey);
+		// console.log(data, actionKey);
 		const pos = posType === 'game' ? this.gameToWorldPos(data.pos) : data.pos;
 		data.pos = pos;
 		const trap = new Trap(data);
