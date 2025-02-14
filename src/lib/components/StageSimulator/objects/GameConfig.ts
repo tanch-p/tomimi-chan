@@ -13,6 +13,7 @@ export class GameConfig {
 	static waveElapsedTime = 0;
 	static state = 'loading';
 	static subscribers = new Set();
+	static tokenCard = null;
 
 	static subscribe(key, callback) {
 		this.subscribers.add({ key, callback });

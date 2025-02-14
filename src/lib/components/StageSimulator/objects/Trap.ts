@@ -23,7 +23,7 @@ export class Trap {
 		this.key = data.key;
 		this.hideTile = trap.hideTile;
 		this.direction = data.direction;
-		this.position = data.position;
+		this.position = data.pos;
 		this.type = trap.modelType;
 		this.initModel(trap.modelType);
 		this.meshGroup.renderOrder = 1;
@@ -68,24 +68,32 @@ export class Trap {
 				}
 				return;
 			case 'model':
-				const model = this.assetManager.models.get(this.key)?.clone();
-				if (!model) {
-					return;
-				}
-				model.scale.set(100, 100, 100);
-				this.meshGroup.add(model);
-				switch (this.direction) {
-					case 'LEFT':
-						this.meshGroup.rotation.z = Math.PI;
-						break;
-					case 'UP':
-						this.meshGroup.rotation.z = -Math.PI / 2;
-						break;
-					case 'DOWN':
-						this.meshGroup.rotation.z = Math.PI / 2;
-						break;
-					default:
-						break;
+				{
+					const model = this.assetManager.models.get(this.key)?.clone();
+					if (!model) {
+						return;
+					}
+					let scale = 100;
+					switch (this.key) {
+						case 'trap_001_crate':
+							scale = 110;
+							break;
+					}
+					model.scale.set(scale, scale, scale);
+					this.meshGroup.add(model);
+					switch (this.direction) {
+						case 'LEFT':
+							this.meshGroup.rotation.z = Math.PI;
+							break;
+						case 'UP':
+							this.meshGroup.rotation.z = -Math.PI / 2;
+							break;
+						case 'DOWN':
+							this.meshGroup.rotation.z = Math.PI / 2;
+							break;
+						default:
+							break;
+					}
 				}
 				return;
 			default:

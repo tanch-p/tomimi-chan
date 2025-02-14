@@ -349,7 +349,7 @@ export class AssetManager {
 			);
 		}
 
-		for (const trap of mapConfig.traps) {
+		for (const trap of mapConfig.traps.concat(mapConfig.token_cards)) {
 			const key = trap.key;
 			const modelType = getTrapModelType(key);
 			switch (modelType) {
