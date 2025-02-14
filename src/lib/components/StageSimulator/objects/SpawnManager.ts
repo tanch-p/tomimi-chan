@@ -11,32 +11,31 @@ class SpawnManager {
 	currentFragmentIndex: number;
 	activeActions = new Map(); // Tracks currently running actions
 	completedActions = new Set(); // Tracks completed actions in current fragment
+	fragmentsTimeTracker = new Map();
 	isProcessingFragment = false;
-	nextWaveTimer: number;
-	actionIndex: number;
+	nextWaveTimer = 0;
 	spawnCount = 0;
 	gameManager: GameManager;
 	isFinished = false;
 	preDelayTimer = 0;
+	fragmentPreDelayTimer = 0;
 	postDelayTimer = 0;
 	constructor(waves, map, gameManager) {
 		this.map = map;
 		this.waves = waves;
 		this.gameManager = gameManager;
+		gameManager.spawnManager = this;
 		this.routes = gameManager.config.routes;
 		this.currentWaveIndex = 0;
 		this.currentFragmentIndex = 0;
-		this.actionIndex = 0;
-		this.preDelayTimer = this.waves[0].preDelay;
-		this.postDelayTimer = this.waves[0].postDelay;
-		this.nextWaveTimer = this.waves[0].maxTimeWaitingForNextWave || -1;
+		console.log(waves);
 	}
 
 	// Main update function to be called in animation loop
 	update(delta) {
-		GameConfig.scaledElapsedTime += delta;
-		GameConfig.setValue("waveElapsedTime", GameConfig.waveElapsedTime + delta);
-		GameConfig.fragmentElapsedTime += delta;
+		this.fragmentsTimeTracker.forEach((value, key) => {
+			this.fragmentsTimeTracker.set(key, value + delta);
+		});
 		if (this.currentWaveIndex >= this.waves.length) {
 			this.isFinished = true;
 			return; // All waves completed
@@ -51,7 +50,11 @@ class SpawnManager {
 
 		// Process fragments
 		if (this.currentFragmentIndex < currentWave.fragments.length) {
+			GameConfig.setValue('waveElapsedTime', GameConfig.waveElapsedTime + delta);
 			this.processFragment(currentWave.fragments[this.currentFragmentIndex], delta);
+		} else if (this.nextWaveTimer < currentWave.maxTimeWaitingForNextWave) {
+			// Handle wave maxTimeWaitingForNextWave
+			this.nextWaveTimer += delta;
 		} else if (this.postDelayTimer < currentWave.postDelay) {
 			// Handle wave post-delay
 			this.postDelayTimer += delta;
@@ -62,17 +65,26 @@ class SpawnManager {
 			GameConfig.waveElapsedTime = 0;
 			this.preDelayTimer = 0;
 			this.postDelayTimer = 0;
+			this.nextWaveTimer = 0;
 		}
 	}
 
 	processFragment(fragment, delta) {
 		// Start fragment if not already processing
 		if (!this.isProcessingFragment) {
-			GameConfig.fragmentElapsedTime = 0;
 			this.startFragment(fragment);
+			this.fragmentPreDelayTimer = 0;
 			return;
 		}
-
+		// Handle fragment pre-delay
+		if (this.fragmentPreDelayTimer < fragment.preDelay) {
+			this.fragmentPreDelayTimer += delta;
+			return;
+		}
+		const key = `w${this.currentWaveIndex}f${this.currentFragmentIndex}`;
+		if (!this.fragmentsTimeTracker.has(key)) {
+			this.fragmentsTimeTracker.set(key, 0);
+		}
 		// Update all active actions
 		this.updateActiveActions(delta);
 
@@ -91,7 +103,6 @@ class SpawnManager {
 		fragment.actions.forEach((action, index) => {
 			const actionState = {
 				action,
-				preDelayTimer: 0,
 				spawnCount: 0,
 				lastSpawnTime: 0,
 				isComplete: false
@@ -101,18 +112,18 @@ class SpawnManager {
 	}
 
 	updateActiveActions(delta) {
+		const key = `w${this.currentWaveIndex}f${this.currentFragmentIndex}`;
 		this.activeActions.forEach((state, index) => {
 			if (state.isComplete) return;
 
 			// Handle pre-delay
-			if (state.preDelayTimer < state.action.preDelay) {
-				state.preDelayTimer += delta;
+			if (state.action.preDelay > this.fragmentsTimeTracker.get(key)) {
 				return;
 			}
 
 			// Handle spawning
 			const timeSinceLastSpawn = GameConfig.scaledElapsedTime - state.lastSpawnTime;
-			if (timeSinceLastSpawn >= state.action.interval || state.spawnCount === 0) {
+			if (state.spawnCount === 0 || timeSinceLastSpawn >= state.action.interval) {
 				this.spawnEntity(state.action);
 				state.spawnCount++;
 				state.lastSpawnTime = GameConfig.scaledElapsedTime;
@@ -136,6 +147,9 @@ class SpawnManager {
 	}
 
 	spawnEntity(action) {
+		if (action.key === '') {
+			return;
+		}
 		switch (action.actionType) {
 			case 'SPAWN':
 				this.spawnEnemy(action);
@@ -144,8 +158,7 @@ class SpawnManager {
 				this.activatePredefined(action);
 				break;
 			default:
-				this.spawnEnemy(action);
-			// console.warn(`Unknown action type: ${action.actionType}`);
+				console.log(`Unknown action type: ${action.actionType}`);
 		}
 	}
 
@@ -157,22 +170,25 @@ class SpawnManager {
 			console.log(action.key, ' key not found in enemies list');
 			return;
 		}
-		const enemy = new Enemy(enemyData, route, this.gameManager);
+		const key = `w${this.currentWaveIndex}f${this.currentFragmentIndex}`;
+		const enemy = new Enemy(enemyData, route, this.gameManager, key);
 	}
 
 	activatePredefined(action) {
-		// Implementation for activating predefined entities
-		console.log(`Activating predefined entity: ${action.key} at route ${action.routeIndex}`);
-		// Example:
-		// const entity = this.predefinedEntities.get(action.key);
-		// entity.activate(this.routes[action.routeIndex]);
+		this.gameManager.addTrap(null, action.key);
 	}
 
 	// Helper method to reset the manager
 	reset() {
 		this.currentWaveIndex = 0;
+		this.currentFragmentIndex = 0;
+		this.activeActions.clear();
+		this.completedActions.clear();
+		this.isProcessingFragment = false;
 		this.preDelayTimer = 0;
 		this.postDelayTimer = 0;
+		this.fragmentStates.clear();
+		this.activeFragments.clear();
 	}
 }
 

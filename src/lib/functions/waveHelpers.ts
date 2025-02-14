@@ -14,6 +14,8 @@ const ALWAYS_KILLED_KEYS = [
 	'enemy_1106_byokai_b'
 ];
 
+const CHESTS = ['trap_051_vultres', 'trap_068_badbox', 'trap_110_smbbox', 'trap_758_skzmbx'];
+
 const getFragmentName = (id, language: Language) => {
 	const fragment = fragments.find((ele) => ele.id === id);
 	return fragment[`name_${language}`] || fragment['name_zh'];
@@ -50,7 +52,7 @@ export const getOptions = (mapConfig: MapConfig, rogueTopic: RogueTopic, languag
 				}
 				if (key === 'trap_079_allydonq') {
 					options.push({
-						key: 'trap_079_allydonq',
+						key: 'allydonq',
 						src: '/images/enemy_icons/enemy_2038_sydonq.webp',
 						name: { zh: '猎潮的骑士', ja: '猟潮の騎士', en: 'Tide-Hunt Knight' }[language]
 					});
@@ -149,42 +151,6 @@ export const getOptions = (mapConfig: MapConfig, rogueTopic: RogueTopic, languag
 	return options;
 };
 
-export const getTrapOptions = (rogueTopic: RogueTopic, language: Language) => {
-	switch (rogueTopic) {
-		case 'rogue_sami':
-			return [
-				{ key: 'totem1', src: '/images/enemy_icons/enemy_1106_byokai.webp', name: '' },
-				{ key: 'bossrelic', src: '/images/relics/relic_routeweave_net.webp', name: '' }
-			];
-		case 'rogue_skz':
-			return [
-				{
-					key: 'hidden_door',
-					src: '/images/enemy_icons/enemy_2067_skzcy.webp',
-					name: getFragmentName('rogue_4_fragment_F_08', language)
-				},
-				{
-					key: 'hidden_window',
-					src: '/images/enemy_icons/enemy_2091_skzgds.webp',
-					name: getFragmentName('rogue_4_fragment_F_29', language)
-				},
-				{
-					key: 'box_1',
-					src: f27,
-					name: getFragmentName('rogue_4_fragment_F_27', language)
-				},
-				{
-					key: 'box_3',
-					src: f28,
-					name: getFragmentName('rogue_4_fragment_F_28', language)
-				},
-				{ key: 'shadow', src: '/images/enemy_icons/enemy_2093_skzams.webp', name: '' }
-			];
-		default:
-			return;
-	}
-};
-
 export const handleOptionsUpdate = (hiddenGroups, key, rogueTopic: RogueTopic, otherStores) => {
 	const fragmentKeys = ['hidden_door', 'hidden_window', 'box_1', 'box_3'];
 	if (key === 'calamity') {
@@ -205,13 +171,6 @@ export const handleOptionsUpdate = (hiddenGroups, key, rogueTopic: RogueTopic, o
 		});
 	}
 	switch (rogueTopic) {
-		case 'rogue_sami':
-			if (hiddenGroups.includes(key)) {
-				hiddenGroups = hiddenGroups.filter((ele) => ele !== key);
-			} else {
-				hiddenGroups.push(key);
-			}
-			break;
 		case 'rogue_skz':
 			if (hiddenGroups.includes(key)) {
 				hiddenGroups = hiddenGroups.filter((ele) => ele !== key);
@@ -225,6 +184,12 @@ export const handleOptionsUpdate = (hiddenGroups, key, rogueTopic: RogueTopic, o
 
 			break;
 		default:
+			if (hiddenGroups.includes(key)) {
+				hiddenGroups = hiddenGroups.filter((ele) => ele !== key);
+			} else {
+				hiddenGroups.push(key);
+			}
+			break;
 			break;
 	}
 	return hiddenGroups;
@@ -425,43 +390,6 @@ export const generateWaveTimeline = (mapConfig, hiddenGroups, permutation, level
 	return { waves: waveTimelines, count: totalCount };
 };
 
-export const parseWaves = (mapConfig, permutation, hiddenGroups) => {
-	const waves = structuredClone(mapConfig.waves);
-	waves.forEach((wave, waveIdx) => {
-		const fragments = [];
-		wave['fragments'].forEach((fragment, fragIndex) => {
-			const copy = structuredClone(fragment);
-			const key = `w${waveIdx}f${fragIndex}`;
-			const actions = [];
-
-			let groupActions = [];
-			const packedGroups = getRandomGroups(fragment, hiddenGroups);
-			for (const [groupKey, list] of Object.entries(packedGroups)) {
-				const choice = permutation?.[key]?.[groupKey];
-				if (list?.[choice]) {
-					groupActions = groupActions.concat(list[choice]);
-				}
-			}
-			for (const action of groupActions) {
-				actions.push(action);
-			}
-			for (const action of fragment['actions']) {
-				if (action['randomSpawnGroupKey'] || action['randomSpawnGroupPackKey']) {
-					continue;
-				}
-				if (action['hiddenGroup'] && !hiddenGroups.includes(action['hiddenGroup'])) {
-					continue;
-				}
-				actions.push(action);
-			}
-			copy.actions = actions;
-			fragments.push(copy);
-		});
-		wave.fragments = fragments;
-	});
-	return waves;
-};
-
 const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime) => {
 	if (action['count'] > 1) {
 		// interval
@@ -512,6 +440,57 @@ const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime) => {
 			}
 		}
 	}
+};
+
+export const parseWaves = (mapConfig, permutation, hiddenGroups) => {
+	const waves = structuredClone(mapConfig.waves);
+	waves.forEach((wave, waveIdx) => {
+		const fragments = [];
+		wave['fragments'].forEach((fragment, fragIndex) => {
+			const copy = structuredClone(fragment);
+			const key = `w${waveIdx}f${fragIndex}`;
+			const actions = [];
+
+			let groupActions = [];
+			const packedGroups = getRandomGroups(fragment, hiddenGroups);
+			for (const [groupKey, list] of Object.entries(packedGroups)) {
+				let choice = permutation?.[key]?.[groupKey];
+				if (choice === undefined) {
+					if (!Array.isArray(list[0])) {
+						const badBoxIdx = list.findIndex((action) => CHESTS.includes(action.key.split('#')[0]));
+						if (badBoxIdx !== -1 && hiddenGroups.some((ele) => CHESTS.includes(ele))) {
+							choice = badBoxIdx;
+						}
+					}
+					if (choice === undefined) {
+						choice = Math.floor(Math.random() * list.length);
+					}
+				}
+				if (list?.[choice]) {
+					groupActions = groupActions.concat(list[choice]);
+				}
+			}
+			for (const action of groupActions) {
+				actions.push(action);
+			}
+			for (const action of fragment['actions']) {
+				if (!['SPAWN', 'ACTIVATE_PREDEFINED'].includes(action['actionType'])) {
+					continue;
+				}
+				if (action['randomSpawnGroupKey'] || action['randomSpawnGroupPackKey']) {
+					continue;
+				}
+				if (action['hiddenGroup'] && !hiddenGroups.includes(action['hiddenGroup'])) {
+					continue;
+				}
+				actions.push(action);
+			}
+			copy.actions = actions;
+			fragments.push(copy);
+		});
+		wave.fragments = fragments;
+	});
+	return waves;
 };
 
 export const getRandomGroups = (fragment, hiddenGroups) => {

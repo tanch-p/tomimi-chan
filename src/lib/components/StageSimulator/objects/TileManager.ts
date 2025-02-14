@@ -2,25 +2,43 @@ import * as THREE from 'three';
 import { GameConfig } from './GameConfig';
 import { TextSprite } from './TextSprite';
 import { AssetManager } from './AssetManager';
-import { GameManager } from './GameManager';
 
 export class TileManager {
 	assetManager: AssetManager;
 	edgesMaterial: THREE.LineBasicMaterial;
-	gameManager: GameManager;
-	constructor(gameManager: GameManager) {
-		this.gameManager = gameManager;
+	levelId: string;
+	basicTile: THREE.Group;
+	constructor(levelId:string) {
+		this.levelId = levelId;
 		this.assetManager = AssetManager.getInstance();
 		this.edgesMaterial = new THREE.LineBasicMaterial({
 			color: 0x484848,
 			transparent: true,
 			opacity: 0.4
 		});
+		this.basicTile = this.setupBasicTile();
+	}
+
+	setupBasicTile() {
+		const group = new THREE.Group();
+		const geometry = new THREE.PlaneGeometry(GameConfig.gridSize, GameConfig.gridSize);
+		const box = new THREE.Mesh(
+			geometry,
+			new THREE.MeshStandardMaterial({
+				color: 0xd1d1d1,
+				roughness: 0.8
+			})
+		);
+		const edges = new THREE.EdgesGeometry(geometry);
+		const edgeLines = new THREE.LineSegments(edges, this.edgesMaterial);
+		edgeLines.position.z = 0.01;
+		group.add(box, edgeLines);
+		return group;
 	}
 
 	get(tile) {
 		const [tileName, heightType, mask, blackboard, buildableType] = tile;
-		const boxGroup = new THREE.Group();
+		let boxGroup = new THREE.Group();
 		let topTextureName = tileName;
 		let topTexture;
 		let depth = 0,
@@ -38,7 +56,7 @@ export class TileManager {
 				);
 				return boxGroup;
 			case 'tile_forbidden':
-				return this.createBox(0, 0xb8b8b8, 0x292929);
+				return this.createBox(0, 0xb8b8b8, 0x292929,null);
 			case 'tile_deepsea':
 				return this.createDeepSeaBox();
 			case 'tile_hole': {
@@ -202,7 +220,7 @@ export class TileManager {
 				return boxGroup;
 			}
 			case 'tile_flystart': {
-				const backing = this.createBox(0, 0xb8b8b8, 0x292929);
+				const backing = this.createBox(0, 0xb8b8b8, 0x292929,null);
 				const icon = this.assetManager.textures.get('fly_icon');
 				size = 0.85;
 				// const btmBoxPlane = this.getTopTexture(box, null, size, 0, null);
@@ -227,6 +245,7 @@ export class TileManager {
 			return this.createBox(40, 0xff8108, 0xc1c1c1, topTextureName, size);
 		}
 
+		boxGroup = this.basicTile.clone();
 		switch (tileName) {
 			// texture size
 			case 'tile_volcano':
@@ -237,7 +256,6 @@ export class TileManager {
 				size = 0.84;
 				break;
 		}
-
 		switch (tileName) {
 			// additional layers
 			case 'tile_fence_bound':
@@ -263,24 +281,11 @@ export class TileManager {
 		if (buildableType == 0 && !['tile_start', 'tile_end', 'tile_floor'].includes(tileName)) {
 			const floorTexture = this.assetManager.textures.get('tile_floor');
 			const frontPlane = this.getTopTexture('tile_floor', floorTexture, null, size, depth, null);
-			frontPlane.position.z = 0.01
+			frontPlane.position.z = 0.01;
 			boxGroup.add(frontPlane);
 			size = 0.7;
 		}
-		const geometry = new THREE.PlaneGeometry(GameConfig.gridSize, GameConfig.gridSize);
-		const box = new THREE.Mesh(
-			geometry,
-			new THREE.MeshStandardMaterial({
-				color: 0xd1d1d1,
-				roughness: 0.8
-			})
-		);
-		const edges = new THREE.EdgesGeometry(geometry);
-		const edgeLines = new THREE.LineSegments(edges, this.edgesMaterial);
-		edgeLines.position.z = 0.01;
 
-		boxGroup.add(box);
-		boxGroup.add(edgeLines);
 		if (topTexture) {
 			const frontPlane = this.getTopTexture(topTextureName, topTexture, null, size, depth, null);
 			boxGroup.add(frontPlane);
@@ -533,7 +538,7 @@ export class TileManager {
 	}
 
 	createTeleport(direction = 'left', tileName, index = 0, type = 'arrow') {
-		if (this.gameManager.config.levelId === 'level_rogue3_b-1') {
+		if (this.levelId === 'level_rogue3_b-1') {
 			if (tileName === 'tile_telin') {
 				tileName = 'tile_telout';
 			} else {

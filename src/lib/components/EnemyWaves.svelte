@@ -60,7 +60,6 @@
 			hiddenGroups = hiddenGroups.filter((key) => key !== 'calamity');
 		}
 	});
-	$: console.log(selectedPermGroups);
 </script>
 
 {#if hasAnalysis}
@@ -122,7 +121,7 @@
 					{/each}
 				</DraggableContainer>
 				{#if permutationsToShow.length > 0}
-					<p class="title">{translations[language].permutation}</p>
+					<p class="title">{translations[language].table_headers.enemy}{translations[language].permutation}</p>
 					<DraggableContainer className="grid grid-flow-col auto-cols-[minmax(120px,1fr)]">
 						{#each permutationsToShow as { bonus }, i}
 							<button
@@ -140,6 +139,10 @@
 							</button>
 						{/each}
 					</DraggableContainer>
+					<p class="title">{translations[language].trap}{translations[language].permutation}</p>
+					<div class="flex justify-center items-center border-r border-neutral-700 font-semibold">
+						{translations[language].random}
+					</div>
 				{/if}
 			{:else}
 				<RandomGroupList

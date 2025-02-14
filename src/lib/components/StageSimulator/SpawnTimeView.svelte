@@ -4,18 +4,16 @@
 	import { GameConfig } from './objects/GameConfig';
 	import { page } from '$app/stores';
 	import { wavePrefixSuffix } from '$lib/functions/languageHelpers';
-	import { writable } from 'svelte/store';
 	import { onDestroy, onMount } from 'svelte';
 
 	export let game: Game, waves, mapConfig;
 
 	let timelineContainer: HTMLDivElement, actionsContainer: HTMLDivElement;
-	let prevActionIndex = 0,
-		currWaveIndex = 0;
+	let currWaveIndex = 0;
 	let index = 0;
 	let language: Language;
 	let showTimeline = true;
-	let waveElapsedTime = 0;
+	let timeline = waves?.[currWaveIndex]?.timeline;
 
 	$: language = $page.data.language;
 	$: GameConfig.showTimeline.subscribe((v) => (showTimeline = v));
@@ -32,21 +30,19 @@
 		if (unsubscribe) unsubscribe();
 	});
 
-	function trackAndScrollContainer(val: number) {
-		if (timelineContainer) {
-			const waveIndex = game.spawnManager.currentWaveIndex;
-			const actionIndex = game.spawnManager.actionIndex;
-			if (actionIndex > prevActionIndex) {
-				prevActionIndex = actionIndex;
+	function trackAndScrollContainer(waveElapsedTime: number) {
+		if (timelineContainer && timeline) {
+			if (waveElapsedTime > timeline?.[0]?.t) {
 				timelineContainer.scrollBy({
 					top: actionsContainer.children[index].scrollHeight + 16, // +16 for mt-4
 					behavior: 'smooth'
 				});
 				index += 1;
+				timeline.shift();
 			}
-			if (waveIndex > currWaveIndex) {
-				currWaveIndex = waveIndex;
-				prevActionIndex = 0;
+			if (timeline.length === 0) {
+				currWaveIndex += 1;
+				timeline = waves?.[currWaveIndex]?.timeline;
 				timelineContainer.scrollBy({
 					top: actionsContainer.children[index].scrollHeight + 16,
 					behavior: 'smooth'
@@ -73,7 +69,7 @@
 						</p>
 						<div class="flex flex-wrap">
 							{#each actions as { key }}
-								{#if !key.includes('trap')}
+								{#if !key.includes('trap') && key !== ""}
 									{@const prefabKey = mapConfig.enemies.find(
 										(enemy) => enemy.id === key
 									)?.prefabKey}
