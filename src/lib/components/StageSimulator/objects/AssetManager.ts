@@ -404,6 +404,30 @@ export class AssetManager {
 						})
 					);
 					break;
+				case 'texture':
+					if (this.textures.has(key)) {
+						continue;
+					}
+					promises.push(
+						new Promise((resolve, reject) => {
+							this.textureLoader.load(
+								`/images/chara_icons/${key}.webp`,
+								(texture) => {
+									resolve(texture);
+								},
+								undefined,
+								(error) => {
+									reject(error);
+								}
+							);
+						}).then((texture: THREE.Texture) => {
+							texture.colorSpace = THREE.SRGBColorSpace;
+							texture.magFilter = THREE.NearestFilter; // Keeps pixel art sharp
+							texture.minFilter = THREE.NearestFilter;
+							this.textures.set(key, { texture: texture, config: null });
+						})
+					);
+					break;
 				default:
 					break;
 			}

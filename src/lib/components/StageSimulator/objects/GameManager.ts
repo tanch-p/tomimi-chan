@@ -181,9 +181,11 @@ export class GameManager {
 			data = this.config.traps.find((ele) => ele.alias === actionKey || ele.key === actionKey);
 		}
 		// console.log(data, actionKey);
+		if(!data){
+			return;
+		}
 		const pos = posType === 'game' ? this.gameToWorldPos(data.pos) : data.pos;
-		data.pos = pos;
-		const trap = new Trap(data);
+		const trap = new Trap(data,pos);
 		if (trap.isRoadblock) {
 			this.updateMazeLayout(pos, 1000);
 		}
@@ -192,13 +194,13 @@ export class GameManager {
 		let z = 0;
 		if (trap.hideTile) {
 			tile.mesh.visible = false;
-			tile.group.add(this.tileManager.basicTile.clone());
+			trap.getMesh().add(this.tileManager.basicTile.clone());
 		}
-		if (tile.heightType === 1) {
+		else if (tile.heightType === 1 || tile.tileName === "tile_forbidden") {
 			z = 40;
 		}
 		this.traps.set(`${pos.col},${pos.row}`, trap);
-
+		
 		trap.getMesh().position.set(x, y, z + 0.03);
 		this.scene.add(trap.getMesh());
 	}

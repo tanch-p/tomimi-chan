@@ -432,8 +432,7 @@ export class Enemy {
 				const distance = this.raycastPos.distanceTo(this.targetPos);
 				const adjustedSpeed = this.speed * delta * GameConfig.gridSize * moveMultiplier;
 				if (distance > this.arrivalThreshold) {
-					// If we would overshoot the threshold in this frame, move only to the threshold
-					const moveDistance = Math.min(adjustedSpeed, distance - this.arrivalThreshold);
+					const moveDistance = Math.min(adjustedSpeed, distance);
 
 					const dx = this.targetPos.x - this.raycastPos.x;
 					const dy = this.targetPos.y - this.raycastPos.y;
@@ -443,9 +442,6 @@ export class Enemy {
 					this.meshGroup.position.y += (dy / distance) * moveDistance;
 					this.raycastPos.y += (dy / distance) * moveDistance;
 				} else {
-					console.log(distance,this.arrivalThreshold)
-					this.raycastPos.copy(this.targetPos);
-					this.meshGroup.position.copy(this.targetPos);
 					this.isMoving = false;
 					this.currentActionIndex++;
 				}

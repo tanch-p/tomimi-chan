@@ -166,7 +166,7 @@ export class Game {
 			const gridPos = this.gameManager.vectorToGridMap.get(`${x},${y}`);
 			const tile = this.gameManager.tiles.get(gridPos);
 			const trap = this.gameManager.traps.get(gridPos);
-			if (tile?.buildableType == 0 || tile.heightType == 1 || trap) {
+			if (tile?.buildableType == 0 || tile?.heightType == 1 || trap) {
 				mesh.visible = false;
 				return;
 			}

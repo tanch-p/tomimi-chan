@@ -231,7 +231,7 @@ export class TileManager {
 				// topBoxPlane.position.z = 40 + 90;
 				backing.position.z = 40 / 2;
 				boxGroup.add(backing, iconPlane);
-				boxGroup.position.z = 40;
+				boxGroup.position.z = 0;
 				return boxGroup;
 			}
 		}
