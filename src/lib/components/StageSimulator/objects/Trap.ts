@@ -16,14 +16,14 @@ export class Trap {
 	position;
 	hideTile: boolean;
 	meshGroup = new THREE.Group();
-	constructor(data) {
+	constructor(data, pos) {
 		this.assetManager = AssetManager.getInstance();
 		const trap = trapLookup[data.key];
 		this.data = trap;
 		this.key = data.key;
 		this.hideTile = trap.hideTile;
 		this.direction = data.direction;
-		this.position = data.pos;
+		this.position = pos;
 		this.type = trap.modelType;
 		this.initModel(trap.modelType);
 		this.meshGroup.renderOrder = 1;
@@ -76,9 +76,18 @@ export class Trap {
 					let scale = 100;
 					switch (this.key) {
 						case 'trap_001_crate':
+						case 'trap_480_roadblockxb':
+							scale = 110;
+							break;
+						case 'trap_097_hstone':
+							scale = 125;
+							break;
+						case 'trap_057_wpnsts':
+							model.position.z = 30;
 							scale = 110;
 							break;
 					}
+
 					model.scale.set(scale, scale, scale);
 					this.meshGroup.add(model);
 					switch (this.direction) {
@@ -86,14 +95,27 @@ export class Trap {
 							this.meshGroup.rotation.z = Math.PI;
 							break;
 						case 'UP':
-							this.meshGroup.rotation.z = -Math.PI / 2;
+							this.meshGroup.rotation.z = Math.PI / 2;
 							break;
 						case 'DOWN':
-							this.meshGroup.rotation.z = Math.PI / 2;
+							this.meshGroup.rotation.z = -Math.PI / 2;
 							break;
 						default:
 							break;
 					}
+				}
+				return;
+			case 'texture':
+				{
+					const texture = this.assetManager.textures.get(this.key)?.texture;
+					if (!texture) break;
+					const geometry = new THREE.PlaneGeometry(GameConfig.gridSize, GameConfig.gridSize);
+					const material = new THREE.MeshStandardMaterial({
+						map: texture,
+						transparent: true
+					});
+					const frontPlane = new THREE.Mesh(geometry, material);
+					this.meshGroup.add(frontPlane);
 				}
 				return;
 			default:
