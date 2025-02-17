@@ -10,11 +10,11 @@
     "costIncreaseTime": 1.0,
     "code": "ISW-NO",
     "name_zh": "血脉之辩",
-    "name_ja": null,
-    "name_en": null,
+    "name_ja": "血脈に関する議論",
+    "name_en": "Bloodline_Debates",
     "description_zh": "于哪个历史时期，提卡兹经历了何种分化——这是知识圣殿的经典辩题，每隔一段时间就有新的可能性被“发明”出来。",
-    "description_ja": null,
-    "description_en": null,
+    "description_ja": "果たしてティカズはいつ、どのような進化の分岐を辿ったのか――これは知識の殿堂において古くから用いられてきた論題であり、時間が経つほどに次々と新しい仮説が「発明」され続けている。",
+    "description_en": "A classic debate topic in the Temple of Knowledge: How exactly did the Teekaz split off, and when in history did it happen? Scholars endlessly speculate, with new theories 'invented' from time to time.",
     "addInfo_zh": [
         "年代之刺：普通2/天灾+1"
     ],
@@ -5182,6 +5182,94 @@
                 0
             ]
         ]
+    },
+    "extra_routes": [
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 4
+            },
+            "endPosition": {
+                "row": 4,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 3,
+                "col": 5
+            },
+            "endPosition": {
+                "row": 4,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        }
+    ],
+    "branches": {
+        "mbx1": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 0,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        },
+        "mbx2": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 1,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        }
     },
     "NORMAL": {
         "groupKey": "normal",

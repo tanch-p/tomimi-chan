@@ -112,8 +112,8 @@ export interface Trap {
 	desc: string;
 	tauntLevel: number;
 	mainSkillLvl: number;
-	modelType:string;
-	hideTile:boolean;
+	modelType: string;
+	hideTile: boolean;
 	stats: trapStats;
 	talents: [];
 	skills: [];
@@ -220,6 +220,7 @@ export type Skill = {
 	initSp?: number;
 	spCost?: number;
 	skillRange?: number;
+	skillType?: 'INCREASE_WITH_TIME' | 'INCREASE_WHEN_ATTACK';
 	can_silence?: boolean;
 	dmg_element?: 'phys' | 'arts' | 'true' | 'heal';
 	suffix?: Tooltip;

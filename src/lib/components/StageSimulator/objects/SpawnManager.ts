@@ -1,9 +1,10 @@
+import { BranchManager } from './BranchManager';
 import { Enemy } from './Enemy';
 import { GameConfig } from './GameConfig';
 import { GameManager } from './GameManager';
 import { GameMap } from './GameMap';
 
-class SpawnManager {
+export class SpawnManager {
 	map: GameMap;
 	routes;
 	waves;
@@ -12,15 +13,18 @@ class SpawnManager {
 	activeActions = new Map(); // Tracks currently running actions
 	completedActions = new Set(); // Tracks completed actions in current fragment
 	fragmentsTimeTracker = new Map();
+	branchIndex = 0;
+	branches = new Map();
 	isProcessingFragment = false;
 	nextWaveTimer = 0;
-	spawnCount = 0;
+	nextWaveType: 'TIME' | 'NO_ENEMIES';
+	enterNextWaveFlag = false;
 	gameManager: GameManager;
 	isFinished = false;
 	preDelayTimer = 0;
 	fragmentPreDelayTimer = 0;
 	postDelayTimer = 0;
-	constructor(waves, map, gameManager) {
+	constructor(waves, map, gameManager:GameManager) {
 		this.map = map;
 		this.waves = waves;
 		this.gameManager = gameManager;
@@ -28,11 +32,17 @@ class SpawnManager {
 		this.routes = gameManager.config.routes;
 		this.currentWaveIndex = 0;
 		this.currentFragmentIndex = 0;
+		this.nextWaveType = waves[0].maxTimeWaitingForNextWave < 0 ? 'NO_ENEMIES' : 'TIME';
 		console.log(waves);
 	}
 
 	// Main update function to be called in animation loop
 	update(delta) {
+		// handle branches
+		this.branches.forEach((branch) => {
+			branch.update(delta);
+		});
+
 		this.fragmentsTimeTracker.forEach((value, key) => {
 			this.fragmentsTimeTracker.set(key, value + delta);
 		});
@@ -52,12 +62,15 @@ class SpawnManager {
 		if (this.currentFragmentIndex < currentWave.fragments.length) {
 			GameConfig.setValue('waveElapsedTime', GameConfig.waveElapsedTime + delta);
 			this.processFragment(currentWave.fragments[this.currentFragmentIndex], delta);
-		} else if (this.nextWaveTimer < currentWave.maxTimeWaitingForNextWave) {
-			// Handle wave maxTimeWaitingForNextWave
-			this.nextWaveTimer += delta;
 		} else if (this.postDelayTimer < currentWave.postDelay) {
 			// Handle wave post-delay
 			this.postDelayTimer += delta;
+		} else if (this.nextWaveType === 'NO_ENEMIES') {
+			if (this.enterNextWaveFlag) {
+			}
+		} else if (this.nextWaveTimer < currentWave.maxTimeWaitingForNextWave) {
+			// Handle wave maxTimeWaitingForNextWave
+			this.nextWaveTimer += delta;
 		} else {
 			// Move to next wave
 			this.currentWaveIndex++;
@@ -66,6 +79,8 @@ class SpawnManager {
 			this.preDelayTimer = 0;
 			this.postDelayTimer = 0;
 			this.nextWaveTimer = 0;
+			this.nextWaveType =
+				this.waves[this.currentWaveIndex].maxTimeWaitingForNextWave < 0 ? 'NO_ENEMIES' : 'TIME';
 		}
 	}
 
@@ -178,6 +193,15 @@ class SpawnManager {
 		this.gameManager.addTrap(null, action.key);
 	}
 
+	addBranch(branchKey: string) {
+		const branch = this.gameManager.config.branches?.[branchKey];
+		if (!branch) {
+			return;
+		}
+		this.branches.set(this.branchIndex, new BranchManager(branch, this.gameManager));
+		this.branchIndex++;
+	}
+
 	// Helper method to reset the manager
 	reset() {
 		this.currentWaveIndex = 0;
@@ -187,9 +211,5 @@ class SpawnManager {
 		this.isProcessingFragment = false;
 		this.preDelayTimer = 0;
 		this.postDelayTimer = 0;
-		this.fragmentStates.clear();
-		this.activeFragments.clear();
 	}
 }
-
-export default SpawnManager;

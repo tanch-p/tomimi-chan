@@ -10,11 +10,11 @@
     "costIncreaseTime": 1.0,
     "code": "ISW-NO",
     "name_zh": "计划耕种",
-    "name_ja": null,
-    "name_en": null,
+    "name_ja": "計画的な開墾",
+    "name_en": "Land_Reclamation",
     "description_zh": "萨卡兹垦荒的方法很简单——用火炮轰炸几轮即可。萨卡兹们要吃饭，有人误入垦荒规划区并不构成变更计划的理由。",
-    "description_ja": null,
-    "description_en": null,
+    "description_ja": "サルカズの開墾のやり方は至ってシンプルで――砲撃を数回お見舞いするだけだ。たとえ誰かが開墾予定区域に誤って侵入してしまったとしても、計画を変更する理由にはならない。サルカズも食べていかねばならないのだから。",
+    "description_en": "The Sarkaz reclaim land with brutal efficiency: bombard the area until it's flat. With mouths to feed, careless interlopers won't deter their relentless plans.",
     "addInfo_zh": [
         "年代之刺：普通0/天灾+1"
     ],
@@ -3042,6 +3042,94 @@
                 0
             ]
         ]
+    },
+    "extra_routes": [
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 1,
+                "col": 2
+            },
+            "endPosition": {
+                "row": 4,
+                "col": 5
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 9
+            },
+            "endPosition": {
+                "row": 3,
+                "col": 6
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        }
+    ],
+    "branches": {
+        "trap_758_skzmbx#1": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 0,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        },
+        "trap_758_skzmbx#2": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 1,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        }
     },
     "NORMAL": {
         "groupKey": null,

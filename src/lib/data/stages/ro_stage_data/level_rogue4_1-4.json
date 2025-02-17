@@ -10,11 +10,11 @@
     "costIncreaseTime": 1.0,
     "code": "ISW-NO",
     "name_zh": "夺路而跳",
-    "name_ja": null,
-    "name_en": null,
+    "name_ja": "逃げよ跳べよ",
+    "name_en": "Hasty_Escape",
     "description_zh": "这些监守自盗的萨卡兹想从熔炉里捞点宝贝出来，但他们先被“宝贝”发现了。追逐之下，任何路都成了生路。",
-    "description_ja": null,
-    "description_en": null,
+    "description_ja": "この場の管理を任されたサルカズたちは、溶炉から宝を持ち出そうと企んでいたが、実行に移す前にその「宝」に見つかってしまった。追われている時には、どんな道でも逃げ道となりうるものだ。",
+    "description_en": "These embezzling Sarkaz sought to steal treasure from the furnace, but the 'treasure' discovered them first. In this chase, any road is a way out to survival.",
     "addInfo_zh": [
         "年代之刺：普通0/天灾+1"
     ],
@@ -1975,6 +1975,151 @@
                 0
             ]
         ]
+    },
+    "extra_routes": [
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 3,
+                "col": 7
+            },
+            "endPosition": {
+                "row": 1,
+                "col": 7
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 3,
+                "col": 1
+            },
+            "endPosition": {
+                "row": 1,
+                "col": 7
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 3,
+                        "col": 3
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 3
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "DISAPPEAR",
+                    "time": 0.0,
+                    "position": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "APPEAR_AT_POS",
+                    "time": 0.0,
+                    "position": {
+                        "row": 1,
+                        "col": 5
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        }
+    ],
+    "branches": {
+        "mbx1": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 1,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        },
+        "mbx2": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 0,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        }
     },
     "NORMAL": {
         "groupKey": null,

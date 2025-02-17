@@ -10,11 +10,11 @@
     "costIncreaseTime": 1.0,
     "code": "ISW-NO",
     "name_zh": "溃乱魔典",
-    "name_ja": null,
-    "name_en": null,
+    "name_ja": "混乱の魔典",
+    "name_en": "Careless_Magic",
     "description_zh": "烹饪时，如果不对炉火善加看护，很容易酿成事故；用巫术召唤佣仆也是一样。而这两则常识总有萨卡兹会忘记。\n<@rolv.rem>场地中有对敌我造成伤害的<源石祭坛></>",
-    "description_ja": null,
-    "description_en": null,
+    "description_ja": "料理中に炉の火加減から目を離すと、アクシデントは起きやすくなる。巫術でしもべを召喚する際も、それと同じことが言えるだろう。しかしサルカズの中には、この二つの常識を忘れてしまう者がしばしばいる。\n<@rolv.rem>敵味方を問わずダメージを与える<源石祭壇>が出現</>",
+    "description_en": "When cooking, accidents are prone to happen if the fire is neglected. The same is true when summoning servants with witchcraft. These two common sense rules are sometimes forgotten by the Sarkaz.\n<@rolv.rem><Originium Altars> that deal damage to both allies and enemies are present on the field</>",
     "addInfo_zh": [
         "年代之刺：普通0/天灾+2"
     ],
@@ -2006,6 +2006,152 @@
                 0
             ]
         ]
+    },
+    "extra_routes": [
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 1,
+                "col": 9
+            },
+            "endPosition": {
+                "row": 5,
+                "col": 0
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 1,
+                        "col": 7
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 7
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 1,
+                "col": 8
+            },
+            "endPosition": {
+                "row": 5,
+                "col": 0
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 1,
+                        "col": 7
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                },
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 5,
+                        "col": 7
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        }
+    ],
+    "branches": {
+        "trap_758_skzmbx#1": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 0,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        },
+        "trap_758_skzmbx#2": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 1,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        }
     },
     "NORMAL": {
         "groupKey": null,

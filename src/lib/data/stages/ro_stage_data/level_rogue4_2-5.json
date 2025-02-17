@@ -10,11 +10,11 @@
     "costIncreaseTime": 1.0,
     "code": "ISW-NO",
     "name_zh": "有序清场",
-    "name_ja": null,
-    "name_en": null,
+    "name_ja": "次の方どうぞ",
+    "name_en": "Clear_the_Crowd",
     "description_zh": "在搞清发生了什么之后，这些萨卡兹开始争论谁的卡兹戴尔更好。他们请你仲裁，在得到令人信服的结果前，他们不会离开。\n<@rolv.rem>场地中有使我方不会成为敌人远程攻击目标的<排气格栅></>",
-    "description_ja": null,
-    "description_en": null,
+    "description_ja": "状況を理解したのち、このサルカズたちはこぞって誰のカズデルがより優れているかの論争を始めた。彼らはあなたに仲裁を求めてきたが、納得できる結果を得るまで彼らは決して立ち去らないだろう。\n<@rolv.rem>配置した味方が敵遠距離攻撃の対象にならない<換気口>が出現</>",
+    "description_en": "After figuring out what happened, these Sarkaz begin arguing over which Kazdel is better. They invite you to arbitrate the dispute, and won't leave until they're satisfied with the result.\n<@rolv.rem><Exhaust Grilles> are present on the field; Operators deployed on this tile will not be targeted by enemy ranged attacks</>",
     "addInfo_zh": [
         "年代之刺：普通1/天灾+1"
     ],
@@ -2696,6 +2696,94 @@
                 0
             ]
         ]
+    },
+    "extra_routes": [
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 1,
+                "col": 3
+            },
+            "endPosition": {
+                "row": 2,
+                "col": 10
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 3,
+                "col": 4
+            },
+            "endPosition": {
+                "row": 2,
+                "col": 10
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        }
+    ],
+    "branches": {
+        "trap_758_skzmbx#1": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 0,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        },
+        "trap_758_skzmbx#2": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 1,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        }
     },
     "NORMAL": {
         "groupKey": null,

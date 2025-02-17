@@ -10,11 +10,11 @@
     "costIncreaseTime": 1.0,
     "code": "ISW-NO",
     "name_zh": "谋求共识",
-    "name_ja": null,
-    "name_en": null,
+    "name_ja": "合意を求めて",
+    "name_en": "Quest_For_Consensus",
     "description_zh": "大部分先祖的讨论正在向同一个可能性聚合，而另一些则更为激烈地表达反对。幻景之中，代表反对者的形象开始涌向你。",
-    "description_ja": null,
-    "description_en": null,
+    "description_ja": "先祖たちの大半は、一つの可能性に討論の結果を集束させているものだが、ほかより過激な反対意見を示している者もいる。幻の中、そうした人々を象徴するものがあなたに押し寄せてきた。",
+    "description_en": "Most ancestors tend to discuss similar possibilities, while others vehemently express their objections. Within the illusion, figures representing the opposition begin rushing towards you.",
     "addInfo_zh": [
         "年代之刺：普通0/天灾+2"
     ],
@@ -3321,6 +3321,109 @@
                 0
             ]
         ]
+    },
+    "extra_routes": [
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 3,
+                "col": 5
+            },
+            "endPosition": {
+                "row": 2,
+                "col": 0
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 2,
+                        "col": 5
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 8
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 11
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        }
+    ],
+    "branches": {
+        "branch_1": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 0,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        },
+        "branch_2": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 1,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        }
     },
     "NORMAL": {
         "groupKey": null,

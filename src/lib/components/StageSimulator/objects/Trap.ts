@@ -75,6 +75,9 @@ export class Trap {
 					}
 					let scale = 100;
 					switch (this.key) {
+						case 'trap_107_smpow':
+							model.position.z = 40;
+							break;
 						case 'trap_001_crate':
 						case 'trap_480_roadblockxb':
 							scale = 110;
@@ -90,6 +93,23 @@ export class Trap {
 
 					model.scale.set(scale, scale, scale);
 					this.meshGroup.add(model);
+					switch (this.key) {
+						case 'trap_106_smtree':
+							switch (this.direction) {
+								case 'LEFT':
+									this.meshGroup.rotation.z = Math.PI;
+									break;
+								case 'UP':
+									this.meshGroup.rotation.z = -Math.PI / 2;
+									break;
+								case 'DOWN':
+									this.meshGroup.rotation.z = Math.PI / 2;
+									break;
+								default:
+									break;
+							}
+							return;
+					}
 					switch (this.direction) {
 						case 'LEFT':
 							this.meshGroup.rotation.z = Math.PI;
@@ -106,6 +126,7 @@ export class Trap {
 				}
 				return;
 			case 'texture':
+			default:
 				{
 					const texture = this.assetManager.textures.get(this.key)?.texture;
 					if (!texture) break;
@@ -117,17 +138,8 @@ export class Trap {
 					const frontPlane = new THREE.Mesh(geometry, material);
 					this.meshGroup.add(frontPlane);
 				}
-				return;
-			default:
 				break;
 		}
-		const geometry = new THREE.BoxGeometry(GameConfig.gridSize, GameConfig.gridSize, 50);
-		const material = new THREE.MeshStandardMaterial({
-			color: 0x000000,
-			side: THREE.DoubleSide
-		});
-		const box = new THREE.Mesh(geometry, material);
-		this.meshGroup.add(box);
 	}
 	update(delta) {
 		switch (this.type) {

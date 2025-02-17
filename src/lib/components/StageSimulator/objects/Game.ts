@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import type { Enemy as EnemyType, MapConfig } from '$lib/types';
 import { GameMap } from './GameMap';
-import SpawnManager from './SpawnManager';
+import {SpawnManager} from './SpawnManager';
 import { GameConfig } from './GameConfig';
 import { GameManager } from './GameManager';
 import { AssetManager } from './AssetManager';
@@ -74,7 +74,7 @@ export class Game {
 		this.renderer.setPixelRatio(window.devicePixelRatio);
 		this.renderer.setSize(rect.width, rect.height);
 		window.addEventListener('resize', this.onWindowResize);
-		document.addEventListener('pointermove', this.onPointerMove);
+		// document.addEventListener('pointermove', this.onPointerMove);
 		document.addEventListener('pointerdown', this.onPointerDown);
 
 		this.gameManager = new GameManager(config, this.scene, this.camera, this.objects, enemies);
@@ -150,12 +150,12 @@ export class Game {
 
 		const intersects = this.raycaster.intersectObjects(this.objects, false);
 		if (intersects.length > 0) {
-			const intersect = intersects.find((ele) => ele?.object?.userData?.name === 'plane');
-			if (!intersect) {
+			const plane = intersects.find((ele) => ele?.object?.userData?.name === 'plane');
+			if (!plane) {
 				return;
 			}
 			const mesh = this.gameManager.rollOverMeshes.get(GameConfig.tokenCard.key)?.getMesh();
-			mesh.position.copy(intersect.point).add(intersect.face.normal);
+			mesh.position.copy(plane.point).add(plane.face.normal);
 			mesh.position
 				.divideScalar(GameConfig.gridSize)
 				.floor()
@@ -199,43 +199,43 @@ export class Game {
 			const intersect = intersects[0];
 			const plane = intersects.find((ele) => ele?.object?.userData?.name === 'plane');
 
-			if (plane && GameConfig.tokenCard?.selected) {
-				const trap = this.gameManager.rollOverMeshes.get(GameConfig.tokenCard.key);
-				const mesh = trap.getMesh();
-				mesh.position.copy(plane.point).add(plane.face.normal);
-				mesh.position
-					.divideScalar(GameConfig.gridSize)
-					.floor()
-					.multiplyScalar(GameConfig.gridSize)
-					.addScalar(50);
-				mesh.position.z = 0.01;
-				const { x, y } = mesh.position;
-				const gridPos = this.gameManager.vectorToGridMap.get(`${x},${y}`);
-				const tile = this.gameManager.tiles.get(gridPos);
-				const placedTrap = this.gameManager.traps.get(gridPos);
-				const [col, row] = gridPos.split(',');
-				if (tile?.buildableType == 0 || tile.heightType == 1 || placedTrap) {
-					mesh.visible = false;
-				} else {
-					this.gameManager.addTrap(
-						{
-							key: trap.key,
-							direction: 'UP',
-							pos: { row, col }
-						},
-						null,
-						'world'
-					);
-					GameConfig.setValue('tokenCard', {
-						...GameConfig.tokenCard,
-						count: GameConfig.tokenCard.count - 1
-					});
-					if (GameConfig.tokenCard.count === 0) {
-						GameConfig.setValue('tokenCard', null);
-					}
-					return;
-				}
-			}
+			// if (plane && GameConfig.tokenCard?.selected) {
+			// 	const trap = this.gameManager.rollOverMeshes.get(GameConfig.tokenCard.key);
+			// 	const mesh = trap.getMesh();
+			// 	mesh.position.copy(plane.point).add(plane.face.normal);
+			// 	mesh.position
+			// 		.divideScalar(GameConfig.gridSize)
+			// 		.floor()
+			// 		.multiplyScalar(GameConfig.gridSize)
+			// 		.addScalar(50);
+			// 	mesh.position.z = 0.01;
+			// 	const { x, y } = mesh.position;
+			// 	const gridPos = this.gameManager.vectorToGridMap.get(`${x},${y}`);
+			// 	const tile = this.gameManager.tiles.get(gridPos);
+			// 	const placedTrap = this.gameManager.traps.get(gridPos);
+			// 	const [col, row] = gridPos.split(',');
+			// 	if (tile?.buildableType == 0 || tile.heightType == 1 || placedTrap) {
+			// 		mesh.visible = false;
+			// 	} else {
+			// 		this.gameManager.addTrap(
+			// 			{
+			// 				key: trap.key,
+			// 				direction: 'UP',
+			// 				pos: { row, col }
+			// 			},
+			// 			null,
+			// 			'world'
+			// 		);
+			// 		GameConfig.setValue('tokenCard', {
+			// 			...GameConfig.tokenCard,
+			// 			count: GameConfig.tokenCard.count - 1
+			// 		});
+			// 		if (GameConfig.tokenCard.count === 0) {
+			// 			GameConfig.setValue('tokenCard', null);
+			// 		}
+			// 		return;
+			// 	}
+			// }
 			if (intersect?.object?.userData?.enemy) {
 				const enemy = intersect?.object?.userData?.enemy;
 				if (enemy.selected) {
@@ -256,9 +256,8 @@ export class Game {
 	render() {
 		const deltaTime = this.clock.getDelta() * GameConfig.speedFactor;
 		if (
-			((GameConfig.state === 'ready' && GameConfig.scaledElapsedTime < 0.4) ||
-				GameConfig.state === 'running') &&
-			!GameConfig.isPaused
+			(GameConfig.state === 'running' && !GameConfig.isPaused) ||
+			GameConfig.scaledElapsedTime < 0.4
 		) {
 			this.spawnManager.update(deltaTime);
 			this.gameManager.update(deltaTime);

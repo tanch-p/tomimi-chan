@@ -8,7 +8,7 @@ import { Enemy } from './Enemy';
 import { writable } from 'svelte/store';
 import { SPFA } from './SPFA';
 import { Trap } from './Trap';
-import SpawnManager from './SpawnManager';
+import {SpawnManager} from './SpawnManager';
 import { TileManager } from './TileManager';
 
 export class GameManager {
@@ -70,6 +70,37 @@ export class GameManager {
 		return (coordinate - center) * GameConfig.gridSize + GameConfig.gridSize / 2;
 	};
 
+	getGridPosition = (vector: THREE.Vector3) => {
+		// Get the column (x coordinate)
+		const col = Math.floor(
+			(vector.x - GameConfig.gridSize / 2) / GameConfig.gridSize + this.mazeLayout[0].length / 2
+		);
+
+		// Get the row (y coordinate)
+		// Note the negative sign because y is inverted in your original function
+		const row = Math.floor(
+			(-vector.y - GameConfig.gridSize / 2) / GameConfig.gridSize + this.mazeLayout.length / 2
+		);
+
+		return [col, row];
+	};
+
+	calculateAvoidanceForce = (
+		raycastPos: THREE.Vector3,
+		footpoint: THREE.Vector3,
+		direction: THREE.Vector3
+	) => {
+		const gridPos = this.getGridPosition(raycastPos);
+		const tile = this.tiles.get(`${gridPos[0]},${gridPos[1]}`);
+		// let avoidanceIntermediate;
+
+		// if (!this.isPassable(currentTile)) {
+		// 	avoidanceIntermediate = this.findNearestPassableTileVector(currentTile);
+		// } else {
+		// 	avoidanceIntermediate = this.calculateSurroundingAvoidance(enemy, currentTile);
+		// }
+	};
+
 	initVectorToGridMap() {
 		this.vectorToGridMap.clear();
 		this.mazeLayout.forEach((row, rowIdx) =>
@@ -111,9 +142,6 @@ export class GameManager {
 		const { row, col } = pos;
 		this.mazeLayout[row][col] = value;
 		this.pathFinder = new SPFA(this.mazeLayout);
-		for(const enemy of this.enemiesOnMap.filter((ele) => ele.alive)){
-			
-		}
 	}
 
 	getTextSprite(text, size = 20, color = 0xffffff) {
@@ -181,11 +209,11 @@ export class GameManager {
 			data = this.config.traps.find((ele) => ele.alias === actionKey || ele.key === actionKey);
 		}
 		// console.log(data, actionKey);
-		if(!data){
+		if (!data) {
 			return;
 		}
 		const pos = posType === 'game' ? this.gameToWorldPos(data.pos) : data.pos;
-		const trap = new Trap(data,pos);
+		const trap = new Trap(data, pos);
 		if (trap.isRoadblock) {
 			this.updateMazeLayout(pos, 1000);
 		}
@@ -195,12 +223,11 @@ export class GameManager {
 		if (trap.hideTile) {
 			tile.mesh.visible = false;
 			trap.getMesh().add(this.tileManager.basicTile.clone());
-		}
-		else if (tile.heightType === 1 || tile.tileName === "tile_forbidden") {
+		} else if (tile.heightType === 1 || tile.tileName === 'tile_forbidden') {
 			z = 40;
 		}
 		this.traps.set(`${pos.col},${pos.row}`, trap);
-		
+
 		trap.getMesh().position.set(x, y, z + 0.03);
 		this.scene.add(trap.getMesh());
 	}

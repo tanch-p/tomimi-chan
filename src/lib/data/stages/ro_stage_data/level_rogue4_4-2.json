@@ -10,11 +10,11 @@
     "costIncreaseTime": 1.0,
     "code": "ISW-NO",
     "name_zh": "朽败考察",
-    "name_ja": null,
-    "name_en": null,
+    "name_ja": "腐朽の考察",
+    "name_en": "Sordid_Surveillance",
     "description_zh": "幻景因巫术繁盛，亦因巫术枯朽。为了保证该到来的到来，该离去的离去，巫术的平衡在所有年代中都受到严密的监管。",
-    "description_ja": null,
-    "description_en": null,
+    "description_ja": "幻は巫術によって育まれ、巫術によって朽ちる。訪れるべきものが訪れ、去るべきものが去ることができるように、巫術のバランスはどの時代でも厳重に監視、監督されてきた。",
+    "description_en": "Illusions ebb and flow under witchcraft, with balance meticulously monitored across all epochs to ensure events unfold in their designated order.",
     "addInfo_zh": [
         "年代之刺：普通3/天灾+1"
     ],
@@ -5721,6 +5721,94 @@
                 0
             ]
         ]
+    },
+    "extra_routes": [
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 5,
+                "col": 7
+            },
+            "endPosition": {
+                "row": 5,
+                "col": 0
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 6,
+                "col": 4
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 0
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        }
+    ],
+    "branches": {
+        "trap_758_skzmbx#1": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 0,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        },
+        "trap_758_skzmbx#2": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 1,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        }
     },
     "NORMAL": {
         "groupKey": null,

@@ -10,11 +10,11 @@
     "costIncreaseTime": 1.0,
     "code": "ISW-NO",
     "name_zh": "猩红甬道",
-    "name_ja": null,
-    "name_en": null,
+    "name_ja": "緋色の小道",
+    "name_en": "Crimson_Corridor",
     "description_zh": "这条甬道不日将通往血魔的灵庙，它却并非以鲜血浸染。正因如此，鲜血的子裔争先恐后地想要浸染它。\n<@rolv.rem>场地中有间断对其上单位造成伤害的<热泵通道></>\n<@rolv.rem>场地中有阻挡敌人的<城防路障></>",
-    "description_ja": null,
-    "description_en": null,
+    "description_ja": "この小道はブラッドブルードの霊廟へと通じているが、血に染まってはいない。それゆえ血の眷属たちは、我先にと小道を染め上げるべく奮闘している。\n<@rolv.rem>一定時間ごとにその上に配置されたユニットにダメージを与える<噴気口>が出現</>\n<@rolv.rem>敵をブロックできる<都市防衛柵>が出現</>",
+    "description_en": "This corridor will bring you to the Vampire's mausoleum, but it has yet to be stained with blood. This is precisely why Vampire heirs are scrambling to dye it in their shade right now.\n<@rolv.rem><Heat Pump Passages> that periodically inflict damage to units standing on them are present on the field</>\n<@rolv.rem><Defensive Barricades> that block enemies are present on the field</>",
     "addInfo_zh": [
         "年代之刺：普通0/天灾+1"
     ],
@@ -3191,6 +3191,94 @@
                 0
             ]
         ]
+    },
+    "extra_routes": [
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 3,
+                "col": 2
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 4
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 1,
+                "col": 7
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 5
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        }
+    ],
+    "branches": {
+        "trap_758_skzmbx#1": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 0,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        },
+        "trap_758_skzmbx#2": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 1,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        }
     },
     "NORMAL": {
         "groupKey": null,
