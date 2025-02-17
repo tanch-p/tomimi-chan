@@ -10,11 +10,11 @@
     "costIncreaseTime": 1.0,
     "code": "ISW-NO",
     "name_zh": "遮天蔽日",
-    "name_ja": null,
-    "name_en": null,
+    "name_ja": "大きな日陰",
+    "name_en": "Blotted_Sky",
     "description_zh": "卡兹戴尔的升降机总是排着不短的队，食腐者们会对付那些想混进城的不速之客，他们的召唤物也能顺便给大家遮阳。",
-    "description_ja": null,
-    "description_en": null,
+    "description_ja": "カズデルの昇降機の前にはいつも長い列ができている。そこから都市に紛れ込もうとする良からぬ輩を、ナハツェーラーたちは排除しに掛かる。そのついでに、彼らの召喚物もまた、列に並ぶ者たちに日陰を提供してくれている。",
+    "description_en": "Kazdel's lifts always have long queues, with Nachzehrers handling uninvited guests trying to sneak into the city. Their summons also provide shade for everyone waiting.",
     "addInfo_zh": [
         "年代之刺：普通1/天灾+1"
     ],
@@ -4903,6 +4903,94 @@
                 0
             ]
         ]
+    },
+    "extra_routes": [
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 5,
+                "col": 6
+            },
+            "endPosition": {
+                "row": 3,
+                "col": 1
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 1,
+                "col": 6
+            },
+            "endPosition": {
+                "row": 3,
+                "col": 1
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        }
+    ],
+    "branches": {
+        "trap_758_skzmbx#1": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 0,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        },
+        "trap_758_skzmbx#2": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 1,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        }
     },
     "NORMAL": {
         "groupKey": null,

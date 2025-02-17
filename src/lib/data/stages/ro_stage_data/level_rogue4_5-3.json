@@ -10,11 +10,11 @@
     "costIncreaseTime": 1.0,
     "code": "ISW-NO",
     "name_zh": "巫咒同盟",
-    "name_ja": null,
-    "name_en": null,
+    "name_ja": "巫術とアーツの同盟",
+    "name_en": "Witch-Curse_Alliance",
     "description_zh": "在皇帝和大贵族的带领之下，莱塔尼亚人逐渐融入了萨卡兹的生活。而这份真诚的友谊将交换到惊人的秘密。\n<@rolv.rem>场地中有受击后可开启，切换变奏并使我方获得短暂增益的<调谐节点></>",
-    "description_ja": null,
-    "description_en": null,
+    "description_ja": "皇帝と大貴族たちの主導のもと、リターニア人は徐々にサルカズの生活に馴染み始めている。この誠実な友情は、やがて驚くべき秘密への足掛かりとなるだろう。\n<@rolv.rem>一定回数攻撃を与えると起動可能となり、変奏を切り替えると味方をしばらくの間支援してくれる<調律器>が出現</>",
+    "description_en": "Led by the Emperor and nobles, the Leithanians gradually grew accustomed to life with the Sarkaz. Little do they know, this genuine friendship will soon bring shocking secrets.\n<@rolv.rem><Tuning Nodes> that can be attacked to switch variations and buff allied units are present on the field</>",
     "addInfo_zh": [
         "始终是&lt;@purple&gt;沉郁变奏&lt;/&gt;，能用调谐节点改换变奏",
         "年代之刺：普通0/天灾+1"
@@ -10452,6 +10452,94 @@
                 0
             ]
         ]
+    },
+    "extra_routes": [
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 4,
+                "col": 7
+            },
+            "endPosition": {
+                "row": 8,
+                "col": 5
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 5,
+                "col": 3
+            },
+            "endPosition": {
+                "row": 8,
+                "col": 5
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        }
+    ],
+    "branches": {
+        "trap_758_skzmbx#1": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 0,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        },
+        "trap_758_skzmbx#2": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 1,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        }
     },
     "NORMAL": {
         "groupKey": null,

@@ -10,11 +10,11 @@
     "costIncreaseTime": 1.0,
     "code": "ISW-NO",
     "name_zh": "残损学院",
-    "name_ja": null,
-    "name_en": null,
+    "name_ja": "欠け落ちた学院",
+    "name_en": "Wrecked_Academy",
     "description_zh": "某个夜里，这所学院的一部分先后掉入了众多卡兹戴尔的缝隙中。未被波及的学者教授们第二天因机会不愿选中他们而纷纷捶胸顿足。\n<@rolv.rem>场地中有使我方不会成为敌人远程攻击目标的<排气格栅></>",
-    "description_ja": null,
-    "description_en": null,
+    "description_ja": "とある夜、この学院の一部が相次いで、数多あるカズデルの隙間へと落ちていってしまった。被害を受けなかった学者や教授たちは翌日、その機会に恵まれなかったことで地団駄を踏むほど悔しがっていた。\n<@rolv.rem>配置した味方が敵遠距離攻撃の対象にならない<換気口>が出現</>",
+    "description_en": "One night, parts of the academy tumbled into Kazdel's many cracks. The next day, unaffected scholars and professors were anguished, lamenting their missed opportunity.\n<@rolv.rem><Exhaust Grilles> are present on the field; Operators deployed on this tile will not be targeted by enemy ranged attacks</>",
     "addInfo_zh": [
         "年代之刺：普通1/天灾+1"
     ],
@@ -2631,6 +2631,94 @@
                 0
             ]
         ]
+    },
+    "extra_routes": [
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 4,
+                "col": 10
+            },
+            "endPosition": {
+                "row": 3,
+                "col": 8
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 1,
+                "col": 6
+            },
+            "endPosition": {
+                "row": 2,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        }
+    ],
+    "branches": {
+        "mbx1": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 0,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        },
+        "mbx2": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 1,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        }
     },
     "NORMAL": {
         "groupKey": null,

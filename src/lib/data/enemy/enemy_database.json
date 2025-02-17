@@ -31509,7 +31509,7 @@
 					},
 					{
 						"key": "transform",
-						"value":"enemy_2021_syfish"
+						"value": "enemy_2021_syfish"
 					}
 				],
 				"special": []
@@ -31783,30 +31783,51 @@
 					{
 						"key": "mzk_hp_loss_start"
 					},
-					{
-						"key": "mzk_study"
-					},
-					{
-						"key": "mzk_eat"
-					},
-					{
-						"key": "mzk_intepret_normal_attack"
-					},
-					{
-						"key": "mzk_shock_hp"
-					},
-					{
-						"key": "mzk_shock_skill"
-					}
+					{ "key": "mzk_atk_stack" }
 				],
-				"special": []
+				"special": [
+					[
+						{
+							"key": "mzk_branch_summon"
+						},
+						{
+							"key": "mzk_extra_summon"
+						},
+						{
+							"key": "mzk_study"
+						},
+						{
+							"key": "mzk_eat"
+						}
+					],
+					[
+						{
+							"key": "mzk_intepret_normal_attack"
+						},
+						{
+							"key": "mzk_shock_hp"
+						},
+						{
+							"key": "mzk_shock_skill"
+						}
+					]
+				],
+				"form_mods": [{}, {}]
 			}
 		],
 		"forms": [
 			{
-				"title": null,
+				"title": "form",
 				"normal_attack": {
 					"atk_type": ["raw"],
+					"hits": 1
+				},
+				"status_immune": ["stun", "silence", "sleep", "freeze", "levitate"]
+			},
+			{
+				"title": "form",
+				"normal_attack": {
+					"atk_type": ["ranged", "phys"],
 					"hits": 1
 				},
 				"status_immune": ["stun", "silence", "sleep", "freeze", "levitate"]
@@ -33976,6 +33997,9 @@
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
 				"traits": [
+					{
+						"key": "move_blink"
+					},
 					{
 						"key": "smedzi_1"
 					},
@@ -49202,8 +49226,7 @@
 				"ms": 0.2,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [
-				],
+				"traits": [],
 				"special": []
 			}
 		],
@@ -49239,8 +49262,7 @@
 				"ms": 0.4,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [
-				],
+				"traits": [],
 				"special": []
 			}
 		],
@@ -49276,8 +49298,7 @@
 				"ms": 0.4,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [
-				],
+				"traits": [],
 				"special": []
 			}
 		],

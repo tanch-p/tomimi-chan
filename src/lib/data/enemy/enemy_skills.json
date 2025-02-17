@@ -1,4 +1,7 @@
 {
+	"move_blink": {
+		"tooltip": null
+	},
 	"stealth": {
 		"tooltip": {
 			"en": ["Stealth"],
@@ -1333,11 +1336,14 @@
 			]
 		}
 	},
-	"mzk_eat": {
+	"mzk_atk_stack": {
 		"atk": { "multiplier": 2.6 },
 		"dmg_element": null,
 		"suffix": { "en": "max buff", "ja": "4回強化", "zh": "4层强化" },
 		"hits": null,
+		"tooltip": null
+	},
+	"mzk_eat": {
 		"tooltip": {
 			"en": [
 				"Every 5 &lt;Izumik's Offspring&gt; eaten, gains ATK +40%, heals 15% of max HP, and does 100% ATK as {arts} damage to all allied units {ignore_camou}"
@@ -1385,6 +1391,24 @@
 			]
 		}
 	},
+	"mzk_branch_summon": {
+		"branches": [
+			["syboss_jely1", 20, 70],
+			["syboss_jely2", 16, 146],
+			["syboss_jely3", 23, 260],
+			["syboss_jely4", 18, 999]
+		],
+		"tooltip": null
+	},
+	"mzk_extra_summon": {
+		"type": "skill",
+		"initSp": 117,
+		"spCost": 120,
+		"skillType": "INCREASE_WITH_TIME",
+		"branch_id": "syboss_extra",
+		"max_count": 4,
+		"tooltip": null
+	},
 	"egg_stab": {
 		"atk": { "multiplier": 1 },
 		"dmg_element": "arts",
@@ -1403,6 +1427,7 @@
 		}
 	},
 	"sea_reaper_awaken": {
+		"standby": 30,
 		"value": 0.2,
 		"tooltip": {
 			"en": [
@@ -2212,27 +2237,31 @@
 		}
 	},
 	"standby": {
-		"value": 150,
+		"standby": 150,
 		"tooltip": {
-			"en": ["On Standby for <v.value> seconds"],
-			"ja": ["<v.value>待機する"],
-			"zh": ["待命<v.value>秒"]
+			"en": ["On Standby for <v.standby> seconds"],
+			"ja": ["<v.standby>待機する"],
+			"zh": ["待命<v.standby>秒"]
 		}
 	},
 	"sarkaz_standby": {
-		"value": 150,
+		"standby": 150,
 		"tooltip": {
 			"en": [
-				"On Standby for <v.value> seconds",
+				"On Standby for <v.standby> seconds",
 				"Does not attack while on standby, enters Combat Ready state when HP decreases",
 				"Combat Ready - Movespeed +200%"
 			],
 			"ja": [
-				"<v.value>待機する",
+				"<v.standby>待機する",
 				"待機中攻撃しない、HPが減ると【臨戦】態勢に入る",
 				"【臨戦】態勢 - 移動速度+200%"
 			],
-			"zh": ["待命<v.value>秒", "初始处于待命状态，不进行攻击", "受伤后进入临战状态，移动速度+200%"]
+			"zh": [
+				"待命<v.standby>秒",
+				"初始处于待命状态，不进行攻击",
+				"受伤后进入临战状态，移动速度+200%"
+			]
 		}
 	},
 	"sarkaz_nac10_consume": {

@@ -10,11 +10,11 @@
     "costIncreaseTime": 1.0,
     "code": "ISW-NO",
     "name_zh": "寄人城池下",
-    "name_ja": null,
-    "name_en": null,
+    "name_ja": "都市に身を寄せて",
+    "name_en": "Rogue_Mercenary",
     "description_zh": "为了生计，佣兵去了伦蒂尼姆。但你坚定地相信，她和之后焚毁全城的大火没有任何关系。\n<@rolv.rem>场地中有周期对目标区域造成真实伤害的<伦蒂尼姆城防副炮></>",
-    "description_ja": null,
-    "description_en": null,
+    "description_ja": "生きていくために、ある傭兵はロンディニウムへ向かった。その後、都市を丸ごと飲み込むほどの大火災が起きたが、彼女はきっと無関係のはずだと、あなたは強く信じている。\n<@rolv.rem>一定期間ごとに目標エリアに確定ダメージを与える<ロンディニウム都市防衛副砲>が出現</>",
+    "description_en": "A mercenary went to Londinium to make ends meet, but you firmly believe she has nothing to do with the great blaze that destroyed the city.\n<@rolv.rem><Londinium Secondary Defense Artillery> that deals True damage to the target area periodically is present on the field</>",
     "addInfo_zh": [
         "年代之刺：普通0/天灾+2",
         "伦蒂尼姆城防副炮 - 初始60SP/消耗120/自动回复",
@@ -4009,6 +4009,94 @@
                 0
             ]
         ]
+    },
+    "extra_routes": [
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 5,
+                "col": 3
+            },
+            "endPosition": {
+                "row": 5,
+                "col": 11
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 2,
+                "col": 9
+            },
+            "endPosition": {
+                "row": 5,
+                "col": 11
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        }
+    ],
+    "branches": {
+        "mbx1": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 0,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        },
+        "mbx2": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 1,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        }
     },
     "NORMAL": {
         "groupKey": "normal",

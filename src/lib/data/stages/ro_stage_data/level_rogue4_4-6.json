@@ -10,11 +10,11 @@
     "costIncreaseTime": 1.0,
     "code": "ISW-NO",
     "name_zh": "假想对冲",
-    "name_ja": null,
-    "name_en": null,
+    "name_ja": "仮説の衝突",
+    "name_en": "Timeworn_Tensions",
     "description_zh": "一些古老的萨卡兹被他们从未见过的机械惹恼了，可那些机械的外壳上似乎也铭刻着卡兹戴尔的标记。",
-    "description_ja": null,
-    "description_en": null,
+    "description_ja": "古きサルカズの一部の人々が、初めて見る機械に腹を立てている。だが、そんな機械にもカズデルの紋章がついているようだ。",
+    "description_en": "Some ancient Sarkaz have been angered by these machines they've never seen before, but their outer shells seem to sport an engraved symbol of Kazdel.",
     "addInfo_zh": [
         "年代之刺：普通1/天灾+1"
     ],
@@ -1869,6 +1869,94 @@
                 0
             ]
         ]
+    },
+    "extra_routes": [
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 4,
+                "col": 4
+            },
+            "endPosition": {
+                "row": 4,
+                "col": 11
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 2,
+                "col": 8
+            },
+            "endPosition": {
+                "row": 2,
+                "col": 0
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        }
+    ],
+    "branches": {
+        "branch_1": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 0,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        },
+        "branch_2": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 1,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        }
     },
     "NORMAL": {
         "groupKey": null,

@@ -22,9 +22,11 @@
 	}
 	function handlePause() {
 		GameConfig.isPaused = !GameConfig.isPaused;
+		GameConfig.state = "running";
 	}
 	function handleReset() {
 		game.softReset();
+		GameConfig.isPaused = true;
 	}
 	// Sync class -> store
 	let unsubscribe;
@@ -46,13 +48,6 @@
 	});
 </script>
 
-{#if GameConfig.state === 'ready'}
-	<div
-		class="absolute z-[2] inset-0 flex items-center justify-center bg-black bg-opacity-10 pointer-events-none"
-	>
-		<p>Touch to begin</p>
-	</div>
-{/if}
 {#if GameConfig.state === 'end'}
 	<div
 		class="absolute z-[2] inset-0 flex items-center justify-center bg-black bg-opacity-10 pointer-events-none"

@@ -10,11 +10,11 @@
     "costIncreaseTime": 1.0,
     "code": "ISW-NO",
     "name_zh": "安全检查",
-    "name_ja": null,
-    "name_en": null,
+    "name_ja": "安全点検",
+    "name_en": "Safety_Inspection",
     "description_zh": "巫妖们规定，养护工人们下班离开熔炉时必须接受检查，清点人数——不能少，更不能多。这个规定并不总能得到执行。\n<@rolv.rem>场地中有使单位持续损失生命但大幅提升攻击力和攻击速度的<活性源石></>\n<@rolv.rem>场地中有发射敌方佣兵无人机的<可移动战术机库></>",
-    "description_ja": null,
-    "description_en": null,
+    "description_ja": "リッチたちの設けた規定により、メンテナンス技師たちは終業時、溶炉を去る前に必ず検査を受け、点呼を取らねばならない。その際に人数が減っても、増えてもいけない。だが、この規定はいつも守られているわけではない。\n<@rolv.rem>ユニットのHPを奪い続けるが、攻撃力と攻撃速度を大幅に上昇させる<活性源石>が出現</>\n<@rolv.rem>敵傭兵を支援するドローンを射出する<可動式戦術格納庫>が出現</>",
+    "description_en": "The Liches have declared that maintenance workers must be examined and counted when they leave the furnace—not one less, and certainly not one more. This rule is not always enforced.\n<@rolv.rem><Active Originium> that greatly increases the ATK and ASPD of units that pass over it, but continuously reduces their HP is present on the field</>\n<@rolv.rem><Mobile Tactical Hangars> that deploy enemy mercenary drones are present on the field.</>",
     "addInfo_zh": [
         "年代之刺：普通1/天灾+1"
     ],
@@ -2586,6 +2586,124 @@
                 0
             ]
         ]
+    },
+    "extra_routes": [
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 1,
+                "col": 2
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 7
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 1,
+                        "col": 5
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 4,
+                "col": 3
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 7
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 4,
+                        "col": 5
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        }
+    ],
+    "branches": {
+        "branch_1": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 0,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        },
+        "branch_2": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 1,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        }
     },
     "NORMAL": {
         "groupKey": null,

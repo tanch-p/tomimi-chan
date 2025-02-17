@@ -2,6 +2,16 @@ import * as spine from '$lib/spine';
 
 const getStatePrefixSuffix = () => {};
 
+export function getDefaultAnimName(key, skel) {
+	if (skel.state.hasAnimation('Default')) {
+		return 'Default';
+	}
+	switch (key) {
+		case 'enemy_2025_syufo':
+			return 'Default_01';
+	}
+}
+
 export function getIdleAnimName(key, skel, state) {
 	if (skel.state.hasAnimation('Idle')) {
 		return 'Idle';
@@ -169,5 +179,17 @@ export function getMoveAnimName(key, skel, state) {
 
 		default:
 			return 'Move_Loop';
+	}
+}
+export function getAnimDuration(skel, animName) {
+	return skel.state.data.skeletonData.animations.find((ele) => ele.name === animName)?.duration;
+}
+
+export function getSkillAnimName(enemyKey, skillKey) {
+	switch (skillKey) {
+		case 'mzk_extra_summon':
+			return 'Skill_1_Loop';
+		default:
+			break;
 	}
 }

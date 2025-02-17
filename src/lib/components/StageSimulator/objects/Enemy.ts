@@ -3,11 +3,12 @@ import * as spine from '$lib/spine';
 import { GameConfig } from './GameConfig';
 import { GameManager } from './GameManager';
 import { AssetManager } from './AssetManager';
-import type { Enemy as EnemyType } from '$lib/types';
+import type { Enemy as EnemyType, Skill } from '$lib/types';
 import { SPFA } from './SPFA';
 import { CountdownSprite } from './CountdownSprite';
 import { getEnemySkills } from '$lib/functions/skillHelpers';
 import { getIdleAnimName, getMoveAnimName } from '$lib/functions/spineHelpers';
+import { SkillManager } from './SkillManager';
 
 const moveMultiplier = 0.5;
 export class Enemy {
@@ -23,9 +24,12 @@ export class Enemy {
 	currentActionIndex = 0;
 	state: string;
 	alive = true;
-	direction = 1;
-	motionMode: 'WALK' | 'FLY';
+	direction: THREE.Vector3;
+	motionMode: 'WALK' | 'FLY' | 'BLINK';
 	isMoving = false;
+	blinkState: 'START' | 'END' | null = null;
+	blinkElapsedTime = 0;
+	blinkDuration = 0;
 	moveDirection: 'H' | 'V' | 'D' = 'H';
 	waitElapsedTime = 0;
 	entry = true;
@@ -34,6 +38,7 @@ export class Enemy {
 	exitElapsedTime = 0;
 	isEnding = false;
 	selected = false;
+	animState = 'Idle';
 	gameManager: GameManager;
 	pathGroup;
 	skel: spine.SkeletonMesh;
@@ -43,6 +48,9 @@ export class Enemy {
 	meshGroup: THREE.Group;
 	hitbox;
 	shadow;
+	traits: Skill[];
+	specials: Skill[];
+	skillManager: SkillManager;
 	formIndex = 0;
 	waitTimer: CountdownSprite;
 	timeToWait = 0;
@@ -53,7 +61,7 @@ export class Enemy {
 	buffs = [];
 	darkness = 1;
 	fragmentKey: string;
-	arrivalThreshold = 0;
+	arrivalThreshold = GameConfig.gridSize * 0.45;
 
 	constructor(enemyData: EnemyType, route, gameManager: GameManager, fragmentKey) {
 		gameManager.enemiesOnMap.push(this);
@@ -75,14 +83,27 @@ export class Enemy {
 			this.arrivalThreshold = GameConfig.gridSize * 0.05;
 		}
 		this.motionMode = route.motionMode;
-		this.state = 'Idle';
+		this.state = 'idle';
 		this.actions = this.getActions(route);
 		this.hp = enemyData.forms[0].stats.hp;
 		this.speed = enemyData.forms[0].stats.ms;
 		this.meshGroup = new THREE.Group();
 		this.waitTimer = new CountdownSprite(this.gameManager);
 		this.traits = getEnemySkills(this.data, this.data.traits, this.formIndex, {}, 'trait');
+		this.specials = getEnemySkills(
+			this.data,
+			this.data.forms[this.formIndex].special,
+			this.formIndex,
+			{},
+			'special'
+		);
+
+		if (this.traits.find((skill) => skill.key === 'move_blink')) {
+			this.motionMode = 'BLINK';
+		}
 		this.initModel();
+		this.skillManager = new SkillManager(this, this.traits.concat(this.specials));
+
 		const { x: actualX, y: actualY } = this.gameManager.getVectorCoordinates(
 			route.startPosition,
 			route.spawnOffset
@@ -97,10 +118,10 @@ export class Enemy {
 			this.route.startPosition,
 			this.route.spawnOffset
 		);
-		const standby = this.traits.find((skill) => ['sarkaz_standby', 'standby'].includes(skill.key));
-		if (standby) {
-			this.state = 'wait';
-			this.standbyTime = standby.value;
+		const standbyTime = this.traits.find((skill) => skill.standby)?.standby;
+		if (standbyTime) {
+			this.state = 'standby';
+			this.standbyTime = standbyTime;
 		}
 	}
 
@@ -135,7 +156,6 @@ export class Enemy {
 		if (!skeletonData) {
 			return;
 		}
-		// console.log(skeletonData);
 		const skeletonMesh = new spine.SkeletonMesh(skeletonData, (parameters) => {
 			parameters.depthTest = false;
 			parameters.alphaTest = 0.001;
@@ -200,14 +220,7 @@ export class Enemy {
 			this.atkRangeMesh = group;
 			this.meshGroup.add(group);
 		}
-		const specialList = getEnemySkills(
-			this.data,
-			this.data.forms[this.formIndex].special,
-			this.formIndex,
-			{},
-			'special'
-		);
-		const allSkills = this.traits.concat(specialList);
+		const allSkills = this.traits.concat(this.specials);
 		if (allSkills.some((skill) => skill.key.includes('stealth'))) {
 			this.buffs.push('stealth');
 			this.darkness = 0.4;
@@ -244,10 +257,9 @@ export class Enemy {
 			this.meshGroup.add(group);
 		}
 	}
-
 	getFootpoint() {
 		// 足坐标在计算避障力时被使用
-		const { x, y, z } = this.pos;
+		const { x, y, z } = this.meshGroup.position;
 		return new THREE.Vector3(x, y - GameConfig.gridSize * 0.2, z);
 	}
 
@@ -298,6 +310,7 @@ export class Enemy {
 							relevantPaths.forEach(([col, row]) => {
 								const isCheckPoint =
 									pathType === 'cp' && row === position.row && col === position.col;
+								const isEnd = pathType === 'end' && row === position.row && col === position.col;
 								acc.push({
 									type: 'MOVE',
 									time: 0.0,
@@ -309,7 +322,7 @@ export class Enemy {
 												y: 0.0
 										  },
 									reachDistance: 0.0,
-									pathType: isCheckPoint ? 'cp' : 'intermediate'
+									pathType: isCheckPoint ? 'cp' : isEnd ? 'end' : 'intermediate'
 								});
 							});
 						}
@@ -361,6 +374,7 @@ export class Enemy {
 		if (!this.skel) {
 			return;
 		}
+		this.skillManager.update(delta);
 		this.skel.update(delta);
 		if (this.entry) {
 			this.entryColorChange(delta);
@@ -373,25 +387,12 @@ export class Enemy {
 			return;
 		}
 
-		if (this.standbyTime > 0) {
-			if (this.waitElapsedTime === 0) {
-				this.waitTimer.setColor(0x5f7af7);
-				this.handleIdle();
-				this.waitTimer.getMesh().visible = GameConfig.showAllTimers || this.selected;
-				this.waitElapsedTime += delta;
-			} else {
-				this.waitTimer.updateTimer(this.standbyTime - this.waitElapsedTime);
-				this.waitElapsedTime += delta;
-			}
-
-			if (this.waitElapsedTime >= this.standbyTime) {
-				this.standbyTime = 0;
-				this.waitElapsedTime = 0;
-				this.waitTimer.getMesh().visible = false;
-				this.waitTimer.setColor(0xf08080);
-			}
+		if(this.skillManager.isUsingSkill){
 			return;
 		}
+
+		// 避障力
+		// const force = this.gameManager.calculateAvoidanceForce(this.raycastPos,this.getFootpoint(),this.direction);
 
 		const { type, position, pathType, time, reachOffset } = this.actions[this.currentActionIndex];
 
@@ -403,54 +404,118 @@ export class Enemy {
 		}
 		switch (type) {
 			case 'MOVE':
-				if (!this.isMoving) {
-					// Start new movement
-					const { x, y } = this.gameManager.getVectorCoordinates(position, reachOffset);
-					this.targetPos = new THREE.Vector3(x, y, GameConfig.baseZIndex);
-					this.isMoving = true;
-					this.handleMove();
-				}
-				let direction = new THREE.Vector3().subVectors(this.targetPos, this.raycastPos).normalize();
-				if (direction.x === 0) {
-					let nextCheckPoint;
-					for (let i = this.currentActionIndex; i < this.actions.length; i++) {
-						if (this.actions[i].pathType === 'cp') {
-							nextCheckPoint = this.actions[i].position;
+				{
+					if (this.standbyTime > 0) {
+						break;
+					}
+					if (this.state === 'use_skill') {
+						break;
+					}
+					if (this.motionMode === 'BLINK') {
+						// smedzi
+						switch (this.blinkState) {
+							case null:
+								//START BLINK
+								this.blinkState = 'START';
+								this.blinkDuration = this.skel.state.data.skeletonData.animations.find(
+									(ele) => ele.name === 'Move_Begin'
+								)?.duration;
+								this.skel.state.setAnimation(0, 'Move_Begin', false);
+								break;
+							case 'START':
+								{
+									this.blinkElapsedTime += delta;
+									if (this.blinkElapsedTime > this.blinkDuration) {
+										this.blinkElapsedTime = 0;
+										const { x, y } = this.gameManager.getVectorCoordinates(position, reachOffset);
+										this.targetPos = new THREE.Vector3(x, y, GameConfig.baseZIndex);
+										this.raycastPos.copy(this.targetPos);
+										this.meshGroup.position.copy(this.targetPos);
+										this.blinkState = 'END';
+										this.blinkDuration = this.skel.state.data.skeletonData.animations.find(
+											(ele) => ele.name === 'Move_End'
+										)?.duration;
+										this.skel.state.setAnimation(0, 'Move_End', false);
+									}
+								}
+								break;
+							case 'END':
+								{
+									this.blinkElapsedTime += delta;
+									if (this.blinkElapsedTime > this.blinkDuration) {
+										this.blinkElapsedTime = 0;
+										this.blinkState = null;
+										this.blinkDuration = this.skel.state.data.skeletonData.animations.find(
+											(ele) => ele.name === 'Move_End'
+										)?.duration;
+										this.currentActionIndex++;
+									}
+								}
+								break;
 						}
+
+						return;
 					}
-					if (!nextCheckPoint) {
-						nextCheckPoint = this.actions[this.actions.length - 1]?.position;
+					if (!this.isMoving) {
+						// Start new movement
+						const { x, y } = this.gameManager.getVectorCoordinates(position, reachOffset);
+						this.targetPos = new THREE.Vector3(x, y, GameConfig.baseZIndex);
+						this.isMoving = true;
+						this.handleMove();
 					}
-					const { x, y } = this.gameManager.getVectorCoordinates(nextCheckPoint, reachOffset);
-					direction = new THREE.Vector3()
-						.subVectors(new THREE.Vector3(x, y, GameConfig.baseZIndex), this.raycastPos)
+					let direction = new THREE.Vector3()
+						.subVectors(this.targetPos, this.raycastPos)
 						.normalize();
+					this.direction = direction;
+					if (direction.x === 0) {
+						let nextCheckPoint;
+						for (let i = this.currentActionIndex; i < this.actions.length; i++) {
+							if (['cp', 'end'].includes(this.actions[i].pathType)) {
+								nextCheckPoint = this.actions[i].position;
+							}
+						}
+						if (!nextCheckPoint) {
+							nextCheckPoint = this.actions[this.actions.length - 1]?.position;
+						}
+						const { x, y } = this.gameManager.getVectorCoordinates(nextCheckPoint, reachOffset);
+						direction = new THREE.Vector3()
+							.subVectors(new THREE.Vector3(x, y, GameConfig.baseZIndex), this.raycastPos)
+							.normalize();
+					}
+					if (direction.x !== 0) {
+						this.skel.scale.x = direction.x < 0 ? -1 : 1;
+					}
+
+					const distance = this.raycastPos.distanceTo(this.targetPos);
+					const adjustedSpeed = this.speed * delta * GameConfig.gridSize * moveMultiplier;
+					let arrivalThreshold = this.arrivalThreshold;
+					if (['cp', 'end'].includes(pathType)) {
+						arrivalThreshold = adjustedSpeed;
+					}
+					if (distance > arrivalThreshold) {
+						const moveDistance = Math.min(adjustedSpeed, distance);
+
+						const dx = this.targetPos.x - this.raycastPos.x;
+						const dy = this.targetPos.y - this.raycastPos.y;
+
+						this.meshGroup.position.x += (dx / distance) * moveDistance;
+						this.raycastPos.x += (dx / distance) * moveDistance;
+						this.meshGroup.position.y += (dy / distance) * moveDistance;
+						this.raycastPos.y += (dy / distance) * moveDistance;
+					} else {
+						this.isMoving = false;
+						if (['cp', 'end'].includes(pathType)) {
+							this.raycastPos.copy(this.targetPos);
+						}
+						this.currentActionIndex++;
+					}
 				}
-				this.direction = direction.x;
-				this.skel.scale.x = direction.x < 0 ? -1 : 1;
-
-				const distance = this.raycastPos.distanceTo(this.targetPos);
-				const adjustedSpeed = this.speed * delta * GameConfig.gridSize * moveMultiplier;
-				if (distance > this.arrivalThreshold) {
-					const moveDistance = Math.min(adjustedSpeed, distance);
-
-					const dx = this.targetPos.x - this.raycastPos.x;
-					const dy = this.targetPos.y - this.raycastPos.y;
-
-					this.meshGroup.position.x += (dx / distance) * moveDistance;
-					this.raycastPos.x += (dx / distance) * moveDistance;
-					this.meshGroup.position.y += (dy / distance) * moveDistance;
-					this.raycastPos.y += (dy / distance) * moveDistance;
-				} else {
-					this.isMoving = false;
-					this.currentActionIndex++;
-				}
-
 				break;
 			case 'WAIT_CURRENT_FRAGMENT_TIME':
 			case 'WAIT_CURRENT_WAVE_TIME':
 			case 'WAIT_FOR_SECONDS':
 				if (this.waitElapsedTime === 0) {
+					this.state = 'wait';
 					this.handleIdle();
 					this.waitTimer.getMesh().visible = GameConfig.showAllTimers || this.selected;
 					this.waitElapsedTime += delta;
@@ -479,6 +544,7 @@ export class Enemy {
 				break;
 
 			case 'DISAPPEAR':
+				this.state = 'disappear';
 				this.meshGroup.visible = false;
 				this.currentActionIndex++;
 				break;
@@ -492,6 +558,31 @@ export class Enemy {
 				break;
 			default:
 				console.log(type, ' action is undefined');
+		}
+		if (this.standbyTime > 0) {
+			if (this.state === 'wait' && this.waitElapsedTime > 0) {
+				// executing WAIT action
+				this.standbyTime -= delta;
+			} else {
+				if (this.waitElapsedTime === 0) {
+					this.state = 'standby';
+					this.waitTimer.setColor(0x5f7af7);
+					this.handleIdle();
+					this.waitTimer.getMesh().visible = GameConfig.showAllTimers || this.selected;
+					this.waitElapsedTime += delta;
+				} else {
+					this.waitTimer.updateTimer(this.standbyTime - this.waitElapsedTime);
+					this.waitElapsedTime += delta;
+				}
+
+				if (this.waitElapsedTime >= this.standbyTime) {
+					this.standbyTime = 0;
+					this.waitElapsedTime = 0;
+					this.waitTimer.getMesh().visible = false;
+					this.waitTimer.setColor(0xf08080);
+				}
+			}
+			return;
 		}
 	}
 
@@ -521,6 +612,8 @@ export class Enemy {
 	}
 
 	onSelect() {
+		const pos = this.gameManager.getGridPosition(this.raycastPos);
+		console.log(pos);
 		this.gameManager.scene.add(this.pathGroup);
 		this.selected = true;
 		if (this.atkRangeMesh) {
@@ -655,13 +748,11 @@ export class Enemy {
 
 	handleIdle() {
 		const animName = getIdleAnimName(this.key, this.skel);
-		this.state = 'idle';
 		this.changeAnimation(animName);
 	}
 
 	handleMove() {
 		const animName = getMoveAnimName(this.key, this.skel);
-		this.state = 'move';
 		this.changeAnimation(animName);
 	}
 	changeAnimation(animationName) {
@@ -672,8 +763,8 @@ export class Enemy {
 		if (animationName === this.skel.state.currentAnimation) {
 			return;
 		}
+		this.animState = animationName;
 		this.skel.state.setAnimation(0, animationName, true);
 	}
 	handleDeath() {}
-	handleSkill() {}
 }

@@ -10,11 +10,11 @@
     "costIncreaseTime": 1.0,
     "code": "ISW-NO",
     "name_zh": "劳作的清晨",
-    "name_ja": null,
-    "name_en": null,
+    "name_ja": "労働の朝",
+    "name_en": "Morning_Labor",
     "description_zh": "城市里，晶簇生长不停，收割晶体就成了萨卡兹们每天早上的习惯。有早点吃的就吃完早点去，没早点吃的醒了就去。\n<@rolv.rem>场地中有可以阻挡敌人行进路线的<碎石></>",
-    "description_ja": null,
-    "description_en": null,
+    "description_ja": "街の中には、絶えず結晶が生えてくる。そのため、結晶刈りがサルカズたちの毎朝の日課となっていた。朝食が出る日は朝食を平らげてから取り掛かり、出ない日は起きてすぐに取り掛かるのだ。\n<@rolv.rem>敵の進攻ルートを遮る<礫岩>が出現</>",
+    "description_en": "In the city, crystal clusters grow nonstop, making morning harvesting a daily habit for the Sarkaz. Those who can afford breakfast harvest after eating; those who can't, go straight away.\n<@rolv.rem><Rubble> that can change the enemy's route is present on the field</>",
     "addInfo_zh": [
         "年代之刺：普通1/天灾+1"
     ],
@@ -3152,6 +3152,109 @@
                 0
             ]
         ]
+    },
+    "extra_routes": [
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 1,
+                "col": 5
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 4
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 1,
+                "col": 8
+            },
+            "endPosition": {
+                "row": 6,
+                "col": 4
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [
+                {
+                    "type": "MOVE",
+                    "time": 0.0,
+                    "position": {
+                        "row": 1,
+                        "col": 4
+                    },
+                    "reachOffset": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "randomizeReachOffset": false,
+                    "reachDistance": 0.0
+                }
+            ],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        }
+    ],
+    "branches": {
+        "trap_758_skzmbx#1": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 0,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        },
+        "trap_758_skzmbx#2": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 1,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        }
     },
     "NORMAL": {
         "groupKey": null,

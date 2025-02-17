@@ -10,11 +10,11 @@
     "costIncreaseTime": 1.0,
     "code": "ISW-NO",
     "name_zh": "排风口",
-    "name_ja": null,
-    "name_en": null,
+    "name_ja": "排気口",
+    "name_en": "Exhaust_Vents",
     "description_zh": "从魂灵熔炉排风口外的平台跳下，顺风滑翔，十个年轻萨卡兹里面有九个都夸口说做过。其实那些“平台”压根没铺地板。\n<@rolv.rem>场地中有喷出气流的<源石流发生装置></>",
-    "description_ja": null,
-    "description_en": null,
+    "description_ja": "魂の溶炉の排気口外にあるプラットフォームから飛び降りて、風に乗り滑空したことがある、などと若いサルカズであれば十人のうち九人は自慢げに語るものである。しかし、彼らはその「プラットフォーム」の床の敷設が間に合っていないことなど知らない。\n<@rolv.rem>気流を起こす<源石気流発生装置>が出現</>",
+    "description_en": "Most Sarkaz youths have boasted of jumping off the platforms by the furnace exhaust vents and gliding down with the wind. In reality, those 'platforms' don't even have solid footing.\n<@rolv.rem><Originium Jetstreams> that generate airflow currents are present on the field</>",
     "addInfo_zh": [
         "年代之刺：普通1/天灾+1"
     ],
@@ -1918,6 +1918,94 @@
                 0
             ]
         ]
+    },
+    "extra_routes": [
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 5,
+                "col": 4
+            },
+            "endPosition": {
+                "row": 3,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 3,
+                "col": 7
+            },
+            "endPosition": {
+                "row": 3,
+                "col": 9
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        }
+    ],
+    "branches": {
+        "trap_758_skzmbx#1": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 0,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        },
+        "trap_758_skzmbx#2": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 1,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        }
     },
     "NORMAL": {
         "groupKey": null,

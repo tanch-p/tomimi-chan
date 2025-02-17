@@ -10,11 +10,11 @@
     "costIncreaseTime": 1.0,
     "code": "ISW-NO",
     "name_zh": "年代断层",
-    "name_ja": null,
-    "name_en": null,
+    "name_ja": "時代の断層",
+    "name_en": "Epochal_Gaps",
     "description_zh": "时间放开了时间的手，萨卡兹记忆中的事物开始交替出现在岁月的间隙中。\n<@rolv.rem>场地中有提供费用及上限的<街头应急储备></>",
-    "description_ja": null,
-    "description_en": null,
+    "description_ja": "時間は時間を手放した。サルカズたちの記憶の中にある物事は、歳月の隙間から交互に現れては過ぎ去っていく。\n<@rolv.rem>コストとコスト上限が増加する<街の緊急用備蓄>が出現</>",
+    "description_en": "Time releases its grip, and the Sarkaz memories flicker through the intervals of existence.\n<@rolv.rem><Roadside Emergency Reserves> that grant a certain amount of DP and Max DP when destroyed are present on the field</>",
     "addInfo_zh": [
         "初始部署费用上限降低至30",
         "年代之刺：普通5/天灾+1"
@@ -1906,6 +1906,94 @@
                 0
             ]
         ]
+    },
+    "extra_routes": [
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 5,
+                "col": 2
+            },
+            "endPosition": {
+                "row": 4,
+                "col": 8
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        },
+        {
+            "motionMode": "WALK",
+            "startPosition": {
+                "row": 1,
+                "col": 5
+            },
+            "endPosition": {
+                "row": 4,
+                "col": 8
+            },
+            "spawnRandomRange": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "spawnOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "checkpoints": [],
+            "allowDiagonalMove": true,
+            "visitEveryTileCenter": false,
+            "visitEveryNodeCenter": false,
+            "visitEveryCheckPoint": false
+        }
+    ],
+    "branches": {
+        "mbx1": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 0,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        },
+        "mbx2": {
+            "phases": [
+                {
+                    "preDelay": 0.0,
+                    "actions": [
+                        {
+                            "actionType": "SPAWN",
+                            "key": "enemy_2069_skzbox",
+                            "count": 1,
+                            "preDelay": 0.0,
+                            "interval": 1.0,
+                            "routeIndex": 1,
+                            "autoPreviewRoute": false
+                        }
+                    ]
+                }
+            ]
+        }
     },
     "NORMAL": {
         "groupKey": null,
