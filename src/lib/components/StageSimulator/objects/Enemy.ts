@@ -5,9 +5,13 @@ import { GameManager } from './GameManager';
 import { AssetManager } from './AssetManager';
 import type { Enemy as EnemyType, Skill } from '$lib/types';
 import { SPFA } from './SPFA';
-import { CountdownSprite } from './CountdownSprite';
 import { getEnemySkills } from '$lib/functions/skillHelpers';
-import { getIdleAnimName, getMoveAnimName } from '$lib/functions/spineHelpers';
+import {
+	getAnimDuration,
+	getIdleAnimName,
+	getMoveAnimName,
+	getReviveAnimName
+} from '$lib/functions/spineHelpers';
 import { SkillManager } from './SkillManager';
 
 const moveMultiplier = 0.5;
@@ -52,7 +56,7 @@ export class Enemy {
 	specials: Skill[];
 	skillManager: SkillManager;
 	formIndex = 0;
-	waitTimer: CountdownSprite;
+	waitTimer;
 	timeToWait = 0;
 	standbyTime = 0;
 	pathFinder: SPFA;
@@ -62,6 +66,8 @@ export class Enemy {
 	darkness = 1;
 	fragmentKey: string;
 	arrivalThreshold = GameConfig.gridSize * 0.45;
+	reviveTimer = 0;
+	reviveDuration = 0;
 
 	constructor(enemyData: EnemyType, route, gameManager: GameManager, fragmentKey) {
 		gameManager.enemiesOnMap.push(this);
@@ -88,7 +94,6 @@ export class Enemy {
 		this.hp = enemyData.forms[0].stats.hp;
 		this.speed = enemyData.forms[0].stats.ms;
 		this.meshGroup = new THREE.Group();
-		this.waitTimer = new CountdownSprite(this.gameManager);
 		this.traits = getEnemySkills(this.data, this.data.traits, this.formIndex, {}, 'trait');
 		this.specials = getEnemySkills(
 			this.data,
@@ -109,7 +114,7 @@ export class Enemy {
 			route.spawnOffset
 		);
 		this.meshGroup.position.set(actualX, actualY, GameConfig.baseZIndex); //实体坐标：即敌人中点实际所在位置。敌人处于什么位置，应该判定哪个地块的效果，是否处于我方部分效果的范围内，都是判断的实体坐标
-		this.meshGroup.add(this.waitTimer.getMesh());
+		// this.meshGroup.add(this.waitTimer.getMesh());
 		const { x, y } = this.gameManager.getVectorCoordinates(route.startPosition, null);
 		this.raycastPos = new THREE.Vector3(x, y, GameConfig.baseZIndex);
 		this.pathGroup = this.visualisePath(
@@ -156,6 +161,7 @@ export class Enemy {
 		if (!skeletonData) {
 			return;
 		}
+		// console.log(skeletonData);
 		const skeletonMesh = new spine.SkeletonMesh(skeletonData, (parameters) => {
 			parameters.depthTest = false;
 			parameters.alphaTest = 0.001;
@@ -168,7 +174,6 @@ export class Enemy {
 		this.meshGroup.renderOrder = 1;
 		this.width = Math.min(100, skeletonMesh.skeleton.data.width * 0.3);
 		this.height = Math.min(110, skeletonMesh.skeleton.data.height * 0.3);
-		this.waitTimer.setPosition(Math.max(this.height, 75));
 		const size = new spine.Vector2(Math.max(50, this.width), Math.max(75, this.height));
 		const spriteMaterial = new THREE.SpriteMaterial({
 			transparent: true,
@@ -387,10 +392,6 @@ export class Enemy {
 			return;
 		}
 
-		if(this.skillManager.isUsingSkill){
-			return;
-		}
-
 		// 避障力
 		// const force = this.gameManager.calculateAvoidanceForce(this.raycastPos,this.getFootpoint(),this.direction);
 
@@ -408,7 +409,11 @@ export class Enemy {
 					if (this.standbyTime > 0) {
 						break;
 					}
-					if (this.state === 'use_skill') {
+					if (this.skillManager.isUsingSkill) {
+						break;
+					}
+					if (this.state === 'revive') {
+						this.handleRevive(delta);
 						break;
 					}
 					if (this.motionMode === 'BLINK') {
@@ -517,7 +522,7 @@ export class Enemy {
 				if (this.waitElapsedTime === 0) {
 					this.state = 'wait';
 					this.handleIdle();
-					this.waitTimer.getMesh().visible = GameConfig.showAllTimers || this.selected;
+					// this.waitTimer.getMesh().visible = GameConfig.showAllTimers || this.selected;
 					this.waitElapsedTime += delta;
 					switch (type) {
 						case 'WAIT_CURRENT_FRAGMENT_TIME':
@@ -532,13 +537,13 @@ export class Enemy {
 							break;
 					}
 				} else {
-					this.waitTimer.updateTimer(this.timeToWait - this.waitElapsedTime);
+					// this.waitTimer.updateTimer(this.timeToWait - this.waitElapsedTime);
 					this.waitElapsedTime += delta;
 				}
 
 				if (this.waitElapsedTime >= this.timeToWait) {
 					this.waitElapsedTime = 0;
-					this.waitTimer.getMesh().visible = false;
+					// this.waitTimer.getMesh().visible = false;
 					this.currentActionIndex++;
 				}
 				break;
@@ -566,20 +571,20 @@ export class Enemy {
 			} else {
 				if (this.waitElapsedTime === 0) {
 					this.state = 'standby';
-					this.waitTimer.setColor(0x5f7af7);
+					// this.waitTimer.setColor(0x5f7af7);
 					this.handleIdle();
-					this.waitTimer.getMesh().visible = GameConfig.showAllTimers || this.selected;
+					// this.waitTimer.getMesh().visible = GameConfig.showAllTimers || this.selected;
 					this.waitElapsedTime += delta;
 				} else {
-					this.waitTimer.updateTimer(this.standbyTime - this.waitElapsedTime);
+					// this.waitTimer.updateTimer(this.standbyTime - this.waitElapsedTime);
 					this.waitElapsedTime += delta;
 				}
 
 				if (this.waitElapsedTime >= this.standbyTime) {
 					this.standbyTime = 0;
 					this.waitElapsedTime = 0;
-					this.waitTimer.getMesh().visible = false;
-					this.waitTimer.setColor(0xf08080);
+					// this.waitTimer.getMesh().visible = false;
+					// this.waitTimer.setColor(0xf08080);
 				}
 			}
 			return;
@@ -620,7 +625,7 @@ export class Enemy {
 			this.atkRangeMesh.visible = true;
 		}
 		this.skillRangeMeshes.forEach((mesh) => (mesh.visible = true));
-		this.waitTimer.getMesh().visible = this.waitElapsedTime > 0;
+		// this.waitTimer.getMesh().visible = this.waitElapsedTime > 0;
 		console.log(this.route);
 
 		// const cache = this.gameManager.pathFinder.pathCache.get(4,4)
@@ -645,7 +650,7 @@ export class Enemy {
 			this.atkRangeMesh.visible = GameConfig.showAllRange;
 		}
 		this.skillRangeMeshes.forEach((mesh) => (mesh.visible = GameConfig.showAllRange));
-		this.waitTimer.getMesh().visible = this.waitElapsedTime > 0 && GameConfig.showAllTimers;
+		// this.waitTimer.getMesh().visible = this.waitElapsedTime > 0 && GameConfig.showAllTimers;
 	}
 
 	visualisePath(paths, currentActionIndex, startPos, spawnOffset) {
@@ -744,6 +749,39 @@ export class Enemy {
 		}
 		returnGroup.add(lineGroup);
 		return returnGroup;
+	}
+
+	handleFormIndexChange() {
+		for (const skill of this.specials) {
+			if (skill.revive) {
+				this.reviveDuration = this.reviveDuration;
+			}
+		}
+		const animName = getReviveAnimName(this.key, this.skel);
+		if (!this.reviveDuration) {
+			this.reviveDuration = getAnimDuration(this.skel, animName);
+		}
+		this.formIndex++;
+		this.specials = getEnemySkills(
+			this.data,
+			this.data.forms[this.formIndex].special,
+			this.formIndex,
+			{},
+			'special'
+		);
+		this.gameManager.spawnManager.enterNextWaveFlag = true;
+		this.skillManager.setSkills(this.traits.concat(this.specials));
+		this.state = 'revive';
+		this.changeAnimation(animName);
+	}
+
+	handleRevive(delta) {
+		this.reviveTimer += delta;
+		if (this.reviveTimer > this.reviveDuration) {
+			this.state = 'free';
+			this.reviveDuration = 0;
+			this.reviveTimer = 0;
+		}
 	}
 
 	handleIdle() {

@@ -1,3 +1,4 @@
+import { shuffleArray } from '$lib/functions/waveHelpers';
 import { BranchManager } from './BranchManager';
 import { Enemy } from './Enemy';
 import { GameConfig } from './GameConfig';
@@ -24,7 +25,7 @@ export class SpawnManager {
 	preDelayTimer = 0;
 	fragmentPreDelayTimer = 0;
 	postDelayTimer = 0;
-	constructor(waves, map, gameManager:GameManager) {
+	constructor(waves, map, gameManager: GameManager) {
 		this.map = map;
 		this.waves = waves;
 		this.gameManager = gameManager;
@@ -65,12 +66,7 @@ export class SpawnManager {
 		} else if (this.postDelayTimer < currentWave.postDelay) {
 			// Handle wave post-delay
 			this.postDelayTimer += delta;
-		} else if (this.nextWaveType === 'NO_ENEMIES') {
-			if (this.enterNextWaveFlag) {
-			}
-		} else if (this.nextWaveTimer < currentWave.maxTimeWaitingForNextWave) {
-			// Handle wave maxTimeWaitingForNextWave
-			this.nextWaveTimer += delta;
+		} else if (!this.checkNextWaveFlag(delta)) {
 		} else {
 			// Move to next wave
 			this.currentWaveIndex++;
@@ -80,8 +76,21 @@ export class SpawnManager {
 			this.postDelayTimer = 0;
 			this.nextWaveTimer = 0;
 			this.nextWaveType =
-				this.waves[this.currentWaveIndex].maxTimeWaitingForNextWave < 0 ? 'NO_ENEMIES' : 'TIME';
+				this.waves[this.currentWaveIndex]?.maxTimeWaitingForNextWave < 0 ? 'NO_ENEMIES' : 'TIME';
 		}
+	}
+
+	checkNextWaveFlag(delta) {
+		if (this.enterNextWaveFlag) {
+			return true;
+		}
+		if (this.nextWaveType === 'NO_ENEMIES') {
+			return this.gameManager.noEnemyAlive;
+		}
+		if (this.nextWaveTimer < this.waves[this.currentWaveIndex].maxTimeWaitingForNextWave) {
+			this.nextWaveTimer += delta;
+		}
+		return !(this.nextWaveTimer < this.waves[this.currentWaveIndex].maxTimeWaitingForNextWave);
 	}
 
 	processFragment(fragment, delta) {
@@ -194,9 +203,13 @@ export class SpawnManager {
 	}
 
 	addBranch(branchKey: string) {
-		const branch = this.gameManager.config.branches?.[branchKey];
+		const branch = structuredClone(this.gameManager.config.branches?.[branchKey]);
 		if (!branch) {
 			return;
+		}
+		if (branchKey === 'syboss_extra') {
+			const shuffledPhases = shuffleArray(structuredClone(branch.phases));
+			branch.phases = [shuffledPhases[0]];
 		}
 		this.branches.set(this.branchIndex, new BranchManager(branch, this.gameManager));
 		this.branchIndex++;
