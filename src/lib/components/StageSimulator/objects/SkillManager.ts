@@ -9,7 +9,7 @@ import { getDefaultAnimName } from '$lib/functions/spineHelpers';
 export class SkillManager {
 	assetManager: AssetManager;
 	enemy: Enemy;
-	activeSkills: ActiveSkill[];
+	activeSkills: ActiveSkill[] =[];
 	branches = null;
 	currentBranchIndex = 0;
 	branchIntervalElapsedTime = 0;
@@ -29,14 +29,17 @@ export class SkillManager {
 			const key = transform.value;
 			this.addTransformModel(key);
 		}
-		this.activeSkills = skills
-			.filter(
-				(ele) =>
-					ele.type === 'skill' && (ele.initCooldown || ele.skillType === 'INCREASE_WITH_TIME')
-			)
-			.map((skill) => new ActiveSkill(enemy, skill));
-		for (const skill of this.activeSkills) {
-			enemy.meshGroup.add(skill.skillBar);
+		if (this.enemy.key === 'enemy_2042_syboss') {
+			this.activeSkills = skills
+				.filter(
+					(ele) =>
+						ele.type === 'skill' && (ele.initCooldown || ele.skillType === 'INCREASE_WITH_TIME')
+				)
+				.map((skill) => new ActiveSkill(enemy, skill));
+			this.activeSkills.forEach((skill, i) => {
+				skill.skillBar.position.y = (i + 1) * -20;
+				enemy.meshGroup.add(skill.skillBar);
+			});
 		}
 	}
 
@@ -66,6 +69,21 @@ export class SkillManager {
 		if (branchSummon) {
 			this.branches = branchSummon.branches;
 		}
+		for (const skill of this.activeSkills) {
+			this.enemy.meshGroup.remove(skill.skillBar);
+			skill.dispose();
+		}
+		if (this.enemy.key === 'enemy_2042_syboss') {
+		this.activeSkills = skills
+			.filter(
+				(ele) =>
+					ele.type === 'skill' && (ele.initCooldown || ele.skillType === 'INCREASE_WITH_TIME')
+			)
+			.map((skill) => new ActiveSkill(this.enemy, skill));
+		this.activeSkills.forEach((skill, i) => {
+			skill.skillBar.position.y = (i + 1) * -20;
+			this.enemy.meshGroup.add(skill.skillBar);
+		});}
 	}
 
 	update(delta: number) {

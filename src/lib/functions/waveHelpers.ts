@@ -23,11 +23,11 @@ const getFragmentName = (id, language: Language) => {
 
 export function shuffleArray(array) {
 	for (let i = array.length - 1; i > 0; i--) {
-	  const j = Math.floor(Math.random() * (i + 1));
-	  [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+		const j = Math.floor(Math.random() * (i + 1));
+		[array[i], array[j]] = [array[j], array[i]]; // Swap elements
 	}
 	return array;
-  }
+}
 
 export const getOptions = (mapConfig: MapConfig, rogueTopic: RogueTopic, language: Language) => {
 	const options = [];
@@ -378,10 +378,9 @@ export const generateWaveTimeline = (mapConfig, hiddenGroups, permutation, level
 					totalCount += action['count'];
 				}
 			}
-			prevPhaseTime =
-				Object.keys(waveBlockingSpawns).length > 0
-					? Math.max(...Object.keys(waveBlockingSpawns).map(Number))
-					: 0;
+			if (Object.keys(waveBlockingSpawns).length > 0) {
+				prevPhaseTime = Math.max(...Object.keys(waveBlockingSpawns).map(Number));
+			}
 		});
 		const myKeys = Object.keys(spawns).map(Number);
 		myKeys.sort((a, b) => a - b);
@@ -418,7 +417,7 @@ const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime) => {
 				weight: action['weight']
 			});
 
-			if (!action['dontBlockWave']) {
+			if (!['enemy_1106_byokai_b'].includes(action.key)) {
 				if (!waveBlockingSpawns[spawnTime]) {
 					waveBlockingSpawns[spawnTime] = [];
 					waveBlockingSpawns[spawnTime].push({ key: action['key'] });
@@ -441,7 +440,7 @@ const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime) => {
 			weight: action['weight']
 		});
 
-		if (!action['dontBlockWave']) {
+		if (!['enemy_1106_byokai_b'].includes(action.key)) {
 			if (!waveBlockingSpawns[spawnTime]) {
 				waveBlockingSpawns[spawnTime] = [];
 				waveBlockingSpawns[spawnTime].push({ key: action['key'] });
