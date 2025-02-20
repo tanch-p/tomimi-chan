@@ -23,15 +23,18 @@ const difficultyMods = derived([difficulty], ([$difficulty]) =>
 export const selectedFloor = writable(1);
 const floorDifficultyMods = derived(
 	[selectedFloor, difficulty],
-	([$selectedFloor, $difficulty]) => [
-		{
-			targets: ['ALL'],
-			mods: {
-				hp: (1 + 0.01 * $difficulty) ** $selectedFloor,
-				atk: (1 + 0.01 * $difficulty) ** $selectedFloor
+	([$selectedFloor, $difficulty]) => {
+		const floorBuff = difficultyModsList[$difficulty].floorBuff;
+		return [
+			{
+				targets: ['ALL'],
+				mods: {
+					hp: (floorBuff.hp) ** $selectedFloor,
+					atk: (floorBuff.atk) ** $selectedFloor
+				}
 			}
-		}
-	]
+		];
+	}
 );
 export const eliteMode = writable(false);
 export const normalMods = writable(null);
@@ -79,7 +82,7 @@ export const statMods = derived(
 					mods: $activeFloorEffects.map((ele) => ele.effects),
 					operation: 'times'
 				},
-				{ key: 'mizuki_mission', mods: [$missionMods], operation: 'times' },
+				{ key: 'mizuki_mission', mods: [$missionMods], operation: 'times' }
 			]
 		};
 	}

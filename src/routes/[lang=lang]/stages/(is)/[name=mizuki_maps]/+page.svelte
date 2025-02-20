@@ -70,7 +70,7 @@
 			{rogueTopic}
 		/>
 		<Mission {language} />
-		<DifficultySelect {language} {difficulty} {rogueTopic} />
+		<DifficultySelect {language} {difficulty} {rogueTopic} maxDiff={18}/>
 		<TrapContainer {language} traps={moddedTraps} specialMods={$specialMods} />
 		<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
 		<EnemyCount
