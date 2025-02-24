@@ -10,6 +10,9 @@
 	$: language = $page.data.language;
 
 	let showTimeline = true;
+	const maxFrustumSize = 1500;
+	const minFrustumSize = 500;
+	let zoomSize = (GameConfig.FrustumSize + minFrustumSize) / maxFrustumSize;
 
 	const options = [
 		{
@@ -62,6 +65,12 @@
 	];
 	GameConfig.showTimeline.subscribe((v) => (showTimeline = v));
 
+	function updateCamera(v) {
+		zoomSize = parseFloat(v.target.value);
+		GameConfig.FrustumSize = 900 + 900 * (1.5 - (zoomSize + 0.5));
+		game.onWindowResize();
+	}
+
 	$: lookup = { showTimeline };
 </script>
 
@@ -76,4 +85,17 @@
 			<span>{value ? '○' : '✕'}</span>
 		</button>
 	{/each}
+</div>
+<div>
+	<input
+		bind:value={zoomSize}
+		type="range"
+		id="zoom"
+		name="zoom"
+		min={0.5}
+		max={1.5}
+		step="0.05"
+		on:input={updateCamera}
+	/>
+	<label for="volume">Zoom {zoomSize.toFixed(2)}x</label>
 </div>

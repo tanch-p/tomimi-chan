@@ -16,7 +16,7 @@ export class GameManager {
 	assetManager: AssetManager;
 	scene: THREE.Scene;
 	camera: THREE.OrthographicCamera;
-	private countdownManager: ShaderCountdownManager;
+	countdownManager: ShaderCountdownManager;
 	objects;
 	config;
 	mazeLayout: number[][];

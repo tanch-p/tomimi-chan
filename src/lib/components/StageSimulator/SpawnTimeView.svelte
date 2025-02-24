@@ -5,6 +5,8 @@
 	import { page } from '$app/stores';
 	import { wavePrefixSuffix } from '$lib/functions/languageHelpers';
 	import { onDestroy, onMount } from 'svelte';
+	import translations from '$lib/translations.json';
+	import { compileSpawnTimeActions } from '$lib/functions/waveHelpers';
 
 	export let game: Game, waves, mapConfig;
 
@@ -53,41 +55,55 @@
 	}
 </script>
 
-<div class="absolute w-64 h-full p-4 {showTimeline ? '' : 'opacity-0 pointer-events-none'}">
+<div class="absolute w-[180px] h-full p-4 {showTimeline ? '' : 'opacity-0 pointer-events-none'}">
 	<div bind:this={timelineContainer} class="w-full h-full overflow-y-scroll no-scrollbar">
 		<div bind:this={actionsContainer} class="pb-[100vh]">
-			{#each waves as { maxTimeWaitingForNextWave, postDelay, preDelay, timeline }, i}
+			{#each waves as { maxTimeWaitingForNextWave, timeline }, i}
 				{#if i > 0 && timeline.length > 0}<p class="mt-4">
 						{wavePrefixSuffix(i + 1, language)}
 					</p>{/if}
 				{#each timeline as { t, actions }}
 					{@const min = Math.floor(t / 60)}
 					{@const sec = Math.floor(t % 60)}
-					<div class="grid grid-cols-[40px_1fr] gap-x-2 pl-2 mt-4">
+					{@const compiledActions = compileSpawnTimeActions(actions)}
+					<div class="grid grid-cols-[40px_1fr] gap-x-2 mt-4">
 						<p class="text-center mt-[15px]">
 							{min}:{#if sec < 10}0{/if}{sec}
 						</p>
 						<div class="flex flex-wrap">
-							{#each actions as { key }}
-								{#if !key.includes('trap') && key !== ""}
+							{#each compiledActions as { key, count }}
+								{#if !key.includes('trap') && key !== ''}
 									{@const prefabKey = mapConfig.enemies.find(
 										(enemy) => enemy.id === key
 									)?.prefabKey}
-									<img
-										src="/images/enemy_icons/{prefabKey}.webp"
-										width="50px"
-										height="50px"
-										alt={key}
-										class=""
-									/>
+									<div class="relative">
+										{#if count > 1}
+											<p class="absolute right-0 bottom-0 bg-almost-black px-1 text-xs">
+												x{count}
+											</p>
+										{/if}
+										<img
+											src="/images/enemy_icons/{prefabKey}.webp"
+											width="50px"
+											height="50px"
+											alt={key}
+											class=""
+										/>
+									</div>
 								{/if}
 							{/each}
 						</div>
 					</div>
 				{/each}
-				<p>maxTime: {maxTimeWaitingForNextWave}</p>
-				<p>postDelay: {postDelay}</p>
-				<p>preDelay: {preDelay}</p>
+				{#if timeline?.length > 0}
+					<div class="text-center mt-4">
+						{#if maxTimeWaitingForNextWave > 0}
+							<p>{translations[language].max_wait_time}: {maxTimeWaitingForNextWave}<br />OR</p>
+						{/if}
+
+						{translations[language].all_enemies_defeated}
+					</div>
+				{/if}
 			{/each}
 		</div>
 	</div>
