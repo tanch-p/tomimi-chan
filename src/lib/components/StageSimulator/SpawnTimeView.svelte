@@ -15,11 +15,10 @@
 	let index = 0;
 	let language: Language;
 	let showTimeline = true;
-	let timeline = waves?.[currWaveIndex]?.timeline;
+	$: timeline = waves?.[currWaveIndex]?.timeline;
 
 	$: language = $page.data.language;
 	$: GameConfig.showTimeline.subscribe((v) => (showTimeline = v));
-
 	// Sync class -> store
 	let unsubscribe;
 	onMount(() => {
@@ -33,7 +32,7 @@
 	});
 
 	function trackAndScrollContainer(waveElapsedTime: number) {
-		if (timelineContainer && timeline) {
+		if (timelineContainer && timeline && actionsContainer.children[index]) {
 			if (waveElapsedTime > timeline?.[0]?.t) {
 				timelineContainer.scrollBy({
 					top: actionsContainer.children[index].scrollHeight + 16, // +16 for mt-4

@@ -29,7 +29,7 @@ export class Enemy {
 	state: string;
 	alive = true;
 	direction: THREE.Vector3;
-	motionMode: 'WALK' | 'FLY' | 'BLINK';
+	motionMode: 'WALK' | 'FLY' | 'BLINK' | 'NONE';
 	isMoving = false;
 	blinkState: 'START' | 'END' | null = null;
 	blinkElapsedTime = 0;
@@ -102,7 +102,9 @@ export class Enemy {
 			{},
 			'special'
 		);
-
+		if (this.traits.find((skill) => skill.key === 'self_bind')) {
+			this.motionMode = 'NONE';
+		}
 		if (this.traits.find((skill) => skill.key === 'move_blink')) {
 			this.motionMode = 'BLINK';
 		}
@@ -417,6 +419,9 @@ export class Enemy {
 					if (this.state === 'revive') {
 						this.handleRevive(delta);
 						break;
+					}
+					if(this.motionMode === "NONE"){
+						return;
 					}
 					if (this.motionMode === 'BLINK') {
 						// smedzi
