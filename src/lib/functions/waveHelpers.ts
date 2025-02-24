@@ -322,8 +322,15 @@ function randomGroupResolver(randomGroups) {
 	return groupCollector;
 }
 
-export const generateWaveTimeline = (mapConfig, hiddenGroups, permutation, eliteMode) => {
+export const generateWaveTimeline = (
+	mapConfig,
+	hiddenGroups,
+	permutation,
+	eliteMode,
+	randomSeeds
+) => {
 	if (!permutation) return;
+	let randomSeedIndex = 0;
 
 	let totalCount = 0;
 	const waveTimelines = [];
@@ -339,7 +346,19 @@ export const generateWaveTimeline = (mapConfig, hiddenGroups, permutation, elite
 			const key = `w${waveIdx}f${fragIndex}`;
 			let groupActions = [];
 			for (const [groupKey, list] of Object.entries(packedGroups)) {
-				const choice = permutation?.[key]?.[groupKey];
+				let choice = permutation?.[key]?.[groupKey];
+				if (choice === undefined) {
+					if (!Array.isArray(list[0])) {
+						const badBoxIdx = list.findIndex((action) => CHESTS.includes(action.key.split('#')[0]));
+						if (badBoxIdx !== -1 && hiddenGroups.some((ele) => CHESTS.includes(ele))) {
+							choice = badBoxIdx;
+						}
+					}
+					if (choice === undefined) {
+						choice = Math.floor(randomSeeds[randomSeedIndex] * list.length);
+						randomSeedIndex += 1;
+					}
+				}
 				if (list?.[choice]) {
 					groupActions = groupActions.concat(list[choice]);
 				}
@@ -367,7 +386,16 @@ export const generateWaveTimeline = (mapConfig, hiddenGroups, permutation, elite
 				if (action['hiddenGroup'] && !hiddenGroups.includes(action['hiddenGroup'])) {
 					continue;
 				}
-				if(['level_rogue4_b-4','level_rogue4_b-4-b','level_rogue4_b-5','level_rogue4_b-5-b'].includes(mapConfig.levelId) && action.key === "enemy_2090_skzjbc" && !eliteMode){
+				if (
+					[
+						'level_rogue4_b-4',
+						'level_rogue4_b-4-b',
+						'level_rogue4_b-5',
+						'level_rogue4_b-5-b'
+					].includes(mapConfig.levelId) &&
+					action.key === 'enemy_2090_skzjbc' &&
+					!eliteMode
+				) {
 					continue;
 				}
 				handleAction(action, spawns, waveBlockingSpawns, prevPhaseTime);
@@ -386,21 +414,24 @@ export const generateWaveTimeline = (mapConfig, hiddenGroups, permutation, elite
 			}
 		});
 		const myKeys = Object.keys(spawns).map(Number);
-		myKeys.sort((a, b) => a - b);
-		const spawnList = myKeys.map((key) => ({ t: key, actions: spawns[key] }));
-
-		waveTimelines.push({
-			preDelay: wave['preDelay'],
-			postDelay: wave['postDelay'],
-			maxTimeWaitingForNextWave: wave['maxTimeWaitingForNextWave'],
-			timeline: spawnList
-		});
+		if (myKeys.length > 0) {
+			myKeys.sort((a, b) => a - b);
+			const spawnList = myKeys.map((key) => ({ t: key, actions: spawns[key] }));
+			waveTimelines.push({
+				preDelay: wave['preDelay'],
+				postDelay: wave['postDelay'],
+				maxTimeWaitingForNextWave: wave['maxTimeWaitingForNextWave'],
+				timeline: spawnList
+			});
+		}
 	});
-	// console.log(waveTimelines);
 	return { waves: waveTimelines, count: totalCount };
 };
 
 const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime) => {
+	if (action.key.includes('trap') || action.key === '') {
+		return;
+	}
 	if (action['count'] > 1) {
 		// interval
 		for (let i = 0; i < action['count']; i++) {
@@ -452,7 +483,8 @@ const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime) => {
 	}
 };
 
-export const parseWaves = (mapConfig, permutation, hiddenGroups,eliteMode) => {
+export const parseWaves = (mapConfig, permutation, hiddenGroups, eliteMode, randomSeeds) => {
+	let randomSeedIndex = 0;
 	const waves = structuredClone(mapConfig.waves);
 	waves.forEach((wave, waveIdx) => {
 		const fragments = [];
@@ -473,7 +505,8 @@ export const parseWaves = (mapConfig, permutation, hiddenGroups,eliteMode) => {
 						}
 					}
 					if (choice === undefined) {
-						choice = Math.floor(Math.random() * list.length);
+						choice = Math.floor(randomSeeds[randomSeedIndex] * list.length);
+						randomSeedIndex += 1;
 					}
 				}
 				if (list?.[choice]) {
@@ -487,7 +520,16 @@ export const parseWaves = (mapConfig, permutation, hiddenGroups,eliteMode) => {
 				if (!['SPAWN', 'ACTIVATE_PREDEFINED'].includes(action['actionType'])) {
 					continue;
 				}
-				if(['level_rogue4_b-4','level_rogue4_b-4-b','level_rogue4_b-5','level_rogue4_b-5-b'].includes(mapConfig.levelId) && action.key === "enemy_2090_skzjbc" && !eliteMode){
+				if (
+					[
+						'level_rogue4_b-4',
+						'level_rogue4_b-4-b',
+						'level_rogue4_b-5',
+						'level_rogue4_b-5-b'
+					].includes(mapConfig.levelId) &&
+					action.key === 'enemy_2090_skzjbc' &&
+					!eliteMode
+				) {
 					continue;
 				}
 				if (action['randomSpawnGroupKey'] || action['randomSpawnGroupPackKey']) {

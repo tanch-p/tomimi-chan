@@ -27,6 +27,7 @@
 		selectedPermGroups = {},
 		selectedCountIndex = 0,
 		selectedPermutationIdx = 0,
+		randomSeeds = Array.from(Array(10)).map((_) => Math.random()),
 		mode = 'predefined';
 	$: options = getOptions(mapConfig, rogueTopic, language);
 	$: permutations = getEnemyCountPermutations(mapConfig, hiddenGroups, eliteMode);
@@ -142,7 +143,7 @@
 						{/each}
 					</DraggableContainer>
 					<p class="title">{translations[language].trap}{translations[language].permutation}</p>
-					<div class="flex justify-center items-center border-r border-neutral-700 font-semibold">
+					<div class="flex justify-center items-center font-semibold">
 						{translations[language].random}
 					</div>
 				{/if}
@@ -165,7 +166,7 @@
 					? permutationsToShow[selectedPermutationIdx]?.permutation
 					: selectedPermGroups,
 				compileHiddenGroups(hiddenGroups, eliteMode, mapConfig),
-				eliteMode
+				eliteMode,randomSeeds
 			)}
 			timeline={generateWaveTimeline(
 				mapConfig,
@@ -173,7 +174,7 @@
 				mode === 'predefined'
 					? permutationsToShow[selectedPermutationIdx]?.permutation
 					: selectedPermGroups,
-				eliteMode
+				eliteMode,randomSeeds
 			)}
 		/>
 	</TogglePanel>
