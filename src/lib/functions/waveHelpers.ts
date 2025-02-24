@@ -322,7 +322,7 @@ function randomGroupResolver(randomGroups) {
 	return groupCollector;
 }
 
-export const generateWaveTimeline = (mapConfig, hiddenGroups, permutation, levelId) => {
+export const generateWaveTimeline = (mapConfig, hiddenGroups, permutation, eliteMode) => {
 	if (!permutation) return;
 
 	let totalCount = 0;
@@ -365,6 +365,9 @@ export const generateWaveTimeline = (mapConfig, hiddenGroups, permutation, level
 					continue;
 				}
 				if (action['hiddenGroup'] && !hiddenGroups.includes(action['hiddenGroup'])) {
+					continue;
+				}
+				if(['level_rogue4_b-4','level_rogue4_b-4-b','level_rogue4_b-5','level_rogue4_b-5-b'].includes(mapConfig.levelId) && action.key === "enemy_2090_skzjbc" && !eliteMode){
 					continue;
 				}
 				handleAction(action, spawns, waveBlockingSpawns, prevPhaseTime);
@@ -449,7 +452,7 @@ const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime) => {
 	}
 };
 
-export const parseWaves = (mapConfig, permutation, hiddenGroups) => {
+export const parseWaves = (mapConfig, permutation, hiddenGroups,eliteMode) => {
 	const waves = structuredClone(mapConfig.waves);
 	waves.forEach((wave, waveIdx) => {
 		const fragments = [];
@@ -482,6 +485,9 @@ export const parseWaves = (mapConfig, permutation, hiddenGroups) => {
 			}
 			for (const action of fragment['actions']) {
 				if (!['SPAWN', 'ACTIVATE_PREDEFINED'].includes(action['actionType'])) {
+					continue;
+				}
+				if(['level_rogue4_b-4','level_rogue4_b-4-b','level_rogue4_b-5','level_rogue4_b-5-b'].includes(mapConfig.levelId) && action.key === "enemy_2090_skzjbc" && !eliteMode){
 					continue;
 				}
 				if (action['randomSpawnGroupKey'] || action['randomSpawnGroupPackKey']) {
@@ -575,4 +581,17 @@ export const getRandomChance = (weight, choice) => {
 		return acc;
 	}, 0);
 	return Math.round((weight / totalWeight) * 1000) / 10;
+};
+
+export const compileSpawnTimeActions = (actions) => {
+	const holder = [];
+	for (const action of actions) {
+		const item = holder.find((ele) => ele.key === action.key);
+		if (item) {
+			item.count += 1;
+		} else {
+			holder.push({ key: action.key, count: 1 });
+		}
+	}
+	return holder;
 };

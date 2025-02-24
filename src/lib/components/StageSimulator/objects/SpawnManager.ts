@@ -90,7 +90,7 @@ export class SpawnManager {
 		if (this.nextWaveTimer < this.waves[this.currentWaveIndex].maxTimeWaitingForNextWave) {
 			this.nextWaveTimer += delta;
 		}
-		return !(this.nextWaveTimer < this.waves[this.currentWaveIndex].maxTimeWaitingForNextWave);
+		return this.nextWaveTimer >= this.waves[this.currentWaveIndex].maxTimeWaitingForNextWave || this.gameManager.noEnemyAlive;
 	}
 
 	processFragment(fragment, delta) {

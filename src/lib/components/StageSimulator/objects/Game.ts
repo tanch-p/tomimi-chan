@@ -283,6 +283,7 @@ export class Game {
 		this.scene = null;
 		this.camera = null;
 		this.renderer = null;
+		this.gameManager.countdownManager.dispose();
 		window.removeEventListener('resize', this.onWindowResize);
 		document.removeEventListener('pointerdown', this.onPointerDown);
 		document.removeEventListener('pointermove', this.onPointerMove);

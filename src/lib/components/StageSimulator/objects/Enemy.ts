@@ -198,7 +198,9 @@ export class Enemy {
 		this.skel.skeleton.color.b = 0.2;
 
 		const range = this.data.forms[this.formIndex].stats.range;
-		if (range > 0) {
+		const normalAtkIsRanged =
+			this.data.forms[this.formIndex].normal_attack.atk_type.includes('ranged');
+		if (range > 0 && normalAtkIsRanged) {
 			const group = new THREE.Group();
 			const radius = range * GameConfig.gridSize;
 			const circleGeometry = new THREE.CircleGeometry(radius, 32);
@@ -536,6 +538,7 @@ export class Enemy {
 							this.timeToWait = time;
 							break;
 					}
+					this.gameManager.createWaitTimer(this.meshGroup.position, this.timeToWait);
 				} else {
 					// this.waitTimer.updateTimer(this.timeToWait - this.waitElapsedTime);
 					this.waitElapsedTime += delta;
@@ -664,6 +667,9 @@ export class Enemy {
 			const startOffSet = i - 1 === -1 ? spawnOffset : movePaths?.[i - 1].reachOffset;
 			const endCoordinates = movePaths[i].position;
 			const endOffset = movePaths?.[i].reachOffset;
+			// if(movePaths[i].type === "APPEAR_AT_POS"){
+			// continue;
+			// }
 
 			const startPoint = this.gameManager.getVectorCoordinates(startCoordinates, startOffSet);
 			const start = new THREE.Vector3(startPoint.x, startPoint.y, 0);
@@ -729,7 +735,12 @@ export class Enemy {
 						});
 						const ring = new THREE.Mesh(ringGeometry, ringMaterial);
 						ring.position.z = 2;
-						const waitPosition = i === 0 ? startPos : paths[i - 1].position;
+						const waitPosition =
+							i === 0
+								? startPos
+								: paths[i - 1].type === 'DISAPPEAR'
+								? paths[i - 2].position
+								: paths[i - 1].position;
 						const offset = i === 0 ? spawnOffset : reachOffset;
 						const { x, y } = this.gameManager.getVectorCoordinates(waitPosition, offset);
 						const textMesh = this.gameManager.getTextSprite(time.toFixed() + 's', 16);

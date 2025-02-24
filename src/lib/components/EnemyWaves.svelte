@@ -121,7 +121,9 @@
 					{/each}
 				</DraggableContainer>
 				{#if permutationsToShow.length > 0}
-					<p class="title">{translations[language].table_headers.enemy}{translations[language].permutation}</p>
+					<p class="title">
+						{translations[language].table_headers.enemy}{translations[language].permutation}
+					</p>
 					<DraggableContainer className="grid grid-flow-col auto-cols-[minmax(120px,1fr)]">
 						{#each permutationsToShow as { bonus }, i}
 							<button
@@ -162,7 +164,8 @@
 				mode === 'predefined'
 					? permutationsToShow[selectedPermutationIdx]?.permutation
 					: selectedPermGroups,
-				compileHiddenGroups(hiddenGroups, eliteMode, mapConfig)
+				compileHiddenGroups(hiddenGroups, eliteMode, mapConfig),
+				eliteMode
 			)}
 			timeline={generateWaveTimeline(
 				mapConfig,
@@ -170,7 +173,7 @@
 				mode === 'predefined'
 					? permutationsToShow[selectedPermutationIdx]?.permutation
 					: selectedPermGroups,
-				mapConfig.levelId
+				eliteMode
 			)}
 		/>
 	</TogglePanel>
