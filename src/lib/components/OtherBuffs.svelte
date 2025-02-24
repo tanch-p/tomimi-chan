@@ -35,12 +35,19 @@
 					{#if buff.maxCount > 1 && currentCount > 0}
 						<p class="absolute right-0 bottom-0 bg-almost-black px-1 text-xs">x{currentCount}</p>
 					{/if}
-					<img
-						src={buff.img || `/images/enemy_icons/${buff.key}.webp`}
-						alt={buff.name}
-						width="60"
-						height="60"
-					/>
+					{#if buff.key === 'n18_mzk'}
+						<div class="relative flex justify-center items-center w-[54px] h-[54px]">
+							<div class="absolute n18_mzk" />
+							<span class="text-sm">N18</span>
+						</div>
+					{:else}
+						<img
+							src={buff.img || `/images/enemy_icons/${buff.key}.webp`}
+							alt={buff.name}
+							width="60"
+							height="60"
+						/>
+					{/if}
 				</div>
 				<p class="text-sm {mode === 'table' ? 'hidden' : ''}">
 					{buff.name}

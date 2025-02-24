@@ -27,16 +27,23 @@ div {
 		border: 1px solid rgb(209 213 219);
 	}
 }
+.n18_mzk {
+	border-radius: 100%;
+	border: 3px solid firebrick;
+	width: 40px;
+	height: 40px;
+	transform: rotate3d(1, -1, 1, 55deg);
+}
 
 .side-triangle {
 	clip-path: polygon(100% 0, 0% 100%, 100% 100%);
 }
-li.list-cross{
+li.list-cross {
 	position: relative;
 	list-style: none;
 }
-.list-cross::after{
-	content:url("../src/lib/images/is/list_x.svg");
+.list-cross::after {
+	content: url('../src/lib/images/is/list_x.svg');
 	position: absolute;
 	top: 6px;
 	left: -23px;
@@ -53,10 +60,11 @@ li.list-cross{
 	padding: 0 4px;
 	margin-left: 4px;
 }
-.PASSIVE,.skilltag.can_silence {
+.PASSIVE,
+.skilltag.can_silence {
 	background-color: #737373;
 }
-.COOLDOWN{
+.COOLDOWN {
 	background-color: #2678b7;
 }
 .INCREASE_WHEN_ATTACK {
@@ -68,7 +76,7 @@ li.list-cross{
 .INCREASE_WITH_TIME {
 	background-color: #8ec31f;
 }
-.skilltag.ignore_stealth{
+.skilltag.ignore_stealth {
 	background-color: #204d91;
 }
 .skilltag.ignore_camou {

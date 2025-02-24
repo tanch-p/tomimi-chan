@@ -110,21 +110,39 @@ export const setOtherBuffsList = (
 	rogueTopic: RogueTopic,
 	enemies: Enemy[],
 	mapConfig: MapConfig,
-	language: Language
+	language: Language,
+	difficulty: number
 ) => {
 	const buffsList = [];
-	if (rogueTopic === 'rogue_skz') {
-		buffsList.push({
-			key: 'fragment_boom',
-			img: rogue_4_fragment_F_25,
-			name: '爆破',
-			targets: ['trap_760_skztzs'],
-			activeTargets: [],
-			mods: {
-				hp: 0.5
-			},
-			maxCount: 1
-		});
+	switch (rogueTopic) {
+		case 'rogue_mizuki':
+			if (difficulty >= 18) {
+				buffsList.push({
+					key: 'n18_mzk',
+					img: null,
+					name: 'N18',
+					targets: ['ELITE', 'BOSS'],
+					activeTargets: [],
+					mods: {
+						atk: 1.3,
+						dmg_reduction: 50
+					},
+					maxCount: 1
+				});
+			}
+			break;
+		case 'rogue_skz':
+			buffsList.push({
+				key: 'fragment_boom',
+				img: rogue_4_fragment_F_25,
+				name: '爆破',
+				targets: ['trap_760_skztzs'],
+				activeTargets: [],
+				mods: {
+					hp: 0.5
+				},
+				maxCount: 1
+			});
 	}
 	const tileInfection = mapConfig.sp_terrain?.find((item) => item.tileKey === 'tile_infection');
 	if (tileInfection) {

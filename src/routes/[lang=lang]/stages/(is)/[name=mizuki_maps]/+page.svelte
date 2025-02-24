@@ -34,6 +34,9 @@
 		eliteMode.set(false);
 		normalMods.set(data.mapConfig.n_mods);
 	}
+	$: if (data.mapConfig || $difficulty) {
+		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies, data.mapConfig, language, $difficulty);
+	}
 	$: language = data.language;
 	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods);
 	$: moddedTraps = applyTrapMods(data.traps, $statMods, $specialMods);
