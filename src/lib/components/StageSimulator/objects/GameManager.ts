@@ -49,8 +49,8 @@ export class GameManager {
 		this.mazeLayout = mazeLayout;
 		this.pathFinder = new SPFA(mazeLayout);
 		this.tileManager = new TileManager(config.levelId);
-		this.countdownManager = new ShaderCountdownManager();
-        this.scene.add(this.countdownManager.getMesh());
+		// this.countdownManager = new ShaderCountdownManager();
+        // this.scene.add(this.countdownManager.getMesh());
 		this.initPlane();
 		this.initRollOverMeshes();
 		this.initVectorToGridMap();
@@ -258,7 +258,7 @@ export class GameManager {
     }
 
 	update(delta: number) {
-        this.countdownManager.update(delta);
+        // this.countdownManager.update(delta);
 
 		// console.log(GameConfig.scaledElapsedTime.toFixed(3),delta.toFixed(3))
 		GameConfig.setValue('scaledElapsedTime', GameConfig.scaledElapsedTime + delta);
