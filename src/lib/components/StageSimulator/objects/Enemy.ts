@@ -69,6 +69,7 @@ export class Enemy {
 	arrivalThreshold = GameConfig.gridSize * 0.45;
 	reviveTimer = 0;
 	reviveDuration = 0;
+	disguiseSkel:spine.SkeletonMesh;
 
 	constructor(enemyData: EnemyType, route, gameManager: GameManager, fragmentKey) {
 		gameManager.enemiesOnMap.push(this);
@@ -235,7 +236,10 @@ export class Enemy {
 		const range = this.data.forms[this.formIndex].stats.range;
 		const normalAtkIsRanged =
 			this.data.forms[this.formIndex].normal_attack.atk_type.includes('ranged');
-		if (range > 0 && normalAtkIsRanged) {
+		if (
+			(range > 0 && normalAtkIsRanged) ||
+			this.traits.some((skill) => ['no_block_ranged_atk'].includes(skill.key))
+		) {
 			const group = new THREE.Group();
 			const radius = range * GameConfig.gridSize;
 			const circleGeometry = new THREE.CircleGeometry(radius, 32);
@@ -617,7 +621,7 @@ export class Enemy {
 					this.waitTimer.getMesh().visible = GameConfig.showAllTimers || this.selected;
 					this.waitElapsedTime += delta;
 				} else {
-					// this.waitTimer.updateTimer(this.standbyTime - this.waitElapsedTime);
+					this.waitTimer.updateTimer(this.standbyTime - this.waitElapsedTime);
 					this.waitElapsedTime += delta;
 				}
 
@@ -669,7 +673,7 @@ export class Enemy {
 		this.skillRangeMeshes.forEach((mesh) => (mesh.visible = true));
 		this.waitTimer.getMesh().visible = this.waitElapsedTime > 0;
 		console.log(this.route);
-		
+
 		// const cache = this.gameManager.pathFinder.pathCache.get(4,4)
 		// cache.nodes.forEach((value, key) => {
 		// 	const [x, y] = key.split(',');

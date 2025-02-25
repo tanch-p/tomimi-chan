@@ -155,6 +155,7 @@ export function getMoveAnimName(key, skel, state) {
 
 		case 'enemy_1271_nhkodo':
 		case 'enemy_1271_nhkodo_2':
+		case 'enemy_2055_smlead':
 			return 'Move_A';
 
 		case 'enemy_1418_mmkonm':
@@ -168,7 +169,6 @@ export function getMoveAnimName(key, skel, state) {
 		case 'enemy_1314_wdnjd':
 		case 'enemy_1316_wdpjd':
 		case 'enemy_1315_wdyjd':
-		case 'enemy_2055_smlead':
 			return 'Move_B';
 
 		case 'enemy_1135_redman':

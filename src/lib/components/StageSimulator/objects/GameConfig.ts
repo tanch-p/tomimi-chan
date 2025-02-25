@@ -16,6 +16,7 @@ export class GameConfig {
 	static tokenCard = null;
 	static eliteMode = false;
 	static cameraLock = true;
+	static currentWaveIndex = 0;
 
 	static subscribe(key, callback) {
 		this.subscribers.add({ key, callback });

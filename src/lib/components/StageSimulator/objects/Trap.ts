@@ -95,6 +95,7 @@ export class Trap {
 					this.meshGroup.add(model);
 					switch (this.key) {
 						case 'trap_106_smtree':
+						case 'trap_111_wdfarm':
 							switch (this.direction) {
 								case 'LEFT':
 									this.meshGroup.rotation.z = Math.PI;
