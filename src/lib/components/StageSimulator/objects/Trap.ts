@@ -26,7 +26,6 @@ export class Trap {
 		this.position = pos;
 		this.type = trap.modelType;
 		this.initModel(trap.modelType);
-		this.meshGroup.renderOrder = 1;
 		this.isRoadblock =
 			trap.special.some((skillRef) => ['roadblock'].includes(skillRef)) ||
 			trap.skills.some((skillRef) => ['sktok_crate', 'sktok_stone'].includes(skillRef));
@@ -53,6 +52,7 @@ export class Trap {
 					skeletonMesh.state;
 					const animName = getIdleAnimName(this.key, skeletonMesh);
 					this.skel.state.setAnimation(0, animName, true);
+					skeletonMesh.renderOrder=-1;
 					this.meshGroup.add(skeletonMesh);
 				}
 				switch (this.direction) {
@@ -136,6 +136,7 @@ export class Trap {
 						transparent: true
 					});
 					const frontPlane = new THREE.Mesh(geometry, material);
+					frontPlane.renderOrder = -1;
 					this.meshGroup.add(frontPlane);
 				}
 				break;

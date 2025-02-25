@@ -58,10 +58,9 @@ export class SpawnManager {
 			this.preDelayTimer += delta;
 			return;
 		}
-
+		GameConfig.setValue('waveElapsedTime', GameConfig.waveElapsedTime + delta);
 		// Process fragments
 		if (this.currentFragmentIndex < currentWave.fragments.length) {
-			GameConfig.setValue('waveElapsedTime', GameConfig.waveElapsedTime + delta);
 			this.processFragment(currentWave.fragments[this.currentFragmentIndex], delta);
 		} else if (this.postDelayTimer < currentWave.postDelay) {
 			// Handle wave post-delay
@@ -90,7 +89,10 @@ export class SpawnManager {
 		if (this.nextWaveTimer < this.waves[this.currentWaveIndex].maxTimeWaitingForNextWave) {
 			this.nextWaveTimer += delta;
 		}
-		return this.nextWaveTimer >= this.waves[this.currentWaveIndex].maxTimeWaitingForNextWave || this.gameManager.noEnemyAlive;
+		return (
+			this.nextWaveTimer >= this.waves[this.currentWaveIndex].maxTimeWaitingForNextWave ||
+			this.gameManager.noEnemyAlive
+		);
 	}
 
 	processFragment(fragment, delta) {
@@ -189,9 +191,14 @@ export class SpawnManager {
 	spawnEnemy(action) {
 		const originalRoute = this.routes[action['routeIndex']];
 		const route = this.gameManager.convertMovementConfig(structuredClone(originalRoute));
-		const enemyData = this.gameManager.enemies.find((ele) => ele.stageId === action.key);
+		let enemyKey = action.key;
+		const enemyReplace = GameConfig.eliteMode ? this.gameManager.config.elite_runes?.enemy_replace || {} : {};
+		if (enemyReplace[action.key]) {
+			enemyKey = enemyReplace[action.key];
+		}
+		const enemyData = this.gameManager.enemies.find((ele) => ele.stageId === enemyKey);
 		if (!enemyData) {
-			console.log(action.key, ' key not found in enemies list');
+			console.log(enemyKey, ' key not found in enemies list');
 			return;
 		}
 		const key = `w${this.currentWaveIndex}f${this.currentFragmentIndex}`;

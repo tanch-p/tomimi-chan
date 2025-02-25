@@ -74,7 +74,7 @@ export class Enemy {
 		gameManager.enemiesOnMap.push(this);
 		// console.log(enemyData);
 		// this.pathFinder = new SPFA(gameManager.mazeLayout);
-		this.waitTimer=new CountdownSprite(gameManager);
+		this.waitTimer = new CountdownSprite(gameManager);
 		this.pathFinder = gameManager.pathFinder;
 		this.data = enemyData;
 		this.key = enemyData.key;
@@ -146,11 +146,41 @@ export class Enemy {
 			// transparent:true,
 			opacity: 0
 		});
-		const shadowMaterial = new THREE.MeshBasicMaterial({
-			map: this.assetManager.textures.get('sprite_shadow').texture,
-			depthTest: false,
-			opacity: 0.85,
-			transparent: true
+		const shadowMaterial = new THREE.ShaderMaterial({
+			uniforms: {
+				shadowTexture: { value: this.assetManager.textures.get('sprite_shadow').texture },
+				selectedColor: { value: new THREE.Color(0xff0000) },
+				isSelected: { value: false }, // Toggle for using custom color
+				opacity: { value: 0.85 }
+			},
+			vertexShader: `
+				varying vec2 vUv;
+				void main() {
+				vUv = uv;
+				gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+				}
+			`,
+			fragmentShader: `
+				uniform sampler2D shadowTexture;
+				uniform vec3 selectedColor;
+				uniform bool isSelected;
+				uniform float opacity;
+				varying vec2 vUv;
+				void main() {
+				vec4 texColor = texture2D(shadowTexture, vUv);
+				float alpha = texColor.a;
+				
+				if(alpha <= 0.01) {
+					gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);
+				} else {
+					// Choose between original black or custom color based on toggle
+					vec3 finalColor = isSelected ? selectedColor : vec3(0.0, 0.0, 0.0);
+					gl_FragColor = vec4(finalColor, alpha * opacity);
+				}
+				}
+			`,
+			transparent: true,
+			depthTest: false
 		});
 		const hitBoxMesh = new THREE.Mesh(hitBoxGeo, hitBoxMaterial);
 		const shadowMesh = new THREE.Mesh(shadowGeometry, shadowMaterial);
@@ -160,7 +190,7 @@ export class Enemy {
 		hitBoxMesh.userData.name = 'hitbox';
 		this.meshGroup.add(shadowMesh, hitBoxMesh);
 		this.hitbox = hitBoxMesh;
-		this.shadow = shadowMesh;
+		this.shadow = shadowMaterial;
 		const skeletonData = this.assetManager.spineMap.get(this.key);
 		if (!skeletonData) {
 			return;
@@ -423,7 +453,7 @@ export class Enemy {
 						this.handleRevive(delta);
 						break;
 					}
-					if(this.motionMode === "NONE"){
+					if (this.motionMode === 'NONE') {
 						return;
 					}
 					if (this.motionMode === 'BLINK') {
@@ -630,6 +660,7 @@ export class Enemy {
 	onSelect() {
 		const pos = this.gameManager.getGridPosition(this.raycastPos);
 		console.log(pos);
+		this.shadow.uniforms.isSelected.value = true;
 		this.gameManager.scene.add(this.pathGroup);
 		this.selected = true;
 		if (this.atkRangeMesh) {
@@ -638,7 +669,7 @@ export class Enemy {
 		this.skillRangeMeshes.forEach((mesh) => (mesh.visible = true));
 		this.waitTimer.getMesh().visible = this.waitElapsedTime > 0;
 		console.log(this.route);
-
+		
 		// const cache = this.gameManager.pathFinder.pathCache.get(4,4)
 		// cache.nodes.forEach((value, key) => {
 		// 	const [x, y] = key.split(',');
@@ -656,6 +687,7 @@ export class Enemy {
 	}
 	onDeselect() {
 		this.gameManager.scene.remove(this.pathGroup);
+		this.shadow.uniforms.isSelected.value = false;
 		this.selected = false;
 		if (this.atkRangeMesh) {
 			this.atkRangeMesh.visible = GameConfig.showAllRange;

@@ -7,6 +7,7 @@
 	import EnemyStatDisplay from './EnemyStatDisplay.svelte';
 	import EnemyWaves from './EnemyWaves.svelte';
 	import ModsCheck from './ModsCheck.svelte';
+	import { GameConfig } from './StageSimulator/objects/GameConfig';
 	import TrapContainer from './TrapContainer.svelte';
 
 	export let language,
@@ -31,9 +32,18 @@
 		$statMods,
 		$specialMods
 	);
+
+	eliteMode.subscribe((v) => (GameConfig.eliteMode = v));
 </script>
 
-<EnemyWaves {mapConfig} enemies={moddedEnemies} {language} eliteMode={$eliteMode} {rogueTopic} {otherStores}>
+<EnemyWaves
+	{mapConfig}
+	enemies={moddedEnemies}
+	{language}
+	eliteMode={$eliteMode}
+	{rogueTopic}
+	{otherStores}
+>
 	<EliteToggle
 		slot="eliteMods"
 		inWaveOptions={true}

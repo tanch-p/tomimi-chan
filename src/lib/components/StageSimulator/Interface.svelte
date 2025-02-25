@@ -1,8 +1,11 @@
 <script lang="ts">
+	import type { Language } from '$lib/types';
 	import { onDestroy, onMount } from 'svelte';
 	import { GameConfig } from './objects/GameConfig';
+	import enemyCount from '$lib/images/is/enemy_count.webp';
+	import translations from '$lib/translations.json';
 
-	export let game, initialCost;
+	export let game, initialCost, language: Language, count:number, randomSeeds;
 
 	let state,
 		card = GameConfig.tokenCard,
@@ -22,9 +25,10 @@
 	}
 	function handlePause() {
 		GameConfig.isPaused = !GameConfig.isPaused;
-		GameConfig.state = "running";
+		GameConfig.state = 'running';
 	}
 	function handleReset() {
+		randomSeeds = Array.from(Array(50)).map((_) => Math.random());
 		game.softReset();
 		GameConfig.isPaused = true;
 	}
@@ -32,6 +36,10 @@
 	let unsubscribe;
 	onMount(() => {
 		unsubscribe = GameConfig.subscribe('scaledElapsedTime', (value) => {
+			totalTime = value;
+		});
+		unsubscribeFns.push(unsubscribe);
+		unsubscribe = GameConfig.subscribe('waveElapsedTime', (value) => {
 			totalTime = value;
 			min = Math.floor(value / 60);
 			sec = Math.floor(value % 60);
@@ -71,13 +79,17 @@
 	>
 </div>
 
-<div class="absolute left-1/2 -translate-x-1/2 mt-6">
-	<p>
-		{min}:{#if sec < 10}0{/if}{sec}
+<div class="absolute left-1/2 -translate-x-1/2 mt-6 pb-0.5 bg-neutral-800 bg-opacity-80 pointer-events-none">
+	<div class="flex items-center gap-x-1.5 px-4 ">
+		<img src={enemyCount} width="40" alt={translations[language].enemy_count} class="shrink-0" />
+		<span>{count}</span>
+	</div>
+	<p class="text-center text-sm mt-1.5 px-3">
+		 wave<sub>t</sub> {min}:{#if sec < 10}0{/if}{sec}
 	</p>
 </div>
 
-<div class="absolute right-10 bottom-1/3 select-none">
+<div class="absolute right-10 bottom-1/3 pointer-events-none">
 	Cost: {Math.min(99, Math.floor(initialCost + totalTime))}
 </div>
 

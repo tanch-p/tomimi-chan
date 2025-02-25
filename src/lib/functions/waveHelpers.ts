@@ -5,6 +5,7 @@ import f28 from '$lib/images/is/sarkaz/rogue_4_fragment_F_28.webp';
 import translations from '$lib/translations.json';
 import calamity from '$lib/images/is/sarkaz/rogue_4_disaster_1_toast.webp';
 import disasters from '$lib/data/is/sarkaz/disasters.json';
+import { rogueTopic } from '../../routes/[lang=lang]/(app)/recruit/stores';
 
 const ALWAYS_KILLED_KEYS = [
 	'enemy_2073_skzrck',
@@ -203,7 +204,7 @@ export const handleOptionsUpdate = (hiddenGroups, key, rogueTopic: RogueTopic, o
 	return hiddenGroups;
 };
 
-export const getEnemyCountPermutations = (mapConfig, hiddenGroups, eliteMode) => {
+export const getEnemyCountPermutations = (mapConfig, hiddenGroups, eliteMode, hasBonus) => {
 	const key = eliteMode ? 'ELITE' : 'NORMAL';
 	const permutations = mapConfig[key].permutations;
 	const bonus = mapConfig.bonus;
@@ -224,17 +225,9 @@ export const getEnemyCountPermutations = (mapConfig, hiddenGroups, eliteMode) =>
 		return acc;
 	}, 0);
 	const list = permutations.map(({ count, permutation }) => {
-		return { count: count + countToAdd, permutation };
+		return { count: count + countToAdd + (bonus && hasBonus ? 1 : 0), permutation };
 	});
-	return list
-		.reduce((acc, { count, permutation }) => {
-			acc.push({ count: count, permutation });
-			if (bonus) {
-				acc.push({ count: count + 1, permutation, bonus: true });
-			}
-			return acc;
-		}, [])
-		.sort((a, b) => a.count - b.count);
+	return list.sort((a, b) => a.count - b.count);
 };
 
 function addPackToGroup(action, groups) {
@@ -327,11 +320,12 @@ export const generateWaveTimeline = (
 	hiddenGroups,
 	permutation,
 	eliteMode,
-	randomSeeds
+	randomSeeds,
+	bonusKey
 ) => {
 	if (!permutation) return;
 	let randomSeedIndex = 0;
-
+	const enemyReplace = eliteMode ? mapConfig.elite_runes?.enemy_replace || {} : {};
 	let totalCount = 0;
 	const waveTimelines = [];
 	const { waves } = mapConfig;
@@ -347,14 +341,9 @@ export const generateWaveTimeline = (
 			let groupActions = [];
 			for (const [groupKey, list] of Object.entries(packedGroups)) {
 				let choice = permutation?.[key]?.[groupKey];
-				if (choice === undefined) {
-					if (!Array.isArray(list[0])) {
-						const badBoxIdx = list.findIndex((action) => CHESTS.includes(action.key.split('#')[0]));
-						if (badBoxIdx !== -1 && hiddenGroups.some((ele) => CHESTS.includes(ele))) {
-							choice = badBoxIdx;
-						}
-					}
-					if (choice === undefined) {
+				if (choice == undefined) {
+					choice = getPredefinedChoiceIndex(list, hiddenGroups, bonusKey);
+					if (choice == undefined) {
 						choice = Math.floor(randomSeeds[randomSeedIndex] * list.length);
 						randomSeedIndex += 1;
 					}
@@ -364,7 +353,7 @@ export const generateWaveTimeline = (
 				}
 			}
 			for (const action of groupActions) {
-				handleAction(action, spawns, waveBlockingSpawns, prevPhaseTime);
+				handleAction(action, spawns, waveBlockingSpawns, prevPhaseTime, enemyReplace);
 				if (
 					!(
 						action['key'].includes('trap') ||
@@ -398,7 +387,7 @@ export const generateWaveTimeline = (
 				) {
 					continue;
 				}
-				handleAction(action, spawns, waveBlockingSpawns, prevPhaseTime);
+				handleAction(action, spawns, waveBlockingSpawns, prevPhaseTime, enemyReplace);
 				if (
 					!(
 						action['key'].includes('trap') ||
@@ -428,9 +417,13 @@ export const generateWaveTimeline = (
 	return { waves: waveTimelines, count: totalCount };
 };
 
-const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime) => {
+const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime, enemyReplace = {}) => {
 	if (action.key.includes('trap') || action.key === '') {
 		return;
+	}
+	let enemyKey = action.key;
+	if (enemyReplace[action.key]) {
+		enemyKey = enemyReplace[action.key];
 	}
 	if (action['count'] > 1) {
 		// interval
@@ -440,15 +433,7 @@ const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime) => {
 				spawns[spawnTime] = [];
 			}
 			spawns[spawnTime].push({
-				key: action['key'],
-				enemy: [action['key']],
-				//  "count": `${count+1}/${action['count']}`,
-				//  "interval": action['interval'],
-				routeIndex: action['routeIndex'],
-				hiddenGroup: action['hiddenGroup'],
-				randomSpawnGroupKey: action['randomSpawnGroupKey'],
-				randomSpawnGroupPackKey: action['randomSpawnGroupPackKey'],
-				weight: action['weight']
+				key: enemyKey
 			});
 
 			if (!['enemy_1106_byokai_b'].includes(action.key)) {
@@ -464,14 +449,7 @@ const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime) => {
 			spawns[spawnTime] = [];
 		}
 		spawns[spawnTime].push({
-			key: action['key'],
-			enemy: [action['key']],
-			//  "count": 1,
-			routeIndex: action['routeIndex'],
-			hiddenGroup: action['hiddenGroup'],
-			randomSpawnGroupKey: action['randomSpawnGroupKey'],
-			randomSpawnGroupPackKey: action['randomSpawnGroupPackKey'],
-			weight: action['weight']
+			key: enemyKey
 		});
 
 		if (!['enemy_1106_byokai_b'].includes(action.key)) {
@@ -483,7 +461,7 @@ const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime) => {
 	}
 };
 
-export const parseWaves = (mapConfig, permutation, hiddenGroups, eliteMode, randomSeeds) => {
+export const parseWaves = (mapConfig, permutation, hiddenGroups, eliteMode, randomSeeds, bonus) => {
 	let randomSeedIndex = 0;
 	const waves = structuredClone(mapConfig.waves);
 	waves.forEach((wave, waveIdx) => {
@@ -497,14 +475,9 @@ export const parseWaves = (mapConfig, permutation, hiddenGroups, eliteMode, rand
 			const packedGroups = getRandomGroups(fragment, hiddenGroups);
 			for (const [groupKey, list] of Object.entries(packedGroups)) {
 				let choice = permutation?.[key]?.[groupKey];
-				if (choice === undefined) {
-					if (!Array.isArray(list[0])) {
-						const badBoxIdx = list.findIndex((action) => CHESTS.includes(action.key.split('#')[0]));
-						if (badBoxIdx !== -1 && hiddenGroups.some((ele) => CHESTS.includes(ele))) {
-							choice = badBoxIdx;
-						}
-					}
-					if (choice === undefined) {
+				if (choice == undefined) {
+					choice = getPredefinedChoiceIndex(list, hiddenGroups, bonus);
+					if (choice == undefined) {
 						choice = Math.floor(randomSeeds[randomSeedIndex] * list.length);
 						randomSeedIndex += 1;
 					}
@@ -546,6 +519,20 @@ export const parseWaves = (mapConfig, permutation, hiddenGroups, eliteMode, rand
 		wave.fragments = fragments;
 	});
 	return waves;
+};
+
+export const getPredefinedChoiceIndex = (list, hiddenGroups, bonusKey) => {
+	if (!Array.isArray(list[0])) {
+		const badBoxIdx = list.findIndex((action) => CHESTS.includes(action.key.split('#')[0]));
+		if (badBoxIdx !== -1 && hiddenGroups.some((ele) => CHESTS.includes(ele))) {
+			return badBoxIdx;
+		}
+
+		const bonusIdx = bonusKey && list.findIndex((action) => action.key === bonusKey);
+		if (bonusIdx !== -1) {
+			return bonusIdx;
+		}
+	}
 };
 
 export const getRandomGroups = (fragment, hiddenGroups) => {
@@ -636,4 +623,21 @@ export const compileSpawnTimeActions = (actions) => {
 		}
 	}
 	return holder;
+};
+
+export const getBonusEnemies = (rogueTopic: RogueTopic) => {
+	switch (rogueTopic) {
+		case 'rogue_phantom':
+			return [null, 'enemy_2001_duckmi', 'enemy_2002_bearmi'];
+		case 'rogue_sami':
+			return [null, 'enemy_2001_duckmi', 'enemy_2002_bearmi', 'enemy_2034_sythef'];
+		default:
+			return [
+				null,
+				'enemy_2001_duckmi',
+				'enemy_2002_bearmi',
+				'enemy_2034_sythef',
+				'enemy_2085_skzjxd'
+			];
+	}
 };

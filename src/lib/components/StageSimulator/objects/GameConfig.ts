@@ -14,6 +14,8 @@ export class GameConfig {
 	static state = 'loading';
 	static subscribers = new Set();
 	static tokenCard = null;
+	static eliteMode = false;
+	static cameraLock = true;
 
 	static subscribe(key, callback) {
 		this.subscribers.add({ key, callback });
