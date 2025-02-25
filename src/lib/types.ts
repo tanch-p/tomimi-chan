@@ -163,6 +163,8 @@ export interface MapConfig {
 	[key: `name_${string}`]: string;
 	[key: `description_${string}`]: string;
 	[key: `eliteDesc_${string}`]: string;
+	n_runes:null;
+	elite_runes:any|null;
 	n_mods: Mods | null;
 	elite_mods: Mods | null;
 	traps: MapConfigTrap[];

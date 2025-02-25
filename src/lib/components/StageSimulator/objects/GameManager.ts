@@ -8,7 +8,7 @@ import { Enemy } from './Enemy';
 import { writable } from 'svelte/store';
 import { SPFA } from './SPFA';
 import { Trap } from './Trap';
-import {SpawnManager} from './SpawnManager';
+import { SpawnManager } from './SpawnManager';
 import { TileManager } from './TileManager';
 import { ShaderCountdownManager } from './ShaderCountdownManager';
 
@@ -50,7 +50,7 @@ export class GameManager {
 		this.pathFinder = new SPFA(mazeLayout);
 		this.tileManager = new TileManager(config.levelId);
 		// this.countdownManager = new ShaderCountdownManager();
-        // this.scene.add(this.countdownManager.getMesh());
+		// this.scene.add(this.countdownManager.getMesh());
 		this.initPlane();
 		this.initRollOverMeshes();
 		this.initVectorToGridMap();
@@ -202,7 +202,17 @@ export class GameManager {
 	}
 
 	initTraps(traps) {
-		const trapsToInit = traps.filter((ele) => !ele.hidden);
+		const predefineChanges = GameConfig.eliteMode && this.config.elite_runes?.predefine_changes;
+		const trapList = structuredClone(traps);
+		if (predefineChanges) {
+			for (const [key, value] of predefineChanges) {
+				const trap = trapList.find((ele) => ele.alias === key);
+				if (trap) {
+					trap.hidden = Boolean(!value);
+				}
+			}
+		}
+		const trapsToInit = trapList.filter((ele) => !ele.hidden);
 		for (const trapData of trapsToInit) {
 			this.addTrap(trapData);
 		}
@@ -253,12 +263,12 @@ export class GameManager {
 		this.initVectorToGridMap();
 	}
 
-    createWaitTimer(position: THREE.Vector3, duration: number) {
-        return this.countdownManager.createCountdown(position, duration);
-    }
+	createWaitTimer(position: THREE.Vector3, duration: number) {
+		return this.countdownManager.createCountdown(position, duration);
+	}
 
 	update(delta: number) {
-        // this.countdownManager.update(delta);
+		// this.countdownManager.update(delta);
 
 		// console.log(GameConfig.scaledElapsedTime.toFixed(3),delta.toFixed(3))
 		GameConfig.setValue('scaledElapsedTime', GameConfig.scaledElapsedTime + delta);

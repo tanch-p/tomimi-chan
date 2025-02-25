@@ -153,14 +153,16 @@ export function getMoveAnimName(key, skel, state) {
 		case 'enemy_2092_skzamy':
 			return 'A_Move';
 
+		case 'enemy_1271_nhkodo':
+		case 'enemy_1271_nhkodo_2':
+			return 'Move_A';
+
 		case 'enemy_1418_mmkonm':
 		case 'enemy_1418_mmkonm_2':
 			return 'Move_b';
 
 		case 'enemy_1143_merrpg':
 		case 'enemy_1143_merrpg_2':
-		case 'enemy_1271_nhkodo':
-		case 'enemy_1271_nhkodo_2':
 		case 'enemy_1311_mhkryk':
 		case 'enemy_1311_mhkryk_2':
 		case 'enemy_1314_wdnjd':
@@ -192,10 +194,12 @@ export function getMoveAnimName(key, skel, state) {
 	}
 }
 export function getAnimDuration(skel, animName) {
-	return skel.state.data.skeletonData.animations.find((ele) => ele.name === animName)?.duration || 0;
+	return (
+		skel.state.data.skeletonData.animations.find((ele) => ele.name === animName)?.duration || 0
+	);
 }
 
-export function getSkillAnimName(skel,enemyKey, skillKey) {
+export function getSkillAnimName(skel, enemyKey, skillKey) {
 	if (skel.state.hasAnimation('Skill_Loop')) {
 		return 'Skill_Loop';
 	}

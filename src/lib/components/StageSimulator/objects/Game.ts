@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import type { Enemy as EnemyType, MapConfig } from '$lib/types';
 import { GameMap } from './GameMap';
-import {SpawnManager} from './SpawnManager';
+import { SpawnManager } from './SpawnManager';
 import { GameConfig } from './GameConfig';
 import { GameManager } from './GameManager';
 import { AssetManager } from './AssetManager';
@@ -24,6 +24,8 @@ export class Game {
 	enemies: any[];
 	state = writable('load');
 	gameManager: GameManager;
+	isDragging = false;
+	previousMousePosition = { x: 0, y: 0 };
 
 	constructor(canvasElement: HTMLCanvasElement, config: MapConfig, waveData, enemies: EnemyType[]) {
 		this.canvas = canvasElement;
@@ -41,6 +43,7 @@ export class Game {
 		this.onWindowResize = this.onWindowResize.bind(this);
 		this.onPointerMove = this.onPointerMove.bind(this);
 		this.onPointerDown = this.onPointerDown.bind(this);
+		this.onPointerUp = this.onPointerUp.bind(this);
 
 		// threejs
 		const frustumSize = GameConfig.FrustumSize;
@@ -64,8 +67,8 @@ export class Game {
 		this.pointer = new THREE.Vector2();
 
 		this.initLights();
+		this.initCamera();
 		this.clock = new THREE.Clock();
-
 		this.renderer = new THREE.WebGLRenderer({
 			canvas: this.canvas,
 			antialias: true
@@ -74,9 +77,9 @@ export class Game {
 		this.renderer.setPixelRatio(window.devicePixelRatio);
 		this.renderer.setSize(rect.width, rect.height);
 		window.addEventListener('resize', this.onWindowResize);
-		// document.addEventListener('pointermove', this.onPointerMove);
-		document.addEventListener('pointerdown', this.onPointerDown);
-
+		document.addEventListener('pointermove', this.onPointerMove);
+		document.addEventListener('pointerup', this.onPointerUp);
+		canvasElement.addEventListener('pointerdown', this.onPointerDown);
 		this.gameManager = new GameManager(config, this.scene, this.camera, this.objects, enemies);
 		this.map = new GameMap(this.gameManager);
 		this.spawnManager = new SpawnManager(waveData, this.map, this.gameManager);
@@ -118,10 +121,24 @@ export class Game {
 		this.map = new GameMap(this.gameManager);
 		this.spawnManager = new SpawnManager(this.waveData, this.map, this.gameManager);
 		this.initLights();
+		this.initCamera();
 		GameConfig.state = 'ready';
 		this.renderer.setAnimationLoop(() => this.render());
 	}
+	initCamera() {
+		let x = 0;
+		switch (this.config.levelId) {
+			case 'level_rogue4_b-7':
+				x = -600;
+				break;
 
+			default:
+				break;
+		}
+		this.camera.position.x = x;
+		const target = new THREE.Vector3(x, 38, 0);
+		this.camera.lookAt(target);
+	}
 	onWindowResize() {
 		const rect = this.canvas.parentElement.getBoundingClientRect();
 		const aspect = rect.width / rect.height;
@@ -135,48 +152,79 @@ export class Game {
 		this.render();
 	}
 	onPointerMove(event) {
+		if (!GameConfig.cameraLock) {
+			if (!this.isDragging) return;
+			const deltaMove = {
+				x: event.clientX - this.previousMousePosition.x,
+				y: event.clientY - this.previousMousePosition.y
+			};
+
+			// Convert mouse movement to world space (adjust sensitivity as needed)
+			const sensitivity = 1;
+			this.camera.position.x -= deltaMove.x * sensitivity;
+
+			// Update the camera target (lookAt point) to maintain orientation
+			const target = new THREE.Vector3(
+				this.camera.position.x,
+				38, // Adjust based on your original lookAt
+				0
+			);
+			this.camera.lookAt(target);
+
+			this.previousMousePosition = {
+				x: event.clientX,
+				y: event.clientY
+			};
+			return;
+		}
+
 		if (!event.target.isSameNode(this.canvas)) {
 			return;
 		}
-		if (!GameConfig.tokenCard || !GameConfig.tokenCard.selected) {
-			return;
-		}
-		const rect = this.renderer.domElement.getBoundingClientRect(); // Get canvas size and position
-		this.pointer.set(
-			((event.clientX - rect.left) / rect.width) * 2 - 1,
-			-((event.clientY - rect.top) / rect.height) * 2 + 1
-		);
-		this.raycaster.setFromCamera(this.pointer, this.camera);
+		// if (!GameConfig.tokenCard || !GameConfig.tokenCard.selected) {
+		// 	return;
+		// }
+		// const rect = this.renderer.domElement.getBoundingClientRect(); // Get canvas size and position
+		// this.pointer.set(
+		// 	((event.clientX - rect.left) / rect.width) * 2 - 1,
+		// 	-((event.clientY - rect.top) / rect.height) * 2 + 1
+		// );
+		// this.raycaster.setFromCamera(this.pointer, this.camera);
 
-		const intersects = this.raycaster.intersectObjects(this.objects, false);
-		if (intersects.length > 0) {
-			const plane = intersects.find((ele) => ele?.object?.userData?.name === 'plane');
-			if (!plane) {
-				return;
-			}
-			const mesh = this.gameManager.rollOverMeshes.get(GameConfig.tokenCard.key)?.getMesh();
-			mesh.position.copy(plane.point).add(plane.face.normal);
-			mesh.position
-				.divideScalar(GameConfig.gridSize)
-				.floor()
-				.multiplyScalar(GameConfig.gridSize)
-				.addScalar(50);
-			mesh.position.z = 0.01;
-			const { x, y } = mesh.position;
-			const gridPos = this.gameManager.vectorToGridMap.get(`${x},${y}`);
-			const tile = this.gameManager.tiles.get(gridPos);
-			const trap = this.gameManager.traps.get(gridPos);
-			if (tile?.buildableType == 0 || tile?.heightType == 1 || trap) {
-				mesh.visible = false;
-				return;
-			}
+		// const intersects = this.raycaster.intersectObjects(this.objects, false);
+		// if (intersects.length > 0) {
+		// 	const plane = intersects.find((ele) => ele?.object?.userData?.name === 'plane');
+		// 	if (!plane) {
+		// 		return;
+		// 	}
+		// 	const mesh = this.gameManager.rollOverMeshes.get(GameConfig.tokenCard.key)?.getMesh();
+		// 	mesh.position.copy(plane.point).add(plane.face.normal);
+		// 	mesh.position
+		// 		.divideScalar(GameConfig.gridSize)
+		// 		.floor()
+		// 		.multiplyScalar(GameConfig.gridSize)
+		// 		.addScalar(50);
+		// 	mesh.position.z = 0.01;
+		// 	const { x, y } = mesh.position;
+		// 	const gridPos = this.gameManager.vectorToGridMap.get(`${x},${y}`);
+		// 	const tile = this.gameManager.tiles.get(gridPos);
+		// 	const trap = this.gameManager.traps.get(gridPos);
+		// 	if (tile?.buildableType == 0 || tile?.heightType == 1 || trap) {
+		// 		mesh.visible = false;
+		// 		return;
+		// 	}
 
-			mesh.visible = true;
-			this.render();
-		}
+		// 	mesh.visible = true;
+		// 	this.render();
+		// }
 	}
 	onPointerDown(event) {
-		if (!event.target.isSameNode(this.canvas)) {
+		if (!GameConfig.cameraLock) {
+			this.isDragging = true;
+			this.previousMousePosition = {
+				x: event.clientX,
+				y: event.clientY
+			};
 			return;
 		}
 		const rect = this.renderer.domElement.getBoundingClientRect(); // Get canvas size and position
@@ -253,6 +301,9 @@ export class Game {
 			});
 		}
 	}
+	onPointerUp() {
+		this.isDragging = false;
+	}
 	render() {
 		const deltaTime = this.clock.getDelta() * GameConfig.speedFactor;
 		if (
@@ -283,10 +334,11 @@ export class Game {
 		this.scene = null;
 		this.camera = null;
 		this.renderer = null;
-		this.gameManager.countdownManager.dispose();
+		// this.gameManager.countdownManager.dispose();
 		window.removeEventListener('resize', this.onWindowResize);
-		document.removeEventListener('pointerdown', this.onPointerDown);
+		this.canvas.removeEventListener('pointerdown', this.onPointerDown);
 		document.removeEventListener('pointermove', this.onPointerMove);
+		document.removeEventListener('pointerup', this.onPointerUp);
 	}
 	clearScene(scene: THREE.Scene) {
 		const objectsToRemove: THREE.Object3D[] = [];

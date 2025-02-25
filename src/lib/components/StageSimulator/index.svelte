@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Enemy, MapConfig } from '$lib/types';
+	import type { Enemy, Language, MapConfig } from '$lib/types';
 	import { onDestroy } from 'svelte';
 	import { Game } from './objects/Game';
 	import { AssetManager } from './objects/AssetManager';
@@ -9,13 +9,12 @@
 	import Settings from './Settings.svelte';
 	import { GameConfig } from './objects/GameConfig';
 
-	export let timeline, mapConfig: MapConfig, waveData, enemies: Enemy[];
+	export let timeline, mapConfig: MapConfig, waveData, language:Language, enemies: Enemy[],randomSeeds;
 
-	let count, waves;
+	let waves;
 	let assetManager: AssetManager, canvasElement: HTMLCanvasElement, game: Game;
 	// let gameInstances: Game[] = [];
 
-	$: count = timeline.count;
 	$: waves = timeline.waves;
 
 	$: if (timeline) {
@@ -59,7 +58,7 @@
 		<LoadingScreen />
 	{:then}
 		<SpawnTimeView {game} {waves} {mapConfig} />
-		<Interface {game} initialCost={mapConfig.initialCost}/>
+		<Interface bind:randomSeeds {game} initialCost={mapConfig.initialCost} {language} count={timeline.count}/>
 	{:catch error}
 		<p class="text-center">An error occured while loading: <br />{error.message}</p>
 	{/await}
