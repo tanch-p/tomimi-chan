@@ -13,6 +13,7 @@ import {
 	getReviveAnimName
 } from '$lib/functions/spineHelpers';
 import { SkillManager } from './SkillManager';
+import { CountdownSprite } from './CountdownSprite';
 
 const moveMultiplier = 0.5;
 export class Enemy {
@@ -56,7 +57,7 @@ export class Enemy {
 	specials: Skill[];
 	skillManager: SkillManager;
 	formIndex = 0;
-	waitTimer;
+	waitTimer: CountdownSprite;
 	timeToWait = 0;
 	standbyTime = 0;
 	pathFinder: SPFA;
@@ -73,6 +74,7 @@ export class Enemy {
 		gameManager.enemiesOnMap.push(this);
 		// console.log(enemyData);
 		// this.pathFinder = new SPFA(gameManager.mazeLayout);
+		this.waitTimer=new CountdownSprite(gameManager);
 		this.pathFinder = gameManager.pathFinder;
 		this.data = enemyData;
 		this.key = enemyData.key;
@@ -116,7 +118,7 @@ export class Enemy {
 			route.spawnOffset
 		);
 		this.meshGroup.position.set(actualX, actualY, GameConfig.baseZIndex); //实体坐标：即敌人中点实际所在位置。敌人处于什么位置，应该判定哪个地块的效果，是否处于我方部分效果的范围内，都是判断的实体坐标
-		// this.meshGroup.add(this.waitTimer.getMesh());
+		this.meshGroup.add(this.waitTimer.getMesh());
 		const { x, y } = this.gameManager.getVectorCoordinates(route.startPosition, null);
 		this.raycastPos = new THREE.Vector3(x, y, GameConfig.baseZIndex);
 		this.pathGroup = this.visualisePath(
@@ -177,6 +179,7 @@ export class Enemy {
 		this.width = Math.min(100, skeletonMesh.skeleton.data.width * 0.3);
 		this.height = Math.min(110, skeletonMesh.skeleton.data.height * 0.3);
 		const size = new spine.Vector2(Math.max(50, this.width), Math.max(75, this.height));
+		this.waitTimer.setPosition(Math.max(this.height, 75));
 		const spriteMaterial = new THREE.SpriteMaterial({
 			transparent: true,
 			depthTest: false,
@@ -529,7 +532,7 @@ export class Enemy {
 				if (this.waitElapsedTime === 0) {
 					this.state = 'wait';
 					this.handleIdle();
-					// this.waitTimer.getMesh().visible = GameConfig.showAllTimers || this.selected;
+					this.waitTimer.getMesh().visible = GameConfig.showAllTimers || this.selected;
 					this.waitElapsedTime += delta;
 					switch (type) {
 						case 'WAIT_CURRENT_FRAGMENT_TIME':
@@ -543,15 +546,15 @@ export class Enemy {
 							this.timeToWait = time;
 							break;
 					}
-					this.gameManager.createWaitTimer(this.meshGroup.position, this.timeToWait);
+					// this.gameManager.createWaitTimer(this.meshGroup.position, this.timeToWait);
 				} else {
-					// this.waitTimer.updateTimer(this.timeToWait - this.waitElapsedTime);
+					this.waitTimer.updateTimer(this.timeToWait - this.waitElapsedTime);
 					this.waitElapsedTime += delta;
 				}
 
 				if (this.waitElapsedTime >= this.timeToWait) {
 					this.waitElapsedTime = 0;
-					// this.waitTimer.getMesh().visible = false;
+					this.waitTimer.getMesh().visible = false;
 					this.currentActionIndex++;
 				}
 				break;
@@ -579,9 +582,9 @@ export class Enemy {
 			} else {
 				if (this.waitElapsedTime === 0) {
 					this.state = 'standby';
-					// this.waitTimer.setColor(0x5f7af7);
+					this.waitTimer.setColor(0x5f7af7);
 					this.handleIdle();
-					// this.waitTimer.getMesh().visible = GameConfig.showAllTimers || this.selected;
+					this.waitTimer.getMesh().visible = GameConfig.showAllTimers || this.selected;
 					this.waitElapsedTime += delta;
 				} else {
 					// this.waitTimer.updateTimer(this.standbyTime - this.waitElapsedTime);
@@ -591,8 +594,8 @@ export class Enemy {
 				if (this.waitElapsedTime >= this.standbyTime) {
 					this.standbyTime = 0;
 					this.waitElapsedTime = 0;
-					// this.waitTimer.getMesh().visible = false;
-					// this.waitTimer.setColor(0xf08080);
+					this.waitTimer.getMesh().visible = false;
+					this.waitTimer.setColor(0xf08080);
 				}
 			}
 			return;
@@ -633,7 +636,7 @@ export class Enemy {
 			this.atkRangeMesh.visible = true;
 		}
 		this.skillRangeMeshes.forEach((mesh) => (mesh.visible = true));
-		// this.waitTimer.getMesh().visible = this.waitElapsedTime > 0;
+		this.waitTimer.getMesh().visible = this.waitElapsedTime > 0;
 		console.log(this.route);
 
 		// const cache = this.gameManager.pathFinder.pathCache.get(4,4)
@@ -658,7 +661,7 @@ export class Enemy {
 			this.atkRangeMesh.visible = GameConfig.showAllRange;
 		}
 		this.skillRangeMeshes.forEach((mesh) => (mesh.visible = GameConfig.showAllRange));
-		// this.waitTimer.getMesh().visible = this.waitElapsedTime > 0 && GameConfig.showAllTimers;
+		this.waitTimer.getMesh().visible = this.waitElapsedTime > 0 && GameConfig.showAllTimers;
 	}
 
 	visualisePath(paths, currentActionIndex, startPos, spawnOffset) {
