@@ -69,6 +69,7 @@ export class SpawnManager {
 		} else {
 			// Move to next wave
 			this.currentWaveIndex++;
+			GameConfig.setValue('currentWaveIndex', this.currentWaveIndex);
 			this.currentFragmentIndex = 0;
 			GameConfig.waveElapsedTime = 0;
 			this.preDelayTimer = 0;
@@ -192,7 +193,9 @@ export class SpawnManager {
 		const originalRoute = this.routes[action['routeIndex']];
 		const route = this.gameManager.convertMovementConfig(structuredClone(originalRoute));
 		let enemyKey = action.key;
-		const enemyReplace = GameConfig.eliteMode ? this.gameManager.config.elite_runes?.enemy_replace || {} : {};
+		const enemyReplace = GameConfig.eliteMode
+			? this.gameManager.config.elite_runes?.enemy_replace || {}
+			: {};
 		if (enemyReplace[action.key]) {
 			enemyKey = enemyReplace[action.key];
 		}

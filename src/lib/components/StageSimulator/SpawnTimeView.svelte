@@ -19,43 +19,48 @@
 	$: language = $page.data.language;
 	$: GameConfig.showTimeline.subscribe((v) => (showTimeline = v));
 	// Sync class -> store
-	let unsubscribe, unsub2;
+	let unsubscribeFns = [];
+	let unsubscribe;
 	onMount(() => {
 		unsubscribe = GameConfig.subscribe('waveElapsedTime', (value) => {
 			trackAndScrollContainer(value);
 		});
-		unsub2 = GameConfig.subscribe('scaledElapsedTime', (value) => {
+		unsubscribeFns.push(unsubscribe);
+		unsubscribe = GameConfig.subscribe('scaledElapsedTime', (value) => {
 			if (value === 0) {
 				currWaveIndex = 0;
 				index = 0;
 				timelineContainer && timelineContainer.scrollTo(0, 0);
 			}
 		});
+		unsubscribe = GameConfig.subscribe('currentWaveIndex', (value) => {
+			if (currWaveIndex !== value) {
+				timelineContainer &&
+					timelineContainer.scrollBy({
+						top: (actionsContainer?.children?.[index]?.scrollHeight || 0) + 16,
+						behavior: 'smooth'
+					});
+				index += 2;
+			}
+			currWaveIndex = value;
+		});
+		unsubscribeFns.push(unsubscribe);
 	});
 
 	onDestroy(() => {
-		if (unsubscribe) unsubscribe();
-		if (unsub2) unsub2();
+		unsubscribeFns.forEach((fn) => fn());
 	});
 
 	function trackAndScrollContainer(waveElapsedTime: number) {
 		const timeline = waves?.[currWaveIndex]?.timeline;
 		if (timelineContainer && timeline && actionsContainer.children[index]) {
 			if (waveElapsedTime > timeline?.[0]?.t) {
-				timelineContainer.scrollBy({
-					top: (actionsContainer.children[index]?.scrollHeight || 0) + 16, // +16 for mt-4
+				timelineContainer.scrollTo({
+					top: actionsContainer.children[index].offsetTop + actionsContainer.children[index].scrollHeight,
 					behavior: 'smooth'
 				});
 				index += 1;
 				timeline.shift();
-			}
-			if (timeline.length === 0) {
-				currWaveIndex += 1;
-				timelineContainer.scrollBy({
-					top: (actionsContainer.children[index]?.scrollHeight || 0) + 16,
-					behavior: 'smooth'
-				});
-				index += 1;
 			}
 		}
 	}

@@ -261,6 +261,7 @@ export class GameManager {
 		this.initPlane();
 		this.initRollOverMeshes();
 		this.initVectorToGridMap();
+		GameConfig.setValue('currentWaveIndex', 0);
 	}
 
 	createWaitTimer(position: THREE.Vector3, duration: number) {
@@ -269,7 +270,6 @@ export class GameManager {
 
 	update(delta: number) {
 		// this.countdownManager.update(delta);
-
 		// console.log(GameConfig.scaledElapsedTime.toFixed(3),delta.toFixed(3))
 		GameConfig.setValue('scaledElapsedTime', GameConfig.scaledElapsedTime + delta);
 		this.noEnemyAlive = this.enemiesOnMap.every((enemy) => !enemy.alive);

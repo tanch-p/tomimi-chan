@@ -225,7 +225,6 @@ export class Game {
 				x: event.clientX,
 				y: event.clientY
 			};
-			return;
 		}
 		const rect = this.renderer.domElement.getBoundingClientRect(); // Get canvas size and position
 		this.pointer.set(
