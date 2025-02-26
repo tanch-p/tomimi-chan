@@ -207,7 +207,7 @@ export const handleOptionsUpdate = (hiddenGroups, key, rogueTopic: RogueTopic, o
 };
 
 const isCountableAction = (key, levelId) => {
-	if (key.includes(trap)) return false;
+	if (key.includes("trap")) return false;
 	if (key === '') return false;
 	if (ALWAYS_KILLED_KEYS.includes(key)) return false;
 	return true;
