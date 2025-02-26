@@ -61,7 +61,7 @@ export class SkillManager {
 				map: { type: 't', value: null }
 			};
 		});
-		skeletonMesh.skeleton.color.a = 0.45;
+		skeletonMesh.skeleton.color.a = 0.6;
 		// console.log(key, skeletonData);
 		const defaultAnim = getDefaultAnimName(key, skeletonMesh);
 		skeletonMesh.state.setAnimation(0, defaultAnim, false);

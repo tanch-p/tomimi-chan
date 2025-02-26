@@ -5,14 +5,15 @@
 	import enemyCount from '$lib/images/is/enemy_count.webp';
 	import translations from '$lib/translations.json';
 
-	export let game, initialCost, language: Language, count:number, randomSeeds;
+	export let game, initialCost, language: Language, count: number, randomSeeds;
 
 	let state,
 		card = GameConfig.tokenCard,
 		totalTime = 0,
 		min = 0,
 		sec = 0,
-		unsubscribeFns = [];
+		unsubscribeFns = [],
+		isPaused = false;
 	function handleSpeedFactor() {
 		switch (GameConfig.speedFactor) {
 			case 1:
@@ -24,13 +25,13 @@
 		}
 	}
 	function handlePause() {
-		GameConfig.isPaused = !GameConfig.isPaused;
+		GameConfig.setValue("isPaused",!GameConfig.isPaused);
 		GameConfig.state = 'running';
 	}
 	function handleReset() {
 		randomSeeds = Array.from(Array(50)).map((_) => Math.random());
 		game.softReset();
-		GameConfig.isPaused = true;
+		GameConfig.setValue("isPaused",true);
 	}
 	// Sync class -> store
 	let unsubscribe;
@@ -47,6 +48,10 @@
 		unsubscribeFns.push(unsubscribe);
 		unsubscribe = GameConfig.subscribe('tokenCard', (value) => {
 			card = value;
+		});
+		unsubscribeFns.push(unsubscribe);
+		unsubscribe = GameConfig.subscribe('isPaused', (value) => {
+			isPaused = value;
 		});
 		unsubscribeFns.push(unsubscribe);
 	});
@@ -75,17 +80,20 @@
 		{GameConfig.speedFactor}x
 	</button>
 	<button class="flex items-center justify-center w-[75px] h-[75px] border" on:click={handlePause}>
-		{GameConfig.isPaused ? '>' : '||'}</button
+		{isPaused ? '>' : '||'}</button
 	>
 </div>
 
-<div class="absolute left-1/2 -translate-x-1/2 mt-6 pb-0.5 bg-neutral-800 bg-opacity-80 pointer-events-none">
-	<div class="flex items-center gap-x-1.5 px-4 ">
+<div
+	class="absolute left-1/2 -translate-x-1/2 mt-6 pb-0.5 bg-neutral-800 bg-opacity-80 pointer-events-none"
+>
+	<div class="flex items-center gap-x-1.5 px-4">
 		<img src={enemyCount} width="40" alt={translations[language].enemy_count} class="shrink-0" />
 		<span>{count}</span>
 	</div>
 	<p class="text-center text-sm mt-1.5 px-3">
-		 wave<sub>t</sub> {min}:{#if sec < 10}0{/if}{sec}
+		wave<sub>t</sub>
+		{min}:{#if sec < 10}0{/if}{sec}
 	</p>
 </div>
 
@@ -111,7 +119,7 @@
 	{/if}
 </div>
 
-{#if GameConfig.isPaused}
+{#if isPaused}
 	<div
 		class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 pointer-events-none"
 	>

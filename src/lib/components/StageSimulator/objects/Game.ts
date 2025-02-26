@@ -106,9 +106,11 @@ export class Game {
 		this.enemies = enemies;
 		this.softReset();
 	}
-	softReset(resetWaveIndex=true) {
+	softReset(resetWaveIndex = true) {
 		this.stop();
-		resetWaveIndex && GameConfig.setValue('currentWaveIndex', 0);
+		if (this.config.levelId !== 'level_rogue4_b-8') {
+			resetWaveIndex && GameConfig.setValue('currentWaveIndex', 0);
+		}
 		GameConfig.setValue('scaledElapsedTime', 0);
 		GameConfig.setValue('waveElapsedTime', 0);
 		GameConfig.setValue('tokenCard', null);
@@ -324,6 +326,9 @@ export class Game {
 		) {
 			this.spawnManager.update(deltaTime);
 			this.gameManager.update(deltaTime);
+		}
+		else{
+			GameConfig.setValue("isPaused",true);
 		}
 		if (this.spawnManager.isFinished && this.gameManager.noEnemyAlive) {
 			GameConfig.state = 'end';

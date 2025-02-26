@@ -5,7 +5,6 @@ import f28 from '$lib/images/is/sarkaz/rogue_4_fragment_F_28.webp';
 import translations from '$lib/translations.json';
 import calamity from '$lib/images/is/sarkaz/rogue_4_disaster_1_toast.webp';
 import disasters from '$lib/data/is/sarkaz/disasters.json';
-import { rogueTopic } from '../../routes/[lang=lang]/(app)/recruit/stores';
 
 const ALWAYS_KILLED_KEYS = [
 	'enemy_2073_skzrck',
@@ -56,7 +55,7 @@ export const getOptions = (mapConfig: MapConfig, rogueTopic: RogueTopic, languag
 		case 'rogue_mizuki':
 			for (const key of predefines) {
 				if (key === 'trap_068_badbox') {
-					options.push({ key: 'trap_068_badbox', src: '', name: translations[language].treasure });
+					options.push({ key: 'trap_068_badbox', src: '/images/chara_icons/trap_068_badbox.webp', name: translations[language].treasure });
 					continue;
 				}
 				if (key === 'trap_079_allydonq') {
@@ -648,7 +647,7 @@ export const getImageForWaves = (key, mapConfig) => {
 		const enemy = mapConfig.enemies.find((enemy) => enemy.id === key);
 		const transformKey = enemy.overwrittenData.talentBlackboard.find(
 			(ele) => ele.key === 'transform'
-		)?.value?.replace("skzams_1","skzams");
+		)?.value?.replace("skzams_1","skzams").replace("upeopl_1","upeopl");
 		return transformKey;
 	}
 

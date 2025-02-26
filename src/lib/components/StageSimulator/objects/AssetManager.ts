@@ -9,7 +9,9 @@ const ENEMY_KEYS_TO_IGNORE = [
 	'enemy_1177_dufrbl_2',
 	'enemy_1177_dufrbl',
 	'enemy_2083_skzhg',
-	'enemy_2040_syrott'
+	'enemy_2040_syrott',
+	'enemy_2096_skzamj',
+	'enemy_2095_skzamf'
 ];
 const ENEMY_KEYS_TO_REPLACE = {
 	enemy_2097_skzfdd: 'enemy_2082_skzdd',
@@ -268,6 +270,28 @@ export class AssetManager {
 
 	async loadAssets(mapConfig) {
 		const promises = [];
+
+		if (mapConfig.levelId === "level_rogue4_b-8" && !this.textures.has('skzamj')) {
+			promises.push(
+				new Promise((resolve, reject) => {
+					this.textureLoader.load(
+						`/textures/skzamj.png`,
+						(texture) => {
+							resolve(texture);
+						},
+						undefined,
+						(error) => {
+							reject(error);
+						}
+					);
+				}).then((texture: THREE.Texture) => {
+					texture.colorSpace = THREE.SRGBColorSpace;
+					texture.magFilter = THREE.NearestFilter; // Keeps pixel art sharp
+					texture.minFilter = THREE.NearestFilter;
+					this.textures.set('skzamj', { texture: texture, config: null });
+				})
+			);
+		}
 
 		if (!this.texturesLoaded) {
 			const loader = new FontLoader();

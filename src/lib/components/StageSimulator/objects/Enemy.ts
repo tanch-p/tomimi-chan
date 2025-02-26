@@ -70,6 +70,7 @@ export class Enemy {
 	reviveTimer = 0;
 	reviveDuration = 0;
 	disguiseSkel: spine.SkeletonMesh;
+	texture;
 
 	constructor(enemyData: EnemyType, route, gameManager: GameManager, fragmentKey) {
 		gameManager.enemiesOnMap.push(this);
@@ -97,6 +98,7 @@ export class Enemy {
 		this.hp = enemyData.forms[0].stats.hp;
 		this.speed = enemyData.forms[0].stats.ms;
 		this.meshGroup = new THREE.Group();
+		this.meshGroup.renderOrder =1;
 		this.traits = getEnemySkills(this.data, this.data.traits, this.formIndex, {}, 'trait');
 		this.specials = getEnemySkills(
 			this.data,
@@ -105,7 +107,7 @@ export class Enemy {
 			{},
 			'special'
 		);
-		if (this.traits.find((skill) => skill.key === 'self_bind')) {
+		if (this.traits.find((skill) => ['self_bind', 'skzamb_direction'].includes(skill.key))) {
 			this.motionMode = 'NONE';
 		}
 		if (this.traits.find((skill) => skill.key === 'move_blink')) {
@@ -192,124 +194,159 @@ export class Enemy {
 		this.meshGroup.add(shadowMesh, hitBoxMesh);
 		this.hitbox = hitBoxMesh;
 		this.shadow = shadowMaterial;
-		const skeletonData = this.assetManager.spineMap.get(this.key);
-		if (!skeletonData) {
-			return;
+
+		let modelType = 'spine';
+		if (['enemy_2096_skzamj', 'enemy_2095_skzamf'].includes(this.key)) {
+			modelType = 'texture'; //actually its 3D
 		}
-		// console.log(this.key,skeletonData);
-		const skeletonMesh = new spine.SkeletonMesh(skeletonData, (parameters) => {
-			parameters.depthTest = false;
-			parameters.alphaTest = 0.001;
-			parameters.uniforms = {
-				map: { type: 't', value: null },
-				darkness: { value: this.darkness }
-			};
-		});
-		this.meshGroup.add(skeletonMesh);
-		this.meshGroup.renderOrder = 1;
-		this.width = Math.min(100, skeletonMesh.skeleton.data.width * 0.3);
-		this.height = Math.min(110, skeletonMesh.skeleton.data.height * 0.3);
-		const size = new spine.Vector2(Math.max(50, this.width), Math.max(75, this.height));
-		this.waitTimer.setPosition(Math.max(this.height, 75));
-		const spriteMaterial = new THREE.SpriteMaterial({
-			transparent: true,
-			depthTest: false,
-			opacity: 0,
-			color: 0x000021
-		});
-		const sprite = new THREE.Sprite(spriteMaterial);
-		sprite.scale.set(size.x, size.y, 1);
-		sprite.position.z = GameConfig.gridSize;
-		sprite.position.y = skeletonMesh.skeleton.data.height < 300 ? -GameConfig.gridSize * 0.15 : 0;
-		this.meshGroup.add(sprite);
-		this.sprite = sprite;
-		this.skel = skeletonMesh;
-		sprite.userData.enemy = this;
-		this.gameManager.objects.push(sprite);
-		this.gameManager.scene.add(this.meshGroup);
+		if (modelType === 'texture') { //only for rogue4_b-8 now
+			const texture = this.assetManager.textures.get('skzamj')?.texture;
+			const material = new THREE.SpriteMaterial({
+				map: texture,
+				transparent: true
+			});
+			const model = new THREE.Sprite(material);
+			model.scale.set(65, 65, 65);
+			model.position.z = 40;
+			this.meshGroup.add(model);
+			this.texture = model;
+			const spriteMaterial = new THREE.SpriteMaterial({
+				transparent: true,
+				depthTest: false,
+				opacity: 0,
+				color: 0x000021
+			});
+			const sprite = new THREE.Sprite(spriteMaterial);
+			sprite.scale.set(75, 75, 1);
+			sprite.position.z = GameConfig.gridSize;
+			sprite.position.y = -GameConfig.gridSize * 0.15;
+			this.meshGroup.add(sprite);
+			this.sprite = sprite;
+			sprite.userData.enemy = this;
+			this.gameManager.objects.push(sprite);
+			this.gameManager.scene.add(this.meshGroup);
+			this.meshGroup.renderOrder=0;
+		}
 
-		this.handleIdle();
-		this.skel.skeleton.color.r = 0.2;
-		this.skel.skeleton.color.g = 0.2;
-		this.skel.skeleton.color.b = 0.2;
-
-		if (this.traits.some((skill) => skill.key === 'disguise')) {
-			const skel = new spine.SkeletonMesh(skeletonData, (parameters) => {
+		if (modelType === 'spine') {
+			const skeletonData = this.assetManager.spineMap.get(this.key);
+			if (!skeletonData) {
+				return;
+			}
+			// console.log(this.key,skeletonData);
+			const skeletonMesh = new spine.SkeletonMesh(skeletonData, (parameters) => {
 				parameters.depthTest = false;
+				parameters.alphaTest = 0.001;
+				parameters.uniforms = {
+					map: { type: 't', value: null },
+					darkness: { value: this.darkness }
+				};
 			});
-			skel.skeleton.color.a = 0.3;
-			this.disguiseSkel = skel;
-			this.meshGroup.add(skel);
-		}
-
-		const range = this.data.forms[this.formIndex].stats.range;
-		const normalAtkIsRanged =
-			this.data.forms[this.formIndex].normal_attack.atk_type.includes('ranged');
-		if (
-			(range > 0 && normalAtkIsRanged) ||
-			this.traits.some((skill) => ['no_block_ranged_atk'].includes(skill.key))
-		) {
-			const group = new THREE.Group();
-			const radius = range * GameConfig.gridSize;
-			const circleGeometry = new THREE.CircleGeometry(radius, 32);
-			const ringGeometry = new THREE.RingGeometry(radius - 2, radius, 64);
-			const circleMaterial = new THREE.MeshBasicMaterial({
-				color: 0xcc526e,
+			this.meshGroup.add(skeletonMesh);
+			this.width = Math.min(100, skeletonMesh.skeleton.data.width * 0.3);
+			this.height = Math.min(110, skeletonMesh.skeleton.data.height * 0.3);
+			const size = new spine.Vector2(Math.max(50, this.width), Math.max(75, this.height));
+			this.waitTimer.setPosition(Math.max(this.height, 75));
+			const spriteMaterial = new THREE.SpriteMaterial({
 				transparent: true,
-				opacity: 0.05,
-				depthWrite: false,
-				depthTest: false
+				depthTest: false,
+				opacity: 0,
+				color: 0x000021
 			});
+			const sprite = new THREE.Sprite(spriteMaterial);
+			sprite.scale.set(size.x, size.y, 1);
+			sprite.position.z = GameConfig.gridSize;
+			sprite.position.y = skeletonMesh.skeleton.data.height < 300 ? -GameConfig.gridSize * 0.15 : 0;
+			this.meshGroup.add(sprite);
+			this.sprite = sprite;
+			this.skel = skeletonMesh;
+			sprite.userData.enemy = this;
+			this.gameManager.objects.push(sprite);
+			this.gameManager.scene.add(this.meshGroup);
 
-			const ringMaterial = new THREE.MeshBasicMaterial({
-				color: 0xcc526e,
-				transparent: true,
-				opacity: 0.8,
-				depthWrite: false,
-				depthTest: false
-			});
-			const circle = new THREE.Mesh(circleGeometry, circleMaterial);
-			const ring = new THREE.Mesh(ringGeometry, ringMaterial);
-			group.add(ring, circle);
-			group.visible = GameConfig.showAllRange;
-			this.atkRangeMesh = group;
-			this.meshGroup.add(group);
-		}
-		const allSkills = this.traits.concat(this.specials);
-		if (allSkills.some((skill) => skill.key.includes('stealth'))) {
-			this.buffs.push('stealth');
-			this.darkness = 0.4;
-		}
+			this.handleIdle();
+			this.skel.skeleton.color.r = 0.2;
+			this.skel.skeleton.color.g = 0.2;
+			this.skel.skeleton.color.b = 0.2;
 
-		const skillsWithRange = allSkills.filter(
-			(skill) => skill.skillRange && skill.skillRange !== range
-		);
-		for (const skill of skillsWithRange) {
-			const group = new THREE.Group();
-			const radius = skill.skillRange * GameConfig.gridSize;
-			const circleGeometry = new THREE.CircleGeometry(radius, 32);
-			const ringGeometry = new THREE.RingGeometry(radius - 2, radius, 64);
-			const circleMaterial = new THREE.MeshBasicMaterial({
-				color: 0x3f5ad7,
-				transparent: true,
-				opacity: 0.05,
-				depthWrite: false,
-				depthTest: false
-			});
+			if (this.traits.some((skill) => skill.key === 'disguise')) {
+				const skel = new spine.SkeletonMesh(skeletonData, (parameters) => {
+					parameters.depthTest = false;
+				});
+				skel.skeleton.color.a = 0.3;
+				this.disguiseSkel = skel;
+				this.meshGroup.add(skel);
+			}
 
-			const ringMaterial = new THREE.MeshBasicMaterial({
-				color: 0x3f5ad7,
-				transparent: true,
-				opacity: 0.8,
-				depthWrite: false,
-				depthTest: false
-			});
-			const circle = new THREE.Mesh(circleGeometry, circleMaterial);
-			const ring = new THREE.Mesh(ringGeometry, ringMaterial);
-			group.add(ring, circle);
-			group.visible = GameConfig.showAllRange;
-			this.skillRangeMeshes.push(group);
-			this.meshGroup.add(group);
+			const range = this.data.forms[this.formIndex].stats.range;
+			const normalAtkIsRanged =
+				this.data.forms[this.formIndex].normal_attack.atk_type.includes('ranged');
+			if (
+				(range > 0 && normalAtkIsRanged) ||
+				this.traits.some((skill) => ['no_block_ranged_atk'].includes(skill.key))
+			) {
+				const group = new THREE.Group();
+				const radius = range * GameConfig.gridSize;
+				const circleGeometry = new THREE.CircleGeometry(radius, 32);
+				const ringGeometry = new THREE.RingGeometry(radius - 2, radius, 64);
+				const circleMaterial = new THREE.MeshBasicMaterial({
+					color: 0xcc526e,
+					transparent: true,
+					opacity: 0.05,
+					depthWrite: false,
+					depthTest: false
+				});
+
+				const ringMaterial = new THREE.MeshBasicMaterial({
+					color: 0xcc526e,
+					transparent: true,
+					opacity: 0.8,
+					depthWrite: false,
+					depthTest: false
+				});
+				const circle = new THREE.Mesh(circleGeometry, circleMaterial);
+				const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+				group.add(ring, circle);
+				group.visible = GameConfig.showAllRange;
+				this.atkRangeMesh = group;
+				this.meshGroup.add(group);
+			}
+			const allSkills = this.traits.concat(this.specials);
+			if (allSkills.some((skill) => skill.key.includes('stealth'))) {
+				this.buffs.push('stealth');
+				this.darkness = 0.4;
+			}
+
+			const skillsWithRange = allSkills.filter(
+				(skill) => skill.skillRange && skill.skillRange !== range
+			);
+			for (const skill of skillsWithRange) {
+				const group = new THREE.Group();
+				const radius = skill.skillRange * GameConfig.gridSize;
+				const circleGeometry = new THREE.CircleGeometry(radius, 32);
+				const ringGeometry = new THREE.RingGeometry(radius - 2, radius, 64);
+				const circleMaterial = new THREE.MeshBasicMaterial({
+					color: 0x3f5ad7,
+					transparent: true,
+					opacity: 0.05,
+					depthWrite: false,
+					depthTest: false
+				});
+
+				const ringMaterial = new THREE.MeshBasicMaterial({
+					color: 0x3f5ad7,
+					transparent: true,
+					opacity: 0.8,
+					depthWrite: false,
+					depthTest: false
+				});
+				const circle = new THREE.Mesh(circleGeometry, circleMaterial);
+				const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+				group.add(ring, circle);
+				group.visible = GameConfig.showAllRange;
+				this.skillRangeMeshes.push(group);
+				this.meshGroup.add(group);
+			}
 		}
 	}
 	getFootpoint() {
@@ -426,6 +463,10 @@ export class Enemy {
 	}
 
 	update(delta: number) {
+		if(this.texture){
+			this.skillManager.update(delta);
+			return;
+		}
 		if (!this.skel) {
 			return;
 		}
@@ -439,6 +480,9 @@ export class Enemy {
 			this.exitColorChange(delta);
 		}
 		if (this.currentActionIndex >= this.actions.length) {
+			if (this.motionMode === 'NONE') {
+				return;
+			}
 			this.onEnd();
 			return;
 		}
