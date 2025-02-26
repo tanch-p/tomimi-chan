@@ -518,7 +518,8 @@ export const parseWaves = (mapConfig, permutation, hiddenGroups, eliteMode, rand
 		});
 		wave.fragments = fragments;
 	});
-	return waves;
+
+	return waves.filter((wave) => wave.fragments.some((fragment) => fragment.actions.length > 0));
 };
 
 export const getPredefinedChoiceIndex = (list, hiddenGroups, bonusKey) => {
@@ -640,4 +641,16 @@ export const getBonusEnemies = (rogueTopic: RogueTopic) => {
 				'enemy_2085_skzjxd'
 			];
 	}
+};
+
+export const getImageForWaves = (key, mapConfig) => {
+	if (key.includes('skzamj') || key.includes('skzamf')) {
+		const enemy = mapConfig.enemies.find((enemy) => enemy.id === key);
+		const transformKey = enemy.overwrittenData.talentBlackboard.find(
+			(ele) => ele.key === 'transform'
+		)?.value?.replace("skzams_1","skzams");
+		return transformKey;
+	}
+
+	return mapConfig.enemies.find((enemy) => enemy.id === key)?.prefabKey;
 };

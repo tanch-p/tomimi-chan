@@ -9,7 +9,7 @@ import { getDefaultAnimName } from '$lib/functions/spineHelpers';
 export class SkillManager {
 	assetManager: AssetManager;
 	enemy: Enemy;
-	activeSkills: ActiveSkill[] =[];
+	activeSkills: ActiveSkill[] = [];
 	branches = null;
 	currentBranchIndex = 0;
 	branchIntervalElapsedTime = 0;
@@ -44,9 +44,15 @@ export class SkillManager {
 	}
 
 	addTransformModel(key) {
-		const skeletonData = this.assetManager.spineMap.get(key);
+		let skeletonData = this.assetManager.spineMap.get(key);
 		if (!skeletonData) {
+			const prefabKey = this.enemy.gameManager.config.enemies.find(
+				(enemy) => enemy.id === key
+			)?.prefabKey;
+			if (!prefabKey) {
 			return;
+			}
+			skeletonData = this.assetManager.spineMap.get(prefabKey);
 		}
 		const skeletonMesh = new spine.SkeletonMesh(skeletonData, (parameters) => {
 			parameters.depthTest = false;
@@ -74,16 +80,17 @@ export class SkillManager {
 			skill.dispose();
 		}
 		if (this.enemy.key === 'enemy_2042_syboss') {
-		this.activeSkills = skills
-			.filter(
-				(ele) =>
-					ele.type === 'skill' && (ele.initCooldown || ele.skillType === 'INCREASE_WITH_TIME')
-			)
-			.map((skill) => new ActiveSkill(this.enemy, skill));
-		this.activeSkills.forEach((skill, i) => {
-			skill.skillBar.position.y = (i + 1) * -20;
-			this.enemy.meshGroup.add(skill.skillBar);
-		});}
+			this.activeSkills = skills
+				.filter(
+					(ele) =>
+						ele.type === 'skill' && (ele.initCooldown || ele.skillType === 'INCREASE_WITH_TIME')
+				)
+				.map((skill) => new ActiveSkill(this.enemy, skill));
+			this.activeSkills.forEach((skill, i) => {
+				skill.skillBar.position.y = (i + 1) * -20;
+				this.enemy.meshGroup.add(skill.skillBar);
+			});
+		}
 	}
 
 	update(delta: number) {
@@ -110,7 +117,6 @@ export class SkillManager {
 		}
 		if (this.branchIntervalElapsedTime > interval) {
 			this.enemy.gameManager.spawnManager.addBranch(key);
-			console.log(GameConfig.scaledElapsedTime);
 			this.branchIntervalElapsedTime = 0;
 		}
 	}

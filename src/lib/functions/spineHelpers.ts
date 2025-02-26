@@ -19,6 +19,9 @@ export function getDefaultAnimName(key, skel) {
 	switch (key) {
 		case 'enemy_2025_syufo':
 			return 'Default_01';
+		case 'enemy_2097_skzfdd':
+		case 'enemy_2098_skzftx':
+			return 'C1_Default';
 	}
 }
 
@@ -156,6 +159,9 @@ export function getMoveAnimName(key, skel, state) {
 		case 'enemy_1271_nhkodo':
 		case 'enemy_1271_nhkodo_2':
 		case 'enemy_2055_smlead':
+		case 'enemy_1314_wdnjd':
+		case 'enemy_1316_wdpjd':
+		case 'enemy_1315_wdyjd':
 			return 'Move_A';
 
 		case 'enemy_1418_mmkonm':
@@ -166,9 +172,6 @@ export function getMoveAnimName(key, skel, state) {
 		case 'enemy_1143_merrpg_2':
 		case 'enemy_1311_mhkryk':
 		case 'enemy_1311_mhkryk_2':
-		case 'enemy_1314_wdnjd':
-		case 'enemy_1316_wdpjd':
-		case 'enemy_1315_wdyjd':
 			return 'Move_B';
 
 		case 'enemy_1135_redman':
