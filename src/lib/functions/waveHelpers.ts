@@ -10,7 +10,6 @@ const ALWAYS_KILLED_KEYS = [
 	'enemy_2073_skzrck',
 	'enemy_2094_skzamb',
 	'enemy_2094_skzamb_2',
-	'enemy_2096_skzamj',
 	'enemy_1106_byokai_b'
 ];
 
@@ -55,7 +54,11 @@ export const getOptions = (mapConfig: MapConfig, rogueTopic: RogueTopic, languag
 		case 'rogue_mizuki':
 			for (const key of predefines) {
 				if (key === 'trap_068_badbox') {
-					options.push({ key: 'trap_068_badbox', src: '/images/chara_icons/trap_068_badbox.webp', name: translations[language].treasure });
+					options.push({
+						key: 'trap_068_badbox',
+						src: '/images/chara_icons/trap_068_badbox.webp',
+						name: translations[language].treasure
+					});
 					continue;
 				}
 				if (key === 'trap_079_allydonq') {
@@ -203,6 +206,13 @@ export const handleOptionsUpdate = (hiddenGroups, key, rogueTopic: RogueTopic, o
 	return hiddenGroups;
 };
 
+const isCountableAction = (key, levelId) => {
+	if (key.includes(trap)) return false;
+	if (key === '') return false;
+	if (ALWAYS_KILLED_KEYS.includes(key)) return false;
+	return true;
+};
+
 export const getEnemyCountPermutations = (mapConfig, hiddenGroups, eliteMode, hasBonus) => {
 	const key = eliteMode ? 'ELITE' : 'NORMAL';
 	const permutations = mapConfig[key].permutations;
@@ -215,7 +225,7 @@ export const getEnemyCountPermutations = (mapConfig, hiddenGroups, eliteMode, ha
 			fragment.actions.forEach((action) => {
 				if (
 					hiddenGroups.includes(action['hiddenGroup']) &&
-					!ALWAYS_KILLED_KEYS.includes(action['key'])
+					isCountableAction(action.key, mapConfig.levelId)
 				) {
 					acc += action['count'];
 				}
@@ -353,13 +363,7 @@ export const generateWaveTimeline = (
 			}
 			for (const action of groupActions) {
 				handleAction(action, spawns, waveBlockingSpawns, prevPhaseTime, enemyReplace);
-				if (
-					!(
-						action['key'].includes('trap') ||
-						action['key'] === '' ||
-						ALWAYS_KILLED_KEYS.includes(action['key'])
-					)
-				) {
+				if (isCountableAction(action.key, mapConfig.levelId)) {
 					totalCount += action['count'];
 				}
 			}
@@ -387,13 +391,7 @@ export const generateWaveTimeline = (
 					continue;
 				}
 				handleAction(action, spawns, waveBlockingSpawns, prevPhaseTime, enemyReplace);
-				if (
-					!(
-						action['key'].includes('trap') ||
-						action['key'] === '' ||
-						ALWAYS_KILLED_KEYS.includes(action['key'])
-					)
-				) {
+				if (isCountableAction(action.key, mapConfig.levelId)) {
 					totalCount += action['count'];
 				}
 			}
@@ -645,9 +643,10 @@ export const getBonusEnemies = (rogueTopic: RogueTopic) => {
 export const getImageForWaves = (key, mapConfig) => {
 	if (key.includes('skzamj') || key.includes('skzamf')) {
 		const enemy = mapConfig.enemies.find((enemy) => enemy.id === key);
-		const transformKey = enemy.overwrittenData.talentBlackboard.find(
-			(ele) => ele.key === 'transform'
-		)?.value?.replace("skzams_1","skzams").replace("upeopl_1","upeopl");
+		const transformKey = enemy.overwrittenData.talentBlackboard
+			.find((ele) => ele.key === 'transform')
+			?.value?.replace('skzams_1', 'skzams')
+			.replace('upeopl_1', 'upeopl');
 		return transformKey;
 	}
 
