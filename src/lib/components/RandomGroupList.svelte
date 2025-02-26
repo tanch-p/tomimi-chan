@@ -93,7 +93,7 @@
 														{@const prefabKey = action.key.includes('trap')
 															? action.key.split('#')?.[0]
 															: getImageForWaves(action.key,mapConfig)}
-														<div>
+														<div class="relative">
 															<img
 																src={action.key.includes('trap')
 																	? `/images/chara_icons/${prefabKey}.webp`
@@ -102,6 +102,11 @@
 																height="50"
 																alt={action.key}
 															/>
+															{#if action.count > 1}
+															<p class="absolute right-0 bottom-0 bg-almost-black px-1 text-xs">
+																x{action.count}
+															</p>
+															{/if}
 														</div>
 													{/if}
 												</div>
