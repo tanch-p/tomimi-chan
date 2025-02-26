@@ -261,7 +261,6 @@ export class GameManager {
 		this.initPlane();
 		this.initRollOverMeshes();
 		this.initVectorToGridMap();
-		GameConfig.setValue('currentWaveIndex', 0);
 	}
 
 	createWaitTimer(position: THREE.Vector3, duration: number) {

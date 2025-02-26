@@ -52,7 +52,7 @@
 	});
 </script>
 
-<Settings {game} />
+<Settings {game} {mapConfig}/>
 <div class="relative">
 	{#await loadGame(mapConfig)}
 		<LoadingScreen />

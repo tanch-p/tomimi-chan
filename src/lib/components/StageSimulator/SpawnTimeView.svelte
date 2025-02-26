@@ -6,7 +6,7 @@
 	import { wavePrefixSuffix } from '$lib/functions/languageHelpers';
 	import { onDestroy, onMount } from 'svelte';
 	import translations from '$lib/translations.json';
-	import { compileSpawnTimeActions } from '$lib/functions/waveHelpers';
+	import { compileSpawnTimeActions, getImageForWaves } from '$lib/functions/waveHelpers';
 
 	export let game: Game, waves, mapConfig;
 
@@ -88,9 +88,7 @@
 						<div class="flex flex-wrap">
 							{#each compiledActions as { key, count }}
 								{#if !key.includes('trap') && key !== ''}
-									{@const prefabKey = mapConfig.enemies.find(
-										(enemy) => enemy.id === key
-									)?.prefabKey}
+									{@const prefabKey = getImageForWaves(key,mapConfig)}
 									<div class="relative">
 										{#if count > 1}
 											<p class="absolute right-0 bottom-0 bg-almost-black px-1 text-xs">

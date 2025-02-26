@@ -33,8 +33,8 @@
 		bonus = null;
 	$: options = getOptions(mapConfig, rogueTopic, language);
 	$: maxPermutations = eliteMode
-		? mapConfig.NORMAL.max_permutations
-		: mapConfig.ELITE.max_permutations;
+		? mapConfig.ELITE.max_permutations
+		: mapConfig.NORMAL.max_permutations;
 	$: permutations = getEnemyCountPermutations(mapConfig, hiddenGroups, eliteMode, bonus);
 	$: enemyCounts = permutations.reduce((acc, { count }) => {
 		if (!acc.includes(count)) {

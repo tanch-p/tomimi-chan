@@ -106,8 +106,9 @@ export class Game {
 		this.enemies = enemies;
 		this.softReset();
 	}
-	softReset() {
+	softReset(resetWaveIndex=true) {
 		this.stop();
+		resetWaveIndex && GameConfig.setValue('currentWaveIndex', 0);
 		GameConfig.setValue('scaledElapsedTime', 0);
 		GameConfig.setValue('waveElapsedTime', 0);
 		GameConfig.setValue('tokenCard', null);
@@ -131,7 +132,19 @@ export class Game {
 			case 'level_rogue4_b-7':
 				x = -600;
 				break;
-
+			case 'level_rogue4_b-8':
+				switch (GameConfig.currentWaveIndex) {
+					case 0:
+						x = -1300;
+						break;
+					case 1:
+						x = 0;
+						break;
+					case 2:
+						x = 1200;
+						break;
+				}
+				break;
 			default:
 				break;
 		}

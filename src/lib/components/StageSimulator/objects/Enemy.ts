@@ -69,7 +69,7 @@ export class Enemy {
 	arrivalThreshold = GameConfig.gridSize * 0.45;
 	reviveTimer = 0;
 	reviveDuration = 0;
-	disguiseSkel:spine.SkeletonMesh;
+	disguiseSkel: spine.SkeletonMesh;
 
 	constructor(enemyData: EnemyType, route, gameManager: GameManager, fragmentKey) {
 		gameManager.enemiesOnMap.push(this);
@@ -196,7 +196,7 @@ export class Enemy {
 		if (!skeletonData) {
 			return;
 		}
-		// console.log(skeletonData);
+		// console.log(this.key,skeletonData);
 		const skeletonMesh = new spine.SkeletonMesh(skeletonData, (parameters) => {
 			parameters.depthTest = false;
 			parameters.alphaTest = 0.001;
@@ -232,6 +232,15 @@ export class Enemy {
 		this.skel.skeleton.color.r = 0.2;
 		this.skel.skeleton.color.g = 0.2;
 		this.skel.skeleton.color.b = 0.2;
+
+		if (this.traits.some((skill) => skill.key === 'disguise')) {
+			const skel = new spine.SkeletonMesh(skeletonData, (parameters) => {
+				parameters.depthTest = false;
+			});
+			skel.skeleton.color.a = 0.3;
+			this.disguiseSkel = skel;
+			this.meshGroup.add(skel);
+		}
 
 		const range = this.data.forms[this.formIndex].stats.range;
 		const normalAtkIsRanged =
@@ -422,6 +431,7 @@ export class Enemy {
 		}
 		this.skillManager.update(delta);
 		this.skel.update(delta);
+		this.disguiseSkel && this.disguiseSkel.update(delta);
 		if (this.entry) {
 			this.entryColorChange(delta);
 		}
@@ -533,6 +543,9 @@ export class Enemy {
 					}
 					if (direction.x !== 0) {
 						this.skel.scale.x = direction.x < 0 ? -1 : 1;
+						if (this.disguiseSkel) {
+							this.disguiseSkel.scale.x = direction.x < 0 ? -1 : 1;
+						}
 					}
 
 					const distance = this.raycastPos.distanceTo(this.targetPos);
@@ -662,6 +675,8 @@ export class Enemy {
 	}
 
 	onSelect() {
+		console.log(this.key);
+		console.log(this.data);
 		const pos = this.gameManager.getGridPosition(this.raycastPos);
 		console.log(pos);
 		this.shadow.uniforms.isSelected.value = true;
@@ -857,6 +872,9 @@ export class Enemy {
 			return;
 		}
 		this.animState = animationName;
+		if (this.disguiseSkel) {
+			this.disguiseSkel.state.setAnimation(0, animationName.replace('A', 'B'), true);
+		}
 		this.skel.state.setAnimation(0, animationName, true);
 	}
 	handleDeath() {}

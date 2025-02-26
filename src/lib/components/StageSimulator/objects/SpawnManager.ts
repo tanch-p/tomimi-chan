@@ -31,10 +31,21 @@ export class SpawnManager {
 		this.gameManager = gameManager;
 		gameManager.spawnManager = this;
 		this.routes = gameManager.config.routes;
-		this.currentWaveIndex = 0;
+		this.currentWaveIndex = GameConfig.currentWaveIndex;
 		this.currentFragmentIndex = 0;
 		this.nextWaveType = waves[0].maxTimeWaitingForNextWave < 0 ? 'NO_ENEMIES' : 'TIME';
 		console.log(waves);
+
+		if (this.gameManager.config.levelId === 'level_rogue4_b-8') {
+			switch (this.currentWaveIndex) {
+				case 1:
+					this.addBranch('amiy_blink_1');
+					break;
+				case 2:
+					this.addBranch('amiy_blink_2');
+					break;
+			}
+		}
 	}
 
 	// Main update function to be called in animation loop

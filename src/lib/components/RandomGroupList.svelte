@@ -4,7 +4,10 @@
 	import {
 		getRandomGroups,
 		getRandomChance,
-		initialisePermGroupsChoices
+		initialisePermGroupsChoices,
+
+		getImageForWaves
+
 	} from '$lib/functions/waveHelpers';
 
 	export let selectedPermGroups, mapConfig, eliteMode, hiddenGroups, language: Language;
@@ -54,7 +57,7 @@
 														{:else}
 															{@const prefabKey = action.key.includes('trap')
 																? action.key.split('#')?.[0]
-																: mapConfig.enemies.find((ele) => ele.id === action.key)?.prefabKey}
+																: getImageForWaves(action.key,mapConfig)}
 															<div>
 																<img
 																	src={action.key.includes('trap')
@@ -89,7 +92,7 @@
 													{:else}
 														{@const prefabKey = action.key.includes('trap')
 															? action.key.split('#')?.[0]
-															: mapConfig.enemies.find((ele) => ele.id === action.key)?.prefabKey}
+															: getImageForWaves(action.key,mapConfig)}
 														<div>
 															<img
 																src={action.key.includes('trap')
