@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
-	import { Game } from './objects/Game';
 	import { GameConfig } from './objects/GameConfig';
 	import { page } from '$app/stores';
 	import { wavePrefixSuffix } from '$lib/functions/languageHelpers';
@@ -8,7 +7,7 @@
 	import translations from '$lib/translations.json';
 	import { compileSpawnTimeActions, getImageForWaves } from '$lib/functions/waveHelpers';
 
-	export let game: Game, waves, mapConfig;
+	export let waves, mapConfig;
 
 	let timelineContainer: HTMLDivElement, actionsContainer: HTMLDivElement;
 	let currWaveIndex = 0;

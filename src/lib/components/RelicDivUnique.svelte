@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { Language, RogueTopic } from '$lib/types';
+	import type { Language } from '$lib/types';
 	import { relicLookup } from '$lib/data/is/relic_lookup';
-	export let relic, language: Language, rogueTopic: RogueTopic, selectedUniqueRelic;
+	export let relic, language: Language, selectedUniqueRelic;
 
 	$: name = relic[`name_${language}`] || relic[`name_zh`];
 	$: tooltip = relic[`tooltip_${language}`] || relic[`tooltip_zh`];
