@@ -155,15 +155,16 @@ export class Game {
 		this.camera.lookAt(target);
 	}
 	onWindowResize() {
-		const rect = this.canvas.parentElement.getBoundingClientRect();
-		const aspect = rect.width / rect.height;
+		const viewportWidth = window.innerWidth - 48;
+		const viewportHeight = window.innerHeight-128;
+		const aspect = viewportWidth / viewportHeight;
 		const frustumSize = GameConfig.FrustumSize;
 		this.camera.left = (frustumSize * aspect) / -2;
 		this.camera.right = (frustumSize * aspect) / 2;
 		this.camera.top = frustumSize / 2;
 		this.camera.bottom = frustumSize / -2;
 		this.camera.updateProjectionMatrix();
-		this.renderer.setSize(rect.width, rect.height);
+		this.renderer.setSize(viewportWidth, viewportHeight);
 		this.render();
 	}
 	onPointerMove(event) {
@@ -326,9 +327,8 @@ export class Game {
 		) {
 			this.spawnManager.update(deltaTime);
 			this.gameManager.update(deltaTime);
-		}
-		else{
-			GameConfig.setValue("isPaused",true);
+		} else {
+			GameConfig.setValue('isPaused', true);
 		}
 		if (this.spawnManager.isFinished && this.gameManager.noEnemyAlive) {
 			GameConfig.state = 'end';

@@ -123,7 +123,14 @@
 			<span class="text-center">{value ? 'YES' : 'NO'}</span>
 		</button>
 	{/each}
+	<button
+		class="bg-gray-500 rounded-sm px-2 py-1.5 w-max"
+		on:click={() => game && game.onWindowResize()}
+	>
+		FULLSCREEN
+	</button>
 </div>
+
 <div class="flex items-center md:justify-center gap-x-2.5 ml-3 mb-1.5">
 	<label for="volume">{translations[language].zoom}</label>
 	<input

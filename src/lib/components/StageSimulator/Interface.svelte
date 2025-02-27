@@ -129,9 +129,10 @@
 
 {#if isPaused}
 	<div
-		class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 pointer-events-none"
+		class="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 pointer-events-none"
 	>
-		<p>{GameConfig.state === 'end' ? 'ENDED' : 'PAUSED'}</p>
+		<p class="text-2xl">{GameConfig.state === 'end' ? 'ENDED' : 'PAUSE'}</p>
+		{#if language === 'zh'}<p class="text-sm">----暂停中----</p>{/if}
 	</div>
 {/if}
 
