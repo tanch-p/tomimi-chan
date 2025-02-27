@@ -58,7 +58,7 @@
 		<LoadingScreen />
 	{:then}
 		<SpawnTimeView {waves} {mapConfig} />
-		<Interface bind:randomSeeds {game} initialCost={mapConfig.initialCost} {language} count={timeline?.count}/>
+		<Interface bind:randomSeeds {game} initialCost={mapConfig.initialCost} {language} count={timeline?.count} maxCost={mapConfig.maxCost}/>
 	{:catch error}
 		<p class="text-center">An error occured while loading: <br />{error.message}</p>
 	{/await}

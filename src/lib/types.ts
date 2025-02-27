@@ -156,6 +156,7 @@ export interface MapConfig {
 	levelId: string;
 	tags: string[];
 	initialCost: number;
+	maxCost:number;
 	costIncreaseTime: number;
 	floors: number[] | null;
 	routes: [] | null;

@@ -155,16 +155,23 @@ export class Game {
 		this.camera.lookAt(target);
 	}
 	onWindowResize() {
-		const viewportWidth = window.innerWidth - 48;
-		const viewportHeight = window.innerHeight-64;
-		const aspect = viewportWidth / viewportHeight;
+		const mql = window.matchMedia('(max-width:768px)');
+		let width, height;
+		if (mql.matches) {
+			width = window.innerWidth - 24;
+			height = window.innerHeight - 64;
+		} else {
+			width = window.innerWidth - 48;
+			height = (window.innerHeight * 2) / 3;
+		}
+		const aspect = width / height;
 		const frustumSize = GameConfig.FrustumSize;
 		this.camera.left = (frustumSize * aspect) / -2;
 		this.camera.right = (frustumSize * aspect) / 2;
 		this.camera.top = frustumSize / 2;
 		this.camera.bottom = frustumSize / -2;
 		this.camera.updateProjectionMatrix();
-		this.renderer.setSize(viewportWidth, viewportHeight);
+		this.renderer.setSize(width, height);
 		this.render();
 	}
 	onPointerMove(event) {

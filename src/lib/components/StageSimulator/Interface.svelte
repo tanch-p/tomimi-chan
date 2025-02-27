@@ -5,8 +5,14 @@
 	import enemyCount from '$lib/images/is/enemy_count.webp';
 	import translations from '$lib/translations.json';
 	import Icon from '../Icon.svelte';
+	import spriteCost from '$lib/images/is/sprite_cost.webp';
 
-	export let game, initialCost, language: Language, count: number, randomSeeds;
+	export let game,
+		initialCost,
+		language: Language,
+		count: number,
+		randomSeeds,
+		maxCost = 99;
 
 	let state,
 		card = GameConfig.tokenCard,
@@ -105,8 +111,11 @@
 	</p>
 </div>
 
-<div class="absolute right-10 bottom-1/3 pointer-events-none">
-	Cost: {Math.min(99, Math.floor(initialCost + totalTime))}
+<div
+	class="absolute right-4 bottom-[24%] grid grid-cols-[20px_30px] items-center gap-x-2 px-1.5 bg-neutral-800 bg-opacity-80 pointer-events-none font-light"
+>
+	<img src={spriteCost} width="20" alt="Cost:" />
+	<span class="text-3xl">{Math.min(maxCost, Math.floor(initialCost + totalTime))}</span>
 </div>
 
 <div class="absolute bottom-0 right-0">
