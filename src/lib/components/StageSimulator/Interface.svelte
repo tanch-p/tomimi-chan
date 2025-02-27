@@ -4,6 +4,7 @@
 	import { GameConfig } from './objects/GameConfig';
 	import enemyCount from '$lib/images/is/enemy_count.webp';
 	import translations from '$lib/translations.json';
+	import Icon from '../Icon.svelte';
 
 	export let game, initialCost, language: Language, count: number, randomSeeds;
 
@@ -25,13 +26,13 @@
 		}
 	}
 	function handlePause() {
-		GameConfig.setValue("isPaused",!GameConfig.isPaused);
+		GameConfig.setValue('isPaused', !GameConfig.isPaused);
 		GameConfig.state = 'running';
 	}
 	function handleReset() {
 		randomSeeds = Array.from(Array(50)).map((_) => Math.random());
 		game.softReset();
-		GameConfig.setValue("isPaused",true);
+		GameConfig.setValue('isPaused', true);
 	}
 	// Sync class -> store
 	let unsubscribe;
@@ -62,18 +63,33 @@
 </script>
 
 <div class="absolute z-[1] right-4 flex gap-x-4 mt-4">
-	<button class="flex items-center justify-center w-[75px] h-[75px] border" on:click={handleReset}>
-		R
+	<button class="interface w-[60px] h-[60px] shadow-lg" on:click={handleReset}>
+		<Icon name="refresh-icon" className="rotate-[185deg]" size={28} />
 	</button>
-	<button
-		class="flex items-center justify-center w-[75px] h-[75px] border"
-		on:click={handleSpeedFactor}
-	>
-		{GameConfig.speedFactor}x
+	<button class="interface w-[60px] h-[60px] shadow-lg" on:click={handleSpeedFactor}>
+		<div class="">
+			<div class="text-2xl leading-[26px]">{GameConfig.speedFactor}Ⅹ</div>
+			<div class="flex justify-center pl-1">
+				{#each Array.from(Array(Math.min(3, GameConfig.speedFactor))) as _, i}
+					<div
+						class="border-l-[11px] border-l-white border-y-[6px] border-y-transparent {i > 0
+							? '-ml-0.5'
+							: ''}"
+					/>
+				{/each}
+			</div>
+		</div>
 	</button>
-	<button class="flex items-center justify-center w-[75px] h-[75px] border" on:click={handlePause}>
-		{isPaused ? '>' : '||'}</button
-	>
+	<button class="interface w-[60px] h-[60px] shadow-lg" on:click={handlePause}>
+		{#if isPaused}
+			<div class="border-l-[22px] border-l-white border-y-[11px] border-y-transparent" />
+		{:else}
+			<div class="flex justify-center gap-1.5">
+				<div class="bg-white h-[22px] w-[8px]" />
+				<div class="bg-white h-[22px] w-[8px]" />
+			</div>
+		{/if}
+	</button>
 </div>
 
 <div
@@ -81,7 +97,7 @@
 >
 	<div class="flex items-center gap-x-1.5 px-4">
 		<img src={enemyCount} width="40" alt={translations[language].enemy_count} class="shrink-0" />
-		<span>{count ?? "-"}</span>
+		<span>{count ?? '-'}</span>
 	</div>
 	<p class="text-center text-sm mt-1.5 px-3">
 		wave<sub>t</sub>
@@ -115,6 +131,19 @@
 	<div
 		class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 pointer-events-none"
 	>
-		<p>{GameConfig.state === 'end' ? "ENDED" : "PAUSED"} </p>
+		<p>{GameConfig.state === 'end' ? 'ENDED' : 'PAUSED'}</p>
 	</div>
 {/if}
+
+<style>
+	.interface {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		transform: skew(4deg, 0deg);
+		background-color: rgb(115 115 115 / 0.5) /* #737373 */;
+	}
+	.interface:hover {
+		background-color: rgb(115 115 115 / 0.8) /* #737373 */;
+	}
+</style>
