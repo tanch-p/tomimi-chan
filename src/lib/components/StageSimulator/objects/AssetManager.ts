@@ -331,7 +331,6 @@ export class AssetManager {
 			}
 			return acc;
 		}, []);
-		// console.log(enemyKeys);
 		for (const key of enemyKeys) {
 			if (ENEMY_KEYS_TO_IGNORE.includes(key) || this.spineMap.has(key)) {
 				continue;

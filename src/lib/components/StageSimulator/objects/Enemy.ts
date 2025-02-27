@@ -75,8 +75,6 @@ export class Enemy {
 
 	constructor(enemyData: EnemyType, route, gameManager: GameManager, fragmentKey) {
 		gameManager.enemiesOnMap.push(this);
-		// console.log(enemyData);
-		// this.pathFinder = new SPFA(gameManager.mazeLayout);
 		this.waitTimer = new CountdownSprite(gameManager);
 		this.pathFinder = gameManager.pathFinder;
 		this.data = enemyData;
@@ -85,9 +83,6 @@ export class Enemy {
 		this.assetManager = AssetManager.getInstance();
 		this.route = route;
 		this.fragmentKey = fragmentKey;
-		if (!route.allowDiagonalMove) {
-			console.warn('help no allowDiagonalMove');
-		}
 		if (!route.checkpoints?.length > 0) {
 			this.arrivalThreshold = GameConfig.gridSize * 0.25;
 		} else if (route.visitEveryNodeCenter) {
@@ -732,10 +727,11 @@ export class Enemy {
 	}
 
 	onSelect() {
-		console.log(this.key);
-		console.log(this.data);
+		// console.log(this.key);
+		// console.log(this.data);
 		const pos = this.gameManager.getGridPosition(this.raycastPos);
-		console.log(pos);
+		// console.log(pos);
+		// console.log(this.route);
 		this.shadow.uniforms.isSelected.value = true;
 		this.gameManager.scene.add(this.pathGroup);
 		this.selected = true;
@@ -744,22 +740,6 @@ export class Enemy {
 		}
 		this.skillRangeMeshes.forEach((mesh) => (mesh.visible = true));
 		this.waitTimer.getMesh().visible = this.waitElapsedTime > 0;
-		console.log(this.route);
-
-		// const cache = this.gameManager.pathFinder.pathCache.get(4,4)
-		// cache.nodes.forEach((value, key) => {
-		// 	const [x, y] = key.split(',');
-		// 	const pos = this.gameManager.getVectorCoordinates(
-		// 		{ row:y, col: x },
-		// 		null
-		// 	);
-		// 	const text = value.nextNode?.join(',') || '';
-		// 	const sprite = this.gameManager.getTextSprite(text);
-		// 	const group = new THREE.Group();
-		// 	group.position.set(pos.x, pos.y, 10);
-		// 	group.add(sprite);
-		// 	this.gameManager.scene.add(group);
-		// });
 	}
 	onDeselect() {
 		this.gameManager.scene.remove(this.pathGroup);
@@ -924,7 +904,7 @@ export class Enemy {
 	}
 	changeAnimation(animationName) {
 		if (!this.skel.state.hasAnimation(animationName)) {
-			console.log(this.key);
+			// console.log(this.key);
 			return;
 		}
 		if (animationName === this.skel.state.currentAnimation) {

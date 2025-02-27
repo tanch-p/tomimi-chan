@@ -34,7 +34,6 @@ export class SpawnManager {
 		this.currentWaveIndex = GameConfig.currentWaveIndex;
 		this.currentFragmentIndex = 0;
 		this.nextWaveType = waves[0].maxTimeWaitingForNextWave < 0 ? 'NO_ENEMIES' : 'TIME';
-		console.log(waves);
 
 		if (this.gameManager.config.levelId === 'level_rogue4_b-8') {
 			switch (this.currentWaveIndex) {
@@ -212,7 +211,6 @@ export class SpawnManager {
 		}
 		const enemyData = this.gameManager.enemies.find((ele) => ele.stageId === enemyKey);
 		if (!enemyData) {
-			console.log(enemyKey, ' key not found in enemies list');
 			return;
 		}
 		const key = `w${this.currentWaveIndex}f${this.currentFragmentIndex}`;

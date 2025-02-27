@@ -134,7 +134,6 @@ test.each(cases)('SPFA: %s routeIndex %i', async (levelId, routeIndex, expected)
 
 		return acc;
 	}, []);
-	console.log(movementRoute);
 	expect(movementRoute).toStrictEqual(expected);
 });
 

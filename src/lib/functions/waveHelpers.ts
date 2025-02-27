@@ -120,7 +120,7 @@ export const getOptions = (mapConfig: MapConfig, rogueTopic: RogueTopic, languag
 					options.push({
 						key: 'trap_764_skzshp',
 						src: '/images/chara_icons/trap_764_skzshp.webp',
-						name: { zh: '驮兽旅行家', ja: '', en: '' }[language]
+						name: { zh: '驮兽旅行家', ja: '旅する駄獣', en: 'Burdenbeast Traveler' }[language]
 					});
 					continue;
 				}
@@ -130,7 +130,7 @@ export const getOptions = (mapConfig: MapConfig, rogueTopic: RogueTopic, languag
 					{
 						key: 'calamity',
 						src: calamity,
-						name: { zh: '天灾年代', ja: null, en: null }[language]
+						name: { zh: '天灾年代', ja: "天災の時代", en: "Catastrophes" }[language]
 					},
 					{
 						key: 'hidden_door',
@@ -155,7 +155,7 @@ export const getOptions = (mapConfig: MapConfig, rogueTopic: RogueTopic, languag
 					{
 						key: 'shadow',
 						src: '/images/enemy_icons/enemy_2093_skzams.webp',
-						name: { zh: '终曲合声', ja: '', en: '' }[language]
+						name: { zh: '终曲合声', ja: '终曲合声', en: '终曲合声' }[language]
 					}
 				]
 			);

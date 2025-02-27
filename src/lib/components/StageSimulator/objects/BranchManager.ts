@@ -131,7 +131,6 @@ export class BranchManager {
 		const route = this.gameManager.convertMovementConfig(structuredClone(originalRoute));
 		const enemyData = this.gameManager.enemies.find((ele) => ele.stageId === action.key);
 		if (!enemyData) {
-			console.log(action.key, ' key not found in enemies list');
 			return;
 		}
 		const enemy = new Enemy(enemyData, route, this.gameManager, null);
