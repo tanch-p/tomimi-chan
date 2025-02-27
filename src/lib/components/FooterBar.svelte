@@ -12,7 +12,7 @@
 	let openOverlay = false;
 </script>
 
-<div class="fixed overflow-hidden bottom-0 w-full select-none z-10">
+<div class="footerBar fixed overflow-hidden bottom-0 w-full select-none z-10">
 	<RelicsOverlay
 		{openOverlay}
 		{language}
@@ -87,3 +87,11 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	@media (pointer: coarse) and (orientation: landscape) {
+		.footerBar {
+			display: none;
+		}
+	}
+</style>

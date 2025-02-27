@@ -34,7 +34,7 @@
 						{#each Object.entries(groups) as [groupKey, choice]}
 							<div class="flex gap-x-2 px-1.5 pb-1">
 								<span class="mt-[13px] text-base min-w-[30px] text-center">{groupKey}:</span>
-								<div class="flex gap-x-3">
+								<div class="flex flex-wrap gap-x-3">
 									{#each choice as pack, i}
 										{@const key = `w${waveIdx}f${fragIdx}`}
 										{#if Array.isArray(pack)}
