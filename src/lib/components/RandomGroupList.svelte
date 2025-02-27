@@ -5,9 +5,8 @@
 		getRandomGroups,
 		getRandomChance,
 		initialisePermGroupsChoices,
-
-		getImageForWaves
-
+		getImageForWaves,
+		compileSpawnTimeActions
 	} from '$lib/functions/waveHelpers';
 
 	export let selectedPermGroups, mapConfig, eliteMode, hiddenGroups, language: Language;
@@ -40,6 +39,7 @@
 										{@const key = `w${waveIdx}f${fragIdx}`}
 										{#if Array.isArray(pack)}
 											{@const weight = getRandomChance(pack, choice)}
+											{@const compiledActions = compileSpawnTimeActions(pack)}
 											<button
 												class={selectedPermGroups?.[key]?.[groupKey] === i
 													? ''
@@ -49,7 +49,7 @@
 												}}
 											>
 												<div class="flex items-center justify-center gap-x-1.5 border">
-													{#each pack as action}
+													{#each compiledActions as action}
 														{#if action.key === ''}
 															<div class="flex items-center justify-center w-[50px] h-[50px]">
 																<div class="w-[46px] h-[46px] border" />
@@ -57,8 +57,8 @@
 														{:else}
 															{@const prefabKey = action.key.includes('trap')
 																? action.key.split('#')?.[0]
-																: getImageForWaves(action.key,mapConfig)}
-															<div>
+																: getImageForWaves(action.key, mapConfig)}
+															<div class="relative">
 																<img
 																	src={action.key.includes('trap')
 																		? `/images/chara_icons/${prefabKey}.webp`
@@ -67,6 +67,11 @@
 																	height="50"
 																	alt={action.key}
 																/>
+																{#if action.count > 1}
+																	<p class="absolute right-0 bottom-0 bg-almost-black px-1 text-xs">
+																		x{action.count}
+																	</p>
+																{/if}
 															</div>
 														{/if}
 													{/each}
@@ -92,7 +97,7 @@
 													{:else}
 														{@const prefabKey = action.key.includes('trap')
 															? action.key.split('#')?.[0]
-															: getImageForWaves(action.key,mapConfig)}
+															: getImageForWaves(action.key, mapConfig)}
 														<div class="relative">
 															<img
 																src={action.key.includes('trap')
@@ -103,9 +108,9 @@
 																alt={action.key}
 															/>
 															{#if action.count > 1}
-															<p class="absolute right-0 bottom-0 bg-almost-black px-1 text-xs">
-																x{action.count}
-															</p>
+																<p class="absolute right-0 bottom-0 bg-almost-black px-1 text-xs">
+																	x{action.count}
+																</p>
 															{/if}
 														</div>
 													{/if}

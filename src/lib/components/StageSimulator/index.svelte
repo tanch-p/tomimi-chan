@@ -15,7 +15,7 @@
 	let assetManager: AssetManager, canvasElement: HTMLCanvasElement, game: Game;
 	// let gameInstances: Game[] = [];
 
-	$: waves = timeline.waves;
+	$: waves = timeline?.waves;
 
 	$: if (timeline) {
 		resetGame();
@@ -58,7 +58,7 @@
 		<LoadingScreen />
 	{:then}
 		<SpawnTimeView {game} {waves} {mapConfig} />
-		<Interface bind:randomSeeds {game} initialCost={mapConfig.initialCost} {language} count={timeline.count}/>
+		<Interface bind:randomSeeds {game} initialCost={mapConfig.initialCost} {language} count={timeline?.count}/>
 	{:catch error}
 		<p class="text-center">An error occured while loading: <br />{error.message}</p>
 	{/await}

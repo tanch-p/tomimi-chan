@@ -28,6 +28,8 @@ if (browser) {
 		cookiesEnabled = false;
 	}
 }
+export let defaultOpenStageSim = false;
+
 if (browser && cookiesEnabled) {
 	const stored_headers = localStorage.getItem('table_headers');
 	if (stored_headers) {
@@ -38,6 +40,8 @@ if (browser && cookiesEnabled) {
 			return { key, show: showValue };
 		});
 	}
+	const openStageSim = localStorage.getItem('openStageSim');
+	if (openStageSim == 1) defaultOpenStageSim = true;
 	const showAllRange = localStorage.getItem('showAllRange');
 	if (showAllRange == 0) GameConfig.showAllRange = false;
 	const showAllTimers = localStorage.getItem('showAllTimers');
@@ -45,5 +49,4 @@ if (browser && cookiesEnabled) {
 	const showTimeline = localStorage.getItem('showTimeline');
 	if (showTimeline == 0) GameConfig.showTimeline.set(false);
 }
-
 export const tableHeaders = writable(initialTableHeaders);

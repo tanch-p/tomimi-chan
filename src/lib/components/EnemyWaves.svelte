@@ -5,6 +5,7 @@
 	import {
 		compileHiddenGroups,
 		generateWaveTimeline,
+		getBaseCount,
 		getBonusEnemies,
 		getEnemyCountPermutations,
 		getOptions,
@@ -15,6 +16,7 @@
 	import DLDGPN from '$lib/images/is/DLDGPN.webp';
 	import StageSimulator from '$lib/components/StageSimulator/index.svelte';
 	import RandomGroupList from './RandomGroupList.svelte';
+	import { defaultOpenStageSim } from '../../routes/stores';
 
 	export let mapConfig,
 		enemies,
@@ -30,12 +32,22 @@
 		selectedPermutationIdx = 0,
 		randomSeeds = Array.from(Array(50)).map((_) => Math.random()),
 		mode = 'predefined',
-		bonus = null;
+		bonus = '',
+		baseCount = 0;
+
+	$: compiledHiddenGroups = compileHiddenGroups(hiddenGroups, eliteMode, mapConfig);
+	$: baseCount = getBaseCount(mapConfig, eliteMode);
 	$: options = getOptions(mapConfig, rogueTopic, language);
 	$: maxPermutations = eliteMode
 		? mapConfig.ELITE.max_permutations
 		: mapConfig.NORMAL.max_permutations;
-	$: permutations = getEnemyCountPermutations(mapConfig, hiddenGroups, eliteMode, bonus);
+	$: permutations = getEnemyCountPermutations(
+		mapConfig,
+		compiledHiddenGroups,
+		eliteMode,
+		bonus,
+		baseCount
+	);
 	$: enemyCounts = permutations.reduce((acc, { count }) => {
 		if (!acc.includes(count)) {
 			acc.push(count);
@@ -51,7 +63,10 @@
 	$: if (mapConfig) {
 		selectedCountIndex = 0;
 		selectedPermutationIdx = 0;
-		bonus = null;
+		bonus = '';
+	}
+	$: if(selectedCountIndex){
+		selectedPermutationIdx = 0;
 	}
 	$: if (rogueTopic) {
 		hiddenGroups = [];
@@ -70,9 +85,10 @@
 
 {#if hasAnalysis}
 	<TogglePanel
+		key={"stageSim"}
 		title={translations[language].enemy_routes + ' v0.1'}
 		size="subheading"
-		isOpen={true}
+		isOpen={defaultOpenStageSim}
 	>
 		<div
 			class="grid grid-cols-[75px_1fr] md:grid-cols-[120px_1fr] divide-y divide-neutral-700 border-y border-neutral-700 text-sm md:text-base"
@@ -116,7 +132,7 @@
 				{/each}
 			</div>
 			{#if mode === 'predefined'}
-				{#if maxPermutations > 64}
+				{#if maxPermutations > 32 || permutations.length <= 0}
 					<p class="title" />
 					<div class="flex justify-center items-center">
 						{translations[language].max_perm_msg.replace('{perm}', `(${maxPermutations})`)}
@@ -133,7 +149,7 @@
 										: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
 									on:click={() => (bonus = key)}
 								>
-									{#if key === null}
+									{#if key === ''}
 										<div class="flex items-center justify-center w-[50px] h-[50px]">
 											<div class="w-[46px] h-[46px] border" />
 										</div>
@@ -186,7 +202,7 @@
 					bind:selectedPermGroups
 					{eliteMode}
 					{mapConfig}
-					hiddenGroups={compileHiddenGroups(hiddenGroups, eliteMode, mapConfig)}
+					hiddenGroups={compiledHiddenGroups}
 					{language}
 				/>
 			{/if}
@@ -199,20 +215,20 @@
 			waveData={parseWaves(
 				mapConfig,
 				mode === 'predefined'
-					? maxPermutations > 64
+					? maxPermutations > 32
 						? 'random'
 						: permutationsToShow[selectedPermutationIdx]?.permutation
 					: selectedPermGroups,
-				compileHiddenGroups(hiddenGroups, eliteMode, mapConfig),
+				compiledHiddenGroups,
 				eliteMode,
 				randomSeeds,
 				bonus
 			)}
 			timeline={generateWaveTimeline(
 				mapConfig,
-				compileHiddenGroups(hiddenGroups, eliteMode, mapConfig),
+				compiledHiddenGroups,
 				mode === 'predefined'
-					? maxPermutations > 64
+					? maxPermutations > 32
 						? 'random'
 						: permutationsToShow[selectedPermutationIdx]?.permutation
 					: selectedPermGroups,

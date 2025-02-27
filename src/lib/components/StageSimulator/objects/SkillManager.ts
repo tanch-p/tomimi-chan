@@ -1,8 +1,8 @@
 import type { Skill } from '$lib/types';
 import * as spine from '$lib/spine';
+import * as THREE from 'three';
 import { Enemy } from './Enemy';
 import { AssetManager } from './AssetManager';
-import { GameConfig } from './GameConfig';
 import { ActiveSkill } from './ActiveSkill';
 import { getDefaultAnimName } from '$lib/functions/spineHelpers';
 
@@ -16,19 +16,30 @@ export class SkillManager {
 	branchElapsedTime = 0;
 	transformModel;
 	isUsingSkill = false;
+	accelerationIntervalTimer = 0;
+	accelerationPreDelayTimer = 0;
+	accelerateParams = null;
+	accelerationStacks = 0;
 
 	constructor(enemy: Enemy, skills: Skill[]) {
 		this.assetManager = AssetManager.getInstance();
 		this.enemy = enemy;
-		const branchSummon = skills.find((skill) => skill.branches);
-		if (branchSummon) {
-			this.branches = branchSummon.branches;
+		for (const skill of skills) {
+			if (skill.branches) {
+				this.branches = skill.branches;
+			}
+			if (skill.key === 'transform') {
+				const key = skill.value;
+				this.addTransformModel(key);
+			}
+			if (skill.accelerate) {
+				this.accelerateParams = skill.accelerate;
+			}
+			if (skill.key === 'parasitic') {
+				this.addParasiticSprite();
+			}
 		}
-		const transform = skills.find((skill) => skill.key === 'transform');
-		if (transform) {
-			const key = transform.value;
-			this.addTransformModel(key);
-		}
+
 		if (this.enemy.key === 'enemy_2042_syboss') {
 			this.activeSkills = skills
 				.filter(
@@ -42,6 +53,19 @@ export class SkillManager {
 			});
 		}
 	}
+	addParasiticSprite() {
+		const material = new THREE.SpriteMaterial({
+			color: 0xff0000,
+			opacity: 0.8,
+			transparent: true,
+			depthTest: false
+		});
+		const sprite = new THREE.Sprite(material);
+		sprite.scale.set(100, 100, 100);
+		sprite.position.y = this.enemy.height + 20;
+		sprite.position.z = 40;
+		this.enemy.meshGroup.add(sprite);
+	}
 
 	addTransformModel(key) {
 		let skeletonData = this.assetManager.spineMap.get(key);
@@ -50,7 +74,7 @@ export class SkillManager {
 				(enemy) => enemy.id === key
 			)?.prefabKey;
 			if (!prefabKey) {
-			return;
+				return;
 			}
 			skeletonData = this.assetManager.spineMap.get(prefabKey);
 		}
@@ -94,6 +118,15 @@ export class SkillManager {
 	}
 
 	update(delta: number) {
+		if (this.accelerateParams) {
+			const { i, m, preDelay, limit } = this.accelerateParams;
+			this.accelerationPreDelayTimer += delta;
+			if (this.accelerationPreDelayTimer > preDelay) {
+				this.accelerationIntervalTimer += delta;
+				this.accelerationStacks = Math.min(limit, Math.floor(this.accelerationIntervalTimer / i));
+				this.enemy.moddedSpeed = this.enemy.baseSpeed * (1 + this.accelerationStacks * m);
+			}
+		}
 		this.handleBranchUpdate(delta);
 		if (this.transformModel) {
 			this.transformModel.update(delta);

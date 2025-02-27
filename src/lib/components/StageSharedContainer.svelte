@@ -34,6 +34,7 @@
 	);
 
 	eliteMode.subscribe((v) => (GameConfig.eliteMode = v));
+	specialMods.subscribe((v) => (GameConfig.specialMods = v));
 </script>
 
 <EnemyWaves

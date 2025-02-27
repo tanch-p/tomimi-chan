@@ -222,7 +222,6 @@ export class GameManager {
 		if (!data) {
 			data = this.config.traps.find((ele) => ele.alias === actionKey || ele.key === actionKey);
 		}
-		// console.log(data, actionKey);
 		if (!data) {
 			return;
 		}
@@ -242,7 +241,7 @@ export class GameManager {
 		}
 		this.traps.set(`${pos.col},${pos.row}`, trap);
 
-		trap.getMesh().position.set(x, y, z + 0.03);
+		trap.getMesh().position.set(x, y, z + 0.11);
 		this.scene.add(trap.getMesh());
 	}
 

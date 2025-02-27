@@ -31,6 +31,9 @@ export function getIdleAnimName(key, skel, state) {
 	}
 	switch (key) {
 		case 'enemy_1118_lidbox':
+		case 'enemy_1118_lidbox_2':
+		case 'enemy_1121_lifbos':
+		case 'enemy_1121_lifbos_2':
 			return 'Idle_grey';
 		case 'enemy_1024_mortar':
 		case 'enemy_1024_mortar_2':
@@ -112,13 +115,18 @@ export function getMoveAnimName(key, skel, state) {
 	}
 	switch (key) {
 		case 'enemy_1118_lidbox':
+		case 'enemy_1118_lidbox_2':
+		case 'enemy_1121_lifbos':
+		case 'enemy_1121_lifbos_2':
 			return 'Move_grey';
 
 		case 'enemy_1002_nsabr':
 		case 'enemy_1000_gopro':
 		case 'enemy_1000_gopro_2':
 		case 'enemy_1000_gopro_3':
+		case 'enemy_1029_shdsbr':
 		case 'enemy_1064_snsbr':
+		case 'enemy_1065_snwolf':
 		case 'enemy_1077_sotihd':
 		case 'enemy_1077_sotihd_2':
 		case 'enemy_1087_ltwolf':
@@ -156,9 +164,13 @@ export function getMoveAnimName(key, skel, state) {
 		case 'enemy_2092_skzamy':
 			return 'A_Move';
 
+		case 'enemy_1143_merrpg':
+		case 'enemy_1143_merrpg_2':
 		case 'enemy_1271_nhkodo':
 		case 'enemy_1271_nhkodo_2':
 		case 'enemy_2055_smlead':
+		case 'enemy_1311_mhkryk':
+		case 'enemy_1311_mhkryk_2':
 		case 'enemy_1314_wdnjd':
 		case 'enemy_1316_wdpjd':
 		case 'enemy_1315_wdyjd':
@@ -167,12 +179,6 @@ export function getMoveAnimName(key, skel, state) {
 		case 'enemy_1418_mmkonm':
 		case 'enemy_1418_mmkonm_2':
 			return 'Move_b';
-
-		case 'enemy_1143_merrpg':
-		case 'enemy_1143_merrpg_2':
-		case 'enemy_1311_mhkryk':
-		case 'enemy_1311_mhkryk_2':
-			return 'Move_B';
 
 		case 'enemy_1135_redman':
 		case 'enemy_1135_redman_2':

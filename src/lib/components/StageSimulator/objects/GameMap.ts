@@ -38,12 +38,26 @@ export class GameMap {
 	}
 
 	setup(mapData) {
+		const forbiddenTiles =
+			(GameConfig.eliteMode && this.config.elite_runes?.forbid_locations) || [];
 		const { map, tiles } = mapData;
 		map.forEach((row, rowIdx) =>
 			row.forEach((tileIndex, colIdx) => {
 				const group = new THREE.Group();
-				const [tileName, heightType,mask, blackboard, buildableType] = tiles[tileIndex];
-				const tileGroup = this.gameManager.tileManager.get(tiles[tileIndex]);
+				const [tileName, heightType, mask, blackboard, buildableType] = tiles[tileIndex];
+				const tileToSet = structuredClone(tiles[tileIndex]);
+				const key = `${colIdx},${rowIdx}`;
+				if (forbiddenTiles.includes(key)) {
+					switch (heightType) {
+						case 0:
+							tileToSet[0] = 'tile_floor';
+							break;
+						default:
+							tileToSet[0] = 'tile_forbidden';
+							break;
+					}
+				}
+				const tileGroup = this.gameManager.tileManager.get(tileToSet);
 				const { x, y } = this.gameManager.getVectorCoordinates(
 					{
 						row: rowIdx,

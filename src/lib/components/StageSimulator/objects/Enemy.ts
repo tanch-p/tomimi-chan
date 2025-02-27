@@ -24,7 +24,8 @@ export class Enemy {
 	key: string;
 	actions;
 	hp: number;
-	speed: number;
+	baseSpeed: number;
+	moddedSpeed: number;
 	route;
 	currentActionIndex = 0;
 	state: string;
@@ -96,15 +97,22 @@ export class Enemy {
 		this.state = 'idle';
 		this.actions = this.getActions(route);
 		this.hp = enemyData.forms[0].stats.hp;
-		this.speed = enemyData.forms[0].stats.ms;
+		this.baseSpeed = enemyData.forms[0].stats.ms;
+		this.moddedSpeed = this.baseSpeed;
 		this.meshGroup = new THREE.Group();
-		this.meshGroup.renderOrder =1;
-		this.traits = getEnemySkills(this.data, this.data.traits, this.formIndex, {}, 'trait');
+		this.meshGroup.renderOrder = 1;
+		this.traits = getEnemySkills(
+			this.data,
+			this.data.traits,
+			this.formIndex,
+			GameConfig.specialMods,
+			'trait'
+		);
 		this.specials = getEnemySkills(
 			this.data,
 			this.data.forms[this.formIndex].special,
 			this.formIndex,
-			{},
+			GameConfig.specialMods,
 			'special'
 		);
 		if (this.traits.find((skill) => ['self_bind', 'skzamb_direction'].includes(skill.key))) {
@@ -199,7 +207,8 @@ export class Enemy {
 		if (['enemy_2096_skzamj', 'enemy_2095_skzamf'].includes(this.key)) {
 			modelType = 'texture'; //actually its 3D
 		}
-		if (modelType === 'texture') { //only for rogue4_b-8 now
+		if (modelType === 'texture') {
+			//only for rogue4_b-8 now
 			const texture = this.assetManager.textures.get('skzamj')?.texture;
 			const material = new THREE.SpriteMaterial({
 				map: texture,
@@ -225,7 +234,7 @@ export class Enemy {
 			sprite.userData.enemy = this;
 			this.gameManager.objects.push(sprite);
 			this.gameManager.scene.add(this.meshGroup);
-			this.meshGroup.renderOrder=0;
+			this.meshGroup.renderOrder = 0;
 		}
 
 		if (modelType === 'spine') {
@@ -260,6 +269,10 @@ export class Enemy {
 			this.meshGroup.add(sprite);
 			this.sprite = sprite;
 			this.skel = skeletonMesh;
+			if (this.motionMode === 'FLY') {
+				this.sprite.position.y += GameConfig.gridSize * 0.7;
+				this.skel.position.y += GameConfig.gridSize * 0.7;
+			}
 			sprite.userData.enemy = this;
 			this.gameManager.objects.push(sprite);
 			this.gameManager.scene.add(this.meshGroup);
@@ -318,7 +331,7 @@ export class Enemy {
 			}
 
 			const skillsWithRange = allSkills.filter(
-				(skill) => skill.skillRange && skill.skillRange !== range
+				(skill) => skill.skillRange && (skill.skillRange !== range || !normalAtkIsRanged)
 			);
 			for (const skill of skillsWithRange) {
 				const group = new THREE.Group();
@@ -462,15 +475,10 @@ export class Enemy {
 		this.skel.skeleton.color.a -= delta * 2;
 	}
 
-	update(delta: number) {
-		if(this.texture){
-			this.skillManager.update(delta);
-			return;
-		}
+	handleAnimUpdate(delta) {
 		if (!this.skel) {
 			return;
 		}
-		this.skillManager.update(delta);
 		this.skel.update(delta);
 		this.disguiseSkel && this.disguiseSkel.update(delta);
 		if (this.entry) {
@@ -479,6 +487,11 @@ export class Enemy {
 		if (this.exit) {
 			this.exitColorChange(delta);
 		}
+	}
+
+	update(delta: number) {
+		this.handleAnimUpdate(delta);
+		this.skillManager.update(delta);
 		if (this.currentActionIndex >= this.actions.length) {
 			if (this.motionMode === 'NONE') {
 				return;
@@ -593,7 +606,7 @@ export class Enemy {
 					}
 
 					const distance = this.raycastPos.distanceTo(this.targetPos);
-					const adjustedSpeed = this.speed * delta * GameConfig.gridSize * moveMultiplier;
+					const adjustedSpeed = this.moddedSpeed * delta * GameConfig.gridSize * moveMultiplier;
 					let arrivalThreshold = this.arrivalThreshold;
 					if (['cp', 'end'].includes(pathType)) {
 						arrivalThreshold = adjustedSpeed;
@@ -880,7 +893,7 @@ export class Enemy {
 			this.data,
 			this.data.forms[this.formIndex].special,
 			this.formIndex,
-			{},
+			GameConfig.specialMods,
 			'special'
 		);
 		this.gameManager.spawnManager.enterNextWaveFlag = true;
@@ -899,11 +912,13 @@ export class Enemy {
 	}
 
 	handleIdle() {
+		if(this.texture) return;
 		const animName = getIdleAnimName(this.key, this.skel);
 		this.changeAnimation(animName);
 	}
 
 	handleMove() {
+		if(this.texture) return;
 		const animName = getMoveAnimName(this.key, this.skel);
 		this.changeAnimation(animName);
 	}

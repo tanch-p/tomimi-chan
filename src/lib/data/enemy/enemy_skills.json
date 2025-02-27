@@ -1,13 +1,13 @@
 {
-	"skzamb_direction":{
-		"value":0,
+	"skzamb_direction": {
+		"value": 0,
 		"tooltip": null
 	},
 	"move_blink": {
 		"tooltip": null
 	},
-	"disguise":{
-		"tooltip":null
+	"disguise": {
+		"tooltip": null
 	},
 	"stealth": {
 		"tooltip": {
@@ -266,6 +266,7 @@
 	},
 	"mcv4_def_buff": {
 		"value": 300,
+		"skillRange":2.5,
 		"tooltip": {
 			"en": [
 				"Buff→enemies within 2.5 tile range DEF +<v.value>, does not apply to self, does not stack{can_silence}"
@@ -277,6 +278,7 @@
 		}
 	},
 	"mrfly_buff": {
+		"skillRange":2.5,
 		"tooltip": {
 			"en": [
 				"Buff→enemies within 2.5 tile range RES +30, does not apply to self, does not stack{can_silence}"
@@ -313,6 +315,7 @@
 	},
 	"drone_frost_debuff": {
 		"tags": ["can_silence"],
+		"skillRange":2.5,
 		"tooltip": {
 			"en": [
 				"Debuff→operators within range have ASPD -50{can_silence}{ignore_stealth}{ignore_camou}"
@@ -471,6 +474,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"hits": 1,
+		"skillRange":1.25,
 		"tooltip": {
 			"en": [
 				"Explodes on death, dealing <v.atk.multiplier>% ATK as {phys} damage to nearby units{can_silence}{ignore_camou}"
@@ -489,6 +493,7 @@
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"duration": 10,
 		"hits": 1,
+		"skillRange":1.25,
 		"tooltip": {
 			"en": [
 				"Explodes on death, dealing <v.atk.multiplier>% ATK as {phys} damage + <v.duration>s Cold❄ to nearby units{can_silence}{ignore_camou}"
@@ -507,6 +512,7 @@
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"hits": 1,
 		"value": 1,
+		"skillRange":1.25,
 		"tooltip": {
 			"en": [
 				"Explodes on death, giving all enemies +<v.value> energy and deals <v.atk.multiplier>% ATK as {arts} damage to nearby units{can_silence}{ignore_camou}"
@@ -524,6 +530,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"hits": 1,
+		"skillRange":1.25,
 		"tooltip": {
 			"en": [
 				"Explodes on death, leaving behind 源石污染区 tile and dealing <v.atk.multiplier>% ATK as {phys} damage to nearby units{can_silence}{ignore_camou}"
@@ -1566,6 +1573,7 @@
 		"atk": { "multiplier": 2 },
 		"dmg_element": "phys",
 		"suffix": { "en": "Gun", "ja": "拳銃", "zh": "手炮" },
+		"skillRange":1.8,
 		"hits": 1,
 		"tooltip": {
 			"en": ["Handgun - Consumes 1 Ammo and deals 200% of ATK as {phys} damage"],
@@ -1969,6 +1977,7 @@
 		"initCooldown": 5,
 		"cooldown": 10,
 		"suffix": { "en": "AOE", "ja": "範囲攻撃", "zh": "AOE" },
+		"skillRange":2,
 		"tooltip": {
 			"en": [
 				"Does 80% ATK {phys} damage & 20% ATK {ba.dt.neural} to all allied units within range 2.0 tile radius{ignore_camou}",
@@ -2126,6 +2135,7 @@
 		"suffix": { "en": "Bazooka", "ja": "大砲", "zh": "大炮" },
 		"hits": 1,
 		"value": 3000,
+		"skillRange": 2.5,
 		"tooltip": {
 			"en": [
 				"Cannon - Consumes 1 Ammo and deals <v.atk.multiplier>% ATK as {phys} damage to target and surrounding 8 tiles{ignore_camou}",
@@ -2160,6 +2170,7 @@
 		}
 	},
 	"lancer_accelerate": {
+		"accelerate": { "i": 0.5, "m": 0.5, "limit": 25,"preDelay":0 },
 		"tooltip": {
 			"en": [
 				"Accelerates every 0.5s, inc ms by 50%, does extra damage which scales with ms for 1 attack, after attacking ms stack resets"
@@ -2176,6 +2187,7 @@
 		}
 	},
 	"lancer_leader_accelerate": {
+		"accelerate": { "i": 0.5, "m": 0.5, "limit": 25,"preDelay":0 },
 		"tooltip": {
 			"en": [
 				"Accelerates every 0.5s, inc ms by 50%, does extra damage which scales with ms for 1 attack, after attacking ms stack resets"
@@ -2444,6 +2456,7 @@
 		"initCooldown": 0,
 		"cooldown": 5,
 		"suffix": { "en": "Sacrifice", "ja": "スキル", "zh": "献祭" },
+		"skillRange":1.5,
 		"tooltip": {
 			"en": [
 				"Deals 100% of ATK as {arts} splash damage to allied Operators within a 1.5 tile radius{ignore_camou}"
@@ -2638,6 +2651,7 @@
 		"atk": { "multiplier": 0.7 },
 		"dmg_element": "phys",
 		"suffix": { "en": "Skill", "ja": "石投げ", "zh": "眩晕击" },
+		"skillRange":2.5,
 		"hits": 1,
 		"tooltip": {
 			"en": ["Throws a rock, stunning target for 25 sec, does not target stunned units"],
@@ -2988,6 +3002,7 @@
 	},
 	"icefield_arts_fighter_explode": {
 		"duration": 5,
+		"skillRange":1.65,
 		"tooltip": {
 			"en": [
 				"Upon death, deals 130% of ATK as {arts} damage in a 1.65 tile radius to all allied and enemy units and applies Cold for <v.duration>s{can_silence}{ignore_camou}"
@@ -3835,6 +3850,7 @@
 		}
 	},
 	"mhboar_2": {
+		"accelerate": { "i": 0.333, "m": 0.333, "limit": 35,"preDelay":0 },
 		"tooltip": {
 			"en": [
 				"Gradually accelerates when charging, dealing {phys} damage based on Movement Speed (1:800) to any target it passes through or is blocked by"
@@ -4648,6 +4664,7 @@
 		}
 	},
 	"skzirn_1": {
+		"accelerate": { "i": 0.5, "m": 0.5, "limit": 28,"preDelay":3 },
 		"tooltip": {
 			"en": [
 				"Accelerates 3s after spawn, gaining Movespeed +50% every 0.5s, max 28 stacks",
@@ -4976,6 +4993,7 @@
 		}
 	},
 	"winfrz_1": {
+		"standby":200,
 		"tooltip": {
 			"en": [
 				"Spawns in frozen state, does not move/attack and gaining DEF +1000, RES +20 while frozen",
@@ -5596,6 +5614,7 @@
 		"suffix": { "en": "🔫", "ja": "🔫", "zh": "🔫" },
 		"hits": 1,
 		"atk": { "multiplier": 2 },
+		"skillRange":1.8,
 		"dmg_element": "phys",
 		"tooltip": {
 			"en": [

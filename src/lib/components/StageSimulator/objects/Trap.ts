@@ -83,7 +83,8 @@ export class Trap {
 							scale = 110;
 							break;
 						case 'trap_097_hstone':
-							scale = 125;
+							scale = 123;
+							model.position.x = -20;
 							break;
 						case 'trap_057_wpnsts':
 							model.position.z = 30;

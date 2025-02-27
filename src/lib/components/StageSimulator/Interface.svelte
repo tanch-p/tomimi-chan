@@ -61,14 +61,6 @@
 	});
 </script>
 
-{#if GameConfig.state === 'end'}
-	<div
-		class="absolute z-[2] inset-0 flex items-center justify-center bg-black bg-opacity-10 pointer-events-none"
-	>
-		<p>Ended</p>
-	</div>
-{/if}
-
 <div class="absolute z-[1] right-4 flex gap-x-4 mt-4">
 	<button class="flex items-center justify-center w-[75px] h-[75px] border" on:click={handleReset}>
 		R
@@ -89,7 +81,7 @@
 >
 	<div class="flex items-center gap-x-1.5 px-4">
 		<img src={enemyCount} width="40" alt={translations[language].enemy_count} class="shrink-0" />
-		<span>{count}</span>
+		<span>{count ?? "-"}</span>
 	</div>
 	<p class="text-center text-sm mt-1.5 px-3">
 		wave<sub>t</sub>
@@ -123,6 +115,6 @@
 	<div
 		class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 pointer-events-none"
 	>
-		<p>PAUSED</p>
+		<p>{GameConfig.state === 'end' ? "ENDED" : "PAUSED"} </p>
 	</div>
 {/if}

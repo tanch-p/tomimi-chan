@@ -138,7 +138,7 @@ export const getEnemySkills = (
 							return;
 						}
 						if (!currentSkills.find((ref) => ref.key === key)) {
-							return specialMods[target][key];
+							return {key,...specialMods[target][key]};
 						}
 					})
 					.filter(Boolean);

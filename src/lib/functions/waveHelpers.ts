@@ -13,6 +13,8 @@ const ALWAYS_KILLED_KEYS = [
 	'enemy_1106_byokai_b'
 ];
 
+const KEYS_TO_IGNORE=["enemy_2086_skzdwx"]
+
 const CHESTS = ['trap_051_vultres', 'trap_068_badbox', 'trap_110_smbbox', 'trap_758_skzmbx'];
 
 const getFragmentName = (id, language: Language) => {
@@ -201,19 +203,63 @@ export const handleOptionsUpdate = (hiddenGroups, key, rogueTopic: RogueTopic, o
 				hiddenGroups.push(key);
 			}
 			break;
-			break;
 	}
 	return hiddenGroups;
 };
 
+export const getBaseCount = (mapConfig, eliteMode) => {
+	let totalCount = 0;
+	mapConfig.waves.forEach((wave, waveIdx) => {
+		wave['fragments'].forEach((fragment, fragIndex) => {
+			for (const action of fragment['actions']) {
+				if (action['actionType'] !== 'SPAWN') {
+					continue;
+				}
+				if (action['randomSpawnGroupKey'] || action['randomSpawnGroupPackKey']) {
+					continue;
+				}
+				if (action['hiddenGroup']) {
+					continue;
+				}
+				if (
+					[
+						'level_rogue4_b-4',
+						'level_rogue4_b-4-b',
+						'level_rogue4_b-5',
+						'level_rogue4_b-5-b'
+					].includes(mapConfig.levelId) &&
+					action.key === 'enemy_2090_skzjbc' &&
+					!eliteMode
+				) {
+					continue;
+				}
+				if (isCountableAction(action.key, mapConfig.levelId)) {
+					totalCount += action['count'];
+				}
+			}
+		});
+	});
+	return totalCount;
+};
+
 const isCountableAction = (key, levelId) => {
-	if (key.includes("trap")) return false;
+	if (key.includes('trap')) return false;
 	if (key === '') return false;
 	if (ALWAYS_KILLED_KEYS.includes(key)) return false;
+	switch (levelId) {
+		case "level_rogue4_t-4":
+			return key !== "enemy_1263_durbus";
+	}
 	return true;
 };
 
-export const getEnemyCountPermutations = (mapConfig, hiddenGroups, eliteMode, hasBonus) => {
+export const getEnemyCountPermutations = (
+	mapConfig,
+	hiddenGroups,
+	eliteMode,
+	hasBonus,
+	baseCount
+) => {
 	const key = eliteMode ? 'ELITE' : 'NORMAL';
 	const permutations = mapConfig[key].permutations;
 	const bonus = mapConfig.bonus;
@@ -225,6 +271,8 @@ export const getEnemyCountPermutations = (mapConfig, hiddenGroups, eliteMode, ha
 			fragment.actions.forEach((action) => {
 				if (
 					hiddenGroups.includes(action['hiddenGroup']) &&
+					!action['randomSpawnPackKey'] &&
+					!action['randomSpawnGroupPackKey'] &&
 					isCountableAction(action.key, mapConfig.levelId)
 				) {
 					acc += action['count'];
@@ -233,8 +281,30 @@ export const getEnemyCountPermutations = (mapConfig, hiddenGroups, eliteMode, ha
 		});
 		return acc;
 	}, 0);
-	const list = permutations.map(({ count, permutation }) => {
-		return { count: count + countToAdd + (bonus && hasBonus ? 1 : 0), permutation };
+	const list = permutations.map((permutation) => {
+		let permutationCount = 0;
+		mapConfig.waves.forEach((wave, waveIdx) => {
+			wave['fragments'].forEach((fragment, fragIndex) => {
+				const packedGroups = getRandomGroups(fragment, hiddenGroups);
+				const key = `w${waveIdx}f${fragIndex}`;
+				let groupActions = [];
+				for (const [groupKey, list] of Object.entries(packedGroups)) {
+					let choice = permutation?.[key]?.[groupKey];
+					if (list?.[choice]) {
+						groupActions = groupActions.concat(list[choice]);
+					}
+				}
+				for (const action of groupActions) {
+					if (isCountableAction(action.key, mapConfig.levelId)) {
+						permutationCount += action['count'];
+					}
+				}
+			});
+		});
+		return {
+			count: baseCount + countToAdd + permutationCount + (bonus && hasBonus ? 1 : 0),
+			permutation
+		};
 	});
 	return list.sort((a, b) => a.count - b.count);
 };
@@ -390,6 +460,9 @@ export const generateWaveTimeline = (
 				) {
 					continue;
 				}
+				if(KEYS_TO_IGNORE.includes(action.key)){
+					continue;
+				}
 				handleAction(action, spawns, waveBlockingSpawns, prevPhaseTime, enemyReplace);
 				if (isCountableAction(action.key, mapConfig.levelId)) {
 					totalCount += action['count'];
@@ -525,8 +598,7 @@ export const getPredefinedChoiceIndex = (list, hiddenGroups, bonusKey) => {
 		if (badBoxIdx !== -1 && hiddenGroups.some((ele) => CHESTS.includes(ele))) {
 			return badBoxIdx;
 		}
-
-		const bonusIdx = bonusKey && list.findIndex((action) => action.key === bonusKey);
+		const bonusIdx = bonusKey != null && list.findIndex((action) => action.key === bonusKey);
 		if (bonusIdx !== -1) {
 			return bonusIdx;
 		}
@@ -626,12 +698,12 @@ export const compileSpawnTimeActions = (actions) => {
 export const getBonusEnemies = (rogueTopic: RogueTopic) => {
 	switch (rogueTopic) {
 		case 'rogue_phantom':
-			return [null, 'enemy_2001_duckmi', 'enemy_2002_bearmi'];
+			return ['', 'enemy_2001_duckmi', 'enemy_2002_bearmi'];
 		case 'rogue_sami':
-			return [null, 'enemy_2001_duckmi', 'enemy_2002_bearmi', 'enemy_2034_sythef'];
+			return ['', 'enemy_2001_duckmi', 'enemy_2002_bearmi', 'enemy_2034_sythef'];
 		default:
 			return [
-				null,
+				'',
 				'enemy_2001_duckmi',
 				'enemy_2002_bearmi',
 				'enemy_2034_sythef',
