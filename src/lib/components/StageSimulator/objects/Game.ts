@@ -156,7 +156,7 @@ export class Game {
 	}
 	onWindowResize() {
 		const viewportWidth = window.innerWidth - 48;
-		const viewportHeight = window.innerHeight-128;
+		const viewportHeight = window.innerHeight-64;
 		const aspect = viewportWidth / viewportHeight;
 		const frustumSize = GameConfig.FrustumSize;
 		this.camera.left = (frustumSize * aspect) / -2;
