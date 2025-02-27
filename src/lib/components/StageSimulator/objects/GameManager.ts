@@ -10,13 +10,11 @@ import { SPFA } from './SPFA';
 import { Trap } from './Trap';
 import { SpawnManager } from './SpawnManager';
 import { TileManager } from './TileManager';
-import { ShaderCountdownManager } from './ShaderCountdownManager';
 
 export class GameManager {
 	assetManager: AssetManager;
 	scene: THREE.Scene;
 	camera: THREE.OrthographicCamera;
-	countdownManager: ShaderCountdownManager;
 	objects;
 	config;
 	mazeLayout: number[][];
@@ -49,8 +47,6 @@ export class GameManager {
 		this.mazeLayout = mazeLayout;
 		this.pathFinder = new SPFA(mazeLayout);
 		this.tileManager = new TileManager(config.levelId);
-		// this.countdownManager = new ShaderCountdownManager();
-		// this.scene.add(this.countdownManager.getMesh());
 		this.initPlane();
 		this.initRollOverMeshes();
 		this.initVectorToGridMap();
@@ -222,6 +218,7 @@ export class GameManager {
 		if (!data) {
 			data = this.config.traps.find((ele) => ele.alias === actionKey || ele.key === actionKey);
 		}
+		// console.log(data, actionKey);
 		if (!data) {
 			return;
 		}
@@ -241,7 +238,7 @@ export class GameManager {
 		}
 		this.traps.set(`${pos.col},${pos.row}`, trap);
 
-		trap.getMesh().position.set(x, y, z + 0.11);
+		trap.getMesh().position.set(x, y, z + 0.03);
 		this.scene.add(trap.getMesh());
 	}
 
@@ -262,13 +259,7 @@ export class GameManager {
 		this.initVectorToGridMap();
 	}
 
-	createWaitTimer(position: THREE.Vector3, duration: number) {
-		return this.countdownManager.createCountdown(position, duration);
-	}
-
 	update(delta: number) {
-		// this.countdownManager.update(delta);
-		// console.log(GameConfig.scaledElapsedTime.toFixed(3),delta.toFixed(3))
 		GameConfig.setValue('scaledElapsedTime', GameConfig.scaledElapsedTime + delta);
 		this.noEnemyAlive = this.enemiesOnMap.every((enemy) => !enemy.alive);
 		for (const enemy of this.enemiesOnMap.filter((ele) => ele.alive)) {
