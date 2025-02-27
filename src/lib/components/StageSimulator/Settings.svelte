@@ -124,10 +124,10 @@
 		</button>
 	{/each}
 	<button
-		class="bg-gray-500 rounded-sm px-2 py-1.5 w-max"
+		class="bg-gray-500 rounded-sm px-2 py-1.5 w-max active:bg-gray-600"
 		on:click={() => game && game.onWindowResize()}
 	>
-		FULLSCREEN
+		{translations[language].adjust_screen}
 	</button>
 </div>
 
