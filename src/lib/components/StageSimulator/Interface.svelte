@@ -144,7 +144,7 @@
 		transform: skew(4deg, 0deg);
 		background-color: rgb(115 115 115 / 0.5) /* #737373 */;
 	}
-	.interface:hover {
+	.interface:active {
 		background-color: rgb(115 115 115 / 0.8) /* #737373 */;
 	}
 </style>

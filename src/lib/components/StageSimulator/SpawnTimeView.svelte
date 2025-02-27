@@ -111,14 +111,13 @@
 						</div>
 					{/each}
 					{#if timeline?.length > 0}
-						<div class="text-center mt-4 -ml-2">
+						<div class="text-center mt-4 {language !== 'en' ? '-ml-2' : ''}">
 							{#if maxTimeWaitingForNextWave > 0}
 								<p>
 									{translations[language].max_wait_time}:
 									<br />{maxTimeWaitingForNextWave}{translations[language].seconds_abbr}<br />OR
 								</p>
 							{/if}
-
 							{translations[language].all_enemies_defeated}
 						</div>
 					{/if}
