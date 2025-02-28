@@ -1,13 +1,16 @@
 {
-	"skzamb_direction": {
-		"value": 0,
-		"tooltip": null
-	},
 	"move_blink": {
 		"tooltip": null
 	},
 	"disguise": {
 		"tooltip": null
+	},
+	"rewrite_tile_forbid": {
+		"tooltip": {
+			"en": ["When on field, changes tile self is on to non-deployable"],
+			"ja": ["戦場にいる時、自身がいるマスが配置不可となる"],
+			"zh": ["在场期间，重写自身所在地块为不可部署"]
+		}
 	},
 	"stealth": {
 		"tooltip": {
@@ -266,7 +269,7 @@
 	},
 	"mcv4_def_buff": {
 		"value": 300,
-		"skillRange":2.5,
+		"skillRange": 2.5,
 		"tooltip": {
 			"en": [
 				"Buff→enemies within 2.5 tile range DEF +<v.value>, does not apply to self, does not stack{can_silence}"
@@ -278,7 +281,7 @@
 		}
 	},
 	"mrfly_buff": {
-		"skillRange":2.5,
+		"skillRange": 2.5,
 		"tooltip": {
 			"en": [
 				"Buff→enemies within 2.5 tile range RES +30, does not apply to self, does not stack{can_silence}"
@@ -315,7 +318,7 @@
 	},
 	"drone_frost_debuff": {
 		"tags": ["can_silence"],
-		"skillRange":2.5,
+		"skillRange": 2.5,
 		"tooltip": {
 			"en": [
 				"Debuff→operators within range have ASPD -50{can_silence}{ignore_stealth}{ignore_camou}"
@@ -474,7 +477,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"hits": 1,
-		"skillRange":1.25,
+		"skillRange": 1.25,
 		"tooltip": {
 			"en": [
 				"Explodes on death, dealing <v.atk.multiplier>% ATK as {phys} damage to nearby units{can_silence}{ignore_camou}"
@@ -493,7 +496,7 @@
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"duration": 10,
 		"hits": 1,
-		"skillRange":1.25,
+		"skillRange": 1.25,
 		"tooltip": {
 			"en": [
 				"Explodes on death, dealing <v.atk.multiplier>% ATK as {phys} damage + <v.duration>s Cold❄ to nearby units{can_silence}{ignore_camou}"
@@ -512,7 +515,7 @@
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"hits": 1,
 		"value": 1,
-		"skillRange":1.25,
+		"skillRange": 1.25,
 		"tooltip": {
 			"en": [
 				"Explodes on death, giving all enemies +<v.value> energy and deals <v.atk.multiplier>% ATK as {arts} damage to nearby units{can_silence}{ignore_camou}"
@@ -530,7 +533,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"hits": 1,
-		"skillRange":1.25,
+		"skillRange": 1.25,
 		"tooltip": {
 			"en": [
 				"Explodes on death, leaving behind 源石污染区 tile and dealing <v.atk.multiplier>% ATK as {phys} damage to nearby units{can_silence}{ignore_camou}"
@@ -1296,7 +1299,7 @@
 			"ja": [
 				"変身する時、フィールド上のIshar-mlaの涙を消して、今のHPを記録して、100%のHPで第二形態に移行する"
 			],
-			"zh": ["进入变身形态时，恢复自身100%生命值、且清空所有伊莎玛拉之泪"]
+			"zh": ["进入变身形态时，记录当前生命值，恢复自身100%生命值、且清空所有伊莎玛拉之泪"]
 		}
 	},
 	"syskad_summon_tears": {
@@ -1315,8 +1318,8 @@
 	},
 	"syskad_revert": {
 		"tooltip": {
-			"en": ["On defeat - reverts back to 1st form and heals 2% of Max HP"],
-			"ja": ["倒された時、第一形態に戻って、最大HPの2%を回復する"],
+			"en": ["On defeat - reverts back to 1st form with recorded HP and heals 2% of Max HP"],
+			"ja": ["倒された時、記録されたHPで第一形態に戻って、最大HPの2%を回復する"],
 			"zh": ["该形态下被击败后重生，持续5s，恢复2%生命值。重生结束后清空自身SP，切换至初始形态"]
 		}
 	},
@@ -1573,7 +1576,7 @@
 		"atk": { "multiplier": 2 },
 		"dmg_element": "phys",
 		"suffix": { "en": "Gun", "ja": "拳銃", "zh": "手炮" },
-		"skillRange":1.8,
+		"skillRange": 1.8,
 		"hits": 1,
 		"tooltip": {
 			"en": ["Handgun - Consumes 1 Ammo and deals 200% of ATK as {phys} damage"],
@@ -1977,7 +1980,7 @@
 		"initCooldown": 5,
 		"cooldown": 10,
 		"suffix": { "en": "AOE", "ja": "範囲攻撃", "zh": "AOE" },
-		"skillRange":2,
+		"skillRange": 2,
 		"tooltip": {
 			"en": [
 				"Does 80% ATK {phys} damage & 20% ATK {ba.dt.neural} to all allied units within range 2.0 tile radius{ignore_camou}",
@@ -2170,7 +2173,7 @@
 		}
 	},
 	"lancer_accelerate": {
-		"accelerate": { "i": 0.5, "m": 0.5, "limit": 25,"preDelay":0 },
+		"accelerate": { "i": 0.5, "m": 0.5, "limit": 25, "preDelay": 0 },
 		"tooltip": {
 			"en": [
 				"Accelerates every 0.5s, inc ms by 50%, does extra damage which scales with ms for 1 attack, after attacking ms stack resets"
@@ -2187,7 +2190,7 @@
 		}
 	},
 	"lancer_leader_accelerate": {
-		"accelerate": { "i": 0.5, "m": 0.5, "limit": 25,"preDelay":0 },
+		"accelerate": { "i": 0.5, "m": 0.5, "limit": 25, "preDelay": 0 },
 		"tooltip": {
 			"en": [
 				"Accelerates every 0.5s, inc ms by 50%, does extra damage which scales with ms for 1 attack, after attacking ms stack resets"
@@ -2456,7 +2459,7 @@
 		"initCooldown": 0,
 		"cooldown": 5,
 		"suffix": { "en": "Sacrifice", "ja": "スキル", "zh": "献祭" },
-		"skillRange":1.5,
+		"skillRange": 1.5,
 		"tooltip": {
 			"en": [
 				"Deals 100% of ATK as {arts} splash damage to allied Operators within a 1.5 tile radius{ignore_camou}"
@@ -2651,7 +2654,7 @@
 		"atk": { "multiplier": 0.7 },
 		"dmg_element": "phys",
 		"suffix": { "en": "Skill", "ja": "石投げ", "zh": "眩晕击" },
-		"skillRange":2.5,
+		"skillRange": 2.5,
 		"hits": 1,
 		"tooltip": {
 			"en": ["Throws a rock, stunning target for 25 sec, does not target stunned units"],
@@ -3002,7 +3005,7 @@
 	},
 	"icefield_arts_fighter_explode": {
 		"duration": 5,
-		"skillRange":1.65,
+		"skillRange": 1.65,
 		"tooltip": {
 			"en": [
 				"Upon death, deals 130% of ATK as {arts} damage in a 1.65 tile radius to all allied and enemy units and applies Cold for <v.duration>s{can_silence}{ignore_camou}"
@@ -3609,10 +3612,21 @@
 		}
 	},
 	"smedzi_3": {
+		"damage": 50,
+		"attack_speed": -50,
 		"tooltip": {
-			"en": ["Every movement turns 2 tiles within attack range to【Seedbeds】"],
-			"ja": ["移動する毎に攻撃範囲内のマスを【苗床】に転換する"],
-			"zh": ["每次移动后将2处可部署位置变为【苗圃】"]
+			"en": [
+				"Every movement turns 2 tiles within attack range to【Seedbeds】",
+				"【Seedbeds】- Allied units on this tile have <v.attack_speed> ASPD and receive <v.damage> Arts damage every second"
+			],
+			"ja": [
+				"移動する毎に攻撃範囲内のマスを【苗床】に転換する",
+				"【苗床】- このマスに配置されたユニットの攻撃速度<v.attack_speed>、毎秒<v.damage>術ダメージを受ける"
+			],
+			"zh": [
+				"每次移动后将2处可部署位置变为【苗圃】",
+				"【苗圃】- 部署于其上的干员每秒持续受到<v.damage>法术伤害，攻击速度<v.attack_speed>"
+			]
 		}
 	},
 	"smedzi_4": {
@@ -3625,17 +3639,12 @@
 	"smedzi_5": {
 		"tooltip": {
 			"en": [
-				"After 600s，self-destructs and turns all tiles to【Seedbeds】and takes away 30 lifepoints"
+				"After 600s，self-destructs, destroying the Dimensional Anchoring Pylon and turns all tiles to【Seedbeds】and takes away 30 lifepoints"
 			],
-			"ja": ["戦闘経過600秒後、全てのマスを【苗床】に変え、耐久値を-30"],
-			"zh": ["战斗经过600s后，将全场可部署位置变为【苗圃】，并扣除30目标生命"]
-		}
-	},
-	"smedzi_6": {
-		"tooltip": {
-			"en": ["For movement route please check stage info at the top"],
-			"ja": ["移動法則は上の情報に載せている"],
-			"zh": ["关于闪现路线请看地图情报"]
+			"ja": [
+				"戦闘経過600秒後自爆する、空間安定化設備を破壊し、全てのマスを【苗床】に変え、耐久値を-30"
+			],
+			"zh": ["战斗经过600s后自曝，破坏空间稳定设施，将全场可部署位置变为【苗圃】，并扣除30目标生命"]
 		}
 	},
 	"smlead_2": {
@@ -3850,7 +3859,7 @@
 		}
 	},
 	"mhboar_2": {
-		"accelerate": { "i": 0.333, "m": 0.333, "limit": 35,"preDelay":0 },
+		"accelerate": { "i": 0.333, "m": 0.333, "limit": 35, "preDelay": 0 },
 		"tooltip": {
 			"en": [
 				"Gradually accelerates when charging, dealing {phys} damage based on Movement Speed (1:800) to any target it passes through or is blocked by"
@@ -4664,7 +4673,7 @@
 		}
 	},
 	"skzirn_1": {
-		"accelerate": { "i": 0.5, "m": 0.5, "limit": 28,"preDelay":3 },
+		"accelerate": { "i": 0.5, "m": 0.5, "limit": 28, "preDelay": 3 },
 		"tooltip": {
 			"en": [
 				"Accelerates 3s after spawn, gaining Movespeed +50% every 0.5s, max 28 stacks",
@@ -4936,6 +4945,13 @@
 			"zh": ["无法移动，失衡免疫，无法攻击/被阻挡"]
 		}
 	},
+	"self_bind_plus": {
+		"tooltip": {
+			"en": ["Unable to attack, cannot be blocked, cannot be targeted or attacked"],
+			"ja": ["攻撃しない、ブロックされない、攻撃されない、標的にならない"],
+			"zh": ["不可选中，不可阻挡，自缚，不受到伤害，不进行普通攻击"]
+		}
+	},
 	"direction_face_most_allies_mhkryk": {
 		"tooltip": {
 			"en": ["When holding shell, will always face the direction that has more operators"],
@@ -4993,7 +5009,7 @@
 		}
 	},
 	"winfrz_1": {
-		"standby":200,
+		"standby": 200,
 		"tooltip": {
 			"en": [
 				"Spawns in frozen state, does not move/attack and gaining DEF +1000, RES +20 while frozen",
@@ -5614,7 +5630,7 @@
 		"suffix": { "en": "🔫", "ja": "🔫", "zh": "🔫" },
 		"hits": 1,
 		"atk": { "multiplier": 2 },
-		"skillRange":1.8,
+		"skillRange": 1.8,
 		"dmg_element": "phys",
 		"tooltip": {
 			"en": [
@@ -6061,6 +6077,47 @@
 			"en": ["Normal attacks does 50% ATK as {arts} damage"],
 			"ja": ["通常攻撃は攻撃力の50%の{arts]ダメージを与え"],
 			"zh": ["普通攻击造成攻击力50%的{arts}普通伤害"]
+		}
+	},
+	"ball_type_enemy": {
+		"tooltip": {
+			"en": ["Soccer ball type enemy"],
+			"ja": ["サッカーボール系敵"],
+			"zh": ["足球类敌人"]
+		}
+	},
+	"skzamb_1": {
+		"value":0,
+		"force":36,
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["出场时按设定方向以默认力度推动自身"]
+		}
+	},
+	"skzamb_2": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"接触半径0.2范围内被封印的我方干员/昔日道标，或半径0.25范围内的高台地块/地图边缘时，反弹，并解除所接触的我方干员/高台上的我方干员的封印效果，或触发昔日道标的退场召唤效果"
+			]
+		}
+	},
+	"skzamb_3": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["解除我方干员的封印效果时，对此干员造成自身攻击力100%的{arts}伤害"]
+		}
+	},
+	"skzamj_1": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"被仅剩的创意接触时，在自身所在地块中心0.2边长正方形范围内随机位置以自身路径召唤1个预设的敌人，随后自身退场"
+			]
 		}
 	},
 	"trwlpl_1": {

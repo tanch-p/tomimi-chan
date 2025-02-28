@@ -110,7 +110,7 @@ export class Enemy {
 			GameConfig.specialMods,
 			'special'
 		);
-		if (this.traits.find((skill) => ['self_bind', 'skzamb_direction'].includes(skill.key))) {
+		if (this.traits.find((skill) => ['self_bind', 'self_bind_plus'].includes(skill.key))) {
 			this.motionMode = 'NONE';
 		}
 		if (this.traits.find((skill) => skill.key === 'move_blink')) {

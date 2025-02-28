@@ -27,13 +27,24 @@
 		});
 		unsubscribeFns.push(unsubscribe);
 		unsubscribe = GameConfig.subscribe('scaledElapsedTime', (value) => {
-			if (value === 0) {
+			if (value === 0 && mapConfig.levelId !== 'level_rogue4_b-8') {
 				currWaveIndex = 0;
 				index = 0;
 				timelineContainer && timelineContainer.scrollTo(0, 0);
 			}
 		});
 		unsubscribe = GameConfig.subscribe('currentWaveIndex', (value) => {
+			if (mapConfig.levelId === 'level_rogue4_b-8') {
+				const indexesToScrollBy = value === 0 ? 0 : value === 1 ? 3 : 7;
+				timelineContainer &&
+					timelineContainer.scrollTo({
+						top:
+							actionsContainer.children[indexesToScrollBy].offsetTop +
+							actionsContainer.children[indexesToScrollBy].scrollHeight,
+					});
+				index += indexesToScrollBy;
+				return;
+			}
 			if (currWaveIndex !== value) {
 				timelineContainer &&
 					timelineContainer.scrollBy({
