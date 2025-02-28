@@ -269,6 +269,9 @@ export class AssetManager {
 	}
 
 	async loadAssets(mapConfig) {
+		this.models.clear();
+		this.spineMap.clear();
+		this.spineAssetManager.removeAll();
 		const promises = [];
 
 		if (mapConfig.levelId === "level_rogue4_b-8" && !this.textures.has('skzamj')) {
@@ -460,9 +463,9 @@ export class AssetManager {
 	}
 
 	cleanup() {
-		this.spineMap.clear();
 		this.textures.clear();
 		this.models.clear();
+		this.spineMap.clear();
 		this.spineAssetManager.removeAll();
 	}
 }

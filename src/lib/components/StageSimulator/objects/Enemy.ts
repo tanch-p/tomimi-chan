@@ -10,7 +10,8 @@ import {
 	getAnimDuration,
 	getIdleAnimName,
 	getMoveAnimName,
-	getReviveAnimName
+	getReviveAnimName,
+	getSpineMetaData
 } from '$lib/functions/spineHelpers';
 import { SkillManager } from './SkillManager';
 import { CountdownSprite } from './CountdownSprite';
@@ -19,6 +20,7 @@ const moveMultiplier = 0.5;
 export class Enemy {
 	raycastPos: THREE.Vector3; //光标坐标在移动逻辑中被大量使用，造成了一些反直觉的现象
 	targetPos: THREE.Vector3;
+	gridPos: string;
 	assetManager: AssetManager;
 	data;
 	key: string;
@@ -133,7 +135,7 @@ export class Enemy {
 			this.route.startPosition,
 			this.route.spawnOffset
 		);
-		const standbyTime = this.traits.find((skill) => skill.standby)?.standby;
+		const standbyTime = this.traits.concat(this.specials).find((skill) => skill.standby)?.standby;
 		if (standbyTime) {
 			this.state = 'standby';
 			this.standbyTime = standbyTime;
@@ -141,17 +143,10 @@ export class Enemy {
 	}
 
 	initModel() {
-		const hitBoxGeo = new THREE.CircleGeometry(GameConfig.gridSize * 0.1, 32);
 		const shadowGeometry = new THREE.PlaneGeometry(
 			GameConfig.gridSize * 0.8,
 			GameConfig.gridSize * 0.4
 		);
-		const hitBoxMaterial = new THREE.MeshBasicMaterial({
-			color: 0xc51009,
-			depthTest: false,
-			// transparent:true,
-			opacity: 0
-		});
 		const shadowMaterial = new THREE.ShaderMaterial({
 			uniforms: {
 				shadowTexture: { value: this.assetManager.textures.get('sprite_shadow').texture },
@@ -188,14 +183,21 @@ export class Enemy {
 			transparent: true,
 			depthTest: false
 		});
-		const hitBoxMesh = new THREE.Mesh(hitBoxGeo, hitBoxMaterial);
 		const shadowMesh = new THREE.Mesh(shadowGeometry, shadowMaterial);
-		hitBoxMesh.position.set(0.5, 0.5, 0.5);
+		// const hitBoxGeo = new THREE.CircleGeometry(GameConfig.gridSize * 0.1, 32);
+		// const hitBoxMaterial = new THREE.MeshBasicMaterial({
+		// 	color: 0xc51009,
+		// 	depthTest: false,
+		// 	transparent:true,
+		// 	opacity: 0
+		// });
+		// const hitBoxMesh = new THREE.Mesh(hitBoxGeo, hitBoxMaterial);
+		// hitBoxMesh.position.set(0.5, 0.5, 0.5);
+		// hitBoxMesh.userData.name = 'hitbox';
+		// this.hitbox = hitBoxMesh;
 		shadowMesh.renderOrder = -1;
 		shadowMesh.userData.name = 'shadow';
-		hitBoxMesh.userData.name = 'hitbox';
-		this.meshGroup.add(shadowMesh, hitBoxMesh);
-		this.hitbox = hitBoxMesh;
+		this.meshGroup.add(shadowMesh);
 		this.shadow = shadowMaterial;
 
 		let modelType = 'spine';
@@ -237,7 +239,7 @@ export class Enemy {
 			if (!skeletonData) {
 				return;
 			}
-			// console.log(this.key,skeletonData);
+			// console.log(this.key, skeletonData);
 			const skeletonMesh = new spine.SkeletonMesh(skeletonData, (parameters) => {
 				parameters.depthTest = false;
 				parameters.alphaTest = 0.001;
@@ -247,8 +249,9 @@ export class Enemy {
 				};
 			});
 			this.meshGroup.add(skeletonMesh);
-			this.width = Math.min(100, skeletonMesh.skeleton.data.width * 0.3);
-			this.height = Math.min(110, skeletonMesh.skeleton.data.height * 0.3);
+			const { width, height } = getSpineMetaData(this.key, skeletonMesh.skeleton);
+			this.width = width;
+			this.height = height;
 			const size = new spine.Vector2(Math.max(50, this.width), Math.max(75, this.height));
 			this.waitTimer.setPosition(Math.max(this.height, 75));
 			const spriteMaterial = new THREE.SpriteMaterial({
@@ -354,6 +357,26 @@ export class Enemy {
 				group.visible = GameConfig.showAllRange;
 				this.skillRangeMeshes.push(group);
 				this.meshGroup.add(group);
+			}
+		}
+	}
+	handlePosChange() {
+		const gridPos = this.gameManager.getGridPosFromVectors(this.meshGroup.position);
+		if (gridPos !== this.gridPos) {
+			this.gridPos = gridPos;
+			if (!(this.motionMode === 'FLY' || this.traits.some((skill) => skill.key === 'hover'))) {
+				this.handleTileInteraction();
+			}
+		}
+	}
+
+	handleTileInteraction() {
+		const tile = this.gameManager.tiles.get(this.gridPos);
+		if (tile) {
+			switch (tile.tileName) {
+				case 'tile_hole':
+					this.state = 'fall';
+					break;
 			}
 		}
 	}
@@ -463,7 +486,7 @@ export class Enemy {
 			this.remove();
 			return;
 		}
-		this.exitElapsedTime += delta * 2;
+		this.exitElapsedTime += delta;
 		this.skel.skeleton.color.r -= delta * 2;
 		this.skel.skeleton.color.g -= delta * 2;
 		this.skel.skeleton.color.b -= delta * 2;
@@ -476,6 +499,23 @@ export class Enemy {
 		}
 		this.skel.update(delta);
 		this.disguiseSkel && this.disguiseSkel.update(delta);
+
+		if (this.state === 'fall') {
+			if (this.exitElapsedTime > 0.5) {
+				this.alive = false;
+				this.remove();
+				return;
+			}
+			this.exitElapsedTime += delta;
+			this.skel.skeleton.color.r -= delta * 4;
+			this.skel.skeleton.color.g -= delta * 4;
+			this.skel.skeleton.color.b -= delta * 4;
+			this.meshGroup.position.x += 3 * (this.direction?.x ?? 0);
+			this.meshGroup.position.y += 3 * (this.direction?.y ?? 0);
+			this.meshGroup.position.z -= 20;
+			return;
+		}
+
 		if (this.entry) {
 			this.entryColorChange(delta);
 		}
@@ -486,6 +526,9 @@ export class Enemy {
 
 	update(delta: number) {
 		this.handleAnimUpdate(delta);
+		if (this.state === 'fall') {
+			return;
+		}
 		this.skillManager.update(delta);
 		if (this.currentActionIndex >= this.actions.length) {
 			if (this.motionMode === 'NONE') {
@@ -674,6 +717,7 @@ export class Enemy {
 			default:
 				console.log(type, ' action is undefined');
 		}
+		this.handlePosChange();
 		if (this.standbyTime > 0) {
 			if (this.state === 'wait' && this.waitElapsedTime > 0) {
 				// executing WAIT action
@@ -695,6 +739,10 @@ export class Enemy {
 					this.waitElapsedTime = 0;
 					this.waitTimer.getMesh().visible = false;
 					this.waitTimer.setColor(0xf08080);
+					if(this.key==="enemy_2089_skzjkl"){
+						this.formIndex++;
+						this.handleFormIndexChange();
+					}
 				}
 			}
 			return;
@@ -892,13 +940,16 @@ export class Enemy {
 	}
 
 	handleIdle() {
-		if(this.texture) return;
-		const animName = getIdleAnimName(this.key, this.skel);
+		if (this.texture) return;
+		let animName = getIdleAnimName(this.key, this.skel);
+		if (this.key === 'enemy_2089_skzjkl' && this.standbyTime > 0) {
+			animName = 'A_Idle';
+		}
 		this.changeAnimation(animName);
 	}
 
 	handleMove() {
-		if(this.texture) return;
+		if (this.texture) return;
 		const animName = getMoveAnimName(this.key, this.skel);
 		this.changeAnimation(animName);
 	}

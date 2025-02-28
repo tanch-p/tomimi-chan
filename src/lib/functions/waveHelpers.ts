@@ -589,7 +589,7 @@ export const parseWaves = (mapConfig, permutation, hiddenGroups, eliteMode, rand
 		wave.fragments = fragments;
 	});
 
-	return waves.filter((wave) => wave.fragments.some((fragment) => fragment.actions.length > 0));
+	return waves;
 };
 
 export const getPredefinedChoiceIndex = (list, hiddenGroups, bonusKey) => {

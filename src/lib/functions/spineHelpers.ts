@@ -1,6 +1,16 @@
-import * as spine from '$lib/spine';
-
-const getStatePrefixSuffix = () => {};
+export const getSpineMetaData = (key, skel) => {
+	let width = Math.min(100, skel.data.width * 0.3);
+	let height = Math.min(110, skel.data.height * 0.3);
+	switch (key) {
+		case 'enemy_2066_skzlcp':
+			height = 110;
+			break;
+		case 'enemy_2089_skzjkl':
+			height = 130;
+			break;
+	}
+	return { width, height };
+};
 
 export function getReviveAnimName(key, skel) {
 	if (skel.state.hasAnimation('Revive')) {
@@ -9,6 +19,8 @@ export function getReviveAnimName(key, skel) {
 	switch (key) {
 		case 'enemy_2025_syufo':
 			return 'Default_01';
+		case 'enemy_2089_skzjkl':
+			return 'C_Revive'
 	}
 }
 

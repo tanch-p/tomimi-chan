@@ -148,7 +148,7 @@
 </div>
 {#if mapConfig.levelId === 'level_rogue4_b-8'}
 	<div class="flex justify-center gap-x-3 mb-2">
-		{#each [0, 1, 2] as wave}
+		{#each [1, 3, 5] as wave}
 			<button
 				class="rounded-sm px-2 py-1.5 {currentWaveIndex === wave
 					? 'bg-gray-500'
@@ -158,7 +158,8 @@
 					game.softReset(false);
 				}}
 			>
-				{translations[language].mapstate_prefix}{wave + 1}{translations[language].mapstate_suffix}
+				{translations[language].mapstate_prefix}{Math.ceil(wave / 2)}{translations[language]
+					.mapstate_suffix}
 			</button>
 		{/each}
 	</div>

@@ -28,7 +28,6 @@ export class GameManager {
 	tiles = new Map();
 	tileManager: TileManager;
 	rollOverMeshes = new Map();
-	vectorToGridMap = new Map();
 
 	constructor(
 		config: MapConfig,
@@ -49,7 +48,6 @@ export class GameManager {
 		this.tileManager = new TileManager(config.levelId);
 		this.initPlane();
 		this.initRollOverMeshes();
-		this.initVectorToGridMap();
 	}
 
 	getVectorCoordinates = (pos, reachOffset) => {
@@ -69,6 +67,24 @@ export class GameManager {
 		const center = type === 'x' ? this.mazeLayout[0].length / 2 : this.mazeLayout.length / 2;
 		return (coordinate - center) * GameConfig.gridSize + GameConfig.gridSize / 2;
 	};
+
+	getGridPosFromVectors(pos: THREE.Vector3) {
+		const gridCols = this.mazeLayout[0].length;
+		const gridRows = this.mazeLayout.length;
+		const gridWorldWidth = gridCols * GameConfig.gridSize;
+		const gridWorldHeight = gridRows * GameConfig.gridSize;
+
+		const originX = -gridWorldWidth / 2;
+		const originY = gridWorldHeight / 2;
+
+		const col = Math.floor((pos.x - originX) / GameConfig.gridSize);
+		const row = Math.floor((originY - pos.y) / GameConfig.gridSize);
+
+		const boundedCol = Math.max(0, Math.min(col, gridCols - 1));
+		const boundedRow = Math.max(0, Math.min(row, gridRows - 1));
+
+		return `${boundedCol},${boundedRow}`;
+	}
 
 	getGridPosition = (vector: THREE.Vector3) => {
 		// Get the column (x coordinate)
@@ -100,16 +116,6 @@ export class GameManager {
 		// 	avoidanceIntermediate = this.calculateSurroundingAvoidance(enemy, currentTile);
 		// }
 	};
-
-	initVectorToGridMap() {
-		this.vectorToGridMap.clear();
-		this.mazeLayout.forEach((row, rowIdx) =>
-			row.forEach((_, colIdx) => {
-				const { x, y } = this.getVectorCoordinates({ row: rowIdx, col: colIdx }, null);
-				this.vectorToGridMap.set(`${x},${y}`, `${colIdx},${rowIdx}`);
-			})
-		);
-	}
 
 	convertMovementConfig = (route) => {
 		const height = this.mazeLayout.length;
@@ -256,7 +262,6 @@ export class GameManager {
 		this.tileManager = new TileManager(config.levelId);
 		this.initPlane();
 		this.initRollOverMeshes();
-		this.initVectorToGridMap();
 	}
 
 	update(delta: number) {

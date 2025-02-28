@@ -39,12 +39,10 @@ export class Game {
 			const card = config.token_cards.find((ele) => ele.key === 'trap_001_crate');
 			card && GameConfig.setValue('tokenCard', { ...card, selected: true });
 		}
-
 		this.onWindowResize = this.onWindowResize.bind(this);
 		this.onPointerMove = this.onPointerMove.bind(this);
 		this.onPointerDown = this.onPointerDown.bind(this);
 		this.onPointerUp = this.onPointerUp.bind(this);
-
 		// threejs
 		const frustumSize = GameConfig.FrustumSize;
 		const rect = this.canvas.getBoundingClientRect();
@@ -138,12 +136,15 @@ export class Game {
 			case 'level_rogue4_b-8':
 				switch (GameConfig.currentWaveIndex) {
 					case 0:
+					case 1:
 						x = -1300;
 						break;
-					case 1:
+					case 2:
+					case 3:
 						x = 0;
 						break;
-					case 2:
+					case 4:
+					case 5:
 						x = 1200;
 						break;
 				}
@@ -205,17 +206,17 @@ export class Game {
 		if (!event.target.isSameNode(this.canvas)) {
 			return;
 		}
-		// if (!GameConfig.tokenCard || !GameConfig.tokenCard.selected) {
-		// 	return;
-		// }
-		// const rect = this.renderer.domElement.getBoundingClientRect(); // Get canvas size and position
-		// this.pointer.set(
-		// 	((event.clientX - rect.left) / rect.width) * 2 - 1,
-		// 	-((event.clientY - rect.top) / rect.height) * 2 + 1
-		// );
-		// this.raycaster.setFromCamera(this.pointer, this.camera);
+		if (!GameConfig.tokenCard || !GameConfig.tokenCard.selected) {
+			return;
+		}
+		const rect = this.renderer.domElement.getBoundingClientRect(); // Get canvas size and position
+		this.pointer.set(
+			((event.clientX - rect.left) / rect.width) * 2 - 1,
+			-((event.clientY - rect.top) / rect.height) * 2 + 1
+		);
+		this.raycaster.setFromCamera(this.pointer, this.camera);
 
-		// const intersects = this.raycaster.intersectObjects(this.objects, false);
+		const intersects = this.raycaster.intersectObjects(this.objects, false);
 		// if (intersects.length > 0) {
 		// 	const plane = intersects.find((ele) => ele?.object?.userData?.name === 'plane');
 		// 	if (!plane) {
@@ -223,14 +224,7 @@ export class Game {
 		// 	}
 		// 	const mesh = this.gameManager.rollOverMeshes.get(GameConfig.tokenCard.key)?.getMesh();
 		// 	mesh.position.copy(plane.point).add(plane.face.normal);
-		// 	mesh.position
-		// 		.divideScalar(GameConfig.gridSize)
-		// 		.floor()
-		// 		.multiplyScalar(GameConfig.gridSize)
-		// 		.addScalar(50);
-		// 	mesh.position.z = 0.01;
-		// 	const { x, y } = mesh.position;
-		// 	const gridPos = this.gameManager.vectorToGridMap.get(`${x},${y}`);
+		// 	const gridPos = this.gameManager.getGridPosFromVectors(mesh.position);
 		// 	const tile = this.gameManager.tiles.get(gridPos);
 		// 	const trap = this.gameManager.traps.get(gridPos);
 		// 	if (tile?.buildableType == 0 || tile?.heightType == 1 || trap) {
@@ -281,7 +275,6 @@ export class Game {
 			// 		.addScalar(50);
 			// 	mesh.position.z = 0.01;
 			// 	const { x, y } = mesh.position;
-			// 	const gridPos = this.gameManager.vectorToGridMap.get(`${x},${y}`);
 			// 	const tile = this.gameManager.tiles.get(gridPos);
 			// 	const placedTrap = this.gameManager.traps.get(gridPos);
 			// 	const [col, row] = gridPos.split(',');

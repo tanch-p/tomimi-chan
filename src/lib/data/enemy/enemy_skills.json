@@ -1419,10 +1419,13 @@
 	},
 	"mzk_extra_summon": {
 		"type": "skill",
+		"anim":"Skill_1_Loop",
 		"initSp": 117,
 		"spCost": 120,
 		"skillType": "INCREASE_WITH_TIME",
 		"branch_id": "syboss_extra",
+		"branch_type":"single",
+		"branch_random":false,
 		"max_count": 4,
 		"tooltip": null
 	},
@@ -5031,6 +5034,7 @@
 		"hits": 1,
 		"atk": { "multiplier": 1.5 },
 		"dmg_element": "arts",
+		"skillRange":2.5,
 		"tooltip": {
 			"en": ["First attack does 150% ATK as {arts} damage to target and surrounding 4 tiles"],
 			"ja": ["初回攻撃時、対象と周囲4マスの味方に攻撃力の150%の{arts}ダメージを与える"],
@@ -5038,6 +5042,7 @@
 		}
 	},
 	"wdexg_1": {
+		"skillRange":2.0,
 		"tooltip": {
 			"en": [
 				"While holding Ammo, consumes 1 Ammo and unleashes a ranged attacks which reduces Cost by 3"
@@ -5822,6 +5827,7 @@
 		"suffix": { "en": "清火执", "ja": "清火执", "zh": "清火执" },
 		"hits": 1,
 		"atk": { "multiplier": 1 },
+		"anim":null,
 		"dmg_element": "arts",
 		"tooltip": {
 			"en": [
@@ -5836,6 +5842,7 @@
 		}
 	},
 	"skzjkl_1_1": {
+		"standby":95,
 		"tooltip": {
 			"en": [""],
 			"ja": [""],
@@ -5843,10 +5850,26 @@
 		}
 	},
 	"skzjkl_1_2": {
+		"branches": [
+			["skzjkl_skzth_m0", 25, 95]
+		],
+		"branchType":"single",
+		"branchRandom":false,
 		"tooltip": {
 			"en": [""],
 			"ja": [""],
-			"zh": ["每25s，在场上预设位置召唤尼卢火；每55s，以预设路径召唤敌人"]
+			"zh": ["每25s，在场上预设位置召唤尼卢火"]
+		}
+	},
+	"skzjkl_1_3": {
+		"branches": [
+			["skzjkl_m0_summon_enemy", 55, 95]
+		],
+		"branchRandom":false,
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["每55s，以预设路径召唤敌人"]
 		}
 	},
 	"skzjkl_2_1": {

@@ -34,13 +34,12 @@ export class SpawnManager {
 		this.currentWaveIndex = GameConfig.currentWaveIndex;
 		this.currentFragmentIndex = 0;
 		this.nextWaveType = waves[0].maxTimeWaitingForNextWave < 0 ? 'NO_ENEMIES' : 'TIME';
-
 		if (this.gameManager.config.levelId === 'level_rogue4_b-8') {
 			switch (this.currentWaveIndex) {
-				case 1:
+				case 3:
 					this.addBranch('amiy_blink_1');
 					break;
-				case 2:
+				case 5:
 					this.addBranch('amiy_blink_2');
 					break;
 			}
@@ -221,14 +220,12 @@ export class SpawnManager {
 		this.gameManager.addTrap(null, action.key);
 	}
 
-	addBranch(branchKey: string) {
-		const branch = structuredClone(this.gameManager.config.branches?.[branchKey]);
-		if (!branch) {
-			return;
+	addBranch(branch, index = -1) {
+		if (typeof branch === 'string') {
+			branch = this.gameManager.config.branches[branch];
 		}
-		if (branchKey === 'syboss_extra') {
-			const shuffledPhases = shuffleArray(structuredClone(branch.phases));
-			branch.phases = [shuffledPhases[0]];
+		if (index !== -1) {
+			branch.phases = [branch.phases[index]];
 		}
 		this.branches.set(this.branchIndex, new BranchManager(branch, this.gameManager));
 		this.branchIndex++;

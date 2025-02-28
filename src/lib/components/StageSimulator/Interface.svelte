@@ -68,11 +68,11 @@
 	});
 </script>
 
-<div class="absolute z-[1] right-4 flex gap-x-4 mt-4">
-	<button class="interface w-[60px] h-[60px] shadow-lg" on:click={handleReset}>
+<div class="absolute z-[1] right-4 flex gap-x-2 md:gap-x-4 mt-4">
+	<button class="interface w-[45px] h-[45px] md:w-[60px] md:h-[60px] shadow-lg" on:click={handleReset}>
 		<Icon name="refresh-icon" className="rotate-[185deg]" size={28} />
 	</button>
-	<button class="interface w-[60px] h-[60px] shadow-lg" on:click={handleSpeedFactor}>
+	<button class="interface w-[45px] h-[45px] md:w-[60px] md:h-[60px] shadow-lg" on:click={handleSpeedFactor}>
 		<div class="">
 			<div class="text-2xl leading-[26px]">{GameConfig.speedFactor}Ⅹ</div>
 			<div class="flex justify-center pl-1">
@@ -86,7 +86,7 @@
 			</div>
 		</div>
 	</button>
-	<button class="interface w-[60px] h-[60px] shadow-lg" on:click={handlePause}>
+	<button class="interface w-[45px] h-[45px] md:w-[60px] md:h-[60px] shadow-lg" on:click={handlePause}>
 		{#if isPaused}
 			<div class="border-l-[22px] border-l-white border-y-[11px] border-y-transparent" />
 		{:else}
@@ -99,7 +99,7 @@
 </div>
 
 <div
-	class="absolute left-1/2 -translate-x-1/2 mt-6 pb-0.5 bg-neutral-800 bg-opacity-80 pointer-events-none"
+	class="absolute -top-8 md:top-0 left-1/2 -translate-x-1/2 mt-6 pb-0.5 bg-neutral-800 bg-opacity-80 pointer-events-none"
 >
 	<div class="flex items-center gap-x-1.5 px-4">
 		<img src={enemyCount} width="40" alt={translations[language].enemy_count} class="shrink-0" />
@@ -112,7 +112,7 @@
 </div>
 
 <div
-	class="absolute right-4 bottom-[24%] grid grid-cols-[20px_30px] items-center gap-x-2 px-1.5 bg-neutral-800 bg-opacity-80 pointer-events-none font-light"
+	class="absolute right-4 bottom-[24%] grid grid-cols-[20px_33px] items-center gap-x-2 px-1.5 bg-neutral-800 bg-opacity-80 pointer-events-none font-light"
 >
 	<img src={spriteCost} width="20" alt="Cost:" />
 	<span class="text-3xl">{Math.min(maxCost, Math.floor(initialCost + totalTime))}</span>

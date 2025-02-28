@@ -53,7 +53,7 @@
 </script>
 
 <Settings {game} {mapConfig}/>
-<div class="relative">
+<div class="relative mt-4 md:mt-1.5">
 	{#await loadGame(mapConfig)}
 		<LoadingScreen />
 	{:then}
