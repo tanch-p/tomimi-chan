@@ -20,6 +20,7 @@
 	// Sync class -> store
 	let unsubscribeFns = [];
 	let unsubscribe;
+
 	onMount(() => {
 		unsubscribe = GameConfig.subscribe('waveElapsedTime', (value) => {
 			trackAndScrollContainer(value);
@@ -39,13 +40,16 @@
 						top: (actionsContainer?.children?.[index]?.scrollHeight || 0) + 16,
 						behavior: 'smooth'
 					});
-				index += 2;
+				if (waves?.[currWaveIndex]?.timeline?.length === 0) {
+					index += 1;
+				} else {
+					index += 2;
+				}
 			}
 			currWaveIndex = value;
 		});
 		unsubscribeFns.push(unsubscribe);
 	});
-
 	onDestroy(() => {
 		unsubscribeFns.forEach((fn) => fn());
 	});

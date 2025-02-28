@@ -54,14 +54,15 @@ export class SkillManager {
 		}
 	}
 	addParasiticSprite() {
+		const texture = this.assetManager.textures.get("parasitic")?.texture
 		const material = new THREE.SpriteMaterial({
-			color: 0xff0000,
-			opacity: 0.8,
+			map:texture,
 			transparent: true,
-			depthTest: false
+			depthTest:false
 		});
+		material.color.multiplyScalar(0.6)
 		const sprite = new THREE.Sprite(material);
-		sprite.scale.set(100, 100, 100);
+		sprite.scale.set(50, 50, 50);
 		sprite.position.y = this.enemy.height + 20;
 		sprite.position.z = 40;
 		this.enemy.meshGroup.add(sprite);

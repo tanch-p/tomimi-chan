@@ -26,6 +26,11 @@ const texturesToLoad = [
 		textures: [['sprite_shadow', null]]
 	},
 	{
+		fileName: 'parasitic.png',
+		options: [],
+		textures: [['parasitic', null]]
+	},
+	{
 		fileName: 'Special_juntan_02.png',
 		options: [],
 		textures: [['creep', null]]

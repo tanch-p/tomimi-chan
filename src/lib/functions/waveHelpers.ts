@@ -13,7 +13,7 @@ const ALWAYS_KILLED_KEYS = [
 	'enemy_1106_byokai_b'
 ];
 
-const KEYS_TO_IGNORE=["enemy_2086_skzdwx"]
+const KEYS_TO_IGNORE = ['enemy_2086_skzdwx'];
 
 const CHESTS = ['trap_051_vultres', 'trap_068_badbox', 'trap_110_smbbox', 'trap_758_skzmbx'];
 
@@ -130,7 +130,7 @@ export const getOptions = (mapConfig: MapConfig, rogueTopic: RogueTopic, languag
 					{
 						key: 'calamity',
 						src: calamity,
-						name: { zh: '天灾年代', ja: "天災の時代", en: "Catastrophes" }[language]
+						name: { zh: '天灾年代', ja: '天災の時代', en: 'Catastrophes' }[language]
 					},
 					{
 						key: 'hidden_door',
@@ -247,8 +247,8 @@ const isCountableAction = (key, levelId) => {
 	if (key === '') return false;
 	if (ALWAYS_KILLED_KEYS.includes(key)) return false;
 	switch (levelId) {
-		case "level_rogue4_t-4":
-			return key !== "enemy_1263_durbus";
+		case 'level_rogue4_t-4':
+			return key !== 'enemy_1263_durbus';
 	}
 	return true;
 };
@@ -460,7 +460,7 @@ export const generateWaveTimeline = (
 				) {
 					continue;
 				}
-				if(KEYS_TO_IGNORE.includes(action.key)){
+				if (KEYS_TO_IGNORE.includes(action.key)) {
 					continue;
 				}
 				handleAction(action, spawns, waveBlockingSpawns, prevPhaseTime, enemyReplace);
@@ -473,7 +473,7 @@ export const generateWaveTimeline = (
 			}
 		});
 		const myKeys = Object.keys(spawns).map(Number);
-		if (myKeys.length > 0) {
+		if (!(mapConfig.levelId === 'level_rogue4_b-8' && myKeys.length === 0)) {
 			myKeys.sort((a, b) => a - b);
 			const spawnList = myKeys.map((key) => ({ t: key, actions: spawns[key] }));
 			waveTimelines.push({
