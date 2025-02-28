@@ -126,6 +126,7 @@ export class Game {
 		this.initLights();
 		this.initCamera();
 		GameConfig.state = 'ready';
+		this.clock.getDelta();
 		this.renderer.setAnimationLoop(() => this.render());
 	}
 	initCamera() {
