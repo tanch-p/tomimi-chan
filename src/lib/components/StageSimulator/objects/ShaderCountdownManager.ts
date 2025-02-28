@@ -505,8 +505,8 @@ export class CountdownSprite {
 		this.timeStr = text;
 
 		// Calculate geometry for the text
-		const digitWidth = 0.4; // Width of each digit
-		const spacing = -0.1; // Spacing between digits
+		const digitWidth = 0.23; // Width of each digit
+		const spacing = -0.09; // Spacing between digits
 		const totalWidth = text.length * digitWidth + (text.length - 1) * spacing;
 
 		// Arrays to hold the geometry data
