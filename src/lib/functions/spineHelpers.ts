@@ -2,6 +2,9 @@ export const getSpineMetaData = (key, skel) => {
 	let width = Math.min(100, skel.data.width * 0.3);
 	let height = Math.min(110, skel.data.height * 0.3);
 	switch (key) {
+		case "enemy_2068_skzirn":
+			height = 65;
+			break;
 		case 'enemy_2066_skzlcp':
 			height = 110;
 			break;
@@ -20,7 +23,7 @@ export function getReviveAnimName(key, skel) {
 		case 'enemy_2025_syufo':
 			return 'Default_01';
 		case 'enemy_2089_skzjkl':
-			return 'C_Revive'
+			return 'C_Revive';
 	}
 }
 
@@ -79,7 +82,6 @@ export function getIdleAnimName(key, skel, state) {
 		case 'enemy_1271_nhkodo':
 		case 'enemy_1271_nhkodo_2':
 		case 'enemy_1311_mhkryk':
-		case 'enemy_1311_mhkryk_2':
 		case 'enemy_1314_wdnjd':
 		case 'enemy_1315_wdyjd':
 		case 'enemy_1316_wdpjd':
@@ -93,6 +95,9 @@ export function getIdleAnimName(key, skel, state) {
 		case 'enemy_1418_mmkonm':
 		case 'enemy_1418_mmkonm_2':
 			return 'Idle_b';
+
+		case 'enemy_1311_mhkryk_2':
+			return 'Idle_B';
 
 		case 'enemy_1135_redman':
 		case 'enemy_1135_redman_2':
@@ -182,7 +187,6 @@ export function getMoveAnimName(key, skel, state) {
 		case 'enemy_1271_nhkodo_2':
 		case 'enemy_2055_smlead':
 		case 'enemy_1311_mhkryk':
-		case 'enemy_1311_mhkryk_2':
 		case 'enemy_1314_wdnjd':
 		case 'enemy_1316_wdpjd':
 		case 'enemy_1315_wdyjd':
@@ -191,6 +195,9 @@ export function getMoveAnimName(key, skel, state) {
 		case 'enemy_1418_mmkonm':
 		case 'enemy_1418_mmkonm_2':
 			return 'Move_b';
+
+		case 'enemy_1311_mhkryk_2':
+			return 'Move_B';
 
 		case 'enemy_1135_redman':
 		case 'enemy_1135_redman_2':

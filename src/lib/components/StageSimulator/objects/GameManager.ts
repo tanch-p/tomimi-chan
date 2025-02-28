@@ -10,6 +10,7 @@ import { SPFA } from './SPFA';
 import { Trap } from './Trap';
 import { SpawnManager } from './SpawnManager';
 import { TileManager } from './TileManager';
+import { CountdownManager, CountdownSprite } from './ShaderCountdownManager';
 
 export class GameManager {
 	assetManager: AssetManager;
@@ -28,6 +29,8 @@ export class GameManager {
 	tiles = new Map();
 	tileManager: TileManager;
 	rollOverMeshes = new Map();
+	countdownManager: CountdownManager;
+	countdownsToAdd: Map<string, THREE.Group> = new Map();
 
 	constructor(
 		config: MapConfig,
@@ -39,6 +42,7 @@ export class GameManager {
 		this.enemies = enemies;
 		this.config = config;
 		this.assetManager = AssetManager.getInstance();
+		this.countdownManager = CountdownManager.getInstance();
 		this.scene = scene;
 		this.camera = camera;
 		this.objects = objects;
@@ -62,6 +66,18 @@ export class GameManager {
 		const y = -this.getCoordinate(parseInt(row) - offSetY, 'y');
 		return { x, y };
 	};
+
+	async createCountdown(
+		time: number, 
+		x: number, 
+		y: number, 
+		color = 0xf08080
+	  ): Promise<CountdownSprite> {
+		const countdown = await this.countdownManager.createCountdown(time, color);
+		countdown.setPosition(x, y);
+		this.scene.add(countdown.getGroup());
+		return countdown;
+	  }
 
 	getCoordinate = (coordinate, type = 'x') => {
 		const center = type === 'x' ? this.mazeLayout[0].length / 2 : this.mazeLayout.length / 2;
@@ -265,6 +281,7 @@ export class GameManager {
 	}
 
 	update(delta: number) {
+		this.countdownManager.update(delta);
 		GameConfig.setValue('scaledElapsedTime', GameConfig.scaledElapsedTime + delta);
 		this.noEnemyAlive = this.enemiesOnMap.every((enemy) => !enemy.alive);
 		for (const enemy of this.enemiesOnMap.filter((ele) => ele.alive)) {
