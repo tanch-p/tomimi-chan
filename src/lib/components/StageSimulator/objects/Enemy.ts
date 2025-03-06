@@ -48,6 +48,7 @@ export class Enemy {
 	animState = 'Idle';
 	gameManager: GameManager;
 	pathGroup;
+	countdownId: number;
 	skel: spine.SkeletonMesh;
 	sprite: THREE.Sprite;
 	height: number;
@@ -399,7 +400,7 @@ export class Enemy {
 				pathType: 'end'
 			}
 		];
-		if (this.motionMode === 'FLY' || this.motionMode==="BLINK") {
+		if (this.motionMode === 'FLY' || this.motionMode === 'BLINK') {
 			return actions;
 		}
 
@@ -682,16 +683,17 @@ export class Enemy {
 							this.timeToWait = time;
 							break;
 					}
-					this.gameManager.createCountdown(
+					this.countdownId = this.gameManager.createCountdown(
 						this.timeToWait,
 						this.meshGroup.position.x,
-						this.meshGroup.position.y+30,
+						this.meshGroup.position.y + 30
 					);
 				} else {
 					this.waitElapsedTime += delta;
 				}
 
 				if (this.waitElapsedTime >= this.timeToWait) {
+					this.countdownId = -1;
 					this.waitElapsedTime = 0;
 					this.currentActionIndex++;
 				}
@@ -721,10 +723,10 @@ export class Enemy {
 			} else {
 				if (this.waitElapsedTime === 0) {
 					this.state = 'standby';
-					this.gameManager.createCountdown(
+					this.countdownId = this.gameManager.createCountdown(
 						this.standbyTime,
 						this.meshGroup.position.x,
-						this.meshGroup.position.y+20,
+						this.meshGroup.position.y + 20,
 						0x5f7af7
 					);
 					this.handleIdle();
@@ -734,6 +736,7 @@ export class Enemy {
 				}
 
 				if (this.waitElapsedTime >= this.standbyTime) {
+					this.countdownId = -1;
 					this.standbyTime = 0;
 					this.waitElapsedTime = 0;
 					if (this.key === 'enemy_2089_skzjkl') {
@@ -780,6 +783,9 @@ export class Enemy {
 		this.shadow.uniforms.isSelected.value = true;
 		this.gameManager.scene.add(this.pathGroup);
 		this.selected = true;
+		if (this.waitElapsedTime > 0) {
+			this.gameManager.countdownManager.toggleCountdown(this.countdownId, true);
+		}
 		if (this.atkRangeMesh) {
 			this.atkRangeMesh.visible = true;
 		}
@@ -789,6 +795,7 @@ export class Enemy {
 		this.gameManager.scene.remove(this.pathGroup);
 		this.shadow.uniforms.isSelected.value = false;
 		this.selected = false;
+		this.gameManager.countdownManager.toggleCountdown(this.countdownId, false);
 		if (this.atkRangeMesh) {
 			this.atkRangeMesh.visible = GameConfig.showAllRange;
 		}

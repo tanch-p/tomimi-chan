@@ -70,6 +70,7 @@ export class GameManager {
 		const countdown = this.countdownManager.createCountdown(time, color);
 		countdown.setPosition(x, y);
 		this.scene.add(countdown.getGroup());
+		return countdown.id;
 	}
 
 	getCoordinate = (coordinate, type = 'x') => {

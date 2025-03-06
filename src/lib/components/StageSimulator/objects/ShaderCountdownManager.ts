@@ -77,9 +77,15 @@ export class CountdownManager {
 		return countdown;
 	}
 
-	// Get an existing countdown
-	getCountdown(id: number): CountdownSprite | undefined {
-		return this.countdowns.get(id);
+	toggleAllCountdowns(val) {
+		this.countdowns.forEach((countdown) => {
+			countdown.getGroup().visible = val;
+		});
+	}
+	toggleCountdown(id, val) {
+		const countdown = this.countdowns.get(id);
+		if (!countdown) return;
+		countdown.getGroup().visible = val;
 	}
 
 	// Remove a countdown
@@ -110,7 +116,7 @@ export class CountdownManager {
 }
 
 export class CountdownSprite {
-	private id: number;
+	public id: number;
 	private group: THREE.Group;
 	private time: number;
 	private color: number;
@@ -182,7 +188,7 @@ export class CountdownSprite {
 
 		// Add all meshes to the group
 		this.group.add(this.circleMesh, this.ringMesh, this.textMesh);
-
+		this.group.visible = GameConfig.showAllTimers;
 		// Update the display
 		this.updateDisplay();
 	}

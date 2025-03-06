@@ -48,12 +48,7 @@
 			fn: (key) => {
 				GameConfig[key] = !GameConfig[key];
 				setLocalStorage('showAllTimers', GameConfig[key] ? 1 : 0);
-				game.gameManager.enemiesOnMap
-					.filter((enemy) => enemy.alive)
-					.forEach((enemy) => {
-						enemy.waitTimer.getMesh().visible =
-							enemy.waitElapsedTime > 0 && GameConfig.showAllTimers;
-					});
+				game.gameManager.countdownManager.toggleAllCountdowns(GameConfig[key]);
 			}
 		},
 		{
