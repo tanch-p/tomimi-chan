@@ -1,13 +1,13 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
-	import stageList from '$lib/data/stages/is_stages_list.json';
+	import ro2 from "$lib/data/stages/ro2.json"
 	import { page } from '$app/stores';
 
 	export let stageName: string, language: Language;
 
 	$: currentStageName = $page?.data?.mapConfig?.name_zh;
 
-	const stageInfo = stageList.find((stage) => stage.name_zh === stageName);
+	const stageInfo = ro2[stageName];
 	if (!stageInfo) {
 		throw new Error(`${stageName} is not found!`);
 	}

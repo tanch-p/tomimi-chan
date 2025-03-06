@@ -3,7 +3,7 @@
 
 	let layout;
 	onMount(() => {
-		const mql = window.matchMedia('(max-width: 768px)');
+		const mql = window.matchMedia('(max-width:768px) or (pointer: coarse)');
 		layout = mql.matches ? 'mobile' : 'pc';
 		mql.addEventListener('change', screenTest);
 		return () => {

@@ -1,14 +1,21 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
 	import Icon from './Icon.svelte';
+	import { setLocalStorage } from '$lib/functions/lib';
 
 	export let title = 'title',
+		key = '',
 		isOpen = false,
 		size = 'large',
 		className = '',
 		titleIcon = '';
 
-	const toggle = () => (isOpen = !isOpen);
+	const toggle = () => {
+		isOpen = !isOpen;
+		if (key === 'stageSim') {
+			setLocalStorage('openStageSim', isOpen ? 1 : 0);
+		}
+	};
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->

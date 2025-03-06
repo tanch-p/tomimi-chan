@@ -4,12 +4,17 @@
 
 	export let className: string = '';
 
+	let container: HTMLDivElement;
+
 	onMount(() => {
-		const slider = createSlider('.draggable-container-wrapper');
+		const slider = createSlider(container);
 		return () => slider();
 	});
 </script>
 
-<div class="draggable-container-wrapper overflow-x-auto overflow-y-visible {className}">
+<div
+	bind:this={container}
+	class="draggable-container-wrapper overflow-x-auto overflow-y-visible {className}"
+>
 	<slot />
 </div>

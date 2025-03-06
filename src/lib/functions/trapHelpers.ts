@@ -1,8 +1,9 @@
-import type { Language, Trap, mapConfigTrap, TrapData, StatMods } from '$lib/types';
+import type { Language, Trap, MapConfigTrap, TrapData, StatMods } from '$lib/types';
 import trapLookup from '$lib/data/trap/traps.json';
 import trapSkills from '$lib/data/trap/traps_skills.json';
 import { calculateModdedStat, distillMods } from './statHelpers';
 import { getOverwrittenKeys } from './skillHelpers';
+import { isEquals } from './lib';
 
 const TRAPS_AFFECTED_BY_DIFFICULTY = [
 	'trap_086_larva',
@@ -22,6 +23,14 @@ const TRAPS_AFFECTED_BY_DIFFICULTY = [
 const STATS = ['hp', 'atk', 'aspd', 'def', 'res', 'blockCnt'];
 
 const skillValueKeys = ['cost', 'duration1', 'enhance_duration', 'value'];
+
+export const getTrapModelType = (key) => {
+	const trap = trapLookup[key];
+	if (!trap) {
+		return;
+	}
+	return trap.modelType;
+};
 
 const getTrapWeight = (key) => {
 	switch (key) {
@@ -77,9 +86,9 @@ const getTrapStats = (trap: TrapData, level: number) => {
 	};
 };
 
-export const parseTraps = (traps: mapConfigTrap[], language: Language) => {
+export const parseTraps = (traps: MapConfigTrap[], language: Language) => {
 	const holder: Trap[] = [];
-	for (const { key, level, mainSkillLvl, eliteSkillLvl } of traps) {
+	for (const { key, alias, level, mainSkillLvl } of traps) {
 		const trap: TrapData = trapLookup[key];
 		const talents = trap?.talents?.map((key) => {
 			const talent = trapSkills[key];
@@ -91,10 +100,6 @@ export const parseTraps = (traps: mapConfigTrap[], language: Language) => {
 		});
 		const skills = trap.skills?.map((key) => {
 			const skill = trapSkills[key];
-			let eliteSpData;
-			if (eliteSkillLvl) {
-				eliteSpData = skill.levels[eliteSkillLvl - 1].spData;
-			}
 			const otherKeys = {};
 			for (const valueKey of skillValueKeys) {
 				if (skill?.[valueKey]) otherKeys[valueKey] = skill[valueKey];
@@ -110,7 +115,6 @@ export const parseTraps = (traps: mapConfigTrap[], language: Language) => {
 				rangeId: skill.rangeId,
 				duration: skill.levels[mainSkillLvl - 1].duration,
 				spData: skill.levels[mainSkillLvl - 1].spData,
-				eliteSpData,
 				overwrittenKeys: [],
 				...otherKeys
 			};
@@ -118,9 +122,11 @@ export const parseTraps = (traps: mapConfigTrap[], language: Language) => {
 		const stats = getTrapStats(trap, level);
 		holder.push({
 			key: key,
+			stageId: alias,
 			name: trap[`name_${language}`] || trap[`name_zh`],
 			desc: trap[`desc_${language}`] || trap[`desc_zh`],
 			tauntLevel: trap.tauntLevel,
+			mainSkillLvl: mainSkillLvl,
 			stats: stats,
 			talents: talents,
 			skills: skills,
@@ -267,3 +273,17 @@ function parseStats(trap: Trap, statMods: StatMods) {
 	}
 	return trap_stats;
 }
+
+export const filterTraps = (traps) => {
+	const holder = [];
+	for (const trap of traps) {
+		const item = holder.find(
+			(item) => item.key === trap.key && item.mainSkillLvl === trap.mainSkillLvl
+		);
+		if (item) {
+			continue;
+		}
+		holder.push(trap);
+	}
+	return holder;
+};

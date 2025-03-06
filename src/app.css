@@ -46,7 +46,8 @@ li.list-cross {
 	content: url('../src/lib/images/is/list_x.svg');
 	position: absolute;
 	top: 6px;
-	left: -23px;
+	left: -19px; 
+	/* changed to -19px on 22/01/2025, previously was -23px */
 }
 
 .skilltag {
@@ -85,3 +86,14 @@ li.list-cross {
 .skilltag.once_only {
 	background-color: #737373;
 }
+
+@media (orientation: landscape) {
+	body {
+	  width: 100%;
+	  margin-left: 0;
+	  margin-right: 0;
+	  padding-left: 0;
+	  padding-right: 0;
+	  overflow-x: hidden;
+	}
+  }

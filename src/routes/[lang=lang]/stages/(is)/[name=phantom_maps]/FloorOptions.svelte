@@ -12,7 +12,7 @@
 		optionsOpen ? 'opacity-90 translate-y-0' : 'invisible opacity-0 -translate-y-10'
 	}`}
 >
-	<FloorSelect {language} />
+	<FloorSelect />
 	<div class="mx-auto mt-3 md:px-8">
 		<hr class="border-neutral-600" />
 		<div class="pr-2 md:px-0">

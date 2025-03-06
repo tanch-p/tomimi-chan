@@ -1,21 +1,17 @@
-import type { MapConfig, Language, Enemy } from '$lib/types';
+import type { MapConfig, Language, Enemy, RogueTopic } from '$lib/types';
 import enemyDatabase from '$lib/data/enemy/enemy_database.json';
-import findStage from '$lib/functions/findStage';
-import { sortEnemies } from './lib';
+import { getStageData, sortEnemies } from './lib';
 import { overwriteBlackboard } from './skillHelpers';
 import { parseTraps } from './trapHelpers';
 
-export const stageLoad = async (
-	stageName: string,
-	rogueTopic: string | null,
-	language: Language
-) => {
-	const mapConfig: MapConfig = findStage(stageName, rogueTopic);
+export const stageLoad = async (stageName: string, language: Language, rogueTopic: RogueTopic) => {
+	const mapConfig: MapConfig = await getStageData(stageName);
 	const enemies = mapConfig.enemies.map(({ id, prefabKey, level, overwrittenData }) => {
-		const enemy: Enemy = JSON.parse(JSON.stringify(enemyDatabase[prefabKey]));
+		const enemy: Enemy = structuredClone(enemyDatabase[prefabKey]);
+
 		enemy.stageId = id;
 		enemy.level = level;
-		enemy.stats = { ...enemy.stats[level] };
+		enemy.stats = structuredClone(enemy.stats[level]);
 		if (overwrittenData) {
 			enemy.overwritten = true;
 			for (const key in overwrittenData) {

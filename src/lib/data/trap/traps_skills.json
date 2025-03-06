@@ -442,6 +442,58 @@
 			"en": ["Can be reinforced by &lt;Reinforcement Device&gt;"]
 		}
 	},
+	"sktok_airsup": {
+		"name_zh": "派遣空援",
+		"name_ja": "空援派遣",
+		"name_en": "Dispatch Air Support",
+		"desc_zh": "佣兵小队布置的可移动战术机库，根据需要可随时发射无人机支援作战，因为资金问题，燃料不会加满。",
+		"desc_ja": "傭兵小隊が設置した可動式戦術格納庫。要請によってドローンを放出して小隊の作戦に支援できる。資金問題で燃料がいつも必要最小限分だけ充填する",
+		"desc_en": "A Mobile Tactical Hangar deployed by mercenaries, able to launch drones as needed. Due to a lack of funds, its fuel supply won't be topped up.",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": 8,
+					"levelUpCost": null,
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0,
+				"blackboard": []
+			}
+		]
+	},
+	"sktok_dsbell": {
+		"name_zh": "应急治疗协议",
+		"name_ja": "応急治療プロトコル",
+		"name_en": "Emergency Medical Agreement",
+		"desc_zh": "激活持续治愈周围大范围我方累积的<$ba.dt.neural>神经损伤</>；被<自动维护机器>激活时治疗能力大幅度提升",
+		"desc_ja": "起動中に周囲一定範囲内の味方全員に蓄積された<$ba.dt.neural>神経損傷</>を治療し続ける。<自動メンテナンス機>に起動された場合、治療能力が大幅に上昇",
+		"desc_en": "When activated, continually recovers the <$ba.dt.neural>Nervous Impairment</> damage accumulated by ally units in a large area; When activated by <Automatic Maintenance Drone>, significantly increases recovery effect",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"levels": [
+			{
+				"rangeId": "x-2",
+				"spData": {
+					"spType": 8,
+					"levelUpCost": null,
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0,
+				"blackboard": []
+			}
+		]
+	},
 	"sktok_dupilr": {
 		"skillId": "sktok_dupilr",
 		"name_zh": "支柱坍塌",
@@ -459,6 +511,30 @@
 				"spData": {
 					"spCost": 10,
 					"initSp": 10,
+					"increment": 0.0
+				},
+				"duration": 0.0
+			}
+		]
+	},
+	"sktok_vultres":{
+		"skillId": "sktok_vultres",
+		"name_zh": "诱人珍宝",
+		"name_ja": "財宝のいざない",
+		"name_en": "Alluring Treasures",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"desc_zh": "被敌人触碰就会消失；若战斗结束时仍存在于场上，会额外获得1源石锭",
+		"desc_ja": "敵と接触されると消滅する\n戦闘終了時、宝箱が場に存在する場合、報酬に源石錐が1個追加される",
+		"desc_en": "Disappears when touched by an enemy; If it still exists on the field when the battle ends, gain 1 additional Originium Ingot",
+		"rangeId": "x-4",
+		"levels": [
+			{
+				"spData": {
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
 					"increment": 0.0
 				},
 				"duration": 0.0

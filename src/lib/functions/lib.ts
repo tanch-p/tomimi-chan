@@ -4,6 +4,9 @@ import rogue_4_fragment_F_25 from '$lib/images/is/sarkaz/rogue_4_fragment_F_25.w
 import tileImg from '$lib/images/tiles/tile_infection.webp';
 import { checkIsTarget } from './statHelpers';
 import enemySkills from '$lib/data/enemy/enemy_skills.json';
+import ISStages from '$lib/data/stages/stage_name_lookup_table.json';
+import { browser } from '$app/environment';
+import { cookiesEnabled } from '../../routes/stores';
 
 export const BONUS_ENEMY_KEYS = [
 	'enemy_2001_duckmi',
@@ -81,6 +84,15 @@ export function getFormTitle(title: string | undefined | null, row: number, lang
 
 	return translations[language][title];
 }
+
+export const getStageData = async (stageName) => {
+	const levelId = ISStages[stageName]?.key;
+	if (!levelId) return;
+	const data = await import(
+		`../data/stages/ro_stage_data/level_${levelId.replace('level_', '')}.json`
+	);
+	return data?.default;
+};
 
 export const getTrapFormIndex = (list, index) => {
 	const holder = {};
@@ -277,6 +289,7 @@ export const getEliteColors = (rogueTopic: string) => {
 };
 
 const STAGES_WITH_ELITE_IMG = [
+	'ro1_e_4_8',
 	'ro3_e_3_2',
 	'ro3_e_4_2',
 	'ro3_e_5_2',
@@ -286,6 +299,9 @@ const STAGES_WITH_ELITE_IMG = [
 	'ro4_e_5_8'
 ];
 export const getStageImg = (id, eliteMods) => {
+	if (id.includes('_t_')) {
+		id = id.replace('_e', '');
+	}
 	if (
 		!(eliteMods && STAGES_WITH_ELITE_IMG.includes(id)) &&
 		!id.includes('ev') &&
@@ -310,4 +326,19 @@ export async function decompressGzipToJson(url) {
 		const text = textDecoder.decode(arrayBuffer);
 		return JSON.parse(text);
 	}
+}
+
+export function setLocalStorage(key, value) {
+	if (browser && cookiesEnabled) {
+		localStorage.setItem(key, value);
+	}
+}
+
+export function pruneExtraEnemies(enemies, levelId) {
+	if (!['level_rogue2_ev-3', 'level_rogue2_b-7', 'level_rogue4_b-8'].includes(levelId)) {
+		return enemies;
+	}
+
+	const keys = enemies.map((enemy) => enemy.key);
+	return enemies.filter((enemy) => keys.includes(enemy.stageId));
 }

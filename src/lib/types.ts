@@ -33,7 +33,14 @@ type EnemyDBStats = {
 	special: [Skill[]];
 	form_mods?: Mods[];
 };
-export type StatusImmune = 'stun' | 'silence' | 'freeze' | 'sleep' | 'levitate' | 'disarmCombat' | 'fear';
+export type StatusImmune =
+	| 'stun'
+	| 'silence'
+	| 'freeze'
+	| 'sleep'
+	| 'levitate'
+	| 'disarmCombat'
+	| 'fear';
 type AttackType = 'no_attack' | 'melee' | 'ranged';
 type AttackAttribute = 'phys' | 'arts' | 'true' | 'heal';
 type EnemyType =
@@ -100,9 +107,13 @@ export interface EnemyDBEntry {
 
 export interface Trap {
 	key: string;
+	stageId: string;
 	name: string;
 	desc: string;
 	tauntLevel: number;
+	mainSkillLvl: number;
+	modelType: string;
+	hideTile: boolean;
 	stats: trapStats;
 	talents: [];
 	skills: [];
@@ -134,7 +145,7 @@ type overwrittenData = {
 	[key: string]: number;
 };
 
-type mapConfigEnemy = {
+type MapConfigEnemy = {
 	id: string;
 	level: number;
 	overwrittenData: overwrittenData;
@@ -145,6 +156,7 @@ export interface MapConfig {
 	levelId: string;
 	tags: string[];
 	initialCost: number;
+	maxCost:number;
 	costIncreaseTime: number;
 	floors: number[] | null;
 	routes: [] | null;
@@ -152,17 +164,32 @@ export interface MapConfig {
 	[key: `name_${string}`]: string;
 	[key: `description_${string}`]: string;
 	[key: `eliteDesc_${string}`]: string;
+	n_runes:null;
+	elite_runes:any|null;
 	n_mods: Mods | null;
 	elite_mods: Mods | null;
-	traps: mapConfigTrap[];
-	enemies: mapConfigEnemy[];
+	traps: MapConfigTrap[];
+	trap_pos: TrapPos[];
+	enemies: MapConfigEnemy[];
 	sp_terrain: [];
 }
 
-export type mapConfigTrap = {
+export type MapConfigTrap = {
 	key: string;
 	level: number;
 	mainSkillLvl: number;
+};
+
+type TrapPos = {
+	alias: string;
+	position;
+	direction: 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
+	hidden: boolean;
+};
+
+export type Position = {
+	row: number;
+	col: number;
 };
 
 export type StatMods = {
@@ -195,6 +222,8 @@ export type Skill = {
 	cooldown?: number;
 	initSp?: number;
 	spCost?: number;
+	skillRange?: number;
+	skillType?: 'INCREASE_WITH_TIME' | 'INCREASE_WHEN_ATTACK';
 	can_silence?: boolean;
 	dmg_element?: 'phys' | 'arts' | 'true' | 'heal';
 	suffix?: Tooltip;

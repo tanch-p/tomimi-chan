@@ -8,6 +8,8 @@
 		"desc_en": null,
 		"tauntLevel": 0,
 		"group": "ally",
+		"modelType": "model",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 100,
@@ -16,7 +18,9 @@
 				"res": 0.0,
 				"blockCnt": 3,
 				"aspd": 1.0,
-				"rangeId": null
+				"rangeId": null,
+				"cost": 5,
+				"respawnTime": 5
 			}
 		],
 		"skills": ["sktok_crate"],
@@ -33,6 +37,8 @@
 		"desc_en": null,
 		"tauntLevel": 0,
 		"group": "ally",
+		"modelType": "model",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 100,
@@ -67,6 +73,8 @@
 		"desc_en": null,
 		"tauntLevel": 0,
 		"group": "ally",
+		"modelType": "texture",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 100,
@@ -92,6 +100,8 @@
 		"desc_en": null,
 		"tauntLevel": 0,
 		"group": "enemy",
+		"modelType": "texture",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 100,
@@ -126,6 +136,8 @@
 		"desc_en": "When destroyed, deduct 1 Life Point.",
 		"tauntLevel": 0,
 		"group": "ally",
+		"modelType": "model",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 5000,
@@ -151,6 +163,8 @@
 		"desc_en": null,
 		"tauntLevel": 0,
 		"group": "enemy",
+		"modelType": "texture",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 100,
@@ -176,6 +190,8 @@
 		"desc_en": null,
 		"tauntLevel": 0,
 		"group": "enemy",
+		"modelType": "model",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 100,
@@ -201,6 +217,8 @@
 		"desc_en": null,
 		"tauntLevel": 0,
 		"group": "ally",
+		"modelType": "model",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 100,
@@ -226,6 +244,8 @@
 		"desc_en": "Attacks the enemy with the highest Max HP first",
 		"tauntLevel": 0,
 		"group": "ally",
+		"modelType": "texture",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 100,
@@ -251,6 +271,8 @@
 		"desc_en": "Friendly Unit",
 		"tauntLevel": 0,
 		"group": "ally",
+		"modelType": "texture",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 100,
@@ -276,6 +298,8 @@
 		"desc_en": "<@ba.kw>Cannot</> be healed by allies",
 		"tauntLevel": 0,
 		"group": "ally",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 20000,
@@ -301,6 +325,8 @@
 		"desc_en": "Change the enemy's route",
 		"tauntLevel": 0,
 		"group": "ally",
+		"modelType": "model",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 8000,
@@ -326,6 +352,8 @@
 		"desc_en": "Can block <@ba.kw>Sandstorm</>",
 		"tauntLevel": 0,
 		"group": "ally",
+		"modelType": "model",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 5000,
@@ -339,7 +367,57 @@
 		],
 		"skills": ["sktok_mound"],
 		"talents": [],
-		"special": ["roadblock","mound_1"],
+		"special": ["roadblock", "mound_1"],
+		"status_immune": []
+	},
+	"trap_037_airsup": {
+		"name_zh": "可移动战术机库",
+		"name_ja": "可動式戦術格納庫",
+		"name_en": "Mobile Tactical Hangar",
+		"desc_zh": null,
+		"desc_ja": null,
+		"desc_en": null,
+		"modelType": "model",
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 100,
+				"atk": 0,
+				"def": 0,
+				"res": 0.0,
+				"blockCnt": 0,
+				"aspd": 1.0,
+				"rangeId": null
+			}
+		],
+		"skills": ["sktok_airsup"],
+		"talents": [],
+		"special": [],
+		"status_immune": []
+	},
+	"trap_038_dsbell": {
+		"name_zh": "应急救治设施",
+		"name_ja": "応急治療施設",
+		"name_en": "Emergency Aid Building",
+		"desc_zh": "周围四格存在我方单位或<自动维护机器>时激活",
+		"desc_ja": "隣接4マス内で味方や<自動メンテナンス機>がいる時に起動する",
+		"desc_en": "Activates when there is a friendly unit or <Automatic Maintenance Drone> in the four adjacent tiles",
+		"modelType": "model",
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 100,
+				"atk": 0,
+				"def": 0,
+				"res": 0.0,
+				"blockCnt": 0,
+				"aspd": 1.0,
+				"rangeId": "x-2"
+			}
+		],
+		"skills": ["sktok_dsbell"],
+		"talents": [],
+		"special": [],
 		"status_immune": []
 	},
 	"trap_043_dupilr": {
@@ -351,6 +429,8 @@
 		"desc_en": "Can only be attacked by adjacent allied units",
 		"tauntLevel": 0,
 		"group": "ally",
+		"modelType": "model",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 5000,
@@ -364,6 +444,33 @@
 		],
 		"skills": ["sktok_dupilr"],
 		"talents": [],
+		"special": ["roadblock"],
+		"status_immune": []
+	},
+	"trap_051_vultres":{
+		"name_zh": "无主的财富",
+		"name_ja": "主なき財宝",
+		"name_en": "Unowned Treasure",
+		"desc_zh": null,
+		"desc_ja": null,
+		"desc_en": null,
+		"tauntLevel": 0,
+		"group": "ally",
+		"modelType": "spine",
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 100,
+				"atk": 0,
+				"def": 0,
+				"res": 0,
+				"blockCnt": 0,
+				"aspd": 1.0,
+				"rangeId": null
+			}
+		],
+		"skills": ["sktok_vultres"],
+		"talents": [],
 		"special": [],
 		"status_immune": []
 	},
@@ -376,6 +483,8 @@
 		"desc_en": "Less likely to get attacked by your units",
 		"tauntLevel": -1,
 		"group": "ally",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 10000,
@@ -401,6 +510,8 @@
 		"desc_en": "Less likely to be attacked, and restores 75 HP per second",
 		"tauntLevel": -1,
 		"group": "ally",
+		"modelType": "model",
+		"hideTile": true,
 		"stats": [
 			{
 				"hp": 25000,
@@ -426,6 +537,8 @@
 		"desc_en": null,
 		"tauntLevel": 0,
 		"group": "enemy",
+		"modelType": null,
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 10000,
@@ -451,6 +564,8 @@
 		"desc_en": null,
 		"tauntLevel": -1,
 		"group": "enemy",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 5000,
@@ -485,6 +600,8 @@
 		"desc_en": null,
 		"tauntLevel": -1,
 		"group": "enemy",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 5000,
@@ -519,6 +636,8 @@
 		"desc_en": null,
 		"tauntLevel": -1,
 		"group": "enemy",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 5000,
@@ -553,6 +672,8 @@
 		"desc_en": "Immune to control effects",
 		"tauntLevel": 0,
 		"group": "enemy",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 25000,
@@ -578,6 +699,8 @@
 		"desc_en": "Immune to control effects",
 		"tauntLevel": 0,
 		"group": "enemy",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 32500,
@@ -603,6 +726,8 @@
 		"desc_en": "Immune to control effects",
 		"tauntLevel": 0,
 		"group": "enemy",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 25000,
@@ -628,6 +753,8 @@
 		"desc_en": null,
 		"tauntLevel": 0,
 		"group": "ally",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 3000,
@@ -653,6 +780,8 @@
 		"desc_en": null,
 		"tauntLevel": -1,
 		"group": "enemy",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 40000,
@@ -678,6 +807,8 @@
 		"desc_en": "For every cipher unit on the field, increases enemy ASPD by 25 and Movement Speed by 15% (stacks infinitely)",
 		"tauntLevel": -1,
 		"group": "enemy",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 3500,
@@ -712,6 +843,8 @@
 		"desc_en": "Blocks multiple enemies",
 		"tauntLevel": 0,
 		"group": "ally",
+		"modelType": "model",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 5000,
@@ -737,6 +870,33 @@
 		"special": ["roadblock"],
 		"status_immune": []
 	},
+	"trap_106_smtree":{
+		"name_zh": "积雪银凇",
+		"name_ja": "積雪の銀樹",
+		"name_en": "Silvernwhite Bulwark",
+		"desc_zh": null,
+		"desc_ja": null,
+		"desc_en": null,
+		"tauntLevel": 0,
+		"group": "enemy",
+		"modelType": "model",
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 100,
+				"atk": 0,
+				"def": 0,
+				"res": 0.0,
+				"blockCnt": 0,
+				"aspd": 1.0,
+				"rangeId": null
+			}
+		],
+		"skills": [],
+		"talents": [],
+		"special": [],
+		"status_immune": []
+	},
 	"trap_107_smpow": {
 		"name_zh": "空间稳定设施",
 		"name_ja": "空間安定化設備",
@@ -746,6 +906,8 @@
 		"desc_en": null,
 		"tauntLevel": 0,
 		"group": "ally",
+		"modelType": "model",
+		"hideTile": true,
 		"stats": [
 			{
 				"hp": 100,
@@ -771,6 +933,8 @@
 		"desc_en": null,
 		"tauntLevel": -1,
 		"group": "enemy",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 5000,
@@ -805,6 +969,8 @@
 		"desc_en": null,
 		"tauntLevel": -1,
 		"group": "enemy",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 5000,
@@ -839,6 +1005,8 @@
 		"desc_en": null,
 		"tauntLevel": -1,
 		"group": "enemy",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 5000,
@@ -873,6 +1041,8 @@
 		"desc_en": "Recover 5 DP and raise 5 cost limit when defeated",
 		"tauntLevel": 0,
 		"group": "ally",
+		"modelType": "model",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 8000,
@@ -886,7 +1056,7 @@
 		],
 		"skills": [],
 		"talents": [],
-		"special": [],
+		"special": ["roadblock"],
 		"status_immune": []
 	},
 	"trap_124_eradio": {
@@ -898,6 +1068,8 @@
 		"desc_en": null,
 		"tauntLevel": -1,
 		"group": "ally",
+		"modelType": "model",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 4000,
@@ -923,6 +1095,8 @@
 		"desc_en": "Less likely to be attacked by your units; can block attacks from the shield side when equipped with a one-way shield ({true} Damage cannot be blocked)",
 		"tauntLevel": -1,
 		"group": "enemy",
+		"modelType": "model",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 100,
@@ -948,6 +1122,8 @@
 		"desc_en": null,
 		"tauntLevel": 0,
 		"group": "ally",
+		"modelType": "model",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 6000,
@@ -973,6 +1149,8 @@
 		"desc_en": "",
 		"tauntLevel": -1,
 		"group": "enemy",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 5000,
@@ -1007,6 +1185,8 @@
 		"desc_en": "",
 		"tauntLevel": -1,
 		"group": "enemy",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 5000,
@@ -1041,6 +1221,8 @@
 		"desc_en": "",
 		"tauntLevel": 0,
 		"group": "enemy",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 6000,
@@ -1075,6 +1257,8 @@
 		"desc_en": "More likely to be attacked; once defeated, drops 1 Plan",
 		"tauntLevel": 1,
 		"group": "enemy",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 12000,
@@ -1101,6 +1285,8 @@
 		"desc_en": null,
 		"tauntLevel": 0,
 		"group": "enemy",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 12000,
@@ -1126,6 +1312,8 @@
 		"desc_en": "Recovers 3 SP for every Sarkaz enemy defeated",
 		"tauntLevel": 0,
 		"group": "enemy",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 100000,
@@ -1151,6 +1339,8 @@
 		"desc_en": "Reduces Physical and Arts damage taken by all allies in the surrounding 4 tiles by 50%",
 		"tauntLevel": 0,
 		"group": "ally",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 5000,
@@ -1176,6 +1366,8 @@
 		"desc_en": "Generates 2 DP every 5 seconds",
 		"tauntLevel": 0,
 		"group": "ally",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 10000,
@@ -1201,6 +1393,8 @@
 		"desc_en": "",
 		"tauntLevel": 0,
 		"group": "enemy",
+		"modelType": "spine",
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 10000,

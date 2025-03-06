@@ -9067,7 +9067,7 @@
 				],
 				"form_mods": [
 					{
-						"aspd": 0.5
+						"fixed_aspd":-50
 					},
 					{
 						"atk": 1.5
@@ -9132,7 +9132,7 @@
 				],
 				"form_mods": [
 					{
-						"aspd": 0.5
+						"fixed_aspd":-50
 					},
 					{
 						"atk": 1.5
@@ -9200,7 +9200,7 @@
 				],
 				"form_mods": [
 					{
-						"aspd": 0.5
+						"fixed_aspd":-50
 					},
 					{
 						"atk": 1.5
@@ -9268,7 +9268,7 @@
 				],
 				"form_mods": [
 					{
-						"aspd": 0.5
+						"fixed_aspd":-50
 					},
 					{
 						"atk": 1.5
@@ -9337,7 +9337,7 @@
 				],
 				"form_mods": [
 					{
-						"aspd": 0.5
+						"fixed_aspd":-50
 					},
 					{
 						"atk": 1.5
@@ -9406,7 +9406,7 @@
 				],
 				"form_mods": [
 					{
-						"aspd": 0.5
+						"fixed_aspd":-50
 					},
 					{
 						"atk": 1.5
@@ -9474,11 +9474,11 @@
 				],
 				"form_mods": [
 					{
-						"aspd": 0.5
+						"fixed_aspd":-50
 					},
 					{
 						"atk": 1.5,
-						"res": 40
+						"fixed_res": 40
 					}
 				]
 			}
@@ -9545,11 +9545,11 @@
 				],
 				"form_mods": [
 					{
-						"aspd": 0.5
+						"fixed_aspd":-50
 					},
 					{
 						"atk": 1.5,
-						"res": 60
+						"fixed_res": 60
 					}
 				]
 			}
@@ -9618,7 +9618,7 @@
 				],
 				"form_mods": [
 					{
-						"aspd": 0.5,
+						"fixed_aspd":-50,
 						"fixed_def": 300
 					},
 					{
@@ -9692,7 +9692,7 @@
 				],
 				"form_mods": [
 					{
-						"aspd": 0.5,
+						"fixed_aspd":-50,
 						"fixed_def": 300
 					},
 					{
@@ -9761,7 +9761,7 @@
 				],
 				"form_mods": [
 					{
-						"aspd": 0.5,
+						"fixed_aspd":-50,
 						"fixed_def": 300
 					},
 					{
@@ -9830,7 +9830,7 @@
 				],
 				"form_mods": [
 					{
-						"aspd": 0.5,
+						"fixed_aspd":-50,
 						"fixed_def": 300
 					},
 					{
@@ -25925,7 +25925,7 @@
 					{},
 					{
 						"atk": 1.8,
-						"aspd": 2,
+						"fixed_aspd": 1,
 						"ms": 2.5
 					}
 				]
@@ -25968,7 +25968,7 @@
 					{},
 					{
 						"atk": 1.8,
-						"aspd": 2,
+						"fixed_aspd": 1,
 						"ms": 2.5
 					}
 				]
@@ -26037,7 +26037,7 @@
 					{},
 					{
 						"atk": 1.8,
-						"aspd": 2,
+						"fixed_aspd": 1,
 						"ms": 1.5
 					}
 				]
@@ -26078,7 +26078,7 @@
 					{},
 					{
 						"atk": 1.8,
-						"aspd": 2,
+						"fixed_aspd": 1,
 						"ms": 1.5
 					}
 				]
@@ -27897,7 +27897,7 @@
 				"form_mods": [
 					{},
 					{
-						"aspd": 2,
+						"fixed_aspd": 1,
 						"ms": 2
 					}
 				]
@@ -27959,7 +27959,7 @@
 				"form_mods": [
 					{},
 					{
-						"aspd": 2,
+						"fixed_aspd": 1,
 						"ms": 2
 					}
 				]
@@ -30748,6 +30748,9 @@
 				"traits": [
 					{
 						"key": "wdnjd_inspection"
+					},
+					{
+						"key": "disguise"
 					}
 				],
 				"special": []
@@ -30787,6 +30790,9 @@
 				"traits": [
 					{
 						"key": "wdnjd_inspection"
+					},
+					{
+						"key": "disguise"
 					}
 				],
 				"special": []
@@ -30826,6 +30832,9 @@
 				"traits": [
 					{
 						"key": "wdyjd_inspection"
+					},
+					{
+						"key": "disguise"
 					}
 				],
 				"special": []
@@ -30865,6 +30874,9 @@
 				"traits": [
 					{
 						"key": "wdyjd_inspection"
+					},
+					{
+						"key": "disguise"
 					}
 				],
 				"special": []
@@ -30901,7 +30913,11 @@
 				"ms": 0.35,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{
+						"key": "disguise"
+					}
+				],
 				"special": []
 			}
 		],
@@ -30936,7 +30952,11 @@
 				"ms": 0.35,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{
+						"key": "disguise"
+					}
+				],
 				"special": []
 			}
 		],
@@ -31506,6 +31526,10 @@
 				"traits": [
 					{
 						"key": "syjely_change"
+					},
+					{
+						"key": "transform",
+						"value": "enemy_2021_syfish"
 					}
 				],
 				"special": []
@@ -31779,30 +31803,51 @@
 					{
 						"key": "mzk_hp_loss_start"
 					},
-					{
-						"key": "mzk_study"
-					},
-					{
-						"key": "mzk_eat"
-					},
-					{
-						"key": "mzk_intepret_normal_attack"
-					},
-					{
-						"key": "mzk_shock_hp"
-					},
-					{
-						"key": "mzk_shock_skill"
-					}
+					{ "key": "mzk_atk_stack" }
 				],
-				"special": []
+				"special": [
+					[
+						{
+							"key": "mzk_branch_summon"
+						},
+						{
+							"key": "mzk_extra_summon"
+						},
+						{
+							"key": "mzk_study"
+						},
+						{
+							"key": "mzk_eat"
+						}
+					],
+					[
+						{
+							"key": "mzk_intepret_normal_attack"
+						},
+						{
+							"key": "mzk_shock_hp"
+						},
+						{
+							"key": "mzk_shock_skill"
+						}
+					]
+				],
+				"form_mods": [{}, {}]
 			}
 		],
 		"forms": [
 			{
-				"title": null,
+				"title": "form",
 				"normal_attack": {
 					"atk_type": ["raw"],
+					"hits": 1
+				},
+				"status_immune": ["stun", "silence", "sleep", "freeze", "levitate"]
+			},
+			{
+				"title": "form",
+				"normal_attack": {
+					"atk_type": ["ranged", "phys"],
 					"hits": 1
 				},
 				"status_immune": ["stun", "silence", "sleep", "freeze", "levitate"]
@@ -34009,6 +34054,9 @@
 				"epResistance": 0.0,
 				"traits": [
 					{
+						"key": "move_blink"
+					},
+					{
 						"key": "smedzi_1"
 					},
 					{
@@ -34022,9 +34070,6 @@
 					},
 					{
 						"key": "smedzi_5"
-					},
-					{
-						"key": "smedzi_6"
 					}
 				],
 				"special": []
@@ -36148,7 +36193,7 @@
 				"def": 250,
 				"res": 50.0,
 				"aspd": 1.8,
-				"range": -1.0,
+				"range": 1.5,
 				"weight": 2,
 				"lifepoint": 0,
 				"ms": 0.7,
@@ -36190,7 +36235,7 @@
 				"def": 300,
 				"res": 50.0,
 				"aspd": 1.8,
-				"range": -1.0,
+				"range": 1.5,
 				"weight": 2,
 				"lifepoint": 0,
 				"ms": 0.7,
@@ -47090,6 +47135,9 @@
 						},
 						{
 							"key": "skzjkl_1_2"
+						},
+						{
+							"key":"skzjkl_1_3"
 						}
 					],
 					[
@@ -49267,6 +49315,128 @@
 			}
 		],
 		"type": ["ranged", "BOSS"]
+	},
+	"enemy_2094_skzamb": {
+		"id": "-",
+		"key": "enemy_2094_skzamb",
+		"sortId": 1109,
+		"name_zh": "仅剩的创意",
+		"name_ja": "",
+		"name_en": "",
+		"stats": [
+			{
+				"hp": 1000,
+				"atk": 300,
+				"def": 0,
+				"res": 0,
+				"aspd": 1.0,
+				"range": -1.0,
+				"weight": 0,
+				"lifepoint": 1,
+				"ms": 0.2,
+				"epDamageResistance": 0.0,
+				"epResistance": 0.0,
+				"traits": [
+					{ "key": "ball_type_enemy" },
+					{ "key": "self_bind_plus" },
+					{ "key": "skzamb_1" },
+					{ "key": "skzamb_2" },
+					{ "key": "skzamb_3" }
+				],
+				"special": []
+			}
+		],
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["no_attack", null],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
+		"type": []
+	},
+	"enemy_2095_skzamf": {
+		"id": "-",
+		"key": "enemy_2095_skzamf",
+		"sortId": 1109,
+		"name_zh": "昔日道标",
+		"name_ja": "",
+		"name_en": "",
+		"stats": [
+			{
+				"hp": 20000,
+				"atk": 800,
+				"def": 200,
+				"res": 30,
+				"aspd": 3.5,
+				"range": 0.0,
+				"weight": 0,
+				"lifepoint": 1,
+				"ms": 0.4,
+				"epDamageResistance": 0.0,
+				"epResistance": 0.0,
+				"traits": [
+					{ "key": "self_bind_plus" },
+					{ "key": "rewrite_tile_forbid" },
+					{ "key": "skzamj_1" }
+				],
+				"special": []
+			}
+		],
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["no_attack", null],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
+		"type": []
+	},
+	"enemy_2096_skzamj": {
+		"id": "-",
+		"key": "enemy_2096_skzamj",
+		"sortId": 1109,
+		"name_zh": "昔日道标",
+		"name_ja": "",
+		"name_en": "",
+		"stats": [
+			{
+				"hp": 20000,
+				"atk": 800,
+				"def": 200,
+				"res": 30,
+				"aspd": 3.5,
+				"range": 0.0,
+				"weight": 0,
+				"lifepoint": 1,
+				"ms": 0.4,
+				"epDamageResistance": 0.0,
+				"epResistance": 0.0,
+				"traits": [
+					{ "key": "self_bind_plus" },
+					{ "key": "rewrite_tile_forbid" },
+					{ "key": "skzamj_1" }
+				],
+				"special": []
+			}
+		],
+		"forms": [
+			{
+				"title": null,
+				"normal_attack": {
+					"atk_type": ["no_attack", null],
+					"hits": 1
+				},
+				"status_immune": []
+			}
+		],
+		"type": []
 	},
 	"enemy_2097_skzfdd": {
 		"id": "SPT",

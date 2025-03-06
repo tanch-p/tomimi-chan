@@ -2,16 +2,14 @@
 	import type { Language } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import { filterModeStore } from './stores';
-	import { cookiesEnabled } from '../../../stores';
-	import { browser } from '$app/environment';
+	import { setLocalStorage } from '$lib/functions/lib';
+	import { Game } from '$lib/components/StageSimulator/objects/Game';
 
-	export let language: Language;
+	export let game:Game, language: Language;
 
 	const updateFilterMode = (val) => {
 		filterModeStore.set(val);
-		if (browser && cookiesEnabled) {
-			localStorage.setItem('filterMode', val);
-		}
+		setLocalStorage('filterMode', val);
 	};
 </script>
 

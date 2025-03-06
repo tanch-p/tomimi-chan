@@ -1,178 +1,259 @@
 <script lang="ts">
 	import type { Language, RogueTopic } from '$lib/types';
 	import translations from '$lib/translations.json';
-	import sami_smbox from '$lib/images/is/sami/sktok_smbox.webp';
-	import sami_smrbox from '$lib/images/is/sami/sktok_smrbox.webp';
-	import sami_smbbox from '$lib/images/is/sami/sktok_smbbox.webp';
-	import skzbox from '$lib/images/is/sarkaz/skzbox.webp';
-	import skzmbx from '$lib/images/is/sarkaz/skzmbx.webp';
-	import skzwyx from '$lib/images/is/sarkaz/skzwyx.webp';
-	import SpEnemy from '$lib/components/SpEnemy.svelte';
-	import StageRoutes from '$lib/components/StageRoutes.svelte';
-	import skz_calamity from '$lib/images/is/sarkaz/skz_calamity.webp';
-	import unknown from '$lib/images/is/skz_unknown.webp';
-	import { getStageImg } from '$lib/functions/lib';
-	export let mapConfig, rogueTopic: RogueTopic, language: Language, eliteMods;
+	import TogglePanel from './TogglePanel.svelte';
+	import {
+		compileHiddenGroups,
+		generateWaveTimeline,
+		getBaseCount,
+		getBonusEnemies,
+		getEnemyCountPermutations,
+		getOptions,
+		handleOptionsUpdate,
+		parseWaves
+	} from '$lib/functions/waveHelpers';
+	import DraggableContainer from './DraggableContainer.svelte';
+	import DLDGPN from '$lib/images/is/DLDGPN.webp';
+	import StageSimulator from '$lib/components/StageSimulator/index.svelte';
+	import RandomGroupList from './RandomGroupList.svelte';
+	import { defaultOpenStageSim } from '../../routes/stores';
 
-	const stagesWithMultipleImgs = ['level_rogue4_4-1'];
-	const stagesWithRNG = [
-		'level_rogue4_1-3',
-		'level_rogue4_2-1',
-		'level_rogue4_2-3',
-		'level_rogue4_2-4',
-		'level_rogue4_2-5',
-		'level_rogue4_3-3',
-		'level_rogue4_3-4',
-		'level_rogue4_3-6',
-		'level_rogue4_4-3',
-		'level_rogue4_4-6',
-		'level_rogue4_5-4',
-		'level_rogue4_t-1'
-	];
-	const stagesWithoutCalamity = ['level_rogue4_b-8', 'level_rogue4_b-9'];
-	const multipleImgLookup = {
-		'level_rogue4_4-1': [
-			{ key: 'a', img: '/images/stages/level_ro4_n_4_1_a.webp' },
-			{ key: 'b', img: '/images/stages/level_ro4_n_4_1_b.webp' }
-		]
-	};
-	let index = 0;
+	export let mapConfig,
+		enemies,
+		rogueTopic: RogueTopic,
+		language: Language,
+		eliteMode: Boolean,
+		otherStores;
 
+	let hiddenGroups = [],
+		enemyCounts = [],
+		selectedPermGroups = {},
+		selectedCountIndex = 0,
+		selectedPermutationIdx = 0,
+		randomSeeds = Array.from(Array(50)).map((_) => Math.random()),
+		mode = 'predefined',
+		bonus = '',
+		baseCount = 0;
+
+	$: compiledHiddenGroups = compileHiddenGroups(hiddenGroups, eliteMode, mapConfig);
+	$: baseCount = getBaseCount(mapConfig, eliteMode);
+	$: options = getOptions(mapConfig, rogueTopic, language);
+	$: maxPermutations = eliteMode
+		? mapConfig.ELITE.max_permutations
+		: mapConfig.NORMAL.max_permutations;
+	$: permutations = getEnemyCountPermutations(
+		mapConfig,
+		compiledHiddenGroups,
+		eliteMode,
+		bonus,
+		baseCount
+	);
+	$: enemyCounts = permutations.reduce((acc, { count }) => {
+		if (!acc.includes(count)) {
+			acc.push(count);
+		}
+		return acc;
+	}, []);
+	$: permutationsToShow = permutations.reduce((acc, { count, permutation }) => {
+		if (count === enemyCounts[selectedCountIndex]) {
+			acc.push({ count, permutation });
+		}
+		return acc;
+	}, []);
 	$: if (mapConfig) {
-		index = 0;
+		selectedCountIndex = 0;
+		selectedPermutationIdx = 0;
+		bonus = '';
+	}
+	$: if (selectedCountIndex) {
+		selectedPermutationIdx = 0;
+	}
+	$: if (rogueTopic) {
+		hiddenGroups = [];
 	}
 
-	$: isBossStage = mapConfig.id.includes('_b_');
-	$: isEventStage =
-		mapConfig.id.includes('_ev_') ||
-		mapConfig.id.includes('_t_') ||
-		mapConfig.id.includes('_duel_');
-	$: isCombatStage = !isBossStage && !isEventStage;
+	$: hasAnalysis = !mapConfig.id.includes('_duel_');
+
+	otherStores?.disaster?.subscribe((v) => {
+		if (v?.[0]?.iconId === 'rogue_4_disaster_1') {
+			hiddenGroups = [...hiddenGroups, 'calamity'];
+		} else {
+			hiddenGroups = hiddenGroups.filter((key) => key !== 'calamity');
+		}
+	});
 </script>
 
-{#if isCombatStage}
-	<div class="sm:px-6 my-4">
-		<h2 class="px-2 sm:px-0 text-subheading mt-4">{translations[language].hidden_enemy_prob}</h2>
-		<hr class="border-gray-500 my-1" />
-		<div class="flex flex-col gap-y-4 px-2 sm:px-0">
-			<div class="flex flex-wrap gap-y-1 items-center">
-				<div class="flex items-center">
-					<img src={'/images/enemy_icons/enemy_2001_duckmi.webp'} width="50px" alt="DLD" />
-					<span>5%</span>
-				</div>
-				<div class="flex items-center">
-					<img src={'/images/enemy_icons/enemy_2002_bearmi.webp'} width="50px" alt="GPN" />
-					<span>5%</span>
-				</div>
-				{#if rogueTopic !== 'rogue_phantom'}
-					<div class="flex items-center">
-						<img src={`/images/enemy_icons/enemy_2034_sythef.webp`} width="50px" alt="THF" />
-						<span>5%</span>
-					</div>
-				{/if}
-				{#if rogueTopic === 'rogue_skz'}
-					<div class="flex items-center">
-						<img src={`/images/enemy_icons/enemy_2085_skzjxd.webp`} width="50px" alt="FAT" />
-						<span>5%</span>
-					</div>
-				{/if}
-			</div>
-			{#if ['rogue_sami', 'rogue_mizuki'].includes(rogueTopic)}
-				<div class="flex flex-wrap gap-y-1 items-center">
-					<div class="flex items-center">
-						<img src={sami_smbox} width="50px" alt="smbox" /> <span>10.5%</span>
-					</div>
-					<div class="flex items-center">
-						<img src={sami_smrbox} width="50px" alt="smrbox" /> <span>3%</span>
-					</div>
-					<div class="flex items-center">
-						<img src={sami_smbbox} width="50px" alt="smbbox" /> <span>1.5%</span>
-					</div>
-				</div>
-			{:else if rogueTopic === 'rogue_skz'}
-				<div class="flex flex-wrap gap-y-1 items-center">
-					<div class="flex items-center">
-						<img src={skzbox} width="50px" alt="skzbox" /> <span>10.5%</span>
-					</div>
-					<div class="flex items-center">
-						<img src={skzwyx} width="50px" alt="skzwyx" /> <span>3%</span>
-					</div>
-					<div class="flex items-center">
-						<img src={skzmbx} width="50px" alt="skzmbx" /> <span>1.5%</span>
-					</div>
+{#if hasAnalysis}
+	<TogglePanel
+		key={'stageSim'}
+		title={translations[language].enemy_routes + ' v0.1'}
+		size="subheading"
+		isOpen={defaultOpenStageSim}
+	>
+		<div
+			class="grid grid-cols-[75px_1fr] md:grid-cols-[120px_1fr] divide-y divide-neutral-700 border-y border-neutral-700 text-sm md:text-base"
+		>
+			{#if mapConfig.elite_mods}
+				<p class="title {language}">{translations[language].operation_type}</p>
+				<slot name="eliteMods" />
+			{/if}
+			{#if options?.length > 0}
+				<p class="title {language}">{translations[language].hidden_options}</p>
+				<div class="grid grid-cols-3 md:grid-cols-5">
+					{#each options as { key, src, name }}
+						{@const selected = hiddenGroups.includes(key)}
+						<button
+							class="flex flex-col items-center border border-neutral-700 py-1 {selected
+								? 'bg-gray-600'
+								: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
+							on:click={() =>
+								(hiddenGroups = handleOptionsUpdate(hiddenGroups, key, rogueTopic, otherStores))}
+						>
+							<div class="flex items-center justify-center h-[56px]">
+								<img {src} width="56" height="56" alt={name} class="" />
+							</div>
+							<span class="mt-1 text-xs md:text-sm truncate">{name}</span>
+						</button>
+					{/each}
 				</div>
 			{/if}
-		</div>
-		<p class="mt-4">* - {translations[language].enemy_prob_dev}</p>
-	</div>
-{/if}
-{#if mapConfig.routes}
-	<div class="sm:px-6">
-		<p class="px-2 sm:px-0 text-subheading mt-4">{translations[language].routeInfo}</p>
-		<hr class="border-gray-500 my-1" />
-	</div>
-	<div class="my-2 sm:max-w-[40rem] mx-auto text-xl">
-		{#if mapConfig.routes}
-			<StageRoutes routes={mapConfig.routes} {language} {rogueTopic} />
-		{:else if rogueTopic}
-			<p class="text-center">暂无路线，作者还没打到这里</p>
-		{/if}
-	</div>
-{:else}
-	<div class="max-w-[600px] w-full mx-auto px-3 sm:px-0">
-		{#if stagesWithMultipleImgs.includes(mapConfig.levelId)}
-			<div
-				class="grid grid-flow-col auto-cols-fr font-bold text-lg text-near-white text-center select-none divide-x divide-gray-500 py-1"
-			>
-				{#each multipleImgLookup[mapConfig.levelId] as { key }, i}
-					<button class={index === i ? '' : 'text-gray-400'} on:click={() => (index = i)}
-						>{key}</button
+			<p class="title {language}">{translations[language].permutation_mode}</p>
+			<div class="grid grid-cols-2">
+				{#each ['predefined', 'user-select'] as key}
+					<button
+						class="flex justify-center items-center border-r border-neutral-700 font-semibold text-lg {mode ===
+						key
+							? 'bg-gray-600'
+							: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
+						on:click={() => (mode = key)}
 					>
+						{translations[language][key]}
+					</button>
 				{/each}
 			</div>
-			<img
-				src={multipleImgLookup[mapConfig.levelId][index].img}
-				width="600"
-				height="338px"
-				alt={mapConfig.levelId + '_' + multipleImgLookup[mapConfig.levelId][index].key}
-				loading="lazy"
-			/>
-		{:else}
-			<img
-				src="/images/stages/level_{getStageImg(mapConfig.id, eliteMods)}.webp"
-				width="600"
-				height="338px"
-				alt={mapConfig.levelId}
-				loading="lazy"
-			/>
-		{/if}
-
-		{#if rogueTopic === 'rogue_skz' && !stagesWithoutCalamity.includes(mapConfig.levelId)}
-			<div class="flex flex-wrap gap-x-4 gap-y-1.5 mt-1.5">
-				<div class="flex">
-					<img src={skz_calamity} width="24px" height="24px" alt="calamity" />
-					<p>{translations[language].skz_calamity}</p>
-				</div>
-				{#if stagesWithRNG.includes(mapConfig.levelId)}
-					<div class="flex">
-						<div class="rounded-full bg-[#f14c4c]">
-							<img src={unknown} width="24px" height="24px" alt="?" />
-						</div>
-						<p class="ml-1">{translations[language].stageinfo_random}</p>
+			{#if mode === 'predefined'}
+				{#if maxPermutations > 32 || permutations.length <= 0}
+					<p class="title {language}" />
+					<div class="flex justify-center items-center">
+						{translations[language].max_perm_msg.replace('{perm}', `(${maxPermutations})`)}
 					</div>
+				{:else}
+					{#if mapConfig.bonus?.type}
+						<p class="title {language}"><img src={DLDGPN} width="60" alt="BONUS" /></p>
+						<div class="grid grid-flow-col auto-cols-fr">
+							{#each getBonusEnemies(rogueTopic) as key}
+								<button
+									class="flex justify-center items-center border-r border-neutral-700 font-semibold text-xl {bonus ===
+									key
+										? 'bg-slate-700'
+										: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
+									on:click={() => (bonus = key)}
+								>
+									{#if key === ''}
+										<div class="flex items-center justify-center w-[50px] h-[50px]">
+											<div class="w-[46px] h-[46px] border" />
+										</div>
+									{:else}
+										<img src="/images/enemy_icons/{key}.webp" width="55" alt="" />
+									{/if}
+								</button>
+							{/each}
+						</div>
+					{/if}
+					<p class="title {language}">{translations[language].enemy_count}</p>
+					<DraggableContainer className="grid grid-flow-col auto-cols-[minmax(100px,1fr)]">
+						{#each enemyCounts as count, i}
+							<button
+								class="flex justify-center items-center border-r border-neutral-700 font-semibold text-xl {selectedCountIndex ===
+								i
+									? 'bg-gray-600'
+									: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
+								on:click={() => (selectedCountIndex = i)}
+							>
+								{count}
+							</button>
+						{/each}
+					</DraggableContainer>
+					{#if permutationsToShow.length > 0}
+						<p class="title {language}">
+							{translations[language].table_headers.enemy}{translations[language].spacing}{translations[language].permutation}
+						</p>
+						<DraggableContainer className="grid grid-flow-col auto-cols-[minmax(120px,1fr)]">
+							{#each permutationsToShow as _, i}
+								<button
+									class="flex justify-center items-center border-r border-neutral-700 font-semibold text-xl {selectedPermutationIdx ===
+									i
+										? 'bg-neutral-600'
+										: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
+									on:click={() => (selectedPermutationIdx = i)}
+								>
+									{i + 1}
+								</button>
+							{/each}
+						</DraggableContainer>
+						<p class="title {language}">
+							{translations[language].trap}{translations[language].spacing}{translations[language].permutation}
+						</p>
+						<div class="flex justify-center items-center font-semibold">
+							{translations[language].random}
+						</div>
+					{/if}
 				{/if}
-			</div>
-		{/if}
-	</div>
+			{:else}
+				<RandomGroupList
+					bind:selectedPermGroups
+					{eliteMode}
+					{mapConfig}
+					hiddenGroups={compiledHiddenGroups}
+					{language}
+				/>
+			{/if}
+		</div>
+		<StageSimulator
+			{mapConfig}
+			{enemies}
+			{language}
+			bind:randomSeeds
+			waveData={parseWaves(
+				mapConfig,
+				mode === 'predefined'
+					? maxPermutations > 32
+						? 'random'
+						: permutationsToShow[selectedPermutationIdx]?.permutation
+					: selectedPermGroups,
+				compiledHiddenGroups,
+				eliteMode,
+				randomSeeds,
+				bonus
+			)}
+			timeline={generateWaveTimeline(
+				mapConfig,
+				compiledHiddenGroups,
+				mode === 'predefined'
+					? maxPermutations > 32
+						? 'random'
+						: permutationsToShow[selectedPermutationIdx]?.permutation
+					: selectedPermGroups,
+				eliteMode,
+				randomSeeds,
+				bonus
+			)}
+		/>
+	</TogglePanel>
 {/if}
-<div class="w-screen sm:w-full">
-	{#if mapConfig.sp_enemy}
-		<SpEnemy spEnemyInfo={mapConfig.sp_enemy} {language} />
-	{/if}
-</div>
 
 <style>
-	span {
-		margin: 0px 10px;
+	.title {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		min-height: 58px;
+		padding: 0 6px;
+		background-color: rgb(23, 23, 23);
+	}
+	.title.en {
+		font-size: 0.875rem;
+		text-transform: capitalize;
 	}
 </style>

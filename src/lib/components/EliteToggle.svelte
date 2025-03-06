@@ -6,6 +6,7 @@
 	import { relicLookup } from '$lib/data/is/relic_lookup';
 	import { getEliteColors } from '$lib/functions/lib';
 	import MediaQuery from './MediaQuery.svelte';
+	import EliteToggleBar from './EliteToggleBar.svelte';
 
 	export let mapEliteMods: any,
 		rogueTopic: string,
@@ -14,10 +15,11 @@
 		mapNormalMods: any,
 		selectedRelics: any,
 		stageId: string,
-		eliteMode;
+		eliteMode,
+		inWaveOptions = false
 
 	//hotfix to set hardMode to false on nav to another stage with hardMods
-	$: if (mapEliteMods) {
+	$: if (mapEliteMods && !inWaveOptions) {
 		updateEliteMods(false);
 	}
 	const ro4_SP7_BOSS_STAGES = [
@@ -28,8 +30,10 @@
 	];
 
 	onDestroy(() => {
-		eliteMods.set(null);
-		eliteMode.set(false);
+		if (!inWaveOptions) {
+			eliteMods.set(null);
+			eliteMode.set(false);
+		}
 	});
 
 	const updateEliteMods = (option: boolean) => {
@@ -70,76 +74,46 @@
 	}
 </script>
 
-<MediaQuery>
-	<div class="grid grid-cols-2 font-bold text-lg text-gray-700 mt-8 select-none" slot="pc">
-		<button
-			id="normal-toggle"
-			class={`flex justify-center items-center py-1 ${combatOpsColor} ${
-				!$eliteMode ? 'text-gray-900' : 'opacity-30'
-			}`}
-			on:click={() => updateEliteMods(false)}
-		>
-			<img
-				src={combat_icon}
-				width="50px"
-				decoding="async"
-				loading="lazy"
-				alt="combat ops"
-				class=""
-			/>
-		</button>
-		<button
-			id="elite-toggle"
-			class={`flex justify-center items-center ${eliteOpsColor} ${
-				$eliteMode ? 'text-black' : 'opacity-30'
-			}`}
-			on:click={() => updateEliteMods(true)}
-		>
-			{#if ro4_SP7_BOSS_STAGES.includes(stageId)}
-				<img
-					src={relicLookup['rogue_4_relic_final_6']}
-					width="50px"
-					decoding="async"
-					loading="lazy"
-					alt="anasa"
-					class=""
-				/>
-			{/if}
-			{#if stageId === 'level_rogue4_b-8'}
-				<img
-					src={relicLookup['rogue_4_relic_final_10']}
-					width="50px"
-					decoding="async"
-					loading="lazy"
-					alt="amy_final_3"
-					class=""
-				/>
-			{/if}
-			<img
-				src={emergency_icon}
-				width="50px"
-				decoding="async"
-				loading="lazy"
-				alt="elite ops"
-				class=""
-			/>
-		</button>
-	</div>
-	<button
-		slot="mobile"
-		id="elite-toggle"
-		class={`fixed z-[3] bottom-[210px] right-[20px] flex items-center justify-center rounded-full w-[45px] h-[45px] pointer-events-auto ${
-			$eliteMode ? `${eliteOpsColor}` : `${combatOpsColor}`
-		}`}
-		on:click={() => updateEliteMods(!$eliteMode)}
-	>
-		<img
-			src={$eliteMode ? getEliteIcon(stageId) : combat_icon}
-			width="40px"
-			decoding="async"
-			loading="lazy"
-			alt={'elite toggle'}
-			class=""
+{#if mapEliteMods}
+	{#if inWaveOptions}
+		<!-- used in wave options -->
+		<EliteToggleBar
+			{combatOpsColor}
+			{eliteOpsColor}
+			{eliteMode}
+			{stageId}
+			{getEliteIcon}
+			{updateEliteMods}
 		/>
-	</button>
-</MediaQuery>
+	{:else}
+		<MediaQuery>
+			<div slot="pc" class="mt-8">
+				<EliteToggleBar
+					{combatOpsColor}
+					{eliteOpsColor}
+					{eliteMode}
+					{stageId}
+					{getEliteIcon}
+					{updateEliteMods}
+				/>
+			</div>
+			<button
+				slot="mobile"
+				id="elite-toggle"
+				class={`fixed z-[3] bottom-[210px] right-[20px] flex items-center justify-center rounded-full w-[45px] h-[45px] pointer-events-auto ${
+					$eliteMode ? `${eliteOpsColor}` : `${combatOpsColor}`
+				}`}
+				on:click={() => updateEliteMods(!$eliteMode)}
+			>
+				<img
+					src={$eliteMode ? getEliteIcon(stageId) : combat_icon}
+					width="40px"
+					decoding="async"
+					loading="lazy"
+					alt={'elite toggle'}
+					class=""
+				/>
+			</button>
+		</MediaQuery>
+	{/if}
+{/if}

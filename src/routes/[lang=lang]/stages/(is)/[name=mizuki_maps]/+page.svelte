@@ -11,22 +11,16 @@
 		normalMods,
 		otherBuffsList
 	} from './stores';
-	import EnemyStatDisplay from '$lib/components/EnemyStatDisplay.svelte';
 	import DifficultySelect from '$lib/components/DifficultySelect.svelte';
 	import MizukiNav from '../../../(app)/mizuki/MizukiNav.svelte';
 	import StageInfo from '$lib/components/StageInfo.svelte';
-	import EliteToggle from '$lib/components/EliteToggle.svelte';
 	import FooterBar from '$lib/components/FooterBar.svelte';
-	import { applyMods, compileStatModsForChecking } from '$lib/functions/statHelpers';
 	import translations from '$lib/translations.json';
 	import Mission from './Mission.svelte';
 	import FloorTitle from './FloorTitle.svelte';
 	import StageHeader from '$lib/components/StageHeader.svelte';
-	import ModsCheck from '$lib/components/ModsCheck.svelte';
-	import TrapContainer from '$lib/components/TrapContainer.svelte';
-	import { applyTrapMods } from '$lib/functions/trapHelpers';
-	import EnemyCount from '$lib/components/EnemyCount.svelte';
 	import { setOtherBuffsList } from '$lib/functions/lib';
+	import StageSharedContainer from '$lib/components/StageSharedContainer.svelte';
 
 	export let data: PageData;
 	$: if (data.mapConfig) {
@@ -38,9 +32,6 @@
 		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies, data.mapConfig, language, $difficulty);
 	}
 	$: language = data.language;
-	$: moddedEnemies = applyMods(data.enemies, data.mapConfig.id, $statMods);
-	$: moddedTraps = applyTrapMods(data.traps, $statMods, $specialMods);
-	$: modsCheck = compileStatModsForChecking(data.enemies, data.mapConfig.id, $statMods,$specialMods);
 	const rogueTopic: RogueTopic = data.rogueTopic;
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 </script>
@@ -74,28 +65,22 @@
 		/>
 		<Mission {language} />
 		<DifficultySelect {language} {difficulty} {rogueTopic} maxDiff={18}/>
-		<TrapContainer {language} traps={moddedTraps} specialMods={$specialMods} />
-		<ModsCheck {language} {modsCheck} mapConfig={data.mapConfig} />
-		<EnemyCount
-			mapConfig={data.mapConfig}
-			enemies={moddedEnemies}
-			eliteMode={$eliteMode}
+		<StageSharedContainer
 			{language}
-		/>
-		{#if data.mapConfig.elite_mods}
-			<EliteToggle
-				{eliteMode}
-				{normalMods}
-				mapNormalMods={data.mapConfig.n_mods}
-				mapEliteMods={data.mapConfig.elite_mods}
-				{eliteMods}
-				{rogueTopic}
-			/>
-		{/if}
-		<EnemyStatDisplay enemies={moddedEnemies} {language} {specialMods} {otherBuffsList} />
-		<div id="stageNav" class="mt-8 sm:mt-16 scroll-mt-20">
-			<MizukiNav {language} />
-		</div>
+			traps={data.traps}
+			{otherBuffsList}
+			{statMods}
+			{specialMods}
+			mapConfig={data.mapConfig}
+			enemies={data.enemies}
+			{eliteMode}
+			{normalMods}
+			{eliteMods}
+			{rogueTopic}
+			{selectedRelics}
+		>
+			<MizukiNav slot="nav" {language} />
+		</StageSharedContainer>
 	</div>
 </main>
 
