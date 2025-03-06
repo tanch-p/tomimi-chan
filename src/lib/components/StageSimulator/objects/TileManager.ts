@@ -8,7 +8,7 @@ export class TileManager {
 	edgesMaterial: THREE.LineBasicMaterial;
 	levelId: string;
 	basicTile: THREE.Group;
-	constructor(levelId:string) {
+	constructor(levelId: string) {
 		this.levelId = levelId;
 		this.assetManager = AssetManager.getInstance();
 		this.edgesMaterial = new THREE.LineBasicMaterial({
@@ -56,7 +56,7 @@ export class TileManager {
 				);
 				return boxGroup;
 			case 'tile_forbidden':
-				return this.createBox(0, 0xb8b8b8, 0x292929,null);
+				return this.createBox(0, 0xb8b8b8, 0x292929, null);
 			case 'tile_deepsea':
 				return this.createDeepSeaBox();
 			case 'tile_hole': {
@@ -220,7 +220,7 @@ export class TileManager {
 				return boxGroup;
 			}
 			case 'tile_flystart': {
-				const backing = this.createBox(0, 0xb8b8b8, 0x292929,null);
+				const backing = this.createBox(0, 0xb8b8b8, 0x292929, null);
 				const icon = this.assetManager.textures.get('fly_icon');
 				size = 0.85;
 				// const btmBoxPlane = this.getTopTexture(box, null, size, 0, null);
@@ -333,16 +333,16 @@ export class TileManager {
 			// Set UV coordinates for each vertex
 			// Bottom left
 			uvArray[0] = uvOffsetX;
-			uvArray[1] = uvOffsetY;
+			uvArray[1] = uvOffsetY + UVHeight; // Flip Y-coordinate
 			// Bottom right
 			uvArray[2] = uvOffsetX + UVWidth;
-			uvArray[3] = uvOffsetY;
+			uvArray[3] = uvOffsetY + UVHeight; // Flip Y-coordinate
 			// Top left
 			uvArray[4] = uvOffsetX;
-			uvArray[5] = uvOffsetY + UVHeight;
+			uvArray[5] = uvOffsetY; // Flip Y-coordinate
 			// Top right
 			uvArray[6] = uvOffsetX + UVWidth;
-			uvArray[7] = uvOffsetY + UVHeight;
+			uvArray[7] = uvOffsetY; // Flip Y-coordinate
 		}
 		const materialAddons = {};
 		if (eMapName) {
@@ -358,20 +358,7 @@ export class TileManager {
 
 		// Position front plane at the front of the box
 		frontPlane.position.z = depth / 2 + 0.1;
-		frontPlane.rotateZ(Math.PI);
 		frontPlane.renderOrder = -10;
-		if (
-			[
-				'tile_infection',
-				'tile_defbreak',
-				'tile_healing',
-				'tile_defup',
-				'tile_bigforce',
-				'tile_gazebo'
-			].includes(tileName)
-		) {
-			frontPlane.scale.x = -1;
-		}
 		return frontPlane;
 	}
 
@@ -622,9 +609,10 @@ export class TileManager {
 		if (type === 'arrow') {
 			arrowGroup.position.x = GameConfig.gridSize / 2 - arrowWidth / 2;
 			if (tileName === 'tile_telout') {
-				arrowGroup.rotation.z = Math.PI;
 				arrowGroup.position.x = GameConfig.gridSize / 2 + arrowWidth / 2;
 				arrowGroup.position.z = GameConfig.gridSize / 2 + 2;
+			} else {
+				arrowGroup.rotation.z = -Math.PI;
 			}
 		}
 

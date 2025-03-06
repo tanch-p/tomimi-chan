@@ -795,7 +795,8 @@ export class Enemy {
 		this.gameManager.scene.remove(this.pathGroup);
 		this.shadow.uniforms.isSelected.value = false;
 		this.selected = false;
-		this.gameManager.countdownManager.toggleCountdown(this.countdownId, false);
+		!GameConfig.showAllTimers &&
+			this.gameManager.countdownManager.toggleCountdown(this.countdownId, false);
 		if (this.atkRangeMesh) {
 			this.atkRangeMesh.visible = GameConfig.showAllRange;
 		}
