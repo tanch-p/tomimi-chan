@@ -3,6 +3,7 @@ import * as spine from '$lib/spine';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { getTrapModelType } from '$lib/functions/trapHelpers';
+import SDFFontAtlas from './SDFFontAtlas';
 
 const ENEMY_KEYS_TO_IGNORE = [
 	'enemy_2047_smtree',
@@ -257,6 +258,8 @@ export class AssetManager {
 	public spineMap = new Map();
 	public font;
 	public texturesLoaded = false;
+	public fontAtlas;
+	private numberFontAtlas = new SDFFontAtlas('/fonts/NotoSans.ttf');
 
 	private constructor() {
 		// Private constructor to prevent instantiation
@@ -274,7 +277,7 @@ export class AssetManager {
 		this.spineAssetManager.removeAll();
 		const promises = [];
 
-		if (mapConfig.levelId === "level_rogue4_b-8" && !this.textures.has('skzamj')) {
+		if (mapConfig.levelId === 'level_rogue4_b-8' && !this.textures.has('skzamj')) {
 			promises.push(
 				new Promise((resolve, reject) => {
 					this.textureLoader.load(
@@ -297,6 +300,15 @@ export class AssetManager {
 		}
 
 		if (!this.texturesLoaded) {
+			promises.push(
+				this.numberFontAtlas.load().then(({ texture, charMap }) => {
+					// Store the font atlas texture if needed
+					this.fontAtlas = {
+						texture,
+						charMap
+					};
+				})
+			);
 			const loader = new FontLoader();
 			promises.push(
 				new Promise((resolve) => {

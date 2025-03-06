@@ -10,7 +10,7 @@ import { SPFA } from './SPFA';
 import { Trap } from './Trap';
 import { SpawnManager } from './SpawnManager';
 import { TileManager } from './TileManager';
-import { CountdownManager, CountdownSprite } from './ShaderCountdownManager';
+import { CountdownManager } from './ShaderCountdownManager';
 
 export class GameManager {
 	assetManager: AssetManager;
@@ -30,7 +30,6 @@ export class GameManager {
 	tileManager: TileManager;
 	rollOverMeshes = new Map();
 	countdownManager: CountdownManager;
-	countdownsToAdd: Map<string, THREE.Group> = new Map();
 
 	constructor(
 		config: MapConfig,
@@ -67,17 +66,11 @@ export class GameManager {
 		return { x, y };
 	};
 
-	async createCountdown(
-		time: number, 
-		x: number, 
-		y: number, 
-		color = 0xf08080
-	  ): Promise<CountdownSprite> {
-		const countdown = await this.countdownManager.createCountdown(time, color);
+	createCountdown(time: number, x: number, y: number, color = 0xf08080) {
+		const countdown = this.countdownManager.createCountdown(time, color);
 		countdown.setPosition(x, y);
 		this.scene.add(countdown.getGroup());
-		return countdown;
-	  }
+	}
 
 	getCoordinate = (coordinate, type = 'x') => {
 		const center = type === 'x' ? this.mazeLayout[0].length / 2 : this.mazeLayout.length / 2;
