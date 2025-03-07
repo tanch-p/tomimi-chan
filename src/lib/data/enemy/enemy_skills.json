@@ -102,11 +102,11 @@
 	"avenger": {
 		"suffix": { "en": "HP↓50%", "ja": "HP50%以下", "zh": "HP50%以下" },
 		"hits": null,
-		"atk": { "multiplier": 2 },
+		"atk": { "multiplier": 1, "type":"initial" },
 		"tooltip": {
-			"en": ["HP↓50% - ATK increased to <v.atk.multiplier>%"],
-			"ja": ["HP50%以下→攻撃力が<v.atk.multiplier>%に増加"],
-			"zh": ["生命值低于50%时，攻击力提升至<v.atk.multiplier>%"]
+			"en": ["HP↓50% - ATK increased by <v.atk.multiplier>%"],
+			"ja": ["HP50%以下→攻撃力が<v.atk.multiplier>%増加"],
+			"zh": ["生命值低于50%时，攻击力提升<v.atk.multiplier>%"]
 		}
 	},
 	"attack_stun_4": {
@@ -960,11 +960,11 @@
 	"syskad_hp_50_rage_150": {
 		"suffix": { "en": "HP↓50%", "ja": "HP50%以下", "zh": "HP50%以下" },
 		"hits": null,
-		"atk": { "multiplier": 1.5 },
+		"atk": { "multiplier": 0.5,"type":"initial" },
 		"tooltip": {
-			"en": ["HP↓50% - ATK increased to <v.atk.multiplier>%", "Carried over to 2nd form"],
-			"ja": ["HP50%以下→攻撃力が<v.atk.multiplier>%に増加", "第二形態に継続される"],
-			"zh": ["生命值低于50%时，攻击力提升至<v.atk.multiplier>%", "(变身/重生均保留)"]
+			"en": ["HP↓50% - ATK increased by <v.atk.multiplier>%", "Carried over to 2nd form"],
+			"ja": ["HP50%以下→攻撃力が<v.atk.multiplier>%増加", "第二形態に継続される"],
+			"zh": ["生命值低于50%时，攻击力提升<v.atk.multiplier>%", "(变身/重生均保留)"]
 		}
 	},
 	"rat_king_sand_cross": {

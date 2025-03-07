@@ -18,7 +18,12 @@
 						value =
 							Math.round((value / ((aspd * (skill[stat].multiplier ?? 1)) / 100)) * 100) / 100;
 					} else {
-						value = Math.floor(value * (skill[stat].multiplier ?? 1) + (skill[stat].fixed ?? 0));
+						if (skill[stat].type === 'initial') {
+							//for now initial type only exists for multipliers
+							value = Math.floor(value * (skill[stat].multiplier + 1));
+						} else {
+							value = Math.floor(value * (skill[stat].multiplier ?? 1) + (skill[stat].fixed ?? 0));
+						}
 					}
 				}
 				return { suffix, value, hits: hits ?? 0, dmgEle: dmg_element ?? '' };

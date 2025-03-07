@@ -113,7 +113,15 @@ export function parseStats(
 		if (specialMods?.[enemy.key]?.[`mods_${row}`]) {
 			modsToAdd.push(specialMods?.[enemy.key]?.[`mods_${row}`]);
 		} else {
-			modsToAdd.push(enemy.stats.form_mods[row]);
+			if(enemy.key==="enemy_2039_syskad" && row === 1){
+				const formMods = structuredClone(enemy.stats.form_mods[row]);
+				formMods.res = 1;
+				modsToAdd.push(formMods);
+			}
+			else{
+
+				modsToAdd.push(enemy.stats.form_mods[row]);
+			}
 		}
 	}
 	const consolidatedModsToAdd =
@@ -162,6 +170,9 @@ export function parseStats(
 	for (const mod of statMods.final) {
 		const { key, mods } = distillMods(enemy, stageId, mod, row);
 		modsList.push(mods);
+	}
+	if(enemy.key==="enemy_2039_syskad" && row === 1){
+		modsList.push({res:0.5});
 	}
 	const finalMods = modsList.reduce((acc, curr) => {
 		for (const statKey in curr) {
