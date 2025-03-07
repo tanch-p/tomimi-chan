@@ -161,7 +161,7 @@ export class Game {
 		let width, height;
 		if (mql.matches) {
 			width = window.innerWidth - 24;
-			height = window.innerHeight - 64;
+			height = window.innerHeight * 0.5;
 		} else {
 			width = window.innerWidth - 48;
 			height = (window.innerHeight * 2) / 3;

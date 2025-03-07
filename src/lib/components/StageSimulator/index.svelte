@@ -9,7 +9,12 @@
 	import Settings from './Settings.svelte';
 	import { GameConfig } from './objects/GameConfig';
 
-	export let timeline, mapConfig: MapConfig, waveData, language:Language, enemies: Enemy[],randomSeeds;
+	export let timeline,
+		mapConfig: MapConfig,
+		waveData,
+		language: Language,
+		enemies: Enemy[],
+		randomSeeds;
 
 	let waves;
 	let assetManager: AssetManager, canvasElement: HTMLCanvasElement, game: Game;
@@ -52,13 +57,20 @@
 	});
 </script>
 
-<Settings {game} {mapConfig}/>
+<Settings {game} {mapConfig} />
 <div class="relative mt-4 md:mt-1.5">
 	{#await loadGame(mapConfig)}
 		<LoadingScreen />
 	{:then}
 		<SpawnTimeView {waves} {mapConfig} />
-		<Interface bind:randomSeeds {game} initialCost={mapConfig.initialCost} {language} count={timeline?.count} maxCost={mapConfig.maxCost}/>
+		<Interface
+			bind:randomSeeds
+			{game}
+			initialCost={mapConfig.initialCost}
+			{language}
+			count={timeline?.count}
+			maxCost={mapConfig.maxCost}
+		/>
 	{:catch error}
 		<p class="text-center">An error occured while loading: <br />{error.message}</p>
 	{/await}
