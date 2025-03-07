@@ -22,7 +22,7 @@
 				</li>
 				<li class="hover:text-neutral-400">
 					<a href={`/${language}/donate`}
-						>Sponsor <svg
+						>Donate <svg
 							aria-hidden="true"
 							height="16"
 							viewBox="0 0 16 16"
