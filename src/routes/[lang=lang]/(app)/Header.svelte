@@ -21,9 +21,6 @@
 					<a href={`/${language}/about`}>About</a>
 				</li>
 				<li class="hover:text-neutral-400">
-					<a href={`/${language}/credits`}>Credits</a>
-				</li>
-				<li class="hover:text-neutral-400">
 					<a href={`/${language}/donate`}
 						>Sponsor <svg
 							aria-hidden="true"
