@@ -58,8 +58,8 @@ class SDFFontAtlas {
 									width: charSize / squareSize,
 									height: charSize / squareSize
 								};
+								
 							});
-
 							this.texture = new THREE.CanvasTexture(this.canvas);
 							this.texture.colorSpace = THREE.SRGBColorSpace;
 							this.texture.magFilter = THREE.LinearFilter;

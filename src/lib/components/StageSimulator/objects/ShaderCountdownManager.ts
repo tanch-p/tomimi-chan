@@ -5,7 +5,7 @@ import { GameConfig } from './GameConfig';
 // Countdown Manager Class
 export class CountdownManager {
 	private static instance: CountdownManager;
-	private fontAtlas;
+	private assetManager: AssetManager;
 	private countdowns: Map<number, CountdownSprite>;
 	private shaderMaterial: THREE.ShaderMaterial;
 	private indexCounter = 0;
@@ -19,12 +19,12 @@ export class CountdownManager {
 	}
 
 	private constructor() {
-		this.fontAtlas = AssetManager.getInstance().fontAtlas;
+		this.assetManager = AssetManager.getInstance();
 		this.countdowns = new Map();
 		// Create the shader material for all countdowns
 		this.shaderMaterial = new THREE.ShaderMaterial({
 			uniforms: {
-				fontTexture: { value: this.fontAtlas.texture },
+				fontTexture: { value: this.assetManager.textures.get('0').texture },
 				color: { value: new THREE.Color(0xffffff) },
 				time: { value: 0.0 }
 			},
@@ -69,7 +69,6 @@ export class CountdownManager {
 			this.indexCounter,
 			initialTime,
 			color,
-			this.fontAtlas,
 			this.shaderMaterial
 		);
 		this.countdowns.set(this.indexCounter, countdown);
@@ -110,7 +109,6 @@ export class CountdownManager {
 			countdown.dispose();
 		});
 		this.countdowns.clear();
-		this.fontAtlas.texture.dispose();
 		this.shaderMaterial.dispose();
 	}
 }
@@ -128,7 +126,7 @@ export class CountdownSprite {
 	private textMesh: THREE.Mesh;
 	private textGeometry: THREE.BufferGeometry;
 
-	private fontAtlas;
+	private assetManager:AssetManager;
 	private material: THREE.ShaderMaterial;
 	private timeStr: string = '';
 
@@ -144,13 +142,12 @@ export class CountdownSprite {
 		id: number,
 		initialTime: number,
 		color: number,
-		fontAtlas,
 		sharedMaterial: THREE.ShaderMaterial
 	) {
 		this.id = id;
 		this.time = initialTime;
 		this.color = color;
-		this.fontAtlas = fontAtlas;
+		this.assetManager = AssetManager.getInstance();
 
 		// Create a group to hold all meshes
 		this.group = new THREE.Group();
@@ -182,7 +179,7 @@ export class CountdownSprite {
 
 		// Create text mesh using the SDF shader
 		this.textMesh = new THREE.Mesh(this.textGeometry, this.material);
-		this.textMesh.scale.set(24, 24, 24);
+		this.textMesh.scale.set(20, 20, 20);
 		this.textMesh.position.z = 0.2;
 		this.textMesh.position.y = -2;
 
@@ -238,8 +235,8 @@ export class CountdownSprite {
 		const uvs: number[] = [];
 		const indices: number[] = [];
 		this.timeStr.split('').forEach((digit, index) => {
-			const charInfo = this.fontAtlas.charMap[digit];
-			if (!charInfo) {
+			const { config } = this.assetManager.textures.get(digit);
+			if (!config) {
 				console.error(`Digit ${digit} not found in font atlas`);
 				return;
 			}
@@ -264,14 +261,14 @@ export class CountdownSprite {
 			);
 
 			uvs.push(
-				charInfo.x,
-				charInfo.y + charInfo.height, // Bottom left
-				charInfo.x + charInfo.width,
-				charInfo.y + charInfo.height, // Bottom right
-				charInfo.x,
-				charInfo.y, // Top left
-				charInfo.x + charInfo.width,
-				charInfo.y // Top right
+				config.uvOffsetX,
+				config.uvOffsetY + config.UVHeight, // Bottom left
+				config.uvOffsetX + config.UVWidth,
+				config.uvOffsetY + config.UVHeight, // Bottom right
+				config.uvOffsetX,
+				config.uvOffsetY, // Top left
+				config.uvOffsetX + config.UVWidth,
+				config.uvOffsetY // Top right
 			);
 
 			// Indices for two triangles

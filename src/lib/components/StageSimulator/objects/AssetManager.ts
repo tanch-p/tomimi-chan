@@ -3,7 +3,6 @@ import * as spine from '$lib/spine';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { getTrapModelType } from '$lib/functions/trapHelpers';
-import SDFFontAtlas from './SDFFontAtlas';
 
 const ENEMY_KEYS_TO_IGNORE = [
 	'enemy_2047_smtree',
@@ -21,6 +20,102 @@ const ENEMY_KEYS_TO_REPLACE = {
 	enemy_2100_skzfmf: 'enemy_1528_manfri'
 };
 const texturesToLoad = [
+	{
+		fileName: 'font_atlas.png',
+		options: [],
+		textures: [
+			[
+				'0',
+				{
+					UVWidth: 0.25,
+					UVHeight: 0.25,
+					uvOffsetX: 0,
+					uvOffsetY: 0.75
+				}
+			],
+			[
+				'1',
+				{
+					UVWidth: 0.25,
+					UVHeight: 0.25,
+					uvOffsetX: 0.25,
+					uvOffsetY: 0.75
+				}
+			],
+			[
+				'2',
+				{
+					UVWidth: 0.25,
+					UVHeight: 0.25,
+					uvOffsetX: 0.5,
+					uvOffsetY: 0.75
+				}
+			],
+			[
+				'3',
+				{
+					UVWidth: 0.25,
+					UVHeight: 0.25,
+					uvOffsetX: 0,
+					uvOffsetY: 0.5
+				}
+			],
+			[
+				'4',
+				{
+					UVWidth: 0.25,
+					UVHeight: 0.25,
+					uvOffsetX: 0.25,
+					uvOffsetY: 0.5
+				}
+			],
+			[
+				'5',
+				{
+					UVWidth: 0.25,
+					UVHeight: 0.25,
+					uvOffsetX: 0.5,
+					uvOffsetY: 0.5
+				}
+			],
+			[
+				'6',
+				{
+					UVWidth: 0.25,
+					UVHeight: 0.25,
+					uvOffsetX: 0,
+					uvOffsetY: 0.25
+				}
+			],
+			[
+				'7',
+				{
+					UVWidth: 0.25,
+					UVHeight: 0.25,
+					uvOffsetX: 0.25,
+					uvOffsetY: 0.25
+				}
+			],
+			[
+				'8',
+				{
+					UVWidth: 0.25,
+					UVHeight: 0.25,
+					uvOffsetX: 0.5,
+					uvOffsetY: 0.25
+				}
+			],
+			[
+				'9',
+				{
+					UVWidth: 0.25,
+					UVHeight: 0.25,
+					uvOffsetX: 0,
+					uvOffsetY: 0
+				}
+			]
+		]
+	},
 	{
 		fileName: 'sprite_shadow.png',
 		options: [],
@@ -259,7 +354,6 @@ export class AssetManager {
 	public font;
 	public texturesLoaded = false;
 	public fontAtlas;
-	private numberFontAtlas = new SDFFontAtlas('/fonts/NotoSans.ttf');
 
 	private constructor() {
 		// Private constructor to prevent instantiation
@@ -300,15 +394,6 @@ export class AssetManager {
 		}
 
 		if (!this.texturesLoaded) {
-			promises.push(
-				this.numberFontAtlas.load().then(({ texture, charMap }) => {
-					// Store the font atlas texture if needed
-					this.fontAtlas = {
-						texture,
-						charMap
-					};
-				})
-			);
 			const loader = new FontLoader();
 			promises.push(
 				new Promise((resolve) => {
