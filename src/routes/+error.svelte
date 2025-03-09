@@ -20,7 +20,7 @@
 			}, redirectTime);
 		}
 	});
-	$: message = $page.error?.message;
+	const message = $page.error?.message;
 </script>
 
 <svelte:head>
@@ -34,6 +34,7 @@
 				The page you requested could not be found
 			{:else}
 				An unexpected error occured while loading the page. <br />
+				{message} <br/>
 				If this error persists, please kindly inform me on discord xiiao#0613
 			{/if}
 			<br /><br />
