@@ -3,7 +3,6 @@ import trapLookup from '$lib/data/trap/traps.json';
 import trapSkills from '$lib/data/trap/traps_skills.json';
 import { calculateModdedStat, distillMods } from './statHelpers';
 import { getOverwrittenKeys } from './skillHelpers';
-import { isEquals } from './lib';
 
 const TRAPS_AFFECTED_BY_DIFFICULTY = [
 	'trap_086_larva',
@@ -169,7 +168,7 @@ function isAdditionMod(mod, target) {
 	switch (target) {
 		case 'trap_760_skztzs':
 			return (
-				!['floor_diff', 'relic', 'sarkaz_disaster'].includes(mod.key) ||
+				!['floor_diff', 'relic', 'sarkaz_disaster','low_diff'].includes(mod.key) ||
 				(mod.key === 'sarkaz_disaster' && mod.mods?.[0]?.[0]?.targets?.includes('trap_760_skztzs'))
 			);
 		default:
