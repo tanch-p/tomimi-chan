@@ -4,11 +4,11 @@
 	import '../app.css';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	import { browser, dev } from '$app/environment';
+	import { browser, building, dev } from '$app/environment';
 
 	// Global error handler for client-side errors
 	function handleGlobalError(event) {
-		if (dev) return;
+		if (dev || building) return;
 		console.error('Global error caught:', event.error);
 		const errorData = {
 			message: event.message || 'Unknown error',
@@ -16,7 +16,8 @@
 			url: event.filename,
 			otherInfo: `lineNo: ${event.lineno}, colNo: ${event.colno}`,
 			side:"CLIENT",
-			userAgent:navigator.userAgent
+			userAgent:navigator.userAgent,
+			href: window?.location?.href || ""
 		};
 		// Send the error to the server
 		fetch('/api/errors/', {
