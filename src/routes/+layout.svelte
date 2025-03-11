@@ -15,7 +15,8 @@
 			stack: event.error.stack,
 			url: event.filename,
 			otherInfo: `lineNo: ${event.lineno}, colNo: ${event.colno}`,
-			side:"CLIENT"
+			side:"CLIENT",
+			userAgent:navigator.userAgent
 		};
 		// Send the error to the server
 		fetch('/api/errors/', {

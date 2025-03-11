@@ -9,11 +9,12 @@ export const handleError: HandleServerError = async ({ error, event }) => {
 		message: error.message || 'Unknown error',
 		stack: error.stack,
 		url: event.url.pathname,
-		side:"SERVER"
+		side:"SERVER",
+    	userAgent:navigator.userAgent
 	};
-	if(error?.message?.includes("Not found")){
-		return;
-	}
+	// if(error?.message?.includes("Not found")){
+	// 	return;
+	// }
 	const res = await fetch(ERROR_SERVER, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
