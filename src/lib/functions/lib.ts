@@ -342,7 +342,7 @@ export function pruneExtraEnemies(enemies, levelId) {
 	const keys = enemies.map((enemy) => enemy.key);
 	switch (levelId) {
 		case 'level_rogue4_b-8':
-			keys.push("enemy_2093_skzams_1","enemy_3001_upeopl_1");
+			keys.push('enemy_2093_skzams_1', 'enemy_3001_upeopl_1');
 			break;
 	}
 	return enemies.filter((enemy) => keys.includes(enemy.stageId));
