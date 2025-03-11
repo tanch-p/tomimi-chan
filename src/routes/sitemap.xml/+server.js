@@ -14,7 +14,6 @@ export async function GET() {
             xmlns:video="https://www.google.com/schemas/sitemap-video/1.1"
         >
             ${pagesToRender
-							.filter((url) => !url.includes('credit'))
 							.map(
 								(url) =>
 									`<url>

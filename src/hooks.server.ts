@@ -11,6 +11,9 @@ export const handleError: HandleServerError = async ({ error, event }) => {
 		url: event.url.pathname,
 		side:"SERVER"
 	};
+	if(error?.message?.includes("Not found")){
+		return;
+	}
 	const res = await fetch(ERROR_SERVER, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
@@ -18,5 +21,4 @@ export const handleError: HandleServerError = async ({ error, event }) => {
 			errorData
 		)
 	});
-	console.log(res)
 };
