@@ -14,7 +14,6 @@
 	} from '$lib/functions/waveHelpers';
 	import DraggableContainer from './DraggableContainer.svelte';
 	import DLDGPN from '$lib/images/is/DLDGPN.webp';
-	import StageSimulator from '$lib/components/StageSimulator/index.svelte';
 	import RandomGroupList from './RandomGroupList.svelte';
 	import { defaultOpenStageSim } from '../../routes/stores';
 
@@ -176,7 +175,8 @@
 					</DraggableContainer>
 					{#if permutationsToShow.length > 0}
 						<p class="title {language}">
-							{translations[language].table_headers.enemy}{translations[language].spacing}{translations[language].permutation}
+							{translations[language].table_headers.enemy}{translations[language]
+								.spacing}{translations[language].permutation}
 						</p>
 						<DraggableContainer className="grid grid-flow-col auto-cols-[minmax(120px,1fr)]">
 							{#each permutationsToShow as _, i}
@@ -192,7 +192,8 @@
 							{/each}
 						</DraggableContainer>
 						<p class="title {language}">
-							{translations[language].trap}{translations[language].spacing}{translations[language].permutation}
+							{translations[language].trap}{translations[language].spacing}{translations[language]
+								.permutation}
 						</p>
 						<div class="flex justify-center items-center font-semibold">
 							{translations[language].random}
@@ -209,36 +210,38 @@
 				/>
 			{/if}
 		</div>
-		<StageSimulator
-			{mapConfig}
-			{enemies}
-			{language}
-			bind:randomSeeds
-			waveData={parseWaves(
-				mapConfig,
-				mode === 'predefined'
-					? maxPermutations > 32
-						? 'random'
-						: permutationsToShow[selectedPermutationIdx]?.permutation
-					: selectedPermGroups,
-				compiledHiddenGroups,
-				eliteMode,
-				randomSeeds,
-				bonus
-			)}
-			timeline={generateWaveTimeline(
-				mapConfig,
-				compiledHiddenGroups,
-				mode === 'predefined'
-					? maxPermutations > 32
-						? 'random'
-						: permutationsToShow[selectedPermutationIdx]?.permutation
-					: selectedPermGroups,
-				eliteMode,
-				randomSeeds,
-				bonus
-			)}
-		/>
+		{#await import('./StageSimulator/index.svelte').then(({ default: C }) => C) then StageSimulator}
+			<StageSimulator
+				{mapConfig}
+				{enemies}
+				{language}
+				bind:randomSeeds
+				waveData={parseWaves(
+					mapConfig,
+					mode === 'predefined'
+						? maxPermutations > 32
+							? 'random'
+							: permutationsToShow[selectedPermutationIdx]?.permutation
+						: selectedPermGroups,
+					compiledHiddenGroups,
+					eliteMode,
+					randomSeeds,
+					bonus
+				)}
+				timeline={generateWaveTimeline(
+					mapConfig,
+					compiledHiddenGroups,
+					mode === 'predefined'
+						? maxPermutations > 32
+							? 'random'
+							: permutationsToShow[selectedPermutationIdx]?.permutation
+						: selectedPermGroups,
+					eliteMode,
+					randomSeeds,
+					bonus
+				)}
+			/>
+		{/await}
 	</TogglePanel>
 {/if}
 

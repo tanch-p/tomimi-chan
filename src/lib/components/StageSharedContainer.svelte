@@ -5,7 +5,6 @@
 	import EliteToggle from './EliteToggle.svelte';
 	import EnemyCount from './EnemyCount.svelte';
 	import EnemyStatDisplay from './EnemyStatDisplay.svelte';
-	import EnemyWaves from './EnemyWaves.svelte';
 	import ModsCheck from './ModsCheck.svelte';
 	import { GameConfig } from './StageSimulator/objects/GameConfig';
 	import TrapContainer from './TrapContainer.svelte';
@@ -34,29 +33,33 @@
 	);
 	eliteMode.subscribe((v) => (GameConfig.eliteMode = v));
 	specialMods.subscribe((v) => (GameConfig.specialMods = v));
+
+	const promise = import('./EnemyWaves.svelte').then(({ default: C }) => C);
 </script>
 
-<EnemyWaves
-	{mapConfig}
-	enemies={moddedEnemies}
-	{language}
-	eliteMode={$eliteMode}
-	{rogueTopic}
-	{otherStores}
->
-	<EliteToggle
-		slot="eliteMods"
-		inWaveOptions={true}
-		{eliteMode}
-		{normalMods}
-		mapNormalMods={mapConfig.n_mods}
-		mapEliteMods={mapConfig.elite_mods}
-		{eliteMods}
+{#await promise then EnemyWaves}
+	<EnemyWaves
+		{mapConfig}
+		enemies={moddedEnemies}
+		{language}
+		eliteMode={$eliteMode}
 		{rogueTopic}
-		{selectedRelics}
-		stageId={mapConfig.levelId}
-	/>
-</EnemyWaves>
+		{otherStores}
+	>
+		<EliteToggle
+			slot="eliteMods"
+			inWaveOptions={true}
+			{eliteMode}
+			{normalMods}
+			mapNormalMods={mapConfig.n_mods}
+			mapEliteMods={mapConfig.elite_mods}
+			{eliteMods}
+			{rogueTopic}
+			{selectedRelics}
+			stageId={mapConfig.levelId}
+		/>
+	</EnemyWaves>
+{/await}
 <TrapContainer
 	{language}
 	traps={filterTraps(moddedTraps)}
