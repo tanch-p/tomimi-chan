@@ -12,9 +12,9 @@ export const handleError: HandleServerError = async ({ error, event }) => {
 		side:"SERVER",
     	userAgent:navigator.userAgent
 	};
-	// if(error?.message?.includes("Not found")){
-	// 	return;
-	// }
+	if(error?.message?.includes("Not found")){
+		return;
+	}
 	const res = await fetch(ERROR_SERVER, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },

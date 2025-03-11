@@ -26,8 +26,6 @@
 				errorData
 			})
 		});
-		// Prevent default logging
-		event.preventDefault();
 	}
 
 	// Attach global error listener
