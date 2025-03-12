@@ -1,15 +1,9 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import type { UserConfig } from 'vite';
 import { visualizer } from 'rollup-plugin-visualizer';
-import legacy from '@vitejs/plugin-legacy';
 
 const config: UserConfig = {
 	plugins: [
-		legacy({
-			targets: ['defaults', 'not IE 11'],
-			modernPolyfills: true,
-            renderLegacyChunks: false
-		}),
 		sveltekit(),
 		visualizer({
 			emitFile: true,
