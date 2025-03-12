@@ -7,6 +7,7 @@ import enemySkills from '$lib/data/enemy/enemy_skills.json';
 import ISStages from '$lib/data/stages/stage_name_lookup_table.json';
 import { browser } from '$app/environment';
 import { cookiesEnabled } from '../../routes/stores';
+import pako from 'pako';
 
 export const BONUS_ENEMY_KEYS = [
 	'enemy_2001_duckmi',
@@ -313,18 +314,30 @@ export const getStageImg = (id, eliteMods) => {
 };
 
 export async function decompressGzipToJson(url) {
+	const response = await fetch(url);
 	try {
-		const response = await fetch(url);
-		const decompressionStream = new DecompressionStream('gzip');
-		const decompressedStream = response.body.pipeThrough(decompressionStream);
-		const decompressedText = await new Response(decompressedStream).text();
-		return JSON.parse(decompressedText);
-	} catch (error) {
-		const response = await fetch(url);
-		const arrayBuffer = await response.arrayBuffer();
-		const textDecoder = new TextDecoder('utf-8');
-		const text = textDecoder.decode(arrayBuffer);
-		return JSON.parse(text);
+		// Try to parse directly first
+		return await response.json();
+	} catch (jsonError) {
+		try {
+			const arrayBuffer = await response.arrayBuffer();
+			// Check first few bytes to see if it's gzipped (starts with 0x1F 0x8B)
+			const firstBytes = new Uint8Array(arrayBuffer.slice(0, 2));
+			const isGzipped = firstBytes[0] === 0x1f && firstBytes[1] === 0x8b;
+
+			if (isGzipped) {
+				// It's definitely gzipped, use pako to decompress
+				const decompressed = pako.inflate(new Uint8Array(arrayBuffer), { to: 'string' });
+				return JSON.parse(decompressed);
+			} else {
+				// It's not gzipped, try to decode and parse again
+				const text = new TextDecoder('utf-8').decode(arrayBuffer);
+				return JSON.parse(text);
+			}
+		} catch (error) {
+			console.error('All parsing attempts failed:', error);
+			throw new Error('Failed to parse response as JSON, either directly or after decompression');
+		}
 	}
 }
 
