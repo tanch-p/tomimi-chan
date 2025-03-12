@@ -315,12 +315,17 @@ export const getStageImg = (id, eliteMods) => {
 
 export async function decompressGzipToJson(url) {
 	const response = await fetch(url);
+	const responseForJSON = response.clone();
+	const responseForArrayBuffer = response.clone();
+
 	try {
-		// Try to parse directly first
-		return await response.json();
+		return await responseForJSON.json();
 	} catch (jsonError) {
+		console.log('Direct JSON parsing failed, trying decompression...');
+
 		try {
-			const arrayBuffer = await response.arrayBuffer();
+			const arrayBuffer = await responseForArrayBuffer.arrayBuffer();
+
 			// Check first few bytes to see if it's gzipped (starts with 0x1F 0x8B)
 			const firstBytes = new Uint8Array(arrayBuffer.slice(0, 2));
 			const isGzipped = firstBytes[0] === 0x1f && firstBytes[1] === 0x8b;
