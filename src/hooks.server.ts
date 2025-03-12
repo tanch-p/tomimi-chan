@@ -3,8 +3,8 @@ import { building, dev } from '$app/environment';
 import { ERROR_SERVER } from '$env/static/private';
 
 export const handleError: HandleServerError = async ({ error, event }) => {
-	if(dev || building) return;
 	console.error('Server error:', error);
+	if(dev || building) return;
 	const errorData = {
 		message: error.message || 'Unknown error',
 		stack: error.stack,
@@ -13,8 +13,7 @@ export const handleError: HandleServerError = async ({ error, event }) => {
     	userAgent:navigator.userAgent,
 		href: window?.location?.href || ""
 	};
-	const msg = JSON.stringify(error?.message ?? "");
-	if(msg.includes("Not found")){
+	if(error?.status == 404){
 		return;
 	}
 	const res = await fetch(ERROR_SERVER, {
