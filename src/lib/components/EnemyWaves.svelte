@@ -111,7 +111,7 @@
 							<div class="flex items-center justify-center h-[56px]">
 								<img {src} width="56" height="56" alt={name} class="" />
 							</div>
-							<span class="mt-1 text-xs md:text-sm truncate">{name}</span>
+							<span class="mt-1 text-xs md:text-sm">{name}</span>
 						</button>
 					{/each}
 				</div>
@@ -259,4 +259,11 @@
 		font-size: 0.875rem;
 		text-transform: capitalize;
 	}
+	@media only screen and (max-width: 640px) {
+		.title.en {
+		font-size: 0.625rem;
+		text-transform: capitalize;
+		line-height: 1.5;
+	}
+}
 </style>
