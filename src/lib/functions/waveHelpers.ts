@@ -87,7 +87,7 @@ export const getOptions = (mapConfig: MapConfig, rogueTopic: RogueTopic, languag
 			options.push(
 				...[
 					{
-						key: 'trap_024_npcsld',
+						key: 'totem2',
 						src: '/images/chara_icons/trap_024_npcsld.webp',
 						name: { zh: '盾卫', ja: '盾兵', en: 'Shieldguard' }[language]
 					},
