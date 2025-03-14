@@ -124,7 +124,8 @@ const SEARCH_IN_TAGS = [
 	'physicfragile',
 	'fragile',
 	'protect',
-	'attract_enemy'
+	'attract_enemy',
+	'no_source'
 ];
 const SEARCH_IN_BLACKBOARD = [
 	'max_target',

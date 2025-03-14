@@ -111,6 +111,7 @@ const HAVE_TAGS = [
 	'res_penetrate',
 	'reflect_dmg',
 	'dot',
+	'no_source',
 	'aspd_unrelated',
 	'starting_cost',
 	'global_range'

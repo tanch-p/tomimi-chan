@@ -3,9 +3,8 @@
 	import translations from '$lib/translations.json';
 	import { filterModeStore } from './stores';
 	import { setLocalStorage } from '$lib/functions/lib';
-	import { Game } from '$lib/components/StageSimulator/objects/Game';
 
-	export let game:Game, language: Language;
+	export let language: Language;
 
 	const updateFilterMode = (val) => {
 		filterModeStore.set(val);

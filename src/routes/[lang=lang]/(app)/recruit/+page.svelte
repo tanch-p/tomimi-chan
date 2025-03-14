@@ -11,7 +11,7 @@
 	import CharaPopup from './CharaPopup.svelte';
 	import translations from '$lib/translations.json';
 	import ClearButton from './ClearButton.svelte';
-	import Settings from './Settings.svelte';
+	import Settings from './FilterSettings.svelte';
 
 	export let data: PageData;
 

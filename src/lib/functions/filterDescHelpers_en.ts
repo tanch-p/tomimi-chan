@@ -103,6 +103,7 @@ const HAVE_TAGS = [
 	'squad_effect',
 	'min_damage',
 	'dot',
+	'no_source',
 	'aspd_unrelated',
 	'starting_cost',
 	'global_range',
