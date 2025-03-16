@@ -12,27 +12,16 @@
 			link: 'https://live.bilibili.com/22476160',
 			desc: '由巴别塔攻略组、Lungmen Dragons、極東攻略組、Team Keo、啊？戈爾舟遊籌措會共同举办的第三方全球性集成战略比赛：通天国际联赛#2正在进行中！点击图片即可查看赛事直播'
 		},
-        ja: {
-			title: '通天国际联赛#2',
-			link: 'https://live.bilibili.com/22476160',
-			desc: '由巴别塔攻略组、Lungmen Dragons、極東攻略組、Team Keo、啊？戈爾舟遊籌措會共同举办的第三方全球性集成战略比赛：通天国际联赛#2正在进行中！点击图片即可查看赛事直播'
+		ja: {
+			title: '【探索者の银凇止境】通天国際大会#2',
+			link: 'https://www.youtube.com/@projektfuji9085/streams',
+			desc: '大陸鯖の巴别塔攻略组、TWの啊?戈爾舟遊籌措會、グローバルのLungmen Dragons、日本の極東攻略組と韓国のTeam Keoが共催している【探索者の银凇止境】「通天国際大会#2」が開催中！画像をクリックするとライブ配信をご覧いただけます'
 		},
-        en: {
-			title: '通天国际联赛#2',
-			link: 'https://live.bilibili.com/22476160',
-			desc: '由巴别塔攻略组、Lungmen Dragons、極東攻略組、Team Keo、啊？戈爾舟遊籌措會共同举办的第三方全球性集成战略比赛：通天国际联赛#2正在进行中！点击图片即可查看赛事直播'
+		en: {
+			title: 'Skywalking Global League #2',
+			link: 'https://www.youtube.com/@projektfuji9085/streams',
+			desc: 'Jointly brought to you by CN - Babel Strategy Team, TW - Aegir Organizing Committee, Global - Lungmen Dragons, JP - Projekt Fuji, KR - Team Keo, Skywalking Global League #2 is now underway! Click the image to go to the live stream'
 		}
-		// ja: {
-		// 	title: '【探索者の银凇止境】通天国際大会#2',
-		// 	link: 'https://www.youtube.com/@projektfuji9085/streams',
-		// 	desc: '大陸鯖の巴别塔攻略组、TWの啊?戈爾舟遊籌措會、グローバルのLungmen Dragons、日本の極東攻略組と韓国のTeam Keoが共催している【探索者の银凇止境】「通天国際大会#2」開催中！ぜひご視聴ください！'
-		// },
-
-		// en: {
-		// 	title: 'Skywalking Global League #2',
-		// 	link: 'https://www.youtube.com/@LungmenDragons/streams',
-		// 	desc: 'Jointly brought to you by CN - Babel Strategy Team, TW - Aegir Organizing Committee, Global - Lungmen Dragons, JP - Projekt Fuji, KR - Team Keo, Skywalking Global League #2 is now underway! '
-		// }
 	};
 </script>
 
