@@ -57,8 +57,8 @@
 				{ catKey: 'targeting', optionKey: 'self_targeting' },
 				{ catKey: 'status_ailment', optionKey: 'self_status_buffs' },
 				{ catKey: 'heal_buff', optionKey: 'self_heal_buffs' },
+				{ catKey: 'buff_sp', optionKey: 'self_sp_buffs' },
 				{ catKey: 'skill', optionKey: 'skill' },
-				{ catKey: 'buff_sp', optionKey: 'self_sp_buffs' }
 			]
 		},
 		{
