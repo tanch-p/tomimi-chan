@@ -27,7 +27,15 @@ const BUFF_TAGS = [
 	'weaken',
 	'barrier'
 ];
-const STAT_DEBUFFS = ['atk_down', 'def_down', 'res_down', 'aspd_down', 'ms_down', 'hitrate_down','heal_scale_down'];
+const STAT_DEBUFFS = [
+	'atk_down',
+	'def_down',
+	'res_down',
+	'aspd_down',
+	'ms_down',
+	'hitrate_down',
+	'heal_scale_down'
+];
 const DEBUFFS = [
 	'stun',
 	'sluggish',
@@ -126,7 +134,7 @@ const HAVE_TAGS = [
 	'res_penetrate',
 	'reflect_dmg'
 ];
-const SKILL_HAVE_TAGS = ['unlimited_duration', 'skill_invincible',"skill_manual_off"];
+const SKILL_HAVE_TAGS = ['unlimited_duration', 'skill_invincible', 'skill_manual_off'];
 const PRIORITY_TAGS = [
 	'priority_flying',
 	'priority_drone',
@@ -147,7 +155,7 @@ const SQUAD_TAGS = [
 	'rhine',
 	'karlan',
 	'minos',
-	"siracusa",
+	'siracusa',
 	'position_ranged',
 	'PIONEER',
 	'WARRIOR',
@@ -164,7 +172,7 @@ const TYPE_TAGS = [
 	'drone',
 	'infection',
 	'sarkaz',
-	"machine",
+	'machine',
 	'wildanimal',
 	'seamonster',
 	'type_stun',
@@ -177,6 +185,13 @@ const TYPE_TAGS = [
 	'no_block_enemy',
 	'self_no_block_enemy'
 ];
+
+const SP_TYPE_LIST = [
+	"PASSIVE",
+	"INCREASE_WHEN_ATTACK",
+	"INCREASE_WHEN_TAKEN_DAMAGE",
+	"INCREASE_WITH_TIME",
+]
 
 const getFilterDescCategory = (key) => {
 	const categories = [
@@ -196,7 +211,8 @@ const getFilterDescCategory = (key) => {
 		{ category: 'priority', keyList: PRIORITY_TAGS },
 		{ category: 'squad', keyList: SQUAD_TAGS },
 		{ category: 'type', keyList: TYPE_TAGS },
-		{ category: 'blockCnt', keyList: [0, 1, 2, 3, 4, 5] }
+		{ category: 'blockCnt', keyList: [0, 1, 2, 3, 4, 5] },
+		{ category: 'spType', keyList: SP_TYPE_LIST}
 	];
 	for (const { category, keyList } of categories) {
 		if (keyList.includes(key)) {
@@ -421,7 +437,7 @@ export const generateSkillDesc = (
 				);
 			});
 			const joinedString =
-				filterMode === 'OR' || category === 'blockCnt'
+				filterMode === 'OR' || ['blockCnt','spType'].includes(category)
 					? translatedStrings.join('/')
 					: formatArray(translatedStrings, ', ', ' and ');
 			let pre = translations[language]['chara_filter']?.[`${category}_pre`] ?? '';
