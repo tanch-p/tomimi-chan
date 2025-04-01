@@ -14,11 +14,9 @@
 	let itemsPerLoad = 50;
 	let currentIndex = 0;
 	let showAlt = false;
-
 	$: showAlt =
 		$filtersStore.some(({ _, options }) => options.some((item) => item.selected)) ||
 		$relicFiltersStore.some((item) => item.selected);
-
 	$: if (characters?.length) {
 		visibleItems = [];
 		currentIndex = 0;

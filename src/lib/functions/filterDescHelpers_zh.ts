@@ -117,6 +117,10 @@ const HAVE_TAGS = [
 	'global_range'
 ];
 const SKILL_HAVE_TAGS = [
+	'PASSIVE',
+	'INCREASE_WHEN_ATTACK',
+	'INCREASE_WHEN_TAKEN_DAMAGE',
+	'INCREASE_WITH_TIME',
 	'unlimited_duration',
 	'skill_invincible',
 	'charged',

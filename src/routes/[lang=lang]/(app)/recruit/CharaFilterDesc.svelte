@@ -68,7 +68,7 @@
 		const bbTagHolder = [];
 		const otherOptions = [];
 		for (const ele of activeOptions) {
-			if (['tags', 'blackboard', 'blockCnt'].includes(ele.key)) {
+			if (['tags', 'blackboard', 'blockCnt','spType'].includes(ele.key)) {
 				bbTagHolder.push(
 					...ele.options
 						.map(({ value, selected }) => selected && value)

@@ -82,10 +82,17 @@
 								{#if type === 'compare'}
 									<div class="flex items-center gap-x-1.5 col-span-2 mt-2">
 										<span>
-											{getOptionTranslation(
-												key,
-												language
-											)}{#if language === 'en'}&nbsp;{/if}{translations[language][suffix]}
+											{[
+												'PASSIVE',
+												'INCREASE_WHEN_ATTACK',
+												'INCREASE_WHEN_TAKEN_DAMAGE',
+												'INCREASE_WITH_TIME'
+											].includes(key)
+												? ''
+												: getOptionTranslation(
+														key,
+														language
+												  )}{#if language === 'en'}&nbsp;{/if}{translations[language][suffix]}
 										</span>
 										<button
 											class="text-lg bg-gray-300 hover:bg-gray-400 rounded px-3"
@@ -123,7 +130,7 @@
 										{:else}
 											{#each options as { value, selected }}
 												<button
-												id="sec-{value}"
+													id="sec-{value}"
 													class="filter-btn"
 													class:active={selected}
 													on:click={() => updateSecFilters(key, subKey, value, type)}

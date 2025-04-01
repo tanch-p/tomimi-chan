@@ -61,6 +61,7 @@ const generateFilterStore = (filterOptions) => {
 						.flat(2)
 				});
 				break;
+			case 'spType':
 			case 'deployable_tile':
 				acc.push({
 					key: category,
@@ -140,7 +141,7 @@ export const filters = derived(
 								'fastshot',
 								'loopshooter',
 								'shotprotector'
-							].includes(char.subProfessionId) && char.rarity === "TIER_6";
+							].includes(char.subProfessionId) && char.rarity === 'TIER_6';
 					default:
 						return () => true;
 				}
@@ -154,6 +155,41 @@ export const filters = derived(
 					return acc;
 				}
 				switch (curr.key) {
+					case 'spType':
+						{
+							const spTypeSecFilters = $secFiltersStore
+								.filter((val) =>
+									[
+										'PASSIVE',
+										'INCREASE_WHEN_ATTACK',
+										'INCREASE_WHEN_TAKEN_DAMAGE',
+										'INCREASE_WITH_TIME'
+									].includes(val.key)
+								)
+								.reduce((acc, { key, list }) => {
+									const functions = createSecFilterFunction(list);
+									acc[key] = functions;
+									return acc;
+								}, {});
+							acc.push((char) => {
+								let found = false;
+								char.skills.forEach((skill, i) => {
+									// PASSIVE is in skillType, while the rest are in spType
+									if (
+										(selectedOptions.includes(skill.spType) ||
+											selectedOptions.includes(skill.skillType)) &&
+										selectedOptions.every((option) =>
+											spTypeSecFilters[option].every((fn) => fn(skill,skill.tags))
+										)
+									) {
+										found = true;
+										char.activeSkills.push(i);
+									}
+								});
+								return found;
+							});
+						}
+						break;
 					case 'group':
 						acc.push((char) => {
 							if (selectedOptions.includes(null)) {
@@ -203,11 +239,11 @@ export const filters = derived(
 			}, [])
 		);
 		if ($filterModeStore === 'OR' || $filterModeStore === 'AND') {
-			filterFunctions.push(
+			filterFunctions.unshift(
 				createNormalFilterFunction(bbTagHolder, $secFiltersStore, $filterModeStore)
 			);
 		} else {
-			filterFunctions.push(createStrictFilterFunction(bbTagHolder, $secFiltersStore));
+			filterFunctions.unshift(createStrictFilterFunction(bbTagHolder, $secFiltersStore));
 		}
 		return function (char) {
 			if (filterFunctions.length === 0) {
@@ -236,14 +272,20 @@ filtersStore.subscribe((list) => {
 		.options.map(({ value, selected }) => selected && value)
 		.filter(Boolean);
 	const otherOptions = list
-		.filter(({ key, options }) => key === 'blockCnt' && options.some(({ selected }) => selected))
+		.filter(
+			({ key, options }) => ['blockCnt'].includes(key) && options.some(({ selected }) => selected)
+		)
 		.map((ele) => ele.key)
+		.filter(Boolean);
+	const spTypeOptions = list
+		.find(({ key }) => key === 'spType')
+		.options.map(({ value, selected }) => selected && value)
 		.filter(Boolean);
 	const activeOptions = [...otherOptions, ...blackboardOptions];
 	//secFilters update
 	secFiltersStore.update((options) => {
 		const returnList = [];
-		for (const option of activeOptions) {
+		for (const option of activeOptions.concat(spTypeOptions)) {
 			const filterOption = options.find(({ key }) => key === option);
 			if (filterOption) {
 				returnList.push(filterOption);

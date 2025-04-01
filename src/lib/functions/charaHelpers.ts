@@ -1612,6 +1612,17 @@ export const getSecFilterOptions = (key, store) => {
 				type: 'options'
 			});
 			break;
+		case 'INCREASE_WITH_TIME':
+		case 'INCREASE_WHEN_ATTACK':
+		case 'INCREASE_WHEN_TAKEN_DAMAGE':
+			returnArr.push({
+				subKey: 'spType',
+				suffix: 'skillInitToUsageSP',
+				sign: 'lte',
+				value: -1,
+				type: 'compare'
+			});
+			break;
 		case 'stun':
 		case 'sluggish':
 		case 'sleep':
@@ -1682,6 +1693,8 @@ export const genSecFilterOptions = (characters: []) => {
 	obj['blockCnt'] = {
 		category: ['normal_state', 'skill_active']
 	};
+	obj['PASSIVE'] = { duration: ['infinite', 'finite'] };
+
 	return obj;
 };
 
@@ -1712,8 +1725,21 @@ export const createSecFilterFunction = (list) => {
 	for (const { subKey, type, options, sign, value } of list) {
 		let fn = () => true;
 		if (type === 'compare') {
-			if (value <= 0) continue;
-			fn = (item) => (sign === 'gte' ? item[subKey] >= value : item[subKey] <= value);
+			switch (subKey) {
+				case 'spType':
+					if (value < 0) continue;
+					fn = (skill) => {
+						const { initSp, spCost } = skill.levels[skill.levels.length - 1].spData;
+						const val = spCost - initSp;
+						return sign === 'gte' ? val >= value : val <= value;
+					};
+
+					break;
+
+				default:
+					if (value <= 0) continue;
+					fn = (item) => (sign === 'gte' ? item[subKey] >= value : item[subKey] <= value);
+			}
 		} else {
 			const selectedOptions = options
 				.map((option) => option.selected && option.value)
@@ -1747,6 +1773,15 @@ export const createSecFilterFunction = (list) => {
 					break;
 				case 'value_type':
 					fn = (item) => compareValueType(selectedOptions, item['value']);
+					break;
+				case 'duration':
+					// currently only used for PASSIVE skills
+					fn = (_, tags) =>
+						selectedOptions.some((tag) =>
+							tag === 'infinite'
+								? tags.includes('infinite_duration')
+								: !tags.includes('infinite_duration')
+						);
 					break;
 				default:
 					break;

@@ -7,8 +7,6 @@
 	import relics from '$lib/data/chara/relics_chara.json';
 	import { relicLookup } from '$lib/data/is/relic_lookup';
 	import Icon from '$lib/components/Icon.svelte';
-	import { cookiesEnabled } from '../../../stores';
-	import { browser } from '$app/environment';
 	import {
 		getCategory,
 		getDisplayKey,
@@ -192,6 +190,20 @@
 						class="filter-btn"
 						class:active={isSelected(getCategory(value), value)}
 						on:click={() => updateFilters(getCategory(value), value, filtersStore)}
+					>
+						{translations[language][value]}
+					</button>
+				{/each}
+			</div>
+			<p class="md:py-[5px] mt-2 md:mt-0 capitalize font-medium">
+				{translations[language].spType}
+			</p>
+			<div class="flex flex-wrap gap-2">
+				{#each filterOptions['spType'] as value}
+					<button
+						class="filter-btn"
+						class:active={isSelected('spType', value)}
+						on:click={() => updateFilters('spType', value, filtersStore)}
 					>
 						{translations[language][value]}
 					</button>
