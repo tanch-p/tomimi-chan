@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import { clickOutside } from '$lib/functions/clickOutside.js';
 	import FloorOptions from './FloorOptions.svelte';
-	import { selectedFloor, disasterEffects } from './stores';
+	import { selectedFloor, disasterEffects, difficultyMode } from './stores';
 	import translations from '$lib/translations.json';
 	import roman_1 from '$lib/images/is/sarkaz/icon_zone_1.webp';
 	import roman_2 from '$lib/images/is/sarkaz/icon_zone_2.webp';
@@ -49,12 +49,33 @@
 				break;
 		}
 	}
+	page.subscribe(({ data }) => updateFloor(data.mapConfig.floors));
+	difficultyMode.subscribe(() => updateFloor(stageFloors));
 	function updateFloor(floors: number[]) {
+		if ($difficultyMode !== 'normal') {
+			//语奇终无
+			if (
+				$page.data.mapConfig.id.includes('_ev_') ||
+				$page.data.mapConfig.id.includes('_duel_') ||
+				$page.data.mapConfig.id.includes('_t_')
+			) {
+				return;
+			}
+			if ($page.data.mapConfig.id.includes('_e_')) {
+				const floor = Math.min(...stageFloors);
+				if (floor > 5) {
+					selectedFloor.set(Math.min(...stageFloors));
+					return;
+				}
+				const reversedFloor = [5, 4, 3, 2, 1][floor - 1];
+				selectedFloor.set(reversedFloor);
+				return;
+			}
+		}
 		if (!floors.includes($selectedFloor)) {
 			selectedFloor.set(Math.min(...stageFloors));
 		}
 	}
-	$: updateFloor(stageFloors);
 </script>
 
 <div

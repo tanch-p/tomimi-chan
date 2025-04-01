@@ -7,7 +7,8 @@
 	export let language: Language,
 		difficulty,
 		rogueTopic: RogueTopic,
-		maxDiff = 15;
+		maxDiff = 15,
+		mode = 'normal';
 
 	const getStorageKey = (rogueTopic) => {
 		switch (rogueTopic) {
@@ -24,7 +25,7 @@
 			return;
 		}
 		difficulty.update(() => n);
-		setLocalStorage(getStorageKey(rogueTopic), n.toString())
+		setLocalStorage(getStorageKey(rogueTopic), n.toString());
 	}
 	let selectedDifficulty: number;
 	difficulty.subscribe((value) => {
@@ -62,44 +63,47 @@
 
 <div class="px-2 sm:px-6 select-none mt-2.5">
 	<p class="text-subheading">{translations[language].difficulty}</p>
-	<div class="counter">
-		<button
-			on:mousedown={() => startDecrement(initialTimeout)}
-			on:mouseup={() => clearTimeout(timer)}
-			on:mouseleave={() => clearTimeout(timer)}
-			on:click={() => updateDifficulty(selectedDifficulty - 1)}
-			disabled={selectedDifficulty <= 0}
-			aria-label="Decrease the counter by one"
-			class="group"
-			id="diff-minus"
-		>
-			<svg aria-hidden="true" viewBox="0 0 1 1">
-				<path d="M0,0.5 L1,0.5" class="group-disabled:stroke-[#444]" />
-			</svg>
-		</button>
+	<slot/>
+	{#if mode === 'normal'}
+		<div class="counter">
+			<button
+				on:mousedown={() => startDecrement(initialTimeout)}
+				on:mouseup={() => clearTimeout(timer)}
+				on:mouseleave={() => clearTimeout(timer)}
+				on:click={() => updateDifficulty(selectedDifficulty - 1)}
+				disabled={selectedDifficulty <= 0}
+				aria-label="Decrease the counter by one"
+				class="group"
+				id="diff-minus"
+			>
+				<svg aria-hidden="true" viewBox="0 0 1 1">
+					<path d="M0,0.5 L1,0.5" class="group-disabled:stroke-[#444]" />
+				</svg>
+			</button>
 
-		<div class="counter-viewport select-none">
-			<div class="counter-digits" style="transform: translate(0, {100 * offset}%)">
-				<strong class="hidden" aria-hidden="true">{Math.floor($displayed_count + 1)}</strong>
-				<strong id="diff-count">{Math.floor($displayed_count)}</strong>
+			<div class="counter-viewport select-none">
+				<div class="counter-digits" style="transform: translate(0, {100 * offset}%)">
+					<strong class="hidden" aria-hidden="true">{Math.floor($displayed_count + 1)}</strong>
+					<strong id="diff-count">{Math.floor($displayed_count)}</strong>
+				</div>
 			</div>
-		</div>
 
-		<button
-			on:mousedown={() => startIncrement(initialTimeout)}
-			on:mouseup={() => clearTimeout(timer)}
-			on:mouseleave={() => clearTimeout(timer)}
-			on:click={() => updateDifficulty(selectedDifficulty + 1)}
-			disabled={selectedDifficulty >= maxDiff}
-			aria-label="Increase the counter by one"
-			class="group"
-			id="diff-plus"
-		>
-			<svg aria-hidden="true" viewBox="0 0 1 1">
-				<path d="M0,0.5 L1,0.5 M0.5,0 L0.5,1" class="group-disabled:stroke-[#444]" />
-			</svg>
-		</button>
-	</div>
+			<button
+				on:mousedown={() => startIncrement(initialTimeout)}
+				on:mouseup={() => clearTimeout(timer)}
+				on:mouseleave={() => clearTimeout(timer)}
+				on:click={() => updateDifficulty(selectedDifficulty + 1)}
+				disabled={selectedDifficulty >= maxDiff}
+				aria-label="Increase the counter by one"
+				class="group"
+				id="diff-plus"
+			>
+				<svg aria-hidden="true" viewBox="0 0 1 1">
+					<path d="M0,0.5 L1,0.5 M0.5,0 L0.5,1" class="group-disabled:stroke-[#444]" />
+				</svg>
+			</button>
+		</div>
+	{/if}
 </div>
 
 <style>

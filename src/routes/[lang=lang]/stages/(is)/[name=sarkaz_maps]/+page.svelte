@@ -4,6 +4,7 @@
 	import {
 		statMods,
 		difficulty,
+		difficultyMode,
 		specialMods,
 		eliteMods,
 		selectedRelics,
@@ -84,10 +85,32 @@
 			eliteMods={$eliteMods}
 			{rogueTopic}
 			difficulty={$difficulty}
+			difficultyMode={$difficultyMode}
 		>
 			<StageDrops slot="drops" mapConfig={data.mapConfig} {language} {rogueTopic} {selectedFloor} />
 		</StageInfo>
-		<DifficultySelect {language} {difficulty} {rogueTopic} maxDiff={18} />
+		<DifficultySelect {language} {difficulty} {rogueTopic} maxDiff={18} mode={$difficultyMode}>
+			<div class="flex gap-1.5 mt-1.5 mb-2.5">
+				<button
+					class="flex items-center justify-center min-w-[70px] px-[10px] rounded-md bg-gray-500 {$difficultyMode ===
+					'normal'
+						? ''
+						: 'brightness-[.6] hover:brightness-100'}"
+					on:click={() => difficultyMode.set('normal')}
+				>
+					{translations[language].normal_state}
+				</button>
+				<button
+					class="flex items-center justify-center min-w-[70px] px-[10px] rounded-md bg-emerald-700 {$difficultyMode ===
+					'normal'
+						? 'brightness-[.6] hover:brightness-100'
+						: ''}"
+					on:click={() => difficultyMode.set('deepseek')}
+				>
+					{{ en: '语奇终无', ja: '语奇终无', zh: '语奇终无' }[language]}
+				</button>
+			</div>
+		</DifficultySelect>
 		<StageSharedContainer
 			{language}
 			traps={data.traps}

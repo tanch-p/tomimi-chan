@@ -11,6 +11,7 @@ if (browser && cookiesEnabled) {
 }
 export const selectedRelics = writable([]);
 export const difficulty = writable(storedDifficulty);
+export const difficultyMode = writable('normal');
 
 export const selectedFloor = writable(1);
 const floorDifficultyMods = derived(
@@ -33,15 +34,31 @@ export const otherBuffsList = writable([]);
 const otherMods = derived([otherBuffsList], ([$otherBuffsList]) =>
 	consolidateOtherMods($otherBuffsList)
 );
-const difficultyMods = derived([difficulty], ([$difficulty]) =>
-	difficultyModsList
-		.map((ele) => {
-			if (ele.difficulty <= $difficulty && ele.effects.length > 0) {
-				return ele.effects;
-			}
-		})
-		.filter(Boolean)
+// 语奇终无
+const deepSeekMods = derived([selectedFloor], ([$selectedFloor]) => [
+	{
+		targets: ['ALL'],
+		mods: {
+			hp: (1 - 0.75) * 2 ** $selectedFloor,
+			atk: (1 - 0.75) * 2 ** $selectedFloor,
+			def: (1 - 0.5) * 1.2 ** $selectedFloor
+		}
+	}
+]);
+const difficultyMods = derived(
+	[difficulty, difficultyMode, deepSeekMods],
+	([$difficulty, $difficultyMode, $deepSeekMods]) =>
+		$difficultyMode === 'normal'
+			? difficultyModsList
+					.map((ele) => {
+						if (ele.difficulty <= $difficulty && ele.effects.length > 0) {
+							return ele.effects;
+						}
+					})
+					.filter(Boolean)
+			: [$deepSeekMods]
 );
+
 export const noobHelp = derived([difficulty], ([$difficulty]) => {
 	const lowDiffHP = [0.8, 0.85, 0.9];
 	if ($difficulty <= 2) {
