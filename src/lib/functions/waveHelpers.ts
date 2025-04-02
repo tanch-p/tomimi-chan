@@ -689,7 +689,7 @@ export const compileSpawnTimeActions = (actions) => {
 		if (item) {
 			item.count += 1;
 		} else {
-			holder.push({ key: action.key, count: 1 });
+			holder.push({ key: action.key, count: action.count || 1 });
 		}
 	}
 	return holder;
