@@ -687,7 +687,7 @@ export const compileSpawnTimeActions = (actions) => {
 	for (const action of actions) {
 		const item = holder.find((ele) => ele.key === action.key);
 		if (item) {
-			item.count += 1;
+			item.count += action.count || 1;
 		} else {
 			holder.push({ key: action.key, count: action.count || 1 });
 		}
