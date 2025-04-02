@@ -49,9 +49,10 @@
 				break;
 		}
 	}
-	page.subscribe(({ data }) => updateFloor(data.mapConfig.floors));
+	page.subscribe(({ data }) => updateFloor(data?.mapConfig?.floors));
 	difficultyMode.subscribe(() => updateFloor(stageFloors));
 	function updateFloor(floors: number[]) {
+		if (!floors) return;
 		if ($difficultyMode !== 'normal') {
 			//语奇终无
 			if (
