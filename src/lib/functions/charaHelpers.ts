@@ -193,7 +193,8 @@ const SEARCH_IN_BLACKBOARD = [
 	'force',
 	'trigger_time',
 	'ct',
-	'heal_scale_down'
+	'heal_scale_down',
+	'ally_def_penetrate'
 ];
 
 // keys not here will just use their respective key in translations
@@ -209,6 +210,7 @@ const DISPLAY_KEYS_TABLE = {
 	ally_shield: 'buff_shield',
 	shield: 'buff_shield',
 	ally_block_dmg: 'block_dmg',
+	ally_def_penetrate:'def_penetrate',
 	ally_dmg_res: 'dmg_res',
 	ally_undying: 'undying',
 	ally_max_hp: 'hp',
@@ -283,6 +285,7 @@ const ALLY_KEYS = [
 	'ally_cost_down',
 	'ally_damage_scale',
 	'ally_reflect_dmg',
+	'ally_def_penetrate',
 	'ally_block_up',
 	'ally_block_down',
 	'ally_evasion',
@@ -335,6 +338,7 @@ const KEYS_TO_CHECK_VALUE_TYPE = [
 	'res_down',
 	'damage_scale',
 	'def_penetrate',
+	'ally_def_penetrate',
 	'ally_max_hp',
 	'ally_atk',
 	'ally_def',
@@ -1507,6 +1511,7 @@ export const getSortOptions = (key) => {
 		case [
 			'damage_scale',
 			'ally_dmg_res',
+			'ally_def_penetrate',
 			'dmg_res',
 			'ally_max_hp',
 			'ally_atk',

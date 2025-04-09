@@ -57,6 +57,7 @@ const ALLY_BUFFS = [
 	'ally_reflect_dmg',
 	'ally_resist',
 	'ally_block_dmg',
+	'ally_def_penetrate',
 	'ally_dmg_res',
 	'ally_undying',
 	'ally_env_dmg_reduce',
