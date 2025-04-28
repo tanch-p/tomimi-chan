@@ -25,6 +25,8 @@
 	import rogue_4_fragment_F_19 from '$lib/images/is/sarkaz/rogue_4_fragment_F_19.webp';
 	import rogue_4_fragment_F_20 from '$lib/images/is/sarkaz/rogue_4_fragment_F_20.webp';
 	import rogue_4_fragment_F_21 from '$lib/images/is/sarkaz/rogue_4_fragment_F_21.webp';
+	import rogue_4_fragment_F_23 from '$lib/images/is/sarkaz/rogue_4_fragment_F_23.webp';
+	import rogue_4_fragment_F_24 from '$lib/images/is/sarkaz/rogue_4_fragment_F_24.webp';
 	import rogue_4_fragment_F_27 from '$lib/images/is/sarkaz/rogue_4_fragment_F_27.webp';
 	import rogue_4_fragment_F_28 from '$lib/images/is/sarkaz/rogue_4_fragment_F_28.webp';
 	import TextParser from '$lib/components/TextParser.svelte';
@@ -53,7 +55,9 @@
 		rogue_4_fragment_F_20: rogue_4_fragment_F_20,
 		rogue_4_fragment_F_21: rogue_4_fragment_F_21,
 		rogue_4_fragment_F_27: rogue_4_fragment_F_27,
-		rogue_4_fragment_F_28: rogue_4_fragment_F_28
+		rogue_4_fragment_F_28: rogue_4_fragment_F_28,
+		rogue_4_fragment_F_23:rogue_4_fragment_F_23,
+		rogue_4_fragment_F_24:rogue_4_fragment_F_24
 	};
 
 	export let language: Language;
