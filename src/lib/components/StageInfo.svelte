@@ -25,10 +25,6 @@
 				return '';
 		}
 	};
-	const globalWarning = {
-		ja: '※注意：ボスステージでは「門」を召喚できません（DLC1後はできる）',
-		en: '※Note to global players: You cannot summon "Portal" on boss stages until DLC1'
-	};
 </script>
 
 <div class="sm:px-6 mb-4">
@@ -41,10 +37,6 @@
 		<div class="px-2 sm:px-0">
 			<TextParser line={mapConfig[`description_${language}`] || mapConfig[`description_zh`]} />
 		</div>
-	{/if}
-
-	{#if rogueTopic === 'rogue_skz' && language !== 'zh' && mapConfig.levelId.includes('_b-')}
-		<p class="mt-2.5 px-2 sm:px-0">{globalWarning[language]}</p>
 	{/if}
 
 	<div class="px-2 sm:px-0 mt-2.5">

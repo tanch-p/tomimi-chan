@@ -19,17 +19,6 @@
 		'莱茵卫士',
 		'不容拒绝',
 		"「」",
-		'卡兹瀑布',
-		'火力小队',
-		'神出鬼没',
-		'混沌',
-		'建制',
-		'思维矫正',
-		'魂灵朝谒',
-		'授法',
-		'轻舟共渡',
-		'洞天福地',
-		'“外道”'
 	];
 	$: name = stageInfo[`name_${language}`] || stageInfo['name_zh'];
 	$: stageUrl = name==="「」" ? "ro4_b_9" :stageInfo.code + '_' + name;

@@ -102,7 +102,7 @@
 	"avenger": {
 		"suffix": { "en": "HP↓50%", "ja": "HP50%以下", "zh": "HP50%以下" },
 		"hits": null,
-		"atk": { "multiplier": 1, "type":"initial" },
+		"atk": { "multiplier": 1, "type": "initial" },
 		"tooltip": {
 			"en": ["HP↓50% - ATK increased by <v.atk.multiplier>%"],
 			"ja": ["HP50%以下→攻撃力が<v.atk.multiplier>%増加"],
@@ -960,7 +960,7 @@
 	"syskad_hp_50_rage_150": {
 		"suffix": { "en": "HP↓50%", "ja": "HP50%以下", "zh": "HP50%以下" },
 		"hits": null,
-		"atk": { "multiplier": 0.5,"type":"initial" },
+		"atk": { "multiplier": 0.5, "type": "initial" },
 		"tooltip": {
 			"en": ["HP↓50% - ATK increased by <v.atk.multiplier>%", "Carried over to 2nd form"],
 			"ja": ["HP50%以下→攻撃力が<v.atk.multiplier>%増加", "第二形態に継続される"],
@@ -1419,13 +1419,13 @@
 	},
 	"mzk_extra_summon": {
 		"type": "skill",
-		"anim":"Skill_1_Loop",
+		"anim": "Skill_1_Loop",
 		"initSp": 117,
 		"spCost": 120,
 		"skillType": "INCREASE_WITH_TIME",
 		"branch_id": "syboss_extra",
-		"branch_type":"single",
-		"branch_random":false,
+		"branch_type": "single",
+		"branch_random": false,
 		"max_count": 4,
 		"tooltip": null
 	},
@@ -5034,7 +5034,7 @@
 		"hits": 1,
 		"atk": { "multiplier": 1.5 },
 		"dmg_element": "arts",
-		"skillRange":2.5,
+		"skillRange": 2.5,
 		"tooltip": {
 			"en": ["First attack does 150% ATK as {arts} damage to target and surrounding 4 tiles"],
 			"ja": ["初回攻撃時、対象と周囲4マスの味方に攻撃力の150%の{arts}ダメージを与える"],
@@ -5042,7 +5042,7 @@
 		}
 	},
 	"wdexg_1": {
-		"skillRange":2.0,
+		"skillRange": 2.0,
 		"tooltip": {
 			"en": [
 				"While holding Ammo, consumes 1 Ammo and unleashes a ranged attacks which reduces Cost by 3"
@@ -5793,10 +5793,10 @@
 	"skzjbc_1": {
 		"tooltip": {
 			"en": [
-				"碰触到友方干员时，强制击杀此干员，若自身未达到装载上限(上限为3)，则将此干员装载。{ignore_stealth}{ignore_camou}\n自身已装载乘客时，移动速度最终-50% "
+				"Instantly defeats operators upon contact, loading them (max 3) if possible {ignore_stealth}{ignore_camou}\nIf at least 1 operator has been loaded, self's Movespeed is reduced by 50%"
 			],
 			"ja": [
-				"碰触到友方干员时，强制击杀此干员，若自身未达到装载上限(上限为3)，则将此干员装载。{ignore_stealth}{ignore_camou}\n自身已装载乘客时，移动速度最终-50% "
+				"自身に接触した味方オペレーターを強制撤退させ、3体まで自身に積載できる{ignore_stealth}{ignore_camou}\nオペレーターを1体でも積載している場合、移動速度-50%"
 			],
 			"zh": [
 				"碰触到友方干员时，强制击杀此干员，若自身未达到装载上限(上限为3)，则将此干员装载。{ignore_stealth}{ignore_camou}\n自身已装载乘客时，移动速度最终-50% "
@@ -5805,17 +5805,27 @@
 	},
 	"skzjbc_2": {
 		"tooltip": {
-			"en": ["进入保护目标后，不扣除目标生命值，装载的友方单位将无法上场"],
-			"ja": ["进入保护目标后，不扣除目标生命值，装载的友方单位将无法上场"],
+			"en": [
+				"When entering a Protection Objective, the loaded Operators will be removed from the Deployment Waiting Zone"
+			],
+			"ja": ["防衛ラインに到達した場合、積載されたオペレーターはその戦闘中再配置できなくなる"],
 			"zh": ["进入保护目标后，不扣除目标生命值，装载的友方单位将无法上场"]
 		}
 	},
 	"skzjkl_1_0": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": [
+				"When <Qui'lon> enters a Protection Objective, all other enemies on the map will be instantly defeated",
+				"Has <ba.buffres>Resist</>, Immune to Teleport",
+				"For every existing <Aggini of Nila>, <Qui'lon> gains 20% Damage Resistance (stacks multiplicatively)"
+			],
+			"ja": [
+				"防衛ラインに侵入すると、マップ上の他の敵をすべて倒す",
+				"<ba.buffres>レジスト</>を持ち、転移無効",
+				"「ニーラのアグニ」1つにつき、物理/術の被ダメージ-20%（乗算）"
+			],
 			"zh": [
-				"抵达路径终点时，强制击杀场上其他敌人；持有抵抗，免疫传送",
+				"抵达路径终点时，强制击杀场上其他敌人；持有<ba.buffres>抵抗</>，免疫传送",
 				"场上每存在一个尼卢火，自身受到的物理/法术伤害降低至80%（乘算叠加）"
 			]
 		}
@@ -5824,17 +5834,17 @@
 		"type": "skill",
 		"initCooldown": 30,
 		"cooldown": 10,
-		"suffix": { "en": "清火执", "ja": "清火执", "zh": "清火执" },
+		"suffix": { "en": "Wrathful Gaze", "ja": "清火執", "zh": "清火执" },
 		"hits": 1,
 		"atk": { "multiplier": 1 },
-		"anim":null,
+		"anim": null,
 		"dmg_element": "arts",
 		"tooltip": {
 			"en": [
-				"以场上每个尼卢火为中心，对十字范围内的友方单位分别造成一次自身攻击力100%的{arts}伤害{ignore_stealth}{ignore_camou}"
+				"Every attack deals {arts} damage to all units within adjacent 2 tiles range of an <Aggini of Nila>{ignore_stealth}{ignore_camou}"
 			],
 			"ja": [
-				"以场上每个尼卢火为中心，对十字范围内的友方单位分别造成一次自身攻击力100%的{arts}伤害{ignore_stealth}{ignore_camou}"
+				"マップ上のすべての「ニーラのアグニ」から半径2マスの十字範囲攻撃を行い、範囲内の味方に攻撃力の100%の{arts}ダメージを与える{ignore_stealth}{ignore_camou}"
 			],
 			"zh": [
 				"以场上每个尼卢火为中心，对十字范围内的友方单位分别造成一次自身攻击力100%的{arts}伤害{ignore_stealth}{ignore_camou}"
@@ -5842,61 +5852,65 @@
 		}
 	},
 	"skzjkl_1_1": {
-		"standby":95,
+		"standby": 95,
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
-			"zh": ["【不着相】不可阻挡，不进行普通攻击，无敌95s后进入自在阶段"]
+			"en": [
+				"[Tathata] - Invincible, cannot be blocked, does not attack, enters State of Vimutti after 95 seconds"
+			],
+			"ja": ["【不着相】：無敵、ブロック不可、移動・通常攻撃しない；95秒後自在形態に移行する"],
+			"zh": ["【不着相】无敌，不可阻挡，不进行普通攻击，无敌95s后进入自在阶段"]
 		}
 	},
 	"skzjkl_1_2": {
-		"branches": [
-			["skzjkl_skzth_m0", 25, 95]
-		],
-		"branchType":"single",
-		"branchRandom":false,
+		"branches": [["skzjkl_skzth_m0", 25, 95]],
+		"branchType": "single",
+		"branchRandom": false,
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": ["Summons an Aggini of Nila at preset positions on the map every 25 seconds"],
+			"ja": ["25秒ごとにニーラのアグニを召喚"],
 			"zh": ["每25s，在场上预设位置召唤尼卢火"]
 		}
 	},
 	"skzjkl_1_3": {
-		"branches": [
-			["skzjkl_m0_summon_enemy", 55, 95]
-		],
-		"branchRandom":false,
+		"branches": [["skzjkl_m0_summon_enemy", 55, 95]],
+		"branchRandom": false,
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": ["Summons an additional wave of enemies every 55 seconds"],
+			"ja": ["55秒毎に敵を召喚する"],
 			"zh": ["每55s，以预设路径召唤敌人"]
 		}
 	},
 	"skzjkl_2_1": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": ["Normal attack triggers [Wrathful Gaze]"],
+			"ja": ["通常攻撃が味方に命中した時、【清火執】を発動する"],
 			"zh": ["普通攻击命中目标时，触发一次【清火执】效果"]
 		}
 	},
 	"skzjkl_2_2": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": [
+				"Summons an Aggini of Nila at preset positions on the map every 35 seconds. Summons an additional wave of enemies every 38 seconds"
+			],
+			"ja": ["35秒ごとに「ニーラのアグニ」を召喚。38秒ごとに敵を召喚する"],
 			"zh": ["每35s，在场上预设位置召唤尼卢火；每38s，以预设路径召唤敌人（思维混乱时召唤不同敌人）"]
 		}
 	},
 	"skzjkl_2_3": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": ["Whenever 25% of maximum HP is lost, triggers [Trikaya]"],
+			"ja": ["HPが75%/50%/25%以下になった時、【承三身】を発動する"],
 			"zh": ["生命比例首次不高于75%/50%/25%时，强制触发技能【承三身】"]
 		}
 	},
 	"skzjkl_2_4": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": [
+				"[Trikaya] - Summons a <Padmasana of Rebirth>. Until the Padmasana leaves the map, Qui'lon stops moving, becomes invulnerable, and cannot be blocked"
+			],
+			"ja": [
+				"【承三身】- 托生蓮座を召喚。托生蓮座が退場するまで、自身は移動・攻撃せず、無敵・ブロック不可"
+			],
 			"zh": [
 				"承三身 - 持续施法；持续施法开始时，以预设路径在场上召唤托生莲座；持续施法期间，自身持有无敌，失衡免疫，不可阻挡；持续施法于托生莲座退场时结束"
 			]
@@ -5904,8 +5918,11 @@
 	},
 	"skzjkl_2_5": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": [
+				"Revives over 7.33 seconds when defeated for the first time, after which all units on field will be erased and Qui'lon teleports to a new section of the map",
+				"Only Operators taken away by Padmasanas of Rebirth can be used here"
+			],
+			"ja": ["HPが0になると、7.33秒かけてHPを100%回復","マップ上の敵味方すべてを消滅させ、マップがスライド。無憂覚形態へ移行","このステージでは防衛ラインに侵入した托生蓮座に積載されていた者のみが使用可能"],
 			"zh": [
 				"首次被击倒时，进行7.33s的重生（恢复100%生命值），随后强制击杀场上其他敌人(包括尼卢火)与干员，将待部署区中未被托生莲座装载进入保护目标的干员全部隐藏，闪现至指定位置并以新路径行动，释放当前波次，移动关卡地图至区域作战，解除托生莲座的带来的不可部署状态并清空友方单位剩余再部署时间"
 			]
@@ -5915,16 +5932,16 @@
 		"type": "skill",
 		"initCooldown": 10,
 		"cooldown": 20,
-		"suffix": { "en": "惩五戒", "ja": "惩五戒", "zh": "惩五戒" },
+		"suffix": { "en": "BoFP", "ja": "五戒の罰", "zh": "惩五戒" },
 		"hits": 5,
 		"atk": { "multiplier": 1 },
 		"dmg_element": "phys",
 		"tooltip": {
 			"en": [
-				"对目标连续进行5次攻击，每次造成攻击力<v.atk.multiplier>%{phys}伤害，并于每次命中目标时触发一次【清火执】效果"
+				"[Breaching of the Five Precepts] - Unleashes 5 consecutive attacks on the target, also triggers [Wrathful Gaze] 5 times"
 			],
 			"ja": [
-				"对目标连续进行5次攻击，每次造成攻击力<v.atk.multiplier>%{phys}伤害，并于每次命中目标时触发一次【清火执】效果"
+				"【五戒の罰】- 対象に5回攻撃を行う、【清火執】も5回発動する"
 			],
 			"zh": [
 				"对目标连续进行5次攻击，每次造成攻击力<v.atk.multiplier>%{phys}伤害，并于每次命中目标时触发一次【清火执】效果"
@@ -5933,15 +5950,15 @@
 	},
 	"skzjkl_3_1": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": ["Attacks hit twice and each attack triggers [Wrathful Gaze]"],
+			"ja": ["通常攻撃が2回攻撃に変化。味方に命中するたび、【清火執】を発動する"],
 			"zh": ["普通攻击变为2连击，且在每次命中目标时触发一次【清火执】效果"]
 		}
 	},
 	"skzjkl_3_2": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": ["Summons an Aggini of Nila at preset positions on the map every 10 seconds. Summons an additional wave of enemies every 20 seconds"],
+			"ja": ["10秒ごとに「ニーラのアグニ」を召喚。20秒ごとに敵を召喚する"],
 			"zh": [
 				"每10s，在场上预设位置召唤尼卢火；每20s，以预设路径召唤敌人（思维混乱时召唤不同敌人） "
 			]
@@ -6110,8 +6127,8 @@
 		}
 	},
 	"skzamb_1": {
-		"value":0,
-		"force":36,
+		"value": 0,
+		"force": 36,
 		"tooltip": {
 			"en": [""],
 			"ja": [""],
