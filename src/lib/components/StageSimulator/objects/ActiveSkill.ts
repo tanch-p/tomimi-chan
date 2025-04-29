@@ -4,6 +4,7 @@ import { getAnimDuration, getSkillAnimName } from '$lib/functions/spineHelpers';
 import { Enemy } from './Enemy';
 import { AssetManager } from './AssetManager';
 import { GameConfig } from './GameConfig';
+import { shuffleArray } from '$lib/functions/waveHelpers';
 
 export class ActiveSkill {
 	assetManager: AssetManager;
@@ -27,6 +28,7 @@ export class ActiveSkill {
 	branchSummonIndex = 0;
 	branchIntervalElapsedTime = 0;
 	branchElapsedTime = 0;
+	branchPhaseIndexHolder;
 
 	constructor(enemy: Enemy, skill: Skill) {
 		this.assetManager = AssetManager.getInstance();
@@ -56,6 +58,9 @@ export class ActiveSkill {
 		}
 		if (skill.branches) {
 			this.branch = structuredClone(this.enemy.gameManager.config.branches?.[skill.branches[0][0]]);
+		}
+		if (this.skill.branchType === 'single' && this.skill.branchRandom) {
+			this.branchPhaseIndexHolder = shuffleArray(this.branch.phases.map((_, i) => i));
 		}
 	}
 
@@ -180,12 +185,17 @@ export class ActiveSkill {
 				this.branch = structuredClone(
 					this.enemy.gameManager.config.branches?.[this.skill.branches[this.currentBranchIndex][0]]
 				);
+				if (this.skill.branchType === 'single' && this.skill.branchRandom) {
+					this.branchPhaseIndexHolder = shuffleArray(this.branch.phases.map((_, i) => i));
+				}
 			}
 			return;
 		}
 		if (this.branchIntervalElapsedTime > interval) {
 			let index = -1;
-			if (this.skill.branchType === 'single') {
+			if (this.skill.branchType === 'single' && this.skill.branchRandom) {
+				index = this.branchPhaseIndexHolder[this.branchSummonIndex];
+			} else if (this.skill.branchType === 'single') {
 				index = this.branchSummonIndex;
 			} else if (this.skill.branchRandom) {
 				index = Math.floor(Math.random() * this.branch.phases.length);
@@ -195,6 +205,9 @@ export class ActiveSkill {
 			this.branchSummonIndex++;
 			if (this.branchSummonIndex >= this.branch.phases.length) {
 				this.branchSummonIndex = 0;
+				if (this.skill.branchType === 'single' && this.skill.branchRandom) {
+					this.branchPhaseIndexHolder = shuffleArray(this.branchPhaseIndexHolder);
+				}
 			}
 		}
 	}
