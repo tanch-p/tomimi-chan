@@ -1510,6 +1510,8 @@ export const getSortOptions = (key) => {
 			'cold',
 			'levitate',
 			'root',
+			'tremble',
+			'fear',
 			'cancel_stealth',
 			'camouflage',
 			'taunt',
