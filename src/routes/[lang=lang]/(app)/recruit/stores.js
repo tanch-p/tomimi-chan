@@ -195,16 +195,12 @@ export const filters = derived(
 							if (selectedOptions.includes(null)) {
 								const options = selectedOptions.filter(Boolean);
 								return (
-									options.includes(char.nationId) ||
-									options.includes(char.groupId) ||
-									options.includes(char.teamId) ||
-									[char.nationId, char.groupId, char.teamId].every((ele) => ele === null)
+									options.some(group => char.powers.includes(group)) ||
+									char.powers.length === 0
 								);
 							}
 							return (
-								selectedOptions.includes(char.nationId) ||
-								selectedOptions.includes(char.groupId) ||
-								selectedOptions.includes(char.teamId)
+								selectedOptions.some(group => char.powers.includes(group))
 							);
 						});
 						break;

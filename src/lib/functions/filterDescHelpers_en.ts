@@ -15,6 +15,7 @@ function capitalize(str) {
 }
 
 const DAMAGE_TYPE_KEYS = ['phys', 'arts', 'true', 'ele_dmg', 'aoe'];
+const ELE_INJ_KEYS=['apoptosis','burning','neural'];
 const BUFF_TAGS = [
 	'inspire',
 	'berserk',
@@ -60,7 +61,8 @@ const ALLY_STAT_BUFFS = [
 	'ally_sp_regen',
 	'ally_sp_stock',
 	'ally_block_up',
-	'ally_damage_scale'
+	'ally_damage_scale',
+	"ally_max_ammo",
 ];
 const ALLY_CAUSE = ['change_target_priority'];
 const ALLY_STAT_MINUS = ['ally_respawn_time', 'ally_cost_down', 'ally_block_down'];
@@ -81,9 +83,10 @@ const ALLY_BUFFS = [
 	'ally_burning',
 	'ally_lower_target_priority',
 	'ally_spareshot',
+	"ally_min_aspd",
 	'ally_heal_scale'
 ];
-const ALLY_CAN = ['ally_sp_gain'];
+const ALLY_CAN = ['ally_sp_gain',"add_bullet"];
 const SELF_CAN_TAGS = [
 	'remove_status',
 	'add_sp_gain_option',
@@ -102,7 +105,7 @@ const SELF_CAN_TAGS = [
 	'target_air',
 	'attract_enemy'
 ];
-const SELF_STAT_BUFFS = ['sp_regen', 'sp_stock', 'def', 'res'];
+const SELF_STAT_BUFFS = ['sp_regen', 'sp_stock', 'def', 'res',	"max_ammo",];
 const HAVE_TAGS = [
 	'max_target',
 	'fast_redeploy',
@@ -197,6 +200,7 @@ const SP_TYPE_LIST = [
 const getFilterDescCategory = (key) => {
 	const categories = [
 		{ category: 'damage_type', keyList: DAMAGE_TYPE_KEYS },
+		{category: 'ele_inj', keyList:ELE_INJ_KEYS},
 		{ category: 'enemy_stat_debuff', keyList: STAT_DEBUFFS },
 		{ category: 'enemy_debuff', keyList: DEBUFFS },
 		{ category: 'ally_stat_buff', keyList: ALLY_STAT_BUFFS },
@@ -303,8 +307,8 @@ export const generateSkillDesc = (
 		const entries = Object.entries(holder);
 		if (key === 'others') {
 			entries.sort((a, b) => {
-				if (a[0] === 'damage_type') return 1;
-				if (b[0] === 'damage_type') return -1;
+				if (['damage_type','ele_inj'].includes(a[0])) return 1;
+				if (['damage_type','ele_inj'].includes(b[0])) return -1;
 				return 0;
 			});
 		}
@@ -329,7 +333,7 @@ export const generateSkillDesc = (
 			key !== 'others' &&
 			counter === 1 &&
 			!otherOptions.find((ele) => ele.key === 'deployable_tile') &&
-			!Object.keys(otherGroups).includes('damage_type')
+			!Object.keys(otherGroups).some(key => ['damage_type','ele_inj'].includes(key))
 		) {
 			category_pre += 'can ';
 		}
@@ -450,7 +454,7 @@ export const generateSkillDesc = (
 				post = ' enemies';
 			}
 			if (
-				category === 'damage_type' &&
+				['damage_type','ele_inj'].includes(category) &&
 				!otherOptions.find((ele) => ele.key === 'deployable_tile')
 			) {
 				pre = 'can ' + pre;

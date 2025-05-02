@@ -167,6 +167,18 @@
 					</button>
 				{/each}
 			</div>
+			<p class="md:py-[5px] mt-2 md:mt-0 font-medium">{translations[language].ele_inj}</p>
+			<div class="flex flex-wrap gap-2">
+				{#each filterOptions['ele_inj'] as value}
+					<button
+						class="filter-btn"
+						class:active={isSelected('tags', value)}
+						on:click={() => updateFilters('tags', value, filtersStore)}
+					>
+						{translations[language][value]}
+					</button>
+				{/each}
+			</div>
 			<p class="md:py-[5px] mt-2 md:mt-0 capitalize font-medium">
 				{translations[language].table_headers.blockCnt}
 			</p>

@@ -2,6 +2,7 @@
 	"rarity": ["TIER_1", "TIER_2", "TIER_3", "TIER_4", "TIER_5", "TIER_6"],
 	"deployable_tile": ["MELEE", "RANGED", "ALL"],
 	"damage_type": ["phys", "arts", "true", "ele_dmg"],
+	"ele_inj":["apoptosis","burning","neural"],
 	"blockCnt": [0, 1, 2, 3, 4, 5],
 	"profession": ["PIONEER", "WARRIOR", "SNIPER", "TANK", "MEDIC", "SUPPORT", "CASTER", "SPECIAL"],
 	"others": ["target_air", "max_target", "aoe"],
@@ -19,7 +20,8 @@
 			"musha",
 			"librator",
 			"crusher",
-			"hammer"
+			"hammer",
+			"primguard"
 		],
 		"SNIPER": [
 			"fastshot",
@@ -135,6 +137,7 @@
 	"ally_atk_buffs": [
 		"change_target_priority",
 		"ally_damage_scale",
+		"ally_min_aspd",
 		"ally_def_penetrate",
 		"ally_reflect_dmg",
 		"ally_apoptosis",
@@ -156,7 +159,9 @@
 		"ally_sp_gain",
 		"ally_sp_stock",
 		"add_sp_gain_option",
-		"ally_spareshot"
+		"ally_spareshot",
+		"add_bullet",
+		"ally_max_ammo"
 	],
 	"ally_others": ["squad_effect"],
 	"self_stats": ["def","res","fast_redeploy"],
@@ -184,7 +189,7 @@
 	"self_status_buffs": ["resist", "status_immune"],
 	"self_heal_buffs": ["heal_self"],
 	"skill": ["unlimited_duration", "skill_invincible", "charged", "overdrive", "trigger_time","skill_manual_off"],
-	"self_sp_buffs": ["sp_regen", "sp_gain", "sp_stock", "spareshot"],
+	"self_sp_buffs": ["sp_regen", "sp_gain", "sp_stock", "spareshot","max_ammo"],
 	"spType": ["INCREASE_WITH_TIME", "INCREASE_WHEN_ATTACK", "INCREASE_WHEN_TAKEN_DAMAGE", "PASSIVE"],
 	"buff_tags": [
 		"inspire",
