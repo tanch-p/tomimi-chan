@@ -1,4 +1,3 @@
-import { shuffleArray } from '$lib/functions/waveHelpers';
 import { BranchManager } from './BranchManager';
 import { Enemy } from './Enemy';
 import { GameConfig } from './GameConfig';

@@ -14,8 +14,8 @@ import { CountdownManager } from './ShaderCountdownManager';
 
 export class GameManager {
 	assetManager: AssetManager;
-	scene: THREE.Scene;
-	camera: THREE.OrthographicCamera;
+	scene: THREE.Scene | null;
+	camera: THREE.OrthographicCamera | null;
 	objects;
 	config;
 	mazeLayout: number[][];
@@ -30,14 +30,17 @@ export class GameManager {
 	tileManager: TileManager;
 	rollOverMeshes = new Map();
 	countdownManager: CountdownManager;
+	isSimulation:boolean;
 
 	constructor(
 		config: MapConfig,
 		scene: THREE.Scene,
 		camera: THREE.OrthographicCamera,
 		objects,
-		enemies: Enemy[]
+		enemies: Enemy[],
+		isSimulation = false
 	) {
+		this.isSimulation = isSimulation;
 		this.enemies = enemies;
 		this.config = config;
 		this.assetManager = AssetManager.getInstance();
@@ -49,8 +52,8 @@ export class GameManager {
 		this.mazeLayout = mazeLayout;
 		this.pathFinder = new SPFA(mazeLayout);
 		this.tileManager = new TileManager(config.levelId);
-		this.initPlane();
-		this.initRollOverMeshes();
+		!this.isSimulation && this.initPlane();
+		!this.isSimulation && this.initRollOverMeshes();
 	}
 
 	getVectorCoordinates = (pos, reachOffset) => {
@@ -69,7 +72,7 @@ export class GameManager {
 	createCountdown(time: number, x: number, y: number, color = 0xf08080) {
 		const countdown = this.countdownManager.createCountdown(time, color);
 		countdown.setPosition(x, y);
-		this.scene.add(countdown.getGroup());
+		!this.isSimulation && this.scene.add(countdown.getGroup());
 		return countdown.id;
 	}
 
