@@ -57,6 +57,7 @@ const SEARCH_IN_TAGS = [
 	'terrain_water',
 	'apoptosis',
 	'burning',
+	"neural",
 	'apoptosis_scale',
 	'change_target_priority',
 	'remove_status',
@@ -113,6 +114,7 @@ const SEARCH_IN_TAGS = [
 	'skill_manual_off',
 	'ally_apoptosis',
 	'ally_burning',
+	"ally_neural",
 	'ignore_stealth',
 	'weaken',
 	'teleport_enemy',
@@ -878,7 +880,7 @@ export const getPrioritySortValues = (char, sortOptions, secFilters) => {
 			if (['damage_scale', 'ally_damage_scale', 'ally_heal_scale'].includes(key) && value < 4.9) {
 				return `${Math.round((value - 1) * 100)}%`;
 			}
-			if (['ally_sp_gain', 'sp_gain'].includes(key)) {
+			if (['ally_sp_gain', 'sp_gain',"ally_max_ammo","max_ammo","add_bullet"].includes(key)) {
 				return value < 1 ? `${Math.round(value * 100)}%` : value;
 			}
 			if (['ally_atk', 'ally_def', 'ally_res', 'def', 'res'].includes(key)) {

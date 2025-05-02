@@ -5,6 +5,7 @@ import { formatArray } from './languageHelpers';
 import { getDisplayKey } from './charaHelpers';
 
 const DAMAGE_TYPE_KEYS = ['phys', 'arts', 'true', 'ele_dmg'];
+const ELE_INJ_KEYS=['apoptosis','burning','neural'];
 const BUFF_TAGS = [
 	'inspire',
 	'berserk',
@@ -192,6 +193,7 @@ const SELF_HAVE = ['aoe'];
 const getFilterDescCategory = (key) => {
 	const categories = [
 		{ category: 'damage_type', keyList: DAMAGE_TYPE_KEYS },
+		{category: 'ele_inj', keyList:ELE_INJ_KEYS},
 		{ category: 'enemy_stat_debuff', keyList: STAT_DEBUFFS },
 		{ category: 'enemy_debuff', keyList: DEBUFFS },
 		{ category: 'ally_stat_buff', keyList: ALLY_STAT_BUFFS },

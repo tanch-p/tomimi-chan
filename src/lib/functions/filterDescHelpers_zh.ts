@@ -5,6 +5,7 @@ import { formatArray } from './languageHelpers';
 import { getDisplayKey } from './charaHelpers';
 
 const DAMAGE_TYPE_KEYS = ['phys', 'arts', 'true', 'ele_dmg'];
+const ELE_INJ_KEYS=['apoptosis','burning','neural'];
 const BUFF_TAGS = [
 	'inspire',
 	'berserk',
@@ -185,6 +186,7 @@ const TYPE_TAGS = [
 const getFilterDescCategory = (key) => {
 	const categories = [
 		{ category: 'damage_type', keyList: DAMAGE_TYPE_KEYS },
+		{category: 'ele_inj', keyList:ELE_INJ_KEYS},
 		{ category: 'enemy_stat_debuff', keyList: STAT_DEBUFFS },
 		{ category: 'enemy_debuff', keyList: DEBUFFS },
 		{ category: 'ally_stat_buff', keyList: ALLY_STAT_BUFFS },
@@ -285,9 +287,9 @@ export const generateSkillDesc = (
 			key === 'others' &&
 			counter === 0 &&
 			(otherGroups?.others?.some((ele) =>
-				['aoe', 'damage_type', 'max_target', 'target_air', 'damage_type'].includes(ele)
+				['aoe', 'damage_type', 'max_target', 'target_air'].includes(ele)
 			) ||
-				otherGroups?.['damage_type'])
+				otherGroups?.['damage_type'] || otherGroups?.['ele_inj'])
 		) {
 			category_pre += '能';
 		}
