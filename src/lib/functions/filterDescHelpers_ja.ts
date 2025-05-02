@@ -40,7 +40,8 @@ const ALLY_STAT_BUFFS = [
 	'ally_res',
 	'ally_aspd',
 	'ally_sp_regen',
-	'ally_sp_stock'
+	'ally_sp_stock',
+	"ally_max_ammo"
 ];
 const ALLY_NORMAL = [
 	'ally_block_down',
@@ -48,7 +49,8 @@ const ALLY_NORMAL = [
 	'change_target_priority',
 	'ally_damage_scale',
 	'ally_heal_scale',
-	'ally_sp_gain'
+	'ally_sp_gain',
+	"add_bullet"
 ];
 const ALLY_STAT_MINUS = ['ally_respawn_time', 'ally_cost_down'];
 const ALLY_BUFFS = [
@@ -67,7 +69,8 @@ const ALLY_BUFFS = [
 	'ally_apoptosis',
 	'ally_burning',
 	'ally_lower_target_priority',
-	'ally_spareshot'
+	'ally_spareshot',
+	'ally_min_aspd'
 ];
 const SELF_CAN_TAGS = [
 	'remove_status',
@@ -111,7 +114,7 @@ const SELF_BUFF_TAGS = [
 	'status_immune',
 	'terrain_water'
 ];
-const SELF_STAT_BUFFS = ['sp_regen', 'sp_stock', 'def', 'res'];
+const SELF_STAT_BUFFS = ['sp_regen', 'sp_stock', 'def', 'res','max_ammo'];
 const HAVE_TAGS = [
 	'global_heal',
 	'squad_effect',

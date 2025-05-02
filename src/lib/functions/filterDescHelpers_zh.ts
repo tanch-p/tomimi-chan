@@ -40,7 +40,8 @@ const ALLY_STAT_BUFFS = [
 	'ally_res',
 	'ally_aspd',
 	'ally_sp_regen',
-	'ally_sp_stock'
+	'ally_sp_stock',
+	"ally_max_ammo",
 ];
 const ALLY_NORMAL = [
 	'ally_block_down',
@@ -52,11 +53,13 @@ const ALLY_NORMAL = [
 	'ally_heal_scale',
 	'ally_sp_gain',
 	'ally_spareshot',
+	"add_bullet",
 	'ally_lower_target_priority'
 ];
 const ALLY_STAT_MINUS = ['ally_respawn_time', 'ally_cost_down'];
 const ALLY_BUFFS = [
 	'ally_evasion',
+	"ally_min_aspd",
 	'ally_shield',
 	'ally_reflect_dmg',
 	'ally_def_penetrate',
@@ -101,7 +104,7 @@ const SELF_BUFF_TAGS = [
 	'resist',
 	'status_immune'
 ];
-const SELF_STAT_BUFFS = ['sp_regen', 'sp_stock', 'def', 'res'];
+const SELF_STAT_BUFFS = ['sp_regen', 'sp_stock', 'def', 'res',"max_ammo"];
 const HAVE_TAGS = [
 	'global_heal',
 	'squad_effect',

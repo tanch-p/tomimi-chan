@@ -60,7 +60,8 @@ const ALLY_STAT_BUFFS = [
 	'ally_sp_regen',
 	'ally_sp_stock',
 	'ally_block_up',
-	'ally_damage_scale'
+	'ally_damage_scale',
+	"ally_max_ammo",
 ];
 const ALLY_CAUSE = ['change_target_priority'];
 const ALLY_STAT_MINUS = ['ally_respawn_time', 'ally_cost_down', 'ally_block_down'];
@@ -81,9 +82,10 @@ const ALLY_BUFFS = [
 	'ally_burning',
 	'ally_lower_target_priority',
 	'ally_spareshot',
+	"ally_min_aspd",
 	'ally_heal_scale'
 ];
-const ALLY_CAN = ['ally_sp_gain'];
+const ALLY_CAN = ['ally_sp_gain',"add_bullet"];
 const SELF_CAN_TAGS = [
 	'remove_status',
 	'add_sp_gain_option',
@@ -108,6 +110,7 @@ const HAVE_TAGS = [
 	'fast_redeploy',
 	'revive',
 	'spareshot',
+	"max_ammo",
 	'global_heal',
 	'squad_effect',
 	'min_damage',

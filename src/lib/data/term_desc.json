@@ -31,7 +31,7 @@
 		"name_zh": "抵抗",
 		"name_en": "Status Resistance",
 		"name_ja": "レジスト",
-		"desc_zh": "<ba.stun>晕眩</>、<ba.cold>寒冷</>、<ba.frozen>冻结</>等异常状态的持续时间减半（同名效果不叠加）",
+		"desc_zh": "<ba.stun>晕眩</>、<ba.cold>寒冷</>、<ba.frozen>冻结</>等异常状态的持续时间减半，<ba.palsy>麻痹</>等效果每5秒流失1层（同名效果不叠加）",
 		"desc_en": "Negative Status durations(<ba.stun>Stun</>, <ba.cold>Cold</>, <ba.frozen>Freeze</>, etc.) halved (does not stack with the same effect)",
 		"desc_ja": "<ba.stun>スタン</>、<ba.cold>寒冷</>、<ba.frozen>凍結</>などの状態異常の継続時間が50%減少(同名の状態は重複不可)"
 	},
@@ -175,9 +175,9 @@
 		"name_zh": "近地悬浮",
 		"name_en": "Low-Altitude Hovering",
 		"name_ja": "低空浮揚",
-		"desc_zh": "被视为空中单位（路径判定除外），无法被阻挡或近战攻击，受到晕眩/沉睡/无法行动/冻结效果后失效",
-		"desc_en": "Treated as Flying unit (excluding pathfinding), cannot be blocked or attacked by melee attacks, becomes ground unit when affected by stun/sleep/frozen",
-		"desc_ja": "空中扱い（進行経由以外）、ブロック不可、近距離攻撃の対象にされない、スタン/睡眠/凍結を受けると解除されて、地上ユニットになる"
+		"desc_zh": "无法被阻挡或近战攻击",
+		"desc_en": "Cannot be blocked or attacked by melee attacks",
+		"desc_ja": "ブロック不可、近距離攻撃の対象にされない"
 	},
 	"ba.refraction": {
 		"termId": "ba.refraction",
@@ -191,7 +191,7 @@
 	"ba.dt.element": {
 		"termId": "ba.dt.element",
 		"name_zh": "元素损伤",
-		"name_en": "Elemental Damage",
+		"name_en": "Elemental Injury",
 		"name_ja": "元素損傷",
 		"desc_zh": "包括<ba.dt.neural>神经损伤</>、<ba.dt.erosion>侵蚀损伤</>、<ba.dt.burning>灼燃损伤</>、<ba.dt.apoptosis>凋亡损伤</>",
 		"desc_en": "Includes <ba.dt.neural>Nervous Impairment</>, <ba.dt.erosion>Corrosion Damage</>, <ba.dt.burning>Burn Damage</>, and <ba.dt.apoptosis>Necrosis Damage</>",
@@ -239,7 +239,7 @@
 		"name_en": "Physical Shield",
 		"name_ja": "対物理シールド",
 		"desc_zh": "每层物理护盾可以抵挡一次物理伤害",
-		"desc_en": "Blocks 1 instance of <@phys>Physical</> damage per layer of Physical Shield",
+		"desc_en": "Blocks 1 instance of Physical damage per layer of Physical Shield",
 		"desc_ja": "ダメージを受けるとき、対物理シールドを1枚消耗することによって物理の被ダメージを1回無効化できる"
 	},
 	"ba.magicfragile": {
@@ -254,11 +254,11 @@
 	"ba.elementfragile": {
 		"termId": "ba.elementfragile",
 		"name_zh": "元素脆弱",
-		"name_en": null,
-		"name_ja": null,
+		"name_en": "Elemental Fragility",
+		"name_ja": "対元素脆弱",
 		"desc_zh": "受到的元素伤害提升相应比例（同名效果取最高）",
-		"desc_en": null,
-		"desc_ja": null
+		"desc_en": "Amplifies all Elemental Damage taken by the corresponding amount (only the strongest effect of this type applies)",
+		"desc_ja": "元素の被ダメージが効果値分上昇（同名の状態は効果値が高いほうのみ適用）"
 	},
 	"ba.dying": {
 		"termId": "ba.dying",
@@ -329,7 +329,7 @@
 		"name_en": "Protective Barrier",
 		"name_ja": "損傷バリア",
 		"desc_zh": "可以吸收一定数值的<ba.dt.element>元素损伤</>",
-		"desc_en": "Absorbs a certain amount of <ba.dt.element>Elemental Damage</>.",
+		"desc_en": "Absorbs a certain amount of <ba.dt.element>Elemental Injury</>.",
 		"desc_ja": "自身が受ける<ba.dt.element>元素損傷</>を一定値まで無効化可能"
 	},
 	"ba.tremble": {
@@ -344,73 +344,101 @@
 	"ba.fear": {
 		"termId": "ba.fear",
 		"name_zh": "恐惧",
-		"name_en": null,
-		"name_ja": null,
+		"name_en": "Fear",
+		"name_ja": "恐怖",
 		"desc_zh": "无法被阻挡并四散逃跑",
-		"desc_en": null,
-		"desc_ja": null
+		"desc_en": "Cannot be blocked and runs off uncontrollably",
+		"desc_ja": "ブロック不可となり、付与者のいる方向と逆方向へ逃げる"
 	},
 	"ba.dt.burning2": {
 		"termId": "ba.dt.burning2",
 		"name_zh": "灼燃损伤·我方",
-		"name_en": "Burn damage - Player",
+		"name_en": "Burn damage - Ally",
 		"name_ja": "灼熱損傷・味方",
 		"desc_zh": "累计满时爆发（普通、精英敌人1000点、领袖2000点累计值），敌人立即受到7000点元素伤害且期间法术抗性-20。10秒冷却",
-		"desc_en": "Explodes when at max (1000 for Normal and Elite, 2000 for Leaders), dealing 7000 Elemental damage and temporarily inflicting -20 RES. 10s cooldown.",
-		"desc_ja": "損傷が一定値（通常の敵、【エリート】は1000、敵【ボス】は2000）蓄積すると爆発し、対象は即時に7000の元素ダメージを受け、かつ爆発効果期間中は術耐性-20。効果発動後、10秒後再発動可能になる"
+		"desc_en": "Explodes when at max (1000 for Normal and Elite, 2000 for Leaders), dealing 7000 Elemental Damage and temporarily inflicting -20 RES. 10s cooldown.",
+		"desc_ja": "損傷が一定値（通常の敵及び【エリート】は1000、敵【ボス】は2000）蓄積すると爆発し、対象は即時に7000の元素ダメージを受け、かつ爆発効果期間中は術耐性-20。効果発動後、10秒後再発動可能になる"
 	},
 	"ba.addash": {
 		"termId": "ba.addash",
 		"name_zh": "移动",
-		"name_en": null,
-		"name_ja": null,
+		"name_en": "Move",
+		"name_ja": "移動",
 		"desc_zh": "不退场，以当前血量在目标位置部署",
-		"desc_en": null,
-		"desc_ja": null
+		"desc_en": "Cannot leave the field; will deploy at the target location with the current HP",
+		"desc_ja": "撤退せず、現在のHPのままで対象となるマスに再配置される"
 	},
 	"ba.magicpoint": {
 		"termId": "ba.magicpoint",
 		"name_zh": "魔力",
-		"name_en": null,
-		"name_ja": null,
+		"name_en": "Mana",
+		"name_ja": "魔力",
 		"desc_zh": "特殊技力，整场战斗继承",
-		"desc_en": null,
-		"desc_ja": null
+		"desc_en": "A special form of SP that persists throughout battle",
+		"desc_ja": "特定のスキルを発動するためのポイント。再配置してもリセットされない"
 	},
 	"ba.chant": {
 		"termId": "ba.chant",
 		"name_zh": "吟唱",
-		"name_en": null,
-		"name_ja": null,
+		"name_en": "Chanting",
+		"name_ja": "詠唱",
 		"desc_zh": "停止攻击一段时间后尝试开启技能，期间被打断则中止",
-		"desc_en": null,
-		"desc_ja": null
+		"desc_en": "Stops attacking for a period of time, then attempts to activate skill; interruptions during this period will stop the chant",
+		"desc_ja": "攻撃を停止し、数秒後にスキルの効果を発動する。スキル発動不可となる状態異常を受けると詠唱は中断される"
 	},
 	"ba.laiosteam": {
 		"termId": "ba.laiosteam",
 		"name_zh": "莱欧斯小队",
-		"name_en": null,
-		"name_ja": null,
+		"name_en": "Laios's Party",
+		"name_ja": "ライオスパーティー",
 		"desc_zh": "包括玛露西尔、森西、莱欧斯、齐尔查克",
-		"desc_en": null,
-		"desc_ja": null
+		"desc_en": "Includes Marcille, Senshi, Laios, and Chilchuck",
+		"desc_ja": "対象オペレーター：\nマルシル、センシ、ライオス、チルチャック"
 	},
 	"ba.liftoff": {
 		"termId": "ba.liftoff",
 		"name_zh": "起飞",
+		"name_en": "Take Off",
+		"name_ja": "離陸",
+		"desc_zh": "不阻挡地面敌人且不会被地面敌人攻击，可以阻挡飞行敌人",
+		"desc_en": "Cannot block ground enemies and will not be attacked by them; can block flying enemies",
+		"desc_ja": "地面上にいる敵の攻撃対象にならない、空中にいる敵のみをブロックできる"
+	},
+	"ba.physicfragile": {
+		"termId": "ba.physicfragile",
+		"name_zh": "物理脆弱",
 		"name_en": null,
 		"name_ja": null,
-		"desc_zh": "不阻挡地面敌人且不会被地面敌人攻击，可以阻挡飞行敌人",
+		"desc_zh": "受到的物理伤害提升相应比例（同名效果取最高）",
 		"desc_en": null,
 		"desc_ja": null
 	},
-	"cc.g.siracusa": {
-		"termId": "cc.g.siracusa",
-		"name_zh": "叙拉古",
+	"ba.dt.neural2": {
+		"termId": "ba.dt.neural2",
+		"name_zh": "神经损伤·我方",
 		"name_en": null,
 		"name_ja": null,
-		"desc_zh": "包含以下干员\n安洁莉娜、拉普兰德、普罗旺斯、红云、布洛卡、巫恋、铃兰、贾维、奥斯塔、斥罪、子月、伺夜、阿罗玛、忍冬、裁度、荒芜拉普兰德",
+		"desc_zh": "累计满时爆发（普通、精英敌人1000点、领袖2000点累计值），敌人立即受到6000点元素伤害且获得3层<ba.palsy>麻痹</>。10秒冷却",
+		"desc_en": null,
+		"desc_ja": null
+	},
+	"ba.palsy": {
+		"termId": "ba.palsy",
+		"name_zh": "麻痹",
+		"name_en": null,
+		"name_ja": null,
+		"desc_zh": "每层麻痹可以使敌人在普通攻击时打断本次攻击，上限3层；麻痹未被消耗时持续时间无限，拥有抵抗的单位每5秒流失1层",
+		"desc_en": null,
+		"desc_ja": null
+	},
+	"ba.addbullet": {
+		"termId": "ba.addbullet",
+		"name_zh": "补弹",
+		"name_en": null,
+		"name_ja": null,
+		"desc_zh": "为其他人的弹药类技能补充弹药。单次弹药类技能的持续时间内，最多被补充该次技能所装有弹药数量上限的弹药",
 		"desc_en": null,
 		"desc_ja": null
 	}
+
 }

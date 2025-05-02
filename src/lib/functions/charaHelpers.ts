@@ -125,7 +125,9 @@ const SEARCH_IN_TAGS = [
 	'fragile',
 	'protect',
 	'attract_enemy',
-	'no_source'
+	'no_source',
+	"ally_min_aspd",
+	"min_aspd"
 ];
 const SEARCH_IN_BLACKBOARD = [
 	'max_target',
@@ -194,7 +196,10 @@ const SEARCH_IN_BLACKBOARD = [
 	'trigger_time',
 	'ct',
 	'heal_scale_down',
-	'ally_def_penetrate'
+	'ally_def_penetrate',
+	"add_bullet",
+	"max_ammo",
+	"ally_max_ammo"
 ];
 
 // keys not here will just use their respective key in translations
@@ -241,6 +246,8 @@ const DISPLAY_KEYS_TABLE = {
 	ally_sp_regen: 'sp_regen',
 	ally_sp_stock: 'sp_stock',
 	ally_spareshot: 'spareshot',
+	ally_max_ammo:"max_ammo",
+	ally_min_aspd:"min_aspd",
 	status_immune: 'status_immune_text',
 	heal_self: 'heal_self_others',
 	bonus_flying: 'flying',
