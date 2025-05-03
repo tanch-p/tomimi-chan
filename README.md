@@ -1,5 +1,5 @@
 # tomimi.dev
-svelte upgrade for prts-chan and to avoid confusion of names with prts.wiki
+Currently on Svelte 3.54.0
 
 # Objective:
 - To provide users with the most accurate information on stages & enemies stats/abilities in a readable manner and mods applied should be easily verifiable.
@@ -9,12 +9,9 @@ svelte upgrade for prts-chan and to avoid confusion of names with prts.wiki
 # Roadmap:
 
 ### Operator Recruitment Helper
-- v1 coming soon
+For enhancements/bugs please file an issue. 
+Written in javascript and using json for data
   
-### Enemy Flow
-- next
-- spine models?
-  
-### Improved Enemy Look
-- after Enemy Flow is done
-- Mods applied list for debugging/curiosity
+### Stage Simulator
+Using a localised Spine library (older vers have no npm package) and threejs
+Some models here are missing the special texture effects so they look different from in-game.
