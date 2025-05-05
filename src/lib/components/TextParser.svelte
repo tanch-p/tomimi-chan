@@ -5,13 +5,20 @@
 	import termDesc from '$lib/data/term_desc.json';
 	import { onMount } from 'svelte';
 
+	const HTML_TAGS = ['span', 'br', 'div', 'h4', 'h5', 'h6'];
+
 	// note to self do not ever use <text> for special parsing usage when using inner HTML...
 	export let line: string,
 		className: string = '';
 	let language: Language = 'zh';
 	$: language = $page.data.language;
-
-	const tagPatterns = ['can_silence', 'ignore_camou', 'ignore_stealth','once_only','INCREASE_WHEN_ATTACK'];
+	const tagPatterns = [
+		'can_silence',
+		'ignore_camou',
+		'ignore_stealth',
+		'once_only',
+		'INCREASE_WHEN_ATTACK'
+	];
 	const patternsToParse = [{ prefix: '$', suffix: '$', style: 'text-red-400 font-semibold' }];
 	const textPatterns = {
 		'@rolv.rem': 'text-[#FF4C22]',
@@ -86,7 +93,7 @@
 		)}</div>`;
 	}
 
-	const parseText = (line: string, language:Language) => {
+	const parseText = (line: string, language: Language) => {
 		// for {phys}/{arts}/{true} type keys
 		const regex = new RegExp(`{(.*?)}`, 'gs');
 		const matches = line.match(regex);
@@ -104,6 +111,8 @@
 				);
 			}
 		}
+		line = line.replaceAll('\n', '<br/>');
+		line = line.replaceAll('\\n', '<br/>');
 		//parsed separately to deal with cathy case
 		line = line.replace(/<@(.*?)>(.*?)<\/>/g, (match, pattern, content) => {
 			if (pattern.includes('skilltag')) {
@@ -117,8 +126,13 @@
 		for (const pattern of patternsToParse) {
 			line = processText(line, pattern);
 		}
-		line = line.replaceAll('\n', '<br/>');
-		line = line.replaceAll('\\n', '<br/>');
+		// case to handle for en stage desc with trap names... eg: ro4_1-2
+		line = line.replace(/<(.*?)>/g, (match, pattern, content) => {
+			if (HTML_TAGS.some((tag) => match.includes(tag))) {
+				return match;
+			}
+			return `&lt;${pattern}&gt;`;
+		});
 		return line;
 	};
 	function adjustTooltipPosition(tooltip) {
