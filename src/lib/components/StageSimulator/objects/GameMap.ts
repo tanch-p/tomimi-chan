@@ -11,7 +11,6 @@ export class GameMap {
 	scene: THREE.Scene;
 	enemies: Enemy[] = [];
 	objects: THREE.Mesh[];
-	textureLoader: THREE.TextureLoader;
 	maxWaitTime = 0;
 	assetManager: AssetManager;
 	gameManager: GameManager;
@@ -22,18 +21,8 @@ export class GameMap {
 		this.config = gameManager.config;
 		this.scene = gameManager.scene;
 		this.objects = gameManager.objects;
-		this.textureLoader = new THREE.TextureLoader();
 
 		this.setup(this.config.mapData);
-
-		const geometry = new THREE.PlaneGeometry(
-			this.gameManager.mazeLayout[0].length * GameConfig.gridSize,
-			this.gameManager.mazeLayout.length * GameConfig.gridSize
-		);
-		const plane = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ visible: false }));
-		plane.userData.name = 'plane';
-		this.scene.add(plane);
-		this.objects.push(plane);
 		this.gameManager.initTraps(this.gameManager.config.traps);
 	}
 

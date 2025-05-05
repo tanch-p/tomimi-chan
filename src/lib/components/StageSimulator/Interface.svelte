@@ -74,7 +74,7 @@
 	</button>
 	<button class="interface w-[45px] h-[45px] md:w-[60px] md:h-[60px] shadow-lg" on:click={handleSpeedFactor}>
 		<div class="">
-			<div class="flex justify-center text-2xl leading-[26px]">{GameConfig.speedFactor}<span class="block w-[15px]">Ⅹ</span></div>
+			<div class="flex justify-center text-2xl leading-[26px]">{GameConfig.speedFactor}X</div>
 			<div class="flex justify-center pl-1">
 				{#each Array.from(Array(Math.min(3, GameConfig.speedFactor))) as _, i}
 					<div

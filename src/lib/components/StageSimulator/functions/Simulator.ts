@@ -1,9 +1,10 @@
 import type { MapConfig, Enemy as EnemyType } from '$lib/types';
+import { GameConfig } from '../objects/GameConfig';
 import { GameManager } from '../objects/GameManager';
 import { GameMap } from '../objects/GameMap';
 import { SpawnManager } from '../objects/SpawnManager';
 
-function getSimulatedData(config: MapConfig, waveData, enemies: EnemyType[]) {
+export function getSimulatedData(config: MapConfig, waveData, enemies: EnemyType[]) {
 	const objects = [];
 	const gameManager = new GameManager(config, null, null, objects, enemies, true);
 	const map = new GameMap(gameManager);
@@ -30,5 +31,9 @@ function getSimulatedData(config: MapConfig, waveData, enemies: EnemyType[]) {
 			isEnded = true;
 		}
 	}
+	GameConfig.setValue('scaledElapsedTime', 0);
+	GameConfig.setValue('waveElapsedTime',0);
+	GameConfig.setValue('currentWaveIndex', 0);
+	GameConfig.waveElapsedTime = 0;
 	console.log(data);
 }

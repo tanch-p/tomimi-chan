@@ -30,7 +30,7 @@ export class GameManager {
 	tileManager: TileManager;
 	rollOverMeshes = new Map();
 	countdownManager: CountdownManager;
-	isSimulation:boolean;
+	isSimulation: boolean;
 
 	constructor(
 		config: MapConfig,
@@ -72,7 +72,7 @@ export class GameManager {
 	createCountdown(time: number, x: number, y: number, color = 0xf08080) {
 		const countdown = this.countdownManager.createCountdown(time, color);
 		countdown.setPosition(x, y);
-		!this.isSimulation && this.scene.add(countdown.getGroup());
+		this.addToScene(countdown.getGroup());
 		return countdown.id;
 	}
 
@@ -196,7 +196,7 @@ export class GameManager {
 		// geometry.rotateX(-Math.PI / 2);
 		const plane = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ visible: false }));
 		plane.userData.name = 'plane';
-		this.scene.add(plane);
+		this.addToScene(plane);
 		this.objects.push(plane);
 	}
 	initRollOverMeshes() {
@@ -242,23 +242,30 @@ export class GameManager {
 			return;
 		}
 		const pos = posType === 'game' ? this.gameToWorldPos(data.pos) : data.pos;
-		const trap = new Trap(data, pos);
+		const trap = new Trap(data, pos, this.isSimulation);
 		if (trap.isRoadblock) {
 			this.updateMazeLayout(pos, 1000);
 		}
-		const { x, y } = this.getVectorCoordinates(pos, null);
-		const tile = this.tiles.get(`${pos.col},${pos.row}`);
-		let z = 0;
-		if (trap.hideTile) {
-			tile.mesh.visible = false;
-			trap.getMesh().add(this.tileManager.basicTile.clone());
-		} else if (tile.heightType === 1 || tile.tileName === 'tile_forbidden') {
-			z = 40;
-		}
-		this.traps.set(`${pos.col},${pos.row}`, trap);
+		if (!this.isSimulation) {
+			const { x, y } = this.getVectorCoordinates(pos, null);
+			const tile = this.tiles.get(`${pos.col},${pos.row}`);
+			let z = 0;
+			if (trap.hideTile) {
+				tile.mesh.visible = false;
+				trap.getMesh().add(this.tileManager.basicTile.clone());
+			} else if (tile.heightType === 1 || tile.tileName === 'tile_forbidden') {
+				z = 40;
+			}
+			this.traps.set(`${pos.col},${pos.row}`, trap);
 
-		trap.getMesh().position.set(x, y, z + 0.03);
-		this.scene.add(trap.getMesh());
+			trap.getMesh().position.set(x, y, z + 0.03);
+			this.addToScene(trap.getMesh());
+		}
+	}
+	addToScene(mesh: THREE.Mesh | THREE.Group) {
+		if (!this.isSimulation) {
+			this.scene?.add(mesh);
+		}
 	}
 
 	reset(config, enemies, objects) {
@@ -284,7 +291,7 @@ export class GameManager {
 		for (const enemy of this.enemiesOnMap.filter((ele) => ele.alive)) {
 			enemy.update(delta);
 		}
-		this.traps.forEach((trap, pos) => {
+		!this.isSimulation && this.traps.forEach((trap, pos) => {
 			trap.update(delta);
 		});
 	}
