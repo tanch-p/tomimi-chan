@@ -665,7 +665,7 @@ export const updateSortPriority = (sortOptions, index) => {
 };
 
 export const getCharaList = async (language) => {
-	const data = await decompressGzipToJson(`/data/chara_${language}.gz`);
+	const data = await decompressGzipToJson(`/data/characters_${language}.gz`);
 	data.forEach((char, index) => {
 		char.activeModuleIndex = 0;
 		char.activeTalents = [];
