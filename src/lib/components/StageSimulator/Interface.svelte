@@ -6,6 +6,7 @@
 	import translations from '$lib/translations.json';
 	import Icon from '../Icon.svelte';
 	import spriteCost from '$lib/images/is/sprite_cost.webp';
+	import SeekBar from './SeekBar.svelte';
 
 	export let game,
 		initialCost,
@@ -68,6 +69,7 @@
 	});
 </script>
 
+<SeekBar/>
 <div class="absolute z-[1] right-4 flex gap-x-2 md:gap-x-4 mt-4">
 	<button class="interface w-[45px] h-[45px] md:w-[60px] md:h-[60px] shadow-lg" on:click={handleReset}>
 		<Icon name="refresh-icon" className="rotate-[185deg]" size={28} />

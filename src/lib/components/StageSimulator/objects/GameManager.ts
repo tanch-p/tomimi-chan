@@ -5,7 +5,6 @@ import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { AssetManager } from './AssetManager';
 import { generateMaze } from '$lib/functions/mazeHelpers';
 import { Enemy } from './Enemy';
-import { writable } from 'svelte/store';
 import { SPFA } from './SPFA';
 import { Trap } from './Trap';
 import { SpawnManager } from './SpawnManager';
@@ -14,7 +13,7 @@ import { CountdownManager } from './ShaderCountdownManager';
 
 export class GameManager {
 	assetManager: AssetManager;
-	scene: THREE.Scene | null;
+	scene: THREE.Scene;
 	camera: THREE.OrthographicCamera | null;
 	objects;
 	config;
@@ -24,13 +23,13 @@ export class GameManager {
 	traps = new Map();
 	pathFinder: SPFA;
 	noEnemyAlive = false;
-	killedCount = writable(0);
+	killedCount = 0;
 	spawnManager: SpawnManager;
 	tiles = new Map();
 	tileManager: TileManager;
 	rollOverMeshes = new Map();
 	countdownManager: CountdownManager;
-	isSimulation: boolean;
+	isSimulation = false;
 
 	constructor(
 		config: MapConfig,
@@ -44,7 +43,6 @@ export class GameManager {
 		this.enemies = enemies;
 		this.config = config;
 		this.assetManager = AssetManager.getInstance();
-		this.countdownManager = CountdownManager.getInstance();
 		this.scene = scene;
 		this.camera = camera;
 		this.objects = objects;
@@ -52,8 +50,11 @@ export class GameManager {
 		this.mazeLayout = mazeLayout;
 		this.pathFinder = new SPFA(mazeLayout);
 		this.tileManager = new TileManager(config.levelId);
-		!this.isSimulation && this.initPlane();
-		!this.isSimulation && this.initRollOverMeshes();
+		if (!this.isSimulation) {
+			this.countdownManager = CountdownManager.getInstance();
+			this.initPlane();
+			this.initRollOverMeshes();
+		}
 	}
 
 	getVectorCoordinates = (pos, reachOffset) => {
@@ -285,14 +286,17 @@ export class GameManager {
 	}
 
 	update(delta: number) {
-		this.countdownManager.update(delta);
+		if (!this.isSimulation) {
+			this.countdownManager.update(delta);
+			this.traps.forEach((trap, pos) => {
+				trap.update(delta);
+			});
+		}
 		GameConfig.setValue('scaledElapsedTime', GameConfig.scaledElapsedTime + delta);
-		this.noEnemyAlive = this.enemiesOnMap.every((enemy) => !enemy.alive);
-		for (const enemy of this.enemiesOnMap.filter((ele) => ele.alive)) {
+		this.noEnemyAlive = this.enemiesOnMap.length === 0;
+		for (const enemy of this.enemiesOnMap) {
 			enemy.update(delta);
 		}
-		!this.isSimulation && this.traps.forEach((trap, pos) => {
-			trap.update(delta);
-		});
+		this.enemiesOnMap = this.enemiesOnMap.filter((ele) => ele.alive);
 	}
 }

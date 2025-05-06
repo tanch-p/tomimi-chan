@@ -93,6 +93,7 @@ export class Enemy {
 		this.hp = enemyData.forms[0].stats.hp;
 		this.baseSpeed = enemyData.forms[0].stats.ms;
 		this.moddedSpeed = this.baseSpeed;
+
 		this.meshGroup = new THREE.Group();
 		this.meshGroup.renderOrder = 1;
 		this.traits = getEnemySkills(
@@ -116,7 +117,12 @@ export class Enemy {
 			this.motionMode = 'BLINK';
 		}
 		this.actions = this.getActions(route);
-		this.initModel();
+		if (!this.gameManager.isSimulation) {
+			this.initModel();
+		}
+		else{
+			this.gameManager.scene.add(this.meshGroup);
+		}
 		this.skillManager = new SkillManager(this, this.traits.concat(this.specials));
 
 		const { x: actualX, y: actualY } = this.gameManager.getVectorCoordinates(
@@ -124,14 +130,17 @@ export class Enemy {
 			route.spawnOffset
 		);
 		this.meshGroup.position.set(actualX, actualY, GameConfig.baseZIndex); //实体坐标：即敌人中点实际所在位置。敌人处于什么位置，应该判定哪个地块的效果，是否处于我方部分效果的范围内，都是判断的实体坐标
+		if (!this.gameManager.isSimulation) {
+			this.pathGroup = this.visualisePath(
+				this.actions,
+				this.currentActionIndex,
+				this.route.startPosition,
+				this.route.spawnOffset
+			);
+		}
 		const { x, y } = this.gameManager.getVectorCoordinates(route.startPosition, null);
 		this.raycastPos = new THREE.Vector3(x, y, GameConfig.baseZIndex);
-		this.pathGroup = this.visualisePath(
-			this.actions,
-			this.currentActionIndex,
-			this.route.startPosition,
-			this.route.spawnOffset
-		);
+
 		const standbyTime = this.traits.concat(this.specials).find((skill) => skill.standby)?.standby;
 		if (standbyTime) {
 			this.state = 'standby';
@@ -465,15 +474,19 @@ export class Enemy {
 	entryColorChange(delta) {
 		if (this.entryElapsedTime > 0.5) {
 			this.entry = false;
-			this.skel.skeleton.color.r = 1;
-			this.skel.skeleton.color.g = 1;
-			this.skel.skeleton.color.b = 1;
+			if (this.skel) {
+				this.skel.skeleton.color.r = 1;
+				this.skel.skeleton.color.g = 1;
+				this.skel.skeleton.color.b = 1;
+			}
 			return;
 		}
 		this.entryElapsedTime += delta * 2;
-		this.skel.skeleton.color.r += delta * 2;
-		this.skel.skeleton.color.g += delta * 2;
-		this.skel.skeleton.color.b += delta * 2;
+		if (this.skel) {
+			this.skel.skeleton.color.r += delta * 2;
+			this.skel.skeleton.color.g += delta * 2;
+			this.skel.skeleton.color.b += delta * 2;
+		}
 	}
 
 	exitColorChange(delta) {
@@ -483,17 +496,16 @@ export class Enemy {
 			return;
 		}
 		this.exitElapsedTime += delta;
-		this.skel.skeleton.color.r -= delta * 2;
-		this.skel.skeleton.color.g -= delta * 2;
-		this.skel.skeleton.color.b -= delta * 2;
-		this.skel.skeleton.color.a -= delta * 2;
+		if (this.skel) {
+			this.skel.skeleton.color.r -= delta * 2;
+			this.skel.skeleton.color.g -= delta * 2;
+			this.skel.skeleton.color.b -= delta * 2;
+			this.skel.skeleton.color.a -= delta * 2;
+		}
 	}
 
 	handleAnimUpdate(delta) {
-		if (!this.skel) {
-			return;
-		}
-		this.skel.update(delta);
+		this.skel && this.skel.update(delta);
 		this.disguiseSkel && this.disguiseSkel.update(delta);
 
 		if (this.state === 'fall') {
@@ -503,12 +515,14 @@ export class Enemy {
 				return;
 			}
 			this.exitElapsedTime += delta;
-			this.skel.skeleton.color.r -= delta * 4;
-			this.skel.skeleton.color.g -= delta * 4;
-			this.skel.skeleton.color.b -= delta * 4;
-			this.meshGroup.position.x += 3 * (this.direction?.x ?? 0);
-			this.meshGroup.position.y += 3 * (this.direction?.y ?? 0);
-			this.meshGroup.position.z -= 20;
+			if (this.skel) {
+				this.skel.skeleton.color.r -= delta * 4;
+				this.skel.skeleton.color.g -= delta * 4;
+				this.skel.skeleton.color.b -= delta * 4;
+				this.meshGroup.position.x += 3 * (this.direction?.x ?? 0);
+				this.meshGroup.position.y += 3 * (this.direction?.y ?? 0);
+				this.meshGroup.position.z -= 20;
+			}
 			return;
 		}
 
@@ -633,7 +647,9 @@ export class Enemy {
 							.normalize();
 					}
 					if (direction.x !== 0) {
-						this.skel.scale.x = direction.x < 0 ? -1 : 1;
+						if (this.skel) {
+							this.skel.scale.x = direction.x < 0 ? -1 : 1;
+						}
 						if (this.disguiseSkel) {
 							this.disguiseSkel.scale.x = direction.x < 0 ? -1 : 1;
 						}
@@ -683,11 +699,13 @@ export class Enemy {
 							this.timeToWait = time;
 							break;
 					}
-					this.countdownId = this.gameManager.createCountdown(
-						this.timeToWait,
-						this.meshGroup.position.x,
-						this.meshGroup.position.y + 30
-					);
+					if (!this.gameManager.isSimulation) {
+						this.countdownId = this.gameManager.createCountdown(
+							this.timeToWait,
+							this.meshGroup.position.x,
+							this.meshGroup.position.y + 30
+						);
+					}
 				} else {
 					this.waitElapsedTime += delta;
 				}
@@ -723,12 +741,14 @@ export class Enemy {
 			} else {
 				if (this.waitElapsedTime === 0) {
 					this.state = 'standby';
-					this.countdownId = this.gameManager.createCountdown(
-						this.standbyTime,
-						this.meshGroup.position.x,
-						this.meshGroup.position.y + 20,
-						0x5f7af7
-					);
+					if (!this.gameManager.isSimulation) {
+						this.countdownId = this.gameManager.createCountdown(
+							this.standbyTime,
+							this.meshGroup.position.x,
+							this.meshGroup.position.y + 20,
+							0x5f7af7
+						);
+					}
 					this.handleIdle();
 					this.waitElapsedTime += delta;
 				} else {
@@ -770,8 +790,10 @@ export class Enemy {
 			this.gameManager.objects.splice(index, 1);
 		}
 		this.onDeselect();
-		this.gameManager.scene.remove(this.meshGroup);
-		this.gameManager.killedCount.update((v) => v + 1);
+		if (!this.gameManager.isSimulation) {
+			this.gameManager.scene.remove(this.meshGroup);
+		}
+		this.gameManager.killedCount++;
 	}
 
 	onSelect() {
@@ -792,15 +814,17 @@ export class Enemy {
 		this.skillRangeMeshes.forEach((mesh) => (mesh.visible = true));
 	}
 	onDeselect() {
-		this.gameManager.scene.remove(this.pathGroup);
-		this.shadow.uniforms.isSelected.value = false;
-		this.selected = false;
-		!GameConfig.showAllTimers &&
-			this.gameManager.countdownManager.toggleCountdown(this.countdownId, false);
-		if (this.atkRangeMesh) {
-			this.atkRangeMesh.visible = GameConfig.showAllRange;
+		if (!this.gameManager.isSimulation) {
+			this.gameManager.scene.remove(this.pathGroup);
+			this.shadow.uniforms.isSelected.value = false;
+			this.selected = false;
+			!GameConfig.showAllTimers &&
+				this.gameManager.countdownManager.toggleCountdown(this.countdownId, false);
+			if (this.atkRangeMesh) {
+				this.atkRangeMesh.visible = GameConfig.showAllRange;
+			}
+			this.skillRangeMeshes.forEach((mesh) => (mesh.visible = GameConfig.showAllRange));
 		}
-		this.skillRangeMeshes.forEach((mesh) => (mesh.visible = GameConfig.showAllRange));
 	}
 
 	visualisePath(paths, currentActionIndex, startPos, spawnOffset) {
@@ -954,9 +978,10 @@ export class Enemy {
 	handleMove() {
 		if (this.texture) return;
 		const animName = getMoveAnimName(this.key, this.skel);
-		this.changeAnimation(animName);
+		this.skel && this.changeAnimation(animName);
 	}
 	changeAnimation(animationName) {
+		if (!this.skel) return;
 		if (!this.skel.state.hasAnimation(animationName)) {
 			// console.log(this.key);
 			return;

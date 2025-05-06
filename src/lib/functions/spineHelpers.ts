@@ -1,8 +1,10 @@
 export const getSpineMetaData = (key, skel) => {
+	if (!skel) return;
+
 	let width = Math.min(100, skel.data.width * 0.3);
 	let height = Math.min(110, skel.data.height * 0.3);
 	switch (key) {
-		case "enemy_2068_skzirn":
+		case 'enemy_2068_skzirn':
 			height = 65;
 			break;
 		case 'enemy_2066_skzlcp':
@@ -16,6 +18,7 @@ export const getSpineMetaData = (key, skel) => {
 };
 
 export function getReviveAnimName(key, skel) {
+	if(!skel) return;
 	if (skel.state.hasAnimation('Revive')) {
 		return 'Revive';
 	}
@@ -28,6 +31,8 @@ export function getReviveAnimName(key, skel) {
 }
 
 export function getDefaultAnimName(key, skel) {
+	if (!skel) return;
+
 	if (skel.state.hasAnimation('Default')) {
 		return 'Default';
 	}
@@ -41,6 +46,8 @@ export function getDefaultAnimName(key, skel) {
 }
 
 export function getIdleAnimName(key, skel, state) {
+	if (!skel) return;
+
 	if (skel.state.hasAnimation('Idle')) {
 		return 'Idle';
 	}
@@ -127,6 +134,7 @@ export function getIdleAnimName(key, skel, state) {
 }
 
 export function getMoveAnimName(key, skel, state) {
+	if (!skel) return;
 	if (skel.state.hasAnimation('Move')) {
 		return 'Move';
 	}
@@ -222,12 +230,14 @@ export function getMoveAnimName(key, skel, state) {
 	}
 }
 export function getAnimDuration(skel, animName) {
+	if(!skel) return;
 	return (
 		skel.state.data.skeletonData.animations.find((ele) => ele.name === animName)?.duration || 0
 	);
 }
 
 export function getSkillAnimName(skel, enemyKey, skillKey) {
+	if(!skel) return;
 	if (skel.state.hasAnimation('Skill_Loop')) {
 		return 'Skill_Loop';
 	}

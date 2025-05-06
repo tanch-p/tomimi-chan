@@ -8,6 +8,7 @@
 	import SpawnTimeView from './SpawnTimeView.svelte';
 	import Settings from './Settings.svelte';
 	import { GameConfig } from './objects/GameConfig';
+	import { getSimulatedData } from './functions/Simulator';
 
 	export let timeline,
 		mapConfig: MapConfig,
@@ -24,6 +25,9 @@
 
 	$: if (timeline) {
 		resetGame();
+	}
+	$: if(waveData){
+		getSimulatedData(mapConfig,waveData,enemies);
 	}
 
 	function resetGame() {
@@ -71,8 +75,8 @@
 			count={timeline?.count}
 			maxCost={mapConfig.maxCost}
 		/>
-	{:catch error}
-		<p class="text-center">An error occured while loading: <br />{error.message}</p>
+	<!-- {:catch error} -->
+		<!-- <p class="text-center">An error occured while loading: <br />{error.message}</p> -->
 	{/await}
 	<canvas bind:this={canvasElement} />
 </div>

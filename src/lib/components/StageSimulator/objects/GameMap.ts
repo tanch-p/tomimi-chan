@@ -32,7 +32,6 @@ export class GameMap {
 		const { map, tiles } = mapData;
 		map.forEach((row, rowIdx) =>
 			row.forEach((tileIndex, colIdx) => {
-				const group = new THREE.Group();
 				const [tileName, heightType, mask, blackboard, buildableType] = tiles[tileIndex];
 				const tileToSet = structuredClone(tiles[tileIndex]);
 				const key = `${colIdx},${rowIdx}`;
@@ -46,7 +45,12 @@ export class GameMap {
 							break;
 					}
 				}
-				const tileGroup = this.gameManager.tileManager.get(tileToSet);
+				let group;
+				let tileGroup;
+				if (!this.gameManager.isSimulation) {
+					group = new THREE.Group();
+					tileGroup = this.gameManager.tileManager.get(tileToSet);
+				}
 				const { x, y } = this.gameManager.getVectorCoordinates(
 					{
 						row: rowIdx,
@@ -57,10 +61,10 @@ export class GameMap {
 				let z = 0;
 				switch (tileName) {
 					case 'tile_end':
-						tileGroup.add(new StickBox(100, 100, 100, 'blue').getMesh());
+						tileGroup && tileGroup.add(new StickBox(100, 100, 100, 'blue').getMesh());
 						break;
 					case 'tile_start':
-						tileGroup.add(new StickBox(100, 100, 100, 'red').getMesh());
+						tileGroup && tileGroup.add(new StickBox(100, 100, 100, 'red').getMesh());
 						break;
 					case 'tile_telin':
 					case 'tile_telout':
@@ -88,9 +92,11 @@ export class GameMap {
 					mesh: tileGroup,
 					group: group
 				});
-				group.add(tileGroup);
-				group.position.set(x, y, z);
-				this.scene.add(group);
+				if (!this.gameManager.isSimulation) {
+					group.add(tileGroup);
+					group.position.set(x, y, z);
+					this.scene.add(group);
+				}
 			})
 		);
 	}
