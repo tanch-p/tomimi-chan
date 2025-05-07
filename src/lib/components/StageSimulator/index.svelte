@@ -18,7 +18,7 @@
 		randomSeeds;
 
 	let waves;
-	let assetManager: AssetManager, canvasElement: HTMLCanvasElement, game: Game;
+	let assetManager: AssetManager, canvasElement: HTMLCanvasElement, game: Game, simulatedData;
 	// let gameInstances: Game[] = [];
 
 	$: waves = timeline?.waves;
@@ -27,7 +27,7 @@
 		resetGame();
 	}
 	$: if(waveData){
-		getSimulatedData(mapConfig,waveData,enemies);
+		simulatedData = getSimulatedData(mapConfig,waveData,enemies);
 	}
 
 	function resetGame() {
@@ -68,6 +68,7 @@
 	{:then}
 		<SpawnTimeView {waves} {mapConfig} />
 		<Interface
+		{simulatedData}
 			bind:randomSeeds
 			{game}
 			initialCost={mapConfig.initialCost}

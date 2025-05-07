@@ -230,6 +230,22 @@ export class SpawnManager {
 		this.branchIndex++;
 	}
 
+	set(data) {
+		GameConfig.waveElapsedTime = data.waveElapsedTime;
+		this.currentWaveIndex = data.currentWaveIndex;
+		this.currentFragmentIndex = data.currentFragmentIndex;
+		this.activeActions = data.activeActions;
+		this.completedActions = data.completedActions;
+		this.fragmentsTimeTracker = data.fragmentsTimeTracker;
+		this.isProcessingFragment = data.isProcessingFragment;
+		this.nextWaveTimer = data.nextWaveTimer;
+		this.nextWaveType = data.nextWaveType;
+		this.enterNextWaveFlag = data.enterNextWaveFlag;
+		this.preDelayTimer = data.preDelayTimer;
+		this.fragmentPreDelayTimer = data.fragmentPreDelayTimer;
+		this.postDelayTimer = data.postDelayTimer;
+	}
+
 	// Helper method to reset the manager
 	reset() {
 		this.currentWaveIndex = 0;

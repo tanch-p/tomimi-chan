@@ -285,6 +285,10 @@ export class GameManager {
 		this.initRollOverMeshes();
 	}
 
+	set(data){
+		this.enemiesOnMap = data.enemiesOnMap;
+	}
+
 	update(delta: number) {
 		if (!this.isSimulation) {
 			this.countdownManager.update(delta);

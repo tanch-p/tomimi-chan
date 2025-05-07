@@ -13,6 +13,7 @@
 		language: Language,
 		count: number,
 		randomSeeds,
+		simulatedData,
 		maxCost = 99;
 
 	let state,
@@ -69,7 +70,7 @@
 	});
 </script>
 
-<SeekBar/>
+<SeekBar {game} {simulatedData}/>
 <div class="absolute z-[1] right-4 flex gap-x-2 md:gap-x-4 mt-4">
 	<button class="interface w-[45px] h-[45px] md:w-[60px] md:h-[60px] shadow-lg" on:click={handleReset}>
 		<Icon name="refresh-icon" className="rotate-[185deg]" size={28} />
