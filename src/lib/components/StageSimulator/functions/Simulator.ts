@@ -44,7 +44,7 @@ export function getSimulatedData(config: MapConfig, waveData, enemies: EnemyType
 	GameConfig.setValue('waveElapsedTime', 0);
 	GameConfig.setValue('currentWaveIndex', 0);
 	GameConfig.waveElapsedTime = 0;
-	cleanup(scene);
+	cleanup(gameSimManager);
 
 	return data;
 }
@@ -105,19 +105,10 @@ function setData(count, data, spawnManager: SpawnManager, gameSimManager: GameSi
 	};
 }
 
-function cleanup(scene: THREE.Scene) {
-	const objectsToRemove: THREE.Object3D[] = [];
-
-	scene.traverse((obj) => {
-		objectsToRemove.push(obj); // Collect objects
-	});
-	objectsToRemove.forEach((obj) => {
+function cleanup(gameSimManager: GameSimManager) {
+	gameSimManager.objects.forEach((obj) => {
 		// Dispose of geometry and material
 		disposeObject(obj);
-		// Remove from parent
-		if (obj.parent) {
-			obj.parent.remove(obj);
-		}
 	});
 }
 

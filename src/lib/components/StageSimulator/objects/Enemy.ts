@@ -112,7 +112,6 @@ export class Enemy {
 			this.isEnding = setData.isEnding;
 			this.selected = setData.selected;
 			this.animState = setData.animState;
-			this.pathGroup = setData.pathGroup;
 			this.traits = setData.traits;
 			this.specials = setData.specials;
 			this.skillManager = setData.skillManager;
@@ -167,9 +166,18 @@ export class Enemy {
 		this.meshGroup.renderOrder = 1;
 		if (!this.gameManager.isSimulation) {
 			this.initModel();
+		} else {
+			// for GC
+			this.gameManager.objects.push(this.meshGroup);
 		}
 		if (setData) {
 			this.meshGroup.position.set(this.raycastPos.x, this.raycastPos.y, GameConfig.baseZIndex);
+			this.pathGroup = this.visualisePath(
+				this.actions,
+				this.currentActionIndex,
+				this.route.startPosition,
+				this.route.spawnOffset
+			);
 		} else {
 			this.skillManager = new SkillManager(this, this.traits.concat(this.specials));
 			const { x: actualX, y: actualY } = this.gameManager.getVectorCoordinates(
@@ -848,12 +856,12 @@ export class Enemy {
 	}
 
 	remove() {
-		const index = this.gameManager.objects.findIndex((ele) => ele.uuid === this.sprite.uuid);
-		if (index !== -1) {
-			this.gameManager.objects.splice(index, 1);
-		}
-		this.onDeselect();
 		if (!this.gameManager.isSimulation) {
+			const index = this.gameManager.objects.findIndex((ele) => ele.uuid === this.sprite.uuid);
+			if (index !== -1) {
+				this.gameManager.objects.splice(index, 1);
+			}
+			this.onDeselect();
 			this.gameManager.scene.remove(this.meshGroup);
 		}
 		this.gameManager.killedCount++;
