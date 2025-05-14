@@ -191,7 +191,7 @@
 		console.log(simulatedData[time]);
 		if (game) {
 			game.spawnManager.set(simulatedData[time]);
-			// game.gameManager.set(simulatedData[time]);
+			game.gameManager.set(simulatedData[time]);
 		}
 	}
 </script>

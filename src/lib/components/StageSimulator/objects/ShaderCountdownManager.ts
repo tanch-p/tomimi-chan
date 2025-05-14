@@ -57,7 +57,6 @@ export class CountdownManager {
 		});
 	}
 
-	// Public method that handles font loading asynchronously
 	createCountdown(initialTime: number, color = 0xf08080): CountdownSprite {
 		if (this.countdowns.has(this.indexCounter)) {
 			console.warn(
@@ -96,6 +95,14 @@ export class CountdownManager {
 		}
 	}
 
+	// Remove all countdowns
+	removeAllCountdowns(): void {
+		this.countdowns.forEach((countdown, id) => {
+			countdown.dispose();
+			this.countdowns.delete(id);
+		});
+	}
+
 	// Update all countdowns
 	update(deltaTime: number): void {
 		this.countdowns.forEach((countdown) => {
@@ -126,7 +133,7 @@ export class CountdownSprite {
 	private textMesh: THREE.Mesh;
 	private textGeometry: THREE.BufferGeometry;
 
-	private assetManager:AssetManager;
+	private assetManager: AssetManager;
 	private material: THREE.ShaderMaterial;
 	private timeStr: string = '';
 

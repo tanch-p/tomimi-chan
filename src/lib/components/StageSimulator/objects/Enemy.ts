@@ -48,7 +48,7 @@ export class Enemy {
 	animState = 'Idle';
 	gameManager: GameManager;
 	pathGroup;
-	countdownId: number;
+	countdownId: number = -1;
 	skel: spine.SkeletonMesh;
 	sprite: THREE.Sprite;
 	height: number;
@@ -74,77 +74,124 @@ export class Enemy {
 	disguiseSkel: spine.SkeletonMesh;
 	texture;
 
-	constructor(enemyData: EnemyType, route, gameManager: GameManager, fragmentKey) {
-		gameManager.enemiesOnMap.push(this);
-		this.pathFinder = gameManager.pathFinder;
-		this.data = enemyData;
-		this.key = enemyData.key;
-		this.gameManager = gameManager;
+	constructor(enemyData: EnemyType, route, gameManager: GameManager, fragmentKey, setData = null) {
 		this.assetManager = AssetManager.getInstance();
-		this.route = route;
-		this.fragmentKey = fragmentKey;
-		if (!route.checkpoints?.length > 0) {
-			this.arrivalThreshold = GameConfig.gridSize * 0.25;
-		} else if (route.visitEveryNodeCenter) {
-			this.arrivalThreshold = GameConfig.gridSize * 0.05;
+		this.gameManager = gameManager;
+		if (setData) {
+			this.raycastPos = new THREE.Vector3(
+				setData.raycastPos.x,
+				setData.raycastPos.y,
+				setData.raycastPos.z
+			);
+			this.targetPos = setData.targetPos
+				? new THREE.Vector3(setData.targetPos.x, setData.targetPos.y, setData.targetPos.z)
+				: null;
+			this.gridPos = setData.gridPos;
+			this.data = setData.data;
+			this.key = setData.key;
+			this.actions = setData.actions;
+			this.hp = setData.hp;
+			this.baseSpeed = setData.baseSpeed;
+			this.moddedSpeed = setData.moddedSpeed;
+			this.route = setData.route;
+			this.currentActionIndex = setData.currentActionIndex;
+			this.state = setData.state;
+			this.direction = setData.direction
+				? new THREE.Vector3(setData.direction.x, setData.direction.y, setData.direction.z)
+				: null;
+			this.motionMode = setData.motionMode;
+			this.isMoving = setData.isMoving;
+			this.blinkState = setData.blinkState;
+			this.blinkElapsedTime = setData.blinkElapsedTime;
+			this.blinkDuration = setData.blinkDuration;
+			this.moveDirection = setData.moveDirection;
+			this.waitElapsedTime = setData.waitElapsedTime;
+			this.entry = false;
+			this.exit = setData.exit;
+			this.exitElapsedTime = setData.exitElapsedTime;
+			this.isEnding = setData.isEnding;
+			this.selected = setData.selected;
+			this.animState = setData.animState;
+			this.pathGroup = setData.pathGroup;
+			this.traits = setData.traits;
+			this.specials = setData.specials;
+			this.skillManager = setData.skillManager;
+			this.formIndex = setData.formIndex;
+			this.timeToWait = setData.timeToWait;
+			this.standbyTime = setData.standbyTime;
+			this.pathFinder = setData.pathFinder;
+			this.fragmentKey = setData.fragmentKey;
+			this.reviveTimer = setData.reviveTimer;
+			this.reviveDuration = setData.reviveDuration;
+		} else {
+			gameManager.enemiesOnMap.push(this);
+			this.pathFinder = gameManager.pathFinder;
+			this.data = enemyData;
+			this.key = enemyData.key;
+			this.route = route;
+			this.fragmentKey = fragmentKey;
+			if (!route.checkpoints?.length > 0) {
+				this.arrivalThreshold = GameConfig.gridSize * 0.25;
+			} else if (route.visitEveryNodeCenter) {
+				this.arrivalThreshold = GameConfig.gridSize * 0.05;
+			}
+			this.motionMode = route.motionMode;
+			this.state = 'idle';
+			this.hp = enemyData.forms[0].stats.hp;
+			this.baseSpeed = enemyData.forms[0].stats.ms;
+			this.moddedSpeed = this.baseSpeed;
+			this.traits = getEnemySkills(
+				this.data,
+				this.data.traits,
+				this.formIndex,
+				GameConfig.specialMods,
+				'trait'
+			);
+			this.specials = getEnemySkills(
+				this.data,
+				this.data.forms[this.formIndex].special,
+				this.formIndex,
+				GameConfig.specialMods,
+				'special'
+			);
+			if (this.traits.find((skill) => ['self_bind', 'self_bind_plus'].includes(skill.key))) {
+				this.motionMode = 'NONE';
+			}
+			if (this.traits.find((skill) => skill.key === 'move_blink')) {
+				this.motionMode = 'BLINK';
+			}
+			this.actions = this.getActions(route);
 		}
-		this.motionMode = route.motionMode;
-		this.state = 'idle';
-		this.hp = enemyData.forms[0].stats.hp;
-		this.baseSpeed = enemyData.forms[0].stats.ms;
-		this.moddedSpeed = this.baseSpeed;
 
 		this.meshGroup = new THREE.Group();
 		this.meshGroup.renderOrder = 1;
-		this.traits = getEnemySkills(
-			this.data,
-			this.data.traits,
-			this.formIndex,
-			GameConfig.specialMods,
-			'trait'
-		);
-		this.specials = getEnemySkills(
-			this.data,
-			this.data.forms[this.formIndex].special,
-			this.formIndex,
-			GameConfig.specialMods,
-			'special'
-		);
-		if (this.traits.find((skill) => ['self_bind', 'self_bind_plus'].includes(skill.key))) {
-			this.motionMode = 'NONE';
-		}
-		if (this.traits.find((skill) => skill.key === 'move_blink')) {
-			this.motionMode = 'BLINK';
-		}
-		this.actions = this.getActions(route);
 		if (!this.gameManager.isSimulation) {
 			this.initModel();
 		}
-		else{
-			this.gameManager.scene.add(this.meshGroup);
-		}
-		this.skillManager = new SkillManager(this, this.traits.concat(this.specials));
-
-		const { x: actualX, y: actualY } = this.gameManager.getVectorCoordinates(
-			route.startPosition,
-			route.spawnOffset
-		);
-		this.meshGroup.position.set(actualX, actualY, GameConfig.baseZIndex); //实体坐标：即敌人中点实际所在位置。敌人处于什么位置，应该判定哪个地块的效果，是否处于我方部分效果的范围内，都是判断的实体坐标
-		if (!this.gameManager.isSimulation) {
-			this.pathGroup = this.visualisePath(
-				this.actions,
-				this.currentActionIndex,
-				this.route.startPosition,
-				this.route.spawnOffset
+		if (setData) {
+			this.meshGroup.position.set(this.raycastPos.x, this.raycastPos.y, GameConfig.baseZIndex);
+		} else {
+			this.skillManager = new SkillManager(this, this.traits.concat(this.specials));
+			const { x: actualX, y: actualY } = this.gameManager.getVectorCoordinates(
+				route.startPosition,
+				route.spawnOffset
 			);
-		}
-		const { x, y } = this.gameManager.getVectorCoordinates(route.startPosition, null);
-		this.raycastPos = new THREE.Vector3(x, y, GameConfig.baseZIndex);
-
-		const standbyTime = this.traits.concat(this.specials).find((skill) => skill.standby)?.standby;
-		if (standbyTime) {
-			this.state = 'standby';
-			this.standbyTime = standbyTime;
+			this.meshGroup.position.set(actualX, actualY, GameConfig.baseZIndex); //实体坐标：即敌人中点实际所在位置。敌人处于什么位置，应该判定哪个地块的效果，是否处于我方部分效果的范围内，都是判断的实体坐标
+			if (!this.gameManager.isSimulation) {
+				this.pathGroup = this.visualisePath(
+					this.actions,
+					this.currentActionIndex,
+					this.route.startPosition,
+					this.route.spawnOffset
+				);
+			}
+			const { x, y } = this.gameManager.getVectorCoordinates(route.startPosition, null);
+			this.raycastPos = new THREE.Vector3(x, y, GameConfig.baseZIndex);
+			const standbyTime = this.traits.concat(this.specials).find((skill) => skill.standby)?.standby;
+			if (standbyTime) {
+				this.state = 'standby';
+				this.standbyTime = standbyTime;
+			}
 		}
 	}
 
@@ -281,9 +328,11 @@ export class Enemy {
 			this.gameManager.scene.add(this.meshGroup);
 
 			this.handleIdle();
-			this.skel.skeleton.color.r = 0.2;
-			this.skel.skeleton.color.g = 0.2;
-			this.skel.skeleton.color.b = 0.2;
+			if (this.entry) {
+				this.skel.skeleton.color.r = 0.2;
+				this.skel.skeleton.color.g = 0.2;
+				this.skel.skeleton.color.b = 0.2;
+			}
 
 			if (this.traits.some((skill) => skill.key === 'disguise')) {
 				const skel = new spine.SkeletonMesh(skeletonData, (parameters) => {
@@ -708,6 +757,13 @@ export class Enemy {
 					}
 				} else {
 					this.waitElapsedTime += delta;
+					if (this.countdownId === -1 && !this.gameManager.isSimulation) {
+						this.countdownId = this.gameManager.createCountdown(
+							this.timeToWait - this.waitElapsedTime,
+							this.meshGroup.position.x,
+							this.meshGroup.position.y + 30
+						);
+					}
 				}
 
 				if (this.waitElapsedTime >= this.timeToWait) {
@@ -753,6 +809,13 @@ export class Enemy {
 					this.waitElapsedTime += delta;
 				} else {
 					this.waitElapsedTime += delta;
+					if (this.countdownId === -1 && !this.gameManager.isSimulation) {
+						this.countdownId = this.gameManager.createCountdown(
+							this.timeToWait - this.waitElapsedTime,
+							this.meshGroup.position.x,
+							this.meshGroup.position.y + 30
+						);
+					}
 				}
 
 				if (this.waitElapsedTime >= this.standbyTime) {

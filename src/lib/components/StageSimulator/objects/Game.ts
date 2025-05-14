@@ -4,11 +4,9 @@ import { GameMap } from './GameMap';
 import { SpawnManager } from './SpawnManager';
 import { GameConfig } from './GameConfig';
 import { GameManager } from './GameManager';
-import { AssetManager } from './AssetManager';
 import { writable } from 'svelte/store';
 
 export class Game {
-	assetManager: AssetManager;
 	canvas: HTMLCanvasElement;
 	scene: THREE.Scene;
 	camera: THREE.OrthographicCamera;
@@ -33,7 +31,6 @@ export class Game {
 		this.waveData = waveData;
 		this.enemies = enemies;
 		this.objects = [];
-		this.assetManager = AssetManager.getInstance();
 		GameConfig.setValue('tokenCard', null);
 		if (config.token_cards?.length > 0) {
 			const card = config.token_cards.find((ele) => ele.key === 'trap_001_crate');

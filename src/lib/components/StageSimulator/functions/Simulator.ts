@@ -1,41 +1,42 @@
-import type { MapConfig, Enemy as EnemyType } from '$lib/types';
+import type { MapConfig, Enemy as EnemyType, Position } from '$lib/types';
 import { GameConfig } from '../objects/GameConfig';
-import { GameManager } from '../objects/GameManager';
 import { GameMap } from '../objects/GameMap';
 import { SpawnManager } from '../objects/SpawnManager';
 import * as THREE from 'three';
+import { Trap } from '../objects/Trap';
+import { SPFA } from '../objects/SPFA';
+import { generateMaze } from '$lib/functions/mazeHelpers';
+import { Enemy } from '../objects/Enemy';
 
 export function getSimulatedData(config: MapConfig, waveData, enemies: EnemyType[]) {
-	const objects = [];
 	const scene = new THREE.Scene(); //add objects here to make garbage collection easier
 
-	const gameManager = new GameManager(config, scene, null, objects, enemies, true);
-	const map = new GameMap(gameManager);
-	const spawnManager = new SpawnManager(waveData, map, gameManager);
-
+	const gameSimManager = new GameSimManager(config, enemies);
+	const map = new GameMap(gameSimManager);
+	const spawnManager = new SpawnManager(waveData, map, gameSimManager);
 	let isEnded = false;
 	let i = 1;
 	let count = 0;
 	let data = {};
-	setData(count, data, spawnManager, gameManager);
+	setData(count, data, spawnManager, gameSimManager);
 
 	// Simulate at 60fps, 1x speed
 	while (!isEnded) {
 		const deltaTime = 1 / 60;
 		spawnManager.update(deltaTime);
-		gameManager.update(deltaTime);
+		gameSimManager.update(deltaTime);
 
 		if (i === 60) {
 			i = 1;
 			count++;
-			setData(count, data, spawnManager, gameManager);
+			setData(count, data, spawnManager, gameSimManager);
 			if (Object.keys(data).length > 1000) {
 				break;
 			}
 		} else {
 			i++;
 		}
-		if (spawnManager.isFinished && gameManager.noEnemyAlive) {
+		if (spawnManager.isFinished && gameSimManager.noEnemyAlive) {
 			isEnded = true;
 		}
 	}
@@ -48,7 +49,7 @@ export function getSimulatedData(config: MapConfig, waveData, enemies: EnemyType
 	return data;
 }
 
-function setData(count, data, spawnManager: SpawnManager, gameManager: GameManager) {
+function setData(count, data, spawnManager: SpawnManager, gameSimManager: GameSimManager) {
 	data[count] = {
 		waveElapsedTime: GameConfig.waveElapsedTime,
 		currentWaveIndex: spawnManager.currentWaveIndex,
@@ -63,7 +64,44 @@ function setData(count, data, spawnManager: SpawnManager, gameManager: GameManag
 		preDelayTimer: spawnManager.preDelayTimer,
 		fragmentPreDelayTimer: spawnManager.fragmentPreDelayTimer,
 		postDelayTimer: spawnManager.postDelayTimer,
-		enemiesOnMap: gameManager.enemiesOnMap
+		enemiesOnMap: gameSimManager.enemiesOnMap.map((enemy) => {
+			return {
+				raycastPos: structuredClone(enemy.raycastPos),
+				targetPos: structuredClone(enemy.targetPos),
+				gridPos: enemy.gridPos,
+				data: enemy.data,
+				key: enemy.key,
+				actions: enemy.actions,
+				hp: enemy.hp,
+				baseSpeed: enemy.baseSpeed,
+				moddedSpeed: enemy.moddedSpeed,
+				route: structuredClone(enemy.route),
+				currentActionIndex: enemy.currentActionIndex,
+				state: enemy.state,
+				direction: structuredClone(enemy.direction),
+				motionMode: enemy.motionMode,
+				isMoving: enemy.isMoving,
+				blinkState: enemy.blinkState,
+				blinkElapsedTime: enemy.blinkElapsedTime,
+				blinkDuration: enemy.blinkDuration,
+				moveDirection: enemy.moveDirection,
+				waitElapsedTime: enemy.waitElapsedTime,
+				exit: enemy.exit,
+				exitElapsedTime: enemy.exitElapsedTime,
+				isEnding: enemy.isEnding,
+				selected: enemy.selected,
+				traits: enemy.traits,
+				specials: enemy.specials,
+				skillManager: enemy.skillManager,
+				formIndex: enemy.formIndex,
+				timeToWait: enemy.timeToWait,
+				standbyTime: enemy.standbyTime,
+				pathFinder: enemy.pathFinder,
+				fragmentKey: enemy.fragmentKey,
+				reviveTimer: enemy.reviveTimer,
+				reviveDuration: enemy.reviveDuration
+			};
+		})
 	};
 }
 
@@ -95,5 +133,153 @@ function disposeObject(obj: THREE.Object3D) {
 		} else {
 			material.dispose();
 		}
+	}
+}
+
+class GameSimManager {
+	objects = [];
+	config;
+	mazeLayout: number[][];
+	enemies: EnemyType[];
+	enemiesOnMap: Enemy[] = [];
+	spawnManager: SpawnManager;
+	traps = new Map();
+	pathFinder: SPFA;
+	noEnemyAlive = false;
+	killedCount = 0;
+	tiles = new Map();
+	isSimulation = true;
+
+	constructor(config: MapConfig, enemies: EnemyType[]) {
+		this.enemies = enemies;
+		this.config = config;
+		const mazeLayout = generateMaze(config.mapData.map, config.mapData.tiles);
+		this.mazeLayout = mazeLayout;
+		this.pathFinder = new SPFA(mazeLayout);
+	}
+
+	getVectorCoordinates = (pos, reachOffset) => {
+		let offSetX = 0,
+			offSetY = 0;
+		if (reachOffset) {
+			offSetX = reachOffset.x;
+			offSetY = reachOffset.y;
+		}
+		const { row, col } = pos;
+		const x = this.getCoordinate(parseInt(col) + offSetX, 'x');
+		const y = -this.getCoordinate(parseInt(row) - offSetY, 'y');
+		return { x, y };
+	};
+
+	getCoordinate = (coordinate, type = 'x') => {
+		const center = type === 'x' ? this.mazeLayout[0].length / 2 : this.mazeLayout.length / 2;
+		return (coordinate - center) * GameConfig.gridSize + GameConfig.gridSize / 2;
+	};
+
+	getGridPosFromVectors(pos: THREE.Vector3) {
+		const gridCols = this.mazeLayout[0].length;
+		const gridRows = this.mazeLayout.length;
+		const gridWorldWidth = gridCols * GameConfig.gridSize;
+		const gridWorldHeight = gridRows * GameConfig.gridSize;
+
+		const originX = -gridWorldWidth / 2;
+		const originY = gridWorldHeight / 2;
+
+		const col = Math.floor((pos.x - originX) / GameConfig.gridSize);
+		const row = Math.floor((originY - pos.y) / GameConfig.gridSize);
+
+		const boundedCol = Math.max(0, Math.min(col, gridCols - 1));
+		const boundedRow = Math.max(0, Math.min(row, gridRows - 1));
+
+		return `${boundedCol},${boundedRow}`;
+	}
+
+	getGridPosition = (vector: THREE.Vector3) => {
+		// Get the column (x coordinate)
+		const col = Math.floor(
+			(vector.x - GameConfig.gridSize / 2) / GameConfig.gridSize + this.mazeLayout[0].length / 2
+		);
+
+		// Get the row (y coordinate)
+		// Note the negative sign because y is inverted in your original function
+		const row = Math.floor(
+			(-vector.y - GameConfig.gridSize / 2) / GameConfig.gridSize + this.mazeLayout.length / 2
+		);
+
+		return [col, row];
+	};
+
+	gameToWorldPos(pos: Position) {
+		const height = this.mazeLayout.length;
+		return { row: height - 1 - pos.row, col: pos.col };
+	}
+
+	convertMovementConfig = (route) => {
+		const height = this.mazeLayout.length;
+		const start = {
+			row: height - 1 - route.startPosition.row,
+			col: route.startPosition.col
+		};
+		const end = {
+			row: height - 1 - route.endPosition.row,
+			col: route.endPosition.col
+		};
+		const checkpoints = route.checkpoints ? [...route.checkpoints] : [];
+		for (const checkpoint of checkpoints) {
+			checkpoint.position.row = height - 1 - checkpoint.position.row;
+		}
+		return {
+			...route,
+			endPosition: end,
+			startPosition: start,
+			checkpoints: checkpoints
+		};
+	};
+
+	updateMazeLayout(pos: Position, value: number) {
+		const { row, col } = pos;
+		this.mazeLayout[row][col] = value;
+		this.pathFinder = new SPFA(this.mazeLayout);
+	}
+
+	initTraps(traps) {
+		const predefineChanges = GameConfig.eliteMode && this.config.elite_runes?.predefine_changes;
+		const trapList = structuredClone(traps);
+		if (predefineChanges) {
+			for (const [key, value] of predefineChanges) {
+				const trap = trapList.find((ele) => ele.alias === key);
+				if (trap) {
+					trap.hidden = Boolean(!value);
+				}
+			}
+		}
+		const trapsToInit = trapList.filter((ele) => !ele.hidden);
+		for (const trapData of trapsToInit) {
+			this.addTrap(trapData);
+		}
+	}
+
+	addTrap(data, actionKey, posType = 'game') {
+		if (!data) {
+			data = this.config.traps.find((ele) => ele.alias === actionKey || ele.key === actionKey);
+		}
+		// console.log(data, actionKey);
+		if (!data) {
+			return;
+		}
+		const pos = posType === 'game' ? this.gameToWorldPos(data.pos) : data.pos;
+		const trap = new Trap(data, pos, this.isSimulation);
+		if (trap.isRoadblock) {
+			this.updateMazeLayout(pos, 1000);
+		}
+	}
+
+	update(delta: number) {
+		GameConfig.setValue('scaledElapsedTime', GameConfig.scaledElapsedTime + delta);
+		this.noEnemyAlive = this.enemiesOnMap.length === 0;
+		for (const enemy of this.enemiesOnMap) {
+			enemy.update(delta);
+		}
+		this.enemiesOnMap = this.enemiesOnMap.filter((ele) => ele.alive);
 	}
 }

@@ -36,10 +36,8 @@ export class GameManager {
 		scene: THREE.Scene,
 		camera: THREE.OrthographicCamera,
 		objects,
-		enemies: Enemy[],
-		isSimulation = false
+		enemies: Enemy[]
 	) {
-		this.isSimulation = isSimulation;
 		this.enemies = enemies;
 		this.config = config;
 		this.assetManager = AssetManager.getInstance();
@@ -50,11 +48,9 @@ export class GameManager {
 		this.mazeLayout = mazeLayout;
 		this.pathFinder = new SPFA(mazeLayout);
 		this.tileManager = new TileManager(config.levelId);
-		if (!this.isSimulation) {
-			this.countdownManager = CountdownManager.getInstance();
-			this.initPlane();
-			this.initRollOverMeshes();
-		}
+		this.countdownManager = CountdownManager.getInstance();
+		this.initPlane();
+		this.initRollOverMeshes();
 	}
 
 	getVectorCoordinates = (pos, reachOffset) => {
@@ -247,21 +243,19 @@ export class GameManager {
 		if (trap.isRoadblock) {
 			this.updateMazeLayout(pos, 1000);
 		}
-		if (!this.isSimulation) {
-			const { x, y } = this.getVectorCoordinates(pos, null);
-			const tile = this.tiles.get(`${pos.col},${pos.row}`);
-			let z = 0;
-			if (trap.hideTile) {
-				tile.mesh.visible = false;
-				trap.getMesh().add(this.tileManager.basicTile.clone());
-			} else if (tile.heightType === 1 || tile.tileName === 'tile_forbidden') {
-				z = 40;
-			}
-			this.traps.set(`${pos.col},${pos.row}`, trap);
-
-			trap.getMesh().position.set(x, y, z + 0.03);
-			this.addToScene(trap.getMesh());
+		const { x, y } = this.getVectorCoordinates(pos, null);
+		const tile = this.tiles.get(`${pos.col},${pos.row}`);
+		let z = 0;
+		if (trap.hideTile) {
+			tile.mesh.visible = false;
+			trap.getMesh().add(this.tileManager.basicTile.clone());
+		} else if (tile.heightType === 1 || tile.tileName === 'tile_forbidden') {
+			z = 40;
 		}
+		this.traps.set(`${pos.col},${pos.row}`, trap);
+
+		trap.getMesh().position.set(x, y, z + 0.03);
+		this.addToScene(trap.getMesh());
 	}
 	addToScene(mesh: THREE.Mesh | THREE.Group) {
 		if (!this.isSimulation) {
@@ -285,17 +279,20 @@ export class GameManager {
 		this.initRollOverMeshes();
 	}
 
-	set(data){
-		this.enemiesOnMap = data.enemiesOnMap;
+	set(data) {
+		this.enemiesOnMap.forEach((enemy) => this.scene.remove(enemy.meshGroup));
+		this.countdownManager.removeAllCountdowns();
+		this.enemiesOnMap = data.enemiesOnMap.map(
+			(enemy) => new Enemy(enemy.data, enemy.route, this, enemy.fragmentKey, enemy)
+		);
 	}
 
 	update(delta: number) {
-		if (!this.isSimulation) {
-			this.countdownManager.update(delta);
-			this.traps.forEach((trap, pos) => {
-				trap.update(delta);
-			});
-		}
+		this.countdownManager.update(delta);
+		this.traps.forEach((trap, pos) => {
+			trap.update(delta);
+		});
+
 		GameConfig.setValue('scaledElapsedTime', GameConfig.scaledElapsedTime + delta);
 		this.noEnemyAlive = this.enemiesOnMap.length === 0;
 		for (const enemy of this.enemiesOnMap) {
