@@ -8,11 +8,13 @@ export const getSpineMetaData = (key, skel) => {
 			height = 65;
 			break;
 		case 'enemy_2066_skzlcp':
+		case 'enemy_2064_skzwdd':
 			height = 110;
 			break;
 		case 'enemy_2089_skzjkl':
 			height = 130;
 			break;
+		
 	}
 	return { width, height };
 };

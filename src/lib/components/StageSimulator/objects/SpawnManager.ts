@@ -244,6 +244,7 @@ export class SpawnManager {
 		this.preDelayTimer = data.preDelayTimer;
 		this.fragmentPreDelayTimer = data.fragmentPreDelayTimer;
 		this.postDelayTimer = data.postDelayTimer;
+		this.isFinished=false;
 	}
 
 	// Helper method to reset the manager
