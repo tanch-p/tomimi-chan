@@ -24,6 +24,7 @@ export class SpawnManager {
 	preDelayTimer = 0;
 	fragmentPreDelayTimer = 0;
 	postDelayTimer = 0;
+	waveElapsedTime = 0; //for use in simulation only
 	constructor(waves, map, gameManager: GameManager) {
 		this.map = map;
 		this.waves = waves;
@@ -66,7 +67,11 @@ export class SpawnManager {
 			this.preDelayTimer += delta;
 			return;
 		}
-		GameConfig.setValue('waveElapsedTime', GameConfig.waveElapsedTime + delta);
+		if (this.gameManager.isSimulation) {
+			this.waveElapsedTime += delta;
+		} else {
+			GameConfig.setValue('waveElapsedTime', GameConfig.waveElapsedTime + delta);
+		}
 		// Process fragments
 		if (this.currentFragmentIndex < currentWave.fragments.length) {
 			this.processFragment(currentWave.fragments[this.currentFragmentIndex], delta);
@@ -79,7 +84,11 @@ export class SpawnManager {
 			this.currentWaveIndex++;
 			GameConfig.setValue('currentWaveIndex', this.currentWaveIndex);
 			this.currentFragmentIndex = 0;
-			GameConfig.waveElapsedTime = 0;
+			if (this.gameManager.isSimulation) {
+				this.waveElapsedTime = 0;
+			} else {
+				GameConfig.setValue('waveElapsedTime', 0);
+			}
 			this.preDelayTimer = 0;
 			this.postDelayTimer = 0;
 			this.nextWaveTimer = 0;
@@ -146,7 +155,7 @@ export class SpawnManager {
 		});
 	}
 
-	updateActiveActions(delta) {
+	updateActiveActions() {
 		const key = `w${this.currentWaveIndex}f${this.currentFragmentIndex}`;
 		this.activeActions.forEach((state, index) => {
 			if (state.isComplete) return;
@@ -231,8 +240,9 @@ export class SpawnManager {
 	}
 
 	set(data) {
-		GameConfig.waveElapsedTime = data.waveElapsedTime;
+		GameConfig.setValue('waveElapsedTime', data.waveElapsedTime);
 		this.currentWaveIndex = data.currentWaveIndex;
+		GameConfig.setValue('currentWaveIndex', data.currentWaveIndex);
 		this.currentFragmentIndex = data.currentFragmentIndex;
 		this.activeActions = data.activeActions;
 		this.completedActions = data.completedActions;
@@ -244,7 +254,7 @@ export class SpawnManager {
 		this.preDelayTimer = data.preDelayTimer;
 		this.fragmentPreDelayTimer = data.fragmentPreDelayTimer;
 		this.postDelayTimer = data.postDelayTimer;
-		this.isFinished=false;
+		this.isFinished = false;
 	}
 
 	// Helper method to reset the manager

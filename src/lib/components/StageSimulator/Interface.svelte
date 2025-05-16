@@ -50,7 +50,6 @@
 		});
 		unsubscribeFns.push(unsubscribe);
 		unsubscribe = GameConfig.subscribe('waveElapsedTime', (value) => {
-			totalTime = value;
 			min = Math.floor(value / 60);
 			sec = Math.floor(value % 60);
 		});

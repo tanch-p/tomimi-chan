@@ -179,7 +179,7 @@ export class Enemy {
 				this.route.spawnOffset
 			);
 		} else {
-			this.skillManager = new SkillManager(this, this.traits.concat(this.specials));
+			this.skillManager = new SkillManager(this, this.traits.concat(this.specials),this.gameManager);
 			const { x: actualX, y: actualY } = this.gameManager.getVectorCoordinates(
 				route.startPosition,
 				route.spawnOffset

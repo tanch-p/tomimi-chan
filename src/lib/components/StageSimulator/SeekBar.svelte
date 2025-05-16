@@ -39,7 +39,9 @@
 		const time = calculateTimeFromPosition(event.clientX);
 		// Don't update progress during dragging - let the drag handler handle it
 		if (!isDragging) {
+			GameConfig.setValue('isPaused', true);
 			updateValue(time);
+			GameConfig.setValue('isPaused', false);
 		}
 	}
 
@@ -87,6 +89,7 @@
 	function handleGlobalMouseUp() {
 		if (isDragging) {
 			isDragging = false;
+			GameConfig.setValue('isPaused', false);
 			// Remove global event listeners
 			window.removeEventListener('mousemove', handleGlobalMouseMove);
 			window.removeEventListener('mouseup', handleGlobalMouseUp);
@@ -108,14 +111,12 @@
 	});
 
 	function updateValue(time) {
-		GameConfig.setValue('isPaused', true);
 		GameConfig.setValue('scaledElapsedTime', time);
-		console.log(simulatedData[time]);
+		// console.log(simulatedData[time]);
 		if (game) {
 			game.spawnManager.set(simulatedData[time]);
 			game.gameManager.set(simulatedData[time]);
 		}
-		GameConfig.setValue('isPaused', false);
 	}
 </script>
 

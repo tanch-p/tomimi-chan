@@ -11,9 +11,10 @@
 
 	let timelineContainer: HTMLDivElement, actionsContainer: HTMLDivElement;
 	let currWaveIndex = 0;
-	let index = 0;
+	let waveElapsedTime = 0;
 	let language: Language;
 	let showTimeline = true;
+	let index = -1;
 
 	$: language = $page.data.language;
 	$: GameConfig.showTimeline.subscribe((v) => (showTimeline = v));
@@ -23,41 +24,27 @@
 
 	onMount(() => {
 		unsubscribe = GameConfig.subscribe('waveElapsedTime', (value) => {
-			trackAndScrollContainer(value);
+			waveElapsedTime = value;
 		});
 		unsubscribeFns.push(unsubscribe);
 		unsubscribe = GameConfig.subscribe('scaledElapsedTime', (value) => {
 			if (value === 0 && mapConfig.levelId !== 'level_rogue4_b-8') {
 				currWaveIndex = 0;
-				index = 0;
 				timelineContainer && timelineContainer.scrollTo(0, 0);
 			}
 		});
 		unsubscribe = GameConfig.subscribe('currentWaveIndex', (value) => {
+			currWaveIndex = value;
 			if (mapConfig.levelId === 'level_rogue4_b-8') {
 				const indexesToScrollBy = [0, 1].includes(value) ? 0 : [2, 3].includes(value) ? 3 : 7;
 				timelineContainer &&
 					timelineContainer.scrollTo({
 						top:
-							actionsContainer.children[indexesToScrollBy].offsetTop +
-							actionsContainer.children[indexesToScrollBy].scrollHeight
+							actionsContainer.children?.[indexesToScrollBy]?.offsetTop +
+							actionsContainer.children?.[indexesToScrollBy]?.scrollHeight
 					});
-				index += indexesToScrollBy;
 				return;
 			}
-			else if (currWaveIndex !== value) {
-				timelineContainer &&
-					timelineContainer.scrollBy({
-						top: (actionsContainer?.children?.[index]?.scrollHeight || 0) + 16,
-						behavior: 'smooth'
-					});
-				if (waves?.[currWaveIndex]?.timeline?.length === 0) {
-					index += 1;
-				} else {
-					index += 2;
-				}
-			}
-			currWaveIndex = value;
 		});
 		unsubscribeFns.push(unsubscribe);
 	});
@@ -65,20 +52,48 @@
 		unsubscribeFns.forEach((fn) => fn());
 	});
 
-	function trackAndScrollContainer(waveElapsedTime: number) {
+	$: index = updateActionIndex(waveElapsedTime, currWaveIndex);
+
+	$: trackAndScrollContainer(index);
+
+	function updateActionIndex(waveElapsedTime: number, currWaveIndex: number) {
+		const prevIndexSize = getPrevActionsSize(currWaveIndex);
+		const currActionIndex = getCurrActionIndex(waveElapsedTime);
+		return prevIndexSize + currActionIndex;
+	}
+
+	function trackAndScrollContainer(index: number) {
+		if (timelineContainer && actionsContainer.children[index]) {
+			timelineContainer.scrollTo({
+				top:
+					actionsContainer.children[index].offsetTop +
+					actionsContainer.children[index].scrollHeight,
+				behavior: 'smooth'
+			});
+		}
+	}
+	function getPrevActionsSize(currWaveIndex: number) {
+		let size = 0;
+		for (let i = 0; i < currWaveIndex; i++) {
+			const length = waves?.[i]?.timeline?.length || 0;
+			size += length + 2;
+		}
+		return size;
+	}
+	function getCurrActionIndex(waveElapsedTime: number) {
 		const timeline = waves?.[currWaveIndex]?.timeline;
-		if (timelineContainer && timeline && actionsContainer.children[index]) {
-			if (waveElapsedTime > timeline?.[0]?.t) {
-				timelineContainer.scrollTo({
-					top:
-						actionsContainer.children[index].offsetTop +
-						actionsContainer.children[index].scrollHeight,
-					behavior: 'smooth'
-				});
-				index += 1;
-				timeline.shift();
+		if (!timeline) {
+			return -1;
+		}
+		if (timeline.length === 0) {
+			return -1;
+		}
+		for (let i = 0; i < timeline.length; i++) {
+			if (waveElapsedTime < timeline[i]?.t) {
+				return i - 1;
 			}
 		}
+		return timeline.length - 1;
 	}
 </script>
 

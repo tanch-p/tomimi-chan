@@ -41,9 +41,7 @@ export function getSimulatedData(config: MapConfig, waveData, enemies: EnemyType
 		}
 	}
 	GameConfig.setValue('scaledElapsedTime', 0);
-	GameConfig.setValue('waveElapsedTime', 0);
 	GameConfig.setValue('currentWaveIndex', 0);
-	GameConfig.waveElapsedTime = 0;
 	cleanup(gameSimManager);
 
 	return data;
@@ -51,7 +49,7 @@ export function getSimulatedData(config: MapConfig, waveData, enemies: EnemyType
 
 function setData(count, data, spawnManager: SpawnManager, gameSimManager: GameSimManager) {
 	data[count] = {
-		waveElapsedTime: GameConfig.waveElapsedTime,
+		waveElapsedTime: spawnManager.waveElapsedTime,
 		currentWaveIndex: spawnManager.currentWaveIndex,
 		currentFragmentIndex: spawnManager.currentFragmentIndex,
 		activeActions: structuredClone(spawnManager.activeActions),
