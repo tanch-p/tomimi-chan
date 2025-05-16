@@ -18,7 +18,7 @@
 		randomSeeds;
 
 	let waves;
-	let assetManager: AssetManager, canvasElement: HTMLCanvasElement, game: Game, simulatedData;
+	let assetManager= AssetManager.getInstance(), canvasElement: HTMLCanvasElement, game: Game, simulatedData;
 	// let gameInstances: Game[] = [];
 
 	$: waves = timeline?.waves;
@@ -41,10 +41,9 @@
 		if (game) {
 			game.stop();
 		}
-		if (!assetManager) {
-			assetManager = AssetManager.getInstance();
-		}
+		
 		await assetManager.loadAssets(mapConfig);
+		assetManager.texturesLoaded=true;
 		resetGame();
 		if (!game) {
 			game = new Game(canvasElement, mapConfig, waveData, enemies);
@@ -68,6 +67,7 @@
 	{:then}
 		<SpawnTimeView {waves} {mapConfig} />
 		<Interface
+		{waves}
 		{simulatedData}
 			bind:randomSeeds
 			{game}

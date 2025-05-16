@@ -2,9 +2,9 @@
 	import { onDestroy, onMount } from 'svelte';
 	import { GameConfig } from './objects/GameConfig';
 
-	export let game, simulatedData;
+	export let game, simulatedData, waves;
 
-	$: duration = (Object?.keys(simulatedData)?.length ?? 1) - 1;
+	$: totalTime = (Object?.keys(simulatedData?.t)?.length ?? 1) - 1;
 
 	let seekbarElement, progressElement;
 	let progress = 0;
@@ -19,6 +19,12 @@
 		const remainingSeconds = seconds % 60;
 		return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
 	}
+	function calculateLeftPosFromTime(time) {
+		if (!seekbarElement) return 0;
+		const rect = seekbarElement.getBoundingClientRect();
+		const percentage = time / totalTime;
+		return percentage * rect.width;
+	}
 
 	// Calculate time from position
 	function calculateTimeFromPosition(clientX) {
@@ -30,7 +36,7 @@
 
 		// Ensure percentage is between 0 and 1
 		const clampedPercentage = Math.max(0, Math.min(1, percentage));
-		return Math.floor(clampedPercentage * duration);
+		return Math.floor(clampedPercentage * totalTime);
 	}
 
 	// Handle clicking on the seekbar
@@ -96,10 +102,19 @@
 		}
 	}
 
+	function updateValue(time) {
+		GameConfig.setValue('scaledElapsedTime', time);
+		// console.log(simulatedData?.t[time]);
+		if (game) {
+			game.spawnManager.set(simulatedData.t[time]);
+			game.gameManager.set(simulatedData.t[time]);
+		}
+	}
+
 	let unsubscribe;
 	onMount(() => {
 		unsubscribe = GameConfig.subscribe('scaledElapsedTime', (value) => {
-			progress = (value / duration) * 100;
+			progress = (value / totalTime) * 100;
 		});
 	});
 
@@ -109,20 +124,12 @@
 		window.removeEventListener('mousemove', handleGlobalMouseMove);
 		window.removeEventListener('mouseup', handleGlobalMouseUp);
 	});
-
-	function updateValue(time) {
-		GameConfig.setValue('scaledElapsedTime', time);
-		// console.log(simulatedData[time]);
-		if (game) {
-			game.spawnManager.set(simulatedData[time]);
-			game.gameManager.set(simulatedData[time]);
-		}
-	}
 </script>
 
 <div
-	class="absolute bottom-[10px] md:bottom-[20px] left-1/2 -translate-x-1/2 flex items-center justify-center w-full max-w-[90vw] md:max-w-[70vw]"
+	class="group absolute z-[1] bottom-[10px] md:bottom-[20px] left-1/2 -translate-x-1/2 flex items-center justify-center w-full max-w-[90vw] md:max-w-[70vw]"
 >
+	<div class="absolute top-1/2 -translate-y-2/3 bg-[rgba(0,0,0,0.5)] w-full h-[40px] opacity-0" />
 	<div
 		class="relative w-full cursor-pointer select-none touch-none"
 		bind:this={seekbarElement}
@@ -132,7 +139,9 @@
 		on:mouseenter={handleMouseEnter}
 		on:mouseleave={handleMouseLeave}
 	>
-		<div class="relative w-full bg-[#e6e6e6] rounded overflow-hidden h-[6px]">
+		<div
+			class="relative w-full bg-[#e6e6e6] overflow-hidden rounded h-[2px] group-hover:h-[6px] transition-[height]"
+		>
 			<div
 				class="h-full bg-[#ff3e00] rounded relative"
 				bind:this={progressElement}
@@ -141,10 +150,23 @@
 		</div>
 		<div
 			hidden={!isHover}
-			class="absolute top-[-30px] z-[1] -translate-x-1/2 bg-[rgba(0,0,0,0.7)] rounded px-2 py-1 text-xs text-white"
+			class="absolute top-[-30px] z-[2] -translate-x-1/2 bg-[rgba(0,0,0,0.7)] rounded px-2 py-1 text-xs text-white"
 			style="left: {tooltipPosition}px;"
 		>
 			{tooltipTime}
 		</div>
+		{#each simulatedData?.enemiesToHighlight as { t, key }}
+			{@const left = calculateLeftPosFromTime(t)}
+			<div
+				class="absolute top-[-55px] z-[1] -translate-x-1/2 opacity-50 group-hover:opacity-100 transition-opacity"
+				style="left: {left}px;"
+			>
+				<img src="/images/enemy_icons/{key}.webp" width="50px" height="50px" alt={key} />
+			</div>
+			<div
+				class="absolute z-[1] -translate-x-1/2 top-1/2 -translate-y-1/2 h-[6px] w-[2px] bg-gray-800 transition-[width] group-hover:w-[4px]"
+				style="left: {left}px;"
+			/>
+		{/each}
 	</div>
 </div>

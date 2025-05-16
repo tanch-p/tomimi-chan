@@ -50,6 +50,7 @@ export class Enemy {
 	pathGroup;
 	countdownId: number = -1;
 	skel: spine.SkeletonMesh;
+	skelData: spine.SkeletonData;
 	sprite: THREE.Sprite;
 	height: number;
 	width: number;
@@ -164,12 +165,7 @@ export class Enemy {
 
 		this.meshGroup = new THREE.Group();
 		this.meshGroup.renderOrder = 1;
-		if (!this.gameManager.isSimulation) {
-			this.initModel();
-		} else {
-			// for GC
-			this.gameManager.objects.push(this.meshGroup);
-		}
+		this.initModel();
 		if (setData) {
 			this.meshGroup.position.set(this.raycastPos.x, this.raycastPos.y, GameConfig.baseZIndex);
 			this.pathGroup = this.visualisePath(
@@ -179,7 +175,11 @@ export class Enemy {
 				this.route.spawnOffset
 			);
 		} else {
-			this.skillManager = new SkillManager(this, this.traits.concat(this.specials),this.gameManager);
+			this.skillManager = new SkillManager(
+				this,
+				this.traits.concat(this.specials),
+				this.gameManager
+			);
 			const { x: actualX, y: actualY } = this.gameManager.getVectorCoordinates(
 				route.startPosition,
 				route.spawnOffset
@@ -204,6 +204,17 @@ export class Enemy {
 	}
 
 	initModel() {
+		let modelType = 'spine';
+		if (['enemy_2096_skzamj', 'enemy_2095_skzamf'].includes(this.key)) {
+			modelType = 'texture'; //actually its 3D
+		}
+		if (this.gameManager.isSimulation) {
+			if (modelType === 'texture') {
+				return;
+			}
+			this.skelData = this.assetManager.spineMap.get(this.key);
+			return;
+		}
 		const shadowGeometry = new THREE.PlaneGeometry(
 			GameConfig.gridSize * 0.8,
 			GameConfig.gridSize * 0.4
@@ -261,10 +272,6 @@ export class Enemy {
 		this.meshGroup.add(shadowMesh);
 		this.shadow = shadowMaterial;
 
-		let modelType = 'spine';
-		if (['enemy_2096_skzamj', 'enemy_2095_skzamf'].includes(this.key)) {
-			modelType = 'texture'; //actually its 3D
-		}
 		if (modelType === 'texture') {
 			//only for rogue4_b-8 now
 			const texture = this.assetManager.textures.get('skzamj')?.texture;
@@ -296,12 +303,12 @@ export class Enemy {
 		}
 
 		if (modelType === 'spine') {
-			const skeletonData = this.assetManager.spineMap.get(this.key);
-			if (!skeletonData) {
+			this.skelData = this.assetManager.spineMap.get(this.key);
+			if (!this.skelData) {
 				return;
 			}
 			// console.log(this.key, skeletonData);
-			const skeletonMesh = new spine.SkeletonMesh(skeletonData, (parameters) => {
+			const skeletonMesh = new spine.SkeletonMesh(this.skelData, (parameters) => {
 				parameters.depthTest = false;
 				parameters.alphaTest = 0.001;
 				parameters.uniforms = {
@@ -343,7 +350,7 @@ export class Enemy {
 			}
 
 			if (this.traits.some((skill) => skill.key === 'disguise')) {
-				const skel = new spine.SkeletonMesh(skeletonData, (parameters) => {
+				const skel = new spine.SkeletonMesh(this.skelData, (parameters) => {
 					parameters.depthTest = false;
 				});
 				skel.skeleton.color.a = 0.3;
@@ -634,14 +641,16 @@ export class Enemy {
 					}
 					if (this.motionMode === 'BLINK') {
 						// smedzi
+						if (!this.skelData) return;
 						switch (this.blinkState) {
 							case null:
 								//START BLINK
 								this.blinkState = 'START';
-								this.blinkDuration = this.skel.state.data.skeletonData.animations.find(
+								this.blinkDuration = this.skelData.animations.find(
 									(ele) => ele.name === 'Move_Begin'
 								)?.duration;
-								this.skel.state.setAnimation(0, 'Move_Begin', false);
+								!this.gameManager.isSimulation &&
+									this.skel.state.setAnimation(0, 'Move_Begin', false);
 								break;
 							case 'START':
 								{
@@ -653,10 +662,11 @@ export class Enemy {
 										this.raycastPos.copy(this.targetPos);
 										this.meshGroup.position.copy(this.targetPos);
 										this.blinkState = 'END';
-										this.blinkDuration = this.skel.state.data.skeletonData.animations.find(
+										this.blinkDuration = this.skelData.animations.find(
 											(ele) => ele.name === 'Move_End'
 										)?.duration;
-										this.skel.state.setAnimation(0, 'Move_End', false);
+										!this.gameManager.isSimulation &&
+											this.skel.state.setAnimation(0, 'Move_End', false);
 									}
 								}
 								break;
@@ -666,7 +676,7 @@ export class Enemy {
 									if (this.blinkElapsedTime > this.blinkDuration) {
 										this.blinkElapsedTime = 0;
 										this.blinkState = null;
-										this.blinkDuration = this.skel.state.data.skeletonData.animations.find(
+										this.blinkDuration = this.skelData.animations.find(
 											(ele) => ele.name === 'Move_End'
 										)?.duration;
 										this.currentActionIndex++;

@@ -7,10 +7,14 @@ import { Trap } from '../objects/Trap';
 import { SPFA } from '../objects/SPFA';
 import { generateMaze } from '$lib/functions/mazeHelpers';
 import { Enemy } from '../objects/Enemy';
+import { AssetManager } from '../objects/AssetManager';
 
 export function getSimulatedData(config: MapConfig, waveData, enemies: EnemyType[]) {
-	const scene = new THREE.Scene(); //add objects here to make garbage collection easier
-
+	const assetManager = AssetManager.getInstance();
+	if (!assetManager.texturesLoaded) {
+		return;
+	}
+	GameConfig.setValue("isPaused",true);
 	const gameSimManager = new GameSimManager(config, enemies);
 	const map = new GameMap(gameSimManager);
 	const spawnManager = new SpawnManager(waveData, map, gameSimManager);
@@ -18,7 +22,9 @@ export function getSimulatedData(config: MapConfig, waveData, enemies: EnemyType
 	let i = 1;
 	let count = 0;
 	let data = {};
+	let enemiesToHighlight = [];
 	setData(count, data, spawnManager, gameSimManager);
+	enemiesToHighlight = spawnManager.enemiesToHighlight;
 
 	// Simulate at 60fps, 1x speed
 	while (!isEnded) {
@@ -30,7 +36,7 @@ export function getSimulatedData(config: MapConfig, waveData, enemies: EnemyType
 			i = 1;
 			count++;
 			setData(count, data, spawnManager, gameSimManager);
-			if (Object.keys(data).length > 1000) {
+			if (Object.keys(data).length > 1800) {
 				break;
 			}
 		} else {
@@ -44,7 +50,7 @@ export function getSimulatedData(config: MapConfig, waveData, enemies: EnemyType
 	GameConfig.setValue('currentWaveIndex', 0);
 	cleanup(gameSimManager);
 
-	return data;
+	return { enemiesToHighlight: enemiesToHighlight, t: data };
 }
 
 function setData(count, data, spawnManager: SpawnManager, gameSimManager: GameSimManager) {
@@ -104,9 +110,23 @@ function setData(count, data, spawnManager: SpawnManager, gameSimManager: GameSi
 }
 
 function cleanup(gameSimManager: GameSimManager) {
-	gameSimManager.objects.forEach((obj) => {
+	const objectsToRemove: THREE.Object3D[] = [];
+	gameSimManager.objects.forEach((obj: THREE.Group) => {
+		obj.traverse((child) => {
+			objectsToRemove.push(child); // Collect objects
+		});
+	});
+	objectsToRemove.forEach((obj) => {
 		// Dispose of geometry and material
 		disposeObject(obj);
+		// Remove from parent
+		if (obj.parent) {
+			obj.parent.remove(obj);
+		}
+		obj = null;
+	});
+	gameSimManager.objects.forEach((obj) => {
+		obj = null;
 	});
 }
 

@@ -4,6 +4,16 @@ import { GameConfig } from './GameConfig';
 import { GameManager } from './GameManager';
 import { GameMap } from './GameMap';
 
+const ENEMIES_TO_HIGHLIGHT = [
+	'enemy_2001_duckmi',
+	'enemy_2002_bearmi',
+	'enemy_2034_sythef',
+	'enemy_2059_smbox',
+	'enemy_2085_skzjxd',
+	'enemy_2069_skzbox',
+	'enemy_2091_skzgds',
+	'enemy_2067_skzcy'
+];
 export class SpawnManager {
 	map: GameMap;
 	routes;
@@ -25,6 +35,8 @@ export class SpawnManager {
 	fragmentPreDelayTimer = 0;
 	postDelayTimer = 0;
 	waveElapsedTime = 0; //for use in simulation only
+	enemiesToHighlight = []; //for use in simulation only
+
 	constructor(waves, map, gameManager: GameManager) {
 		this.map = map;
 		this.waves = waves;
@@ -222,6 +234,9 @@ export class SpawnManager {
 		}
 		const key = `w${this.currentWaveIndex}f${this.currentFragmentIndex}`;
 		const enemy = new Enemy(enemyData, route, this.gameManager, key);
+		if (ENEMIES_TO_HIGHLIGHT.includes(enemyData.key) || enemyData.type.includes('BOSS')) {
+			this.enemiesToHighlight.push({ t: GameConfig.scaledElapsedTime, key: enemyData.key });
+		}
 	}
 
 	activatePredefined(action) {
@@ -244,9 +259,9 @@ export class SpawnManager {
 		this.currentWaveIndex = data.currentWaveIndex;
 		GameConfig.setValue('currentWaveIndex', data.currentWaveIndex);
 		this.currentFragmentIndex = data.currentFragmentIndex;
-		this.activeActions = data.activeActions;
-		this.completedActions = data.completedActions;
-		this.fragmentsTimeTracker = data.fragmentsTimeTracker;
+		this.activeActions = structuredClone(data.activeActions);
+		this.completedActions = structuredClone(data.completedActions);
+		this.fragmentsTimeTracker = structuredClone(data.fragmentsTimeTracker);
 		this.isProcessingFragment = data.isProcessingFragment;
 		this.nextWaveTimer = data.nextWaveTimer;
 		this.nextWaveType = data.nextWaveType;
