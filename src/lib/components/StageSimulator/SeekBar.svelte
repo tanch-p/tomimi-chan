@@ -11,19 +11,13 @@
 	let tooltipPosition = 0;
 	let tooltipTime = '00:00';
 	let isHover = false;
+	let isDragging = false;
 
 	// Format time from seconds to MM:SS
 	function formatTime(seconds) {
-		seconds = Math.floor(seconds);
 		const minutes = Math.floor(seconds / 60);
 		const remainingSeconds = seconds % 60;
 		return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-	}
-
-	// Update progress bar based on video's current time
-	function updateProgress(time) {
-		// Don't update progress during dragging - let the drag handler handle it
-		updateValue(time);
 	}
 
 	// Calculate time from position
@@ -36,14 +30,17 @@
 
 		// Ensure percentage is between 0 and 1
 		const clampedPercentage = Math.max(0, Math.min(1, percentage));
-		return clampedPercentage * duration;
+		return Math.floor(clampedPercentage * duration);
 	}
 
 	// Handle clicking on the seekbar
 	function handleSeek(event) {
 		if (!seekbarElement) return;
-		const time = Math.floor(calculateTimeFromPosition(event.clientX));
-		updateProgress(time);
+		const time = calculateTimeFromPosition(event.clientX);
+		// Don't update progress during dragging - let the drag handler handle it
+		if (!isDragging) {
+			updateValue(time);
+		}
 	}
 
 	// Handle mouse move for tooltip
@@ -52,8 +49,12 @@
 		const rect = seekbarElement.getBoundingClientRect();
 		const hoverPosition = event.clientX - rect.left;
 		tooltipPosition = hoverPosition;
-		const hoverTime = calculateTimeFromPosition(event.clientX);
-		tooltipTime = formatTime(hoverTime);
+
+		const time = calculateTimeFromPosition(event.clientX);
+		tooltipTime = formatTime(time);
+		if (isDragging) {
+			updateValue(time);
+		}
 	}
 
 	function handleMouseEnter() {
@@ -61,6 +62,35 @@
 	}
 	function handleMouseLeave() {
 		isHover = false;
+	}
+
+	// Start dragging
+	function handleMouseDown(event) {
+		isDragging = true;
+		GameConfig.setValue('isPaused', true);
+
+		// Update position immediately
+		handleMouseMove(event);
+
+		// Add global event listeners for drag tracking
+		window.addEventListener('mousemove', handleGlobalMouseMove);
+		window.addEventListener('mouseup', handleGlobalMouseUp);
+	}
+
+	// Track mouse movement globally when dragging
+	function handleGlobalMouseMove(event) {
+		if (isDragging) {
+			handleMouseMove(event);
+		}
+	}
+	// End dragging
+	function handleGlobalMouseUp() {
+		if (isDragging) {
+			isDragging = false;
+			// Remove global event listeners
+			window.removeEventListener('mousemove', handleGlobalMouseMove);
+			window.removeEventListener('mouseup', handleGlobalMouseUp);
+		}
 	}
 
 	let unsubscribe;
@@ -72,6 +102,9 @@
 
 	onDestroy(() => {
 		unsubscribe && unsubscribe();
+		// Clean up global event listeners if component is destroyed while dragging
+		window.removeEventListener('mousemove', handleGlobalMouseMove);
+		window.removeEventListener('mouseup', handleGlobalMouseUp);
 	});
 
 	function updateValue(time) {
@@ -94,6 +127,7 @@
 		bind:this={seekbarElement}
 		on:click={handleSeek}
 		on:mousemove={handleMouseMove}
+		on:mousedown={handleMouseDown}
 		on:mouseenter={handleMouseEnter}
 		on:mouseleave={handleMouseLeave}
 	>
