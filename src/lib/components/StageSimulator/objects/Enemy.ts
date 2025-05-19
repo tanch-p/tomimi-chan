@@ -123,6 +123,8 @@ export class Enemy {
 			this.fragmentKey = setData.fragmentKey;
 			this.reviveTimer = setData.reviveTimer;
 			this.reviveDuration = setData.reviveDuration;
+			console.log(this.timeToWait);
+			console.log(this.standbyTime);
 		} else {
 			gameManager.enemiesOnMap.push(this);
 			this.pathFinder = gameManager.pathFinder;
@@ -820,7 +822,7 @@ export class Enemy {
 							this.standbyTime,
 							this.meshGroup.position.x,
 							this.meshGroup.position.y + 20,
-							0x5f7af7
+							'standby'
 						);
 					}
 					this.handleIdle();
@@ -829,9 +831,10 @@ export class Enemy {
 					this.waitElapsedTime += delta;
 					if (this.countdownId === -1 && !this.gameManager.isSimulation) {
 						this.countdownId = this.gameManager.createCountdown(
-							this.timeToWait - this.waitElapsedTime,
+							this.standbyTime - this.waitElapsedTime,
 							this.meshGroup.position.x,
-							this.meshGroup.position.y + 30
+							this.meshGroup.position.y + 30,
+							'standby'
 						);
 					}
 				}

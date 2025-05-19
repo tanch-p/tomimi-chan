@@ -9,6 +9,7 @@ export class CountdownManager {
 	private countdowns: Map<number, CountdownSprite>;
 	private shaderMaterial: THREE.ShaderMaterial;
 	private indexCounter = 0;
+	private colors;
 
 	// Singleton pattern
 	public static getInstance(): CountdownManager {
@@ -21,6 +22,7 @@ export class CountdownManager {
 	private constructor() {
 		this.assetManager = AssetManager.getInstance();
 		this.countdowns = new Map();
+		this.colors = { normal: 0xf08080, standby: 0x5f7af7 };
 		// Create the shader material for all countdowns
 		this.shaderMaterial = new THREE.ShaderMaterial({
 			uniforms: {
@@ -57,7 +59,7 @@ export class CountdownManager {
 		});
 	}
 
-	createCountdown(initialTime: number, color = 0xf08080): CountdownSprite {
+	createCountdown(initialTime: number, colorKey = 'normal'): CountdownSprite {
 		if (this.countdowns.has(this.indexCounter)) {
 			console.warn(
 				`Countdown with id ${this.indexCounter} already exists. Returning existing instance.`
@@ -67,7 +69,7 @@ export class CountdownManager {
 		const countdown = new CountdownSprite(
 			this.indexCounter,
 			initialTime,
-			color,
+			this.colors[colorKey],
 			this.shaderMaterial
 		);
 		this.countdowns.set(this.indexCounter, countdown);
@@ -242,11 +244,12 @@ export class CountdownSprite {
 		const uvs: number[] = [];
 		const indices: number[] = [];
 		this.timeStr.split('').forEach((digit, index) => {
-			const { config } = this.assetManager.textures.get(digit);
-			if (!config) {
+			const texture = this.assetManager.textures.get(digit);
+			if (!texture) {
 				console.error(`Digit ${digit} not found in font atlas`);
 				return;
 			}
+			const { config } = texture;
 			const x0 = -totalWidth / 2 + index * (digitWidth + spacing) + 0.16;
 			const x1 = x0 + digitWidth;
 			const y0 = digitWidth / 2;
