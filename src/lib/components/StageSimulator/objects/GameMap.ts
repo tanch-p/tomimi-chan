@@ -15,12 +15,11 @@ export class GameMap {
 	assetManager: AssetManager;
 	gameManager: GameManager;
 
-	constructor(gameManager) {
+	constructor(gameManager:GameManager) {
 		this.assetManager = AssetManager.getInstance();
 		this.gameManager = gameManager;
 		this.config = gameManager.config;
 		this.scene = gameManager.scene;
-		this.objects = gameManager.objects;
 
 		this.setup(this.config.mapData);
 		this.gameManager.initTraps(this.gameManager.config.traps);

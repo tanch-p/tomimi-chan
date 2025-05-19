@@ -10,12 +10,14 @@ import { Trap } from './Trap';
 import { SpawnManager } from './SpawnManager';
 import { TileManager } from './TileManager';
 import { CountdownManager } from './ShaderCountdownManager';
+import { clearObjects } from '$lib/functions/threejsHelpers';
+import { Game } from './Game';
 
 export class GameManager {
 	assetManager: AssetManager;
 	scene: THREE.Scene;
 	camera: THREE.OrthographicCamera | null;
-	objects;
+	game: Game;
 	config;
 	mazeLayout: number[][];
 	enemies: EnemyType[];
@@ -31,19 +33,13 @@ export class GameManager {
 	countdownManager: CountdownManager;
 	isSimulation = false;
 
-	constructor(
-		config: MapConfig,
-		scene: THREE.Scene,
-		camera: THREE.OrthographicCamera,
-		objects,
-		enemies: Enemy[]
-	) {
+	constructor(config: MapConfig, game: Game, enemies: Enemy[]) {
 		this.enemies = enemies;
 		this.config = config;
+		this.game = game;
 		this.assetManager = AssetManager.getInstance();
-		this.scene = scene;
-		this.camera = camera;
-		this.objects = objects;
+		this.scene = game.scene;
+		this.camera = game.camera;
 		const mazeLayout = generateMaze(config.mapData.map, config.mapData.tiles);
 		this.mazeLayout = mazeLayout;
 		this.pathFinder = new SPFA(mazeLayout);
@@ -66,11 +62,15 @@ export class GameManager {
 		return { x, y };
 	};
 
-	createCountdown(time: number, x: number, y: number, colorKey="normal") {
+	createCountdown(time: number, x: number, y: number, colorKey = 'normal') {
 		const countdown = this.countdownManager.createCountdown(time, colorKey);
 		countdown.setPosition(x, y);
 		this.addToScene(countdown.getGroup());
 		return countdown.id;
+	}
+
+	removeCountdown(id: number) {
+		this.countdownManager.removeCountdown(id);
 	}
 
 	getCoordinate = (coordinate, type = 'x') => {
@@ -194,7 +194,7 @@ export class GameManager {
 		const plane = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ visible: false }));
 		plane.userData.name = 'plane';
 		this.addToScene(plane);
-		this.objects.push(plane);
+		this.game.objects.push(plane);
 	}
 	initRollOverMeshes() {
 		this.rollOverMeshes.clear();
@@ -263,10 +263,9 @@ export class GameManager {
 		}
 	}
 
-	reset(config, enemies, objects) {
+	reset(config, enemies) {
 		this.enemies = enemies;
 		this.config = config;
-		this.objects = objects;
 		const mazeLayout = generateMaze(config.mapData.map, config.mapData.tiles);
 		this.mazeLayout = mazeLayout;
 		this.enemiesOnMap = [];
@@ -280,11 +279,33 @@ export class GameManager {
 	}
 
 	set(data) {
-		this.enemiesOnMap.forEach((enemy) => this.scene.remove(enemy.meshGroup));
+		const indexesToRemove = [];
+		this.enemiesOnMap.forEach((enemy, i) => {
+			if (!data.enemiesOnMap.find((dataEnemy) => enemy.spawnUID === dataEnemy.spawnUID)) {
+				indexesToRemove.push(i);
+			}
+		});
+
+		this.enemiesOnMap.forEach((enemy, i) => {
+			if (indexesToRemove.includes(i)) {
+				this.scene.remove(enemy.meshGroup);
+				this.game.objects = this.game.objects.filter((ele) => {
+					if (!ele.userData?.enemy) return true;
+					return ele.userData?.enemy.spawnUID === enemy.spawnUID;
+				});
+				clearObjects(enemy.pathGroup);
+				clearObjects(enemy.meshGroup);
+			}
+		});
 		this.countdownManager.removeAllCountdowns();
-		this.enemiesOnMap = data.enemiesOnMap.map(
-			(enemy) => new Enemy(enemy.data, enemy.route, this, enemy.fragmentKey, enemy)
-		);
+		this.enemiesOnMap = data.enemiesOnMap.map((enemy) => {
+			const existingEnemy = this.enemiesOnMap.find((e) => enemy.spawnUID === e.spawnUID);
+			if (existingEnemy) {
+				existingEnemy.updateData(enemy);
+				return existingEnemy;
+			}
+			return new Enemy(enemy.data, enemy.route, this, enemy.fragmentKey, enemy.spawnUID, enemy);
+		});
 	}
 
 	update(delta: number) {

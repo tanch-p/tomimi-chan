@@ -8,13 +8,14 @@ import { SPFA } from '../objects/SPFA';
 import { generateMaze } from '$lib/functions/mazeHelpers';
 import { Enemy } from '../objects/Enemy';
 import { AssetManager } from '../objects/AssetManager';
+import { clearObjects } from '$lib/functions/threejsHelpers';
 
 export function getSimulatedData(config: MapConfig, waveData, enemies: EnemyType[]) {
 	const assetManager = AssetManager.getInstance();
 	if (!assetManager.texturesLoaded) {
 		return;
 	}
-	GameConfig.setValue("isPaused",true);
+	GameConfig.setValue('isPaused', true);
 	const gameSimManager = new GameSimManager(config, enemies);
 	const map = new GameMap(gameSimManager);
 	const spawnManager = new SpawnManager(waveData, map, gameSimManager);
@@ -75,6 +76,7 @@ function setData(count, data, spawnManager: SpawnManager, gameSimManager: GameSi
 				gridPos: enemy.gridPos,
 				data: enemy.data,
 				key: enemy.key,
+				spawnUID: enemy.spawnUID,
 				actions: enemy.actions,
 				hp: enemy.hp,
 				baseSpeed: enemy.baseSpeed,
@@ -82,67 +84,38 @@ function setData(count, data, spawnManager: SpawnManager, gameSimManager: GameSi
 				route: structuredClone(enemy.route),
 				currentActionIndex: enemy.currentActionIndex,
 				state: enemy.state,
+				animState: enemy.animState,
 				direction: structuredClone(enemy.direction),
 				motionMode: enemy.motionMode,
 				isMoving: enemy.isMoving,
 				blinkState: enemy.blinkState,
 				blinkElapsedTime: enemy.blinkElapsedTime,
 				blinkDuration: enemy.blinkDuration,
-				moveDirection: enemy.moveDirection,
 				waitElapsedTime: enemy.waitElapsedTime,
 				exit: enemy.exit,
 				exitElapsedTime: enemy.exitElapsedTime,
-				isEnding: enemy.isEnding,
-				selected: enemy.selected,
 				traits: enemy.traits,
 				specials: enemy.specials,
 				skillManager: enemy.skillManager,
 				formIndex: enemy.formIndex,
+				spineAnimIndex: enemy.spineAnimIndex,
 				timeToWait: enemy.timeToWait,
 				standbyTime: enemy.standbyTime,
 				pathFinder: enemy.pathFinder,
 				fragmentKey: enemy.fragmentKey,
 				reviveTimer: enemy.reviveTimer,
-				reviveDuration: enemy.reviveDuration
+				reviveDuration: enemy.reviveDuration,
+				startElapsedTime: enemy.startElapsedTime,
+				startDuration: enemy.startDuration
 			};
 		})
 	};
 }
 
 function cleanup(gameSimManager: GameSimManager) {
-	const objectsToRemove: THREE.Object3D[] = [];
 	gameSimManager.objects.forEach((obj: THREE.Group) => {
-		obj.traverse((child) => {
-			objectsToRemove.push(child); // Collect objects
-		});
+		clearObjects(obj);
 	});
-	objectsToRemove.forEach((obj) => {
-		// Dispose of geometry and material
-		disposeObject(obj);
-		// Remove from parent
-		if (obj.parent) {
-			obj.parent.remove(obj);
-		}
-		obj = null;
-	});
-	gameSimManager.objects.forEach((obj) => {
-		obj = null;
-	});
-}
-
-function disposeObject(obj: THREE.Object3D) {
-	if ((obj as THREE.Mesh).geometry) {
-		(obj as THREE.Mesh).geometry.dispose();
-	}
-
-	if ((obj as THREE.Mesh).material) {
-		const material = (obj as THREE.Mesh).material;
-		if (Array.isArray(material)) {
-			material.forEach((mat) => mat.dispose());
-		} else {
-			material.dispose();
-		}
-	}
 }
 
 class GameSimManager {

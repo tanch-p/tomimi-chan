@@ -39,18 +39,6 @@
 		return Math.floor(clampedPercentage * totalTime);
 	}
 
-	// Handle clicking on the seekbar
-	function handleSeek(event) {
-		if (!seekbarElement) return;
-		const time = calculateTimeFromPosition(event.clientX);
-		// Don't update progress during dragging - let the drag handler handle it
-		if (!isDragging) {
-			GameConfig.setValue('isPaused', true);
-			updateValue(time);
-			GameConfig.setValue('isPaused', false);
-		}
-	}
-
 	// Handle mouse move for tooltip
 	function handleMouseMove(event) {
 		if (!seekbarElement) return;
@@ -104,7 +92,6 @@
 
 	function updateValue(time) {
 		GameConfig.setValue('scaledElapsedTime', time);
-		// console.log(simulatedData?.t[time]);
 		if (game) {
 			game.spawnManager.set(simulatedData.t[time]);
 			game.gameManager.set(simulatedData.t[time]);
@@ -133,7 +120,6 @@
 	<div
 		class="relative w-full cursor-pointer select-none touch-none"
 		bind:this={seekbarElement}
-		on:click={handleSeek}
 		on:mousemove={handleMouseMove}
 		on:mousedown={handleMouseDown}
 		on:mouseenter={handleMouseEnter}
@@ -150,7 +136,7 @@
 		</div>
 		<div
 			hidden={!isHover}
-			class="absolute top-[-30px] z-[2] -translate-x-1/2 bg-[rgba(0,0,0,0.7)] rounded px-2 py-1 text-xs text-white"
+			class="absolute top-[-30px] z-[2] -translate-x-1/2 bg-[rgba(0,0,0,0.7)] rounded px-2 py-1 text-xs text-white select-none touch-none"
 			style="left: {tooltipPosition}px;"
 		>
 			{tooltipTime}

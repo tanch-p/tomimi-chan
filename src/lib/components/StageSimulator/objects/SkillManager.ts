@@ -88,7 +88,7 @@ export class SkillManager {
 		});
 		skeletonMesh.skeleton.color.a = 0.6;
 		// console.log(key, skeletonData);
-		const defaultAnim = getDefaultAnimName(key, skeletonMesh);
+		const defaultAnim = getDefaultAnimName(key, skeletonData);
 		skeletonMesh.state.setAnimation(0, defaultAnim, false);
 		this.transformModel = skeletonMesh;
 		this.enemy.meshGroup.add(skeletonMesh);

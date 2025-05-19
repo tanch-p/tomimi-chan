@@ -5,6 +5,7 @@ import { SpawnManager } from './SpawnManager';
 import { GameConfig } from './GameConfig';
 import { GameManager } from './GameManager';
 import { writable } from 'svelte/store';
+import { clearObjects } from '$lib/functions/threejsHelpers';
 
 export class Game {
 	canvas: HTMLCanvasElement;
@@ -75,7 +76,7 @@ export class Game {
 		document.addEventListener('pointermove', this.onPointerMove);
 		document.addEventListener('pointerup', this.onPointerUp);
 		canvasElement.addEventListener('pointerdown', this.onPointerDown);
-		this.gameManager = new GameManager(config, this.scene, this.camera, this.objects, enemies);
+		this.gameManager = new GameManager(config, this, enemies);
 		this.map = new GameMap(this.gameManager);
 		this.spawnManager = new SpawnManager(waveData, this.map, this.gameManager);
 
@@ -114,8 +115,8 @@ export class Game {
 			card && GameConfig.setValue('tokenCard', card);
 		}
 		this.objects = [];
-		this.clearScene(this.scene);
-		this.gameManager.reset(this.config, this.enemies, this.objects);
+		clearObjects(this.scene);
+		this.gameManager.reset(this.config, this.enemies);
 		this.map = new GameMap(this.gameManager);
 		this.spawnManager = new SpawnManager(this.waveData, this.map, this.gameManager);
 		this.initLights();
@@ -254,7 +255,6 @@ export class Game {
 		}
 
 		this.raycaster.setFromCamera(this.pointer, this.camera);
-
 		const intersects = this.raycaster.intersectObjects(this.objects, false);
 
 		if (intersects.length > 0) {
@@ -341,7 +341,7 @@ export class Game {
 		this.renderer.dispose();
 
 		if (this.scene) {
-			this.clearScene(this.scene);
+			clearObjects(this.scene);
 		}
 		GameConfig.setValue('scaledElapsedTime', 0);
 		GameConfig.setValue('waveElapsedTime', 0);
@@ -354,33 +354,5 @@ export class Game {
 		this.canvas.removeEventListener('pointerdown', this.onPointerDown);
 		document.removeEventListener('pointermove', this.onPointerMove);
 		document.removeEventListener('pointerup', this.onPointerUp);
-	}
-	clearScene(scene: THREE.Scene) {
-		const objectsToRemove: THREE.Object3D[] = [];
-		scene.traverse((obj) => {
-			objectsToRemove.push(obj); // Collect objects
-		});
-		objectsToRemove.forEach((obj) => {
-			// Dispose of geometry and material
-			this.disposeObject(obj);
-			// Remove from parent
-			if (obj.parent) {
-				obj.parent.remove(obj);
-			}
-		});
-	}
-	disposeObject(obj: THREE.Object3D) {
-		if ((obj as THREE.Mesh).geometry) {
-			(obj as THREE.Mesh).geometry.dispose();
-		}
-
-		if ((obj as THREE.Mesh).material) {
-			const material = (obj as THREE.Mesh).material;
-			if (Array.isArray(material)) {
-				material.forEach((mat) => mat.dispose());
-			} else {
-				material.dispose();
-			}
-		}
 	}
 }

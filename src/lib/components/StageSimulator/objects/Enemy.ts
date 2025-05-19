@@ -6,13 +6,7 @@ import { AssetManager } from './AssetManager';
 import type { Enemy as EnemyType, Skill } from '$lib/types';
 import { SPFA } from './SPFA';
 import { getEnemySkills } from '$lib/functions/skillHelpers';
-import {
-	getAnimDuration,
-	getIdleAnimName,
-	getMoveAnimName,
-	getReviveAnimName,
-	getSpineMetaData
-} from '$lib/functions/spineHelpers';
+import { getAnimDuration, getSpineAnimations, getSpineMetaData } from '$lib/functions/spineHelpers';
 import { SkillManager } from './SkillManager';
 
 const moveMultiplier = 0.5;
@@ -21,8 +15,11 @@ export class Enemy {
 	targetPos: THREE.Vector3;
 	gridPos: string;
 	assetManager: AssetManager;
+	gameManager: GameManager;
+	pathFinder: SPFA;
 	data;
 	key: string;
+	spawnUID: string;
 	actions;
 	hp: number;
 	baseSpeed: number;
@@ -34,48 +31,57 @@ export class Enemy {
 	direction: THREE.Vector3;
 	motionMode: 'WALK' | 'FLY' | 'BLINK' | 'NONE';
 	isMoving = false;
-	blinkState: 'START' | 'END' | null = null;
-	blinkElapsedTime = 0;
-	blinkDuration = 0;
-	moveDirection: 'H' | 'V' | 'D' = 'H';
+	traits: Skill[];
+	specials: Skill[];
+	skillManager: SkillManager;
+	selected = false;
+	buffs = [];
 	waitElapsedTime = 0;
+	standbyTime = 0;
+	formIndex = 0;
+	arrivalThreshold = GameConfig.gridSize * 0.45;
+	fragmentKey: string;
+
+	countdownId = -1;
+	pathGroup;
+	meshGroup: THREE.Group;
+	hitbox;
+	shadow;
+	atkRangeMesh: THREE.Group;
+	skillRangeMeshes: THREE.Group[] = [];
+
+	skel: spine.SkeletonMesh;
+	skelData: spine.SkeletonData;
+	animations;
+	animState = 'Idle'; //used as a key
+	darkness = 1;
+	sprite: THREE.Sprite;
+	height: number;
+	width: number;
+	startElapsedTime = 0;
+	startDuration = 0;
 	entry = true;
 	entryElapsedTime = 0;
 	exit = false;
 	exitElapsedTime = 0;
-	isEnding = false;
-	selected = false;
-	animState = 'Idle';
-	gameManager: GameManager;
-	pathGroup;
-	countdownId: number = -1;
-	skel: spine.SkeletonMesh;
-	skelData: spine.SkeletonData;
-	sprite: THREE.Sprite;
-	height: number;
-	width: number;
-	meshGroup: THREE.Group;
-	hitbox;
-	shadow;
-	traits: Skill[];
-	specials: Skill[];
-	skillManager: SkillManager;
-	formIndex = 0;
+	blinkState: 'START' | 'END' | null = null;
+	blinkElapsedTime = 0;
+	blinkDuration = 0;
+	spineAnimIndex = 0;
 	timeToWait = 0;
-	standbyTime = 0;
-	pathFinder: SPFA;
-	atkRangeMesh: THREE.Group;
-	skillRangeMeshes: THREE.Group[] = [];
-	buffs = [];
-	darkness = 1;
-	fragmentKey: string;
-	arrivalThreshold = GameConfig.gridSize * 0.45;
 	reviveTimer = 0;
 	reviveDuration = 0;
 	disguiseSkel: spine.SkeletonMesh;
 	texture;
 
-	constructor(enemyData: EnemyType, route, gameManager: GameManager, fragmentKey, setData = null) {
+	constructor(
+		enemyData: EnemyType,
+		route,
+		gameManager: GameManager,
+		fragmentKey,
+		spawnUID: string,
+		setData = null
+	) {
 		this.assetManager = AssetManager.getInstance();
 		this.gameManager = gameManager;
 		if (setData) {
@@ -90,6 +96,7 @@ export class Enemy {
 			this.gridPos = setData.gridPos;
 			this.data = setData.data;
 			this.key = setData.key;
+			this.spawnUID = setData.spawnUID;
 			this.actions = setData.actions;
 			this.hp = setData.hp;
 			this.baseSpeed = setData.baseSpeed;
@@ -105,27 +112,26 @@ export class Enemy {
 			this.blinkState = setData.blinkState;
 			this.blinkElapsedTime = setData.blinkElapsedTime;
 			this.blinkDuration = setData.blinkDuration;
-			this.moveDirection = setData.moveDirection;
 			this.waitElapsedTime = setData.waitElapsedTime;
 			this.entry = false;
 			this.exit = setData.exit;
 			this.exitElapsedTime = setData.exitElapsedTime;
-			this.isEnding = setData.isEnding;
-			this.selected = setData.selected;
 			this.animState = setData.animState;
 			this.traits = setData.traits;
 			this.specials = setData.specials;
 			this.skillManager = setData.skillManager;
 			this.formIndex = setData.formIndex;
+			this.spineAnimIndex = setData.spineAnimIndex;
 			this.timeToWait = setData.timeToWait;
 			this.standbyTime = setData.standbyTime;
 			this.pathFinder = setData.pathFinder;
 			this.fragmentKey = setData.fragmentKey;
 			this.reviveTimer = setData.reviveTimer;
 			this.reviveDuration = setData.reviveDuration;
-			console.log(this.timeToWait);
-			console.log(this.standbyTime);
+			this.startDuration = setData.startDuration;
+			this.startElapsedTime = setData.startElapsedTime;
 		} else {
+			this.spawnUID = spawnUID;
 			gameManager.enemiesOnMap.push(this);
 			this.pathFinder = gameManager.pathFinder;
 			this.data = enemyData;
@@ -169,6 +175,7 @@ export class Enemy {
 		this.meshGroup.renderOrder = 1;
 		this.initModel();
 		if (setData) {
+			this.handleAnimUpdate(0.01);
 			this.meshGroup.position.set(this.raycastPos.x, this.raycastPos.y, GameConfig.baseZIndex);
 			this.pathGroup = this.visualisePath(
 				this.actions,
@@ -177,6 +184,13 @@ export class Enemy {
 				this.route.spawnOffset
 			);
 		} else {
+			if (this.animations?.[this.spineAnimIndex]?.Start) {
+				this.animState = 'Start';
+				this.startDuration = getAnimDuration(
+					this.skelData,
+					this.animations?.[this.spineAnimIndex]?.[this.animState]
+				);
+			}
 			this.skillManager = new SkillManager(
 				this,
 				this.traits.concat(this.specials),
@@ -215,6 +229,7 @@ export class Enemy {
 				return;
 			}
 			this.skelData = this.assetManager.spineMap.get(this.key);
+			this.animations = getSpineAnimations(this.key, this.skelData);
 			return;
 		}
 		const shadowGeometry = new THREE.PlaneGeometry(
@@ -299,7 +314,7 @@ export class Enemy {
 			this.meshGroup.add(sprite);
 			this.sprite = sprite;
 			sprite.userData.enemy = this;
-			this.gameManager.objects.push(sprite);
+			this.gameManager.game.objects.push(sprite);
 			this.gameManager.scene.add(this.meshGroup);
 			this.meshGroup.renderOrder = 0;
 		}
@@ -309,7 +324,7 @@ export class Enemy {
 			if (!this.skelData) {
 				return;
 			}
-			// console.log(this.key, skeletonData);
+			this.animations = getSpineAnimations(this.key, this.skelData);
 			const skeletonMesh = new spine.SkeletonMesh(this.skelData, (parameters) => {
 				parameters.depthTest = false;
 				parameters.alphaTest = 0.001;
@@ -341,10 +356,9 @@ export class Enemy {
 				this.skel.position.y += GameConfig.gridSize * 0.7;
 			}
 			sprite.userData.enemy = this;
-			this.gameManager.objects.push(sprite);
+			this.gameManager.game.objects.push(sprite);
 			this.gameManager.scene.add(this.meshGroup);
 
-			this.handleIdle();
 			if (this.entry) {
 				this.skel.skeleton.color.r = 0.2;
 				this.skel.skeleton.color.g = 0.2;
@@ -570,7 +584,8 @@ export class Enemy {
 		}
 	}
 
-	handleAnimUpdate(delta) {
+	handleAnimUpdate(delta: number) {
+		this.handleAnimationChange();
 		this.skel && this.skel.update(delta);
 		this.disguiseSkel && this.disguiseSkel.update(delta);
 
@@ -602,12 +617,16 @@ export class Enemy {
 
 	update(delta: number) {
 		this.handleAnimUpdate(delta);
-		if (this.state === 'fall') {
+		if (this.startDuration > this.startElapsedTime) {
+			this.handleStart(delta);
 			return;
 		}
+		if (this.state === 'fall') return;
+
 		this.skillManager.update(delta);
 		if (this.currentActionIndex >= this.actions.length) {
 			if (this.motionMode === 'NONE') {
+				// special case for skzamb
 				return;
 			}
 			this.onEnd();
@@ -694,7 +713,7 @@ export class Enemy {
 						const { x, y } = this.gameManager.getVectorCoordinates(position, reachOffset);
 						this.targetPos = new THREE.Vector3(x, y, GameConfig.baseZIndex);
 						this.isMoving = true;
-						this.handleMove();
+						this.animState = 'Move';
 					}
 					let direction = new THREE.Vector3()
 						.subVectors(this.targetPos, this.raycastPos)
@@ -754,7 +773,7 @@ export class Enemy {
 			case 'WAIT_FOR_SECONDS':
 				if (this.waitElapsedTime === 0) {
 					this.state = 'wait';
-					this.handleIdle();
+					this.animState = 'Idle';
 					this.waitElapsedTime += delta;
 					switch (type) {
 						case 'WAIT_CURRENT_FRAGMENT_TIME':
@@ -807,7 +826,7 @@ export class Enemy {
 				this.currentActionIndex++;
 				break;
 			default:
-				console.log(type, ' action is undefined');
+				console.warn(type, ' action is undefined');
 		}
 		this.handlePosChange();
 		if (this.standbyTime > 0) {
@@ -825,7 +844,7 @@ export class Enemy {
 							'standby'
 						);
 					}
-					this.handleIdle();
+					this.animState = 'Idle';
 					this.waitElapsedTime += delta;
 				} else {
 					this.waitElapsedTime += delta;
@@ -844,7 +863,6 @@ export class Enemy {
 					this.standbyTime = 0;
 					this.waitElapsedTime = 0;
 					if (this.key === 'enemy_2089_skzjkl') {
-						this.formIndex++;
 						this.handleFormIndexChange();
 					}
 				}
@@ -870,10 +888,11 @@ export class Enemy {
 
 	remove() {
 		if (!this.gameManager.isSimulation) {
-			const index = this.gameManager.objects.findIndex((ele) => ele.uuid === this.sprite.uuid);
+			const index = this.gameManager.game.objects.findIndex((ele) => ele.uuid === this.sprite.uuid);
 			if (index !== -1) {
-				this.gameManager.objects.splice(index, 1);
+				this.gameManager.game.objects.splice(index, 1);
 			}
+			this.gameManager.removeCountdown(this.countdownId);
 			this.onDeselect();
 			this.gameManager.scene.remove(this.meshGroup);
 		}
@@ -883,9 +902,8 @@ export class Enemy {
 	onSelect() {
 		// console.log(this.key);
 		// console.log(this.data);
-		const pos = this.gameManager.getGridPosition(this.raycastPos);
+		// const pos = this.gameManager.getGridPosition(this.raycastPos);
 		// console.log(pos);
-		// console.log(this.route);
 		this.shadow.uniforms.isSelected.value = true;
 		this.gameManager.scene.add(this.pathGroup);
 		this.selected = true;
@@ -1018,66 +1036,101 @@ export class Enemy {
 	}
 
 	handleFormIndexChange() {
-		for (const skill of this.specials) {
-			if (skill.revive) {
-				this.reviveDuration = this.reviveDuration;
-			}
-		}
-		const animName = getReviveAnimName(this.key, this.skel);
+		this.animState = 'Revive';
 		if (!this.reviveDuration) {
-			this.reviveDuration = getAnimDuration(this.skel, animName);
+			this.reviveDuration = getAnimDuration(
+				this.skelData,
+				this.animations?.[this.spineAnimIndex]?.[this.animState]
+			);
 		}
-		this.formIndex++;
-		this.specials = getEnemySkills(
-			this.data,
-			this.data.forms[this.formIndex].special,
-			this.formIndex,
-			GameConfig.specialMods,
-			'special'
-		);
 		this.gameManager.spawnManager.enterNextWaveFlag = true;
-		this.skillManager.setSkills(this.traits.concat(this.specials));
 		this.state = 'revive';
-		this.changeAnimation(animName);
 	}
 
-	handleRevive(delta) {
+	handleStart(delta: number) {
+		this.startElapsedTime += delta;
+		if (this.startElapsedTime > this.startDuration) {
+			this.startDuration = 0;
+			this.startElapsedTime = 0;
+		}
+	}
+
+	handleRevive(delta: number) {
 		this.reviveTimer += delta;
 		if (this.reviveTimer > this.reviveDuration) {
 			this.state = 'free';
 			this.reviveDuration = 0;
 			this.reviveTimer = 0;
+			this.formIndex++;
+			this.spineAnimIndex++;
+			this.specials = getEnemySkills(
+				this.data,
+				this.data.forms[this.formIndex].special,
+				this.formIndex,
+				GameConfig.specialMods,
+				'special'
+			);
+			this.skillManager.setSkills(this.traits.concat(this.specials));
 		}
 	}
 
-	handleIdle() {
-		if (this.texture) return;
-		let animName = getIdleAnimName(this.key, this.skel);
-		if (this.key === 'enemy_2089_skzjkl' && this.standbyTime > 0) {
-			animName = 'A_Idle';
-		}
-		this.changeAnimation(animName);
-	}
-
-	handleMove() {
-		if (this.texture) return;
-		const animName = getMoveAnimName(this.key, this.skel);
-		this.skel && this.changeAnimation(animName);
-	}
-	changeAnimation(animationName) {
+	handleAnimationChange() {
 		if (!this.skel) return;
-		if (!this.skel.state.hasAnimation(animationName)) {
-			// console.log(this.key);
-			return;
-		}
-		if (animationName === this.skel.state.currentAnimation) {
-			return;
-		}
-		this.animState = animationName;
+		const animName = this.animations?.[this.spineAnimIndex]?.[this.animState];
+		if (!animName) return;
+		if (!this.skel.state.hasAnimation(animName)) return;
 		if (this.disguiseSkel) {
-			this.disguiseSkel.state.setAnimation(0, animationName.replace('A', 'B'), true);
+			this.disguiseSkel.state.setAnimation(0, animName.replace('A', 'B'), true);
 		}
-		this.skel.state.setAnimation(0, animationName, true);
+		if (animName === this.skel.state.currentAnimation) return;
+		const repeat = this.animState !== 'Start';
+		this.skel.state.setAnimation(0, animName, repeat);
 	}
-	handleDeath() {}
+
+	updateData(setData) {
+		this.raycastPos = new THREE.Vector3(
+			setData.raycastPos.x,
+			setData.raycastPos.y,
+			setData.raycastPos.z
+		);
+		this.targetPos = setData.targetPos
+			? new THREE.Vector3(setData.targetPos.x, setData.targetPos.y, setData.targetPos.z)
+			: null;
+		this.gridPos = setData.gridPos;
+		this.hp = setData.hp;
+		this.moddedSpeed = setData.moddedSpeed;
+		this.currentActionIndex = setData.currentActionIndex;
+		this.state = setData.state;
+		this.direction = setData.direction
+			? new THREE.Vector3(setData.direction.x, setData.direction.y, setData.direction.z)
+			: null;
+		this.isMoving = setData.isMoving;
+		this.blinkState = setData.blinkState;
+		this.blinkElapsedTime = setData.blinkElapsedTime;
+		this.blinkDuration = setData.blinkDuration;
+		this.waitElapsedTime = setData.waitElapsedTime;
+		this.exit = setData.exit;
+		this.exitElapsedTime = setData.exitElapsedTime;
+		this.animState = setData.animState;
+		// this.traits = setData.traits;
+		// this.specials = setData.specials;
+		// this.skillManager = setData.skillManager;
+		this.formIndex = setData.formIndex;
+		this.spineAnimIndex = setData.spineAnimIndex;
+		this.timeToWait = setData.timeToWait;
+		this.standbyTime = setData.standbyTime;
+		this.reviveTimer = setData.reviveTimer;
+		this.reviveDuration = setData.reviveDuration;
+		this.startDuration = setData.startDuration;
+		this.startElapsedTime = setData.startElapsedTime;
+		this.handleAnimUpdate(0.01);
+		this.countdownId = -1;
+		this.entry = false;
+		if (this.skel) {
+			this.skel.skeleton.color.r = 1;
+			this.skel.skeleton.color.g = 1;
+			this.skel.skeleton.color.b = 1;
+		}
+		this.meshGroup.position.set(this.raycastPos.x, this.raycastPos.y, GameConfig.baseZIndex);
+	}
 }

@@ -87,7 +87,7 @@ export class BranchManager {
 			// Handle spawning
 			const timeSinceLastSpawn = GameConfig.scaledElapsedTime - state.lastSpawnTime;
 			if (state.spawnCount === 0 || timeSinceLastSpawn >= state.action.interval) {
-				this.spawnEntity(state.action);
+				this.spawnEntity(state.action,index);
 				state.spawnCount++;
 				state.lastSpawnTime = GameConfig.scaledElapsedTime;
 
@@ -110,13 +110,13 @@ export class BranchManager {
 		this.phaseTimer = 0;
 	}
 
-	spawnEntity(action) {
+	spawnEntity(action,index) {
 		if (action.key === '') {
 			return;
 		}
 		switch (action.actionType) {
 			case 'SPAWN':
-				this.spawnEnemy(action);
+				this.spawnEnemy(action,index);
 				break;
 			case 'ACTIVATE_PREDEFINED':
 				this.activatePredefined(action);
@@ -126,14 +126,15 @@ export class BranchManager {
 		}
 	}
 
-	spawnEnemy(action) {
+	spawnEnemy(action,index) {
 		const originalRoute = this.routes[action['routeIndex']];
 		const route = this.gameManager.convertMovementConfig(structuredClone(originalRoute));
 		const enemyData = this.gameManager.enemies.find((ele) => ele.stageId === action.key);
 		if (!enemyData) {
 			return;
 		}
-		const enemy = new Enemy(enemyData, route, this.gameManager, null);
+		const spawnUID = `p${this.currentPhaseIndex}a${index.toString().padStart(2,"0")}${Math.floor(GameConfig.scaledElapsedTime)}`;
+		const enemy = new Enemy(enemyData, route, this.gameManager, null,spawnUID);
 	}
 
 	activatePredefined(action) {

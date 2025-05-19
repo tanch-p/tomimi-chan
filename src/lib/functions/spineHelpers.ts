@@ -1,3 +1,6 @@
+import * as spine from '$lib/spine';
+import spineMetaData from '$lib/data/spine/spine_meta_data.json';
+
 export const getSpineMetaData = (key, skel) => {
 	if (!skel) return;
 
@@ -14,28 +17,42 @@ export const getSpineMetaData = (key, skel) => {
 		case 'enemy_2089_skzjkl':
 			height = 130;
 			break;
-		
 	}
 	return { width, height };
 };
 
-export function getReviveAnimName(key, skel) {
-	if(!skel) return;
-	if (skel.state.hasAnimation('Revive')) {
-		return 'Revive';
+export const getSpineAnimations = (key: string, skelData: spine.SkeletonData) => {
+	if (!skelData) return;
+
+	// a set of states for each enemy form index, ignore hover/prisoner for now
+	// only deal with a handful of boss enemies with multiforms
+
+	if (spineMetaData[key]) {
+		// console.log(skelData.animations);
+		return spineMetaData[key].anim;
 	}
-	switch (key) {
-		case 'enemy_2025_syufo':
-			return 'Default_01';
-		case 'enemy_2089_skzjkl':
-			return 'C_Revive';
+
+	const idleAnim = getIdleAnimName(key, skelData);
+	const defaultAnim = getDefaultAnimName(key, skelData);
+	const moveAnim = getMoveAnimName(key, skelData);
+
+	const animations = { Idle: idleAnim, Move: moveAnim, Default: defaultAnim };
+	const otherAnims = getOtherAnims(key, skelData);
+	return [{ ...animations, ...otherAnims }];
+};
+
+function getOtherAnims(key: string, skelData: spine.SkeletonData) {
+	const anims = {};
+	if (skelData.findAnimation('Start')) {
+		anims['Start'] = 'Start';
 	}
+	return anims;
 }
 
-export function getDefaultAnimName(key, skel) {
-	if (!skel) return;
+export function getDefaultAnimName(key: string, skelData: spine.SkeletonData) {
+	if (!skelData) return;
 
-	if (skel.state.hasAnimation('Default')) {
+	if (skelData.findAnimation('Default')) {
 		return 'Default';
 	}
 	switch (key) {
@@ -47,11 +64,14 @@ export function getDefaultAnimName(key, skel) {
 	}
 }
 
-export function getIdleAnimName(key, skel, state) {
-	if (!skel) return;
+export function getIdleAnimName(key: string, skelData: spine.SkeletonData) {
+	if (!skelData) return;
 
-	if (skel.state.hasAnimation('Idle')) {
+	if (skelData.findAnimation('Idle')) {
 		return 'Idle';
+	}
+	if (skelData.findAnimation('Idile')) {
+		return 'Idile';
 	}
 	switch (key) {
 		case 'enemy_1118_lidbox':
@@ -98,7 +118,6 @@ export function getIdleAnimName(key, skel, state) {
 			return 'Idle_A';
 
 		case 'enemy_1388_wingnt':
-		case 'enemy_2092_skzamy':
 			return 'A_Idle';
 
 		case 'enemy_1418_mmkonm':
@@ -126,18 +145,12 @@ export function getIdleAnimName(key, skel, state) {
 		case 'enemy_1267_nhpbr':
 		case 'enemy_1267_nhpbr_2':
 			return 'F_Idle';
-
-		default:
-			if (skel.state.hasAnimation('Idile')) {
-				return 'Idile';
-			}
-			return 'Default';
 	}
+	return 'Default';
 }
 
-export function getMoveAnimName(key, skel, state) {
-	if (!skel) return;
-	if (skel.state.hasAnimation('Move')) {
+function getMoveAnimName(key: string, skelData: spine.SkeletonData) {
+	if (skelData.findAnimation('Move')) {
 		return 'Move';
 	}
 	switch (key) {
@@ -216,8 +229,6 @@ export function getMoveAnimName(key, skel, state) {
 
 		case 'enemy_1516_jakill':
 		case 'enemy_2037_sygirl':
-		case 'enemy_2081_skztxs':
-		case 'enemy_2082_skzdd':
 			return 'C1_Move';
 
 		case 'enemy_1384_winfrz':
@@ -231,15 +242,13 @@ export function getMoveAnimName(key, skel, state) {
 			return 'Move_Loop';
 	}
 }
-export function getAnimDuration(skel, animName) {
-	if(!skel) return;
-	return (
-		skel.state.data.skeletonData.animations.find((ele) => ele.name === animName)?.duration || 0
-	);
+export function getAnimDuration(skelData: spine.SkeletonData, animName) {
+	if (!skelData) return;
+	return skelData.animations.find((ele) => ele.name === animName)?.duration || 0;
 }
 
 export function getSkillAnimName(skel, enemyKey, skillKey) {
-	if(!skel) return;
+	if (!skel) return;
 	if (skel.state.hasAnimation('Skill_Loop')) {
 		return 'Skill_Loop';
 	}

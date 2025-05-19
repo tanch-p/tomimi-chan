@@ -52,7 +52,7 @@ export class Trap {
 					this.skel = skeletonMesh;
 					skeletonMesh.position.set(0, -GameConfig.gridSize * 0.2, 0);
 					skeletonMesh.state;
-					const animName = getIdleAnimName(this.key, skeletonMesh);
+					const animName = getIdleAnimName(this.key, skeletonData);
 					this.skel.state.setAnimation(0, animName, true);
 					skeletonMesh.renderOrder = -1;
 					this.meshGroup.add(skeletonMesh);
