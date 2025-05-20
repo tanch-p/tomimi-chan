@@ -193,8 +193,8 @@ export class Enemy {
 		} else {
 			if (this.animations?.[this.spineAnimIndex]?.Start) {
 				this.animState = 'Start';
-				console.log('has start', this.key);
-				console.log(this.skelData.animations);
+				// console.log('has start', this.key);
+				// console.log(this.skelData.animations);
 				this.startDuration = getAnimDuration(
 					this.skelData,
 					this.animations?.[this.spineAnimIndex]?.[this.animState]
