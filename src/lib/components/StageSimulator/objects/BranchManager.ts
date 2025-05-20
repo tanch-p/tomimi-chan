@@ -2,6 +2,7 @@ import { shuffleArray } from '$lib/functions/waveHelpers';
 import { Enemy } from './Enemy';
 import { GameConfig } from './GameConfig';
 import { GameManager } from './GameManager';
+import { SpawnManager } from './SpawnManager';
 
 export class BranchManager {
 	routes;
@@ -12,11 +13,13 @@ export class BranchManager {
 	completedActions = new Set(); // Tracks completed actions in current fragment
 	isProcessingPhase = false;
 	gameManager: GameManager;
+	spawnManager: SpawnManager;
 	isFinished = false;
 	phasePreDelayTimer = 0;
 	phaseTimer = 0;
-	constructor(branch, gameManager: GameManager) {
+	constructor(branch, gameManager: GameManager, spawnManager:SpawnManager) {
 		this.branch = branch;
+		this.spawnManager = spawnManager;
 		this.gameManager = gameManager;
 		this.routes = gameManager.config.extra_routes;
 		const indexes = Array.from({ length: branch.phases.length }, (_, i) => i);
@@ -87,7 +90,7 @@ export class BranchManager {
 			// Handle spawning
 			const timeSinceLastSpawn = GameConfig.scaledElapsedTime - state.lastSpawnTime;
 			if (state.spawnCount === 0 || timeSinceLastSpawn >= state.action.interval) {
-				this.spawnEntity(state.action);
+				this.spawnEntity(state.action,index);
 				state.spawnCount++;
 				state.lastSpawnTime = GameConfig.scaledElapsedTime;
 
@@ -110,13 +113,13 @@ export class BranchManager {
 		this.phaseTimer = 0;
 	}
 
-	spawnEntity(action) {
+	spawnEntity(action,index) {
 		if (action.key === '') {
 			return;
 		}
 		switch (action.actionType) {
 			case 'SPAWN':
-				this.spawnEnemy(action);
+				this.spawnEnemy(action,index);
 				break;
 			case 'ACTIVATE_PREDEFINED':
 				this.activatePredefined(action);
@@ -126,14 +129,16 @@ export class BranchManager {
 		}
 	}
 
-	spawnEnemy(action) {
+	spawnEnemy(action,index) {
 		const originalRoute = this.routes[action['routeIndex']];
 		const route = this.gameManager.convertMovementConfig(structuredClone(originalRoute));
 		const enemyData = this.gameManager.enemies.find((ele) => ele.stageId === action.key);
 		if (!enemyData) {
 			return;
 		}
-		const enemy = new Enemy(enemyData, route, this.gameManager, null);
+		const spawnUID = `b-${action.key}-b${this.spawnManager.spawnIdx}`
+		this.spawnManager.spawnIdx++;
+		const enemy = new Enemy(enemyData, route, this.gameManager, null,spawnUID);
 	}
 
 	activatePredefined(action) {

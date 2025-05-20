@@ -5,8 +5,10 @@ import { Enemy } from './Enemy';
 import { AssetManager } from './AssetManager';
 import { ActiveSkill } from './ActiveSkill';
 import { getDefaultAnimName } from '$lib/functions/spineHelpers';
+import { GameManager } from './GameManager';
 
 export class SkillManager {
+	gameManager: GameManager;
 	assetManager: AssetManager;
 	enemy: Enemy;
 	activeSkills: ActiveSkill[] = [];
@@ -16,10 +18,12 @@ export class SkillManager {
 	accelerationPreDelayTimer = 0;
 	accelerateParams = null;
 	accelerationStacks = 0;
+	//TODO to rework acceleration into a timer based buff generic skill
 
-	constructor(enemy: Enemy, skills: Skill[]) {
+	constructor(enemy: Enemy, skills: Skill[], gameManager: GameManager, skillData = null) {
 		this.assetManager = AssetManager.getInstance();
 		this.enemy = enemy;
+		this.gameManager = gameManager;
 		for (const skill of skills) {
 			if (skill.key === 'transform') {
 				const key = skill.value;
@@ -46,8 +50,15 @@ export class SkillManager {
 				enemy.meshGroup.add(skill.skillBar);
 			});
 		}
+		if (skillData) {
+			this.accelerationIntervalTimer = skillData.accelerationIntervalTimer;
+			this.accelerationPreDelayTimer = skillData.accelerationPreDelayTimer;
+			this.accelerateParams = skillData.accelerateParams;
+			this.accelerationStacks = skillData.accelerationStacks;
+		}
 	}
 	addParasiticSprite() {
+		if (this.gameManager.isSimulation) return;
 		const texture = this.assetManager.textures.get('parasitic')?.texture;
 		const material = new THREE.SpriteMaterial({
 			map: texture,
@@ -63,6 +74,8 @@ export class SkillManager {
 	}
 
 	addTransformModel(key) {
+		if (this.gameManager.isSimulation) return;
+
 		let skeletonData = this.assetManager.spineMap.get(key);
 		if (!skeletonData) {
 			const prefabKey = this.enemy.gameManager.config.enemies.find(
@@ -82,7 +95,7 @@ export class SkillManager {
 		});
 		skeletonMesh.skeleton.color.a = 0.6;
 		// console.log(key, skeletonData);
-		const defaultAnim = getDefaultAnimName(key, skeletonMesh);
+		const defaultAnim = getDefaultAnimName(key, skeletonData);
 		skeletonMesh.state.setAnimation(0, defaultAnim, false);
 		this.transformModel = skeletonMesh;
 		this.enemy.meshGroup.add(skeletonMesh);
@@ -126,6 +139,13 @@ export class SkillManager {
 		}
 	}
 
-	reset() {
+	set(data) {
+		if (!data) return;
+		this.accelerationIntervalTimer = data.accelerationIntervalTimer;
+		this.accelerationPreDelayTimer = data.accelerationPreDelayTimer;
+		this.accelerateParams = data.accelerateParams;
+		this.accelerationStacks = data.accelerationStacks;
 	}
+
+	reset() {}
 }

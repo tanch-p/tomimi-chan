@@ -6,12 +6,15 @@
 	import translations from '$lib/translations.json';
 	import Icon from '../Icon.svelte';
 	import spriteCost from '$lib/images/is/sprite_cost.webp';
+	import SeekBar from './SeekBar.svelte';
 
 	export let game,
+		waves,
 		initialCost,
 		language: Language,
 		count: number,
 		randomSeeds,
+		simulatedData,
 		maxCost = 99;
 
 	let state,
@@ -48,7 +51,6 @@
 		});
 		unsubscribeFns.push(unsubscribe);
 		unsubscribe = GameConfig.subscribe('waveElapsedTime', (value) => {
-			totalTime = value;
 			min = Math.floor(value / 60);
 			sec = Math.floor(value % 60);
 		});
@@ -68,13 +70,22 @@
 	});
 </script>
 
+{#if simulatedData}
+	<SeekBar {game} {simulatedData} />
+{/if}
 <div class="absolute z-[1] right-4 flex gap-x-2 md:gap-x-4 mt-4">
-	<button class="interface w-[45px] h-[45px] md:w-[60px] md:h-[60px] shadow-lg" on:click={handleReset}>
+	<button
+		class="interface w-[45px] h-[45px] md:w-[60px] md:h-[60px] shadow-lg"
+		on:click={handleReset}
+	>
 		<Icon name="refresh-icon" className="rotate-[185deg]" size={28} />
 	</button>
-	<button class="interface w-[45px] h-[45px] md:w-[60px] md:h-[60px] shadow-lg" on:click={handleSpeedFactor}>
+	<button
+		class="interface w-[45px] h-[45px] md:w-[60px] md:h-[60px] shadow-lg"
+		on:click={handleSpeedFactor}
+	>
 		<div class="">
-			<div class="flex justify-center text-2xl leading-[26px]">{GameConfig.speedFactor}<span class="block w-[15px]">Ⅹ</span></div>
+			<div class="flex justify-center text-2xl leading-[26px]">{GameConfig.speedFactor}X</div>
 			<div class="flex justify-center pl-1">
 				{#each Array.from(Array(Math.min(3, GameConfig.speedFactor))) as _, i}
 					<div
@@ -86,7 +97,10 @@
 			</div>
 		</div>
 	</button>
-	<button class="interface w-[45px] h-[45px] md:w-[60px] md:h-[60px] shadow-lg" on:click={handlePause}>
+	<button
+		class="interface w-[45px] h-[45px] md:w-[60px] md:h-[60px] shadow-lg"
+		on:click={handlePause}
+	>
 		{#if isPaused}
 			<div class="border-l-[22px] border-l-white border-y-[11px] border-y-transparent" />
 		{:else}
@@ -138,7 +152,7 @@
 
 {#if isPaused}
 	<div
-		class="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 pointer-events-none"
+		class="absolute z-[0] inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 pointer-events-none"
 	>
 		<p class="text-2xl">{GameConfig.state === 'end' ? 'ENDED' : 'PAUSE'}</p>
 		{#if language === 'zh'}<p class="text-sm">----暂停中----</p>{/if}

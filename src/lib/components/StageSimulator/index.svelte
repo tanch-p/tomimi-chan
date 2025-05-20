@@ -8,6 +8,7 @@
 	import SpawnTimeView from './SpawnTimeView.svelte';
 	import Settings from './Settings.svelte';
 	import { GameConfig } from './objects/GameConfig';
+	import { getSimulatedData } from './functions/Simulator';
 
 	export let timeline,
 		mapConfig: MapConfig,
@@ -17,13 +18,16 @@
 		randomSeeds;
 
 	let waves;
-	let assetManager: AssetManager, canvasElement: HTMLCanvasElement, game: Game;
+	let assetManager= AssetManager.getInstance(), canvasElement: HTMLCanvasElement, game: Game, simulatedData;
 	// let gameInstances: Game[] = [];
 
 	$: waves = timeline?.waves;
 
 	$: if (timeline) {
 		resetGame();
+	}
+	$: if(waveData){
+		simulatedData = getSimulatedData(mapConfig,waveData,enemies);
 	}
 
 	function resetGame() {
@@ -37,10 +41,9 @@
 		if (game) {
 			game.stop();
 		}
-		if (!assetManager) {
-			assetManager = AssetManager.getInstance();
-		}
+		
 		await assetManager.loadAssets(mapConfig);
+		assetManager.texturesLoaded=true;
 		resetGame();
 		if (!game) {
 			game = new Game(canvasElement, mapConfig, waveData, enemies);
@@ -64,6 +67,8 @@
 	{:then}
 		<SpawnTimeView {waves} {mapConfig} />
 		<Interface
+		{waves}
+		{simulatedData}
 			bind:randomSeeds
 			{game}
 			initialCost={mapConfig.initialCost}
@@ -71,8 +76,8 @@
 			count={timeline?.count}
 			maxCost={mapConfig.maxCost}
 		/>
-	{:catch error}
-		<p class="text-center">An error occured while loading: <br />{error.message}</p>
+	<!-- {:catch error} -->
+		<!-- <p class="text-center">An error occured while loading: <br />{error.message}</p> -->
 	{/await}
 	<canvas bind:this={canvasElement} />
 </div>

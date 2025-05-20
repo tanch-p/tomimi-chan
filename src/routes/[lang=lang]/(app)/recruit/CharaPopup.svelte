@@ -70,7 +70,6 @@
 						<p>{$selectedChara.appellation}</p>
 					{/if}
 					<p class="text-xl">{$selectedChara.name}</p>
-					<!--TODO <p>全部位</p> -->
 				</div>
 			</div>
 			<div class="relative">

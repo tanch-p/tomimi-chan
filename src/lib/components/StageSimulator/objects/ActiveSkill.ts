@@ -46,7 +46,7 @@ export class ActiveSkill {
 			}
 			this.currSp = this.initSp;
 			this.animName = getSkillAnimName(this.enemy.skel, this.enemy.key, this.skill.key);
-			this.duration = getAnimDuration(this.enemy.skel, this.animName);
+			this.duration = getAnimDuration(this.enemy.skelData, this.animName);
 			this.createSkillBar();
 			this.skillBar.renderOrder = 1;
 		}

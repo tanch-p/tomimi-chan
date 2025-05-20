@@ -5,18 +5,19 @@ import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { AssetManager } from './AssetManager';
 import { generateMaze } from '$lib/functions/mazeHelpers';
 import { Enemy } from './Enemy';
-import { writable } from 'svelte/store';
 import { SPFA } from './SPFA';
 import { Trap } from './Trap';
 import { SpawnManager } from './SpawnManager';
 import { TileManager } from './TileManager';
 import { CountdownManager } from './ShaderCountdownManager';
+import { clearObjects } from '$lib/functions/threejsHelpers';
+import { Game } from './Game';
 
 export class GameManager {
 	assetManager: AssetManager;
 	scene: THREE.Scene;
-	camera: THREE.OrthographicCamera;
-	objects;
+	camera: THREE.OrthographicCamera | null;
+	game: Game;
 	config;
 	mazeLayout: number[][];
 	enemies: EnemyType[];
@@ -24,31 +25,26 @@ export class GameManager {
 	traps = new Map();
 	pathFinder: SPFA;
 	noEnemyAlive = false;
-	killedCount = writable(0);
+	killedCount = 0;
 	spawnManager: SpawnManager;
 	tiles = new Map();
 	tileManager: TileManager;
 	rollOverMeshes = new Map();
 	countdownManager: CountdownManager;
+	isSimulation = false;
 
-	constructor(
-		config: MapConfig,
-		scene: THREE.Scene,
-		camera: THREE.OrthographicCamera,
-		objects,
-		enemies: Enemy[]
-	) {
+	constructor(config: MapConfig, game: Game, enemies: Enemy[]) {
 		this.enemies = enemies;
 		this.config = config;
+		this.game = game;
 		this.assetManager = AssetManager.getInstance();
-		this.countdownManager = CountdownManager.getInstance();
-		this.scene = scene;
-		this.camera = camera;
-		this.objects = objects;
+		this.scene = game.scene;
+		this.camera = game.camera;
 		const mazeLayout = generateMaze(config.mapData.map, config.mapData.tiles);
 		this.mazeLayout = mazeLayout;
 		this.pathFinder = new SPFA(mazeLayout);
 		this.tileManager = new TileManager(config.levelId);
+		this.countdownManager = CountdownManager.getInstance();
 		this.initPlane();
 		this.initRollOverMeshes();
 	}
@@ -66,11 +62,15 @@ export class GameManager {
 		return { x, y };
 	};
 
-	createCountdown(time: number, x: number, y: number, color = 0xf08080) {
-		const countdown = this.countdownManager.createCountdown(time, color);
+	createCountdown(time: number, x: number, y: number, colorKey = 'normal') {
+		const countdown = this.countdownManager.createCountdown(time, colorKey);
 		countdown.setPosition(x, y);
-		this.scene.add(countdown.getGroup());
+		this.addToScene(countdown.getGroup());
 		return countdown.id;
+	}
+
+	removeCountdown(id: number) {
+		this.countdownManager.removeCountdown(id);
 	}
 
 	getCoordinate = (coordinate, type = 'x') => {
@@ -193,8 +193,8 @@ export class GameManager {
 		// geometry.rotateX(-Math.PI / 2);
 		const plane = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ visible: false }));
 		plane.userData.name = 'plane';
-		this.scene.add(plane);
-		this.objects.push(plane);
+		this.addToScene(plane);
+		this.game.objects.push(plane);
 	}
 	initRollOverMeshes() {
 		this.rollOverMeshes.clear();
@@ -239,7 +239,7 @@ export class GameManager {
 			return;
 		}
 		const pos = posType === 'game' ? this.gameToWorldPos(data.pos) : data.pos;
-		const trap = new Trap(data, pos);
+		const trap = new Trap(data, pos, this.isSimulation);
 		if (trap.isRoadblock) {
 			this.updateMazeLayout(pos, 1000);
 		}
@@ -255,13 +255,17 @@ export class GameManager {
 		this.traps.set(`${pos.col},${pos.row}`, trap);
 
 		trap.getMesh().position.set(x, y, z + 0.03);
-		this.scene.add(trap.getMesh());
+		this.addToScene(trap.getMesh());
+	}
+	addToScene(mesh: THREE.Mesh | THREE.Group) {
+		if (!this.isSimulation) {
+			this.scene?.add(mesh);
+		}
 	}
 
-	reset(config, enemies, objects) {
+	reset(config, enemies) {
 		this.enemies = enemies;
 		this.config = config;
-		this.objects = objects;
 		const mazeLayout = generateMaze(config.mapData.map, config.mapData.tiles);
 		this.mazeLayout = mazeLayout;
 		this.enemiesOnMap = [];
@@ -274,15 +278,39 @@ export class GameManager {
 		this.initRollOverMeshes();
 	}
 
+	set(data) {
+		this.countdownManager.removeAllCountdowns();
+		const enemiesToRemove = [];
+		this.enemiesOnMap.forEach((enemy) => {
+			if (!data.enemiesOnMap.find((e) => enemy.spawnUID === e.spawnUID)) {
+				enemiesToRemove.push(enemy);
+			}
+		});
+		// console.log('To Remove', enemiesToRemove);
+		// console.log('before', this.enemiesOnMap,data.enemiesOnMap);
+		enemiesToRemove.forEach((enemy) => enemy.remove());
+		data.enemiesOnMap.forEach((enemy) => {
+			const existingEnemy = this.enemiesOnMap.find((e) => enemy.spawnUID === e.spawnUID);
+			if (existingEnemy) {
+				existingEnemy.updateData(enemy);
+				return existingEnemy;
+			}
+			return new Enemy(enemy.data, enemy.route, this, enemy.fragmentKey, enemy.spawnUID, enemy);
+		});
+		// console.log('after', this.enemiesOnMap,data.enemiesOnMap);
+	}
+
 	update(delta: number) {
 		this.countdownManager.update(delta);
-		GameConfig.setValue('scaledElapsedTime', GameConfig.scaledElapsedTime + delta);
-		this.noEnemyAlive = this.enemiesOnMap.every((enemy) => !enemy.alive);
-		for (const enemy of this.enemiesOnMap.filter((ele) => ele.alive)) {
-			enemy.update(delta);
-		}
 		this.traps.forEach((trap, pos) => {
 			trap.update(delta);
 		});
+
+		GameConfig.setValue('scaledElapsedTime', GameConfig.scaledElapsedTime + delta);
+		this.noEnemyAlive = this.enemiesOnMap.length === 0;
+		for (const enemy of this.enemiesOnMap) {
+			enemy.update(delta);
+		}
+		this.enemiesOnMap = this.enemiesOnMap.filter((ele) => ele.alive);
 	}
 }

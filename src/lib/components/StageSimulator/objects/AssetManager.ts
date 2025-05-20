@@ -366,6 +366,7 @@ export class AssetManager {
 	}
 
 	async loadAssets(mapConfig) {
+		this.texturesLoaded=false;
 		this.models.clear();
 		this.spineMap.clear();
 		this.spineAssetManager.removeAll();
@@ -555,7 +556,6 @@ export class AssetManager {
 					break;
 			}
 		}
-		this.texturesLoaded = true;
 		return Promise.all(promises);
 	}
 

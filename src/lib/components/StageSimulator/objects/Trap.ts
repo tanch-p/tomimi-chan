@@ -16,7 +16,8 @@ export class Trap {
 	position;
 	hideTile: boolean;
 	meshGroup = new THREE.Group();
-	constructor(data, pos) {
+	isSimulation;
+	constructor(data, pos, isSimulation: boolean) {
 		this.assetManager = AssetManager.getInstance();
 		const trap = trapLookup[data.key];
 		this.data = trap;
@@ -25,7 +26,8 @@ export class Trap {
 		this.direction = data.direction;
 		this.position = pos;
 		this.type = trap.modelType;
-		this.initModel(trap.modelType);
+		this.isSimulation = isSimulation;
+		!isSimulation && this.initModel(trap.modelType);
 		this.isRoadblock =
 			trap.special.some((skillRef) => ['roadblock'].includes(skillRef)) ||
 			trap.skills.some((skillRef) => ['sktok_crate', 'sktok_stone'].includes(skillRef));
@@ -50,9 +52,9 @@ export class Trap {
 					this.skel = skeletonMesh;
 					skeletonMesh.position.set(0, -GameConfig.gridSize * 0.2, 0);
 					skeletonMesh.state;
-					const animName = getIdleAnimName(this.key, skeletonMesh);
+					const animName = getIdleAnimName(this.key, skeletonData);
 					this.skel.state.setAnimation(0, animName, true);
-					skeletonMesh.renderOrder=-1;
+					skeletonMesh.renderOrder = -1;
 					this.meshGroup.add(skeletonMesh);
 				}
 				switch (this.direction) {
@@ -145,6 +147,9 @@ export class Trap {
 		}
 	}
 	update(delta) {
+		if (this.isSimulation) {
+			return;
+		}
 		switch (this.type) {
 			case 'spine':
 				this.skel.update(delta);
