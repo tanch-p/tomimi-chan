@@ -18,8 +18,9 @@ export class SkillManager {
 	accelerationPreDelayTimer = 0;
 	accelerateParams = null;
 	accelerationStacks = 0;
+	//TODO to rework acceleration into a timer based buff generic skill
 
-	constructor(enemy: Enemy, skills: Skill[], gameManager: GameManager) {
+	constructor(enemy: Enemy, skills: Skill[], gameManager: GameManager, skillData = null) {
 		this.assetManager = AssetManager.getInstance();
 		this.enemy = enemy;
 		this.gameManager = gameManager;
@@ -48,6 +49,12 @@ export class SkillManager {
 				skill.skillBar.position.y = (i + 1) * -10;
 				enemy.meshGroup.add(skill.skillBar);
 			});
+		}
+		if (skillData) {
+			this.accelerationIntervalTimer = skillData.accelerationIntervalTimer;
+			this.accelerationPreDelayTimer = skillData.accelerationPreDelayTimer;
+			this.accelerateParams = skillData.accelerateParams;
+			this.accelerationStacks = skillData.accelerationStacks;
 		}
 	}
 	addParasiticSprite() {
@@ -130,6 +137,14 @@ export class SkillManager {
 		for (const skill of this.activeSkills) {
 			skill.update(delta);
 		}
+	}
+
+	set(data) {
+		if (!data) return;
+		this.accelerationIntervalTimer = data.accelerationIntervalTimer;
+		this.accelerationPreDelayTimer = data.accelerationPreDelayTimer;
+		this.accelerateParams = data.accelerateParams;
+		this.accelerationStacks = data.accelerationStacks;
 	}
 
 	reset() {}

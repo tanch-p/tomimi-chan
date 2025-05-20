@@ -11,7 +11,7 @@ import { AssetManager } from '../objects/AssetManager';
 import { clearObjects } from '$lib/functions/threejsHelpers';
 
 export function getSimulatedData(config: MapConfig, waveData, enemies: EnemyType[]) {
-	if(['level_rogue4_b-8','level_rogue2_b-7','level_rogue1_b-7'].includes(config.levelId)){
+	if (['level_rogue4_b-8', 'level_rogue2_b-7', 'level_rogue1_b-7'].includes(config.levelId)) {
 		return;
 	}
 	const assetManager = AssetManager.getInstance();
@@ -100,7 +100,14 @@ function setData(count, data, spawnManager: SpawnManager, gameSimManager: GameSi
 				exitElapsedTime: enemy.exitElapsedTime,
 				traits: enemy.traits,
 				specials: enemy.specials,
-				skillManager: enemy.skillManager,
+				skillData: enemy.skillManager.accelerateParams
+					? {
+							accelerationIntervalTimer: enemy.skillManager.accelerationIntervalTimer,
+							accelerationPreDelayTimer: enemy.skillManager.accelerationPreDelayTimer,
+							accelerateParams: enemy.skillManager.accelerateParams,
+							accelerationStacks: enemy.skillManager.accelerationStacks
+					  }
+					: null,
 				formIndex: enemy.formIndex,
 				spineAnimIndex: enemy.spineAnimIndex,
 				timeToWait: enemy.timeToWait,

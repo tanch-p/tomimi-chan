@@ -121,7 +121,6 @@ export class Enemy {
 			this.animState = setData.animState;
 			this.traits = setData.traits;
 			this.specials = setData.specials;
-			this.skillManager = setData.skillManager;
 			this.formIndex = setData.formIndex;
 			this.spineAnimIndex = setData.spineAnimIndex;
 			this.timeToWait = setData.timeToWait;
@@ -176,6 +175,12 @@ export class Enemy {
 		this.meshGroup.renderOrder = 1;
 		this.initModel();
 		if (setData) {
+			this.skillManager = new SkillManager(
+				this,
+				this.traits.concat(this.specials),
+				this.gameManager,
+				setData.skillData
+			);
 			this.handleAnimUpdate(0.01);
 			this.meshGroup.position.set(this.raycastPos.x, this.raycastPos.y, GameConfig.baseZIndex);
 			this.pathGroup = this.visualisePath(
@@ -888,7 +893,7 @@ export class Enemy {
 				this.gameManager.game.objects.splice(index, 1);
 			}
 			this.gameManager.removeCountdown(this.countdownId);
-			index = this.gameManager.enemiesOnMap.findIndex(enemy => enemy.spawnUID === this.spawnUID);
+			index = this.gameManager.enemiesOnMap.findIndex((enemy) => enemy.spawnUID === this.spawnUID);
 			this.gameManager.enemiesOnMap.splice(index, 1);
 			this.onDeselect();
 			this.gameManager.scene.remove(this.meshGroup);
@@ -1123,7 +1128,7 @@ export class Enemy {
 		this.exit = setData.exit;
 		this.exitElapsedTime = setData.exitElapsedTime;
 		this.animState = setData.animState;
-		// this.skillManager = setData.skillManager;
+		this.skillManager.set(setData.skillData);
 		this.formIndex = setData.formIndex;
 		this.spineAnimIndex = setData.spineAnimIndex;
 		this.timeToWait = setData.timeToWait;

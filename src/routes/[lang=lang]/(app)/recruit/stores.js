@@ -376,9 +376,5 @@ export const filterDescStore = derived(
 	}
 );
 
-//TODO
-// sorting, grouping, AA, condition
-// SKILLS - if multiple selected, should be able to sort by individual skills
-
 export const selectedChara = writable(null);
 export const moduleIndex = writable(0);
