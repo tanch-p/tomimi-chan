@@ -71,6 +71,14 @@
 		// Add global event listeners for drag tracking
 		window.addEventListener('mousemove', handleGlobalMouseMove);
 		window.addEventListener('mouseup', handleGlobalMouseUp);
+
+		// Add global event listeners for drag tracking (touch events)
+		window.addEventListener('touchmove', handleGlobalTouchMove, { passive: false });
+		window.addEventListener('touchend', handleGlobalTouchEnd);
+		window.addEventListener('touchcancel', handleGlobalTouchEnd);
+
+		// Prevent default to avoid text selection or page scrolling
+		event.preventDefault();
 	}
 
 	// Track mouse movement globally when dragging
@@ -81,12 +89,30 @@
 	}
 	// End dragging
 	function handleGlobalMouseUp() {
+		finishDragging();
+	}
+	function handleGlobalTouchMove(event) {
+		if (isDragging) {
+			handleMouseMove(event);
+			event.preventDefault(); // Prevent page scrolling while dragging
+		}
+	}
+	function handleGlobalTouchEnd() {
+		finishDragging();
+	}
+
+	function finishDragging() {
 		if (isDragging) {
 			isDragging = false;
 			GameConfig.setValue('isPaused', false);
-			// Remove global event listeners
+			// Remove global event listeners (mouse)
 			window.removeEventListener('mousemove', handleGlobalMouseMove);
 			window.removeEventListener('mouseup', handleGlobalMouseUp);
+
+			// Remove global event listeners (touch)
+			window.removeEventListener('touchmove', handleGlobalTouchMove);
+			window.removeEventListener('touchend', handleGlobalTouchEnd);
+			window.removeEventListener('touchcancel', handleGlobalTouchEnd);
 		}
 	}
 
@@ -123,7 +149,6 @@
 		bind:this={seekbarElement}
 		on:mousemove={handleMouseMove}
 		on:mousedown={handleMouseDown}
-		on:touchstart={handleMouseDown}
 		on:mouseenter={handleMouseEnter}
 		on:mouseleave={handleMouseLeave}
 	>
