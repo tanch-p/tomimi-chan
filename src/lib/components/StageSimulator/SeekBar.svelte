@@ -150,7 +150,7 @@
 </script>
 
 <div
-	class="group absolute z-[1] bottom-[10px] md:bottom-[20px] left-1/2 -translate-x-1/2 flex items-center justify-center w-full max-w-[90vw] md:max-w-[70vw]"
+	class="group absolute z-[1] bottom-[10px] md:bottom-[20px] left-1/2 -translate-x-1/2 flex items-center justify-center w-full max-w-[70vw]"
 >
 	<div class="absolute top-1/2 -translate-y-2/3 bg-[rgba(0,0,0,0.5)] w-full h-[40px] opacity-0" />
 	<div
