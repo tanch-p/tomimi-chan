@@ -31,7 +31,6 @@ export const getSpineAnimations = (key: string, skelData: spine.SkeletonData) =>
 		// console.log(skelData.animations);
 		return spineMetaData[key].anim;
 	}
-
 	const idleAnim = getIdleAnimName(key, skelData);
 	const defaultAnim = getDefaultAnimName(key, skelData);
 	const moveAnim = getMoveAnimName(key, skelData);

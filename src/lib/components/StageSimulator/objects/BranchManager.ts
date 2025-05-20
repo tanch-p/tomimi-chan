@@ -2,6 +2,7 @@ import { shuffleArray } from '$lib/functions/waveHelpers';
 import { Enemy } from './Enemy';
 import { GameConfig } from './GameConfig';
 import { GameManager } from './GameManager';
+import { SpawnManager } from './SpawnManager';
 
 export class BranchManager {
 	routes;
@@ -12,11 +13,13 @@ export class BranchManager {
 	completedActions = new Set(); // Tracks completed actions in current fragment
 	isProcessingPhase = false;
 	gameManager: GameManager;
+	spawnManager: SpawnManager;
 	isFinished = false;
 	phasePreDelayTimer = 0;
 	phaseTimer = 0;
-	constructor(branch, gameManager: GameManager) {
+	constructor(branch, gameManager: GameManager, spawnManager:SpawnManager) {
 		this.branch = branch;
+		this.spawnManager = spawnManager;
 		this.gameManager = gameManager;
 		this.routes = gameManager.config.extra_routes;
 		const indexes = Array.from({ length: branch.phases.length }, (_, i) => i);
@@ -133,7 +136,8 @@ export class BranchManager {
 		if (!enemyData) {
 			return;
 		}
-		const spawnUID = `p${this.currentPhaseIndex}a${index.toString().padStart(2,"0")}${Math.floor(GameConfig.scaledElapsedTime)}`;
+		const spawnUID = `b-${action.key}-b${this.spawnManager.spawnIdx}`
+		this.spawnManager.spawnIdx++;
 		const enemy = new Enemy(enemyData, route, this.gameManager, null,spawnUID);
 	}
 

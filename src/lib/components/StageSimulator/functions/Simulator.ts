@@ -11,6 +11,9 @@ import { AssetManager } from '../objects/AssetManager';
 import { clearObjects } from '$lib/functions/threejsHelpers';
 
 export function getSimulatedData(config: MapConfig, waveData, enemies: EnemyType[]) {
+	if(['level_rogue4_b-8','level_rogue2_b-7','level_rogue1_b-7'].includes(config.levelId)){
+		return;
+	}
 	const assetManager = AssetManager.getInstance();
 	if (!assetManager.texturesLoaded) {
 		return;
@@ -85,6 +88,7 @@ function setData(count, data, spawnManager: SpawnManager, gameSimManager: GameSi
 				currentActionIndex: enemy.currentActionIndex,
 				state: enemy.state,
 				animState: enemy.animState,
+				meshVisible: enemy.meshGroup.visible,
 				direction: structuredClone(enemy.direction),
 				motionMode: enemy.motionMode,
 				isMoving: enemy.isMoving,

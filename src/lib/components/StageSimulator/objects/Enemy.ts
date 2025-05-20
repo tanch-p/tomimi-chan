@@ -8,6 +8,7 @@ import { SPFA } from './SPFA';
 import { getEnemySkills } from '$lib/functions/skillHelpers';
 import { getAnimDuration, getSpineAnimations, getSpineMetaData } from '$lib/functions/spineHelpers';
 import { SkillManager } from './SkillManager';
+import { clearObjects } from '$lib/functions/threejsHelpers';
 
 const moveMultiplier = 0.5;
 export class Enemy {
@@ -84,6 +85,7 @@ export class Enemy {
 	) {
 		this.assetManager = AssetManager.getInstance();
 		this.gameManager = gameManager;
+		gameManager.enemiesOnMap.push(this);
 		if (setData) {
 			this.raycastPos = new THREE.Vector3(
 				setData.raycastPos.x,
@@ -132,7 +134,6 @@ export class Enemy {
 			this.startElapsedTime = setData.startElapsedTime;
 		} else {
 			this.spawnUID = spawnUID;
-			gameManager.enemiesOnMap.push(this);
 			this.pathFinder = gameManager.pathFinder;
 			this.data = enemyData;
 			this.key = enemyData.key;
@@ -627,6 +628,7 @@ export class Enemy {
 		if (this.currentActionIndex >= this.actions.length) {
 			if (this.motionMode === 'NONE') {
 				// special case for skzamb
+				this.animState = 'Idle';
 				return;
 			}
 			this.onEnd();
@@ -718,7 +720,6 @@ export class Enemy {
 					let direction = new THREE.Vector3()
 						.subVectors(this.targetPos, this.raycastPos)
 						.normalize();
-					this.direction = direction;
 					if (direction.x === 0) {
 						let nextCheckPoint;
 						for (let i = this.currentActionIndex; i < this.actions.length; i++) {
@@ -734,14 +735,8 @@ export class Enemy {
 							.subVectors(new THREE.Vector3(x, y, GameConfig.baseZIndex), this.raycastPos)
 							.normalize();
 					}
-					if (direction.x !== 0) {
-						if (this.skel) {
-							this.skel.scale.x = direction.x < 0 ? -1 : 1;
-						}
-						if (this.disguiseSkel) {
-							this.disguiseSkel.scale.x = direction.x < 0 ? -1 : 1;
-						}
-					}
+					this.direction = direction;
+					this.updateSpriteOrientation();
 
 					const distance = this.raycastPos.distanceTo(this.targetPos);
 					const adjustedSpeed = this.moddedSpeed * delta * GameConfig.gridSize * moveMultiplier;
@@ -888,13 +883,16 @@ export class Enemy {
 
 	remove() {
 		if (!this.gameManager.isSimulation) {
-			const index = this.gameManager.game.objects.findIndex((ele) => ele.uuid === this.sprite.uuid);
+			let index = this.gameManager.game.objects.findIndex((ele) => ele.uuid === this.sprite.uuid);
 			if (index !== -1) {
 				this.gameManager.game.objects.splice(index, 1);
 			}
 			this.gameManager.removeCountdown(this.countdownId);
+			index = this.gameManager.enemiesOnMap.findIndex(enemy => enemy.spawnUID === this.spawnUID);
+			this.gameManager.enemiesOnMap.splice(index, 1);
 			this.onDeselect();
 			this.gameManager.scene.remove(this.meshGroup);
+			clearObjects(this.meshGroup);
 		}
 		this.gameManager.killedCount++;
 	}
@@ -1052,6 +1050,7 @@ export class Enemy {
 		if (this.startElapsedTime > this.startDuration) {
 			this.startDuration = 0;
 			this.startElapsedTime = 0;
+			this.animState = 'Idle';
 		}
 	}
 
@@ -1087,6 +1086,18 @@ export class Enemy {
 		this.skel.state.setAnimation(0, animName, repeat);
 	}
 
+	updateSpriteOrientation() {
+		if (!this.direction) return;
+		if (this.direction.x !== 0) {
+			if (this.skel) {
+				this.skel.scale.x = this.direction.x < 0 ? -1 : 1;
+			}
+			if (this.disguiseSkel) {
+				this.disguiseSkel.scale.x = this.direction.x < 0 ? -1 : 1;
+			}
+		}
+	}
+
 	updateData(setData) {
 		this.raycastPos = new THREE.Vector3(
 			setData.raycastPos.x,
@@ -1112,8 +1123,6 @@ export class Enemy {
 		this.exit = setData.exit;
 		this.exitElapsedTime = setData.exitElapsedTime;
 		this.animState = setData.animState;
-		// this.traits = setData.traits;
-		// this.specials = setData.specials;
 		// this.skillManager = setData.skillManager;
 		this.formIndex = setData.formIndex;
 		this.spineAnimIndex = setData.spineAnimIndex;
@@ -1123,14 +1132,17 @@ export class Enemy {
 		this.reviveDuration = setData.reviveDuration;
 		this.startDuration = setData.startDuration;
 		this.startElapsedTime = setData.startElapsedTime;
-		this.handleAnimUpdate(0.01);
 		this.countdownId = -1;
 		this.entry = false;
 		if (this.skel) {
 			this.skel.skeleton.color.r = 1;
 			this.skel.skeleton.color.g = 1;
 			this.skel.skeleton.color.b = 1;
+			this.skel.skeleton.color.a = 1;
 		}
+		this.meshGroup.visible = setData.meshVisible;
+		this.handleAnimUpdate(1);
+		this.updateSpriteOrientation();
 		this.meshGroup.position.set(this.raycastPos.x, this.raycastPos.y, GameConfig.baseZIndex);
 	}
 }

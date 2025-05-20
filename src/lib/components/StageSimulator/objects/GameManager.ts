@@ -279,26 +279,17 @@ export class GameManager {
 	}
 
 	set(data) {
-		const indexesToRemove = [];
-		this.enemiesOnMap.forEach((enemy, i) => {
-			if (!data.enemiesOnMap.find((dataEnemy) => enemy.spawnUID === dataEnemy.spawnUID)) {
-				indexesToRemove.push(i);
-			}
-		});
-
-		this.enemiesOnMap.forEach((enemy, i) => {
-			if (indexesToRemove.includes(i)) {
-				this.scene.remove(enemy.meshGroup);
-				this.game.objects = this.game.objects.filter((ele) => {
-					if (!ele.userData?.enemy) return true;
-					return ele.userData?.enemy.spawnUID === enemy.spawnUID;
-				});
-				clearObjects(enemy.pathGroup);
-				clearObjects(enemy.meshGroup);
-			}
-		});
 		this.countdownManager.removeAllCountdowns();
-		this.enemiesOnMap = data.enemiesOnMap.map((enemy) => {
+		const enemiesToRemove = [];
+		this.enemiesOnMap.forEach((enemy) => {
+			if (!data.enemiesOnMap.find((e) => enemy.spawnUID === e.spawnUID)) {
+				enemiesToRemove.push(enemy);
+			}
+		});
+		// console.log('To Remove', enemiesToRemove);
+		// console.log('before', this.enemiesOnMap,data.enemiesOnMap);
+		enemiesToRemove.forEach((enemy) => enemy.remove());
+		data.enemiesOnMap.forEach((enemy) => {
 			const existingEnemy = this.enemiesOnMap.find((e) => enemy.spawnUID === e.spawnUID);
 			if (existingEnemy) {
 				existingEnemy.updateData(enemy);
@@ -306,6 +297,7 @@ export class GameManager {
 			}
 			return new Enemy(enemy.data, enemy.route, this, enemy.fragmentKey, enemy.spawnUID, enemy);
 		});
+		// console.log('after', this.enemiesOnMap,data.enemiesOnMap);
 	}
 
 	update(delta: number) {

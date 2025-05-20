@@ -15,6 +15,7 @@
 	let language: Language;
 	let showTimeline = true;
 	let index = -1;
+	let prevIndexSize = 0;
 
 	$: language = $page.data.language;
 	$: GameConfig.showTimeline.subscribe((v) => (showTimeline = v));
@@ -33,6 +34,7 @@
 				timelineContainer && timelineContainer.scrollTo(0, 0);
 			}
 		});
+		unsubscribeFns.push(unsubscribe);
 		unsubscribe = GameConfig.subscribe('currentWaveIndex', (value) => {
 			currWaveIndex = value;
 			if (mapConfig.levelId === 'level_rogue4_b-8') {
@@ -52,12 +54,12 @@
 		unsubscribeFns.forEach((fn) => fn());
 	});
 
-	$: index = updateActionIndex(waveElapsedTime, currWaveIndex);
+	$: prevIndexSize = getPrevActionsSize(currWaveIndex);
+	$: index = updateActionIndex(waveElapsedTime,prevIndexSize);
 
 	$: trackAndScrollContainer(index);
 
-	function updateActionIndex(waveElapsedTime: number, currWaveIndex: number) {
-		const prevIndexSize = getPrevActionsSize(currWaveIndex);
+	function updateActionIndex(waveElapsedTime: number, prevIndexSize: number) {
 		const currActionIndex = getCurrActionIndex(waveElapsedTime);
 		return prevIndexSize + currActionIndex;
 	}
@@ -73,6 +75,7 @@
 		}
 	}
 	function getPrevActionsSize(currWaveIndex: number) {
+		if (mapConfig.levelId === 'level_rogue4_b-8') return 0;
 		let size = 0;
 		for (let i = 0; i < currWaveIndex; i++) {
 			const length = waves?.[i]?.timeline?.length || 0;

@@ -19,7 +19,7 @@
 		const remainingSeconds = seconds % 60;
 		return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
 	}
-	function calculateLeftPosFromTime(time) {
+	function calculateLeftPosFromTime(time, seekbarElement) {
 		if (!seekbarElement) return 0;
 		const rect = seekbarElement.getBoundingClientRect();
 		const percentage = time / totalTime;
@@ -91,6 +91,7 @@
 	}
 
 	function updateValue(time) {
+		if (time === GameConfig.scaledElapsedTime) return;
 		GameConfig.setValue('scaledElapsedTime', time);
 		if (game) {
 			game.spawnManager.set(simulatedData.t[time]);
@@ -142,9 +143,9 @@
 			{tooltipTime}
 		</div>
 		{#each simulatedData?.enemiesToHighlight as { t, key }}
-			{@const left = calculateLeftPosFromTime(t)}
+			{@const left = calculateLeftPosFromTime(t, seekbarElement)}
 			<div
-				class="absolute top-[-55px] z-[1] -translate-x-1/2 opacity-50 group-hover:opacity-100 transition-opacity"
+				class="absolute top-[-55px] z-[1] -translate-x-1/2 opacity-50 group-hover:opacity-100 transition-opacity select-none"
 				style="left: {left}px;"
 			>
 				<img src="/images/enemy_icons/{key}.webp" width="50px" height="50px" alt={key} />

@@ -36,6 +36,7 @@ export class SpawnManager {
 	postDelayTimer = 0;
 	waveElapsedTime = 0; //for use in simulation only
 	enemiesToHighlight = []; //for use in simulation only
+	spawnIdx = 0;
 
 	constructor(waves, map, gameManager: GameManager) {
 		this.map = map;
@@ -180,7 +181,7 @@ export class SpawnManager {
 			// Handle spawning
 			const timeSinceLastSpawn = GameConfig.scaledElapsedTime - state.lastSpawnTime;
 			if (state.spawnCount === 0 || timeSinceLastSpawn >= state.action.interval) {
-				this.spawnEntity(state.action,index);
+				this.spawnEntity(state.action, index);
 				state.spawnCount++;
 				state.lastSpawnTime = GameConfig.scaledElapsedTime;
 
@@ -202,13 +203,13 @@ export class SpawnManager {
 		this.currentFragmentIndex++;
 	}
 
-	spawnEntity(action,index) {
+	spawnEntity(action, index) {
 		if (action.key === '') {
 			return;
 		}
 		switch (action.actionType) {
 			case 'SPAWN':
-				this.spawnEnemy(action,index);
+				this.spawnEnemy(action, index);
 				break;
 			case 'ACTIVATE_PREDEFINED':
 				this.activatePredefined(action);
@@ -218,7 +219,7 @@ export class SpawnManager {
 		}
 	}
 
-	spawnEnemy(action,index) {
+	spawnEnemy(action, index) {
 		const originalRoute = this.routes[action['routeIndex']];
 		const route = this.gameManager.convertMovementConfig(structuredClone(originalRoute));
 		let enemyKey = action.key;
@@ -233,12 +234,13 @@ export class SpawnManager {
 			return;
 		}
 		const key = `w${this.currentWaveIndex}f${this.currentFragmentIndex}`;
-		// enemies by 
-		const spawnUID = `w${this.currentWaveIndex}f${this.currentFragmentIndex}a${index.toString().padStart(2,"0")}${Math.floor(GameConfig.scaledElapsedTime)}`;
-		const enemy = new Enemy(enemyData, route, this.gameManager, key,spawnUID);
+		const spawnUID = `s-${action.key}-s${this.spawnIdx}`;
+		this.spawnIdx++;
+		const enemy = new Enemy(enemyData, route, this.gameManager, key, spawnUID);
+
 		if (ENEMIES_TO_HIGHLIGHT.includes(enemyData.key) || enemyData.type.includes('BOSS')) {
-			if(['enemy_2093_skzams'].includes(enemyData.key)) return;
-			if(GameConfig.scaledElapsedTime <1) return;
+			if (['enemy_2093_skzams'].includes(enemyData.key)) return;
+			if (GameConfig.scaledElapsedTime < 1) return;
 			this.enemiesToHighlight.push({ t: GameConfig.scaledElapsedTime, key: enemyData.key });
 		}
 	}
@@ -254,7 +256,7 @@ export class SpawnManager {
 		if (index !== -1) {
 			branch.phases = [branch.phases[index]];
 		}
-		this.branches.set(this.branchIndex, new BranchManager(branch, this.gameManager));
+		this.branches.set(this.branchIndex, new BranchManager(branch, this.gameManager, this));
 		this.branchIndex++;
 	}
 
