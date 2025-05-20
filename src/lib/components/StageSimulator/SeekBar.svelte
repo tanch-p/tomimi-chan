@@ -2,7 +2,7 @@
 	import { onDestroy, onMount } from 'svelte';
 	import { GameConfig } from './objects/GameConfig';
 
-	export let game, simulatedData, waves;
+	export let game, simulatedData;
 
 	$: totalTime = (Object?.keys(simulatedData?.t)?.length ?? 1) - 1;
 
@@ -123,6 +123,7 @@
 		bind:this={seekbarElement}
 		on:mousemove={handleMouseMove}
 		on:mousedown={handleMouseDown}
+		on:touchstart={handleMouseDown}
 		on:mouseenter={handleMouseEnter}
 		on:mouseleave={handleMouseLeave}
 	>

@@ -4,7 +4,7 @@
 	import tts_banner from '$lib/images/itts2_banner.webp';
 	import friendlink from '$lib/images/friendlink.webp';
 
-	export let language: Language;
+	// export let language: Language;
 
 	const tts = {
 		zh: {
@@ -56,7 +56,7 @@
 	</div>
 </div> -->
 
-<style>
+<!-- <style>
 	p {
 		text-align: center;
 		padding: 0 0.5rem;
@@ -64,4 +64,4 @@
 		letter-spacing: 0.1em;
 		text-decoration: none;
 	}
-</style>
+</style> -->

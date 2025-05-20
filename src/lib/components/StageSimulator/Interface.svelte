@@ -71,7 +71,7 @@
 </script>
 
 {#if simulatedData}
-	<SeekBar {game} {simulatedData} {waves} />
+	<SeekBar {game} {simulatedData} />
 {/if}
 <div class="absolute z-[1] right-4 flex gap-x-2 md:gap-x-4 mt-4">
 	<button
