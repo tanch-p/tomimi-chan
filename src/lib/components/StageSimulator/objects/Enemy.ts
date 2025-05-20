@@ -67,7 +67,8 @@ export class Enemy {
 	exitElapsedTime = 0;
 	blinkState: 'START' | 'END' | null = null;
 	blinkElapsedTime = 0;
-	blinkDuration = 0;
+	blinkStartDuration = 0;
+	blinkEndDuration = 0;
 	spineAnimIndex = 0;
 	timeToWait = 0;
 	reviveTimer = 0;
@@ -92,6 +93,7 @@ export class Enemy {
 				setData.raycastPos.y,
 				setData.raycastPos.z
 			);
+
 			this.targetPos = setData.targetPos
 				? new THREE.Vector3(setData.targetPos.x, setData.targetPos.y, setData.targetPos.z)
 				: null;
@@ -113,7 +115,6 @@ export class Enemy {
 			this.isMoving = setData.isMoving;
 			this.blinkState = setData.blinkState;
 			this.blinkElapsedTime = setData.blinkElapsedTime;
-			this.blinkDuration = setData.blinkDuration;
 			this.waitElapsedTime = setData.waitElapsedTime;
 			this.entry = false;
 			this.exit = setData.exit;
@@ -182,7 +183,7 @@ export class Enemy {
 				setData.skillData
 			);
 			this.handleAnimUpdate(0.01);
-			this.meshGroup.position.set(this.raycastPos.x, this.raycastPos.y, GameConfig.baseZIndex);
+			this.meshGroup.position.set(setData.meshPos.x, setData.meshPos.y, GameConfig.baseZIndex);
 			this.pathGroup = this.visualisePath(
 				this.actions,
 				this.currentActionIndex,
@@ -192,6 +193,8 @@ export class Enemy {
 		} else {
 			if (this.animations?.[this.spineAnimIndex]?.Start) {
 				this.animState = 'Start';
+				console.log('has start', this.key);
+				console.log(this.skelData.animations);
 				this.startDuration = getAnimDuration(
 					this.skelData,
 					this.animations?.[this.spineAnimIndex]?.[this.animState]
@@ -236,6 +239,14 @@ export class Enemy {
 			}
 			this.skelData = this.assetManager.spineMap.get(this.key);
 			this.animations = getSpineAnimations(this.key, this.skelData);
+			if (this.motionMode === 'BLINK') {
+				this.blinkStartDuration = this.skelData.animations.find(
+					(ele) => ele.name === 'Move_Begin'
+				)?.duration;
+				this.blinkEndDuration = this.skelData.animations.find(
+					(ele) => ele.name === 'Move_End'
+				)?.duration;
+			}
 			return;
 		}
 		const shadowGeometry = new THREE.PlaneGeometry(
@@ -329,6 +340,14 @@ export class Enemy {
 			this.skelData = this.assetManager.spineMap.get(this.key);
 			if (!this.skelData) {
 				return;
+			}
+			if (this.motionMode === 'BLINK') {
+				this.blinkStartDuration = this.skelData.animations.find(
+					(ele) => ele.name === 'Move_Begin'
+				)?.duration;
+				this.blinkEndDuration = this.skelData.animations.find(
+					(ele) => ele.name === 'Move_End'
+				)?.duration;
 			}
 			this.animations = getSpineAnimations(this.key, this.skelData);
 			const skeletonMesh = new spine.SkeletonMesh(this.skelData, (parameters) => {
@@ -673,40 +692,28 @@ export class Enemy {
 						switch (this.blinkState) {
 							case null:
 								//START BLINK
+								this.animState = 'Blink';
 								this.blinkState = 'START';
-								this.blinkDuration = this.skelData.animations.find(
-									(ele) => ele.name === 'Move_Begin'
-								)?.duration;
-								!this.gameManager.isSimulation &&
-									this.skel.state.setAnimation(0, 'Move_Begin', false);
 								break;
 							case 'START':
 								{
 									this.blinkElapsedTime += delta;
-									if (this.blinkElapsedTime > this.blinkDuration) {
+									if (this.blinkElapsedTime > this.blinkStartDuration) {
 										this.blinkElapsedTime = 0;
 										const { x, y } = this.gameManager.getVectorCoordinates(position, reachOffset);
 										this.targetPos = new THREE.Vector3(x, y, GameConfig.baseZIndex);
 										this.raycastPos.copy(this.targetPos);
 										this.meshGroup.position.copy(this.targetPos);
 										this.blinkState = 'END';
-										this.blinkDuration = this.skelData.animations.find(
-											(ele) => ele.name === 'Move_End'
-										)?.duration;
-										!this.gameManager.isSimulation &&
-											this.skel.state.setAnimation(0, 'Move_End', false);
 									}
 								}
 								break;
 							case 'END':
 								{
 									this.blinkElapsedTime += delta;
-									if (this.blinkElapsedTime > this.blinkDuration) {
+									if (this.blinkElapsedTime > this.blinkEndDuration) {
 										this.blinkElapsedTime = 0;
 										this.blinkState = null;
-										this.blinkDuration = this.skelData.animations.find(
-											(ele) => ele.name === 'Move_End'
-										)?.duration;
 										this.currentActionIndex++;
 									}
 								}
@@ -903,7 +910,7 @@ export class Enemy {
 	}
 
 	onSelect() {
-		// console.log(this.key);
+		// console.log(this.spawnUID);
 		// console.log(this.data);
 		// const pos = this.gameManager.getGridPosition(this.raycastPos);
 		// console.log(pos);
@@ -1080,14 +1087,24 @@ export class Enemy {
 
 	handleAnimationChange() {
 		if (!this.skel) return;
-		const animName = this.animations?.[this.spineAnimIndex]?.[this.animState];
+		let animName = this.animations?.[this.spineAnimIndex]?.[this.animState];
+		if (this.animState === 'Blink') {
+			switch (this.blinkState) {
+				case 'START':
+					animName = this.animations?.[this.spineAnimIndex]?.Move_Begin;
+					break;
+				case 'END':
+					animName = this.animations?.[this.spineAnimIndex]?.Move_End;
+					break;
+			}
+		}
 		if (!animName) return;
 		if (!this.skel.state.hasAnimation(animName)) return;
 		if (this.disguiseSkel) {
 			this.disguiseSkel.state.setAnimation(0, animName.replace('A', 'B'), true);
 		}
 		if (animName === this.skel.state.currentAnimation) return;
-		const repeat = this.animState !== 'Start';
+		const repeat = !['Start', 'Blink'].includes(this.animState);
 		this.skel.state.setAnimation(0, animName, repeat);
 	}
 
@@ -1104,11 +1121,8 @@ export class Enemy {
 	}
 
 	updateData(setData) {
-		this.raycastPos = new THREE.Vector3(
-			setData.raycastPos.x,
-			setData.raycastPos.y,
-			setData.raycastPos.z
-		);
+		this.raycastPos.set(setData.raycastPos.x, setData.raycastPos.y, setData.raycastPos.z);
+		this.meshGroup.position.set(setData.meshPos.x, setData.meshPos.y, GameConfig.baseZIndex);
 		this.targetPos = setData.targetPos
 			? new THREE.Vector3(setData.targetPos.x, setData.targetPos.y, setData.targetPos.z)
 			: null;
@@ -1123,7 +1137,6 @@ export class Enemy {
 		this.isMoving = setData.isMoving;
 		this.blinkState = setData.blinkState;
 		this.blinkElapsedTime = setData.blinkElapsedTime;
-		this.blinkDuration = setData.blinkDuration;
 		this.waitElapsedTime = setData.waitElapsedTime;
 		this.exit = setData.exit;
 		this.exitElapsedTime = setData.exitElapsedTime;
@@ -1148,6 +1161,5 @@ export class Enemy {
 		this.meshGroup.visible = setData.meshVisible;
 		this.handleAnimUpdate(1);
 		this.updateSpriteOrientation();
-		this.meshGroup.position.set(this.raycastPos.x, this.raycastPos.y, GameConfig.baseZIndex);
 	}
 }

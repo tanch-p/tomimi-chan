@@ -74,6 +74,7 @@ function setData(count, data, spawnManager: SpawnManager, gameSimManager: GameSi
 		postDelayTimer: spawnManager.postDelayTimer,
 		enemiesOnMap: gameSimManager.enemiesOnMap.map((enemy) => {
 			return {
+				meshPos: structuredClone(enemy.meshGroup.position),
 				raycastPos: structuredClone(enemy.raycastPos),
 				targetPos: structuredClone(enemy.targetPos),
 				gridPos: enemy.gridPos,
@@ -94,7 +95,6 @@ function setData(count, data, spawnManager: SpawnManager, gameSimManager: GameSi
 				isMoving: enemy.isMoving,
 				blinkState: enemy.blinkState,
 				blinkElapsedTime: enemy.blinkElapsedTime,
-				blinkDuration: enemy.blinkDuration,
 				waitElapsedTime: enemy.waitElapsedTime,
 				exit: enemy.exit,
 				exitElapsedTime: enemy.exitElapsedTime,
