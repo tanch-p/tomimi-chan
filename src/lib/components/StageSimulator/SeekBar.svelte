@@ -43,14 +43,23 @@
 	function handleMouseMove(event) {
 		if (!seekbarElement) return;
 		const rect = seekbarElement.getBoundingClientRect();
-		const hoverPosition = event.clientX - rect.left;
+		const clientX = getClientX(event);
+		const hoverPosition = clientX - rect.left;
 		tooltipPosition = hoverPosition;
 
-		const time = calculateTimeFromPosition(event.clientX);
+		const time = calculateTimeFromPosition(clientX);
 		tooltipTime = formatTime(time);
 		if (isDragging) {
 			updateValue(time);
 		}
+	}
+	function getClientX(event) {
+		// Touch event
+		if (event.touches && event.touches.length) {
+			return event.touches[0].clientX;
+		}
+		// Mouse event
+		return event.clientX;
 	}
 
 	function handleMouseEnter() {
@@ -74,8 +83,8 @@
 
 		// Add global event listeners for drag tracking (touch events)
 		window.addEventListener('touchmove', handleGlobalTouchMove, { passive: false });
-		window.addEventListener('touchend', handleGlobalTouchEnd);
-		window.addEventListener('touchcancel', handleGlobalTouchEnd);
+		window.addEventListener('touchend', handleGlobalTouchEnd,{ passive: false });
+		window.addEventListener('touchcancel', handleGlobalTouchEnd,{ passive: false });
 
 		// Prevent default to avoid text selection or page scrolling
 		event.preventDefault();
@@ -149,6 +158,7 @@
 		bind:this={seekbarElement}
 		on:mousemove={handleMouseMove}
 		on:mousedown={handleMouseDown}
+		on:touchstart={handleMouseDown}
 		on:mouseenter={handleMouseEnter}
 		on:mouseleave={handleMouseLeave}
 	>
