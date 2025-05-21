@@ -67,7 +67,6 @@
 	{:then}
 		<SpawnTimeView {waves} {mapConfig} />
 		<Interface
-		{waves}
 		{simulatedData}
 			bind:randomSeeds
 			{game}

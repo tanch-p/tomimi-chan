@@ -9,7 +9,6 @@
 	import SeekBar from './SeekBar.svelte';
 
 	export let game,
-		waves,
 		initialCost,
 		language: Language,
 		count: number,
