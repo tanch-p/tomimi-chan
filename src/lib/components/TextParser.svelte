@@ -111,6 +111,9 @@
 				);
 			}
 		}
+		line = line.replace(/<(b.*?)>(.*?)<\/>/g, (match, pattern, content) => {
+			return addTooltip(pattern, content);
+		});
 		line = line.replaceAll('\n', '<br/>');
 		line = line.replaceAll('\\n', '<br/>');
 		//parsed separately to deal with cathy case
@@ -119,9 +122,6 @@
 				return `<span class="${pattern}">${content}</span>`;
 			}
 			return `<span class="${textPatterns?.['@' + pattern] ?? ''}">${content}</span>`;
-		});
-		line = line.replace(/<(b.*?)>(.*?)<\/>/g, (match, pattern, content) => {
-			return addTooltip(pattern, content);
 		});
 		for (const pattern of patternsToParse) {
 			line = processText(line, pattern);
