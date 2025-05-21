@@ -87,11 +87,3 @@
 		</div>
 	</div>
 </div>
-
-<style>
-	@media (pointer: coarse) and (orientation: landscape) {
-		.footerBar {
-			display: none;
-		}
-	}
-</style>
