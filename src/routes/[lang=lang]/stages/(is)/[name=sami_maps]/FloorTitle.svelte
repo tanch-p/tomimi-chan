@@ -23,9 +23,9 @@
 <div
 	use:clickOutside
 	on:outclick={() => (optionsOpen = false)}
-	class="relative mx-auto select-none md:hover:bg-neutral-500"
+	class="relative mx-auto select-none"
 >
-	<button id="floor-options" class="px-3 py-0.5" on:click={() => (optionsOpen = !optionsOpen)}>
+	<button id="floor-options" class="px-3 py-0.5 md:hover:bg-neutral-500" on:click={() => (optionsOpen = !optionsOpen)}>
 		<div class="flex justify-center items-center gap-x-1">
 			<Icon name="left-chevron" className="w-5 h-5 mr-1.5" />
 			<p>
