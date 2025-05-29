@@ -17,9 +17,9 @@
 	{#if enemy.forms.length === 1}
 		<StatusImmune {statusImmuneList} {language} mode="table" />
 		<ul class="list-disc pl-5">
-			{#if enemy.forms[row].stats.dmg_reduction}
+			{#if enemy.forms[row].stats.dmgRes}
 				<li class="py-1">
-					{translations[language].dmg_reduction} - {enemy.forms[row].stats.dmg_reduction}%
+					{translations[language].dmg_res_short} - {enemy.forms[row].stats.dmgRes*100}%
 				</li>
 			{/if}
 			{#each traits as skill}
@@ -43,9 +43,9 @@
 				<StatusImmune {statusImmuneList} {language} mode="table" />
 			{/if}
 			<ul class="list-disc pl-5">
-				{#if enemy.forms[row].stats.dmg_reduction}
+				{#if enemy.forms[row].stats.dmg_res}
 					<li class="py-1">
-						{translations[language].dmg_reduction} - {enemy.forms[row].stats.dmg_reduction}%
+						{translations[language].dmg_res_short} - {enemy.forms[row].stats.dmg_res*100}%
 					</li>
 				{/if}
 				{#each traits as skill}

@@ -11,9 +11,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"lifepoint": 2
-				}
+				"mods": [{ "key": "lifepoint", "value": 2, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "在本层失去和获取的目标生命都增加一倍。",
@@ -32,11 +30,11 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"hp": 1.1,
-					"atk": 1.1,
-					"def": 1.1
-				}
+				"mods": [
+					{ "key": "hp", "value": 1.1, "mode": "mul" },
+					{ "key": "atk", "value": 1.1, "mode": "mul" },
+					{ "key": "def", "value": 1.1, "mode": "mul" }
+				]
 			}
 		],
 		"tooltip_zh": "本层中所有敌方单位的攻击力、防御力、生命+10%。",
@@ -55,18 +53,16 @@
 		"effects": [
 			{
 				"targets": ["NOT_PHCS_BOSS"],
-				"mods": {
-					"atk": 1.5,
-					"fixed_aspd": 50,
-					"special": {
-						"survivalist": {
-							"type": "others",
-							"value": 100,
-							"tooltip": {
-								"en": ["$Survivalist$ - Receive 100 True Damage/s"],
-								"ja": ["$死力$→毎秒100確定ダメージを受ける"],
-								"zh": ["$生存$→每秒受到100真实伤害"]
-							}
+				"mods": [
+					{ "key": "atk", "value": 1.5, "mode": "mul" },
+					{ "key": "aspd", "value": 50, "mode": "add" }
+				],
+				"special": {
+					"survivalist": {
+						"tooltip": {
+							"en": ["$Survivalist$ - Receive 100 True Damage/s"],
+							"ja": ["$死力$→毎秒100確定ダメージを受ける"],
+							"zh": ["$生存$→每秒受到100真实伤害"]
 						}
 					}
 				}

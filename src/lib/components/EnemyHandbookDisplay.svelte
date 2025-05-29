@@ -3,7 +3,7 @@
 	import EnemyHandbookDetails from './EnemyHandbookDetails.svelte';
 	import bossIcon from '$lib/images/is/boss_icon.webp';
 
-	export let enemies: Enemy[], language: Language, specialMods,otherBuffsList,mode="mobile";
+	export let enemies: Enemy[], language: Language, statMods, specialMods,otherBuffsList,mode="mobile";
 </script>
 
 <div class="grid grid-cols-[80px_auto] md:justify-center md:mt-4">
@@ -41,7 +41,7 @@
 			{#if index !== 0}
 				<div class="bg-neutral-700 mx-1 h-0.5" />
 			{/if}
-			<EnemyHandbookDetails {enemy} {language} {specialMods} {otherBuffsList} {mode}/>
+			<EnemyHandbookDetails {enemy} {language} {statMods} {specialMods} {otherBuffsList} {mode}/>
 		{/each}
 	</div>
 </div>

@@ -9,14 +9,13 @@
 	import EliteToggleBar from './EliteToggleBar.svelte';
 
 	export let mapEliteMods: any,
-		rogueTopic: string,
-		eliteMods: any,
-		normalMods: any,
 		mapNormalMods: any,
+		rogueTopic: string,
+		runes: any,
 		selectedRelics: any,
 		stageId: string,
 		eliteMode,
-		inWaveOptions = false
+		inWaveOptions = false;
 
 	//hotfix to set hardMode to false on nav to another stage with hardMods
 	$: if (mapEliteMods && !inWaveOptions) {
@@ -31,7 +30,7 @@
 
 	onDestroy(() => {
 		if (!inWaveOptions) {
-			eliteMods.set(null);
+			runes.set(null);
 			eliteMode.set(false);
 		}
 	});
@@ -39,8 +38,7 @@
 	const updateEliteMods = (option: boolean) => {
 		eliteMode.set(option);
 		if (option) {
-			eliteMods.set(mapEliteMods);
-			normalMods.set(null);
+			runes.set(mapEliteMods);
 			if (rogueTopic === 'rogue_skz') {
 				let relicId = '';
 				if (ro4_SP7_BOSS_STAGES.includes(stageId)) {
@@ -57,13 +55,12 @@
 				}
 			}
 		} else {
-			eliteMods.set(null);
-			normalMods.set(mapNormalMods);
+			runes.set(mapNormalMods);
 		}
 	};
 	$: [combatOpsColor, eliteOpsColor] = getEliteColors(rogueTopic);
 
-	function getEliteIcon(stageId) {
+	function getEliteIcon(stageId: string) {
 		if (ro4_SP7_BOSS_STAGES.includes(stageId)) {
 			return relicLookup['rogue_4_relic_final_6'];
 		}

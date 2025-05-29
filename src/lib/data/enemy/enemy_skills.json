@@ -2216,10 +2216,10 @@
 		"effects": {
 			"targets": ["ALL"],
 			"activeTargets": [],
-			"mods": {
-				"atk": 1.3,
-				"def": 1.3
-			},
+			"mods": [
+				{ "key": "atk", "value": 1.3, "order": "initial", "mode": "mul" },
+				{ "key": "def", "value": 1.3, "order": "initial", "mode": "mul" }
+			],
 			"stackType": "add"
 		},
 		"tooltip": {
@@ -2242,10 +2242,10 @@
 		"effects": {
 			"targets": ["ALL"],
 			"activeTargets": [],
-			"mods": {
-				"atk": 1.5,
-				"def": 1.5
-			},
+			"mods": [
+				{ "key": "atk", "value": 1.5, "order": "initial", "mode": "mul" },
+				{ "key": "def", "value": 1.5, "order": "initial", "mode": "mul" }
+			],
 			"stackType": "add"
 		},
 		"tooltip": {
@@ -2436,10 +2436,10 @@
 		"effects": {
 			"targets": ["ALL"],
 			"activeTargets": [{ "key": "enemy_1080_sotidp", "count": 1 }],
-			"mods": {
-				"atk": 1.1,
-				"fixed_def": 100
-			},
+			"mods": [
+				{ "key": "atk", "value": 1.1, "order": "initial", "mode": "mul" },
+				{ "key": "def", "value": 100, "order": "initial", "mode": "add" }
+			],
 			"stackType": "add"
 		},
 		"tooltip": {
@@ -2505,7 +2505,7 @@
 		}
 	},
 	"scout_anti_stealth": {
-		"skillRange":3.3,
+		"skillRange": 3.3,
 		"tooltip": {
 			"en": ["Removes nearby operators' stealth/camouflage"],
 			"ja": ["3.3半径内の味方のステルスと迷彩効果を解除"],
@@ -5679,15 +5679,15 @@
 		}
 	},
 	"patrt_1": {
-		"effects": [
-			{
-				"targets": ["enemy_1506_patrt"],
-				"mods": {
-					"atk": 1.2,
-					"fixed_def": 200
-				}
-			}
-		],
+		"effects": {
+			"targets": ["ALL"],
+			"activeTargets": ["enemy_1506_patrt"],
+			"mods": [
+				{ "key": "atk", "value": 1.2, "order": "initial", "mode": "mul" },
+				{ "key": "def", "value": 200, "order": "initial", "mode": "add" }
+			],
+			"stackType": "add"
+		},
 		"tooltip": {
 			"en": [
 				"When on field, grants all enemies (including self) ATK +20%, DEF +200 and Inspired buff"
@@ -5925,7 +5925,11 @@
 				"Revives over 7.33 seconds when defeated for the first time, after which all units on field will be erased and Qui'lon teleports to a new section of the map",
 				"Only Operators taken away by Padmasanas of Rebirth can be used here"
 			],
-			"ja": ["HPが0になると、7.33秒かけてHPを100%回復","マップ上の敵味方すべてを消滅させ、マップがスライド。無憂覚形態へ移行","このステージでは防衛ラインに侵入した托生蓮座に積載されていた者のみが使用可能"],
+			"ja": [
+				"HPが0になると、7.33秒かけてHPを100%回復",
+				"マップ上の敵味方すべてを消滅させ、マップがスライド。無憂覚形態へ移行",
+				"このステージでは防衛ラインに侵入した托生蓮座に積載されていた者のみが使用可能"
+			],
 			"zh": [
 				"首次被击倒时，进行7.33s的重生（恢复100%生命值），随后强制击杀场上其他敌人(包括尼卢火)与干员，将待部署区中未被托生莲座装载进入保护目标的干员全部隐藏，闪现至指定位置并以新路径行动，释放当前波次，移动关卡地图至区域作战，解除托生莲座的带来的不可部署状态并清空友方单位剩余再部署时间"
 			]
@@ -5943,9 +5947,7 @@
 			"en": [
 				"[Breaching of the Five Precepts] - Unleashes 5 consecutive attacks on the target, also triggers [Wrathful Gaze] 5 times"
 			],
-			"ja": [
-				"【五戒の罰】- 対象に5回攻撃を行う、【清火執】も5回発動する"
-			],
+			"ja": ["【五戒の罰】- 対象に5回攻撃を行う、【清火執】も5回発動する"],
 			"zh": [
 				"对目标连续进行5次攻击，每次造成攻击力<v.atk.multiplier>%{phys}伤害，并于每次命中目标时触发一次【清火执】效果"
 			]
@@ -5960,7 +5962,9 @@
 	},
 	"skzjkl_3_2": {
 		"tooltip": {
-			"en": ["Summons an Aggini of Nila at preset positions on the map every 10 seconds. Summons an additional wave of enemies every 20 seconds"],
+			"en": [
+				"Summons an Aggini of Nila at preset positions on the map every 10 seconds. Summons an additional wave of enemies every 20 seconds"
+			],
 			"ja": ["10秒ごとに「ニーラのアグニ」を召喚。20秒ごとに敵を召喚する"],
 			"zh": [
 				"每10s，在场上预设位置召唤尼卢火；每20s，以预设路径召唤敌人（思维混乱时召唤不同敌人） "
@@ -6171,8 +6175,14 @@
 		"duration": 20,
 		"skillRange": 1.0,
 		"tooltip": {
-			"en": ["Devours a friendly unit within 1 tile radius, stops moving and digests it for <v.duration> seconds","If defeated while digesting, the devoured operator redeployment time resets to 0; summons enter redeployment time"],
-			"ja": ["半径1.6以内に味方を強制撤退させ、<v.duration>秒間の消化状態に入る。この間は移動せず、【丸呑み】を使用しない。","強制撤退したオペレーターの再配置時間は0になるが、消化が終わるか飲み込んだ敵を倒すまで再配置できない。消化終わったらオペレーターの再配置時間が通常通りになる"],
+			"en": [
+				"Devours a friendly unit within 1 tile radius, stops moving and digests it for <v.duration> seconds",
+				"If defeated while digesting, the devoured operator redeployment time resets to 0; summons enter redeployment time"
+			],
+			"ja": [
+				"半径1.6以内に味方を強制撤退させ、<v.duration>秒間の消化状態に入る。この間は移動せず、【丸呑み】を使用しない。",
+				"強制撤退したオペレーターの再配置時間は0になるが、消化が終わるか飲み込んだ敵を倒すまで再配置できない。消化終わったらオペレーターの再配置時間が通常通りになる"
+			],
 			"zh": [
 				"自身半径1范围内存在我方单位时触发：将目标强制击倒，随后<v.duration>s内进入消化食物状态，停止移动且无法【吞食】",
 				"被击倒的干员再部署时间归零但在消化完成前无法再部署，召唤物则进入再部署时间"

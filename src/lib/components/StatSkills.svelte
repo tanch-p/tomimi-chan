@@ -7,6 +7,7 @@
 	$: separator = language === 'en' ? '/' : '・';
 	$: skillsToParse = skills
 		.map((skill) => {
+			if (skill.remove) return;
 			if (skill[stat]) {
 				const { suffix, hits, dmg_element } = skill;
 				let value = statValue;

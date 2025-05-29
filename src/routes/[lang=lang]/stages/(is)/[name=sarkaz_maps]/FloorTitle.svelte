@@ -64,9 +64,9 @@
 				return;
 			}
 			if ($page.data.mapConfig.id.includes('_e_')) {
-				const floor = Math.min(...stageFloors);
+				const floor = Math.min(...floors);
 				if (floor > 5) {
-					selectedFloor.set(Math.min(...stageFloors));
+					selectedFloor.set(Math.min(...floors));
 					return;
 				}
 				const reversedFloor = [5, 4, 3, 2, 1][floor - 1];
@@ -75,7 +75,7 @@
 			}
 		}
 		if (!floors.includes($selectedFloor)) {
-			selectedFloor.set(Math.min(...stageFloors));
+			selectedFloor.set(Math.min(...floors));
 		}
 	}
 </script>

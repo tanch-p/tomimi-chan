@@ -15,10 +15,10 @@
 </script>
 
 <HandbookSkills {enemy} {skills} {language} {statusImmuneList} {formIndex} />
-{#if traits.length > 0 || enemy.forms.some((form) => form.stats.dmg_reduction > 0 || form.special.length > 0)}
+{#if traits.length > 0 || enemy.forms.some((form) => form.stats.dmgRes > 0 || form.special.length > 0)}
 	{@const sameDmgRedAcrossForms = enemy.forms.reduce((acc, curr, i, list) => {
 		if (i + 1 < list.length) {
-			acc = acc && isEquals(list[i].stats.dmg_reduction, list[i + 1].stats.dmg_reduction);
+			acc = acc && isEquals(list[i].stats.dmgRes, list[i + 1].stats.dmgRes);
 		}
 		return acc;
 	}, true)}
@@ -28,9 +28,9 @@
 	<div class="py-1">
 		<ul class="list-disc pl-4">
 			{#if sameDmgRedAcrossForms}
-				{#if enemy.forms[0].stats.dmg_reduction}
+				{#if enemy.forms[0].stats.dmgRes}
 					<li class="py-1">
-						{translations[language].dmg_reduction} - {enemy.forms[0].stats.dmg_reduction}%
+						{translations[language].dmg_res_short} - {enemy.forms[0].stats.dmgRes*100}%
 					</li>
 				{/if}
 			{/if}
@@ -52,7 +52,7 @@
 			<ul class="list-disc pl-4">
 				{#if !sameDmgRedAcrossForms}
 					<li class="py-1">
-						{translations[language].dmg_reduction} - {form.stats.dmg_reduction}%
+						{translations[language].dmg_res_short} - {form.stats.dmgRes*100}%
 					</li>
 				{/if}
 			</ul>

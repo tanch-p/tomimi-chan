@@ -34,9 +34,7 @@
 		"effects": [
 			{
 				"targets": ["ELITE"],
-				"mods": {
-					"atk": 1.1
-				}
+				"mods": [{ "key": "atk", "value": 1.1, "mode": "mul" }]
 			}
 		],
 		"floorBuff": 0
@@ -48,10 +46,10 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"atk": 1.05,
-					"hp": 1.05
-				}
+				"mods": [
+					{ "key": "hp", "value": 1.05, "mode": "mul" },
+					{ "key": "atk", "value": 1.05, "mode": "mul" }
+				]
 			}
 		],
 		"floorBuff": 0.01
@@ -70,9 +68,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"def": 1.1
-				}
+				"mods": [{ "key": "def", "value": 1.1, "mode": "mul" }]
 			}
 		],
 		"floorBuff": 0.03
@@ -84,9 +80,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"dmg_reduction": 5
-				}
+				"mods": [{ "key": "dmg_res", "value": 0.05,"mode":"mul" }]
 			}
 		],
 		"floorBuff": 0.04
@@ -105,9 +99,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"atk": 1.1
-				}
+				"mods": [{ "key": "atk", "value": 1.1, "mode": "mul" }]
 			}
 		],
 		"floorBuff": 0.06
@@ -119,9 +111,7 @@
 		"effects": [
 			{
 				"targets": ["SAMI_BOSS"],
-				"mods": {
-					"dmg_reduction": 5
-				}
+				"mods": [{ "key": "dmg_res", "value": 0.05,"mode":"mul" }]
 			}
 		],
 		"floorBuff": 0.08
@@ -139,10 +129,8 @@
 		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+12%",
 		"effects": [
 			{
-				"targets": ["ELITE","SAMI_BOSS"],
-				"mods": {
-					"dmg_reduction": 5
-				}
+				"targets": ["ELITE", "SAMI_BOSS"],
+				"mods": [{ "key": "dmg_res", "value": 0.05, "mode":"mul" }]
 			}
 		],
 		"floorBuff": 0.12
@@ -154,10 +142,10 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"hp": 1.05,
-					"def": 1.05
-				}
+				"mods": [
+					{ "key": "hp", "value": 1.05, "mode": "mul" },
+					{ "key": "def", "value": 1.05, "mode": "mul" }
+				]
 			}
 		],
 		"floorBuff": 0.14
@@ -169,11 +157,11 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"hp": 1.1,
-					"atk": 1.1,
-					"def": 1.1
-				}
+				"mods": [
+					{ "key": "hp", "value": 1.1, "mode": "mul" },
+					{ "key": "atk", "value": 1.1, "mode": "mul" },
+					{ "key": "def", "value": 1.1, "mode": "mul" }
+				]
 			}
 		],
 		"floorBuff": 0.16

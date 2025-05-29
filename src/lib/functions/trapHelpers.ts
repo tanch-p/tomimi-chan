@@ -210,12 +210,12 @@ function parseStats(trap: Trap, statMods: StatMods) {
 	if (modsList.length > 0) {
 		initialMods = modsList.reduce((acc, curr) => {
 			for (const statKey in curr) {
-				if (statKey === 'dmg_reduction') {
+				if (statKey === 'dmg_res') {
 					continue;
 				}
 				if (
 					statKey.includes('fixed') ||
-					statKey === 'dmg_reduction' ||
+					statKey === 'dmg_res' ||
 					statKey === 'atk_interval'
 				) {
 					acc[statKey] += curr[statKey];
@@ -240,12 +240,12 @@ function parseStats(trap: Trap, statMods: StatMods) {
 	if (modsList.length > 0) {
 		finalMods = modsList.reduce((acc, curr) => {
 			for (const statKey in curr) {
-				if (statKey === 'dmg_reduction') {
+				if (statKey === 'dmg_res') {
 					continue;
 				}
 				if (
 					statKey.includes('fixed') ||
-					statKey === 'dmg_reduction' ||
+					statKey === 'dmg_res' ||
 					statKey === 'atk_interval'
 				) {
 					acc[statKey] += curr[statKey];

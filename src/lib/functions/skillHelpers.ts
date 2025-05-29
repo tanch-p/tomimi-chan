@@ -1,11 +1,11 @@
-import type { Enemy, Skill, SpecialMods } from '$lib/types';
+import type { Enemy, EnemyStats, Skill, SpecialMods } from '$lib/types';
 import enemySkills from '$lib/data/enemy/enemy_skills.json';
 import trapSkills from '$lib/data/trap/traps_skills.json';
 import enemyDb from '$lib/data/enemy/enemy_database.json';
 import { checkIsTarget } from '$lib/functions/statHelpers';
 import { isEquals } from './lib';
 
-export const overwriteBlackboard = (stats, blackboard) => {
+export const overwriteBlackboard = (stats: EnemyStats, blackboard) => {
 	const traits = stats.traits;
 	for (const skillRef of blackboard) {
 		const traitIndex = traits.findIndex((ele) => ele.key === skillRef.key);
@@ -111,6 +111,9 @@ export const getEnemySkills = (
 		} else {
 			enemyDBSkillRef = baseEnemy.stats[level].special[row].find((ele) => ele.key === skillRef.key);
 		}
+		if (skillRef.remove) {
+			return skillRef;
+		}
 		if (specialMods[enemyKey] && Object.keys(specialMods[enemyKey]).includes(skillRef.key)) {
 			skillRef.overwrittenKeys = getOverwrittenKeys(
 				enemyDBSkillRef,
@@ -138,7 +141,7 @@ export const getEnemySkills = (
 							return;
 						}
 						if (!currentSkills.find((ref) => ref.key === key)) {
-							return {key,...specialMods[target][key]};
+							return { key, ...specialMods[target][key] };
 						}
 					})
 					.filter(Boolean);

@@ -28,9 +28,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"fixed_res": 10
-				}
+				"mods": [{ "key": "res", "value": 10, "mode": "add" }]
 			}
 		],
 		"floorBuff": {
@@ -51,10 +49,10 @@
 		"effects": [
 			{
 				"targets": ["BOSS"],
-				"mods": {
-					"atk": 1.15,
-					"def": 1.15
-				}
+				"mods": [
+					{ "key": "atk", "value": 1.15, "mode": "mul" },
+					{ "key": "def", "value": 1.15, "mode": "mul" }
+				]
 			}
 		],
 		"floorBuff": {
@@ -75,9 +73,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"ms": 1.15
-				}
+				"mods": [{ "key": "ms", "value": 1.15, "mode": "mul" }]
 			}
 		],
 		"floorBuff": {
@@ -98,9 +94,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"fixed_aspd": 15
-				}
+				"mods": [{ "key": "aspd", "value": 15, "mode": "add" }]
 			}
 		],
 		"floorBuff": {
@@ -121,9 +115,7 @@
 		"effects": [
 			{
 				"targets": ["ELITE", "BOSS"],
-				"mods": {
-					"hp": 1.2
-				}
+				"mods": [{ "key": "hp", "value": 1.2, "mode": "mul" }]
 			}
 		],
 		"floorBuff": {
@@ -136,9 +128,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"fixed_res": 10
-				}
+				"mods": [{ "key": "res", "value": 10, "mode": "add" }]
 			}
 		],
 		"floorBuff": {
@@ -167,11 +157,11 @@
 		"effects": [
 			{
 				"targets": ["ELITE", "BOSS"],
-				"mods": {
-					"hp": 1.2,
-					"atk": 1.2,
-					"def": 1.2
-				}
+				"mods": [
+					{ "key": "hp", "value": 1.2, "mode": "mul" },
+					{ "key": "atk", "value": 1.2, "mode": "mul" },
+					{ "key": "def", "value": 1.2, "mode": "mul" }
+				]
 			}
 		],
 		"floorBuff": {

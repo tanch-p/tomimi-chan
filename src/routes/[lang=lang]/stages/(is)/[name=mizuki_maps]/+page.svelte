@@ -5,10 +5,9 @@
 		statMods,
 		difficulty,
 		specialMods,
-		eliteMods,
+		runes,
 		selectedRelics,
 		eliteMode,
-		normalMods,
 		otherBuffsList
 	} from './stores';
 	import DifficultySelect from '$lib/components/DifficultySelect.svelte';
@@ -24,9 +23,7 @@
 
 	export let data: PageData;
 	$: if (data.mapConfig) {
-		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies, data.mapConfig, language);
-		eliteMode.set(false);
-		normalMods.set(data.mapConfig.n_mods);
+		runes.set(data.mapConfig.n_mods);
 	}
 	$: if (data.mapConfig || $difficulty) {
 		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies, data.mapConfig, language, $difficulty);
@@ -60,7 +57,7 @@
 			mapConfig={data.mapConfig}
 			{language}
 			{stageName}
-			eliteMods={$eliteMods}
+			eliteMode={eliteMode}
 			{rogueTopic}
 		/>
 		<Mission {language} />
@@ -74,8 +71,7 @@
 			mapConfig={data.mapConfig}
 			enemies={data.enemies}
 			{eliteMode}
-			{normalMods}
-			{eliteMods}
+			{runes}
 			{rogueTopic}
 			{selectedRelics}
 		>

@@ -7,10 +7,10 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"ms": 0.85,
-					"fixed_weight": -1
-				}
+				"mods": [
+					{ "key": "weight", "value": -1, "mode": "add" },
+					{ "key": "ms", "value": 0.85, "mode": "mul" }
+				]
 			}
 		],
 		"tooltip_zh": "所有敌方单位移动速度-15%，且重量下降一个等级",
@@ -35,10 +35,10 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"hp": 0.85,
-					"ms": 0.85
-				}
+				"mods": [
+					{ "key": "hp", "value": 0.85, "mode": "mul" },
+					{ "key": "ms", "value": 0.85, "mode": "mul" }
+				]
 			}
 		],
 		"tooltip_zh": "所有敌方单位的生命-15%，移动速度-15%",
@@ -53,9 +53,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"atk": 0.93
-				}
+				"mods": [{ "key": "atk", "value": 0.93, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "所有敌方单位的攻击力-7%",
@@ -70,9 +68,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"atk": 0.88
-				}
+				"mods": [{ "key": "atk", "value": 0.88, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "所有敌方单位的攻击力-12%",
@@ -87,9 +83,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"atk": 0.83
-				}
+				"mods": [{ "key": "atk", "value": 0.83, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "所有敌方单位的攻击力-17%",
@@ -104,9 +98,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"def": 0.88
-				}
+				"mods": [{ "key": "def", "value": 0.88, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "所有敌方单位的防御力-12%",
@@ -121,9 +113,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"def": 0.79
-				}
+				"mods": [{ "key": "def", "value": 0.79, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "所有敌方单位的防御力-21%",
@@ -138,9 +128,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"def": 0.7
-				}
+				"mods": [{ "key": "def", "value": 0.7, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "所有敌方单位的防御力-30%",
@@ -155,9 +143,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"hp": 0.85
-				}
+				"mods": [{ "key": "hp", "value": 0.85, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "所有敌方单位的生命-15%",
@@ -172,9 +158,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"hp": 0.9
-				}
+				"mods": [{ "key": "hp", "value": 0.9, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "所有敌方单位的生命-10%",
@@ -189,9 +173,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"hp": 0.8
-				}
+				"mods": [{ "key": "hp", "value": 0.8, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "所有敌方单位的生命-20%",
@@ -206,9 +188,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"fixed_aspd": -10
-				}
+				"mods": [{ "key": "aspd", "value": -10, "mode": "add" }]
 			}
 		],
 		"tooltip_zh": "所有我方单位的攻击速度+10，所有敌方单位的攻击速度-10",
@@ -223,9 +203,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"hp": 1.25
-				}
+				"mods": [{ "key": "hp", "value": 1.25, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "所有敌人生命值+25%",
@@ -240,9 +218,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"fixed_aspd": 15
-				}
+				"mods": [{ "key": "aspd", "value": 15, "mode": "add" }]
 			}
 		],
 		"tooltip_zh": "所有敌人攻击速度+15；每次作战若未损失目标生命，战斗结束后灯火+15",

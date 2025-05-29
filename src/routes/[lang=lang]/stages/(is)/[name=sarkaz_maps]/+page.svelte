@@ -6,12 +6,11 @@
 		difficulty,
 		difficultyMode,
 		specialMods,
-		eliteMods,
+		runes,
 		selectedRelics,
 		selectedFloor,
 		otherBuffsList,
 		eliteMode,
-		normalMods,
 		disasterEffects
 	} from './stores';
 	import DifficultySelect from '../../../../../lib/components/DifficultySelect.svelte';
@@ -31,8 +30,7 @@
 	$: if (data.mapConfig) {
 		updateReqRelic(data.mapConfig.levelId, selectedRelics);
 		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies, data.mapConfig, language);
-		eliteMode.set(false);
-		normalMods.set(data.mapConfig.n_mods);
+		runes.set(data.mapConfig.n_mods);
 	}
 	const ro4_ALTER_BOSS_STAGES = ['level_rogue4_b-4-b', 'level_rogue4_b-5-b'];
 
@@ -82,10 +80,9 @@
 			mapConfig={data.mapConfig}
 			{language}
 			{stageName}
-			eliteMods={$eliteMods}
+			eliteMode={eliteMode}
 			{rogueTopic}
 			difficulty={$difficulty}
-			difficultyMode={$difficultyMode}
 		>
 			<StageDrops slot="drops" mapConfig={data.mapConfig} {language} {rogueTopic} {selectedFloor} />
 		</StageInfo>
@@ -120,8 +117,7 @@
 			mapConfig={data.mapConfig}
 			enemies={data.enemies}
 			{eliteMode}
-			{normalMods}
-			{eliteMods}
+			{runes}
 			{rogueTopic}
 			{selectedRelics}
 			otherStores={{ disaster: disasterEffects, difficulty: difficulty }}

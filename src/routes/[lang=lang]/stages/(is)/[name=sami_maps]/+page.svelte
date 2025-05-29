@@ -5,10 +5,9 @@
 		statMods,
 		difficulty,
 		specialMods,
-		eliteMods,
+		runes,
 		selectedRelics,
 		selectedFloor,
-		normalMods,
 		eliteMode,
 		otherBuffsList
 	} from './stores';
@@ -27,7 +26,7 @@
 	$: if (data.mapConfig) {
 		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies, data.mapConfig, language);
 		eliteMode.set(false);
-		normalMods.set(data.mapConfig.n_mods);
+		runes.set(data.mapConfig.n_mods);
 	}
 	$: language = data.language;
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
@@ -58,7 +57,7 @@
 			mapConfig={data.mapConfig}
 			{language}
 			{stageName}
-			eliteMods={$eliteMods}
+			eliteMode={$eliteMode}
 			{rogueTopic}
 		>
 			<StageDrops slot="drops" mapConfig={data.mapConfig} {language} {rogueTopic} {selectedFloor} />
@@ -73,8 +72,7 @@
 			mapConfig={data.mapConfig}
 			enemies={data.enemies}
 			{eliteMode}
-			{normalMods}
-			{eliteMods}
+			{runes}
 			{rogueTopic}
 			{selectedRelics}
 		>

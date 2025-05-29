@@ -6,10 +6,10 @@
 	const missionModEffects = [
 		{
 			targets: ['ALL'],
-			mods: {
-				atk: 1.3,
-				hp: 1.3
-			}
+			mods: [
+				{ key: 'atk', value: 1.3, mode: 'mul' },
+				{ key: 'hp', value: 1.3, mode: 'mul' }
+			]
 		}
 	];
 	let selected = false;

@@ -136,10 +136,10 @@ export const setOtherBuffsList = (
 					name: 'N18',
 					targets: ['ELITE', 'BOSS'],
 					activeTargets: [],
-					mods: {
-						atk: 1.3,
-						dmg_reduction: 50
-					},
+					mods: [
+						{ key: 'atk', value: 1.3, order: 'final', mode: 'mul' },
+						{ key: 'dmg_res', value: 0.5 }
+					],
 					maxCount: 1
 				});
 			}
@@ -151,9 +151,7 @@ export const setOtherBuffsList = (
 				name: '爆破',
 				targets: ['trap_760_skztzs'],
 				activeTargets: [],
-				mods: {
-					hp: 0.5
-				},
+				mods: [{ key: 'hp', value: 0.5, order: 'initial', mode: 'mul' }],
 				maxCount: 1
 			});
 	}
@@ -165,10 +163,15 @@ export const setOtherBuffsList = (
 			name: translations[language].tile_infection,
 			targets: ['not_flying&not_trap'],
 			activeTargets: [],
-			mods: {
-				atk: 1 + tileInfection.blackboard['atk'],
-				fixed_aspd: tileInfection.blackboard['attack_speed']
-			},
+			mods: [
+				{ key: 'atk', value: 1 + tileInfection.blackboard['atk'], order: 'initial', mode: 'mul' },
+				{
+					key: 'aspd',
+					value: tileInfection.blackboard['attack_speed'],
+					order: 'initial',
+					mode: 'add'
+				}
+			],
 			maxCount: 1
 		});
 	}
@@ -242,23 +245,24 @@ export const consolidateOtherMods = (otherBuffsList) => {
 						[
 							{
 								targets: [ele.key],
-								mods: Object.fromEntries(
-									Object.entries(buff.mods).map(([key, value]) => {
-										const stackType = buff.stackType || 'add';
-										if (stackType === 'add') {
-											if (key.includes('fixed')) {
-												return [key, value * ele.count];
-											}
-											return [key, value > 1 ? 1 + (value - 1) * ele.count : value * ele.count];
-										} else {
-											return [key, value ** ele.count];
+								mods: buff.mods.map(({ key, value, mode, order }) => {
+									const stackType = buff.stackType || 'add';
+									if (stackType === 'add') {
+										if (mode === 'add') {
+											return {key, value:value * ele.count, mode,order};
 										}
-									})
-								)
+										return {
+											key,
+											value: value > 1 ? 1 + (value - 1) * ele.count : value * ele.count,
+											mode,
+											order
+										};
+									}
+									return { key, value: value ** ele.count, mode, order };
+								})
 							}
 						]
-					],
-					operation: 'times'
+					]
 				});
 			}
 		});
@@ -299,12 +303,12 @@ const STAGES_WITH_ELITE_IMG = [
 	'ro4_e_3_5',
 	'ro4_e_5_8'
 ];
-export const getStageImg = (id, eliteMods) => {
+export const getStageImg = (id: string, eliteMode: boolean) => {
 	if (id.includes('_t_')) {
 		id = id.replace('_e', '');
 	}
 	if (
-		!(eliteMods && STAGES_WITH_ELITE_IMG.includes(id)) &&
+		!(eliteMode && STAGES_WITH_ELITE_IMG.includes(id)) &&
 		!id.includes('ev') &&
 		!id.includes('duel')
 	) {
@@ -313,7 +317,7 @@ export const getStageImg = (id, eliteMods) => {
 	return id;
 };
 
-export async function decompressGzipToJson(url) {
+export async function decompressGzipToJson(url: string) {
 	const response = await fetch(url);
 	const responseForJSON = response.clone();
 	const responseForArrayBuffer = response.clone();

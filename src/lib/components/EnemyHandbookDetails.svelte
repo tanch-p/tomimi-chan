@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Enemy, Language } from '$lib/types';
+	import type { Enemy, Language, StatMods } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import StatusImmune from './StatusImmune.svelte';
 	import HandbookAbilities from './HandbookAbilities.svelte';
@@ -15,7 +15,7 @@
 	import OtherBuffs from './OtherBuffs.svelte';
 	import DraggableContainer from './DraggableContainer.svelte';
 
-	export let enemy: Enemy, language: Language, specialMods, otherBuffsList, mode;
+	export let enemy: Enemy, language: Language, statMods:StatMods, specialMods, otherBuffsList, mode;
 
 	const enemyLevels = ['NORMAL', 'ELITE', 'BOSS'];
 

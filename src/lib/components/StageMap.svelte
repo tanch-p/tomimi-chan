@@ -5,7 +5,7 @@
 	import skz_calamity from '$lib/images/is/sarkaz/skz_calamity.webp';
 	import unknown from '$lib/images/is/skz_unknown.webp';
 	import { getStageImg } from '$lib/functions/lib';
-	export let mapConfig, rogueTopic: RogueTopic, language: Language, eliteMods;
+	export let mapConfig, rogueTopic: RogueTopic, language: Language, eliteMode;
 
 	let index = 0;
 
@@ -57,7 +57,7 @@
 			/>
 		{:else}
 			<img
-				src="/images/stages/level_{getStageImg(mapConfig.id, eliteMods)}.webp"
+				src="/images/stages/level_{getStageImg(mapConfig.id, eliteMode)}.webp"
 				width="600"
 				height="338px"
 				alt={mapConfig.levelId}
