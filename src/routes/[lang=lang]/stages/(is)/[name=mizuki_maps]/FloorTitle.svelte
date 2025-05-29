@@ -10,6 +10,7 @@
 	import floor4 from '$lib/images/is/mizuki/floor4.webp';
 	import floor5 from '$lib/images/is/mizuki/floor5.webp';
 	import floor6 from '$lib/images/is/mizuki/floor6.webp';
+	import Icon from '$lib/components/Icon.svelte';
 
 	export let stageFloors: number[], language: Language;
 	let optionsOpen = false;
@@ -25,11 +26,17 @@
 	$: updateFloor(stageFloors);
 </script>
 
-<div use:clickOutside on:outclick={() => (optionsOpen = false)} class="mx-auto select-none">
-	<button id="floor-options" on:click={() => (optionsOpen = !optionsOpen)}>
+<div
+	use:clickOutside
+	on:outclick={() => (optionsOpen = false)}
+	class="mx-auto select-none md:hover:bg-neutral-500"
+>
+	<button id="floor-options" class="px-3 py-0.5" on:click={() => (optionsOpen = !optionsOpen)}>
 		<div class="flex justify-center items-center gap-x-1">
+			<Icon name="left-chevron" className="w-5 h-5 mr-1.5" />
 			<img src={floorIcons[$selectedFloor - 1]} alt={`floor-${selectedFloor}`} />
 			<p>{translations[language]['mizuki_levels'][$selectedFloor - 1]}</p>
+			<Icon name="left-chevron" className="w-5 h-5 ml-2.5 rotate-180" />
 		</div>
 		{#if $activeFloorEffects.length > 0}
 			<div class="flex gap-x-2.5 mt-1.5">

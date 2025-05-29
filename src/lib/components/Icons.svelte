@@ -54,6 +54,30 @@ Provides a list of svg icons that can be referenced through the `Icon` component
 			/>
 		</symbol>
 		<symbol
+			id="down-chevron"
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		>
+			<polyline points="6 9 12 15 18 9" />
+		</symbol>
+		<symbol
+			id="left-chevron"
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		>
+			<polyline points="15 18 9 12 15 6" />
+		</symbol>
+		<symbol
 			id="icon-minus"
 			fill="none"
 			viewBox="0 0 24 24"

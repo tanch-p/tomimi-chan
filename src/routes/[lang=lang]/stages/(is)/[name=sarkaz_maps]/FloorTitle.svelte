@@ -15,6 +15,7 @@
 	import disaster_1 from '$lib/images/is/sarkaz/rogue_4_disaster_1.webp';
 	import disaster_2 from '$lib/images/is/sarkaz/rogue_4_disaster_2.webp';
 	import disaster_5 from '$lib/images/is/sarkaz/rogue_4_disaster_5.webp';
+	import Icon from '$lib/components/Icon.svelte';
 
 	const lookup = {
 		roman_1: roman_1,
@@ -82,10 +83,11 @@
 <div
 	use:clickOutside
 	on:outclick={() => (optionsOpen = false)}
-	class="self-center mx-auto select-none"
+	class="self-center mx-auto select-none md:hover:bg-neutral-500"
 >
-	<button id="floor-options" on:click={() => (optionsOpen = !optionsOpen)}>
+	<button id="floor-options" class="px-3 py-0.5" on:click={() => (optionsOpen = !optionsOpen)}>
 		<p class="flex items-center justify-center relative text-center">
+			<Icon name="left-chevron" className="w-5 h-5 mr-1.5" />
 			<img
 				class="h-[20px] mt-[1px]"
 				src={lookup[`roman_${$selectedFloor}`]}
@@ -93,6 +95,7 @@
 			/>&nbsp;{$selectedFloor === 6
 				? translations[language].sarkaz_levels[floor6Index]
 				: translations[language].sarkaz_levels[$selectedFloor - 1]}
+			<Icon name="left-chevron" className="w-5 h-5 ml-2.5 rotate-180" />
 		</p>
 		{#if $disasterEffects.length > 0}
 			<div class="flex gap-x-2.5 my-0.5 justify-center">
