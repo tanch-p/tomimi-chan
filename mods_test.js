@@ -202,7 +202,6 @@ const enemyLevel = 0;
 
 const baseStat = applyMods(enemy.stats[enemyLevel][statKey], statKey, eliteMods);
 
-console.log(baseStat);
 
 for (const mod of mods) {
 	const result = compileMods(enemy, mod, statKey);

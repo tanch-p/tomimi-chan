@@ -40,6 +40,11 @@ export function isEquals(obj1, obj2) {
 	return true;
 }
 
+export function round(value, decimalPoints = 2) {
+	const multiplier = 10 ** decimalPoints;
+	return Math.round(value * multiplier) / multiplier;
+}
+
 export function convertToOrdinal(number: number) {
 	const lastDigit = number % 10;
 	const lastTwoDigits = number % 100;
@@ -249,7 +254,7 @@ export const consolidateOtherMods = (otherBuffsList) => {
 									const stackType = buff.stackType || 'add';
 									if (stackType === 'add') {
 										if (mode === 'add') {
-											return {key, value:value * ele.count, mode,order};
+											return { key, value: value * ele.count, mode, order };
 										}
 										return {
 											key,

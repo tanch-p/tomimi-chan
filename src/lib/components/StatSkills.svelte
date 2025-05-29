@@ -2,6 +2,7 @@
 	import type { Language, Skill } from '$lib/types';
 	import { getDmgEleHighlight } from '$lib/functions/parseAtkType';
 	import translations from '$lib/translations.json';
+	import { round } from '$lib/functions/lib';
 
 	export let skills: Skill[], stat: string, statValue: number, language: Language;
 	$: separator = language === 'en' ? '/' : '・';
@@ -16,8 +17,7 @@
 				} else {
 					if (stat === 'aspd') {
 						let aspd = 100 + (skill[stat].fixed ?? 0);
-						value =
-							Math.round((value / ((aspd * (skill[stat].multiplier ?? 1)) / 100)) * 100) / 100;
+						value = round(value / ((aspd * (skill[stat].multiplier ?? 1)) / 100));
 					} else {
 						if (skill[stat].type === 'initial') {
 							//for now initial type only exists for multipliers

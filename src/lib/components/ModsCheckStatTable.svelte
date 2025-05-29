@@ -5,16 +5,25 @@
 	import { charaAssets } from '$lib/data/chara/chara_assets';
 	import aspdIcon from '$lib/images/is/aspd.webp';
 	import msIcon from '$lib/images/is/movespeed.webp';
-	import { relicLookup } from '$lib/data/is/relic_lookup';
+	import { round } from '$lib/functions/lib';
+	import ModsCheckIcon from './ModsCheckIcon.svelte';
 
 	const STATS_KEY_TABLE = {
 		hp: 'hp',
 		atk: 'atk',
-		aspd: 'attack_speed',
-		atk_interval: 'aspd',
+		aspd: 'aspd',
 		def: 'def',
 		res: 'res',
 		ms: 'ms'
+	};
+
+	const STATS_SORT_WEIGHTS = {
+		hp: 0,
+		atk: 1,
+		aspd: 2,
+		def: 3,
+		res: 4,
+		ms: 5
 	};
 
 	export let language: Language, enemy: Enemy, formIndex: number;
@@ -25,21 +34,27 @@
 		statIndex = 0;
 	}
 
-	$: statsToShow = enemy.modsList[formIndex].reduce((acc, curr) => {
-		for (const mod of curr.mods) {
-			if (mod.key === 'dmg_res') continue;
-			if (!acc.includes(mod.key)) {
-				acc.push(mod.key);
+	$: statsToShow = enemy.modsList[formIndex]
+		.reduce((acc, curr) => {
+			for (const mod of curr.mods) {
+				if (['range', 'dmg_res'].includes(mod.key)) continue;
+				let key = mod.key;
+				if (mod.key === 'atk_interval') {
+					key = 'aspd';
+				}
+				if (!acc.includes(key)) {
+					acc.push(key);
+				}
 			}
-		}
-		return acc;
-	}, []);
+			return acc;
+		}, [])
+		.sort((a, b) => STATS_SORT_WEIGHTS[a] - STATS_SORT_WEIGHTS[b]);
 
 	$: statKey = statsToShow[statIndex];
 
 	$: runeMods = getRunes(enemy.modsList[formIndex], statKey);
-
 	$: otherMods = getOtherMods(enemy.modsList[formIndex], statKey);
+	$: atkIntervalMods = getAtkIntervalMods(enemy.modsList[formIndex]);
 
 	function getRunes(modsList, statKey) {
 		const list = [];
@@ -91,6 +106,25 @@
 		return { initialAdd, initialMul, finalAdd, finalMul };
 	}
 
+	function getAtkIntervalMods(modsList) {
+		const add = [];
+		const mul = [];
+		modsList.forEach((ele) => {
+			const mods = ele.mods.filter((mod) => mod.key === 'atk_interval');
+			for (const { key, value, mode } of mods) {
+				switch (mode) {
+					case 'add':
+						add.push({ key: ele.key, value });
+						break;
+					case 'mul':
+						mul.push({ key: ele.key, value });
+						break;
+				}
+			}
+		});
+		return { add, mul };
+	}
+
 	function getImgSrc(key) {
 		switch (key) {
 			case 'attack_speed':
@@ -101,8 +135,6 @@
 				return charaAssets[key];
 		}
 	}
-	$: console.log(enemy);
-	$: console.log(otherMods);
 </script>
 
 <div class="grid grid-cols-[auto,1fr] mt-2.5">
@@ -140,153 +172,181 @@
 		<DraggableContainer className="h-full">
 			<div class="flex items-center justify-center pb-10 whitespace-nowrap text-xl">
 				<span>=</span>&nbsp;
-				{#if otherMods?.finalMul?.length > 0}
-					<span>(</span>
-				{/if}
-				{#if otherMods?.finalAdd?.length > 0}
-					<span>(</span>
-				{/if}
-				{#if otherMods.initialMul.length > 0}
-					<span>(</span>
-				{/if}
-				{#if otherMods.initialAdd.length > 0}
-					<span>(</span>
-				{/if}{#if runeMods?.length > 0}
-					<div class="relative">
-						({enemy.stats[statKey]}
-						<div class="absolute top-[120%] left-1/2 -translate-x-1/2 text-base">
-							{translations[language].runes}
+				{#if statsToShow[statIndex] === 'aspd'}
+					{#if atkIntervalMods?.mul?.length > 0}
+						<span>(</span>
+					{/if}
+					{#if atkIntervalMods?.add?.length > 0}
+						<span>(</span>
+					{/if}
+					{enemy.stats[statKey]}
+					{#if atkIntervalMods?.add?.length > 0}
+						{#each atkIntervalMods?.add as { key, value }}
+							<div class="relative">
+								<ModsCheckIcon {formIndex} {enemy} {key} {language} />
+								&nbsp;{#if value >= 0}+{/if}
+								{value}
+							</div>
+						{/each}
+						)
+					{/if}
+					{#if atkIntervalMods?.mul?.length > 0}
+						{#each atkIntervalMods?.mul as { key, value }}
+							<div class="relative">
+								<ModsCheckIcon {formIndex} {enemy} {key} {language} />
+								&nbsp;× {value}
+							</div>
+						{/each}
+						)
+					{/if}
+					<span>&nbsp;/ (</span>
+					{#if otherMods?.finalMul?.length > 0}
+						<span>(</span>
+					{/if}
+					{#if otherMods?.finalAdd?.length > 0}
+						<span>(</span>
+					{/if}
+					{#if otherMods.initialMul.length > 0}
+						<span>(</span>
+					{/if}
+					{#if otherMods.initialAdd.length > 0}
+						<span>(</span>
+					{/if}
+					{#if runeMods?.length > 0}
+						<span>(</span>
+					{/if}
+					100
+					{#if runeMods?.length > 0}
+						<div class="flex relative">
+							<div class="absolute top-[120%] left-1/2 -translate-x-1/2 text-xs">
+								{translations[language].runes}
+							</div>
+							{#each runeMods as { key, value, mode }}
+								{#if mode === 'add'}
+									<span
+										>&nbsp;{#if value >= 0}+{/if}
+										{value}</span
+									>
+								{:else}
+									<span>&nbsp;× {value}</span>
+								{/if}
+							{/each}
+							<span>)</span>
 						</div>
-						{#each runeMods as { key, value, mode }}
-							{#if mode === 'add'}
-								+ {value}
-							{:else}
-								× {value}{/if}{/each})
-					</div>
+					{/if}
+					{#if otherMods?.initialAdd?.length > 0}
+						{#each otherMods?.initialAdd as { key, value }}
+							<div class="relative">
+								<ModsCheckIcon {formIndex} {enemy} {key} {language} />
+								&nbsp;{#if value >= 0}+{/if}
+								{value}
+							</div>
+						{/each}
+						)
+					{/if}
+					{#if otherMods?.initialMul?.length > 0}
+						{#each otherMods?.initialMul as { key, value }}
+							<div class="relative">
+								<ModsCheckIcon {formIndex} {enemy} {key} {language} />
+								&nbsp;× {value}
+							</div>
+						{/each}
+						)
+					{/if}
+					{#if otherMods?.finalAdd?.length > 0}
+						{#each otherMods?.finalAdd as { key, value }}
+							<div class="relative">
+								<ModsCheckIcon {formIndex} {enemy} {key} {language} />
+								&nbsp;{#if value >= 0}+{/if}
+								{value}
+							</div>
+						{/each}
+						)
+					{/if}
+					{#if otherMods?.finalMul?.length > 0}
+						{#each otherMods?.finalMul as { key, value }}
+							<div class="relative">
+								<ModsCheckIcon {formIndex} {enemy} {key} {language} />
+								&nbsp;× {value}
+							</div>
+						{/each}
+						)
+					{/if}
+
+					<span>&nbsp;/ 100)</span>
 				{:else}
-					<span>
-						{enemy.stats[statKey]}
-					</span>
-				{/if}
-				{#if otherMods?.initialAdd?.length > 0}
-					{#each otherMods?.initialAdd as { key, value }}
-						<div class="relative">
-							<div class="absolute top-[120%] left-1/2 -translate-x-1/2 w-max text-base">
-								{#if translations[language][key]}
-									{translations[language][key]}
-								{:else if key.includes('enemy')}
-									<img
-										class="select-none"
-										src={`/images/enemy_icons/${key}.webp`}
-										height="40px"
-										width="40px"
-										decoding="async"
-									/>
-								{:else if key.includes('relic')}
-									<img
-										src={relicLookup[key]}
-										alt={key}
-										loading="lazy"
-										height="40px"
-										width="40px"
-										decoding="async"
-									/>
-								{/if}
+					{#if otherMods?.finalMul?.length > 0}
+						<span>(</span>
+					{/if}
+					{#if otherMods?.finalAdd?.length > 0}
+						<span>(</span>
+					{/if}
+					{#if otherMods.initialMul.length > 0}
+						<span>(</span>
+					{/if}
+					{#if otherMods.initialAdd.length > 0}
+						<span>(</span>
+					{/if}{#if runeMods?.length > 0}
+						<div class="flex relative">
+							({enemy.stats[statKey]}
+							<div class="absolute top-[120%] left-1/2 -translate-x-1/2 text-xs">
+								{translations[language].runes}
 							</div>
-							&nbsp;+ {value}
-						</div>
-					{/each}
-					)
-				{/if}
-				{#if otherMods?.initialMul?.length > 0}
-					{#each otherMods?.initialMul as { key, value }}
-						<div class="relative">
-							<div class="absolute top-[120%] left-1/2 -translate-x-1/2 w-max text-base">
-								{#if translations[language][key]}
-									{translations[language][key]}
-								{:else if key.includes('enemy')}
-									<img
-										class="select-none"
-										src={`/images/enemy_icons/${key}.webp`}
-										height="40px"
-										width="40px"
-										decoding="async"
-									/>
-								{:else if key.includes('relic')}
-									<img
-										src={relicLookup[key]}
-										alt={key}
-										loading="lazy"
-										height="40px"
-										width="40px"
-										decoding="async"
-									/>
+							{#each runeMods as { key, value, mode }}
+								{#if mode === 'add'}
+									<span
+										>&nbsp;{#if value >= 0}+{/if}
+										{value}</span
+									>
+								{:else}
+									<span>&nbsp;× {round(value)}</span>
 								{/if}
-							</div>
-							&nbsp;× {value}
+							{/each}
+							<span>)</span>
 						</div>
-					{/each}
-					)
-				{/if}
-				{#if otherMods?.finalAdd?.length > 0}
-					{#each otherMods?.finalAdd as { key, value }}
-						<div class="relative">
-							<div class="absolute top-[120%] left-1/2 -translate-x-1/2 w-max text-base">
-								{#if translations[language][key]}
-									{translations[language][key]}
-								{:else if key.includes('enemy')}
-									<img
-										class="select-none"
-										src={`/images/enemy_icons/${key}.webp`}
-										height="40px"
-										width="40px"
-										decoding="async"
-									/>
-								{:else if key.includes('relic')}
-									<img
-										src={relicLookup[key]}
-										alt={key}
-										loading="lazy"
-										height="40px"
-										width="40px"
-										decoding="async"
-									/>
-								{/if}
+					{:else}
+						<span>
+							{enemy.stats[statKey]}
+						</span>
+					{/if}
+					{#if otherMods?.initialAdd?.length > 0}
+						{#each otherMods?.initialAdd as { key, value }}
+							<div class="relative">
+								<ModsCheckIcon {formIndex} {enemy} {key} {language} />
+								&nbsp;{#if value >= 0}+{/if}
+								{round(value, 3)}
 							</div>
-							&nbsp;+ {value}
-						</div>
-					{/each}
-					)
-				{/if}
-				{#if otherMods?.finalMul?.length > 0}
-					{#each otherMods?.finalMul as { key, value }}
-						<div class="relative">
-							<div class="absolute top-[120%] left-1/2 -translate-x-1/2 w-max text-base">
-								{#if translations[language][key]}
-									{translations[language][key]}
-								{:else if key.includes('enemy')}
-									<img
-										class="select-none"
-										src={`/images/enemy_icons/${key}.webp`}
-										height="40px"
-										width="40px"
-										decoding="async"
-									/>
-								{:else if key.includes('relic')}
-									<img
-										src={relicLookup[key]}
-										alt={key}
-										loading="lazy"
-										height="40px"
-										width="40px"
-										decoding="async"
-									/>
-								{/if}
+						{/each}
+						)
+					{/if}
+					{#if otherMods?.initialMul?.length > 0}
+						{#each otherMods?.initialMul as { key, value }}
+							<div class="relative">
+								<ModsCheckIcon {formIndex} {enemy} {key} {language} />
+								&nbsp;× {round(value, 3)}
 							</div>
-							&nbsp;× {value}
-						</div>
-					{/each}
-					)
+						{/each}
+						)
+					{/if}
+					{#if otherMods?.finalAdd?.length > 0}
+						{#each otherMods?.finalAdd as { key, value }}
+							<div class="relative">
+								<ModsCheckIcon {formIndex} {enemy} {key} {language} />
+								&nbsp;{#if value >= 0}+{/if}
+								{round(value, 3)}
+							</div>
+						{/each}
+						)
+					{/if}
+					{#if otherMods?.finalMul?.length > 0}
+						{#each otherMods?.finalMul as { key, value }}
+							<div class="relative">
+								<ModsCheckIcon {formIndex} {enemy} {key} {language} />
+								&nbsp;× {round(value, 3)}
+							</div>
+						{/each}
+						)
+					{/if}
 				{/if}
 			</div>
 		</DraggableContainer>

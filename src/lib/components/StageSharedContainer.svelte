@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { pruneExtraEnemies } from '$lib/functions/lib';
-	import { applyMods, compileStatModsForChecking } from '$lib/functions/statHelpers';
+	import { applyMods } from '$lib/functions/statHelpers';
 	import { applyTrapMods, filterTraps } from '$lib/functions/trapHelpers';
 	import EliteToggle from './EliteToggle.svelte';
 	import EnemyCount from './EnemyCount.svelte';
@@ -24,11 +24,6 @@
 
 	$: moddedEnemies = applyMods(enemies, $statMods, $specialMods);
 	// $: moddedTraps = applyTrapMods(traps, $statMods, $specialMods);
-	// $: modsCheck = compileStatModsForChecking(
-	// 	pruneExtraEnemies(enemies, mapConfig.levelId),
-	// 	$statMods,
-	// 	$specialMods
-	// );
 	eliteMode.subscribe((v) => (GameConfig.eliteMode = v));
 	specialMods.subscribe((v) => (GameConfig.specialMods = v));
 

@@ -1,5 +1,6 @@
 /* takes in a list of enemies and statMods and returns enemy with modifiers applied */
-import type { Enemy, StatMods, ModGroup, Effects, EnemyDBEntry, Mod } from '$lib/types';
+import type { Enemy, StatMods, ModGroup, Effects, EnemyDBEntry } from '$lib/types';
+import { round } from './lib';
 /*
 PLEASE READ https://prts.wiki/w/游戏数据基础#属性的定义
 
@@ -107,77 +108,26 @@ export function parseStats(enemy: EnemyDBEntry, statMods: StatMods, row: number,
 			const item = formMods.mods.find((ele) => ele.key === statKey && ele.mode === 'set');
 			if (item) initialValue = item.value;
 		}
+		if (statKey === 'aspd') {
+			statsHolder[statKey] = getModdedStat(
+				enemy.stats[statKey],
+				statKey,
+				runeMods,
+				...secondaryMods
+			);
+			continue;
+		}
 		const baseValue = getModdedStat(initialValue, statKey, runeMods);
 		statsHolder[statKey] = getModdedStat(baseValue, statKey, ...secondaryMods);
 	}
 	statsHolder['dmgRes'] = getDmgReductionVal(runeMods, ...secondaryMods);
 	enemy?.modsList?.push(
-		[runeMods, diffMods, ...otherMods].filter(Boolean).filter((ele) => ele.mods?.length > 0)
+		[runeMods, diffMods, formMods, ...otherMods]
+			.filter(Boolean)
+			.filter((ele) => ele.mods?.length > 0)
 	);
 	return statsHolder;
 }
-
-//return list of enemies { }
-export const compileStatModsForChecking = (
-	enemies: EnemyDBEntry[],
-	statMods: StatMods,
-	specialMods
-) => {
-	const returnList = [];
-	for (const enemy of enemies) {
-		let diffMods;
-		if (statMods.diff) {
-			diffMods = compileMods(enemy, statMods.diff);
-		}
-		const runeMods = compileMods(enemy, statMods.runes);
-		const otherMods = statMods.others.map((mods) => compileMods(enemy, mods));
-		const forms = [];
-		if (enemy.stats?.form_mods) {
-			enemy.stats?.form_mods.forEach((formMods, i) => {
-				if (specialMods?.[enemy.key]?.[`mods_${i}`]) {
-					forms.push({
-						key: 'multiform_suffix',
-						mods: specialMods?.[enemy.key]?.[`mods_${i}`]
-					});
-					return;
-				}
-				if (formMods?.length > 0) {
-					forms.push({ key: 'multiform_suffix', mods: formMods });
-				}
-			});
-		}
-		if (forms.length > 0) {
-			forms.forEach((form, i) => {
-				returnList.push({
-					key: enemy.key,
-					name_zh: enemy.name_zh,
-					name_ja: enemy.name_ja,
-					name_en: enemy.name_en,
-					type: enemy.type,
-					form: enemy.forms[i].title,
-					formIndex: i,
-					modsList: [form, runeMods, diffMods, ...otherMods]
-						.filter(Boolean)
-						.filter((ele) => ele.mods?.length > 0)
-				});
-			});
-		} else {
-			returnList.push({
-				key: enemy.key,
-				name_zh: enemy.name_zh,
-				name_ja: enemy.name_ja,
-				name_en: enemy.name_en,
-				type: enemy.type,
-				form: null,
-				formIndex: null,
-				modsList: [runeMods, diffMods, ...otherMods]
-					.filter(Boolean)
-					.filter((ele) => ele.mods?.length > 0)
-			});
-		}
-	}
-	return returnList;
-};
 
 const getModdedStat = (baseValue: number, statKey: string, ...modsList) => {
 	let initialAdd = 0,
@@ -189,7 +139,7 @@ const getModdedStat = (baseValue: number, statKey: string, ...modsList) => {
 	for (const { mods } of modsList) {
 		for (const mod of mods) {
 			const { key, value, mode } = mod;
-			if (key === 'atkInterval') {
+			if (key === 'atk_interval') {
 				switch (mode) {
 					case 'mul':
 						atkIntervalMul *= value;
@@ -251,17 +201,14 @@ export const calculateModdedStat = (
 	}
 	switch (statKey) {
 		case 'aspd':
-			return (
-				Math.round(
-					(((baseValue + atkIntervalAdd) * atkIntervalMul) /
-						(Math.max(10, Math.min(((aspd + initialAdd) * initialMul + finalAdd) * finalMul, 600)) /
-							100)) *
-						100
-				) / 100
+			return round(
+				((baseValue + atkIntervalAdd) * atkIntervalMul) /
+					(Math.max(10, Math.min(((aspd + initialAdd) * initialMul + finalAdd) * finalMul, 600)) /
+						100)
 			);
 		case 'range':
 		case 'ms':
-			return Math.round((baseValue * initialMul + finalAdd) * finalMul * 100) / 100;
+			return round((baseValue * initialMul + finalAdd) * finalMul);
 		case 'weight':
 		case 'res':
 			return Math.round(Math.min(Math.max((baseValue * initialMul + finalAdd) * finalMul, 0), 100));
@@ -355,15 +302,13 @@ export const compileSpecialMods = (...modsList: [[Effects]]) => {
 		for (const effects of effectsList)
 			if (effects !== null && effects.length > 0) {
 				effects.forEach((effect) => {
-					for (const target of effect.targets) {
-						for (const key in effect.mods) {
-							if (key === 'special') {
-								if (!specialMods[target]) {
-									specialMods[target] = {};
-								}
-								for (const key of Object.keys(effect.mods.special)) {
-									specialMods[target][key] = effect.mods.special[key];
-								}
+					if (effect.special) {
+						for (const target of effect.targets) {
+							if (!specialMods[target]) {
+								specialMods[target] = {};
+							}
+							for (const key of Object.keys(effect.special)) {
+								specialMods[target][key] = effect.special[key];
 							}
 						}
 					}
