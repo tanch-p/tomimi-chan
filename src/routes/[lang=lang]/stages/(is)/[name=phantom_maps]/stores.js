@@ -29,9 +29,11 @@ export const statMods = derived(
 					key: relic.id,
 					mods: [relic.effects]
 				};
-			}),
-			{ key: $selectedUniqueRelic.id, mods: [$selectedUniqueRelic.effects] }
+			})
 		];
+		if ($selectedUniqueRelic) {
+			relicMods.push({ key: $selectedUniqueRelic.id, mods: [$selectedUniqueRelic.effects] });
+		}
 		return {
 			runes: { key: $eliteMode ? 'elite_ops' : 'combat_ops', mods: [$runes] },
 			others: [
@@ -48,12 +50,11 @@ export const statMods = derived(
 );
 
 export const specialMods = derived(
-	[selectedRelics, runes, normalMods, activeFloorEffects],
-	([$selectedRelics, $eliteMods, $normalMods, $activeFloorEffects]) =>
+	[selectedRelics, runes, activeFloorEffects],
+	([$selectedRelics, $runes, $activeFloorEffects]) =>
 		compileSpecialMods(
 			$selectedRelics.map((relic) => relic.effects),
-			[$eliteMods],
-			[$normalMods],
+			[$runes],
 			$activeFloorEffects.map((ele) => ele.effects)
 		)
 );

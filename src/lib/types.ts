@@ -92,6 +92,7 @@ export type Enemy = {
 	forms: EnemyFormType[];
 	traits: Skill[]; //traits = active throughout all enemy forms
 	type: EnemyType[];
+	modsList: ModGroup[];
 	overwritten?: true | false;
 };
 

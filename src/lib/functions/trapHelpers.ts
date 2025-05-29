@@ -1,7 +1,7 @@
 import type { Language, Trap, MapConfigTrap, TrapData, StatMods } from '$lib/types';
 import trapLookup from '$lib/data/trap/traps.json';
 import trapSkills from '$lib/data/trap/traps_skills.json';
-import { calculateModdedStat, distillMods } from './statHelpers';
+import { calculateModdedStat } from './statHelpers';
 import { getOverwrittenKeys } from './skillHelpers';
 
 const TRAPS_AFFECTED_BY_DIFFICULTY = [
@@ -203,7 +203,7 @@ function parseStats(trap: Trap, statMods: StatMods) {
 				})
 				.filter(Boolean)
 		};
-		const { mods } = distillMods(trap, '', applicableMods, 0);
+		// const { mods } = distillMods(trap, '', applicableMods, 0);
 		modsList.push(mods);
 	}
 	let initialMods = {};
@@ -232,7 +232,7 @@ function parseStats(trap: Trap, statMods: StatMods) {
 	}
 	modsList = [];
 	for (const mod of finalModsList) {
-		const { mods } = distillMods(trap, '', mod, 0);
+		// const { mods } = distillMods(trap, '', mod, 0);
 		modsList.push(mods);
 	}
 	// different list from enemy final mods

@@ -98,9 +98,9 @@ export const statMods = derived(
 	}
 );
 
-export const specialMods = derived([selectedRelics, runes], ([$selectedRelics, $eliteMods]) =>
+export const specialMods = derived([selectedRelics, runes], ([$selectedRelics, $runes]) =>
 	compileSpecialMods(
 		$selectedRelics.map((relic) => relic.effects),
-		[$eliteMods]
+		[$runes]
 	)
 );

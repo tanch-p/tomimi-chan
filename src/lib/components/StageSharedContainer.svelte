@@ -26,7 +26,6 @@
 	// $: moddedTraps = applyTrapMods(traps, $statMods, $specialMods);
 	// $: modsCheck = compileStatModsForChecking(
 	// 	pruneExtraEnemies(enemies, mapConfig.levelId),
-	// 	mapConfig.id,
 	// 	$statMods,
 	// 	$specialMods
 	// );
@@ -64,7 +63,7 @@
 	{otherBuffsList}
 	specialMods={$specialMods}
 /> -->
-<!-- <ModsCheck {language} {modsCheck} {mapConfig} /> -->
+<ModsCheck {language} enemies={moddedEnemies} {mapConfig} />
 <EnemyCount
 	{mapConfig}
 	enemies={pruneExtraEnemies(moddedEnemies, mapConfig.levelId)}
