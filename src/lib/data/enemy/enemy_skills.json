@@ -516,6 +516,7 @@
 		"hits": 1,
 		"value": 1,
 		"skillRange": 1.25,
+		"buffloss": true,
 		"tooltip": {
 			"en": [
 				"Explodes on death, giving all enemies +<v.value> energy and deals <v.atk.multiplier>% ATK as {arts} damage to nearby units{can_silence}{ignore_camou}"
@@ -2330,6 +2331,7 @@
 		}
 	},
 	"deyi_explode_kill": {
+		"buffloss": true,
 		"atk": { "multiplier": 4 },
 		"dmg_element": "arts",
 		"suffix": { "en": "💥on kill", "ja": "撃破時", "zh": "击破时" },
@@ -2346,6 +2348,7 @@
 		}
 	},
 	"deyi_explode": {
+		"buffloss": true,
 		"atk": { "multiplier": 18 },
 		"dmg_element": "arts",
 		"suffix": { "en": "💥💥", "ja": "心中", "zh": "💥" },
@@ -3008,6 +3011,11 @@
 	"icefield_arts_fighter_explode": {
 		"duration": 5,
 		"skillRange": 1.65,
+		"buffloss": true,
+		"atk": { "multiplier": 1.3 },
+		"dmg_element": "arts",
+		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
+		"hits": 1,
 		"tooltip": {
 			"en": [
 				"Upon death, deals 130% of ATK as {arts} damage in a 1.65 tile radius to all allied and enemy units and applies Cold for <v.duration>s{can_silence}{ignore_camou}"
@@ -3940,6 +3948,7 @@
 		}
 	},
 	"cbterm_explode": {
+		"buffloss": true,
 		"atk": { "multiplier": 2 },
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"tooltip": {
@@ -5675,10 +5684,10 @@
 		}
 	},
 	"patrt_1": {
-		"type":"buff",
+		"type": "buff",
 		"effects": {
 			"targets": ["ALL"],
-			"activeTargets": [{"key":"enemy_1506_patrt","count":1}],
+			"activeTargets": [{ "key": "enemy_1506_patrt", "count": 1 }],
 			"mods": [
 				{ "key": "atk", "value": 0.2, "order": "initial", "mode": "mul" },
 				{ "key": "def", "value": 200, "order": "initial", "mode": "add" }

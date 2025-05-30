@@ -364,7 +364,7 @@ export const getStatSkillValue = (
 	stat: StatKey
 ) => {
 	const runeMods = entity.modsList[formIndex].find((ele) => ['runes'].includes(ele.key)) || [];
-	const otherMods = entity.modsList[formIndex].filter((ele) => !['runes'].includes(ele.key));
+	let otherMods = entity.modsList[formIndex].filter((ele) => !['runes'].includes(ele.key));
 	const skillMod = {
 		key: skill.key,
 		mods: [
@@ -380,8 +380,8 @@ export const getStatSkillValue = (
 		return getModdedStat(entity.stats[stat], stat, runeMods, skillMod, ...otherMods);
 	}
 	const baseValue = getModdedStat(entity.stats[stat], stat, runeMods);
-	if (entity.key === 'trap_761_skzthx') {
-		console.log(otherMods, skillMod);
+	if (skill.buffloss) {
+		otherMods = [];
 	}
 	return getModdedStat(baseValue, stat, skillMod, ...otherMods);
 };

@@ -159,7 +159,7 @@ type trapStats = {
 	blockCnt: number;
 	aspd: number;
 	rangeId: string | null;
-	dmgRes:number;
+	dmgRes: number;
 };
 
 type overwrittenData = {
@@ -248,6 +248,7 @@ export type Skill = {
 	type?: 'skill' | 'buff' | undefined;
 	remove?: boolean;
 	value?: number;
+	buffloss?: boolean; //for enemies that lose buffs upon death
 	initCooldown?: number;
 	cooldown?: number;
 	initSp?: number;
