@@ -26,7 +26,6 @@
 	title={translations[language].mods_check}
 	size="subheading"
 	className="my-4"
-	isOpen={true}
 >
 	{#if listToShow.length > 0}
 		<DraggableContainer className="no-scrollbar">
