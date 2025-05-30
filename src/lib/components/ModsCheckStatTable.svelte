@@ -138,7 +138,7 @@
 </script>
 
 <div class="grid grid-cols-[auto,1fr] mt-2.5">
-	<div class="border-r border-gray-500 pr-3">
+	<div class="border-r border-gray-500 pr-3 whitespace-nowrap">
 		{#each statsToShow as key, i}
 			<button
 				class="flex items-center gap-x-1.5 px-2 py-1 text-start {statIndex === i
@@ -157,7 +157,8 @@
 			</button>
 		{/each}
 	</div>
-	<div class="ml-3">
+	<div class="ml-3 overflow-hidden">
+		<span class="text-gray-500 text-xs">※{translations[language].mods_check_disclaimer}</span>
 		<div class="flex items-center justify-center gap-x-1.5 px-2 py-1">
 			<img
 				src={getImgSrc(STATS_KEY_TABLE[statKey])}
@@ -169,8 +170,8 @@
 			{translations[language].table_headers[STATS_KEY_TABLE[[statKey]]]}
 			{enemy.forms[formIndex].stats[statKey]}
 		</div>
-		<DraggableContainer className="h-full">
-			<div class="flex items-center justify-center pb-10 whitespace-nowrap text-xl">
+		<DraggableContainer className="h-full ">
+			<div class="flex items-center justify-center w-max mx-auto pb-10 whitespace-nowrap text-xl">
 				<span>=</span>&nbsp;
 				{#if statsToShow[statIndex] === 'aspd'}
 					{#if atkIntervalMods?.mul?.length > 0}

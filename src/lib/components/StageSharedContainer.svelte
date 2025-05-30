@@ -23,7 +23,7 @@
 		otherStores={};
 
 	$: moddedEnemies = applyMods(enemies, $statMods, $specialMods);
-	// $: moddedTraps = applyTrapMods(traps, $statMods, $specialMods);
+	$: moddedTraps = applyTrapMods(traps, $statMods, $specialMods);
 	eliteMode.subscribe((v) => (GameConfig.eliteMode = v));
 	specialMods.subscribe((v) => (GameConfig.specialMods = v));
 
@@ -52,12 +52,12 @@
 		/>
 	</EnemyWaves>
 {/await}
-<!-- <TrapContainer
+<TrapContainer
 	{language}
 	traps={filterTraps(moddedTraps)}
 	{otherBuffsList}
 	specialMods={$specialMods}
-/> -->
+/>
 <ModsCheck {language} enemies={moddedEnemies} {mapConfig} />
 <EnemyCount
 	{mapConfig}

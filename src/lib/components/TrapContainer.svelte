@@ -23,7 +23,7 @@
 					class="grid grid-flow-row sm:flex auto-rows-max gap-2.5 px-2.5 h-[calc(100vh-172px)] sm:h-auto overflow-scroll no-scrollbar sticky sm:static top-20"
 				>
 					{#each traps as trap}
-						<a href={`#${trap.key}${trap.ops ? '_' + trap.ops : ''}`}>
+						<a href={`#${trap.key}`}>
 							<div class="relative">
 								<img
 									class="select-none"

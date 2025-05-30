@@ -330,7 +330,7 @@ export async function decompressGzipToJson(url: string) {
 	try {
 		return await responseForJSON.json();
 	} catch (jsonError) {
-		console.log('Direct JSON parsing failed, trying decompression...');
+		console.warn('Direct JSON parsing failed, trying decompression...');
 
 		try {
 			const arrayBuffer = await responseForArrayBuffer.arrayBuffer();

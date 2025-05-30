@@ -17,7 +17,7 @@
 	$: if (enemyIndex > -1) {
 		formIndex = 0;
 	}
-	$: listToShow = enemies.filter((enemy) => enemy?.modsList?.length > 0);
+	$: listToShow = enemies.filter((enemy) => enemy?.modsList?.[formIndex]?.length > 0);
 	$: enemy = listToShow[enemyIndex];
 </script>
 
@@ -25,7 +25,6 @@
 	title={translations[language].mods_check}
 	size="subheading"
 	className="my-4"
-	isOpen={true}
 >
 	{#if listToShow.length > 0}
 		<DraggableContainer className="no-scrollbar">

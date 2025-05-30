@@ -13,12 +13,12 @@
 		index: number,
 		filteredTableHeaders,
 		language: Language,
-		statMods :StatMods,
+		statMods: StatMods,
 		specialMods,
 		otherBuffsList;
 
 	$: maxRowSpan = enemy.forms.length;
-	function textAlign (statKey: string) {
+	function textAlign(statKey: string) {
 		switch (statKey) {
 			case 'hp':
 				return 'text-center px-3';
@@ -31,7 +31,7 @@
 			default:
 				return 'text-center py-1 px-1';
 		}
-	};
+	}
 	$: multispanKeys = getMultispanKeys(enemy?.forms);
 
 	const SHARE_HP_FORMS = ['prisoner_imprisoned', 'rage', 'normal_state'];
@@ -115,6 +115,8 @@
 								{/if}
 							</p>
 							<StatSkills
+								entity={enemy}
+								formIndex={row}
 								skills={getStatSkills(
 									enemy,
 									key === 'atk' && !multispanKeys.includes('atk')

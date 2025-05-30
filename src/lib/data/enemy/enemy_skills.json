@@ -102,7 +102,7 @@
 	"avenger": {
 		"suffix": { "en": "HP↓50%", "ja": "HP50%以下", "zh": "HP50%以下" },
 		"hits": null,
-		"atk": { "multiplier": 1, "type": "initial" },
+		"atk": { "multiplier": 1, "order": "initial" },
 		"tooltip": {
 			"en": ["HP↓50% - ATK increased by <v.atk.multiplier>%"],
 			"ja": ["HP50%以下→攻撃力が<v.atk.multiplier>%増加"],
@@ -960,7 +960,7 @@
 	"syskad_hp_50_rage_150": {
 		"suffix": { "en": "HP↓50%", "ja": "HP50%以下", "zh": "HP50%以下" },
 		"hits": null,
-		"atk": { "multiplier": 0.5, "type": "initial" },
+		"atk": { "multiplier": 0.5, "order": "initial" },
 		"tooltip": {
 			"en": ["HP↓50% - ATK increased by <v.atk.multiplier>%", "Carried over to 2nd form"],
 			"ja": ["HP50%以下→攻撃力が<v.atk.multiplier>%増加", "第二形態に継続される"],
@@ -2410,21 +2410,17 @@
 		}
 	},
 	"guerilla_siegebreaker_buff": {
+		"suffix": { "en": "Buff", "ja": "特殊強化", "zh": "特殊强化" },
+		"atk": { "multiplier": 0.5, "order": "initial" },
 		"tooltip": {
-			"en": ["Special buff - ATK +50%"],
-			"ja": ["特殊強化→攻撃力+50%"],
-			"zh": ["收到战术命令时，攻击力提升50%"]
-		}
-	},
-	"guerilla_siegebreaker_leader_buff": {
-		"value": 80,
-		"tooltip": {
-			"en": ["Special buff - ATK +<v.value>%"],
-			"ja": ["特殊強化→攻撃力+<v.value>%"],
-			"zh": ["收到战术命令时，攻击力提升<v.value>%"]
+			"en": ["Special buff - ATK +<v.atk.multiplier>%"],
+			"ja": ["特殊強化→攻撃力+<v.atk.multiplier>%"],
+			"zh": ["收到战术命令时，攻击力提升<v.atk.multiplier>%"]
 		}
 	},
 	"guerilla_mortar_buff": {
+		"suffix": { "en": "Buff", "ja": "特殊強化", "zh": "特殊强化" },
+		"aspd": { "fixed": 50 },
 		"tooltip": {
 			"en": ["Special buff - ASPD +50"],
 			"ja": ["特殊強化→攻撃速度+50"],
@@ -2437,7 +2433,7 @@
 			"targets": ["ALL"],
 			"activeTargets": [{ "key": "enemy_1080_sotidp", "count": 1 }],
 			"mods": [
-				{ "key": "atk", "value": 1.1, "order": "initial", "mode": "mul" },
+				{ "key": "atk", "value": 0.1, "order": "initial", "mode": "mul" },
 				{ "key": "def", "value": 100, "order": "initial", "mode": "add" }
 			],
 			"stackType": "add"
@@ -5683,7 +5679,7 @@
 			"targets": ["ALL"],
 			"activeTargets": ["enemy_1506_patrt"],
 			"mods": [
-				{ "key": "atk", "value": 1.2, "order": "initial", "mode": "mul" },
+				{ "key": "atk", "value": 0.2, "order": "initial", "mode": "mul" },
 				{ "key": "def", "value": 200, "order": "initial", "mode": "add" }
 			],
 			"stackType": "add"

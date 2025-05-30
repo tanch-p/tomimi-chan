@@ -2,6 +2,20 @@
 
 export type Language = 'zh' | 'ja' | 'en';
 export type RogueTopic = 'rogue_phantom' | 'rogue_mizuki' | 'rogue_sami' | 'rogue_skz' | null;
+export type StatKey =
+	| 'hp'
+	| 'atk'
+	| 'def'
+	| 'res'
+	| 'aspd'
+	| 'atk_interval'
+	| 'range'
+	| 'weight'
+	| 'lifepoint'
+	| 'ms'
+	| 'eleRes'
+	| 'eleDmgRes'
+	| 'dmgRes';
 export type Stats = {
 	hp: number;
 	atk: number;
@@ -92,8 +106,9 @@ export type Enemy = {
 	forms: EnemyFormType[];
 	traits: Skill[]; //traits = active throughout all enemy forms
 	type: EnemyType[];
-	modsList: ModGroup[];
+	modsList: [ModGroup[]];
 	overwritten?: true | false;
+	stats: EnemyDBStats[];
 };
 
 export type EnemyDBEntry = {
@@ -122,7 +137,7 @@ export interface Trap {
 	talents: [];
 	skills: [];
 	status_immune: StatusImmune[];
-	ops: 'elite' | 'normal' | null;
+	modsList: [ModGroup[]];
 }
 export interface TrapData {
 	name_zh: string;
@@ -196,7 +211,7 @@ export type Position = {
 
 export type StatMods = {
 	runes: ModGroup;
-	diff: ModGroup|null;
+	diff: ModGroup | null;
 	others: ModGroup[];
 };
 
@@ -210,11 +225,11 @@ export type SpecialMods = {
 	[key: string]: Skill;
 };
 
-export type Effects = [{ targets: string[]; mods: Mod[]; special:SpecialMod; }];
+export type Effects = [{ targets: string[]; mods: Mod[]; special: SpecialMod }];
 
 type SpecialMod = {
-	[key:string]: Skill
-}
+	[key: string]: Skill;
+};
 
 export type Mod = {
 	key: string;
@@ -225,6 +240,8 @@ export type Mod = {
 };
 
 export type Skill = {
+	[key in StatKey]: SkillMod;
+} & {
 	key: string;
 	type?: 'skill' | 'buff' | undefined;
 	remove?: boolean;
@@ -241,6 +258,13 @@ export type Skill = {
 	hits?: number;
 	formIndexes?: number[];
 	tooltip: Tooltip | null;
+};
+
+type SkillMod = {
+	value?: number; //set value type i.e. Pompeii's explosion
+	multiplier?: number;
+	fixed?: number;
+	order?: 'initial' | 'final';
 };
 
 type Tooltip = {
