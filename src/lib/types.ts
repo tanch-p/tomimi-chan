@@ -53,7 +53,8 @@ export type StatusImmune =
 	| 'sleep'
 	| 'levitate'
 	| 'disarmCombat'
-	| 'fear';
+	| 'fear'
+	| 'palsy';
 type AttackType = 'no_attack' | 'melee' | 'ranged';
 type AttackAttribute = 'phys' | 'arts' | 'true' | 'heal';
 type EnemyType =
@@ -222,14 +223,14 @@ export type ModGroup = {
 };
 
 export type SpecialMods = {
-	[key: string]: Skill;
+	[key: string]: SpecialMod;
 };
-
 export type Effects = [{ targets: string[]; mods: Mod[]; special: SpecialMod }];
-
-type SpecialMod = {
-	[key: string]: Skill;
-};
+type SpecialMod =
+	| {
+			[key: string]: Skill;
+	  }
+	| { status_immune?: StatusImmune[] };
 
 export type Mod = {
 	key: string;

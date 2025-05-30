@@ -1,5 +1,5 @@
 /* takes in a list of enemies and statMods and returns enemy with modifiers applied */
-import type { Enemy, StatMods, ModGroup, Effects, EnemyDBEntry, Trap } from '$lib/types';
+import type { Enemy, StatMods, ModGroup, Effects, EnemyDBEntry, Trap, SpecialMods } from '$lib/types';
 import { round } from './lib';
 
 /*
@@ -85,8 +85,7 @@ const NOT_AFFECTED_BY_DIFFICULTY_KEYS = [
 	'enemy_1210_msfden_2'
 ];
 
-//after applying mods, move stats under forms
-export function applyMods(enemies: EnemyDBEntry[], statMods: StatMods, specialMods): Enemy[] {
+export function applyMods(enemies: EnemyDBEntry[], statMods: StatMods, specialMods:SpecialMods): Enemy[] {
 	return enemies.map((enemy) => {
 		const holder = structuredClone(enemy);
 		holder.modsList = [];
@@ -99,7 +98,7 @@ export function applyMods(enemies: EnemyDBEntry[], statMods: StatMods, specialMo
 }
 
 //returns enemy 'stats' object with modded stats
-export function parseStats(enemy: EnemyDBEntry, statMods: StatMods, row: number, specialMods) {
+export function parseStats(enemy: EnemyDBEntry, statMods: StatMods, row: number, specialMods:SpecialMods) {
 	let diffMods;
 	if (statMods.diff) {
 		diffMods = compileMods(enemy, statMods.diff);

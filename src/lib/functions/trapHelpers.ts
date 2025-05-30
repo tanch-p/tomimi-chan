@@ -1,4 +1,4 @@
-import type { Language, Trap, MapConfigTrap, TrapData, StatMods } from '$lib/types';
+import type { Language, Trap, MapConfigTrap, TrapData, StatMods, SpecialMods } from '$lib/types';
 import trapLookup from '$lib/data/trap/traps.json';
 import trapSkills from '$lib/data/trap/traps_skills.json';
 import { compileMods, getModdedStat } from './statHelpers';
@@ -136,7 +136,7 @@ export const parseTraps = (traps: MapConfigTrap[], language: Language) => {
 	return holder.sort((a, b) => getTrapWeight(a.key) - getTrapWeight(b.key));
 };
 
-export function applyTrapMods(traps: Trap[], statMods: StatMods, specialMods) {
+export function applyTrapMods(traps: Trap[], statMods: StatMods, specialMods:SpecialMods) {
 	return traps.map((trap) => {
 		const rangeId = trap.stats.rangeId;
 		trap.modsList = [];
@@ -155,7 +155,7 @@ export function applyTrapMods(traps: Trap[], statMods: StatMods, specialMods) {
 	});
 }
 
-export function getTrapSpecialSkill(key, skillRef, specialMods) {
+export function getTrapSpecialSkill(key:string, skillRef:string, specialMods:SpecialMods) {
 	let skill = trapSkills[skillRef];
 	skill.overwrittenKeys = [];
 	if (skill && specialMods[key]?.[skillRef]) {

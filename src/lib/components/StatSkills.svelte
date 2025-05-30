@@ -22,10 +22,10 @@
 				} else {
 					const runeMods =
 						entity.modsList[formIndex].find((ele) =>
-							['combat_ops', 'elite_ops'].includes(ele.key)
+							['runes'].includes(ele.key)
 						) || [];
 					const otherMods = entity.modsList[formIndex].filter(
-						(ele) => !['combat_ops', 'elite_ops'].includes(ele.key)
+						(ele) => !['runes'].includes(ele.key)
 					);
 					const skillMod = {
 						key: skill.key,

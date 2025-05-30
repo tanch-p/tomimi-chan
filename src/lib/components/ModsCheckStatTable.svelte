@@ -58,7 +58,7 @@
 
 	function getRunes(modsList, statKey) {
 		const list = [];
-		const runes = modsList.find((mod) => ['combat_ops', 'elite_ops'].includes(mod.key));
+		const runes = modsList.find((mod) => ['runes'].includes(mod.key));
 		if (runes) {
 			for (const mod of runes.mods) {
 				if (mod.key === statKey) {
@@ -75,7 +75,7 @@
 		const finalMul = [];
 
 		modsList
-			.filter((mod) => !['combat_ops', 'elite_ops'].includes(mod.key))
+			.filter((mod) => !['runes'].includes(mod.key))
 			.forEach((ele) => {
 				const mods = ele.mods.filter((mod) => mod.key === statKey);
 				for (const { key, value, order = 'final', mode } of mods) {

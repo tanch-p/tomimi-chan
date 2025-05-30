@@ -81,7 +81,7 @@ export const statMods = derived(
 			};
 		});
 		return {
-			runes: { key: $eliteMode ? 'elite_ops' : 'combat_ops', mods: [$runes] },
+			runes: { key: 'runes', mods: [$runes] },
 			diff: { key: 'difficulty', mods: $difficultyMods, stackType: 'mul' },
 			others: [
 				{ key: 'floor_diff', mods: [$floorDifficultyMods] },

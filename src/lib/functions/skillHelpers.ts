@@ -1,4 +1,4 @@
-import type { Enemy, EnemyStats, Skill, SpecialMods } from '$lib/types';
+import type { Enemy, EnemyStats, Skill, SpecialMods, StatusImmune } from '$lib/types';
 import enemySkills from '$lib/data/enemy/enemy_skills.json';
 import trapSkills from '$lib/data/trap/traps_skills.json';
 import enemyDb from '$lib/data/enemy/enemy_database.json';
@@ -152,7 +152,7 @@ export const getEnemySkills = (
 	return [...extraSkills, ...currentSkills];
 };
 
-export const getStatusImmune = (enemy: Enemy, statusImmuneList, mods: SpecialMods) => {
+export const getStatusImmune = (enemy: Enemy, statusImmuneList:StatusImmune[], mods: SpecialMods) => {
 	if (mods?.[enemy.id]?.status_immune) {
 		statusImmuneList = [...statusImmuneList, ...mods[enemy.id].status_immune];
 	}
