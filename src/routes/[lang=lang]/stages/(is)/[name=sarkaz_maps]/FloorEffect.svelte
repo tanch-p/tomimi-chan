@@ -30,6 +30,7 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <button
+	id={effect.iconId}
 	class={`grid grid-cols-[75px_auto] gap-x-2 text-start ${
 		selected ? 'bg-neutral-700' : 'hover:bg-neutral-700'
 	}`}

@@ -142,7 +142,7 @@ export const setOtherBuffsList = (
 					targets: ['ELITE', 'BOSS'],
 					activeTargets: [],
 					mods: [
-						{ key: 'atk', value: 1.3, order: 'final', mode: 'mul' },
+						{ key: 'atk', value: 0.3, order: 'initial', mode: 'mul' },
 						{ key: 'dmg_res', value: 0.5 }
 					],
 					maxCount: 1
@@ -156,7 +156,7 @@ export const setOtherBuffsList = (
 				name: '爆破',
 				targets: ['trap_760_skztzs'],
 				activeTargets: [],
-				mods: [{ key: 'hp', value: 0.5, order: 'initial', mode: 'mul' }],
+				mods: [{ key: 'hp', value: -0.5, order: 'initial', mode: 'mul' }],
 				maxCount: 1
 			});
 	}

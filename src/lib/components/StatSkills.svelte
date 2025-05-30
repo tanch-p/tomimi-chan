@@ -2,7 +2,7 @@
 	import type { Enemy, Language, Skill, StatKey, Trap } from '$lib/types';
 	import { getDmgEleHighlight } from '$lib/functions/parseAtkType';
 	import translations from '$lib/translations.json';
-	import { getModdedStat } from '$lib/functions/statHelpers';
+	import { getStatSkillValue } from '$lib/functions/statHelpers';
 
 	export let entity: Enemy | Trap,
 		formIndex: number,
@@ -20,29 +20,10 @@
 				if (skill[stat].value) {
 					value = skill[stat].value;
 				} else {
-					const runeMods =
-						entity.modsList[formIndex].find((ele) =>
-							['runes'].includes(ele.key)
-						) || [];
-					const otherMods = entity.modsList[formIndex].filter(
-						(ele) => !['runes'].includes(ele.key)
-					);
-					const skillMod = {
-						key: skill.key,
-						mods: [
-							{
-								key: stat,
-								value: skill[stat].multiplier || skill[stat].fixed,
-								order: skill[stat].order || 'final',
-								mode: skill[stat].multiplier ? 'mul' : 'add'
-							}
-						]
-					};
-					if (stat === 'aspd') {
-						value = getModdedStat(entity.stats[stat], stat, runeMods, skillMod, ...otherMods);
+					if (entity.key.includes('trap')) {
+						value = entity.stats[stat] * skill[stat].multiplier;
 					} else {
-						const baseValue = getModdedStat(entity.stats[stat], stat, runeMods);
-						value = getModdedStat(baseValue, stat, skillMod, ...otherMods);
+						value = getStatSkillValue(entity, formIndex, skill, stat);
 					}
 				}
 				return { suffix, value, hits: hits ?? 0, dmgEle: dmg_element ?? '' };

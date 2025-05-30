@@ -19,9 +19,9 @@
 	export let language: Language;
 </script>
 
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<div
-	class={`max-w-screen sm:w-max sm:px-6 mt-4 mb-6 select-none hover:cursor-pointer hover:bg-neutral-700`}
+<button
+	id="mission"
+	class={`max-w-screen sm:w-max sm:px-6 mt-4 mb-6 select-none hover:cursor-pointer hover:bg-neutral-700 text-start`}
 	on:click={() => {
 		selected = !selected;
 	}}
@@ -32,4 +32,4 @@
 		<input type="checkbox" class="accent-red-500 w-4 h-4 mt-1 sm:mt-0" checked={selected} />
 		{translations[language].mizuki_mission_text}
 	</div>
-</div>
+</button>

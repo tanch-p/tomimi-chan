@@ -1,7 +1,7 @@
 import type { Language, Trap, MapConfigTrap, TrapData, StatMods, SpecialMods } from '$lib/types';
 import trapLookup from '$lib/data/trap/traps.json';
 import trapSkills from '$lib/data/trap/traps_skills.json';
-import { compileMods, getModdedStat } from './statHelpers';
+import { compileMods, getDmgReductionVal, getModdedStat } from './statHelpers';
 import { getOverwrittenKeys } from './skillHelpers';
 
 const TRAPS_AFFECTED_BY_DIFFICULTY = [
@@ -136,7 +136,7 @@ export const parseTraps = (traps: MapConfigTrap[], language: Language) => {
 	return holder.sort((a, b) => getTrapWeight(a.key) - getTrapWeight(b.key));
 };
 
-export function applyTrapMods(traps: Trap[], statMods: StatMods, specialMods:SpecialMods) {
+export function applyTrapMods(traps: Trap[], statMods: StatMods, specialMods: SpecialMods) {
 	return traps.map((trap) => {
 		const rangeId = trap.stats.rangeId;
 		trap.modsList = [];
@@ -155,7 +155,7 @@ export function applyTrapMods(traps: Trap[], statMods: StatMods, specialMods:Spe
 	});
 }
 
-export function getTrapSpecialSkill(key:string, skillRef:string, specialMods:SpecialMods) {
+export function getTrapSpecialSkill(key: string, skillRef: string, specialMods: SpecialMods) {
 	let skill = trapSkills[skillRef];
 	skill.overwrittenKeys = [];
 	if (skill && specialMods[key]?.[skillRef]) {
@@ -178,8 +178,7 @@ function parseStats(trap: Trap, statMods: StatMods) {
 	const secondaryMods = [diffMods, ...otherMods].filter(Boolean);
 	//Traps are not affected by rune mods unless specifically targeted (to confirm for both ally and enemy traps)
 	const runeMods = compileMods(trap, statMods.runes, 'trap_rune');
-
-	const statsHolder = {};
+	const statsHolder = { dmgRes: 0 };
 	for (const statKey of STATS) {
 		const initialValue = trap.stats[statKey];
 		if (statKey === 'aspd') {
@@ -194,10 +193,11 @@ function parseStats(trap: Trap, statMods: StatMods) {
 		const baseValue = getModdedStat(initialValue, statKey, runeMods);
 		statsHolder[statKey] = getModdedStat(baseValue, statKey, ...secondaryMods);
 	}
+	// if (TRAPS_AFFECTED_BY_DIFFICULTY.includes(trap.key)) {
+	// 	statsHolder['dmgRes'] = getDmgReductionVal(runeMods, ...secondaryMods);
+	// }
 	trap?.modsList?.push(
-		[runeMods, diffMods, ...otherMods]
-			.filter(Boolean)
-			.filter((ele) => ele.mods?.length > 0)
+		[runeMods, diffMods, ...otherMods].filter(Boolean).filter((ele) => ele.mods?.length > 0)
 	);
 	return statsHolder;
 }

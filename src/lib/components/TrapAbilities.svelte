@@ -35,13 +35,19 @@
 		</p>
 	{/if}
 	<ul class="list-disc pl-4 py-1">
+		<!-- {#if trap.stats.dmgRes}
+			<li class="py-1">
+				{translations[language].dmg_res_short} - {trap.stats.dmgRes * 100}%
+			</li>
+		{/if} -->
 		{#each trap.special as item, i}
 			{#if typeof item === 'string'}
 				<Remark
+					entity={trap}
+					formIndex={0}
 					skill={getTrapSpecialSkill(trap.key, item, specialMods)}
 					{language}
-					mode={'handbook'}
-					enemyStats={trap.stats}
+					mode={mode}
 				/>
 			{:else}
 				{@const formIndex = getTrapFormIndex(trap.special, i)}
@@ -49,10 +55,11 @@
 				<div class="text-red-400 py-1">{formTitle}</div>
 				{#each item as key}
 					<Remark
+						entity={trap}
+						formIndex={0}
 						skill={getTrapSpecialSkill(trap.key, key, specialMods)}
 						{language}
-						mode={'handbook'}
-						enemyStats={trap.stats}
+						mode={mode}
 					/>
 				{/each}
 			{/if}
@@ -101,7 +108,7 @@
 	</p>
 	<div class="pb-1.5 {mode === 'table' ? 'pl-4' : ''}">
 		{#each trap.skills as skill}
-			<TrapSkill {skill} {language} {mode} />
+			<TrapSkill {trap} {skill} {language} {mode} />
 		{/each}
 	</div>
 {/if}

@@ -1,5 +1,15 @@
 /* takes in a list of enemies and statMods and returns enemy with modifiers applied */
-import type { Enemy, StatMods, ModGroup, Effects, EnemyDBEntry, Trap, SpecialMods } from '$lib/types';
+import type {
+	Enemy,
+	StatMods,
+	ModGroup,
+	Effects,
+	EnemyDBEntry,
+	Trap,
+	SpecialMods,
+	Skill,
+	StatKey
+} from '$lib/types';
 import { round } from './lib';
 
 /*
@@ -12,7 +22,7 @@ VALUE = 1 - (1 - v1) * (1 - v2) * ...
 ASPD
 VALUE = Math.round((BASE STAT + ATK_INTERVAL_FIXED_VALUE) / (ASPD + ASPD_FIXED_VALUE) * ASPD_MULTIPLIER)
 
-!FOR CURRENT SCHEMA, PLEASE SET RUNES ASPD MODS AS INITIAL, BUT THIS WILL NOT BE ABLE TO ACCOUNT FOR DICE MS SPEED MINUS AND DUCK LORD DASH INITIAL MULTIPLIER ADDITION...
+!FOR CURRENT SCHEMA, PLEASE SET RUNES ASPD MODS AS INITIAL
 
 OTHER STATS - ATK/DEF...
 VALUE = Math.round((((BASE STAT +/* RUNES) + INITIAL_FIXED_VALUE) * INITIAL_MULTIPLIER) + FINAL_FIXED_VALUE) * FINAL_MULTIPLIER)
@@ -85,7 +95,11 @@ const NOT_AFFECTED_BY_DIFFICULTY_KEYS = [
 	'enemy_1210_msfden_2'
 ];
 
-export function applyMods(enemies: EnemyDBEntry[], statMods: StatMods, specialMods:SpecialMods): Enemy[] {
+export function applyMods(
+	enemies: EnemyDBEntry[],
+	statMods: StatMods,
+	specialMods: SpecialMods
+): Enemy[] {
 	return enemies.map((enemy) => {
 		const holder = structuredClone(enemy);
 		holder.modsList = [];
@@ -98,7 +112,12 @@ export function applyMods(enemies: EnemyDBEntry[], statMods: StatMods, specialMo
 }
 
 //returns enemy 'stats' object with modded stats
-export function parseStats(enemy: EnemyDBEntry, statMods: StatMods, row: number, specialMods:SpecialMods) {
+export function parseStats(
+	enemy: EnemyDBEntry,
+	statMods: StatMods,
+	row: number,
+	specialMods: SpecialMods
+) {
 	let diffMods;
 	if (statMods.diff) {
 		diffMods = compileMods(enemy, statMods.diff);
@@ -111,8 +130,9 @@ export function parseStats(enemy: EnemyDBEntry, statMods: StatMods, row: number,
 	const runeMods = compileMods(enemy, statMods.runes);
 	const otherMods = statMods.others.map((mods) => compileMods(enemy, mods));
 	const secondaryMods = [formMods, diffMods, ...otherMods].filter((ele) => {
-		if (NOT_AFFECTED_BY_DIFFICULTY_KEYS.includes(enemy.key))
-			return Boolean(ele) && !['floor_diff', 'diff'].includes(ele.key);
+		if (NOT_AFFECTED_BY_DIFFICULTY_KEYS.includes(enemy.key)) {
+			return Boolean(ele) && !['floor_diff', 'difficulty'].includes(ele.key);
+		}
 		return Boolean(ele);
 	});
 
@@ -141,9 +161,7 @@ export function parseStats(enemy: EnemyDBEntry, statMods: StatMods, row: number,
 	}
 	statsHolder['dmgRes'] = getDmgReductionVal(runeMods, ...secondaryMods);
 	enemy?.modsList?.push(
-		[runeMods, diffMods, formMods, ...otherMods]
-			.filter(Boolean)
-			.filter((ele) => ele.mods?.length > 0)
+		[runeMods, ...secondaryMods].filter(Boolean).filter((ele) => ele.mods?.length > 0)
 	);
 	return statsHolder;
 }
@@ -235,7 +253,7 @@ export const calculateModdedStat = (
 	}
 };
 
-const getDmgReductionVal = (...modsList) => {
+export const getDmgReductionVal = (...modsList) => {
 	const namedValues = [];
 	const otherValues = [];
 	// get highest value from all named values
@@ -258,17 +276,15 @@ const getDmgReductionVal = (...modsList) => {
 		}
 	}
 	const namedValuesToValue = namedValues.map((ele) => ele.value);
-	return (
-		Math.round(
-			[...namedValuesToValue, ...otherValues].reduce((acc, curr) => {
-				if (acc === 0) {
-					acc = curr;
-				} else {
-					acc = 1 - (1 - acc) * (1 - curr);
-				}
-				return acc;
-			}, 0) * 100
-		) / 100
+	return round(
+		[...namedValuesToValue, ...otherValues].reduce((acc, curr) => {
+			if (acc === 0) {
+				acc = curr;
+			} else {
+				acc = 1 - (1 - acc) * (1 - curr);
+			}
+			return acc;
+		}, 0)
 	);
 };
 
@@ -341,15 +357,44 @@ export const compileSpecialMods = (...modsList: [[Effects]]) => {
 	return specialMods;
 };
 
-export const checkIsTarget = (enemy: Enemy | Trap, target: string): boolean => {
+export const getStatSkillValue = (
+	entity: Enemy | Trap,
+	formIndex = 0,
+	skill: Skill,
+	stat: StatKey
+) => {
+	const runeMods = entity.modsList[formIndex].find((ele) => ['runes'].includes(ele.key)) || [];
+	const otherMods = entity.modsList[formIndex].filter((ele) => !['runes'].includes(ele.key));
+	const skillMod = {
+		key: skill.key,
+		mods: [
+			{
+				key: stat,
+				value: skill[stat].multiplier || skill[stat].fixed,
+				order: skill[stat].order || 'final',
+				mode: skill[stat].multiplier ? 'mul' : 'add'
+			}
+		]
+	};
+	if (stat === 'aspd') {
+		return getModdedStat(entity.stats[stat], stat, runeMods, skillMod, ...otherMods);
+	}
+	const baseValue = getModdedStat(entity.stats[stat], stat, runeMods);
+	if (entity.key === 'trap_761_skzthx') {
+		console.log(otherMods, skillMod);
+	}
+	return getModdedStat(baseValue, stat, skillMod, ...otherMods);
+};
+
+export const checkIsTarget = (entity: Enemy | Trap | EnemyDBEntry, target: string): boolean => {
 	if (target.includes('&')) {
 		const targets = target.split('&');
 		return targets.reduce((acc, curr) => {
-			acc = acc && checkIsTarget(enemy, curr);
+			acc = acc && checkIsTarget(entity, curr);
 			return acc;
 		}, true);
 	}
-	const { id, key, type } = enemy;
+	const { id, key, type } = entity;
 	switch (target) {
 		case 'ALL':
 			return true;

@@ -30,17 +30,17 @@
 			{#if sameDmgRedAcrossForms}
 				{#if enemy.forms[0].stats.dmgRes}
 					<li class="py-1">
-						{translations[language].dmg_res_short} - {enemy.forms[0].stats.dmgRes*100}%
+						{translations[language].dmg_res_short} - {enemy.forms[0].stats.dmgRes * 100}%
 					</li>
 				{/if}
 			{/if}
 			{#each traits as skill}
 				<Remark
-					{enemy}
+					entity={enemy}
+					formIndex={0}
 					{skill}
 					{language}
 					mode={'handbook'}
-					enemyStats={enemy.forms[formIndex].stats}
 					{statusImmuneList}
 				/>
 			{/each}
@@ -52,7 +52,7 @@
 			<ul class="list-disc pl-4">
 				{#if !sameDmgRedAcrossForms}
 					<li class="py-1">
-						{translations[language].dmg_res_short} - {form.stats.dmgRes*100}%
+						{translations[language].dmg_res_short} - {form.stats.dmgRes * 100}%
 					</li>
 				{/if}
 			</ul>
@@ -60,11 +60,11 @@
 			<ul class="list-disc pl-4">
 				{#each specialList as skill}
 					<Remark
-						{enemy}
+						entity={enemy}
+						formIndex={i}
 						{skill}
 						{language}
 						mode={'handbook'}
-						enemyStats={form.stats}
 						{statusImmuneList}
 					/>
 				{/each}

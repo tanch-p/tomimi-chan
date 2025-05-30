@@ -159,6 +159,7 @@ type trapStats = {
 	blockCnt: number;
 	aspd: number;
 	rangeId: string | null;
+	dmgRes:number;
 };
 
 type overwrittenData = {
@@ -251,6 +252,7 @@ export type Skill = {
 	cooldown?: number;
 	initSp?: number;
 	spCost?: number;
+	duration?: number;
 	skillRange?: number;
 	skillType?: 'INCREASE_WITH_TIME' | 'INCREASE_WHEN_ATTACK';
 	can_silence?: boolean;

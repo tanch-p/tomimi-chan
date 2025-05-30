@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type {Language, RogueTopic} from "$lib/types"
-	import { relicLookup } from "$lib/data/is/relic_lookup";
+	import type { Language, RogueTopic } from '$lib/types';
+	import { relicLookup } from '$lib/data/is/relic_lookup';
 	export let relic, language: Language, rogueTopic: RogueTopic, selectedRelics;
 
 	$: name = relic[`name_${language}`] || relic[`name_zh`];
@@ -19,7 +19,7 @@
 			selectedRelics.update((list) => (list = list.filter((item) => item.id !== relic.id)));
 		}
 	}
-	function getSelectedTextColor(rogueTopic: string) {
+	function getSelectedTextColor(rogueTopic: RogueTopic) {
 		switch (rogueTopic) {
 			case 'rogue_mizuki':
 			case 'rogue_sami':
@@ -35,16 +35,24 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
-	id={`relic_${name}`}
+	id={relic.id}
 	class={`relic grid grid-cols-[75px_auto] sm:grid-cols-[95px_auto] gap-x-2 ${
 		selected ? 'bg-neutral-800' : 'hover:bg-neutral-700'
 	}`}
 	on:click={handleClick}
 >
-	<img src={relicLookup[relic.id]} alt={name} loading="lazy" decoding="async" class="relic w-[75px] sm:w-[95px]" />
+	<img
+		src={relicLookup[relic.id]}
+		alt={name}
+		loading="lazy"
+		decoding="async"
+		class="relic w-[75px] sm:w-[95px]"
+	/>
 	<div class="relic px-2">
 		<p
-			class={`relic text-lg sm:text-xl ${selected ? getSelectedTextColor(rogueTopic) : 'text-gray-400'}`}
+			class={`relic text-lg sm:text-xl ${
+				selected ? getSelectedTextColor(rogueTopic) : 'text-gray-400'
+			}`}
 		>
 			{name}
 		</p>

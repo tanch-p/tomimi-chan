@@ -1,11 +1,11 @@
-import type { Enemy, EnemyStats, Skill, SpecialMods, StatusImmune } from '$lib/types';
+import type { Enemy, Skill, SpecialMods, StatusImmune, Trap } from '$lib/types';
 import enemySkills from '$lib/data/enemy/enemy_skills.json';
 import trapSkills from '$lib/data/trap/traps_skills.json';
 import enemyDb from '$lib/data/enemy/enemy_database.json';
-import { checkIsTarget } from '$lib/functions/statHelpers';
+import { checkIsTarget, getStatSkillValue } from '$lib/functions/statHelpers';
 import { isEquals } from './lib';
 
-export const overwriteBlackboard = (stats: EnemyStats, blackboard) => {
+export const overwriteBlackboard = (stats, blackboard) => {
 	const traits = stats.traits;
 	for (const skillRef of blackboard) {
 		const traitIndex = traits.findIndex((ele) => ele.key === skillRef.key);
@@ -152,14 +152,24 @@ export const getEnemySkills = (
 	return [...extraSkills, ...currentSkills];
 };
 
-export const getStatusImmune = (enemy: Enemy, statusImmuneList:StatusImmune[], mods: SpecialMods) => {
+export const getStatusImmune = (
+	enemy: Enemy,
+	statusImmuneList: StatusImmune[],
+	mods: SpecialMods
+) => {
 	if (mods?.[enemy.id]?.status_immune) {
 		statusImmuneList = [...statusImmuneList, ...mods[enemy.id].status_immune];
 	}
 	return statusImmuneList;
 };
 
-export const parseValues = (skill, text: string, mode, enemyStats) => {
+export const parseValues = (
+	entity: Enemy | Trap,
+	formIndex: number,
+	skill: Skill,
+	text: string,
+	mode
+) => {
 	const regex = new RegExp(`<v.*?>`, 'g');
 	const extractedSubstrings = text.match(regex) || [];
 	for (const string of extractedSubstrings) {
@@ -179,7 +189,12 @@ export const parseValues = (skill, text: string, mode, enemyStats) => {
 				if (statKey === 'atk' && mode !== 'table') {
 					//check for skilltag
 					const endIndex = getTooltipEndIndex(text);
-					const value = ` (${Math.round(enemyStats[statKey] * skill[statKey][valueKey])})`;
+					let value;
+					if (entity.key.includes('trap')) {
+						value = ` (${entity.stats[statKey] * skill[statKey].multiplier})`;
+					} else {
+						value = ` (${getStatSkillValue(entity, formIndex, skill, statKey)})`;
+					}
 					text = text.slice(0, endIndex) + value + text.slice(endIndex);
 				}
 			} else {

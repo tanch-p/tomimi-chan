@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Enemy, Language, Skill, StatusImmune } from '$lib/types';
+	import type { Enemy, Language, Skill, StatusImmune, Trap } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import { charaAssets } from '$lib/data/chara/chara_assets';
 	import { getFormTitle } from '$lib/functions/lib';
-	export let enemy: Enemy,
+	export let entity: Enemy | Trap,
 		skill: Skill,
 		language: Language,
 		mode = 'table',
@@ -57,11 +57,11 @@
 		<span class="skilltag can_silence !ml-0">{translations[language].can_silence}</span>
 	{/if}
 </div>
-{#if enemy.forms.length > 1 && skill.formIndexes}
+{#if entity.forms.length > 1 && skill.formIndexes}
 	<p class="text-xs text-gray-400">
 		&lt;{#each skill.formIndexes as idx, i}
 			{#if i > 0}{translations[language].comma}{/if}<span
-				>{getFormTitle(enemy?.forms?.[idx]?.title, idx, language)}</span
+				>{getFormTitle(entity?.forms?.[idx]?.title, idx, language)}</span
 			>{/each}&gt;
 	</p>
 {/if}
