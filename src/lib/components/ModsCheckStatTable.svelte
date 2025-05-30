@@ -37,9 +37,9 @@
 	$: statsToShow = enemy.modsList[formIndex]
 		.reduce((acc, curr) => {
 			for (const mod of curr.mods) {
-				if (['range', 'dmg_res'].includes(mod.key)) continue;
-				let key = mod.key;
-				if (mod.key === 'atk_interval') {
+				if (['range', 'dmg_res'].includes(mod?.key)) continue;
+				let key = mod?.key;
+				if (key === 'atk_interval') {
 					key = 'aspd';
 				}
 				if (!acc.includes(key)) {
@@ -207,9 +207,6 @@
 					{#if otherMods?.finalAdd?.length > 0}
 						<span>(</span>
 					{/if}
-					{#if otherMods.initialMul.length > 0}
-						<span>(</span>
-					{/if}
 					{#if otherMods.initialAdd.length > 0}
 						<span>(</span>
 					{/if}
@@ -246,10 +243,11 @@
 						)
 					{/if}
 					{#if otherMods?.initialMul?.length > 0}
+						&nbsp;× (1
 						{#each otherMods?.initialMul as { key, value }}
 							<div class="relative">
 								<ModsCheckIcon {formIndex} {enemy} {key} {language} />
-								&nbsp;× {value}
+								&nbsp;+ {value}
 							</div>
 						{/each}
 						)
@@ -280,9 +278,6 @@
 						<span>(</span>
 					{/if}
 					{#if otherMods?.finalAdd?.length > 0}
-						<span>(</span>
-					{/if}
-					{#if otherMods.initialMul.length > 0}
 						<span>(</span>
 					{/if}
 					{#if otherMods.initialAdd.length > 0}
@@ -321,10 +316,11 @@
 						)
 					{/if}
 					{#if otherMods?.initialMul?.length > 0}
+						&nbsp;× (1
 						{#each otherMods?.initialMul as { key, value }}
 							<div class="relative">
 								<ModsCheckIcon {formIndex} {enemy} {key} {language} />
-								&nbsp;× {round(value, 3)}
+								&nbsp;+ {round(value, 3)}
 							</div>
 						{/each}
 						)
