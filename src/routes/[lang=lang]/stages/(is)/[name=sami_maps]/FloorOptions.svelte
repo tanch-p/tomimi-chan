@@ -17,12 +17,12 @@
 	const portalEffects = [
 		{
 			targets: ['ALL'],
-			mods: {
-				fixed_weight: 1,
-				ms: 0.5,
-				fixed_res: 30,
-				fixed_def: 800
-			}
+			mods: [
+				{ key: 'weight', value: 1, mode: 'add' },
+				{ key: 'ms', value: 0.5, mode: 'mul' },
+				{ key: 'def', value: 800, mode: 'add' },
+				{ key: 'res', value: 30, mode: 'add' }
+			]
 		}
 	];
 

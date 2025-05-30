@@ -1,58 +1,33 @@
 <script lang="ts">
-	import type { Language } from '$lib/types';
+	import type { Enemy, Language } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import TogglePanel from './TogglePanel.svelte';
 	import { getFormTitle } from '$lib/functions/lib';
 	import DraggableContainer from './DraggableContainer.svelte';
+	import ModsCheckStatTable from './ModsCheckStatTable.svelte';
 
-	const STATS = [
-		{ key: 'hp', displayKey: 'hp' },
-		{ key: 'atk', displayKey: 'atk' },
-		{ key: 'aspd', displayKey: 'attack_speed' },
-		{ key: 'atk_interval', displayKey: 'aspd' },
-		{ key: 'range', displayKey: 'range_display' },
-		{ key: 'def', displayKey: 'def' },
-		{ key: 'res', displayKey: 'res' },
-		{ key: 'ms', displayKey: 'ms' }
-	];
-	const types = ['initial_add', 'initial_multiply', 'final_add', 'final_multiply'];
-
-	export let language: Language, modsCheck, mapConfig;
+	export let language: Language, enemies: Enemy[], mapConfig;
 	let enemyIndex = 0;
-	let modIndex = 0;
-	let enemy = modsCheck[0];
+	let formIndex = 0;
+	let enemy = enemies[0];
 
-	$: if (mapConfig || modsCheck) {
+	$: if (mapConfig || enemies) {
 		enemyIndex = 0;
 	}
-
-	function getValue(mod, stat, idx) {
-		if (!mod) {
-			return;
-		}
-		const type = idx < 2 ? 'initial' : 'final';
-		if (mod.type !== type) {
-			return '-';
-		}
-		if (stat === 'atk_interval') {
-			return idx % 2 === 0 ? mod.mods[stat] || '-' : '-';
-		}
-		if (idx % 2 === 0) {
-			return mod.mods[`fixed_${stat}`] || '-';
-		}
-		if ((mod.mods[stat] ?? 1) === 1) {
-			return '-';
-		}
-		return Math.round(mod.mods[stat] * 100) / 100;
-	}
 	$: if (enemyIndex > -1) {
-		modIndex = 0;
+		formIndex = 0;
 	}
-	$: listToShow = modsCheck.filter((enemy) => enemy.modsList.length > 0);
+	$: listToShow = enemies.filter((enemy) => enemy?.modsList?.some((mods) => mods?.length > 0));
 	$: enemy = listToShow[enemyIndex];
+
 </script>
 
-<TogglePanel title={translations[language].mods_check} size="subheading">
+<TogglePanel
+	title={translations[language].mods_check}
+	size="subheading"
+	className="my-4"
+	isOpen={true}
+>
 	{#if listToShow.length > 0}
 		<DraggableContainer className="no-scrollbar">
 			<div
@@ -99,56 +74,23 @@
 				{/if}
 			</div>
 		</div>
-		<div class="max-w-[100vw] overflow-auto no-scrollbar">
-			<div
-				class="flex w-screen sm:w-full overflow-auto no-scrollbar font-bold text-lg text-white text-center select-none divide-x divide-gray-500 py-1"
-			>
-				{#each enemy.modsList as mod, i}
-					<button on:click={() => (modIndex = i)} class="px-2">
-						<p class="select-none whitespace-nowrap {i !== modIndex ? 'brightness-50' : ''}">
-							{#if Array.isArray(mod.key)}
-								{#each mod.key as modKey, i}
-									{#if i > 0}
-										<span class="">&nbsp;+</span>
-									{/if}
-									{translations[language][modKey] ?? modKey}
-								{/each}
-							{:else}
-								{translations[language][mod.key] ?? mod.key}
-							{/if}
-						</p>
-					</button>
-				{/each}
-			</div>
-		</div>
-		<div class="max-w-[100vw] overflow-auto no-scrollbar">
-			<table class="w-max mt-2">
-				<thead>
-					<tr>
-						<th class="sticky left-0 bg-neutral-800" />
-						{#each STATS as { displayKey }}
-							<th class="px-2">
-								{translations[language].table_headers[displayKey]}
-							</th>
-						{/each}
-					</tr>
-				</thead>
-				<tbody>
-					{#each types as type, idx}
-						<tr>
-							<th scope="row" class="py-1.5 pl-1.5 pr-2.5 sticky left-0 bg-neutral-800 text-right"
-								>{translations[language][type]}</th
-							>
-							{#each STATS as { key }}
-								{@const value = getValue(enemy.modsList[modIndex], key, idx)}
 
-								<td class:text-gray-500={value === '-'} class="text-center">{value}</td>
-							{/each}
-						</tr>
+		{#if enemy.modsList.length > 1}
+			<DraggableContainer className="mt-2">
+				<div class="flex whitespace-nowrap">
+					{#each enemy.forms as form, index}
+						<button
+							data-id="form-{index + 1}"
+							class={`text-sm py-1 px-2 ${formIndex === index ? 'bg-almost-black' : 'opacity-60'}`}
+							on:click={() => (formIndex = index)}
+						>
+							{getFormTitle(form.title, index, language)}
+						</button>
 					{/each}
-				</tbody>
-			</table>
-		</div>
+				</div>
+			</DraggableContainer>
+		{/if}
+		<ModsCheckStatTable {enemy} {formIndex} {language} />
 	{:else}
 		「」
 	{/if}

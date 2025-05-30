@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Enemy, Language, EnemyFormType } from '$lib/types';
+	import type { Enemy, Language, EnemyFormType, StatMods } from '$lib/types';
 	import { getNormalAtk } from '$lib/functions/parseAtkType';
 	import { getStatSkills } from '$lib/functions/skillHelpers';
 	import RemarksContainer from '$lib/components/RemarksContainer.svelte';
@@ -13,11 +13,12 @@
 		index: number,
 		filteredTableHeaders,
 		language: Language,
+		statMods: StatMods,
 		specialMods,
 		otherBuffsList;
 
 	$: maxRowSpan = enemy.forms.length;
-	let textAlign = function (statKey: string) {
+	function textAlign(statKey: string) {
 		switch (statKey) {
 			case 'hp':
 				return 'text-center px-3';
@@ -30,7 +31,7 @@
 			default:
 				return 'text-center py-1 px-1';
 		}
-	};
+	}
 	$: multispanKeys = getMultispanKeys(enemy?.forms);
 
 	const SHARE_HP_FORMS = ['prisoner_imprisoned', 'rage', 'normal_state'];
@@ -104,7 +105,7 @@
 					rowspan={multispanKeys.includes(key) ? 1 : maxRowSpan}
 				>
 					{#if key === 'e_hp'}
-						<p>{Math.round(form.stats.hp / (1 - form.stats.dmg_reduction / 100))}</p>
+						<p>{Math.round(form.stats.hp / (1 - form.stats.dmgRes))}</p>
 					{:else}
 						<div>
 							<p class={`whitespace-nowrap ${key === 'atk' ? 'flex' : ''}`}>
@@ -114,6 +115,8 @@
 								{/if}
 							</p>
 							<StatSkills
+								entity={enemy}
+								formIndex={row}
 								skills={getStatSkills(
 									enemy,
 									key === 'atk' && !multispanKeys.includes('atk')

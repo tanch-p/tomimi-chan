@@ -11,7 +11,10 @@
 		"effects": [
 			{
 				"targets": ["collapsal"],
-				"mods": { "hp": 1.15, "ms": 1.15 }
+				"mods": [
+					{ "key": "hp", "value": 1.15, "mode": "mul" },
+					{ "key": "ms", "value": 1.15, "mode": "mul" }
+				]
 			}
 		],
 		"tooltip_zh": "所有【坍缩体】生命值+15%，移动速度+15%",
@@ -30,7 +33,11 @@
 		"effects": [
 			{
 				"targets": ["collapsal"],
-				"mods": { "hp": 1.2, "ms": 1.2, "fixed_aspd":20 }
+				"mods": [
+					{ "key": "hp", "value": 1.2, "mode": "mul" },
+					{ "key": "ms", "value": 1.2, "mode": "mul" },
+					{ "key": "aspd", "value": 20, "mode": "add" }
+				]
 			}
 		],
 		"tooltip_zh": "所有【坍缩体】生命值+20%，移动速度+20%，攻击速度+20",

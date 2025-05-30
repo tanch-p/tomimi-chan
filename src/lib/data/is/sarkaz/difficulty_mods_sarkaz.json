@@ -27,9 +27,13 @@
 		"effects": [
 			{
 				"targets": ["enemy_2073_skzrck", "trap_760_skztzs"],
-				"mods": {
-					"hp": 1.2
-				}
+				"mods": [
+					{
+						"key": "hp",
+						"value": 1.2,
+						"mode": "mul"
+					}
+				]
 			}
 		],
 		"floorBuff": 0
@@ -41,9 +45,13 @@
 		"effects": [
 			{
 				"targets": ["ELITE", "BOSS"],
-				"mods": {
-					"hp": 1.2
-				}
+				"mods": [
+					{
+						"key": "hp",
+						"value": 1.2,
+						"mode": "mul"
+					}
+				]
 			}
 		],
 		"floorBuff": 0
@@ -69,9 +77,13 @@
 		"effects": [
 			{
 				"targets": ["ELITE", "BOSS"],
-				"mods": {
-					"atk": 1.1
-				}
+				"mods": [
+					{
+						"key": "atk",
+						"value": 1.1,
+						"mode": "mul"
+					}
+				]
 			}
 		],
 		"floorBuff": 0.03
@@ -97,9 +109,14 @@
 		"effects": [
 			{
 				"targets": ["ELITE", "BOSS"],
-				"mods": {
-					"dmg_reduction": 10
-				}
+				"mods": [
+					{
+						"key": "dmg_res",
+						"value": 0.1,
+						"mode": "mul",
+						"name": "protect"
+					}
+				]
 			}
 		],
 		"floorBuff": 0.07
@@ -125,21 +142,17 @@
 		"effects": [
 			{
 				"targets": ["trap_763_skzddd"],
-				"mods": {
-					"special": {
-						"skzddd_0": {
-							"value": 80
-						}
+				"special": {
+					"skzddd_0": {
+						"value": 80
 					}
 				}
 			},
 			{
 				"targets": ["enemy_2082_skzdd"],
-				"mods": {
-					"special": {
-						"skzdd_2_3": {
-							"duration": 80
-						}
+				"special": {
+					"skzdd_2_3": {
+						"duration": 80
 					}
 				}
 			}
@@ -153,9 +166,13 @@
 		"effects": [
 			{
 				"targets": ["enemy_2081_skztxs"],
-				"mods": {
-					"hp": 1.5
-				}
+				"mods": [
+					{
+						"key": "hp",
+						"value": 1.5,
+						"mode": "mul"
+					}
+				]
 			}
 		],
 		"floorBuff": 0.16
@@ -167,9 +184,13 @@
 		"effects": [
 			{
 				"targets": ["enemy_2083_skzhg"],
-				"mods": {
-					"hp": 2
-				}
+				"mods": [
+					{
+						"key": "hp",
+						"value": 2,
+						"mode": "mul"
+					}
+				]
 			}
 		],
 		"floorBuff": 0.2

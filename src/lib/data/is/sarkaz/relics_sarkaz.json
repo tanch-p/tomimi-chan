@@ -7,9 +7,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"fixed_def": 3000
-				}
+				"mods": [{ "key": "def", "value": 3000, "mode": "add" }]
 			}
 		],
 		"tooltip_zh": "所有敌方单位防御力+3000，但每次受到伤害时防御力下降100（最多下降30次）",
@@ -24,11 +22,11 @@
 		"effects": [
 			{
 				"targets": ["BOSS", "ELITE"],
-				"mods": {
-					"hp": 1.2,
-					"atk": 1.2,
-					"def": 1.2
-				}
+				"mods": [
+					{ "key": "hp", "value": 1.2, "mode": "mul" },
+					{ "key": "atk", "value": 1.2, "mode": "mul" },
+					{ "key": "def", "value": 1.2, "mode": "mul" }
+				]
 			}
 		],
 		"tooltip_zh": "精英及领袖敌人的生命值、防御力、攻击力+20%",
@@ -43,9 +41,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"atk": 1.2
-				}
+				"mods": [{ "key": "atk", "value": 1.2, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "所有友方单位和敌人攻击力+20%，刷新节点时更容易出现紧急作战，在不期而遇中会发挥奇妙的效果",
@@ -60,9 +56,7 @@
 		"effects": [
 			{
 				"targets": ["BOSS", "ELITE"],
-				"mods": {
-					"hp": 1.5
-				}
+				"mods": [{ "key": "hp", "value": 1.5, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "领袖与精英敌人最大生命值+50%，使虚实疆界中的险路恶敌更加艰难，让探索开启不同的方向",
@@ -77,11 +71,11 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"hp": 1.3,
-					"fixed_aspd": 30,
-					"ms": 1.3
-				}
+				"mods": [
+					{ "key": "hp", "value": 1.3, "mode": "mul" },
+					{ "key": "ms", "value": 1.3, "mode": "mul" },
+					{ "key": "aspd", "value": 30, "mode": "add" }
+				]
 			}
 		],
 		"tooltip_zh": "所有敌方单位的攻击速度+30，移动速度+30%，最大生命值+30%，可在虚实疆界中探索不同的险路恶敌",
@@ -106,9 +100,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"dmg_reduction": 20
-				}
+				"mods": [{ "key": "dmg_res", "value": 0.2, "mode": "mul", "name": "protect" }]
 			}
 		],
 		"tooltip_zh": "所有干员的部署费用+2，所有敌人受到的物理与法术伤害降低20%",
@@ -123,10 +115,10 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"atk": 1.2,
-					"dmg_reduction": 20
-				}
+				"mods": [
+					{ "key": "atk", "value": 1.2, "mode": "mul" },
+					{ "key": "dmg_res", "value": 0.2, "mode": "mul", "name": "protect" }
+				]
 			}
 		],
 		"tooltip_zh": "所有干员的部署费用+2，所有敌人受到的物理与法术伤害降低20%，所有敌人攻击力+20%",
@@ -141,10 +133,10 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"atk": 1.2,
-					"dmg_reduction": 20
-				}
+				"mods": [
+					{ "key": "atk", "value": 1.2, "mode": "mul" },
+					{ "key": "dmg_res", "value": 0.2, "mode": "mul", "name": "protect" }
+				]
 			}
 		],
 		"tooltip_zh": "所有干员的部署费用+2，所有敌人受到的物理与法术伤害降低20%，所有敌人攻击力+20%，最终战场上出现额外敌人",
@@ -159,9 +151,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"hp": 0.65
-				}
+				"mods": [{ "key": "hp", "value": 0.65, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "所有友方单位和敌人的最大生命值减少35%，仅在诡谲断章中生效",
@@ -186,9 +176,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"atk": 0.75
-				}
+				"mods": [{ "key": "atk", "value": 0.75, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "所有友方单位和敌人的攻击力减少25%，仅在诡谲断章中生效",
@@ -203,9 +191,7 @@
 		"effects": [
 			{
 				"targets": ["sarkaz"],
-				"mods": {
-					"ms": 0.7
-				}
+				"mods": [{ "key": "ms", "value": 0.7, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "【萨卡兹】敌人的移动速度-30%",
@@ -220,9 +206,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"fixed_aspd": -15
-				}
+				"mods": [{ "key": "aspd", "value": -15, "mode": "add" }]
 			}
 		],
 		"tooltip_zh": "所有敌方单位的攻击速度-15",
@@ -237,10 +221,10 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"hp": 0.85,
-					"ms": 0.85
-				}
+				"mods": [
+					{ "key": "hp", "value": 0.85, "mode": "mul" },
+					{ "key": "ms", "value": 0.85, "mode": "mul" }
+				]
 			}
 		],
 		"tooltip_zh": "所有敌方单位的生命-15%，移动速度-15%",
@@ -255,9 +239,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"atk": 0.93
-				}
+				"mods": [{ "key": "atk", "value": 0.93, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "所有敌方单位的攻击力-7%",
@@ -272,9 +254,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"atk": 0.88
-				}
+				"mods": [{ "key": "atk", "value": 0.88, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "所有敌方单位的攻击力-12%",
@@ -289,9 +269,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"atk": 0.83
-				}
+				"mods": [{ "key": "atk", "value": 0.83, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "所有敌方单位的攻击力-17%",
@@ -306,9 +284,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"def": 0.88
-				}
+				"mods": [{ "key": "def", "value": 0.88, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "所有敌方单位的防御力-12%",
@@ -323,9 +299,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"def": 0.79
-				}
+				"mods": [{ "key": "def", "value": 0.79, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "所有敌方单位的防御力-21%",
@@ -340,9 +314,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"def": 0.7
-				}
+				"mods": [{ "key": "def", "value": 0.7, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "所有敌方单位的防御力-30%",
@@ -357,9 +329,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"hp": 0.85
-				}
+				"mods": [{ "key": "hp", "value": 0.85, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "所有敌方单位的生命-15%",
@@ -374,9 +344,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"hp": 0.9
-				}
+				"mods": [{ "key": "hp", "value": 0.9, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "所有敌方单位的生命-10%",
@@ -391,9 +359,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"hp": 0.8
-				}
+				"mods": [{ "key": "hp", "value": 0.8, "mode": "mul" }]
 			}
 		],
 		"tooltip_zh": "所有敌方单位的生命-20%",
@@ -408,9 +374,7 @@
 		"effects": [
 			{
 				"targets": ["ALL"],
-				"mods": {
-					"fixed_weight": -2
-				}
+				"mods": [{ "key": "weight", "value": -2, "mode": "add" }]
 			}
 		],
 		"tooltip_zh": "所有敌人重量-2",

@@ -74,6 +74,8 @@
 					</p>
 					{#if key === 'atk'}
 						<StatSkills
+							entity={trap}
+							formIndex={0}
 							skills={getTrapStatSkills(trap)}
 							stat={key}
 							statValue={trap.stats[key]}

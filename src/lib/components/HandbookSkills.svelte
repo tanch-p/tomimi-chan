@@ -15,11 +15,11 @@
 		{#each skills as skill}
 			<div class="flex gap-x-2.5">
 				<Remark
-					{enemy}
+					entity={enemy}
+					{formIndex}
 					{skill}
 					{language}
 					mode={'skill'}
-					enemyStats={enemy.forms[formIndex].stats}
 					{statusImmuneList}
 				/>
 				<!-- {#if skill.rangeId}

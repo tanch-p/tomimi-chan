@@ -102,7 +102,7 @@
 	"avenger": {
 		"suffix": { "en": "HP↓50%", "ja": "HP50%以下", "zh": "HP50%以下" },
 		"hits": null,
-		"atk": { "multiplier": 1, "type": "initial" },
+		"atk": { "multiplier": 1, "order": "initial" },
 		"tooltip": {
 			"en": ["HP↓50% - ATK increased by <v.atk.multiplier>%"],
 			"ja": ["HP50%以下→攻撃力が<v.atk.multiplier>%増加"],
@@ -516,6 +516,7 @@
 		"hits": 1,
 		"value": 1,
 		"skillRange": 1.25,
+		"buffloss": true,
 		"tooltip": {
 			"en": [
 				"Explodes on death, giving all enemies +<v.value> energy and deals <v.atk.multiplier>% ATK as {arts} damage to nearby units{can_silence}{ignore_camou}"
@@ -960,7 +961,7 @@
 	"syskad_hp_50_rage_150": {
 		"suffix": { "en": "HP↓50%", "ja": "HP50%以下", "zh": "HP50%以下" },
 		"hits": null,
-		"atk": { "multiplier": 0.5, "type": "initial" },
+		"atk": { "multiplier": 0.5, "order": "initial" },
 		"tooltip": {
 			"en": ["HP↓50% - ATK increased by <v.atk.multiplier>%", "Carried over to 2nd form"],
 			"ja": ["HP50%以下→攻撃力が<v.atk.multiplier>%増加", "第二形態に継続される"],
@@ -2216,10 +2217,10 @@
 		"effects": {
 			"targets": ["ALL"],
 			"activeTargets": [],
-			"mods": {
-				"atk": 1.3,
-				"def": 1.3
-			},
+			"mods": [
+				{ "key": "atk", "value": 0.3, "order": "initial", "mode": "mul" },
+				{ "key": "def", "value": 0.3, "order": "initial", "mode": "mul" }
+			],
 			"stackType": "add"
 		},
 		"tooltip": {
@@ -2242,10 +2243,10 @@
 		"effects": {
 			"targets": ["ALL"],
 			"activeTargets": [],
-			"mods": {
-				"atk": 1.5,
-				"def": 1.5
-			},
+			"mods": [
+				{ "key": "atk", "value": 0.5, "order": "initial", "mode": "mul" },
+				{ "key": "def", "value": 0.5, "order": "initial", "mode": "mul" }
+			],
 			"stackType": "add"
 		},
 		"tooltip": {
@@ -2330,6 +2331,7 @@
 		}
 	},
 	"deyi_explode_kill": {
+		"buffloss": true,
 		"atk": { "multiplier": 4 },
 		"dmg_element": "arts",
 		"suffix": { "en": "💥on kill", "ja": "撃破時", "zh": "击破时" },
@@ -2346,6 +2348,7 @@
 		}
 	},
 	"deyi_explode": {
+		"buffloss": true,
 		"atk": { "multiplier": 18 },
 		"dmg_element": "arts",
 		"suffix": { "en": "💥💥", "ja": "心中", "zh": "💥" },
@@ -2410,21 +2413,17 @@
 		}
 	},
 	"guerilla_siegebreaker_buff": {
+		"suffix": { "en": "Buff", "ja": "特殊強化", "zh": "特殊强化" },
+		"atk": { "multiplier": 0.5, "order": "initial" },
 		"tooltip": {
-			"en": ["Special buff - ATK +50%"],
-			"ja": ["特殊強化→攻撃力+50%"],
-			"zh": ["收到战术命令时，攻击力提升50%"]
-		}
-	},
-	"guerilla_siegebreaker_leader_buff": {
-		"value": 80,
-		"tooltip": {
-			"en": ["Special buff - ATK +<v.value>%"],
-			"ja": ["特殊強化→攻撃力+<v.value>%"],
-			"zh": ["收到战术命令时，攻击力提升<v.value>%"]
+			"en": ["Special buff - ATK +<v.atk.multiplier>%"],
+			"ja": ["特殊強化→攻撃力+<v.atk.multiplier>%"],
+			"zh": ["收到战术命令时，攻击力提升<v.atk.multiplier>%"]
 		}
 	},
 	"guerilla_mortar_buff": {
+		"suffix": { "en": "Buff", "ja": "特殊強化", "zh": "特殊强化" },
+		"aspd": { "fixed": 50 },
 		"tooltip": {
 			"en": ["Special buff - ASPD +50"],
 			"ja": ["特殊強化→攻撃速度+50"],
@@ -2436,10 +2435,10 @@
 		"effects": {
 			"targets": ["ALL"],
 			"activeTargets": [{ "key": "enemy_1080_sotidp", "count": 1 }],
-			"mods": {
-				"atk": 1.1,
-				"fixed_def": 100
-			},
+			"mods": [
+				{ "key": "atk", "value": 0.1, "order": "initial", "mode": "mul" },
+				{ "key": "def", "value": 100, "order": "initial", "mode": "add" }
+			],
 			"stackType": "add"
 		},
 		"tooltip": {
@@ -2505,7 +2504,7 @@
 		}
 	},
 	"scout_anti_stealth": {
-		"skillRange":3.3,
+		"skillRange": 3.3,
 		"tooltip": {
 			"en": ["Removes nearby operators' stealth/camouflage"],
 			"ja": ["3.3半径内の味方のステルスと迷彩効果を解除"],
@@ -3012,6 +3011,11 @@
 	"icefield_arts_fighter_explode": {
 		"duration": 5,
 		"skillRange": 1.65,
+		"buffloss": true,
+		"atk": { "multiplier": 1.3 },
+		"dmg_element": "arts",
+		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
+		"hits": 1,
 		"tooltip": {
 			"en": [
 				"Upon death, deals 130% of ATK as {arts} damage in a 1.65 tile radius to all allied and enemy units and applies Cold for <v.duration>s{can_silence}{ignore_camou}"
@@ -3944,6 +3948,7 @@
 		}
 	},
 	"cbterm_explode": {
+		"buffloss": true,
 		"atk": { "multiplier": 2 },
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"tooltip": {
@@ -5679,15 +5684,16 @@
 		}
 	},
 	"patrt_1": {
-		"effects": [
-			{
-				"targets": ["enemy_1506_patrt"],
-				"mods": {
-					"atk": 1.2,
-					"fixed_def": 200
-				}
-			}
-		],
+		"type": "buff",
+		"effects": {
+			"targets": ["ALL"],
+			"activeTargets": [{ "key": "enemy_1506_patrt", "count": 1 }],
+			"mods": [
+				{ "key": "atk", "value": 0.2, "order": "initial", "mode": "mul" },
+				{ "key": "def", "value": 200, "order": "initial", "mode": "add" }
+			],
+			"stackType": "add"
+		},
 		"tooltip": {
 			"en": [
 				"When on field, grants all enemies (including self) ATK +20%, DEF +200 and Inspired buff"
@@ -5925,7 +5931,11 @@
 				"Revives over 7.33 seconds when defeated for the first time, after which all units on field will be erased and Qui'lon teleports to a new section of the map",
 				"Only Operators taken away by Padmasanas of Rebirth can be used here"
 			],
-			"ja": ["HPが0になると、7.33秒かけてHPを100%回復","マップ上の敵味方すべてを消滅させ、マップがスライド。無憂覚形態へ移行","このステージでは防衛ラインに侵入した托生蓮座に積載されていた者のみが使用可能"],
+			"ja": [
+				"HPが0になると、7.33秒かけてHPを100%回復",
+				"マップ上の敵味方すべてを消滅させ、マップがスライド。無憂覚形態へ移行",
+				"このステージでは防衛ラインに侵入した托生蓮座に積載されていた者のみが使用可能"
+			],
 			"zh": [
 				"首次被击倒时，进行7.33s的重生（恢复100%生命值），随后强制击杀场上其他敌人(包括尼卢火)与干员，将待部署区中未被托生莲座装载进入保护目标的干员全部隐藏，闪现至指定位置并以新路径行动，释放当前波次，移动关卡地图至区域作战，解除托生莲座的带来的不可部署状态并清空友方单位剩余再部署时间"
 			]
@@ -5943,9 +5953,7 @@
 			"en": [
 				"[Breaching of the Five Precepts] - Unleashes 5 consecutive attacks on the target, also triggers [Wrathful Gaze] 5 times"
 			],
-			"ja": [
-				"【五戒の罰】- 対象に5回攻撃を行う、【清火執】も5回発動する"
-			],
+			"ja": ["【五戒の罰】- 対象に5回攻撃を行う、【清火執】も5回発動する"],
 			"zh": [
 				"对目标连续进行5次攻击，每次造成攻击力<v.atk.multiplier>%{phys}伤害，并于每次命中目标时触发一次【清火执】效果"
 			]
@@ -5960,7 +5968,9 @@
 	},
 	"skzjkl_3_2": {
 		"tooltip": {
-			"en": ["Summons an Aggini of Nila at preset positions on the map every 10 seconds. Summons an additional wave of enemies every 20 seconds"],
+			"en": [
+				"Summons an Aggini of Nila at preset positions on the map every 10 seconds. Summons an additional wave of enemies every 20 seconds"
+			],
 			"ja": ["10秒ごとに「ニーラのアグニ」を召喚。20秒ごとに敵を召喚する"],
 			"zh": [
 				"每10s，在场上预设位置召唤尼卢火；每20s，以预设路径召唤敌人（思维混乱时召唤不同敌人） "
@@ -6171,8 +6181,14 @@
 		"duration": 20,
 		"skillRange": 1.0,
 		"tooltip": {
-			"en": ["Devours a friendly unit within 1 tile radius, stops moving and digests it for <v.duration> seconds","If defeated while digesting, the devoured operator redeployment time resets to 0; summons enter redeployment time"],
-			"ja": ["半径1.6以内に味方を強制撤退させ、<v.duration>秒間の消化状態に入る。この間は移動せず、【丸呑み】を使用しない。","強制撤退したオペレーターの再配置時間は0になるが、消化が終わるか飲み込んだ敵を倒すまで再配置できない。消化終わったらオペレーターの再配置時間が通常通りになる"],
+			"en": [
+				"Devours a friendly unit within 1 tile radius, stops moving and digests it for <v.duration> seconds",
+				"If defeated while digesting, the devoured operator redeployment time resets to 0; summons enter redeployment time"
+			],
+			"ja": [
+				"半径1.6以内に味方を強制撤退させ、<v.duration>秒間の消化状態に入る。この間は移動せず、【丸呑み】を使用しない。",
+				"強制撤退したオペレーターの再配置時間は0になるが、消化が終わるか飲み込んだ敵を倒すまで再配置できない。消化終わったらオペレーターの再配置時間が通常通りになる"
+			],
 			"zh": [
 				"自身半径1范围内存在我方单位时触发：将目标强制击倒，随后<v.duration>s内进入消化食物状态，停止移动且无法【吞食】",
 				"被击倒的干员再部署时间归零但在消化完成前无法再部署，召唤物则进入再部署时间"

@@ -7,14 +7,15 @@
 	import { floorPrefixSuffix } from '$lib/functions/languageHelpers';
 	import Icon from '$lib/components/Icon.svelte';
 
-	export let stageFloors: number[], language: Language;
+	export let stageFloors: number[]|null, language: Language;
 	let optionsOpen = false;
 
 	// const floorIcons = [floor1, floor2, floor3, floor4, floor5, floor6];
 
-	function updateFloor(floors: number[]) {
-		if (!floors.includes($selectedFloor)) {
-			selectedFloor.set(Math.min(...stageFloors));
+	function updateFloor(floors: number[]|null) {
+		if(!floors) return;
+		if (!floors?.includes($selectedFloor)) {
+			selectedFloor.set(Math.min(...floors));
 		}
 	}
 	$: updateFloor(stageFloors);

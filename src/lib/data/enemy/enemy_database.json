@@ -2283,7 +2283,8 @@
 					{
 						"key": "avenger",
 						"atk": {
-							"multiplier": 2.8
+							"multiplier": 1.8,
+							"order": "initial"
 						}
 					}
 				],
@@ -2305,7 +2306,8 @@
 					{
 						"key": "avenger",
 						"atk": {
-							"multiplier": 2.8
+							"multiplier": 1.8,
+							"order": "initial"
 						}
 					}
 				],
@@ -6361,7 +6363,8 @@
 				"epResistance": 0.0,
 				"traits": [
 					{
-						"key": "guerilla_siegebreaker_leader_buff"
+						"key": "guerilla_siegebreaker_buff",
+						"atk": { "multiplier": 0.8, "order": "initial" }
 					}
 				],
 				"special": []
@@ -9066,12 +9069,22 @@
 					]
 				],
 				"form_mods": [
-					{
-						"fixed_aspd": -50
-					},
-					{
-						"atk": 1.5
-					}
+					[
+						{
+							"key": "aspd",
+							"value": -50,
+							"mode": "add",
+							"order": "initial"
+						}
+					],
+					[
+						{
+							"key": "atk",
+							"value": 0.5,
+							"mode": "mul",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -9131,12 +9144,22 @@
 					]
 				],
 				"form_mods": [
-					{
-						"fixed_aspd": -50
-					},
-					{
-						"atk": 1.5
-					}
+					[
+						{
+							"key": "aspd",
+							"value": -50,
+							"mode": "add",
+							"order": "initial"
+						}
+					],
+					[
+						{
+							"key": "atk",
+							"value": 0.5,
+							"mode": "mul",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -9199,12 +9222,22 @@
 					]
 				],
 				"form_mods": [
-					{
-						"fixed_aspd": -50
-					},
-					{
-						"atk": 1.5
-					}
+					[
+						{
+							"key": "aspd",
+							"value": -50,
+							"mode": "add",
+							"order": "initial"
+						}
+					],
+					[
+						{
+							"key": "atk",
+							"value": 0.5,
+							"mode": "mul",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -9267,12 +9300,22 @@
 					]
 				],
 				"form_mods": [
-					{
-						"fixed_aspd": -50
-					},
-					{
-						"atk": 1.5
-					}
+					[
+						{
+							"key": "aspd",
+							"value": -50,
+							"mode": "add",
+							"order": "initial"
+						}
+					],
+					[
+						{
+							"key": "atk",
+							"value": 0.5,
+							"mode": "mul",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -9336,12 +9379,22 @@
 					]
 				],
 				"form_mods": [
-					{
-						"fixed_aspd": -50
-					},
-					{
-						"atk": 1.5
-					}
+					[
+						{
+							"key": "aspd",
+							"value": -50,
+							"mode": "add",
+							"order": "initial"
+						}
+					],
+					[
+						{
+							"key": "atk",
+							"value": 0.5,
+							"mode": "mul",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -9405,12 +9458,22 @@
 					]
 				],
 				"form_mods": [
-					{
-						"fixed_aspd": -50
-					},
-					{
-						"atk": 1.5
-					}
+					[
+						{
+							"key": "aspd",
+							"value": -50,
+							"mode": "add",
+							"order": "initial"
+						}
+					],
+					[
+						{
+							"key": "atk",
+							"value": 0.5,
+							"mode": "mul",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -9473,13 +9536,28 @@
 					]
 				],
 				"form_mods": [
-					{
-						"fixed_aspd": -50
-					},
-					{
-						"atk": 1.5,
-						"fixed_res": 40
-					}
+					[
+						{
+							"key": "aspd",
+							"value": -50,
+							"mode": "add",
+							"order": "initial"
+						}
+					],
+					[
+						{
+							"key": "atk",
+							"value": 0.5,
+							"mode": "mul",
+							"order": "initial"
+						},
+						{
+							"key": "res",
+							"value": 40,
+							"mode": "add",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -9544,13 +9622,28 @@
 					]
 				],
 				"form_mods": [
-					{
-						"fixed_aspd": -50
-					},
-					{
-						"atk": 1.5,
-						"fixed_res": 60
-					}
+					[
+						{
+							"key": "aspd",
+							"value": -50,
+							"mode": "add",
+							"order": "initial"
+						}
+					],
+					[
+						{
+							"key": "atk",
+							"value": 0.5,
+							"mode": "mul",
+							"order": "initial"
+						},
+						{
+							"key": "res",
+							"value": 60,
+							"mode": "add",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -9617,13 +9710,28 @@
 					]
 				],
 				"form_mods": [
-					{
-						"fixed_aspd": -50,
-						"fixed_def": 300
-					},
-					{
-						"atk": 1.5
-					}
+					[
+						{
+							"key": "aspd",
+							"value": -50,
+							"mode": "add",
+							"order": "initial"
+						},
+						{
+							"key": "def",
+							"value": 300,
+							"mode": "add",
+							"order": "initial"
+						}
+					],
+					[
+						{
+							"key": "atk",
+							"value": 0.5,
+							"mode": "mul",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -9691,13 +9799,28 @@
 					]
 				],
 				"form_mods": [
-					{
-						"fixed_aspd": -50,
-						"fixed_def": 300
-					},
-					{
-						"atk": 1.5
-					}
+					[
+						{
+							"key": "aspd",
+							"value": -50,
+							"mode": "add",
+							"order": "initial"
+						},
+						{
+							"key": "def",
+							"value": 300,
+							"mode": "add",
+							"order": "initial"
+						}
+					],
+					[
+						{
+							"key": "atk",
+							"value": 0.5,
+							"mode": "mul",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -9760,13 +9883,28 @@
 					]
 				],
 				"form_mods": [
-					{
-						"fixed_aspd": -50,
-						"fixed_def": 300
-					},
-					{
-						"atk": 1.5
-					}
+					[
+						{
+							"key": "aspd",
+							"value": -50,
+							"mode": "add",
+							"order": "initial"
+						},
+						{
+							"key": "def",
+							"value": 300,
+							"mode": "add",
+							"order": "initial"
+						}
+					],
+					[
+						{
+							"key": "atk",
+							"value": 0.5,
+							"mode": "mul",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -9829,13 +9967,28 @@
 					]
 				],
 				"form_mods": [
-					{
-						"fixed_aspd": -50,
-						"fixed_def": 300
-					},
-					{
-						"atk": 1.5
-					}
+					[
+						{
+							"key": "aspd",
+							"value": -50,
+							"mode": "add",
+							"order": "initial"
+						},
+						{
+							"key": "def",
+							"value": 300,
+							"mode": "add",
+							"order": "initial"
+						}
+					],
+					[
+						{
+							"key": "atk",
+							"value": 0.5,
+							"mode": "mul",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -13676,10 +13829,15 @@
 					]
 				],
 				"form_mods": [
-					{},
-					{
-						"fixed_range": 1.6
-					}
+					[],
+					[
+						{
+							"key": "range",
+							"value": 1.6,
+							"mode": "add",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -13740,10 +13898,15 @@
 					]
 				],
 				"form_mods": [
-					{},
-					{
-						"fixed_range": 1.6
-					}
+					[],
+					[
+						{
+							"key": "range",
+							"value": 1.6,
+							"mode": "add",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -22665,10 +22828,15 @@
 					]
 				],
 				"form_mods": [
-					{},
-					{
-						"set_hp": 5
-					}
+					[],
+					[
+						{
+							"key": "hp",
+							"value": 5,
+							"mode": "set",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -22731,10 +22899,15 @@
 					]
 				],
 				"form_mods": [
-					{},
-					{
-						"set_hp": 5
-					}
+					[],
+					[
+						{
+							"key": "hp",
+							"value": 5,
+							"mode": "set",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -23015,10 +23188,15 @@
 					]
 				],
 				"form_mods": [
-					{},
-					{
-						"set_hp": 10
-					}
+					[],
+					[
+						{
+							"key": "hp",
+							"value": 10,
+							"mode": "set",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -23081,10 +23259,15 @@
 					]
 				],
 				"form_mods": [
-					{},
-					{
-						"set_hp": 10
-					}
+					[],
+					[
+						{
+							"key": "hp",
+							"value": 10,
+							"mode": "set",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -25218,10 +25401,15 @@
 					]
 				],
 				"form_mods": [
-					{},
-					{
-						"atk": 1.5
-					}
+					[],
+					[
+						{
+							"key": "atk",
+							"value": 0.5,
+							"mode": "mul",
+							"order": "initial"
+						}
+					]
 				]
 			},
 			{
@@ -25265,10 +25453,15 @@
 					]
 				],
 				"form_mods": [
-					{},
-					{
-						"atk": 1.5
-					}
+					[],
+					[
+						{
+							"key": "atk",
+							"value": 0.5,
+							"mode": "mul",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -25533,10 +25726,15 @@
 					]
 				],
 				"form_mods": [
-					{},
-					{
-						"atk": 1.5
-					}
+					[],
+					[
+						{
+							"key": "atk",
+							"value": 0.5,
+							"mode": "mul",
+							"order": "initial"
+						}
+					]
 				]
 			},
 			{
@@ -25587,10 +25785,15 @@
 					]
 				],
 				"form_mods": [
-					{},
-					{
-						"atk": 1.5
-					}
+					[],
+					[
+						{
+							"key": "atk",
+							"value": 0.5,
+							"mode": "mul",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -25667,19 +25870,46 @@
 					]
 				],
 				"form_mods": [
-					{
-						"atk": 1.7,
-						"def": 3,
-						"fixed_def": 200,
-						"res": 2
-					},
-					{
-						"atk": 1.2,
-						"fixed_def": 200,
-						"fixed_ms": 0.1,
-						"atk_interval": -0.4,
-						"fixed_range": 0.85
-					}
+					[
+						{
+							"key": "atk",
+							"value": 0.5,
+							"mode": "mul",
+							"order": "initial"
+						},
+						{
+							"key": "def",
+							"value": 2,
+							"mode": "mul",
+							"order": "initial"
+						},
+						{
+							"key": "res",
+							"value": 1,
+							"mode": "mul",
+							"order": "initial"
+						}
+					],
+					[
+						{
+							"key": "ms",
+							"value": 0.1,
+							"mode": "add",
+							"order": "initial"
+						},
+						{
+							"key": "atk_interval",
+							"value": -0.4,
+							"mode": "add",
+							"order": "initial"
+						},
+						{
+							"key": "range",
+							"value": 0.85,
+							"mode": "add",
+							"order": "initial"
+						}
+					]
 				]
 			},
 			{
@@ -25728,19 +25958,46 @@
 					]
 				],
 				"form_mods": [
-					{
-						"atk": 1.7,
-						"def": 3,
-						"fixed_def": 200,
-						"res": 2
-					},
-					{
-						"atk": 1.2,
-						"fixed_def": 200,
-						"fixed_ms": 0.1,
-						"atk_interval": -0.4,
-						"fixed_range": 0.85
-					}
+					[
+						{
+							"key": "atk",
+							"value": 0.5,
+							"mode": "mul",
+							"order": "initial"
+						},
+						{
+							"key": "def",
+							"value": 2,
+							"mode": "mul",
+							"order": "initial"
+						},
+						{
+							"key": "res",
+							"value": 1,
+							"mode": "mul",
+							"order": "initial"
+						}
+					],
+					[
+						{
+							"key": "ms",
+							"value": 0.1,
+							"mode": "add",
+							"order": "initial"
+						},
+						{
+							"key": "atk_interval",
+							"value": -0.4,
+							"mode": "add",
+							"order": "initial"
+						},
+						{
+							"key": "range",
+							"value": 0.85,
+							"mode": "add",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -25922,12 +26179,27 @@
 					]
 				],
 				"form_mods": [
-					{},
-					{
-						"atk": 1.8,
-						"fixed_aspd": 100,
-						"ms": 2.5
-					}
+					[],
+					[
+						{
+							"key": "atk",
+							"value": 0.8,
+							"mode": "mul",
+							"order": "initial"
+						},
+						{
+							"key": "aspd",
+							"value": 100,
+							"mode": "add",
+							"order": "initial"
+						},
+						{
+							"key": "ms",
+							"value": 1.5,
+							"mode": "mul",
+							"order": "initial"
+						}
+					]
 				]
 			},
 			{
@@ -25965,12 +26237,27 @@
 					]
 				],
 				"form_mods": [
-					{},
-					{
-						"atk": 1.8,
-						"fixed_aspd": 100,
-						"ms": 2.5
-					}
+					[],
+					[
+						{
+							"key": "atk",
+							"value": 0.8,
+							"mode": "mul",
+							"order": "initial"
+						},
+						{
+							"key": "aspd",
+							"value": 100,
+							"mode": "add",
+							"order": "initial"
+						},
+						{
+							"key": "ms",
+							"value": 1.5,
+							"mode": "mul",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -26034,12 +26321,27 @@
 					]
 				],
 				"form_mods": [
-					{},
-					{
-						"atk": 1.8,
-						"fixed_aspd": 100,
-						"ms": 1.5
-					}
+					[],
+					[
+						{
+							"key": "atk",
+							"value": 0.8,
+							"mode": "mul",
+							"order": "initial"
+						},
+						{
+							"key": "aspd",
+							"value": 100,
+							"mode": "add",
+							"order": "initial"
+						},
+						{
+							"key": "ms",
+							"value": 1.5,
+							"mode": "mul",
+							"order": "initial"
+						}
+					]
 				]
 			},
 			{
@@ -26075,12 +26377,27 @@
 					]
 				],
 				"form_mods": [
-					{},
-					{
-						"atk": 1.8,
-						"fixed_aspd": 100,
-						"ms": 1.5
-					}
+					[],
+					[
+						{
+							"key": "atk",
+							"value": 0.8,
+							"mode": "mul",
+							"order": "initial"
+						},
+						{
+							"key": "aspd",
+							"value": 100,
+							"mode": "add",
+							"order": "initial"
+						},
+						{
+							"key": "ms",
+							"value": 1.5,
+							"mode": "mul",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -26243,16 +26560,46 @@
 					]
 				],
 				"form_mods": [
-					{
-						"fixed_res": 50
-					},
-					{
-						"fixed_atk": 700,
-						"fixed_def": 1000,
-						"atk_interval": -1.5,
-						"fixed_ms": 0.3,
-						"fixed_range": -2
-					}
+					[
+						{
+							"key": "res",
+							"value": 50,
+							"mode": "add",
+							"order": "initial"
+						}
+					],
+					[
+						{
+							"key": "atk",
+							"value": 700,
+							"mode": "add",
+							"order": "initial"
+						},
+						{
+							"key": "def",
+							"value": 1000,
+							"mode": "add",
+							"order": "initial"
+						},
+						{
+							"key": "atk_interval",
+							"value": -1.5,
+							"mode": "add",
+							"order": "initial"
+						},
+						{
+							"key": "ms",
+							"value": 0.3,
+							"mode": "add",
+							"order": "initial"
+						},
+						{
+							"key": "range",
+							"value": -2,
+							"mode": "add",
+							"order": "initial"
+						}
+					]
 				]
 			},
 			{
@@ -26288,16 +26635,46 @@
 					]
 				],
 				"form_mods": [
-					{
-						"fixed_res": 50
-					},
-					{
-						"fixed_atk": 800,
-						"fixed_def": 1000,
-						"atk_interval": -1.5,
-						"fixed_ms": 0.3,
-						"fixed_range": -2
-					}
+					[
+						{
+							"key": "res",
+							"value": 50,
+							"mode": "add",
+							"order": "initial"
+						}
+					],
+					[
+						{
+							"key": "atk",
+							"value": 800,
+							"mode": "add",
+							"order": "initial"
+						},
+						{
+							"key": "def",
+							"value": 1000,
+							"mode": "add",
+							"order": "initial"
+						},
+						{
+							"key": "atk_interval",
+							"value": -1.5,
+							"mode": "add",
+							"order": "initial"
+						},
+						{
+							"key": "ms",
+							"value": 0.3,
+							"mode": "add",
+							"order": "initial"
+						},
+						{
+							"key": "range",
+							"value": -2,
+							"mode": "add",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -26955,7 +27332,7 @@
 						}
 					]
 				],
-				"form_mods": [{}, {}]
+				"form_mods": [[], []]
 			},
 			{
 				"hp": 60000,
@@ -27000,7 +27377,7 @@
 						}
 					]
 				],
-				"form_mods": [{}, {}]
+				"form_mods": [[], []]
 			}
 		],
 		"forms": [
@@ -27752,11 +28129,21 @@
 					]
 				],
 				"form_mods": [
-					{},
-					{
-						"hp": 1.5,
-						"atk": 1.9
-					}
+					[],
+					[
+						{
+							"key": "atk",
+							"value": 0.9,
+							"mode": "mul",
+							"order": "initial"
+						},
+						{
+							"key": "hp",
+							"value": 0.5,
+							"mode": "mul",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -27895,11 +28282,21 @@
 					]
 				],
 				"form_mods": [
-					{},
-					{
-						"fixed_aspd": 100,
-						"ms": 2
-					}
+					[],
+					[
+						{
+							"key": "ms",
+							"value": 1,
+							"mode": "mul",
+							"order": "initial"
+						},
+						{
+							"key": "aspd",
+							"value": 100,
+							"mode": "add",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -27957,11 +28354,21 @@
 					]
 				],
 				"form_mods": [
-					{},
-					{
-						"fixed_aspd": 100,
-						"ms": 2
-					}
+					[],
+					[
+						{
+							"key": "ms",
+							"value": 1,
+							"mode": "mul",
+							"order": "initial"
+						},
+						{
+							"key": "aspd",
+							"value": 100,
+							"mode": "add",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -28129,7 +28536,7 @@
 						}
 					]
 				],
-				"form_mods": [{}, {}]
+				"form_mods": [[], []]
 			}
 		],
 		"forms": [
@@ -28559,12 +28966,22 @@
 					]
 				],
 				"form_mods": [
-					{
-						"fixed_range": 2.5
-					},
-					{
-						"fixed_range": 3.5
-					}
+					[
+						{
+							"key": "range",
+							"value": 2.5,
+							"mode": "add",
+							"order": "initial"
+						}
+					],
+					[
+						{
+							"key": "range",
+							"value": 3.5,
+							"mode": "add",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -28635,10 +29052,15 @@
 					]
 				],
 				"form_mods": [
-					{},
-					{
-						"ms": 0.5
-					}
+					[],
+					[
+						{
+							"key": "ms",
+							"value": -0.5,
+							"mode": "mul",
+							"order": "initial"
+						}
+					]
 				]
 			}
 		],
@@ -28709,18 +29131,16 @@
 					]
 				],
 				"form_mods": [
-					{
-						"fixed_range": 20
-					},
-					{
-						"hp": 0.5,
-						"atk": 0.625,
-						"def": 0.3,
-						"res": 0.5,
-						"ms": 0.8,
-						"aspd": 2,
-						"fixed_range": 4
-					}
+					[{ "key": "range", "value": 20, "order": "initial", "mode": "add" }],
+					[
+						{ "key": "hp", "value": 0.5, "order": "final", "mode": "mul" },
+						{ "key": "atk", "value": 0.625, "order": "final", "mode": "mul" },
+						{ "key": "def", "value": 0.3, "order": "final", "mode": "mul" },
+						{ "key": "res", "value": 0.5, "order": "final", "mode": "mul" },
+						{ "key": "ms", "value": 0.8, "order": "final", "mode": "mul" },
+						{ "key": "atk_interval", "value": 0.5, "order": "final", "mode": "mul" },
+						{ "key": "range", "value": 4.0, "order": "initial", "mode": "add" }
+					]
 				]
 			}
 		],
@@ -31635,7 +32055,8 @@
 					{
 						"key": "avenger",
 						"atk": {
-							"multiplier": 2.8
+							"multiplier": 1.8,
+							"order": "initial"
 						}
 					},
 					{
@@ -31834,7 +32255,7 @@
 						}
 					]
 				],
-				"form_mods": [{}, {}]
+				"form_mods": [[], []]
 			}
 		],
 		"forms": [
@@ -44732,7 +45153,7 @@
 						}
 					]
 				],
-				"form_mods": [{}, {}]
+				"form_mods": [[], []]
 			}
 		],
 		"forms": [
@@ -44799,7 +45220,7 @@
 						}
 					]
 				],
-				"form_mods": [{}, {}]
+				"form_mods": [[], []]
 			}
 		],
 		"forms": [
@@ -44878,13 +45299,9 @@
 					[]
 				],
 				"form_mods": [
-					{
-						"fixed_range": -2
-					},
-					{},
-					{
-						"atk": 1.25
-					}
+					[{ "key": "range", "value": -2, "order": "initial", "mode": "add" }],
+					[],
+					[{ "key": "atk", "value": 0.25, "order": "initial", "mode": "mul" }]
 				]
 			}
 		],
@@ -47174,7 +47591,7 @@
 						}
 					]
 				],
-				"form_mods": [{}, {}, {}]
+				"form_mods": [[], [], []]
 			}
 		],
 		"forms": [
@@ -49295,7 +49712,7 @@
 						}
 					]
 				],
-				"form_mods": [{}, {}]
+				"form_mods": [[], []]
 			}
 		],
 		"forms": [

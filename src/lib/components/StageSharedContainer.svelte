@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { pruneExtraEnemies } from '$lib/functions/lib';
-	import { applyMods, compileStatModsForChecking } from '$lib/functions/statHelpers';
+	import { applyMods } from '$lib/functions/statHelpers';
 	import { applyTrapMods, filterTraps } from '$lib/functions/trapHelpers';
 	import EliteToggle from './EliteToggle.svelte';
 	import EnemyCount from './EnemyCount.svelte';
@@ -17,20 +17,13 @@
 		specialMods,
 		mapConfig,
 		eliteMode,
-		normalMods,
-		eliteMods,
+		runes,
 		rogueTopic,
 		selectedRelics,
-		otherStores;
+		otherStores={};
 
-	$: moddedEnemies = applyMods(enemies, mapConfig.id, $statMods, $specialMods);
+	$: moddedEnemies = applyMods(enemies, $statMods, $specialMods);
 	$: moddedTraps = applyTrapMods(traps, $statMods, $specialMods);
-	$: modsCheck = compileStatModsForChecking(
-		pruneExtraEnemies(enemies, mapConfig.levelId),
-		mapConfig.id,
-		$statMods,
-		$specialMods
-	);
 	eliteMode.subscribe((v) => (GameConfig.eliteMode = v));
 	specialMods.subscribe((v) => (GameConfig.specialMods = v));
 
@@ -50,10 +43,9 @@
 			slot="eliteMods"
 			inWaveOptions={true}
 			{eliteMode}
-			{normalMods}
+			{runes}
 			mapNormalMods={mapConfig.n_mods}
 			mapEliteMods={mapConfig.elite_mods}
-			{eliteMods}
 			{rogueTopic}
 			{selectedRelics}
 			stageId={mapConfig.levelId}
@@ -66,7 +58,7 @@
 	{otherBuffsList}
 	specialMods={$specialMods}
 />
-<ModsCheck {language} {modsCheck} {mapConfig} />
+<ModsCheck {language} enemies={moddedEnemies} {mapConfig} />
 <EnemyCount
 	{mapConfig}
 	enemies={pruneExtraEnemies(moddedEnemies, mapConfig.levelId)}
@@ -76,10 +68,9 @@
 <div class="sm:px-6">
 	<EliteToggle
 		{eliteMode}
-		{normalMods}
+		{runes}
 		mapNormalMods={mapConfig.n_mods}
 		mapEliteMods={mapConfig.elite_mods}
-		{eliteMods}
 		{rogueTopic}
 		{selectedRelics}
 		stageId={mapConfig.levelId}
@@ -87,6 +78,7 @@
 	<EnemyStatDisplay
 		enemies={pruneExtraEnemies(moddedEnemies, mapConfig.levelId)}
 		{language}
+		{statMods}
 		{specialMods}
 		{otherBuffsList}
 	/>

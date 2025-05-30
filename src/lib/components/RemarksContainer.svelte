@@ -17,18 +17,30 @@
 	{#if enemy.forms.length === 1}
 		<StatusImmune {statusImmuneList} {language} mode="table" />
 		<ul class="list-disc pl-5">
-			{#if enemy.forms[row].stats.dmg_reduction}
+			{#if enemy.forms[row].stats.dmgRes}
 				<li class="py-1">
-					{translations[language].dmg_reduction} - {enemy.forms[row].stats.dmg_reduction}%
+					{translations[language].dmg_res_short} - {enemy.forms[row].stats.dmgRes * 100}%
 				</li>
 			{/if}
 			{#each traits as skill}
-				<Remark {enemy} {skill} {language} enemyStats={enemy.forms[row].stats} {statusImmuneList} />
+				<Remark
+					entity={enemy}
+					formIndex={row}
+					{skill}
+					{language}
+					{statusImmuneList}
+				/>
 			{/each}
 		</ul>
 		<ul class="list-disc pl-5">
 			{#each specialList as skill}
-				<Remark {enemy} {skill} {language} enemyStats={enemy.forms[row].stats} {statusImmuneList} />
+				<Remark
+					entity={enemy}
+					formIndex={row}
+					{skill}
+					{language}
+					{statusImmuneList}
+				/>
 			{/each}
 		</ul>
 	{:else}
@@ -43,17 +55,17 @@
 				<StatusImmune {statusImmuneList} {language} mode="table" />
 			{/if}
 			<ul class="list-disc pl-5">
-				{#if enemy.forms[row].stats.dmg_reduction}
+				{#if enemy.forms[row].stats.dmg_res}
 					<li class="py-1">
-						{translations[language].dmg_reduction} - {enemy.forms[row].stats.dmg_reduction}%
+						{translations[language].dmg_res_short} - {enemy.forms[row].stats.dmg_res * 100}%
 					</li>
 				{/if}
 				{#each traits as skill}
 					<Remark
-						{enemy}
+						entity={enemy}
+						formIndex={row}
 						{skill}
 						{language}
-						enemyStats={enemy.forms[row].stats}
 						{statusImmuneList}
 					/>
 				{/each}
@@ -65,7 +77,13 @@
 		{/if}
 		<ul class="list-disc pl-5">
 			{#each specialList as skill}
-				<Remark {enemy} {skill} {language} enemyStats={enemy.forms[row].stats} {statusImmuneList} />
+				<Remark
+					entity={enemy}
+					formIndex={row}
+					{skill}
+					{language}
+					{statusImmuneList}
+				/>
 			{/each}
 		</ul>
 	{/if}

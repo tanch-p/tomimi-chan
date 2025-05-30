@@ -2,7 +2,21 @@
 
 export type Language = 'zh' | 'ja' | 'en';
 export type RogueTopic = 'rogue_phantom' | 'rogue_mizuki' | 'rogue_sami' | 'rogue_skz' | null;
-type Stats = {
+export type StatKey =
+	| 'hp'
+	| 'atk'
+	| 'def'
+	| 'res'
+	| 'aspd'
+	| 'atk_interval'
+	| 'range'
+	| 'weight'
+	| 'lifepoint'
+	| 'ms'
+	| 'eleRes'
+	| 'eleDmgRes'
+	| 'dmgRes';
+export type Stats = {
 	hp: number;
 	atk: number;
 	def: number;
@@ -14,7 +28,7 @@ type Stats = {
 	ms: number;
 	eleRes: number;
 	eleDmgRes: number;
-	dmg_reduction?: number;
+	dmgRes?: number;
 };
 type EnemyDBStats = {
 	hp: number;
@@ -28,10 +42,9 @@ type EnemyDBStats = {
 	ms: number;
 	eleRes: number;
 	eleDmgRes: number;
-	dmg_reduction?: number;
 	traits: Skill[];
 	special: [Skill[]];
-	form_mods?: Mods[];
+	form_mods?: Mod[];
 };
 export type StatusImmune =
 	| 'stun'
@@ -40,7 +53,8 @@ export type StatusImmune =
 	| 'sleep'
 	| 'levitate'
 	| 'disarmCombat'
-	| 'fear';
+	| 'fear'
+	| 'palsy';
 type AttackType = 'no_attack' | 'melee' | 'ranged';
 type AttackAttribute = 'phys' | 'arts' | 'true' | 'heal';
 type EnemyType =
@@ -83,27 +97,33 @@ type EnemyDBFormType = {
 };
 
 // used in all stages and stat display
-export interface Enemy {
+export type Enemy = {
+	[key in `name_${Language}`]: string;
+} & {
 	id: string;
 	key: string;
 	stageId: string;
 	level: number;
-	img: string;
-	[key: `name_${string}`]: string;
 	forms: EnemyFormType[];
 	traits: Skill[]; //traits = active throughout all enemy forms
 	type: EnemyType[];
+	modsList: [ModGroup[]];
 	overwritten?: true | false;
-}
+	stats: EnemyDBStats[];
+};
 
-export interface EnemyDBEntry {
+export type EnemyDBEntry = {
+	[key in `name_${Language}`]: string;
+} & {
 	id: string;
 	key: string;
-	[key: `name_${string}`]: string;
+	stageId: string;
+	level: number;
 	stats: EnemyDBStats[];
 	forms: EnemyDBFormType[];
 	type: EnemyType[];
-}
+	overwritten?: true | false;
+};
 
 export interface Trap {
 	key: string;
@@ -118,7 +138,7 @@ export interface Trap {
 	talents: [];
 	skills: [];
 	status_immune: StatusImmune[];
-	ops: 'elite' | 'normal' | null;
+	modsList: [ModGroup[]];
 }
 export interface TrapData {
 	name_zh: string;
@@ -139,6 +159,7 @@ type trapStats = {
 	blockCnt: number;
 	aspd: number;
 	rangeId: string | null;
+	dmgRes: number;
 };
 
 type overwrittenData = {
@@ -156,7 +177,7 @@ export interface MapConfig {
 	levelId: string;
 	tags: string[];
 	initialCost: number;
-	maxCost:number;
+	maxCost: number;
 	costIncreaseTime: number;
 	floors: number[] | null;
 	routes: [] | null;
@@ -164,10 +185,8 @@ export interface MapConfig {
 	[key: `name_${string}`]: string;
 	[key: `description_${string}`]: string;
 	[key: `eliteDesc_${string}`]: string;
-	n_runes:null;
-	elite_runes:any|null;
-	n_mods: Mods | null;
-	elite_mods: Mods | null;
+	n_mods: Effects | null;
+	elite_mods: Effects | null;
 	traps: MapConfigTrap[];
 	trap_pos: TrapPos[];
 	enemies: MapConfigEnemy[];
@@ -193,35 +212,48 @@ export type Position = {
 };
 
 export type StatMods = {
-	initial: ModGroup[];
-	final: ModGroup[];
+	runes: ModGroup;
+	diff: ModGroup | null;
+	others: ModGroup[];
 };
-type ModOperation = 'times' | 'add';
 
 export type ModGroup = {
 	key: string;
 	mods: [Effects];
-	operation: ModOperation;
+	stackType?: 'mul' | 'add';
 };
 
 export type SpecialMods = {
-	[key: string]: Skill;
+	[key: string]: SpecialMod;
 };
+export type Effects = [{ targets: string[]; mods: Mod[]; special: SpecialMod }];
+type SpecialMod =
+	| {
+			[key: string]: Skill;
+	  }
+	| { status_immune?: StatusImmune[] };
 
-export type Mods = {
-	[key: string]: number;
+export type Mod = {
+	key: string;
+	order: 'initial' | 'final';
+	mode: 'mul' | 'add' | 'set';
+	name?: string;
+	value: number;
 };
-
-export type Effects = [{ targets: string[]; mods: Mods }];
 
 export type Skill = {
+	[key in StatKey]: SkillMod;
+} & {
 	key: string;
 	type?: 'skill' | 'buff' | undefined;
+	remove?: boolean;
 	value?: number;
+	buffloss?: boolean; //for enemies that lose buffs upon death
 	initCooldown?: number;
 	cooldown?: number;
 	initSp?: number;
 	spCost?: number;
+	duration?: number;
 	skillRange?: number;
 	skillType?: 'INCREASE_WITH_TIME' | 'INCREASE_WHEN_ATTACK';
 	can_silence?: boolean;
@@ -230,6 +262,13 @@ export type Skill = {
 	hits?: number;
 	formIndexes?: number[];
 	tooltip: Tooltip | null;
+};
+
+type SkillMod = {
+	value?: number; //set value type i.e. Pompeii's explosion
+	multiplier?: number;
+	fixed?: number;
+	order?: 'initial' | 'final';
 };
 
 type Tooltip = {

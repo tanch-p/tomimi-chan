@@ -27,6 +27,7 @@
 		{#each applicableBuffsList as buff}
 			{@const currentCount = getOtherBuffsCount($otherBuffsList, buff.key, entity.key)}
 			<button
+				id="{entity.key}-buff-{buff.key}"
 				class:brightness-50={currentCount === 0}
 				class="flex flex-col items-center gap-y-1"
 				on:click={() => updateOtherBuffsList(otherBuffsList, buff.key, entity.key)}

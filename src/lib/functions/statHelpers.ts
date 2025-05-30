@@ -1,18 +1,44 @@
 /* takes in a list of enemies and statMods and returns enemy with modifiers applied */
-import type { Enemy, StatMods, ModGroup, Effects } from '$lib/types';
+import type {
+	Enemy,
+	StatMods,
+	ModGroup,
+	Effects,
+	EnemyDBEntry,
+	Trap,
+	SpecialMods,
+	Skill,
+	StatKey
+} from '$lib/types';
+import { round } from './lib';
 
-const STATS = [
-	'hp',
-	'atk',
-	'aspd',
-	'range',
-	'def',
-	'res',
-	'weight',
-	'ms',
-	'lifepoint',
-	'dmg_reduction'
-];
+/*
+PLEASE READ https://prts.wiki/w/游戏数据基础#属性的定义
+
+
+DMG_REDUCTION - values 5% DR = 0.05
+VALUE = 1 - (1 - v1) * (1 - v2) * ...
+
+ASPD
+VALUE = Math.round((BASE STAT + ATK_INTERVAL_FIXED_VALUE) / (ASPD + ASPD_FIXED_VALUE) * ASPD_MULTIPLIER)
+
+!FOR CURRENT SCHEMA, PLEASE SET RUNES ASPD MODS AS INITIAL
+
+OTHER STATS - ATK/DEF...
+VALUE = Math.round((((BASE STAT +/* RUNES) + INITIAL_FIXED_VALUE) * INITIAL_MULTIPLIER) + FINAL_FIXED_VALUE) * FINAL_MULTIPLIER)
+
+FOR INITIAL MODS, IF INCREASE BY 50%, VALUE = 0.5
+FOR FINAL MODS, IF INCREASE BY 50%, VALUE = 1.5
+
+?SPECIAL CASES
+- 深池逐火战士 余烬 not affected by elite hp mods only, rest affects
+report from Legends from qq 25/10/2024
+
+- deyi not affected by relic -atk and diff atk
+report from boinexdo from bilibili 29/10/2024
+*/
+
+const STATS = ['hp', 'atk', 'aspd', 'range', 'def', 'res', 'weight', 'ms', 'lifepoint'];
 
 const PHCS_BOSSES = ['ICR', 'ICM', 'MSC', 'FSK', 'JTM', 'WDG', 'PTM', 'DOL', 'HST', 'WRT'];
 const MZK_BOSSES = [
@@ -61,7 +87,6 @@ const SARKAZ_BOSSES = [
 ];
 
 const NOT_AFFECTED_BY_DIFFICULTY_KEYS = [
-	'enemy_1352_eslime',
 	'enemy_3001_upeopl',
 	'enemy_1196_msfyin_2',
 	'enemy_1200_msfjin_2',
@@ -70,274 +95,306 @@ const NOT_AFFECTED_BY_DIFFICULTY_KEYS = [
 	'enemy_1210_msfden_2'
 ];
 
-//after applying mods, move stats under forms
 export function applyMods(
-	enemies: Enemy[],
-	stageId: string,
+	enemies: EnemyDBEntry[],
 	statMods: StatMods,
-	specialMods
+	specialMods: SpecialMods
 ): Enemy[] {
 	return enemies.map((enemy) => {
-		const holder = { ...enemy };
+		const holder = structuredClone(enemy);
+		holder.modsList = [];
 		for (let i = 0; i < holder.forms.length; i++) {
 			holder.forms[i].special = holder.stats.special?.[i] || [];
-			holder.forms[i].stats = parseStats(holder, stageId, statMods, i, specialMods);
+			holder.forms[i].stats = parseStats(holder, statMods, i, specialMods);
 		}
-		delete holder.stats;
-		return {
-			...holder
-		};
+		return holder;
 	});
 }
 
 //returns enemy 'stats' object with modded stats
 export function parseStats(
-	enemy: Enemy,
-	stageId: string,
+	enemy: EnemyDBEntry,
 	statMods: StatMods,
 	row: number,
-	specialMods
+	specialMods: SpecialMods
 ) {
-	let modsList = [];
+	let diffMods;
+	if (statMods.diff) {
+		diffMods = compileMods(enemy, statMods.diff);
+	}
 
-	//modsToAdd deals with initial mods that add up together - originium floor, buffs, form mods
-	const modsToAdd = statMods.initial
-		.map((mod) => {
-			if (!['combat_ops', 'elite_ops'].includes(mod.key)) {
-				const { key, mods } = distillMods(enemy, stageId, mod, row);
-				return mods;
-			}
-		})
-		.filter(Boolean);
-	if (enemy.stats?.form_mods) {
-		if (specialMods?.[enemy.key]?.[`mods_${row}`]) {
-			modsToAdd.push(specialMods?.[enemy.key]?.[`mods_${row}`]);
-		} else {
-			if(enemy.key==="enemy_2039_syskad" && row === 1){
-				const formMods = structuredClone(enemy.stats.form_mods[row]);
-				formMods.res = 1;
-				modsToAdd.push(formMods);
-			}
-			else{
+	const formMods = { key: 'form_mods', mods: enemy.stats?.form_mods?.[row] ?? [] };
+	if (specialMods?.[enemy.key]?.[`mods_${row}`]) {
+		formMods.mods = specialMods?.[enemy.key]?.[`mods_${row}`];
+	}
+	const runeMods = compileMods(enemy, statMods.runes);
+	const otherMods = statMods.others.map((mods) => compileMods(enemy, mods));
+	const secondaryMods = [formMods, diffMods, ...otherMods].filter((ele) => {
+		if (NOT_AFFECTED_BY_DIFFICULTY_KEYS.includes(enemy.key)) {
+			return Boolean(ele) && !['floor_diff', 'difficulty'].includes(ele.key);
+		}
+		return Boolean(ele);
+	});
 
-				modsToAdd.push(enemy.stats.form_mods[row]);
+	const statsHolder = { dmgRes: 0 };
+	for (const statKey of STATS) {
+		let isSet = false;
+		let initialValue = enemy.stats[statKey];
+		if (formMods.mods) {
+			const item = formMods.mods.find((ele) => ele.key === statKey && ele.mode === 'set');
+			if (item) {
+				initialValue = item.value;
+				isSet = true;
 			}
 		}
-	}
-	const consolidatedModsToAdd =
-		modsToAdd.length > 0
-			? modsToAdd.reduce((acc, curr) => {
-					for (const statKey in curr) {
-						if (
-							statKey.includes('fixed') ||
-							statKey === 'dmg_reduction' ||
-							statKey === 'atk_interval'
-						) {
-							acc[statKey] += curr[statKey];
-						} else {
-							acc[statKey] += curr[statKey] - 1;
-						}
-					}
-					return acc;
-			  })
-			: {};
-	for (const mod of statMods.initial.filter((mod) =>
-		['combat_ops', 'elite_ops'].includes(mod.key)
-	)) {
-		const { key, mods } = distillMods(enemy, stageId, mod, row);
-		modsList.push(mods);
-	}
-	modsList.push(consolidatedModsToAdd);
-	const initialMods = modsList.reduce((acc, curr) => {
-		for (const statKey in curr) {
-			if (statKey.includes('fixed') || statKey === 'atk_interval') {
-				acc[statKey] += curr[statKey];
-			} else if (statKey === 'dmg_reduction') {
-				if (acc[statKey] === 0) {
-					acc[statKey] += curr[statKey];
-				} else {
-					acc[statKey] = Math.round(
-						(1 - ((100 - acc[statKey]) / 100) * ((100 - curr[statKey]) / 100)) * 100
-					);
-				}
-			} else {
-				acc[statKey] *= curr[statKey];
-			}
+		if (statKey === 'aspd') {
+			statsHolder[statKey] = getModdedStat(
+				enemy.stats[statKey],
+				statKey,
+				runeMods,
+				...secondaryMods
+			);
+			continue;
 		}
-		return acc;
-	});
-	modsList = [];
-	for (const mod of statMods.final) {
-		const { key, mods } = distillMods(enemy, stageId, mod, row);
-		modsList.push(mods);
+		const baseValue = isSet ? initialValue : getModdedStat(initialValue, statKey, runeMods);
+		statsHolder[statKey] = getModdedStat(baseValue, statKey, ...secondaryMods);
 	}
-	if(enemy.key==="enemy_2039_syskad" && row === 1){
-		modsList.push({res:0.5});
-	}
-	const finalMods = modsList.reduce((acc, curr) => {
-		for (const statKey in curr) {
-			if (statKey.includes('fixed') || statKey === 'atk_interval') {
-				acc[statKey] += curr[statKey];
-			} else if (statKey === 'dmg_reduction') {
-				if (acc[statKey] === 0) {
-					acc[statKey] += curr[statKey];
-				} else {
-					acc[statKey] = Math.round(
-						(1 - ((100 - acc[statKey]) / 100) * ((100 - curr[statKey]) / 100)) * 100
-					);
-				}
-			} else {
-				acc[statKey] *= curr[statKey];
-			}
-		}
-		return acc;
-	});
-	const enemy_stats = {};
-	for (const stat of STATS) {
-		let statToUse = enemy.stats[stat];
-		if (enemy.stats?.form_mods?.[row]?.[`set_${stat}`]) {
-			statToUse = enemy.stats?.form_mods?.[row]?.[`set_${stat}`];
-		}
-		enemy_stats[stat] = calculateModdedStat(
-			statToUse,
-			stat,
-			initialMods?.[`fixed_${stat}`] ?? 0,
-			initialMods[stat] ?? 1,
-			finalMods?.[`fixed_${stat}`] ?? 0,
-			finalMods[stat] ?? 1,
-			stat === 'aspd' ? (initialMods?.atk_interval ?? 0) + (finalMods?.atk_interval ?? 0) : 0
-		);
-	}
-	return enemy_stats;
+	statsHolder['dmgRes'] = getDmgReductionVal(runeMods, ...secondaryMods);
+	enemy?.modsList?.push(
+		[runeMods, ...secondaryMods].filter(Boolean).filter((ele) => ele.mods?.length > 0)
+	);
+	return statsHolder;
 }
 
-//return mods: {atk:...}
-export const distillMods = (enemy: Enemy, stageId: string, mod: ModGroup, row: number) => {
-	const { key, mods: effectsList, operation } = mod;
-	const mods = {
-		hp: 1,
-		atk: 1,
-		def: 1,
-		res: 1,
-		aspd: 1,
-		ms: 1,
-		range: 1,
-		weight: 1,
-		lifepoint: 1,
-		atk_interval: 0,
-		fixed_hp: 0,
-		fixed_atk: 0,
-		fixed_def: 0,
-		fixed_res: 0,
-		fixed_aspd: 0,
-		fixed_ms: 0,
-		fixed_range: 0,
-		fixed_weight: 0,
-		dmg_reduction: 0
-	};
-	effectsList.filter(Boolean).forEach((effects) => {
-		for (const effect of effects) {
-			if (effect.targets.some((target) => checkIsTarget(enemy, target))) {
-				for (const statKey in effect.mods) {
-					if (!mods[statKey]) {
-						mods[statKey] = effect.mods[statKey];
-					} else if (statKey.includes('fixed') || statKey === 'atk_interval') {
-						mods[statKey] += effect.mods[statKey];
-					} else if (statKey === 'dmg_reduction') {
-						if (mods[statKey] === 0 || operation === 'add') {
-							mods[statKey] += effect.mods[statKey];
+export const getModdedStat = (baseValue: number, statKey: string, ...modsList) => {
+	let initialAdd = 0,
+		initialMul = 1,
+		finalAdd = 0,
+		finalMul = 1,
+		atkIntervalAdd = 0,
+		atkIntervalMul = 1;
+	for (const { mods } of modsList) {
+		if (!mods) {
+			continue;
+		}
+		for (const { key, value, mode, order = 'final' } of mods) {
+			if (key === 'atk_interval') {
+				switch (mode) {
+					case 'mul':
+						atkIntervalMul *= value;
+						break;
+					case 'add':
+						atkIntervalAdd += value;
+						break;
+				}
+				continue;
+			}
+			if (key === statKey) {
+				switch (mode) {
+					case 'mul':
+						if (order === 'initial') {
+							initialMul += value;
 						} else {
-							mods[statKey] = Math.round(
-								(1 - ((100 - mods[statKey]) / 100) * ((100 - effect.mods[statKey]) / 100)) * 100
-							);
+							finalMul *= value;
 						}
-					} else if (
-						(['enemy_1126_spslme', 'enemy_1126_spslme_2'].includes(enemy.key) &&
-							['floor_diff', 'relic'].includes(key) &&
-							statKey === 'atk') ||
-						(NOT_AFFECTED_BY_DIFFICULTY_KEYS.includes(enemy.key) &&
-							(key === 'floor_diff' || key === 'difficulty')) ||
-						([
-							'enemy_1288_duskls',
-							'enemy_1288_duskls_2',
-							'enemy_1292_duskld',
-							'enemy_1292_duskld_2'
-						].includes(enemy.key) &&
-							key === 'elite_ops' &&
-							row === 1)
-					) {
-						continue;
-					} else {
-						switch (operation) {
-							case 'add':
-								mods[statKey] += effect.mods[statKey] - 1;
-								break;
-							case 'times':
-								mods[statKey] *= effect.mods[statKey];
-								break;
+						break;
+					case 'add':
+						if (order === 'initial') {
+							initialAdd += value;
+						} else {
+							finalAdd += value;
 						}
-					}
+						break;
 				}
 			}
 		}
-	});
-	return { key, mods };
+	}
+	return calculateModdedStat(
+		baseValue,
+		statKey,
+		initialAdd,
+		initialMul,
+		finalAdd,
+		finalMul,
+		atkIntervalAdd,
+		atkIntervalMul
+	);
 };
 
 export const calculateModdedStat = (
-	base_stat: number,
-	stat: string,
-	initial_fixed_value: number,
-	initial_multiplier: number,
-	final_fixed_value: number,
-	final_multiplier: number,
-	atk_interval: number
+	baseValue: number,
+	statKey: string,
+	initialAdd: number,
+	initialMul: number,
+	finalAdd: number,
+	finalMul: number,
+	atkIntervalAdd: number,
+	atkIntervalMul: number
 ) => {
 	const aspd = 100;
-	if (stat !== 'aspd') {
-		base_stat += initial_fixed_value;
+	if (statKey !== 'aspd') {
+		baseValue += initialAdd;
 	}
-	switch (stat) {
-		//temp fix for dmg_reduction, to move to its own calculation if dmg reduction appears not just in difficulty mods
-		case 'dmg_reduction':
-			return initial_multiplier + final_multiplier;
+	switch (statKey) {
 		case 'aspd':
-			return (
-				Math.round(
-					((base_stat + atk_interval) /
-						(((aspd + initial_fixed_value + final_fixed_value) *
-							final_multiplier *
-							initial_multiplier) /
-							100)) *
-						100
-				) / 100
+			return round(
+				((baseValue + atkIntervalAdd) * atkIntervalMul) /
+					(Math.max(10, Math.min(((aspd + initialAdd) * initialMul + finalAdd) * finalMul, 600)) /
+						100)
 			);
 		case 'range':
 		case 'ms':
-			return (
-				Math.round((base_stat * initial_multiplier + final_fixed_value) * final_multiplier * 100) /
-				100
-			);
+			return round((baseValue * initialMul + finalAdd) * finalMul);
 		case 'weight':
 		case 'res':
-			return Math.min(
-				Math.max((base_stat * initial_multiplier + final_fixed_value) * final_multiplier, 0),
-				100
-			);
+			return Math.round(Math.min(Math.max((baseValue * initialMul + finalAdd) * finalMul, 0), 100));
 		default:
-			return Math.round((base_stat * initial_multiplier + final_fixed_value) * final_multiplier);
+			return Math.round((baseValue * initialMul + finalAdd) * finalMul);
 	}
 };
 
-export const checkIsTarget = (enemy: Enemy, target: string) => {
+export const getDmgReductionVal = (...modsList) => {
+	const namedValues = [];
+	const otherValues = [];
+	// get highest value from all named values
+	for (const { mods } of modsList) {
+		for (const mod of mods) {
+			const { key, value, name } = mod;
+			if (key !== 'dmg_res') continue;
+			if (name) {
+				const index = namedValues.findIndex((ele) => ele.name === name);
+				if (index === -1) {
+					namedValues.push({ name, value });
+				} else {
+					if (value > namedValues[index].value) {
+						namedValues[index].value = value;
+					}
+				}
+				continue;
+			}
+			otherValues.push(value);
+		}
+	}
+	const namedValuesToValue = namedValues.map((ele) => ele.value);
+	return round(
+		[...namedValuesToValue, ...otherValues].reduce((acc, curr) => {
+			if (acc === 0) {
+				acc = curr;
+			} else {
+				acc = 1 - (1 - acc) * (1 - curr);
+			}
+			return acc;
+		}, 0)
+	);
+};
+
+//for compilation of difficulty mods
+export function compileMods(entity: EnemyDBEntry | Trap, mod: ModGroup, type = 'enemy') {
+	const modsHolder = [];
+	const { key, mods, stackType = 'mul' } = mod;
+	for (const effects of mods.filter(Boolean)) {
+		for (const effect of effects) {
+			if (!effect.mods) continue;
+			if (type === 'trap_rune') {
+				if (!effect.targets.some((target) => target.includes(entity.key))) {
+					continue;
+				}
+			}
+			if (effect.targets.some((target) => checkIsTarget(entity, target))) {
+				for (const mod of effect.mods) {
+					const { key, value, mode, order = 'final', name = '' } = mod;
+					const item = modsHolder.find(
+						(ele) => ele.key === key && ele.order === order && ele.mode === mode
+					);
+					if (!item) {
+						modsHolder.push({ key: key, order: order, mode: mode, value: value, name });
+						continue;
+					}
+					if (key === 'dmg_res') {
+						item.value += value;
+						continue;
+					}
+					switch (mode) {
+						case 'mul':
+							if (stackType === 'mul') {
+								item.value *= value;
+							} else {
+								item.value += value - 1;
+							}
+							break;
+						case 'add':
+							item.value += value;
+							break;
+						default:
+							console.warn('Unknown mod mode', mode);
+					}
+				}
+			}
+		}
+	}
+	return { key: key, mods: modsHolder };
+}
+
+export const compileSpecialMods = (...modsList: [[Effects]]) => {
+	const specialMods = {};
+	for (const effectsList of modsList) {
+		for (const effects of effectsList)
+			if (effects !== null && effects.length > 0) {
+				effects.forEach((effect) => {
+					if (effect.special) {
+						for (const target of effect.targets) {
+							if (!specialMods[target]) {
+								specialMods[target] = {};
+							}
+							for (const key of Object.keys(effect.special)) {
+								specialMods[target][key] = effect.special[key];
+							}
+						}
+					}
+				});
+			}
+	}
+	return specialMods;
+};
+
+export const getStatSkillValue = (
+	entity: Enemy | Trap,
+	formIndex = 0,
+	skill: Skill,
+	stat: StatKey
+) => {
+	const runeMods = entity.modsList[formIndex].find((ele) => ['runes'].includes(ele.key)) || [];
+	let otherMods = entity.modsList[formIndex].filter((ele) => !['runes'].includes(ele.key));
+	const skillMod = {
+		key: skill.key,
+		mods: [
+			{
+				key: stat,
+				value: skill[stat].multiplier || skill[stat].fixed,
+				order: skill[stat].order || 'final',
+				mode: skill[stat].multiplier ? 'mul' : 'add'
+			}
+		]
+	};
+	if (stat === 'aspd') {
+		return getModdedStat(entity.stats[stat], stat, runeMods, skillMod, ...otherMods);
+	}
+	const baseValue = getModdedStat(entity.stats[stat], stat, runeMods);
+	if (skill.buffloss) {
+		otherMods = [];
+	}
+	return getModdedStat(baseValue, stat, skillMod, ...otherMods);
+};
+
+export const checkIsTarget = (entity: Enemy | Trap | EnemyDBEntry, target: string): boolean => {
 	if (target.includes('&')) {
 		const targets = target.split('&');
 		return targets.reduce((acc, curr) => {
-			acc = acc && checkIsTarget(enemy, curr);
+			acc = acc && checkIsTarget(entity, curr);
 			return acc;
 		}, true);
 	}
-	const { id, key, type } = enemy;
+	const { id, key, type } = entity;
 	switch (target) {
 		case 'ALL':
 			return true;
@@ -371,192 +428,4 @@ export const checkIsTarget = (enemy: Enemy, target: string) => {
 		default:
 			return target === id || target === key;
 	}
-};
-
-//return list of enemies { }
-export const compileStatModsForChecking = (
-	enemies: Enemy[],
-	stageId: string,
-	statMods: StatMods,
-	specialMods
-) => {
-	const returnList = [];
-	for (const enemy of enemies) {
-		if (enemy.stats?.form_mods) {
-			enemy.stats?.form_mods.forEach((formMods, i) => {
-				const modsList = [];
-				const modsToAdd = statMods.initial
-					.map((mod) => {
-						if (!['combat_ops', 'elite_ops'].includes(mod.key)) {
-							const { key, mods } = distillMods(enemy, stageId, mod, 0);
-							for (const stat of STATS.filter(
-								(stat) => !['lifepoint', 'dmg_reduction'].includes(stat)
-							)) {
-								if ((mods[stat] ?? 1) !== 1 || (mods[`fixed_${stat}`] ?? 0) !== 0) {
-									return { key, mods };
-								}
-							}
-						}
-					})
-					.filter(Boolean);
-				if (specialMods?.[enemy.key]?.[`mods_${i}`]) {
-					modsToAdd.push({
-						key: 'multiform_suffix',
-						mods: specialMods?.[enemy.key]?.[`mods_${i}`]
-					});
-				} else {
-					modsToAdd.push({ key: 'multiform_suffix', mods: formMods });
-				}
-				for (const mod of statMods.initial.filter((mod) =>
-					['combat_ops', 'elite_ops'].includes(mod.key)
-				)) {
-					modsList.push({ type: 'initial', ...distillMods(enemy, stageId, mod, i) });
-				}
-				modsList.push({
-					type: 'initial',
-					key: modsToAdd.reduce((acc, curr) => {
-						acc.push(curr.key);
-						return acc;
-					}, []),
-					mods: modsToAdd
-						.reduce((acc, curr) => {
-							acc.push(curr.mods);
-							return acc;
-						}, [])
-						.reduce((acc, curr) => {
-							for (const statKey in curr) {
-								if (
-									statKey.includes('fixed') ||
-									statKey === 'dmg_reduction' ||
-									statKey === 'atk_interval'
-								) {
-									acc[statKey] += curr[statKey];
-								} else {
-									acc[statKey] += curr[statKey] - 1;
-								}
-							}
-							return acc;
-						})
-				});
-				for (const mod of statMods.final) {
-					modsList.push({ type: 'final', ...distillMods(enemy, stageId, mod, i) });
-				}
-				returnList.push({
-					key: enemy.key,
-					name_zh: enemy.name_zh,
-					name_ja: enemy.name_ja,
-					name_en: enemy.name_en,
-					type: enemy.type,
-					form: enemy.forms[i].title,
-					formIndex: i,
-					modsList: modsList.filter((ele) => {
-						for (const stat of STATS.filter(
-							(ele) => !['lifepoint', 'dmg_reduction'].includes(ele)
-						)) {
-							if ((ele.mods[stat] ?? 1) !== 1 || (ele.mods[`fixed_${stat}`] ?? 0) !== 0) {
-								return true;
-							}
-						}
-						return false;
-					})
-				});
-			});
-		} else {
-			const modsList = [];
-			const modsToAdd = statMods.initial
-				.map((mod) => {
-					if (!['combat_ops', 'elite_ops'].includes(mod.key)) {
-						const { key, mods } = distillMods(enemy, stageId, mod, 0);
-						for (const stat of STATS.filter(
-							(stat) => !['lifepoint', 'dmg_reduction'].includes(stat)
-						)) {
-							if ((mods[stat] ?? 1) !== 1 || (mods[`fixed_${stat}`] ?? 0) !== 0) {
-								return { key, mods };
-							}
-						}
-					}
-				})
-				.filter(Boolean);
-			for (const mod of statMods.initial.filter((mod) =>
-				['combat_ops', 'elite_ops'].includes(mod.key)
-			)) {
-				modsList.push({ type: 'initial', ...distillMods(enemy, stageId, mod, 0) });
-			}
-			if (modsToAdd.length > 0) {
-				modsList.push({
-					type: 'initial',
-					key: modsToAdd.reduce((acc, curr) => {
-						acc.push(curr.key);
-						return acc;
-					}, []),
-					mods: modsToAdd
-						.reduce((acc, curr) => {
-							acc.push(curr.mods);
-							return acc;
-						}, [])
-						.reduce((acc, curr) => {
-							for (const statKey in curr) {
-								if (
-									statKey.includes('fixed') ||
-									statKey === 'dmg_reduction' ||
-									statKey === 'atk_interval'
-								) {
-									acc[statKey] += curr[statKey];
-								} else {
-									acc[statKey] += curr[statKey] - 1;
-								}
-							}
-							return acc;
-						})
-				});
-			}
-			for (const mod of statMods.final) {
-				modsList.push({ type: 'final', ...distillMods(enemy, stageId, mod, 0) });
-			}
-			returnList.push({
-				key: enemy.key,
-				name_zh: enemy.name_zh,
-				name_ja: enemy.name_ja,
-				name_en: enemy.name_en,
-				type: enemy.type,
-				form: null,
-				formIndex: null,
-				modsList: modsList.filter((mod) => {
-					for (const stat of STATS.filter(
-						(stat) => !['lifepoint', 'dmg_reduction'].includes(stat)
-					)) {
-						if ((mod.mods[stat] ?? 1) !== 1 || (mod.mods[`fixed_${stat}`] ?? 0) !== 0) {
-							return true;
-						}
-					}
-					return false;
-				})
-			});
-		}
-	}
-	return returnList;
-};
-
-export const compileSpecialMods = (...modsList: [[Effects]]) => {
-	const specialMods = {};
-	for (const effectsList of modsList) {
-		for (const effects of effectsList)
-			if (effects !== null && effects.length > 0) {
-				effects.forEach((effect) => {
-					for (const target of effect.targets) {
-						for (const key in effect.mods) {
-							if (key === 'special') {
-								if (!specialMods[target]) {
-									specialMods[target] = {};
-								}
-								for (const key of Object.keys(effect.mods.special)) {
-									specialMods[target][key] = effect.mods.special[key];
-								}
-							}
-						}
-					}
-				});
-			}
-	}
-	return specialMods;
 };
