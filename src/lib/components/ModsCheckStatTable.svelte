@@ -31,7 +31,9 @@
 	let statIndex = 0;
 
 	$: if (formIndex > -1 || enemy) {
-		statIndex = 0;
+		if (!statsToShow[statIndex]) {
+			statIndex = 0;
+		}
 	}
 
 	$: statsToShow = enemy.modsList[formIndex]
@@ -58,10 +60,11 @@
 
 	function getRunes(modsList, statKey) {
 		const list = [];
-		const runes = modsList.find((mod) => ['runes'].includes(mod.key));
+		const runes = modsList.find((mod) => ['combat_ops', 'elite_ops'].includes(mod.key));
 		if (runes) {
 			for (const mod of runes.mods) {
 				if (mod.key === statKey) {
+					mod.groupKey = runes.key;
 					list.push(mod);
 				}
 			}
@@ -75,7 +78,7 @@
 		const finalMul = [];
 
 		modsList
-			.filter((mod) => !['runes'].includes(mod.key))
+			.filter((mod) => !['combat_ops', 'elite_ops'].includes(mod.key))
 			.forEach((ele) => {
 				const mods = ele.mods.filter((mod) => mod.key === statKey);
 				for (const { key, value, order = 'final', mode } of mods) {
@@ -171,7 +174,7 @@
 			{enemy.forms[formIndex].stats[statKey]}
 		</div>
 		<DraggableContainer className="h-full ">
-			<div class="flex items-center justify-center w-max mx-auto pb-10 whitespace-nowrap text-xl">
+			<div class="flex items-center justify-center w-max mx-auto py-10 whitespace-nowrap text-xl">
 				<span>=</span>&nbsp;
 				{#if statsToShow[statIndex] === 'aspd'}
 					{#if atkIntervalMods?.mul?.length > 0}
@@ -216,7 +219,7 @@
 					100
 					{#if runeMods?.length > 0}
 						<div class="flex relative">
-							<div class="absolute top-[120%] left-1/2 -translate-x-1/2 text-xs">
+							<div class="absolute top-[125%] left-1/2 -translate-x-1/2 text-xs">
 								{translations[language].runes}
 							</div>
 							{#each runeMods as { key, value, mode }}
@@ -285,10 +288,13 @@
 					{/if}{#if runeMods?.length > 0}
 						<div class="flex relative">
 							({enemy.stats[statKey]}
-							<div class="absolute top-[120%] left-1/2 -translate-x-1/2 text-xs">
+							<div class="absolute -top-[90%] left-1/2 -translate-x-1/2 text-xs">
 								{translations[language].runes}
 							</div>
-							{#each runeMods as { key, value, mode }}
+							{#each runeMods as { key, value, mode, groupKey }}
+								<div class="absolute top-[125%] left-1/2 -translate-x-1/2 text-xs">
+									{translations[language][groupKey]}
+								</div>
 								{#if mode === 'add'}
 									<span
 										>&nbsp;{#if value >= 0}+{/if}
@@ -306,43 +312,63 @@
 						</span>
 					{/if}
 					{#if otherMods?.initialAdd?.length > 0}
-						{#each otherMods?.initialAdd as { key, value }}
-							<div class="relative">
-								<ModsCheckIcon {formIndex} {enemy} {key} {language} />
-								&nbsp;{#if value >= 0}+{/if}
-								{round(value, 3)}
+						<div class="relative inline-flex">
+							<div class="absolute -top-[90%] left-1/2 -translate-x-1/2 text-xs">
+								{translations[language].initial_add}
 							</div>
-						{/each}
-						)
+							{#each otherMods?.initialAdd as { key, value }}
+								<div class="relative">
+									<ModsCheckIcon {formIndex} {enemy} {key} {language} />
+									&nbsp;{#if value >= 0}+{/if}
+									{round(value, 3)}
+								</div>
+							{/each}
+							)
+						</div>
 					{/if}
 					{#if otherMods?.initialMul?.length > 0}
-						&nbsp;× (1
-						{#each otherMods?.initialMul as { key, value }}
-							<div class="relative">
-								<ModsCheckIcon {formIndex} {enemy} {key} {language} />
-								&nbsp;+ {round(value, 3)}
+						<div class="relative inline-flex">
+							<div class="absolute -top-[90%] left-1/2 -translate-x-1/2 text-xs">
+								{translations[language].initial_multiply}
 							</div>
-						{/each}
-						)
+							&nbsp;× (1
+							{#each otherMods?.initialMul as { key, value }}
+								<div class="relative">
+									<ModsCheckIcon {formIndex} {enemy} {key} {language} />
+									&nbsp;+ {round(value, 3)}
+								</div>
+							{/each}
+							)
+						</div>
 					{/if}
 					{#if otherMods?.finalAdd?.length > 0}
-						{#each otherMods?.finalAdd as { key, value }}
-							<div class="relative">
-								<ModsCheckIcon {formIndex} {enemy} {key} {language} />
-								&nbsp;{#if value >= 0}+{/if}
-								{round(value, 3)}
+						<div class="relative inline-flex">
+							<div class="absolute -top-[90%] left-1/2 -translate-x-1/2 text-xs">
+								{translations[language].final_add}
 							</div>
-						{/each}
-						)
+							{#each otherMods?.finalAdd as { key, value }}
+								<div class="relative">
+									<ModsCheckIcon {formIndex} {enemy} {key} {language} />
+									&nbsp;{#if value >= 0}+{/if}
+									{round(value, 3)}
+								</div>
+							{/each}
+							)
+						</div>
 					{/if}
 					{#if otherMods?.finalMul?.length > 0}
-						{#each otherMods?.finalMul as { key, value }}
-							<div class="relative">
-								<ModsCheckIcon {formIndex} {enemy} {key} {language} />
-								&nbsp;× {round(value, 3)}
+						<div class="relative inline-flex">
+							<div class="absolute -top-[90%] left-1/2 -translate-x-1/2 text-xs">
+								{translations[language].final_multiply}
 							</div>
-						{/each}
-						)
+							{#each otherMods?.finalMul as { key, value }}
+								<div class="relative">
+									<ModsCheckIcon {formIndex} {enemy} {key} {language} />
+									&nbsp;× {round(value, 3)}
+								</div>
+							{/each}
+							)
+						</div>
 					{/if}
 				{/if}
 			</div>

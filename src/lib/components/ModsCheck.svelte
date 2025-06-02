@@ -9,15 +9,15 @@
 	export let language: Language, enemies: Enemy[], mapConfig;
 	let enemyIndex = 0;
 	let formIndex = 0;
-	let enemy = enemies[0];
+	let enemy = enemies?.[0];
 
-	$: if (mapConfig || enemies) {
+	$: if (mapConfig) {
 		enemyIndex = 0;
 	}
 	$: if (enemyIndex > -1) {
 		formIndex = 0;
 	}
-	$: listToShow = enemies.filter((enemy) => enemy?.modsList?.some((mods) => mods?.length > 0));
+	$: listToShow = enemies?.filter((enemy) => enemy?.modsList?.some((mods) => mods?.length > 0)) || [];
 	$: enemy = listToShow[enemyIndex];
 
 </script>

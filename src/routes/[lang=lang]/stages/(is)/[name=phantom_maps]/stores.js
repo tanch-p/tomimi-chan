@@ -35,7 +35,7 @@ export const statMods = derived(
 			relicMods.push({ key: $selectedUniqueRelic.id, mods: [$selectedUniqueRelic.effects] });
 		}
 		return {
-			runes: { key: 'runes', mods: [$runes] },
+			runes: { key: $eliteMode ? "elite_ops" : "combat_ops", mods: [$runes] },
 			others: [
 				{
 					key: 'phantom_variation_title',
