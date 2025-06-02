@@ -10,7 +10,8 @@ const ALWAYS_KILLED_KEYS = [
 	'enemy_2073_skzrck',
 	'enemy_2094_skzamb',
 	'enemy_2094_skzamb_2',
-	'enemy_1106_byokai_b'
+	'enemy_1106_byokai_b',
+	'enemy_3005_lpeopl'
 ];
 
 const KEYS_TO_IGNORE = ['enemy_2086_skzdwx'];
@@ -269,6 +270,7 @@ export const getEnemyCountPermutations = (
 			if (bonus?.type === 'fragment' && waveIdx === bonus.wave_index && i === bonus.frag_index)
 				return;
 			fragment.actions.forEach((action) => {
+				if (action.actionType !== 'SPAWN') return;
 				if (
 					hiddenGroups.includes(action['hiddenGroup']) &&
 					!action['randomSpawnPackKey'] &&
