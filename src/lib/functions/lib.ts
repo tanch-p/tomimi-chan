@@ -133,6 +133,22 @@ export const setOtherBuffsList = (
 ) => {
 	const buffsList = [];
 	switch (rogueTopic) {
+		case 'rogue_phantom':
+			if (difficulty >= 14) {
+				buffsList.push({
+					key: 'n14_phcs',
+					img: null,
+					name: 'N14',
+					targets: ['ELITE', 'BOSS'],
+					activeTargets: [],
+					mods: [
+						{ key: 'atk', value: 0.3, order: 'initial', mode: 'mul' },
+						{ key: 'dmg_res', value: 0.5 }
+					],
+					maxCount: 1
+				});
+			}
+			break;
 		case 'rogue_mizuki':
 			if (difficulty >= 18) {
 				buffsList.push({

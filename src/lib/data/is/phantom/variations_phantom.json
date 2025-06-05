@@ -71,5 +71,36 @@
 		"tooltip_zh": "本层中所有我方单位和非领袖敌人每秒分别受到50和100真实伤害，但攻击力+50%，攻击速度+50。",
 		"tooltip_ja": "このエリアでは味方全員と非BOSS敵が毎秒それぞれ50と100確定ダメージを受け、攻撃力+50%、攻撃速度+50",
 		"tooltip_en": "On this floor, friendly units and non-Boss enemy units will take 50/100 True damage respectively every second but receive +50% ATK, and +50 ASPD."
+	},
+	{
+		"id": "variation_10",
+		"outerName_zh": "焦虑的",
+		"innerName_zh": "焦虑",
+		"outerName_ja": "焦虑的",
+		"innerName_ja": "焦虑",
+		"outerName_en": "焦虑",
+		"innerName_en": "焦虑",
+		"src": null,
+		"effects": [
+			{
+				"targets": ["ALL"],
+				"mods": [
+					{ "key": "ms", "value": 1.5, "mode": "mul" },
+					{ "key": "aspd", "value": 50, "mode": "add" }
+				],
+				"special": {
+					"survivalist": {
+						"tooltip": {
+							"en": ["$Survivalist$"],
+							"ja": ["$死力$"],
+							"zh": ["$生存$"]
+						}
+					}
+				}
+			}
+		],
+		"tooltip_zh": "本层中敌人的移动速度增加，作战时获得临时生命",
+		"tooltip_ja": "本层中敌人的移动速度增加，作战时获得临时生命",
+		"tooltip_en": "本层中敌人的移动速度增加，作战时获得临时生命"
 	}
 ]

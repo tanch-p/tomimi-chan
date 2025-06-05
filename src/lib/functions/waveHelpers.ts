@@ -53,6 +53,20 @@ export const getOptions = (mapConfig: MapConfig, rogueTopic: RogueTopic, languag
 					name: translations[language].treasure
 				});
 			}
+			options.push(
+				...[
+					{
+						key: 'variation_17',
+						src: '',
+						name: '怒想症'
+					},
+					{
+						key: 'rogue_1_capsule_20',
+						src: 'rogue_1_capsule_20',
+						name: '猩红《赫里亚之辉》'
+					}
+				]
+			);
 			break;
 		case 'rogue_mizuki':
 			for (const key of predefines) {
