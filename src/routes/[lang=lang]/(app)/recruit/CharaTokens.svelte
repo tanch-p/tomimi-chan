@@ -78,7 +78,7 @@
 				<p class="mt-1">{translations[language].attack_range}</p>
 			</div>
 
-			<div class="grid grid-cols-2 gap-x-2 gap-y-1.5">
+			<div class="grid grid-cols-2 gap-x-2 gap-y-1.5 h-min">
 				{#each statKeys as statKey}
 					{@const moduleStat = getModuleStat(
 						statKey,
