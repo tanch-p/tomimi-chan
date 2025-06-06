@@ -12,7 +12,7 @@
 	export let selectedPermGroups, mapConfig, eliteMode, hiddenGroups, language: Language;
 
 	$: if (mapConfig) {
-		selectedPermGroups = initialisePermGroupsChoices(mapConfig, eliteMode);
+		selectedPermGroups = initialisePermGroupsChoices(mapConfig, eliteMode,hiddenGroups);
 	}
 
 	function updatePermGroup(key, groupKey, choice) {

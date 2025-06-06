@@ -211,7 +211,7 @@ export const handleOptionsUpdate = (
 			return list;
 		});
 	}
-	if(rogueTopic === "rogue_phantom" && key ==="extra"){
+	if (rogueTopic === 'rogue_phantom' && key === 'extra') {
 		if (!hiddenGroups.includes(key)) {
 			otherStores.eliteMode.set(true);
 		}
@@ -329,6 +329,8 @@ export const getEnemyCountPermutations = (
 		});
 		return acc;
 	}, 0);
+
+	// [{ "w0f1": { "g1": 0 }, "w0f4": { "g1": 0 } }]
 	const list = permutations.map((permutation) => {
 		let permutationCount = 0;
 		mapConfig.waves.forEach((wave, waveIdx) => {
@@ -337,9 +339,12 @@ export const getEnemyCountPermutations = (
 				const key = `w${waveIdx}f${fragIndex}`;
 				let groupActions = [];
 				for (const [groupKey, list] of Object.entries(packedGroups)) {
-					let choice = permutation?.[key]?.[groupKey];
-					if (list?.[choice]) {
+					const choice = permutation?.[key]?.[groupKey];
+					if (choice && list?.[choice]) {
 						groupActions = groupActions.concat(list[choice]);
+					} else {
+						//group is from hidden group like extra/totem
+						groupActions = groupActions.concat(list[0]);
 					}
 				}
 				for (const action of groupActions) {
@@ -690,9 +695,9 @@ export const compileHiddenGroups = (hiddenGroups, eliteMode, mapConfig) => {
 	return groups;
 };
 
-export const initialisePermGroupsChoices = (mapConfig, eliteMode) => {
+export const initialisePermGroupsChoices = (mapConfig, eliteMode: boolean, hidden_groups) => {
 	const modeKey = eliteMode ? mapConfig['ELITE'].groupKey : mapConfig['NORMAL'].groupKey;
-	const hiddenGroups = [];
+	const hiddenGroups = structuredClone(hidden_groups);
 	if (modeKey) {
 		hiddenGroups.push(modeKey);
 	}
