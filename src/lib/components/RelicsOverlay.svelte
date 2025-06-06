@@ -60,7 +60,7 @@
 				</div>
 				<button
 					id="reset"
-					class="block rounded-xl bg-neutral-700 text-near-white px-16 py-2 mt-12 mx-auto w-min hover:cursor-pointer hover:bg-neutral-600 bg-opacity-50 whitespace-nowrap"
+					class="block rounded-xl bg-neutral-700 text-near-white px-16 py-2 mt-12 mx-auto w-min hover:cursor-pointer hover:bg-neutral-600 whitespace-nowrap"
 					on:click={() => {
 						selectedRelics.set([]);
 						if (selectedUniqueRelic !== null) {
