@@ -5,6 +5,7 @@ import { compileMods, getDmgReductionVal, getModdedStat } from './statHelpers';
 import { getOverwrittenKeys } from './skillHelpers';
 
 const TRAPS_AFFECTED_BY_DIFFICULTY = [
+	"trap_054_dancdol",
 	'trap_086_larva',
 	'trap_760_skztzs',
 	'trap_761_skzthx',
