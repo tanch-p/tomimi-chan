@@ -39,20 +39,27 @@
 		eliteMode.set(option);
 		if (option) {
 			runes.set(mapEliteMods);
-			if (rogueTopic === 'rogue_skz') {
-				let relicId = '';
-				if (ro4_SP7_BOSS_STAGES.includes(stageId)) {
-					relicId = 'rogue_4_relic_final_6';
-				}
-				if (stageId === 'level_rogue4_b-8') {
-					relicId = 'rogue_4_relic_final_10';
-				}
-				if (relicId) {
-					if (!$selectedRelics.find((item) => item.id === relicId)) {
-						const relic = skzRelics.find((item) => item.id === relicId);
-						selectedRelics.update((list) => (list = [...list, relic]));
+			switch (rogueTopic) {
+				case 'rogue_skz':
+					{
+						let relicId = '';
+						if (ro4_SP7_BOSS_STAGES.includes(stageId)) {
+							relicId = 'rogue_4_relic_final_6';
+						}
+						if (stageId === 'level_rogue4_b-8') {
+							relicId = 'rogue_4_relic_final_10';
+						}
+						if (relicId) {
+							if (!$selectedRelics.find((item) => item.id === relicId)) {
+								const relic = skzRelics.find((item) => item.id === relicId);
+								selectedRelics.update((list) => (list = [...list, relic]));
+							}
+						}
 					}
-				}
+					break;
+				case 'rogue_phantom':
+					
+					break;
 			}
 		} else {
 			runes.set(mapNormalMods);

@@ -8,7 +8,7 @@
 	export let language: Language,
 		rogueTopic: RogueTopic,
 		selectedRelics,
-		selectedUniqueRelic = null;
+		selectedUniqueRelic;
 	let openOverlay = false;
 </script>
 
@@ -55,7 +55,7 @@
 									/>
 									<div class="flex items-center text-center w-14 z-[1]">
 										<img
-											src={relicLookup[$selectedUniqueRelic.id]}
+											src={relicLookup[$selectedUniqueRelic.id] || `/images/relics/${$selectedUniqueRelic.img}.webp`}
 											width="54px"
 											alt={$selectedUniqueRelic[`name_${language}`] || $selectedUniqueRelic.name_zh}
 											loading="lazy"
@@ -71,7 +71,7 @@
 									/>
 									<div class="flex items-center text-center w-14 z-[1] h-14">
 										<img
-											src={relicLookup[relic.id]}
+											src={relicLookup[relic.id] || `/images/relics/${relic.img}.webp`}
 											width="54px"
 											alt={relic[`name_${language}`] || relic.name_zh}
 											loading="lazy"

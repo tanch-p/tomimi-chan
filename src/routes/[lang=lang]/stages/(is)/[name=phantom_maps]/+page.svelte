@@ -3,6 +3,9 @@
 	import type { PageData } from './$types';
 	import {
 		statMods,
+		difficulty,
+		diff10Mods,
+		diff10ModifierStore,
 		specialMods,
 		selectedRelics,
 		selectedUniqueRelic,
@@ -20,11 +23,20 @@
 	import StageNav from '../../../(app)/phantom/PhantomNav.svelte';
 	import { setOtherBuffsList } from '$lib/functions/lib';
 	import StageSharedContainer from '$lib/components/StageSharedContainer.svelte';
+	import DifficultySelect from '$lib/components/DifficultySelect.svelte';
 
 	export let data: PageData;
 	$: if (data.mapConfig) {
-		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies, data.mapConfig, language);
+		setOtherBuffsList(
+			otherBuffsList,
+			rogueTopic,
+			data.enemies,
+			data.mapConfig,
+			language,
+			$difficulty
+		);
 		runes.set(data.mapConfig.n_mods);
+		diff10ModifierStore.set(data.mapConfig.id.includes('_b_') ? diff10Mods : null);
 	}
 	$: language = data.language;
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
@@ -51,13 +63,9 @@
 
 <main class="bg-neutral-800 text-near-white pb-72 pt-8 sm:pt-16 md:pb-28">
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
-		<StageInfo
-			mapConfig={data.mapConfig}
-			{language}
-			{stageName}
-			eliteMode={eliteMode}
-			{rogueTopic}
-		/>
+		<StageInfo mapConfig={data.mapConfig} {language} {stageName} {eliteMode} {rogueTopic} />
+		<DifficultySelect {language} {difficulty} {rogueTopic} />
+
 		<div class="mt-8">
 			<StageSharedContainer
 				{language}
@@ -71,6 +79,7 @@
 				{runes}
 				{rogueTopic}
 				{selectedRelics}
+				difficulty={$difficulty}
 			>
 				<StageNav slot="nav" {language} />
 			</StageSharedContainer>

@@ -22,7 +22,8 @@
 		rogueTopic: RogueTopic,
 		language: Language,
 		eliteMode: Boolean,
-		otherStores;
+		otherStores,
+		difficulty: number;
 
 	let hiddenGroups = [],
 		enemyCounts = [],
@@ -36,7 +37,7 @@
 
 	$: compiledHiddenGroups = compileHiddenGroups(hiddenGroups, eliteMode, mapConfig);
 	$: baseCount = getBaseCount(mapConfig, eliteMode);
-	$: options = getOptions(mapConfig, rogueTopic, language);
+	$: options = getOptions(mapConfig, rogueTopic, difficulty, language);
 	$: maxPermutations = eliteMode
 		? mapConfig.ELITE.max_permutations
 		: mapConfig.NORMAL.max_permutations;
@@ -68,7 +69,20 @@
 		selectedPermutationIdx = 0;
 	}
 	$: if (rogueTopic) {
-		hiddenGroups = [];
+		switch (rogueTopic) {
+			case 'rogue_phantom':
+				if (
+					difficulty >= 12 &&
+					['level_rogue1_b-6', 'level_rogue1_b-7', 'level_rogue1_b-8', 'level_rogue1_b-9'].includes(
+						mapConfig.levelId
+					)
+				) {
+					hiddenGroups = ['reforge'];
+					break;
+				}
+			default:
+				hiddenGroups = [];
+		}
 	}
 
 	$: hasAnalysis = !mapConfig.id.includes('_duel_');
@@ -102,11 +116,17 @@
 					{#each options as { key, src, name }}
 						{@const selected = hiddenGroups.includes(key)}
 						<button
-							class="flex flex-col items-center justify-center border border-neutral-700 py-1 {selected
+							class="flex flex-col items-center justify-center border border-neutral-700 p-1 {selected
 								? 'bg-gray-600'
 								: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
 							on:click={() =>
-								(hiddenGroups = handleOptionsUpdate(hiddenGroups, key, rogueTopic, otherStores))}
+								(hiddenGroups = handleOptionsUpdate(
+									hiddenGroups,
+									key,
+									rogueTopic,
+									difficulty,
+									otherStores
+								))}
 						>
 							{#if src}
 								<div class="flex items-center justify-center h-[56px]">

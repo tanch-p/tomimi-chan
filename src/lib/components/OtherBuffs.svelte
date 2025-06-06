@@ -36,10 +36,10 @@
 					{#if buff.maxCount > 1 && currentCount > 0}
 						<p class="absolute right-0 bottom-0 bg-almost-black px-1 text-xs">x{currentCount}</p>
 					{/if}
-					{#if buff.key === 'n18_mzk'}
+					{#if ['n18_mzk', 'n14_phcs'].includes(buff.key)}
 						<div class="relative flex justify-center items-center w-[54px] h-[54px]">
 							<div class="absolute n18_mzk" />
-							<span class="text-sm">N18</span>
+							<span class="text-sm">{buff.name}</span>
 						</div>
 					{:else}
 						<img

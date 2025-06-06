@@ -80,7 +80,7 @@
 			mapConfig={data.mapConfig}
 			{language}
 			{stageName}
-			eliteMode={eliteMode}
+			{eliteMode}
 			{rogueTopic}
 			difficulty={$difficulty}
 		>
@@ -120,7 +120,8 @@
 			{runes}
 			{rogueTopic}
 			{selectedRelics}
-			otherStores={{ disaster: disasterEffects, difficulty: difficulty }}
+			otherStores={{ disaster: disasterEffects }}
+			difficulty={$difficulty}
 		>
 			<NavTemp {language} slot="nav" />
 		</StageSharedContainer>

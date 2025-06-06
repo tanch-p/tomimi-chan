@@ -20,7 +20,16 @@ const difficultyMods = derived([difficulty], ([$difficulty]) =>
 		})
 		.filter(Boolean)
 );
-export const diff10Modifier = writable(null);
+export const diff10Mods = [
+	{
+		targets: ['ALL'],
+		mods: [
+			{ key: 'hp', value: 1.15, mode: 'mul' },
+			{ key: 'atk', value: 1.15, mode: 'mul' }
+		]
+	}
+];
+export const diff10ModifierStore = writable(null);
 export const eliteMode = writable(false);
 export const runes = writable(null);
 export const selectedUniqueRelic = writable(null);
@@ -31,12 +40,16 @@ const otherMods = derived([otherBuffsList], ([$otherBuffsList]) =>
 	consolidateOtherMods($otherBuffsList)
 );
 
+eliteMode.subscribe((val) => {
+	if (val) diff10ModifierStore.set(diff10Mods);
+});
+
 export const statMods = derived(
 	[
 		selectedRelics,
 		difficultyMods,
 		selectedUniqueRelic,
-		diff10Modifier,
+		diff10ModifierStore,
 		eliteMode,
 		runes,
 		activeFloorEffects,
@@ -68,7 +81,7 @@ export const statMods = derived(
 			diff: { key: 'difficulty', mods: $difficultyMods, stackType: 'mul' },
 			others: [
 				{
-					key: 'phcs_diff_10',
+					key: 'N10',
 					mods: [$diff10Modifier]
 				},
 				{

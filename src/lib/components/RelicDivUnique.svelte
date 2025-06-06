@@ -32,7 +32,7 @@
 	}`}
 	on:click={handleClick}
 >
-	<img src={relicLookup[relic.id]} alt={name} loading="lazy" decoding="async" class="relic" />
+	<img src={relicLookup[relic.id] || `/images/relics/${relic.img}.webp`} alt={name} loading="lazy" decoding="async" class="relic" />
 	<div class="relic px-2">
 		<p class={`relic text-lg sm:text-xl ${selected ? 'text-[#cea658]' : 'text-gray-400'}`}>{name}</p>
 		<p class="relic text-[#c4c4c4]">{tooltip}</p>
