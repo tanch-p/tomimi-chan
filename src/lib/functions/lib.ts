@@ -185,7 +185,7 @@ export const setOtherBuffsList = (
 			targets: ['not_flying&not_trap'],
 			activeTargets: [],
 			mods: [
-				{ key: 'atk', value: 1 + tileInfection.blackboard['atk'], order: 'initial', mode: 'mul' },
+				{ key: 'atk', value: tileInfection.blackboard['atk'], order: 'initial', mode: 'mul' },
 				{
 					key: 'aspd',
 					value: tileInfection.blackboard['attack_speed'],
