@@ -15,8 +15,8 @@ export const difficultyMode = writable('normal');
 
 export const selectedFloor = writable(1);
 const floorDifficultyMods = derived(
-	[selectedFloor, difficulty],
-	([$selectedFloor, $difficulty]) => [
+	[selectedFloor, difficulty,difficultyMode],
+	([$selectedFloor, $difficulty,$difficultyMode]) => $difficultyMode === "normal" ? [
 		{
 			targets: ['ALL'],
 			mods: [
@@ -32,7 +32,7 @@ const floorDifficultyMods = derived(
 				}
 			]
 		}
-	]
+	]: null
 );
 export const eliteMode = writable(false);
 export const runes = writable(null);
