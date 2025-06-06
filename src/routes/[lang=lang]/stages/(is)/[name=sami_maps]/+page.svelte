@@ -75,6 +75,7 @@
 			{runes}
 			{rogueTopic}
 			{selectedRelics}
+			difficulty={$difficulty}
 		>
 			<SamiNav slot="nav" {language} />
 		</StageSharedContainer>

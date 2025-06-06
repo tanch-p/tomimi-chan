@@ -5,10 +5,7 @@
 	import translations from '$lib/translations.json';
 	import Icon from './Icon.svelte';
 	import { relicLookup } from '$lib/data/is/relic_lookup';
-	export let language: Language,
-		rogueTopic: RogueTopic,
-		selectedRelics,
-		selectedUniqueRelic = null;
+	export let language: Language, rogueTopic: RogueTopic, selectedRelics, selectedUniqueRelic;
 	let openOverlay = false;
 </script>
 
@@ -48,7 +45,7 @@
 						class="bg-neutral-900 min-w-[280px] w-[80vw] md:w-auto overflow-hidden h-14 gap-x-2 pl-1"
 					>
 						<div class="flex gap-x-2 items-center">
-							{#if selectedUniqueRelic !== null && $selectedUniqueRelic !== null}
+							{#if Boolean(selectedUniqueRelic) && Boolean($selectedUniqueRelic)}
 								<div class="relative flex items-center">
 									<div
 										class="absolute rounded-full border-[3px] border-neutral-600 border-opacity-80 left-[50%] w-[44px] h-[44px] -translate-x-[50%]"

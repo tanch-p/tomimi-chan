@@ -31,7 +31,12 @@ export function shuffleArray(array) {
 	return array;
 }
 
-export const getOptions = (mapConfig: MapConfig, rogueTopic: RogueTopic, language: Language) => {
+export const getOptions = (
+	mapConfig: MapConfig,
+	rogueTopic: RogueTopic,
+	difficulty: number,
+	language: Language
+) => {
 	const options = [];
 	const list = [];
 	for (const wave of mapConfig.waves) {
@@ -53,6 +58,25 @@ export const getOptions = (mapConfig: MapConfig, rogueTopic: RogueTopic, languag
 					name: translations[language].treasure
 				});
 			}
+			if (mapConfig.elite_mods) {
+				options.push({
+					key: 'extra',
+					src: '',
+					name: '紧急作战 + 怒想症 / 猩红《赫里亚之辉》'
+				});
+			}
+			if (
+				['level_rogue1_b-6', 'level_rogue1_b-7', 'level_rogue1_b-8', 'level_rogue1_b-9'].includes(
+					mapConfig.levelId
+				)
+			) {
+				options.push({
+					key: 'reforge',
+					src: '',
+					name: 'N12以上结局关卡'
+				});
+			}
+			[];
 			break;
 		case 'rogue_mizuki':
 			for (const key of predefines) {
@@ -165,13 +189,16 @@ export const getOptions = (mapConfig: MapConfig, rogueTopic: RogueTopic, languag
 	return options;
 };
 
-export const handleOptionsUpdate = (hiddenGroups, key, rogueTopic: RogueTopic, otherStores) => {
+export const handleOptionsUpdate = (
+	hiddenGroups,
+	key,
+	rogueTopic: RogueTopic,
+	difficulty: number,
+	otherStores
+) => {
 	const fragmentKeys = ['hidden_door', 'hidden_window', 'box_1', 'box_3'];
 	if (key === 'calamity') {
-		let level = 1;
-		otherStores.difficulty.subscribe((n) => {
-			level = n < 5 ? 1 : n < 11 ? 2 : 3;
-		});
+		const level = difficulty < 5 ? 1 : difficulty < 11 ? 2 : 3;
 		const effect = disasters.find(
 			(ele) => ele.iconId === 'rogue_4_disaster_1' && ele.level === level
 		);
@@ -208,6 +235,17 @@ export const handleOptionsUpdate = (hiddenGroups, key, rogueTopic: RogueTopic, o
 	return hiddenGroups;
 };
 
+//to handle enemies with just a packKey and no group in the fragment i.e. rogue1_1-2 hiddenGroup extra packKey extra
+const packHasGroupInFragment = (actions, packKey) => {
+	if (!packKey) return false;
+	for (const action of actions) {
+		if (action['randomSpawnGroupPackKey'] === packKey && action['randomSpawnGroupKey']) {
+			return true;
+		}
+	}
+	return false;
+};
+
 export const getBaseCount = (mapConfig, eliteMode) => {
 	let totalCount = 0;
 	mapConfig.waves.forEach((wave, waveIdx) => {
@@ -216,7 +254,10 @@ export const getBaseCount = (mapConfig, eliteMode) => {
 				if (action['actionType'] !== 'SPAWN') {
 					continue;
 				}
-				if (action['randomSpawnGroupKey'] || action['randomSpawnGroupPackKey']) {
+				if (action['randomSpawnGroupKey']) {
+					continue;
+				}
+				if (packHasGroupInFragment(fragment['actions'], action['randomSpawnGroupPackKey'])) {
 					continue;
 				}
 				if (action['hiddenGroup']) {
@@ -444,7 +485,10 @@ export const generateWaveTimeline = (
 				if (action['actionType'] !== 'SPAWN') {
 					continue;
 				}
-				if (action['randomSpawnGroupKey'] || action['randomSpawnGroupPackKey']) {
+				if (action['randomSpawnGroupKey']) {
+					continue;
+				}
+				if (packHasGroupInFragment(fragment['actions'], action['randomSpawnGroupPackKey'])) {
 					continue;
 				}
 				if (action['hiddenGroup'] && !hiddenGroups.includes(action['hiddenGroup'])) {
@@ -577,7 +621,10 @@ export const parseWaves = (mapConfig, permutation, hiddenGroups, eliteMode, rand
 				) {
 					continue;
 				}
-				if (action['randomSpawnGroupKey'] || action['randomSpawnGroupPackKey']) {
+				if (action['randomSpawnGroupKey']) {
+					continue;
+				}
+				if (packHasGroupInFragment(fragment['actions'], action['randomSpawnGroupPackKey'])) {
 					continue;
 				}
 				if (action['hiddenGroup'] && !hiddenGroups.includes(action['hiddenGroup'])) {
@@ -617,7 +664,10 @@ export const getRandomGroups = (fragment, hiddenGroups) => {
 		if (hiddenGroup && !hiddenGroups.includes(hiddenGroup)) {
 			continue;
 		}
-		if (randomSpawnGroupKey || randomSpawnGroupPackKey) {
+		if (randomSpawnGroupKey) {
+			groups.push(action);
+		}
+		if (packHasGroupInFragment(fragment['actions'], randomSpawnGroupPackKey)) {
 			groups.push(action);
 		}
 	}

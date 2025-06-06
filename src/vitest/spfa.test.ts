@@ -5,7 +5,7 @@ import { generateMaze } from '$lib/functions/mazeHelpers';
 const cases = [
 	[
 		'rogue1_1-2',
-		4,
+		5,
 		[
 			[8, 1],
 			[7, 3],

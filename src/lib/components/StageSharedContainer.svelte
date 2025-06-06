@@ -20,6 +20,7 @@
 		runes,
 		rogueTopic,
 		selectedRelics,
+		difficulty,
 		otherStores={};
 
 	$: moddedEnemies = applyMods(enemies, $statMods, $specialMods);
@@ -38,6 +39,7 @@
 		eliteMode={$eliteMode}
 		{rogueTopic}
 		{otherStores}
+		{difficulty}
 	>
 		<EliteToggle
 			slot="eliteMods"

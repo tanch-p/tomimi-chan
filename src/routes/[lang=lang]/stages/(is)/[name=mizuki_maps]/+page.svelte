@@ -26,7 +26,14 @@
 		runes.set(data.mapConfig.n_mods);
 	}
 	$: if (data.mapConfig || $difficulty) {
-		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies, data.mapConfig, language, $difficulty);
+		setOtherBuffsList(
+			otherBuffsList,
+			rogueTopic,
+			data.enemies,
+			data.mapConfig,
+			language,
+			$difficulty
+		);
 	}
 	$: language = data.language;
 	const rogueTopic: RogueTopic = data.rogueTopic;
@@ -53,15 +60,9 @@
 
 <main class="bg-neutral-800 text-near-white pb-72 pt-8 sm:pt-16 md:pb-28">
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
-		<StageInfo
-			mapConfig={data.mapConfig}
-			{language}
-			{stageName}
-			eliteMode={eliteMode}
-			{rogueTopic}
-		/>
+		<StageInfo mapConfig={data.mapConfig} {language} {stageName} {eliteMode} {rogueTopic} />
 		<Mission {language} />
-		<DifficultySelect {language} {difficulty} {rogueTopic} maxDiff={18}/>
+		<DifficultySelect {language} {difficulty} {rogueTopic} maxDiff={18} />
 		<StageSharedContainer
 			{language}
 			traps={data.traps}
@@ -74,6 +75,7 @@
 			{runes}
 			{rogueTopic}
 			{selectedRelics}
+			difficulty={$difficulty}
 		>
 			<MizukiNav slot="nav" {language} />
 		</StageSharedContainer>

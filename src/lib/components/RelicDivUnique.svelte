@@ -1,12 +1,14 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
 	import { relicLookup } from '$lib/data/is/relic_lookup';
+	import TextParser from './TextParser.svelte';
 	export let relic, language: Language, selectedUniqueRelic;
 
 	$: name = relic[`name_${language}`] || relic[`name_zh`];
 	$: tooltip = relic[`tooltip_${language}`] || relic[`tooltip_zh`];
 
 	let selected = false;
+	let count = relic?.count || 0;
 
 	selectedUniqueRelic.subscribe((item) => {
 		if (item) {
@@ -17,9 +19,23 @@
 	});
 
 	function handleClick() {
+		if (relic.addons) {
+			count++;
+			relic.count = count;
+			if (count > relic.addons?.length + 1) {
+				count = 0;
+				selectedUniqueRelic.set(null);
+			} else {
+				selectedUniqueRelic.set(relic);
+			}
+			return;
+		}
 		if (selected) {
 			selectedUniqueRelic.set(null);
 		} else {
+			if ($selectedUniqueRelic?.id !== relic.id) {
+				count = 0;
+			}
 			selectedUniqueRelic.set(relic);
 		}
 	}
@@ -34,7 +50,12 @@
 >
 	<img src={relicLookup[relic.id]} alt={name} loading="lazy" decoding="async" class="relic" />
 	<div class="relic px-2">
-		<p class={`relic text-lg sm:text-xl ${selected ? 'text-[#cea658]' : 'text-gray-400'}`}>{name}</p>
-		<p class="relic text-[#c4c4c4]">{tooltip}</p>
+		<p class={`relic text-lg sm:text-xl ${selected ? 'text-[#cea658]' : 'text-gray-400'}`}>
+			{name}
+			{#if selected && relic.addons && count > 1}
+				({relic?.addons?.[count - 2]?.suffix})
+			{/if}
+		</p>
+		<TextParser line={tooltip} className="relic text-[#c4c4c4]" />
 	</div>
 </div>
