@@ -56,15 +56,15 @@ export const getOptions = (mapConfig: MapConfig, rogueTopic: RogueTopic, languag
 			options.push(
 				...[
 					{
-						key: 'variation_17',
+						key: 'extra',
 						src: '',
-						name: '怒想症'
+						name: '怒想症/猩红《赫里亚之辉》'
 					},
 					{
-						key: 'rogue_1_capsule_20',
-						src: 'rogue_1_capsule_20',
-						name: '猩红《赫里亚之辉》'
-					}
+						key: 'reforge',
+						src: '',
+						name: 'N12以上结局关卡'
+					},
 				]
 			);
 			break;
