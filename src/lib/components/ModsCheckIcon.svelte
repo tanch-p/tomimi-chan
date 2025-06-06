@@ -7,7 +7,7 @@
 	export let enemy, formIndex, key, language: Language;
 </script>
 
-<div class="absolute top-[125%] left-1/2 -translate-x-1/2 w-max text-xs">
+<div class="absolute top-[125%] left-1/2 -translate-x-[calc(50%_-_10px)] w-max text-xs">
 	{#if translations[language][key]}
 		{translations[language][key]}
 	{:else if key.includes('enemy')}
