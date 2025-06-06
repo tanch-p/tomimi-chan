@@ -43,6 +43,7 @@
 	{#if $activeChaosEffects.length > 0}
 		{#each $activeChaosEffects as effect}
 			<img
+				width="75"
 				src={effect.src}
 				class="absolute -inset-[9999px] z-[-1] m-auto"
 				alt={effect['name_zh']}

@@ -10,7 +10,8 @@
 		eliteMode,
 		runes,
 		otherBuffsList,
-		isBossStage
+		isBossStage,
+		capsule
 	} from './stores';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import FooterBar from '$lib/components/FooterBar.svelte';
@@ -25,7 +26,7 @@
 	import DifficultySelect from '$lib/components/DifficultySelect.svelte';
 
 	export let data: PageData;
-	$: if (data.mapConfig) {
+	$: if (data.mapConfig || $difficulty) {
 		setOtherBuffsList(
 			otherBuffsList,
 			rogueTopic,
@@ -90,6 +91,11 @@
 </main>
 
 <FooterBar {language} {rogueTopic} {selectedRelics} {selectedUniqueRelic}>
+	<div slot="banner" class="absolute right-0 z-[1] h-16 w-16 overflow-hidden">
+		{#if $capsule}
+			<img src={$capsule.src} width="" height="" class=""/>
+		{/if}
+	</div>
 	<div
 		slot="uniqueRelics"
 		class="grid lg:grid-cols-3 gap-x-10 gap-y-8 w-full overflow-x-auto md:overflow-visible my-auto mx-auto px-4 sm:px-24 mb-4"

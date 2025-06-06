@@ -19,7 +19,7 @@
 
 	//hotfix to set hardMode to false on nav to another stage with hardMods
 	$: if (mapEliteMods && !inWaveOptions) {
-		updateEliteMods(false);
+		eliteMode.set(false);
 	}
 	const ro4_SP7_BOSS_STAGES = [
 		'level_rogue4_b-4',

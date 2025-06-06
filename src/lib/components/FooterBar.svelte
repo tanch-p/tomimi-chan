@@ -23,6 +23,7 @@
 	<div class="shadow-2xl shadow-gray-400 bg-neutral-900 w-full mt-4 fixed bottom-0 py-2">
 		<div class="max-w-7xl mx-auto px-2 md:px-4">
 			<div class="relative flex items-center h-16">
+				<slot name="banner" />
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
 				<div
 					class={`flex items-center py-[2px] bg-gradient-to-r from-[#333333] via-neutral-900 to-neutral-900 relative hover:cursor-pointer`}

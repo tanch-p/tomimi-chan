@@ -35,9 +35,10 @@ export const selectedUniqueRelic = writable(null);
 export const selectedFloor = writable(1);
 export const activeFloorEffects = writable([]);
 export const otherBuffsList = writable([]);
-const otherMods = derived([otherBuffsList], ([$otherBuffsList]) =>
+const otherBuffs = derived([otherBuffsList], ([$otherBuffsList]) =>
 	consolidateOtherMods($otherBuffsList)
 );
+export const capsule = writable(null);
 export const isBossStage = writable(false);
 export const diff10ModifierStore = derived(
 	[isBossStage, difficulty, eliteMode],
@@ -54,7 +55,8 @@ export const statMods = derived(
 		eliteMode,
 		runes,
 		activeFloorEffects,
-		otherMods
+		otherBuffs,
+		capsule
 	],
 	([
 		$selectedRelics,
@@ -64,7 +66,8 @@ export const statMods = derived(
 		$eliteMode,
 		$runes,
 		$activeFloorEffects,
-		$otherMods
+		$otherBuffs,
+		$capsule
 	]) => {
 		const relicMods = [
 			...$selectedRelics.map((relic) => {
@@ -97,8 +100,13 @@ export const statMods = derived(
 					mods: $activeFloorEffects.map((ele) => ele.effects),
 					operation: 'times'
 				},
+				{
+					key: 'phantom_capsule',
+					mods: [$capsule?.effects],
+					operation: 'times'
+				},
 				...relicMods,
-				...$otherMods
+				...$otherBuffs
 			]
 		};
 	}
