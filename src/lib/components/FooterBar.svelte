@@ -5,10 +5,7 @@
 	import translations from '$lib/translations.json';
 	import Icon from './Icon.svelte';
 	import { relicLookup } from '$lib/data/is/relic_lookup';
-	export let language: Language,
-		rogueTopic: RogueTopic,
-		selectedRelics,
-		selectedUniqueRelic;
+	export let language: Language, rogueTopic: RogueTopic, selectedRelics, selectedUniqueRelic;
 	let openOverlay = false;
 </script>
 
@@ -48,14 +45,14 @@
 						class="bg-neutral-900 min-w-[280px] w-[80vw] md:w-auto overflow-hidden h-14 gap-x-2 pl-1"
 					>
 						<div class="flex gap-x-2 items-center">
-							{#if selectedUniqueRelic !== null && $selectedUniqueRelic !== null}
+							{#if Boolean(selectedUniqueRelic) && Boolean($selectedUniqueRelic)}
 								<div class="relative flex items-center">
 									<div
 										class="absolute rounded-full border-[3px] border-neutral-600 border-opacity-80 left-[50%] w-[44px] h-[44px] -translate-x-[50%]"
 									/>
 									<div class="flex items-center text-center w-14 z-[1]">
 										<img
-											src={relicLookup[$selectedUniqueRelic.id] || `/images/relics/${$selectedUniqueRelic.img}.webp`}
+											src={relicLookup[$selectedUniqueRelic.id]}
 											width="54px"
 											alt={$selectedUniqueRelic[`name_${language}`] || $selectedUniqueRelic.name_zh}
 											loading="lazy"
@@ -71,7 +68,7 @@
 									/>
 									<div class="flex items-center text-center w-14 z-[1] h-14">
 										<img
-											src={relicLookup[relic.id] || `/images/relics/${relic.img}.webp`}
+											src={relicLookup[relic.id]}
 											width="54px"
 											alt={relic[`name_${language}`] || relic.name_zh}
 											loading="lazy"

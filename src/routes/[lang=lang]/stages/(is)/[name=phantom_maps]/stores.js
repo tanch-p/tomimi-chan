@@ -74,7 +74,12 @@ export const statMods = derived(
 			})
 		];
 		if ($selectedUniqueRelic) {
-			relicMods.push({ key: $selectedUniqueRelic.id, mods: [$selectedUniqueRelic.effects] });
+			relicMods.push({
+				key: $selectedUniqueRelic.id,
+				mods: [
+					$selectedUniqueRelic.count > 1 ? $selectedUniqueRelic?.addons?.[$selectedUniqueRelic.count - 2]?.effects : $selectedUniqueRelic.effects
+				]
+			});
 		}
 		return {
 			runes: { key: $eliteMode ? 'elite_ops' : 'combat_ops', mods: [$runes] },

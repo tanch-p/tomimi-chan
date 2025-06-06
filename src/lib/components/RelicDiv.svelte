@@ -42,7 +42,7 @@
 	on:click={handleClick}
 >
 	<img
-		src={relicLookup[relic.id] || `/images/relics/${relic.img}.webp`}
+		src={relicLookup[relic.id]}
 		alt={name}
 		loading="lazy"
 		decoding="async"

@@ -50,6 +50,7 @@
 			on:click={handleOverlayClick}
 		>
 			<div class="w-full max-w-7xl mx-auto py-36">
+				<slot name="uniqueRelics" />
 				<div
 					class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8 w-full overflow-x-auto md:overflow-visible my-auto mx-auto px-4 sm:px-24"
 				>
@@ -57,7 +58,6 @@
 						<RelicDiv {relic} {language} {rogueTopic} {selectedRelics} />
 					{/each}
 				</div>
-				<slot name="uniqueRelics" />
 				<button
 					id="reset"
 					class="block rounded-xl bg-neutral-700 text-near-white px-16 py-2 mt-12 mx-auto w-min hover:cursor-pointer hover:bg-neutral-600 bg-opacity-50 whitespace-nowrap"
