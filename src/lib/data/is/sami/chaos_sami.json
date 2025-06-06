@@ -1,6 +1,7 @@
 [
 	{
 		"id": "rogue_3_chaos_3",
+		"shared_id": "chaos_3",
 		"outerName_zh": "非线性移动",
 		"innerName_zh": "非线性移动",
 		"outerName_ja": "非直線移動",
@@ -23,6 +24,7 @@
 	},
 	{
 		"id": "rogue_3_chaos_3_a",
+		"shared_id": "chaos_3",
 		"outerName_zh": "非线性行动",
 		"innerName_zh": "非线性行动",
 		"outerName_ja": "非直線行動",
@@ -43,5 +45,25 @@
 		"tooltip_zh": "所有【坍缩体】生命值+20%，移动速度+20%，攻击速度+20",
 		"tooltip_ja": "全ての敵【崩壊体】の最大HP+20%、移動速度+20%、攻撃速度+20%",
 		"tooltip_en": "All [Collapsals] gain Max HP +20%, Movement Speed +20%, and ASPD +20"
+	},
+	{
+		"id": "rogue_3_chaos_9_a",
+		"shared_id": "chaos_9",
+		"outerName_zh": "睁眼瞎",
+		"innerName_zh": "睁眼瞎",
+		"outerName_ja": "広域的認識不可",
+		"innerName_ja": "広域的認識不可",
+		"outerName_en": "Complete Cecity",
+		"innerName_en": "Complete Cecity",
+		"src": null,
+		"effects": [
+			{
+				"targets": ["ALL"],
+				"mods": [{ "key": "hp", "value": 1.1, "mode": "mul" }]
+			}
+		],
+		"tooltip_zh": "目标生命和战场上敌人的生命不再可见，所有敌人生命值+10%",
+		"tooltip_ja": "耐久値と戦場にいる敵のHPが目視不可となり、敵全員のHP+10%",
+		"tooltip_en": "Life Points and the HP of enemies on the battlefield are harder to discern, and all enemies gain Max HP +10%"
 	}
 ]

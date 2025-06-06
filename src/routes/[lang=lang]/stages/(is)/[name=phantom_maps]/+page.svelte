@@ -25,7 +25,7 @@
 	import DifficultySelect from '$lib/components/DifficultySelect.svelte';
 
 	export let data: PageData;
-	$: if (data.mapConfig) {
+	$: if (data.mapConfig || $difficulty) {
 		setOtherBuffsList(
 			otherBuffsList,
 			rogueTopic,

@@ -10,11 +10,22 @@
 	});
 
 	function handleClick() {
-		if (!$activeChaosEffects.find((ele) => ele.id === effect.id)) {
-			activeChaosEffects.set([effect]);
-		} else {
-			activeChaosEffects.set([]);
+		if ($activeChaosEffects.find((ele) => ele.id === effect.id)) {
+			//same id
+			return activeChaosEffects.update(
+				(list) => (list = list.filter((ele) => ele.id !== effect.id))
+			);
 		}
+		if ($activeChaosEffects.find((ele) => ele.shared_id === effect.shared_id)) {
+			return activeChaosEffects.update((list) => {
+				list = list.filter((ele) => ele.shared_id !== effect.shared_id);
+				list = [...list, effect];
+				return list;
+			});
+		}
+		activeChaosEffects.update((list) => {
+			return (list = [...list, effect]);
+		});
 	}
 	$: name = effect[`outerName_${language}`] || effect[`outerName_zh`];
 </script>

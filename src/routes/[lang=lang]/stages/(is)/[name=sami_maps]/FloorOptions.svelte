@@ -3,7 +3,7 @@
 	import FloorEffect from './FloorEffect.svelte';
 	import FloorSelect from './FloorSelect.svelte';
 	import translations from '$lib/translations.json';
-	import chaosImg from '$lib/images/is/sami/非线性.webp';
+	import linear from '$lib/images/is/sami/非线性.webp';
 	import chaosList from '$lib/data/is/sami/chaos_sami.json';
 	import portal from '$lib/images/is/node_portal.webp';
 	import { portalMods } from './stores';
@@ -31,7 +31,7 @@
 		portalSelected = Boolean(value);
 	});
 	chaosList.forEach((option) => {
-		option.src = chaosImg;
+		option.src = linear;
 	});
 
 	const handlePortalClick = () => {
