@@ -57,9 +57,6 @@
 						}
 					}
 					break;
-				case 'rogue_phantom':
-					
-					break;
 			}
 		} else {
 			runes.set(mapNormalMods);
