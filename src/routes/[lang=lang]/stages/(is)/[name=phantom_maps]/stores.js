@@ -77,7 +77,9 @@ export const statMods = derived(
 			relicMods.push({
 				key: $selectedUniqueRelic.id,
 				mods: [
-					$selectedUniqueRelic.count > 1 ? $selectedUniqueRelic?.addons?.[$selectedUniqueRelic.count - 2]?.effects : $selectedUniqueRelic.effects
+					$selectedUniqueRelic.stages
+						? $selectedUniqueRelic?.stages?.[$selectedUniqueRelic.count]?.effects
+						: $selectedUniqueRelic.effects
 				]
 			});
 		}

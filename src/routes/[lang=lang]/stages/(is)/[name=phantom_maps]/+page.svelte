@@ -90,7 +90,7 @@
 <FooterBar {language} {rogueTopic} {selectedRelics} {selectedUniqueRelic}>
 	<div
 		slot="uniqueRelics"
-		class="grid lg:grid-cols-3 gap-x-10 gap-y-8 w-full overflow-x-auto md:overflow-visible my-auto mx-auto px-4 sm:px-24 mt-10"
+		class="grid lg:grid-cols-3 gap-x-10 gap-y-8 w-full overflow-x-auto md:overflow-visible my-auto mx-auto px-4 sm:px-24 mb-4"
 	>
 		{#each hardRelics as relic}
 			<RelicDivUnique {relic} {language} {rogueTopic} {selectedUniqueRelic} />

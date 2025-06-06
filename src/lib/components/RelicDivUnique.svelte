@@ -19,17 +19,17 @@
 	});
 
 	function handleClick() {
-		if (relic.addons) {
+		if (relic.stages) {
 			if (selected) {
 				relic.count++;
-				if (relic.count > relic.addons?.length + 1) {
+				if (relic.count > relic.stages?.length - 1) {
 					relic.count = 0;
 					selectedUniqueRelic.set(null);
 				} else {
 					selectedUniqueRelic.set(relic);
 				}
 			} else {
-				relic.count = 1;
+				relic.count = 0;
 				selectedUniqueRelic.set(relic);
 			}
 			return;
@@ -53,8 +53,8 @@
 	<div class="relic px-2">
 		<p class={`relic text-lg sm:text-xl ${selected ? 'text-[#cea658]' : 'text-gray-400'}`}>
 			{name}
-			{#if selected && relic.addons && relic?.count > 1}
-				({relic?.addons?.[relic?.count - 2]?.suffix})
+			{#if selected && relic.stages && relic?.stages?.[relic?.count]?.suffix}
+				({relic?.stages?.[relic?.count]?.suffix})
 			{/if}
 		</p>
 		<TextParser line={tooltip} className="relic text-[#c4c4c4]" />
