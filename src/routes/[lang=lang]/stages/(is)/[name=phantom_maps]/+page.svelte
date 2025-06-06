@@ -4,14 +4,13 @@
 	import {
 		statMods,
 		difficulty,
-		diff10Mods,
-		diff10ModifierStore,
 		specialMods,
 		selectedRelics,
 		selectedUniqueRelic,
 		eliteMode,
 		runes,
-		otherBuffsList
+		otherBuffsList,
+		isBossStage
 	} from './stores';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import FooterBar from '$lib/components/FooterBar.svelte';
@@ -35,10 +34,10 @@
 			language,
 			$difficulty
 		);
+	}
+	$: if (data.mapConfig) {
 		runes.set(data.mapConfig.n_mods);
-		diff10ModifierStore.set(
-			data.mapConfig.id.includes('_b_') && $difficulty >= 10 ? diff10Mods : null
-		);
+		isBossStage.set(data.mapConfig.id.includes('_b_'));
 	}
 	$: language = data.language;
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;

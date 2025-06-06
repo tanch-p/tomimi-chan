@@ -20,7 +20,7 @@ const difficultyMods = derived([difficulty], ([$difficulty]) =>
 		})
 		.filter(Boolean)
 );
-export const diff10Mods = [
+const diff10Mods = [
 	{
 		targets: ['ALL'],
 		mods: [
@@ -29,7 +29,6 @@ export const diff10Mods = [
 		]
 	}
 ];
-export const diff10ModifierStore = writable(null);
 export const eliteMode = writable(false);
 export const runes = writable(null);
 export const selectedUniqueRelic = writable(null);
@@ -39,10 +38,12 @@ export const otherBuffsList = writable([]);
 const otherMods = derived([otherBuffsList], ([$otherBuffsList]) =>
 	consolidateOtherMods($otherBuffsList)
 );
-
-eliteMode.subscribe((val) => {
-	if (val) diff10ModifierStore.set(diff10Mods);
-});
+export const isBossStage = writable(false);
+export const diff10ModifierStore = derived(
+	[isBossStage, difficulty, eliteMode],
+	([$isBossStage, $difficulty, $eliteMode]) =>
+		$difficulty >= 10 && ($isBossStage || $eliteMode) ? diff10Mods : null
+);
 
 export const statMods = derived(
 	[
