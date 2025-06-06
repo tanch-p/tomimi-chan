@@ -211,6 +211,11 @@ export const handleOptionsUpdate = (
 			return list;
 		});
 	}
+	if(rogueTopic === "rogue_phantom" && key ==="extra"){
+		if (!hiddenGroups.includes(key)) {
+			otherStores.eliteMode.set(true);
+		}
+	}
 	switch (rogueTopic) {
 		case 'rogue_skz':
 			if (hiddenGroups.includes(key)) {
@@ -314,7 +319,7 @@ export const getEnemyCountPermutations = (
 				if (action.actionType !== 'SPAWN') return;
 				if (
 					hiddenGroups.includes(action['hiddenGroup']) &&
-					!action['randomSpawnPackKey'] &&
+					!action['randomSpawnGroupKey'] &&
 					!action['randomSpawnGroupPackKey'] &&
 					isCountableAction(action.key, mapConfig.levelId)
 				) {

@@ -34,9 +34,7 @@
 			eliteMode.set(false);
 		}
 	});
-
 	const updateEliteMods = (option: boolean) => {
-		eliteMode.set(option);
 		if (option) {
 			runes.set(mapEliteMods);
 			switch (rogueTopic) {
@@ -62,6 +60,9 @@
 			runes.set(mapNormalMods);
 		}
 	};
+
+	eliteMode.subscribe((v) => updateEliteMods(v));
+
 	$: [combatOpsColor, eliteOpsColor] = getEliteColors(rogueTopic);
 
 	function getEliteIcon(stageId: string) {
@@ -78,25 +79,11 @@
 {#if mapEliteMods}
 	{#if inWaveOptions}
 		<!-- used in wave options -->
-		<EliteToggleBar
-			{combatOpsColor}
-			{eliteOpsColor}
-			{eliteMode}
-			{stageId}
-			{getEliteIcon}
-			{updateEliteMods}
-		/>
+		<EliteToggleBar {combatOpsColor} {eliteOpsColor} {eliteMode} {stageId} {getEliteIcon} />
 	{:else}
 		<MediaQuery>
 			<div slot="pc" class="mt-8">
-				<EliteToggleBar
-					{combatOpsColor}
-					{eliteOpsColor}
-					{eliteMode}
-					{stageId}
-					{getEliteIcon}
-					{updateEliteMods}
-				/>
+				<EliteToggleBar {combatOpsColor} {eliteOpsColor} {eliteMode} {stageId} {getEliteIcon} />
 			</div>
 			<button
 				slot="mobile"
@@ -104,7 +91,7 @@
 				class={`fixed z-[3] bottom-[210px] right-[20px] md:right-[40px] flex items-center justify-center rounded-full w-[45px] h-[45px] pointer-events-auto ${
 					$eliteMode ? `${eliteOpsColor}` : `${combatOpsColor}`
 				}`}
-				on:click={() => updateEliteMods(!$eliteMode)}
+				on:click={() => eliteMode.set(!$eliteMode)}
 			>
 				<img
 					src={$eliteMode ? getEliteIcon(stageId) : combat_icon}

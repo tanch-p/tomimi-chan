@@ -36,7 +36,9 @@
 			$difficulty
 		);
 		runes.set(data.mapConfig.n_mods);
-		diff10ModifierStore.set(data.mapConfig.id.includes('_b_') && $difficulty >= 10 ? diff10Mods : null);
+		diff10ModifierStore.set(
+			data.mapConfig.id.includes('_b_') && $difficulty >= 10 ? diff10Mods : null
+		);
 	}
 	$: language = data.language;
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
@@ -80,6 +82,7 @@
 				{rogueTopic}
 				{selectedRelics}
 				difficulty={$difficulty}
+				otherStores={{ eliteMode: eliteMode }}
 			>
 				<StageNav slot="nav" {language} />
 			</StageSharedContainer>
