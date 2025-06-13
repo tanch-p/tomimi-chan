@@ -50,6 +50,20 @@
 					</a></td
 				>
 			</tr>
+			<tr>
+				<td class="w-[80px]">AFDIAN</td>
+				<td
+					><a
+						href="https://afdian.com/a/tomimi"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-blue-400 hover:text-blue-300"
+					>
+						在爱发电支持我吧！
+					</a></td
+				>
+			</tr>
+			
 		</tbody>
 	</table>
 </div>
