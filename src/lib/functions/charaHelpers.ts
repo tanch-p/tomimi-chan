@@ -57,7 +57,7 @@ const SEARCH_IN_TAGS = [
 	'terrain_water',
 	'apoptosis',
 	'burning',
-	"neural",
+	'neural',
 	'apoptosis_scale',
 	'change_target_priority',
 	'remove_status',
@@ -114,7 +114,7 @@ const SEARCH_IN_TAGS = [
 	'skill_manual_off',
 	'ally_apoptosis',
 	'ally_burning',
-	"ally_neural",
+	'ally_neural',
 	'ignore_stealth',
 	'weaken',
 	'teleport_enemy',
@@ -128,8 +128,8 @@ const SEARCH_IN_TAGS = [
 	'protect',
 	'attract_enemy',
 	'no_source',
-	"ally_min_aspd",
-	"min_aspd"
+	'ally_min_aspd',
+	'min_aspd'
 ];
 const SEARCH_IN_BLACKBOARD = [
 	'max_target',
@@ -199,9 +199,9 @@ const SEARCH_IN_BLACKBOARD = [
 	'ct',
 	'heal_scale_down',
 	'ally_def_penetrate',
-	"add_bullet",
-	"max_ammo",
-	"ally_max_ammo"
+	'add_bullet',
+	'max_ammo',
+	'ally_max_ammo'
 ];
 
 // keys not here will just use their respective key in translations
@@ -217,7 +217,7 @@ const DISPLAY_KEYS_TABLE = {
 	ally_shield: 'buff_shield',
 	shield: 'buff_shield',
 	ally_block_dmg: 'block_dmg',
-	ally_def_penetrate:'def_penetrate',
+	ally_def_penetrate: 'def_penetrate',
 	ally_dmg_res: 'dmg_res',
 	ally_undying: 'undying',
 	ally_max_hp: 'hp',
@@ -248,8 +248,8 @@ const DISPLAY_KEYS_TABLE = {
 	ally_sp_regen: 'sp_regen',
 	ally_sp_stock: 'sp_stock',
 	ally_spareshot: 'spareshot',
-	ally_max_ammo:"max_ammo",
-	ally_min_aspd:"min_aspd",
+	ally_max_ammo: 'max_ammo',
+	ally_min_aspd: 'min_aspd',
 	status_immune: 'status_immune_text',
 	heal_self: 'heal_self_others',
 	bonus_flying: 'flying',
@@ -880,11 +880,17 @@ export const getPrioritySortValues = (char, sortOptions, secFilters) => {
 			if (['damage_scale', 'ally_damage_scale', 'ally_heal_scale'].includes(key) && value < 4.9) {
 				return `${Math.round((value - 1) * 100)}%`;
 			}
-			if (['ally_sp_gain', 'sp_gain',"ally_max_ammo","max_ammo","add_bullet"].includes(key)) {
+			if (['ally_sp_gain', 'sp_gain', 'ally_max_ammo', 'max_ammo', 'add_bullet'].includes(key)) {
 				return value < 1 ? `${Math.round(value * 100)}%` : value;
 			}
 			if (['ally_atk', 'ally_def', 'ally_res', 'def', 'res'].includes(key)) {
 				return value < 4.9 ? `${Math.round(value * 100)}%` : value;
+			}
+			if (value < 0) {
+				if (value > -1.01) {
+					return `${Math.round(value * 100)}%`;
+				}
+				return value;
 			}
 			if (value < 1.01) {
 				return `${Math.round(value * 100)}%`;
