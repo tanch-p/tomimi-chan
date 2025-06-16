@@ -50,7 +50,7 @@
 						if (relicId) {
 							if (!$selectedRelics.find((item) => item.id === relicId)) {
 								const relic = skzRelics.find((item) => item.id === relicId);
-								selectedRelics.update((list) => (list = [...list, relic]));
+								selectedRelics.set([...$selectedRelics, relic]);
 							}
 						}
 					}
