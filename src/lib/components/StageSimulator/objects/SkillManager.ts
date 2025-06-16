@@ -37,7 +37,7 @@ export class SkillManager {
 			}
 		}
 
-		if (['enemy_2042_syboss', 'enemy_2089_skzjkl'].includes(this.enemy.key)) {
+		if (['enemy_2042_syboss', 'enemy_2089_skzjkl','enemy_2018_csdoll'].includes(this.enemy.key)) {
 			this.activeSkills = skills
 				.filter(
 					(ele) =>

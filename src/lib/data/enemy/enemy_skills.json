@@ -2710,10 +2710,20 @@
 	},
 	"DOL_self_destruct": {
 		"tooltip": {
-			"en": ["Self-destructs after 8mins, taking away 30 lifepoint"],
-			"ja": ["8分後自爆して、耐久値30点減る"],
+			"en": ["Self-destructs after 8mins, taking away 30 lifepoint and deals 200% of ATK as {arts} damage to all friendly units"],
+			"ja": ["8分後自爆して、耐久値30点減る、味方全体に攻撃力200％の{arts}ダメージを与える"],
 			"zh": ["8分后自爆，扣除30点关卡生命值，对场上全体友方单位造成自身攻击力200%的{arts}溅射伤害"]
 		}
+	},
+	"csdoll_branch_summon": {
+		"branches": [
+			["csdoll_1", 24, 90],
+			["csdoll_2", 20, 180],
+			["csdoll_3", 16, 999]
+		],
+		"branchType": "single",
+		"branchRandom": true,
+		"tooltip": null
 	},
 	"break_the_chains": {
 		"atk": { "multiplier": 6 },
