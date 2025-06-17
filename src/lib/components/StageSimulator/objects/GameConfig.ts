@@ -1,6 +1,7 @@
 import { writable } from 'svelte/store';
 
 export class GameConfig {
+	static mode = "wave";
 	static gridSize = 100;
 	static speedFactor = 4;
 	static baseZIndex = 0;

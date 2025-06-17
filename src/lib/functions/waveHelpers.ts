@@ -676,6 +676,7 @@ export const getRandomGroups = (fragment, hiddenGroups) => {
 		}
 		if (randomSpawnGroupKey) {
 			groups.push(action);
+			continue;
 		}
 		if (packHasGroupInFragment(fragment['actions'], randomSpawnGroupPackKey)) {
 			groups.push(action);
