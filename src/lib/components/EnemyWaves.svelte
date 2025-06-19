@@ -16,6 +16,8 @@
 	import DLDGPN from '$lib/images/is/DLDGPN.webp';
 	import RandomGroupList from './RandomGroupList.svelte';
 	import { defaultOpenStageSim } from '../../routes/stores';
+	import { GameConfig } from './StageSimulator/objects/GameConfig';
+	import { onDestroy, onMount } from 'svelte';
 
 	export let mapConfig,
 		enemies,
@@ -32,6 +34,7 @@
 		selectedPermutationIdx = 0,
 		randomSeeds = Array.from(Array(50)).map((_) => Math.random()),
 		mode = 'predefined',
+		simMode = 'wave_normal',
 		bonus = '',
 		baseCount = 0;
 
@@ -64,6 +67,7 @@
 		selectedCountIndex = 0;
 		selectedPermutationIdx = 0;
 		bonus = '';
+		GameConfig.setValue(mode, 'wave_normal');
 	}
 	$: if (selectedCountIndex) {
 		selectedPermutationIdx = 0;
@@ -94,6 +98,20 @@
 			hiddenGroups = hiddenGroups.filter((key) => key !== 'calamity');
 		}
 	});
+
+	const unsubscribeFns = [];
+	onMount(() => {
+		unsubscribeFns.push(
+			GameConfig.subscribe('mode', (value) => {
+				simMode = value;
+			})
+		);
+	});
+
+	onDestroy(() => {
+		GameConfig.setValue('mode', 'wave_normal');
+		unsubscribeFns.forEach((fn) => fn());
+	});
 </script>
 
 {#if hasAnalysis}
@@ -106,6 +124,22 @@
 		<div
 			class="grid grid-cols-[75px_1fr] md:grid-cols-[120px_1fr] divide-y divide-neutral-700 border-y border-neutral-700 text-sm md:text-base"
 		>
+			{#if mapConfig.branches}
+				<p class="title {language}">{translations[language].sim_mode}</p>
+				<div class="grid grid-cols-2">
+					{#each ['wave_normal', 'wave_summons'] as key}
+						<button
+							class="flex justify-center items-center border-r border-neutral-700 font-semibold text-lg {simMode ===
+							key
+								? 'bg-gray-600'
+								: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
+							on:click={() => GameConfig.setValue('mode', key)}
+						>
+							{translations[language][key]}
+						</button>
+					{/each}
+				</div>
+			{/if}
 			{#if mapConfig.elite_mods}
 				<p class="title {language}">{translations[language].operation_type}</p>
 				<slot name="eliteMods" />

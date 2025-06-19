@@ -262,14 +262,37 @@ export class GameManager {
 			this.scene?.add(mesh);
 		}
 	}
+	clearAndAddBranch(key: string, index: number) {
+		this.spawnManager.reset();
+		this.clearEnemies();
+		this.clearTraps();
+		GameConfig.setValue('waveElapsedTime', 0);
+		this.spawnManager.addBranch(key, structuredClone(this.config.branches[key]), index);
+	}
+
+	clearEnemies() {
+		const enemiesToRemove = [];
+		this.enemiesOnMap.forEach((enemy) => {
+			enemiesToRemove.push(enemy);
+		});
+		enemiesToRemove.forEach((enemy) => enemy.remove());
+	}
+	clearTraps() {
+		const trapsToRemove = [];
+		this.traps.forEach((trap) => {
+			trapsToRemove.push(trap);
+		});
+		trapsToRemove.forEach((trap) => trap.remove());
+		this.traps.clear();
+	}
 
 	reset(config, enemies) {
 		this.enemies = enemies;
 		this.config = config;
 		const mazeLayout = generateMaze(config.mapData.map, config.mapData.tiles);
 		this.mazeLayout = mazeLayout;
-		this.enemiesOnMap = [];
-		this.traps.clear();
+		this.clearEnemies();
+		this.clearTraps();
 		this.noEnemyAlive = false;
 		this.pathFinder = new SPFA(mazeLayout);
 		this.tiles.clear();
@@ -286,8 +309,6 @@ export class GameManager {
 				enemiesToRemove.push(enemy);
 			}
 		});
-		// console.log('To Remove', enemiesToRemove);
-		// console.log('before', this.enemiesOnMap,data.enemiesOnMap);
 		enemiesToRemove.forEach((enemy) => enemy.remove());
 		data.enemiesOnMap.forEach((enemy) => {
 			const existingEnemy = this.enemiesOnMap.find((e) => enemy.spawnUID === e.spawnUID);
@@ -295,7 +316,7 @@ export class GameManager {
 				existingEnemy.updateData(enemy);
 				return existingEnemy;
 			}
-			return new Enemy(enemy.data, enemy.route, this, enemy.fragmentKey, enemy.spawnUID, enemy);
+			return new Enemy(enemy.data, enemy.route, this, enemy.fragmentKey, enemy.spawnUID, 0,enemy);
 		});
 		// console.log('after', this.enemiesOnMap,data.enemiesOnMap);
 	}

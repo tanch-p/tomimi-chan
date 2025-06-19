@@ -42,7 +42,6 @@
 				floor6Index = 7;
 				break;
 			case 'level_rogue4_b-8':
-			case 'level_rogue4_b-8':
 				floor6Index = 6;
 				break;
 			default:

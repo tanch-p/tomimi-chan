@@ -16,13 +16,14 @@
 		simulatedData,
 		maxCost = 99;
 
-	let state,
-		card = GameConfig.tokenCard,
+	let card = GameConfig.tokenCard,
 		totalTime = 0,
 		min = 0,
 		sec = 0,
 		unsubscribeFns = [],
-		isPaused = false;
+		isPaused = false,
+		simMode = 'wave_normal';
+
 	function handleSpeedFactor() {
 		switch (GameConfig.speedFactor) {
 			case 1:
@@ -43,25 +44,33 @@
 		GameConfig.setValue('isPaused', true);
 	}
 	// Sync class -> store
-	let unsubscribe;
 	onMount(() => {
-		unsubscribe = GameConfig.subscribe('scaledElapsedTime', (value) => {
-			totalTime = value;
-		});
-		unsubscribeFns.push(unsubscribe);
-		unsubscribe = GameConfig.subscribe('waveElapsedTime', (value) => {
-			min = Math.floor(value / 60);
-			sec = Math.floor(value % 60);
-		});
-		unsubscribeFns.push(unsubscribe);
-		unsubscribe = GameConfig.subscribe('tokenCard', (value) => {
-			card = value;
-		});
-		unsubscribeFns.push(unsubscribe);
-		unsubscribe = GameConfig.subscribe('isPaused', (value) => {
-			isPaused = value;
-		});
-		unsubscribeFns.push(unsubscribe);
+		unsubscribeFns.push(
+			GameConfig.subscribe('scaledElapsedTime', (value) => {
+				totalTime = value;
+			})
+		);
+		unsubscribeFns.push(
+			GameConfig.subscribe('waveElapsedTime', (value) => {
+				min = Math.floor(value / 60);
+				sec = Math.floor(value % 60);
+			})
+		);
+		unsubscribeFns.push(
+			GameConfig.subscribe('tokenCard', (value) => {
+				card = value;
+			})
+		);
+		unsubscribeFns.push(
+			GameConfig.subscribe('isPaused', (value) => {
+				isPaused = value;
+			})
+		);
+		unsubscribeFns.push(
+			GameConfig.subscribe('mode', (value) => {
+				simMode = value;
+			})
+		);
 	});
 
 	onDestroy(() => {
@@ -69,7 +78,7 @@
 	});
 </script>
 
-{#if simulatedData}
+{#if simulatedData && simMode === 'wave_normal'}
 	<SeekBar {game} {simulatedData} />
 {/if}
 <div class="absolute z-[1] right-4 flex gap-x-2 md:gap-x-4 mt-4">

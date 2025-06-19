@@ -82,6 +82,7 @@ export class Enemy {
 		gameManager: GameManager,
 		fragmentKey,
 		spawnUID: string,
+		formIndex = 0,
 		setData = null
 	) {
 		this.assetManager = AssetManager.getInstance();
@@ -134,6 +135,8 @@ export class Enemy {
 			this.startElapsedTime = setData.startElapsedTime;
 		} else {
 			this.spawnUID = spawnUID;
+			this.formIndex = formIndex;
+			this.spineAnimIndex = formIndex;
 			this.pathFinder = gameManager.pathFinder;
 			this.data = enemyData;
 			this.key = enemyData.key;
@@ -376,7 +379,10 @@ export class Enemy {
 			this.meshGroup.add(sprite);
 			this.sprite = sprite;
 			this.skel = skeletonMesh;
-			if (this.motionMode === 'FLY') {
+			if (
+				this.motionMode === 'FLY' &&
+				this.data.type.some((type) => ['drone', 'flying'].includes(type))
+			) {
 				this.sprite.position.y += GameConfig.gridSize * 0.7;
 				this.skel.position.y += GameConfig.gridSize * 0.7;
 			}

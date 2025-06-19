@@ -3,6 +3,7 @@ import { Enemy } from './Enemy';
 import { GameConfig } from './GameConfig';
 import { GameManager } from './GameManager';
 import { SpawnManager } from './SpawnManager';
+import branchInfo from '$lib/data/stages/branch_info.json';
 
 export class BranchManager {
 	routes;
@@ -17,7 +18,8 @@ export class BranchManager {
 	isFinished = false;
 	phasePreDelayTimer = 0;
 	phaseTimer = 0;
-	constructor(branch, gameManager: GameManager, spawnManager:SpawnManager) {
+	constructor(branchKey, branch, gameManager: GameManager, spawnManager: SpawnManager) {
+		this.branchKey = branchKey;
 		this.branch = branch;
 		this.spawnManager = spawnManager;
 		this.gameManager = gameManager;
@@ -30,7 +32,7 @@ export class BranchManager {
 	}
 
 	update(delta) {
-		if(this.isFinished){
+		if (this.isFinished) {
 			return;
 		}
 		if (this.currentPhaseIndex >= this.phases.length) {
@@ -90,7 +92,7 @@ export class BranchManager {
 			// Handle spawning
 			const timeSinceLastSpawn = GameConfig.scaledElapsedTime - state.lastSpawnTime;
 			if (state.spawnCount === 0 || timeSinceLastSpawn >= state.action.interval) {
-				this.spawnEntity(state.action,index);
+				this.spawnEntity(state.action, index);
 				state.spawnCount++;
 				state.lastSpawnTime = GameConfig.scaledElapsedTime;
 
@@ -113,13 +115,13 @@ export class BranchManager {
 		this.phaseTimer = 0;
 	}
 
-	spawnEntity(action,index) {
+	spawnEntity(action, index) {
 		if (action.key === '') {
 			return;
 		}
 		switch (action.actionType) {
 			case 'SPAWN':
-				this.spawnEnemy(action,index);
+				this.spawnEnemy(action, index);
 				break;
 			case 'ACTIVATE_PREDEFINED':
 				this.activatePredefined(action);
@@ -129,16 +131,18 @@ export class BranchManager {
 		}
 	}
 
-	spawnEnemy(action,index) {
+	spawnEnemy(action, index) {
 		const originalRoute = this.routes[action['routeIndex']];
 		const route = this.gameManager.convertMovementConfig(structuredClone(originalRoute));
 		const enemyData = this.gameManager.enemies.find((ele) => ele.stageId === action.key);
 		if (!enemyData) {
 			return;
 		}
-		const spawnUID = `b-${action.key}-b${this.spawnManager.spawnIdx}`
+		const spawnUID = `b-${action.key}-b${this.spawnManager.spawnIdx}`;
 		this.spawnManager.spawnIdx++;
-		const enemy = new Enemy(enemyData, route, this.gameManager, null,spawnUID);
+		const formIndex =
+			branchInfo?.[this.gameManager.config.levelId]?.[this.branchKey]?.formIndex || 0;
+		const enemy = new Enemy(enemyData, route, this.gameManager, null, spawnUID, formIndex);
 	}
 
 	activatePredefined(action) {

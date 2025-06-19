@@ -83,8 +83,8 @@
 
 		// Add global event listeners for drag tracking (touch events)
 		window.addEventListener('touchmove', handleGlobalTouchMove, { passive: false });
-		window.addEventListener('touchend', handleGlobalTouchEnd,{ passive: false });
-		window.addEventListener('touchcancel', handleGlobalTouchEnd,{ passive: false });
+		window.addEventListener('touchend', handleGlobalTouchEnd, { passive: false });
+		window.addEventListener('touchcancel', handleGlobalTouchEnd, { passive: false });
 
 		// Prevent default to avoid text selection or page scrolling
 		event.preventDefault();
@@ -133,16 +133,17 @@
 			game.gameManager.set(simulatedData.t[time]);
 		}
 	}
-
-	let unsubscribe;
+	const unsubscribeFns = [];
 	onMount(() => {
-		unsubscribe = GameConfig.subscribe('scaledElapsedTime', (value) => {
-			progress = (value / totalTime) * 100;
-		});
+		unsubscribeFns.push(
+			GameConfig.subscribe('scaledElapsedTime', (value) => {
+				progress = (value / totalTime) * 100;
+			})
+		);
 	});
 
 	onDestroy(() => {
-		unsubscribe && unsubscribe();
+		unsubscribeFns.forEach((fn) => fn());
 		// Clean up global event listeners if component is destroyed while dragging
 		window.removeEventListener('mousemove', handleGlobalMouseMove);
 		window.removeEventListener('mouseup', handleGlobalMouseUp);

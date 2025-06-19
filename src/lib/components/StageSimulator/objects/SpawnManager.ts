@@ -47,31 +47,54 @@ export class SpawnManager {
 		this.currentWaveIndex = GameConfig.currentWaveIndex;
 		this.currentFragmentIndex = 0;
 		this.nextWaveType = waves[0].maxTimeWaitingForNextWave < 0 ? 'NO_ENEMIES' : 'TIME';
-		if (this.gameManager.config.levelId === 'level_rogue4_b-8') {
-			switch (this.currentWaveIndex) {
-				case 3:
-					this.addBranch('amiy_blink_1');
-					break;
-				case 5:
-					this.addBranch('amiy_blink_2');
-					break;
-			}
+		switch (this.gameManager.config.levelId) {
+			case 'level_rogue4_b-7':
+				switch (this.currentWaveIndex) {
+					case 2:
+						this.addBranch('skzjkl_stage_2');
+						break;
+				}
+				break;
+			case 'level_rogue4_b-8':
+				switch (this.currentWaveIndex) {
+					case 3:
+						this.addBranch('amiy_blink_1');
+						break;
+					case 5:
+						this.addBranch('amiy_blink_2');
+						break;
+				}
+				break;
 		}
 	}
 
 	// Main update function to be called in animation loop
 	update(delta) {
+		if (GameConfig.isPaused && !this.gameManager.isSimulation) return;
+
 		// handle branches
 		this.branches.forEach((branch) => {
 			branch.update(delta);
 		});
+		if (GameConfig.mode !== 'wave_normal') {
+			GameConfig.setValue('waveElapsedTime', GameConfig.waveElapsedTime + delta);
+			return;
+		}
 
 		this.fragmentsTimeTracker.forEach((value, key) => {
 			this.fragmentsTimeTracker.set(key, value + delta);
 		});
+		const branchesComplete = this.branches
+			.entries()
+			.every(([_, branch]) =>
+				branch.activeActions.entries().every(([_, action]) => action.isComplete)
+			);
+		this.isFinished = this.currentWaveIndex >= this.waves.length && branchesComplete;
 		if (this.currentWaveIndex >= this.waves.length) {
-			this.isFinished = true;
-			return; // All waves completed
+			if (!this.gameManager.noEnemyAlive) {
+				GameConfig.setValue('waveElapsedTime', GameConfig.waveElapsedTime + delta);
+			}
+			return;
 		}
 		const currentWave = this.waves[this.currentWaveIndex];
 
@@ -249,14 +272,17 @@ export class SpawnManager {
 		this.gameManager.addTrap(null, action.key);
 	}
 
-	addBranch(branch, index = -1) {
-		if (typeof branch === 'string') {
-			branch = this.gameManager.config.branches[branch];
+	addBranch(branchKey: string, branch, index = -1) {
+		if (!branch) {
+			branch = structuredClone(this.gameManager.config.branches[branchKey]);
 		}
 		if (index !== -1) {
 			branch.phases = [branch.phases[index]];
 		}
-		this.branches.set(this.branchIndex, new BranchManager(branch, this.gameManager, this));
+		this.branches.set(
+			this.branchIndex,
+			new BranchManager(branchKey, branch, this.gameManager, this)
+		);
 		this.branchIndex++;
 	}
 
@@ -280,6 +306,7 @@ export class SpawnManager {
 
 	// Helper method to reset the manager
 	reset() {
+		this.branches = new Map();
 		this.currentWaveIndex = 0;
 		this.currentFragmentIndex = 0;
 		this.activeActions.clear();

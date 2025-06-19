@@ -7,7 +7,7 @@
 	import translations from '$lib/translations.json';
 	import { compileSpawnTimeActions, getImageForWaves } from '$lib/functions/waveHelpers';
 
-	export let waves, mapConfig;
+	export let waves, mapConfig, branchKey, branchIndex: number;
 
 	let timelineContainer: HTMLDivElement, actionsContainer: HTMLDivElement;
 	let currWaveIndex = 0;
@@ -16,29 +16,44 @@
 	let showTimeline = true;
 	let index = -1;
 	let prevIndexSize = 0;
+	let simMode = 'wave_normal';
 
 	$: language = $page.data.language;
 	$: GameConfig.showTimeline.subscribe((v) => (showTimeline = v));
-	// Sync class -> store
-	let unsubscribeFns = [];
-	let unsubscribe;
 
+	// Sync class -> store
+	const unsubscribeFns = [];
 	onMount(() => {
-		unsubscribe = GameConfig.subscribe('waveElapsedTime', (value) => {
-			waveElapsedTime = value;
-		});
-		unsubscribeFns.push(unsubscribe);
-		unsubscribe = GameConfig.subscribe('scaledElapsedTime', (value) => {
-			if (value === 0 && mapConfig.levelId !== 'level_rogue4_b-8') {
-				currWaveIndex = 0;
-				timelineContainer && timelineContainer.scrollTo(0, 0);
-			}
-		});
-		unsubscribeFns.push(unsubscribe);
-		unsubscribe = GameConfig.subscribe('currentWaveIndex', (value) => {
-			currWaveIndex = value;
-			if (mapConfig.levelId === 'level_rogue4_b-8') {
-				const indexesToScrollBy = [0, 1].includes(value) ? 0 : [2, 3].includes(value) ? 3 : 7;
+		unsubscribeFns.push(
+			GameConfig.subscribe('mode', (mode) => {
+				simMode = mode;
+			})
+		);
+		unsubscribeFns.push(
+			GameConfig.subscribe('waveElapsedTime', (value) => {
+				waveElapsedTime = value;
+			})
+		);
+		unsubscribeFns.push(
+			GameConfig.subscribe('scaledElapsedTime', (value) => {
+				if (value === 0 && !['level_rogue4_b-7', 'level_rogue4_b-8'].includes(mapConfig.levelId)) {
+					currWaveIndex = 0;
+					timelineContainer && timelineContainer.scrollTo(0, 0);
+				}
+			})
+		);
+		unsubscribeFns.push(
+			GameConfig.subscribe('currentWaveIndex', (value) => {
+				currWaveIndex = value;
+				let indexesToScrollBy = 0;
+				switch (mapConfig.levelId) {
+					case 'level_rogue4_b-7':
+						indexesToScrollBy = [0, 1].includes(value) ? 0 : 23;
+						break;
+					case 'level_rogue4_b-8':
+						indexesToScrollBy = [0, 1].includes(value) ? 0 : [2, 3].includes(value) ? 3 : 7;
+						break;
+				}
 				timelineContainer &&
 					timelineContainer.scrollTo({
 						top:
@@ -46,16 +61,15 @@
 							actionsContainer.children?.[indexesToScrollBy]?.scrollHeight
 					});
 				return;
-			}
-		});
-		unsubscribeFns.push(unsubscribe);
+			})
+		);
 	});
 	onDestroy(() => {
 		unsubscribeFns.forEach((fn) => fn());
 	});
 
 	$: prevIndexSize = getPrevActionsSize(currWaveIndex);
-	$: index = updateActionIndex(waveElapsedTime,prevIndexSize);
+	$: index = updateActionIndex(waveElapsedTime, prevIndexSize);
 
 	$: trackAndScrollContainer(index);
 
@@ -65,6 +79,7 @@
 	}
 
 	function trackAndScrollContainer(index: number) {
+		if (simMode === 'wave_summons') return;
 		if (timelineContainer && actionsContainer.children[index]) {
 			timelineContainer.scrollTo({
 				top:
@@ -75,7 +90,7 @@
 		}
 	}
 	function getPrevActionsSize(currWaveIndex: number) {
-		if (mapConfig.levelId === 'level_rogue4_b-8') return 0;
+		if (['level_rogue4_b-7', 'level_rogue4_b-8'].includes(mapConfig.levelId)) return 0;
 		let size = 0;
 		for (let i = 0; i < currWaveIndex; i++) {
 			const length = waves?.[i]?.timeline?.length || 0;
@@ -108,6 +123,14 @@
 	>
 		<div bind:this={timelineContainer} class="w-full h-full overflow-y-scroll no-scrollbar">
 			<div bind:this={actionsContainer} class="pb-[100vh]">
+				{#if simMode === 'wave_summons' && branchKey}
+					<h6 class="text-center">
+						{branchKey}
+						{#if branchIndex > -1}
+							#{branchIndex + 1}
+						{/if}
+					</h6>
+				{/if}
 				{#each waves as { maxTimeWaitingForNextWave, timeline }, i}
 					{#if i > 0 && timeline.length > 0}<p class="mt-4">
 							{wavePrefixSuffix(i + 1, language)}
@@ -122,22 +145,38 @@
 							</p>
 							<div class="flex flex-wrap">
 								{#each compiledActions as { key, count }}
-									{#if !key.includes('trap') && key !== ''}
-										{@const prefabKey = getImageForWaves(key, mapConfig)}
-										<div class="relative">
-											{#if count > 1}
-												<p class="absolute right-0 bottom-0 bg-almost-black px-1 text-xs">
-													x{count}
-												</p>
-											{/if}
-											<img
-												src="/images/enemy_icons/{prefabKey}.webp"
-												width="50px"
-												height="50px"
-												alt={key}
-												class=""
-											/>
-										</div>
+									{#if key !== ''}
+										{#if key.includes('trap')}
+											<div class="relative">
+												{#if count > 1}
+													<p class="absolute right-0 bottom-0 bg-almost-black px-1 text-xs">
+														x{count}
+													</p>
+												{/if}
+												<img
+													src="/images/chara_icons/{key}.webp"
+													width="50px"
+													height="50px"
+													alt={key}
+													class=""
+												/>
+											</div>{:else}
+											{@const prefabKey = getImageForWaves(key, mapConfig)}
+											<div class="relative">
+												{#if count > 1}
+													<p class="absolute right-0 bottom-0 bg-almost-black px-1 text-xs">
+														x{count}
+													</p>
+												{/if}
+												<img
+													src="/images/enemy_icons/{prefabKey}.webp"
+													width="50px"
+													height="50px"
+													alt={key}
+													class=""
+												/>
+											</div>
+										{/if}
 									{/if}
 								{/each}
 							</div>

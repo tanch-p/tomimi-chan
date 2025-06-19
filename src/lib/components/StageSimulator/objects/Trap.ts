@@ -4,6 +4,7 @@ import trapLookup from '$lib/data/trap/traps.json';
 import { AssetManager } from './AssetManager';
 import { GameConfig } from './GameConfig';
 import { getIdleAnimName } from '$lib/functions/spineHelpers';
+import { clearObjects } from '$lib/functions/threejsHelpers';
 
 export class Trap {
 	assetManager: AssetManager;
@@ -146,6 +147,11 @@ export class Trap {
 				break;
 		}
 	}
+
+	remove(){
+		clearObjects(this.meshGroup);
+	}
+
 	update(delta) {
 		if (this.isSimulation) {
 			return;

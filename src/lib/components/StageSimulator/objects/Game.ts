@@ -83,6 +83,7 @@ export class Game {
 		this.renderer.setAnimationLoop(() => this.render());
 	}
 	initLights() {
+		if (!this.scene) return;
 		// lights
 		const ambientLight = new THREE.AmbientLight(0xcccccc, 3);
 		this.scene.add(ambientLight);
@@ -93,7 +94,7 @@ export class Game {
 	}
 	stop() {
 		GameConfig.state = 'stop';
-		this.renderer.setAnimationLoop(null);
+		this.renderer?.setAnimationLoop(null);
 	}
 
 	reset(config, waveData, enemies) {
@@ -104,9 +105,18 @@ export class Game {
 	}
 	softReset(resetWaveIndex = true) {
 		this.stop();
-		if (this.config.levelId !== 'level_rogue4_b-8') {
-			resetWaveIndex && GameConfig.setValue('currentWaveIndex', 0);
+		switch (this.config.levelId) {
+			case 'level_rogue4_b-7':
+				resetWaveIndex &&
+					GameConfig.setValue('currentWaveIndex', GameConfig.stagePhaseIndex === 0 ? 0 : 2);
+				break;
+			case 'level_rogue4_b-8':
+				break;
+			default:
+				GameConfig.setValue('stagePhaseIndex', 0);
+				resetWaveIndex && GameConfig.setValue('currentWaveIndex', 0);
 		}
+
 		GameConfig.setValue('scaledElapsedTime', 0);
 		GameConfig.setValue('waveElapsedTime', 0);
 		GameConfig.setValue('tokenCard', null);
@@ -123,13 +133,21 @@ export class Game {
 		this.initCamera();
 		GameConfig.state = 'ready';
 		this.clock.getDelta();
-		this.renderer.setAnimationLoop(() => this.render());
+		this.renderer?.setAnimationLoop(() => this.render());
 	}
 	initCamera() {
+		if (!this.camera) return;
 		let x = 0;
 		switch (this.config.levelId) {
 			case 'level_rogue4_b-7':
-				x = -600;
+				switch (GameConfig.currentWaveIndex) {
+					case 0:
+					case 1:
+						x = -600;
+						break;
+					default:
+						x = 800;
+				}
 				break;
 			case 'level_rogue4_b-8':
 				switch (GameConfig.currentWaveIndex) {
@@ -143,7 +161,7 @@ export class Game {
 						break;
 					case 4:
 					case 5:
-						x = 1200;
+						x = 1250;
 						break;
 				}
 				break;
@@ -161,7 +179,7 @@ export class Game {
 			width = window.innerWidth - 24;
 			height = window.innerHeight * 0.5;
 		} else {
-			width = window.innerWidth - 48;
+			width = Math.min(1200, window.innerWidth) - 48;
 			height = (window.innerHeight * 2) / 3;
 		}
 		const aspect = width / height;
@@ -185,7 +203,6 @@ export class Game {
 			// Convert mouse movement to world space (adjust sensitivity as needed)
 			const sensitivity = 1;
 			this.camera.position.x -= deltaMove.x * sensitivity;
-
 			// Update the camera target (lookAt point) to maintain orientation
 			const target = new THREE.Vector3(
 				this.camera.position.x,

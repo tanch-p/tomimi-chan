@@ -1915,8 +1915,12 @@
 	},
 	"JTM_jetpack": {
 		"tooltip": {
-			"en": ["When blocked activates Jetpack, cannot be blocked and gains Movespeed +50% and flies for 7s. CD25s"],
-			"ja": ["ブロックされたらジェットパックを起動→7秒間飛行する、ブロック不可、移動速度+50％、CD25秒"],
+			"en": [
+				"When blocked activates Jetpack, cannot be blocked and gains Movespeed +50% and flies for 7s. CD25s"
+			],
+			"ja": [
+				"ブロックされたらジェットパックを起動→7秒間飛行する、ブロック不可、移動速度+50％、CD25秒"
+			],
 			"zh": ["被阻挡后会飞起来7s，飞行模式下移动速度+50%，不攻击，不可阻挡，冷却25s"]
 		}
 	},
@@ -2427,7 +2431,10 @@
 		"type": "buff",
 		"effects": {
 			"targets": ["ALL"],
-			"activeTargets": [{ "key": "enemy_1080_sotidp", "count": 1 },{ "key": "enemy_1080_sotidp_2", "count": 1 }],
+			"activeTargets": [
+				{ "key": "enemy_1080_sotidp", "count": 1 },
+				{ "key": "enemy_1080_sotidp_2", "count": 1 }
+			],
 			"mods": [
 				{ "key": "atk", "value": 0.1, "order": "initial", "mode": "mul" },
 				{ "key": "def", "value": 100, "order": "initial", "mode": "add" }
@@ -2693,12 +2700,14 @@
 		"suffix": { "en": "Shield", "ja": "バリア", "zh": "护盾" },
 		"tooltip": {
 			"en": [
-				"Shield absorbs up to 15% Max Hp of ALL damage types",
-				"Shield Active: does not normal attack & all enemies MS+200%",
+				"Shield absorbs up to 15% of Max HP of ALL damage types",
+				"Shield Active: does not normal attack & all enemies have Movespeed +100%",
+				"Summons 1 additional enemy wave every 20s (including 0s)",
 				"During shield active cooldown proceeds"
 			],
 			"ja": [
-				"最大HP15％のダメージを吸収する、バリア継続中は通常攻撃しない、敵全体移動速度＋200％",
+				"最大HP15％のダメージを吸収する、バリア継続中は通常攻撃しない、敵全体移動速度＋100％",
+				"20秒毎に敵を召喚する（0秒含む）",
 				"クールタイムは使用中でもカウントされる"
 			],
 			"zh": [
@@ -2710,7 +2719,9 @@
 	},
 	"DOL_self_destruct": {
 		"tooltip": {
-			"en": ["Self-destructs after 8mins, taking away 30 lifepoint and deals 200% of ATK as {arts} damage to all friendly units"],
+			"en": [
+				"Self-destructs after 8mins, taking away 30 lifepoint and deals 200% of ATK as {arts} damage to all friendly units"
+			],
 			"ja": ["8分後自爆して、耐久値30点減る、味方全体に攻撃力200％の{arts}ダメージを与える"],
 			"zh": ["8分后自爆，扣除30点关卡生命值，对场上全体友方单位造成自身攻击力200%的{arts}溅射伤害"]
 		}
@@ -4906,13 +4917,16 @@
 		"dmg_element": "phys",
 		"tooltip": {
 			"en": [
-				"When HP drops below 50% for the first time, self and Mon2tr charges for 5s and swaps positions","(Explosion not happening on CN server, last confirmed 2025/06/01)"
+				"When HP drops below 50% for the first time, self and Mon2tr charges for 5s and swaps positions",
+				"(Explosion not happening on CN server, last confirmed 2025/06/01)"
 			],
 			"ja": [
-				"HP50%以下→自分とMon2trが5秒チャージした後位置交換する","大陸鯖では位置交換後の爆発が不発になっている、2025/06/01確認"
+				"HP50%以下→自分とMon2trが5秒チャージした後位置交換する",
+				"大陸鯖では位置交換後の爆発が不発になっている、2025/06/01確認"
 			],
 			"zh": [
-				"生命值低于一半时，自身与Mon2tr蓄力5s，与Mon2tr交换位置","(2025/06/01最终确认，不会爆炸了，是BUG?)"
+				"生命值低于一半时，自身与Mon2tr蓄力5s，与Mon2tr交换位置",
+				"(2025/06/01最终确认，不会爆炸了，是BUG?)"
 			]
 		}
 	},
@@ -5947,6 +5961,7 @@
 		"type": "skill",
 		"initCooldown": 10,
 		"cooldown": 20,
+		"needTarget": true,
 		"suffix": { "en": "BoFP", "ja": "五戒の罰", "zh": "惩五戒" },
 		"hits": 5,
 		"atk": { "multiplier": 1 },
@@ -5978,6 +5993,30 @@
 				"每10s，在场上预设位置召唤尼卢火；每20s，以预设路径召唤敌人（思维混乱时召唤不同敌人） "
 			]
 		}
+	},
+	"skzjkl_2_agni": {
+		"branches": [["skzjkl_skzth_m1", 35, 999]],
+		"branchType": "single",
+		"branchRandom": false,
+		"tooltip": null
+	},
+	"skzjkl_2_enemy": {
+		"branches": [["skzjkl_m1_summon_enemy", 38, 999]],
+		"branchType": "single",
+		"branchRandom": false,
+		"tooltip": null
+	},
+	"skzjkl_3_agni": {
+		"branches": [["skzjkl_skzth_m3", 10, 999]],
+		"branchType": "single",
+		"branchRandom": false,
+		"tooltip": null
+	},
+	"skzjkl_3_enemy": {
+		"branches": [["skzjkl_m3_summon_enemy", 20, 999]],
+		"branchType": "single",
+		"branchRandom": false,
+		"tooltip": null
 	},
 	"lrsldr": {
 		"tooltip": {

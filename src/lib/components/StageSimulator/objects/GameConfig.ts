@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
 export class GameConfig {
-	static mode = "wave";
+	static mode = "wave_normal";
 	static gridSize = 100;
 	static speedFactor = 4;
 	static baseZIndex = 0;
@@ -19,6 +19,7 @@ export class GameConfig {
 	static cameraLock = true;
 	static currentWaveIndex = 0;
 	static specialMods = {};
+	static stagePhaseIndex = 0;
 
 	static subscribe(key, callback) {
 		this.subscribers.add({ key, callback });

@@ -256,6 +256,7 @@ export type Skill = {
 	duration?: number;
 	skillRange?: number;
 	skillType?: 'INCREASE_WITH_TIME' | 'INCREASE_WHEN_ATTACK';
+	needTarget?: boolean;
 	can_silence?: boolean;
 	dmg_element?: 'phys' | 'arts' | 'true' | 'heal';
 	suffix?: Tooltip;
