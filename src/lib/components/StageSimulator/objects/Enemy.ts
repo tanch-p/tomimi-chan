@@ -50,7 +50,6 @@ export class Enemy {
 	shadow;
 	atkRangeMesh: THREE.Group;
 	skillRangeMeshes: THREE.Group[] = [];
-
 	skel: spine.SkeletonMesh;
 	skelData: spine.SkeletonData;
 	animations;
@@ -82,6 +81,7 @@ export class Enemy {
 		gameManager: GameManager,
 		fragmentKey,
 		spawnUID: string,
+		formIndex = 0,
 		setData = null
 	) {
 		this.assetManager = AssetManager.getInstance();
@@ -134,6 +134,8 @@ export class Enemy {
 			this.startElapsedTime = setData.startElapsedTime;
 		} else {
 			this.spawnUID = spawnUID;
+			this.formIndex = formIndex;
+			this.spineAnimIndex = formIndex;
 			this.pathFinder = gameManager.pathFinder;
 			this.data = enemyData;
 			this.key = enemyData.key;
@@ -149,6 +151,11 @@ export class Enemy {
 			this.hp = enemyData.forms[0].stats.hp;
 			this.baseSpeed = enemyData.forms[0].stats.ms;
 			this.moddedSpeed = this.baseSpeed;
+			if (this.gameManager.config.levelId.includes('_d-') && GameConfig.stagePhaseIndex === 0) {
+				// workaround for duel stages to prevent enemy from moving
+				this.baseSpeed = 0;
+				this.moddedSpeed = 0;
+			}
 			this.traits = getEnemySkills(
 				this.data,
 				this.data.traits,
@@ -239,7 +246,7 @@ export class Enemy {
 			}
 			this.skelData = this.assetManager.spineMap.get(this.key);
 			this.animations = getSpineAnimations(this.key, this.skelData);
-			if (this.motionMode === 'BLINK') {
+			if (this.motionMode === 'BLINK' && this.skelData) {
 				this.blinkStartDuration = this.skelData.animations.find(
 					(ele) => ele.name === 'Move_Begin'
 				)?.duration;
@@ -376,7 +383,10 @@ export class Enemy {
 			this.meshGroup.add(sprite);
 			this.sprite = sprite;
 			this.skel = skeletonMesh;
-			if (this.motionMode === 'FLY') {
+			if (
+				this.motionMode === 'FLY' &&
+				this.data.type.some((type) => ['drone', 'flying'].includes(type))
+			) {
 				this.sprite.position.y += GameConfig.gridSize * 0.7;
 				this.skel.position.y += GameConfig.gridSize * 0.7;
 			}

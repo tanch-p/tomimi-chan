@@ -3,6 +3,7 @@ import { AssetManager } from "./AssetManager";
 
 export class StickBox {
   group: THREE.Group;
+  assetManager:AssetManager;
 
   constructor(width = 1, height = 1, depth = 1, color = "blue", z = 50) {
     this.assetManager = AssetManager.getInstance();

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Enemy, Language, MapConfig } from '$lib/types';
-	import { onDestroy } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import { Game } from './objects/Game';
 	import { AssetManager } from './objects/AssetManager';
 	import LoadingScreen from './LoadingScreen.svelte';
@@ -9,6 +9,8 @@
 	import Settings from './Settings.svelte';
 	import { GameConfig } from './objects/GameConfig';
 	import { getSimulatedData } from './functions/Simulator';
+	import BranchSummons from './BranchSummons.svelte';
+	import { generateBranchTimeline } from '$lib/functions/waveHelpers';
 
 	export let timeline,
 		mapConfig: MapConfig,
@@ -17,17 +19,19 @@
 		enemies: Enemy[],
 		randomSeeds;
 
-	let waves;
-	let assetManager= AssetManager.getInstance(), canvasElement: HTMLCanvasElement, game: Game, simulatedData;
-	// let gameInstances: Game[] = [];
-
-	$: waves = timeline?.waves;
+	let simMode = 'wave_normal',
+		branchKey = null,
+		branchIndex = -1;
+	let assetManager = AssetManager.getInstance(),
+		canvasElement: HTMLCanvasElement,
+		game: Game,
+		simulatedData;
 
 	$: if (timeline) {
 		resetGame();
 	}
-	$: if(waveData){
-		simulatedData = getSimulatedData(mapConfig,waveData,enemies);
+	$: if (waveData) {
+		simulatedData = getSimulatedData(mapConfig, waveData, enemies);
 	}
 
 	function resetGame() {
@@ -41,9 +45,9 @@
 		if (game) {
 			game.stop();
 		}
-		
+
 		await assetManager.loadAssets(mapConfig);
-		assetManager.texturesLoaded=true;
+		assetManager.texturesLoaded = true;
 		resetGame();
 		if (!game) {
 			game = new Game(canvasElement, mapConfig, waveData, enemies);
@@ -51,7 +55,18 @@
 		}
 	}
 
+	const unsubscribeFns = [];
+	onMount(() => {
+		unsubscribeFns.push(
+			GameConfig.subscribe('mode', (mode) => {
+				simMode = mode;
+				game && assetManager.texturesLoaded && game.softReset(false);
+			})
+		);
+	});
+
 	onDestroy(() => {
+		unsubscribeFns.forEach((fn) => fn());
 		assetManager.cleanup();
 		assetManager.texturesLoaded = false;
 		if (game) {
@@ -65,9 +80,19 @@
 	{#await loadGame(mapConfig)}
 		<LoadingScreen />
 	{:then}
-		<SpawnTimeView {waves} {mapConfig} />
+		{#if simMode === 'wave_summons' && mapConfig.branches}
+			<BranchSummons bind:branchKey bind:branchIndex {language} {game} {mapConfig} />
+		{/if}
+		<SpawnTimeView
+			{branchKey}
+			{branchIndex}
+			waves={simMode === 'wave_summons'
+				? generateBranchTimeline(mapConfig, branchKey, branchIndex)
+				: timeline.waves}
+			{mapConfig}
+		/>
 		<Interface
-		{simulatedData}
+			{simulatedData}
 			bind:randomSeeds
 			{game}
 			initialCost={mapConfig.initialCost}
@@ -75,7 +100,7 @@
 			count={timeline?.count}
 			maxCost={mapConfig.maxCost}
 		/>
-	<!-- {:catch error} -->
+		<!-- {:catch error} -->
 		<!-- <p class="text-center">An error occured while loading: <br />{error.message}</p> -->
 	{/await}
 	<canvas bind:this={canvasElement} />

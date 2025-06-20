@@ -11,7 +11,20 @@ import { AssetManager } from '../objects/AssetManager';
 import { clearObjects } from '$lib/functions/threejsHelpers';
 
 export function getSimulatedData(config: MapConfig, waveData, enemies: EnemyType[]) {
-	if (['level_rogue4_b-8', 'level_rogue2_b-7', 'level_rogue1_b-7'].includes(config.levelId)) {
+	if (
+		[
+			'level_rogue4_b-8',
+			'level_rogue2_b-7',
+			'level_rogue1_b-7',
+			'level_rogue4_d-1',
+			'level_rogue4_d-2',
+			'level_rogue4_d-3',
+			'level_rogue4_d-b'
+		].includes(config.levelId)
+	) {
+		return;
+	}
+	if (['level_rogue4_b-7'].includes(config.levelId) && GameConfig.stagePhaseIndex == 1) {
 		return;
 	}
 	const assetManager = AssetManager.getInstance();
@@ -51,6 +64,7 @@ export function getSimulatedData(config: MapConfig, waveData, enemies: EnemyType
 		}
 	}
 	GameConfig.setValue('scaledElapsedTime', 0);
+	GameConfig.setValue('waveElapsedTime', 0);
 	GameConfig.setValue('currentWaveIndex', 0);
 	cleanup(gameSimManager);
 

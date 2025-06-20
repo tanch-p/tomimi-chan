@@ -16,6 +16,35 @@
 	const minFrustumSize = 500;
 	let zoomSize = (GameConfig.FrustumSize + minFrustumSize) / maxFrustumSize;
 	let currentWaveIndex = 0;
+	let stagePhaseIndex = 0;
+
+	const stageOptions = {
+		'level_rogue4_d-1': [
+			{ wave: 0, display: '1' },
+			{ wave: 4, display: '2' }
+		],
+		'level_rogue4_d-2': [
+			{ wave: 0, display: '1' },
+			{ wave: 4, display: '2' }
+		],
+		'level_rogue4_d-3': [
+			{ wave: 0, display: '1' },
+			{ wave: 4, display: '2' }
+		],
+		'level_rogue4_d-b': [
+			{ wave: 0, display: '1' },
+			{ wave: 4, display: '2' }
+		],
+		'level_rogue4_b-7': [
+			{ wave: 0, display: '1' },
+			{ wave: 2, display: '2' }
+		],
+		'level_rogue4_b-8': [
+			{ wave: 1, display: '1' },
+			{ wave: 3, display: '2' },
+			{ wave: 5, display: '3' }
+		]
+	};
 
 	const options = [
 		{
@@ -87,14 +116,21 @@
 
 	$: lookup = { showTimeline };
 
-	let unsubscribe;
+	const unsubscribeFns = [];
 	onMount(() => {
-		unsubscribe = GameConfig.subscribe('currentWaveIndex', (value) => {
-			currentWaveIndex = value;
-		});
+		unsubscribeFns.push(
+			GameConfig.subscribe('currentWaveIndex', (value) => {
+				currentWaveIndex = value;
+			})
+		);
+		unsubscribeFns.push(
+			GameConfig.subscribe('stagePhaseIndex', (value) => {
+				stagePhaseIndex = value;
+			})
+		);
 	});
 	onDestroy(() => {
-		unsubscribe && unsubscribe();
+		unsubscribeFns.forEach((fn) => fn());
 	});
 </script>
 
@@ -141,20 +177,20 @@
 	/>
 	<span class="w-[50px]">{zoomSize.toFixed(2)}x</span>
 </div>
-{#if mapConfig.levelId === 'level_rogue4_b-8'}
+{#if stageOptions[mapConfig.levelId]}
 	<div class="flex justify-center gap-x-3 mb-2">
-		{#each [1, 3, 5] as wave}
+		{#each stageOptions[mapConfig.levelId] as { wave, display }, idx}
 			<button
-				class="rounded-sm px-2 py-1.5 {currentWaveIndex === wave
+				class="rounded-sm px-2 py-1.5 {stagePhaseIndex == idx
 					? 'bg-gray-500'
 					: 'bg-gray-700 hover:bg-gray-600'}"
 				on:click={() => {
+					GameConfig.setValue('stagePhaseIndex', idx);
 					GameConfig.setValue('currentWaveIndex', wave);
 					game.softReset(false);
 				}}
 			>
-				{translations[language].mapstate_prefix}{Math.ceil(wave / 2)}{translations[language]
-					.mapstate_suffix}
+				{translations[language].mapstate_prefix}{display}{translations[language].mapstate_suffix}
 			</button>
 		{/each}
 	</div>

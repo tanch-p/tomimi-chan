@@ -24,6 +24,7 @@ export class ActiveSkill {
 	hasSp = false;
 	actionType;
 	branch;
+	branchKey: string;
 	currentBranchIndex = 0;
 	branchSummonIndex = 0;
 	branchIntervalElapsedTime = 0;
@@ -53,10 +54,12 @@ export class ActiveSkill {
 		this.maxUsageCount = skill.max_count || 0;
 
 		if (skill.branch_id) {
+			this.branchKey = skill.branch_id;
 			this.branch = structuredClone(this.enemy.gameManager.config.branches?.[skill.branch_id]);
 			this.actionType = 'summonBranch';
 		}
 		if (skill.branches) {
+			this.branchKey = skill.branches[0][0];
 			this.branch = structuredClone(this.enemy.gameManager.config.branches?.[skill.branches[0][0]]);
 		}
 		if (this.skill.branchType === 'single' && this.skill.branchRandom) {
@@ -135,10 +138,12 @@ export class ActiveSkill {
 		if (this.skillTimer > 0) {
 			this.skillTimer += delta;
 			if (this.skillTimer > this.duration) {
+				if(this.skill.needTarget) return;
 				this.skillTimer = 0;
 				switch (this.actionType) {
 					case 'summonBranch':
 						this.enemy.gameManager.spawnManager.addBranch(
+							this.branchKey,
 							this.branch,
 							Math.floor(Math.random() * this.branch.phases.length)
 						);
@@ -182,6 +187,7 @@ export class ActiveSkill {
 			this.branchSummonIndex = 0;
 			if (this.skill.branches?.[this.currentBranchIndex + 1]) {
 				this.currentBranchIndex++;
+				this.branchKey = this.skill.branches[this.currentBranchIndex][0];
 				this.branch = structuredClone(
 					this.enemy.gameManager.config.branches?.[this.skill.branches[this.currentBranchIndex][0]]
 				);
@@ -200,7 +206,11 @@ export class ActiveSkill {
 			} else if (this.skill.branchRandom) {
 				index = Math.floor(Math.random() * this.branch.phases.length);
 			}
-			this.enemy.gameManager.spawnManager.addBranch(structuredClone(this.branch), index);
+			this.enemy.gameManager.spawnManager.addBranch(
+				this.branchKey,
+				structuredClone(this.branch),
+				index
+			);
 			this.branchIntervalElapsedTime = 0;
 			this.branchSummonIndex++;
 			if (this.branchSummonIndex >= this.branch.phases.length) {

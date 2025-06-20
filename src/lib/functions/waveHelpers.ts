@@ -17,6 +17,7 @@ const ALWAYS_KILLED_KEYS = [
 const KEYS_TO_IGNORE = ['enemy_2086_skzdwx'];
 
 const CHESTS = ['trap_051_vultres', 'trap_068_badbox', 'trap_110_smbbox', 'trap_758_skzmbx'];
+const ENEMY_CHEST_KEYS = ['enemy_2035_sybox', 'enemy_2059_smbox', 'enemy_2069_skzbox'];
 
 const getFragmentName = (id, language: Language) => {
 	const fragment = fragments.find((ele) => ele.id === id);
@@ -401,16 +402,6 @@ function groupResolver(actions) {
 		}
 	}
 
-	// Third pass: handle hidden groups
-	// const extraGroups = {};
-	// for (const action of notRandomGroups) {
-	// 	const hiddenGroup = action.hiddenGroup;
-	// 	if (!extraGroups[hiddenGroup]) {
-	// 		extraGroups[hiddenGroup] = [];
-	// 	}
-	// 	extraGroups[hiddenGroup].push(action);
-	// }
-
 	return groups;
 }
 
@@ -529,7 +520,9 @@ export const generateWaveTimeline = (
 			}
 		});
 		const myKeys = Object.keys(spawns).map(Number);
-		if (!(mapConfig.levelId === 'level_rogue4_b-8' && myKeys.length === 0)) {
+		if (
+			!(['level_rogue4_b-7', 'level_rogue4_b-8'].includes(mapConfig.levelId) && myKeys.length === 0)
+		) {
 			myKeys.sort((a, b) => a - b);
 			const spawnList = myKeys.map((key) => ({ t: key, actions: spawns[key] }));
 			waveTimelines.push({
@@ -543,13 +536,52 @@ export const generateWaveTimeline = (
 	return { waves: waveTimelines, count: totalCount };
 };
 
+export const generateBranchTimeline = (mapConfig, branchKey, branchIndex = -1,interval = 0) => {
+	if (!branchKey) return;
+	if (!mapConfig?.branches?.[branchKey]) return;
+	const waveTimelines = [];
+	let fragments = mapConfig?.branches?.[branchKey]?.phases;
+	if (branchIndex !== -1) {
+		fragments = [mapConfig?.branches?.[branchKey]?.phases[branchIndex]];
+	}
+	const waves = [{ fragments: fragments }];
+	waves.forEach((wave) => {
+		let prevPhaseTime = 0;
+		const spawns = {};
+		wave['fragments'].forEach((fragment) => {
+			prevPhaseTime += fragment['preDelay'] + interval;
+			for (const action of fragment['actions']) {
+				if (!['ACTIVATE_PREDEFINED','SPAWN'].includes(action['actionType'])) {
+					continue;
+				}
+				handleAction(action, spawns, {}, prevPhaseTime);
+			}
+		});
+		const myKeys = Object.keys(spawns).map(Number);
+		if (!(myKeys.length === 0)) {
+			myKeys.sort((a, b) => a - b);
+			const spawnList = myKeys.map((key) => ({ t: key, actions: spawns[key] }));
+			waveTimelines.push({
+				preDelay: 0,
+				postDelay: 0,
+				maxTimeWaitingForNextWave: -1,
+				timeline: spawnList
+			});
+		}
+	});
+	return waveTimelines;
+};
+
 const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime, enemyReplace = {}) => {
-	if (action.key.includes('trap') || action.key === '') {
+	if (action.key === '') {
 		return;
 	}
 	let enemyKey = action.key;
 	if (enemyReplace[action.key]) {
 		enemyKey = enemyReplace[action.key];
+	}
+	if(enemyKey.includes("trap")){
+		enemyKey= enemyKey.split("#")?.[0]
 	}
 	if (action['count'] > 1) {
 		// interval
@@ -787,3 +819,16 @@ export const getImageForWaves = (key, mapConfig) => {
 
 	return mapConfig.enemies.find((enemy) => enemy.id === key)?.prefabKey;
 };
+
+export function isChestBranch(branches, key: string) {
+	const phases = branches?.[key]?.phases;
+	if (!phases || phases.length > 1) return;
+	for (const phase of phases) {
+		if (phase.actions.length > 1) return;
+		for (const action of phase.actions) {
+			if (ENEMY_CHEST_KEYS.some((key) => action.key.includes(key))) {
+				return true;
+			}
+		}
+	}
+}
