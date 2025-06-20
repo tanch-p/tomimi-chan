@@ -117,7 +117,7 @@
 {#if hasAnalysis}
 	<TogglePanel
 		key={'stageSim'}
-		title={translations[language].enemy_routes + ' v0.2'}
+		title={translations[language].enemy_routes + ' v0.3'}
 		size="subheading"
 		isOpen={defaultOpenStageSim}
 	>
