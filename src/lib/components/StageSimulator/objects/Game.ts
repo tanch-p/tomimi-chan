@@ -32,6 +32,7 @@ export class Game {
 		this.waveData = waveData;
 		this.enemies = enemies;
 		this.objects = [];
+		GameConfig.setValue('levelId', config.levelId);
 		GameConfig.setValue('tokenCard', null);
 		if (config.token_cards?.length > 0) {
 			const card = config.token_cards.find((ele) => ele.key === 'trap_001_crate');
@@ -104,6 +105,11 @@ export class Game {
 		this.softReset();
 	}
 	softReset(resetWaveIndex = true) {
+		if (this.config.levelId !== GameConfig.levelId) {
+			GameConfig.setValue('levelId', this.config.levelId);
+			GameConfig.setValue('stagePhaseIndex', 0);
+			GameConfig.setValue('currentWaveIndex',0);
+		}
 		this.stop();
 		switch (this.config.levelId) {
 			case 'level_rogue4_b-7':

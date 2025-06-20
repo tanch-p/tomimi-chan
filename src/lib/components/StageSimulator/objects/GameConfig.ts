@@ -1,7 +1,8 @@
 import { writable } from 'svelte/store';
 
 export class GameConfig {
-	static mode = "wave_normal";
+	static mode = 'wave_normal';
+	static levelId = '';
 	static gridSize = 100;
 	static speedFactor = 4;
 	static baseZIndex = 0;
@@ -21,12 +22,12 @@ export class GameConfig {
 	static specialMods = {};
 	static stagePhaseIndex = 0;
 
-	static subscribe(key:string, callback) {
+	static subscribe(key: string, callback) {
 		this.subscribers.add({ key, callback });
 		return () => this.subscribers.delete({ key, callback });
 	}
 
-	static setValue(key:string, value:unknown) {
+	static setValue(key: string, value: unknown) {
 		this[key] = value;
 		this.subscribers.forEach(({ key: cbKey, callback }) => cbKey === key && callback(value));
 	}

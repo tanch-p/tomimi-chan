@@ -95,12 +95,8 @@ export class SpawnManager {
 		this.fragmentsTimeTracker.forEach((value, key) => {
 			this.fragmentsTimeTracker.set(key, value + delta);
 		});
-		const branchesComplete = this.branches
-			.entries()
-			.every(([_, branch]) =>
-				branch.activeActions.entries().every(([_, action]) => action.isComplete)
-			);
-		this.isFinished = this.currentWaveIndex >= this.waves.length && branchesComplete;
+
+		this.isFinished = this.currentWaveIndex >= this.waves.length && this.isBranchesComplete();
 		if (this.currentWaveIndex >= this.waves.length) {
 			if (!this.gameManager.noEnemyAlive) {
 				GameConfig.setValue('waveElapsedTime', GameConfig.waveElapsedTime + delta);
@@ -227,6 +223,14 @@ export class SpawnManager {
 			}
 		});
 	}
+	isBranchesComplete() {
+		for (const branch of this.branches.values()) {
+			for (const action of branch.activeActions.values()) {
+				if (!action.isComplete) return false;
+			}
+		}
+		return true;
+	}
 
 	isFragmentComplete() {
 		return this.completedActions.size === this.activeActions.size;
@@ -317,7 +321,7 @@ export class SpawnManager {
 
 	// Helper method to reset the manager
 	reset() {
-		this.branches = new Map();
+		this.branches.clear();
 		this.currentWaveIndex = 0;
 		this.currentFragmentIndex = 0;
 		this.activeActions.clear();
