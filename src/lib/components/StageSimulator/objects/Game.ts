@@ -111,6 +111,11 @@ export class Game {
 					GameConfig.setValue('currentWaveIndex', GameConfig.stagePhaseIndex === 0 ? 0 : 2);
 				break;
 			case 'level_rogue4_b-8':
+				resetWaveIndex &&
+					GameConfig.setValue(
+						'currentWaveIndex',
+						GameConfig.stagePhaseIndex === 0 ? 1 : GameConfig.stagePhaseIndex === 1 ? 3 : 5
+					);
 				break;
 			default:
 				GameConfig.setValue('stagePhaseIndex', 0);
