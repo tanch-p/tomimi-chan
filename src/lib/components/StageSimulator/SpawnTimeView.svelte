@@ -44,23 +44,25 @@
 		);
 		unsubscribeFns.push(
 			GameConfig.subscribe('currentWaveIndex', (value) => {
-				currWaveIndex = value;
-				let indexesToScrollBy = 0;
-				switch (mapConfig.levelId) {
-					case 'level_rogue4_b-7':
-						indexesToScrollBy = [0, 1].includes(value) ? 0 : 23;
-						break;
-					case 'level_rogue4_b-8':
-						indexesToScrollBy = [0, 1].includes(value) ? 0 : [2, 3].includes(value) ? 3 : 7;
-						break;
+				if (currWaveIndex !== value) {
+					currWaveIndex = value;
+					let indexesToScrollBy = 0;
+					switch (mapConfig.levelId) {
+						case 'level_rogue4_b-7':
+							indexesToScrollBy = [0, 1].includes(value) ? 0 : 23;
+							break;
+						case 'level_rogue4_b-8':
+							indexesToScrollBy = [0, 1].includes(value) ? 0 : [2, 3].includes(value) ? 3 : 7;
+							break;
+					}
+					timelineContainer &&
+						timelineContainer.scrollTo({
+							top:
+								actionsContainer.children?.[indexesToScrollBy]?.offsetTop +
+								actionsContainer.children?.[indexesToScrollBy]?.scrollHeight
+						});
+					return;
 				}
-				timelineContainer &&
-					timelineContainer.scrollTo({
-						top:
-							actionsContainer.children?.[indexesToScrollBy]?.offsetTop +
-							actionsContainer.children?.[indexesToScrollBy]?.scrollHeight
-					});
-				return;
 			})
 		);
 	});

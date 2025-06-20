@@ -21,12 +21,12 @@ export class GameConfig {
 	static specialMods = {};
 	static stagePhaseIndex = 0;
 
-	static subscribe(key, callback) {
+	static subscribe(key:string, callback) {
 		this.subscribers.add({ key, callback });
 		return () => this.subscribers.delete({ key, callback });
 	}
 
-	static setValue(key, value) {
+	static setValue(key:string, value:unknown) {
 		this[key] = value;
 		this.subscribers.forEach(({ key: cbKey, callback }) => cbKey === key && callback(value));
 	}

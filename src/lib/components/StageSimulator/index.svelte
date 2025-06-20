@@ -30,7 +30,9 @@
 	$: if (timeline) {
 		resetGame();
 	}
-	$: simulatedData = getSimulatedData(mapConfig, waveData, enemies);
+	$: if (waveData) {
+		simulatedData = getSimulatedData(mapConfig, waveData, enemies);
+	}
 
 	function resetGame() {
 		GameConfig.isPaused = true;
@@ -58,7 +60,7 @@
 		unsubscribeFns.push(
 			GameConfig.subscribe('mode', (mode) => {
 				simMode = mode;
-				game && game.softReset(false);
+				game && assetManager.texturesLoaded && game.softReset(false);
 			})
 		);
 	});

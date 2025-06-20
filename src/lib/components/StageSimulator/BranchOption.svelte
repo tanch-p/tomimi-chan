@@ -39,7 +39,6 @@
 		GameConfig.setValue('waveElapsedTime', 0);
 		game?.gameManager?.clearAndAddBranch(key, index);
 	}
-	console.log;
 </script>
 
 <div class="">

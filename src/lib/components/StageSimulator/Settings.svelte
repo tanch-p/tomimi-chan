@@ -19,6 +19,22 @@
 	let stagePhaseIndex = 0;
 
 	const stageOptions = {
+		'level_rogue4_d-1': [
+			{ wave: 0, display: '1' },
+			{ wave: 4, display: '2' }
+		],
+		'level_rogue4_d-2': [
+			{ wave: 0, display: '1' },
+			{ wave: 4, display: '2' }
+		],
+		'level_rogue4_d-3': [
+			{ wave: 0, display: '1' },
+			{ wave: 4, display: '2' }
+		],
+		'level_rogue4_d-b': [
+			{ wave: 0, display: '1' },
+			{ wave: 4, display: '2' }
+		],
 		'level_rogue4_b-7': [
 			{ wave: 0, display: '1' },
 			{ wave: 2, display: '2' }

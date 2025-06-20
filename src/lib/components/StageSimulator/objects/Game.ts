@@ -139,28 +139,33 @@ export class Game {
 		if (!this.camera) return;
 		let x = 0;
 		switch (this.config.levelId) {
-			case 'level_rogue4_b-7':
-				switch (GameConfig.currentWaveIndex) {
+			case 'level_rogue4_d-1':
+				switch (GameConfig.stagePhaseIndex) {
 					case 0:
+						x = -450;
+						break;
 					case 1:
+						x = 450;
+				}
+				break;
+			case 'level_rogue4_b-7':
+				switch (GameConfig.stagePhaseIndex) {
+					case 0:
 						x = -600;
 						break;
-					default:
+					case 1:
 						x = 800;
 				}
 				break;
 			case 'level_rogue4_b-8':
-				switch (GameConfig.currentWaveIndex) {
+				switch (GameConfig.stagePhaseIndex) {
 					case 0:
-					case 1:
 						x = -1300;
 						break;
-					case 2:
-					case 3:
+					case 1:
 						x = 0;
 						break;
-					case 4:
-					case 5:
+					case 2:
 						x = 1250;
 						break;
 				}
@@ -355,7 +360,7 @@ export class Game {
 		if (this.renderer) {
 			this.renderer.setAnimationLoop(null);
 		}
-		this.renderer.dispose();
+		this.renderer?.dispose();
 
 		if (this.scene) {
 			clearObjects(this.scene);
@@ -366,7 +371,7 @@ export class Game {
 		this.scene = null;
 		this.camera = null;
 		this.renderer = null;
-		// this.gameManager.countdownManager.dispose();
+
 		window.removeEventListener('resize', this.onWindowResize);
 		this.canvas.removeEventListener('pointerdown', this.onPointerDown);
 		document.removeEventListener('pointermove', this.onPointerMove);

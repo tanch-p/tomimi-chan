@@ -5,7 +5,7 @@
 	import translations from '$lib/translations.json';
 	import Icon from './Icon.svelte';
 	import { relicLookup } from '$lib/data/is/relic_lookup';
-	export let language: Language, rogueTopic: RogueTopic, selectedRelics, selectedUniqueRelic;
+	export let language: Language, rogueTopic: RogueTopic, selectedRelics, selectedUniqueRelic=null;
 	let openOverlay = false;
 </script>
 
