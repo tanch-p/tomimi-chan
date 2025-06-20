@@ -35,7 +35,6 @@
 	}
 
 	function resetGame() {
-		GameConfig.isPaused = true;
 		if (game) {
 			game.reset(mapConfig, waveData, enemies);
 		}

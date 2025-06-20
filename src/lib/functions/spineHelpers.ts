@@ -42,23 +42,7 @@ export const getSpineAnimations = (key: string, skelData: spine.SkeletonData) =>
 
 function getOtherAnims(key: string, skelData: spine.SkeletonData) {
 	const anims = {};
-	if (
-		skelData.findAnimation('Start') &&
-		![
-			'enemy_1288_duskls',
-			'enemy_1288_duskls_2',
-			'enemy_1292_duskld',
-			'enemy_1292_duskld_2',
-			'enemy_1172_dugago',
-			'enemy_1172_dugago_2',
-			'enemy_1255_lybgpa',
-			'enemy_1255_lybgpa_2',
-			'enemy_1256_lyacpa',
-			'enemy_1256_lyacpa_2',
-			'enemy_2004_balloon',
-			'enemy_2039_syskad'
-		].includes(key)
-	) {
+	if (skelData.findAnimation('Start')) {
 		anims['Start'] = 'Start';
 	}
 	return anims;

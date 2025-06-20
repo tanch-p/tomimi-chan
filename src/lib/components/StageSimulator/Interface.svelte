@@ -41,7 +41,6 @@
 	function handleReset() {
 		randomSeeds = Array.from(Array(50)).map((_) => Math.random());
 		game.softReset();
-		GameConfig.setValue('isPaused', true);
 	}
 	// Sync class -> store
 	onMount(() => {

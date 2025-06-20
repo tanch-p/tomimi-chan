@@ -95,6 +95,7 @@ export class Game {
 	}
 	stop() {
 		GameConfig.state = 'stop';
+		GameConfig.setValue('isPaused', true);
 		this.renderer?.setAnimationLoop(null);
 	}
 
@@ -108,9 +109,11 @@ export class Game {
 		if (this.config.levelId !== GameConfig.levelId) {
 			GameConfig.setValue('levelId', this.config.levelId);
 			GameConfig.setValue('stagePhaseIndex', 0);
-			GameConfig.setValue('currentWaveIndex',0);
+			GameConfig.setValue('currentWaveIndex', 0);
 		}
-		this.stop();
+		if (!(this.config.levelId.includes('_d-') && GameConfig.stagePhaseIndex === 0)) {
+			this.stop();
+		}
 		switch (this.config.levelId) {
 			case 'level_rogue4_b-7':
 				resetWaveIndex &&
@@ -124,8 +127,10 @@ export class Game {
 					);
 				break;
 			default:
-				GameConfig.setValue('stagePhaseIndex', 0);
-				resetWaveIndex && GameConfig.setValue('currentWaveIndex', 0);
+				if (resetWaveIndex) {
+					GameConfig.setValue('stagePhaseIndex', 0);
+					GameConfig.setValue('currentWaveIndex', 0);
+				}
 		}
 
 		GameConfig.setValue('scaledElapsedTime', 0);
@@ -143,7 +148,7 @@ export class Game {
 		this.initLights();
 		this.initCamera();
 		GameConfig.state = 'ready';
-		this.clock.getDelta();
+		this.clock.getDelta(); //throwaway last frame due to large timing taken to reset
 		this.renderer?.setAnimationLoop(() => this.render());
 	}
 	initCamera() {
@@ -151,6 +156,9 @@ export class Game {
 		let x = 0;
 		switch (this.config.levelId) {
 			case 'level_rogue4_d-1':
+			case 'level_rogue4_d-2':
+			case 'level_rogue4_d-3':
+			case 'level_rogue4_d-b':
 				switch (GameConfig.stagePhaseIndex) {
 					case 0:
 						x = -450;
@@ -352,15 +360,21 @@ export class Game {
 	}
 	render() {
 		const deltaTime = this.clock.getDelta() * GameConfig.speedFactor;
-		if (
-			(GameConfig.state === 'running' && !GameConfig.isPaused) ||
-			GameConfig.scaledElapsedTime < 0.4
-		) {
+		if (this.config.levelId.includes('_d-') && GameConfig.stagePhaseIndex === 0 && !GameConfig.isPaused) {
 			this.spawnManager.update(deltaTime);
 			this.gameManager.update(deltaTime);
 		} else {
-			GameConfig.setValue('isPaused', true);
+			if (
+				(GameConfig.state === 'running' && !GameConfig.isPaused) ||
+				GameConfig.scaledElapsedTime < 0.4
+			) {
+				this.spawnManager.update(deltaTime);
+				this.gameManager.update(deltaTime);
+			} else {
+				GameConfig.setValue('isPaused', true);
+			}
 		}
+
 		if (this.spawnManager.isFinished && this.gameManager.noEnemyAlive) {
 			GameConfig.state = 'end';
 		}

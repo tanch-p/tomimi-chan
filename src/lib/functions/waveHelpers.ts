@@ -536,7 +536,7 @@ export const generateWaveTimeline = (
 	return { waves: waveTimelines, count: totalCount };
 };
 
-export const generateBranchTimeline = (mapConfig, branchKey, branchIndex = -1,interval = 0) => {
+export const generateBranchTimeline = (mapConfig, branchKey, branchIndex = -1, interval = 0) => {
 	if (!branchKey) return;
 	if (!mapConfig?.branches?.[branchKey]) return;
 	const waveTimelines = [];
@@ -551,7 +551,7 @@ export const generateBranchTimeline = (mapConfig, branchKey, branchIndex = -1,in
 		wave['fragments'].forEach((fragment) => {
 			prevPhaseTime += fragment['preDelay'] + interval;
 			for (const action of fragment['actions']) {
-				if (!['ACTIVATE_PREDEFINED','SPAWN'].includes(action['actionType'])) {
+				if (!['ACTIVATE_PREDEFINED', 'SPAWN'].includes(action['actionType'])) {
 					continue;
 				}
 				handleAction(action, spawns, {}, prevPhaseTime);
@@ -580,8 +580,8 @@ const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime, enemyRe
 	if (enemyReplace[action.key]) {
 		enemyKey = enemyReplace[action.key];
 	}
-	if(enemyKey.includes("trap")){
-		enemyKey= enemyKey.split("#")?.[0]
+	if (enemyKey.includes('trap')) {
+		enemyKey = enemyKey.split('#')?.[0];
 	}
 	if (action['count'] > 1) {
 		// interval
@@ -701,6 +701,10 @@ export const getRandomGroups = (fragment, hiddenGroups) => {
 	for (const action of fragment['actions']) {
 		const { actionType, randomSpawnGroupKey, randomSpawnGroupPackKey, hiddenGroup } = action;
 		if (!['SPAWN', 'ACTIVATE_PREDEFINED'].includes(actionType)) {
+			continue;
+		}
+		if (['trap_036_storm'].includes(action.key.split('#')[0])) {
+			// temp fix
 			continue;
 		}
 		if (hiddenGroup && !hiddenGroups.includes(hiddenGroup)) {

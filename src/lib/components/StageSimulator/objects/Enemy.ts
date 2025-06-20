@@ -151,11 +151,6 @@ export class Enemy {
 			this.hp = enemyData.forms[0].stats.hp;
 			this.baseSpeed = enemyData.forms[0].stats.ms;
 			this.moddedSpeed = this.baseSpeed;
-			if (this.gameManager.config.levelId.includes('_d-') && GameConfig.stagePhaseIndex === 0) {
-				// workaround for duel stages to prevent enemy from moving
-				this.baseSpeed = 0;
-				this.moddedSpeed = 0;
-			}
 			this.traits = getEnemySkills(
 				this.data,
 				this.data.traits,
@@ -198,10 +193,11 @@ export class Enemy {
 				this.route.spawnOffset
 			);
 		} else {
-			if (this.animations?.[this.spineAnimIndex]?.Start) {
+			if (
+				this.animations?.[this.spineAnimIndex]?.Start &&
+				this.traits.some((skill) => skill.key === 'appear_nowhere')
+			) {
 				this.animState = 'Start';
-				// console.log('has start', this.key);
-				// console.log(this.skelData.animations);
 				this.startDuration = getAnimDuration(
 					this.skelData,
 					this.animations?.[this.spineAnimIndex]?.[this.animState]
@@ -683,6 +679,11 @@ export class Enemy {
 		switch (type) {
 			case 'MOVE':
 				{
+					if (this.gameManager.config.levelId.includes('_d-') && GameConfig.stagePhaseIndex === 0) {
+						// workaround for duel stages to prevent enemy from moving
+						this.animState = 'Idle';
+						return;
+					}
 					if (this.standbyTime > 0) {
 						break;
 					}
