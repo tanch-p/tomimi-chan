@@ -790,7 +790,7 @@
 				"ms": 1.0,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [{ "key": "appear_nowhere" }],
+				"traits": [],
 				"special": []
 			},
 			{
@@ -805,7 +805,7 @@
 				"ms": 1.0,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [{ "key": "appear_nowhere" }],
+				"traits": [],
 				"special": []
 			}
 		],
@@ -840,7 +840,7 @@
 				"ms": 1.0,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [{ "key": "appear_nowhere" }],
+				"traits": [],
 				"special": []
 			},
 			{
@@ -855,7 +855,7 @@
 				"ms": 1.0,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [{ "key": "appear_nowhere" }],
+				"traits": [],
 				"special": []
 			}
 		],
@@ -6322,7 +6322,11 @@
 				"ms": 1.0,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [{ "key": "guerilla_siegebreaker_buff" }, { "key": "appear_nowhere" }],
+				"traits": [
+					{
+						"key": "guerilla_siegebreaker_buff"
+					}
+				],
 				"special": []
 			}
 		],
@@ -6360,9 +6364,11 @@
 				"traits": [
 					{
 						"key": "guerilla_siegebreaker_buff",
-						"atk": { "multiplier": 0.8, "order": "initial" }
-					},
-					{ "key": "appear_nowhere" }
+						"atk": {
+							"multiplier": 0.8,
+							"order": "initial"
+						}
+					}
 				],
 				"special": []
 			}
@@ -8466,7 +8472,7 @@
 				"ms": 1.0,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [{ "key": "appear_nowhere" }],
+				"traits": [],
 				"special": []
 			}
 		],
@@ -8501,7 +8507,7 @@
 				"ms": 1.0,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [{ "key": "appear_nowhere" }],
+				"traits": [],
 				"special": []
 			}
 		],
@@ -17343,8 +17349,7 @@
 				"traits": [
 					{
 						"key": "pathfinder_veles"
-					},
-					{ "key": "appear_nowhere" }
+					}
 				],
 				"special": []
 			}
@@ -17380,12 +17385,7 @@
 				"ms": 0.8,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [
-					{
-						"key": "pathfinder_veles"
-					},
-					{ "key": "appear_nowhere" }
-				],
+				"traits": [],
 				"special": []
 			}
 		],
@@ -17776,8 +17776,7 @@
 					},
 					{
 						"key": "creation_add_block_1"
-					},
-					{ "key": "appear_nowhere" }
+					}
 				],
 				"special": []
 			}
@@ -17819,8 +17818,7 @@
 					},
 					{
 						"key": "creation_add_block_1"
-					},
-					{ "key": "appear_nowhere" }
+					}
 				],
 				"special": []
 			}
@@ -17862,8 +17860,7 @@
 					},
 					{
 						"key": "creation_add_block_1"
-					},
-					{ "key": "appear_nowhere" }
+					}
 				],
 				"special": []
 			}
@@ -17905,8 +17902,7 @@
 					},
 					{
 						"key": "creation_add_block_1"
-					},
-					{ "key": "appear_nowhere" }
+					}
 				],
 				"special": []
 			}
@@ -24818,7 +24814,7 @@
 				"ms": 0.7,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [{ "key": "appear_nowhere" }],
+				"traits": [],
 				"special": []
 			},
 			{
@@ -24833,7 +24829,7 @@
 				"ms": 0.7,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [{ "key": "appear_nowhere" }],
+				"traits": [],
 				"special": []
 			},
 			{
@@ -24848,7 +24844,7 @@
 				"ms": 0.7,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [{ "key": "appear_nowhere" }],
+				"traits": [],
 				"special": []
 			}
 		],
@@ -28502,9 +28498,6 @@
 					},
 					{
 						"key": "DOL_self_destruct"
-					},
-					{
-						"key": "csdoll_branch_summon"
 					}
 				],
 				"special": []
@@ -29186,15 +29179,57 @@
 					]
 				],
 				"form_mods": [
-					[{ "key": "range", "value": 20, "order": "initial", "mode": "add" }],
 					[
-						{ "key": "hp", "value": 0.5, "order": "final", "mode": "mul" },
-						{ "key": "atk", "value": 0.625, "order": "final", "mode": "mul" },
-						{ "key": "def", "value": 0.3, "order": "final", "mode": "mul" },
-						{ "key": "res", "value": 0.5, "order": "final", "mode": "mul" },
-						{ "key": "ms", "value": 0.8, "order": "final", "mode": "mul" },
-						{ "key": "atk_interval", "value": 0.5, "order": "final", "mode": "mul" },
-						{ "key": "range", "value": 4.0, "order": "initial", "mode": "add" }
+						{
+							"key": "range",
+							"value": 20,
+							"order": "initial",
+							"mode": "add"
+						}
+					],
+					[
+						{
+							"key": "hp",
+							"value": 0.5,
+							"order": "final",
+							"mode": "mul"
+						},
+						{
+							"key": "atk",
+							"value": 0.625,
+							"order": "final",
+							"mode": "mul"
+						},
+						{
+							"key": "def",
+							"value": 0.3,
+							"order": "final",
+							"mode": "mul"
+						},
+						{
+							"key": "res",
+							"value": 0.5,
+							"order": "final",
+							"mode": "mul"
+						},
+						{
+							"key": "ms",
+							"value": 0.8,
+							"order": "final",
+							"mode": "mul"
+						},
+						{
+							"key": "atk_interval",
+							"value": 0.5,
+							"order": "final",
+							"mode": "mul"
+						},
+						{
+							"key": "range",
+							"value": 4.0,
+							"order": "initial",
+							"mode": "add"
+						}
 					]
 				]
 			}
@@ -32005,9 +32040,6 @@
 					{
 						"key": "transform",
 						"value": "enemy_2021_syfish"
-					},
-					{
-						"key": "appear_nowhere"
 					}
 				],
 				"special": []
@@ -34017,7 +34049,7 @@
 				"ms": 0.7,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [{ "key": "appear_nowhere" }],
+				"traits": [],
 				"special": []
 			},
 			{
@@ -34032,7 +34064,7 @@
 				"ms": 0.7,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [{ "key": "appear_nowhere" }],
+				"traits": [],
 				"special": []
 			},
 			{
@@ -34047,7 +34079,7 @@
 				"ms": 0.7,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [{ "key": "appear_nowhere" }],
+				"traits": [],
 				"special": []
 			}
 		],
@@ -44657,8 +44689,7 @@
 					{
 						"key": "steal_gold",
 						"value": 5
-					},
-					{ "key": "appear_nowhere" }
+					}
 				],
 				"special": []
 			},
@@ -44698,8 +44729,7 @@
 					{
 						"key": "steal_gold",
 						"value": 5
-					},
-					{ "key": "appear_nowhere" }
+					}
 				],
 				"special": []
 			}
@@ -45386,9 +45416,23 @@
 					[]
 				],
 				"form_mods": [
-					[{ "key": "range", "value": -2, "order": "initial", "mode": "add" }],
+					[
+						{
+							"key": "range",
+							"value": -2,
+							"order": "initial",
+							"mode": "add"
+						}
+					],
 					[],
-					[{ "key": "atk", "value": 0.25, "order": "initial", "mode": "mul" }]
+					[
+						{
+							"key": "atk",
+							"value": 0.25,
+							"order": "initial",
+							"mode": "mul"
+						}
+					]
 				]
 			}
 		],
@@ -47620,7 +47664,7 @@
 		"id": "QLN",
 		"key": "enemy_2089_skzjkl",
 		"name_zh": "奎隆，摩诃萨埵权化",
-		"name_ja": "「摩訶薩の権化」",
+		"name_ja": "「摩訶薩の権化」クイロン",
 		"name_en": "Qui'lon, Avatar of the Mahasattva",
 		"stats": [
 			{
@@ -47645,9 +47689,6 @@
 				],
 				"special": [
 					[
-						{
-							"key": "skzjkl_1_fire_active"
-						},
 						{
 							"key": "skzjkl_1_1"
 						},
@@ -47676,9 +47717,7 @@
 						},
 						{
 							"key": "skzjkl_2_5"
-						},
-						{ "key": "skzjkl_2_agni" },
-						{ "key": "skzjkl_2_enemy" }
+						}
 					],
 					[
 						{
@@ -47689,9 +47728,7 @@
 						},
 						{
 							"key": "skzjkl_3_2"
-						},
-						{ "key": "skzjkl_3_agni" },
-						{ "key": "skzjkl_3_enemy" }
+						}
 					]
 				],
 				"form_mods": [[], [], []]
@@ -49010,8 +49047,8 @@
 		"key": "enemy_10042_prtrop",
 		"sortId": 912,
 		"name_zh": "架桥船工",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "橋架け船大工",
+		"name_en": "Bridge Builder",
 		"stats": [
 			{
 				"hp": 6000,
@@ -49046,8 +49083,8 @@
 		"key": "enemy_10042_prtrop_2",
 		"sortId": 913,
 		"name_zh": "扶桥老手",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "ベテラン橋持ち師",
+		"name_en": "Bridge Holder",
 		"stats": [
 			{
 				"hp": 8000,
@@ -49082,8 +49119,8 @@
 		"key": "enemy_10043_sailor",
 		"sortId": 914,
 		"name_zh": "寻险水手",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "冒険水夫",
+		"name_en": "Risk-seeking Sailor",
 		"stats": [
 			{
 				"hp": 5500,
@@ -49118,8 +49155,8 @@
 		"key": "enemy_10043_sailor_2",
 		"sortId": 915,
 		"name_zh": "历险水手",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "無鉄砲水夫",
+		"name_en": "Risk-surviving Sailor",
 		"stats": [
 			{
 				"hp": 6500,
@@ -49154,8 +49191,8 @@
 		"key": "enemy_10044_wintun",
 		"sortId": 916,
 		"name_zh": "咸鳞汁推荐者",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "ガルム過激派",
+		"name_en": "Garum Gourmet",
 		"stats": [
 			{
 				"hp": 9000,
@@ -49190,8 +49227,8 @@
 		"key": "enemy_10044_wintun_2",
 		"sortId": 917,
 		"name_zh": "朗姆酒推荐者",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "ラム酒過激派",
+		"name_en": "Rum Gourmet",
 		"stats": [
 			{
 				"hp": 10500,
@@ -49226,8 +49263,8 @@
 		"key": "enemy_10045_parrot",
 		"sortId": 918,
 		"name_zh": "吉兆飞鳞",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "吉兆飛鱗獣",
+		"name_en": "Lucky Flyfin",
 		"stats": [
 			{
 				"hp": 10000,
@@ -49262,8 +49299,8 @@
 		"key": "enemy_10045_parrot_2",
 		"sortId": 919,
 		"name_zh": "噩兆飞鳞",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "凶兆飛鱗獣",
+		"name_en": "Unlucky Flyfin",
 		"stats": [
 			{
 				"hp": 12000,
@@ -49298,8 +49335,8 @@
 		"key": "enemy_10046_pshark",
 		"sortId": 920,
 		"name_zh": "撼地盐鳞",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "地鳴らし塩鱗獣",
+		"name_en": "Saltfin Shaker",
 		"stats": [
 			{
 				"hp": 70000,
@@ -49334,8 +49371,8 @@
 		"key": "enemy_10046_pshark_2",
 		"sortId": 921,
 		"name_zh": "裂地盐鳞",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "地割れ塩鱗獣",
+		"name_en": "Saltfin Breaker",
 		"stats": [
 			{
 				"hp": 100000,
@@ -49370,8 +49407,8 @@
 		"key": "enemy_10047_shrknt",
 		"sortId": 922,
 		"name_zh": "爆炸追寻者",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "爆発探求者",
+		"name_en": "Explosion Chaser",
 		"stats": [
 			{
 				"hp": 12000,
@@ -49406,8 +49443,8 @@
 		"key": "enemy_10047_shrknt_2",
 		"sortId": 923,
 		"name_zh": "爆炸信奉者",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "爆発信奉者",
+		"name_en": "Explosion Devotee",
 		"stats": [
 			{
 				"hp": 15000,
@@ -49442,8 +49479,8 @@
 		"key": "enemy_10048_prtsld",
 		"sortId": 924,
 		"name_zh": "血腥厨子",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "テラーコック",
+		"name_en": "Bloody Chef",
 		"stats": [
 			{
 				"hp": 15000,
@@ -49478,8 +49515,8 @@
 		"key": "enemy_10048_prtsld_2",
 		"sortId": 925,
 		"name_zh": "恐怖厨子",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "ホラーコック",
+		"name_en": "Terrible Chef",
 		"stats": [
 			{
 				"hp": 20000,
@@ -49514,8 +49551,8 @@
 		"key": "enemy_10049_pcaptn",
 		"sortId": 926,
 		"name_zh": "爆鸣水手长",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "爆音水兵長",
+		"name_en": "Cacophonous Boatswain",
 		"stats": [
 			{
 				"hp": 25000,
@@ -49550,8 +49587,8 @@
 		"key": "enemy_10049_pcaptn_2",
 		"sortId": 927,
 		"name_zh": "美声水手长",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "美声水兵長",
+		"name_en": "Bel Canto Boatswain",
 		"stats": [
 			{
 				"hp": 30000,
@@ -49586,8 +49623,8 @@
 		"key": "enemy_2093_skzams",
 		"sortId": 965,
 		"name_zh": "终曲合声",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "終曲のコーラス",
+		"name_en": "Finale Cadence",
 		"stats": [
 			{
 				"hp": 500000,
@@ -49708,8 +49745,8 @@
 		"key": "enemy_1561_crzjdg",
 		"sortId": 1058,
 		"name_zh": "安纳斯塔西奥，赎罪者",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "「贖罪者」アナスタシオ",
+		"name_en": "Anastasio, the Atoner",
 		"stats": [
 			{
 				"hp": 55000,
@@ -49759,8 +49796,8 @@
 		"key": "enemy_2092_skzamy",
 		"sortId": 1109,
 		"name_zh": "“阿米娅”，炉芯终曲",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "「アーミヤ」、炉心の終曲",
+		"name_en": "'Amiya', Furnace's Finale",
 		"stats": [
 			{
 				"hp": 200000,
@@ -49782,9 +49819,6 @@
 						"key": "skzamy_mech_2"
 					},
 					{
-						"key": "skzamy_0_1"
-					},
-					{
 						"key": "skzamy_1_2"
 					}
 				],
@@ -49804,6 +49838,9 @@
 						}
 					],
 					[
+						{
+						"key": "skzamy_2_ball"
+					},
 						{
 							"key": "skzamy_2_1"
 						},
@@ -49843,8 +49880,8 @@
 		"key": "enemy_2094_skzamb",
 		"sortId": 1109,
 		"name_zh": "仅剩的创意",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "最期のアイデア",
+		"name_en": "Vestige of Creativity",
 		"stats": [
 			{
 				"hp": 1000,
@@ -49859,7 +49896,6 @@
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
 				"traits": [
-					{"key":"appear_nowhere"},
 					{
 						"key": "ball_type_enemy"
 					},
@@ -49895,9 +49931,9 @@
 		"id": "-",
 		"key": "enemy_2095_skzamf",
 		"sortId": 1109,
-		"name_zh": "昔日道标",
-		"name_ja": "",
-		"name_en": "",
+        "name_zh": "昔日道标",
+        "name_ja": "昔日の道標",
+        "name_en": "Guidepost of the Past",
 		"stats": [
 			{
 				"hp": 20000,
@@ -49988,8 +50024,8 @@
 		"key": "enemy_2097_skzfdd",
 		"sortId": 1110,
 		"name_zh": "博卓卡斯替，圣卫铳骑",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "「聖衛の銃騎士」ボジョカスティ",
+		"name_en": "Buldrokkas'tee, Holy Gun-Knight",
 		"stats": [
 			{
 				"hp": 100000,
@@ -50041,8 +50077,8 @@
 		"key": "enemy_2098_skzftx",
 		"sortId": 1111,
 		"name_zh": "特雷西斯，黑冠尊主",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "「黒き王冠の主」テレシス",
+		"name_en": "Theresis, Black Crowned Lord",
 		"stats": [
 			{
 				"hp": 150000,
@@ -50092,8 +50128,8 @@
 		"key": "enemy_2099_skzfkl",
 		"sortId": 1112,
 		"name_zh": "奎隆，摩诃萨埵权化",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "「摩訶薩の権化」クイロン",
+		"name_en": "Qui'lon, Avatar of the Mahasattva",
 		"stats": [
 			{
 				"hp": 250000,
@@ -50137,8 +50173,8 @@
 		"key": "enemy_2100_skzfmf",
 		"sortId": 1113,
 		"name_zh": "曼弗雷德",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "Manfred",
+		"name_en": "Manfred",
 		"stats": [
 			{
 				"hp": 150000,
@@ -50183,8 +50219,8 @@
 		"key": "enemy_6028_cosgia",
 		"sortId": 1144,
 		"name_zh": "“高亢群歌”",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "「高らかな合唱」",
+		"name_en": "'Song of the Pack'",
 		"stats": [
 			{
 				"hp": 450000,
@@ -50219,8 +50255,8 @@
 		"key": "enemy_9001_ayokai",
 		"sortId": 1203,
 		"name_zh": "惊喜赞助无人机",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "サプライズ協賛ドローン",
+		"name_en": "Surprise Sponsor Drone",
 		"stats": [
 			{
 				"hp": 20000,
@@ -50255,8 +50291,8 @@
 		"key": "enemy_9002_adsham",
 		"sortId": 1204,
 		"name_zh": "萨卡兹渴血术师",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "サルカズ渇血術師",
+		"name_en": "Sarkaz Bloodthirst Caster",
 		"stats": [
 			{
 				"hp": 15000,
@@ -50291,8 +50327,8 @@
 		"key": "enemy_9003_askate",
 		"sortId": 1205,
 		"name_zh": "寻路者供弹手",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "求道供弾者",
+		"name_en": "Pathfinder Armicustos",
 		"stats": [
 			{
 				"hp": 14000,
@@ -50327,8 +50363,8 @@
 		"key": "enemy_9004_anlock",
 		"sortId": 1206,
 		"name_zh": "技师囚犯",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "囚人技師",
+		"name_en": "Technician Prisoner",
 		"stats": [
 			{
 				"hp": 40000,
@@ -50363,8 +50399,8 @@
 		"key": "enemy_9005_aicemn",
 		"sortId": 1207,
 		"name_zh": "冰晶射手",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "氷晶の射手",
+		"name_en": "Glacial Archer",
 		"stats": [
 			{
 				"hp": 16000,
@@ -50399,8 +50435,8 @@
 		"key": "enemy_5501_arcbank",
 		"sortId": 1208,
 		"name_zh": "大富翁",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "大富豪",
+		"name_en": "Tycoon",
 		"stats": [
 			{
 				"hp": 25000,
@@ -50435,8 +50471,8 @@
 		"key": "enemy_5502_arcthf",
 		"sortId": 1209,
 		"name_zh": "宝藏神偷",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "お宝泥棒",
+		"name_en": "Treasure Thief",
 		"stats": [
 			{
 				"hp": 18000,
@@ -50471,8 +50507,8 @@
 		"key": "enemy_5503_arcslma",
 		"sortId": 1210,
 		"name_zh": "果冻小子",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "ゼリーモンスター",
+		"name_en": "Jelly Kid",
 		"stats": [
 			{
 				"hp": 18000,
@@ -50507,8 +50543,8 @@
 		"key": "enemy_5504_arcslmi",
 		"sortId": 1211,
 		"name_zh": "果冻丁",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "ゼリーキッド",
+		"name_en": "Jello",
 		"stats": [
 			{
 				"hp": 2500,
@@ -50543,8 +50579,8 @@
 		"key": "enemy_5505_arctxi",
 		"sortId": 1212,
 		"name_zh": "“两栖号”船车",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "ボトルカー「水陸両用号」",
+		"name_en": "'The Amphibian' Ship-Car",
 		"stats": [
 			{
 				"hp": 4200,
@@ -50579,8 +50615,8 @@
 		"key": "enemy_5506_arcgo",
 		"sortId": 1213,
 		"name_zh": "“搁浅零件”",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "「ボトルパーツ」",
+		"name_en": "'Washed-Up Parts'",
 		"stats": [
 			{
 				"hp": 100,
@@ -50615,8 +50651,8 @@
 		"key": "enemy_5507_arctolm",
 		"sortId": 1214,
 		"name_zh": "喷泉“汽水侠”",
-		"name_ja": "",
-		"name_en": "",
+		"name_ja": "噴水「サイダーマン」",
+		"name_en": "Fountain 'Soda Knight'",
 		"stats": [
 			{
 				"hp": 100,

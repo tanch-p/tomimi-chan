@@ -5,8 +5,8 @@
 	"disguise": {
 		"tooltip": null
 	},
-	"appear_nowhere":{
-		"tooltip":null
+	"appear_nowhere": {
+		"tooltip": null
 	},
 	"rewrite_tile_forbid": {
 		"tooltip": {
@@ -6054,15 +6054,15 @@
 	},
 	"skzams_1": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": ["Drops a random Collectible when it enters the Protection Objective"],
+			"ja": ["防衛ラインに入ると、ランダムな秘宝をドロップする"],
 			"zh": ["到达路径终点后，在战斗结算时额外掉落1件收藏品"]
 		}
 	},
 	"skzams_2": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": ["Remaining HP percentage carries over to the next operation"],
+			"ja": ["減少したHPは次の作戦に引き継がれる"],
 			"zh": [
 				"每次到达终点后，于下次出现时重设自身生命值比例，保持与前一次到达路径终点时的生命值比例相等"
 			]
@@ -6070,8 +6070,10 @@
 	},
 	"skzamy_mech_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Operators will be sealed within a Guidepost of the Past upon deployment until a <Vestige of Creativity> comes into contact with them; the sealed Operator is Stunned and can neither be targeted nor be blocked."
+			],
+			"ja": ["自身が生存している時、味方オペレーターは配置時に封印され行動不能になる"],
 			"zh": [
 				"自身关卡内，我方干员在部署（不包括移动）时被封印：获得晕眩，不可选中，阻挡数-99，持续时间无限；封印受仅剩的创意影响时解除"
 			]
@@ -6079,35 +6081,47 @@
 	},
 	"skzamy_mech_2": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"[Vestiges of Creativity] Vestiges of Creativity on the battlefield change direction when they come into contact with <Guideposts of the Past> or terrain features. When they come into contact with <Guideposts of the Past>, they release the enemy or allied Operator contained within."
+			],
+			"ja": [
+				"【最期のアイデア】：戦場内に<「最期のアイデア」>がいくつか漂っており、<昔日の道標>/壁に触れるとその移動方向が変化する。<昔日の道標>に触れた場合、その中に囚われている敵もしくは味方を解放する"
+			],
 			"zh": [
 				"【仅剩的创意】战场上存在若干“仅剩的创意”，“仅剩的创意”会在触碰到<昔日道标>或地形时改变移动方向，若触碰<昔日道标>则释放其中的敌人或友方干员"
 			]
 		}
 	},
-	"skzamy_0_1": {
+	"skzamy_2_ball": {
 		"type": "skill",
 		"initCooldown": 15,
 		"cooldown": 15,
-		"suffix": { "en": "无言的期盼", "ja": "无言的期盼", "zh": "无言的期盼" },
+		"suffix": { "en": "Wordless Expectation", "ja": "無言の期待", "zh": "无言的期盼" },
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": ["[Wordless Expectation] Summons one Vestige of Creativity"],
+			"ja": ["【無言の期待】：<「最期のアイデア」>を1体召喚する"],
 			"zh": ["【无言的期盼】召唤一个“仅剩的创意”"]
 		}
 	},
 	"skzamy_1_0": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"[Those Who Should Not Be] - Amiya becomes Invulnerable when HP drops below 50% for the first time until phase 3"
+			],
+			"ja": [
+				"【存在すべきでない人】：初めてHPが50%未満になったとき、無敵状態になる、第3フェーズまで継続"
+			],
 			"zh": ["【不应存在之人】：持有不死，生命值首次低于50%时，获得无敌至作战第三阶段"]
 		}
 	},
 	"skzamy_1_1": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"[Recreation of the End] Recovers 250 SP when Buldrokkas'tee, Holy Gun-Knight, Theresis, Black Crowned Lord, Qui'lon, Avatar of the Mahasattva, or Manfred are defeated or leave the battlefield"
+			],
+			"ja": [
+				"【最果ての再現】：<「聖衛の銃騎士」ボジョカスティ>、<「黒き王冠の主」テレシス>、<「摩訶薩の権化」クイロン>、<マンフレッド>のいずれかが撃破されるか戦場から離脱すると自身が250SP回復する"
+			],
 			"zh": [
 				"【尽头重现】当博卓卡斯替，圣卫铳骑、特雷西斯，黑冠尊主、奎隆，摩诃萨埵权化、曼弗雷德被击倒或离开战场时，自身立即获得250SP"
 			]
@@ -6118,10 +6132,20 @@
 		"initSp": 0,
 		"spCost": "180/280",
 		"skillType": "INCREASE_WITH_TIME",
-		"suffix": { "en": "存续先兆", "ja": "存续先兆", "zh": "存续先兆" },
+		"suffix": { "en": "Premonition of Continuation", "ja": "存続の前兆", "zh": "存续先兆" },
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Values below correspond to First Form stage phase 1, 2, 3 and Second Form",
+				"Stops attacking and casts skill over 35/35/60/60s, every 3.5/3.5/6.0/6.0s seals tiles starting from the leftmost. For each Guidepost of the Past or enemy erased, reduces Life Points based on the enemy erased before moving to the next area",
+				"When the mind is Fractured, SP cost is reduced to 100/100/100/280",
+				"When possessing <Reality of The End>, SP cost at Second Form is reduced to 120"
+			],
+			"ja": [
+				"※以下の数値はアーミヤ第一形態（第一、二、三フェーズ）、第二形態に対応する",
+				"詠唱状態に入り、3.5/3.5/6.0/6.0秒毎にマップ左側から縦1列ずつ配置不可マスにしていく、マス上にいるすべてのユニットを消滅させていき、消滅させた<昔日の道標>または敵ユニットごとに、その敵が目標地点に入った場合に減少する分の耐久値を減少させる（托生蓮座の耐久値減少量は1とみなす）",
+				"※思考が混乱状態である場合、【存続の前兆】の発動に必要なSPが100/100/100/280になる",
+				"※終結の実相所持時、第二形態の必要SPが120になる"
+			],
 			"zh": [
 				"※此技能的数值分别对应：第一形态1/2/3区域，第二形态",
 				"持续施法35/35/60/60s，期间每3.5/3.5/6.0/6.0s封印当前场地最左侧一列未被封印的地块，并强制击倒其中除自身外所有单位，击倒昔日道标及敌方单位时扣除等同于其目标价值的目标生命值(托生莲座视为1点目标生命)",
@@ -6132,8 +6156,10 @@
 	},
 	"skzamy_1_3": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Revives over 10 seconds to 100% HP when defeated and transits to second form. Keeps current SP of [Premonition of Continuation]"
+			],
+			"ja": ["倒されると10秒かけてHPを100%回復し、第二形態に移行（存続の前兆のSPは保存される)"],
 			"zh": [
 				"被击倒后进行持续10s的重生，恢复100%生命值；重生期间SP回复暂停(保留SP)，重生结束后进入第二阶段"
 			]
@@ -6142,10 +6168,14 @@
 	"skzamy_2_1": {
 		"atk": { "multiplier": 2.5 },
 		"dmg_element": "true",
-		"suffix": { "en": "黑冠余威", "ja": "黑冠余威", "zh": "黑冠余威" },
+		"suffix": { "en": "Afterglow", "ja": "黒き冠の余威", "zh": "黑冠余威" },
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"[Afterglow of the Black Crown] - upon entering second form or when a <Vestige of Creativity> touches Amiya, deals 250% ATK as {true} damage to 7 friendly units within range"
+			],
+			"ja": [
+				"【黒き冠の余威】第二形態に入ると最期のアイデアに触れるとき、攻撃範囲内の味方最大7体に、攻撃力の250%の{true}ダメージを与える"
+			],
 			"zh": [
 				"【黑冠余威】进入第二形态后或接触“仅剩的创意”时，对周围最多7个目标造成一次攻击力<v.atk.multiplier>%{true}伤害"
 			]
@@ -6153,15 +6183,21 @@
 	},
 	"skzamy_2_2": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": ["<Vestige of Creativity> within 0.5 tile radius of Amiya are consumed and removed"],
+			"ja": ["最期のアイデアが半径0.5マスに入るとアイデアは消滅する"],
 			"zh": ["半径0.5范围内接触“仅剩的创意”时令其退场"]
 		}
 	},
 	"skzamy_2_3": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Revives over 2.5 seconds when defeated, enters third form and uses [Eternal Existence]",
+				"[Eternal Existence] - Removes all units from the battlefield and ends the battle"
+			],
+			"ja": [
+				"倒されると2.5秒かけてHPを100%回復し、第三形態に移行、【永劫なる存続】を発動",
+				"【永劫なる存続】敵味方をすべて撃破し戦闘を終了する"
+			],
 			"zh": [
 				"被击倒后进行持续2.5s的重生，进入第三形态并释放【永恒存续】",
 				"【永恒存续】消灭场上所有单位，随后结束作战"
@@ -6175,7 +6211,7 @@
 		"hits": 1,
 		"tooltip": {
 			"en": ["Normal attacks does 50% ATK as {arts} damage"],
-			"ja": ["通常攻撃は攻撃力の50%の{arts]ダメージを与え"],
+			"ja": ["通常攻撃は攻撃力の50%の{arts}ダメージを与え"],
 			"zh": ["普通攻击造成攻击力50%的{arts}普通伤害"]
 		}
 	},
@@ -6190,15 +6226,19 @@
 		"value": 0,
 		"force": 36,
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": ["Pushes self in a predefined direction on spawn"],
+			"ja": ["現れるときは決められた方向に自分を押し出す"],
 			"zh": ["出场时按设定方向以默认力度推动自身"]
 		}
 	},
 	"skzamb_2": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": [
+				"Rebounds when coming into contact with a high ground tile, map boundary, or a <Guidepost of the Past>, and releases friendly/enemy units sealed by <Guidepost of the Past>"
+			],
+			"ja": [
+				"封印された味方・昔日の道標や、高台かマップの壁に触れると反対方向に移動し始める。封印された味方・昔日の道標に触れるとその封印を解除"
+			],
 			"zh": [
 				"接触半径0.2范围内被封印的我方干员/昔日道标，或半径0.25范围内的高台地块/地图边缘时，反弹，并解除所接触的我方干员/高台上的我方干员的封印效果，或触发昔日道标的退场召唤效果"
 			]
@@ -6206,15 +6246,15 @@
 	},
 	"skzamb_3": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": ["When releasing allied units, deals 100% ATK as {arts} damage"],
+			"ja": ["味方ユニットを解除したとき、攻撃力100%の{arts}ダメージを与える"],
 			"zh": ["解除我方干员的封印效果时，对此干员造成自身攻击力100%的{arts}伤害"]
 		}
 	},
 	"skzamj_1": {
 		"tooltip": {
-			"en": [""],
-			"ja": [""],
+			"en": ["When coming into contact with a <Vestige of Creativity>, turns into an enemy"],
+			"ja": ["最期のアイデアに触れると敵を召喚する"],
 			"zh": [
 				"被仅剩的创意接触时，在自身所在地块中心0.2边长正方形范围内随机位置以自身路径召唤1个预设的敌人，随后自身退场"
 			]
