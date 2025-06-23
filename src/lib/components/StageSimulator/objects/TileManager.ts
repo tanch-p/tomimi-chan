@@ -290,34 +290,34 @@ export class TileManager {
 			const frontPlane = this.getTopTexture(topTextureName, topTexture, null, size, depth, null);
 			boxGroup.add(frontPlane);
 		}
-		if (
-			![
-				'tile_floor',
-				'tile_road',
-				'tile_end',
-				'tile_start',
-				'tile_infection',
-				'tile_fence',
-				'tile_fence_bound',
-				'tile_defbreak',
-				'tile_healing',
-				'tile_volcano',
-				'tile_defup',
-				'tile_pollution_road',
-				'tile_toxic',
-				'tile_toxicroad',
-				'tile_creep',
-				'tile_creepf',
-				'tile_bigforce',
-				'tile_grass',
-				'tile_smog'
-			].includes(tileName)
-		) {
-			const sprite = new TextSprite(tileName.replace('tile_', '')).get();
-			sprite.position.z = 1;
-			sprite.position.x = -5;
-			boxGroup.add(sprite);
-		}
+		// if (
+		// 	![
+		// 		'tile_floor',
+		// 		'tile_road',
+		// 		'tile_end',
+		// 		'tile_start',
+		// 		'tile_infection',
+		// 		'tile_fence',
+		// 		'tile_fence_bound',
+		// 		'tile_defbreak',
+		// 		'tile_healing',
+		// 		'tile_volcano',
+		// 		'tile_defup',
+		// 		'tile_pollution_road',
+		// 		'tile_toxic',
+		// 		'tile_toxicroad',
+		// 		'tile_creep',
+		// 		'tile_creepf',
+		// 		'tile_bigforce',
+		// 		'tile_grass',
+		// 		'tile_smog'
+		// 	].includes(tileName)
+		// ) {
+		// 	const sprite = new TextSprite(tileName.replace('tile_', '')).get();
+		// 	sprite.position.z = 1;
+		// 	sprite.position.x = -5;
+		// 	boxGroup.add(sprite);
+		// }
 		return boxGroup;
 	}
 	getTopTexture(tileName, topTexture, eMapName, size = 1, depth, customGeometry) {
