@@ -229,7 +229,7 @@
 										{value}</span
 									>
 								{:else}
-									<span>&nbsp;× {value}</span>
+									<span>&nbsp;× {1+value}</span>
 								{/if}
 							{/each}
 							<span>)</span>
@@ -245,6 +245,7 @@
 						{/each}
 						)
 					{/if}
+					<!-- NOTE - FOR ASPD INITIAL MODS ARE ALL UNDER RUNES -->
 					{#if otherMods?.initialMul?.length > 0}
 						&nbsp;× (1
 						{#each otherMods?.initialMul as { key, value }}
