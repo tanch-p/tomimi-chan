@@ -4,14 +4,14 @@
 	import FloorSelect from './FloorSelect.svelte';
 	import translations from '$lib/translations.json';
 	import disasters from '$lib/data/is/sarkaz/disasters.json';
-	import { difficulty } from './stores';
+	import { actualDifficulty, disasterEffects } from './stores';
 
 	export let optionsOpen: boolean,
 		language: Language,
 		level = 1,
 		options = [];
 
-	difficulty.subscribe((n) => {
+	actualDifficulty.subscribe((n) => {
 		switch (true) {
 			case n <= 5:
 				options = disasters.filter((ele) => ele.level == 1);
@@ -24,6 +24,12 @@
 			default:
 				level = 3;
 				options = disasters.filter((ele) => ele.level == 3);
+		}
+		if ($disasterEffects.length > 0) {
+			const disaster = disasters.find(
+				(ele) => ele.iconId === $disasterEffects[0]?.iconId && ele.level === level
+			);
+			disasterEffects.set([disaster]);
 		}
 	});
 </script>

@@ -11,28 +11,35 @@ if (browser && cookiesEnabled) {
 }
 export const selectedRelics = writable([]);
 export const difficulty = writable(storedDifficulty);
-export const difficultyMode = writable('normal');
+export const difficultyMode = writable('normal'); //normal | deepseek
+export const actualDifficulty = derived(
+	[difficulty, difficultyMode],
+	([$difficulty, $difficultyMode]) => ($difficultyMode === 'deepseek' ? 0 : $difficulty)
+);
 
 export const selectedFloor = writable(1);
 const floorDifficultyMods = derived(
-	[selectedFloor, difficulty,difficultyMode],
-	([$selectedFloor, $difficulty,$difficultyMode]) => $difficultyMode === "normal" ? [
-		{
-			targets: ['ALL'],
-			mods: [
-				{
-					key: 'hp',
-					value: (1 + difficultyModsList[$difficulty]?.floorBuff) ** $selectedFloor,
-					mode: 'mul'
-				},
-				{
-					key: 'atk',
-					value: (1 + difficultyModsList[$difficulty]?.floorBuff) ** $selectedFloor,
-					mode: 'mul'
-				}
-			]
-		}
-	]: null
+	[selectedFloor, difficulty, difficultyMode],
+	([$selectedFloor, $difficulty, $difficultyMode]) =>
+		$difficultyMode === 'normal'
+			? [
+					{
+						targets: ['ALL'],
+						mods: [
+							{
+								key: 'hp',
+								value: (1 + difficultyModsList[$difficulty]?.floorBuff) ** $selectedFloor,
+								mode: 'mul'
+							},
+							{
+								key: 'atk',
+								value: (1 + difficultyModsList[$difficulty]?.floorBuff) ** $selectedFloor,
+								mode: 'mul'
+							}
+						]
+					}
+			  ]
+			: null
 );
 export const eliteMode = writable(false);
 export const runes = writable(null);
@@ -125,7 +132,7 @@ export const statMods = derived(
 			};
 		});
 		return {
-			runes: { key: $eliteMode ? "elite_ops" : "combat_ops", mods: [$runes] },
+			runes: { key: $eliteMode ? 'elite_ops' : 'combat_ops', mods: [$runes] },
 			diff: { key: 'difficulty', mods: $difficultyMods, stackType: 'mul' },
 			others: [
 				{ key: 'floor_diff', mods: [$floorDifficultyMods] },
