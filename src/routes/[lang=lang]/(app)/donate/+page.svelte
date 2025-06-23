@@ -2,6 +2,8 @@
 	import type { Language } from '$lib/types';
 	import type { PageData } from './$types';
 	import translations from '$lib/translations.json';
+	import kofiBadge from '$lib/images/kofi_badge_beige.png';
+	import afdian from '$lib/images/afdian.jpg';
 
 	export let data: PageData, language: Language;
 	$: language = data.language;
@@ -13,7 +15,7 @@
 	<meta property="og:description" content={translations[language].title_post} />
 </svelte:head>
 
-<div class="max-w-xl mx-auto pt-24 px-2">
+<div class="max-w-xl mx-auto py-24 px-2">
 	<p class="font-semibold text-lg">{translations[language].donate_text}</p>
 
 	<p class="mt-4">
@@ -37,35 +39,26 @@
 					</a>
 				</td>
 			</tr>
-			<tr>
-				<td class="w-[80px]">Kofi</td>
-				<td
-					><a
-						href="https://ko-fi.com/tartarchan"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="text-blue-400 hover:text-blue-300"
-					>
-						Buy me a coffee
-					</a></td
-				>
-			</tr>
-			<tr>
-				<td class="w-[80px]">AFDIAN</td>
-				<td
-					><a
-						href="https://afdian.com/a/tomimi"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="text-blue-400 hover:text-blue-300"
-					>
-						在爱发电支持我吧！
-					</a></td
-				>
-			</tr>
-			
 		</tbody>
 	</table>
+	<div class="flex flex-[1_1_50%] flex-wrap md:flex-nowrap gap-6 mt-6 mx-auto max-w-[280px] md:max-w-full">
+		<a
+			href="https://afdian.com/a/tomimi"
+			target="_blank"
+			rel="noopener noreferrer"
+			class="hover:brightness-75 h-max rounded-3xl overflow-hidden"
+		>
+			<img src={afdian} width="100%" height="100%" alt="afdian" />
+		</a>
+		<a
+			href="https://ko-fi.com/tartarchan"
+			target="_blank"
+			rel="noopener noreferrer"
+			class="hover:brightness-75 h-max"
+		>
+			<img src={kofiBadge} width="100%" height="100%" alt="kofi" />
+		</a>
+	</div>
 </div>
 
 <style>
