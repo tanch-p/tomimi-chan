@@ -5,6 +5,7 @@
 	import translations from '$lib/translations.json';
 	import TogglePanel from '$lib/components/TogglePanel.svelte';
 	import HowToUse from '$lib/components/HowToUse.svelte';
+	import TitleBlock from '$lib/components/TitleBlock.svelte';
 
 	export let data: PageData;
 	$: language = data.language;
@@ -40,9 +41,9 @@
 					</li>
 				</ul>
 			</TogglePanel>
-			<TogglePanel title={translations[language].stage_nav} isOpen={true}>
+			<TitleBlock title={translations[language].stage_nav}>
 				<MizukiNav {language} />
-			</TogglePanel>
+			</TitleBlock>
 		</div>
 	</div>
 </div>

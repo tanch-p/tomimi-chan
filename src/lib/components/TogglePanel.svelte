@@ -18,12 +18,8 @@
 	};
 </script>
 
-<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="sm:px-6 {className}">
-	<div
-		class="flex justify-between items-center px-2 sm:px-0 hover:cursor-pointer"
-		on:click={toggle}
-	>
+	<button class="flex justify-between items-center w-full px-2 sm:px-0" on:click={toggle}>
 		<div class="flex items-center gap-x-3">
 			<h2 class={`${size === 'subheading' ? 'text-subheading' : 'text-3xl'}`}>{title}</h2>
 			{#if titleIcon}
@@ -35,7 +31,7 @@
 		{:else}
 			<Icon name="icon-plus" className="w-6 h-6 sm:w-8 sm:h-8 mt-2" />
 		{/if}
-	</div>
+	</button>
 	<hr class="border-gray-500 my-1" />
 	{#if isOpen}
 		<div transition:slide|local={{ duration: 300 }}>

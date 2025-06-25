@@ -7,6 +7,7 @@
 	import HowToUse from '$lib/components/HowToUse.svelte';
 	import NavTemp from './NavTemp.svelte';
 	import Fragments from './Fragments.svelte';
+	import TitleBlock from '$lib/components/TitleBlock.svelte';
 
 	export let data: PageData, language: Language;
 	$: language = data.language;
@@ -33,10 +34,10 @@
 			<TogglePanel title={translations[language].how_to_use} isOpen={true}>
 				<HowToUse {language} rogueTopic={'rogue_skz'} />
 			</TogglePanel>
-			<Fragments {language}/>
-			<TogglePanel title={translations[language].stage_nav} isOpen={true}>
+			<Fragments {language} />
+			<TitleBlock title={translations[language].stage_nav}>
 				<NavTemp {language} />
-			</TogglePanel>
+			</TitleBlock>
 		</div>
 	</div>
 </div>
