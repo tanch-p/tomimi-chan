@@ -3,10 +3,15 @@
 	import EnemyHandbookDetails from './EnemyHandbookDetails.svelte';
 	import bossIcon from '$lib/images/is/boss_icon.webp';
 
-	export let enemies: Enemy[], language: Language, statMods, specialMods,otherBuffsList,mode="mobile";
+	export let enemies: Enemy[],
+		language: Language,
+		statMods,
+		specialMods,
+		otherBuffsList,
+		mode = 'mobile';
 </script>
 
-<div class="grid grid-cols-[80px_auto] md:justify-center md:mt-4">
+<div class="grid grid-cols-[75px_auto] md:grid-cols-[85px_auto] md:justify-center md:mt-4">
 	<div
 		class="grid grid-flow-row auto-rows-max gap-2.5 px-2.5 h-[calc(100vh-172px)] overflow-scroll no-scrollbar sticky top-20"
 	>
@@ -18,17 +23,17 @@
 						<img
 							class="absolute bottom-0 opacity-70"
 							src={bossIcon}
-							width="30px"
-							height="30px"
+							width="27px"
+							height="27px"
 							decoding="async"
 							alt=""
 						/>
 					{/if}
 					<img
-						class="select-none"
+						class="select-none w-[55px] md:w-[65px]"
 						src={`/images/enemy_icons/${enemy.key}.webp`}
-						height="60px"
-						width="60px"
+						height="65px"
+						width="65px"
 						decoding="async"
 						alt={enemy.id}
 					/>
@@ -41,7 +46,7 @@
 			{#if index !== 0}
 				<div class="bg-neutral-700 mx-1 h-0.5" />
 			{/if}
-			<EnemyHandbookDetails {enemy} {language} {statMods} {specialMods} {otherBuffsList} {mode}/>
+			<EnemyHandbookDetails {enemy} {language} {statMods} {specialMods} {otherBuffsList} {mode} />
 		{/each}
 	</div>
 </div>
