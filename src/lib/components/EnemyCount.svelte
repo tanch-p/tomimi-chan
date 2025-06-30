@@ -86,18 +86,20 @@
 						alt={enemy.id}
 						title={enemy[`name_${language}`] || enemy[`name_zh`]}
 					/>
-					<p
-						class="flex absolute right-[-3px] bottom-[-3px] bg-almost-black px-1 text-xs md:text-sm"
-					>
-						x&nbsp;
-						{#if min === max}
-							<span>{min ?? 0}</span>
-						{:else}
-							<span>{min}</span>
-							<span>~</span>
-							<span>{max}</span>
-						{/if}
-					</p>
+					{#if !['level_rogue4_d-1', 'level_rogue4_d-2', 'level_rogue4_d-3', 'level_rogue4_d-4'].includes(mapConfig.levelId)}
+						<p
+							class="flex absolute right-[-3px] bottom-[-3px] bg-almost-black px-1 text-xs md:text-sm"
+						>
+							x&nbsp;
+							{#if min === max}
+								<span>{min ?? 0}</span>
+							{:else}
+								<span>{min}</span>
+								<span>~</span>
+								<span>{max}</span>
+							{/if}
+						</p>
+					{/if}
 				</a>
 			{/if}
 		{/each}
