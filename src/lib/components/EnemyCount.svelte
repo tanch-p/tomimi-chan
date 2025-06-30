@@ -18,7 +18,7 @@
 		}
 		return { min: 0, max: 0 };
 	}
-	function getTotalCountStr(mapConfig, eliteMode) {
+	function getTotalCountStr(mapConfig, eliteMode: boolean) {
 		const data = eliteMode ? mapConfig.e_count ?? mapConfig.n_count : mapConfig.n_count;
 		const lastIndex = data.length - 1;
 		let min = data[0];
@@ -27,6 +27,42 @@
 			return min;
 		}
 		return `${min} ~ ${max}`;
+	}
+	function isEnemyToShow(key: string, levelId: string) {
+		if (key === 'enemy_2065_skzjs') return false;
+		switch (levelId) {
+			case 'level_rogue4_t-6':
+			case 'level_rogue4_b-6':
+				return key === 'enemy_2067_skzcy' || !BONUS_ENEMY_KEYS.includes(key);
+			case 'level_rogue4_3-3':
+			case 'level_rogue4_4-3':
+			case 'level_rogue4_ev-1':
+			case 'level_rogue4_ev-2':
+				return key === 'enemy_2070_skzfbx' || !BONUS_ENEMY_KEYS.includes(key);
+			case 'level_rogue4_t-1':
+			case 'level_rogue4_t-2':
+			case 'level_rogue4_t-3':
+			case 'level_rogue4_t-4':
+				return (
+					[
+						'enemy_2001_duckmi',
+						'enemy_2002_bearmi',
+						'enemy_2034_sythef',
+						'enemy_2085_skzjxd'
+					].includes(key) || !BONUS_ENEMY_KEYS.includes(key)
+				);
+			case 'level_rogue4_t-8':
+				return (
+					['enemy_2070_skzfbx', 'enemy_2085_skzjxd'].includes(key) ||
+					!BONUS_ENEMY_KEYS.includes(key)
+				);
+			case 'level_rogue4_d-1':
+			case 'level_rogue4_d-2':
+			case 'level_rogue4_d-3':
+				return true;
+			default:
+				return !BONUS_ENEMY_KEYS.includes(key);
+		}
 	}
 </script>
 
@@ -38,7 +74,7 @@
 >
 	<div class="flex flex-wrap gap-x-4 gap-y-2 px-2.5 md:px-0">
 		{#each enemies as enemy}
-			{#if !((mapConfig.id.includes('_n_') || mapConfig.id.includes('_e_')) && BONUS_ENEMY_KEYS.includes(enemy.key))}
+			{#if isEnemyToShow(enemy.key, mapConfig.levelId)}
 				{@const { min, max } = getMinMaxCount(enemy.stageId, eliteMode)}
 				<a href="#{enemy.stageId}" class="relative flex items-center hover:bg-neutral-700">
 					<img
@@ -51,19 +87,9 @@
 						title={enemy[`name_${language}`] || enemy[`name_zh`]}
 					/>
 					<p
-						class="flex md:hidden absolute right-[-3px] bottom-[-3px] bg-almost-black px-1 text-xs"
+						class="flex absolute right-[-3px] bottom-[-3px] bg-almost-black px-1 text-xs md:text-sm"
 					>
 						x&nbsp;
-						{#if min === max}
-							<span>{min ?? 0}</span>
-						{:else}
-							<span>{min}</span>
-							<span>~</span>
-							<span>{max}</span>
-						{/if}
-					</p>
-					<p class="hidden md:block">
-						<span class="text-xl ml-2">x</span>
 						{#if min === max}
 							<span>{min ?? 0}</span>
 						{:else}
