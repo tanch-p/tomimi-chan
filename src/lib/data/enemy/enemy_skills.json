@@ -2475,6 +2475,29 @@
 			"zh": ["对半径1.5范围内的友方干员造成相当于100%攻击力的{arts}溅射伤害{ignore_camou}"]
 		}
 	},
+	"guerilla_caster_powerup": {
+		"tooltip": {
+			"en": [
+				"When coming into contact with a Pulse Wave, takes no damage and skill's range is increased"
+			],
+			"ja": ["源石衝撃波に触れると、ダメージを受けず、スキルの攻撃範囲が増える"],
+			"zh": ["接触脉冲波时，不受伤害且技能范围扩大"]
+		}
+	},
+	"guerilla_caster_sacrifice_powerup": {
+		"type": "skill",
+		"initCooldown": 0,
+		"cooldown": 5,
+		"suffix": { "en": "Sacrifice (Powerup)", "ja": "スキル（強化）", "zh": "献祭（强化）" },
+		"skillRange": 2.5,
+		"tooltip": {
+			"en": [
+				"Deals 100% of ATK as {arts} splash damage to allied Operators within a 2.5 tile radius{ignore_camou}"
+			],
+			"ja": ["半径2.5内の味方全員に攻撃力の100%の{arts}ダメージを与える{ignore_camou}"],
+			"zh": ["对半径2.5范围内的友方干员造成相当于100%攻击力的{arts}溅射伤害{ignore_camou}"]
+		}
+	},
 	"lower_target_priority": {
 		"tooltip": {
 			"en": ["Lower Target Priority"],
@@ -3455,19 +3478,19 @@
 		"initSp": 0,
 		"spCost": 2,
 		"skillType": "INCREASE_WHEN_ATTACK",
-		"atk": { "multiplier": 1.5 },
+		"atk": { "multiplier": 1.0 },
 		"dmg_element": "phys",
 		"suffix": { "en": "Blink", "ja": "閃影", "zh": "闪现" },
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"When blocked, deals 150% damage to blocking unit and blinks 1.5 tiles towards next checkpoint"
+				"When blocked, deals 100% of ATK as {phys} damage to blocking unit and blinks 1.5 tiles towards next checkpoint"
 			],
 			"ja": [
 				"ブロック相手をすりぬけ、進行ルートに沿って1.5マス移動",
 				"さらに、ブロックしていた相手に攻撃力の100%の{phys}ダメージを与える"
 			],
-			"zh": ["下一次攻击会对攻击目标造成攻击力150%的伤害，向下个检查点移动1.5格"]
+			"zh": ["下一次攻击会对攻击目标造成攻击力100%的伤害，向下个检查点移动1.5格"]
 		}
 	},
 	"imbalance_immune": {
