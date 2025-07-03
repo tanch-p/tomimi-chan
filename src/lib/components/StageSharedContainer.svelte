@@ -66,6 +66,7 @@
 	enemies={pruneExtraEnemies(moddedEnemies, mapConfig.levelId)}
 	eliteMode={$eliteMode}
 	{language}
+	{rogueTopic}
 />
 <div class="sm:px-6">
 	<EliteToggle

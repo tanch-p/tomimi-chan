@@ -1,10 +1,14 @@
 <script lang="ts">
-	import type { MapConfig, Language } from '$lib/types';
+	import type { MapConfig, Language, RogueTopic } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import TogglePanel from './TogglePanel.svelte';
 	import { BONUS_ENEMY_KEYS } from '$lib/functions/lib';
 
-	export let mapConfig: MapConfig, enemies, eliteMode: boolean, language: Language;
+	export let mapConfig: MapConfig,
+		enemies,
+		eliteMode: boolean,
+		language: Language,
+		rogueTopic: RogueTopic;
 
 	function getMinMaxCount(id, eliteMode) {
 		const data = mapConfig.enemies.find((enemy) => id === enemy.id);
@@ -29,7 +33,15 @@
 		return `${min} ~ ${max}`;
 	}
 	function isEnemyToShow(key: string, levelId: string) {
-		if (key === 'enemy_2065_skzjs') return false;
+		switch (rogueTopic) {
+			case 'rogue_sami':
+				if (['enemy_1106_byokai'].includes(key)) return false;
+				break;
+			case 'rogue_skz':
+				if (['enemy_2065_skzjs'].includes(key)) return false;
+				break;
+		}
+		if (['enemy_2065_skzjs', 'enemy_1106_byokai'].includes(key)) return false;
 		switch (levelId) {
 			case 'level_rogue4_t-6':
 			case 'level_rogue4_b-6':

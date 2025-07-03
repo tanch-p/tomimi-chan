@@ -13,6 +13,7 @@ export const BONUS_ENEMY_KEYS = [
 	'enemy_2001_duckmi',
 	'enemy_2002_bearmi',
 	'enemy_2034_sythef',
+	'enemy_2035_sybox',
 	'enemy_2059_smbox',
 	'enemy_2085_skzjxd',
 	'enemy_2069_skzbox',

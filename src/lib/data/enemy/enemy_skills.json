@@ -8,6 +8,27 @@
 	"appear_nowhere": {
 		"tooltip": null
 	},
+	"sourceless_dmg": {
+		"tooltip": {
+			"en": ["Damage dealt treated as sourceless"],
+			"ja": ["与えるダメージは発生源なし"],
+			"zh": ["造成的伤害视为无来源"]
+		}
+	},
+	"drop_relic": {
+		"tooltip": {
+			"en": ["Drops Treasure when defeated"],
+			"ja": ["倒すと秘宝を獲得できる"],
+			"zh": ["被击倒后，在战斗结算时掉落1件收藏品"]
+		}
+	},
+	"neutral_enemy": {
+		"tooltip": {
+			"en": ["Friendly Unit"],
+			"ja": ["中立ユニット"],
+			"zh": ["中立单位"]
+		}
+	},
 	"rewrite_tile_forbid": {
 		"tooltip": {
 			"en": ["When on field, changes tile self is on to non-deployable"],
@@ -380,7 +401,7 @@
 		"tooltip": {
 			"en": ["Attacks decreases target's DEF by <v.value>, lasts indefinitely{can_silence}"],
 			"ja": ["攻撃1回につき相手のDEF<v.value>低下", "(蓄積する、撤退まで永続){can_silence}"],
-			"zh": ["每次攻击使目标的防御力减少<v.value>(可无限叠加){can_silence}"]
+			"zh": ["每次攻击使目标的防御力减少<v.value>(直接加算；可无限叠加){can_silence}"]
 		}
 	},
 	"def_down_hit_sp": {
@@ -388,7 +409,7 @@
 		"tooltip": {
 			"en": ["Attacks decreases target's DEF by <v.value>, lasts indefinitely"],
 			"ja": ["攻撃1回につき相手のDEF<v.value>低下", "(蓄積する、撤退まで永続)"],
-			"zh": ["每次攻击使目标的防御力减少<v.value>(可无限叠加)"]
+			"zh": ["每次攻击使目标的防御力减少<v.value>(直接加算；可无限叠加)"]
 		}
 	},
 	"def_down_duration": {
@@ -537,7 +558,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"hits": 1,
-		"skillRange": 1.25,
+		"skillRange": 1.3,
 		"tooltip": {
 			"en": [
 				"Explodes on death, leaving behind 源石污染区 tile and dealing <v.atk.multiplier>% ATK as {phys} damage to nearby units{can_silence}{ignore_camou}"
@@ -546,7 +567,7 @@
 				"死亡時には爆発する、源石污染区を生成し、周囲に攻撃力<v.atk.multiplier>%の{phys}ダメージを与える{can_silence}{ignore_camou}"
 			],
 			"zh": [
-				"死亡后在自身所在地块生成源石污染区，对半径1.25范围内的友方单位造成攻击力<v.atk.multiplier>%{phys}溅射伤害{can_silence}{ignore_camou}"
+				"死亡后在自身所在地块生成源石污染区，对半径1.3范围内的友方单位造成攻击力<v.atk.multiplier>%{phys}溅射伤害{can_silence}{ignore_camou}"
 			]
 		}
 	},
@@ -607,12 +628,12 @@
 				"When blocked, teleports 1.5 tiles towards next checkpoint (or in current direction if no other checkpoints), becomes unblockable, invincible, and immune to push/pull for 1s"
 			],
 			"ja": [
-				"ブロックされた時、次の通過点に向かって1.5マス転移する（通過点が無い時は移動方向）、1秒のブロック不可、無敵、強制移動無効を獲得"
+				"ブロックされた時、次の通過点に向かって1.5マス転移する(通過点が無い時は移動方向)、1秒のブロック不可、無敵、強制移動無効を獲得"
 			],
 			"zh": [
 				"被被阻挡时可触发：",
 				"①获得持续1秒的不可阻挡效果",
-				"②即将瞬移的目的地位于可通行地块时：向下个检查点方向瞬移1.5格（不存在下个检查点时瞬移方向变为移动方向），期间拥有不可阻挡，无敌，失衡免疫。"
+				"②即将瞬移的目的地位于可通行地块时：向下个检查点方向瞬移1.5格(不存在下个检查点时瞬移方向变为移动方向)，期间拥有不可阻挡，无敌，失衡免疫。"
 			]
 		}
 	},
@@ -1713,6 +1734,16 @@
 		}
 	},
 	"cannot_potion_effect_2": {
+		"type": "buff",
+		"effects": {
+			"targets": ["ALL"],
+			"activeTargets": [],
+			"mods": [
+				{ "key": "atk", "value": 1.0, "order": "initial", "mode": "mul" },
+				{ "key": "aspd", "value": 1.0, "order": "initial", "mode": "mul" }
+			],
+			"stackType": "add"
+		},
 		"tooltip": {
 			"en": [
 				"Grants at random 2 enemy units on the field unkillable (HP will not fall below 1) for 12s, and ATK +100%, ASPD +100"
@@ -1852,7 +1883,19 @@
 		"tooltip": {
 			"en": ["Stone Form - DEF +800 RES +30 for 10s, changes to flying mode thereafter"],
 			"ja": ["石像形態 - 10秒間、防御力+800、術耐性+30。終了後、飛行形態に"],
-			"zh": ["10秒間防御力增加800，法术抗性增加30，免疫失衡，免疫浮空"]
+			"zh": [
+				"10秒間防御力增加800，法术抗性增加30，免疫失衡，免疫浮空",
+				"持续时间结束后切换至飞行模式"
+			]
+		}
+	},
+	"ggy_fly": {
+		"tooltip": {
+			"en": [
+				"Flying Mode - becomes flying unit, normal attacks become ranged and deals {arts} damage"
+			],
+			"ja": ["飛行形態 - 飛行ユニットになり、通常攻撃が{arts}ダメージを与える遠距離攻撃になる"],
+			"zh": ["飞行模式 - 变为飞行单位，失衡免疫。可进行远程攻击，造成法术伤害"]
 		}
 	},
 	"duck_dash": {
@@ -2022,13 +2065,19 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "melee", "ja": "近", "zh": "近" },
 		"hits": 1,
-		"tooltip": null
+		"tooltip": {
+			"en": ["When blocked, does melee attack that deals 30% of ATK as {phys} damage"],
+			"ja": ["ブロックされた時、攻撃力30%の{phys}近接攻撃を行う"],
+			"zh": ["被阻挡时进行近战攻击，近战攻击造成攻击力30%的{phys}伤害"]
+		}
 	},
 	"redmark_sniper": {
 		"tooltip": {
-			"en": ["Ranged Attack only targets units in sandstorm"],
-			"ja": ["砂嵐にさらされているユニットに射程無限の遠距離攻撃"],
-			"zh": ["远程攻击仅攻击暴露在<沙尘暴>中的友方单位"]
+			"en": [
+				"Ranged Attack only targets units in sandstorm, global range, only when not being blocked"
+			],
+			"ja": ["未ブロック時、砂嵐にさらされているユニットに射程無限の遠距離攻撃"],
+			"zh": ["未被阻挡时可进行全场范围的远程攻击，远程攻击仅攻击暴露在<沙尘暴>中的友方单位"]
 		}
 	},
 	"redmark_hologram": {
@@ -2125,7 +2174,7 @@
 			"zh": ["初始技力/技力上限为<v.value>"]
 		}
 	},
-	"sgprst": {
+	"sgprst_gun": {
 		"tooltip": {
 			"en": [
 				"Gun - Consumes 1 Ammo and deals 100% ATK as {phys} damage to target and decreases target's DEF by 300 permanently"
@@ -2136,6 +2185,13 @@
 			"zh": [
 				"自身技力大于等于1时，每次攻击时消耗1技力发射特殊弹药，特殊弹药使命中目标的防御力永久降低300"
 			]
+		}
+	},
+	"sgprst_range": {
+		"tooltip": {
+			"en": ["During 'Payback Time', attack range increases to whole map"],
+			"ja": ["「粛清の時」中は攻撃範囲が全マップになる"],
+			"zh": ["“清算时刻”持续期间，攻击范围扩大至整个战场"]
 		}
 	},
 	"pathfinder_ballistarius": {
@@ -2182,34 +2238,38 @@
 		"accelerate": { "i": 0.5, "m": 0.5, "limit": 25, "preDelay": 0 },
 		"tooltip": {
 			"en": [
-				"Accelerates every 0.5s, inc ms by 50%, does extra damage which scales with ms for 1 attack, after attacking ms stack resets"
+				"When not being blocked, stun or bind, accelerates every 0.5s, increasing Movespeed by 50%, max 25 stacks",
+				"※ Getting stunned or bind will reset Movespeed stacks to 0"
 			],
 			"ja": [
-				"0.5秒毎加速する",
-				"加速→移動速度+50％、攻撃時一回追加ダメージを加える、攻撃後リセットする",
-				"追加ダメージ (1ms:600)"
+				"被ブロック・スタン・バインド状態でない場合、0.5秒ごとに移動速度が0.125上昇する。この効果は25回まで累積する",
+				"※スタン・バインドを受けると移動速度上昇がリセットされる"
 			],
 			"zh": [
-				"每0.5秒提升50%移动速度，最多25层",
-				"被阻挡后的首次攻击造成基于移动速度的额外伤害(1:600)"
+				"未处于被阻挡、眩晕、束缚状态时每0.5s尝试获得1层移动速度+50%的增益，最多尝试25次",
+				"※眩晕，束缚会清空移速叠加并重置加速尝试次数"
 			]
 		}
 	},
-	"lancer_leader_accelerate": {
-		"accelerate": { "i": 0.5, "m": 0.5, "limit": 25, "preDelay": 0 },
+	"lancer_ms_dmg": {
+		"value": 600,
 		"tooltip": {
 			"en": [
-				"Accelerates every 0.5s, inc ms by 50%, does extra damage which scales with ms for 1 attack, after attacking ms stack resets"
+				"Does extra {phys} damage on initial attack based on current Movespeed (ms x <v.value>), after attacking stack resets to 0"
 			],
 			"ja": [
-				"0.5秒毎加速する",
-				"加速→移動速度+50％、攻撃時一回追加ダメージを加える、攻撃後リセットする",
-				"追加ダメージ (1ms:800)"
+				"ブロックされてから初回の通常攻撃を行う際、追加で「移動速度1につき<v.value>の{phys}ダメージ」を与え、自身の能力による移動速度上昇をリセットする"
 			],
 			"zh": [
-				"每0.5秒提升50%移动速度，最多25层",
-				"被阻挡后的首次攻击造成基于移动速度的额外伤害(1:800)"
+				"被阻挡后首次攻击时，额外造成一次当前移动速度×<v.value>的{phys}普通伤害，同时清空移速叠加并重置加速尝试次数"
 			]
+		}
+	},
+	"lancer_accel_reset": {
+		"tooltip": {
+			"en": ["※ Getting stunned or bind will reset Movespeed stacks to 0"],
+			"ja": ["※スタン・バインドを受けると移動速度上昇がリセットされる"],
+			"zh": ["※眩晕，束缚会清空移速叠加并重置加速尝试次数"]
 		}
 	},
 	"sarkaz_sentinel_alert": {
@@ -2262,6 +2322,13 @@
 				"提升在场所有敌方单位50%攻击和50%防御(可无限叠加)",
 				"使【待命】的单位敌人立即进入【临战】状态"
 			]
+		}
+	},
+	"sentinel_undying": {
+		"tooltip": {
+			"en": ["※ HP will not drop below 1 before sounding alarm"],
+			"ja": ["※警報鳴らす前にHPが1以下にならない"],
+			"zh": ["※切换至警戒模式前持有不死效果"]
 		}
 	},
 	"standby": {
@@ -2488,7 +2555,7 @@
 		"type": "skill",
 		"initCooldown": 0,
 		"cooldown": 5,
-		"suffix": { "en": "Sacrifice (Powerup)", "ja": "スキル（強化）", "zh": "献祭（强化）" },
+		"suffix": { "en": "Sacrifice (Powerup)", "ja": "スキル(強化)", "zh": "献祭(强化)" },
 		"skillRange": 2.5,
 		"tooltip": {
 			"en": [
@@ -2627,8 +2694,8 @@
 	"pompeii_aspd_inc": {
 		"tooltip": {
 			"en": ["HP↓50% - ASPD +40"],
-			"ja": ["HP↓50%→攻撃速度+40"],
-			"zh": ["HP↓50%→攻撃速度+40"]
+			"ja": ["HP↓50% - 攻撃速度+40"],
+			"zh": ["HP↓50% - 攻撃速度+40"]
 		}
 	},
 	"pompeii_burn": {
@@ -2695,6 +2762,31 @@
 			]
 		}
 	},
+	"arti": {
+		"※弹道始终使用缓存攻击力，造成的伤害视为无来源 ": ""
+	},
+	"csicer_rage": {
+		"tooltip": {
+			"en": [
+				"Becomes enraged when 'Frost Buck' leaves the map or is defeated, gaining ASPD +100, Movespeed +100% and inherits 'Frost Buck's ability"
+			],
+			"ja": [
+				"自身がマップ上にいる時に「霜の牡鹿」が死亡するか防衛ラインに入ると、攻撃速度+100・移動速度2倍。さらに、「霜の牡鹿」の能力を獲得する"
+			],
+			"zh": ["“霜牡”死亡/进入终点时：自身攻击速度增加100，移动速度最终提升至200%且获得“霜牡”的能力"]
+		}
+	},
+	"csicem_rage": {
+		"tooltip": {
+			"en": [
+				"Becomes enraged when 'Snow Doe' leaves the map or is defeated, gaining ASPD +100, Movespeed +100% and inherits 'Snow Doe's ability"
+			],
+			"ja": [
+				"自身がマップ上にいる時に「雪の牝鹿」が死亡するか防衛ラインに入ると、攻撃速度+100・移動速度2倍。さらに、「雪の牝鹿」の能力を獲得する"
+			],
+			"zh": ["“雪牝”死亡/进入终点时：自身攻击速度增加100，移动速度最终提升至200%且获得“雪牝”的能力"]
+		}
+	},
 	"caster_frost_attack": {
 		"value": 10,
 		"tooltip": {
@@ -2733,7 +2825,7 @@
 			],
 			"ja": [
 				"最大HP15％のダメージを吸収する、バリア継続中は通常攻撃しない、敵全体移動速度＋100％",
-				"20秒毎に敵を召喚する（0秒含む）",
+				"20秒毎に敵を召喚する(0秒含む)",
 				"クールタイムは使用中でもカウントされる"
 			],
 			"zh": [
@@ -2910,7 +3002,7 @@
 				"Spawns Bronze Spearheads equal to the remaining stacks of Broken Blade (at least 1) when defeated"
 			],
 			"ja": ["死亡すると、所持している【断刃】と同じ数の「銅矛」を召喚する (最低1体) "],
-			"zh": ["被击倒时未消耗的【断刃】会生成<铜矛头>（至少1个）"]
+			"zh": ["被击倒时未消耗的【断刃】会生成<铜矛头>(至少1个)"]
 		}
 	},
 	"spawn_ironspearhead": {
@@ -2919,7 +3011,7 @@
 				"Spawns Iron Spearheads equal to the remaining stacks of Broken Blade (at least 1) when defeated"
 			],
 			"ja": ["死亡すると、所持している【断刃】と同じ数の「鉄矛」を召喚する (最低1体)"],
-			"zh": ["被击倒时未消耗的【断刃】会生成<铁矛头>（至少1个）"]
+			"zh": ["被击倒时未消耗的【断刃】会生成<铁矛头>(至少1个)"]
 		}
 	},
 	"broken_blade": {
@@ -2934,7 +3026,7 @@
 			"ja": ["出現時に4つの【断刃】を持つ", "攻撃時【断刃】を1つ消費して攻撃力を+70%する"],
 			"zh": [
 				"出场时持有4个【断刃】",
-				"每次攻击命中目标后消耗1个【断刃】（耗尽后立即无间隔再攻击一次）",
+				"每次攻击命中目标后消耗1个【断刃】(耗尽后立即无间隔再攻击一次)",
 				"持有【断刃】时，自身攻击力提升70%"
 			]
 		}
@@ -2951,7 +3043,7 @@
 			"ja": ["出現時に4つの【断刃】を持つ", "攻撃時【断刃】を1つ消費して攻撃力を+80%する"],
 			"zh": [
 				"出场时持有4个【断刃】",
-				"每次攻击命中目标后消耗1个【断刃】（耗尽后立即无间隔再攻击一次）",
+				"每次攻击命中目标后消耗1个【断刃】(耗尽后立即无间隔再攻击一次)",
 				"持有【断刃】时，自身攻击力提升80%"
 			]
 		}
@@ -2976,10 +3068,11 @@
 		"cooldown": 15,
 		"suffix": { "en": "Glorious Shine", "ja": "輝光照耀", "zh": "辉光照耀" },
 		"can_silence": true,
+		"skillRange": 2.0,
 		"tooltip": {
 			"en": ["Grants Stealth to all enemy units (excluding self) within 2 tile radius for 3s"],
 			"ja": ["半径2.0以内の自分以外の敵全員に3秒間ステルスを付与する"],
-			"zh": ["3s内，使半径2范围内所有未被阻挡的敌方单位（不包括自身）获得隐匿"]
+			"zh": ["3s内，使半径2范围内所有未被阻挡的敌方单位(不包括自身)获得隐匿"]
 		}
 	},
 	"playwright_screen_atk": {
@@ -3446,6 +3539,14 @@
 			"zh": ["被击倒时，使“血债账款”增加<v.value>点"]
 		}
 	},
+	"blood_debt_time_inc": {
+		"value": 2,
+		"tooltip": {
+			"en": ["When on field, increases 'Blood Debt' by <v.value> every second"],
+			"ja": ["戦場にいる時、毎秒「血債」のSP+<v.value>"],
+			"zh": ["在场时，每秒增加<v.value>点“血债账款”"]
+		}
+	},
 	"payback_sgkill": {
 		"tooltip": {
 			"en": ["During 'Payback Time', gains ATK +15%, DEF +15% and ASPD +50"],
@@ -3694,7 +3795,7 @@
 			"ja": [
 				"戦闘経過600秒後自爆する、空間安定化設備を破壊し、全てのマスを【苗床】に変え、耐久値を-30"
 			],
-			"zh": ["战斗经过600s后自曝，破坏空间稳定设施，将全场可部署位置变为【苗圃】，并扣除30目标生命"]
+			"zh": ["战斗经过600s后自爆，破坏空间稳定设施，将全场可部署位置变为【苗圃】，并扣除30目标生命"]
 		}
 	},
 	"smlead_2": {
@@ -3770,10 +3871,10 @@
 	"smdeer_4": {
 		"tooltip": {
 			"en": [
-				"After 600s, does 150% ATK as {arts} damage to all allied units and decreases lifepoint by 30"
+				"After 600s, self-destructs and deals 150% ATK as {arts} damage to all allied units and decreases lifepoint by 30"
 			],
-			"ja": ["戦闘経過600秒後、味方全体に攻撃力150％の{arts}ダメージを与え、耐久値を-30"],
-			"zh": ["战斗经过600s后，对全场友方单位造成攻击力150%的{arts}伤害，并扣除30目标生命"]
+			"ja": ["戦闘経過600秒後自爆、味方全体に攻撃力150％の{arts}ダメージを与え、耐久値を-30"],
+			"zh": ["战斗经过600s后自爆，对全场友方单位造成攻击力150%的{arts}伤害，并扣除30目标生命"]
 		}
 	},
 	"smgia_1": {
@@ -3783,62 +3884,41 @@
 			"zh": ["受到来自自然环境的伤害时，自身获得10s高额脆弱(100%)"]
 		}
 	},
-	"smsha2_1": {
+	"smsha_chain": {
+		"value": 3,
+		"jump": 1.6,
 		"tooltip": {
 			"en": [
-				"Attacks jump further between 4 targets. Each jump deals 15% less damage and applies Cold to the target for 4.5s"
+				"Attacks jump between <v.value> targets (jump range <v.jump> tile radius). Each jump deals 15% less damage and applies Cold to the target for 4.5s"
 			],
 			"ja": [
-				"通常攻撃時、最大4体まで跳躍する攻撃を行い、対象に4.5秒間の【寒冷】効果を付与する",
-				"跳躍 (半径2.1) するたび、ダメージの倍率が15%減衰する"
+				"通常攻撃時、最大<v.value>体まで跳躍する攻撃を行い、対象に4.5秒間の【寒冷】効果を付与する",
+				"跳躍 (半径<v.jump>) するたび、ダメージの倍率が15%減衰する"
 			],
-			"zh": ["攻击施加4.5s寒冷，且会在4个目标间远距离(半径2.1)跳跃，每次跳跃伤害降低15%"]
+			"zh": [
+				"攻击施加4.5s寒冷，且会在<v.value>个目标间远距离(半径<v.jump>)跳跃，每次跳跃伤害降低15%"
+			]
 		}
 	},
-	"smsha2_2": {
+	"smsha_gift": {
 		"type": "skill",
 		"initCooldown": 15,
 		"cooldown": 15,
+		"value": 3,
+		"jump": 1.6,
 		"suffix": { "en": "Unnatural Gift", "ja": "アンチネイチャーギフト", "zh": "反自然馈赠" },
 		"can_silence": true,
 		"tooltip": {
 			"en": [
-				"Attacks enemies, dealing 10% ATK as arts damage, granting them Movespeed +100% and ASPD +100, and jump further between 4 targets (excluding self)"
+				"Attacks enemies, dealing 10% ATK as arts damage, granting them Movespeed +100% and ASPD +100, and jumps within <v.jump> tile radius between <v.value> targets (excluding self)"
 			],
 			"ja": [
 				"敵を攻撃する、攻撃力10%の術ダメージ、10秒間移動速度+100%と攻撃速度+100のバフを与える",
-				"最大4体まで跳躍する (半径2.1)"
+				"最大<v.value>体まで跳躍する (半径<v.jump>)"
 			],
-			"zh": ["攻击其他敌人并在4个敌人间远距离跳跃，使它们获得移动速度+100%，攻击速度+100，持续10s"]
-		}
-	},
-	"smsha_1": {
-		"tooltip": {
-			"en": [
-				"Attacks jump between 3 targets. Each jump deals 15% less damage and applies Cold to the target for 4.5s"
-			],
-			"ja": [
-				"通常攻撃時、最大3体まで跳躍する攻撃を行い、対象に4.5秒間の【寒冷】効果を付与する",
-				"跳躍 (半径1.6) するたび、ダメージの倍率が15%減衰する"
-			],
-			"zh": ["攻击施加4.5s寒冷，且会在3个目标间远距离(半径1.6)跳跃，每次跳跃伤害降低15%"]
-		}
-	},
-	"smsha_2": {
-		"type": "skill",
-		"initCooldown": 15,
-		"cooldown": 15,
-		"suffix": { "en": "Unnatural Gift", "ja": "アンチネイチャーギフト", "zh": "反自然馈赠" },
-		"can_silence": true,
-		"tooltip": {
-			"en": [
-				"Attacks enemies, dealing 10% ATK as arts damage, granting them Movespeed +100% and ASPD +100, and jump further between 3 targets (excluding self)"
-			],
-			"ja": [
-				"敵を攻撃する、攻撃力10%の術ダメージ、10秒間移動速度+100%と攻撃速度+100のバフを与える",
-				"最大3体まで跳躍する (半径1.6)"
-			],
-			"zh": ["攻击其他敌人并在3个敌人间远距离跳跃，使它们获得移动速度+100%，攻击速度+100，持续10s"]
+			"zh": [
+				"对敌人进行一次攻击，造成攻击力10%的法术伤害，攻击会在<v.value>个目标间跳跃(跳跃半径<v.jump>)，使它们获得移动速度+100%，攻击速度+100，持续10s"
+			]
 		}
 	},
 	"smgrd_1": {
@@ -3847,9 +3927,9 @@
 		"suffix": { "en": "2.5x", "ja": "2.5倍", "zh": "2.5倍" },
 		"hits": 1,
 		"tooltip": {
-			"en": ["Does 250% damage to units on 'Dominion' tiles"],
-			"ja": ["【国土】にいる味方ユニットに与えるダメージが250％に増加"],
-			"zh": ["对【国度】中的友方单位造成250%伤害"]
+			"en": ["ATK is increased to <v.atk.multiplier>% when attacking units on 'Dominion' tiles"],
+			"ja": ["【【国土】にいる味方ユニットを攻撃する時に攻撃力が<v.atk.multiplier>%まで増加"],
+			"zh": ["对位于【国度】中的单位的造成伤害时攻击倍率提升至<v.atk.multiplier>%"]
 		}
 	},
 	"smgrd2_2": {
@@ -4024,10 +4104,10 @@
 				"Gains a special Stealth for <v.duration>s, that is not nullified when blocked, and Movespeed +110%"
 			],
 			"ja": [
-				"出現から<v.duration>秒間特殊なステルス状態（ブロックされても解除されない）になり、移動速度+110%"
+				"出現から<v.duration>秒間特殊なステルス状態(ブロックされても解除されない)になり、移動速度+110%"
 			],
 			"zh": [
-				"出场后进入持续<v.duration>s的【潜行】状态：移动速度+110%，获得特殊隐匿（被阻挡后不会被解除）"
+				"出场后进入持续<v.duration>s的【潜行】状态：移动速度+110%，获得特殊隐匿(被阻挡后不会被解除)"
 			]
 		}
 	},
@@ -4728,15 +4808,26 @@
 		"tooltip": {
 			"en": [
 				"Accelerates 3s after spawn, gaining Movespeed +50% every 0.5s, max 28 stacks",
-				"Does 100% of ATK as {phys} damage to all units (enemies included) upon entering Protection Objective"
+				"※ Getting stunned or bind will reset Movespeed stacks to 0"
 			],
 			"ja": [
 				"現れた3秒後加速する、0.5秒毎に移動速度+50%、最大28回",
-				"防衛ラインに入ると敵味方全体に攻撃力100%の{phys}を与える"
+				"※スタン・バインドを受けると移動速度上昇がリセットされる"
 			],
 			"zh": [
 				"出场3s后进入加速状态，加速状态下：每0.5s尝试一次加速，每次提升50%移动速度，最多28次",
-				"进入保护目标后，对全场所有单位造成攻击力100%的{phys}伤害"
+				"※眩晕，束缚会清空移速叠加并重置加速尝试次数"
+			]
+		}
+	},
+	"skzirn_dmg": {
+		"tooltip": {
+			"en": [
+				"Does 100% of ATK as {phys} damage to all units (enemies included) upon entering Protection Objective"
+			],
+			"ja": ["防衛ラインに入ると敵味方全体に攻撃力100%の{phys}を与える"],
+			"zh": [
+				"进入保护目标后，或进入圣卫坚盾所在地块时，对全场所有单位造成攻击力100%的{phys}buff伤害"
 			]
 		}
 	},
@@ -5418,7 +5509,7 @@
 			]
 		}
 	},
-	"lrboom_2": {
+	"lrboom_storm": {
 		"tooltip": {
 			"en": [
 				"Gets defeated instantly when coming into contact with Active Originium Storm and increase the Storm's strength by 1 stage"
@@ -5461,7 +5552,7 @@
 			],
 			"ja": [
 				"ソウルボルテックスを保持しており、自身の縦横直線上に味方がいる場合に使用可能",
-				"保持したソウルボルテックスをすべて消費し、対象の方向に射程無限のレーザーを最大7.8秒間発射。範囲内の味方全員に毎秒攻撃力の50%の{arts}ダメージを与える{ignore_camou}。このスキル中は自身の攻撃力が毎秒+40%される（ソウルボルテックス消費数×25%が上限）"
+				"保持したソウルボルテックスをすべて消費し、対象の方向に射程無限のレーザーを最大7.8秒間発射。範囲内の味方全員に毎秒攻撃力の50%の{arts}ダメージを与える{ignore_camou}。このスキル中は自身の攻撃力が毎秒+40%される(ソウルボルテックス消費数×25%が上限)"
 			],
 			"zh": [
 				"持有充能且自身十字范围内存在友方单位时可触发：消耗所有充能，向目标所在正方向持续发射激光 (最多持续7.8s) ",
@@ -5483,7 +5574,7 @@
 			],
 			"ja": [
 				"ソウルボルテックスを保持しており、自身の縦横直線上に味方がいる場合に使用可能",
-				"保持したソウルボルテックスをすべて消費し、対象の方向に射程無限のレーザーを最大7.8秒間発射。範囲内の味方全員に毎秒攻撃力の50%の{arts}ダメージを与える{ignore_camou}。このスキル中は自身の攻撃力が毎秒+200%される（ソウルボルテックス消費数×40%が上限）"
+				"保持したソウルボルテックスをすべて消費し、対象の方向に射程無限のレーザーを最大7.8秒間発射。範囲内の味方全員に毎秒攻撃力の50%の{arts}ダメージを与える{ignore_camou}。このスキル中は自身の攻撃力が毎秒+200%される(ソウルボルテックス消費数×40%が上限)"
 			],
 			"zh": [
 				"持有充能且自身十字范围内存在友方单位时可触发：消耗所有充能，向目标所在正方向持续发射激光 (最多持续7.8s) ",
@@ -5509,7 +5600,7 @@
 				"Reduces the damage taken by nearby ground enemies within a radius of 1.7 to 5%, and transfers the reduced damage as {true} damage to self"
 			],
 			"ja": [
-				"半径1.7以内の地上敵が受ける全タイプのダメージを5%に減少させ（重複しない）、減少させた分のダメージを{true}ダメージとして自身が受ける"
+				"半径1.7以内の地上敵が受ける全タイプのダメージを5%に減少させ(重複しない)、減少させた分のダメージを{true}ダメージとして自身が受ける"
 			],
 			"zh": [
 				"半径1.7范围内的敌方地面单位受到的伤害降低至5%，以此减少的伤害以{true}伤害的形式由自身承担"
@@ -5553,7 +5644,7 @@
 	"mmkonm_1": {
 		"tooltip": {
 			"en": ["When losing Hover, Attack Range decreases by 70%"],
-			"ja": ["低空浮揚を失った後、攻撃半径が30%に縮小する（半径1.2）"],
+			"ja": ["低空浮揚を失った後、攻撃半径が30%に縮小する(半径1.2)"],
 			"zh": ["失去近地悬浮后，攻击范围缩小至30%"]
 		}
 	},
@@ -5563,7 +5654,7 @@
 				"When blocked after HP falls below 50%, dashes a short distance (1.5 tiles) past the blocking unit {once_only}"
 			],
 			"ja": [
-				"【すり抜け】（HP50%以下で一度だけ使用）",
+				"【すり抜け】(HP50%以下で一度だけ使用)",
 				"ブロックした味方をすり抜け、1.5マス移動する"
 			],
 			"zh": [
@@ -5873,11 +5964,11 @@
 			"ja": [
 				"防衛ラインに侵入すると、マップ上の他の敵をすべて倒す",
 				"<ba.buffres>レジスト</>を持ち、転移無効",
-				"「ニーラのアグニ」1つにつき、物理/術の被ダメージ-20%（乗算）"
+				"「ニーラのアグニ」1つにつき、物理/術の被ダメージ-20%(乗算)"
 			],
 			"zh": [
 				"抵达路径终点时，强制击杀场上其他敌人；持有<ba.buffres>抵抗</>，免疫传送",
-				"场上每存在一个尼卢火，自身受到的物理/法术伤害降低至80%（乘算叠加）"
+				"场上每存在一个尼卢火，自身受到的物理/法术伤害降低至80%(乘算叠加)"
 			]
 		}
 	},
@@ -5947,7 +6038,7 @@
 				"Summons an Aggini of Nila at preset positions on the map every 35 seconds. Summons an additional wave of enemies every 38 seconds"
 			],
 			"ja": ["35秒ごとに「ニーラのアグニ」を召喚。38秒ごとに敵を召喚する"],
-			"zh": ["每35s，在场上预设位置召唤尼卢火；每38s，以预设路径召唤敌人（思维混乱时召唤不同敌人）"]
+			"zh": ["每35s，在场上预设位置召唤尼卢火；每38s，以预设路径召唤敌人(思维混乱时召唤不同敌人)"]
 		}
 	},
 	"skzjkl_2_3": {
@@ -5982,7 +6073,7 @@
 				"このステージでは防衛ラインに侵入した托生蓮座に積載されていた者のみが使用可能"
 			],
 			"zh": [
-				"首次被击倒时，进行7.33s的重生（恢复100%生命值），随后强制击杀场上其他敌人(包括尼卢火)与干员，将待部署区中未被托生莲座装载进入保护目标的干员全部隐藏，闪现至指定位置并以新路径行动，释放当前波次，移动关卡地图至区域作战，解除托生莲座的带来的不可部署状态并清空友方单位剩余再部署时间"
+				"首次被击倒时，进行7.33s的重生(恢复100%生命值)，随后强制击杀场上其他敌人(包括尼卢火)与干员，将待部署区中未被托生莲座装载进入保护目标的干员全部隐藏，闪现至指定位置并以新路径行动，释放当前波次，移动关卡地图至区域作战，解除托生莲座的带来的不可部署状态并清空友方单位剩余再部署时间"
 			]
 		}
 	},
@@ -6018,9 +6109,7 @@
 				"Summons an Aggini of Nila at preset positions on the map every 10 seconds. Summons an additional wave of enemies every 20 seconds"
 			],
 			"ja": ["10秒ごとに「ニーラのアグニ」を召喚。20秒ごとに敵を召喚する"],
-			"zh": [
-				"每10s，在场上预设位置召唤尼卢火；每20s，以预设路径召唤敌人（思维混乱时召唤不同敌人） "
-			]
+			"zh": ["每10s，在场上预设位置召唤尼卢火；每20s，以预设路径召唤敌人(思维混乱时召唤不同敌人) "]
 		}
 	},
 	"skzjkl_2_agni": {
@@ -6098,7 +6187,7 @@
 			],
 			"ja": ["自身が生存している時、味方オペレーターは配置時に封印され行動不能になる"],
 			"zh": [
-				"自身关卡内，我方干员在部署（不包括移动）时被封印：获得晕眩，不可选中，阻挡数-99，持续时间无限；封印受仅剩的创意影响时解除"
+				"自身关卡内，我方干员在部署(不包括移动)时被封印：获得晕眩，不可选中，阻挡数-99，持续时间无限；封印受仅剩的创意影响时解除"
 			]
 		}
 	},
@@ -6164,8 +6253,8 @@
 				"When possessing <Reality of The End>, SP cost at Second Form is reduced to 120"
 			],
 			"ja": [
-				"※以下の数値はアーミヤ第一形態（第一、二、三フェーズ）、第二形態に対応する",
-				"詠唱状態に入り、3.5/3.5/6.0/6.0秒毎にマップ左側から縦1列ずつ配置不可マスにしていく、マス上にいるすべてのユニットを消滅させていき、消滅させた<昔日の道標>または敵ユニットごとに、その敵が目標地点に入った場合に減少する分の耐久値を減少させる（托生蓮座の耐久値減少量は1とみなす）",
+				"※以下の数値はアーミヤ第一形態(第一、二、三フェーズ)、第二形態に対応する",
+				"詠唱状態に入り、3.5/3.5/6.0/6.0秒毎にマップ左側から縦1列ずつ配置不可マスにしていく、マス上にいるすべてのユニットを消滅させていき、消滅させた<昔日の道標>または敵ユニットごとに、その敵が目標地点に入った場合に減少する分の耐久値を減少させる(托生蓮座の耐久値減少量は1とみなす)",
 				"※思考が混乱状態である場合、【存続の前兆】の発動に必要なSPが100/100/100/280になる",
 				"※終結の実相所持時、第二形態の必要SPが120になる"
 			],
@@ -6182,7 +6271,7 @@
 			"en": [
 				"Revives over 10 seconds to 100% HP when defeated and transits to second form. Keeps current SP of [Premonition of Continuation]"
 			],
-			"ja": ["倒されると10秒かけてHPを100%回復し、第二形態に移行（存続の前兆のSPは保存される)"],
+			"ja": ["倒されると10秒かけてHPを100%回復し、第二形態に移行(存続の前兆のSPは保存される)"],
 			"zh": [
 				"被击倒后进行持续10s的重生，恢复100%生命值；重生期间SP回复暂停(保留SP)，重生结束后进入第二阶段"
 			]
