@@ -31,16 +31,9 @@ describe('Skill key check', () => {
 		const undefinedKeyList: [string, string][] = [];
 
 		for (const [key, trap] of Object.entries(trapsDB)) {
-			const skills = [...trap['skills'], ...trap['talents'], ...trap['special']];
+			const skills = [...trap['skills'], ...trap['talents'], ...trap['special'].flatMap(ele => ele)];
 			for (const skillKey of skills) {
-				if (typeof skillKey === 'object') {
-					for (const formSkillKey of skillKey) {
-						// case trap_762_skztxy
-						if (!trapSkills[formSkillKey]) {
-							undefinedKeyList.push([key, formSkillKey]);
-						}
-					}
-				} else if (!trapSkills[skillKey]) {
+				if (!trapSkills[skillKey]) {
 					undefinedKeyList.push([key, skillKey]);
 				}
 			}
