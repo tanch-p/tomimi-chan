@@ -8,6 +8,20 @@
 	"appear_nowhere": {
 		"tooltip": null
 	},
+	"no_normal_attack": {
+		"tooltip": {
+			"en": ["Does not normal attack"],
+			"ja": ["通常攻撃しない"],
+			"zh": ["不进行普通攻击"]
+		}
+	},
+	"no_block_no_attack": {
+		"tooltip": {
+			"en": ["Cannot be blocked, does not attack"],
+			"ja": ["攻撃しない、ブロックされない"],
+			"zh": ["无法被阻挡，不进行普通攻击"]
+		}
+	},
 	"sourceless_dmg": {
 		"tooltip": {
 			"en": ["Damage dealt treated as sourceless"],
@@ -1147,24 +1161,25 @@
 			]
 		}
 	},
-	"knight_sleep_120": {
+	"knight_sleep": {
+		"standby": 50,
 		"tooltip": {
 			"en": [
 				"Spawns in Standby Mode - Does not move/attack",
-				"Starts moving after 120s or when tile unit is on gains visibility"
+				"Starts moving after <v.standby>s or when tile unit is on gains visibility"
 			],
 			"ja": [
 				"開始時待機する→移動・攻撃しない",
-				"120秒後か立ち位置の「暗闇」が解除されると行動する"
+				"<v.standby>秒後か立ち位置の「暗闇」が解除されると行動する"
 			],
-			"zh": []
+			"zh": ["出场50s内处于【待命】形态，不进行攻击，无法移动", "所处地块获得视野时立刻激活 "]
 		}
 	},
 	"armorless_assassin_atk_arts": {
 		"tooltip": {
-			"en": ["While in areas without visiblity, attacks do Arts damage"],
-			"ja": ["【暗闇】内にいる時は術攻撃に変化"],
-			"zh": []
+			"en": ["While in areas without visiblity, attacks do Arts damage{can_silence}"],
+			"ja": ["【暗闇】内にいる時は術攻撃に変化{can_silence}"],
+			"zh": ["处于<无视野>的区域时，攻击造成法术伤害{can_silence}"]
 		}
 	},
 	"armorless_assassin_atk_stack": {
@@ -1174,7 +1189,10 @@
 				"Resets after attacking"
 			],
 			"ja": ["【暗闇】内にいる時、攻撃力が毎秒+5% (最大40回/+200%) ", "攻撃後リセットされる"],
-			"zh": []
+			"zh": [
+				"处于<无视野>的区域时，每秒攻击力提升5%，最大叠加40层（被阻挡/被沉默时暂停叠加）",
+				"攻击后，清空所有攻击力提升层数 "
+			]
 		}
 	},
 	"dt_neural": {
@@ -2387,7 +2405,7 @@
 		"tooltip": {
 			"en": ["Targets units of opposing element first"],
 			"ja": ["反対属性の相手を優先して攻撃する"],
-			"zh": [""]
+			"zh": ["优先攻击相反属性的我方单位 "]
 		}
 	},
 	"yinyang_same_block": {
@@ -2435,7 +2453,7 @@
 		"tooltip": {
 			"en": ["Same Element Explosion dmg * 0.9", "Opposite Element Explosion dmg * 1.1"],
 			"ja": ["同じ属性への爆発ダメージ*0.9", "反対属性への爆発ダメージ*1.1"],
-			"zh": []
+			"zh": ["若目标是同属性则爆炸倍率降10%，异属性则倍率提升10%"]
 		}
 	},
 	"envy_beam": {
@@ -2458,8 +2476,12 @@
 	},
 	"fury_buff": {
 		"tooltip": {
-			"en": [],
-			"ja": [],
+			"en": [
+				"Reduces damage dealt against units with a matching attribute to 60%, increases damage dealt against units with an opposing attribute to 252%"
+			],
+			"ja": [
+				"同じ属性の味方に対するダメージが攻撃力の60%に減少する，反対属性の味方に対するダメージが攻撃力の252%に増加する"
+			],
 			"zh": [
 				"对同属性单位进行攻击时，攻击力倍率降低至60%；对异属性单位进行攻击时，攻击力倍率提升至252%"
 			]
@@ -2519,13 +2541,6 @@
 			],
 			"ja": ["バフ→ 敵全体の攻撃力10%＆防御力100増加 (重複する) ", "遊撃隊に特殊強化"],
 			"zh": ["在场时，所有敌军获得战术命令，同时提升10%攻击力并增加100防御力"]
-		}
-	},
-	"guerilla_caster_no_attack": {
-		"tooltip": {
-			"en": ["Does not normal attack"],
-			"ja": ["通常攻撃しない"],
-			"zh": ["不进行普通攻击"]
 		}
 	},
 	"guerilla_caster_sacrifice": {
@@ -2957,43 +2972,71 @@
 		"tooltip": {
 			"en": ["Spawns 4 Celadon Teawares when defeated"],
 			"ja": ["死亡すると「青磁の茶器」を4体召喚する"],
-			"zh": []
+			"zh": ["被击倒后生成4个<青瓷茶器> "]
 		}
 	},
 	"spawn_porcelainteaware": {
 		"tooltip": {
 			"en": ["Spawns 4 Porcelain Teawares when defeated"],
 			"ja": ["死亡すると「彩磁の茶器」を4体召喚する"],
-			"zh": []
+			"zh": ["被击倒后生成4个<彩瓷茶器> "]
+		}
+	},
+	"sfhu_splash": {
+		"tooltip": {
+			"en": ["通常攻撃は爆発半径1.0の範囲{arts}攻撃"],
+			"ja": ["Attacks deal splash damage over a radius of 1"],
+			"zh": ["普通攻击对目标对及其周围半径1范围内的所有我方单位造成{arts}普通伤害"]
+		}
+	},
+	"sfhu_explode": {
+		"tooltip": {
+			"en": [
+				"Explodes when defeated, dealing {arts} damage equal to ATK over a radius of 1.25 and inflicts a Negative Status that reduces ASPD by 40 for 15 seconds (can be <ba.buffres>Resisted</>){can_silence}"
+			],
+			"ja": [
+				"死亡すると、半径1.25以内の味方全員に攻撃力の100%の{arts}ダメージを与え、15秒間攻撃速度を-40する（<ba.buffres>レジスト</>可能）{can_silence}"
+			],
+			"zh": [
+				"死亡后对半径1.25范围内的我方单位造成相当于攻击力100%的{arts}溅射伤害（可被沉默），并使命中目标攻击速度减少40（持续15s，可被<ba.buffres>抵抗</>）{can_silence}"
+			]
 		}
 	},
 	"spawn_celadonvase": {
 		"tooltip": {
 			"en": ["Spawns 1 Celadon Vase when defeated"],
 			"ja": ["死亡すると「青磁の花器」を1体召喚する"],
-			"zh": []
+			"zh": ["被击倒后生成1个<青瓷花瓶> "]
 		}
 	},
 	"spawn_porcelainvase": {
 		"tooltip": {
 			"en": ["Spawns 1 Porcelain Vase when defeated"],
 			"ja": ["死亡すると「彩磁の茶器」を1体召喚する"],
-			"zh": []
+			"zh": ["被击倒后生成1个<彩瓷花瓶> "]
 		}
 	},
 	"encroaching_stream": {
+		"type": "skill",
+		"initSp": 3,
+		"spCost": 5,
+		"skillType": "INCREASE_WHEN_ATTACK",
+		"atk": { "multiplier": 1 },
+		"dmg_element": "arts",
+		"hits": 1,
+		"suffix": { "en": "Skill", "ja": "侵食の流れ", "zh": "侵蚀之流" },
 		"tooltip": {
 			"en": [
-				"Skill - Initial SP: 3, Cost:5, Attack Recovery, {can_silence}",
-				"Deals 100% of ATK as Arts damage to the target",
-				"and deals 30% ATK as arts damage every second which increases by 30% every 4s for 20s"
+				"Deals 100% of ATK as Arts damage to the target{can_silence}",
+				"and inflict a Negative Status, dealing 30% ATK as sourceless {arts} damage every second which increases by 30% every 4s for 20s (can be <ba.buffres>Resisted</>)"
 			],
 			"ja": [
-				"スキル→初期SP3、必要SP5、攻撃回復 {can_silence}",
-				"攻撃力の100%の術ダメージを与え、対象を20秒間、毎秒術ダメージを受ける状態にする",
-				"持続ダメージは4秒ごとに30％強化される"
+				"攻撃力の100%の術ダメージを与え、対象を20秒間、毎秒発生源なしの{arts}ダメージを受ける状態にする（<ba.buffres>レジスト</>可能）{can_silence}",
+				"持続ダメージの初期倍率は攻撃力の30%で、4秒ごとに30%ずつ強化されていく"
 			],
-			"zh": []
+			"zh": [
+				"对目标造成攻击力100%{arts}普通伤害，并使目标每秒受到一定攻击倍率(初始倍率为30%，每成功收到4次伤害后，攻击倍率增加30%)的无来源{arts}持续伤害，持续20秒（可被<ba.buffres>抵抗</>）{can_silence}"
+			]
 		}
 	},
 	"spawn_bronzespearhead": {
@@ -3214,14 +3257,16 @@
 		"can_silence": true,
 		"tooltip": {
 			"en": [
-				"Fires projectiles in all 4 directions, dealing <v.atk.multiplier>% ATK as {phys} damage to first allied unit hit"
+				"Fires projectiles in all 4 directions, dealing <v.atk.multiplier>% ATK as {phys} damage to first allied unit hit",
+				"※ If the projectile comes into contact with a Realigned Flux, it will disappear after 0.04 seconds."
 			],
 			"ja": [
-				"【全力演奏】 (初動<v.initCooldown>秒/再動<v.cooldown>秒) {can_silence}",
-				"十字方向にに射程無限の光弾を発射し、触れた最初の味方に攻撃力の<v.atk.multiplier>%の{phys}ダメージを与える"
+				"十字方向にに射程無限の光弾を発射し、触れた最初の味方に攻撃力の<v.atk.multiplier>%の{phys}ダメージを与える",
+				"※光弾は味方か指揮光線に触れると消滅する"
 			],
 			"zh": [
-				"向自身四方向发射弹道，对第一个触碰到的友方单位造成攻击力<v.atk.multiplier>%的{phys}普通伤害。"
+				"向自身四方向发射弹道，对第一个触碰到的友方单位造成攻击力<v.atk.multiplier>%的{phys}普通伤害",
+				"※弹道碰撞到重整束流后延迟0.04s消失"
 			]
 		}
 	},
@@ -4614,13 +4659,9 @@
 				"Attacks in 4 directions while moving, dealing {arts} damage and deals increased damage to nearby targets (50%/100%)"
 			],
 			"ja": [
-				"通常攻撃せず、強制移動無効",
 				"常に十字攻撃を放ち、命中した対象に距離が近いほど大きな{arts}ダメージを与える(50%/100%)"
 			],
-			"zh": [
-				"不进行普通攻击，失衡免疫",
-				"不停止移动的四向攻击，造成{arts}伤害且对近处伤害更高(50%/100%)"
-			]
+			"zh": ["不停止移动的四向攻击，造成{arts}伤害且对近处伤害更高(50%/100%)"]
 		}
 	},
 	"bldrat_bleed": {
@@ -4633,13 +4674,6 @@
 			"zh": [
 				"每次攻击后，下一个攻击会使目标 (非装置/召唤物) 流血，5s内每秒流失<v.value>点生命 (不可叠加) "
 			]
-		}
-	},
-	"skzcan_0": {
-		"tooltip": {
-			"en": ["Cannot be blocked, does not attack"],
-			"ja": ["攻撃しない、ブロックされない"],
-			"zh": ["无法被阻挡，不进行普通攻击"]
 		}
 	},
 	"skzcan_1": {
@@ -6391,6 +6425,75 @@
 			"zh": [
 				"自身半径1范围内存在我方单位时触发：将目标强制击倒，随后<v.duration>s内进入消化食物状态，停止移动且无法【吞食】",
 				"被击倒的干员再部署时间归零但在消化完成前无法再部署，召唤物则进入再部署时间"
+			]
+		}
+	},
+	"cjhot_fire": {
+		"tooltip": {
+			"en": [
+				"Has no normal attack, deals 100% of ATK as {arts} damage and 40% of ATK as {ba.dt.burning} every second to all allied units within range{ignore_stealth}{ignore_camou}"
+			],
+			"ja": [
+				"通常攻撃しない、攻撃半径内の味方全員に、攻撃力の100%の{arts}ダメージ、攻撃力の40%の{ba.dt.burning}を与える{ignore_stealth}{ignore_camou}"
+			],
+			"zh": [
+				"不进行普通攻击、攻击范围内所有我方单位每秒受到攻击力100%的{arts}持续伤害与攻击力40%的{ba.dt.burning}{ignore_stealth}{ignore_camou}"
+			]
+		}
+	},
+	"cjstel_active": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["激活状态下，自身视为飞行单位，失衡免疫；若持有拾取物，则追踪废弃火灶移动"]
+		}
+	},
+	"cjfrog_init": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["出场时持有1个铜币(最多持有1个)"]
+		}
+	},
+	"cjfrog_ranged": {
+		"atk": { "multiplier": 2 },
+		"dmg_element": "phys",
+		"suffix": { "en": "ranged", "ja": "遠", "zh": "远" },
+		"hits": 1,
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["持有铜币时可消耗铜币进行远程攻击(不攻击饮啄)，造成攻击力200%的物理伤害"]
+		}
+	},
+	"cjfrog_no_coin": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["未持有铜币时仅进行近战攻击"]
+		}
+	},
+	"cjfrog_get_coin": {
+		"type": "skill",
+		"initCooldown": 2,
+		"cooldown": 4,
+		"suffix": { "en": "财运来", "ja": "财运来", "zh": "财运来" },
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["未持有铜币，且半径1.5范围内存在无谓/饮啄时可触发：令目标退场，随后自身获得1个铜币 "]
+		}
+	},
+	"trspsb_buff": {
+		"tooltip": {
+			"en": [
+				"When a non-boss enemy passes through this unit, the enemy receives a buff for 5 minutes, giving ASPD +50, Movespeed +150% and reduces {phys} and {arts} damage taken by 50%"
+			],
+			"ja": [
+				"自身がいるマスを通過した【ボス】以外の地上敵は、300秒間攻撃速度+50、移動速度+150%、{phys}・{arts}の被ダメージ-50%"
+			],
+			"zh": [
+				"经过自身所在格的地面非领袖敌方单位在300s内获得下述效果：攻击速度+50，移动速度+150%，受到的{phys}/{arts}伤害-50%"
 			]
 		}
 	}
