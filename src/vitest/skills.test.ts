@@ -24,21 +24,25 @@ describe('Skill key check', () => {
 				}
 			}
 		}
-
+		console.log(undefinedKeyList);
 		expect(undefinedKeyList.length).toBe(0);
 	});
 	it('trap skills', () => {
 		const undefinedKeyList: [string, string][] = [];
 
 		for (const [key, trap] of Object.entries(trapsDB)) {
-			const skills = [...trap['skills'], ...trap['talents'], ...trap['special'].flatMap(ele => ele)];
+			const skills = [
+				...trap['skills'],
+				...trap['talents'],
+				...trap['special'].flatMap((ele) => ele)
+			];
 			for (const skillKey of skills) {
 				if (!trapSkills[skillKey]) {
 					undefinedKeyList.push([key, skillKey]);
 				}
 			}
 		}
-
+		console.log(undefinedKeyList);
 		expect(undefinedKeyList.length).toBe(0);
 	});
 });
