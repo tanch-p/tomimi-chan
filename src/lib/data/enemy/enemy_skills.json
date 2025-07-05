@@ -1109,7 +1109,7 @@
 		}
 	},
 	"bloodboil_knight": {
-		"atk": { "multiplier": 2 },
+		"atk": { "multiplier": 1, "order": "initial" },
 		"aspd": { "fixed": 50 },
 		"stack": 10,
 		"atk_gain": 10,
@@ -1123,13 +1123,6 @@
 				"ほかの敵が倒される度に、攻撃力+<v.atk_gain>%・攻撃速度+<v.aspd_gain> (最大<v.stack>回) "
 			],
 			"zh": ["每有一个敌人死亡时攻击力+<v.atk_gain>%，攻击速度+<v.aspd_gain>，最多提升<v.stack>次"]
-		}
-	},
-	"bloodboil_骑士对决": {
-		"tooltip": {
-			"en": ["Each time an enemy is defeated, ATK +40% and ASPD +40, max 3 stacks."],
-			"ja": ["ほかの敵が倒される度に、攻撃力+40%・攻撃速度+40 (最大3回) "],
-			"zh": ["每有一个敌人死亡时攻击力+40%，攻击速度+40，最多提升3次"]
 		}
 	},
 	"left_hand_revive": {
@@ -1924,12 +1917,12 @@
 		}
 	},
 	"fsk_powerup_10": {
-		"atk": { "multiplier": 1.7 },
+		"atk": { "multiplier": 0.7, "order":"initial" },
 		"suffix": { "en": "10 stacks", "ja": "10回", "zh": "10次" },
 		"tooltip": null
 	},
 	"fsk_powerup": {
-		"atk": { "multiplier": 2.4 },
+		"atk": { "multiplier": 1.4,"order":"initial" },
 		"suffix": { "en": "20 stacks", "ja": "20回", "zh": "20次" },
 		"tooltip": {
 			"en": [
@@ -2630,7 +2623,7 @@
 	},
 
 	"blocked_def_up": {
-		"def": { "fixed": 100 },
+		"def": { "fixed": 100,"order":"initial" },
 		"suffix": { "en": "blocked", "ja": "ブロック中", "zh": "被阻挡时" },
 		"tooltip": {
 			"en": ["Blocked - DEF+<v.def.fixed>"],
@@ -2984,21 +2977,21 @@
 	},
 	"sfhu_splash": {
 		"tooltip": {
-			"en": ["通常攻撃は爆発半径1.0の範囲{arts}攻撃"],
-			"ja": ["Attacks deal splash damage over a radius of 1"],
-			"zh": ["普通攻击对目标对及其周围半径1范围内的所有我方单位造成{arts}普通伤害"]
+			"en": ["通常攻撃は爆発半径1.0の範囲{arts}攻撃{ignore_camou}"],
+			"ja": ["Attacks deal splash damage over a radius of 1{ignore_camou}"],
+			"zh": ["普通攻击对目标对及其周围半径1范围内的所有我方单位造成{arts}普通伤害{ignore_camou}"]
 		}
 	},
 	"sfhu_explode": {
 		"tooltip": {
 			"en": [
-				"Explodes when defeated, dealing {arts} damage equal to ATK over a radius of 1.25 and inflicts a Negative Status that reduces ASPD by 40 for 15 seconds (can be <ba.buffres>Resisted</>){can_silence}"
+				"Explodes when defeated, dealing {arts} damage equal to ATK over a radius of 1.25 and inflicts a Negative Status that reduces ASPD by 40 for 15 seconds (can be <ba.buffres>Resisted</>){can_silence}{ignore_camou}"
 			],
 			"ja": [
-				"死亡すると、半径1.25以内の味方全員に攻撃力の100%の{arts}ダメージを与え、15秒間攻撃速度を-40する（<ba.buffres>レジスト</>可能）{can_silence}"
+				"死亡すると、半径1.25以内の味方全員に攻撃力の100%の{arts}ダメージを与え、15秒間攻撃速度を-40する（<ba.buffres>レジスト</>可能）{can_silence}{ignore_camou}"
 			],
 			"zh": [
-				"死亡后对半径1.25范围内的我方单位造成相当于攻击力100%的{arts}溅射伤害（可被沉默），并使命中目标攻击速度减少40（持续15s，可被<ba.buffres>抵抗</>）{can_silence}"
+				"死亡后对半径1.25范围内的我方单位造成相当于攻击力100%的{arts}溅射伤害（可被沉默），并使命中目标攻击速度减少40（持续15s，可被<ba.buffres>抵抗</>）{can_silence}{ignore_camou}"
 			]
 		}
 	},
@@ -3128,11 +3121,11 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Targets all allied units, dealing 80% ATK as {arts} damage to target and 4 tiles surrounding target"
+				"Targets all allied units, dealing 80% ATK as {arts} damage to target and 4 tiles surrounding target{ignore_camou}"
 			],
-			"ja": ["味方全体に対象と隣接4マスに攻撃力80％の{arts}ダメージを与える"],
+			"ja": ["味方全体に対象と隣接4マスに攻撃力80％の{arts}ダメージを与える{ignore_camou}"],
 			"zh": [
-				"向场上所有友方单位施加法阵，每个法阵对目标和周围4格的所有友方单位造成80%{arts}普通伤害 "
+				"向场上所有友方单位施加法阵，每个法阵对目标和周围4格的所有友方单位造成80%{arts}溅射伤害{ignore_camou}"
 			]
 		}
 	},
