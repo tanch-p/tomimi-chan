@@ -483,7 +483,7 @@ export const generateWaveTimeline = (
 			}
 
 			for (const action of fragment['actions']) {
-				if (action['actionType'] !== 'SPAWN') {
+				if (!['ACTIVATE_PREDEFINED', 'SPAWN'].includes(action['actionType'])) {
 					continue;
 				}
 				if (action['randomSpawnGroupKey']) {

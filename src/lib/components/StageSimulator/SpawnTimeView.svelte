@@ -162,7 +162,8 @@
 													alt={key}
 													class=""
 												/>
-											</div>{:else}
+											</div>
+										{:else}
 											{@const prefabKey = getImageForWaves(key, mapConfig)}
 											<div class="relative">
 												{#if count > 1}
