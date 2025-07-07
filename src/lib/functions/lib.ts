@@ -178,7 +178,7 @@ export const setOtherBuffsList = (
 				maxCount: 1
 			});
 	}
-	const tileInfection = mapConfig.sp_terrain?.find((item) => item.tileKey === 'tile_infection');
+	const tileInfection = mapConfig.sp_terrain?.find((item) => item.tileKey === 'tile_infection' && item.heightType === "LOWLAND");
 	if (tileInfection) {
 		buffsList.push({
 			key: 'tile_infection',

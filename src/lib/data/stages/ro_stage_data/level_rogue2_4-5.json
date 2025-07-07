@@ -75,19 +75,23 @@
  ],
  "sp_terrain": [
   {
-   "tileKey": "tile_infection",
+   "tileKey": "tile_creep",
    "alias": null,
+   "heightType": "LOWLAND",
    "blackboard": {
-    "duration": 300,
-    "damage": 90.0,
-    "atk": 0.1,
-    "attack_speed": 60
+    "mode": 1.0
    }
   },
   {
-   "tileKey": "tile_creep",
+   "tileKey": "tile_infection",
    "alias": null,
-   "blackboard": null
+   "heightType": "LOWLAND",
+   "blackboard": {
+    "duration": 300.0,
+    "damage": 90.0,
+    "atk": 0.1,
+    "attack_speed": 60.0
+   }
   }
  ],
  "sp_enemy": {
