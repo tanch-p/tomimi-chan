@@ -342,9 +342,6 @@ const SELF_KEYS = [
 ];
 
 const KEYS_TO_CHECK_VALUE_TYPE = [
-	'atk_down',
-	'def_down',
-	'res_down',
 	'damage_scale',
 	'def_penetrate',
 	'ally_def_penetrate',
@@ -1681,7 +1678,7 @@ export const genSecFilterOptions = (characters: []) => {
 							obj[item.key][key].push(val);
 						}
 					});
-				} else if (['targets', 'dep_stat', 'damage_type'].includes(key)) {
+				} else if (['targets', 'dep_stat', 'damage_type','order'].includes(key)) {
 					if (!obj[item.key][key].includes(value)) {
 						obj[item.key][key].push(value);
 					}
@@ -1716,12 +1713,13 @@ export const genSecFilterOptions = (characters: []) => {
 		category: ['normal_state', 'skill_active']
 	};
 	obj['PASSIVE'] = { duration: ['infinite', 'finite'] };
-
 	return obj;
 };
 
 const getSecFilterDisplayKey = (key, subKey) => {
 	switch (subKey) {
+		case 'order':
+			return 'calc_order';
 		case 'types':
 			return 'damage_type';
 		case 'value':
@@ -1791,6 +1789,7 @@ export const createSecFilterFunction = (list) => {
 					break;
 				case 'dep_stat':
 				case 'damage_type':
+				case 'order':
 					fn = (item) => selectedOptions.includes(item[subKey]);
 					break;
 				case 'value_type':

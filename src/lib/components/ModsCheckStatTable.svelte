@@ -330,7 +330,7 @@
 					{#if otherMods?.initialMul?.length > 0}
 						<div class="relative inline-flex">
 							<div class="absolute -top-[90%] left-1/2 -translate-x-1/2 text-xs">
-								{translations[language].initial_multiply}
+								{translations[language].initial_mul}
 							</div>
 							&nbsp;× (1
 							{#each otherMods?.initialMul as { key, value }}
@@ -360,7 +360,7 @@
 					{#if otherMods?.finalMul?.length > 0}
 						<div class="relative inline-flex">
 							<div class="absolute -top-[90%] left-1/2 -translate-x-1/2 text-xs">
-								{translations[language].final_multiply}
+								{translations[language].final_mul}
 							</div>
 							{#each otherMods?.finalMul as { key, value }}
 								<div class="relative">
