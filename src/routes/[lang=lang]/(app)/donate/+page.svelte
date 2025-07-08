@@ -7,6 +7,8 @@
 
 	export let data: PageData, language: Language;
 	$: language = data.language;
+
+	const sponsors = ['瓦楞纸', 'Yannick', 'Somebody', 'ithy', 'fafa', '复恐匆匆', 'sunlazy'].sort();
 </script>
 
 <svelte:head>
@@ -25,23 +27,9 @@
 			en: 'Consider supporting me with some coffee if you like this website!'
 		}[language]}
 	</p>
-	<table class="w-full mt-4 sm:mt-8">
-		<tbody>
-			<tr>
-				<td>Github</td>
-				<td>
-					<a
-						href="https://github.com/tanch-p/tomimi-chan"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						<span class="text-blue-400 hover:text-blue-300">Github Page</span>
-					</a>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<div class="flex flex-[1_1_50%] flex-wrap md:flex-nowrap gap-6 mt-6 mx-auto max-w-[280px] md:max-w-full">
+	<div
+		class="flex flex-[1_1_50%] flex-wrap md:flex-nowrap gap-6 mt-6 mx-auto max-w-[280px] md:max-w-full"
+	>
 		<a
 			href="https://afdian.com/a/tomimi"
 			target="_blank"
@@ -58,6 +46,12 @@
 		>
 			<img src={kofiBadge} width="100%" height="100%" alt="kofi" />
 		</a>
+	</div>
+	<p class="font-semibold text-lg mt-8">❤️ {translations[language].donate_thanklist} ❤️</p>
+	<div class="flex flex-wrap gap-3">
+		{#each sponsors as name}
+			<span>{name}</span>
+		{/each}
 	</div>
 </div>
 
