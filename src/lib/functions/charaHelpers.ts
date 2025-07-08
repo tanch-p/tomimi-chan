@@ -190,6 +190,7 @@ const SEARCH_IN_BLACKBOARD = [
 	'sp_regen',
 	'ally_heal_scale',
 	'heal_scale',
+	"receive_heal_scale",
 	'cost_return',
 	'block',
 	'hitrate_down',
@@ -201,7 +202,7 @@ const SEARCH_IN_BLACKBOARD = [
 	'ally_def_penetrate',
 	'add_bullet',
 	'max_ammo',
-	'ally_max_ammo'
+	'ally_max_ammo',
 ];
 
 // keys not here will just use their respective key in translations
@@ -243,6 +244,7 @@ const DISPLAY_KEYS_TABLE = {
 	ally_lower_target_priority: 'lower_target_priority',
 	ally_resist: 'resist',
 	ally_heal_scale: 'heal_scale',
+	receive_heal_scale:"heal_scale",
 	heal_ally: 'heal_ally_others',
 	ally_sp_gain: 'sp_gain',
 	ally_sp_regen: 'sp_regen',
@@ -351,19 +353,6 @@ const KEYS_TO_CHECK_VALUE_TYPE = [
 	'max_hp',
 	'def',
 	'res'
-];
-
-const TARGET_AIR_KEYS = [
-	'stun',
-	'sluggish',
-	'sleep',
-	'silence',
-	'cold',
-	'root',
-	'ms_down',
-	'aspd_down',
-	'res_down',
-	'def_down'
 ];
 
 export const professionWeights = {
@@ -869,7 +858,8 @@ export const getPrioritySortValues = (char, sortOptions, secFilters) => {
 					'ally_shield',
 					'sp_regen',
 					'force',
-					'max_target'
+					'max_target',
+					'ct'
 				].includes(key)
 			) {
 				return value.toString();

@@ -58,7 +58,7 @@
 			src={`/images/chara_icons/${chara.id}.webp`}
 			width="100"
 			height="100"
-			alt={chara.appellation}
+			alt={chara.name}
 		/>
 	</div>
 </button>

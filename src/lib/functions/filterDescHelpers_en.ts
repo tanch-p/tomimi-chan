@@ -105,7 +105,7 @@ const SELF_CAN_TAGS = [
 	'target_air',
 	'attract_enemy'
 ];
-const SELF_STAT_BUFFS = ['sp_regen', 'sp_stock', 'def', 'res',	"max_ammo",];
+const SELF_STAT_BUFFS = ['sp_regen', 'sp_stock', 'def', 'res',	"max_ammo"];
 const HAVE_TAGS = [
 	'max_target',
 	'fast_redeploy',
@@ -129,6 +129,7 @@ const HAVE_TAGS = [
 	'stealth',
 	'camouflage',
 	'taunt',
+	"receive_heal_scale",
 	'lower_target_priority',
 	'resist',
 	'status_immune',
@@ -361,6 +362,7 @@ export const generateSkillDesc = (
 					case 'charged':
 					case 'overdrive':
 					case 'trigger_time':
+					case 'ct':
 						pre = 'have ';
 						post = ' skills';
 						break;
