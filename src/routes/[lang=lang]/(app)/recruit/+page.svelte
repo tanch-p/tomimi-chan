@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import type { Language } from '$lib/types';
-	import { filters, globalCheck, sortFunction, secFilterOptions } from './stores';
-	import { getCharaList, genSecFilterOptions } from '$lib/functions/charaHelpers';
+	import { filters, globalCheck, sortFunction } from './stores';
+	import { getCharaList } from '$lib/functions/charaHelpers';
 	import DisplayContainer from './ResultsContainer.svelte';
 	import CharaFilter from './CharaFilter.svelte';
 	import CharaFilterDesc from './CharaFilterDesc.svelte';
@@ -22,7 +22,6 @@
 
 	const loadData = async (language:Language) => {
 		characters = await getCharaList(language);
-		secFilterOptions.set(genSecFilterOptions(characters));
 	};
 </script>
 

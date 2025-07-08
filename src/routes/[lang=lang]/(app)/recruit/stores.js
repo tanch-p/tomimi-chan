@@ -1,6 +1,7 @@
 import { writable, derived } from 'svelte/store';
 import filterOptions from '$lib/data/chara/filter_options.json';
 import relics from '$lib/data/chara/relics_chara.json';
+import secFiltersTable from "$lib/data/chara/sec_filters.json";
 import {
 	addOptionsToAcc,
 	adjustSortPriority,
@@ -30,7 +31,7 @@ export const globalCheck = derived(releaseStatusStore, ($releaseStatusStore) => 
 	}
 	return !char.tags.includes('not_in_global');
 });
-export const secFilterOptions = writable({});
+export const secFilterOptions = writable(secFiltersTable);
 
 const generateFilterStore = (filterOptions) => {
 	return Object.keys(filterOptions).reduce((acc, category) => {

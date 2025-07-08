@@ -1661,61 +1661,6 @@ export const getSecFilterOptions = (key, store) => {
 	return returnArr;
 };
 
-export const genSecFilterOptions = (characters: []) => {
-	const obj = {};
-	const findAndAddKeyEntries = (item) => {
-		if (SEARCH_IN_BLACKBOARD.includes(item.key)) {
-			for (const [key, value] of Object.entries(item)) {
-				if (!obj[item.key]) {
-					obj[item.key] = {};
-				}
-				if (!obj[item.key][key]) {
-					obj[item.key][key] = [];
-				}
-				if (Array.isArray(value)) {
-					value?.forEach((val) => {
-						if (!obj[item.key][key].includes(val)) {
-							obj[item.key][key].push(val);
-						}
-					});
-				} else if (['targets', 'dep_stat', 'damage_type','order'].includes(key)) {
-					if (!obj[item.key][key].includes(value)) {
-						obj[item.key][key].push(value);
-					}
-				}
-				if (key === 'category' && !obj[item.key][key].includes('others')) {
-					obj[item.key][key].push('others');
-				}
-			}
-		}
-	};
-	for (const char of characters) {
-		char.blackboard.forEach((item) => findAndAddKeyEntries(item)) ||
-			char.skills.forEach((skill) =>
-				skill.blackboard.forEach((item) => findAndAddKeyEntries(item))
-			) ||
-			char.talents.forEach((talent) =>
-				talent.blackboard.forEach((item) => findAndAddKeyEntries(item))
-			) ||
-			char.uniequip
-				.filter((equip) => equip.combatData)
-				.forEach((equip) =>
-					equip.combatData.blackboard.forEach((item) => findAndAddKeyEntries(item))
-				) ||
-			char.tokens?.forEach((token) =>
-				token.blackboard.forEach((item) => findAndAddKeyEntries(item))
-			);
-	}
-	for (const key of TARGET_AIR_KEYS) {
-		obj[key].target_air = ['target_air', 'not_target_air'];
-	}
-	obj['blockCnt'] = {
-		category: ['normal_state', 'skill_active']
-	};
-	obj['PASSIVE'] = { duration: ['infinite', 'finite'] };
-	return obj;
-};
-
 const getSecFilterDisplayKey = (key, subKey) => {
 	switch (subKey) {
 		case 'order':
