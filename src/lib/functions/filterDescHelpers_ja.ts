@@ -16,7 +16,8 @@ const BUFF_TAGS = [
 	'elementfragile',
 	'vigor',
 	'weaken',
-	'barrier'
+	'barrier',
+	'liftoff'
 ];
 const STAT_DEBUFFS = ['atk_down', 'def_down', 'res_down', 'aspd_down', 'ms_down', 'hitrate_down','heal_scale_down'];
 const DEBUFFS = [

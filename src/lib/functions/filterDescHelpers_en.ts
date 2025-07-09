@@ -15,7 +15,7 @@ function capitalize(str) {
 }
 
 const DAMAGE_TYPE_KEYS = ['phys', 'arts', 'true', 'ele_dmg', 'aoe'];
-const ELE_INJ_KEYS=['apoptosis','burning','neural'];
+const ELE_INJ_KEYS = ['apoptosis', 'burning', 'neural'];
 const BUFF_TAGS = [
 	'inspire',
 	'berserk',
@@ -26,7 +26,8 @@ const BUFF_TAGS = [
 	'elementfragile',
 	'vigor',
 	'weaken',
-	'barrier'
+	'barrier',
+	'liftoff'
 ];
 const STAT_DEBUFFS = [
 	'atk_down',
@@ -62,7 +63,7 @@ const ALLY_STAT_BUFFS = [
 	'ally_sp_stock',
 	'ally_block_up',
 	'ally_damage_scale',
-	"ally_max_ammo",
+	'ally_max_ammo'
 ];
 const ALLY_CAUSE = ['change_target_priority'];
 const ALLY_STAT_MINUS = ['ally_respawn_time', 'ally_cost_down', 'ally_block_down'];
@@ -83,10 +84,10 @@ const ALLY_BUFFS = [
 	'ally_burning',
 	'ally_lower_target_priority',
 	'ally_spareshot',
-	"ally_min_aspd",
+	'ally_min_aspd',
 	'ally_heal_scale'
 ];
-const ALLY_CAN = ['ally_sp_gain',"add_bullet"];
+const ALLY_CAN = ['ally_sp_gain', 'add_bullet'];
 const SELF_CAN_TAGS = [
 	'remove_status',
 	'add_sp_gain_option',
@@ -105,7 +106,7 @@ const SELF_CAN_TAGS = [
 	'target_air',
 	'attract_enemy'
 ];
-const SELF_STAT_BUFFS = ['sp_regen', 'sp_stock', 'def', 'res',	"max_ammo"];
+const SELF_STAT_BUFFS = ['sp_regen', 'sp_stock', 'def', 'res', 'max_ammo'];
 const HAVE_TAGS = [
 	'max_target',
 	'fast_redeploy',
@@ -129,7 +130,7 @@ const HAVE_TAGS = [
 	'stealth',
 	'camouflage',
 	'taunt',
-	"receive_heal_scale",
+	'receive_heal_scale',
 	'lower_target_priority',
 	'resist',
 	'status_immune',
@@ -192,16 +193,16 @@ const TYPE_TAGS = [
 ];
 
 const SP_TYPE_LIST = [
-	"PASSIVE",
-	"INCREASE_WHEN_ATTACK",
-	"INCREASE_WHEN_TAKEN_DAMAGE",
-	"INCREASE_WITH_TIME",
-]
+	'PASSIVE',
+	'INCREASE_WHEN_ATTACK',
+	'INCREASE_WHEN_TAKEN_DAMAGE',
+	'INCREASE_WITH_TIME'
+];
 
 const getFilterDescCategory = (key) => {
 	const categories = [
 		{ category: 'damage_type', keyList: DAMAGE_TYPE_KEYS },
-		{category: 'ele_inj', keyList:ELE_INJ_KEYS},
+		{ category: 'ele_inj', keyList: ELE_INJ_KEYS },
 		{ category: 'enemy_stat_debuff', keyList: STAT_DEBUFFS },
 		{ category: 'enemy_debuff', keyList: DEBUFFS },
 		{ category: 'ally_stat_buff', keyList: ALLY_STAT_BUFFS },
@@ -218,7 +219,7 @@ const getFilterDescCategory = (key) => {
 		{ category: 'squad', keyList: SQUAD_TAGS },
 		{ category: 'type', keyList: TYPE_TAGS },
 		{ category: 'blockCnt', keyList: [0, 1, 2, 3, 4, 5] },
-		{ category: 'spType', keyList: SP_TYPE_LIST}
+		{ category: 'spType', keyList: SP_TYPE_LIST }
 	];
 	for (const { category, keyList } of categories) {
 		if (keyList.includes(key)) {
@@ -308,8 +309,8 @@ export const generateSkillDesc = (
 		const entries = Object.entries(holder);
 		if (key === 'others') {
 			entries.sort((a, b) => {
-				if (['damage_type','ele_inj'].includes(a[0])) return 1;
-				if (['damage_type','ele_inj'].includes(b[0])) return -1;
+				if (['damage_type', 'ele_inj'].includes(a[0])) return 1;
+				if (['damage_type', 'ele_inj'].includes(b[0])) return -1;
 				return 0;
 			});
 		}
@@ -334,7 +335,7 @@ export const generateSkillDesc = (
 			key !== 'others' &&
 			counter === 1 &&
 			!otherOptions.find((ele) => ele.key === 'deployable_tile') &&
-			!Object.keys(otherGroups).some(key => ['damage_type','ele_inj'].includes(key))
+			!Object.keys(otherGroups).some((key) => ['damage_type', 'ele_inj'].includes(key))
 		) {
 			category_pre += 'can ';
 		}
@@ -444,7 +445,7 @@ export const generateSkillDesc = (
 				);
 			});
 			const joinedString =
-				filterMode === 'OR' || ['blockCnt','spType'].includes(category)
+				filterMode === 'OR' || ['blockCnt', 'spType'].includes(category)
 					? translatedStrings.join('/')
 					: formatArray(translatedStrings, ', ', ' and ');
 			let pre = translations[language]['chara_filter']?.[`${category}_pre`] ?? '';
@@ -456,7 +457,7 @@ export const generateSkillDesc = (
 				post = ' enemies';
 			}
 			if (
-				['damage_type','ele_inj'].includes(category) &&
+				['damage_type', 'ele_inj'].includes(category) &&
 				!otherOptions.find((ele) => ele.key === 'deployable_tile')
 			) {
 				pre = 'can ' + pre;

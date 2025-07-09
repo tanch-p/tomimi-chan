@@ -202,7 +202,8 @@ const SEARCH_IN_BLACKBOARD = [
 	'ally_def_penetrate',
 	'add_bullet',
 	'max_ammo',
-	'ally_max_ammo'
+	'ally_max_ammo',
+	'liftoff'
 ];
 
 // keys not here will just use their respective key in translations
