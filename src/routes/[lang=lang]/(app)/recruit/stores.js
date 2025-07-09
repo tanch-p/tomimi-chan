@@ -1,7 +1,7 @@
 import { writable, derived } from 'svelte/store';
 import filterOptions from '$lib/data/chara/filter_options.json';
 import relics from '$lib/data/chara/relics_chara.json';
-import secFiltersTable from "$lib/data/chara/sec_filters.json";
+import secFiltersTable from '$lib/data/chara/sec_filters.json';
 import {
 	addOptionsToAcc,
 	adjustSortPriority,
@@ -157,52 +157,22 @@ export const filters = derived(
 				}
 				switch (curr.key) {
 					case 'spType':
-						{
-							const spTypeSecFilters = $secFiltersStore
-								.filter((val) =>
-									[
-										'PASSIVE',
-										'INCREASE_WHEN_ATTACK',
-										'INCREASE_WHEN_TAKEN_DAMAGE',
-										'INCREASE_WITH_TIME'
-									].includes(val.key)
-								)
-								.reduce((acc, { key, list }) => {
-									const functions = createSecFilterFunction(list);
-									acc[key] = functions;
-									return acc;
-								}, {});
-							acc.push((char) => {
-								let found = false;
-								char.skills.forEach((skill, i) => {
-									// PASSIVE is in skillType, while the rest are in spType
-									if (
-										(selectedOptions.includes(skill.spType) ||
-											selectedOptions.includes(skill.skillType)) &&
-										selectedOptions.every((option) =>
-											spTypeSecFilters[option].every((fn) => fn(skill,skill.tags))
-										)
-									) {
-										found = true;
-										char.activeSkills.push(i);
-									}
-								});
-								return found;
-							});
-						}
+						bbTagHolder.push({
+							key: 'spType',
+							type: 'spType',
+							options: selectedOptions
+						});
 						break;
 					case 'group':
 						acc.push((char) => {
 							if (selectedOptions.includes(null)) {
 								const options = selectedOptions.filter(Boolean);
 								return (
-									options.some(group => char?.powers?.includes(group)) ||
+									options.some((group) => char?.powers?.includes(group)) ||
 									char?.powers?.length === 0
 								);
 							}
-							return (
-								selectedOptions.some(group => char?.powers?.includes(group))
-							);
+							return selectedOptions.some((group) => char?.powers?.includes(group));
 						});
 						break;
 					case 'deployable_tile':

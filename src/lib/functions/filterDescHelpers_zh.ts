@@ -101,6 +101,7 @@ const SELF_BUFF_TAGS = [
 	'stealth',
 	'camouflage',
 	'taunt',
+	"receive_heal_scale",
 	'lower_target_priority',
 	'resist',
 	'status_immune'
@@ -131,7 +132,8 @@ const SKILL_HAVE_TAGS = [
 	'charged',
 	'overdrive',
 	'trigger_time',
-	"skill_manual_off"
+	"skill_manual_off",
+	"ct"
 ];
 const PRIORITY_TAGS = [
 	'priority_flying',

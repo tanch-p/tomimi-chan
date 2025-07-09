@@ -190,6 +190,7 @@ const SEARCH_IN_BLACKBOARD = [
 	'sp_regen',
 	'ally_heal_scale',
 	'heal_scale',
+	'receive_heal_scale',
 	'cost_return',
 	'block',
 	'hitrate_down',
@@ -243,6 +244,7 @@ const DISPLAY_KEYS_TABLE = {
 	ally_lower_target_priority: 'lower_target_priority',
 	ally_resist: 'resist',
 	ally_heal_scale: 'heal_scale',
+	receive_heal_scale: 'heal_scale',
 	heal_ally: 'heal_ally_others',
 	ally_sp_gain: 'sp_gain',
 	ally_sp_regen: 'sp_regen',
@@ -351,19 +353,6 @@ const KEYS_TO_CHECK_VALUE_TYPE = [
 	'max_hp',
 	'def',
 	'res'
-];
-
-const TARGET_AIR_KEYS = [
-	'stun',
-	'sluggish',
-	'sleep',
-	'silence',
-	'cold',
-	'root',
-	'ms_down',
-	'aspd_down',
-	'res_down',
-	'def_down'
 ];
 
 export const professionWeights = {
@@ -869,7 +858,8 @@ export const getPrioritySortValues = (char, sortOptions, secFilters) => {
 					'ally_shield',
 					'sp_regen',
 					'force',
-					'max_target'
+					'max_target',
+					'ct'
 				].includes(key)
 			) {
 				return value.toString();
@@ -975,8 +965,26 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 			return acc;
 		}, []);
 	const secFiltersFunctions = list
-		.filter((val) => val.type === 'blackboard')
+		.filter((val) => ['blackboard','spType'].includes(val.type))
 		.reduce((acc, { key }) => {
+			if (key === 'spType') {
+				const spTypeSecFilters = secFilters
+					.filter((val) =>
+						[
+							'PASSIVE',
+							'INCREASE_WHEN_ATTACK',
+							'INCREASE_WHEN_TAKEN_DAMAGE',
+							'INCREASE_WITH_TIME'
+						].includes(val.key)
+					)
+					.reduce((acc, { key, list }) => {
+						const functions = createSecFilterFunction(list);
+						acc[key] = functions;
+						return acc;
+					}, {});
+				acc[key] = spTypeSecFilters;
+				return acc;
+			}
 			const secFilter = secFilters.find((item) => item.key === key);
 			if (secFilter) {
 				const functions = createSecFilterFunction(secFilter.list);
@@ -1004,6 +1012,24 @@ export const createNormalFilterFunction = (list, secFilters, filterMode) => {
 						.findIndex((equip) => equip.combatData.tags.includes('position_all'));
 					char.activeModuleIndex = equipIndex + 1;
 					equipIndex === -1 && initialRemainder.push(searchItem);
+				}
+			} else if (type === 'spType') {
+				const { options } = searchItem;
+				let found = false;
+				// PASSIVE is in skillType, while the rest are in spType
+				char.skills.forEach((skill, i) => {
+					if (
+						(options.includes(skill.spType) || options.includes(skill.skillType)) &&
+						options.every((option) =>
+							secFiltersFunctions[type][option].every((fn) => fn(skill, skill.tags))
+						)
+					) {
+						char.activeSkills.push(i);
+						found = true;
+					}
+				});
+				if (!found) {
+					initialRemainder.push(searchItem);
 				}
 			} else if (type === 'tags') {
 				let found = false;
@@ -1220,8 +1246,26 @@ export const createStrictFilterFunction = (list, secFilters) => {
 			return acc;
 		}, []);
 	const secFiltersFunctions = list
-		.filter((val) => val.type === 'blackboard')
+		.filter((val) => ['blackboard', 'spType'].includes(val.type))
 		.reduce((acc, { key }) => {
+			if (key === 'spType') {
+				const spTypeSecFilters = secFilters
+					.filter((val) =>
+						[
+							'PASSIVE',
+							'INCREASE_WHEN_ATTACK',
+							'INCREASE_WHEN_TAKEN_DAMAGE',
+							'INCREASE_WITH_TIME'
+						].includes(val.key)
+					)
+					.reduce((acc, { key, list }) => {
+						const functions = createSecFilterFunction(list);
+						acc[key] = functions;
+						return acc;
+					}, {});
+				acc[key] = spTypeSecFilters;
+				return acc;
+			}
 			const secFilter = secFilters.find((item) => item.key === key);
 			if (secFilter) {
 				const functions = createSecFilterFunction(secFilter.list);
@@ -1237,7 +1281,6 @@ export const createStrictFilterFunction = (list, secFilters) => {
 		const finalRemainder = [];
 		let equipIndex = -1;
 		char.activeModuleIndex = 0;
-
 		list.forEach((searchItem) => {
 			const { key, type } = searchItem;
 			if (key === 'deployable_tile') {
@@ -1376,6 +1419,19 @@ export const createStrictFilterFunction = (list, secFilters) => {
 						skill.blackboard.some(
 							(item) =>
 								item.key === key && secFiltersFunctions?.[key]?.every((fn) => fn(item, skill.tags))
+						)
+					) {
+						char.activeSkills.push(i);
+					} else {
+						remainder.push(searchItem);
+					}
+				} else if (type === 'spType') {
+					const { options } = searchItem;
+					// PASSIVE is in skillType, while the rest are in spType
+					if (
+						(options.includes(skill.spType) || options.includes(skill.skillType)) &&
+						options.every((option) =>
+							secFiltersFunctions[type][option].every((fn) => fn(skill, skill.tags))
 						)
 					) {
 						char.activeSkills.push(i);
