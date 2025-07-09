@@ -54,10 +54,3 @@
 	<CharaFilterDesc {language} />
 	<CharaPopup {language} />
 </div>
-
-<!-- <style>
-	:global(.loading .filter-btn) {
-		pointer-events: none;
-		cursor: not-allowed;
-	}
-</style> -->
