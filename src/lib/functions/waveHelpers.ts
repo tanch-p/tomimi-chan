@@ -446,7 +446,6 @@ export const generateWaveTimeline = (
 	randomSeeds,
 	bonusKey
 ) => {
-	if (!permutation) return;
 	let randomSeedIndex = 0;
 	const enemyReplace = eliteMode ? mapConfig.elite_runes?.enemy_replace || {} : {};
 	let totalCount = 0;
