@@ -46,6 +46,7 @@
 			enemy.traits = enemy.stats.traits;
 			return enemy;
 		});
+		console.log(enemies)
 		traps = parseTraps(mapConfig.traps, language);
 	}
 
