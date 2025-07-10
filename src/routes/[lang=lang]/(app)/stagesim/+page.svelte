@@ -11,6 +11,8 @@
 	import TitleBlock from '$lib/components/TitleBlock.svelte';
 	import { overwriteBlackboard } from '$lib/functions/skillHelpers';
 	import { parseTraps } from '$lib/functions/trapHelpers';
+	import ActivitySelect from './ActivitySelect.svelte';
+	import SearchDataList from './SearchDataList.svelte';
 
 	export let data: PageData;
 	$: language = data.language;
@@ -69,6 +71,8 @@
 		<p class="text-yellow-500 text-base">
 			※{WIP[language]}
 		</p>
+		<ActivitySelect {language}/>
+		<SearchDataList {language}/>
 		{#await loadStageData()}
 			<p class="text-center">{translations[language].data_loading}</p>
 		{:then}

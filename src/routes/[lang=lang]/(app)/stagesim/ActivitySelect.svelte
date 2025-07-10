@@ -7,7 +7,8 @@
 	let events = ['Event A', 'Event B', 'Event C'];
 	let isOpen = false;
 	let highlightedIndex = -1;
-
+	let selected;
+	const options = [0, 1, 2, 3];
 	const toggleDropdown = () => (isOpen = !isOpen);
 	const selectOption = (option) => {
 		selected = option;

@@ -1,5 +1,8 @@
-<script>
+<script lang="ts">
+	import type { Language } from '$lib/types';
 	import { onMount } from 'svelte';
+
+	export let language:Language;
 	let input = '';
 	let isOpen = false;
 	let highlightedIndex = -1;
