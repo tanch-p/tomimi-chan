@@ -22,6 +22,13 @@
 			"zh": ["无法被阻挡，不进行普通攻击"]
 		}
 	},
+	"invincible_no_attack": {
+		"tooltip": {
+			"en": ["Invincible, does not attack"],
+			"ja": ["無敵、攻撃しない"],
+			"zh": ["无敌，不进行攻击"]
+		}
+	},
 	"sourceless_dmg": {
 		"tooltip": {
 			"en": ["Damage dealt treated as sourceless"],
@@ -1917,12 +1924,12 @@
 		}
 	},
 	"fsk_powerup_10": {
-		"atk": { "multiplier": 0.7, "order":"initial" },
+		"atk": { "multiplier": 0.7, "order": "initial" },
 		"suffix": { "en": "10 stacks", "ja": "10回", "zh": "10次" },
 		"tooltip": null
 	},
 	"fsk_powerup": {
-		"atk": { "multiplier": 1.4,"order":"initial" },
+		"atk": { "multiplier": 1.4, "order": "initial" },
 		"suffix": { "en": "20 stacks", "ja": "20回", "zh": "20次" },
 		"tooltip": {
 			"en": [
@@ -2468,6 +2475,9 @@
 		}
 	},
 	"fury_buff": {
+		"atk": { "multiplier": 2.52 },
+		"suffix": { "en": "Opp Ele", "ja": "反対属性", "zh": "异属性" },
+		"hits": 1,
 		"tooltip": {
 			"en": [
 				"Reduces damage dealt against units with a matching attribute to 60%, increases damage dealt against units with an opposing attribute to 252%"
@@ -2623,7 +2633,7 @@
 	},
 
 	"blocked_def_up": {
-		"def": { "fixed": 100,"order":"initial" },
+		"def": { "fixed": 100, "order": "initial" },
 		"suffix": { "en": "blocked", "ja": "ブロック中", "zh": "被阻挡时" },
 		"tooltip": {
 			"en": ["Blocked - DEF+<v.def.fixed>"],
@@ -3590,6 +3600,13 @@
 			"en": ["During 'Payback Time', gains ATK +15%, DEF +15% and ASPD +50"],
 			"ja": ["「粛清の時」中、攻撃力・防御力+15%、攻撃速度+50"],
 			"zh": ["“清算时刻”状态下，自身获得攻击力，防御力+15%，攻击速度+50"]
+		}
+	},
+	"wdfmr_cost": {
+		"tooltip": {
+			"en": ["Once indentity is confirmed, becomes unblockable and increases the DP limit by 2 when entering Protection Objective"],
+			"ja": ["身分確認後、ブロック不可になる、防衛ラインに到達すると所持コスト上限+2"],
+			"zh": ["“鉴定完成后：自身获得不可阻挡；到达路径终点时，我方费用上限+2"]
 		}
 	},
 	"wdnjd_inspection": {
