@@ -1,24 +1,59 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import type { Enemy, MapConfig, Trap } from '$lib/types';
 	import { statMods, specialMods, runes, eliteMode, otherBuffsList } from './stores';
+	import enemyDatabase from '$lib/data/enemy/enemy_database.json';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import translations from '$lib/translations.json';
-	import { setOtherBuffsList } from '$lib/functions/lib';
+	import { getStageData, setOtherBuffsList } from '$lib/functions/lib';
 	import StageSharedContainer from '$lib/components/StageSharedContainer.svelte';
 	import { onMount } from 'svelte';
 	import TitleBlock from '$lib/components/TitleBlock.svelte';
+	import { overwriteBlackboard } from '$lib/functions/skillHelpers';
+	import { parseTraps } from '$lib/functions/trapHelpers';
 
 	export let data: PageData;
 	$: language = data.language;
 	// $: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 
-	let mapConfig;
-	let isLoading = true;
+	let mapConfig: MapConfig, traps: Trap[], enemies: Enemy[];
+
+	let stageId = 'main_12-18';
 	let selectedEvent = '';
 
-	onMount(() => {
-		isLoading = false;
-	});
+	async function loadStageData() {
+		mapConfig = await getStageData(stageId, 'all');
+		enemies = mapConfig.enemies.map(({ id, prefabKey, level, overwrittenData }) => {
+			const enemy = structuredClone(enemyDatabase[prefabKey]);
+
+			enemy.stageId = id;
+			enemy.level = level;
+			enemy.stats = structuredClone(enemy.stats[level]);
+			if (overwrittenData) {
+				enemy.overwritten = true;
+				for (const key in overwrittenData) {
+					if (key === 'talentBlackboard') {
+						overwriteBlackboard(enemy.stats, overwrittenData[key]);
+					} else if (key === 'levelType') {
+						if (overwrittenData[key] === 'NORMAL') {
+							enemy.type = enemy.type.filter((ele) => !['BOSS', 'ELITE'].includes(ele));
+						}
+					} else {
+						enemy.stats[key] = overwrittenData[key];
+					}
+				}
+			}
+			enemy.traits = enemy.stats.traits;
+			return enemy;
+		});
+		traps = parseTraps(mapConfig.traps, language);
+	}
+
+	const WIP = {
+		zh: '施工中，现阶段只支持展示敌人路线',
+		ja: '作業進行中、現段階では敵侵攻ルートのみ表示可能です',
+		en: 'Work In Progress, only shows enemy routes currently'
+	};
 </script>
 
 <svelte:head>
@@ -29,32 +64,27 @@
 	<meta property="og:url" content={`https://tomimi.dev/${language}/stagesim`} />
 </svelte:head>
 
-<div class="pb-60">
-	<div class="max-w-5xl mx-auto pt-6 md:pt-10 pb-4 text-[0.75rem] md:text-[0.875rem]">
-		<TitleBlock title={translations[language].stage_sim}>
-			<div class="bg-near-white rounded-md p-3 md:p-4 text-almost-black">
-				<h2 class="border-b text-center pb-1 md:pb-2">
-					{translations[language].settings}
-				</h2>
-				<div class="flex flex-col md:grid grid-cols-[100px_1fr] gap-2 md:gap-y-3 pt-3">
-					<p class="md:py-[5px]">{translations[language].filter_mode}</p>
-					<div class="flex flex-wrap gap-2" />
-				</div>
-				<div class="mt-4 max-w-[500px]" />
-			</div>
-			<div class="space-y-4">
-				<label for="event" class="font-semibold">Select Event:</label>
-				<select id="event" bind:value={selectedEvent} class="p-2 border rounded w-full max-w-xs">
-					<option disabled value="">-- Choose an Event --</option>
-					{#each events as event}
-						<option value={event}>{event}</option>
-					{/each}
-				</select>
-
-				{#if selectedEvent}
-					<p class="mt-4">You selected: <strong>{selectedEvent}</strong></p>
-				{/if}
-			</div>
-		</TitleBlock>
-	</div>
+<div class="pb-72 pt-8 sm:pt-16 md:pb-28 w-screen sm:w-full max-w-7xl mx-auto">
+	<TitleBlock title={translations[language].stage_sim}>
+		<p class="text-yellow-500 text-base">
+			※{WIP[language]}
+		</p>
+		{#await loadStageData()}
+			<p class="text-center">{translations[language].data_loading}</p>
+		{:then}
+			<StageSharedContainer
+				{language}
+				{traps}
+				{otherBuffsList}
+				{statMods}
+				{specialMods}
+				{mapConfig}
+				{enemies}
+				{eliteMode}
+				{runes}
+			/>
+		{:catch error}
+			<p class="text-center">An Error occured while loading <br />{error.message}</p>
+		{/await}
+	</TitleBlock>
 </div>

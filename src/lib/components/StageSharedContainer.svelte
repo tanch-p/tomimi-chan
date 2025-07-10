@@ -28,7 +28,7 @@
 	eliteMode.subscribe((v) => (GameConfig.eliteMode = v));
 	specialMods.subscribe((v) => (GameConfig.specialMods = v));
 
-	const promise = import('./EnemyWaves.svelte').then(({ default: C }) => C);
+	const promise = import(rogueTopic ? './EnemyWaves.svelte' : './EnemyWavesALL.svelte').then(({ default: C }) => C);
 </script>
 
 {#await promise then EnemyWaves}

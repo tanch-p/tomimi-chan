@@ -93,7 +93,11 @@ export function getFormTitle(title: string | undefined | null, row: number, lang
 	return translations[language][title];
 }
 
-export const getStageData = async (stageName) => {
+export const getStageData = async (stageName: string, mode = 'roguelike') => {
+	if (mode !== 'roguelike') {
+		const data = await import(`../data/stages/all_stage_data/${stageName}.json`);
+		return data?.default;
+	}
 	const levelId = ISStages[stageName]?.key;
 	if (!levelId) return;
 	const data = await import(
@@ -127,7 +131,7 @@ export const sortEnemies = (a: Enemy, b: Enemy) => {
 
 export const setOtherBuffsList = (
 	store,
-	rogueTopic: RogueTopic|null,
+	rogueTopic: RogueTopic | null,
 	enemies: Enemy[],
 	mapConfig: MapConfig,
 	language: Language,
@@ -178,7 +182,9 @@ export const setOtherBuffsList = (
 				maxCount: 1
 			});
 	}
-	const tileInfection = mapConfig.sp_terrain?.find((item) => item.tileKey === 'tile_infection' && item.heightType === "LOWLAND");
+	const tileInfection = mapConfig.sp_terrain?.find(
+		(item) => item.tileKey === 'tile_infection' && item.heightType === 'LOWLAND'
+	);
 	if (tileInfection) {
 		buffsList.push({
 			key: 'tile_infection',
@@ -200,7 +206,7 @@ export const setOtherBuffsList = (
 	}
 	for (const enemy of enemies) {
 		const enemyCount = mapConfig.enemies.find((ele) => ele.id === enemy.stageId);
-		const maxCount = Math.max(enemyCount.max_count, enemyCount.elite_max_count,1);
+		const maxCount = Math.max(enemyCount.max_count, enemyCount.elite_max_count, 1);
 		const list = [
 			...enemy.traits,
 			...enemy.stats.special.reduce((acc, curr) => {
