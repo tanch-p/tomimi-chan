@@ -127,7 +127,7 @@ export const sortEnemies = (a: Enemy, b: Enemy) => {
 
 export const setOtherBuffsList = (
 	store,
-	rogueTopic: RogueTopic,
+	rogueTopic: RogueTopic|null,
 	enemies: Enemy[],
 	mapConfig: MapConfig,
 	language: Language,
