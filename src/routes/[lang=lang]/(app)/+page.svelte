@@ -67,6 +67,21 @@
 							</p>
 						</div>
 					</a>
+					<a href={`/${language}/stagesim/`}>
+						<div class="flex flex-col justify-center items-center">
+							<img
+								class="select-none mx-auto"
+								src={laoli_banner}
+								decoding="async"
+								alt={translations[language].stage_sim}
+								width="552"
+								height="177"
+							/>
+							<p class={`my-1 ${language !== 'en' ? 'whitespace-nowrap' : ''}`}>
+								{translations[language].stage_sim}
+							</p>
+						</div>
+					</a>
 					<a href={`/${language}/laoli/`}>
 						<div class="flex flex-col justify-center items-center">
 							<img

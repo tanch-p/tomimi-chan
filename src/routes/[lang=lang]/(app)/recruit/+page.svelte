@@ -17,7 +17,6 @@
 
 	let language: Language;
 	$: language = data.language;
-	let loading = true;
 	let characters = [];
 
 	const loadData = async (language:Language) => {
@@ -32,7 +31,7 @@
 </svelte:head>
 
 <ClearButton {language} />
-<div class:loading class="chara pb-60">
+<div class="chara pb-60">
 	<div class="sm:mx-10">
 		<div class="max-w-5xl mx-auto pt-6 md:pt-10 pb-4 text-[0.75rem] md:text-[0.875rem] {language}">
 			<Settings {language} />
