@@ -11,7 +11,8 @@ const ENEMY_KEYS_TO_IGNORE = [
 	'enemy_2083_skzhg',
 	'enemy_2040_syrott',
 	'enemy_2096_skzamj',
-	'enemy_2095_skzamf'
+	'enemy_2095_skzamf',
+	'enemy_10102_crblt'
 ];
 const ENEMY_KEYS_TO_REPLACE = {
 	enemy_2097_skzfdd: 'enemy_2082_skzdd',
@@ -465,6 +466,7 @@ export class AssetManager {
 					const atlas = this.spineAssetManager.get(
 						`${fileKey.replace('enemy_', '')}/${fileKey}.atlas`
 					);
+					console.log(fileKey);
 					const atlasLoader = new spine.AtlasAttachmentLoader(atlas);
 					const skeletonBinary = new spine.SkeletonBinary(atlasLoader);
 					skeletonBinary.scale = 0.3;

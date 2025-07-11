@@ -23,6 +23,7 @@
 		return { min: 0, max: 0 };
 	}
 	function getTotalCountStr(mapConfig, eliteMode: boolean) {
+		if (!mapConfig.n_count) return 0;
 		const data = eliteMode ? mapConfig.e_count ?? mapConfig.n_count : mapConfig.n_count;
 		const lastIndex = data.length - 1;
 		let min = data[0];
