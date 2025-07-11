@@ -22,7 +22,12 @@
 		: $activityIdStore;
 	let isOpen = false;
 	let highlightedIndex = -1;
+	let selectedIndex = -1;
 	let listElement: HTMLDivElement;
+
+	activityIdStore.subscribe(
+		(id) => (selectedIndex = allFlatOptions.findIndex((ele) => ele.id === id))
+	);
 
 	const toggleDropdown = () => (isOpen = !isOpen);
 	const selectOption = (option) => {
@@ -56,8 +61,9 @@
 			highlightedIndex = -1;
 		}
 	};
-	$: if (highlightedIndex >= 0 && isOpen) {
-		const ele = document.getElementById(`select-option-${highlightedIndex}`);
+	$: if ((highlightedIndex >= 0 || selectedIndex >= 0) && isOpen) {
+		const indexToUse = highlightedIndex >= 0 ? highlightedIndex : selectedIndex;
+		const ele = document.getElementById(`select-option-${indexToUse}`);
 		if (ele) {
 			ele.scrollIntoView({
 				block: 'nearest' // only scrolls if needed
@@ -92,34 +98,34 @@
 			<span class="ml-2">▼</span>
 		</div>
 
-		{#if isOpen}
-			<div
-				role="listbox"
-				class="absolute z-[1] mt-1 border rounded shadow bg-white w-full max-h-60 overflow-auto text-almost-black"
-				bind:this={listElement}
-			>
-				{#each Object.entries(categories) as [key, options]}
-					<div class="px-3 py-1 text-sm text-gray-500 bg-gray-200 sticky top-0 z-[1]">
-						{key}
+		<div
+			role="listbox"
+			class="absolute z-[1] mt-1 border rounded shadow bg-white w-full max-h-60 overflow-auto text-almost-black {isOpen
+				? ''
+				: 'opacity-0 pointer-events-none'}"
+			bind:this={listElement}
+		>
+			{#each Object.entries(categories) as [key, options]}
+				<div class="px-3 py-1 text-sm text-gray-500 bg-gray-200 sticky top-0 z-[1]">
+					{key}
+				</div>
+				{#each options as option}
+					{@const flatIndex = allFlatOptions.findIndex((ele) => ele.id === option.id)}
+					<div
+						id="select-option-{flatIndex}"
+						role="option"
+						aria-selected={highlightedIndex === flatIndex}
+						class={`p-2 cursor-pointer ${highlightedIndex === flatIndex ? 'bg-blue-100' : ''} ${
+							$activityIdStore === option.id ? 'bg-blue-200' : ''
+						}`}
+						on:click={() => selectOption(option)}
+						on:mouseenter={() => (highlightedIndex = flatIndex)}
+					>
+						{option.name}
 					</div>
-					{#each options as option}
-						{@const flatIndex = allFlatOptions.findIndex((ele) => ele.id === option.id)}
-						<div
-							id="select-option-{flatIndex}"
-							role="option"
-							aria-selected={highlightedIndex === flatIndex}
-							class={`p-2 cursor-pointer ${highlightedIndex === flatIndex ? 'bg-blue-100' : ''} ${
-								$activityIdStore === option.id ? 'bg-blue-200' : ''
-							}`}
-							on:click={() => selectOption(option)}
-							on:mouseenter={() => (highlightedIndex = flatIndex)}
-						>
-							{option.name}
-						</div>
-					{/each}
 				{/each}
-			</div>
-		{/if}
+			{/each}
+		</div>
 	</div>
 	<div class="mt-4 space-y-3">
 		{#each currentActivity.zones as zone}
