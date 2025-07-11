@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
 	import translations from '$lib/translations.json';
-	import tts_banner from '$lib/images/itts2_banner.webp';
 	import friendlink from '$lib/images/friendlink.webp';
 
 	// export let language: Language;
