@@ -6,6 +6,7 @@
 	import TogglePanel from '$lib/components/TogglePanel.svelte';
 	import HowToUse from '$lib/components/HowToUse.svelte';
 	import TitleBlock from '$lib/components/TitleBlock.svelte';
+	import laoli_banner from '$lib/images/laoli_sim.webp';
 
 	export let data: PageData;
 	$: language = data.language;
@@ -32,14 +33,24 @@
 			<TogglePanel title={translations[language].how_to_use} isOpen={true}>
 				<HowToUse {language} rogueTopic={'rogue_mizuki'} />
 			</TogglePanel>
-			<TogglePanel title={translations[language].related_tools}>
-				<ul class="text-lg pt-2 pb-6">
-					<li class="list-disc list-inside">
-						<a class="text-sky-500 hover:underline" href="/{language}/laoli">
-							{translations[language].laoli_title}
-						</a>
-					</li>
-				</ul>
+			<TogglePanel title={translations[language].related_tools} isOpen={true}>
+				<div class="grid md:grid-cols-2 gap-3 text-lg pt-2 pb-3">
+					<a href={`/${language}/laoli/`}>
+						<div class="flex flex-col justify-center items-center">
+							<img
+								class="select-none"
+								src={laoli_banner}
+								decoding="async"
+								alt={translations[language].laoli_title}
+								width="552"
+								height="177"
+							/>
+							<p class={`my-1 ${language !== 'en' ? 'whitespace-nowrap' : ''}`}>
+								{translations[language].laoli_title}
+							</p>
+						</div>
+					</a>
+				</div>
 			</TogglePanel>
 			<TitleBlock title={translations[language].stage_nav}>
 				<MizukiNav {language} />
