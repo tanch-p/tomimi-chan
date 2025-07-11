@@ -36,7 +36,7 @@
 <svelte:head>
 	<title
 		>{data.mapConfig.code}
-		{stageName} / {translations[language].title_post}</title
+		{stageName.replaceAll('_', ' ')} / {translations[language].title_post}</title
 	>
 	<meta name="description" content={translations[language].title_post} />
 	<meta property="og:description" content={translations[language].title_post} />

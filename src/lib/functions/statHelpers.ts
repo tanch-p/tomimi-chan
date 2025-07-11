@@ -363,8 +363,11 @@ export const getStatSkillValue = (
 	skill: Skill,
 	stat: StatKey
 ) => {
-	const runeMods = entity.modsList[formIndex].find((ele) => ['runes'].includes(ele.key)) || [];
-	let otherMods = entity.modsList[formIndex].filter((ele) => !['runes'].includes(ele.key));
+	const runeMods =
+		entity.modsList[formIndex].find((ele) => ['elite_ops', 'combat_ops'].includes(ele.key)) || [];
+	let otherMods = entity.modsList[formIndex].filter(
+		(ele) => !['elite_ops', 'combat_ops'].includes(ele.key)
+	);
 	const skillMod = {
 		key: skill.key,
 		mods: [

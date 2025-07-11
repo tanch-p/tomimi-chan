@@ -19,6 +19,7 @@
 	// $: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 
 	let mapConfig: MapConfig, traps: Trap[], enemies: Enemy[];
+	let isLoading=true;
 
 	async function loadStageData(stageId: string) {
 		mapConfig = await getStageData(stageId, 'all');
@@ -72,23 +73,24 @@
 			<div class="mt-24 space-y-3">
 				<SearchDataList {language} />
 				<ActivitySelect {language} />
-				{#await loadStageData($stageIdStore)}
-					<p class="text-center">{translations[language].data_loading}</p>
-				{:then}
-					<StageSharedContainer
-						{language}
-						{traps}
-						{otherBuffsList}
-						{statMods}
-						{specialMods}
-						{mapConfig}
-						{enemies}
-						{eliteMode}
-						{runes}
-					/>
-				<!-- {:catch error} -->
-					<!-- <p class="text-center">An Error occured while loading <br />{error.message}</p> -->
-				{/await}
+				<div class="relative">
+					{#if isLoading}
+						<div class="absolute">{translations[language].loading}</div>
+					{/if}
+					{#if mapConfig}
+						<StageSharedContainer
+							{language}
+							{traps}
+							{otherBuffsList}
+							{statMods}
+							{specialMods}
+							{mapConfig}
+							{enemies}
+							{eliteMode}
+							{runes}
+						/>
+					{/if}
+				</div>
 			</div>
 		</div>
 	</TitleBlock>
