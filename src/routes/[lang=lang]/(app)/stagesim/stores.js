@@ -2,8 +2,9 @@ import { writable, derived } from 'svelte/store';
 import { compileSpecialMods } from '$lib/functions/statHelpers';
 import { consolidateOtherMods } from '$lib/functions/lib';
 
-export const activity = writable(null);
-export const stage = writable(null);
+export const activityIdStore = writable('');
+export const stageIdStore = writable('');
+
 export const eliteMode = writable(false);
 export const runes = writable(null);
 export const otherBuffsList = writable([]);

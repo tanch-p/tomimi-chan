@@ -68,27 +68,31 @@
 
 <div class="pb-72 pt-8 sm:pt-16 md:pb-28 w-screen sm:w-full max-w-7xl mx-auto">
 	<TitleBlock title={translations[language].stage_sim}>
-		<p class="text-yellow-500 text-base">
-			※{WIP[language]}
-		</p>
-		<ActivitySelect {language}/>
-		<SearchDataList {language}/>
-		{#await loadStageData()}
-			<p class="text-center">{translations[language].data_loading}</p>
-		{:then}
-			<StageSharedContainer
-				{language}
-				{traps}
-				{otherBuffsList}
-				{statMods}
-				{specialMods}
-				{mapConfig}
-				{enemies}
-				{eliteMode}
-				{runes}
-			/>
-		{:catch error}
-			<p class="text-center">An Error occured while loading <br />{error.message}</p>
-		{/await}
+		<div class="px-2 md:px-0">
+			<p class="text-yellow-500 text-base">
+				※{WIP[language]}
+			</p>
+			<div class="mt-24 space-y-3">
+				<SearchDataList {language} />
+				<ActivitySelect {language} />
+				{#await loadStageData()}
+					<p class="text-center">{translations[language].data_loading}</p>
+				{:then}
+					<StageSharedContainer
+						{language}
+						{traps}
+						{otherBuffsList}
+						{statMods}
+						{specialMods}
+						{mapConfig}
+						{enemies}
+						{eliteMode}
+						{runes}
+					/>
+				{:catch error}
+					<p class="text-center">An Error occured while loading <br />{error.message}</p>
+				{/await}
+			</div>
+		</div>
 	</TitleBlock>
 </div>
