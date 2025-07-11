@@ -1,0 +1,1303 @@
+{
+ "id": "act18mini_06",
+ "levelId": "act18mini_06",
+ "tags": null,
+ "category": null,
+ "characterLimit": 8,
+ "initialCost": 10,
+ "maxCost": 99,
+ "costIncreaseTime": 1.0,
+ "code": "SE-6",
+ "name_zh": "苦痛行军",
+ "name_ja": null,
+ "name_en": null,
+ "description_zh": "“你以为萨卡兹都对源石免疫？呸！我能忍，只是因为在这源石风暴里面穿行，也没比过日子难受太多。”\n<@lv.item><障碍物></>部署以后可以阻挡敌人的行进路线",
+ "description_ja": null,
+ "description_en": null,
+ "addInfo_zh": null,
+ "addInfo_ja": null,
+ "addInfo_en": null,
+ "eliteDesc_zh": null,
+ "eliteDesc_ja": null,
+ "eliteDesc_en": null,
+ "n_mods": null,
+ "elite_mods": null,
+ "floors": null,
+ "sp_terrain": null,
+ "sp_enemy": null,
+ "n_count": null,
+ "e_count": null,
+ "traps": [],
+ "token_cards": [
+  {
+   "key": "trap_001_crate",
+   "count": 4
+  },
+  {
+   "key": "trap_161_lrcage",
+   "count": 1
+  }
+ ],
+ "enemies": [
+  {
+   "id": "enemy_1423_lrfkkt",
+   "prefabKey": "enemy_1423_lrfkkt",
+   "level": 0,
+   "min_count": 0,
+   "max_count": 0,
+   "elite_min_count": 0,
+   "elite_max_count": 0,
+   "overwrittenData": null
+  },
+  {
+   "id": "enemy_1420_lrmm",
+   "prefabKey": "enemy_1420_lrmm",
+   "level": 0,
+   "min_count": 0,
+   "max_count": 0,
+   "elite_min_count": 0,
+   "elite_max_count": 0,
+   "overwrittenData": {
+    "hp": 25000,
+    "atk": 900,
+    "def": 300,
+    "res": 20.0,
+    "ms": 0.3,
+    "attackSpeed": 100.0,
+    "aspd": 3.0,
+    "hpRecoveryPerSec": 0.0,
+    "spRecoveryPerSec": 1.0,
+    "weight": 3,
+    "tauntLevel": 0,
+    "epDamageResistance": 0.0,
+    "epResistance": 0.0,
+    "stunImmune": true,
+    "silenceImmune": true,
+    "sleepImmune": true,
+    "frozenImmune": true,
+    "levitateImmune": true,
+    "disarmedCombatImmune": true,
+    "fearedImmune": false,
+    "lifepoint": 0,
+    "range": -1.0,
+    "levelType": "ELITE"
+   }
+  },
+  {
+   "id": "enemy_1424_lrboom",
+   "prefabKey": "enemy_1424_lrboom",
+   "level": 0,
+   "min_count": 0,
+   "max_count": 0,
+   "elite_min_count": 0,
+   "elite_max_count": 0,
+   "overwrittenData": null
+  },
+  {
+   "id": "enemy_1425_lrcmra",
+   "prefabKey": "enemy_1425_lrcmra",
+   "level": 0,
+   "min_count": 0,
+   "max_count": 0,
+   "elite_min_count": 0,
+   "elite_max_count": 0,
+   "overwrittenData": null
+  },
+  {
+   "id": "enemy_1422_lrsldr",
+   "prefabKey": "enemy_1422_lrsldr",
+   "level": 0,
+   "min_count": 0,
+   "max_count": 0,
+   "elite_min_count": 0,
+   "elite_max_count": 0,
+   "overwrittenData": null
+  },
+  {
+   "id": "enemy_1421_lrchld",
+   "prefabKey": "enemy_1421_lrchld",
+   "level": 0,
+   "min_count": 0,
+   "max_count": 0,
+   "elite_min_count": 0,
+   "elite_max_count": 0,
+   "overwrittenData": null
+  }
+ ],
+ "routes": [
+  {
+   "motionMode": "WALK",
+   "startPosition": {
+    "row": 3,
+    "col": 6
+   },
+   "endPosition": {
+    "row": 3,
+    "col": 6
+   },
+   "spawnRandomRange": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "spawnOffset": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "checkpoints": [],
+   "allowDiagonalMove": true,
+   "visitEveryTileCenter": false,
+   "visitEveryNodeCenter": false,
+   "visitEveryCheckPoint": false
+  },
+  {
+   "motionMode": "WALK",
+   "startPosition": {
+    "row": 6,
+    "col": 7
+   },
+   "endPosition": {
+    "row": 3,
+    "col": 5
+   },
+   "spawnRandomRange": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "spawnOffset": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "checkpoints": [],
+   "allowDiagonalMove": true,
+   "visitEveryTileCenter": false,
+   "visitEveryNodeCenter": false,
+   "visitEveryCheckPoint": false
+  },
+  {
+   "motionMode": "WALK",
+   "startPosition": {
+    "row": 3,
+    "col": 2
+   },
+   "endPosition": {
+    "row": 3,
+    "col": 5
+   },
+   "spawnRandomRange": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "spawnOffset": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "checkpoints": [],
+   "allowDiagonalMove": true,
+   "visitEveryTileCenter": false,
+   "visitEveryNodeCenter": false,
+   "visitEveryCheckPoint": false
+  },
+  {
+   "motionMode": "WALK",
+   "startPosition": {
+    "row": 0,
+    "col": 5
+   },
+   "endPosition": {
+    "row": 3,
+    "col": 5
+   },
+   "spawnRandomRange": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "spawnOffset": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "checkpoints": [],
+   "allowDiagonalMove": true,
+   "visitEveryTileCenter": false,
+   "visitEveryNodeCenter": false,
+   "visitEveryCheckPoint": false
+  }
+ ],
+ "mapData": {
+  "map": [
+   [
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76
+   ],
+   [
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65
+   ],
+   [
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54
+   ],
+   [
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43
+   ],
+   [
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32
+   ],
+   [
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21
+   ],
+   [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  ],
+  "tiles": [
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_start",
+    0,
+    0,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxic",
+    0,
+    0,
+    null,
+    0
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxicwall",
+    1,
+    1,
+    null,
+    1
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxicwall",
+    1,
+    1,
+    null,
+    1
+   ],
+   [
+    "tile_toxicwall",
+    1,
+    1,
+    null,
+    1
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxicwall",
+    1,
+    1,
+    null,
+    1
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxic",
+    0,
+    0,
+    null,
+    0
+   ],
+   [
+    "tile_start",
+    0,
+    0,
+    null,
+    0
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_end",
+    0,
+    0,
+    null,
+    0
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxicwall",
+    1,
+    1,
+    null,
+    1
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxicwall",
+    1,
+    1,
+    null,
+    1
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxicwall",
+    1,
+    1,
+    null,
+    1
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxic",
+    0,
+    0,
+    null,
+    0
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxicroad",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_start",
+    0,
+    0,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_toxichill",
+    1,
+    1,
+    null,
+    0
+   ]
+  ]
+ },
+ "extra_routes": [],
+ "branches": null,
+ "NORMAL": {
+  "groupKey": null,
+  "max_permutations": 1,
+  "permutations": [
+   {}
+  ]
+ },
+ "ELITE": {
+  "groupKey": null,
+  "max_permutations": 1,
+  "permutations": [
+   {}
+  ]
+ },
+ "waves": [
+  {
+   "preDelay": 0.0,
+   "postDelay": 0.0,
+   "maxTimeWaitingForNextWave": -1.0,
+   "fragments": [
+    {
+     "preDelay": 0.0,
+     "actions": [
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1420_lrmm",
+       "count": 1,
+       "preDelay": 0.0,
+       "interval": 1.0,
+       "routeIndex": 0,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1422_lrsldr",
+       "count": 1,
+       "preDelay": 30.0,
+       "interval": 1.0,
+       "routeIndex": 1,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1422_lrsldr",
+       "count": 1,
+       "preDelay": 46.0,
+       "interval": 1.0,
+       "routeIndex": 1,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1422_lrsldr",
+       "count": 1,
+       "preDelay": 62.0,
+       "interval": 1.0,
+       "routeIndex": 1,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1422_lrsldr",
+       "count": 1,
+       "preDelay": 78.0,
+       "interval": 1.0,
+       "routeIndex": 1,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1422_lrsldr",
+       "count": 1,
+       "preDelay": 98.0,
+       "interval": 1.0,
+       "routeIndex": 1,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1423_lrfkkt",
+       "count": 1,
+       "preDelay": 115.0,
+       "interval": 1.0,
+       "routeIndex": 1,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1423_lrfkkt",
+       "count": 1,
+       "preDelay": 130.0,
+       "interval": 1.0,
+       "routeIndex": 1,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1423_lrfkkt",
+       "count": 1,
+       "preDelay": 145.0,
+       "interval": 1.0,
+       "routeIndex": 1,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1423_lrfkkt",
+       "count": 1,
+       "preDelay": 160.0,
+       "interval": 1.0,
+       "routeIndex": 1,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1424_lrboom",
+       "count": 1,
+       "preDelay": 6.0,
+       "interval": 1.0,
+       "routeIndex": 2,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1424_lrboom",
+       "count": 1,
+       "preDelay": 26.0,
+       "interval": 1.0,
+       "routeIndex": 2,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1424_lrboom",
+       "count": 1,
+       "preDelay": 46.0,
+       "interval": 1.0,
+       "routeIndex": 2,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1424_lrboom",
+       "count": 1,
+       "preDelay": 66.0,
+       "interval": 1.0,
+       "routeIndex": 2,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1424_lrboom",
+       "count": 1,
+       "preDelay": 86.0,
+       "interval": 1.0,
+       "routeIndex": 2,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1424_lrboom",
+       "count": 1,
+       "preDelay": 106.0,
+       "interval": 1.0,
+       "routeIndex": 2,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1425_lrcmra",
+       "count": 1,
+       "preDelay": 125.0,
+       "interval": 1.0,
+       "routeIndex": 2,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1425_lrcmra",
+       "count": 1,
+       "preDelay": 150.0,
+       "interval": 1.0,
+       "routeIndex": 2,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1425_lrcmra",
+       "count": 1,
+       "preDelay": 180.0,
+       "interval": 1.0,
+       "routeIndex": 2,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1425_lrcmra",
+       "count": 1,
+       "preDelay": 200.0,
+       "interval": 1.0,
+       "routeIndex": 2,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1423_lrfkkt",
+       "count": 1,
+       "preDelay": 80.0,
+       "interval": 1.0,
+       "routeIndex": 3,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1423_lrfkkt",
+       "count": 1,
+       "preDelay": 95.0,
+       "interval": 1.0,
+       "routeIndex": 3,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1423_lrfkkt",
+       "count": 1,
+       "preDelay": 110.0,
+       "interval": 1.0,
+       "routeIndex": 3,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1423_lrfkkt",
+       "count": 1,
+       "preDelay": 125.0,
+       "interval": 1.0,
+       "routeIndex": 3,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1423_lrfkkt",
+       "count": 1,
+       "preDelay": 140.0,
+       "interval": 1.0,
+       "routeIndex": 3,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1423_lrfkkt",
+       "count": 1,
+       "preDelay": 155.0,
+       "interval": 1.0,
+       "routeIndex": 3,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1423_lrfkkt",
+       "count": 1,
+       "preDelay": 170.0,
+       "interval": 1.0,
+       "routeIndex": 3,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1423_lrfkkt",
+       "count": 1,
+       "preDelay": 185.0,
+       "interval": 1.0,
+       "routeIndex": 3,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1425_lrcmra",
+       "count": 1,
+       "preDelay": 200.0,
+       "interval": 1.0,
+       "routeIndex": 3,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      }
+     ]
+    }
+   ],
+   "advancedWaveTag": null
+  }
+ ],
+ "bonus": {
+  "type": "wave",
+  "wave_index": -1,
+  "frag_index": -1
+ }
+}

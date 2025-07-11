@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import type { Enemy, MapConfig, Trap } from '$lib/types';
-	import { statMods, specialMods, runes, eliteMode, otherBuffsList } from './stores';
+	import { statMods, specialMods, runes, eliteMode, otherBuffsList, stageIdStore } from './stores';
 	import enemyDatabase from '$lib/data/enemy/enemy_database.json';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import translations from '$lib/translations.json';
@@ -20,10 +20,7 @@
 
 	let mapConfig: MapConfig, traps: Trap[], enemies: Enemy[];
 
-	let stageId = 'main_12-18';
-	let selectedEvent = '';
-
-	async function loadStageData() {
+	async function loadStageData(stageId: string) {
 		mapConfig = await getStageData(stageId, 'all');
 		enemies = mapConfig.enemies.map(({ id, prefabKey, level, overwrittenData }) => {
 			const enemy = structuredClone(enemyDatabase[prefabKey]);
@@ -75,7 +72,7 @@
 			<div class="mt-24 space-y-3">
 				<SearchDataList {language} />
 				<ActivitySelect {language} />
-				{#await loadStageData()}
+				{#await loadStageData($stageIdStore)}
 					<p class="text-center">{translations[language].data_loading}</p>
 				{:then}
 					<StageSharedContainer
@@ -89,8 +86,8 @@
 						{eliteMode}
 						{runes}
 					/>
-				{:catch error}
-					<p class="text-center">An Error occured while loading <br />{error.message}</p>
+				<!-- {:catch error} -->
+					<!-- <p class="text-center">An Error occured while loading <br />{error.message}</p> -->
 				{/await}
 			</div>
 		</div>

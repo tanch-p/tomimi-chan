@@ -5,7 +5,7 @@ import { compileMods, getDmgReductionVal, getModdedStat } from './statHelpers';
 import { getOverwrittenKeys } from './skillHelpers';
 
 const TRAPS_AFFECTED_BY_DIFFICULTY = [
-	"trap_054_dancdol",
+	'trap_054_dancdol',
 	'trap_086_larva',
 	'trap_760_skztzs',
 	'trap_761_skzthx',
@@ -90,6 +90,7 @@ export const parseTraps = (traps: MapConfigTrap[], language: Language) => {
 	const holder: Trap[] = [];
 	for (const { key, alias, level, mainSkillLvl } of traps) {
 		const trap: TrapData = trapLookup[key];
+		if (!trap) continue;
 		const talents = trap?.talents?.map((key) => {
 			const talent = trapSkills[key];
 			return {

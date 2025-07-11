@@ -1,0 +1,1593 @@
+{
+ "id": "act1lock_b-01",
+ "levelId": "act1lock_b-01",
+ "tags": null,
+ "category": null,
+ "characterLimit": 6,
+ "initialCost": 10,
+ "maxCost": 99,
+ "costIncreaseTime": 2.0,
+ "code": "LK-DP-A",
+ "name_zh": "白昼之地-处世",
+ "name_ja": "白昼の地-処世",
+ "name_en": "Daytime Ground - Conduct",
+ "description_zh": "这会是驻守小队第一次和队伍分开，一定要万般警惕。\n想要在黄昏秘境中挑战更强大的假想敌，就需要派遣小队在此驻守，撤离将失去挑战额外假想敌的资格。\n冷静下来，慢慢思考，合理的人员安排将为获取更多积分提供莫大的优势。\n<@lv.rem><指挥终端></>被摧毁时扣1点关卡生命值\n\n<@tu.ht>驻守效果：<荷谟伊英雄>将前往黄昏秘境</>",
+ "description_ja": "防衛部隊は本隊から離れて行動することになるため、くれぐれも万全の体制で挑むように。\nこちらの拠点に防衛部隊を駐留させることで、黄昏秘境にてより強い仮想敵に挑むことができるようになる。当然部隊を撤退させるとその資格は失われるため、必要に応じて判断するように。\n落ち着いて熟考した合理的な戦略で、より多くのポイントを稼ぎ他者を引き離せ。\n<@lv.rem><コマンドシステム></>破壊されると耐久値が1減る\n\n<@tu.ht>防衛効果：<ヒュムノイの英雄>が黄昏の秘境に出現</>",
+ "description_en": "This is the Garrison Team's first time splitting with the squad. Be alert for anything.\nIf you want to challenge the mighty OpFor on the Twilight Frontier, then you need to send a team to garrison here. Withdrawal from here means losing your right to challenge that one additional OpFor Unit.\nCalm down. Think slowly. Rational personnel planning will reward you with greater points for an utmost advantage.\n<@lv.rem><Command Terminal></>Deducts 1 Life Point if destroyed\n\n<@tu.ht>Garrison Effect: <Hymnoi Hero> will proceed to the Twilight Frontier</>",
+ "addInfo_zh": null,
+ "addInfo_ja": null,
+ "addInfo_en": null,
+ "eliteDesc_zh": null,
+ "eliteDesc_ja": null,
+ "eliteDesc_en": null,
+ "n_mods": null,
+ "elite_mods": null,
+ "floors": null,
+ "sp_terrain": null,
+ "sp_enemy": null,
+ "n_count": null,
+ "e_count": null,
+ "traps": [
+  {
+   "key": "trap_008_farm",
+   "alias": "trap_008_farm#1",
+   "pos": {
+    "row": 2,
+    "col": 5
+   },
+   "direction": 0,
+   "level": 1,
+   "mainSkillLvl": 1,
+   "hidden": false
+  },
+  {
+   "key": "trap_008_farm",
+   "alias": "trap_008_farm#2",
+   "pos": {
+    "row": 4,
+    "col": 8
+   },
+   "direction": 0,
+   "level": 1,
+   "mainSkillLvl": 1,
+   "hidden": false
+  }
+ ],
+ "token_cards": [],
+ "enemies": [
+  {
+   "id": "enemy_1007_slime_3",
+   "prefabKey": "enemy_1007_slime_3",
+   "level": 0,
+   "min_count": 0,
+   "max_count": 0,
+   "elite_min_count": 0,
+   "elite_max_count": 0,
+   "overwrittenData": null
+  },
+  {
+   "id": "enemy_1000_gopro_2",
+   "prefabKey": "enemy_1000_gopro_2",
+   "level": 0,
+   "min_count": 0,
+   "max_count": 0,
+   "elite_min_count": 0,
+   "elite_max_count": 0,
+   "overwrittenData": null
+  },
+  {
+   "id": "enemy_1000_gopro_3",
+   "prefabKey": "enemy_1000_gopro_3",
+   "level": 0,
+   "min_count": 0,
+   "max_count": 0,
+   "elite_min_count": 0,
+   "elite_max_count": 0,
+   "overwrittenData": null
+  },
+  {
+   "id": "enemy_1030_wteeth",
+   "prefabKey": "enemy_1030_wteeth",
+   "level": 0,
+   "min_count": 0,
+   "max_count": 0,
+   "elite_min_count": 0,
+   "elite_max_count": 0,
+   "overwrittenData": null
+  },
+  {
+   "id": "enemy_1030_wteeth_2",
+   "prefabKey": "enemy_1030_wteeth_2",
+   "level": 0,
+   "min_count": 0,
+   "max_count": 0,
+   "elite_min_count": 0,
+   "elite_max_count": 0,
+   "overwrittenData": null
+  }
+ ],
+ "routes": [
+  {
+   "motionMode": 0,
+   "startPosition": {
+    "row": 5,
+    "col": 2
+   },
+   "endPosition": {
+    "row": 3,
+    "col": 7
+   },
+   "spawnRandomRange": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "spawnOffset": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "checkpoints": [
+    {
+     "type": 0,
+     "time": 0.0,
+     "position": {
+      "row": 3,
+      "col": 2
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    }
+   ],
+   "allowDiagonalMove": true,
+   "visitEveryTileCenter": false,
+   "visitEveryNodeCenter": false,
+   "visitEveryCheckPoint": false
+  },
+  {
+   "motionMode": 0,
+   "startPosition": {
+    "row": 5,
+    "col": 2
+   },
+   "endPosition": {
+    "row": 3,
+    "col": 7
+   },
+   "spawnRandomRange": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "spawnOffset": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "checkpoints": [
+    {
+     "type": 0,
+     "time": 0.0,
+     "position": {
+      "row": 5,
+      "col": 3
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    },
+    {
+     "type": 0,
+     "time": 0.0,
+     "position": {
+      "row": 5,
+      "col": 5
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    },
+    {
+     "type": 0,
+     "time": 0.0,
+     "position": {
+      "row": 6,
+      "col": 5
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    },
+    {
+     "type": 0,
+     "time": 0.0,
+     "position": {
+      "row": 6,
+      "col": 7
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    }
+   ],
+   "allowDiagonalMove": true,
+   "visitEveryTileCenter": false,
+   "visitEveryNodeCenter": false,
+   "visitEveryCheckPoint": false
+  },
+  {
+   "motionMode": 0,
+   "startPosition": {
+    "row": 6,
+    "col": 1
+   },
+   "endPosition": {
+    "row": 2,
+    "col": 8
+   },
+   "spawnRandomRange": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "spawnOffset": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "checkpoints": [
+    {
+     "type": 0,
+     "time": 0.0,
+     "position": {
+      "row": 5,
+      "col": 4
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    },
+    {
+     "type": 0,
+     "time": 0.0,
+     "position": {
+      "row": 6,
+      "col": 9
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    },
+    {
+     "type": 0,
+     "time": 0.0,
+     "position": {
+      "row": 2,
+      "col": 9
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    }
+   ],
+   "allowDiagonalMove": true,
+   "visitEveryTileCenter": false,
+   "visitEveryNodeCenter": false,
+   "visitEveryCheckPoint": false
+  },
+  {
+   "motionMode": 0,
+   "startPosition": {
+    "row": 6,
+    "col": 1
+   },
+   "endPosition": {
+    "row": 2,
+    "col": 8
+   },
+   "spawnRandomRange": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "spawnOffset": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "checkpoints": [
+    {
+     "type": 0,
+     "time": 0.0,
+     "position": {
+      "row": 5,
+      "col": 1
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    },
+    {
+     "type": 0,
+     "time": 0.0,
+     "position": {
+      "row": 1,
+      "col": 1
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    },
+    {
+     "type": 0,
+     "time": 0.0,
+     "position": {
+      "row": 1,
+      "col": 8
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    }
+   ],
+   "allowDiagonalMove": true,
+   "visitEveryTileCenter": false,
+   "visitEveryNodeCenter": false,
+   "visitEveryCheckPoint": false
+  }
+ ],
+ "mapData": {
+  "map": [
+   [
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87
+   ],
+   [
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76
+   ],
+   [
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65
+   ],
+   [
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54
+   ],
+   [
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43
+   ],
+   [
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32
+   ],
+   [
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21
+   ],
+   [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  ],
+  "tiles": [
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_wall",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_wall",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_wall",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_end",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_end",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_wall",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_wall",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_wall",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_wall",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_start",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_wall",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_wall",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_start",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    0,
+    0,
+    null,
+    1
+   ]
+  ]
+ },
+ "extra_routes": [],
+ "branches": null,
+ "NORMAL": {
+  "groupKey": null,
+  "max_permutations": 1,
+  "permutations": [
+   {}
+  ]
+ },
+ "ELITE": {
+  "groupKey": null,
+  "max_permutations": 1,
+  "permutations": [
+   {}
+  ]
+ },
+ "waves": [
+  {
+   "preDelay": 0.0,
+   "postDelay": 0.0,
+   "maxTimeWaitingForNextWave": -1.0,
+   "fragments": [
+    {
+     "preDelay": 0.0,
+     "actions": [
+      {
+       "actionType": 0,
+       "key": "enemy_1007_slime_3",
+       "count": 1,
+       "preDelay": 4.0,
+       "interval": 1.0,
+       "routeIndex": 0,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1007_slime_3",
+       "count": 1,
+       "preDelay": 9.0,
+       "interval": 1.0,
+       "routeIndex": 0,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1007_slime_3",
+       "count": 1,
+       "preDelay": 19.0,
+       "interval": 1.0,
+       "routeIndex": 1,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1007_slime_3",
+       "count": 1,
+       "preDelay": 18.0,
+       "interval": 1.0,
+       "routeIndex": 0,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1007_slime_3",
+       "count": 1,
+       "preDelay": 24.0,
+       "interval": 1.0,
+       "routeIndex": 1,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1007_slime_3",
+       "count": 1,
+       "preDelay": 25.0,
+       "interval": 1.0,
+       "routeIndex": 0,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1007_slime_3",
+       "count": 1,
+       "preDelay": 31.0,
+       "interval": 1.0,
+       "routeIndex": 1,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1007_slime_3",
+       "count": 2,
+       "preDelay": 32.0,
+       "interval": 1.2,
+       "routeIndex": 0,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1007_slime_3",
+       "count": 1,
+       "preDelay": 39.0,
+       "interval": 1.0,
+       "routeIndex": 1,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1007_slime_3",
+       "count": 2,
+       "preDelay": 40.0,
+       "interval": 1.2,
+       "routeIndex": 0,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1000_gopro_2",
+       "count": 1,
+       "preDelay": 37.0,
+       "interval": 1.0,
+       "routeIndex": 2,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1000_gopro_2",
+       "count": 1,
+       "preDelay": 43.0,
+       "interval": 1.0,
+       "routeIndex": 2,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1007_slime_3",
+       "count": 2,
+       "preDelay": 47.5,
+       "interval": 1.3,
+       "routeIndex": 0,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1007_slime_3",
+       "count": 2,
+       "preDelay": 48.5,
+       "interval": 1.2,
+       "routeIndex": 1,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1000_gopro_2",
+       "count": 2,
+       "preDelay": 51.0,
+       "interval": 8.0,
+       "routeIndex": 3,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1000_gopro_2",
+       "count": 1,
+       "preDelay": 52.0,
+       "interval": 1.0,
+       "routeIndex": 2,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      }
+     ],
+     "name": null
+    },
+    {
+     "preDelay": 20.0,
+     "actions": [
+      {
+       "actionType": 0,
+       "key": "enemy_1030_wteeth",
+       "count": 1,
+       "preDelay": 3.0,
+       "interval": 1.0,
+       "routeIndex": 3,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1030_wteeth",
+       "count": 2,
+       "preDelay": 25.0,
+       "interval": 10.0,
+       "routeIndex": 3,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1030_wteeth",
+       "count": 1,
+       "preDelay": 27.0,
+       "interval": 1.0,
+       "routeIndex": 2,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1030_wteeth",
+       "count": 1,
+       "preDelay": 3.0,
+       "interval": 1.0,
+       "routeIndex": 2,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1000_gopro_3",
+       "count": 1,
+       "preDelay": 10.0,
+       "interval": 1.0,
+       "routeIndex": 1,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1000_gopro_3",
+       "count": 1,
+       "preDelay": 10.0,
+       "interval": 1.0,
+       "routeIndex": 0,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1000_gopro_3",
+       "count": 2,
+       "preDelay": 26.0,
+       "interval": 13.0,
+       "routeIndex": 1,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1000_gopro_3",
+       "count": 3,
+       "preDelay": 18.0,
+       "interval": 12.0,
+       "routeIndex": 0,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1030_wteeth",
+       "count": 1,
+       "preDelay": 45.0,
+       "interval": 1.0,
+       "routeIndex": 3,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1030_wteeth",
+       "count": 1,
+       "preDelay": 45.0,
+       "interval": 1.0,
+       "routeIndex": 2,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      }
+     ],
+     "name": null
+    },
+    {
+     "preDelay": 25.0,
+     "actions": [
+      {
+       "actionType": 0,
+       "key": "enemy_1030_wteeth",
+       "count": 1,
+       "preDelay": 4.0,
+       "interval": 1.0,
+       "routeIndex": 3,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1030_wteeth",
+       "count": 1,
+       "preDelay": 5.0,
+       "interval": 1.0,
+       "routeIndex": 2,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1030_wteeth",
+       "count": 1,
+       "preDelay": 28.0,
+       "interval": 1.0,
+       "routeIndex": 3,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1030_wteeth",
+       "count": 1,
+       "preDelay": 10.0,
+       "interval": 1.0,
+       "routeIndex": 2,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1030_wteeth",
+       "count": 1,
+       "preDelay": 27.0,
+       "interval": 1.0,
+       "routeIndex": 3,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1030_wteeth",
+       "count": 1,
+       "preDelay": 10.0,
+       "interval": 1.0,
+       "routeIndex": 2,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1000_gopro_3",
+       "count": 3,
+       "preDelay": 18.0,
+       "interval": 10.0,
+       "routeIndex": 1,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1000_gopro_3",
+       "count": 3,
+       "preDelay": 19.0,
+       "interval": 10.0,
+       "routeIndex": 0,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1030_wteeth_2",
+       "count": 1,
+       "preDelay": 40.0,
+       "interval": 1.0,
+       "routeIndex": 3,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": 0,
+       "key": "enemy_1030_wteeth_2",
+       "count": 1,
+       "preDelay": 41.0,
+       "interval": 1.0,
+       "routeIndex": 2,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      }
+     ],
+     "name": null
+    }
+   ],
+   "name": null
+  }
+ ],
+ "bonus": null
+}
