@@ -48,10 +48,10 @@ export class TileManager {
 			case 'tile_telout':
 				boxGroup.add(
 					this.createTeleport(
-						blackboard.direction,
+						blackboard?.direction,
 						tileName,
-						blackboard.colorIndex,
-						blackboard.type
+						blackboard?.colorIndex,
+						blackboard?.type
 					)
 				);
 				return boxGroup;
@@ -524,7 +524,7 @@ export class TileManager {
 		return group;
 	}
 
-	createTeleport(direction = 'left', tileName, index = 0, type = 'arrow') {
+	createTeleport(direction = 'left', tileName, index = 0, type = 'block') {
 		if (this.levelId === 'level_rogue3_b-1') {
 			if (tileName === 'tile_telin') {
 				tileName = 'tile_telout';
