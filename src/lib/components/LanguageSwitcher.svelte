@@ -44,9 +44,9 @@
 			on:click={() => (showOptions = false)}
 			class="absolute w-max mt-1 py-0.5 bg-neutral-900 select-none"
 		>
-			<a href={pathEN}><div class="px-2 my-0.5 hover:bg-gray-600">English</div></a>
-			<a href={pathJA}><div class="px-2 my-0.5 hover:bg-gray-600">日本語</div></a>
-			<a href={pathZH}><div class="px-2 my-0.5 hover:bg-gray-600">中文</div></a>
+			<a data-sveltekit-preload-data="off" href={pathEN}><div class="px-2 my-0.5 hover:bg-gray-600">English</div></a>
+			<a data-sveltekit-preload-data="off" href={pathJA}><div class="px-2 my-0.5 hover:bg-gray-600">日本語</div></a>
+			<a data-sveltekit-preload-data="off" href={pathZH}><div class="px-2 my-0.5 hover:bg-gray-600">中文</div></a>
 		</div>
 	{/if}
 </div>

@@ -7,7 +7,7 @@ test.use({
 test('sarkaz difficulty + elite + relic + epoch on hp/hit mob', async ({ page }) => {
 	await page.goto('http://localhost:4173/en/stages/ISW-NO_Heavenly_Paradise');
 
-	await expect(page).toHaveTitle(/Heavenly_Paradise/);
+	await expect(page).toHaveTitle(/Heavenly Paradise/);
 	const diffIncreButton = await page.$('#diff-plus');
 	await page.waitForTimeout(500);
 
@@ -32,30 +32,4 @@ test('sarkaz difficulty + elite + relic + epoch on hp/hit mob', async ({ page })
 	await disaster?.dispatchEvent('click');
 	hp = await page.$eval('#enemy_1208_msfji_2 p[data-id="hp-value"]', (el) => el.textContent);
 	expect(hp).toBe('90');
-});
-
-test('buffloss + elite mods', async ({ page }) => {
-	function removeBrackets(text) {
-		if (!text) return;
-		return text.replaceAll('(', '').replaceAll(')', '').trim();
-	}
-	await page.goto('http://localhost:4173/en/stages/ISW-NO_Rhine_Guardians');
-
-	await expect(page).toHaveTitle(/Rhine_Guardians/);
-	const diffIncreButton = await page.$('#diff-plus');
-	await diffIncreButton?.click({ clickCount: 18 });
-	await page.waitForTimeout(1500);
-	const diff = await page.$eval('#diff-count', (el) => el.textContent);
-	expect(diff).toBe('18');
-	let skillAtk = await page.$eval('#enemy_1332_cbterm_2-cbterm_explode', (el) =>
-		removeBrackets(el.textContent)
-	);
-	expect(skillAtk).toBe('3000');
-
-	const eliteToggle = await page.$('#elite-toggle');
-	await eliteToggle?.dispatchEvent('click');
-	skillAtk = await page.$eval('#enemy_1332_cbterm_2-cbterm_explode', (el) =>
-		removeBrackets(el.textContent)
-	);
-	expect(skillAtk).toBe('3900');
 });

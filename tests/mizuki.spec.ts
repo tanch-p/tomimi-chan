@@ -8,7 +8,7 @@ test.use({
 test('mizuki difficulty + variation + relic', async ({ page }) => {
 	await page.goto('http://localhost:4173/en/stages/ISW-DF_Destiny_of_We_Many');
 
-	await expect(page).toHaveTitle(/Destiny_of_We_Many/);
+	await expect(page).toHaveTitle(/Destiny of We Many/);
 	const diffIncreButton = await page.$('#diff-plus');
 
 	let hp = await page.$eval('#enemy_2039_syskad p[data-id="hp-value"]', (el) => el.textContent);
@@ -70,7 +70,7 @@ test('mizuki difficulty + variation + relic', async ({ page }) => {
 test('mizuki difficulty + mission + elite mods', async ({ page }) => {
 	await page.goto('http://localhost:4173/en/stages/ISW-NO_Crime_and_Punishment');
 
-	await expect(page).toHaveTitle(/Crime_and_Punishment/);
+	await expect(page).toHaveTitle(/Crime and Punishment/);
 	const diffIncreButton = await page.$('#diff-plus');
 	let hp, atk, def;
 
