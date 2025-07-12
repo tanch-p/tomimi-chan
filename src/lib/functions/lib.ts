@@ -95,8 +95,8 @@ export function getFormTitle(title: string | undefined | null, row: number, lang
 
 export const getStageData = async (stageName: string, mode = 'roguelike') => {
 	if (mode !== 'roguelike') {
-		const data = await import(`../data/stages/all_stage_data/${stageName}.json`);
-		return data?.default;
+		const res = await fetch(`/stage_data/${stageName}.json`);
+		return res.json();
 	}
 	const levelId = ISStages[stageName]?.key;
 	if (!levelId) return;

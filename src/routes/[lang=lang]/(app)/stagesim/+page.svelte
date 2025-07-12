@@ -7,21 +7,22 @@
 	import translations from '$lib/translations.json';
 	import { getStageData, setOtherBuffsList } from '$lib/functions/lib';
 	import StageSharedContainer from '$lib/components/StageSharedContainer.svelte';
-	import { onMount } from 'svelte';
 	import TitleBlock from '$lib/components/TitleBlock.svelte';
 	import { overwriteBlackboard } from '$lib/functions/skillHelpers';
 	import { parseTraps } from '$lib/functions/trapHelpers';
 	import ActivitySelect from './ActivitySelect.svelte';
 	import SearchDataList from './SearchDataList.svelte';
+	import { onMount } from 'svelte';
 
 	export let data: PageData;
 	$: language = data.language;
 	// $: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 
 	let mapConfig: MapConfig, traps: Trap[], enemies: Enemy[];
-	let isLoading=true;
+	let isLoading = true;
 
 	async function loadStageData(stageId: string) {
+		isLoading = true;
 		mapConfig = await getStageData(stageId, 'all');
 		enemies = mapConfig.enemies.map(({ id, prefabKey, level, overwrittenData }) => {
 			const enemy = structuredClone(enemyDatabase[prefabKey]);
@@ -47,7 +48,13 @@
 			return enemy;
 		});
 		traps = parseTraps(mapConfig.traps, language);
+		isLoading = false;
 	}
+	onMount(() => {
+		stageIdStore.subscribe((id) => {
+			loadStageData(id);
+		});
+	});
 
 	const WIP = {
 		zh: '施工中，现阶段只支持展示敌人路线',
