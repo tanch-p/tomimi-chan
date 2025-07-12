@@ -8,7 +8,7 @@ test('sami difficulty + elite + portal mods', async ({ page }) => {
 	await page.goto('http://localhost:4173/en/stages/ISW-NO_Rational_Fracture');
 
 	// Expect a title "to contain" a substring.
-	await expect(page).toHaveTitle(/Rational_Fracture/);
+	await expect(page).toHaveTitle(/Rational Fracture/);
 	const diffIncreButton = await page.$('#diff-plus');
 	await page.waitForTimeout(500);
 	let def = await page.$eval('#enemy_2046_smwar p[data-id="def-value"]', (el) => el.textContent);

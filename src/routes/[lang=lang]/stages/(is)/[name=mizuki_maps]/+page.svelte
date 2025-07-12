@@ -14,12 +14,12 @@
 	import MizukiNav from '../../../(app)/mizuki/MizukiNav.svelte';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import FooterBar from '$lib/components/FooterBar.svelte';
-	import translations from '$lib/translations.json';
 	import Mission from './Mission.svelte';
 	import FloorTitle from './FloorTitle.svelte';
 	import StageHeader from '$lib/components/StageHeader.svelte';
 	import { setOtherBuffsList } from '$lib/functions/lib';
 	import StageSharedContainer from '$lib/components/StageSharedContainer.svelte';
+	import StageHeadMeta from '$lib/components/StageHeadMeta.svelte';
 
 	export let data: PageData;
 	$: if (data.mapConfig) {
@@ -40,19 +40,7 @@
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 </script>
 
-<svelte:head>
-	<title
-		>{data.mapConfig.code}
-		{stageName} / {translations[language].title_post}</title
-	>
-	<meta name="description" content={translations[language].title_post} />
-	<meta property="og:description" content={translations[language].title_post} />
-	<meta property="og:title" content={data.mapConfig.code + '_' + stageName} />
-	<meta
-		property="og:url"
-		content={`https://tomimi.dev/${language}/stages/${data.mapConfig.code + '_' + stageName}`}
-	/>
-</svelte:head>
+<StageHeadMeta mapConfig={data.mapConfig} {stageName} {language}/>
 
 <StageHeader {language}>
 	<FloorTitle slot="floorTitle" stageFloors={data.mapConfig.floors} {language} />

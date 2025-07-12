@@ -195,7 +195,10 @@ export const parseValues = (
 					} else {
 						value = ` (${getStatSkillValue(entity, formIndex, skill, statKey)})`;
 					}
-					text = text.slice(0, endIndex) + value + text.slice(endIndex);
+					text =
+						text.slice(0, endIndex) +
+						`<span id="${entity.stageId}-${skill.key}">${value}</span>` +
+						text.slice(endIndex);
 				}
 			} else {
 				text = text.replace(string, skill[statKey][valueKey]);

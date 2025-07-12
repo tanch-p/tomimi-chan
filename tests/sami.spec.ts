@@ -8,7 +8,7 @@ test('sami difficulty + elite + chaos mods', async ({ page }) => {
 	await page.goto('http://localhost:4173/en/stages/ISW-NO_Instinct_Contamination');
 
 	// Expect a title "to contain" a substring.
-	await expect(page).toHaveTitle(/Instinct_Contamination/);
+	await expect(page).toHaveTitle(/Instinct Contamination/);
 	const diffIncreButton = await page.$('#diff-plus');
 	await page.waitForTimeout(500);
 	let hp = await page.$eval('#enemy_2046_smwar p[data-id="hp-value"]', (el) => el.textContent);

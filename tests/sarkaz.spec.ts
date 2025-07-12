@@ -7,7 +7,7 @@ test.use({
 test('sarkaz difficulty + elite + relic + epoch on hp/hit mob', async ({ page }) => {
 	await page.goto('http://localhost:4173/en/stages/ISW-NO_Heavenly_Paradise');
 
-	await expect(page).toHaveTitle(/Heavenly_Paradise/);
+	await expect(page).toHaveTitle(/Heavenly Paradise/);
 	const diffIncreButton = await page.$('#diff-plus');
 	await page.waitForTimeout(500);
 
