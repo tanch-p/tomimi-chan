@@ -100,7 +100,7 @@
 
 		<div
 			role="listbox"
-			class="absolute z-[1] mt-1 border rounded shadow bg-white w-full max-h-60 overflow-auto text-almost-black {isOpen
+			class="absolute z-[1] mt-1 border rounded shadow bg-white w-full max-h-72 md:max-h-[24rem] overflow-auto text-almost-black {isOpen
 				? ''
 				: 'opacity-0 pointer-events-none'}"
 			bind:this={listElement}

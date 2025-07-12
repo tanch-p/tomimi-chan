@@ -23,6 +23,7 @@ export class Trap {
 		const trap = trapLookup[data.key];
 		this.data = trap;
 		this.key = data.key;
+		console.log(data.key);
 		this.hideTile = trap.hideTile;
 		this.direction = data.direction;
 		this.position = pos;
