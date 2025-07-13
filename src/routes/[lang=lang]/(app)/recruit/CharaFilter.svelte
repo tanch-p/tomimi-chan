@@ -383,7 +383,7 @@
 								height="100"
 								loading="lazy"
 								decoding="async"
-								class="mx-auto"
+								class="mx-auto w-[100px] h-[100px] object-contain"
 							/>
 							<div class="sm:px-2">
 								<p class="text-base">
