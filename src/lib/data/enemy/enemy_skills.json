@@ -668,6 +668,14 @@
 			"zh": ["在水中时：攻击力提升40%，未被阻挡时获得隐匿效果"]
 		}
 	},
+	"evasion_phys": {
+		"value": 40,
+		"tooltip": {
+			"en": ["Has <v.value>% {phys} evasion"],
+			"ja": ["{phys}回避率+<v.value>%"],
+			"zh": ["持有<v.value>%{phys}闪避"]
+		}
+	},
 	"evasion_phys_arts": {
 		"value": 40,
 		"tooltip": {
@@ -682,6 +690,14 @@
 			"en": ["Gains <v.value>% {phys} evasion when not blocked"],
 			"ja": ["未ブロック時、{phys}回避率+<v.value>%"],
 			"zh": ["未被阻挡时获得<v.value>%{phys}闪避"]
+		}
+	},
+	"no_block_evasion_phys_arts": {
+		"value": 40,
+		"tooltip": {
+			"en": ["When not blocked, gains <v.value>% {phys} & {arts} evasion"],
+			"ja": ["未ブロック時、{phys}と{arts}回避率+<v.value>%"],
+			"zh": ["未被阻挡时，获得<v.value>%{phys}/{arts}闪避"]
 		}
 	},
 	"no_block_dmg_red": {
@@ -1217,6 +1233,14 @@
 			"en": ["Attack deals <v.%value>% of ATK as {ba.dt.apoptosis}"],
 			"ja": ["攻撃で攻撃力の<v.%value>%の{ba.dt.apoptosis}を与える"],
 			"zh": ["攻击附加相当于攻击力<v.%value>%的{ba.dt.apoptosis}"]
+		}
+	},
+	"dt_burning": {
+		"value": 0.1,
+		"tooltip": {
+			"en": ["Attack deals <v.%value>% of ATK as {ba.dt.burning}"],
+			"ja": ["攻撃で攻撃力の<v.%value>%の{ba.dt.burning}を与える"],
+			"zh": ["攻击附加相当于攻击力<v.%value>%的{ba.dt.burning}"]
 		}
 	},
 	"sy2_attackdef": {
@@ -1964,6 +1988,14 @@
 			"zh": ["对攻击范围内所有单位造成伤害"]
 		}
 	},
+	"aoe_all_range": {
+		"value": 1.0,
+		"tooltip": {
+			"en": ["Attacks hit all units within <v.value> tile radius"],
+			"ja": ["半径<v.value>範囲内全ユニットにダメージを与える"],
+			"zh": ["对半径<v.value>范围内所有单位造成伤害"]
+		}
+	},
 	"surpise_bomb": {
 		"tooltip": {
 			"en": [
@@ -2257,10 +2289,10 @@
 		"tooltip": {
 			"en": [
 				"When not being blocked, stun or bind, accelerates every 0.5s, increasing Movespeed by 50%, max 25 stacks",
-				"※ Getting stunned or bind will reset Movespeed stacks to 0"
+				"※Getting stunned or bind will reset Movespeed stacks to 0"
 			],
 			"ja": [
-				"被ブロック・スタン・バインド状態でない場合、0.5秒ごとに移動速度が0.125上昇する。この効果は25回まで累積する",
+				"被ブロック・スタン・バインド状態でない場合、0.5秒ごとに移動速度が50%上昇する。この効果は25回まで累積する",
 				"※スタン・バインドを受けると移動速度上昇がリセットされる"
 			],
 			"zh": [
@@ -2281,13 +2313,6 @@
 			"zh": [
 				"被阻挡后首次攻击时，额外造成一次当前移动速度×<v.value>的{phys}普通伤害，同时清空移速叠加并重置加速尝试次数"
 			]
-		}
-	},
-	"lancer_accel_reset": {
-		"tooltip": {
-			"en": ["※ Getting stunned or bind will reset Movespeed stacks to 0"],
-			"ja": ["※スタン・バインドを受けると移動速度上昇がリセットされる"],
-			"zh": ["※眩晕，束缚会清空移速叠加并重置加速尝试次数"]
 		}
 	},
 	"sarkaz_sentinel_alert": {
@@ -2603,6 +2628,13 @@
 			"en": ["Prioritizes attacking the target with the lowest DEF"],
 			"ja": ["防御力の最も低い味方を優先して狙う"],
 			"zh": ["优先攻击防御力最低的友方单位"]
+		}
+	},
+	"atk_priority_high_ground": {
+		"tooltip": {
+			"en": ["Prioritizes attacking targets on high ground tiles"],
+			"ja": ["高台にいる味方を優先して攻撃する"],
+			"zh": ["优先攻击部署于高台上的我方单位"]
 		}
 	},
 	"sarkaz_guerilla_fighter": {
@@ -3604,7 +3636,9 @@
 	},
 	"wdfmr_cost": {
 		"tooltip": {
-			"en": ["Once indentity is confirmed, becomes unblockable and increases the DP limit by 2 when entering Protection Objective"],
+			"en": [
+				"Once indentity is confirmed, becomes unblockable and increases the DP limit by 2 when entering Protection Objective"
+			],
 			"ja": ["身分確認後、ブロック不可になる、防衛ラインに到達すると所持コスト上限+2"],
 			"zh": ["“鉴定完成后：自身获得不可阻挡；到达路径终点时，我方费用上限+2"]
 		}
@@ -5564,6 +5598,17 @@
 			]
 		}
 	},
+	"tgshd_reveal": {
+		"tooltip": {
+			"en": [
+				"When taking damage from a friendly unit, <ba.expose>Exposes</> the source for 5 seconds{can_silence}"
+			],
+			"ja": [
+				"ダメージを受けた時、そのダメージ源の味方を5秒間<ba.expose>位置追跡</>状態にする{can_silence}"
+			],
+			"zh": ["受到来源于默认类我方单位的伤害时，令伤害来源<ba.expose>暴露</>5s{can_silence}"]
+		}
+	},
 	"gunsho_1": {
 		"type": "skill",
 		"initCooldown": 2,
@@ -5575,12 +5620,193 @@
 		"dmg_element": "phys",
 		"tooltip": {
 			"en": [
-				"Fires 3 bolts in succession towards the target, each dealing 100% ATK as {phys} damage{ignore_camou}"
+				"<ba.straightshot>Straight Shot</> - Fires 3 bolts in succession towards the target, each dealing 100% ATK as {phys} damage{ignore_camou}{"
 			],
 			"ja": [
-				"対象の方向に3本の矢を発射。それぞれの矢は、最初に触れた対象に攻撃力の100%の{phys}ダメージを与える{ignore_camou}"
+				"<ba.straightshot>直線射撃</>：対象の方向に3本の矢を発射。それぞれの矢は、最初に触れた対象に攻撃力の100%の{phys}ダメージを与える{ignore_camou}"
 			],
-			"zh": ["与友方处于同一直线上时进行直击：向目标方向发射3支弩箭{ignore_camou}"]
+			"zh": ["<ba.straightshot>直击</>：向目标方向发射3支弩箭{ignore_camou}"]
+		}
+	},
+	"msnip_shot": {
+		"type": "skill",
+		"initCooldown": 2,
+		"cooldown": 8,
+		"can_silence": true,
+		"suffix": { "en": "Skill", "ja": "直線射撃", "zh": "直击" },
+		"hits": 1,
+		"atk": { "multiplier": 1 },
+		"dmg_element": "arts",
+		"tooltip": {
+			"en": [
+				"<ba.straightshot>Straight Shot</> - Fires a bolt towards the target after a 1.5 seconds wind-up time, during which invisibility is nullified, dealing {arts} damage equal to ATK and Stunning the unit hit for 5 seconds{ignore_camou}"
+			],
+			"ja": [
+				"<ba.straightshot>直線射撃</>：1.5秒チャージした後（チャージ中ステルスが無効）、対象の方向に1本の矢を発射。矢に最初に触れた対象に、攻撃力の100%の{arts}ダメージを与え5秒間スタンさせる{ignore_camou}"
+			],
+			"zh": [
+				"<ba.straightshot>直击</>：蓄力1.5s后向目标方向发射1支弩箭(蓄力时失去隐匿)，对击中的首个目标造成攻击力100%的{arts}伤害与5s晕眩{ignore_camou}"
+			]
+		}
+	},
+	"boomer_grenade": {
+		"atk": { "multiplier": 2 },
+		"suffix": { "en": "Grenade", "ja": "榴弾", "zh": "投弹" },
+		"hits": 1,
+		"dmg_element": "phys",
+		"tooltip": {
+			"en": [
+				"When not blocked and receives damage for the first time, launches a grenade towards the four cardinal directions{can_silence}{only_once}",
+				"Each grenade detonates upon hitting a friendly unit, dealing {phys} damage equal to 200% ATK over a 1.1 tile radius",
+				"Thereafter gains Movespeed +0.7 and Weight is decreased by 2"
+			],
+			"ja": [
+				"非ブロック時に初めてダメージを受けると、自身の上下左右に射程無限の榴弾を発射{can_silence}{only_once}",
+				"榴弾は味方やバリケードに触れると爆発し、半径1.1の味方に攻撃力の200%の{phys}ダメージを与える",
+				"榴弾発射後、移動速度+0.7、重量-2"
+			],
+			"zh": [
+				"未被阻挡且首次受到伤害时可触发：向自身上/下/左/右方向各发射一个碰撞半径0.3的炸弹{can_silence}{only_once}",
+				"每个炸弹接触到首个我方单位时爆炸，对1.1半径范围内我方单位造成攻击力200%的{phys}伤害",
+				"触发技能后移动速度+0.7，重量等级-2 "
+			]
+		}
+	},
+	"chghmr_block": {
+		"atk": { "multiplier": 0.8, "order": "initial" },
+		"suffix": { "en": "Powerup", "ja": "強化", "zh": "强击" },
+		"hits": 1,
+		"tooltip": {
+			"en": [
+				"Increases the ATK of the first attack while blocked by <v.atk.multiplier>%{can_silence}"
+			],
+			"ja": [
+				"登場時とブロック解除時に、攻撃力+<v.atk.multiplier>%の強化を得る。攻撃成功後、この強化は解除される{can_silence}"
+			],
+			"zh": [
+				"入场后/每次解除阻挡时获得强击标记(不可叠加) ，第一次攻击的攻击力提升<v.atk.multiplier>%{can_silence}"
+			]
+		}
+	},
+	"hummbd_expose": {
+		"tooltip": {
+			"en": [
+				"When defeated, <ba.expose>Exposes</> nearby friendly units within 1.7 tile radius for 8 seconds"
+			],
+			"ja": [
+				"倒された時、半径1.7以内の味方全員を8秒間<ba.expose>位置追跡</>状態にする{can_silence}"
+			],
+			"zh": ["被击倒后使半径1.7范围内的我方单位<ba.expose>暴露</>8s{can_silence}"]
+		}
+	},
+	"scotcn_expose": {
+		"tooltip": {
+			"en": [
+				"Attacks deal splash damage over 1 tile radius (surrounding 4 tiles) and <ba.expose>Exposes</> targets hit for 5 seconds"
+			],
+			"ja": [
+				"通常攻撃時、対象と周囲4マスの味方に攻撃力の100%の{phys}ダメージを与え、5秒間<ba.expose>位置追跡</>状態にする{ignore_camou}"
+			],
+			"zh": [
+				"攻击对目标及其周围半径1.0范围内的我方单位造成{phys}溅射伤害，并使他们<ba.expose>暴露</>5s{ignore_camou}"
+			]
+		}
+	},
+	"bdguad_protect": {
+		"tooltip": {
+			"en": ["Gains 40% <ba.protect>Sanctuary</> when not blocked"],
+			"ja": ["非ブロック時、40%の<ba.protect>加護</>状態になる"],
+			"zh": ["未被阻挡时获得40%<ba.protect>庇护</>"]
+		}
+	},
+	"bdguad_shot": {
+		"type": "skill",
+		"initCooldown": 2,
+		"cooldown": 10,
+		"can_silence": true,
+		"suffix": { "en": "Skill", "ja": "直線射撃", "zh": "直击" },
+		"hits": 2,
+		"atk": { "multiplier": 0.7 },
+		"dmg_element": "phys",
+		"tooltip": {
+			"en": [
+				"<ba.straightshot>Straight Shot</> - Launches 2 grenades towards the target, each dealing {phys} damage equal to 70% ATK over 1.1 tile radius"
+			],
+			"ja": [
+				"<ba.straightshot>直線射撃</>：対象の方向に2発のグレネードを発射。各弾は対象に触れると爆発し、半径1.1以内の味方全員に攻撃力の70%の{phys}ダメージを与える"
+			],
+			"zh": [
+				"<ba.straightshot>直击</>：向目标方向发射2枚爆破弹，每枚爆破弹击中首个目标时爆炸，对1.1半径内的我方单位造成攻击力70%的{phys}伤害"
+			]
+		}
+	},
+	"mmelee_chain": {
+		"tooltip": {
+			"en": ["Loses evasion trait when coming into contact with a Stabilizer Chain"],
+			"ja": ["セーフティチェーンに触れると、回避は無効になる"],
+			"zh": ["接触稳固锁链后回避效果永久失效"]
+		}
+	},
+	"mmstck_accelerate": {
+		"accelerate": { "i": 0.5, "m": 0.5, "limit": 25, "preDelay": 0 },
+		"tooltip": {
+			"en": [
+				"When not being blocked, stun or bind, accelerates every 0.5s, increasing Movespeed by 50%, max 25 stacks",
+				"※Getting in contact with Stabilizer Chain, stunned or bind will reset Movespeed stacks to 0"
+			],
+			"ja": [
+				"被ブロック・スタン・バインド状態でない場合、0.5秒ごとに移動速度が50%上昇する。この効果は25回まで累積する",
+				"※セーフティチェーンに触れるか、スタン・バインドを受けると移動速度上昇がリセットされる"
+			],
+			"zh": [
+				"未处于被阻挡、眩晕、束缚状态时每0.5s尝试获得1层移动速度+50%的增益，最多尝试25次",
+				"※眩晕，束缚，接触稳固锁链会清空移速叠加并重置加速尝试次数"
+			]
+		}
+	},
+	"mmstck_ms_dmg": {
+		"value": 550,
+		"tooltip": {
+			"en": [
+				"Does extra {arts} damage on initial attack based on current Movespeed (ms x <v.value>), after attacking stack resets to 0"
+			],
+			"ja": [
+				"ブロックされてから初回の通常攻撃を行う際、追加で「移動速度1につき<v.value>の{arts}ダメージ」を与え、自身の能力による移動速度上昇をリセットする"
+			],
+			"zh": [
+				"被阻挡后首次攻击时，额外造成一次当前移动速度×<v.value>的{arts}普通伤害，同时清空移速叠加并重置加速尝试次数"
+			]
+		}
+	},
+	"mmfarm_splash": {
+		"tooltip": {
+			"en": ["Attacks deal 100% splash damage to units in the adjacent 4 tiles{ignore_camou}"],
+			"ja": [
+				"通常攻撃時、対象と周囲4マスの味方に攻撃力の100%の{phys}ダメージを与える{ignore_camou}"
+			],
+			"zh": [
+				"普通攻击对目标所在地块及周围四格的默认类我方单位造成攻击力100%的{phys}伤害{ignore_camou}"
+			]
+		}
+	},
+	"mmdudu_rock": {
+		"type": "skill",
+		"initCooldown": 0,
+		"cooldown": 25,
+		"suffix": { "en": "Skill", "ja": "演奏", "zh": "施法" },
+		"hits": 15,
+		"atk": { "value": 150 },
+		"dmg_element": "phys",
+		"tooltip": {
+			"en": [
+				"Targets a friendly unit within attack range and channels for 15 seconds, during which the target and all other units connected to them by Stabilizer Chains take 150 {arts} damage and 80 {ba.dt.burning} Damage every second"
+			],
+			"ja": [
+				"攻撃範囲内の味方1人に15秒間演奏を行う。演奏中、対象とセーフティチェーンで繋がった味方全員に毎秒150の{arts}ダメージと80の{ba.dt.burning}を与える"
+			],
+			"zh": [
+				"对攻击范围内的1名我方单位持续施法，每秒对目标及与其通过稳固锁链相连的所有我方单位造成150{arts}伤害与80{ba.dt.burning}，持续15s"
+			]
 		}
 	},
 	"lrwzrd_1": {
@@ -6504,6 +6730,428 @@
 			],
 			"zh": [
 				"经过自身所在格的地面非领袖敌方单位在300s内获得下述效果：攻击速度+50，移动速度+150%，受到的{phys}/{arts}伤害-50%"
+			]
+		}
+	},
+	"dsshel_death": {
+		"tooltip": {
+			"en": [
+				"When defeated on a passable low ground tile with no units on it, spawns an Excrescent Carapace on the spot"
+			],
+			"ja": [
+				"倒された時、自身のいるマスが「ユニットが配置されていない通行可能な地上マス」なら、そのマスに「増殖甲羅」を配置する"
+			],
+			"zh": [
+				"被击倒时，若自身所在地块为未部署单位的可通行地面地块，则在所在地块部署1个赘生甲壳（无视可部署限制）"
+			]
+		}
+	},
+	"dsdivi_divide": {
+		"tooltip": {
+			"en": [
+				"When HP falls below 50%, summons another Divicellular Hoarder with the same HP percentage and without this trait{only_once}{can_silence}"
+			],
+			"ja": [
+				"HP50%以下になると、自身のいるマスに、残りHPが同じで【分裂】しない詭核のホーダーを1体召喚する{only_once}{can_silence}"
+			],
+			"zh": [
+				"生命值低于50%时强制触发技能【应激分裂】{only_once}{can_silence}",
+				"在自身所在地块中心0.6边长正方形范围内随机位置以自身路径召唤1只与自身当前生命比例相同的，天赋不再生效的诡核集养者"
+			]
+		}
+	},
+	"dsfull_random": {
+		"tooltip": {
+			"en": [
+				"On spawn, determines enemy to spawn upon defeat. Enemy spawned gains +200% Movespeed",
+				"50% Unicellular Predator",
+				"30% Divicellular Hoarder (leaf)",
+				"20% Exocellular Depositor (triangle)"
+			],
+			"ja": [
+				"倒された時、自身と同じルートで進む敵を1体召喚し、その敵の移動速度を+200%する",
+				"召喚する敵は出現時にランダムで決まり、頭上のマークで判別できる",
+				"20%で小核のデポジッター（逆三角形マーク）",
+				"50%で詭核のホーダー（葉っぱのようなマーク）",
+				"30%で単核のプレデター（マークなし）"
+			],
+			"zh": [
+				"被击倒时，以自身路径在自身所在地块中心召唤对应的敌人，并使被召唤的敌人移动速度+200%",
+				"出场时，随机决定自身将召唤的敌人",
+				"20%的概率出现🔻标识，代表其将召唤1只微核沉积者",
+				"50%的概率出现🍂标识，代表其将召唤1只诡核集养者",
+				"30%的概率无标识，代表其将召唤1只单核掠食者"
+			]
+		}
+	},
+	"dspred_eat": {
+		"atk": { "multiplier": 0.4, "order": "initial" },
+		"dmg_element": "phys",
+		"suffix": { "en": "Powerup", "ja": "強化", "zh": "强化" },
+		"hits": 1,
+		"tooltip": {
+			"en": [
+				"When coming near an Excrescent Carapace, consumes and destroys it, gaining HP +60% and ATK +40%{only_once}{can_silence}"
+			],
+			"ja": [
+				"【貪食】接触した増殖甲羅を破壊し、自身の最大HP+60%、攻撃力+40%{only_once}{can_silence}"
+			],
+			"zh": [
+				"【吞噬】半径0.525范围内存在赘生甲壳时可触发：将其摧毁，随后自身最大生命值+60%，攻击力+40%{only_once}{can_silence}"
+			]
+		}
+	},
+	"dslntf_standby": {
+		"tooltip": {
+			"en": [
+				"Starts in Standby state, does not attack. Enters the Combat-Ready state when taking damage for the first time or blocked by an Excrescent Carapace"
+			],
+			"ja": [
+				"登場時は待機状態で通常攻撃しない。",
+				"ダメージを受けるか増殖甲羅にブロックされた時、臨戦態勢に移行"
+			],
+			"zh": [
+				"以待命状态出场，待命状态下不进行普通攻击",
+				"受到伤害时/被赘生甲壳阻挡时被进入临战状态"
+			]
+		}
+	},
+	"dslntf_combat": {
+		"skillRange": 2.5,
+		"tooltip": {
+			"en": [
+				"[Combat-Ready] Gains Movespeed +400%, ignores all checkpoints",
+				"Inflicts {ba.dt.neural} equal to 10% ATK every second to nearby friendly units within a radius of 2.5 (does not stack){ignore_camou}",
+				"When coming into contact with an Excrescent Carapace, instantly destroy it and lose 25% of maximum HP"
+			],
+			"ja": [
+				"【臨戦態勢】移動速度+400%、ルート検索点無視",
+				"半径2.5以内の味方全員に、毎秒攻撃力の10%の{ba.dt.neural}を与える{ignore_camou}",
+				"増殖甲羅にブロックされるとそれを破壊し、自身は最大HPの25%のダメージを受ける"
+			],
+			"zh": [
+				"【临战状态】移动速度+400%，无视停驻检查点",
+				"半径2.5范围内所有我方单位每秒受到自身攻击力10%的{ba.dt.neural}（多个元核孽生者之间此效果不叠加）{ignore_camou}",
+				"半径0.5范围内存在赘生甲壳时将其摧毁，随后自身受到最大生命值25%的{true}伤害"
+			]
+		}
+	},
+	"dselec_splash": {
+		"tooltip": {
+			"en": [
+				"While not blocked, does ranged attack that also damages units in the adjacent 4 tiles to the target"
+			],
+			"ja": ["ブロックされていない時は、通常攻撃が対象の周囲4マスにも拡散する"],
+			"zh": ["未被阻挡时进行远程攻击，远程攻击对目标及周围4格的我方单位造成法术伤害"]
+		}
+	},
+	"sgnja_ms": {
+		"tooltip": {
+			"en": ["While on a Crystal, gains Movespeed +90%"],
+			"ja": ["ブロックされていない時は、通常攻撃が対象の周囲4マスにも拡散する"],
+			"zh": ["位于结晶所在地块时，移动速度+90%"]
+		}
+	},
+	"sgass_poison": {
+		"tooltip": {
+			"en": [
+				"Attacks inflict a debuff that causes the target to take 80 {arts} damage every second for 1.99s, stacks additively up to 3 times."
+			],
+			"ja": [
+				"攻撃時、対象を「1.99秒間、毎秒80の{arts}ダメージを受ける」状態にする",
+				"この効果は付与されるたびに残り時間がリセットされ、3層まで累積する"
+			],
+			"zh": [
+				"普通攻击使目标在1.99s内每秒受到80点无来源{arts}伤害，叠加时增加层数并重置持续时间，最多可叠加至3层"
+			]
+		}
+	},
+	"sgass_aspd": {
+		"tooltip": {
+			"en": ["While on a Crystal, gains ASPD +100"],
+			"ja": ["結晶上にいる時、攻撃速度+100"],
+			"zh": ["位于结晶所在地块时，攻击速度+100"]
+		}
+	},
+	"sgrobh_range": {
+		"tooltip": {
+			"en": ["While on a Crystal, attack range becomes global"],
+			"ja": ["結晶上にいる時、攻撃範囲がマップ全体に拡大"],
+			"zh": ["位于结晶所在地块时，攻击范围扩大至全场"]
+		}
+	},
+	"sgmum_def_res": {
+		"def": { "fixed": 2000 },
+		"res": { "fixed": 80 },
+		"suffix": { "zh": "满层", "ja": "MAX", "en": "MAX" },
+		"tooltip": {
+			"en": [
+				"Increases DEF every time {phys} damage is received, max +2000 after 30 instances",
+				"Increases RES every time {arts} damage is received, max +80 after 30 instances"
+			],
+			"ja": [
+				"{phys}ダメージを受けるたび、防御力が上昇。30回目で上限の+2000に達する",
+				"{arts}ダメージを受けるたび、術耐性が上昇。30回目で上限の+80に達する"
+			],
+			"zh": [
+				"受到{arts}伤害时法术抗性提升，最多于受到第30次伤害后提升至+80",
+				"受到{phys}伤害时防御力提升，最多于受到第30次伤害后提升至+2000"
+			]
+		}
+	},
+	"vtsk_bombard": {
+		"atk": { "multiplier": 1 },
+		"dmg_element": "phys",
+		"suffix": { "en": "Bombard", "ja": "爆撃", "zh": "轰炸" },
+		"hits": 8,
+		"tooltip": {
+			"en": [
+				"[Bombard] On appearance, centers on the allied unit with the highest max HP, spawns a bombardment area within the surrounding 8 tiles",
+				"Launches 8 rockets, each dealing <v.atk.multiplier>% of ATK as {phys} damage to the allied unit with the highest percentage HP",
+				"During Skill, gains immunity all status ailments"
+			],
+			"ja": [
+				"【爆撃】出現時に1度だけ使用、マップ上で最も残りHPが高い味方1体を中心に、3×3マスの爆撃区域を設定（対象がいない場合、自身のマスを中心に区域を設定）{only_once}",
+				"爆撃区域内で最も残りHPが高い味方に対し、攻撃力の100%の{phys}ダメージを与える",
+				"この行動は状態異常の影響を受けない"
+			],
+			"zh": [
+				"出场后锁定场上当前生命值最高的我方单位(没有可锁定目标时改为锁定自身所在地块)，连续8次对目标及其周围8格范围内当前生命值最高的单位进行轰炸，每次轰炸造成攻击力100%的{phys}伤害{only_once}",
+				"轰炸行为不受异常状态影响"
+			]
+		}
+	},
+	"vtsk_pile": {
+		"type": "skill",
+		"initCooldown": 10,
+		"cooldown": 15,
+		"atk": { "multiplier": 1 },
+		"dmg_element": "arts",
+		"suffix": { "en": "Piledriver", "ja": "護国の怒火", "zh": "怒守" },
+		"hits": 3,
+		"tooltip": {
+			"en": [
+				"Can only be used when blocked; deals 3 hits each dealing 100% ATK as {phys} damage to target"
+			],
+			"ja": ["ブロック中のみ使用できる", "対象に攻撃力の100%の{phys}ダメージを3回与える"],
+			"zh": ["仅被阻挡时可触发：锁定当前目标，对该目标造成3次攻击力100%的{phys}伤害"]
+		}
+	},
+	"carnival_lose_stealth": {
+		"tooltip": {
+			"en": ["During Carnevale loses stealth"],
+			"ja": ["狂宴の刻中、ステルスが無効化される"],
+			"zh": ["狂欢时刻失去隐匿"]
+		}
+	},
+	"stealth_no_atk": {
+		"tooltip": {
+			"en": ["When in stealth, does not attack"],
+			"ja": ["ステルスかつブロックされていない時は、通常攻撃しない"],
+			"zh": ["未被阻挡且未受到反隐效果影响时：不进行普通攻击"]
+		}
+	},
+	"stealth_no_atk_skill": {
+		"tooltip": {
+			"en": ["When in stealth, does not attack or use skill"],
+			"ja": ["ステルスかつブロックされていない時は、通常攻撃・スキルを使用しない"],
+			"zh": ["未被阻挡且未受到反隐效果影响时：不进行普通攻击，无法触发技能"]
+		}
+	},
+	"cnvsax_1": {
+		"tooltip": {
+			"en": ["When not in stealth, does melee normal attack dealing {phys} damage"],
+			"ja": ["上記以外の状態になると、近距離通常攻撃で{phys}ダメージを与える"],
+			"zh": ["上述效果失效时：普通攻击为行近战攻击，造成{phys}伤害"]
+		}
+	},
+	"cnvsax_skill": {
+		"type": "skill",
+		"initCooldown": 3,
+		"cooldown": 10,
+		"atk": { "multiplier": 0.2 },
+		"dmg_element": "arts",
+		"suffix": { "en": "Skill", "ja": "演奏", "zh": "演奏" },
+		"hits": 21,
+		"tooltip": {
+			"en": [
+				"Used only when not in stealth",
+				"Targets a friendly unit within attack range and channels for 10.6 seconds, dealing 20% of ATK as {arts} damage and 10% of ATK as {ba.dt.burning} every 0.5 seconds"
+			],
+			"ja": [
+				"ステルスが無効化された時に使用可能",
+				"味方1体に10.6秒間演奏し続け、0.5秒ごとに攻撃力の20%の{arts}ダメージと攻撃力の10%の{ba.dt.burning}を与える"
+			],
+			"zh": [
+				"仅隐匿失效时可触发",
+				"锁定攻击范围内1名我方单位，持续施法10.6s，期间每0.5s对目标造成攻击力20%的{arts}伤害和攻击力10%的{ba.dt.burning}"
+			]
+		}
+	},
+	"cnvdnc_dance": {
+		"tooltip": {
+			"en": [
+				"Has no normal attack, deals 100% of ATK as {arts} damage and 50% of ATK as {ba.dt.burning} every second to all allied units within 1.5 tile radius{ignore_stealth}{ignore_camou}",
+				"When not in stealth, ability range is increased to 2 tile radius"
+			],
+			"ja": [
+				"通常攻撃しない、1.5半径内の味方全員に、攻撃力の100%の{arts}ダメージ、攻撃力の50%の{ba.dt.burning}を与える{ignore_stealth}{ignore_camou}",
+				"ステルスが無効化されていると、範囲が半径2.0に拡大する"
+			],
+			"zh": [
+				"不进行普通攻击、半径1.5攻击范围内所有我方单位每秒受到攻击力100%的{arts}持续伤害与攻击力50%的{ba.dt.burning}{ignore_stealth}{ignore_camou}",
+				"隐匿失效时：自身伤害效果半径扩大至2.0"
+			]
+		}
+	},
+	"sailor_ms": {
+		"tooltip": {
+			"en": [
+				"Movespeed is increased to 200% while on a Rope Bridge or for 1 second after being launched by a Saltheap Cannon"
+			],
+			"ja": ["吊り橋通過時と、ソルトキャノンでの移動から1秒間は移動速度が200%に上昇"],
+			"zh": ["位于悬索桥时/被盐坨子炮传送后1s内，移动速度提升至200%"]
+		}
+	},
+	"wintun_start": {
+		"tooltip": {
+			"en": [
+				"Initially carries a Booze Barrel. While carrying a Barrel, Movespeed is increased to 300%."
+			],
+			"ja": ["出現時は酒樽を持っており、この間は移動速度が300%に上昇"],
+			"zh": ["出场时携带酒桶；携带酒桶时移动速度提升至300%"]
+		}
+	},
+	"wintun_barrel": {
+		"atk": { "multiplier": 2.8 },
+		"dmg_element": "phys",
+		"suffix": { "en": "Barrel", "ja": "酒樽", "zh": "酒桶" },
+		"hits": 1,
+		"tooltip": {
+			"en": [
+				"When blocked, smashes the Booze Barrel dealing 280% ATK as {phys} damage and creates an buff area for 30 seconds{can_silence}",
+				"Enemies in the buff area gain ASPD +100 and {phys} evasion +80%"
+			],
+			"ja": [
+				"酒樽を持っている時にブロックされると、酒樽を消費して対象に攻撃力の280%の{phys}ダメージを与え、対象を中心としたバフエリアを30秒間生成する{can_silence}",
+				"エリア内の敵は、攻撃速度+100・{phys}回避率+80%"
+			],
+			"zh": [
+				"被阻挡时，消耗酒桶对目标造成攻击力280%的{phys}伤害，随后在目标位置生成持续30s的区域{can_silence}",
+				"该区域内的敌人获得以下加成：攻击速度+100，获得80%{phys}闪避"
+			]
+		}
+	},
+	"parrot_hover": {
+		"tooltip": {
+			"en": [
+				"<ba.hover>Low-Altitude Hovering</>",
+				"Becomes stunned and cannot be blocked for 8s after losing Low-Altitude Hovering, then regains Low-Altitude Hovering status"
+			],
+			"ja": [
+				"<ba.hover>低空浮揚</>状態で出現",
+				"低空浮揚を失うと8秒間スタンし、その後低空浮揚状態に戻る。このスタン中はブロックされない"
+			],
+			"zh": [
+				"<ba.hover>近地悬浮</>",
+				"受到部分控制效果影响1s后失去近地悬浮并晕眩8s，期间无法被阻挡，8s后重新获得近地悬浮"
+			]
+		}
+	},
+	"parrot_ms": {
+		"tooltip": {
+			"en": ["When taking damage for the first time, Movespeed is increased to 300% for 5 seconds"],
+			"ja": ["初めてダメージを受けてから5秒間、移動速度が300%に上昇"],
+			"zh": ["首次受到伤害后5s内，移动速度提升至300%"]
+		}
+	},
+	"parrot_sailor": {
+		"tooltip": {
+			"en": [
+				"May carry a Risk-seeking Sailor; when losing Low-Altitude Hovering or is defeated while on a normal low ground tile, the Sailor will be dropped on the spot"
+			],
+			"ja": [
+				"冒険水夫を樽に入れて運んでいる場合がある。この時、特定のマスに入る/低空浮揚を失う/自身が倒されるのいずれかが起きると、その場に冒険水夫を召喚する"
+			],
+			"zh": ["如果自身携带寻险水手，会在失去近地悬浮/死亡时于自身所在格释放并召唤寻险水手"]
+		}
+	},
+	"pshark_ms": {
+		"tooltip": {
+			"en": ["Unaffected by Salt Flat, instead has Movespeed increased to 350%"],
+			"ja": ["塩海の影響を受けず、塩海上では移動速度が350%に上昇する"],
+			"zh": ["免疫盐漠地形的效果影响，且位于其中时移动速度提升至350%"]
+		}
+	},
+	"shrknt_blast": {
+		"type": "skill",
+		"initCooldown": 15,
+		"cooldown": 15,
+		"atk": { "multiplier": 3 },
+		"dmg_element": "arts",
+		"suffix": { "en": "Skill", "ja": "「真の爆発だ！」", "zh": "真正的爆炸！" },
+		"hits": 1,
+		"tooltip": {
+			"en": [
+				"Targets a friendly unit within range and channels for 6 seconds before launching an attack that deals 300% of ATK as {arts} to target and units in the surrounding 8 tiles, and Stuns them for 8 seconds",
+				"Skill cooldown is resetted upon entering Riding mode"
+			],
+			"ja": [
+				"対象のいるマスをターゲットして6秒チャージし、砲弾を発射、対象と周囲8マスの味方に攻撃力の300%の{arts}ダメージを与え、8秒間スタンさせる",
+				"騎乗状態に入るとクールタイムがリセットされる"
+			],
+			"zh": [
+				"锁定目标所在地块并蓄力6s，蓄力结束后，发射炮弹对目标及其周围8格的单位造成攻击力300%的{arts}伤害并令其晕眩8s",
+				"进入骑乘状态后技能冷却时间重新计算 "
+			]
+		}
+	},
+	"shrknt_ride": {
+		"tooltip": {
+			"en": [
+				"When a Saltfin Shaker is close enough, rides it.",
+				"Becomes unaffected by Salt Flat and instead Movespeed is increased to 150%",
+				"When defeated in this state, releases Saltfin Shaker"
+			],
+			"ja": [
+				"付近にいる地鳴らし塩鱗獣に騎乗できる",
+				"騎乗中は塩海の影響を受けず、塩海上では移動速度が150%に上昇する",
+				"騎乗中に倒されると、乗っていた地鳴らし塩鱗獣を解放する"
+			],
+			"zh": [
+				"范围内出现撼地盐鳞时，与其组合并切换至骑乘状态",
+				"骑乘状态下：免疫盐漠地形的效果影响，且位于其中时移动速度提升至150%",
+				"骑乘状态下被击倒时，释放与自身组合的撼地盐鳞"
+			]
+		}
+	},
+	"prtsld_shield": {
+		"value":60,
+		"tooltip": {
+			"en": [
+				"Has a directional shield that reduces the {phys}/{arts} damage taken by nearby enemies and Saltheap Cannons within range from the front by <v.value>%"
+			],
+			"ja": [
+				"テラーコックの向いている方向からの物理/術ダメージ-<v.value>%",
+				"この効果は周囲の敵とソルトキャノンにも適用される"
+			],
+			"zh": ["持有单向护盾，使得自身及周围的敌人/盐坨子炮受到来自盾侧的物理/法术伤害-<v.value>%"]
+		}
+	},
+	"pcaptn_summon": {
+		"type": "skill",
+		"initCooldown": 10,
+		"cooldown": 20,
+		"suffix": { "en": "Summon", "ja": "集合命令", "zh": "集合指令" },
+		"tooltip": {
+			"en": [
+				"Spawns 2 Risk-seeking Sailors on the spot"
+			],
+			"ja": [
+				"自身のいるマスに冒険水夫×2を召喚する"
+			],
+			"zh": [
+				"在自身范围内的随机位置，召唤2名沿自身路径行动的寻险水手"
 			]
 		}
 	}
