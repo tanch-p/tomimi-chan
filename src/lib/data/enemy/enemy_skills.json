@@ -5160,6 +5160,13 @@
 			"zh": ["在场期间，于所在地块中心召唤范围的年代印痕", "被击败后掉落3个构想"]
 		}
 	},
+	"statue_enemy":{
+		"tooltip": {
+			"en": ["Unable to move, cannot be blocked, immune to unbalance","Not part of enemy count"],
+			"ja": ["非重要標的、敵数にカウントされない、移動しない、ブロックされない、強制移動無効"],
+			"zh": ["非首要目标，不计入待处理目标数量；失衡免疫，自缚，无法被阻挡"]
+		}
+	},
 	"self_bind": {
 		"tooltip": {
 			"en": ["Unable to move/attack, cannot be blocked, immune to unbalance"],
@@ -7126,7 +7133,7 @@
 		}
 	},
 	"prtsld_shield": {
-		"value":60,
+		"value": 60,
 		"tooltip": {
 			"en": [
 				"Has a directional shield that reduces the {phys}/{arts} damage taken by nearby enemies and Saltheap Cannons within range from the front by <v.value>%"
@@ -7144,14 +7151,368 @@
 		"cooldown": 20,
 		"suffix": { "en": "Summon", "ja": "集合命令", "zh": "集合指令" },
 		"tooltip": {
-			"en": [
-				"Spawns 2 Risk-seeking Sailors on the spot"
-			],
-			"ja": [
-				"自身のいるマスに冒険水夫×2を召喚する"
-			],
+			"en": ["Spawns 2 Risk-seeking Sailors on the spot"],
+			"ja": ["自身のいるマスに冒険水夫×2を召喚する"],
+			"zh": ["在自身范围内的随机位置，召唤2名沿自身路径行动的寻险水手"]
+		}
+	},
+	"spawn_cjgfod": {
+		"tooltip": {
+			"en": ["Spawns 1 饮啄 when defeated"],
+			"ja": ["死亡すると、饮啄を1体召喚する"],
+			"zh": ["被击倒后在自身位置以自身路径召唤1个饮啄"]
+		}
+	},
+	"cjmag_summon": {
+		"type": "skill",
+		"initCooldown": 5,
+		"cooldown": 10,
+		"suffix": { "en": "Summon", "ja": "集合命令", "zh": "厌生哀叹" },
+		"tooltip": {
+			"en": ["Spawns 1 无谓 on the spot"],
+			"ja": ["自身のいるマスに无谓を召喚する"],
+			"zh": ["在自身位置以自身路径召唤1个无谓"]
+		}
+	},
+	"cjman": {
+		"tooltip": {
+			"en": ["Can use long-ranged attacks to attack 饮啄 within 1 tile radius"],
+			"ja": ["饮啄に対して遠距離攻撃を行う"],
+			"zh": ["可以对半径1.0范围内的饮啄进行远程攻击"]
+		}
+	},
+	"cjgost_collect": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["无谓/饮啄进入自身0.9半径范围内时，若拾取数未到达上限，则令其退场，随后自身拾取数+1"]
+		}
+	},
+	"cjgost_deposit": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
 			"zh": [
-				"在自身范围内的随机位置，召唤2名沿自身路径行动的寻险水手"
+				"拾取数到达上限时，追踪废弃火灶移动，进入废弃火灶半径1.0范围时，清空拾取数，并令其获得等同于先前拾取数的SP"
+			]
+		}
+	},
+	"cjgost_defeat": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"被击倒时，根据自身拾取数，在自身所在位置0.6边长正方形范围内随机位置以自身路径召唤相应数量的无谓"
+			]
+		}
+	},
+	"cjlon_0": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["非首要目标，无敌，免疫传送，无法被阻挡，不进行普通攻击"]
+		}
+	},
+	"cjglon": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"出场后沿预设路径移动，对进入自身半径1.5范围内的敌方单位造成攻击力100%的{true}伤害，并强制击倒范围内的“饮露餐风”"
+			]
+		}
+	},
+	"cjblon": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"出场后沿预设路径移动，对进入自身半径1.5范围内的我方单位造成攻击力100%的{true}伤害{ignore_camou}"
+			]
+		}
+	},
+	"cjbfod": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["被召唤而出场后追踪废弃火灶/无餍移动"]
+		}
+	},
+	"cjgfod": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["被召唤而出场后追踪火灶移动；被击倒后在自身位置以自身路径召唤1个无谓"]
+		}
+	},
+	"ftyzss_1": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"进入我方有效视野范围内后显现原形：自身立即退场，并在0.7s后在以自身为中心，边长0.4的正方形区域内召唤3只卷心籽"
+			]
+		}
+	},
+	"ftzlc_burn": {
+		"atk": { "multiplier": 2 },
+		"dmg_element": "arts",
+		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
+		"hits": 1,
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"进入灼藤/灼芯周围后被点燃",
+				"被点燃而死亡时，对周围的我方单位造成攻击力200%的{arts}伤害{can_silence}"
+			]
+		}
+	},
+	"ftxjl_grow": {
+		"atk": { "multiplier": 0.8, "order": "initial" },
+		"suffix": { "en": "MAX", "ja": "MAX", "zh": "满层" },
+		"hits": 1,
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"位于我方单位有效视野范围外时，部分属性在30s线性提升，最高提升至：最大生命值+400%、攻击力+80%",
+				"位于我方单位有效视野范围内时，上述属性暂停提升 "
+			]
+		}
+	},
+	"ftsjc_grow": {
+		"atk": { "multiplier": 2, "order": "initial" },
+		"suffix": { "en": "MAX", "ja": "MAX", "zh": "满层" },
+		"hits": 1,
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"攻击力在50s内线性提升至+200%；首次攻击时对目标及其周围8格造成攻击力100%的{arts}伤害与攻击力25%的{ba.dt.burning}",
+				"此后攻击力加成失效，每次攻击附加攻击力20%的{ba.dt.burning}"
+			]
+		}
+	},
+	"ftxsr_retreat": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["位于未部署单位的<草毯>地形时，退场并在所在格召唤树丛"]
+		}
+	},
+	"ftkbtt_reveal": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["位于我方有效视野范围内时显露原形，无法进行攻击"]
+		}
+	},
+	"ftprg_init": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"初始处于伪装状态：无敌，不可阻挡，自缚，隐藏自身模型，重写自身所在地块为不可部署，激活隐藏敌人"
+			]
+		}
+	},
+	"ftprg_end": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["隐藏敌人召唤完毕约6s后或进入我方有效视野范围内时，退出伪装状态，上述效果永久失效"]
+		}
+	},
+	"mpwrj_explode": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"首次攻击时自爆：对攻击目标与攻击半径内其他我方单位造成攻击力100%的{arts}伤害，随后自身死亡（受沉默影响时，无法进行攻击）"
+			]
+		}
+	},
+	"mpgrou_seal": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["被击倒时若所在地块为可部署地形，则强制部署1个封印的地面{can_silence}"]
+		}
+	},
+	"mpbarr_summon": {
+		"type": "skill",
+		"initCooldown": 3,
+		"cooldown": 5,
+		"suffix": { "en": "Summon", "ja": "配食", "zh": "配餐" },
+		"tooltip": {
+			"en": ["Spawns 1 迷茫的修理小助手 on the spot"],
+			"ja": ["自身のいるマスに迷茫的修理小助手を召喚する"],
+			"zh": ["在自身所在格以自身路径召唤1个迷茫的修理小助手"]
+		}
+	},
+	"mpmage_seal": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"初动5s，对终端上的部署费用持续施法：发射持续30s的锁链弹道{only_once}",
+				"锁链抵达后：费用自然回复速度变为0"
+			]
+		}
+	},
+	"mpplai_init": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"【原始形态】不进行攻击，受到的伤害变为0",
+				"失衡免疫，免疫晕眩/沉睡/寒冷/冻结/浮空/恐惧",
+				"根据特定条件，将会变化为不同的形态，其属性与天赋也会相应变化：",
+				"受到第4次物理伤害时：变化为寻仇者形态",
+				"受到第4次法术伤害时：变化为特战术师形态",
+				"被阻挡时：变化为幽灵形态",
+				"※仅可变化一次，变化过程持续2s"
+			]
+		}
+	},
+	"mpplai_avenger_stat": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"最大生命值+4000，攻击力+500，防御力+250，法术抗性+20，移动速度-0.55，攻击间隔+1.3，重量等级+1"
+			]
+		}
+	},
+	"mpplai_avenger_mode": {
+		"suffix": { "en": "HP↓50%", "ja": "HP50%以下", "zh": "HP50%以下" },
+		"hits": null,
+		"atk": { "multiplier": 1, "order": "initial" },
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["仅进行近战攻击，造成物理伤害；生命值低于50%时，攻击力+100%"]
+		}
+	},
+	"mpplai_caster_stat": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"最大生命值+2000，攻击力+300，防御力+200，法术抗性+30，移动速度-0.4，攻击间隔+3.0，重量等级+1"
+			]
+		}
+	},
+	"mpplai_caster_mode": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["仅进行远程攻击，同时攻击2个目标，造成法术伤害"]
+		}
+	},
+	"hl_fear": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["生命值首次低于50%时，对自身施加持续5s的恐惧，在5s内移动速度提升至150%"]
+		}
+	},
+	"hlegle_ammo": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["进行攻击时，若目标至少存在1发弹药，则当次攻击不造成伤害，而是改为令其弹药-1 "]
+		}
+	},
+	"hllevi_skill": {
+		"type": "skill",
+		"initCooldown": 20,
+		"cooldown": 40,
+		"suffix": { "en": "Pray", "ja": "祈祷", "zh": "祈祷邀约" },
+		"tooltip": {
+			"en": ["Reduces ASPD of all friendly units by 30 for 15s"],
+			"ja": ["味方全体に15秒攻撃速度-30のデバフを掛ける"],
+			"zh": ["令全场我方单位在15s内攻击速度-30 "]
+		}
+	},
+	"hlchgr_buff_5": {
+		"suffix": { "en": "5 stacks", "ja": "5回", "zh": "五层" },
+		"hits": null,
+		"atk": { "multiplier": 1, "order": "initial" },
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"消耗1SP触发：获得1层攻击力+20%增益和1层移动速度+20%增益",
+				"该技能每6s可触发一次，最多触发10次"
+			]
+		}
+	},
+	"hlchgr_2_buff_7": {
+		"suffix": { "en": "7 stacks", "ja": "7回", "zh": "七层" },
+		"hits": null,
+		"atk": { "multiplier": 1.75, "order": "initial" },
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"消耗1SP触发：获得1层攻击力+25%增益和1层移动速度+25%增益",
+				"该技能每6s可触发一次，最多触发15次"
+			]
+		}
+	},
+	"hlsnip_attack": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"消耗1SP触发：进行一次攻击，造成攻击力100%的物理伤害",
+				"※触发后4s内无法发动【装填】",
+				"SP小于1时，无法进行攻击"
+			]
+		}
+	},
+	"hlsnip_reload": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["SP为0时可触发：在10s内持续尝试为铳械装弹，装弹完成后获得1SP", "※该技能每8s可触发1次"]
+		}
+	},
+	"hlsprt_heal": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"治疗半径2.5范围内最多3个敌方单位相当于自身攻击力200%的生命值，并使其获得1SP",
+				"※优先选择已消耗SP最多的单位"
+			]
+		}
+	},
+	"hlgrd_skill": {
+		"type": "skill",
+		"initCooldown": 0,
+		"cooldown": 10,
+		"suffix": { "en": "Skill", "ja": "技", "zh": "幼教·哄睡技巧" },
+		"atk": { "multiplier": 0.5 },
+		"dmg_element": "arts",
+		"hits": 8,
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"锁定攻击范围内的1名我方单位持续施法：每秒对其造成攻击力50%的法术伤害，持续8s",
+				"若目标已被入梦砖附着，施法期间每秒令相应入梦砖减少3SP"
+			]
+		}
+	},
+	"hlsttu_barrier": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"半径2.5范围内的每个除圣徒像/圣徒祈祷像/“牧首”/入梦砖外的敌方单位每1s获得其最大生命值2%的{phys}/{arts}屏障（同类效果可叠加，总量不超过其最大生命值的50%）"
 			]
 		}
 	}
