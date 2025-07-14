@@ -2426,11 +2426,18 @@
 			]
 		}
 	},
+	"yinyang": {
+		"tooltip": {
+			"en": ["Initially has Ming attribute"],
+			"ja": ["反登場時、【明】属性になる"],
+			"zh": ["初始获得【明】属性"]
+		}
+	},
 	"yinyang_target_opposite": {
 		"tooltip": {
 			"en": ["Targets units of opposing element first"],
 			"ja": ["反対属性の相手を優先して攻撃する"],
-			"zh": ["优先攻击相反属性的我方单位 "]
+			"zh": ["优先攻击相反属性的我方单位"]
 		}
 	},
 	"yinyang_same_block": {
@@ -2838,11 +2845,17 @@
 		}
 	},
 	"caster_frost_attack": {
+		"type": "skill",
+		"initSp": 0,
+		"spCost": 2,
+		"skillType": "INCREASE_WHEN_ATTACK",
+		"suffix": { "en": "Skill", "ja": "氷弾", "zh": "寒霜一击" },
 		"value": 10,
+		"can_silence":true,
 		"tooltip": {
-			"en": ["Every 3rd attack inflicts Cold❄ for <v.value>s{can_silence}"],
-			"ja": ["攻撃2回の度に次の攻撃に相手を<v.value>秒【寒冷❄】効果を与える{can_silence}"],
-			"zh": ["攻击2次后，下一次攻击会对攻击目标施加持续<v.value>秒的寒冷❄{can_silence}"]
+			"en": ["Next attack nflicts Cold❄ for <v.value>s"],
+			"ja": ["次の攻撃に相手を<v.value>秒【寒冷❄】効果を与える"],
+			"zh": ["下一次攻击会对攻击目标施加持续<v.value>秒的寒冷❄"]
 		}
 	},
 	"DOL_regen": {
@@ -7693,9 +7706,7 @@
 			"en": [
 				"Attacks prioritize targeting friendly units on the right side of an Emergency Heater"
 			],
-			"ja": [
-				"非常用ストーブの空気口に配置された味方を優先して狙う"
-			],
+			"ja": ["非常用ストーブの空気口に配置された味方を優先して狙う"],
 			"zh": ["优先攻击部署于点燃的紧急供暖器右侧的目标"]
 		}
 	}

@@ -1113,6 +1113,164 @@
 		"special": ["lone", "condtr_1", "condtr_2"],
 		"status_immune": []
 	},
+	"trap_137_winfire": {
+		"key": "trap_137_winfire",
+		"name_zh": "紧急供暖器",
+		"name_ja": "非常用ストーブ",
+		"name_en": "Emergency Heater",
+		"desc_zh": "更容易受到我方单位的攻击；部署在周围的干员可以免疫封冻环境效果",
+		"desc_ja": "味方から攻撃されやすい\n起動すると周囲にいる味方ユニットの<極寒>の環境効果を無効化する",
+		"desc_en": "More likely to be attacked by your units; nearby Operators are immune to the Frigid environmental effect",
+		"tauntLevel": 0,
+		"group": "ally",
+		"modelType": null,
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 40000,
+				"atk": 334,
+				"def": 0,
+				"res": 10.0,
+				"blockCnt": 0,
+				"aspd": 1.0,
+				"rangeId": null
+			},
+			{
+				"hp": 40000,
+				"atk": 3000,
+				"def": 0,
+				"res": 10.0,
+				"blockCnt": 0,
+				"aspd": 1.0,
+				"rangeId": null
+			}
+		],
+		"skills": ["sktok_winfire"],
+		"talents": [],
+		"special": [],
+		"status_immune": []
+	},
+	"trap_139_dhtl": {
+		"key": "trap_139_dhtl",
+		"name_zh": "阻流阀",
+		"name_ja": "水門",
+		"name_en": "Throttle Valve",
+		"desc_zh": null,
+		"desc_ja": null,
+		"desc_en": null,
+		"tauntLevel": 0,
+		"group": "ally",
+		"modelType": null,
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 100,
+				"atk": 0,
+				"def": 0,
+				"res": 0.0,
+				"blockCnt": 0,
+				"aspd": 1.0,
+				"rangeId": null
+			}
+		],
+		"skills": ["sktok_dhtl_1", "sktok_dhtl_2"],
+		"talents": [],
+		"special": [],
+		"status_immune": []
+	},
+	"trap_141_sheltr": {
+		"key": "trap_141_sheltr",
+		"name_zh": "封阻物",
+		"name_ja": "バリケード",
+		"name_en": "Barricade",
+		"desc_zh": "不会被敌人远程攻击",
+		"desc_ja": "敵の遠距離攻撃の対象にならない",
+		"desc_en": "Cannot be targeted by enemy ranged attacks",
+		"tauntLevel": 0,
+		"group": "ally",
+		"modelType": null,
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 5000,
+				"atk": 0,
+				"def": 200,
+				"res": 0.0,
+				"blockCnt": 3,
+				"aspd": 1.0,
+				"rangeId": "0-1"
+			}
+		],
+		"skills": [],
+		"talents": [],
+		"special": [],
+		"status_immune": []
+	},
+	"trap_147_spblls": {
+		"key": "trap_147_spblls",
+		"name_zh": "巫术弩炮",
+		"name_ja": "巫術バリスタ",
+		"name_en": "Witchcraft Ballista",
+		"desc_zh": null,
+		"desc_ja": null,
+		"desc_en": null,
+		"tauntLevel": 0,
+		"group": "ally",
+		"modelType": null,
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 14000,
+				"atk": 700,
+				"def": 300,
+				"res": 20.0,
+				"blockCnt": 3,
+				"aspd": 1.0,
+				"rangeId": "0-1"
+			},
+			{
+				"hp": 43000,
+				"atk": 3600,
+				"def": 300,
+				"res": 20.0,
+				"blockCnt": 3,
+				"aspd": 1.0,
+				"rangeId": "0-1"
+			}
+		],
+		"skills": ["sktok_spblls"],
+		"talents": [],
+		"special": [],
+		"status_immune": []
+	},
+	"trap_155_aegiret": {
+		"key": "trap_155_aegiret",
+		"name_zh": "航道信标",
+		"name_ja": "航路ビーコン",
+		"name_en": "Waterway Beacon",
+		"desc_zh": null,
+		"desc_ja": null,
+		"desc_en": null,
+		"tauntLevel": 0,
+		"group": "ally",
+		"modelType": null,
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 8000,
+				"atk": 100,
+				"def": 500,
+				"res": 0.0,
+				"blockCnt": 0,
+				"aspd": 1.0,
+				"rangeId": "x-2"
+			}
+		],
+		"skills": ["sktok_aegiret_1"],
+		"talents": [],
+		"special": [],
+		"status_immune": []
+	},
 	"trap_184_vtarsn": {
 		"key": "trap_184_vtarsn",
 		"name_zh": "军工厂指令平台",
@@ -1124,7 +1282,7 @@
 		"tauntLevel": 0,
 		"group": "ally",
 		"modelType": null,
-		"hideTile": [false],
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 7500,
@@ -1152,7 +1310,7 @@
 		"tauntLevel": 0,
 		"group": "ally",
 		"modelType": null,
-		"hideTile": [false],
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 30000,
@@ -1180,7 +1338,7 @@
 		"tauntLevel": 0,
 		"group": "ally",
 		"modelType": null,
-		"hideTile": [false],
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 1000,
@@ -1208,7 +1366,7 @@
 		"tauntLevel": 0,
 		"group": "enemy",
 		"modelType": null,
-		"hideTile": [false],
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 1000,
@@ -1236,7 +1394,7 @@
 		"tauntLevel": 0,
 		"group": "ally",
 		"modelType": null,
-		"hideTile": [false],
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 10000,
@@ -1262,6 +1420,34 @@
 		"special": [],
 		"status_immune": []
 	},
+	"trap_219_fttreant": {
+		"key": "trap_219_fttreant",
+		"name_zh": "盾与墙",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": "遮挡我方单位的视野",
+		"desc_ja": "",
+		"desc_en": "",
+		"tauntLevel": 0,
+		"group": "ally",
+		"modelType": null,
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 40000,
+				"atk": 0,
+				"def": 1000,
+				"res": 50.0,
+				"blockCnt": 0,
+				"aspd": 1.0,
+				"rangeId": "x-5"
+			}
+		],
+		"skills": ["sktok_fttreant_1"],
+		"talents": [],
+		"special": [],
+		"status_immune": []
+	},
 	"trap_221_ftshad": {
 		"key": "trap_221_ftshad",
 		"name_zh": "空壳",
@@ -1273,7 +1459,7 @@
 		"tauntLevel": 0,
 		"group": "ally",
 		"modelType": null,
-		"hideTile": [false],
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 10000,
@@ -1301,7 +1487,7 @@
 		"tauntLevel": 0,
 		"group": "ally",
 		"modelType": null,
-		"hideTile": [false],
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 10000,
@@ -1310,6 +1496,34 @@
 				"res": 60.0,
 				"blockCnt": 0,
 				"aspd": 22.0,
+				"rangeId": null
+			}
+		],
+		"skills": [],
+		"talents": [],
+		"special": [],
+		"status_immune": []
+	},
+	"trap_232_mpgroub": {
+		"key": "trap_232_mpgroub",
+		"name_zh": "“风雪中的影子”",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": null,
+		"desc_ja": "",
+		"desc_en": "",
+		"tauntLevel": 0,
+		"group": "enemy",
+		"modelType": null,
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 9000,
+				"atk": 450,
+				"def": 1250,
+				"res": 60.0,
+				"blockCnt": 0,
+				"aspd": 3.0,
 				"rangeId": null
 			}
 		],
@@ -1329,7 +1543,7 @@
 		"tauntLevel": 0,
 		"group": "ally",
 		"modelType": null,
-		"hideTile": [false],
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 3000,
@@ -1357,7 +1571,7 @@
 		"tauntLevel": 0,
 		"group": "ally",
 		"modelType": null,
-		"hideTile": [false],
+		"hideTile": false,
 		"stats": [
 			{
 				"hp": 10000,
