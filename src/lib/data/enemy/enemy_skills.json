@@ -4110,11 +4110,17 @@
 			"zh": ["蓄力约5s后，对目标造成攻击力200%的{arts}伤害，之后攻击速度+<v.value>，持续20s"]
 		}
 	},
-	"smsbr_1": {
+	"atk_ms_up": {
+		"speed": 300,
+		"duration": 2,
+		"cooltime": 5,
 		"tooltip": {
-			"en": ["When attacked gains Movespeed +300% for 2s", "CD 5s"],
-			"ja": ["ダメージを受けると移动速度が2秒間300%増加、CD5秒"],
-			"zh": ["受到伤害后移动速度+300%、持续2s", "5s内无法再次触发此效果"]
+			"en": ["When attacked gains Movespeed +<v.speed>% for <v.duration>s", "CD <v.cooltime>s"],
+			"ja": ["ダメージを受けると移动速度が<v.duration>秒間<v.speed>%増加、CD<v.cooltime>秒"],
+			"zh": [
+				"受到伤害后移动速度+<v.speed>%、持续<v.duration>s",
+				"<v.cooltime>s内无法再次触发此效果"
+			]
 		}
 	},
 	"smwiz_1": {
@@ -5160,9 +5166,9 @@
 			"zh": ["在场期间，于所在地块中心召唤范围的年代印痕", "被击败后掉落3个构想"]
 		}
 	},
-	"statue_enemy":{
+	"statue_enemy": {
 		"tooltip": {
-			"en": ["Unable to move, cannot be blocked, immune to unbalance","Not part of enemy count"],
+			"en": ["Unable to move, cannot be blocked, immune to unbalance", "Not part of enemy count"],
 			"ja": ["非重要標的、敵数にカウントされない、移動しない、ブロックされない、強制移動無効"],
 			"zh": ["非首要目标，不计入待处理目标数量；失衡免疫，自缚，无法被阻挡"]
 		}
@@ -7514,6 +7520,183 @@
 			"zh": [
 				"半径2.5范围内的每个除圣徒像/圣徒祈祷像/“牧首”/入梦砖外的敌方单位每1s获得其最大生命值2%的{phys}/{arts}屏障（同类效果可叠加，总量不超过其最大生命值的50%）"
 			]
+		}
+	},
+	"blight_stealth": {
+		"tooltip": {
+			"en": ["Gains Stealth while on a Farmland with at least 1 Blight"],
+			"ja": ["汚染度1以上の水田にいる時、ステルス状態になる"],
+			"zh": ["位于病害值>0的田地地块时获得隐匿"]
+		}
+	},
+	"dhxts_blockage": {
+		"value": 1,
+		"tooltip": {
+			"en": [
+				"While not blocked and a Throttle Valve is within range, does ranged attack dealing 1% of the Valve's HP as True damage",
+				"Loses stealth while attacking"
+			],
+			"ja": [
+				"非ブロック時、水門に対して遠距離攻撃を行い、水門の最大HPの<v.value>%の確定ダメージを与え続ける",
+				"この間は移動せず、ステルスが解除される"
+			],
+			"zh": [
+				"【啃】仅未被阻挡时可触发：对攻击范围内的1个阻流阀造成目标生命上限<v.value>%的真实伤害",
+				"※技能持续期间，天赋隐匿效果失效",
+				"※因技能持续等于攻击间隔，持续发动时将无法移动"
+			]
+		}
+	},
+	"dhdts_blockage": {
+		"value": 50,
+		"tooltip": {
+			"en": [
+				"When stepping over a Throttle Valve, causes it to receive <v.value>% of its HP as True damage"
+			],
+			"ja": ["接触した水門に、水門の最大HPの<v.value>%の確定ダメージを与える"],
+			"zh": ["进入阻流阀半径0.5范围内时立刻对其造成目标最大生命值<v.value>%的真实伤害"]
+		}
+	},
+	"dhzts_absorb": {
+		"tooltip": {
+			"en": [
+				"While reviving, if the Farmland the Miasma is on has at least 1 Blight, drains 10 Blight every 0.5 seconds and gains 1 stack of powerup",
+				"Gains DEF +30% x stacks and attacks deal an additional instance of Arts damage equal to 10% ATK x stacks"
+			],
+			"ja": [
+				"復活中、0.5秒ごとに自身がいる水田の汚染度をチェック。1以上なら、そのたびに汚染度を-10して自身を1回強化する",
+				"復活後、防御力が「30%×強化回数」分上昇し、通常攻撃に「10%×強化回数」の術ダメージが追加される"
+			],
+			"zh": [
+				"重生期间每0.5s，若自身所在田地地块病害值>0，则降低此地块10点病害值，并获得1层充能",
+				"重生后，自身防御力+30%*充能层数，普通攻击附加10%*充能层数的法术普通伤害"
+			]
+		}
+	},
+	"pollute_blight": {
+		"value": 5,
+		"tooltip": {
+			"en": [
+				"When defeated, increases the Blight of the surrounding Farmland in 1 tile radius or the unit blocking them is on by 5"
+			],
+			"ja": ["倒された時、自身（ブロック時はブロックした味方）の半径1.0以内の水田の汚染度+5"],
+			"zh": ["被击倒时，令阻挡自身的单位(被阻挡时)/自身(未被阻挡时)半径1.0范围内的田地地块病害值+5"]
+		}
+	},
+	"dhbow_arts": {
+		"tooltip": {
+			"en": [
+				"Attacks deal {arts} damage instead while on a Farmland with at least 1 Blight{can_silence}"
+			],
+			"ja": ["汚染度1以上の水田にいる時、術攻撃に変化する{can_silence}"],
+			"zh": ["位于病害值>0的田地地块时，攻击造成法术伤害{can_silence}"]
+		}
+	},
+	"dhele_charge": {
+		"type": "skill",
+		"initCooldown": 7,
+		"cooldown": 7,
+		"suffix": { "en": "Skill", "ja": "汚", "zh": "污" },
+		"tooltip": {
+			"en": [
+				"Targets 1 melee friendly unit regardless of distance and also damages units in the adjacent 4 tiles",
+				"Attacks deal an additional instance of {arts} damage equal to 80% ATK and increases the Blight of the Farmland the target is on by 5 while on a Farmland with at least 1 Blight"
+			],
+			"ja": [
+				"マップ上の地上ユニット1体に向けて攻撃し、対象と周囲4マスの味方に攻撃力の100%の物理ダメージを与える",
+				"汚染度1以上の水田にいる場合、攻撃力の80%の術ダメージが追加され、対象がいる水田の汚染度+5"
+			],
+			"zh": [
+				"攻击场上1名部署于地面的我方单位，对目标及其周围4格的单位造成攻击力100%的{phys}伤害",
+				"自身位于病害值>0的田地地块时，当次攻击额外附加攻击力80%的{arts}普通伤害，且令目标地块病害值+5"
+			]
+		}
+	},
+	"winbal_stove": {
+		"tooltip": {
+			"en": ["While within effect range of a lit Emergency Heater, attacks deal {phys} damage"],
+			"ja": [
+				"通常攻撃で{arts}ダメージを与える",
+				"起動中の非常用ストーブの範囲内では、{phys}ダメージに変化する"
+			],
+			"zh": ["攻击造成{arts}伤害", "位于紧急供暖器的影响范围内时，伤害类型变为{phys}"]
+		}
+	},
+	"windog_ms": {
+		"tooltip": {
+			"en": ["While within effect range of a lit Emergency Heater, Movespeed is reduced by 70%"],
+			"ja": ["起動中の非常用ストーブの範囲内では、移動速度-70%"],
+			"zh": ["位于紧急供暖器的影响范围内时，移动速度最终-70%"]
+		}
+	},
+	"winbom_atk": {
+		"tooltip": {
+			"en": [
+				"Normal attacks deals 3 instances of 100% ATK as {arts} damage over 4 seconds, thereafter enters a 3 seconds cooldown"
+			],
+			"ja": [
+				"通常攻撃時、4秒間に攻撃力の100%の術ダメージを3回与える。その後、3秒間は通常攻撃しない"
+			],
+			"zh": [
+				"普通攻击不依赖攻击间隔。单次普通攻击持续4s，共造成3次攻击力100%的法术伤害，结束后进入3s冷却"
+			]
+		}
+	},
+	"winbom_death": {
+		"tooltip": {
+			"en": [
+				"Explodes when defeated, dealing 100% ATK as {arts} damage to friendly units within 1.55 tile radius{can_silence}{ignore_camou}"
+			],
+			"ja": [
+				"死亡時、自身を中心とした3×3マス内の起動中の非常用ストーブを停止させ、半径1.55以内の味方全員に攻撃力の100%の{arts}ダメージと10秒間の寒冷を与える{can_silence}{ignore_camou}"
+			],
+			"zh": [
+				"死亡后熄灭周围3x3范围内的紧急供暖器并对半径1.55范围内的我方单位造成攻击力100%的{arts}溅射伤害与10s寒冷{can_silence}{ignore_camou}"
+			]
+		}
+	},
+	"winmag_splash": {
+		"tooltip": {
+			"en": [
+				"While not within effect range of a lit Emergency Heater, Attacks do 100% splash damage to 4 tiles surrounding target{ignore_camou}"
+			],
+			"ja": [
+				"通常攻撃時、対象と周囲4マスの味方に攻撃力の100%の{arts}ダメージを与える{ignore_camou}",
+				"起動中の非常用ストーブの範囲内では、単体攻撃に変化する"
+			],
+			"zh": [
+				"自身未处于点燃的紧急供暖器的影响范围内时，攻击对目标及其周围4格的我方单位同时造成伤害{ignore_camou}"
+			]
+		}
+	},
+	"winshd_buff": {
+		"def": { "multiplier": 1, "order": "initial" },
+		"res": { "fixed": 50, "order": "initial" },
+		"suffix": { "en": "MAX", "ja": "MAX", "zh": "满层" },
+		"tooltip": {
+			"en": [
+				"Every 3 seconds, gains a buff stack giving DEF +10% and RES +5, stacks additively (max 10 stacks)",
+				"While within effect range of a lit Emergency Heater, loses 1 stack of the DEF/RES buff every second (cannot be reduced below 0)"
+			],
+			"ja": [
+				"3秒ごとに防御力+10%・術耐性+5（10回まで累積）",
+				"起動中の非常用ストーブの範囲内ではこのバフが増えなくなり、3秒ごとに1つ解除される"
+			],
+			"zh": [
+				"每3s获得1层增益：防御力+10%，法术抗性+5（上限10层）",
+				"位于点燃的紧急供暖器范围内时，停止获得以上增益且每3s减少1层"
+			]
+		}
+	},
+	"stove_priority": {
+		"tooltip": {
+			"en": [
+				"Attacks prioritize targeting friendly units on the right side of an Emergency Heater"
+			],
+			"ja": [
+				"非常用ストーブの空気口に配置された味方を優先して狙う"
+			],
+			"zh": ["优先攻击部署于点燃的紧急供暖器右侧的目标"]
 		}
 	}
 }
