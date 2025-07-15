@@ -2427,11 +2427,27 @@
 		}
 	},
 	"yinyang": {
-		"value":1,
+		"value": 1,
 		"tooltip": {
 			"en": ["Initially has Ming attribute"],
 			"ja": ["反登場時、【明】属性になる"],
 			"zh": ["初始获得【明】属性"]
+		}
+	},
+	"yinyang_effect": {
+		"atk": { "multiplier": 1.4 },
+		"suffix": { "en": "Opp Ele", "ja": "反対属性", "zh": "异属性" },
+		"hits": 1,
+		"tooltip": {
+			"en": [
+				"Reduces damage dealt against units with a matching attribute to 60%, increases damage dealt against units with an opposing attribute to <v.atk.multiplier>%"
+			],
+			"ja": [
+				"同じ属性の味方に対するダメージが攻撃力の60%に減少する，反対属性の味方に対するダメージが攻撃力の<v.atk.multiplier>%に増加する"
+			],
+			"zh": [
+				"对同属性单位进行攻击时，攻击倍率降低至60%；对异属性单位进行攻击时，攻击倍率提升至<v.atk.multiplier>%"
+			]
 		}
 	},
 	"yinyang_target_opposite": {
@@ -2852,7 +2868,7 @@
 		"skillType": "INCREASE_WHEN_ATTACK",
 		"suffix": { "en": "Skill", "ja": "氷弾", "zh": "寒霜一击" },
 		"value": 10,
-		"can_silence":true,
+		"can_silence": true,
 		"tooltip": {
 			"en": ["Next attack nflicts Cold❄ for <v.value>s"],
 			"ja": ["次の攻撃に相手を<v.value>秒【寒冷❄】効果を与える"],
@@ -4331,7 +4347,7 @@
 		}
 	},
 	"mhkryk_1": {
-		"spineState":0,
+		"spineState": 0,
 		"tooltip": {
 			"en": [
 				"After feeding on a Chitotex Clawbeast, leaves its shell to use as a defensive tool, significantly lowering all damage except to the rear."

@@ -28,16 +28,16 @@ export class SkillManager {
 			if (skill.key === 'transform') {
 				const key = skill.value;
 				this.addTransformModel(key);
-			}
-			if (skill.accelerate) {
+			} else if (skill.accelerate) {
 				this.accelerateParams = skill.accelerate;
-			}
-			if (skill.key === 'parasitic') {
+			} else if (skill.key === 'parasitic') {
 				this.addParasiticSprite();
+			} else if (skill.key === 'yinyang') {
+				this.addYinyangEffect(skill.value);
 			}
 		}
 
-		if (['enemy_2042_syboss', 'enemy_2089_skzjkl','enemy_2018_csdoll'].includes(this.enemy.key)) {
+		if (['enemy_2042_syboss', 'enemy_2089_skzjkl', 'enemy_2018_csdoll'].includes(this.enemy.key)) {
 			this.activeSkills = skills
 				.filter(
 					(ele) =>
@@ -56,6 +56,24 @@ export class SkillManager {
 			this.accelerateParams = skillData.accelerateParams;
 			this.accelerationStacks = skillData.accelerationStacks;
 		}
+	}
+	addYinyangEffect(value:1|0) {
+		if (this.gameManager.isSimulation) return;
+		const texture = this.assetManager.textures.get('parasitic')?.texture;
+		const material = new THREE.SpriteMaterial({
+			map: texture,
+			transparent: true,
+			depthTest: false
+		});
+		material.color.multiplyScalar(0.6);
+		const sprite = new THREE.Sprite(material);
+		if(value === 0){
+			sprite.material.color.set(0x000000)
+		}
+		sprite.scale.set(50, 50, 50);
+		sprite.position.y = this.enemy.height + 20;
+		sprite.position.z = 40;
+		this.enemy.meshGroup.add(sprite);
 	}
 	addParasiticSprite() {
 		if (this.gameManager.isSimulation) return;
