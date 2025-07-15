@@ -131,7 +131,7 @@ export const setOtherBuffsList = (
 	enemies: Enemy[],
 	mapConfig: MapConfig,
 	language: Language,
-	difficulty: number
+	difficulty=0
 ) => {
 	const buffsList = [];
 	switch (rogueTopic) {

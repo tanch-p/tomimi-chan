@@ -7,33 +7,51 @@
 		specialMods,
 		runes,
 		selectedRelics,
-		selectedFloor,
+		otherBuffsList,
 		eliteMode,
-		otherBuffsList
 	} from './stores';
 	import DifficultySelect from '../../../../../lib/components/DifficultySelect.svelte';
-	import SamiNav from '../../../(app)/sami/SamiNavTemp.svelte';
+	import StageNav from '../../../(app)/sui/StageNav.svelte';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import FooterBar from '$lib/components/FooterBar.svelte';
 	import FloorTitle from './FloorTitle.svelte';
 	import StageHeader from '$lib/components/StageHeader.svelte';
-	import StageDrops from './StageDrops.svelte';
+	import relicsList from '$lib/data/is/sui/relics_sui.json';
+	// import StageDrops from './StageDrops.svelte';
 	import { setOtherBuffsList } from '$lib/functions/lib';
 	import StageSharedContainer from '$lib/components/StageSharedContainer.svelte';
 	import StageHeadMeta from '$lib/components/StageHeadMeta.svelte';
 
 	export let data: PageData;
+
 	$: if (data.mapConfig) {
 		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies, data.mapConfig, language);
-		eliteMode.set(false);
 		runes.set(data.mapConfig.n_mods);
 	}
+
 	$: language = data.language;
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 	const rogueTopic: RogueTopic = data.rogueTopic;
+
+	// function updateReqRelic(levelId, selectedRelics) {
+	// 	if (
+	// 		ro4_ALTER_BOSS_STAGES.includes(levelId) &&
+	// 		!$selectedRelics.find((item) => item.id === 'rogue_4_relic_explore_7')
+	// 	) {
+	// 		const relic = relicsList.find((item) => item.id === 'rogue_4_relic_explore_7');
+	// 		selectedRelics.update((list) => (list = [...list, relic]));
+	// 	}
+	// 	if (
+	// 		['level_rogue4_b-7'].includes(levelId) &&
+	// 		!$selectedRelics.find((item) => item.id === 'rogue_4_relic_final_6')
+	// 	) {
+	// 		const relic = relicsList.find((item) => item.id === 'rogue_4_relic_final_6');
+	// 		selectedRelics.update((list) => (list = [...list, relic]));
+	// 	}
+	// }
 </script>
 
-<StageHeadMeta mapConfig={data.mapConfig} {stageName} {language}/>
+<StageHeadMeta mapConfig={data.mapConfig} {stageName} {language} />
 
 <StageHeader {language}>
 	<FloorTitle slot="floorTitle" stageFloors={data.mapConfig.floors} {language} />
@@ -45,12 +63,13 @@
 			mapConfig={data.mapConfig}
 			{language}
 			{stageName}
-			eliteMode={$eliteMode}
+			{eliteMode}
 			{rogueTopic}
+			difficulty={$difficulty}
 		>
-			<StageDrops slot="drops" mapConfig={data.mapConfig} {language} {rogueTopic} {selectedFloor} />
+			<!-- <StageDrops slot="drops" mapConfig={data.mapConfig} {language} {rogueTopic} {selectedFloor} /> -->
 		</StageInfo>
-		<DifficultySelect {language} {difficulty} {rogueTopic} />
+		<DifficultySelect {language} {difficulty} {rogueTopic} maxDiff={15} mode={$difficultyMode} />
 		<StageSharedContainer
 			{language}
 			traps={data.traps}
@@ -63,9 +82,10 @@
 			{runes}
 			{rogueTopic}
 			{selectedRelics}
+			otherStores={{}}
 			difficulty={$difficulty}
 		>
-			<SamiNav slot="nav" {language} />
+			<StageNav {language} slot="nav" />
 		</StageSharedContainer>
 	</div>
 </main>

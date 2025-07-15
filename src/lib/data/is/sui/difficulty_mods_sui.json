@@ -1,0 +1,220 @@
+[
+	{
+		"difficulty": 0,
+		"ruleDesc": "初始目标生命上限较高，不容易进入年代",
+		"addDesc": "深入故事将面临更严峻的考验",
+		"effects": [],
+		"floorBuff": 0
+	},
+	{
+		"difficulty": 1,
+		"ruleDesc": "初始目标生命上限-2",
+		"addDesc": "深入故事将面临更严峻的考验",
+		"effects": [],
+		"floorBuff": 0
+	},
+	{
+		"difficulty": 2,
+		"ruleDesc": "更容易进入年代",
+		"addDesc": "深入故事将面临更严峻的考验",
+		"effects": [],
+		"floorBuff": 0
+	},
+	{
+		"difficulty": 3,
+		"ruleDesc": "<年代之刺>与<饮泣之刺>的最大生命值+20%",
+		"addDesc": "深入故事将面临更严峻的考验",
+		"effects": [
+			{
+				"targets": ["enemy_2073_skzrck", "trap_760_skztzs"],
+				"mods": [
+					{
+						"key": "hp",
+						"value": 0.2,
+						"mode": "mul",
+						"order":"initial"
+					}
+				]
+			}
+		],
+		"floorBuff": 0
+	},
+	{
+		"difficulty": 4,
+		"ruleDesc": "精英及领袖敌人的生命值+20%",
+		"addDesc": "深入故事将面临更严峻的考验",
+		"effects": [
+			{
+				"targets": ["ELITE", "BOSS"],
+				"mods": [
+					{
+						"key": "hp",
+						"value": 1.2,
+						"mode": "mul"
+					}
+				]
+			}
+		],
+		"floorBuff": 0
+	},
+	{
+		"difficulty": 5,
+		"ruleDesc": "思维负担变为标准",
+		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+1%\\n思维负担变为标准",
+		"effects": [],
+		"floorBuff": 0.01
+	},
+	{
+		"difficulty": 6,
+		"ruleDesc": "年代进入扩张期",
+		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+2%\\n探险的年代进入扩张期\\n思维负担变为标准",
+		"effects": [],
+		"floorBuff": 0.02
+	},
+	{
+		"difficulty": 7,
+		"ruleDesc": "精英及领袖敌人的攻击力+10%",
+		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+3%\\n探险的年代进入扩张期\\n思维负担变为标准",
+		"effects": [
+			{
+				"targets": ["ELITE", "BOSS"],
+				"mods": [
+					{
+						"key": "atk",
+						"value": 1.1,
+						"mode": "mul"
+					}
+				]
+			}
+		],
+		"floorBuff": 0.03
+	},
+	{
+		"difficulty": 8,
+		"ruleDesc": "初始目标生命上限-2",
+		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+5%\\n探险的年代进入扩张期\\n思维负担变为标准",
+		"effects": [],
+		"floorBuff": 0.05
+	},
+	{
+		"difficulty": 9,
+		"ruleDesc": "我方单位受到的凋亡损伤提升30%",
+		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+6%\\n探险的年代进入扩张期\\n思维负担变为标准",
+		"effects": [],
+		"floorBuff": 0.06
+	},
+	{
+		"difficulty": 10,
+		"ruleDesc": "可同时部署人数-1",
+		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+7%\\n探险的年代进入扩张期\\n思维负担变为标准",
+		"effects": [
+			{
+				"targets": ["ELITE", "BOSS"],
+				"mods": [
+					{
+						"key": "dmg_res",
+						"value": 0.1,
+						"mode": "mul",
+						"name": "protect"
+					}
+				]
+			}
+		],
+		"floorBuff": 0.07
+	},
+	{
+		"difficulty": 11,
+		"ruleDesc": "思维负担变为沉重",
+		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+8%\\n探险的年代进入扩张期\\n思维负担变为沉重",
+		"effects": [],
+		"floorBuff": 0.08
+	},
+	{
+		"difficulty": 12,
+		"ruleDesc": "年代进入鼎盛期",
+		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+10%\\n探险的年代进入扩张期\\n思维负担变为沉重",
+		"effects": [],
+		"floorBuff": 0.1
+	},
+	{
+		"difficulty": 13,
+		"ruleDesc": "招募5星干员的希望消耗+1，博卓卡斯替，圣卫铳骑的圣卫坚盾持续时间减少",
+		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+13%\\n探险的年代进入鼎盛期\\n思维负担变为沉重",
+		"effects": [
+			{
+				"targets": ["trap_763_skzddd"],
+				"special": {
+					"skzddd_0": {
+						"value": 80
+					}
+				}
+			},
+			{
+				"targets": ["enemy_2082_skzdd"],
+				"special": {
+					"skzdd_2_3": {
+						"duration": 80
+					}
+				}
+			}
+		],
+		"floorBuff": 0.13
+	},
+	{
+		"difficulty": 14,
+		"ruleDesc": "处于年代印痕中的敌人受到的物理与法术伤害降低50%，特雷西斯，黑冠尊主的最大生命值提升",
+		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+16%\\n探险的年代进入鼎盛期\\n思维负担变为沉重",
+		"effects": [
+			{
+				"targets": ["enemy_2081_skztxs"],
+				"mods": [
+					{
+						"key": "hp",
+						"value": 1.5,
+						"mode": "mul"
+					}
+				]
+			}
+		],
+		"floorBuff": 0.16
+	},
+	{
+		"difficulty": 15,
+		"ruleDesc": "招募6星干员的希望消耗+1，“放逐的黑棺”的最大生命值提升",
+		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+20%\\n探险的年代进入鼎盛期\\n思维负担变为沉重",
+		"effects": [
+			{
+				"targets": ["enemy_2083_skzhg"],
+				"mods": [
+					{
+						"key": "hp",
+						"value": 2,
+						"mode": "mul"
+					}
+				]
+			}
+		],
+		"floorBuff": 0.2
+	},
+	{
+		"difficulty": 16,
+		"ruleDesc": "开通纵向通路消耗的构想+1",
+		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+21%\\n探险的年代进入鼎盛期\\n思维负担变为沉重",
+		"effects": [],
+		"floorBuff": 0.21
+	},
+	{
+		"difficulty": 17,
+		"ruleDesc": "进入灰铸迷城时，随机获得一个遭诅古物",
+		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+22%\\n探险的年代进入鼎盛期\\n思维负担变为沉重",
+		"effects": [],
+		"floorBuff": 0.22
+	},
+	{
+		"difficulty": 18,
+		"ruleDesc": "思维负担变为崩溃",
+		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+22%\\n探险的年代进入鼎盛期\\n思维负担变为崩溃",
+		"effects": [],
+		"floorBuff": 0.22
+	}
+]

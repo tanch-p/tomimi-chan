@@ -4,6 +4,7 @@
 	import banner_phantom from '$lib/images/banner_phantom_800px.webp';
 	import banner_sami from '$lib/images/banner_sami_800px.webp';
 	import banner_sarkaz from '$lib/images/banner_sarkaz_800px.webp';
+	import banner_sui from '$lib/images/banner_sami_800px.webp';
 	import laoli_banner from '$lib/images/laoli_sim.webp';
 	import chara_banner from '$lib/images/chara_banner.webp';
 	import translations from '$lib/translations.json';
@@ -15,6 +16,7 @@
 
 	$: language = data.language;
 	const is_banners = [
+			{ alt: 'rogue_sui', src: banner_sui, href: 'sui' },
 		{ alt: 'rogue_skz', src: banner_sarkaz, href: 'sarkaz' },
 		{ alt: 'rogue_sami', src: banner_sami, href: 'sami' },
 		{ alt: 'rogue_mizuki', src: banner_mizuki, href: 'mizuki' },
