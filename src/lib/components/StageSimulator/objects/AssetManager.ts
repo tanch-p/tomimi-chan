@@ -375,7 +375,7 @@ export class AssetManager {
 	}
 
 	async loadAssets(mapConfig) {
-		this.texturesLoaded=false;
+		this.texturesLoaded = false;
 		this.models.clear();
 		this.spineMap.clear();
 		this.spineAssetManager.removeAll();
@@ -402,6 +402,7 @@ export class AssetManager {
 				})
 			);
 		}
+		this.loadEnemyIcons(promises, mapConfig);
 
 		if (!this.texturesLoaded) {
 			const loader = new FontLoader();
@@ -573,5 +574,33 @@ export class AssetManager {
 		this.models.clear();
 		this.spineMap.clear();
 		this.spineAssetManager.removeAll();
+	}
+
+	loadEnemyIcons(promises, mapConfig) {
+		//to use for enemies that are of 3D models but not available, enemy_10061_cjglon, enemy_10062_cjblon...
+		const keysToHandle = ['enemy_10061_cjglon', 'enemy_10062_cjblon'];
+		for (const key of keysToHandle) {
+			if (mapConfig.enemies.some((enemy) => enemy.prefabKey === key)) {
+				promises.push(
+					new Promise((resolve, reject) => {
+						this.textureLoader.load(
+							`/images/enemy_icons/${key}.webp`,
+							(texture) => {
+								resolve(texture);
+							},
+							undefined,
+							(error) => {
+								reject(error);
+							}
+						);
+					}).then((texture: THREE.Texture) => {
+						texture.colorSpace = THREE.SRGBColorSpace;
+						texture.magFilter = THREE.NearestFilter; // Keeps pixel art sharp
+						texture.minFilter = THREE.NearestFilter;
+						this.textures.set(key, { texture: texture, config: null });
+					})
+				);
+			}
+		}
 	}
 }

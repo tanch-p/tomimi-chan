@@ -233,7 +233,14 @@ export class Enemy {
 
 	initModel() {
 		let modelType = 'spine';
-		if (['enemy_2096_skzamj', 'enemy_2095_skzamf'].includes(this.key)) {
+		if (
+			[
+				'enemy_2096_skzamj',
+				'enemy_2095_skzamf',
+				'enemy_10061_cjglon',
+				'enemy_10062_cjblon'
+			].includes(this.key)
+		) {
 			modelType = 'texture'; //actually its 3D
 		}
 		if (this.gameManager.isSimulation) {
@@ -310,14 +317,23 @@ export class Enemy {
 		this.shadow = shadowMaterial;
 
 		if (modelType === 'texture') {
-			//only for rogue4_b-8 now
-			const texture = this.assetManager.textures.get('skzamj')?.texture;
+			let texture;
+			let modelScale = 100;
+			let spriteScale = 100;
+
+			if (this.gameManager.config.levelId === 'level_rogue4_b-8') {
+				modelScale = 65;
+				spriteScale = 75;
+				texture = this.assetManager.textures.get('skzamj')?.texture;
+			} else {
+				texture = this.assetManager.textures.get(this.key)?.texture;
+			}
 			const material = new THREE.SpriteMaterial({
 				map: texture,
 				transparent: true
 			});
 			const model = new THREE.Sprite(material);
-			model.scale.set(65, 65, 65);
+			model.scale.set(modelScale, modelScale, modelScale);
 			model.position.z = 40;
 			this.meshGroup.add(model);
 			this.texture = model;
@@ -328,7 +344,7 @@ export class Enemy {
 				color: 0x000021
 			});
 			const sprite = new THREE.Sprite(spriteMaterial);
-			sprite.scale.set(75, 75, 1);
+			sprite.scale.set(spriteScale, spriteScale, 1);
 			sprite.position.z = GameConfig.gridSize;
 			sprite.position.y = -GameConfig.gridSize * 0.15;
 			this.meshGroup.add(sprite);
@@ -336,10 +352,8 @@ export class Enemy {
 			sprite.userData.enemy = this;
 			this.gameManager.game.objects.push(sprite);
 			this.gameManager.scene.add(this.meshGroup);
-			this.meshGroup.renderOrder = 0;
-		}
-
-		if (modelType === 'spine') {
+			this.meshGroup.renderOrder = 5;
+		} else if (modelType === 'spine') {
 			this.skelData = this.assetManager.spineMap.get(this.key);
 			if (!this.skelData) {
 				return;
