@@ -20,7 +20,9 @@ const ENEMY_KEYS_TO_IGNORE = [
 	'enemy_1400_dhtbgj',
 	'enemy_1398_dhdcr',
 	'enemy_10009_sggem',
-	'enemy_1294_duchns'
+	'enemy_1294_duchns',
+	'enemy_2119_dyshhj_2',
+	'enemy_2121_dyspl2'
 ];
 const ENEMY_KEYS_TO_REPLACE = {
 	enemy_2097_skzfdd: 'enemy_2082_skzdd',

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import banner_sui from '$lib/images/banner_sami_800px.webp';
+	import banner_sui from '$lib/images/banner_sui.webp';
 	import translations from '$lib/translations.json';
 	import TogglePanel from '$lib/components/TogglePanel.svelte';
 	import HowToUse from '$lib/components/HowToUse.svelte';
@@ -12,10 +12,10 @@
 </script>
 
 <svelte:head>
-	<title>{translations[language].rouge_yan} / {translations[language].title_post}</title>
+	<title>{translations[language].rogue_yan} / {translations[language].title_post}</title>
 	<meta name="description" content={translations[language].title_post} />
 	<meta property="og:description" content={translations[language].title_post} />
-	<meta property="og:title" content={translations[language].rouge_yan} />
+	<meta property="og:title" content={translations[language].rogue_yan} />
 	<meta property="og:url" content={`https://tomimi.dev/${language}/sui`} />
 </svelte:head>
 

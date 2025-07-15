@@ -4,18 +4,13 @@
 	import FloorEffect from './FloorEffect.svelte';
 	import FloorSelect from './FloorSelect.svelte';
 	import translations from '$lib/translations.json';
-	import one from '$lib/images/is/mizuki/争斗.webp';
-	import two from '$lib/images/is/mizuki/徒长.webp';
-	import thr from '$lib/images/is/mizuki/众我.webp';
-	import fou from '$lib/images/is/mizuki/给养.webp';
+	import wrath_8 from '$lib/images/is/sui/rogue_5_wrath_8.webp';
 	import { difficulty, activeFloorEffects } from './stores';
 
 	export let optionsOpen: boolean, language: Language;
 
 	const lookup = {
-		rogue_4_disaster_1: one,
-		rogue_4_disaster_2: two,
-		rogue_4_disaster_5: thr
+		rogue_5_wrath_8: wrath_8,
 	};
 	suiTimeList.forEach((option) => {
 		option.src = lookup[option.iconId];

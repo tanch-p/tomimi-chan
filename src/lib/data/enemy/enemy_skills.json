@@ -155,7 +155,7 @@
 		}
 	},
 	"attack_stun": {
-		"value":4,
+		"value": 4,
 		"tooltip": {
 			"en": ["Attacks stun target for <v.value>s"],
 			"ja": ["攻撃が相手を<v.value>秒スタンする"],
@@ -286,30 +286,18 @@
 		}
 	},
 	"anvil_healing_aura": {
+		"defup": 200,
+		"regen": 200,
 		"tooltip": {
 			"en": [
-				"All enemy units within attack range (excluding self) gains 200 DEF and restores 200HP/s",
+				"All enemy units within attack range (excluding self) gains +<v.defup> DEF and restores <v.regen>HP/s",
 				"(does not stack){can_silence}"
 			],
 			"ja": [
-				"自分を除く攻撃範囲内の敵は、防御力+200、HPが毎秒200回復する (重複しない){can_silence}"
+				"自分を除く攻撃範囲内の敵は、防御力+<v.defup>、HPが毎秒<v.regen>回復する (重複しない){can_silence}"
 			],
 			"zh": [
-				"攻击范围内全体敌方单位 (不含自身) 防御力增加200，每秒恢复200生命值，不可叠加{can_silence}"
-			]
-		}
-	},
-	"anvil_modelB_healing_aura": {
-		"tooltip": {
-			"en": [
-				"All enemy units within attack range (excluding self) gains 300 DEF and restores 250HP/s",
-				"(does not stack){can_silence}"
-			],
-			"ja": [
-				"自分を除く攻撃範囲内の敵は、防御力+300、HPが毎秒250回復する (重複しない){can_silence}"
-			],
-			"zh": [
-				"攻击范围内全体敌方单位 (不含自身) 防御力增加300，每秒恢复250生命值，不可叠加{can_silence}"
+				"攻击范围内全体敌方单位 (不含自身) 防御力增加<v.defup>，每秒恢复<v.regen>生命值，不可叠加{can_silence}"
 			]
 		}
 	},
@@ -6987,14 +6975,6 @@
 			"zh": ["未被阻挡且未受到反隐效果影响时：不进行普通攻击，无法触发技能"]
 		}
 	},
-	"cnv_dmg_res": {
-		"value": 90,
-		"tooltip": {
-			"en": ["Gains <v.value>% Damage Reduction"],
-			"ja": ["受ける{phys}と{arts}ダメージが<v.value>%減少"],
-			"zh": ["获得<v.value>%的{phys}/{arts}减伤"]
-		}
-	},
 	"cnvsax_1": {
 		"tooltip": {
 			"en": ["When not in stealth, does melee normal attack dealing {phys} damage"],
@@ -7301,12 +7281,15 @@
 	"ftxjl_grow": {
 		"atk": { "multiplier": 0.8, "order": "initial" },
 		"suffix": { "en": "MAX", "ja": "MAX", "zh": "满层" },
-		"hits": 1,
+		"hits": null,
+		"hpup": 400,
+		"atkup": 80,
+		"duration": 30,
 		"tooltip": {
 			"en": [],
 			"ja": [],
 			"zh": [
-				"位于我方单位有效视野范围外时，部分属性在30s线性提升，最高提升至：最大生命值+400%、攻击力+80%",
+				"位于我方单位有效视野范围外时，部分属性在<v.duration>s线性提升，最高提升至：最大生命值+<v.hpup>%、攻击力+<v.atkup>%",
 				"位于我方单位有效视野范围内时，上述属性暂停提升 "
 			]
 		}
@@ -7732,10 +7715,10 @@
 			"zh": [""]
 		}
 	},
-	"dylbgg_battle": {
+	"dyyysg_summon": {
 		"type": "skill",
-		"initCooldown": 135,
-		"cooldown": 999,
+		"initCooldown": 3,
+		"cooldown": 15,
 		"suffix": { "en": "Skill", "ja": "汚", "zh": "污" },
 		"tooltip": {
 			"en": [],
@@ -7743,26 +7726,133 @@
 			"zh": [""]
 		}
 	},
-	"dyhlgy_battle":{
-		"type": "skill",
-		"initCooldown": 105,
-		"cooldown": 999,
-		"suffix": { "en": "Skill", "ja": "汚", "zh": "污" },
+	"yan_statue_standby": {
+		"standby": 30,
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": [""]
+			"zh": ["<v.standby>秒后苏醒"]
 		}
 	},
-	"dyyrzf_battle":{
-		"type": "skill",
-		"initCooldown": 105,
-		"cooldown": 999,
-		"suffix": { "en": "Skill", "ja": "汚", "zh": "污" },
+	"dyyrzf_block": {
+		"value_1": 150,
+		"value_2": 200,
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": [""]
+			"zh": [
+				"被阻挡时，自身与阻挡单位受到的物理/法术伤害提升至<v.value_1>%；",
+				"玉双剑在场时该效果改为提升至<v.value_2>%"
+			]
+		}
+	},
+	"dyyrz2_block": {
+		"value_1": 150,
+		"value_2": 200,
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"被阻挡时，自身与阻挡单位受到的物理/法术伤害提升至<v.value_1>%；",
+				"昭烈君在场时该效果改为提升至<v.value_2>%"
+			]
+		}
+	},
+	"dyhlgy_wind": {
+		"type": "skill",
+		"initCooldown": 0,
+		"cooldown": 20,
+		"atk": { "multiplier": 0.8 },
+		"dmg_element": "phys",
+		"hits": 1,
+		"suffix": { "en": "Move", "ja": "技", "zh": "风行" },
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"被阻挡时触发：在2s内移动速度+200%，获得不可阻挡，每秒对半径1.2范围内的我方单位造成攻击力80%的{phys}伤害",
+				"玉双剑在场时，持续时间改为4s"
+			]
+		}
+	},
+	"dyhlg2_wind": {
+		"type": "skill",
+		"initCooldown": 0,
+		"cooldown": 20,
+		"atk": { "multiplier": 0.8 },
+		"dmg_element": "phys",
+		"hits": 1,
+		"suffix": { "en": "Move", "ja": "技", "zh": "风行" },
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"被阻挡时触发：在2s内移动速度+200%，获得不可阻挡，每秒对半径1.2范围内的我方单位造成攻击力80%的{phys}伤害",
+				"昭烈君在场时，持续时间改为4s"
+			]
+		}
+	},
+	"dylbgg_dmg_res": {
+		"value": 40,
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["炭长矛与枣大刀在场时，自身受到的物理/法术伤害-<v.value>%"]
+		}
+	},
+	"dylbgg_heal": {
+		"type": "skill",
+		"atk": { "multiplier": 5 },
+		"initCooldown": 20,
+		"cooldown": 20,
+		"value": 500,
+		"suffix": { "en": "Skill", "ja": "汚", "zh": "仁德" },
+		"dmg_element": "heal",
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"治疗<炭长矛>与<枣大刀>及自身三者中生命值最低的一位自身攻击力<v.atk.multiplier>%的生命值，并清除目标的异常状态"
+			]
+		}
+	},
+	"dylbg2_dmg_res": {
+		"value": 40,
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["桓君与文衡君在场时，自身受到的物理/法术伤害-<v.value>%"]
+		}
+	},
+	"dylbg2_heal": {
+		"type": "skill",
+		"atk": { "multiplier": 5 },
+		"initCooldown": 20,
+		"cooldown": 20,
+		"value": 500,
+		"suffix": { "en": "Skill", "ja": "汚", "zh": "仁德" },
+		"dmg_element": "heal",
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"治疗<恒君>与<文衡君>及自身三者中生命值最低的一位自身攻击力<v.atk.multiplier>%的生命值，并清除目标的异常状态"
+			]
+		}
+	},
+	"defeat_trap_loot": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["死亡时给予我方可部署装置"]
+		}
+	},
+	"dyyysg_end": {
+		"duration": 999,
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": []
 		}
 	}
 }

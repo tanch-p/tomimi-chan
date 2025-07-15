@@ -118,7 +118,7 @@
 				{/if}
 			{/each}
 			<tr>
-				<td colspan="2" rowspan="2">
+				<td colspan="2" rowspan="1">
 					{6}
 				</td>
 				{#each floor6n_1 as stageName}
@@ -143,7 +143,7 @@
 				</th>
 			</tr>
 			<tr>
-				<td colspan="2" rowspan="3">
+				<td colspan="2" rowspan="2">
 					{3}
 				</td>
 				{#each floor3t as stageName}
@@ -174,7 +174,7 @@
 				</th>
 			</tr>
 			<tr>
-				<td colspan="2" rowspan="2">
+				<td colspan="2" rowspan="1">
 					{5}
 				</td>
 				{#each floor5b as stageName}

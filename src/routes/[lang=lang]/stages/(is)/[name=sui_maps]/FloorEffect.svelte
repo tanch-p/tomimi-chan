@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
 	import { activeFloorEffects } from './stores';
+	import wrath_bg from '$lib/images/is/sui/wrath_bad_back.webp';
 
 	export let effect, language: Language;
 
@@ -28,14 +29,15 @@
 
 <button
 	id={effect.iconId}
-	class={`grid grid-cols-[75px_auto] gap-x-2 text-start ${
+	class={`grid grid-cols-[75px_auto] items-center gap-x-2 text-start ${
 		selected ? 'bg-neutral-700' : 'hover:bg-neutral-700'
 	}`}
 	on:click={handleClick}
 >
-	<span class="flex items-center justify-center">
-		<img src={effect.src} alt={name} loading="lazy" decoding="async" class="invert" />
-	</span>
+	<div class="relative flex items-center justify-center rounded-full h-7 overflow-hidden">
+		<img src={wrath_bg} class="absolute z-0 -inset-[9999px] m-auto h-full" alt="" />
+		<img src={effect.src} alt={name} loading="lazy" decoding="async" class="absolute z-[1]"/>
+	</div>
 	<div class="flex flex-col">
 		<p class={`${selected ? 'text-[#ff382e] font-semibold' : ''}`}>
 			{name}
