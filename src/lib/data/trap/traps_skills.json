@@ -1196,46 +1196,361 @@
 		}
 	},
 	"sktok_winfire": {
-		"tooltip": {
-			"zh": [],
-			"ja": [],
-			"en": []
-		}
+		"name_zh": "点燃",
+		"name_ja": "着火",
+		"name_en": "Ignite",
+		"desc_zh": "开启后使紧急供暖器周围8格内的干员免疫环境封冻效果",
+		"desc_ja": "起動させると、周囲8マスにいる味方ユニットは<極寒>環境の効果を無効化できる",
+		"desc_en": "When activated, Operators in the 8 tiles surrounding the Emergency Heater become immune to the Frigid environmental effect",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WHEN_TAKEN_DAMAGE",
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": "INCREASE_WHEN_TAKEN_DAMAGE",
+					"levelUpCost": null,
+					"maxChargeTime": 1,
+					"spCost": 100,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0,
+				"blackboard": [
+					{
+						"key": "attack@ex_sub_sp",
+						"value": -5.0,
+						"valueStr": null
+					},
+					{
+						"key": "attack@burn_sub_sp",
+						"value": -4.0,
+						"valueStr": null
+					},
+					{
+						"key": "attack@burn_add_sp",
+						"value": 10.0,
+						"valueStr": null
+					},
+					{
+						"key": "talent@fire_add_sp",
+						"value": 30.0,
+						"valueStr": null
+					},
+					{
+						"key": "talent@cold_add_sp",
+						"value": 5.0,
+						"valueStr": null
+					},
+					{
+						"key": "talent@init_mode",
+						"value": 0.0,
+						"valueStr": null
+					},
+					{
+						"key": "attack@chill_duration_interval",
+						"value": 10.0,
+						"valueStr": null
+					}
+				]
+			}
+		]
 	},
 	"sktok_dhtl_1": {
-		"tooltip": {
-			"zh": [],
-			"ja": [],
-			"en": []
-		}
+		"name_zh": "阻流",
+		"name_ja": "水流制御",
+		"name_en": "Throttle",
+		"desc_zh": "<@ba.vup>3</>秒后建成，阻隔水流",
+		"desc_ja": "<@ba.vup>3</>秒後に建造が完了し、水流を遮断する",
+		"desc_en": "Blocks the water flow; takes <@ba.vup>3</>s to build",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": 8,
+		"levels": [
+			{
+				"rangeId": "0-1",
+				"spData": {
+					"spType": 8,
+					"levelUpCost": null,
+					"maxChargeTime": 1,
+					"spCost": 1,
+					"initSp": 1,
+					"increment": 1.0
+				},
+				"duration": 3.0,
+				"blackboard": [
+					{
+						"key": "hp_ratio",
+						"value": 0.034,
+						"valueStr": null
+					}
+				]
+			}
+		]
 	},
 	"sktok_dhtl_2": {
-		"tooltip": {
-			"zh": [],
-			"ja": [],
-			"en": []
-		}
+		"name_zh": "阻流",
+		"name_ja": "水流制御",
+		"name_en": "Throttle",
+		"desc_zh": "阻隔水流",
+		"desc_ja": "水流を遮断",
+		"desc_en": "Blocks the water flow",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": 8,
+		"levels": [
+			{
+				"rangeId": "0-1",
+				"spData": {
+					"spType": 8,
+					"levelUpCost": null,
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0,
+				"blackboard": []
+			}
+		]
+	},
+	"sktok_dhsb": {
+		"name_zh": "泵水",
+		"name_ja": "汲み上げ",
+		"name_en": "Pump",
+		"desc_zh": "将身后一格的浅水泵至前方，若后方田地清澈，降低目标田地的病害程度；若后方田地受病害污染，增加目标田地的病害程度直到一致或超过\\n身后有我方单位时生效范围<@ba.vup>+2</>",
+		"desc_ja": "後方1マスの<水田>の水を前方1マスに放流する。後方の<水田>の水が澄んでいる場合は前方の<水田>の汚染度を軽減し続け、汚染されている場合は前方の<水田>が同じ汚染度かそれ以上になるまで汚染度が上昇する\n後ろに味方ユニットがいる場合、効果範囲<@ba.vup>+2</>",
+		"desc_en": "Pumps shallow water from the tile behind this unit forward; if the tile behind is a clear paddy, reduces the Blight level of the target paddy; if the tile behind is a Blighted paddy, increases the Blight level of the target paddy until it is equal to or exceeds that of the original paddy\nIf an allied unit is located on the tile behind, effect range <@ba.vup>+2</>",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": 8,
+					"levelUpCost": null,
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": 0.0,
+				"blackboard": []
+			}
+		]
+	},
+	"sktok_dhdcr": {
+		"name_zh": "生成",
+		"name_ja": "生成",
+		"name_en": "Generate",
+		"desc_zh": null,
+		"desc_ja": null,
+		"desc_en": null,
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": 8,
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": 8,
+					"levelUpCost": null,
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "branch_id",
+						"value": 0.0,
+						"valueStr": "branch_dhdcr_1"
+					}
+				]
+			}
+		]
 	},
 	"sktok_spblls": {
-		"tooltip": {
-			"zh": [],
-			"ja": [],
-			"en": []
-		}
+		"name_zh": "巫术弩炮",
+		"name_ja": "巫術バリスタ",
+		"name_en": "Witchcraft Ballista",
+		"desc_zh": "对命中的我方单位造成攻击力<@ba.vup>100%</>法术伤害，对命中的敌方单位恢复攻击力<@ba.vup>50%</>的生命值；受到稳固铁链效果时，该技能失效",
+		"desc_ja": "命中した味方ユニットに攻撃力の<@ba.vup>100%</>の術ダメージを与え、命中した敵のHPを攻撃力の<@ba.vup>50%</>回復する。「セーフティチェーン」の効果を受けると無効化される",
+		"desc_en": "Deals <@ba.vup>100%</> ATK as Arts damage to allied units hit, and heals enemy units hit with HP equal to <@ba.vup>50%</> ATK. Skill disabled when under the effect of Stabilizer Chain.",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"levels": [
+			{
+				"rangeId": "5-1",
+				"spData": {
+					"spType": "INCREASE_WITH_TIME",
+					"levelUpCost": null,
+					"maxChargeTime": 1,
+					"spCost": 10,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": 0.0,
+				"blackboard": [
+					{
+						"key": "atk_scale",
+						"value": 1.0,
+						"valueStr": null
+					},
+					{
+						"key": "heal_scale",
+						"value": 0.5,
+						"valueStr": null
+					}
+				]
+			}
+		]
 	},
 	"sktok_aegiret_1": {
-		"tooltip": {
-			"zh": [],
-			"ja": [],
-			"en": []
-		}
+		"name_zh": "信标激活",
+		"name_ja": "ビーコン起動",
+		"name_en": "Activate Beacon",
+		"desc_zh": "开启后，使范围内的我方单位造成伤害时附带相当于<@ba.vup>20%</>伤害的<@ba.kw><$ba.dt.burning2>灼燃损伤</></>；范围内的敌人减速<@ba.vup>60%</>\\n<@ba.rem>持续时间无限</>",
+		"desc_ja": "発動後、範囲内にいる味方がダメージを与えた時、追加で与ダメージの<@ba.vup>20%</>の<@ba.kw><$ba.dt.burning2>灼熱損傷</>を与え、</>範囲内の敵全員の移動速度<@ba.vup>-60%</>\n<@ba.rem>退場まで効果継続</>",
+		"desc_en": "After activation, allied units within range deal an additional <@ba.vup>20%</> damage as <@ba.kw><$ba.dt.burning2>Burn damage</></>; enemies within range are slowed by <@ba.vup>60%</>\n<@ba.rem>Unlimited duration</>",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"levels": [
+			{
+				"rangeId": "x-2",
+				"spData": {
+					"spType": "INCREASE_WITH_TIME",
+					"levelUpCost": null,
+					"maxChargeTime": 1,
+					"spCost": 100,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "move_speed",
+						"value": -0.6,
+						"valueStr": null
+					},
+					{
+						"key": "attack@ep_damage_ratio",
+						"value": 0.2,
+						"valueStr": null
+					},
+					{
+						"key": "attack@element_type",
+						"value": 3.0,
+						"valueStr": null
+					}
+				]
+			}
+		]
 	},
 	"sktok_fttreant_1": {
-		"tooltip": {
-			"zh": [],
-			"ja": [],
-			"en": []
-		}
+		"name_zh": "生长",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": null,
+		"desc_ja": "",
+		"desc_en": "",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"levels": [
+			{
+				"rangeId": "x-5",
+				"spData": {
+					"spType": "INCREASE_WITH_TIME",
+					"levelUpCost": null,
+					"maxChargeTime": 1,
+					"spCost": 15,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": -1.0,
+				"blackboard": []
+			}
+		]
+	},
+	"sktok_cjgtow_1": {
+		"name_zh": "灶火起",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": "召唤“人间烟火”对沿途所有敌方单位造成真实伤害",
+		"desc_ja": "",
+		"desc_en": "",
+		"skillType": "MANUAL",
+		"durationType": "NONE",
+		"spType": 8,
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": 8,
+					"levelUpCost": null,
+					"maxChargeTime": 1,
+					"spCost": 10,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "hint_sp",
+						"value": 8.0,
+						"valueStr": null
+					},
+					{
+						"key": "branch_id",
+						"value": 0.0,
+						"valueStr": "summon_cjglon"
+					}
+				]
+			}
+		]
+	},
+	"sktok_cjbtow_1": {
+		"name_zh": "灶火灭",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": "召唤“饮露餐风”对所有沿途我方单位造成真实伤害",
+		"desc_ja": "",
+		"desc_en": "",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": 8,
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": 8,
+					"levelUpCost": null,
+					"maxChargeTime": 1,
+					"spCost": 10,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "hint_sp",
+						"value": 8.0,
+						"valueStr": null
+					},
+					{
+						"key": "branch_id",
+						"value": 0.0,
+						"valueStr": "summon_cjblon"
+					}
+				]
+			}
+		]
 	},
 	"sktok_roadblock": {
 		"skillId": "sktok_roadblock",

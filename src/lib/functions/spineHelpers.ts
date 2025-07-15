@@ -104,7 +104,11 @@ export function getIdleAnimName(key: string, skelData: spine.SkeletonData) {
 
 		case 'enemy_2025_syufo':
 			return 'Idle_01';
-
+		case 'enemy_10047_shrknt':
+			return '1_Idle';
+			case 'enemy_10057_cjstel':
+		case 'enemy_10058_cjfrog':
+			return 'Idle_a'
 		case 'enemy_1143_merrpg':
 		case 'enemy_1143_merrpg_2':
 		case 'enemy_1271_nhkodo':
@@ -114,8 +118,8 @@ export function getIdleAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'enemy_1315_wdyjd':
 		case 'enemy_1316_wdpjd':
 		case 'trap_086_larva':
+		case 'enemy_10045_parrot':
 			return 'Idle_A';
-
 		case 'enemy_1388_wingnt':
 			return 'A_Idle';
 
@@ -149,6 +153,9 @@ export function getIdleAnimName(key: string, skelData: spine.SkeletonData) {
 }
 
 function getMoveAnimName(key: string, skelData: spine.SkeletonData) {
+	if (key === 'enemy_10057_cjstel') {
+		console.log(skelData);
+	}
 	if (skelData.findAnimation('Move')) {
 		return 'Move';
 	}
@@ -181,6 +188,7 @@ function getMoveAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'enemy_1425_lrcmra':
 		case 'enemy_1425_lrcmra_2':
 		case 'enemy_1506_patrt':
+		case 'enemy_10046_pshark':
 			return 'Move_1';
 
 		case 'enemy_1158_divman':
@@ -198,11 +206,13 @@ function getMoveAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'enemy_2070_skzfbx':
 		case 'enemy_2084_skzcan':
 			return 'Move1';
-
+		case 'enemy_10047_shrknt':
+			return '1_Move';
 		case 'enemy_1388_wingnt':
 		case 'enemy_2092_skzamy':
 			return 'A_Move';
-
+		case 'enemy_10058_cjfrog':
+			return 'Move_a'
 		case 'enemy_1143_merrpg':
 		case 'enemy_1143_merrpg_2':
 		case 'enemy_1271_nhkodo':
@@ -212,6 +222,7 @@ function getMoveAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'enemy_1314_wdnjd':
 		case 'enemy_1316_wdpjd':
 		case 'enemy_1315_wdyjd':
+		case 'enemy_10045_parrot':
 			return 'Move_A';
 
 		case 'enemy_1418_mmkonm':

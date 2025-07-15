@@ -11,7 +11,16 @@ const ENEMY_KEYS_TO_IGNORE = [
 	'enemy_2083_skzhg',
 	'enemy_2040_syrott',
 	'enemy_2096_skzamj',
-	'enemy_2095_skzamf'
+	'enemy_2095_skzamf',
+	'enemy_10102_crblt',
+	'enemy_10041_cnvfire',
+	'enemy_10062_cjblon',
+	'enemy_10061_cjglon',
+	'enemy_10063_cjdoor_2',
+	'enemy_1400_dhtbgj',
+	'enemy_1398_dhdcr',
+	'enemy_10009_sggem',
+	'enemy_1294_duchns'
 ];
 const ENEMY_KEYS_TO_REPLACE = {
 	enemy_2097_skzfdd: 'enemy_2082_skzdd',
