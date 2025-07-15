@@ -1,172 +1,61 @@
 [
-	{
-		"difficulty": 0,
-		"ruleDesc": "初始目标生命上限较高，不容易进入年代",
-		"addDesc": "深入故事将面临更严峻的考验",
-		"effects": [],
-		"floorBuff": 0
-	},
-	{
-		"difficulty": 1,
-		"ruleDesc": "初始目标生命上限-2",
-		"addDesc": "深入故事将面临更严峻的考验",
-		"effects": [],
-		"floorBuff": 0
-	},
-	{
-		"difficulty": 2,
-		"ruleDesc": "更容易进入年代",
-		"addDesc": "深入故事将面临更严峻的考验",
-		"effects": [],
-		"floorBuff": 0
-	},
-	{
-		"difficulty": 3,
-		"ruleDesc": "<年代之刺>与<饮泣之刺>的最大生命值+20%",
-		"addDesc": "深入故事将面临更严峻的考验",
-		"effects": [
+    {
+        "difficulty": 0,
+        "ruleDesc": "初始生命值上限更高，岁兽残识中的敌人极为虚弱",
+        "addDesc": "深入故事将面临更严峻的考验",
+        "effects": [],
+        "floorBuff": {
+            "atk": 1.0,
+            "hp": 1.0
+        }
+    },
+    {
+        "difficulty": 1,
+        "ruleDesc": "初始目标生命上限-2",
+        "addDesc": "深入故事将面临更严峻的考验",
+        "effects": [],
+        "floorBuff": {
+            "atk": 1.0,
+            "hp": 1.0
+        }
+    },
+    {
+        "difficulty": 2,
+        "ruleDesc": "岁时的影响更加强大",
+        "addDesc": "深入故事将面临更严峻的考验",
+        "effects": [],
+        "floorBuff": {
+            "atk": 1.0,
+            "hp": 1.0
+        }
+    },
+    {
+        "difficulty": 3,
+        "ruleDesc": "初始钱盒加入更多大炎通宝",
+        "addDesc": "深入故事将面临更严峻的考验",
+        "effects": [],
+        "floorBuff": {
+            "atk": 1.0,
+            "hp": 1.0
+        }
+    },
+    {
+        "difficulty": 4,
+        "ruleDesc": "所有敌人的生命值+40%，便符的生命值+50%",
+        "addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+1%",
+        "effects": [
 			{
-				"targets": ["enemy_2073_skzrck", "trap_760_skztzs"],
+				"targets": ["ALL"],
 				"mods": [
 					{
 						"key": "hp",
-						"value": 0.2,
-						"mode": "mul",
-						"order":"initial"
-					}
-				]
-			}
-		],
-		"floorBuff": 0
-	},
-	{
-		"difficulty": 4,
-		"ruleDesc": "精英及领袖敌人的生命值+20%",
-		"addDesc": "深入故事将面临更严峻的考验",
-		"effects": [
-			{
-				"targets": ["ELITE", "BOSS"],
-				"mods": [
-					{
-						"key": "hp",
-						"value": 1.2,
+						"value": 1.4,
 						"mode": "mul"
 					}
 				]
-			}
-		],
-		"floorBuff": 0
-	},
-	{
-		"difficulty": 5,
-		"ruleDesc": "思维负担变为标准",
-		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+1%\\n思维负担变为标准",
-		"effects": [],
-		"floorBuff": 0.01
-	},
-	{
-		"difficulty": 6,
-		"ruleDesc": "年代进入扩张期",
-		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+2%\\n探险的年代进入扩张期\\n思维负担变为标准",
-		"effects": [],
-		"floorBuff": 0.02
-	},
-	{
-		"difficulty": 7,
-		"ruleDesc": "精英及领袖敌人的攻击力+10%",
-		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+3%\\n探险的年代进入扩张期\\n思维负担变为标准",
-		"effects": [
-			{
-				"targets": ["ELITE", "BOSS"],
-				"mods": [
-					{
-						"key": "atk",
-						"value": 1.1,
-						"mode": "mul"
-					}
-				]
-			}
-		],
-		"floorBuff": 0.03
-	},
-	{
-		"difficulty": 8,
-		"ruleDesc": "初始目标生命上限-2",
-		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+5%\\n探险的年代进入扩张期\\n思维负担变为标准",
-		"effects": [],
-		"floorBuff": 0.05
-	},
-	{
-		"difficulty": 9,
-		"ruleDesc": "我方单位受到的凋亡损伤提升30%",
-		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+6%\\n探险的年代进入扩张期\\n思维负担变为标准",
-		"effects": [],
-		"floorBuff": 0.06
-	},
-	{
-		"difficulty": 10,
-		"ruleDesc": "可同时部署人数-1",
-		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+7%\\n探险的年代进入扩张期\\n思维负担变为标准",
-		"effects": [
-			{
-				"targets": ["ELITE", "BOSS"],
-				"mods": [
-					{
-						"key": "dmg_res",
-						"value": 0.1,
-						"mode": "mul",
-						"name": "protect"
-					}
-				]
-			}
-		],
-		"floorBuff": 0.07
-	},
-	{
-		"difficulty": 11,
-		"ruleDesc": "思维负担变为沉重",
-		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+8%\\n探险的年代进入扩张期\\n思维负担变为沉重",
-		"effects": [],
-		"floorBuff": 0.08
-	},
-	{
-		"difficulty": 12,
-		"ruleDesc": "年代进入鼎盛期",
-		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+10%\\n探险的年代进入扩张期\\n思维负担变为沉重",
-		"effects": [],
-		"floorBuff": 0.1
-	},
-	{
-		"difficulty": 13,
-		"ruleDesc": "招募5星干员的希望消耗+1，博卓卡斯替，圣卫铳骑的圣卫坚盾持续时间减少",
-		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+13%\\n探险的年代进入鼎盛期\\n思维负担变为沉重",
-		"effects": [
-			{
-				"targets": ["trap_763_skzddd"],
-				"special": {
-					"skzddd_0": {
-						"value": 80
-					}
-				}
 			},
 			{
-				"targets": ["enemy_2082_skzdd"],
-				"special": {
-					"skzdd_2_3": {
-						"duration": 80
-					}
-				}
-			}
-		],
-		"floorBuff": 0.13
-	},
-	{
-		"difficulty": 14,
-		"ruleDesc": "处于年代印痕中的敌人受到的物理与法术伤害降低50%，特雷西斯，黑冠尊主的最大生命值提升",
-		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+16%\\n探险的年代进入鼎盛期\\n思维负担变为沉重",
-		"effects": [
-			{
-				"targets": ["enemy_2081_skztxs"],
+				"targets": ["enemy_2101_dyspll"],
 				"mods": [
 					{
 						"key": "hp",
@@ -176,45 +65,196 @@
 				]
 			}
 		],
-		"floorBuff": 0.16
-	},
-	{
-		"difficulty": 15,
-		"ruleDesc": "招募6星干员的希望消耗+1，“放逐的黑棺”的最大生命值提升",
-		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+20%\\n探险的年代进入鼎盛期\\n思维负担变为沉重",
-		"effects": [
+        "floorBuff": {
+			"atk": 1.01,
+			"hp": 1.01
+		}
+    },
+    {
+        "difficulty": 5,
+        "ruleDesc": "所有敌人受到物理和法术伤害降低10％",
+        "addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+2%",
+        "effects": [
 			{
-				"targets": ["enemy_2083_skzhg"],
+				"targets": ["ALL"],
 				"mods": [
 					{
-						"key": "hp",
-						"value": 2,
+						"key": "dmg_res",
+						"value": 0.1,
 						"mode": "mul"
 					}
 				]
 			}
 		],
-		"floorBuff": 0.2
-	},
-	{
-		"difficulty": 16,
-		"ruleDesc": "开通纵向通路消耗的构想+1",
-		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+21%\\n探险的年代进入鼎盛期\\n思维负担变为沉重",
-		"effects": [],
-		"floorBuff": 0.21
-	},
-	{
-		"difficulty": 17,
-		"ruleDesc": "进入灰铸迷城时，随机获得一个遭诅古物",
-		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+22%\\n探险的年代进入鼎盛期\\n思维负担变为沉重",
-		"effects": [],
-		"floorBuff": 0.22
-	},
-	{
-		"difficulty": 18,
-		"ruleDesc": "思维负担变为崩溃",
-		"addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+22%\\n探险的年代进入鼎盛期\\n思维负担变为崩溃",
-		"effects": [],
-		"floorBuff": 0.22
-	}
+        "floorBuff": {
+			"atk": 1.02,
+			"hp": 1.02
+		}
+    },
+    {
+        "difficulty": 6,
+        "ruleDesc": "出现新的岁时，效果从朦胧提升至真切",
+        "addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+3%\\n岁时已至真切",
+        "effects": [],
+        "floorBuff": {
+			"atk": 1.03,
+			"hp": 1.03
+		}
+    },
+    {
+        "difficulty": 7,
+        "ruleDesc": "初始钱盒中的大炎通宝替换为特殊厉钱，岁兽残识中的敌人不再虚弱",
+        "addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+4%\\n岁时已至真切",
+        "effects": [],
+       "floorBuff": {
+			"atk": 1.04,
+			"hp": 1.04
+		}
+    },
+    {
+        "difficulty": 8,
+        "ruleDesc": "招募五星干员希望消耗+1，精英和领袖敌人防御力、生命值+20％",
+        "addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+5%\\n岁时已至真切",
+        "effects": [
+			{
+				"targets": ["ELITE","BOSS"],
+				"mods": [
+					{
+						"key": "hp",
+						"value": 1.2,
+						"mode": "mul"
+					},
+					{
+						"key": "def",
+						"value": 1.2,
+						"mode": "mul"
+					}
+				]
+			}
+		],
+        "floorBuff": {
+			"atk": 1.05,
+			"hp": 1.05
+		}
+    },
+    {
+        "difficulty": 9,
+        "ruleDesc": "岁兽残识中的作战数量增加，可同时部署人数-1",
+        "addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+6%\\n岁时已至真切",
+        "effects": [],
+        "floorBuff": {
+			"atk": 1.06,
+			"hp": 1.06
+		}
+    },
+    {
+        "difficulty": 10,
+        "ruleDesc": "受符的干员攻击力降低，初始目标生命上限-2",
+        "addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+7%\\n岁时已至真切",
+        "effects": [],
+        "floorBuff": {
+			"atk": 1.07,
+			"hp": 1.07
+		}
+    },
+    {
+        "difficulty": 11,
+        "ruleDesc": "可留存的招募券数量减少，所有敌人的攻击力+20%",
+        "addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+10%\\n岁时已至真切",
+        "effects": [{
+				"targets": ["ELITE","BOSS"],
+				"mods": [
+					{
+						"key": "atk",
+						"value": 1.2,
+						"mode": "mul"
+					}
+				]
+			}],
+        "floorBuff": {
+			"atk": 1.1,
+			"hp": 1.1
+		}
+    },
+    {
+        "difficulty": 12,
+        "ruleDesc": "岁时的效果从真切提升至入髓，刷新商店和重新投钱会消耗更多的票券",
+        "addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+11%\\n岁时已至入髓",
+        "effects": [],
+        "floorBuff": {
+			"atk": 1.11,
+			"hp": 1.11
+		}
+    },
+    {
+        "difficulty": 13,
+        "ruleDesc": "<雕伥>的最大生命值+50%；“易”切换晦明状态后获得更多的屏障",
+        "addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+12%\\n岁时已至入髓",
+        "effects": [
+			{
+				"targets": ["trap_222_rgdysm"],
+				"mods": [
+					{
+						"key": "hp",
+						"value": 0.5,
+						"mode": "mul",
+						"order":"initial"
+					}
+				]
+			}
+		],
+        "floorBuff": {
+			"atk": 1.12,
+			"hp": 1.12
+		}
+    },
+    {
+        "difficulty": 14,
+        "ruleDesc": "领袖敌人受到伤害降低20％；遭到“岁”拍击并退场的干员，再部署时间大幅提升",
+        "addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+13%\\n岁时已至入髓",
+        "effects": [
+			{
+				"targets": ["BOSS"],
+				"mods": [
+					{
+						"key": "dmg_res",
+						"value": 0.2,
+						"mode": "mul"
+					}
+				]
+			}
+		],
+        "floorBuff": {
+            "atk": 1.13,
+            "hp": 1.13
+        }
+    },
+    {
+        "difficulty": 15,
+        "ruleDesc": "招募六星干员希望消耗+1，受符的干员对自身及周围单位造成伤害与灼燃损伤，“瑕”的攻击力和生命值+50%",
+        "addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+15%\\n岁时已至入髓",
+        "effects": [
+			{
+				"targets": ["trap_226_dychss"],
+				"mods": [
+					{
+						"key": "hp",
+						"value": 0.5,
+						"mode": "mul",
+						"order":"initial"
+					},
+					{
+						"key": "atk",
+						"value": 0.5,
+						"mode": "mul",
+						"order":"initial"
+					}
+				]
+			}
+		],
+        "floorBuff": {
+            "atk": 1.15,
+            "hp": 1.15
+        }
+    }
 ]

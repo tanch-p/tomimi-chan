@@ -16,7 +16,7 @@
 
 	$: language = data.language;
 	const is_banners = [
-			{ alt: 'rogue_sui', src: banner_sui, href: 'sui' },
+			{ alt: 'rogue_yan', src: banner_sui, href: 'sui' },
 		{ alt: 'rogue_skz', src: banner_sarkaz, href: 'sarkaz' },
 		{ alt: 'rogue_sami', src: banner_sami, href: 'sami' },
 		{ alt: 'rogue_mizuki', src: banner_mizuki, href: 'mizuki' },

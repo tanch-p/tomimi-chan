@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
-	import suiTimeList from '$lib/data/is/sui/disasters.json';
+	import suiTimeList from '$lib/data/is/sui/sui_wrath.json';
 	import FloorEffect from './FloorEffect.svelte';
 	import FloorSelect from './FloorSelect.svelte';
 	import translations from '$lib/translations.json';
@@ -56,17 +56,11 @@
 		<hr class="border-neutral-600" />
 		<div class="px-2 md:px-0">
 			<p class="mt-4 font-medium text-lg text-red-400 text-center">
-				{translations[language].mizuki_seaborn_call}
-				<!-- <span class="font-normal text-sm text-near-white"
-				>{translations[language].variation_max_2}</span
-			> -->
-			</p>
-			<p class="font-normal text-sm text-near-white text-center">
-				({translations[language].variation_max_2})
+				{translations[language].sui_wrath} ({translations[language][`wrath_level_${level}`]})
 			</p>
 
 			<div class="flex flex-col gap-y-4 mt-2">
-				{#each suiTimeList as option}
+				{#each options as option}
 					<FloorEffect effect={option} {language} />
 				{/each}
 			</div>

@@ -1,7 +1,7 @@
 //https://stackoverflow.com/questions/65878880/typescript-template-literal-as-interface-key
 
 export type Language = 'zh' | 'ja' | 'en';
-export type RogueTopic = 'rogue_phantom' | 'rogue_mizuki' | 'rogue_sami' | 'rogue_skz' | 'rogue_sui' | null;
+export type RogueTopic = 'rogue_phantom' | 'rogue_mizuki' | 'rogue_sami' | 'rogue_skz' | 'rogue_yan' | null;
 export type StatKey =
 	| 'hp'
 	| 'atk'

@@ -12,49 +12,27 @@
 	export let language: Language;
 
 	let allNormalStages = [
-		['坏邻居', '公害', '安全检查', '夺路而跳','冰川期'],
-		['见闻峰会', '拆东补西', '排风口', '炉工志愿队', '有序清场', '卡兹瀑布','丛林密布'],
-		['大棋一盘', '血脉之辩', '遮天蔽日', '劳作的清晨', '溃乱魔典', '盲盒商场', '火力小队','机动队'],
-		[
-			'年代断层',
-			'朽败考察',
-			'飞越大水坑',
-			'猩红甬道',
-			'现代战争法则',
-			'假想对冲',
-			'幽灵城',
-			'神出鬼没',
-			'混沌',
-			'争议频发'
-		],
-		[
-			'寄人城池下',
-			'计划耕种',
-			'巫咒同盟',
-			'通道封锁',
-			'无罪净土',
-			'浮空城接舷战',
-			'残损学院',
-			'建制',
-			'莱茵卫士'
-		]
+		['狡鼷三窟', '赶集', '正经生意', '老戏骨'],
+		['有教无类', '飞来横祸', '所守者，义', '明抢暗偷'],
+		['啖之以利', '长驱不复', '背山面水', '去晦', '落叶归根'],
+		['山海必争', '贪饵', '识文', '赶场戏班', '峥嵘战功', '暗箭难防'],
+		['青山不语', '离域检查', '薄礼一份', '往事喑哑', '邙山镇地方志', '不成烟火']
 	];
 
-	let floor6n_1 = ['谋求共识', '神圣的渴求'];
-	let floor6n_2 = ['洞天福地', '“外道”'];
-	let floor3t = ['守望的河水', '卫士不语功', '存亡之战'];
-	let floor3b = ['或然面纱', '奉献', '斩首'];
-	let floor3c = ['离歌的庭院', '赴敌者', '王冠之下'];
-	let floor4b = ['时光凯旋'];
-	let floor5b = ['紧急授课', '朝谒'];
-	let floor5bd = ['思维矫正', '魂灵朝谒'];
-	let floor6b = ['圣城', '授法'];
-	let floor67 = ['不容拒绝']
-	let floorUnknown = ['「」']
-	let du = ['失败的试胆', '信号灯', '劫虚济实', '鸭速公路'];
-	let sp = ['战场侧面', '继承', '玩具的报复'];
-	let sp2 = ['物权纠纷', '叙事要约'];
-	let duel = ['以血还血', '善恶同道', '石心双子', '轻舟共渡'];
+	let floor6n_1 = ['炎灼', '人镇'];
+	let floor3t = ['月华寒', '剑·刀·矛', '点化'];
+	let floor3b = ['夕娥忆', '仁·义·武', '求道'];
+	let floor5b = ['破岁阵祀', '昔字如烟'];
+	// let floor5bd = ['思维矫正', '魂灵朝谒'];
+	let floor6b = ['谋岁者'];
+	let du = ['源源不断', '闪闪发光', '循循善诱', '易易鸭鸭'];
+	let sp = ['劫罚', '生百相', '硕果累累', '以逸待劳'];
+	// let sp2 = ['物权纠纷', '叙事要约'];
+	let sp3 = ['喜从驮来', '硅基伥的宴席', '彻底失控', '为崖作伥'];
+
+	let duel = ['夕江对擂', '南武群英会'];
+	let candle = ['谤天', '迎雷', '蔑震', '赴陨', '斥洪', '分明'];
+	let sv = ['地有四难', '凭器', '忘形', '贪妄', '奇谭', '破局', '不鉴', '靡靡之音', '愠怒', '迷惘'];
 	//max per row = 4
 </script>
 
@@ -149,13 +127,6 @@
 					</td>
 				{/each}
 			</tr>
-			<tr>
-				{#each floor6n_2 as stageName}
-					<td colspan={Math.floor(24 / floor6n_2.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
 			<!-- boss -->
 			<tr>
 				<th colspan="2" class="empty" />
@@ -189,28 +160,6 @@
 				{/each}
 			</tr>
 			<tr>
-				{#each floor3c as stageName}
-					<td colspan={Math.floor(24 / floor3c.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
-			<tr>
-				<th colspan="2" rowspan="2" class="empty">?</th>
-				{#each floor4b as stageName}
-					<td colspan={Math.floor(24 / floor4b.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
-			<tr>
-				{#each floorUnknown as stageName}
-					<td colspan={Math.floor(24 / floorUnknown.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
-			<tr>
 				<th colspan="2" class="empty" />
 				<th colspan="24">
 					<div class="flex justify-center items-center">
@@ -234,29 +183,19 @@
 					</td>
 				{/each}
 			</tr>
-			<tr>
+			<!-- <tr>
 				{#each floor5bd as stageName}
 					<td colspan={Math.floor(24 / floor5b.length)}>
 						<StageNavButton {stageName} {language} />
 					</td>
 				{/each}
-			</tr>
+			</tr> -->
 			<tr>
 				<td colspan="2" rowspan="1">
 					{6}
 				</td>
 				{#each floor6b as stageName}
 					<td colspan={Math.floor(24 / floor6b.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
-			<tr>
-				<td colspan="2" rowspan="1">
-					{"6/7"}
-				</td>
-				{#each floor67 as stageName}
-					<td colspan={Math.floor(24 / floor67.length)}>
 						<StageNavButton {stageName} {language} />
 					</td>
 				{/each}
@@ -307,8 +246,8 @@
 				</th>
 			</tr>
 			<tr>
-				{#each sp2 as stageName}
-					<td colspan={Math.floor(24 / sp2.length)}>
+				{#each sp3 as stageName}
+					<td colspan={Math.floor(24 / sp3.length)}>
 						<StageNavButton {stageName} {language} />
 					</td>
 				{/each}

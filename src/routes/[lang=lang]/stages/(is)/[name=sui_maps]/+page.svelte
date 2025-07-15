@@ -69,7 +69,7 @@
 		>
 			<!-- <StageDrops slot="drops" mapConfig={data.mapConfig} {language} {rogueTopic} {selectedFloor} /> -->
 		</StageInfo>
-		<DifficultySelect {language} {difficulty} {rogueTopic} maxDiff={15} mode={$difficultyMode} />
+		<DifficultySelect {language} {difficulty} {rogueTopic} maxDiff={15}/>
 		<StageSharedContainer
 			{language}
 			traps={data.traps}

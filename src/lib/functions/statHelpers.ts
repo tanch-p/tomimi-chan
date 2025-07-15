@@ -92,7 +92,8 @@ const NOT_AFFECTED_BY_DIFFICULTY_KEYS = [
 	'enemy_1200_msfjin_2',
 	'enemy_1202_msfzhi_2',
 	'enemy_1208_msfji_2',
-	'enemy_1210_msfden_2'
+	'enemy_1210_msfden_2',
+	'enemy_2101_dyspll'
 ];
 
 export function applyMods(

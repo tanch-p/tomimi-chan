@@ -12,10 +12,10 @@
 </script>
 
 <svelte:head>
-	<title>{translations[language].rogue_sui} / {translations[language].title_post}</title>
+	<title>{translations[language].rouge_yan} / {translations[language].title_post}</title>
 	<meta name="description" content={translations[language].title_post} />
 	<meta property="og:description" content={translations[language].title_post} />
-	<meta property="og:title" content={translations[language].rogue_sui} />
+	<meta property="og:title" content={translations[language].rouge_yan} />
 	<meta property="og:url" content={`https://tomimi.dev/${language}/sui`} />
 </svelte:head>
 
@@ -25,12 +25,12 @@
 			<img
 				class="select-none mx-auto py-2"
 				src={banner_sui}
-				alt={translations[language].rogue_sui}
+				alt={translations[language].rogue_yan}
 			/>
 		</div>
 		<div class="space-y-6">
 			<TogglePanel title={translations[language].how_to_use} isOpen={true}>
-				<HowToUse {language} rogueTopic={'rogue_sui'} />
+				<HowToUse {language} rogueTopic={'rogue_yan'} />
 			</TogglePanel>
 			<TitleBlock title={translations[language].stage_nav}>
 				<StageNav {language} />
