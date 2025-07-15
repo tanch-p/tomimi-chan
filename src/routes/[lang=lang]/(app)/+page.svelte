@@ -54,7 +54,7 @@
 					</p>
 				</div>
 				<div class="flex flex-wrap w-full justify-center gap-4 mt-3">
-					<a href={`/${language}/recruit/`}>
+					<a href={`/${language}/recruit/`} class="hover:brightness-75">
 						<div class="flex flex-col justify-center items-center">
 							<img
 								class="select-none mx-auto"
@@ -69,7 +69,7 @@
 							</p>
 						</div>
 					</a>
-					<a href={`/${language}/laoli/`}>
+					<a href={`/${language}/laoli/`} class="hover:brightness-75">
 						<div class="flex flex-col justify-center items-center">
 							<img
 								class="select-none mx-auto"
@@ -97,7 +97,7 @@
 				</div>
 				<div class="flex flex-wrap w-full justify-center">
 					{#each is_banners as { alt, src, href }}
-						<a href={`/${language}/${href}`}>
+						<a href={`/${language}/${href}`} class="hover:brightness-75">
 							<img
 								class="select-none mx-auto py-3"
 								{src}
