@@ -148,7 +148,7 @@
 							<div class="flex flex-wrap">
 								{#each compiledActions as { key, count }}
 									{#if key !== ''}
-										{#if key.includes('trap')}
+										{#if ['trap','char'].some(ele => key.includes(ele))}
 											<div class="relative">
 												{#if count > 1}
 													<p class="absolute right-0 bottom-0 bg-almost-black px-1 text-xs">

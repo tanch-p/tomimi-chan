@@ -55,7 +55,7 @@
 		{/if}
 	</div>
 	<div class="flex mt-2 text-sm">
-		{#if skill.skillType !== 'PASSIVE'}
+		{#if skill.skillType !== 'PASSIVE' && skill?.spType !== 8}
 			<p class="pill default max-w-[110px] {skill?.spType}">
 				{translations[language][skill?.spType]}
 			</p>
@@ -91,7 +91,7 @@
 			{/if}
 		</div>
 		<div class="flex mt-1.5 text-sm">
-			{#if skill.skillType !== 'PASSIVE'}
+			{#if skill.skillType !== 'PASSIVE' && skill?.spType !== 8}
 				<p class="pill default {skill?.spType}">
 					{translations[language][skill?.spType]}
 				</p>

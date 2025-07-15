@@ -28,7 +28,8 @@ const ENEMY_KEYS_TO_REPLACE = {
 	enemy_2097_skzfdd: 'enemy_2082_skzdd',
 	enemy_2098_skzftx: 'enemy_2081_skztxs',
 	enemy_2099_skzfkl: 'enemy_2089_skzjkl',
-	enemy_2100_skzfmf: 'enemy_1528_manfri'
+	enemy_2100_skzfmf: 'enemy_1528_manfri',
+	enemy_1313_wdfmr_2: 'enemy_1313_wdfmr'
 };
 const texturesToLoad = [
 	{

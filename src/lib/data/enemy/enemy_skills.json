@@ -3638,12 +3638,13 @@
 		}
 	},
 	"wdfmr_cost": {
+		"value":2,
 		"tooltip": {
 			"en": [
-				"Once indentity is confirmed, becomes unblockable and increases the DP limit by 2 when entering Protection Objective"
+				"Once indentity is confirmed, becomes unblockable and increases the DP limit by <v.value> when entering Protection Objective"
 			],
-			"ja": ["身分確認後、ブロック不可になる、防衛ラインに到達すると所持コスト上限+2"],
-			"zh": ["“鉴定完成后：自身获得不可阻挡；到达路径终点时，我方费用上限+2"]
+			"ja": ["身分確認後、ブロック不可になる、防衛ラインに到達すると所持コスト上限+<v.value>"],
+			"zh": ["“鉴定完成后：自身获得不可阻挡；到达路径终点时，我方费用上限+<v.value>"]
 		}
 	},
 	"wdnjd_inspection": {
@@ -5673,17 +5674,17 @@
 		"dmg_element": "phys",
 		"tooltip": {
 			"en": [
-				"When not blocked and receives damage for the first time, launches a grenade towards the four cardinal directions{can_silence}{only_once}",
+				"When not blocked and receives damage for the first time, launches a grenade towards the four cardinal directions{can_silence}{once_only}",
 				"Each grenade detonates upon hitting a friendly unit, dealing {phys} damage equal to 200% ATK over a 1.1 tile radius",
 				"Thereafter gains Movespeed +0.7 and Weight is decreased by 2"
 			],
 			"ja": [
-				"非ブロック時に初めてダメージを受けると、自身の上下左右に射程無限の榴弾を発射{can_silence}{only_once}",
+				"非ブロック時に初めてダメージを受けると、自身の上下左右に射程無限の榴弾を発射{can_silence}{once_only}",
 				"榴弾は味方やバリケードに触れると爆発し、半径1.1の味方に攻撃力の200%の{phys}ダメージを与える",
 				"榴弾発射後、移動速度+0.7、重量-2"
 			],
 			"zh": [
-				"未被阻挡且首次受到伤害时可触发：向自身上/下/左/右方向各发射一个碰撞半径0.3的炸弹{can_silence}{only_once}",
+				"未被阻挡且首次受到伤害时可触发：向自身上/下/左/右方向各发射一个碰撞半径0.3的炸弹{can_silence}{once_only}",
 				"每个炸弹接触到首个我方单位时爆炸，对1.1半径范围内我方单位造成攻击力200%的{phys}伤害",
 				"触发技能后移动速度+0.7，重量等级-2 "
 			]
@@ -5882,6 +5883,7 @@
 		}
 	},
 	"lrrook_1": {
+		"skillRange":1.7,
 		"tooltip": {
 			"en": [
 				"Reduces the damage taken by nearby ground enemies within a radius of 1.7 to 5%, and transfers the reduced damage as {true} damage to self"
@@ -6766,13 +6768,13 @@
 	"dsdivi_divide": {
 		"tooltip": {
 			"en": [
-				"When HP falls below 50%, summons another Divicellular Hoarder with the same HP percentage and without this trait{only_once}{can_silence}"
+				"When HP falls below 50%, summons another Divicellular Hoarder with the same HP percentage and without this trait{once_only}{can_silence}"
 			],
 			"ja": [
-				"HP50%以下になると、自身のいるマスに、残りHPが同じで【分裂】しない詭核のホーダーを1体召喚する{only_once}{can_silence}"
+				"HP50%以下になると、自身のいるマスに、残りHPが同じで【分裂】しない詭核のホーダーを1体召喚する{once_only}{can_silence}"
 			],
 			"zh": [
-				"生命值低于50%时强制触发技能【应激分裂】{only_once}{can_silence}",
+				"生命值低于50%时强制触发技能【应激分裂】{once_only}{can_silence}",
 				"在自身所在地块中心0.6边长正方形范围内随机位置以自身路径召唤1只与自身当前生命比例相同的，天赋不再生效的诡核集养者"
 			]
 		}
@@ -6808,13 +6810,13 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"When coming near an Excrescent Carapace, consumes and destroys it, gaining HP +60% and ATK +40%{only_once}{can_silence}"
+				"When coming near an Excrescent Carapace, consumes and destroys it, gaining HP +60% and ATK +40%{once_only}{can_silence}"
 			],
 			"ja": [
-				"【貪食】接触した増殖甲羅を破壊し、自身の最大HP+60%、攻撃力+40%{only_once}{can_silence}"
+				"【貪食】接触した増殖甲羅を破壊し、自身の最大HP+60%、攻撃力+40%{once_only}{can_silence}"
 			],
 			"zh": [
-				"【吞噬】半径0.525范围内存在赘生甲壳时可触发：将其摧毁，随后自身最大生命值+60%，攻击力+40%{only_once}{can_silence}"
+				"【吞噬】半径0.525范围内存在赘生甲壳时可触发：将其摧毁，随后自身最大生命值+60%，攻击力+40%{once_only}{can_silence}"
 			]
 		}
 	},
@@ -6928,12 +6930,12 @@
 				"During Skill, gains immunity all status ailments"
 			],
 			"ja": [
-				"【爆撃】出現時に1度だけ使用、マップ上で最も残りHPが高い味方1体を中心に、3×3マスの爆撃区域を設定（対象がいない場合、自身のマスを中心に区域を設定）{only_once}",
+				"【爆撃】出現時に1度だけ使用、マップ上で最も残りHPが高い味方1体を中心に、3×3マスの爆撃区域を設定（対象がいない場合、自身のマスを中心に区域を設定）{once_only}",
 				"爆撃区域内で最も残りHPが高い味方に対し、攻撃力の100%の{phys}ダメージを与える",
 				"この行動は状態異常の影響を受けない"
 			],
 			"zh": [
-				"出场后锁定场上当前生命值最高的我方单位(没有可锁定目标时改为锁定自身所在地块)，连续8次对目标及其周围8格范围内当前生命值最高的单位进行轰炸，每次轰炸造成攻击力100%的{phys}伤害{only_once}",
+				"出场后锁定场上当前生命值最高的我方单位(没有可锁定目标时改为锁定自身所在地块)，连续8次对目标及其周围8格范围内当前生命值最高的单位进行轰炸，每次轰炸造成攻击力100%的{phys}伤害{once_only}",
 				"轰炸行为不受异常状态影响"
 			]
 		}
@@ -7369,7 +7371,7 @@
 			"en": [],
 			"ja": [],
 			"zh": [
-				"初动5s，对终端上的部署费用持续施法：发射持续30s的锁链弹道{only_once}",
+				"初动5s，对终端上的部署费用持续施法：发射持续30s的锁链弹道{once_only}",
 				"锁链抵达后：费用自然回复速度变为0"
 			]
 		}

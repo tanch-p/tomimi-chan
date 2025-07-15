@@ -75,7 +75,7 @@
 </script>
 
 <Settings {game} {mapConfig} />
-<div class="relative mt-4 md:mt-1.5">
+<div class="relative mt-4 md:mt-1.5 max-w-full overflow-hidden">
 	{#await loadGame(mapConfig)}
 		<LoadingScreen />
 	{:then}

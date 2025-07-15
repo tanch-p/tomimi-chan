@@ -120,6 +120,7 @@ export function getIdleAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'enemy_10045_parrot':
 			return 'Idle_A';
 		case 'enemy_1388_wingnt':
+		case 'trap_226_dychss':
 			return 'A_Idle';
 
 		case 'enemy_1418_mmkonm':
