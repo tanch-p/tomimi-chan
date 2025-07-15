@@ -113,7 +113,6 @@ export function getIdleAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'enemy_1143_merrpg_2':
 		case 'enemy_1271_nhkodo':
 		case 'enemy_1271_nhkodo_2':
-		case 'enemy_1311_mhkryk':
 		case 'enemy_1314_wdnjd':
 		case 'enemy_1315_wdyjd':
 		case 'enemy_1316_wdpjd':
@@ -126,9 +125,6 @@ export function getIdleAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'enemy_1418_mmkonm':
 		case 'enemy_1418_mmkonm_2':
 			return 'Idle_b';
-
-		case 'enemy_1311_mhkryk_2':
-			return 'Idle_B';
 
 		case 'enemy_1135_redman':
 		case 'enemy_1135_redman_2':
@@ -218,7 +214,6 @@ function getMoveAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'enemy_1271_nhkodo':
 		case 'enemy_1271_nhkodo_2':
 		case 'enemy_2055_smlead':
-		case 'enemy_1311_mhkryk':
 		case 'enemy_1314_wdnjd':
 		case 'enemy_1316_wdpjd':
 		case 'enemy_1315_wdyjd':
@@ -228,9 +223,6 @@ function getMoveAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'enemy_1418_mmkonm':
 		case 'enemy_1418_mmkonm_2':
 			return 'Move_b';
-
-		case 'enemy_1311_mhkryk_2':
-			return 'Move_B';
 
 		case 'enemy_1135_redman':
 		case 'enemy_1135_redman_2':

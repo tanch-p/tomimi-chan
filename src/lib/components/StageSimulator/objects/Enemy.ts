@@ -443,6 +443,14 @@ export class Enemy {
 				this.buffs.push('stealth');
 				this.darkness = 0.4;
 			}
+			const spineStateSkill = allSkills.find((skill) => skill.spineState);
+			if (spineStateSkill) {
+				this.spineAnimIndex = spineStateSkill.spineState;
+			}
+			if (allSkills.some((skill) => skill.key.includes('stealth'))) {
+				this.buffs.push('stealth');
+				this.darkness = 0.4;
+			}
 
 			const skillsWithRange = allSkills.filter(
 				(skill) => skill.skillRange && (skill.skillRange !== range || !normalAtkIsRanged)

@@ -261,7 +261,7 @@ export type Skill = {
 	dmg_element?: 'phys' | 'arts' | 'true' | 'heal';
 	suffix?: Tooltip;
 	hits?: number;
-	formIndexes?: number[];
+	spineState?: number;
 	tooltip: Tooltip | null;
 };
 
