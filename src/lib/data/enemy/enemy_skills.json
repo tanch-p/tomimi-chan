@@ -406,6 +406,14 @@
 			"zh": ["同時攻撃<v.value>个单位 (优先攻击不同目标，可攻击同一目标) "]
 		}
 	},
+	"multi_hit": {
+		"value": 2,
+		"tooltip": {
+			"en": ["Normal attack consist of <v.value> hits"],
+			"ja": ["通常攻撃は<v.value>連撃"],
+			"zh": ["普通攻击为<v.value>连击"]
+		}
+	},
 	"def_down_hit": {
 		"value": 10,
 		"tooltip": {
@@ -4463,25 +4471,15 @@
 		}
 	},
 	"cbrush_1": {
+		"value": 800,
 		"tooltip": {
 			"en": [
-				"When passing through allied units, does 40% of ATK and current Movespeed * 800 as {phys} damage"
+				"When passing through allied units, does 40% of ATK and current Movespeed * <v.value> as {phys} damage"
 			],
 			"ja": [
-				"移動中、接触した味方に攻撃力の40%の{phys}ダメージと、現在の移動速度×800の{phys}ダメージを与える"
+				"移動中、接触した味方に攻撃力の40%の{phys}ダメージと、現在の移動速度×<v.value>の{phys}ダメージを与える"
 			],
-			"zh": ["经过干员时对其造成攻击力40%与自身移动速度*800的{phys}伤害"]
-		}
-	},
-	"cbrush_2": {
-		"tooltip": {
-			"en": [
-				"When passing through allied units, does 40% of ATK and current Movespeed * 1000 as {phys} damage"
-			],
-			"ja": [
-				"移動中、接触した味方に攻撃力の40%の{phys}ダメージと、現在の移動速度×1000の{phys}ダメージを与える"
-			],
-			"zh": ["经过干员时对其造成攻击力40%与自身移动速度*1000的{phys}伤害"]
+			"zh": ["经过干员时对其造成攻击力40%与自身移动速度*<v.value>的{phys}伤害"]
 		}
 	},
 	"sgcar_1": {
@@ -5889,6 +5887,33 @@
 			]
 		}
 	},
+	"lrthef_ms": {
+		"tooltip": {
+			"en": [
+				"When taking damage, Movespeed is reduced by 0.15 for 1.5 seconds (unlimited stacks; each instance has its own timer)"
+			],
+			"ja": [
+				"ダメージを受けるたび、移動速度が1.5秒間-0.15（累積する）",
+				"持続時間は各デバフごとにカウントされる"
+			],
+			"zh": ["受到伤害时在1.5s内移动速度-0.15（可无限叠加，每层独立计时）"]
+		}
+	},
+	"lrthef_beacon": {
+		"tooltip": {
+			"en": [
+				"While not carrying a Beacon, picks up a beacon within 0.25 tile radius. The Beacon will be dropped on the spot when the Sarkaz Altar Nourisher is defeated/leaves the map"
+			],
+			"ja": [
+				"ビーコンを持っていない時にビーコンに触れると、そのビーコンを回収する",
+				"退場時にビーコンを持っていれば、自身のいたマスの中央にビーコンを召喚する"
+			],
+			"zh": [
+				"未携带信标时，会拾取自身半径0.25范围内的信标（令其强制退场）",
+				"自身退场时若携带了信标，则在自身所在地块中心召唤一个信标"
+			]
+		}
+	},
 	"lrrook_1": {
 		"skillRange": 1.7,
 		"tooltip": {
@@ -7051,6 +7076,24 @@
 			]
 		}
 	},
+	"vtzepl_explode": {
+		"atk": { "multiplier": 2 },
+		"dmg_element": "phys",
+		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
+		"skillRange": 1.4,
+		"hits": 1,
+		"tooltip": {
+			"en": [
+				"When defeated, deals <v.atk.multiplier>% of ATK as {phys} damage to friendly units within 1.4 tile radius, and spawns an Unequipped Blade, Protective Vest, or Assault Arts Unit on the spot"
+			],
+			"ja": [
+				"倒されると半径1.4以内の味方全員に攻撃力の<v.atk.multiplier>%の{phys}ダメージを与え、自身と周囲4マスに組み立て前の刃/防護ベストの生地/アーツユニットの部品をランダムで召喚する"
+			],
+			"zh": [
+				"被击倒后对半径1.4范围内的所有我方单位造成攻击力<v.atk.multiplier>%的{phys}伤害，并在影响范围的地块中心各随机召唤1个未装配刀片/防护背心/冲击式施术单元"
+			]
+		}
+	},
 	"sailor_ms": {
 		"tooltip": {
 			"en": [
@@ -7914,6 +7957,17 @@
 			"zh": ["死亡时给予我方可部署装置"]
 		}
 	},
+	"cnvpvd_summon": {
+		"type": "skill",
+		"initCooldown": 10,
+		"cooldown": 10,
+		"suffix": { "en": "Summon", "ja": "厳選おやつ", "zh": "零食精选" },
+		"tooltip": {
+			"en": ["Spawns 1 Carnevale Snack Cart on the spot"],
+			"ja": ["自身のいるマスに祝祭のおやつカートを召喚する"],
+			"zh": ["在自身位置以自身路径召唤1个巡游零食车"]
+		}
+	},
 	"cnvpcar_explode": {
 		"tooltip": {
 			"en": [
@@ -7925,6 +7979,15 @@
 			"zh": [
 				"被阻挡后发生爆炸，对周围所有目标造成攻击力100%的{arts}溅射伤害和攻击力20%的{ba.dt.burning}{can_silence}{ignore_camou}"
 			]
+		}
+	},
+	"run_through_atk": {
+		"tooltip": {
+			"en": [
+				"Deals 100% of ATK as {phys} damage to friendly units entering 0.5 tile radius of self"
+			],
+			"ja": ["自身に接触した味方に攻撃力の100%の{phys}ダメージを与える"],
+			"zh": ["对进入自身半径0.5范围内的我方单位造成攻击力100%的{phys}伤害 "]
 		}
 	},
 	"dusk_1": {
@@ -8264,6 +8327,17 @@
 			"en": [],
 			"ja": [],
 			"zh": ["首次生命值低于50%时立刻退场"]
+		}
+	},
+	"sgcat_skill": {
+		"type": "skill",
+		"initCooldown": 5.0,
+		"cooldown": 10.0,
+		"suffix": { "en": "相合", "ja": "強撃", "zh": "强力击" },
+		"tooltip": {
+			"en": ["Deals 100% of ATK as {arts} damage to target and friendly units in the adjacent 4 tiles"],
+			"ja": ["対象と周囲4マスの味方に攻撃力の100%の{arts}ダメージを与える"],
+			"zh": ["对目标及周围4格我方单位造成攻击力100%{arts}伤害 "]
 		}
 	}
 }
