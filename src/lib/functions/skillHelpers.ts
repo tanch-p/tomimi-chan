@@ -84,7 +84,7 @@ export const getHandbookEnemySkills = (enemy, specialMods) => {
 		);
 		for (const skill of special) {
 			const item = skills.find((ele) => ele.key === skill.key);
-			if (item) {
+			if (item && isEquals(item,skill)) {
 				item.formIndexes.push(i);
 			} else {
 				skills.push({ ...skill, formIndexes: [i] });

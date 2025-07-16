@@ -10659,7 +10659,8 @@
 				"epResistance": 0.0,
 				"traits": [
 					{
-						"key": "fury_buff"
+						"key": "yinyang_effect",
+						"atk": { "multiplier": 2.52 }
 					}
 				],
 				"special": []
@@ -10698,7 +10699,8 @@
 				"epResistance": 0.0,
 				"traits": [
 					{
-						"key": "fury_buff"
+						"key": "yinyang_effect",
+						"atk": { "multiplier": 2.52 }
 					}
 				],
 				"special": []
@@ -26945,8 +26947,20 @@
 				"ms": 0.5,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
-				"special": []
+				"traits": [
+					{ "key": "yinyang" },
+					{ "key": "yinyang_effect" },
+					{ "key": "xi_marking" },
+					{ "key": "xi_weft" }
+				],
+				"special": [
+					[{ "key": "xi_revive" }, { "key": "xi_barrier" }],
+					[
+						{ "key": "multi_target_condense" },
+						{ "key": "xi_barrier", "initCooldown": 40, "value": 9000, "atk": { "multiplier": 8 } }
+					]
+				],
+				"form_mods": [[], [{ "key": "atk", "value": 0.05, "mode":"mul", "order": "initial" }]]
 			},
 			{
 				"hp": 40000,
@@ -26960,13 +26974,33 @@
 				"ms": 0.5,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
-				"special": []
+				"traits": [
+					{ "key": "yinyang" },
+					{ "key": "yinyang_effect" },
+					{ "key": "xi_marking" },
+					{ "key": "xi_weft" }
+				],
+				"special": [
+					[{ "key": "xi_revive" }, { "key": "xi_barrier","initCooldown": 50,"value":10500,"duration":10 }],
+					[
+						{ "key": "multi_target_condense" },
+						{ "key": "xi_barrier", "initCooldown": 60, "value": 12000, "atk": { "multiplier": 8 },"duration":10 }
+					]
+				],
+				"form_mods": [[], [{ "key": "atk", "value": 0.05, "order": "initial" }]]
 			}
 		],
 		"forms": [
 			{
-				"title": null,
+				"title": "form",
+				"normal_attack": {
+					"atk_type": ["ranged", "arts"],
+					"hits": 1
+				},
+				"status_immune": ["stun", "silence", "sleep", "freeze", "levitate"]
+			},
+			{
+				"title": "form",
 				"normal_attack": {
 					"atk_type": ["ranged", "arts"],
 					"hits": 1
@@ -28362,7 +28396,8 @@
 						{
 							"key": "invincible",
 							"value": 30
-						}
+						},
+						{"key":"fzm_form2"}
 					]
 				],
 				"form_mods": [

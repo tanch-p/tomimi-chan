@@ -890,6 +890,13 @@
 			"zh": ["每75秒，在预设位置召唤源石冰晶"]
 		}
 	},
+	"fzm_form2": {
+		"tooltip": {
+			"en": ["Gains +90% ATK, +50% Max HP"],
+			"ja": ["攻撃力+90%、最大HP+50%"],
+			"zh": ["攻击力+90%，生命值+50%"]
+		}
+	},
 	"gst_grenade": {
 		"atk": { "multiplier": 0.4 },
 		"dmg_element": "phys",
@@ -2431,6 +2438,22 @@
 			"zh": ["初始获得【明】属性"]
 		}
 	},
+	"yinyang_effect": {
+		"atk": { "multiplier": 1.4 },
+		"suffix": { "en": "Opp Ele", "ja": "反対属性", "zh": "异属性" },
+		"hits": 1,
+		"tooltip": {
+			"en": [
+				"Reduces damage dealt against units with a matching attribute to 60%, increases damage dealt against units with an opposing attribute to <v.atk.multiplier>%"
+			],
+			"ja": [
+				"同じ属性の味方に対するダメージが攻撃力の60%に減少する，反対属性の味方に対するダメージが攻撃力の<v.atk.multiplier>%に増加する"
+			],
+			"zh": [
+				"对同属性单位进行攻击时，攻击倍率降低至60%；对异属性单位进行攻击时，攻击倍率提升至<v.atk.multiplier>%"
+			]
+		}
+	},
 	"yinyang_target_opposite": {
 		"tooltip": {
 			"en": ["Targets units of opposing element first"],
@@ -2504,19 +2527,78 @@
 			"zh": ["蓄力5秒后造成攻击力200%的{arts}普通伤害，并改变目标所在晦明之印的属性"]
 		}
 	},
-	"fury_buff": {
-		"atk": { "multiplier": 2.52 },
-		"suffix": { "en": "Opp Ele", "ja": "反対属性", "zh": "异属性" },
-		"hits": 1,
+	"xi_revive": {
 		"tooltip": {
 			"en": [
-				"Reduces damage dealt against units with a matching attribute to 60%, increases damage dealt against units with an opposing attribute to 252%"
+				"Revives over 5 seconds to 100% HP when defeated in the First Form and enters the Second Form"
+			],
+			"ja": ["倒されると、5秒間かけてHP100%で復活し、狂暴状態へ移行。属性が反転し10秒間無敵になる"],
+			"zh": [
+				"首次被击败后进行持续5s的重生，恢复100%生命值",
+				"重生结束后，自身明晦属性变更，获得10s无敌，进入第二形态"
+			]
+		}
+	},
+	"xi_barrier": {
+		"type": "skill",
+		"initCooldown": 30,
+		"cooldown": 70,
+		"suffix": { "en": "Barrier", "ja": "桎梏打破", "zh": "破桎而出" },
+		"skillRange": 3,
+		"atk": { "multiplier": 6 },
+		"hits": 1,
+		"dmg_element": "arts",
+		"value": 7500,
+		"duration": 15,
+		"tooltip": {
+			"en": [
+				"Gains a Barrier that absorbs <v.value> {phys}/{arts} damage for <v.duration>s, during which 'Free' stops moving and attacking",
+				"If the Barrier is not destroyed in this period, the barrier explodes to deal <v.atk.multiplier>% of ATK as {arts} damage to friendly units within 3 tile radius",
+				"Only activates this skill when there are friendly units within range"
 			],
 			"ja": [
-				"同じ属性の味方に対するダメージが攻撃力の60%に減少する，反対属性の味方に対するダメージが攻撃力の252%に増加する"
+				"{phys}/{arts}ダメージを<v.value>吸収するバリアを生成",
+				"<v.duration>秒以内にバリアが破られなかった場合、半径3.0以内の全ての味方に攻撃力の<v.atk.multiplier>%の{arts}ダメージを与え、バリアを消滅させる",
+				"バリア発生中、自分は攻撃も移動もしない",
+				"このスキルは、半径3.0以内に味方がいる時のみ発動する"
 			],
 			"zh": [
-				"对同属性单位进行攻击时，攻击力倍率降低至60%；对异属性单位进行攻击时，攻击力倍率提升至252%"
+				"半径3范围内存在我方单位时可触发：生成一个可吸收<v.value>{phys}/{arts}伤害的屏障",
+				"若该屏障未在<v.duration>s内被击破，则对半径3范围内全体我方单位造成攻击力<v.atk.multiplier>%的{arts}溅射伤害并撤销屏障",
+				"※屏障存在期间自身不攻击，不移动，持有失衡免疫"
+			]
+		}
+	},
+	"xi_marking": {
+		"tooltip": {
+			"en": [
+				"Marks the closest friendly unit",
+				"In Second Form, marks the furthest friendly unit too"
+			],
+			"ja": [
+				"自身に最も近い味方にマーキングし、【緯地経天】の対象にする",
+				"第二形態では自身から最も遠い味方も同時にマーキングするようになる"
+			],
+			"zh": ["标记距离自身最近的我方单位", "※第二形态下，同时标记距离自身最近/最远的我方单位"]
+		}
+	},
+	"xi_weft": {
+		"type": "skill",
+		"initCooldown": 15,
+		"cooldown": 30,
+		"suffix": { "en": "Weft & Warp", "ja": "緯地経天", "zh": "纬地经天" },
+		"atk": { "multiplier": 1 },
+		"hits": 1,
+		"dmg_element": "arts",
+		"tooltip": {
+			"en": [
+				"Deals 100% of ATK as {arts} damage to marked targets and adjacent friendly units in a 2 tile cross shaped area and inverts their Hui/Ming attribute"
+			],
+			"ja": [
+				"マーキングした味方を中心にした十字型範囲攻撃。 範囲内の全味方ユニットに攻撃力の100%の{arts}ダメージを与え、範囲内の晦明の印の属性を反転させる"
+			],
+			"zh": [
+				"以被标记的我方单位为中心，对十字范围内全体我方单位造成100%的{arts}溅射伤害，并反转范围内晦明之印的属性"
 			]
 		}
 	},
@@ -8335,7 +8417,9 @@
 		"cooldown": 10.0,
 		"suffix": { "en": "相合", "ja": "強撃", "zh": "强力击" },
 		"tooltip": {
-			"en": ["Deals 100% of ATK as {arts} damage to target and friendly units in the adjacent 4 tiles"],
+			"en": [
+				"Deals 100% of ATK as {arts} damage to target and friendly units in the adjacent 4 tiles"
+			],
 			"ja": ["対象と周囲4マスの味方に攻撃力の100%の{arts}ダメージを与える"],
 			"zh": ["对目标及周围4格我方单位造成攻击力100%{arts}伤害 "]
 		}
