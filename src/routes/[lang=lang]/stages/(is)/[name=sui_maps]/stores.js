@@ -54,25 +54,6 @@ const difficultyMods = derived([difficulty], ([$difficulty]) =>
 		.filter(Boolean)
 );
 
-export const noobHelp = derived([difficulty], ([$difficulty]) => {
-	const lowDiffHP = [0.8, 0.85, 0.9];
-	if ($difficulty <= 2) {
-		return [
-			{
-				targets: ['ALL'],
-				mods: [
-					{
-						key: 'hp',
-						value: lowDiffHP[$difficulty],
-						mode: 'mul'
-					}
-				]
-			}
-		];
-	}
-	return null;
-});
-
 export const statMods = derived(
 	[
 		selectedRelics,
@@ -82,7 +63,6 @@ export const statMods = derived(
 		activeFloorEffects,
 		difficultyMods,
 		otherMods,
-		noobHelp
 	],
 	([
 		$selectedRelics,
@@ -92,7 +72,6 @@ export const statMods = derived(
 		$activeFloorEffects,
 		$difficultyMods,
 		$otherMods,
-		$noobHelp
 	]) => {
 		const relicMods = $selectedRelics.map((relic) => {
 			return {
@@ -105,7 +84,6 @@ export const statMods = derived(
 			diff: { key: 'difficulty', mods: $difficultyMods, stackType: 'mul' },
 			others: [
 				{ key: 'floor_diff', mods: [$floorDifficultyMods] },
-				{ key: 'low_diff', mods: [$noobHelp] },
 				{
 					key: 'sui_time',
 					mods: $activeFloorEffects.map((ele) => ele.effects),
