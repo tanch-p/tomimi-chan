@@ -48067,13 +48067,13 @@
 			{
 				"title": null,
 				"normal_attack": {
-					"atk_type": ["phys", "phys"],
+					"atk_type": ["melee", "phys"],
 					"hits": 1
 				},
 				"status_immune": []
 			}
 		],
-		"type": ["phys", "ranged", "machine", "ELITE"]
+		"type": ["melee", "ranged", "machine", "ELITE"]
 	},
 	"enemy_10028_vtswd": {
 		"id": "LUD26",
@@ -49790,7 +49790,11 @@
 				"ms": 1.2,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{ "key": "block", "value": 3 },
+					{ "key": "dmg_res", "value": 90 },
+					{ "key": "cnvber_beer" }
+				],
 				"special": []
 			}
 		],
@@ -49826,7 +49830,11 @@
 				"ms": 1.2,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{ "key": "block", "value": 3 },
+					{ "key": "dmg_res", "value": 90 },
+					{ "key": "cnvber_beer" }
+				],
 				"special": []
 			}
 		],
@@ -49834,13 +49842,13 @@
 			{
 				"title": null,
 				"normal_attack": {
-					"atk_type": ["ranged", "phys"],
+					"atk_type": ["melee", "phys"],
 					"hits": 1
 				},
 				"status_immune": []
 			}
 		],
-		"type": ["ranged", "ELITE"]
+		"type": ["melee", "ranged", "ELITE"]
 	},
 	"enemy_10040_cnvbln": {
 		"id": "CNV19",
