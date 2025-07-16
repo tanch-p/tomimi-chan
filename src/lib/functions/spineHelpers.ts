@@ -105,27 +105,42 @@ export function getIdleAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'enemy_2025_syufo':
 			return 'Idle_01';
 		case 'enemy_10047_shrknt':
+		case 'enemy_10047_shrknt_2':
 			return '1_Idle';
-			case 'enemy_10057_cjstel':
+		case 'enemy_10057_cjstel':
 		case 'enemy_10058_cjfrog':
-			return 'Idle_a'
+		case 'enemy_10058_cjfrog_2':
+			return 'Idle_a';
 		case 'enemy_1143_merrpg':
 		case 'enemy_1143_merrpg_2':
 		case 'enemy_1271_nhkodo':
 		case 'enemy_1271_nhkodo_2':
 		case 'enemy_1314_wdnjd':
-		case 'enemy_1315_wdyjd':
+		case 'enemy_1314_wdnjd_2':
 		case 'enemy_1316_wdpjd':
+		case 'enemy_1315_wdyjd':
+		case 'enemy_1315_wdyjd_2':
+		case 'enemy_1316_wdpjd_2':
 		case 'trap_086_larva':
 		case 'enemy_10045_parrot':
+		case 'enemy_2108_dypryg':
 			return 'Idle_A';
 		case 'enemy_1388_wingnt':
+		case 'trap_226_dychss':
+		case 'enemy_2105_dyrnge':
+		case 'enemy_2110_dyyrzf':
+		case 'enemy_2111_dyyrz2':
+		case 'enemy_2112_dyhlgy':
+		case 'enemy_2113_dyhlg2':
+		case 'enemy_2114_dylbgg':
+		case 'enemy_2115_dylbg2':
 			return 'A_Idle';
 
 		case 'enemy_1418_mmkonm':
 		case 'enemy_1418_mmkonm_2':
 			return 'Idle_b';
-
+		case 'enemy_2120_dywqgs':
+			return 'B_Idle';
 		case 'enemy_1135_redman':
 		case 'enemy_1135_redman_2':
 		case 'enemy_2089_skzjkl':
@@ -149,7 +164,7 @@ export function getIdleAnimName(key: string, skelData: spine.SkeletonData) {
 }
 
 function getMoveAnimName(key: string, skelData: spine.SkeletonData) {
-	if (key === 'enemy_10057_cjstel') {
+	if (key === 'enemy_2120_dywqgs') {
 		console.log(skelData);
 	}
 	if (skelData.findAnimation('Move')) {
@@ -203,27 +218,41 @@ function getMoveAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'enemy_2084_skzcan':
 			return 'Move1';
 		case 'enemy_10047_shrknt':
+		case 'enemy_10047_shrknt_2':
 			return '1_Move';
 		case 'enemy_1388_wingnt':
 		case 'enemy_2092_skzamy':
+		case 'enemy_2105_dyrnge':
 			return 'A_Move';
 		case 'enemy_10058_cjfrog':
-			return 'Move_a'
+		case 'enemy_10058_cjfrog_2':
+			return 'Move_a';
 		case 'enemy_1143_merrpg':
 		case 'enemy_1143_merrpg_2':
 		case 'enemy_1271_nhkodo':
 		case 'enemy_1271_nhkodo_2':
 		case 'enemy_2055_smlead':
 		case 'enemy_1314_wdnjd':
+		case 'enemy_1314_wdnjd_2':
 		case 'enemy_1316_wdpjd':
 		case 'enemy_1315_wdyjd':
+		case 'enemy_1315_wdyjd_2':
+		case 'enemy_1316_wdpjd_2':
 		case 'enemy_10045_parrot':
+		case 'enemy_2108_dypryg':
 			return 'Move_A';
 
 		case 'enemy_1418_mmkonm':
 		case 'enemy_1418_mmkonm_2':
 			return 'Move_b';
-
+		case 'enemy_2110_dyyrzf':
+		case 'enemy_2111_dyyrz2':
+		case 'enemy_2112_dyhlgy':
+		case 'enemy_2113_dyhlg2':
+		case 'enemy_2114_dylbgg':
+		case 'enemy_2115_dylbg2':
+		case 'enemy_2120_dywqgs':
+			return 'B_Move';
 		case 'enemy_1135_redman':
 		case 'enemy_1135_redman_2':
 		case 'enemy_2089_skzjkl':

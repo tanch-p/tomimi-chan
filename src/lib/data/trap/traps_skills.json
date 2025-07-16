@@ -1774,5 +1774,589 @@
 				"② deals 3500 {arts} damage to all allied units within attack range {ignore_stealth}{ignore_camou}"
 			]
 		}
+	},
+	"sktok_rgdysm_1": {
+		"name_zh": "雕伥",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": "消耗20点部署费用，使雕伥把嘴闭上一段时间，并停止吐出敌人",
+		"desc_ja": "",
+		"desc_en": "",
+		"skillType": "MANUAL",
+		"durationType": "NONE",
+		"spType": 8,
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": 8,
+					"levelUpCost": null,
+					"maxChargeTime": 1,
+					"spCost": 1,
+					"initSp": 1,
+					"increment": 0.0
+				},
+				"duration": 150.0,
+				"blackboard": [
+					{
+						"key": "cost",
+						"value": 20.0,
+						"valueStr": null
+					},
+					{
+						"key": "stun",
+						"value": 0.0,
+						"valueStr": null
+					},
+					{
+						"key": "cnt",
+						"value": 1.0,
+						"valueStr": null
+					},
+					{
+						"key": "interval",
+						"value": 1.0,
+						"valueStr": null
+					},
+					{
+						"key": "enemy_key",
+						"value": 0.0,
+						"valueStr": "enemy_2101_dyspll"
+					}
+				]
+			}
+		]
+	},
+	"sktok_dydfst_1": {
+		"name_zh": "谤天",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": "每隔一段时间，对明烛台上的干员劈下落雷，对目标及目标周围四格的我方单位造成1000点法术伤害。落雷每劈下一次，下一次造成的伤害会增加25％",
+		"desc_ja": "",
+		"desc_en": "",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": "INCREASE_WITH_TIME",
+					"levelUpCost": null,
+					"maxChargeTime": 1,
+					"spCost": 5,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "addition_scale",
+						"value": 0.25,
+						"valueStr": null
+					},
+					{
+						"key": "atk_scale",
+						"value": 1.0,
+						"valueStr": null
+					}
+				]
+			}
+		]
+	},
+	"sktok_dydfst_2": {
+		"name_zh": "迎雷",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": "每隔一段时间，对明烛台上的干员劈下落雷，对该干员造成其40％最大生命值的真实伤害",
+		"desc_ja": "",
+		"desc_en": "",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": "INCREASE_WITH_TIME",
+					"levelUpCost": null,
+					"maxChargeTime": 1,
+					"spCost": 5,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "hp_ratio",
+						"value": 0.4,
+						"valueStr": null
+					},
+					{
+						"key": "atk_scale",
+						"value": 1.0,
+						"valueStr": null
+					}
+				]
+			}
+		]
+	},
+	"sktok_dydfst_3": {
+		"name_zh": "蔑震",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": "每隔一段时间，对明烛台上的干员劈下落雷，对该干员造成其100％攻击力的物理伤害",
+		"desc_ja": "",
+		"desc_en": "",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": "INCREASE_WITH_TIME",
+					"levelUpCost": null,
+					"maxChargeTime": 1,
+					"spCost": 5,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "atk_ratio",
+						"value": 1.0,
+						"valueStr": null
+					},
+					{
+						"key": "atk_scale",
+						"value": 1.0,
+						"valueStr": null
+					}
+				]
+			}
+		]
+	},
+	"sktok_dydfst_4": {
+		"name_zh": "赴陨",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": "对明烛台上的干员造成600点法术伤害，每有4点源石锭，额外造成1次伤害",
+		"desc_ja": "",
+		"desc_en": "",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": "INCREASE_WITH_TIME",
+					"levelUpCost": null,
+					"maxChargeTime": 1,
+					"spCost": 30,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "damage_value",
+						"value": 600.0,
+						"valueStr": null
+					},
+					{
+						"key": "times",
+						"value": 1.0,
+						"valueStr": null
+					},
+					{
+						"key": "each_gold_time",
+						"value": 4.0,
+						"valueStr": null
+					},
+					{
+						"key": "interval",
+						"value": 0.4,
+						"valueStr": null
+					}
+				]
+			}
+		]
+	},
+	"sktok_dydfst_5": {
+		"name_zh": "斥洪",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": "明烛台上的干员更容易受到攻击，且受到的物理和法术伤害增加50%",
+		"desc_ja": "",
+		"desc_en": "",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": "INCREASE_WITH_TIME",
+					"levelUpCost": null,
+					"maxChargeTime": 1,
+					"spCost": 1,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "damage_scale",
+						"value": 1.5,
+						"valueStr": null
+					},
+					{
+						"key": "taunt_level",
+						"value": 1.0,
+						"valueStr": null
+					}
+				]
+			}
+		]
+	},
+	"sktok_dynbox": {
+		"name_zh": "诱人珍宝",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": "击破额外获得2源石锭",
+		"desc_ja": "",
+		"desc_en": "",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": 8,
+					"levelUpCost": null,
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": -1.0,
+				"blackboard": []
+			}
+		]
+	},
+	"sktok_dyrbox": {
+		"name_zh": "刺人珍宝",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": "反弹部分受到的伤害，击破额外获得5源石锭",
+		"desc_ja": "",
+		"desc_en": "",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": 8,
+					"levelUpCost": null,
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": -1.0,
+				"blackboard": []
+			}
+		]
+	},
+	"sktok_dysbox": {
+		"name_zh": "极诱人珍宝",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": "击破额外获得10源石锭",
+		"desc_ja": "",
+		"desc_en": "",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": 8,
+					"levelUpCost": null,
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "enemy_key",
+						"value": 0.0,
+						"valueStr": "enemy_2106_dyremy"
+					}
+				]
+			}
+		]
+	},
+	"sktok_radian_3": {
+		"name_zh": "手牵手",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": null,
+		"desc_ja": "",
+		"desc_en": "",
+		"skillType": "PASSIVE",
+		"durationType": "NONE",
+		"spType": 8,
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": 8,
+					"levelUpCost": null,
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "attack@token_radian_tower3_s_3[normal_aoe].max_target",
+						"value": 0.0,
+						"valueStr": null
+					},
+					{
+						"key": "talent@prism_max_target",
+						"value": 0.0,
+						"valueStr": null
+					}
+				]
+			},
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": 8,
+					"levelUpCost": null,
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "attack@token_radian_tower3_s_3[normal_aoe].max_target",
+						"value": 0.0,
+						"valueStr": null
+					},
+					{
+						"key": "talent@prism_max_target",
+						"value": 0.0,
+						"valueStr": null
+					}
+				]
+			},
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": 8,
+					"levelUpCost": null,
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "attack@token_radian_tower3_s_3[normal_aoe].max_target",
+						"value": 0.0,
+						"valueStr": null
+					},
+					{
+						"key": "talent@prism_max_target",
+						"value": 0.0,
+						"valueStr": null
+					}
+				]
+			},
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": 8,
+					"levelUpCost": null,
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "attack@token_radian_tower3_s_3[normal_aoe].max_target",
+						"value": 0.0,
+						"valueStr": null
+					},
+					{
+						"key": "talent@prism_max_target",
+						"value": 0.0,
+						"valueStr": null
+					}
+				]
+			},
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": 8,
+					"levelUpCost": null,
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "attack@token_radian_tower3_s_3[normal_aoe].max_target",
+						"value": 0.0,
+						"valueStr": null
+					},
+					{
+						"key": "talent@prism_max_target",
+						"value": 0.0,
+						"valueStr": null
+					}
+				]
+			},
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": 8,
+					"levelUpCost": null,
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "attack@token_radian_tower3_s_3[normal_aoe].max_target",
+						"value": 0.0,
+						"valueStr": null
+					},
+					{
+						"key": "talent@prism_max_target",
+						"value": 0.0,
+						"valueStr": null
+					}
+				]
+			},
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": 8,
+					"levelUpCost": null,
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "attack@token_radian_tower3_s_3[normal_aoe].max_target",
+						"value": 0.0,
+						"valueStr": null
+					},
+					{
+						"key": "talent@prism_max_target",
+						"value": 0.0,
+						"valueStr": null
+					}
+				]
+			},
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": 8,
+					"levelUpCost": null,
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "attack@token_radian_tower3_s_3[normal_aoe].max_target",
+						"value": 0.0,
+						"valueStr": null
+					},
+					{
+						"key": "talent@prism_max_target",
+						"value": 0.0,
+						"valueStr": null
+					}
+				]
+			},
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": 8,
+					"levelUpCost": null,
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "attack@token_radian_tower3_s_3[normal_aoe].max_target",
+						"value": 0.0,
+						"valueStr": null
+					},
+					{
+						"key": "talent@prism_max_target",
+						"value": 0.0,
+						"valueStr": null
+					}
+				]
+			},
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": 8,
+					"levelUpCost": null,
+					"maxChargeTime": 0,
+					"spCost": 0,
+					"initSp": 0,
+					"increment": 0.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "attack@token_radian_tower3_s_3[normal_aoe].max_target",
+						"value": 0.0,
+						"valueStr": null
+					},
+					{
+						"key": "talent@prism_max_target",
+						"value": 0.0,
+						"valueStr": null
+					}
+				]
+			}
+		]
 	}
 }

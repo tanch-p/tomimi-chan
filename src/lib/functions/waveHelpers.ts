@@ -11,7 +11,8 @@ const ALWAYS_KILLED_KEYS = [
 	'enemy_2094_skzamb',
 	'enemy_2094_skzamb_2',
 	'enemy_1106_byokai_b',
-	'enemy_3005_lpeopl'
+	'enemy_3005_lpeopl',
+	'enemy_2101_dyspll'
 ];
 
 const KEYS_TO_IGNORE = ['enemy_2086_skzdwx'];
@@ -580,7 +581,7 @@ const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime, enemyRe
 	if (enemyReplace[action.key]) {
 		enemyKey = enemyReplace[action.key];
 	}
-	if (enemyKey.includes('trap')) {
+	if (enemyKey.includes('trap') || enemyKey.includes('char') || enemyKey.includes('token')) {
 		enemyKey = enemyKey.split('#')?.[0];
 	}
 	if (action['count'] > 1) {

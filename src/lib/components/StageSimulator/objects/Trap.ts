@@ -142,6 +142,7 @@ export class Trap {
 					});
 					const frontPlane = new THREE.Mesh(geometry, material);
 					frontPlane.renderOrder = -1;
+					frontPlane.position.z = 15;
 					this.meshGroup.add(frontPlane);
 				}
 				break;

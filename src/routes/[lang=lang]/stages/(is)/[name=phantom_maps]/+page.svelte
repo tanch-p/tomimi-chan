@@ -15,7 +15,6 @@
 	} from './stores';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import FooterBar from '$lib/components/FooterBar.svelte';
-	import translations from '$lib/translations.json';
 	import hardRelics from '$lib/data/is/phantom/relics_phantom_hard.json';
 	import RelicDivUnique from '$lib/components/RelicDivUnique.svelte';
 	import StageHeader from '$lib/components/StageHeader.svelte';

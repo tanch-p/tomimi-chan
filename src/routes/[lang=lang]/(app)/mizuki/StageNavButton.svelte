@@ -17,7 +17,6 @@
 </script>
 
 <a
-	data-sveltekit-preload-code="eager"
 	href={`/${language}/stages/${stageUrl}`}
 	class="hover:text-sky-400"
 >

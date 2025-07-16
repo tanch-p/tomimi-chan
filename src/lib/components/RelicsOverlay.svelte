@@ -6,7 +6,7 @@
 	import mizukiRelics from '$lib/data/is/mizuki/relics_mizuki.json';
 	import phantomRelics from '$lib/data/is/phantom/relics_phantom.json';
 	import samiRelics from '$lib/data/is/sami/relics_sami.json';
-	import skzRelics from "$lib/data/is/sarkaz/relics_sarkaz.json"
+	import skzRelics from '$lib/data/is/sarkaz/relics_sarkaz.json';
 
 	const dispatch = createEventDispatcher();
 
@@ -51,13 +51,17 @@
 		>
 			<div class="w-full max-w-7xl mx-auto py-36">
 				<slot name="uniqueRelics" />
-				<div
-					class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8 w-full overflow-x-auto md:overflow-visible my-auto mx-auto px-4 sm:px-24"
-				>
-					{#each relicsList as relic}
-						<RelicDiv {relic} {language} {rogueTopic} {selectedRelics} />
-					{/each}
-				</div>
+				{#if relicsList.length > 0}
+					<div
+						class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8 w-full overflow-x-auto md:overflow-visible my-auto mx-auto px-4 sm:px-24"
+					>
+						{#each relicsList as relic}
+							<RelicDiv {relic} {language} {rogueTopic} {selectedRelics} />
+						{/each}
+					</div>
+				{:else}
+					<p class="text-near-white w-full text-center py-20 text-3xl">施工中</p>
+				{/if}
 				<button
 					id="reset"
 					class="block rounded-xl bg-neutral-700 text-near-white px-16 py-2 mt-12 mx-auto w-min hover:cursor-pointer hover:bg-neutral-600 whitespace-nowrap"

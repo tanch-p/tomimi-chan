@@ -15,7 +15,6 @@
 	import SamiNav from '../../../(app)/sami/SamiNavTemp.svelte';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import FooterBar from '$lib/components/FooterBar.svelte';
-	import translations from '$lib/translations.json';
 	import FloorTitle from './FloorTitle.svelte';
 	import StageHeader from '$lib/components/StageHeader.svelte';
 	import StageDrops from './StageDrops.svelte';

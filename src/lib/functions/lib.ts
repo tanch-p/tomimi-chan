@@ -21,7 +21,10 @@ export const BONUS_ENEMY_KEYS = [
 	'enemy_2067_skzcy',
 	'enemy_2065_skzjs',
 	'enemy_2093_skzams',
-	'enemy_2070_skzfbx'
+	'enemy_2070_skzfbx',
+	'enemy_2119_dyshhj_2',
+	'enemy_2106_dyremy',
+	'enemy_2121_dyspl2'
 ];
 
 export function isEquals(obj1, obj2) {
@@ -131,7 +134,7 @@ export const setOtherBuffsList = (
 	enemies: Enemy[],
 	mapConfig: MapConfig,
 	language: Language,
-	difficulty: number
+	difficulty = 0
 ) => {
 	const buffsList = [];
 	switch (rogueTopic) {
@@ -178,7 +181,9 @@ export const setOtherBuffsList = (
 				maxCount: 1
 			});
 	}
-	const tileInfection = mapConfig.sp_terrain?.find((item) => item.tileKey === 'tile_infection' && item.heightType === "LOWLAND");
+	const tileInfection = mapConfig.sp_terrain?.find(
+		(item) => item.tileKey === 'tile_infection' && item.heightType === 'LOWLAND'
+	);
 	if (tileInfection) {
 		buffsList.push({
 			key: 'tile_infection',
@@ -200,7 +205,7 @@ export const setOtherBuffsList = (
 	}
 	for (const enemy of enemies) {
 		const enemyCount = mapConfig.enemies.find((ele) => ele.id === enemy.stageId);
-		const maxCount = Math.max(enemyCount.max_count, enemyCount.elite_max_count,1);
+		const maxCount = Math.max(enemyCount.max_count, enemyCount.elite_max_count, 1);
 		const list = [
 			...enemy.traits,
 			...enemy.stats.special.reduce((acc, curr) => {
@@ -312,6 +317,8 @@ export const getEliteColors = (rogueTopic: string) => {
 			return ['bg-[#dea41b]', 'bg-[#cb710c]'];
 		case 'rogue_skz':
 			return ['bg-[#5a4b90]', 'bg-[#cb3220]'];
+		case 'rogue_yan':
+			return ['bg-[#9d6bd4]','bg-[#c44256]']
 	}
 	return [];
 };
