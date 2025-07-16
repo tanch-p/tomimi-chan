@@ -42,10 +42,12 @@
 				break;
 			case 'rogue_yan':
 				if (['enemy_2119_dyshhj_2'].includes(key)) return false;
-				if (levelId.includes('_sv-') || levelId.includes('_fs-')) return true;
+				if (levelId.includes('_sv-') || levelId.includes('_fs-') || levelId.includes('_t-'))
+					return true;
 				break;
 		}
 		if (['enemy_2065_skzjs', 'enemy_1106_byokai'].includes(key)) return false;
+		if (levelId.includes('_d-')) return true;
 		switch (levelId) {
 			case 'level_rogue4_t-6':
 			case 'level_rogue4_b-6':
@@ -72,14 +74,6 @@
 					['enemy_2070_skzfbx', 'enemy_2085_skzjxd'].includes(key) ||
 					!BONUS_ENEMY_KEYS.includes(key)
 				);
-			case 'level_rogue4_d-1':
-			case 'level_rogue4_d-2':
-			case 'level_rogue4_d-3':
-			case 'level_rogue5_d-1':
-			case 'level_rogue5_d-2':
-			case 'level_rogue5_d-2-b':
-			case 'level_rogue5_d-2-c':
-				return true;
 			default:
 				return !BONUS_ENEMY_KEYS.includes(key);
 		}
