@@ -15,7 +15,7 @@
 	$: stageUrl = name==="「」" ? "ro4_b_9" :stageInfo.code + '_' + name;
 </script>
 
-<a data-sveltekit-preload-code="eager" href={`/${language}/stages/${stageUrl}`}>
+<a href={`/${language}/stages/${stageUrl}`}>
 	<div
 		class:active={stageName === currentStageName}
 		class={`hover:text-sky-400 hover:bg-[#343434] py-1.5 px-1 md:h-full hover:cursor-pointer`}

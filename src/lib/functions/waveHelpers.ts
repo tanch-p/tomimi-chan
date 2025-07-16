@@ -581,7 +581,7 @@ const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime, enemyRe
 	if (enemyReplace[action.key]) {
 		enemyKey = enemyReplace[action.key];
 	}
-	if (enemyKey.includes('trap') || enemyKey.includes('char')) {
+	if (enemyKey.includes('trap') || enemyKey.includes('char') || enemyKey.includes('token')) {
 		enemyKey = enemyKey.split('#')?.[0];
 	}
 	if (action['count'] > 1) {

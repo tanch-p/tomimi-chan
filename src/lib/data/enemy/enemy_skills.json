@@ -2634,6 +2634,13 @@
 			"zh": ["优先攻击部署于高台上的我方单位"]
 		}
 	},
+	"atk_priority_higher_ground": {
+		"tooltip": {
+			"en": ["Prioritizes attacking targets on higher ground"],
+			"ja": ["高台にいる味方を優先して攻撃する"],
+			"zh": ["优先攻击部署于最高处的我方单位"]
+		}
+	},
 	"sarkaz_guerilla_fighter": {
 		"tooltip": {
 			"en": [
@@ -3638,7 +3645,7 @@
 		}
 	},
 	"wdfmr_cost": {
-		"value":2,
+		"value": 2,
 		"tooltip": {
 			"en": [
 				"Once indentity is confirmed, becomes unblockable and increases the DP limit by <v.value> when entering Protection Objective"
@@ -5883,7 +5890,7 @@
 		}
 	},
 	"lrrook_1": {
-		"skillRange":1.7,
+		"skillRange": 1.7,
 		"tooltip": {
 			"en": [
 				"Reduces the damage taken by nearby ground enemies within a radius of 1.7 to 5%, and transfers the reduced damage as {true} damage to self"
@@ -7710,23 +7717,59 @@
 		"type": "skill",
 		"initCooldown": 10,
 		"cooldown": 15,
-		"suffix": { "en": "Skill", "ja": "汚", "zh": "污" },
+		"suffix": { "en": "Fish", "ja": "愿者上钩", "zh": "愿者上钩" },
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": [""]
+			"zh": [
+				"随机选择一个化境地块垂钓，钓到我方干员或敌方单位时强制移动到自身周围的地块；若钓到的目标为敌方单位，使其获得以下效果：攻击速度+50，移动速度+100%，行动路径改变"
+			]
 		}
 	},
 	"dyyysg_summon": {
 		"type": "skill",
 		"initCooldown": 3,
 		"cooldown": 15,
-		"suffix": { "en": "Skill", "ja": "汚", "zh": "污" },
+		"suffix": { "en": "Summon", "ja": "勿扰清静", "zh": "勿扰清静" },
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": [""]
+			"zh": ["在自身周围8格中心各召唤1个便符"]
 		}
+	},
+	"dyyysg_end": {
+		"standby": 999,
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["出场<v.standby>s后，消失并扣除5目标生命值"]
+		}
+	},
+	"dyyys2_fish": {
+		"type": "skill",
+		"initCooldown": 10,
+		"cooldown": 15,
+		"suffix": { "en": "Fish", "ja": "愿者上钩", "zh": "愿者上钩" },
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"随机选择三个化境地块垂钓，钓到我方干员或敌方单位时强制移动到自身周围的地块；若钓到的目标为敌方单位，使其获得以下效果：最大生命值+50%，攻击力+50%，行动路径改变"
+			]
+		}
+	},
+	"dyyys2_fish_buff": {
+		"type": "buff",
+		"effects": {
+			"targets": ["ALL"],
+			"activeTargets": [],
+			"mods": [
+				{ "key": "atk", "value": 0.5, "order": "initial", "mode": "mul" },
+				{ "key": "hp", "value": 0.5, "order": "initial", "mode": "mul" }
+			],
+			"stackType": "add"
+		},
+		"tooltip": null
 	},
 	"yan_statue_standby": {
 		"standby": 30,
@@ -7849,12 +7892,243 @@
 			"zh": ["死亡时给予我方可部署装置"]
 		}
 	},
-	"dyyysg_end": {
-		"duration": 999,
+	"cnvpcar_explode": {
+		"tooltip": {
+			"en": [
+				"Detonates when blocked, inflicting 100% of ATK as {arts} Damage and 20% of ATK as {ba.dt.burning} to all nearby targets{can_silence}{ignore_camou}"
+			],
+			"ja": [
+				"ブロックされると自爆し、自身を中心とした3×3マス内の味方全員に攻撃力100%の{arts}ダメージと攻撃力20%の{ba.dt.burning}を与える{can_silence}{ignore_camou}"
+			],
+			"zh": [
+				"被阻挡后发生爆炸，对周围所有目标造成攻击力100%的{arts}溅射伤害和攻击力20%的{ba.dt.burning}{can_silence}{ignore_camou}"
+			]
+		}
+	},
+	"dusk_1": {
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": []
+			"zh": ["演出用敌人，不攻击，无敌，移动时瞬移至路径终点", "会随“自在”一起退场"]
+		}
+	},
+	"dytmbr_eat": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"生命值不高于40%且半径1.5范围内存在便符时可触发1次",
+				"吸收自身半径1.5范围内的1个便符，治疗自身最大生命值60%的生命值 "
+			]
+		}
+	},
+	"dyspll_apply": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["首次攻击时在目标所在位置召唤1个受符，随后自身死亡"]
+		}
+	},
+	"dyspll_possess": {
+		"value": 0,
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"【受符】附着：附着对象无法开启技能，攻击力变为原本的100%",
+				"出现时以及后续每秒尝试选取附着对象，每次选取成功时对目标及其半径0.0范围内的我方单位造成攻击力100%的法术伤害与攻击力<v.value>%的灼燃损伤",
+				"无法选取到目标时，自身立刻退场"
+			]
+		}
+	},
+	"dykens_summon": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["若自身SP大于0，每次攻击额外消耗1SP，在目标所在位置召唤1个受符"]
+		}
+	},
+	"dycast_summon": {
+		"initCooldown": 20,
+		"cooldown": 20,
+		"suffix": { "en": "Skill", "ja": "指摘", "zh": "指指点点" },
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["选择场上仇恨值最高的我方单位所在地块为路径终点，以自身位置为路径起点召唤一个便符"]
+		}
+	},
+	"dyrnge_eat": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"首次被阻挡时将阻挡者强制击倒并吞噬，随后获得<ba.hover>近地悬浮</>，防御力-1500",
+				"近地悬浮期间被击倒时，尽可能将被吞噬的单位部署在自身所在位置"
+			]
+		}
+	},
+	"dyremy_buff": {
+		"atk": { "multiplier": 1.5, "order": "initial" },
+		"suffix": { "en": "MAX", "ja": "MAX", "zh": "满层" },
+		"hits": null,
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"进入战斗时每持有的3源石锭使自身获得攻击力+15%、最大生命值+15%的增益（最多叠加至10层）"
+			]
+		}
+	},
+	"dybgzd_explode_kill": {
+		"buffloss": true,
+		"atk": { "multiplier": 2 },
+		"dmg_element": "arts",
+		"suffix": { "en": "💥on kill", "ja": "撃破時", "zh": "击破时" },
+		"tooltip": {
+			"en": [
+				"Self-destructs when defeated, dealing <v.atk.multiplier>% of ATK as {arts} damage to all friendly units in 0.3 tile radius{ignore_camou}"
+			],
+			"ja": [
+				"撃破時自爆する、半径0.3の味方全体に攻撃力<v.atk.multiplier>%の{arts}ダメージを与える{ignore_camou}"
+			],
+			"zh": [
+				"被击杀后自爆，对0.3半径内全体友方单位造成攻击力<v.atk.multiplier>%的{arts}溅射伤害{ignore_camou}"
+			]
+		}
+	},
+	"dybgzd_explode": {
+		"buffloss": true,
+		"atk": { "multiplier": 3 },
+		"dmg_element": "arts",
+		"suffix": { "en": "💥Neutral", "ja": "💥無属性", "zh": "💥无属性" },
+		"tooltip": {
+			"en": [
+				"Creates a big explosion with another Liang of opposite element, dealing <v.atk.multiplier>% of ATK as {arts} damage to all friendly units in 0.3 tile radius{ignore_camou}"
+			],
+			"ja": [
+				"反対属性の「梁」に接触すると爆発する (心中)、半径0.3の味方全体に攻撃力<v.atk.multiplier>%の{arts}ダメージを与える{ignore_camou}"
+			],
+			"zh": [
+				"属性相异的梁距离小于1时自爆，对0.3半径内全体我方单位造成攻击力300%的{arts}溅射伤害{ignore_camou}",
+				"若目标是同属性则该倍率降至180%，异属性则该倍率提升至420%"
+			]
+		}
+	},
+	"dybgzd_explode_same": {
+		"buffloss": true,
+		"atk": { "multiplier": 1.8 },
+		"dmg_element": "arts",
+		"suffix": { "en": "💥Same", "ja": "💥同じ属性", "zh": "💥同属性" },
+		"tooltip": null
+	},
+	"dybgzd_explode_oppo": {
+		"buffloss": true,
+		"atk": { "multiplier": 4.2 },
+		"dmg_element": "arts",
+		"suffix": { "en": "💥Oppo", "ja": "💥反対属性", "zh": "💥异属性" },
+		"tooltip": null
+	},
+	"dycant_spray_potion": {
+		"type": "skill",
+		"initSp": 10,
+		"spCost": 20,
+		"skillType": "INCREASE_WITH_TIME",
+		"suffix": { "en": "Potion", "ja": "薬剤散布", "zh": "药剂喷洒" },
+		"tooltip": {
+			"en": ["Randomly activates one of the effects below:"],
+			"ja": ["以下の効果から一つ発動する"],
+			"zh": ["以下效果触发随机其一"]
+		}
+	},
+	"dycant_potion_effect_1": {
+		"tooltip": {
+			"en": [
+				"Effect 1 - Reduces an enemy unit's Movespeed by 50% for 15s, during which they recover 5% max HP/s"
+			],
+			"ja": ["効果①→敵単体に15秒移動速度-50%、毎秒最大HPの5%のバフを与えを回復する"],
+			"zh": ["①使敌方单位在15s内获得以下效果：移动速度-50%，每秒受到5%最大生命值的治疗"]
+		}
+	},
+	"dycant_potion_effect_2": {
+		"type": "buff",
+		"effects": {
+			"targets": ["ALL"],
+			"activeTargets": [],
+			"mods": [
+				{ "key": "atk", "value": 1.5, "order": "initial", "mode": "mul" },
+				{ "key": "aspd", "value": 1.0, "order": "initial", "mode": "mul" }
+			],
+			"stackType": "add"
+		},
+		"tooltip": {
+			"en": [
+				"Grants at random 2 enemy units on the field unkillable (HP will not fall below 1) for 15s, and ATK +150%, ASPD +100"
+			],
+			"ja": [
+				"効果②→敵2体に15秒「致命的なダメージを受けてもHPが１残る」状態を与え、さらに攻撃力+150%、攻撃速度+100"
+			],
+			"zh": ["②使场上2名敌方单位获得15s不死+攻击力提升150%+攻击速度增加100"]
+		}
+	},
+	"dycant_potion_effect_3": {
+		"tooltip": {
+			"en": ["Summons 3 便符"],
+			"ja": ["効果③→便符3体を召喚する"],
+			"zh": ["③召唤3个便符"]
+		}
+	},
+	"dycant_transform": {
+		"value": 10,
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["登场<v.value>s后将雕伥变为似兽"]
+		}
+	},
+	"dypryg_hover_evasion": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["近地悬浮期间获得50%物理/法术闪避"]
+		}
+	},
+	"dypryg_hover_recover": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"非近地悬浮期间，半径0.8范围内存在便符时可触发：将其吸收，治疗自身最大生命值20%的生命值，并重新获得近地悬浮"
+			]
+		}
+	},
+	"dypryg_summon": {
+		"type": "skill",
+		"cooldown": 15.0,
+		"initCooldown": 10.0,
+		"value": 1,
+		"suffix": { "en": "寻夫执念", "ja": "寻夫执念", "zh": "寻夫执念" },
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["选择随机的<v.value>个化境地块，在其中心召唤1个便符"]
+		}
+	},
+	"dypry2_hover_range": {
+		"skillRange": 3,
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["近地悬浮期间攻击半径增加至200%"]
+		}
+	},
+	"dypry2_hover_recover": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"非近地悬浮期间，半径0.8范围内存在便符时可触发：将其吸收，在10s内攻击速度+50，并重新获得近地悬浮"
+			]
 		}
 	}
 }

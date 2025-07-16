@@ -414,7 +414,7 @@ export class Enemy {
 				const skel = new spine.SkeletonMesh(this.skelData, (parameters) => {
 					parameters.depthTest = false;
 				});
-				skel.skeleton.color.a = 0.3;
+				skel.skeleton.color.a = 0.4;
 				this.disguiseSkel = skel;
 				this.meshGroup.add(skel);
 			}
