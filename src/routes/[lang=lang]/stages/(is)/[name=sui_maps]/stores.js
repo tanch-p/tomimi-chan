@@ -7,7 +7,7 @@ import { consolidateOtherMods } from '$lib/functions/lib';
 
 let storedDifficulty = 0;
 if (browser && cookiesEnabled) {
-	storedDifficulty = parseInt(localStorage.getItem('sui_difficulty') ?? '0');
+	storedDifficulty = parseInt(localStorage.getItem('yan_difficulty') ?? '0');
 }
 export const selectedRelics = writable([]);
 export const difficulty = writable(storedDifficulty);
