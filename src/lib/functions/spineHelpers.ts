@@ -164,7 +164,7 @@ export function getIdleAnimName(key: string, skelData: spine.SkeletonData) {
 }
 
 function getMoveAnimName(key: string, skelData: spine.SkeletonData) {
-	if (key === 'enemy_2120_dywqgs') {
+	if (key === '') {
 		console.log(skelData);
 	}
 	if (skelData.findAnimation('Move')) {
