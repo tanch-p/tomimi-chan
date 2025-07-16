@@ -58616,18 +58616,34 @@
 				"ms": 0.5,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
-				"special": []
+				"traits": [
+					{ "key": "dylbhm_invert" },
+					{ "key": "dylbhm_summon" },
+					{ "key": "yinyang" },
+					{ "key": "multi_target" },
+					{ "key": "yinyang_target_opposite" },
+					{ "key": "dylbhm_yinyang_bonus" }
+				],
+				"special": [[{ "key": "dylbhm_revive" }], [{ "key": "dylbhm_invert_element_all" }]],
+				"form_mods": [[], []]
 			}
 		],
 		"forms": [
 			{
-				"title": null,
+				"title": "form",
 				"normal_attack": {
 					"atk_type": ["ranged", "arts"],
 					"hits": 1
 				},
 				"status_immune": ["stun", "silence", "sleep", "freeze", "levitate"]
+			},
+			{
+				"title": "form",
+				"normal_attack": {
+					"atk_type": ["ranged", "arts"],
+					"hits": 1
+				},
+				"status_immune": ["stun", "silence", "sleep", "freeze", "levitate", "attract"]
 			}
 		],
 		"type": ["ranged", "animated", "BOSS"]
@@ -58652,7 +58668,12 @@
 				"ms": 1.0,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{ "key": "dyshhj_appear" },
+					{ "key": "dyshhj_default" },
+					{ "key": "dyshhj_end" },
+					{ "key": "dyshhj_force" }
+				],
 				"special": []
 			}
 		],
@@ -58697,7 +58718,10 @@
 				"ms": 1.0,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
+				"traits": [
+					{ "key": "dyshh2_appear"},
+					{ "key": "dyshhj_default" }
+				],
 				"special": []
 			}
 		],
