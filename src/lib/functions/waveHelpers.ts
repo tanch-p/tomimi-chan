@@ -200,11 +200,11 @@ export const getOptions = (
 			}
 			options.push(
 				...[
-					{
-						key: 'copper_b', //rogue_5_relic_final_3
-						src: '',
-						name: { zh: '隐蝶墨', ja: '隐蝶墨', en: '隐蝶墨' }[language]
-					},
+					// {
+					// 	key: 'copper_b', //rogue_5_relic_final_3
+					// 	src: '',
+					// 	name: { zh: '隐蝶墨', ja: '隐蝶墨', en: '隐蝶墨' }[language]
+					// },
 					{
 						key: 'copper_r',
 						src: '/images/relics/rogue_5_copper_S_1.webp',
