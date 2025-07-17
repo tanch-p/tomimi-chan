@@ -405,6 +405,7 @@ export const checkIsTarget = (entity: Enemy | Trap | EnemyDBEntry, target: strin
 		case 'BOSS':
 		case 'collapsal':
 		case 'sarkaz':
+		case 'animated':
 			return type?.includes(target);
 		case 'PHCS_BOSS':
 			return PHCS_BOSSES.includes(id);
