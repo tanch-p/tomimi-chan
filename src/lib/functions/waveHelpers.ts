@@ -187,6 +187,32 @@ export const getOptions = (
 				]
 			);
 			break;
+		case 'rogue_yan':
+			for (const key of predefines) {
+				if (key === 'trap_225_dysbox') {
+					options.push({
+						key: 'trap_225_dysbox',
+						src: '/images/chara_icons/trap_225_dysbox.webp',
+						name: translations[language].treasure
+					});
+					continue;
+				}
+			}
+			options.push(
+				...[
+					{
+						key: 'copper_b', //rogue_5_relic_final_3
+						src: '',
+						name: { zh: '隐蝶墨', ja: '隐蝶墨', en: '隐蝶墨' }[language]
+					},
+					{
+						key: 'copper_r',
+						src: '/images/relics/rogue_5_copper_S_1.webp',
+						name: { zh: '花-鸭爵金币', ja: '花-鸭爵金币', en: '花-鸭爵金币' }[language]
+					},
+				]
+			);
+			break;
 	}
 	return options;
 };
