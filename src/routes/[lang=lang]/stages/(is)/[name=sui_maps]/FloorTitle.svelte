@@ -46,7 +46,7 @@
 			<Icon name="left-chevron" className="w-5 h-5 ml-2.5 rotate-180" />
 		</div>
 		{#if $activeFloorEffects.length > 0}
-			<div class="flex gap-x-2.5 mt-1.5">
+			<div class="flex justify-center gap-x-2.5 mt-1.5">
 				{#each $activeFloorEffects as effect}
 					<div class="relative wrath-bg rounded-full w-20 h-6 overflow-hidden">
 						<img

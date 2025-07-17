@@ -93,7 +93,9 @@ const NOT_AFFECTED_BY_DIFFICULTY_KEYS = [
 	'enemy_1202_msfzhi_2',
 	'enemy_1208_msfji_2',
 	'enemy_1210_msfden_2',
-	'enemy_2101_dyspll'
+	'enemy_2101_dyspll',
+	'enemy_2122_dybgzd',
+	'enemy_2121_dyspl2'
 ];
 
 export function applyMods(
@@ -312,6 +314,12 @@ export function compileMods(entity: EnemyDBEntry | Trap, mod: ModGroup, type = '
 						continue;
 					}
 					if (key === 'dmg_res') {
+						if (item.name) {
+							if (value > item.value) {
+								item.value = value;
+							}
+							continue;
+						}
 						item.value += value;
 						continue;
 					}
@@ -364,8 +372,11 @@ export const getStatSkillValue = (
 	skill: Skill,
 	stat: StatKey
 ) => {
-	const runeMods = entity.modsList[formIndex].find((ele) => ['combat_ops','elite_ops'].includes(ele.key)) || [];
-	let otherMods = entity.modsList[formIndex].filter((ele) => !['combat_ops','elite_ops'].includes(ele.key));
+	const runeMods =
+		entity.modsList[formIndex].find((ele) => ['combat_ops', 'elite_ops'].includes(ele.key)) || [];
+	let otherMods = entity.modsList[formIndex].filter(
+		(ele) => !['combat_ops', 'elite_ops'].includes(ele.key)
+	);
 	const skillMod = {
 		key: skill.key,
 		mods: [

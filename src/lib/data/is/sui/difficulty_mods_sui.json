@@ -81,7 +81,8 @@
 					{
 						"key": "dmg_res",
 						"value": 0.1,
-						"mode": "mul"
+						"mode": "mul",
+                        "name":"protect"
 					}
 				]
 			}
@@ -210,7 +211,7 @@
     },
     {
         "difficulty": 14,
-        "ruleDesc": "领袖敌人受到伤害降低20％；遭到“岁”拍击并退场的干员，再部署时间大幅提升",
+        "ruleDesc": "领袖敌人受到伤害降低20％；“岁”的攻击力提升，遭到“岁”拍击并退场的干员，再部署时间大幅提升",
         "addDesc": "每进入新的一层，所有敌人攻击力和生命值额外+13%\\n岁时已至入髓",
         "effects": [
 			{
@@ -219,12 +220,20 @@
 					{
 						"key": "dmg_res",
 						"value": 0.2,
-						"mode": "mul"
+						"mode": "mul",
+                        "name":"protect"
 					}
 				]
 			},
             {
                 "targets":["enemy_2119_dyshhj"],
+                "mods": [
+					{
+						"key": "atk",
+						"value": 1.5,
+						"mode": "mul"
+					}
+				],
                 "special":{
                     "dyshhj_appear":{
                         "value":90
