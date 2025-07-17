@@ -56,7 +56,7 @@
 				{ catKey: 'status_ailment', optionKey: 'self_status_buffs' },
 				{ catKey: 'heal_buff', optionKey: 'self_heal_buffs' },
 				{ catKey: 'buff_sp', optionKey: 'self_sp_buffs' },
-				{ catKey: 'skill', optionKey: 'skill' },
+				{ catKey: 'skill', optionKey: 'skill' }
 			]
 		},
 		{
@@ -377,7 +377,7 @@
 							on:click={() => updateRelicFilters(relic.id)}
 						>
 							<img
-								src={relicLookup[relic['id']]}
+								src="/images/relics/{relicLookup?.[relic.id] ?? relic.id}.webp"
 								alt={relic[`name_${language}`] || relic['name_zh']}
 								width="100"
 								height="100"
@@ -408,7 +408,7 @@
 								on:click={() => updateRelicFilters(relic.id)}
 							>
 								<img
-									src={relicLookup[relic['id']]}
+									src="/images/relics/{relicLookup?.[relic.id] ?? relic.id}.webp"
 									alt={relic[`name_${language}`] || relic['name_zh']}
 									width="75"
 									height="75"

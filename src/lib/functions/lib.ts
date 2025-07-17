@@ -318,7 +318,7 @@ export const getEliteColors = (rogueTopic: string) => {
 		case 'rogue_skz':
 			return ['bg-[#5a4b90]', 'bg-[#cb3220]'];
 		case 'rogue_yan':
-			return ['bg-[#9d6bd4]','bg-[#c44256]']
+			return ['bg-[#9d6bd4]', 'bg-[#c44256]'];
 	}
 	return [];
 };
@@ -398,4 +398,14 @@ export function pruneExtraEnemies(enemies, levelId) {
 			break;
 	}
 	return enemies.filter((enemy) => keys.includes(enemy.stageId));
+}
+
+export function getStageType(levelId: string, rogueTopic: RogueTopic) {
+	if (levelId.includes('_b-')) {
+		return 'BATTLE_BOSS';
+	}
+	if (levelId.includes('_sv-')) {
+		return 'BATTLE_SKY';
+	}
+	return '';
 }

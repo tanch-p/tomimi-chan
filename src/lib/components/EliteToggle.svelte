@@ -67,10 +67,10 @@
 
 	function getEliteIcon(stageId: string) {
 		if (ro4_SP7_BOSS_STAGES.includes(stageId)) {
-			return relicLookup['rogue_4_relic_final_6'];
+			return `/images/relics/${relicLookup['rogue_4_relic_final_6']}.webp`;
 		}
 		if (stageId === 'level_rogue4_b-8') {
-			return relicLookup['rogue_4_relic_final_10'];
+			return `/images/relics/${relicLookup['rogue_4_relic_final_10']}.webp`;
 		}
 		return emergency_icon;
 	}

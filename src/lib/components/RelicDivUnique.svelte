@@ -49,7 +49,13 @@
 	}`}
 	on:click={handleClick}
 >
-	<img src={relicLookup[relic.id]} alt={name} loading="lazy" decoding="async" class="relic" />
+	<img
+		src="/images/relics/{relicLookup[relic.id]}.webp"
+		alt={name}
+		loading="lazy"
+		decoding="async"
+		class="relic"
+	/>
 	<div class="relic px-2">
 		<p class={`relic text-lg sm:text-xl ${selected ? 'text-[#cea658]' : 'text-gray-400'}`}>
 			{name}

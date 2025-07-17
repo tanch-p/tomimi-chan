@@ -2,7 +2,7 @@ import { writable, derived } from 'svelte/store';
 import difficultyModsList from '$lib/data/is/sui/difficulty_mods_sui.json';
 import { browser } from '$app/environment';
 import { cookiesEnabled } from '../../../../stores';
-import { compileSpecialMods } from '$lib/functions/statHelpers';
+import { compileSpecialMods, filterModCondition } from '$lib/functions/statHelpers';
 import { consolidateOtherMods } from '$lib/functions/lib';
 
 let storedDifficulty = 0;
@@ -11,6 +11,7 @@ if (browser && cookiesEnabled) {
 }
 export const selectedRelics = writable([]);
 export const difficulty = writable(storedDifficulty);
+export const stageType = writable('');
 
 export const selectedFloor = writable(1);
 const floorDifficultyMods = derived(
@@ -63,6 +64,7 @@ export const statMods = derived(
 		activeFloorEffects,
 		difficultyMods,
 		otherMods,
+		stageType
 	],
 	([
 		$selectedRelics,
@@ -72,11 +74,12 @@ export const statMods = derived(
 		$activeFloorEffects,
 		$difficultyMods,
 		$otherMods,
+		$stageType
 	]) => {
 		const relicMods = $selectedRelics.map((relic) => {
 			return {
 				key: relic.id,
-				mods: [relic.effects]
+				mods: [relic.effects.filter((effect) => filterModCondition(effect, $stageType))]
 			};
 		});
 		return {
@@ -96,12 +99,6 @@ export const statMods = derived(
 	}
 );
 
-export const specialMods = derived(
-	[selectedRelics, runes, difficultyMods],
-	([$selectedRelics, $runes, $difficultyMods]) =>
-		compileSpecialMods(
-			$selectedRelics.map((relic) => relic.effects),
-			[$runes],
-			$difficultyMods
-		)
+export const specialMods = derived([runes, difficultyMods], ([$runes, $difficultyMods]) =>
+	compileSpecialMods([$runes], $difficultyMods)
 );

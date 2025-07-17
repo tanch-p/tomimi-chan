@@ -5,7 +5,10 @@
 	import translations from '$lib/translations.json';
 	import Icon from './Icon.svelte';
 	import { relicLookup } from '$lib/data/is/relic_lookup';
-	export let language: Language, rogueTopic: RogueTopic, selectedRelics, selectedUniqueRelic=null;
+	export let language: Language,
+		rogueTopic: RogueTopic,
+		selectedRelics,
+		selectedUniqueRelic = null;
 	let openOverlay = false;
 </script>
 
@@ -53,7 +56,7 @@
 									/>
 									<div class="flex items-center text-center w-14 z-[1]">
 										<img
-											src={relicLookup[$selectedUniqueRelic.id]}
+											src="/images/relics/{$selectedUniqueRelic.id}.webp"
 											width="54px"
 											alt={$selectedUniqueRelic[`name_${language}`] || $selectedUniqueRelic.name_zh}
 											loading="lazy"
@@ -69,7 +72,7 @@
 									/>
 									<div class="flex items-center text-center w-14 z-[1] h-14">
 										<img
-											src={relicLookup[relic.id]}
+											src="/images/relics/{relicLookup?.[relic.id] ?? relic.id}.webp"
 											width="54px"
 											alt={relic[`name_${language}`] || relic.name_zh}
 											loading="lazy"

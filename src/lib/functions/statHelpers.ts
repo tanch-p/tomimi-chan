@@ -442,3 +442,14 @@ export const checkIsTarget = (entity: Enemy | Trap | EnemyDBEntry, target: strin
 			return target === id || target === key;
 	}
 };
+
+export const filterModCondition = (effect, stageType) => {
+	if (!effect.conditions) return true;
+	return effect.conditions.some((condition) => {
+		switch (condition) {
+			case 'BATTLE_BOSS':
+			case 'BATTLE_SKY':
+				return stageType === condition;
+		}
+	});
+};

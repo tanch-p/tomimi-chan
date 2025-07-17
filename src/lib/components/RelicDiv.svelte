@@ -21,14 +21,10 @@
 	}
 	function getSelectedTextColor(rogueTopic: RogueTopic) {
 		switch (rogueTopic) {
-			case 'rogue_mizuki':
-			case 'rogue_sami':
-			case 'rogue_skz':
-				return 'text-[#58dbda]';
 			case 'rogue_phantom':
 				return 'text-[#cea658]';
 			default:
-				return '';
+				return 'text-[#58dbda]';
 		}
 	}
 </script>
@@ -42,7 +38,7 @@
 	on:click={handleClick}
 >
 	<img
-		src={relicLookup[relic.id]}
+		src="/images/relics/{relicLookup?.[relic.id] ?? relic.id}.webp"
 		alt={name}
 		loading="lazy"
 		decoding="async"
