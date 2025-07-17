@@ -26960,7 +26960,7 @@
 						{ "key": "xi_barrier", "initCooldown": 40, "value": 9000, "atk": { "multiplier": 8 } }
 					]
 				],
-				"form_mods": [[], [{ "key": "atk", "value": 0.05, "mode":"mul", "order": "initial" }]]
+				"form_mods": [[], [{ "key": "atk", "value": 0.05, "mode": "mul", "order": "initial" }]]
 			},
 			{
 				"hp": 40000,
@@ -26981,10 +26981,19 @@
 					{ "key": "xi_weft" }
 				],
 				"special": [
-					[{ "key": "xi_revive" }, { "key": "xi_barrier","initCooldown": 50,"value":10500,"duration":10 }],
+					[
+						{ "key": "xi_revive" },
+						{ "key": "xi_barrier", "initCooldown": 50, "value": 10500, "duration": 10 }
+					],
 					[
 						{ "key": "multi_target_condense" },
-						{ "key": "xi_barrier", "initCooldown": 60, "value": 12000, "atk": { "multiplier": 8 },"duration":10 }
+						{
+							"key": "xi_barrier",
+							"initCooldown": 60,
+							"value": 12000,
+							"atk": { "multiplier": 8 },
+							"duration": 10
+						}
 					]
 				],
 				"form_mods": [[], [{ "key": "atk", "value": 0.05, "order": "initial" }]]
@@ -28397,7 +28406,7 @@
 							"key": "invincible",
 							"value": 30
 						},
-						{"key":"fzm_form2"}
+						{ "key": "fzm_form2" }
 					]
 				],
 				"form_mods": [
@@ -57981,7 +57990,12 @@
 				"ms": 1.0,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [{ "key": "damage_1" }, { "key": "dyspll_apply" }, { "key": "dyspll_possess" }],
+				"traits": [
+					{ "key": "not_count_in_total" },
+					{ "key": "damage_1" },
+					{ "key": "dyspll_apply" },
+					{ "key": "dyspll_possess" }
+				],
 				"special": []
 			}
 		],
@@ -57995,7 +58009,7 @@
 				"status_immune": ["silence"]
 			}
 		],
-		"type": ["ranged", "flying","animated", "NORMAL"]
+		"type": ["ranged", "flying", "animated", "NORMAL"]
 	},
 	"enemy_2102_dytmbr": {
 		"id": "JY2",
@@ -58161,7 +58175,7 @@
 				"ms": 0.9,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [{ "key": "dyremy_buff" }, { "key": "steal_gold", "value": "?" }],
+				"traits": [{ "key": "dyremy_buff" }, { "key": "steal_gold", "value": 5 }],
 				"special": []
 			},
 			{
@@ -58176,7 +58190,7 @@
 				"ms": 0.9,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [{ "key": "dyremy_buff" }, { "key": "steal_gold", "value": "?" }],
+				"traits": [{ "key": "dyremy_buff" }, { "key": "steal_gold", "value": 5 }],
 				"special": []
 			},
 			{
@@ -58191,7 +58205,7 @@
 				"ms": 0.9,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [{ "key": "dyremy_buff" }, { "key": "steal_gold", "value": "?" }],
+				"traits": [{ "key": "dyremy_buff" }, { "key": "steal_gold", "value": 5 }],
 				"special": []
 			}
 		],
@@ -58767,9 +58781,10 @@
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
 				"traits": [
+					{ "key": "not_count_in_total" },
 					{ "key": "dyshh2_appear" },
 					{ "key": "dyshhj_default" },
-					{"key":"hp_carry_over"},
+					{ "key": "hp_carry_over" },
 					{ "key": "dyshh2_hp50" }
 				],
 				"special": []
@@ -58816,13 +58831,25 @@
 				"ms": 0.6,
 				"epDamageResistance": 0.0,
 				"epResistance": 0.0,
-				"traits": [],
-				"special": []
+				"traits": [{ "key": "dywqgs_surround" }, { "key": "dywqgs_plant_seed" }],
+				"special": [
+					[{ "key": "dywqgs_standby" },{"key":"dywqgs_activate"},{"key":"dywqgs_resist"},{"key":"dywqgs_revive"}],
+					[{ "key": "dywqgs_2_summon" }, { "key": "dywqgs_2_surround" }, { "key": "dywqgs_2_lose" }]
+				],
+				"form_mods": [[], []]
 			}
 		],
 		"forms": [
 			{
-				"title": null,
+				"title": "form",
+				"normal_attack": {
+					"atk_type": ["ranged", "arts"],
+					"hits": 1
+				},
+				"status_immune": ["silence", "levitate", "fear"]
+			},
+			{
+				"title": "form",
 				"normal_attack": {
 					"atk_type": ["ranged", "arts"],
 					"hits": 1
@@ -58903,7 +58930,7 @@
 						"key": "yinyang"
 					},
 					{
-						"key":"damage_1"
+						"key": "damage_1"
 					},
 					{
 						"key": "dybgzd_explode_kill"
@@ -58929,6 +58956,6 @@
 				"status_immune": ["silence"]
 			}
 		],
-		"type": ["animated","flying", "NORMAL"]
+		"type": ["animated", "flying", "NORMAL"]
 	}
 }

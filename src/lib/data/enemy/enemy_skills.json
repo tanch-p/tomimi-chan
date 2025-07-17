@@ -8,6 +8,13 @@
 	"appear_nowhere": {
 		"tooltip": null
 	},
+	"not_count_in_total": {
+		"tooltip": {
+			"en": ["【Non-Key Target】Will not prevent ending of battle even when still on field"],
+			"ja": ["【非重要目標】戦場にいても作戦終了に影響しない"],
+			"zh": ["【非首要目标】该目标在场不会阻止战斗结束"]
+		}
+	},
 	"no_normal_attack": {
 		"tooltip": {
 			"en": ["Does not normal attack"],
@@ -7217,15 +7224,15 @@
 	"parrot_hover": {
 		"tooltip": {
 			"en": [
-				"<ba.hover>Low-Altitude Hovering</>",
+				"<ba.float>Low-Altitude Hovering</>",
 				"Becomes stunned and cannot be blocked for 8s after losing Low-Altitude Hovering, then regains Low-Altitude Hovering status"
 			],
 			"ja": [
-				"<ba.hover>低空浮揚</>状態で出現",
+				"<ba.float>低空浮揚</>状態で出現",
 				"低空浮揚を失うと8秒間スタンし、その後低空浮揚状態に戻る。このスタン中はブロックされない"
 			],
 			"zh": [
-				"<ba.hover>近地悬浮</>",
+				"<ba.float>近地悬浮</>",
 				"受到部分控制效果影响1s后失去近地悬浮并晕眩8s，期间无法被阻挡，8s后重新获得近地悬浮"
 			]
 		}
@@ -7923,7 +7930,7 @@
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": ["<v.standby>秒后苏醒"]
+			"zh": ["以石化状态出场，无敌，无法移动；出场135s<v.standby>秒后解除石化状态"]
 		}
 	},
 	"dyyrzf_block": {
@@ -7957,13 +7964,13 @@
 		"atk": { "multiplier": 0.8 },
 		"dmg_element": "phys",
 		"hits": 1,
-		"suffix": { "en": "Move", "ja": "技", "zh": "风行" },
+		"suffix": { "en": "WindMove", "ja": "单刀赴会", "zh": "单刀赴会" },
 		"tooltip": {
 			"en": [],
 			"ja": [],
 			"zh": [
-				"被阻挡时触发：在2s内移动速度+200%，获得不可阻挡，每秒对半径1.2范围内的我方单位造成攻击力80%的{phys}伤害",
-				"玉双剑在场时，持续时间改为4s"
+				"移动速度+200%，获得不可阻挡，每秒对半径1.2范围内的我方单位造成攻击力80%的{phys}伤害，持续2s",
+				"玉双剑在场时，持续时间增加至4s"
 			]
 		}
 	},
@@ -7974,13 +7981,13 @@
 		"atk": { "multiplier": 0.8 },
 		"dmg_element": "phys",
 		"hits": 1,
-		"suffix": { "en": "Move", "ja": "技", "zh": "风行" },
+		"suffix": { "en": "WindMove", "ja": "单刀赴会", "zh": "单刀赴会" },
 		"tooltip": {
 			"en": [],
 			"ja": [],
 			"zh": [
-				"被阻挡时触发：在2s内移动速度+200%，获得不可阻挡，每秒对半径1.2范围内的我方单位造成攻击力80%的{phys}伤害",
-				"昭烈君在场时，持续时间改为4s"
+				"移动速度+200%，获得不可阻挡，每秒对半径1.2范围内的我方单位造成攻击力80%的{phys}伤害，持续2s",
+				"昭烈君在场时，持续时间增加至4s"
 			]
 		}
 	},
@@ -7998,7 +8005,7 @@
 		"initCooldown": 20,
 		"cooldown": 20,
 		"value": 500,
-		"suffix": { "en": "Skill", "ja": "汚", "zh": "仁德" },
+		"suffix": { "en": "Heal", "ja": "以德服人", "zh": "以德服人" },
 		"dmg_element": "heal",
 		"tooltip": {
 			"en": [],
@@ -8022,7 +8029,7 @@
 		"initCooldown": 20,
 		"cooldown": 20,
 		"value": 500,
-		"suffix": { "en": "Skill", "ja": "汚", "zh": "仁德" },
+		"suffix": { "en": "Heal", "ja": "以德服人", "zh": "以德服人" },
 		"dmg_element": "heal",
 		"tooltip": {
 			"en": [],
@@ -8122,7 +8129,9 @@
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": ["选择场上仇恨值最高的我方单位所在地块为路径终点，以自身位置为路径起点召唤一个便符"]
+			"zh": [
+				"选择场上仇恨值最高的我方单位所在地块为路径终点，对其造成攻击力100%的{arts}伤害，以自身位置为路径起点召唤一个便符"
+			]
 		}
 	},
 	"dyrnge_eat": {
@@ -8130,7 +8139,7 @@
 			"en": [],
 			"ja": [],
 			"zh": [
-				"首次被阻挡时将阻挡者强制击倒并吞噬，随后获得<ba.hover>近地悬浮</>，防御力-1500",
+				"首次被阻挡时将阻挡者强制击倒并吞噬，随后获得近地悬浮，防御力-1500",
 				"近地悬浮期间被击倒时，尽可能将被吞噬的单位部署在自身所在位置"
 			]
 		}
@@ -8155,13 +8164,13 @@
 		"suffix": { "en": "💥on kill", "ja": "撃破時", "zh": "击破时" },
 		"tooltip": {
 			"en": [
-				"Self-destructs when defeated, dealing <v.atk.multiplier>% of ATK as {arts} damage to all friendly units in 0.3 tile radius{ignore_camou}"
+				"Self-destructs when defeated or friendly unit within 0.3 tile radius, dealing <v.atk.multiplier>% of ATK as {arts} damage to all friendly units in 0.3 tile radius{ignore_camou}"
 			],
 			"ja": [
-				"撃破時自爆する、半径0.3の味方全体に攻撃力<v.atk.multiplier>%の{arts}ダメージを与える{ignore_camou}"
+				"撃破時/半径0.3内に味方ユニットがいると自爆する、半径0.3の味方全体に攻撃力<v.atk.multiplier>%の{arts}ダメージを与える{ignore_camou}"
 			],
 			"zh": [
-				"被击杀后自爆，对0.3半径内全体友方单位造成攻击力<v.atk.multiplier>%的{arts}溅射伤害{ignore_camou}"
+				"被击杀后/半径0.3范围内存在我方单位时自爆，对0.3半径内全体友方单位造成攻击力<v.atk.multiplier>%的{arts}溅射伤害{ignore_camou}"
 			]
 		}
 	},
@@ -8355,14 +8364,14 @@
 		"spCost": 50,
 		"skillType": "INCREASE_WITH_TIME",
 		"suffix": { "en": "Appear", "ja": "撼山河", "zh": "撼山河" },
-		"value":30,
+		"value": 30,
 		"tooltip": {
 			"en": [],
 			"ja": [],
 			"zh": [
-				"向被标记的单位踩去，变为地面单位并停留21s，令目标及其周围8格的单位强制撤退，其当次再部署时间变为<v.value>s；封印所在地块20s",
-				"随后拍击地面三次，每次对全场的我方单位造成攻击力100%的{phys}伤害",
-				"持续时间结束后暂时消失"
+				"向被标记的单位踩下，21s内自身变为地面单位，令目标及其周围8格的单位强制撤退，受影响的单位此次再部署时间重写为<v.value>s；20s内受影响地块变为封印的地面",
+				"随后拍击地面三次，每次对全场的我方单位造成攻击力100%的{phys}伤害{ignore_camou}",
+				"落地时间结束时自身重新起飞，暂时脱离战场"
 			]
 		}
 	},
@@ -8371,13 +8380,13 @@
 		"initSp": 5,
 		"spCost": 50,
 		"skillType": "INCREASE_WITH_TIME",
-		"suffix": { "en": "Appear", "ja": "撼山河", "zh": "撼山河" },
+		"suffix": { "en": "Appear", "ja": "不寐", "zh": "不寐" },
 		"tooltip": {
 			"en": [],
 			"ja": [],
 			"zh": [
-				"向被标记的单位踩去，变为地面单位并停留21s，令目标及其周围8格的单位强制撤退，其当次再部署时间变为30s；封印所在地块20s",
-				"持续时间结束后暂时消失"
+				"向被标记的单位踩下，21s内自身变为地面单位，令目标及其周围8格的单位强制撤退，受影响的单位此次再部署时间重写为30s；20s内受影响地块变为封印的地面",
+				"持续时间结束后消失退场"
 			]
 		}
 	},
@@ -8385,14 +8394,16 @@
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": ["常态不存在于场上，持续标记身边我方单位数最多的>阻挡数最低的我方单位"]
+			"zh": [
+				"常态不存在于场上，离场期间持续标记身边我方单位数最多的>位于地图下方行＞地图左侧列的我方单位"
+			]
 		}
 	},
 	"dyshhj_end": {
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": ["战斗经过600s后，发动一次【不寐】后退场，并扣除50点目标生命"]
+			"zh": ["战斗经过600s后，发动一次【不寐】且扣除50目标生命值，随后退场"]
 		}
 	},
 	"dyshhj_force": {
@@ -8400,8 +8411,8 @@
 			"en": [],
 			"ja": [],
 			"zh": [
-				"生命值低于50%时发动【不寐】：向被标记的单位踩去，变为地面单位并停留11s，令全场我方单位强制撤退，封印所在地块10s",
-				"持续时间结束后暂时消失"
+				"生命值低于50%时发动【不寐】：向被标记的单位踩下(若不处于飞行状态则直接执行后续效果)，11s内自身变为地面单位，令全场我方单位强制撤退；10s内受影响地块变为封印的地面",
+				"落地时间结束时自身重新起飞，暂时脱离战场"
 			]
 		}
 	},
@@ -8416,9 +8427,7 @@
 		"tooltip": {
 			"en": ["Remaining HP percentage carries over to the next operation"],
 			"ja": ["減少したHPは次の作戦に引き継がれる"],
-			"zh": [
-				"下次出现时重设自身生命值比例，保持与前一次到达路径终点时的生命值比例相等"
-			]
+			"zh": ["下次出现时重设自身生命值比例，保持与前一次到达路径终点时的生命值比例相等"]
 		}
 	},
 	"sgcat_skill": {
@@ -8431,7 +8440,96 @@
 				"Deals 100% of ATK as {arts} damage to target and friendly units in the adjacent 4 tiles"
 			],
 			"ja": ["対象と周囲4マスの味方に攻撃力の100%の{arts}ダメージを与える"],
-			"zh": ["对目标及周围4格我方单位造成攻击力100%{arts}伤害 "]
+			"zh": ["对目标及周围4格我方单位造成攻击力100%{arts}伤害"]
+		}
+	},
+	"dywqgs_plant_seed": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"我方每次部署单位时，在该单位周围4格的可部署位置部署1枚瑕；周围4格都存在瑕的地块将失气"
+			]
+		}
+	},
+	"dywqgs_surround": {
+		"type": "skill",
+		"initCooldown": 1.0,
+		"cooldown": 1.0,
+		"atk": { "multiplier": 1, "order": "initial" },
+		"suffix": { "en": "征", "ja": "征", "zh": "征" },
+		"hits": null,
+		"dmg_element": null,
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"场上存在受失气影响的我方单位时触发：触发一次【征】的效果",
+				"效果触发时，自身攻击力+100%，攻击速度+100，攻击范围变为全场，同时攻击3个目标，优先攻击受失气影响的目标，持续10s"
+			]
+		}
+	},
+	"dywqgs_standby": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"无敌，无法移动，出场40s后进入第一形态"
+			]
+		}
+	},
+	"dywqgs_activate": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"自身周围半径1.6范围的瑕被激活：被激活的瑕每秒回复最大生命值2%的生命值，且对目标持续造成晕眩"
+			]
+		}
+	},
+	"dywqgs_resist": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"自身周围存在瑕时，受到的物理/法术伤害-20%（最多4层），并获得20%抵抗（最多4层）"
+			]
+		}
+	},
+	"dywqgs_revive": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"被击倒后进行持续30s的重生，回复100%生命值，重生期间每30s一次召唤敌人，重生结束后进入第二形态"
+			]
+		}
+	},
+	"dywqgs_2_summon": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"进入该形态时，连续部署数枚瑕"
+			]
+		}
+	},
+	"dywqgs_2_surround": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"受失气影响的地块每20s召唤1个便符"
+			]
+		}
+	},
+	"dywqgs_2_lose": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"场上不存在瑕时，自身退场"
+			]
 		}
 	}
 }
