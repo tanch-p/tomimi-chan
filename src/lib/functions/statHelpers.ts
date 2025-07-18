@@ -34,11 +34,23 @@ FOR FINAL MODS, IF INCREASE BY 50%, VALUE = 1.5
 - 深池逐火战士 余烬 not affected by elite hp mods only, rest affects
 report from Legends from qq 25/10/2024
 
-- deyi not affected by relic -atk and diff atk
+- deyi not affected by relic -atk and diff atk - should be a result of buff loss on death
 report from boinexdo from bilibili 29/10/2024
 */
 
-const STATS = ['hp', 'atk', 'aspd', 'range', 'def', 'res', 'weight', 'ms', 'lifepoint','epDamageResistance','epResistance'];
+const STATS = [
+	'hp',
+	'atk',
+	'aspd',
+	'range',
+	'def',
+	'res',
+	'weight',
+	'ms',
+	'lifepoint',
+	'epDamageResistance',
+	'epResistance'
+];
 
 const PHCS_BOSSES = ['ICR', 'ICM', 'MSC', 'FSK', 'JTM', 'WDG', 'PTM', 'DOL', 'HST', 'WRT'];
 const MZK_BOSSES = [
@@ -86,17 +98,7 @@ const SARKAZ_BOSSES = [
 	'enemy_2072_skdny2'
 ];
 
-const NOT_AFFECTED_BY_DIFFICULTY_KEYS = [
-	'enemy_3001_upeopl',
-	'enemy_1196_msfyin_2',
-	'enemy_1200_msfjin_2',
-	'enemy_1202_msfzhi_2',
-	'enemy_1208_msfji_2',
-	'enemy_1210_msfden_2',
-	'enemy_2101_dyspll',
-	'enemy_2122_dybgzd',
-	'enemy_2121_dyspl2'
-];
+const NOT_AFFECTED_BY_DIFFICULTY_KEYS = ['enemy_3001_upeopl'];
 
 export function applyMods(
 	enemies: EnemyDBEntry[],
@@ -121,9 +123,14 @@ export function parseStats(
 	row: number,
 	specialMods: SpecialMods
 ) {
+	const isDamage1Enemy = enemy.traits.some(skill => ['damage_1','damage_1_arts'].includes(skill.key))
 	let diffMods;
 	if (statMods.diff) {
-		diffMods = compileMods(enemy, statMods.diff);
+		diffMods = compileMods(
+			enemy,
+			statMods.diff,
+			NOT_AFFECTED_BY_DIFFICULTY_KEYS.includes(enemy.key) || isDamage1Enemy ? 'damage_1_enemy' : 'enemy'
+		);
 	}
 
 	const formMods = { key: 'form_mods', mods: enemy.stats?.form_mods?.[row] ?? [] };
@@ -133,8 +140,8 @@ export function parseStats(
 	const runeMods = compileMods(enemy, statMods.runes);
 	const otherMods = statMods.others.map((mods) => compileMods(enemy, mods));
 	const secondaryMods = [formMods, diffMods, ...otherMods].filter((ele) => {
-		if (NOT_AFFECTED_BY_DIFFICULTY_KEYS.includes(enemy.key)) {
-			return Boolean(ele) && !['floor_diff', 'difficulty'].includes(ele.key);
+		if (NOT_AFFECTED_BY_DIFFICULTY_KEYS.includes(enemy.key) || isDamage1Enemy) {
+			return Boolean(ele) && !['floor_diff'].includes(ele.key);
 		}
 		return Boolean(ele);
 	});
@@ -251,8 +258,11 @@ export const calculateModdedStat = (
 		case 'weight':
 		case 'res':
 			return Math.round(Math.min(Math.max((baseValue * initialMul + finalAdd) * finalMul, 0), 100));
-		case 'hp':
-			return round((baseValue * initialMul + finalAdd) * finalMul,1);
+		case 'hp': {
+			const value = (baseValue * initialMul + finalAdd) * finalMul;
+			if (value < 100) return round(value, 1);
+			return Math.round(value);
+		}
 		default:
 			return Math.round((baseValue * initialMul + finalAdd) * finalMul);
 	}
@@ -300,7 +310,7 @@ export function compileMods(entity: EnemyDBEntry | Trap, mod: ModGroup, type = '
 	for (const effects of mods.filter(Boolean)) {
 		for (const effect of effects) {
 			if (!effect.mods) continue;
-			if (type === 'trap_rune') {
+			if (['trap_rune', 'damage_1_enemy'].includes(type)) {
 				if (!effect.targets.some((target) => target.includes(entity.key))) {
 					continue;
 				}
