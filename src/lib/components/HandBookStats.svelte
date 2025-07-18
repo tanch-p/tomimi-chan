@@ -22,14 +22,14 @@
 		res: resIcon,
 		ms: msIcon,
 		aspd: aspdIcon,
-		eleDmgRes: eleDmgResIcon,
-		eleRes: eleResIcon
+		epDamageResistance: eleDmgResIcon,
+		epResistance: eleResIcon
 	};
 
 	const statKeys =
 		mode === 'mobile'
-			? ['hp', 'ms', 'atk', 'aspd', 'def', 'eleRes', 'res', 'eleDmgRes']
-			: ['hp', 'atk', 'aspd', 'eleRes', 'ms', 'def', 'res', 'eleDmgRes'];
+			? ['hp', 'ms', 'atk', 'aspd', 'def', 'epResistance', 'res', 'epDamageResistance']
+			: ['hp', 'atk', 'aspd', 'epResistance', 'ms', 'def', 'res', 'epDamageResistance'];
 </script>
 
 <div>
@@ -44,7 +44,7 @@
 					<img src={statKeyIcons[statKey]} width="14px" height="14px" alt="" class="" />
 					<span
 						class="text-[#858585] font-semibold {language === 'en' &&
-						['aspd', 'eleDmgRes'].includes(statKey)
+						['aspd', 'epDamageResistance'].includes(statKey)
 							? 'text-xs leading-[20px]'
 							: ''}"
 					>

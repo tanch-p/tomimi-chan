@@ -38,7 +38,7 @@ report from Legends from qq 25/10/2024
 report from boinexdo from bilibili 29/10/2024
 */
 
-const STATS = ['hp', 'atk', 'aspd', 'range', 'def', 'res', 'weight', 'ms', 'lifepoint'];
+const STATS = ['hp', 'atk', 'aspd', 'range', 'def', 'res', 'weight', 'ms', 'lifepoint','epDamageResistance','epResistance'];
 
 const PHCS_BOSSES = ['ICR', 'ICM', 'MSC', 'FSK', 'JTM', 'WDG', 'PTM', 'DOL', 'HST', 'WRT'];
 const MZK_BOSSES = [
