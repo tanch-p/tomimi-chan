@@ -5,6 +5,7 @@ import f28 from '$lib/images/is/sarkaz/rogue_4_fragment_F_28.webp';
 import translations from '$lib/translations.json';
 import calamity from '$lib/images/is/sarkaz/rogue_4_disaster_1_toast.webp';
 import disasters from '$lib/data/is/sarkaz/disasters.json';
+import relicsSui from '$lib/data/is/sui/relics_sui.json';
 
 const ALWAYS_KILLED_KEYS = [
 	'enemy_2073_skzrck',
@@ -211,7 +212,7 @@ export const getOptions = (
 						key: 'copper_r',
 						src: '/images/relics/rogue_5_copper_S_1.webp',
 						name: { zh: '花-鸭爵金币', ja: '花-鸭爵金币', en: '花-鸭爵金币' }[language]
-					},
+					}
 				]
 			);
 			break;
@@ -227,7 +228,7 @@ export const handleOptionsUpdate = (
 	otherStores
 ) => {
 	const fragmentKeys = ['hidden_door', 'hidden_window', 'box_1', 'box_3'];
-	if (key === 'calamity') {
+	if (rogueTopic === 'rogue_skz' && key === 'calamity') {
 		const level = difficulty < 5 ? 1 : difficulty < 11 ? 2 : 3;
 		const effect = disasters.find(
 			(ele) => ele.iconId === 'rogue_4_disaster_1' && ele.level === level
@@ -237,6 +238,17 @@ export const handleOptionsUpdate = (
 				list = [];
 			} else {
 				list = [effect];
+			}
+			return list;
+		});
+	}
+	if (rogueTopic === 'rogue_yan' && key === 'copper_r') {
+		const effect = relicsSui.find((item) => item.id === 'rogue_5_copper_S_1');
+		otherStores.relics.update((list) => {
+			if (list.find((ele) => ele.id === effect.id)) {
+				list = list.filter((item) => item.id !== effect.id);
+			} else {
+				list = [...list, effect];
 			}
 			return list;
 		});
@@ -364,6 +376,7 @@ export const getEnemyCountPermutations = (
 	const list = permutations.map((permutation) => {
 		let permutationCount = 0;
 		mapConfig.waves.forEach((wave, waveIdx) => {
+			if (bonus?.type === 'wave' && waveIdx === bonus.wave_index) return; //added in for ro5 stages
 			wave['fragments'].forEach((fragment, fragIndex) => {
 				const packedGroups = getRandomGroups(fragment, hiddenGroups);
 				const key = `w${waveIdx}f${fragIndex}`;
@@ -752,11 +765,20 @@ export const getRandomGroups = (fragment, hiddenGroups) => {
 	return packedGroups;
 };
 
-export const compileHiddenGroups = (hiddenGroups, eliteMode, mapConfig) => {
+export const compileHiddenGroups = (
+	hiddenGroups,
+	eliteMode,
+	mapConfig,
+	rogueTopic: RogueTopic,
+	relics
+) => {
 	const modeKey = eliteMode ? mapConfig['ELITE'].groupKey : mapConfig['NORMAL'].groupKey;
 	let groups = structuredClone(hiddenGroups);
 	if (modeKey) {
 		groups = [...groups, modeKey];
+	}
+	if (rogueTopic === 'rogue_yan' && !relics?.some((item) => item.id === 'rogue_5_copper_S_1')) {
+		groups = [...groups, 'copper_d'];
 	}
 	return groups;
 };

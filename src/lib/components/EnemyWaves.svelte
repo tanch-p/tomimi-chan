@@ -29,6 +29,7 @@
 
 	let hiddenGroups = [],
 		enemyCounts = [],
+		relics = [],
 		selectedPermGroups = {},
 		selectedCountIndex = 0,
 		selectedPermutationIdx = 0,
@@ -38,7 +39,7 @@
 		bonus = '',
 		baseCount = 0;
 
-	$: compiledHiddenGroups = compileHiddenGroups(hiddenGroups, eliteMode, mapConfig);
+	$: compiledHiddenGroups = compileHiddenGroups(hiddenGroups, eliteMode, mapConfig, rogueTopic,relics);
 	$: baseCount = getBaseCount(mapConfig, eliteMode);
 	$: options = getOptions(mapConfig, rogueTopic, difficulty, language);
 	$: maxPermutations = eliteMode
@@ -88,6 +89,15 @@
 				hiddenGroups = [];
 		}
 	}
+
+	otherStores?.relics?.subscribe((v) => {
+		relics = v;
+		if (v?.some((item) => item.id === 'rogue_5_copper_S_1')) {
+			hiddenGroups = [...hiddenGroups, 'copper_r'];
+		} else {
+			hiddenGroups = hiddenGroups.filter((key) => key !== 'copper_r');
+		}
+	});
 
 	otherStores?.disaster?.subscribe((v) => {
 		if (v?.[0]?.iconId === 'rogue_4_disaster_1') {
