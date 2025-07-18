@@ -20,7 +20,7 @@ test('sami difficulty + elite + chaos mods', async ({ page }) => {
 	let diff = await page.$eval('#diff-count', (el) => el.textContent);
 	expect(diff).toBe('10');
 	hp = await page.$eval('#enemy_2046_smwar p[data-id="hp-value"]', (el) => el.textContent);
-	expect(hp).toBe('28103');
+	expect(hp).toBe('28102.7');
 	atk = await page.$eval('#enemy_2046_smwar p[data-id="atk-value"]', (el) => el.textContent);
 	expect(atk).toBe('1171');
 	await diffIncreButton?.click({ clickCount: 5 });
@@ -28,13 +28,13 @@ test('sami difficulty + elite + chaos mods', async ({ page }) => {
 	diff = await page.$eval('#diff-count', (el) => el.textContent);
 	expect(diff).toBe('15');
 	hp = await page.$eval('#enemy_2046_smwar p[data-id="hp-value"]', (el) => el.textContent);
-	expect(hp).toBe('50408');
+	expect(hp).toBe('50408.2');
 	atk = await page.$eval('#enemy_2046_smwar p[data-id="atk-value"]', (el) => el.textContent);
 	expect(atk).toBe('1985');
 	const eliteToggle = await page.$('#elite-toggle');
 	await eliteToggle?.click();
 	hp = await page.$eval('#enemy_2046_smwar p[data-id="hp-value"]', (el) => el.textContent);
-	expect(hp).toBe('60490');
+	expect(hp).toBe('60489.8');
 	atk = await page.$eval('#enemy_2046_smwar p[data-id="atk-value"]', (el) => el.textContent);
 	expect(atk).toBe('2382');
 });
