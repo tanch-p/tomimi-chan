@@ -6,6 +6,7 @@ import translations from '$lib/translations.json';
 import calamity from '$lib/images/is/sarkaz/rogue_4_disaster_1_toast.webp';
 import disasters from '$lib/data/is/sarkaz/disasters.json';
 import relicsSui from '$lib/data/is/sui/relics_sui.json';
+import enemyDatabase from '$lib/data/enemy/enemy_database.json';
 
 const ALWAYS_KILLED_KEYS = [
 	'enemy_2073_skzrck',
@@ -20,8 +21,19 @@ const ALWAYS_KILLED_KEYS = [
 
 const KEYS_TO_IGNORE = ['enemy_2086_skzdwx'];
 
-const CHESTS = ['trap_051_vultres', 'trap_068_badbox', 'trap_110_smbbox', 'trap_758_skzmbx','trap_225_dysbox'];
-const ENEMY_CHEST_KEYS = ['enemy_2035_sybox', 'enemy_2059_smbox', 'enemy_2069_skzbox','enemy_2106_dyremy'];
+const CHESTS = [
+	'trap_051_vultres',
+	'trap_068_badbox',
+	'trap_110_smbbox',
+	'trap_758_skzmbx',
+	'trap_225_dysbox'
+];
+const ENEMY_CHEST_KEYS = [
+	'enemy_2035_sybox',
+	'enemy_2059_smbox',
+	'enemy_2069_skzbox',
+	'enemy_2106_dyremy'
+];
 
 const getFragmentName = (id, language: Language) => {
 	const fragment = fragments.find((ele) => ele.id === id);
@@ -322,7 +334,7 @@ export const getBaseCount = (mapConfig, eliteMode) => {
 				) {
 					continue;
 				}
-				if (isCountableAction(action.key, mapConfig.levelId)) {
+				if (isCountableAction(action.key, mapConfig)) {
 					totalCount += action['count'];
 				}
 			}
@@ -331,15 +343,30 @@ export const getBaseCount = (mapConfig, eliteMode) => {
 	return totalCount;
 };
 
-const isCountableAction = (key, levelId) => {
-	if (key.includes('trap')) return false;
+const isCountableEnemy = (key: string, mapConfig: MapConfig) => {
+	let enemyKey = key;
+	const enemyRef = mapConfig.enemies.find((ele) => ele.id === key || ele.prefabKey === key);
+	if (enemyRef) {
+		enemyKey = enemyRef.prefabKey;
+	}
+	if (!enemyDatabase[enemyKey]) {
+		return true;
+	}
+	let isCountable = !enemyDatabase[enemyKey].notCountInTotal;
+	if (enemyRef?.overwrittenData?.notCountInTotal) {
+		isCountable = !enemyRef?.overwrittenData?.notCountInTotal;
+	}
+	return isCountable;
+};
+
+const isCountableAction = (key: string, mapConfig: MapConfig) => {
+	if (['trap', 'char', 'token'].some((ele) => key.includes(ele))) return false;
 	if (key === '') return false;
 	if (ALWAYS_KILLED_KEYS.includes(key)) return false;
-	switch (levelId) {
-		case 'level_rogue4_t-4':
-			return key !== 'enemy_1263_durbus';
+	if (KEYS_TO_IGNORE.includes(key)) {
+		return false;
 	}
-	return true;
+	return isCountableEnemy(key, mapConfig);
 };
 
 export const getEnemyCountPermutations = (
@@ -363,7 +390,7 @@ export const getEnemyCountPermutations = (
 					hiddenGroups.includes(action['hiddenGroup']) &&
 					!action['randomSpawnGroupKey'] &&
 					!action['randomSpawnGroupPackKey'] &&
-					isCountableAction(action.key, mapConfig.levelId)
+					isCountableAction(action.key, mapConfig)
 				) {
 					acc += action['count'];
 				}
@@ -391,7 +418,7 @@ export const getEnemyCountPermutations = (
 					}
 				}
 				for (const action of groupActions) {
-					if (isCountableAction(action.key, mapConfig.levelId)) {
+					if (isCountableAction(action.key, mapConfig)) {
 						permutationCount += action['count'];
 					}
 				}
@@ -519,7 +546,7 @@ export const generateWaveTimeline = (
 			}
 			for (const action of groupActions) {
 				handleAction(action, spawns, waveBlockingSpawns, prevPhaseTime, enemyReplace);
-				if (isCountableAction(action.key, mapConfig.levelId)) {
+				if (isCountableAction(action.key, mapConfig)) {
 					totalCount += action['count'];
 				}
 			}
@@ -553,7 +580,7 @@ export const generateWaveTimeline = (
 					continue;
 				}
 				handleAction(action, spawns, waveBlockingSpawns, prevPhaseTime, enemyReplace);
-				if (isCountableAction(action.key, mapConfig.levelId)) {
+				if (isCountableAction(action.key, mapConfig)) {
 					totalCount += action['count'];
 				}
 			}
@@ -622,7 +649,7 @@ const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime, enemyRe
 	if (enemyReplace[action.key]) {
 		enemyKey = enemyReplace[action.key];
 	}
-	if (enemyKey.includes('trap') || enemyKey.includes('char') || enemyKey.includes('token')) {
+	if (['trap', 'char', 'token'].some((ele) => enemyKey.includes(ele))) {
 		enemyKey = enemyKey.split('#')?.[0];
 	}
 	if (action['count'] > 1) {

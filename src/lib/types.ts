@@ -168,6 +168,7 @@ type overwrittenData = {
 
 type MapConfigEnemy = {
 	id: string;
+	prefabKey: string;
 	level: number;
 	overwrittenData: overwrittenData;
 };
