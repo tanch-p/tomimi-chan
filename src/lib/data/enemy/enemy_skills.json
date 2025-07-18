@@ -2214,6 +2214,7 @@
 		"suffix": { "en": "Ammo", "ja": "弾薬", "zh": "弹药" },
 		"hits": 1,
 		"duration": 10,
+		"skillRange": 2.5,
 		"tooltip": {
 			"en": [
 				"While having at least 1 ammo, consumes 1 ammo and does 150% ATK as {arts} damage, disarms the target for {duration} seconds as well as dealing an additional instance of 5000 Arts damage against 'Gelato Stops'"
@@ -2707,6 +2708,13 @@
 			"en": ["Lower Target Priority"],
 			"ja": ["狙われにくい"],
 			"zh": ["嘲讽等级为-1"]
+		}
+	},
+	"even_lower_target_priority": {
+		"tooltip": {
+			"en": ["Target Priority -2"],
+			"ja": ["狙われにくい（挑発レベル-2）"],
+			"zh": ["嘲讽等级为-2"]
 		}
 	},
 	"taunt": {
@@ -8473,9 +8481,7 @@
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": [
-				"无敌，无法移动，出场40s后进入第一形态"
-			]
+			"zh": ["无敌，无法移动，出场40s后进入第一形态"]
 		}
 	},
 	"dywqgs_activate": {
@@ -8491,9 +8497,7 @@
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": [
-				"自身周围存在瑕时，受到的物理/法术伤害-20%（最多4层），并获得20%抵抗（最多4层）"
-			]
+			"zh": ["自身周围存在瑕时，受到的物理/法术伤害-20%（最多4层），并获得20%抵抗（最多4层）"]
 		}
 	},
 	"dywqgs_revive": {
@@ -8509,27 +8513,84 @@
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": [
-				"进入该形态时，连续部署数枚瑕"
-			]
+			"zh": ["进入该形态时，连续部署数枚瑕"]
 		}
 	},
 	"dywqgs_2_surround": {
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": [
-				"受失气影响的地块每20s召唤1个便符"
-			]
+			"zh": ["受失气影响的地块每20s召唤1个便符"]
 		}
 	},
 	"dywqgs_2_lose": {
 		"tooltip": {
 			"en": [],
 			"ja": [],
+			"zh": ["场上不存在瑕时，自身退场"]
+		}
+	},
+	"trtrsl_stun": {
+		"tooltip": {
+			"en": [
+				"When taking damage, emits a flash that Stuns friendly units within 1.6 tile radius for 12 seconds and increases the Movespeed of Tainted Soldiers/Warriors within range by 200% for 15 seconds",
+				"Then burrows to the ground over 12 seconds and despawns"
+			],
+			"ja": [
+				"ダメージを受けると一度だけ閃光を放ち、半径1.6以内の味方を12秒間スタンさせる",
+				"その後移動しなくなり、12秒後に退場する"
+			],
 			"zh": [
-				"场上不存在瑕时，自身退场"
+				"受到伤害时可触发：晕眩自身半径1.6范围内的我方单位12s，受该闪光影响的染污战士/染污勇士在15s内移动速度+200%",
+				"随后12s内持续挖地尝试逃跑，技能结束后消失"
 			]
+		}
+	},
+	"spnshd_aspd": {
+		"tooltip": {
+			"en": [
+				"Reduces source target's ASPD by 40 for 5 seconds when receiving damage (does not stack or refresh timer)"
+			],
+			"ja": [
+				"味方からダメージを受けた時、ダメージ源の味方の攻撃速度を5秒間-40する",
+				"この効果は重複せず、持続時間の延長もされない"
+			],
+			"zh": [
+				"受到我方默认类单位造成的伤害后令伤害来源在5s内攻击速度-40（重复时不叠加，不重置持续时间）"
+			]
+		}
+	},
+	"spnshd_block": {
+		"tooltip": {
+			"en": ["Immobilizes nearby Anti-Witchcraft Repositionable Bombs"],
+			"ja": ["半径1.0以内の対巫術軌道式爆弾をバインドする"],
+			"zh": ["自身半径1.0范围内的反巫术变位炸弹获得束缚"]
+		}
+	},
+	"spawn_dseed": {
+		"value": 2,
+		"tooltip": {
+			"en": ["When defeated, spawns <v.value> Blood Ambers"],
+			"ja": ["死亡すると、その場に血珀を<v.value>体召喚する"],
+			"zh": ["死亡后在自身所在地块中心0.2边长正方形范围内随机位置以自身路径召唤<v.value>个血珀"]
+		}
+	},
+	"dseed_hp": {
+		"tooltip": {
+			"en": [
+				"Loses 10% of maximum HP every second if there are no Bloodcalling Altars on the map or the Throne of Blood is absent"
+			],
+			"ja": ["マップ上に血の祭壇・血誓の王座が存在しない時、最大HPの10%分のダメージを毎秒受ける"],
+			"zh": ["死亡后在自身所在地块中心0.2边长正方形范围内随机位置以自身路径召唤<v.value>个血珀"]
+		}
+	},
+	"dseed_revive": {
+		"tooltip": {
+			"en": [
+				"When affected by pulse wave of a Bloodcalling Altar, turns into a Bloodborn Spawn at the altar's position"
+			],
+			"ja": ["死亡すると、その場に血珀を<v.value>体召喚する"],
+			"zh": ["血の祭壇の衝撃波を受けると自身は消滅し、血の祭壇が新生の血裔を1体召喚する"]
 		}
 	}
 }

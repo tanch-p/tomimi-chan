@@ -753,12 +753,12 @@ export const parseWaves = (mapConfig, permutation, hiddenGroups, eliteMode, rand
 };
 
 export const getPredefinedChoiceIndex = (list, hiddenGroups, bonusKey) => {
-	if (!Array.isArray(list[0])) {
+	if (!Array.isArray(list?.[0])) {
 		const badBoxIdx = list.findIndex((action) => CHESTS.includes(action.key.split('#')[0]));
 		if (badBoxIdx !== -1 && hiddenGroups.some((ele) => CHESTS.includes(ele))) {
 			return badBoxIdx;
 		}
-		const bonusIdx = bonusKey && list.findIndex((action) => action.key === bonusKey);
+		const bonusIdx = bonusKey ? list.findIndex((action) => action.key === bonusKey) : -1;
 		if (bonusIdx !== -1) {
 			return bonusIdx;
 		}
