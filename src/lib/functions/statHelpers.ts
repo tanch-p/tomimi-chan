@@ -251,6 +251,8 @@ export const calculateModdedStat = (
 		case 'weight':
 		case 'res':
 			return Math.round(Math.min(Math.max((baseValue * initialMul + finalAdd) * finalMul, 0), 100));
+		case 'hp':
+			return round((baseValue * initialMul + finalAdd) * finalMul,1);
 		default:
 			return Math.round((baseValue * initialMul + finalAdd) * finalMul);
 	}
