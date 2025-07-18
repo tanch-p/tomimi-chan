@@ -274,14 +274,14 @@ export class SpawnManager {
 		const key = `w${this.currentWaveIndex}f${this.currentFragmentIndex}`;
 		const spawnUID = `s-${action.key}-s${this.spawnIdx}`;
 		this.spawnIdx++;
-		if(['enemy_2119_dyshhj_2'].includes(enemyKey)) return;
-		const enemy = new Enemy(enemyData, route, this.gameManager, key, spawnUID);
-
 		if (ENEMIES_TO_HIGHLIGHT.includes(enemyData.key) || enemyData.type.includes('BOSS')) {
 			if (['enemy_2093_skzams'].includes(enemyData.key)) return;
 			if (GameConfig.scaledElapsedTime < 1) return;
 			this.enemiesToHighlight.push({ t: GameConfig.scaledElapsedTime, key: enemyData.key });
 		}
+		if(['enemy_2119_dyshhj_2'].includes(enemyKey)) return;
+		const enemy = new Enemy(enemyData, route, this.gameManager, key, spawnUID);
+
 	}
 
 	activatePredefined(action) {

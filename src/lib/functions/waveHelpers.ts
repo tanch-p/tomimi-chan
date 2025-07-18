@@ -20,8 +20,8 @@ const ALWAYS_KILLED_KEYS = [
 
 const KEYS_TO_IGNORE = ['enemy_2086_skzdwx'];
 
-const CHESTS = ['trap_051_vultres', 'trap_068_badbox', 'trap_110_smbbox', 'trap_758_skzmbx'];
-const ENEMY_CHEST_KEYS = ['enemy_2035_sybox', 'enemy_2059_smbox', 'enemy_2069_skzbox'];
+const CHESTS = ['trap_051_vultres', 'trap_068_badbox', 'trap_110_smbbox', 'trap_758_skzmbx','trap_225_dysbox'];
+const ENEMY_CHEST_KEYS = ['enemy_2035_sybox', 'enemy_2059_smbox', 'enemy_2069_skzbox','enemy_2106_dyremy'];
 
 const getFragmentName = (id, language: Language) => {
 	const fragment = fragments.find((ele) => ele.id === id);
@@ -731,7 +731,7 @@ export const getPredefinedChoiceIndex = (list, hiddenGroups, bonusKey) => {
 		if (badBoxIdx !== -1 && hiddenGroups.some((ele) => CHESTS.includes(ele))) {
 			return badBoxIdx;
 		}
-		const bonusIdx = bonusKey != null && list.findIndex((action) => action.key === bonusKey);
+		const bonusIdx = bonusKey && list.findIndex((action) => action.key === bonusKey);
 		if (bonusIdx !== -1) {
 			return bonusIdx;
 		}
