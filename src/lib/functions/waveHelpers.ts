@@ -12,7 +12,9 @@ const ALWAYS_KILLED_KEYS = [
 	'enemy_2094_skzamb_2',
 	'enemy_1106_byokai_b',
 	'enemy_3005_lpeopl',
-	'enemy_2101_dyspll'
+	'enemy_2101_dyspll',
+	'enemy_10060_cjbfod',
+	'enemy_2119_dyshhj_2'
 ];
 
 const KEYS_TO_IGNORE = ['enemy_2086_skzdwx'];
@@ -200,11 +202,11 @@ export const getOptions = (
 			}
 			options.push(
 				...[
-					// {
-					// 	key: 'copper_b', //rogue_5_relic_final_3
-					// 	src: '',
-					// 	name: { zh: '隐蝶墨', ja: '隐蝶墨', en: '隐蝶墨' }[language]
-					// },
+					{
+						key: 'copper_b',
+						src: '/images/relics/rogue_5_relic_final_3.webp',
+						name: { zh: '隐蝶墨', ja: '隐蝶墨', en: '隐蝶墨' }[language]
+					},
 					{
 						key: 'copper_r',
 						src: '/images/relics/rogue_5_copper_S_1.webp',

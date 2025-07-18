@@ -928,6 +928,7 @@ export class Enemy {
 
 	remove() {
 		if (!this.gameManager.isSimulation) {
+			if(!this.sprite) return;
 			let index = this.gameManager.game.objects.findIndex((ele) => ele.uuid === this.sprite.uuid);
 			if (index !== -1) {
 				this.gameManager.game.objects.splice(index, 1);
