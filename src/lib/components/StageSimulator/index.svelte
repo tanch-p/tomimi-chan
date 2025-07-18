@@ -33,7 +33,6 @@
 	$: if (waveData) {
 		simulatedData = getSimulatedData(mapConfig, waveData, enemies);
 	}
-	$: console.log(waveData)
 
 	function resetGame() {
 		if (game) {
