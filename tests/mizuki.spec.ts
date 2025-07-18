@@ -25,7 +25,7 @@ test('mizuki difficulty + variation + relic', async ({ page }) => {
 
 	hp = await page.$eval('#enemy_2039_syskad p[data-id="hp-value"]', (el) => el.textContent);
 	atk = await page.$eval('#enemy_2039_syskad p[data-id="atk-value"]', (el) => el.textContent);
-	expect(hp).toBe('159440.5');
+	expect(hp).toBe('159440');
 	expect(atk).toBe('3260');
 
 	await diffIncreButton?.click({ clickCount: 5 });
@@ -37,7 +37,7 @@ test('mizuki difficulty + variation + relic', async ({ page }) => {
 	atk = await page.$eval('#enemy_2039_syskad p[data-id="atk-value"]', (el) => el.textContent);
 	let def = await page.$eval('#enemy_2039_syskad p[data-id="def-value"]', (el) => el.textContent);
 	res = await page.$eval('#enemy_2039_syskad p[data-id="res-value"]', (el) => el.textContent);
-	expect(hp).toBe('299772.7');
+	expect(hp).toBe('299773');
 	expect(atk).toBe('5107');
 	expect(def).toBe('1656');
 	expect(res).toBe('90');
@@ -50,7 +50,7 @@ test('mizuki difficulty + variation + relic', async ({ page }) => {
 	atk = await page.$eval('#enemy_2039_syskad p[data-id="atk-value"]', (el) => el.textContent);
 	def = await page.$eval('#enemy_2039_syskad p[data-id="def-value"]', (el) => el.textContent);
 	res = await page.$eval('#enemy_2039_syskad p[data-id="res-value"]', (el) => el.textContent);
-	expect(hp).toBe('299772.7');
+	expect(hp).toBe('299773');
 	expect(atk).toBe('5107');
 	expect(def).toBe('2484');
 	expect(res).toBe('100');
@@ -61,7 +61,7 @@ test('mizuki difficulty + variation + relic', async ({ page }) => {
 	atk = await page.$eval('#enemy_2039_syskad p[data-id="atk-value"]', (el) => el.textContent);
 	def = await page.$eval('#enemy_2039_syskad p[data-id="def-value"]', (el) => el.textContent);
 	res = await page.$eval('#enemy_2039_syskad p[data-id="res-value"]', (el) => el.textContent);
-	expect(hp).toBe('149886.3');
+	expect(hp).toBe('149886');
 	expect(atk).toBe('3192');
 	expect(def).toBe('745');
 	expect(res).toBe('53');
@@ -92,7 +92,7 @@ test('mizuki difficulty + mission + elite mods', async ({ page }) => {
 	await mission?.dispatchEvent('click');
 	hp = await page.$eval('#enemy_1083_sotiab_2 p[data-id="hp-value"]', (el) => el.textContent);
 	atk = await page.$eval('#enemy_1083_sotiab_2 p[data-id="atk-value"]', (el) => el.textContent);
-	expect(hp).toBe('15818.4');
+	expect(hp).toBe('15818');
 	expect(atk).toBe('966');
 
 	const eliteToggle = await page.$('#elite-toggle');
@@ -100,7 +100,7 @@ test('mizuki difficulty + mission + elite mods', async ({ page }) => {
 	hp = await page.$eval('#enemy_1083_sotiab_2 p[data-id="hp-value"]', (el) => el.textContent);
 	atk = await page.$eval('#enemy_1083_sotiab_2 p[data-id="atk-value"]', (el) => el.textContent);
 	def = await page.$eval('#enemy_1083_sotiab_2 p[data-id="def-value"]', (el) => el.textContent);
-	expect(hp).toBe('18982.1');
+	expect(hp).toBe('18982');
 	expect(atk).toBe('1159');
 	expect(def).toBe('660');
 
@@ -109,7 +109,7 @@ test('mizuki difficulty + mission + elite mods', async ({ page }) => {
 	hp = await page.$eval('#enemy_1083_sotiab_2 p[data-id="hp-value"]', (el) => el.textContent);
 	atk = await page.$eval('#enemy_1083_sotiab_2 p[data-id="atk-value"]', (el) => el.textContent);
 	def = await page.$eval('#enemy_1083_sotiab_2 p[data-id="def-value"]', (el) => el.textContent);
-	expect(hp).toBe('18982.1');
+	expect(hp).toBe('18982');
 	expect(atk).toBe('1275');
 	expect(def).toBe('780');
 });
