@@ -89,8 +89,29 @@
 				]
 			}
 		],
-		"tooltip_zh": "本层中敌人的移动速度提升至200%，作战时获得临时生命(5)",
-		"tooltip_ja": "本层中敌人的移动速度提升至200%，作战时获得临时生命(5)",
-		"tooltip_en": "本层中敌人的移动速度提升至200%，作战时获得临时生命(5)"
+		"tooltip_zh": "本层中敌人的移动速度提升至200%，作战时获得5点临时生命",
+		"tooltip_ja": "このエリアでは敵全員の移動速度+100%、作戦時臨時耐久値+5。",
+		"tooltip_en": "On this floor, all enemy units have +100% Movespeed. Gain 5 bonus Life Points during combat."
+	},
+	{
+		"id": "variation_14",
+		"outerName_zh": "慎敏症",
+		"innerName_zh": "慎敏症",
+		"outerName_ja": "慎敏症",
+		"innerName_ja": "慎敏症",
+		"outerName_en": "慎敏症",
+		"innerName_en": "慎敏症",
+		"src": null,
+		"effects": [
+			{
+				"targets": ["ALL"],
+				"mods": [
+					{ "key": "atk", "value": 0.5, "mode": "mul","order":"initial" }
+				]
+			}
+		],
+		"tooltip_zh": "所有敌人出现后50秒内攻击力逐渐提升至最高+50%",
+		"tooltip_ja": "敵が出現した後50秒間攻撃力が上がる、最大+50%",
+		"tooltip_en": "Enemies have their ATK gradually increasing over 50s, max +50%"
 	}
 ]

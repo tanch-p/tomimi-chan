@@ -18,13 +18,12 @@ const difficultyMods = derived([difficulty], ([$difficulty]) =>
 				return ele.effects;
 			}
 		})
-		.filter(Boolean)
+		.filter(Boolean) 
 );
 const diff10Mods = [
 	{
 		targets: ['ALL'],
 		mods: [
-			{ key: 'hp', value: 1.15, mode: 'mul' },
 			{ key: 'atk', value: 1.15, mode: 'mul' }
 		]
 	}
