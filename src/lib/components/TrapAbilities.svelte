@@ -14,7 +14,6 @@
 		specialMods;
 	let language: Language;
 	$: language = $page.data.language;
-	$:console.log(trap)
 </script>
 
 {#if trap.desc}

@@ -55,6 +55,65 @@ const difficultyMods = derived([difficulty], ([$difficulty]) =>
 		.filter(Boolean)
 );
 
+const noobHelp = derived([difficulty], ([$difficulty]) => {
+	const mods = [];
+	if ($difficulty < 7) {
+		mods.push({
+			targets: ['ALL'],
+			conditions: ['BATTLE_SKY'],
+			mods: [
+				{
+					key: 'hp',
+					value: 0.5,
+					mode: 'mul'
+				},
+				{
+					key: 'atk',
+					value: 0.75,
+					mode: 'mul'
+				}
+			]
+		});
+	}
+	switch ($difficulty) {
+		case 0:
+			mods.push({
+				targets: ['ALL'],
+				mods: [
+					{
+						key: 'hp',
+						value: 0.8,
+						mode: 'mul'
+					},
+					{
+						key: 'atk',
+						value: 0.8,
+						mode: 'mul'
+					}
+				]
+			});
+			break;
+		case 1:
+			mods.push({
+				targets: ['ALL'],
+				mods: [
+					{
+						key: 'hp',
+						value: 0.9,
+						mode: 'mul'
+					},
+					{
+						key: 'atk',
+						value: 0.9,
+						mode: 'mul'
+					}
+				]
+			});
+			break;
+	}
+	return mods;
+});
+
 export const statMods = derived(
 	[
 		selectedRelics,
@@ -64,7 +123,8 @@ export const statMods = derived(
 		activeFloorEffects,
 		difficultyMods,
 		otherMods,
-		stageType
+		stageType,
+		noobHelp
 	],
 	([
 		$selectedRelics,
@@ -74,7 +134,8 @@ export const statMods = derived(
 		$activeFloorEffects,
 		$difficultyMods,
 		$otherMods,
-		$stageType
+		$stageType,
+		$noobHelp
 	]) => {
 		const relicMods = $selectedRelics.map((relic) => {
 			return {
@@ -82,11 +143,13 @@ export const statMods = derived(
 				mods: [relic.effects.filter((effect) => filterModCondition(effect, $stageType))]
 			};
 		});
+		const noobMods = $noobHelp.filter((effect) => filterModCondition(effect, $stageType));
 		return {
 			runes: { key: $eliteMode ? 'elite_ops' : 'combat_ops', mods: [$runes] },
 			diff: { key: 'difficulty', mods: $difficultyMods, stackType: 'mul' },
 			others: [
 				{ key: 'floor_diff', mods: [$floorDifficultyMods] },
+				{ key: 'low_diff', mods: [noobMods] },
 				{
 					key: 'sui_time',
 					mods: $activeFloorEffects.map((ele) => ele.effects),
