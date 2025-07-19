@@ -166,7 +166,7 @@ export function parseStats(
 			);
 			continue;
 		}
-		const baseValue = isSet ? initialValue : getModdedStat(initialValue, statKey, runeMods);
+		const baseValue = isSet ? initialValue : Math.round(getModdedStat(initialValue, statKey, runeMods));
 		statsHolder[statKey] = getModdedStat(baseValue, statKey, ...secondaryMods);
 	}
 	statsHolder['dmgRes'] = getDmgReductionVal(runeMods, ...secondaryMods);
