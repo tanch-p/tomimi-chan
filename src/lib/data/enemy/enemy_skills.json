@@ -8111,14 +8111,15 @@
 			"zh": ["首次攻击时在目标所在位置召唤1个受符，随后自身死亡"]
 		}
 	},
-	"dyspll_possess": {
+	"dyspl2_possess": {
 		"value": 0,
+		"range":0.0,
 		"tooltip": {
 			"en": [],
 			"ja": [],
 			"zh": [
-				"【受符】附着：附着对象无法开启技能，攻击力变为原本的100%",
-				"出现时以及后续每秒尝试选取附着对象，每次选取成功时对目标及其半径0.0范围内的我方单位造成攻击力100%的法术伤害与攻击力<v.value>%的灼燃损伤",
+				"附着：附着对象无法开启技能，攻击力变为原本的100%",
+				"出现时以及后续每秒尝试选取附着对象，每次选取成功时对目标及其半径<v.range>范围内的我方单位造成攻击力100%的法术伤害与攻击力<v.value>%的{ba.dt.burning}",
 				"无法选取到目标时，自身立刻退场"
 			]
 		}
@@ -8143,6 +8144,8 @@
 		}
 	},
 	"dyrnge_eat": {
+		"def":{"fixed":-1500,"order":"initial"},
+		"suffix": { "en": "Hover", "ja": "低空浮揚", "zh": "近地悬浮" },
 		"tooltip": {
 			"en": [],
 			"ja": [],
@@ -8258,9 +8261,9 @@
 	},
 	"dycant_potion_effect_3": {
 		"tooltip": {
-			"en": ["Selects all operators and summons 便符 at their position"],
-			"ja": ["効果③→全オペーレターの位置に便符を召喚する"],
-			"zh": ["③在场上每个干员的位置召唤便符"]
+			"en": ["Selects all operators and summons 受符 at their position"],
+			"ja": ["効果③→全オペーレターの位置に受符を召喚する"],
+			"zh": ["③在场上每个干员的位置召唤受符"]
 		}
 	},
 	"dycant_transform": {
