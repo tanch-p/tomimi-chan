@@ -41,7 +41,7 @@
 				if (['enemy_2065_skzjs'].includes(key)) return false;
 				break;
 			case 'rogue_yan':
-				if (['enemy_2119_dyshhj_2'].includes(key)) return false;
+				if (['enemy_2119_dyshhj_2','enemy_2121_dyspl2'].includes(key)) return false;
 				if (levelId.includes('_sv-') || levelId.includes('_fs-') || levelId.includes('_t-'))
 					return true;
 				break;

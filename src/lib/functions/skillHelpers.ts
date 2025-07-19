@@ -33,18 +33,15 @@ export const overwriteBlackboard = (stats, blackboard) => {
 	}
 };
 
-export const getOverwrittenKeys = (enemyDBSkillRef: Skill, skillRef: Skill, skill: Skill) => {
-	// first param is skillRef from trap/enemy data.json
+export const getOverwrittenKeys = (skill: Skill, skillRef: Skill) => {
+	// first param is skillRef from trap/enemy data.json combined with skillRef in trap/enemy skills.json
 	// second param is skillRef after mods
-	// last skill is the skillRef in trap/enemy skills.json
 	const list = [];
 	for (const key of Object.keys(skillRef)) {
-		if (enemyDBSkillRef?.[key]) {
-			if (!isEquals(skillRef[key], enemyDBSkillRef[key])) {
+		if (skill?.[key] !== undefined) {
+			if (!isEquals(skillRef[key], skill[key])) {
 				list.push(key);
 			}
-		} else if (skill?.[key] && !isEquals(skillRef[key], skill[key])) {
-			list.push(key);
 		}
 	}
 	return list;
@@ -84,7 +81,7 @@ export const getHandbookEnemySkills = (enemy, specialMods) => {
 		);
 		for (const skill of special) {
 			const item = skills.find((ele) => ele.key === skill.key);
-			if (item && isEquals(item,skill)) {
+			if (item && isEquals(item, skill)) {
 				item.formIndexes.push(i);
 			} else {
 				skills.push({ ...skill, formIndexes: [i] });
@@ -114,19 +111,15 @@ export const getEnemySkills = (
 		if (skillRef.remove) {
 			return skillRef;
 		}
+		const originalSkill = { ...enemySkills[skillRef.key], ...enemyDBSkillRef };
 		if (specialMods[enemyKey] && Object.keys(specialMods[enemyKey]).includes(skillRef.key)) {
-			skillRef.overwrittenKeys = getOverwrittenKeys(
-				enemyDBSkillRef,
-				{ ...skillRef, ...specialMods[enemyKey][skillRef.key] },
-				enemySkills[skillRef.key]
-			);
+			skillRef.overwrittenKeys = getOverwrittenKeys(originalSkill, {
+				...skillRef,
+				...specialMods[enemyKey][skillRef.key]
+			});
 			return { ...enemySkills[skillRef.key], ...skillRef, ...specialMods[enemyKey][skillRef.key] };
 		} else {
-			skillRef.overwrittenKeys = getOverwrittenKeys(
-				enemyDBSkillRef,
-				skillRef,
-				enemySkills[skillRef.key]
-			);
+			skillRef.overwrittenKeys = getOverwrittenKeys(originalSkill, skillRef);
 			return { ...enemySkills[skillRef.key], ...skillRef };
 		}
 	});

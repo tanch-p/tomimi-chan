@@ -24,7 +24,6 @@ export const BONUS_ENEMY_KEYS = [
 	'enemy_2070_skzfbx',
 	'enemy_2119_dyshhj_2',
 	'enemy_2106_dyremy',
-	'enemy_2121_dyspl2'
 ];
 
 export function isEquals(obj1, obj2) {
@@ -120,6 +119,14 @@ export const getTrapFormIndex = (list, index) => {
 const getEnemyWeight = (key, type) => {
 	if (BONUS_ENEMY_KEYS.includes(key)) {
 		return 99;
+	}
+	switch (key) {
+		case 'enemy_2101_dyspll':
+			return 50;
+		case 'enemy_2121_dyspl2':
+			return 51;
+		default:
+			break;
 	}
 	return type.includes('BOSS') ? 0 : 1;
 };

@@ -35,7 +35,7 @@ export const stageLoad = async (stageName: string, language: Language, rogueTopi
 			weights[enemy.id] = i;
 		}
 	});
-	enemies.sort((a: Enemy, b: Enemy) => weights[a.id] - weights[b.id]);
+	enemies.sort((a: Enemy, b: Enemy) => weights[a.id] - weights[b.id]); //initial sort to make group enemies together
 	if (
 		!mapConfig.id.includes('duel') &&
 		!mapConfig.id.includes('_t_') &&

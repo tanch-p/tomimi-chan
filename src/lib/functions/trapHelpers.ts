@@ -150,7 +150,7 @@ export function applyTrapMods(traps: Trap[], statMods: StatMods, specialMods: Sp
 		let skill = { ...trap.skills?.[0] };
 		if (skill && specialMods[trap.key]?.[skill.skillId]) {
 			skill = { ...skill, ...specialMods[trap.key]?.[skill.skillId] };
-			skill.overwrittenKeys = getOverwrittenKeys(trap.skills?.[0], skill, skill);
+			skill.overwrittenKeys = getOverwrittenKeys(trap.skills?.[0], skill);
 		}
 		return {
 			...trap,
@@ -166,7 +166,7 @@ export function getTrapSpecialSkill(key: string, skillRef: string, specialMods: 
 	skill.overwrittenKeys = [];
 	if (skill && specialMods[key]?.[skillRef]) {
 		skill = { ...skill, ...specialMods[key][skillRef] };
-		skill.overwrittenKeys = getOverwrittenKeys(trapSkills[skillRef], skill, skill);
+		skill.overwrittenKeys = getOverwrittenKeys(trapSkills[skillRef], skill);
 	}
 	return skill;
 }
