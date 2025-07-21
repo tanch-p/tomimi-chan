@@ -16,13 +16,33 @@
  "description_zh": "这熊霸乱丢的食物残渣吸引来许多源石虫，赶紧来个人告诉他，在界园不要乱扔垃圾！\n<@rolv.rem>场地中有可以阻挡敌人行进路线的<碎石></>\n<@rolv.rem>场地中有夺取后可以治疗友方单位并对敌方造成法术伤害的<\"留声机\"></>",
  "description_ja": null,
  "description_en": null,
- "addInfo_zh": null,
+ "addInfo_zh": [
+  "普通作战 - “留声机”所需技力增加至150"
+ ],
  "addInfo_ja": null,
  "addInfo_en": null,
- "eliteDesc_zh": null,
+ "eliteDesc_zh": [
+  "所有敌方单位的攻击力，生命值+20%",
+  "高普尼克的额外攻击力提升至120%，生命值提升至200%",
+  "“留声机”所需技力增加至200"
+ ],
  "eliteDesc_ja": null,
  "eliteDesc_en": null,
- "n_mods": null,
+ "n_mods": [
+  {
+   "targets": [
+    "trap_014_tower"
+   ],
+   "special": {
+    "sktok_tower": {
+     "spData": {
+      "spCost": 150,
+      "initSp": 50
+     }
+    }
+   }
+  }
+ ],
  "elite_mods": [
   {
    "targets": [
@@ -57,6 +77,19 @@
      "mode": "mul"
     }
    ]
+  },
+  {
+   "targets": [
+    "trap_014_tower"
+   ],
+   "special": {
+    "sktok_tower": {
+     "spData": {
+      "spCost": 200,
+      "initSp": 50
+     }
+    }
+   }
   }
  ],
  "floors": [

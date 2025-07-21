@@ -19,9 +19,15 @@
  "addInfo_zh": null,
  "addInfo_ja": null,
  "addInfo_en": null,
- "eliteDesc_zh": null,
- "eliteDesc_ja": null,
- "eliteDesc_en": null,
+ "eliteDesc_zh": [
+  "所有敌方单位的攻击力，防御力+20%，生命值，移动速度+50%,攻击速度+30%"
+ ],
+ "eliteDesc_ja": [
+  "敵全員の攻撃力、防御力+20%、最大HP、移動速度+50%、攻撃速度+30%"
+ ],
+ "eliteDesc_en": [
+  "All enemy units have +20% ATK, +20% DEF, +50% Max HP, +50% Movement speed, and +30% ASPD"
+ ],
  "n_mods": null,
  "elite_mods": [
   {
@@ -52,7 +58,8 @@
     {
      "key": "aspd",
      "value": 1.3,
-     "mode": "mul"
+     "mode": "mul",
+     "order": "initial"
     }
    ]
   }
@@ -62,7 +69,10 @@
   5
  ],
  "sp_terrain": null,
- "sp_enemy": null,
+ "sp_enemy": {
+  "normal": "53",
+  "elite": null
+ },
  "n_count": [
   52
  ],
@@ -2969,5 +2979,9 @@
    "advancedWaveTag": null
   }
  ],
- "bonus": null
+ "bonus": {
+  "type": "wave",
+  "wave_index": 1,
+  "frag_index": -1
+ }
 }

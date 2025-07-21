@@ -36,10 +36,10 @@
 		randomSeeds = Array.from(Array(50)).map((_) => Math.random()),
 		mode = 'predefined',
 		simMode = 'wave_normal',
-		bonus = '',
+		bonusKey = '',
 		baseCount = 0;
 
-	$: compiledHiddenGroups = compileHiddenGroups(hiddenGroups, eliteMode, mapConfig, rogueTopic);
+	$: compiledHiddenGroups = compileHiddenGroups(hiddenGroups, eliteMode, mapConfig, rogueTopic,relics);
 	$: baseCount = getBaseCount(mapConfig, eliteMode);
 	$: options = getOptions(mapConfig, rogueTopic, difficulty, language);
 	$: maxPermutations = eliteMode
@@ -49,7 +49,7 @@
 		mapConfig,
 		compiledHiddenGroups,
 		eliteMode,
-		bonus,
+		bonusKey,
 		baseCount
 	);
 	$: enemyCounts = permutations.reduce((acc, { count }) => {
@@ -67,7 +67,7 @@
 	$: if (mapConfig) {
 		selectedCountIndex = 0;
 		selectedPermutationIdx = 0;
-		bonus = '';
+		bonusKey = '';
 		GameConfig.setValue('mode', 'wave_normal');
 	}
 	$: if (selectedCountIndex) {
@@ -206,11 +206,11 @@
 						<div class="grid grid-flow-col auto-cols-fr">
 							{#each getBonusEnemies(rogueTopic) as key}
 								<button
-									class="flex justify-center items-center border-r border-neutral-700 font-semibold text-xl {bonus ===
+									class="flex justify-center items-center border-r border-neutral-700 font-semibold text-xl {bonusKey ===
 									key
 										? 'bg-slate-700'
 										: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
-									on:click={() => (bonus = key)}
+									on:click={() => (bonusKey = key)}
 								>
 									{#if key === ''}
 										<div class="flex items-center justify-center w-[50px] h-[50px]">
@@ -291,7 +291,7 @@
 				compiledHiddenGroups,
 				eliteMode,
 				randomSeeds,
-				bonus
+				bonusKey
 			)}
 			timeline={generateWaveTimeline(
 				mapConfig,
@@ -303,7 +303,7 @@
 					: selectedPermGroups,
 				eliteMode,
 				randomSeeds,
-				bonus
+				bonusKey
 			)}
 		/>
 	{/await}

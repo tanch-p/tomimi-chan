@@ -18,7 +18,6 @@ const TRAPS_AFFECTED_BY_DIFFICULTY = [
 	'trap_108_smbox',
 	'trap_109_smrbox',
 	'trap_757_skzbox',
-	'trap_222_rgdysm',
 	'trap_223_dynbox',
 	'trap_224_dyrbox',
 	'trap_225_dysbox',

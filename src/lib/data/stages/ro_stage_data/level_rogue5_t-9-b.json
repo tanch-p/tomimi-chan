@@ -19,9 +19,15 @@
  "addInfo_zh": null,
  "addInfo_ja": null,
  "addInfo_en": null,
- "eliteDesc_zh": null,
- "eliteDesc_ja": null,
- "eliteDesc_en": null,
+ "eliteDesc_zh": [
+  "所有敌方单位的攻击力+20%，防御力+70%，生命值+20%，法术耐性+30"
+ ],
+ "eliteDesc_ja": [
+  "敵全員の攻撃力+20%、防御力+70%、最大HP+20%、術耐性+30"
+ ],
+ "eliteDesc_en": [
+  "All enemy units have +20% ATK, +70% DEF, +20% Max HP and +30 RES"
+ ],
  "n_mods": null,
  "elite_mods": [
   {
@@ -43,14 +49,7 @@
      "key": "hp",
      "value": 1.2,
      "mode": "mul"
-    }
-   ]
-  },
-  {
-   "targets": [
-    "ALL"
-   ],
-   "mods": [
+    },
     {
      "key": "res",
      "value": 30.0,
@@ -71,7 +70,10 @@
    "blackboard": null
   }
  ],
- "sp_enemy": null,
+ "sp_enemy": {
+  "normal": "28",
+  "elite": null
+ },
  "n_count": [
   25,
   26,
@@ -2245,5 +2247,9 @@
    "advancedWaveTag": null
   }
  ],
- "bonus": null
+ "bonus": {
+  "type": "wave",
+  "wave_index": 1,
+  "frag_index": -1
+ }
 }

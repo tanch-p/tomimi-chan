@@ -163,6 +163,7 @@ export const parseValues = (
 	text: string,
 	mode
 ) => {
+	if(!text) return ""
 	const regex = new RegExp(`<v.*?>`, 'g');
 	const extractedSubstrings = text.match(regex) || [];
 	for (const string of extractedSubstrings) {

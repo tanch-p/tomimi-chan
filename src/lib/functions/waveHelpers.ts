@@ -373,7 +373,7 @@ export const getEnemyCountPermutations = (
 	mapConfig,
 	hiddenGroups,
 	eliteMode,
-	hasBonus,
+	bonusKey,
 	baseCount
 ) => {
 	const key = eliteMode ? 'ELITE' : 'NORMAL';
@@ -425,7 +425,7 @@ export const getEnemyCountPermutations = (
 			});
 		});
 		return {
-			count: baseCount + countToAdd + permutationCount + (bonus && hasBonus ? 1 : 0),
+			count: baseCount + countToAdd + permutationCount + (bonus && bonusKey ? 1 : 0),
 			permutation
 		};
 	});
@@ -534,7 +534,7 @@ export const generateWaveTimeline = (
 			for (const [groupKey, list] of Object.entries(packedGroups)) {
 				let choice = permutation?.[key]?.[groupKey];
 				if (choice == undefined) {
-					choice = getPredefinedChoiceIndex(list, hiddenGroups, bonusKey);
+					choice = getPredefinedChoiceIndex(list, hiddenGroups, bonusKey, mapConfig.bonus);
 					if (choice == undefined) {
 						choice = Math.floor(randomSeeds[randomSeedIndex] * list.length);
 						randomSeedIndex += 1;
@@ -688,7 +688,14 @@ const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime, enemyRe
 	}
 };
 
-export const parseWaves = (mapConfig, permutation, hiddenGroups, eliteMode, randomSeeds, bonus) => {
+export const parseWaves = (
+	mapConfig,
+	permutation,
+	hiddenGroups,
+	eliteMode,
+	randomSeeds,
+	bonusKey
+) => {
 	let randomSeedIndex = 0;
 	const waves = structuredClone(mapConfig.waves);
 	waves.forEach((wave, waveIdx) => {
@@ -703,7 +710,7 @@ export const parseWaves = (mapConfig, permutation, hiddenGroups, eliteMode, rand
 			for (const [groupKey, list] of Object.entries(packedGroups)) {
 				let choice = permutation?.[key]?.[groupKey];
 				if (choice == undefined) {
-					choice = getPredefinedChoiceIndex(list, hiddenGroups, bonus);
+					choice = getPredefinedChoiceIndex(list, hiddenGroups, bonusKey, mapConfig.bonus);
 					if (choice == undefined) {
 						choice = Math.floor(randomSeeds[randomSeedIndex] * list.length);
 						randomSeedIndex += 1;
@@ -752,14 +759,16 @@ export const parseWaves = (mapConfig, permutation, hiddenGroups, eliteMode, rand
 	return waves;
 };
 
-export const getPredefinedChoiceIndex = (list, hiddenGroups, bonusKey) => {
+export const getPredefinedChoiceIndex = (list, hiddenGroups, bonusKey, bonus) => {
 	if (!Array.isArray(list?.[0])) {
 		const badBoxIdx = list.findIndex((action) => CHESTS.includes(action.key.split('#')[0]));
 		if (badBoxIdx !== -1 && hiddenGroups.some((ele) => CHESTS.includes(ele))) {
 			return badBoxIdx;
 		}
-		const bonusIdx = bonusKey ? list.findIndex((action) => action.key === bonusKey) : -1;
-		return bonusIdx;
+		if (bonus) {
+			const bonusIdx = bonusKey ? list.findIndex((action) => action.key === bonusKey) : -1;
+			return bonusIdx;
+		}
 	}
 };
 

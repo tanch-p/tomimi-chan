@@ -2527,12 +2527,17 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"After charging for 5s, deals 200% ATK as {arts} damage to single target, and inverts tile element target is on"
+				"After charging for 5s, deals 200% ATK as {arts} damage to single target, and inverts tile element target is on",
+				"Can only be used against units standing on yin/yang tiles"
 			],
 			"ja": [
-				"5秒チャージした後単体に攻撃力200%の{arts}ダメージを与え、目標所在の床属性を反転させる"
+				"5秒チャージした後単体に攻撃力200%の{arts}ダメージを与え、目標所在の床属性を反転させる",
+				"※属性マスにいる味方ユニットにのみ使用可能"
 			],
-			"zh": ["蓄力5秒后造成攻击力200%的{arts}普通伤害，并改变目标所在晦明之印的属性"]
+			"zh": [
+				"蓄力5秒后造成攻击力200%的{arts}普通伤害，并改变目标所在晦明之印的属性",
+				"※仅在范围内存在具有【明】或【晦】属性的单位时触发 "
+			]
 		}
 	},
 	"xi_revive": {
@@ -6812,6 +6817,25 @@
 			]
 		}
 	},
+	"cjfish_fish": {
+		"type": "skill",
+		"initCooldown": 5,
+		"cooldown": 10,
+		"suffix": { "en": "Pull", "ja": "引き寄せ", "zh": "拉扯" },
+		"skillRange": 4.0,
+		"can_silence":true,
+		"tooltip": {
+			"en": [
+				"Targets a Sapidity within 4 tile radius and pulls it, during which the Sapidity receives 1 damage every 0.25s over 4 seconds"
+			],
+			"ja": [
+				"半径4.0以内の飲啄1体を4秒間相当の力で引き寄せ、この間、対象に0.25秒ごとに1ダメージを与える"
+			],
+			"zh": [
+				"仅存在有效目标时可触发：选择半径4.0范围内的一个饮啄，令目标4s内每0.25s受到一次伤害，随后将其中等力度地向自身方向推动"
+			]
+		}
+	},
 	"cjhot_fire": {
 		"tooltip": {
 			"en": [
@@ -8113,7 +8137,7 @@
 	},
 	"dyspl2_possess": {
 		"value": 0,
-		"v_range":0.0,
+		"v_range": 0.0,
 		"tooltip": {
 			"en": [],
 			"ja": [],
@@ -8144,7 +8168,7 @@
 		}
 	},
 	"dyrnge_eat": {
-		"def":{"fixed":-1500,"order":"initial"},
+		"def": { "fixed": -1500, "order": "initial" },
 		"suffix": { "en": "Hover", "ja": "低空浮揚", "zh": "近地悬浮" },
 		"tooltip": {
 			"en": [],
@@ -8390,9 +8414,7 @@
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": [
-				"若场上存在6位以上的我方单位（包括召唤物），技力自然回复速度+1.5"
-			]
+			"zh": ["若场上存在6位以上的我方单位（包括召唤物），技力自然回复速度+1.5"]
 		}
 	},
 	"dyshh2_appear": {
@@ -8525,7 +8547,9 @@
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": ["进入该形态时，每有一个我方单位就尝试部署1枚瑕，优先选择我方单位周围4格的可部署地块，然后选择1个未受失气影响的可部署地块，在其周围4格可部署地块各部署1枚瑕"]
+			"zh": [
+				"进入该形态时，每有一个我方单位就尝试部署1枚瑕，优先选择我方单位周围4格的可部署地块，然后选择1个未受失气影响的可部署地块，在其周围4格可部署地块各部署1枚瑕"
+			]
 		}
 	},
 	"dywqgs_2_surround": {
@@ -8587,16 +8611,20 @@
 			"zh": ["死亡后在自身所在地块中心0.2边长正方形范围内随机位置以自身路径召唤<v.value>个血珀"]
 		}
 	},
-	"dseed_hp":{
+	"dseed_hp": {
 		"tooltip": {
-			"en": ["Loses 10% of maximum HP every second if there are no Bloodcalling Altars on the map or the Throne of Blood is absent"],
+			"en": [
+				"Loses 10% of maximum HP every second if there are no Bloodcalling Altars on the map or the Throne of Blood is absent"
+			],
 			"ja": ["マップ上に血の祭壇・血誓の王座が存在しない時、最大HPの10%分のダメージを毎秒受ける"],
 			"zh": ["场上不存在<唤血祭坛>/<沥血王座>时，每秒流失最大生命值10%的生命"]
 		}
 	},
-	"dseed_revive":{
+	"dseed_revive": {
 		"tooltip": {
-			"en": ["Despawns and summons a Bloodborn Spawn at the Bloodcalling Altar when affected by its pulse wave"],
+			"en": [
+				"Despawns and summons a Bloodborn Spawn at the Bloodcalling Altar when affected by its pulse wave"
+			],
 			"ja": ["血の祭壇の衝撃波を受けると自身は消滅し、血の祭壇が新生の血裔を1体召喚する"],
 			"zh": ["受唤血祭坛脉冲波影响时，触发1次唤血祭坛的召唤效果，随后自身退场"]
 		}
