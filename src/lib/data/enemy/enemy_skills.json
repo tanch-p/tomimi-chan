@@ -3767,6 +3767,13 @@
 			"zh": ["“清算时刻”状态下，自身获得攻击力，防御力+15%，攻击速度+50"]
 		}
 	},
+	"spy_mechanic": {
+		"tooltip": {
+			"en": ["Spy. Initially disguised as a Norport Civilian and is invulnerable and does not attack"],
+			"ja": ["密偵。ノーポート民間人の姿で登場し、正体が判明するまでは通常攻撃せず、無敵"],
+			"zh": ["密探；未完成鉴定时：无敌，不进行攻击", "通用机制：鉴定"]
+		}
+	},
 	"wdfmr_cost": {
 		"value": 2,
 		"tooltip": {
@@ -3787,14 +3794,14 @@
 				"After Inspection has completed, gains Movespeed +0.05, and the damage of the next attack is increased to 200% of ATK"
 			],
 			"ja": ["正体判明後、移動速度+0.05。1度だけ攻撃倍率が200%に増加"],
-			"zh": ["密探，显露真身后，移动速度+0.05，下一次攻击的攻击力提升至200%"]
+			"zh": ["显露真身后，移动速度+0.05，下一次攻击的攻击力提升至200%"]
 		}
 	},
 	"wdyjd_inspection": {
 		"tooltip": {
 			"en": ["After Inspection has completed, gains Movespeed +0.2 and Stealth"],
 			"ja": ["正体判明後、移動速度+0.2、ステルスを獲得"],
-			"zh": ["密探，显露真身后，获得隐匿"]
+			"zh": ["显露真身后，移动速度+0.2，获得隐匿"]
 		}
 	},
 	"wdgyht_blink": {
@@ -5937,13 +5944,13 @@
 		"dmg_element": "phys",
 		"tooltip": {
 			"en": [
-				"Targets a friendly unit within attack range and channels for 15 seconds, during which the target and all other units connected to them by Stabilizer Chains take 150 {arts} damage and 80 {ba.dt.burning} Damage every second"
+				"Targets a friendly unit within attack range and channels for 15 seconds, during which the target and all other units connected to them by Stabilizer Chains take <v.atk.value> {arts} damage and 80 {ba.dt.burning} Damage every second"
 			],
 			"ja": [
-				"攻撃範囲内の味方1人に15秒間演奏を行う。演奏中、対象とセーフティチェーンで繋がった味方全員に毎秒150の{arts}ダメージと80の{ba.dt.burning}を与える"
+				"攻撃範囲内の味方1人に15秒間演奏を行う。演奏中、対象とセーフティチェーンで繋がった味方全員に毎秒<v.atk.value>の{arts}ダメージと80の{ba.dt.burning}を与える"
 			],
 			"zh": [
-				"对攻击范围内的1名我方单位持续施法，每秒对目标及与其通过稳固锁链相连的所有我方单位造成150{arts}伤害与80{ba.dt.burning}，持续15s"
+				"对攻击范围内的1名我方单位持续施法，每秒对目标及与其通过稳固锁链相连的所有我方单位造成<v.atk.value>{arts}伤害与80{ba.dt.burning}，持续15s"
 			]
 		}
 	},
