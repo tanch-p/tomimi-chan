@@ -21,7 +21,8 @@ const TRAPS_AFFECTED_BY_DIFFICULTY = [
 	'trap_223_dynbox',
 	'trap_224_dyrbox',
 	'trap_225_dysbox',
-	'trap_226_dychss'
+	'trap_226_dychss',
+	'trap_219_fttreant'
 ];
 
 const STATS = ['hp', 'atk', 'aspd', 'def', 'res', 'blockCnt'];
@@ -116,6 +117,7 @@ export const parseTraps = (traps: MapConfigTrap[], language: Language) => {
 				skillType: skill.skillType,
 				durationType: skill.durationType,
 				spType: skill.spType,
+				hasIcon: skill.hasIcon ?? true,
 				rangeId: skill.rangeId,
 				duration: skill.levels[mainSkillLvl - 1].duration,
 				spData: skill.levels[mainSkillLvl - 1].spData,
