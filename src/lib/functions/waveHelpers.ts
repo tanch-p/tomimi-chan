@@ -759,9 +759,7 @@ export const getPredefinedChoiceIndex = (list, hiddenGroups, bonusKey) => {
 			return badBoxIdx;
 		}
 		const bonusIdx = bonusKey ? list.findIndex((action) => action.key === bonusKey) : -1;
-		if (bonusIdx !== -1) {
-			return bonusIdx;
-		}
+		return bonusIdx;
 	}
 };
 
