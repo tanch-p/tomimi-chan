@@ -5,7 +5,7 @@ import { compileMods, getDmgReductionVal, getModdedStat } from './statHelpers';
 import { getOverwrittenKeys } from './skillHelpers';
 
 const TRAPS_AFFECTED_BY_DIFFICULTY = [
-	"trap_054_dancdol",
+	'trap_054_dancdol',
 	'trap_086_larva',
 	'trap_760_skztzs',
 	'trap_761_skzthx',
@@ -21,7 +21,7 @@ const TRAPS_AFFECTED_BY_DIFFICULTY = [
 	'trap_223_dynbox',
 	'trap_224_dyrbox',
 	'trap_225_dysbox',
-	'trap_226_dychss',
+	'trap_226_dychss'
 ];
 
 const STATS = ['hp', 'atk', 'aspd', 'def', 'res', 'blockCnt'];
@@ -172,13 +172,10 @@ export function getTrapSpecialSkill(key: string, skillRef: string, specialMods: 
 
 function parseStats(trap: Trap, statMods: StatMods) {
 	let diffMods;
-	let otherMods = [];
-	if (TRAPS_AFFECTED_BY_DIFFICULTY.includes(trap.key)) {
-		// Ally traps like shieldguard are affected by character buffing relics like 湖中神盾 but we're not accounting for that here
-		otherMods = statMods.others.map((mods) => compileMods(trap, mods));
-		if (statMods.diff) {
-			diffMods = compileMods(trap, statMods.diff);
-		}
+	const type = TRAPS_AFFECTED_BY_DIFFICULTY.includes(trap.key) ? 'enemy' : 'trap_rune';
+	const otherMods = statMods.others.map((mods) => compileMods(trap, mods, type));
+	if (statMods.diff) {
+		diffMods = compileMods(trap, statMods.diff, type);
 	}
 	const secondaryMods = [diffMods, ...otherMods].filter(Boolean);
 	//Traps are not affected by rune mods unless specifically targeted (to confirm for both ally and enemy traps)
