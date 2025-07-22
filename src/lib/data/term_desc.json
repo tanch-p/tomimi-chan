@@ -466,5 +466,14 @@
 		"desc_zh": "被地图边界，保护目标，侵入点及瑕所形成的，横纵方向上的封闭区域效果，封闭区域内的我方单位将进入失气状态\n失气：其中的我方单位持续晕眩\n如果一个我方单位只通过上下左右移动而使自身周围四格存在一个不包含其他我方单位和瑕的地块，则该单位不视为处于失气状态",
 		"desc_en": "If an area is fully enclosed by map boundaries, protection objective, infiltration point and 瑕, units inside it will be affected by 失气.\n失气 - Units inside the enclosed area are stunned",
 		"desc_ja": "マップ境界、防衛ライン、侵入ポイントと瑕に完全に包囲されたエリアの味方ユニットが失气状態に入る。失气状態のユニットはスタンされる"
+	},
+	"ba.spy": {
+		"termId": "ba.spy",
+		"name_zh": "鉴定",
+		"name_en": "Identity",
+		"name_ja": "身分確認",
+		"desc_zh": "相关目标获得“鉴定进度”并进入第一阶段鉴定。\n第一阶段鉴定：每0.1s，若自身被阻挡/处于我方单位视野范围内，为自身增加2点鉴定进度，否则减少1点鉴定进度；进度大于等于300点时，进入第二阶段鉴定。\n第二阶段鉴定：根据自身是否敌对改变标识颜色（自身为敌对单位时变为红色，否则为亮蓝或亮绿色）。每0.1s，若自身被阻挡/处于我方单位视野范围内，为自身增加3点鉴定进度，否则减少1点鉴定进度（不会回落至第一阶段）；第二阶段鉴定进度大于等于300点时，鉴定完成",
+		"desc_en": "The target's identification points are increased by bringing the spy within an ally's attack range or blocking it. When this condition is not met, the number of points decreases by 1 point every 0.1 second. There are two levels of identification, each requiring 300 points",
+		"desc_ja": "密偵を味方の攻撃範囲内に収めるかブロックすることで対象の識別ポイントが増加する。この条件を満たしていない時は、0.1秒ごとに1ポイント減少。識別には2段階あり、それぞれ300ポイント必要"
 	}
 }
