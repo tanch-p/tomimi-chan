@@ -21,7 +21,6 @@ const TRAPS_AFFECTED_BY_DIFFICULTY = [
 	'trap_223_dynbox',
 	'trap_224_dyrbox',
 	'trap_225_dysbox',
-	'trap_226_dychss',
 	'trap_219_fttreant'
 ];
 
