@@ -57,6 +57,22 @@
 			"zh": ["中立单位"]
 		}
 	},
+	"lower_cost_regen": {
+		"value":50,
+		"tooltip": {
+			"en": ["Reduces the DP regen rate by <v.value>% (does not stack)"],
+			"ja": ["マップ上にいる間、コストの自然回復速度-<v.value>%（重複しない）"],
+			"zh": ["在场时，我方部署费用的自然回费速度-<v.value>%（不可叠加）"]
+		}
+	},
+	"lower_cost_limit": {
+		"value":10,
+		"tooltip": {
+			"en": ["Reduces the DP limit by <v.value> (stacks)"],
+			"ja": ["マップ上にいる間、所持コストの上限-<v.value>（重複する）"],
+			"zh": ["在场时，我方费用上限-<v.value>（可叠加，会扣除溢出部分费用）"]
+		}
+	},
 	"rewrite_tile_forbid": {
 		"tooltip": {
 			"en": ["When on field, changes tile self is on to non-deployable"],
@@ -7713,11 +7729,12 @@
 		}
 	},
 	"hlsprt_heal": {
+		"value":3,
 		"tooltip": {
 			"en": [],
 			"ja": [],
 			"zh": [
-				"治疗半径2.5范围内最多3个敌方单位相当于自身攻击力200%的生命值，并使其获得1SP",
+				"治疗半径2.5范围内最多<v.value>个敌方单位相当于自身攻击力200%的生命值，并使其获得1SP",
 				"※优先选择已消耗SP最多的单位"
 			]
 		}
