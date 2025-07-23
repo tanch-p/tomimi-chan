@@ -141,9 +141,10 @@ export const statMods = derived(
 		$allMods
 	]) => {
 		const relicMods = $selectedRelics.map((relic) => {
+			const effects = relic.stages ? relic.stages[relic.count-1]?.effects : relic.effects;
 			return {
 				key: relic.id,
-				mods: [relic.effects.filter((effect) => filterModCondition(effect, $stageType))]
+				mods: [effects.filter((effect) => filterModCondition(effect, $stageType))]
 			};
 		});
 		const noobMods = $noobHelp.filter((effect) => filterModCondition(effect, $stageType));

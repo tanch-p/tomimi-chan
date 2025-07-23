@@ -7,17 +7,40 @@
 	$: tooltip = relic[`tooltip_${language}`] || relic[`tooltip_zh`];
 
 	let selected = false;
+	relic.count = relic?.count || 0;
 
 	selectedRelics.subscribe((list) => {
 		selected = Boolean(list.find((item) => item.id === relic.id));
 	});
 
 	function handleClick() {
-		if (!$selectedRelics.find((item) => item.id === relic.id)) {
-			selectedRelics.update((list) => (list = [...list, relic]));
-		} else {
-			selectedRelics.update((list) => (list = list.filter((item) => item.id !== relic.id)));
+		if (relic.stages) {
+			if (selected) {
+				relic.count++;
+				if (relic.count > relic.stages.length) {
+					relic.count = 0;
+					removeRelicFromList();
+				} else {
+					removeRelicFromList();
+					addRelicToList();
+				}
+			} else {
+				relic.count = 1;
+				addRelicToList();
+			}
+			return;
 		}
+		if (!$selectedRelics.find((item) => item.id === relic.id)) {
+			addRelicToList();
+		} else {
+			removeRelicFromList();
+		}
+	}
+	function removeRelicFromList() {
+		selectedRelics.update((list) => (list = list.filter((item) => item.id !== relic.id)));
+	}
+	function addRelicToList() {
+		selectedRelics.update((list) => (list = [...list, relic]));
 	}
 	function getSelectedTextColor(rogueTopic: RogueTopic) {
 		switch (rogueTopic) {
@@ -51,6 +74,9 @@
 			}`}
 		>
 			{name}
+			{#if selected && relic?.stages?.[relic?.count - 1]?.suffix}
+				({relic.stages[relic.count - 1].suffix})
+			{/if}
 		</p>
 		<p class="relic text-[#c4c4c4]">{tooltip}</p>
 	</div>
