@@ -20,7 +20,7 @@
 		if (!skill.tooltip) return;
 
 		return skill.tooltip[language].map((line) => {
-			line = parseValues(entity, formIndex, skill, line, mode);
+			line = parseValues(entity, formIndex, skill, line, language, mode);
 			if (statusImmuneList.includes('silence')) {
 				line = line.replace('{can_silence}', '');
 			}

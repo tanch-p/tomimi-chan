@@ -85,7 +85,7 @@
 					<TextParser line={talent.desc} />
 					{#if talent.rangeId}
 						<div
-							class="flex flex-col items-center w-[72px] p-2 pb-1 bg-[#161616] bg-opacity-80 rounded"
+							class="flex flex-col items-center w-[72px] p-2 pb-1 bg-[#161616] bg-opacity-80 rounded h-max"
 						>
 							<div class="flex items-center h-full">
 								<RangeParser rangeId={talent.rangeId} size="small" />

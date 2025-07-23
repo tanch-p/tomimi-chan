@@ -1,4 +1,4 @@
-import type { Enemy, Skill, SpecialMods, StatusImmune, Trap } from '$lib/types';
+import type { Enemy, Language, Skill, SpecialMods, StatusImmune, Trap } from '$lib/types';
 import enemySkills from '$lib/data/enemy/enemy_skills.json';
 import trapSkills from '$lib/data/trap/traps_skills.json';
 import enemyDb from '$lib/data/enemy/enemy_database.json';
@@ -161,9 +161,10 @@ export const parseValues = (
 	formIndex: number,
 	skill: Skill,
 	text: string,
+	language: Language,
 	mode
 ) => {
-	if(!text) return ""
+	if (!text) return '';
 	const regex = new RegExp(`<v.*?>`, 'g');
 	const extractedSubstrings = text.match(regex) || [];
 	for (const string of extractedSubstrings) {
@@ -198,10 +199,15 @@ export const parseValues = (
 				text = text.replace(string, skill[statKey][valueKey]);
 			}
 		} else {
+			let toReplace = skill[key];
+			if (key === 'enemy_key') {
+				const enemy = enemyDb[skill[key]];
+				toReplace = enemy[`name_${language}`] || enemy[`name_zh`];
+			}
 			text = text.replace(
 				string,
 				addOverwrittenHighlight(
-					(isPercent ? Math.round(skill[key] * 100) : skill[key]).toString(),
+					(isPercent ? Math.round(skill[key] * 100) : toReplace).toString(),
 					skill,
 					key
 				)
