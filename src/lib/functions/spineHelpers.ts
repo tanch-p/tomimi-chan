@@ -90,6 +90,8 @@ export function getIdleAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'enemy_1425_lrcmra_2':
 		case 'enemy_1506_patrt':
 		case 'enemy_2013_csbot':
+		case 'enemy_1405_boomer':
+		case 'enemy_1405_boomer_2':
 			return 'Idle_1';
 
 		case 'enemy_1158_divman':
@@ -200,6 +202,8 @@ function getMoveAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'enemy_1425_lrcmra_2':
 		case 'enemy_1506_patrt':
 		case 'enemy_10046_pshark':
+		case 'enemy_1405_boomer':
+		case 'enemy_1405_boomer_2':
 			return 'Move_1';
 
 		case 'enemy_1158_divman':
