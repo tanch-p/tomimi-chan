@@ -216,12 +216,19 @@ function parseStats(trap: Trap, statMods: StatMods) {
 export const filterTraps = (traps) => {
 	const holder = [];
 	for (const trap of traps) {
-		const item = holder.find(
-			(item) =>
-				item.key === trap.key &&
-				item.mainSkillLvl === trap.mainSkillLvl &&
-				isEquals(item.overrideSkillBlackboard, trap.overrideSkillBlackboard)
-		);
+		let item;
+		if (trap.key === 'trap_222_rgdysm') {
+			item = holder.find(
+				(item) =>
+					item.key === trap.key &&
+					item.mainSkillLvl === trap.mainSkillLvl &&
+					isEquals(item.overrideSkillBlackboard, trap.overrideSkillBlackboard)
+			);
+		} else {
+			item = holder.find(
+				(item) => item.key === trap.key && item.mainSkillLvl === trap.mainSkillLvl
+			);
+		}
 		if (item) {
 			continue;
 		}
