@@ -2,7 +2,7 @@
 	import type { Trap, Language } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import TrapTableRow from './TrapTableRow.svelte';
-	export let traps: Trap[], language: Language, specialMods, otherBuffsList;
+	export let traps: Trap[], language: Language, specialMods, otherBuffsList, mapConfig;
 
 	const tableHeaders = [
 		'icon',
@@ -39,7 +39,7 @@
 		</thead>
 		<tbody>
 			{#each traps as trap, index}
-				<TrapTableRow {trap} {index} {tableHeaders} {language} {specialMods} {otherBuffsList}/>
+				<TrapTableRow {trap} {index} {tableHeaders} {language} {specialMods} {otherBuffsList} {mapConfig}/>
 			{/each}
 		</tbody>
 	</table>

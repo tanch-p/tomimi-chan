@@ -5,7 +5,7 @@
 	import translations from '$lib/translations.json';
 	import EnemyHandbookDisplay from './EnemyHandbookDisplay.svelte';
 
-	export let enemies: Enemy[], language: Language, statMods, specialMods, otherBuffsList;
+	export let enemies: Enemy[], language: Language, statMods, specialMods, otherBuffsList, mapConfig;
 	let displayMode = 'table';
 </script>
 
@@ -34,7 +34,7 @@
 </div>
 
 {#if displayMode === 'table'}
-	<EnemySimpleTable {enemies} {language} {statMods} {specialMods} {otherBuffsList} />
+	<EnemySimpleTable {enemies} {language} {statMods} {specialMods} {otherBuffsList} {mapConfig}/>
 {:else}
-	<EnemyHandbookDisplay {enemies} {language} {statMods} {specialMods} {otherBuffsList} mode="desktop" />
+	<EnemyHandbookDisplay {enemies} {language} {statMods} {specialMods} {otherBuffsList} {mapConfig} mode="desktop" />
 {/if}

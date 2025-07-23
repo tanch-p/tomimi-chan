@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Language, Trap } from '$lib/types';
+	import type { Language, MapConfig, Trap } from '$lib/types';
 	import { page } from '$app/stores';
 	import translations from '$lib/translations.json';
 	import TextParser from './TextParser.svelte';
@@ -11,7 +11,8 @@
 
 	export let trap: Trap,
 		mode = 'handbook',
-		specialMods;
+		specialMods,
+		mapConfig: MapConfig;
 	let language: Language;
 	$: language = $page.data.language;
 </script>
@@ -48,6 +49,7 @@
 					skill={getTrapSpecialSkill(trap.key, trap.stageId, item, specialMods)}
 					{language}
 					{mode}
+					{mapConfig}
 				/>
 			{:else}
 				{@const formIndex = getTrapFormIndex(trap.special, i)}
@@ -60,6 +62,7 @@
 						skill={getTrapSpecialSkill(trap.key, trap.stageId, key, specialMods)}
 						{language}
 						{mode}
+						{mapConfig}
 					/>
 				{/each}
 			{/if}
@@ -108,7 +111,7 @@
 	</p>
 	<div class="pb-1.5 {mode === 'table' ? 'pl-4' : ''}">
 		{#each trap.skills as skill}
-			<TrapSkill {trap} {skill} {language} {mode} />
+			<TrapSkill {trap} {skill} {language} {mode} {mapConfig}/>
 		{/each}
 	</div>
 {/if}

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Enemy, Language, Skill, StatusImmune, Trap } from '$lib/types';
+	import type { Enemy, Language, MapConfig, Skill, StatusImmune, Trap } from '$lib/types';
 	import TextParser from './TextParser.svelte';
 	import { parseValues } from '$lib/functions/skillHelpers';
 	import SkillHead from './SkillHead.svelte';
@@ -9,7 +9,8 @@
 		skill: Skill,
 		language: Language,
 		mode = 'table',
-		statusImmuneList: StatusImmune[] = [];
+		statusImmuneList: StatusImmune[] = [],
+		mapConfig:MapConfig;
 
 	const getTooltip = (
 		entity: Enemy | Trap,
@@ -20,7 +21,7 @@
 		if (!skill.tooltip) return;
 
 		return skill.tooltip[language].map((line) => {
-			line = parseValues(entity, formIndex, skill, line, language, mode);
+			line = parseValues(entity, formIndex, skill, line, language,mapConfig, mode);
 			if (statusImmuneList.includes('silence')) {
 				line = line.replace('{can_silence}', '');
 			}

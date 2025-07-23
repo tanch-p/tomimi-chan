@@ -8,7 +8,8 @@
 		statMods,
 		specialMods,
 		otherBuffsList,
-		mode = 'mobile';
+		mode = 'mobile',
+		mapConfig;
 </script>
 
 <div class="grid grid-cols-[75px_auto] md:grid-cols-[85px_auto] md:justify-center md:mt-4">
@@ -46,7 +47,7 @@
 			{#if index !== 0}
 				<div class="bg-neutral-700 mx-1 h-0.5" />
 			{/if}
-			<EnemyHandbookDetails {enemy} {language} {statMods} {specialMods} {otherBuffsList} {mode} />
+			<EnemyHandbookDetails {enemy} {language} {statMods} {specialMods} {otherBuffsList} {mode} {mapConfig}/>
 		{/each}
 	</div>
 </div>

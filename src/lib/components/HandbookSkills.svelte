@@ -4,7 +4,7 @@
 	import RangeParser from './RangeParser.svelte';
 	import Remark from './Remark.svelte';
 
-	export let enemy: Enemy, skills, language: Language, statusImmuneList, formIndex;
+	export let enemy: Enemy, skills, language: Language, statusImmuneList, formIndex, mapConfig;
 </script>
 
 {#if skills.length > 0}
@@ -21,6 +21,7 @@
 					{language}
 					mode={'skill'}
 					{statusImmuneList}
+					{mapConfig}
 				/>
 				<!-- {#if skill.rangeId}
 						<div

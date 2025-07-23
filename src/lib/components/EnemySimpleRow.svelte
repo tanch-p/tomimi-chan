@@ -15,7 +15,8 @@
 		language: Language,
 		statMods: StatMods,
 		specialMods,
-		otherBuffsList;
+		otherBuffsList,
+		mapConfig;
 
 	$: maxRowSpan = enemy.forms.length;
 	function textAlign(statKey: string) {
@@ -93,7 +94,7 @@
 				</td>
 			{:else if key === 'remarks'}
 				<td class={`border border-gray-400 h-[65px] ${textAlign(key)}`}>
-					<RemarksContainer {enemy} {language} {row} {specialMods} />
+					<RemarksContainer {enemy} {language} {row} {specialMods} {mapConfig} />
 				</td>
 			{:else if key === 'other_buffs' && row === 0}
 				<td class="border border-gray-400 px-1.5" rowspan={maxRowSpan}>

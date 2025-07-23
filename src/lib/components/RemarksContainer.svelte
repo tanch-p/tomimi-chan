@@ -7,7 +7,7 @@
 	import translations from '$lib/translations.json';
 	import { isEquals } from '$lib/functions/lib';
 
-	export let enemy: Enemy, row: number, language: Language, specialMods;
+	export let enemy: Enemy, row: number, language: Language, specialMods, mapConfig;
 	$: traits = getEnemySkills(enemy, enemy.traits, row, $specialMods, 'trait');
 	$: specialList = getEnemySkills(enemy, enemy.forms[row].special, row, $specialMods, 'special');
 	$: statusImmuneList = getStatusImmune(enemy, enemy.forms[row].status_immune, $specialMods);
@@ -29,6 +29,7 @@
 					{skill}
 					{language}
 					{statusImmuneList}
+					{mapConfig}
 				/>
 			{/each}
 		</ul>
@@ -40,6 +41,7 @@
 					{skill}
 					{language}
 					{statusImmuneList}
+					{mapConfig}
 				/>
 			{/each}
 		</ul>
@@ -67,6 +69,7 @@
 						{skill}
 						{language}
 						{statusImmuneList}
+						{mapConfig}
 					/>
 				{/each}
 			</ul>
@@ -83,6 +86,7 @@
 					{skill}
 					{language}
 					{statusImmuneList}
+					{mapConfig}
 				/>
 			{/each}
 		</ul>

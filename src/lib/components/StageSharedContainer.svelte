@@ -69,6 +69,7 @@
 	traps={filterTraps(moddedTraps)}
 	{otherBuffsList}
 	specialMods={$specialMods}
+	{mapConfig}
 />
 <ModsCheck {language} enemies={moddedEnemies} {mapConfig} />
 <EnemyCount
@@ -94,6 +95,7 @@
 		{statMods}
 		{specialMods}
 		{otherBuffsList}
+		{mapConfig}
 	/>
 	<div id="stageNav" class="mt-8 sm:mt-16 scroll-mt-20">
 		<slot name="nav" />

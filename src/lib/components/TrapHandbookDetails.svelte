@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Language, Trap } from '$lib/types';
+	import type { Language, MapConfig, Trap } from '$lib/types';
 	import { page } from '$app/stores';
 	import translations from '$lib/translations.json';
 	import StatusImmune from './StatusImmune.svelte';
@@ -8,7 +8,7 @@
 	import TrapAbilities from './TrapAbilities.svelte';
 	import OtherBuffs from './OtherBuffs.svelte';
 
-	export let trap: Trap, otherBuffsList, specialMods;
+	export let trap: Trap, otherBuffsList, specialMods, mapConfig:MapConfig;
 	let language: Language;
 	$: language = $page.data.language;
 </script>
@@ -58,7 +58,7 @@
 		{#if trap.key === 'trap_760_skztzs'}
 			<OtherBuffs {otherBuffsList} {language} entity={trap} />
 		{/if}
-		<TrapAbilities {trap} {specialMods} />
+		<TrapAbilities {trap} {specialMods} {mapConfig}/>
 		<StatusImmune statusImmuneList={trap.status_immune} {language} mode="handbook" />
 	</div>
 </div>

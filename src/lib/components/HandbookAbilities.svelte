@@ -7,14 +7,14 @@
 	import HandbookSkills from './HandbookSkills.svelte';
 	import { isEquals } from '$lib/functions/lib';
 
-	export let enemy: Enemy, language: Language, specialMods, statusImmuneList, formIndex;
+	export let enemy: Enemy, language: Language, specialMods, statusImmuneList, formIndex, mapConfig;
 	$: traits = getEnemySkills(enemy, enemy.traits, 0, $specialMods, 'trait').filter(
 		(skill) => skill.type !== 'skill'
 	);
 	$: skills = getHandbookEnemySkills(enemy, $specialMods);
 </script>
 
-<HandbookSkills {enemy} {skills} {language} {statusImmuneList} {formIndex} />
+<HandbookSkills {enemy} {skills} {language} {statusImmuneList} {formIndex} {mapConfig}/>
 {#if traits.length > 0 || enemy.forms.some((form) => form.stats.dmgRes > 0 || form.special.length > 0)}
 	{@const sameDmgRedAcrossForms = enemy.forms.reduce((acc, curr, i, list) => {
 		if (i + 1 < list.length) {
@@ -42,6 +42,7 @@
 					{language}
 					mode={'handbook'}
 					{statusImmuneList}
+					{mapConfig}
 				/>
 			{/each}
 		</ul>
@@ -66,6 +67,7 @@
 						{language}
 						mode={'handbook'}
 						{statusImmuneList}
+						{mapConfig}
 					/>
 				{/each}
 			</ul>

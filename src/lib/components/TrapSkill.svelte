@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Language, Skill, Trap } from '$lib/types';
+	import type { Language, MapConfig, Skill, Trap } from '$lib/types';
 	import { charaAssets } from '$lib/data/chara/chara_assets';
 	import { getSkillImgUrl } from '$lib/functions/charaHelpers';
 	import RangeParser from './RangeParser.svelte';
@@ -8,7 +8,7 @@
 	import Icon from './Icon.svelte';
 	import { parseValues } from '$lib/functions/skillHelpers';
 
-	export let trap: Trap, skill: Skill, language: Language, mode;
+	export let trap: Trap, skill: Skill, language: Language, mode, mapConfig: MapConfig;
 </script>
 
 {#if mode === 'handbook'}
@@ -70,7 +70,10 @@
 			</div>
 		{/if}
 	</div>
-	<TextParser line={parseValues(trap, 0, skill, skill.desc, language, mode)} className="mt-1.5" />
+	<TextParser
+		line={parseValues(trap, 0, skill, skill.desc, language, mapConfig, mode)}
+		className="mt-1.5"
+	/>
 {:else}
 	<div class="mt-2.5">
 		<div class="flex gap-x-2.5">
@@ -107,7 +110,10 @@
 			{/if}
 		</div>
 		<div class="flex gap-x-2.5">
-			<TextParser line={parseValues(trap, 0, skill, skill.desc, language, mode)} className="mt-1.5" />
+			<TextParser
+				line={parseValues(trap, 0, skill, skill.desc, language, mapConfig, mode)}
+				className="mt-1.5"
+			/>
 			{#if skill.rangeId}
 				<div
 					class="flex flex-col items-center justify-center min-w-[72px] h-max min-h-[60px] p-2 pb-1 bg-[#161616] bg-opacity-80 rounded"

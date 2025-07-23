@@ -15,7 +15,7 @@
 	import OtherBuffs from './OtherBuffs.svelte';
 	import DraggableContainer from './DraggableContainer.svelte';
 
-	export let enemy: Enemy, language: Language, statMods:StatMods, specialMods, otherBuffsList, mode;
+	export let enemy: Enemy, language: Language, statMods:StatMods, specialMods, otherBuffsList, mode, mapConfig;
 
 	const enemyLevels = ['NORMAL', 'ELITE', 'BOSS'];
 
@@ -123,6 +123,6 @@
 	<div class="flex flex-col mt-3">
 		<StatusImmune {statusImmuneList} {language} mode="handbook" />
 		<OtherBuffs {otherBuffsList} {language} entity={enemy} />
-		<HandbookAbilities {enemy} {language} {specialMods} {statusImmuneList} {formIndex} />
+		<HandbookAbilities {enemy} {language} {specialMods} {statusImmuneList} {formIndex} {mapConfig}/>
 	</div>
 </div>

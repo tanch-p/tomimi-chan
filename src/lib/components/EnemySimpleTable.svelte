@@ -5,7 +5,7 @@
 	import EnemyTableOptions from './EnemyTableOptions.svelte';
 	import translations from '$lib/translations.json';
 	import Tooltip from './Tooltip.svelte';
-	export let enemies: Enemy[], language: Language, statMods:StatMods, specialMods,otherBuffsList;
+	export let enemies: Enemy[], language: Language, statMods:StatMods, specialMods,otherBuffsList, mapConfig;
 	$: filteredTableHeaders = $tableHeaders.filter(({ key, show }) => show);
 
 	const tooltips = { e_hp: 'tooltip_ehp' };
@@ -35,7 +35,7 @@
 		</thead>
 		<tbody>
 			{#each enemies as enemy, index}
-				<EnemySimpleRow {enemy} {filteredTableHeaders} {index} {language} {statMods} {specialMods} {otherBuffsList}/>
+				<EnemySimpleRow {enemy} {filteredTableHeaders} {index} {language} {statMods} {specialMods} {otherBuffsList} {mapConfig}/>
 			{/each}
 		</tbody>
 	</table>

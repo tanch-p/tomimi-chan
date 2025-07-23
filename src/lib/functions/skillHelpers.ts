@@ -1,4 +1,12 @@
-import type { Enemy, Language, Skill, SpecialMods, StatusImmune, Trap } from '$lib/types';
+import type {
+	Enemy,
+	Language,
+	MapConfig,
+	Skill,
+	SpecialMods,
+	StatusImmune,
+	Trap
+} from '$lib/types';
 import enemySkills from '$lib/data/enemy/enemy_skills.json';
 import trapSkills from '$lib/data/trap/traps_skills.json';
 import enemyDb from '$lib/data/enemy/enemy_database.json';
@@ -162,6 +170,7 @@ export const parseValues = (
 	skill: Skill,
 	text: string,
 	language: Language,
+	mapConfig: MapConfig,
 	mode
 ) => {
 	if (!text) return '';
@@ -201,8 +210,15 @@ export const parseValues = (
 		} else {
 			let toReplace = skill[key];
 			if (key === 'enemy_key') {
-				const enemy = enemyDb[skill[key]];
-				toReplace = enemy[`name_${language}`] || enemy[`name_zh`];
+				const stageId = skill[key];
+				let enemy = enemyDb[stageId];
+				if (!enemy) {
+					const item = mapConfig.enemies.find((ele) => ele.id === stageId);
+					if (item) {
+						enemy = enemyDb[item.prefabKey];
+					}
+				}
+				toReplace = enemy ? enemy[`name_${language}`] || enemy[`name_zh`] : skill[key];
 			}
 			text = text.replace(
 				string,
