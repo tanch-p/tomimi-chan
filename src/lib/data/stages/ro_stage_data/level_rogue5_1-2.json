@@ -24,10 +24,23 @@
  "eliteDesc_zh": [
   "所有敌方单位的攻击力+10%，防御力+20%，生命值+50%",
   "2个速射轻弩手被替换为重弩突袭者",
-  "战斗开始时额外出现1个雕伥"
+  "战斗开始时额外出现1个雕伥，每30s召唤一个速射轻弩手"
  ],
  "eliteDesc_ja": null,
  "eliteDesc_en": null,
+ "all_mods": [
+  {
+   "targets": [
+    "trap_222_rgdysm#1"
+   ],
+   "special": {
+    "rgdysm_summon": {
+     "interval": 30.0,
+     "enemy_key": "enemy_1403_gunsho"
+    }
+   }
+  }
+ ],
  "n_mods": null,
  "elite_mods": [
   {
@@ -78,7 +91,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_223_dynbox",
@@ -90,7 +104,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_224_dyrbox",
@@ -102,7 +117,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_224_dyrbox",
@@ -114,7 +130,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_225_dysbox",
@@ -126,7 +143,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_225_dysbox",
@@ -138,7 +156,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_222_rgdysm",
@@ -150,7 +169,24 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "talent@interval",
+     "value": 30.0,
+     "valueStr": null
+    },
+    {
+     "key": "attack@enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_1403_gunsho"
+    },
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_1403_gunsho"
+    }
+   ]
   }
  ],
  "token_cards": [],

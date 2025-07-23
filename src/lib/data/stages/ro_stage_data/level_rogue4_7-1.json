@@ -35,6 +35,7 @@
  "eliteDesc_en": [
   "All enemy units have +20% ATK and +100% Max HP"
  ],
+ "all_mods": null,
  "n_mods": null,
  "elite_mods": [
   {
@@ -101,7 +102,8 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_758_skzmbx",
@@ -113,7 +115,14 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "branch_id",
+     "value": 0.0,
+     "valueStr": "branch_1"
+    }
+   ]
   },
   {
    "key": "trap_759_skzwyx",
@@ -125,7 +134,8 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_757_skzbox",
@@ -137,7 +147,8 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_758_skzmbx",
@@ -149,7 +160,14 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "branch_id",
+     "value": 0.0,
+     "valueStr": "branch_2"
+    }
+   ]
   },
   {
    "key": "trap_759_skzwyx",
@@ -161,7 +179,8 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_760_skztzs",
@@ -173,7 +192,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_764_skzshp",
@@ -185,7 +205,8 @@
    "direction": "LEFT",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   }
  ],
  "token_cards": [],
@@ -312,7 +333,11 @@
     "hp": 15000,
     "atk": 800,
     "def": 850,
-    "talentBlackboard": []
+    "talentBlackboard": [
+     {
+      "key": "parasitic"
+     }
+    ]
    }
   },
   {

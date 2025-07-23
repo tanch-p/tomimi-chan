@@ -23,11 +23,12 @@
  "addInfo_en": null,
  "eliteDesc_zh": [
   "所有敌方单位的攻击力+20%，防御力+20%，生命值+30%",
-  "清明和堂皇的生命值生命值额外提升至200%"
+  "清明和堂皇的生命值生命值额外提升至200%",
+  "战斗开始时额外出现2个雕伥，每15s召唤一个便符"
  ],
  "eliteDesc_ja": null,
  "eliteDesc_en": null,
- "n_mods": [
+ "all_mods": [
   {
    "targets": [
     "trap_097_hstone"
@@ -41,19 +42,8 @@
    ]
   }
  ],
+ "n_mods": null,
  "elite_mods": [
-  {
-   "targets": [
-    "trap_097_hstone"
-   ],
-   "mods": [
-    {
-     "key": "hp",
-     "value": 4.0,
-     "mode": "mul"
-    }
-   ]
-  },
   {
    "targets": [
     "ALL"
@@ -126,7 +116,8 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_224_dyrbox",
@@ -138,7 +129,14 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "atk_scale",
+     "value": 0.4,
+     "valueStr": null
+    }
+   ]
   },
   {
    "key": "trap_225_dysbox",
@@ -150,7 +148,14 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2106_dyremy"
+    }
+   ]
   },
   {
    "key": "trap_223_dynbox",
@@ -162,7 +167,8 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_224_dyrbox",
@@ -174,7 +180,14 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "atk_scale",
+     "value": 0.4,
+     "valueStr": null
+    }
+   ]
   },
   {
    "key": "trap_225_dysbox",
@@ -186,7 +199,14 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2106_dyremy"
+    }
+   ]
   },
   {
    "key": "trap_222_rgdysm",
@@ -198,7 +218,29 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "talent@interval",
+     "value": 15.0,
+     "valueStr": null
+    },
+    {
+     "key": "attack@enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2101_dyspll"
+    },
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2101_dyspll"
+    },
+    {
+     "key": "attack@is_unharmful",
+     "value": 1.0,
+     "valueStr": null
+    }
+   ]
   },
   {
    "key": "trap_222_rgdysm",
@@ -210,7 +252,29 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "talent@interval",
+     "value": 15.0,
+     "valueStr": null
+    },
+    {
+     "key": "attack@enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2101_dyspll"
+    },
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2101_dyspll"
+    },
+    {
+     "key": "attack@is_unharmful",
+     "value": 1.0,
+     "valueStr": null
+    }
+   ]
   },
   {
    "key": "trap_097_hstone",
@@ -222,7 +286,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_097_hstone",
@@ -234,7 +299,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_097_hstone",
@@ -246,7 +312,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_097_hstone",
@@ -258,7 +325,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": null
   }
  ],
  "token_cards": [],

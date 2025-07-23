@@ -40,7 +40,7 @@
   "All allies’ skill SP cost +30%",
   "Command Terminal's activation COST becomes 60"
  ],
- "n_mods": [
+ "all_mods": [
   {
    "targets": [
     "trap_008_farm"
@@ -59,6 +59,7 @@
    ]
   }
  ],
+ "n_mods": null,
  "elite_mods": [
   {
    "targets": [
@@ -89,19 +90,7 @@
       "initSp": 0
      }
     }
-   },
-   "mods": [
-    {
-     "key": "hp",
-     "value": 1.5,
-     "mode": "mul"
-    },
-    {
-     "key": "def",
-     "value": 1.5,
-     "mode": "mul"
-    }
-   ]
+   }
   }
  ],
  "floors": [
@@ -135,7 +124,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_008_farm",
@@ -147,7 +137,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_108_smbox",
@@ -159,7 +150,8 @@
    "direction": "RIGHT",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_109_smrbox",
@@ -171,7 +163,8 @@
    "direction": "RIGHT",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_110_smbbox",
@@ -183,7 +176,14 @@
    "direction": "RIGHT",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "branch_id",
+     "value": 0.0,
+     "valueStr": "trap_110_smbbox#1"
+    }
+   ]
   },
   {
    "key": "trap_108_smbox",
@@ -195,7 +195,8 @@
    "direction": "RIGHT",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_109_smrbox",
@@ -207,7 +208,8 @@
    "direction": "RIGHT",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_110_smbbox",
@@ -219,7 +221,14 @@
    "direction": "RIGHT",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "branch_id",
+     "value": 0.0,
+     "valueStr": "trap_110_smbbox#2"
+    }
+   ]
   },
   {
    "key": "trap_024_npcsld",
@@ -231,7 +240,8 @@
    "direction": "RIGHT",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_024_npcsld",
@@ -243,7 +253,8 @@
    "direction": "LEFT",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   }
  ],
  "token_cards": [],

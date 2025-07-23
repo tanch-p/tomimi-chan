@@ -23,11 +23,11 @@ export const BONUS_ENEMY_KEYS = [
 	'enemy_2093_skzams',
 	'enemy_2070_skzfbx',
 	'enemy_2119_dyshhj_2',
-	'enemy_2106_dyremy',
+	'enemy_2106_dyremy'
 ];
 
 export function isEquals(obj1, obj2) {
-	if (obj1 === null || obj2 === null) return false;
+	if (obj1 === null || obj2 === null) return obj1 === obj2;
 	if (typeof obj1 !== 'object' || typeof obj2 !== 'object') {
 		return obj1 === obj2;
 	}

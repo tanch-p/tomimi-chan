@@ -46,6 +46,7 @@ const floorDifficultyMods = derived(
 );
 export const eliteMode = writable(false);
 export const runes = writable(null);
+export const allMods = writable(null);
 export const activeFloorEffects = writable([]);
 export const missionMods = writable(null);
 export const otherBuffsList = writable([]);
@@ -62,7 +63,8 @@ export const statMods = derived(
 		activeFloorEffects,
 		missionMods,
 		difficultyMods,
-		otherMods
+		otherMods,
+		allMods
 	],
 	([
 		$selectedRelics,
@@ -72,7 +74,8 @@ export const statMods = derived(
 		$activeFloorEffects,
 		$missionMods,
 		$difficultyMods,
-		$otherMods
+		$otherMods,
+		$allMods
 	]) => {
 		const relicMods = $selectedRelics.map((relic) => {
 			return {
@@ -81,7 +84,7 @@ export const statMods = derived(
 			};
 		});
 		return {
-			runes: { key: $eliteMode ? "elite_ops" : "combat_ops", mods: [$runes] },
+			runes: { key: $eliteMode ? 'elite_ops' : 'combat_ops', mods: [$runes, $allMods] },
 			diff: { key: 'difficulty', mods: $difficultyMods, stackType: 'mul' },
 			others: [
 				{ key: 'floor_diff', mods: [$floorDifficultyMods] },
@@ -98,9 +101,11 @@ export const statMods = derived(
 	}
 );
 
-export const specialMods = derived([selectedRelics, runes], ([$selectedRelics, $runes]) =>
-	compileSpecialMods(
-		$selectedRelics.map((relic) => relic.effects),
-		[$runes]
-	)
+export const specialMods = derived(
+	[selectedRelics, runes, allMods],
+	([$selectedRelics, $runes, $allMods]) =>
+		compileSpecialMods(
+			$selectedRelics.map((relic) => relic.effects),
+			[$runes, $allMods]
+		)
 );

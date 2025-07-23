@@ -17,7 +17,8 @@
  "description_ja": null,
  "description_en": null,
  "addInfo_zh": [
-  "【鸭爵金币】固定出现&lt;圆仔&gt;，且提早出现"
+  "【鸭爵金币】固定出现&lt;圆仔&gt;，且提早出现",
+  "雕伥每20s召唤一个便符"
  ],
  "addInfo_ja": null,
  "addInfo_en": null,
@@ -27,6 +28,18 @@
  ],
  "eliteDesc_ja": null,
  "eliteDesc_en": null,
+ "all_mods": [
+  {
+   "targets": [
+    "trap_222_rgdysm"
+   ],
+   "special": {
+    "rgdysm_summon": {
+     "interval": 20.0
+    }
+   }
+  }
+ ],
  "n_mods": null,
  "elite_mods": [
   {
@@ -77,7 +90,29 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "attack@enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2101_dyspll"
+    },
+    {
+     "key": "talent@interval",
+     "value": 20.0,
+     "valueStr": null
+    },
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2101_dyspll"
+    },
+    {
+     "key": "attack@is_unharmful",
+     "value": 1.0,
+     "valueStr": null
+    }
+   ]
   },
   {
    "key": "trap_222_rgdysm",
@@ -89,7 +124,29 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "attack@enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2101_dyspll"
+    },
+    {
+     "key": "talent@interval",
+     "value": 20.0,
+     "valueStr": null
+    },
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2101_dyspll"
+    },
+    {
+     "key": "attack@is_unharmful",
+     "value": 1.0,
+     "valueStr": null
+    }
+   ]
   },
   {
    "key": "trap_223_dynbox",
@@ -101,7 +158,8 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_224_dyrbox",
@@ -113,7 +171,14 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "atk_scale",
+     "value": 0.4,
+     "valueStr": null
+    }
+   ]
   },
   {
    "key": "trap_225_dysbox",
@@ -125,7 +190,14 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2106_dyremy"
+    }
+   ]
   },
   {
    "key": "trap_223_dynbox",
@@ -137,7 +209,8 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_224_dyrbox",
@@ -149,7 +222,14 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "atk_scale",
+     "value": 0.4,
+     "valueStr": null
+    }
+   ]
   },
   {
    "key": "trap_225_dysbox",
@@ -161,7 +241,14 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2106_dyremy"
+    }
+   ]
   }
  ],
  "token_cards": [],

@@ -3,6 +3,7 @@ import trapLookup from '$lib/data/trap/traps.json';
 import trapSkills from '$lib/data/trap/traps_skills.json';
 import { compileMods, getDmgReductionVal, getModdedStat } from './statHelpers';
 import { getOverwrittenKeys } from './skillHelpers';
+import { isEquals } from './lib';
 
 const TRAPS_AFFECTED_BY_DIFFICULTY = [
 	'trap_054_dancdol',
@@ -92,7 +93,7 @@ const getTrapStats = (trap: TrapData, level: number) => {
 
 export const parseTraps = (traps: MapConfigTrap[], language: Language) => {
 	const holder: Trap[] = [];
-	for (const { key, alias, level, mainSkillLvl } of traps) {
+	for (const { key, alias, level, mainSkillLvl, overrideSkillBlackboard } of traps) {
 		const trap: TrapData = trapLookup[key];
 		const talents = trap?.talents?.map((key) => {
 			const talent = trapSkills[key];
@@ -136,7 +137,8 @@ export const parseTraps = (traps: MapConfigTrap[], language: Language) => {
 			talents: talents,
 			skills: skills,
 			special: trap.special,
-			status_immune: trap.status_immune
+			status_immune: trap.status_immune,
+			overrideSkillBlackboard: overrideSkillBlackboard
 		});
 	}
 	return holder.sort((a, b) => getTrapWeight(a.key) - getTrapWeight(b.key));
@@ -161,11 +163,17 @@ export function applyTrapMods(traps: Trap[], statMods: StatMods, specialMods: Sp
 	});
 }
 
-export function getTrapSpecialSkill(key: string, skillRef: string, specialMods: SpecialMods) {
+export function getTrapSpecialSkill(
+	key: string,
+	stageId: string,
+	skillRef: string,
+	specialMods: SpecialMods
+) {
 	let skill = trapSkills[skillRef];
 	skill.overwrittenKeys = [];
-	if (skill && specialMods[key]?.[skillRef]) {
-		skill = { ...skill, ...specialMods[key][skillRef] };
+	const specialOverwrite = specialMods?.[key]?.[skillRef] || specialMods?.[stageId]?.[skillRef];
+	if (skill && specialOverwrite) {
+		skill = { ...skill, ...specialOverwrite };
 		skill.overwrittenKeys = getOverwrittenKeys(trapSkills[skillRef], skill);
 	}
 	return skill;
@@ -209,7 +217,10 @@ export const filterTraps = (traps) => {
 	const holder = [];
 	for (const trap of traps) {
 		const item = holder.find(
-			(item) => item.key === trap.key && item.mainSkillLvl === trap.mainSkillLvl
+			(item) =>
+				item.key === trap.key &&
+				item.mainSkillLvl === trap.mainSkillLvl &&
+				isEquals(item.overrideSkillBlackboard, trap.overrideSkillBlackboard)
 		);
 		if (item) {
 			continue;

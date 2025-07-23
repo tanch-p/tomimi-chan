@@ -17,7 +17,8 @@
  "description_ja": null,
  "description_en": null,
  "addInfo_zh": [
-  "【鸭爵金币】固定出现&lt;流泪小子&gt;，且提早出现"
+  "【鸭爵金币】固定出现&lt;流泪小子&gt;，且提早出现",
+  "雕伥每60s召唤一个竞赛级沙滩车"
  ],
  "addInfo_ja": null,
  "addInfo_en": null,
@@ -28,6 +29,19 @@
  ],
  "eliteDesc_ja": null,
  "eliteDesc_en": null,
+ "all_mods": [
+  {
+   "targets": [
+    "trap_222_rgdysm#1"
+   ],
+   "special": {
+    "rgdysm_summon": {
+     "interval": 60.0,
+     "enemy_key": "enemy_1263_durbus_2"
+    }
+   }
+  }
+ ],
  "n_mods": null,
  "elite_mods": [
   {
@@ -85,7 +99,8 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_224_dyrbox",
@@ -97,7 +112,14 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "atk_scale",
+     "value": 0.4,
+     "valueStr": null
+    }
+   ]
   },
   {
    "key": "trap_225_dysbox",
@@ -109,7 +131,14 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2106_dyremy"
+    }
+   ]
   },
   {
    "key": "trap_223_dynbox",
@@ -121,7 +150,8 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_224_dyrbox",
@@ -133,7 +163,14 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "atk_scale",
+     "value": 0.4,
+     "valueStr": null
+    }
+   ]
   },
   {
    "key": "trap_225_dysbox",
@@ -145,7 +182,14 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2106_dyremy"
+    }
+   ]
   },
   {
    "key": "trap_183_sheltk",
@@ -157,7 +201,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_183_sheltk",
@@ -169,7 +214,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_183_sheltk",
@@ -181,7 +227,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_183_sheltk",
@@ -193,7 +240,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_183_sheltk",
@@ -205,7 +253,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_222_rgdysm",
@@ -217,7 +266,24 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "talent@interval",
+     "value": 60.0,
+     "valueStr": null
+    },
+    {
+     "key": "attack@enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_1263_durbus_2"
+    },
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_1263_durbus_2"
+    }
+   ]
   }
  ],
  "elite_runes": {

@@ -186,6 +186,7 @@ export interface MapConfig {
 	[key: `name_${string}`]: string;
 	[key: `description_${string}`]: string;
 	[key: `eliteDesc_${string}`]: string;
+	all_mods: Effects | null;
 	n_mods: Effects | null;
 	elite_mods: Effects | null;
 	traps: MapConfigTrap[];

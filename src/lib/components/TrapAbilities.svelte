@@ -45,9 +45,9 @@
 				<Remark
 					entity={trap}
 					formIndex={0}
-					skill={getTrapSpecialSkill(trap.key, item, specialMods)}
+					skill={getTrapSpecialSkill(trap.key, trap.stageId, item, specialMods)}
 					{language}
-					mode={mode}
+					{mode}
 				/>
 			{:else}
 				{@const formIndex = getTrapFormIndex(trap.special, i)}
@@ -57,9 +57,9 @@
 					<Remark
 						entity={trap}
 						formIndex={0}
-						skill={getTrapSpecialSkill(trap.key, key, specialMods)}
+						skill={getTrapSpecialSkill(trap.key, trap.stageId, key, specialMods)}
 						{language}
-						mode={mode}
+						{mode}
 					/>
 				{/each}
 			{/if}

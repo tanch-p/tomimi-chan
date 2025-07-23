@@ -34,6 +34,7 @@ const floorDifficultyMods = derived(
 	]
 );
 export const eliteMode = writable(false);
+export const allMods = writable(null);
 export const activeChaosEffects = writable([]);
 export const portalMods = writable(null);
 const difficultyMods = derived([difficulty], ([$difficulty]) =>
@@ -62,7 +63,8 @@ export const statMods = derived(
 		activeChaosEffects,
 		portalMods,
 		difficultyMods,
-		otherMods
+		otherMods,
+		allMods
 	],
 	([
 		$eliteMode,
@@ -72,7 +74,8 @@ export const statMods = derived(
 		$activeChaosEffects,
 		$portalMods,
 		$difficultyMods,
-		$otherMods
+		$otherMods,
+		$allMods
 	]) => {
 		const relicMods = $selectedRelics.map((relic) => {
 			return {
@@ -81,7 +84,7 @@ export const statMods = derived(
 			};
 		});
 		return {
-			runes: { key: $eliteMode ? "elite_ops" : "combat_ops", mods: [$runes] },
+			runes: { key: $eliteMode ? "elite_ops" : "combat_ops", mods: [$runes,$allMods] },
 			diff: { key: 'difficulty', mods: $difficultyMods, stackType: 'add' },
 			others: [
 				{ key: 'floor_diff', mods: [$floorDifficultyMods] },
@@ -99,6 +102,6 @@ export const statMods = derived(
 
 // SAMI Diff Mods are added internally before being added to final calculation
 
-export const specialMods = derived([runes, selectedRelics], ([$runes, $selectedRelics]) =>
-	compileSpecialMods([$runes],$selectedRelics.map((relic) => relic.effects))
+export const specialMods = derived([runes,allMods, selectedRelics], ([$runes,$allMods, $selectedRelics]) =>
+	compileSpecialMods([$runes,$allMods],$selectedRelics.map((relic) => relic.effects))
 );
