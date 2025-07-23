@@ -1,7 +1,13 @@
 //https://stackoverflow.com/questions/65878880/typescript-template-literal-as-interface-key
 
 export type Language = 'zh' | 'ja' | 'en';
-export type RogueTopic = 'rogue_phantom' | 'rogue_mizuki' | 'rogue_sami' | 'rogue_skz' | 'rogue_yan' | null;
+export type RogueTopic =
+	| 'rogue_phantom'
+	| 'rogue_mizuki'
+	| 'rogue_sami'
+	| 'rogue_skz'
+	| 'rogue_yan'
+	| null;
 export type StatKey =
 	| 'hp'
 	| 'atk'
@@ -190,22 +196,23 @@ export interface MapConfig {
 	n_mods: Effects | null;
 	elite_mods: Effects | null;
 	traps: MapConfigTrap[];
-	trap_pos: TrapPos[];
+	token_cards: [];
+	systems: {
+		level_predefine_tokens_random_spawn_on_tile?: NonNullable<unknown>;
+	};
 	enemies: MapConfigEnemy[];
 	sp_terrain: [];
 }
 
 export type MapConfigTrap = {
 	key: string;
+	alias: string;
+	pos: Position;
+	direction: 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
 	level: number;
 	mainSkillLvl: number;
-};
-
-type TrapPos = {
-	alias: string;
-	position;
-	direction: 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
 	hidden: boolean;
+	overrideSkillBlackboard: object[] | null;
 };
 
 export type Position = {

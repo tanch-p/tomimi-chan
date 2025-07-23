@@ -18,7 +18,7 @@ export class Trap {
 	hideTile: boolean;
 	meshGroup = new THREE.Group();
 	isSimulation;
-	constructor(data, pos, isSimulation: boolean) {
+	constructor(data, pos, isSimulation: boolean, blackboard) {
 		this.assetManager = AssetManager.getInstance();
 		const trap = trapLookup[data.key];
 		this.data = trap;
@@ -149,7 +149,7 @@ export class Trap {
 		}
 	}
 
-	remove(){
+	remove() {
 		clearObjects(this.meshGroup);
 	}
 

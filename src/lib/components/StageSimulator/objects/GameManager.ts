@@ -238,8 +238,26 @@ export class GameManager {
 		if (!data) {
 			return;
 		}
-		const pos = posType === 'game' ? this.gameToWorldPos(data.pos) : data.pos;
-		const trap = new Trap(data, pos, this.isSimulation);
+		let dataPos = data.pos;
+		let blackboard;
+		const predefineRandomSpawn = this.config.systems?.level_predefine_tokens_random_spawn_on_tile;
+		if (predefineRandomSpawn) {
+			const trapRandomTiles = predefineRandomSpawn[actionKey] || predefineRandomSpawn[data.key];
+			if (trapRandomTiles) {
+				// list of tile keys ["tile_dygmny_2"]
+				const selectedTile = trapRandomTiles[Math.floor(Math.random() * trapRandomTiles.length)];
+				const tileData = predefineRandomSpawn?.tiles?.[selectedTile];
+				const availableTiles = tileData.filter((tile) => {
+					const worldPos = this.gameToWorldPos(tile.pos);
+					return !this.traps.get(`${worldPos.col},${worldPos.row}`);
+				});
+				const selectedPos = availableTiles[Math.floor(Math.random() * availableTiles.length)];
+				dataPos = selectedPos.pos;
+				blackboard = selectedPos.blackboard;
+			}
+		}
+		const pos = posType === 'game' ? this.gameToWorldPos(dataPos) : dataPos;
+		const trap = new Trap(data, pos, this.isSimulation, blackboard);
 		if (trap.isRoadblock) {
 			this.updateMazeLayout(pos, 1000);
 		}
@@ -316,7 +334,7 @@ export class GameManager {
 				existingEnemy.updateData(enemy);
 				return existingEnemy;
 			}
-			return new Enemy(enemy.data, enemy.route, this, enemy.fragmentKey, enemy.spawnUID, 0,enemy);
+			return new Enemy(enemy.data, enemy.route, this, enemy.fragmentKey, enemy.spawnUID, 0, enemy);
 		});
 		// console.log('after', this.enemiesOnMap,data.enemiesOnMap);
 	}
