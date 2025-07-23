@@ -40,6 +40,7 @@
   "All enemy units have +20% ATK, +10% DEF, and +50% Max HP",
   "&lt;Radioactive Originium Slug&gt;'s energy charge upon explosion additional +3"
  ],
+ "all_mods": null,
  "n_mods": null,
  "elite_mods": [
   {
@@ -101,7 +102,8 @@
    "direction": "RIGHT",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_109_smrbox",
@@ -113,7 +115,8 @@
    "direction": "RIGHT",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_110_smbbox",
@@ -125,7 +128,14 @@
    "direction": "RIGHT",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "branch_id",
+     "value": 0.0,
+     "valueStr": "trap_110_smbbox#1"
+    }
+   ]
   },
   {
    "key": "trap_108_smbox",
@@ -137,7 +147,8 @@
    "direction": "RIGHT",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_109_smrbox",
@@ -149,7 +160,8 @@
    "direction": "RIGHT",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_110_smbbox",
@@ -161,7 +173,14 @@
    "direction": "RIGHT",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "branch_id",
+     "value": 0.0,
+     "valueStr": "trap_110_smbbox#2"
+    }
+   ]
   },
   {
    "key": "trap_024_npcsld",
@@ -173,7 +192,8 @@
    "direction": "DOWN",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   }
  ],
  "token_cards": [],

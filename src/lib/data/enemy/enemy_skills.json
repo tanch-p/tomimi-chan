@@ -7729,12 +7729,18 @@
 		}
 	},
 	"hlsprt_heal": {
+		"type": "skill",
+		"initCooldown": 0,
+		"cooldown": 3,
 		"value":3,
+		"atk":{"multiplier":2},
+		"dmg_element":"heal",
+		"suffix":{"en":"Heal","ja":"治療","zh":"治疗"},
 		"tooltip": {
 			"en": [],
 			"ja": [],
 			"zh": [
-				"治疗半径2.5范围内最多<v.value>个敌方单位相当于自身攻击力200%的生命值，并使其获得1SP",
+				"治疗半径2.5范围内最多<v.value>个敌方单位相当于自身攻击力<v.atk.multiplier>%的生命值，并使其获得1SP",
 				"※优先选择已消耗SP最多的单位"
 			]
 		}
@@ -8108,7 +8114,7 @@
 			"en": [],
 			"ja": [],
 			"zh": [
-				"治疗<恒君>与<文衡君>及自身三者中生命值最低的一位自身攻击力<v.atk.multiplier>%的生命值，并清除目标的异常状态"
+				"治疗<桓君>与<文衡君>及自身三者中生命值最低的一位自身攻击力<v.atk.multiplier>%的生命值，并清除目标的异常状态"
 			]
 		}
 	},

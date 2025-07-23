@@ -418,7 +418,7 @@ export const checkIsTarget = (entity: Enemy | Trap | EnemyDBEntry, target: strin
 			return acc;
 		}, true);
 	}
-	const { id, key, type } = entity;
+	const { id, key, type,stageId } = entity;
 	switch (target) {
 		case 'ALL':
 			return true;
@@ -451,7 +451,7 @@ export const checkIsTarget = (entity: Enemy | Trap | EnemyDBEntry, target: strin
 		case 'not_trap':
 			return !key.includes('trap');
 		default:
-			return target === id || target === key;
+			return [id,key,stageId].includes(target);
 	}
 };
 

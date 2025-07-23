@@ -7,6 +7,7 @@
 		difficultyMode,
 		specialMods,
 		runes,
+		allMods,
 		selectedRelics,
 		selectedFloor,
 		otherBuffsList,
@@ -32,6 +33,7 @@
 		updateReqRelic(data.mapConfig.levelId, selectedRelics);
 		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies, data.mapConfig, language);
 		runes.set(data.mapConfig.n_mods);
+		allMods.set(data.mapConfig.all_mods);
 	}
 	const ro4_ALTER_BOSS_STAGES = ['level_rogue4_b-4-b', 'level_rogue4_b-5-b'];
 

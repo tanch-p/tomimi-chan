@@ -29,10 +29,23 @@
  "eliteDesc_zh": [
   "所有敌方单位的攻击力，防御力，生命值+20%",
   "部分寻路密探长有50%概率被替换为武装密探长",
-  "战斗开始时额外出现1个雕伥"
+  "战斗开始时额外出现1个雕伥，每30s召唤一个萨卡兹悖谬谍报长"
  ],
  "eliteDesc_ja": null,
  "eliteDesc_en": null,
+ "all_mods": [
+  {
+   "targets": [
+    "trap_222_rgdysm#1"
+   ],
+   "special": {
+    "rgdysm_summon": {
+     "interval": 30.0,
+     "enemy_key": "enemy_1317_wdexg_2"
+    }
+   }
+  }
+ ],
  "n_mods": null,
  "elite_mods": [
   {
@@ -83,7 +96,8 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_224_dyrbox",
@@ -95,7 +109,14 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "atk_scale",
+     "value": 0.4,
+     "valueStr": null
+    }
+   ]
   },
   {
    "key": "trap_225_dysbox",
@@ -107,7 +128,14 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2106_dyremy"
+    }
+   ]
   },
   {
    "key": "trap_222_rgdysm",
@@ -119,7 +147,24 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "talent@interval",
+     "value": 30.0,
+     "valueStr": null
+    },
+    {
+     "key": "attack@enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_1317_wdexg_2"
+    },
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_1317_wdexg_2"
+    }
+   ]
   },
   {
    "key": "trap_223_dynbox",
@@ -131,7 +176,8 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_224_dyrbox",
@@ -143,7 +189,14 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "atk_scale",
+     "value": 0.4,
+     "valueStr": null
+    }
+   ]
   },
   {
    "key": "trap_225_dysbox",
@@ -155,7 +208,14 @@
    "direction": "UP",
    "level": 3,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2106_dyremy"
+    }
+   ]
   }
  ],
  "token_cards": [],

@@ -17,16 +17,41 @@
  "description_ja": null,
  "description_en": null,
  "addInfo_zh": [
-  "【鸭爵金币】固定出现&lt;圆仔&gt;，且提早出现"
+  "【鸭爵金币】固定出现&lt;圆仔&gt;，且提早出现",
+  "雕伥每15s召唤一个鬣犄兽"
  ],
  "addInfo_ja": null,
  "addInfo_en": null,
  "eliteDesc_zh": [
   "所有敌方单位的攻击力，防御力，生命值+20%",
-  "战斗开始时额外出现1个雕伥"
+  "战斗开始时额外出现1个雕伥，每30s召唤一个鬣犄兽"
  ],
  "eliteDesc_ja": null,
  "eliteDesc_en": null,
+ "all_mods": [
+  {
+   "targets": [
+    "trap_222_rgdysm#2"
+   ],
+   "special": {
+    "rgdysm_summon": {
+     "interval": 30.0,
+     "enemy_key": "enemy_1304_mhwolf"
+    }
+   }
+  },
+  {
+   "targets": [
+    "trap_222_rgdysm#1"
+   ],
+   "special": {
+    "rgdysm_summon": {
+     "interval": 15.0,
+     "enemy_key": "enemy_1304_mhwolf"
+    }
+   }
+  }
+ ],
  "n_mods": null,
  "elite_mods": [
   {
@@ -77,7 +102,14 @@
    "direction": "LEFT",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": [
+    {
+     "key": "talent@branch_id",
+     "value": 0.0,
+     "valueStr": "route_1"
+    }
+   ]
   },
   {
    "key": "trap_223_dynbox",
@@ -89,7 +121,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_224_dyrbox",
@@ -101,7 +134,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_225_dysbox",
@@ -113,7 +147,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_223_dynbox",
@@ -125,7 +160,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_224_dyrbox",
@@ -137,7 +173,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_225_dysbox",
@@ -149,7 +186,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_222_rgdysm",
@@ -161,7 +199,24 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "attack@enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_1304_mhwolf"
+    },
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_1304_mhwolf"
+    },
+    {
+     "key": "talent@interval",
+     "value": 30.0,
+     "valueStr": null
+    }
+   ]
   },
   {
    "key": "trap_222_rgdysm",
@@ -173,7 +228,24 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": [
+    {
+     "key": "attack@enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_1304_mhwolf"
+    },
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_1304_mhwolf"
+    },
+    {
+     "key": "talent@interval",
+     "value": 15.0,
+     "valueStr": null
+    }
+   ]
   }
  ],
  "token_cards": [],

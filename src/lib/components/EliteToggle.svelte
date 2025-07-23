@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onDestroy } from 'svelte';
 	import combat_icon from '$lib/images/is/combat_icon.webp';
 	import emergency_icon from '$lib/images/is/emergency_icon.webp';
 	import skzRelics from '$lib/data/is/sarkaz/relics_sarkaz.json';
@@ -17,10 +16,6 @@
 		eliteMode,
 		inWaveOptions = false;
 
-	//hotfix to set hardMode to false on nav to another stage with hardMods
-	$: if (mapEliteMods && !inWaveOptions) {
-		eliteMode.set(false);
-	}
 	const ro4_SP7_BOSS_STAGES = [
 		'level_rogue4_b-4',
 		'level_rogue4_b-4-b',
@@ -28,12 +23,6 @@
 		'level_rogue4_b-5-b'
 	];
 
-	onDestroy(() => {
-		if (!inWaveOptions) {
-			runes.set(null);
-			eliteMode.set(false);
-		}
-	});
 	const updateEliteMods = (option: boolean) => {
 		if (option) {
 			runes.set(mapEliteMods);

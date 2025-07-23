@@ -24,10 +24,23 @@
  "eliteDesc_zh": [
   "所有敌方单位的攻击力，防御力，生命值+20%",
   "血腥厨子路线发生变化",
-  "战斗开始时额外出现1个雕伥"
+  "战斗开始时额外出现1个雕伥，每15s召唤一个寻险水手"
  ],
  "eliteDesc_ja": null,
  "eliteDesc_en": null,
+ "all_mods": [
+  {
+   "targets": [
+    "trap_222_rgdysm#1"
+   ],
+   "special": {
+    "rgdysm_summon": {
+     "interval": 15.0,
+     "enemy_key": "enemy_10043_sailor"
+    }
+   }
+  }
+ ],
  "n_mods": null,
  "elite_mods": [
   {
@@ -78,7 +91,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_224_dyrbox",
@@ -90,7 +104,14 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "atk_scale",
+     "value": 0.4,
+     "valueStr": null
+    }
+   ]
   },
   {
    "key": "trap_225_dysbox",
@@ -102,7 +123,14 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2106_dyremy"
+    }
+   ]
   },
   {
    "key": "trap_223_dynbox",
@@ -114,7 +142,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_224_dyrbox",
@@ -126,7 +155,14 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "atk_scale",
+     "value": 0.4,
+     "valueStr": null
+    }
+   ]
   },
   {
    "key": "trap_222_rgdysm",
@@ -138,7 +174,24 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "attack@enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_10043_sailor"
+    },
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_10043_sailor"
+    },
+    {
+     "key": "talent@interval",
+     "value": 15.0,
+     "valueStr": null
+    }
+   ]
   },
   {
    "key": "trap_225_dysbox",
@@ -150,7 +203,14 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2106_dyremy"
+    }
+   ]
   }
  ],
  "token_cards": [],

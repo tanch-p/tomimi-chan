@@ -31,7 +31,7 @@
   "All enemy units have +30% ATK and +60% Max HP",
   "&lt;Shieldguard&gt; has -50% ATK and -50% DEF"
  ],
- "n_mods": [
+ "all_mods": [
   {
    "targets": [
     "trap_024_npcsld"
@@ -55,6 +55,7 @@
    ]
   }
  ],
+ "n_mods": null,
  "elite_mods": [
   {
    "targets": [
@@ -80,16 +81,11 @@
    "mods": [
     {
      "key": "atk",
-     "value": 0.3,
+     "value": 0.5,
      "mode": "mul"
     },
     {
      "key": "def",
-     "value": 0.3,
-     "mode": "mul"
-    },
-    {
-     "key": "hp",
      "value": 0.5,
      "mode": "mul"
     }
@@ -129,7 +125,8 @@
    "direction": "LEFT",
    "level": 30,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_065_normbox",
@@ -141,7 +138,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_066_rarebox",
@@ -153,7 +151,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_068_badbox",
@@ -165,7 +164,14 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "branch_id",
+     "value": 0.0,
+     "valueStr": "trap_068_badbox#1"
+    }
+   ]
   },
   {
    "key": "trap_065_normbox",
@@ -177,7 +183,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_066_rarebox",
@@ -189,7 +196,8 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_068_badbox",
@@ -201,7 +209,14 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "branch_id",
+     "value": 0.0,
+     "valueStr": "trap_068_badbox#2"
+    }
+   ]
   },
   {
    "key": "trap_079_allydonq",
@@ -213,7 +228,8 @@
    "direction": "DOWN",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   }
  ],
  "token_cards": [],

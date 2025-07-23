@@ -24,10 +24,23 @@
  "eliteDesc_zh": [
   "所有敌方单位的攻击力，防御力，生命值+20%",
   "战斗开始时额外出现2个&lt;盾与墙&gt;",
-  "战斗开始时额外出现1个雕伥"
+  "战斗开始时额外出现1个雕伥，每20s召唤一个卷心籽"
  ],
  "eliteDesc_ja": null,
  "eliteDesc_en": null,
+ "all_mods": [
+  {
+   "targets": [
+    "trap_222_rgdysm#1"
+   ],
+   "special": {
+    "rgdysm_summon": {
+     "interval": 20.0,
+     "enemy_key": "enemy_10065_ftzlc"
+    }
+   }
+  }
+ ],
  "n_mods": null,
  "elite_mods": [
   {
@@ -78,7 +91,14 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "branch_id",
+     "value": 0.0,
+     "valueStr": "lsj_branch_1"
+    }
+   ]
   },
   {
    "key": "trap_219_fttreant",
@@ -90,7 +110,14 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "branch_id",
+     "value": 0.0,
+     "valueStr": "lsj_branch_2"
+    }
+   ]
   },
   {
    "key": "trap_219_fttreant",
@@ -102,7 +129,14 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": [
+    {
+     "key": "branch_id",
+     "value": 0.0,
+     "valueStr": "lsj_branch_3"
+    }
+   ]
   },
   {
    "key": "trap_219_fttreant",
@@ -114,7 +148,14 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": [
+    {
+     "key": "branch_id",
+     "value": 0.0,
+     "valueStr": "lsj_branch_4"
+    }
+   ]
   },
   {
    "key": "trap_219_fttreant",
@@ -126,7 +167,14 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": [
+    {
+     "key": "branch_id",
+     "value": 0.0,
+     "valueStr": "lsj_branch_5"
+    }
+   ]
   },
   {
    "key": "trap_219_fttreant",
@@ -138,7 +186,14 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": [
+    {
+     "key": "branch_id",
+     "value": 0.0,
+     "valueStr": "lsj_branch_6"
+    }
+   ]
   },
   {
    "key": "trap_219_fttreant",
@@ -150,7 +205,14 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": [
+    {
+     "key": "branch_id",
+     "value": 0.0,
+     "valueStr": "lsj_branch_7"
+    }
+   ]
   },
   {
    "key": "trap_219_fttreant",
@@ -162,7 +224,14 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": [
+    {
+     "key": "branch_id",
+     "value": 0.0,
+     "valueStr": "lsj_branch_9"
+    }
+   ]
   },
   {
    "key": "trap_219_fttreant",
@@ -174,7 +243,14 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": [
+    {
+     "key": "branch_id",
+     "value": 0.0,
+     "valueStr": "lsj_branch_10"
+    }
+   ]
   },
   {
    "key": "trap_223_dynbox",
@@ -186,7 +262,8 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_223_dynbox",
@@ -198,7 +275,8 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_224_dyrbox",
@@ -210,7 +288,8 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_224_dyrbox",
@@ -222,7 +301,8 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_225_dysbox",
@@ -234,7 +314,8 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_225_dysbox",
@@ -246,7 +327,8 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_222_rgdysm",
@@ -258,7 +340,24 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "attack@enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_10065_ftzlc"
+    },
+    {
+     "key": "talent@interval",
+     "value": 20.0,
+     "valueStr": null
+    },
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_10065_ftzlc"
+    }
+   ]
   }
  ],
  "token_cards": [],

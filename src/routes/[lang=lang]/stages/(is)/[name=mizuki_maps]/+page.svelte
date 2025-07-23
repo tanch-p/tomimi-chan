@@ -6,6 +6,7 @@
 		difficulty,
 		specialMods,
 		runes,
+		allMods,
 		selectedRelics,
 		eliteMode,
 		otherBuffsList
@@ -24,6 +25,7 @@
 	export let data: PageData;
 	$: if (data.mapConfig) {
 		runes.set(data.mapConfig.n_mods);
+		allMods.set(data.mapConfig.all_mods);
 	}
 	$: if (data.mapConfig || $difficulty) {
 		setOtherBuffsList(

@@ -24,10 +24,23 @@
  "eliteDesc_zh": [
   "所有敌方单位的攻击力，防御力，生命值+30%",
   "战斗开始时额外在地图左下出现一个爆炸追寻者",
-  "战斗开始时额外出现2个雕伥"
+  "战斗开始时额外出现2个雕伥，每20s召唤一个便符"
  ],
  "eliteDesc_ja": null,
  "eliteDesc_en": null,
+ "all_mods": [
+  {
+   "targets": [
+    "trap_222_rgdysm"
+   ],
+   "special": {
+    "rgdysm_summon": {
+     "interval": 20.0,
+     "enemy_key": "enemy_2101_dyspll"
+    }
+   }
+  }
+ ],
  "n_mods": null,
  "elite_mods": [
   {
@@ -78,7 +91,8 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_224_dyrbox",
@@ -90,7 +104,14 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "atk_scale",
+     "value": 0.4,
+     "valueStr": null
+    }
+   ]
   },
   {
    "key": "trap_225_dysbox",
@@ -102,7 +123,14 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2106_dyremy"
+    }
+   ]
   },
   {
    "key": "trap_223_dynbox",
@@ -114,7 +142,8 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_224_dyrbox",
@@ -126,7 +155,14 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "atk_scale",
+     "value": 0.4,
+     "valueStr": null
+    }
+   ]
   },
   {
    "key": "trap_225_dysbox",
@@ -138,7 +174,14 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2106_dyremy"
+    }
+   ]
   },
   {
    "key": "trap_222_rgdysm",
@@ -150,7 +193,29 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "talent@interval",
+     "value": 20.0,
+     "valueStr": null
+    },
+    {
+     "key": "attack@enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2101_dyspll"
+    },
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2101_dyspll"
+    },
+    {
+     "key": "attack@is_unharmful",
+     "value": 1.0,
+     "valueStr": null
+    }
+   ]
   },
   {
    "key": "trap_222_rgdysm",
@@ -162,7 +227,29 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "talent@interval",
+     "value": 20.0,
+     "valueStr": null
+    },
+    {
+     "key": "attack@enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2101_dyspll"
+    },
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2101_dyspll"
+    },
+    {
+     "key": "attack@is_unharmful",
+     "value": 1.0,
+     "valueStr": null
+    }
+   ]
   }
  ],
  "token_cards": [],

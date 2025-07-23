@@ -16,12 +16,27 @@
  "description_zh": "是否有一日，伥也会想要脱去自己的皮囊，随着时代变迁，将意识附于全新的造物上？\n<@rolv.rem>场地中有使我方不会成为敌人远程攻击目标的<排气格栅></>\n<@rolv.rem>胜利后获得收藏品及其他奖励</>",
  "description_ja": null,
  "description_en": null,
- "addInfo_zh": null,
+ "addInfo_zh": [
+  "雕伥每25s召唤一个便符"
+ ],
  "addInfo_ja": null,
  "addInfo_en": null,
  "eliteDesc_zh": null,
  "eliteDesc_ja": null,
  "eliteDesc_en": null,
+ "all_mods": [
+  {
+   "targets": [
+    "trap_222_rgdysm#1"
+   ],
+   "special": {
+    "rgdysm_summon": {
+     "interval": 25.0,
+     "enemy_key": "enemy_2101_dyspll"
+    }
+   }
+  }
+ ],
  "n_mods": null,
  "elite_mods": null,
  "floors": [
@@ -53,7 +68,29 @@
    "direction": "UP",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "talent@interval",
+     "value": 25.0,
+     "valueStr": null
+    },
+    {
+     "key": "attack@enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2101_dyspll"
+    },
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2101_dyspll"
+    },
+    {
+     "key": "attack@is_unharmful",
+     "value": 1.0,
+     "valueStr": null
+    }
+   ]
   }
  ],
  "token_cards": [],

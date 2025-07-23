@@ -6,6 +6,7 @@
 		difficulty,
 		specialMods,
 		runes,
+		allMods,
 		selectedRelics,
 		selectedFloor,
 		eliteMode,
@@ -27,6 +28,7 @@
 		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies, data.mapConfig, language);
 		eliteMode.set(false);
 		runes.set(data.mapConfig.n_mods);
+		allMods.set(data.mapConfig.all_mods);
 	}
 	$: language = data.language;
 	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;

@@ -9,6 +9,7 @@
 		selectedUniqueRelic,
 		eliteMode,
 		runes,
+		allMods,
 		otherBuffsList,
 		isBossStage,
 		capsule
@@ -38,6 +39,7 @@
 	}
 	$: if (data.mapConfig) {
 		runes.set(data.mapConfig.n_mods);
+		allMods.set(data.mapConfig.all_mods);
 		isBossStage.set(data.mapConfig.id.includes('_b_'));
 	}
 	$: language = data.language;

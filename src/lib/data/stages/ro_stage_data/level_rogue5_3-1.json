@@ -23,10 +23,23 @@
  "addInfo_en": null,
  "eliteDesc_zh": [
   "所有敌方单位的攻击力+20%，防御力+20%，生命值+20%，移动速度+50%",
-  "战斗开始时额外出现1个雕伥"
+  "战斗开始时额外出现1个雕伥，每50s召唤一个$似兽$"
  ],
  "eliteDesc_ja": null,
  "eliteDesc_en": null,
+ "all_mods": [
+  {
+   "targets": [
+    "trap_222_rgdysm#1"
+   ],
+   "special": {
+    "rgdysm_summon": {
+     "interval": 50.0,
+     "enemy_key": "enemy_2105_dyrnge"
+    }
+   }
+  }
+ ],
  "n_mods": null,
  "elite_mods": [
   {
@@ -82,7 +95,24 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": [
+    {
+     "key": "talent@interval",
+     "value": 50.0,
+     "valueStr": null
+    },
+    {
+     "key": "attack@enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2105_dyrnge"
+    },
+    {
+     "key": "enemy_key",
+     "value": 0.0,
+     "valueStr": "enemy_2105_dyrnge"
+    }
+   ]
   },
   {
    "key": "trap_223_dynbox",
@@ -94,7 +124,8 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_223_dynbox",
@@ -106,7 +137,8 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_224_dyrbox",
@@ -118,7 +150,8 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_224_dyrbox",
@@ -130,7 +163,8 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_225_dysbox",
@@ -142,7 +176,8 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_225_dysbox",
@@ -154,7 +189,8 @@
    "direction": "UP",
    "level": 2,
    "mainSkillLvl": 1,
-   "hidden": true
+   "hidden": true,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_024_npcsld",
@@ -166,7 +202,8 @@
    "direction": "LEFT",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_024_npcsld",
@@ -178,7 +215,8 @@
    "direction": "LEFT",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_024_npcsld",
@@ -190,7 +228,8 @@
    "direction": "LEFT",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_024_npcsld",
@@ -202,7 +241,8 @@
    "direction": "RIGHT",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_024_npcsld",
@@ -214,7 +254,8 @@
    "direction": "RIGHT",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": null
   },
   {
    "key": "trap_024_npcsld",
@@ -226,7 +267,8 @@
    "direction": "RIGHT",
    "level": 1,
    "mainSkillLvl": 1,
-   "hidden": false
+   "hidden": false,
+   "overrideSkillBlackboard": null
   }
  ],
  "token_cards": [],

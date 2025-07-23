@@ -2,6 +2,7 @@
 	import { pruneExtraEnemies } from '$lib/functions/lib';
 	import { applyMods } from '$lib/functions/statHelpers';
 	import { applyTrapMods, filterTraps } from '$lib/functions/trapHelpers';
+	import { onDestroy } from 'svelte';
 	import EliteToggle from './EliteToggle.svelte';
 	import EnemyCount from './EnemyCount.svelte';
 	import EnemyStatDisplay from './EnemyStatDisplay.svelte';
@@ -21,12 +22,21 @@
 		rogueTopic,
 		selectedRelics,
 		difficulty,
-		otherStores={};
+		otherStores = {};
 
 	$: moddedEnemies = applyMods(enemies, $statMods, $specialMods);
 	$: moddedTraps = applyTrapMods(traps, $statMods, $specialMods);
 	eliteMode.subscribe((v) => (GameConfig.eliteMode = v));
 	specialMods.subscribe((v) => (GameConfig.specialMods = v));
+
+	$: if (mapConfig) {
+		eliteMode.set(false);
+	}
+
+	onDestroy(() => {
+		runes.set(null);
+		eliteMode.set(false);
+	});
 
 	const promise = import('./EnemyWaves.svelte').then(({ default: C }) => C);
 </script>
