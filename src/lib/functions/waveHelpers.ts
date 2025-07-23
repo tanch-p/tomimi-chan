@@ -532,6 +532,10 @@ export const generateWaveTimeline = (
 			const key = `w${waveIdx}f${fragIndex}`;
 			let groupActions = [];
 			for (const [groupKey, list] of Object.entries(packedGroups)) {
+				if (list.length === 1) {
+					groupActions.push(list[0]);
+					continue;
+				}
 				let choice = permutation?.[key]?.[groupKey];
 				if (choice == undefined) {
 					choice = getPredefinedChoiceIndex(list, hiddenGroups, bonusKey, mapConfig.bonus);
@@ -708,6 +712,10 @@ export const parseWaves = (
 			let groupActions = [];
 			const packedGroups = getRandomGroups(fragment, hiddenGroups);
 			for (const [groupKey, list] of Object.entries(packedGroups)) {
+				if (list.length === 1) {
+					groupActions.push(list[0]);
+					continue;
+				}
 				let choice = permutation?.[key]?.[groupKey];
 				if (choice == undefined) {
 					choice = getPredefinedChoiceIndex(list, hiddenGroups, bonusKey, mapConfig.bonus);
