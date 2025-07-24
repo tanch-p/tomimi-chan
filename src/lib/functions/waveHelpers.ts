@@ -21,6 +21,8 @@ const ALWAYS_KILLED_KEYS = [
 
 const KEYS_TO_IGNORE = ['enemy_2086_skzdwx'];
 
+const ACTION_TYPES_TO_PARSE = ['SPAWN', 'ACTIVATE_PREDEFINED','EMPTY']
+
 const CHESTS = [
 	'trap_051_vultres',
 	'trap_068_badbox',
@@ -385,7 +387,7 @@ export const getEnemyCountPermutations = (
 			if (bonus?.type === 'fragment' && waveIdx === bonus.wave_index && i === bonus.frag_index)
 				return;
 			fragment.actions.forEach((action) => {
-				if (action.actionType !== 'SPAWN') return;
+				if (ACTION_TYPES_TO_PARSE.includes(action.actionType)) return;
 				if (
 					hiddenGroups.includes(action['hiddenGroup']) &&
 					!action['randomSpawnGroupKey'] &&
@@ -556,7 +558,7 @@ export const generateWaveTimeline = (
 			}
 
 			for (const action of fragment['actions']) {
-				if (!['ACTIVATE_PREDEFINED', 'SPAWN'].includes(action['actionType'])) {
+				if (!ACTION_TYPES_TO_PARSE.includes(action['actionType'])) {
 					continue;
 				}
 				if (action['randomSpawnGroupKey']) {
@@ -624,7 +626,7 @@ export const generateBranchTimeline = (mapConfig, branchKey, branchIndex = -1, i
 		wave['fragments'].forEach((fragment) => {
 			prevPhaseTime += fragment['preDelay'] + interval;
 			for (const action of fragment['actions']) {
-				if (!['ACTIVATE_PREDEFINED', 'SPAWN'].includes(action['actionType'])) {
+				if (!ACTION_TYPES_TO_PARSE.includes(action['actionType'])) {
 					continue;
 				}
 				handleAction(action, spawns, {}, prevPhaseTime);
@@ -732,7 +734,7 @@ export const parseWaves = (
 				actions.push(action);
 			}
 			for (const action of fragment['actions']) {
-				if (!['SPAWN', 'ACTIVATE_PREDEFINED'].includes(action['actionType'])) {
+				if (!ACTION_TYPES_TO_PARSE.includes(action['actionType'])) {
 					continue;
 				}
 				if (
@@ -783,15 +785,12 @@ export const getPredefinedChoiceIndex = (list, hiddenGroups, bonusKey, bonus) =>
 export const getRandomGroups = (fragment, hiddenGroups) => {
 	const groups = [];
 	for (const action of fragment['actions']) {
-		const { actionType, randomSpawnGroupKey, randomSpawnGroupPackKey, hiddenGroup } = action;
-		if (!['SPAWN', 'ACTIVATE_PREDEFINED'].includes(actionType)) {
+		const { actionType, randomSpawnGroupKey, randomSpawnGroupPackKey } = action;
+		if (!ACTION_TYPES_TO_PARSE.includes(actionType)) {
 			continue;
 		}
 		if (['trap_036_storm'].includes(action.key.split('#')[0])) {
 			// temp fix
-			continue;
-		}
-		if (hiddenGroup && !hiddenGroups.includes(hiddenGroup)) {
 			continue;
 		}
 		if (randomSpawnGroupKey) {
@@ -804,6 +803,22 @@ export const getRandomGroups = (fragment, hiddenGroups) => {
 	}
 	const random_groups = groupResolver(groups);
 	const packedGroups = randomGroupResolver(random_groups);
+	for (const groupKey of Object.keys(packedGroups)) {
+		let isPack = false;
+		for (let i = 0; i < packedGroups[groupKey].length; i++) {
+			if (Array.isArray(packedGroups[groupKey][i])) {
+				isPack = true;
+				packedGroups[groupKey][i] = packedGroups[groupKey][i].filter(
+					(action) => !action['hiddenGroup'] || hiddenGroups.includes(action['hiddenGroup'])
+				);
+			}
+		}
+		if (!isPack) {
+			packedGroups[groupKey] = packedGroups[groupKey].filter(
+				(action) => !action['hiddenGroup'] || hiddenGroups.includes(action['hiddenGroup'])
+			);
+		}
+	}
 	return packedGroups;
 };
 

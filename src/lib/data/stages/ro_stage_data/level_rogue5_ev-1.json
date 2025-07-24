@@ -31,9 +31,11 @@
   3
  ],
  "sp_terrain": null,
- "sp_enemy": null,
- "n_count": [
-  32
+ "sp_enemy": {
+  "normal": "32",
+  "elite": null
+ }, "n_count": [
+  31
  ],
  "e_count": null,
  "traps": [
@@ -327,9 +329,9 @@
    "prefabKey": "enemy_2085_skzjxd",
    "level": 0,
    "min_count": 0,
-   "max_count": 1,
+   "max_count": 0,
    "elite_min_count": 0,
-   "elite_max_count": 1,
+   "elite_max_count": 0,
    "overwrittenData": null
   },
   {
@@ -347,9 +349,9 @@
    "prefabKey": "enemy_2034_sythef",
    "level": 0,
    "min_count": 0,
-   "max_count": 1,
+   "max_count": 0,
    "elite_min_count": 0,
-   "elite_max_count": 1,
+   "elite_max_count": 0,
    "overwrittenData": null
   },
   {
@@ -357,9 +359,9 @@
    "prefabKey": "enemy_2001_duckmi",
    "level": 0,
    "min_count": 0,
-   "max_count": 1,
+   "max_count": 0,
    "elite_min_count": 0,
-   "elite_max_count": 1,
+   "elite_max_count": 0,
    "overwrittenData": null
   },
   {
@@ -367,9 +369,9 @@
    "prefabKey": "enemy_2002_bearmi",
    "level": 0,
    "min_count": 0,
-   "max_count": 1,
+   "max_count": 0,
    "elite_min_count": 0,
-   "elite_max_count": 1,
+   "elite_max_count": 0,
    "overwrittenData": null
   },
   {
@@ -2403,54 +2405,16 @@
  },
  "NORMAL": {
   "groupKey": null,
-  "max_permutations": 4,
+  "max_permutations": 1,
   "permutations": [
-   {
-    "w2f0": {
-     "g1": 0
-    }
-   },
-   {
-    "w2f0": {
-     "g1": 1
-    }
-   },
-   {
-    "w2f0": {
-     "g1": 2
-    }
-   },
-   {
-    "w2f0": {
-     "g1": 3
-    }
-   }
+   {}
   ]
  },
  "ELITE": {
   "groupKey": null,
-  "max_permutations": 4,
+  "max_permutations": 1,
   "permutations": [
-   {
-    "w2f0": {
-     "g1": 0
-    }
-   },
-   {
-    "w2f0": {
-     "g1": 1
-    }
-   },
-   {
-    "w2f0": {
-     "g1": 2
-    }
-   },
-   {
-    "w2f0": {
-     "g1": 3
-    }
-   }
+   {}
   ]
  },
  "waves": [
@@ -3032,5 +2996,9 @@
    "advancedWaveTag": null
   }
  ],
- "bonus": null
+ "bonus": {
+  "type": "wave",
+  "wave_index": 2,
+  "frag_index": -1
+ }
 }
