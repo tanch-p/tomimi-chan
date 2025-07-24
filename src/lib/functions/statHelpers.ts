@@ -360,7 +360,7 @@ export const compileSpecialMods = (...modsList: [[Effects]]) => {
 	const specialMods = {};
 	for (const effectsList of modsList) {
 		for (const effects of effectsList)
-			if (effects !== null && effects.length > 0) {
+			if (effects && effects.length > 0) {
 				effects.forEach((effect) => {
 					if (effect.special) {
 						for (const target of effect.targets) {
@@ -368,7 +368,7 @@ export const compileSpecialMods = (...modsList: [[Effects]]) => {
 								specialMods[target] = {};
 							}
 							for (const key of Object.keys(effect.special)) {
-								specialMods[target][key] = effect.special[key];
+								specialMods[target][key] = { ...specialMods[target][key], ...effect.special[key] };
 							}
 						}
 					}
