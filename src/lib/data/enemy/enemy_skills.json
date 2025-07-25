@@ -58,7 +58,7 @@
 		}
 	},
 	"lower_cost_regen": {
-		"value":50,
+		"value": 50,
 		"tooltip": {
 			"en": ["Reduces the DP regen rate by <v.value>% (does not stack)"],
 			"ja": ["マップ上にいる間、コストの自然回復速度-<v.value>%（重複しない）"],
@@ -66,7 +66,7 @@
 		}
 	},
 	"lower_cost_limit": {
-		"value":10,
+		"value": 10,
 		"tooltip": {
 			"en": ["Reduces the DP limit by <v.value> (stacks)"],
 			"ja": ["マップ上にいる間、所持コストの上限-<v.value>（重複する）"],
@@ -4238,17 +4238,46 @@
 			"zh": ["弱点部位位于背面，正面所受伤害降低80%"]
 		}
 	},
-	"mhboar_2": {
-		"accelerate": { "i": 0.333, "m": 0.333, "limit": 35, "preDelay": 0 },
+	"mhboar_accel": {
+		"accelerate": { "i": 0.333, "m": 0.333, "limit": 30, "preDelay": 5 },
 		"tooltip": {
 			"en": [
-				"Gradually accelerates when charging, dealing {phys} damage based on Movement Speed (1:800) to any target it passes through or is blocked by"
+				"After a warmup time of <v.accelerate.preDelay> seconds, accelerates every 0.333s, increasing Movespeed by 33.3%, max <v.accelerate.limit> stacks",
+				"※Getting stunned, bind, frozen or levitated will reset Movespeed stacks to 0"
 			],
 			"ja": [
-				"0.333秒ごとに移動速度が33.3%増加する (上限35回) ",
-				"移動時、接触した味方に「現在の移動速度×800」の{phys}ダメージを与える"
+				"被ブロック・スタン・バインド・浮遊・凍結状態でない場合、停止から<v.accelerate.preDelay>秒後、0.333秒ごとに移動速度が33.3%上昇する。この効果は<v.accelerate.limit>回まで累積する",
+				"※スタン・バインド・浮遊・凍結を受けると移動速度上昇がリセットされる"
 			],
-			"zh": ["冲撞时逐渐加速，并对经过与阻挡自身的目标根据移动速度造成伤害 (1:800) "]
+			"zh": [
+				"未处于被阻挡/眩晕/束缚/冻结/浮空状态时，每0.333s尝试获得1层移动速度+33.3%的增益，最多尝试<v.accelerate.limit>次（每次加速状态的前<v.accelerate.preDelay>s内的尝试不生效）",
+				"※眩晕/束缚/冻结/浮空会清空移速叠加并重置加速尝试次数"
+			]
+		}
+	},
+	"mhboar_crash": {
+		"tooltip": {
+			"en": [
+				"Does extra {phys} damage on initial attack based on current Movespeed (ms * 600), after attacking stack resets to 0"
+			],
+			"ja": [
+				"ブロックした相手には「現在の移動速度×600」の{phys}ダメージを与え、移動速度の上昇をリセットする"
+			],
+			"zh": [
+				"加速状态下的普通攻击额外造成一次当前移动速度*600的{phys}普通伤害，成功造成伤害后退出加速状态"
+			]
+		}
+	},
+	"mhboar_run_through": {
+		"value": 700,
+		"tooltip": {
+			"en": [
+				"When coming into contact with a friendly unit while moving, deals Movespeed * <v.value> as {phys} damage to the unit"
+			],
+			"ja": ["移動時、接触した味方に「現在の移動速度×<v.value>」の{phys}ダメージを与える"],
+			"zh": [
+				"自主移动时对进入自身半径0.5范围内部署于地面的我方单位造成当前移动速度*<v.value>的{phys}普通伤害"
+			]
 		}
 	},
 	"ymmir_1": {
@@ -7732,10 +7761,10 @@
 		"type": "skill",
 		"initCooldown": 0,
 		"cooldown": 3,
-		"value":3,
-		"atk":{"multiplier":2},
-		"dmg_element":"heal",
-		"suffix":{"en":"Heal","ja":"治療","zh":"治疗"},
+		"value": 3,
+		"atk": { "multiplier": 2 },
+		"dmg_element": "heal",
+		"suffix": { "en": "Heal", "ja": "治療", "zh": "治疗" },
 		"tooltip": {
 			"en": [],
 			"ja": [],
@@ -8183,7 +8212,7 @@
 		}
 	},
 	"dyspl2_possess": {
-		"p_atk":100,
+		"p_atk": 100,
 		"value": 0,
 		"v_range": 0.0,
 		"tooltip": {
@@ -8400,7 +8429,11 @@
 		"tooltip": {
 			"en": [],
 			"ja": [],
-			"zh": ["反转自身的晦明属性", "第二形态下，还会获得持续15s的自身最大生命值<v.value>%的屏障","※目前只有转阶段时有效果(22/07最终确认)"]
+			"zh": [
+				"反转自身的晦明属性",
+				"第二形态下，还会获得持续15s的自身最大生命值<v.value>%的屏障",
+				"※目前只有转阶段时有效果(22/07最终确认)"
+			]
 		}
 	},
 	"dylbhm_summon": {
