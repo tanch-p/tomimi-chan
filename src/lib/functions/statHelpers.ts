@@ -123,13 +123,17 @@ export function parseStats(
 	row: number,
 	specialMods: SpecialMods
 ) {
-	const isDamage1Enemy = enemy.traits.some(skill => ['damage_1','damage_1_arts'].includes(skill.key))
+	const isDamage1Enemy = enemy.traits.some((skill) =>
+		['damage_1', 'damage_1_arts'].includes(skill.key)
+	);
 	let diffMods;
 	if (statMods.diff) {
 		diffMods = compileMods(
 			enemy,
 			statMods.diff,
-			NOT_AFFECTED_BY_DIFFICULTY_KEYS.includes(enemy.key) || isDamage1Enemy ? 'damage_1_enemy' : 'enemy'
+			NOT_AFFECTED_BY_DIFFICULTY_KEYS.includes(enemy.key) || isDamage1Enemy
+				? 'damage_1_enemy'
+				: 'enemy'
 		);
 	}
 
@@ -166,7 +170,12 @@ export function parseStats(
 			);
 			continue;
 		}
-		const baseValue = isSet ? initialValue : round(getModdedStat(initialValue, statKey, runeMods), ['ms','range'].includes(statKey) ? 2 : 0);
+		const baseValue = isSet
+			? initialValue
+			: round(
+					getModdedStat(initialValue, statKey, runeMods),
+					['ms', 'range'].includes(statKey) ? 2 : 0
+			  );
 		statsHolder[statKey] = getModdedStat(baseValue, statKey, ...secondaryMods);
 	}
 	statsHolder['dmgRes'] = getDmgReductionVal(runeMods, ...secondaryMods);
@@ -264,7 +273,7 @@ export const calculateModdedStat = (
 			return Math.round(value);
 		}
 		default:
-			return Math.round((baseValue * initialMul + finalAdd) * finalMul);
+			return Math.round(Math.max(0, (baseValue * initialMul + finalAdd) * finalMul));
 	}
 };
 
@@ -418,7 +427,7 @@ export const checkIsTarget = (entity: Enemy | Trap | EnemyDBEntry, target: strin
 			return acc;
 		}, true);
 	}
-	const { id, key, type,stageId } = entity;
+	const { id, key, type, stageId } = entity;
 	switch (target) {
 		case 'ALL':
 			return true;
@@ -451,7 +460,7 @@ export const checkIsTarget = (entity: Enemy | Trap | EnemyDBEntry, target: strin
 		case 'not_trap':
 			return !key.includes('trap');
 		default:
-			return [id,key,stageId].includes(target);
+			return [id, key, stageId].includes(target);
 	}
 };
 
