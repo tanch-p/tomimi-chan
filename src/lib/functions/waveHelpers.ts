@@ -21,7 +21,7 @@ const ALWAYS_KILLED_KEYS = [
 
 const KEYS_TO_IGNORE = ['enemy_2086_skzdwx'];
 
-const ACTION_TYPES_TO_PARSE = ['SPAWN', 'ACTIVATE_PREDEFINED','EMPTY']
+const ACTION_TYPES_TO_PARSE = ['SPAWN', 'ACTIVATE_PREDEFINED', 'EMPTY'];
 
 const CHESTS = [
 	'trap_051_vultres',
@@ -419,7 +419,7 @@ export const getEnemyCountPermutations = (
 						groupActions = groupActions.concat(list[0]);
 					}
 				}
-				for (const action of groupActions) {
+				for (const action of groupActions.filter(Boolean)) {
 					if (isCountableAction(action.key, mapConfig)) {
 						permutationCount += action['count'];
 					}
@@ -540,7 +540,15 @@ export const generateWaveTimeline = (
 				}
 				let choice = permutation?.[key]?.[groupKey];
 				if (choice == undefined) {
-					choice = getPredefinedChoiceIndex(list, hiddenGroups, bonusKey, mapConfig.bonus);
+					const isBonusGroup = mapConfig.bonus
+						? key === `w${mapConfig.bonus.wave_index}f${mapConfig.bonus.frag_index}`
+						: false;
+					choice = getPredefinedChoiceIndex(
+						list,
+						hiddenGroups,
+						bonusKey,
+						isBonusGroup ? mapConfig.bonus : null
+					);
 					if (choice == undefined) {
 						choice = Math.floor(randomSeeds[randomSeedIndex] * list.length);
 						randomSeedIndex += 1;
@@ -720,7 +728,15 @@ export const parseWaves = (
 				}
 				let choice = permutation?.[key]?.[groupKey];
 				if (choice == undefined) {
-					choice = getPredefinedChoiceIndex(list, hiddenGroups, bonusKey, mapConfig.bonus);
+					const isBonusGroup = mapConfig.bonus
+						? key === `w${mapConfig.bonus.wave_index}f${mapConfig.bonus.frag_index}`
+						: false;
+					choice = getPredefinedChoiceIndex(
+						list,
+						hiddenGroups,
+						bonusKey,
+						isBonusGroup ? mapConfig.bonus : null
+					);
 					if (choice == undefined) {
 						choice = Math.floor(randomSeeds[randomSeedIndex] * list.length);
 						randomSeedIndex += 1;
