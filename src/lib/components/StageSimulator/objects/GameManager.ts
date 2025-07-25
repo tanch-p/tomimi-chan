@@ -247,13 +247,15 @@ export class GameManager {
 				// list of tile keys ["tile_dygmny_2"]
 				const selectedTile = trapRandomTiles[Math.floor(Math.random() * trapRandomTiles.length)];
 				const tileData = predefineRandomSpawn?.tiles?.[selectedTile];
-				const availableTiles = tileData.filter((tile) => {
-					const worldPos = this.gameToWorldPos(tile.pos);
-					return !this.traps.get(`${worldPos.col},${worldPos.row}`);
-				});
-				const selectedPos = availableTiles[Math.floor(Math.random() * availableTiles.length)];
-				dataPos = selectedPos.pos;
-				blackboard = selectedPos.blackboard;
+				if (tileData) {
+					const availableTiles = tileData.filter((tile) => {
+						const worldPos = this.gameToWorldPos(tile.pos);
+						return !this.traps.get(`${worldPos.col},${worldPos.row}`);
+					});
+					const selectedPos = availableTiles[Math.floor(Math.random() * availableTiles.length)];
+					dataPos = selectedPos.pos;
+					blackboard = selectedPos.blackboard;
+				}
 			}
 		}
 		const pos = posType === 'game' ? this.gameToWorldPos(dataPos) : dataPos;
