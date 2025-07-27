@@ -36,7 +36,7 @@
 			const updatedTimes = options.filter((ele) =>
 				$activeFloorEffects.some((item) => item.iconId === ele.iconId)
 			);
-			activeFloorEffects.set([updatedTimes]);
+			activeFloorEffects.set(updatedTimes);
 		}
 	});
 </script>
