@@ -98,7 +98,7 @@ const SARKAZ_BOSSES = [
 	'enemy_2072_skdny2'
 ];
 
-const NOT_AFFECTED_BY_DIFFICULTY_KEYS = ['enemy_3001_upeopl'];
+const NOT_AFFECTED_BY_DIFFICULTY_KEYS = ['enemy_3001_upeopl','enemy_10061_cjglon','enemy_10062_cjblon'];
 
 export function applyMods(
 	enemies: EnemyDBEntry[],
