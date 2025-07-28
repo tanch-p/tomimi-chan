@@ -93,7 +93,7 @@ const getTrapStats = (trap: TrapData, level: number) => {
 
 export const parseTraps = (traps: MapConfigTrap[], language: Language) => {
 	const holder: Trap[] = [];
-	for (const { key, alias, level, mainSkillLvl, overrideSkillBlackboard } of traps) {
+	for (const { key, alias, level, skillIndex, mainSkillLvl, overrideSkillBlackboard } of traps) {
 		const trap: TrapData = trapLookup[key];
 		const talents = trap?.talents?.map((key) => {
 			const talent = trapSkills[key];
@@ -103,13 +103,15 @@ export const parseTraps = (traps: MapConfigTrap[], language: Language) => {
 				rangeId: talent.rangeId
 			};
 		});
-		const skills = trap.skills?.map((key) => {
-			const skill = trapSkills[key];
+		const skills = [];
+		const skillKey = trap.skills[skillIndex];
+		if (trapSkills[skillKey]) {
+			const skill = trapSkills[skillKey];
 			const otherKeys = {};
 			for (const valueKey of skillValueKeys) {
 				if (skill?.[valueKey]) otherKeys[valueKey] = skill[valueKey];
 			}
-			return {
+			skills.push({
 				skillId: key,
 				name: skill[`name_${language}`] || skill[`name_zh`],
 				desc: skill[`desc_${language}`] || skill[`desc_zh`],
@@ -123,8 +125,8 @@ export const parseTraps = (traps: MapConfigTrap[], language: Language) => {
 				spData: skill.levels[mainSkillLvl - 1].spData,
 				overwrittenKeys: [],
 				...otherKeys
-			};
-		});
+			});
+		}
 		const stats = getTrapStats(trap, level);
 		holder.push({
 			key: key,
