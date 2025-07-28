@@ -132,6 +132,7 @@ export const parseTraps = (traps: MapConfigTrap[], language: Language) => {
 			name: trap[`name_${language}`] || trap[`name_zh`],
 			desc: trap[`desc_${language}`] || trap[`desc_zh`],
 			tauntLevel: trap.tauntLevel,
+			group: trap.group,
 			mainSkillLvl: mainSkillLvl,
 			stats: stats,
 			talents: talents,
@@ -181,10 +182,25 @@ export function getTrapSpecialSkill(
 
 function parseStats(trap: Trap, statMods: StatMods) {
 	let diffMods;
-	const type = TRAPS_AFFECTED_BY_DIFFICULTY.includes(trap.key) ? 'enemy' : 'trap_rune';
-	const otherMods = statMods.others.map((mods) => compileMods(trap, mods, type));
+	const type = trap.group === 'enemy' ? 'trap_enemy' : 'trap_rune';
+	const otherMods = statMods.others
+		.map((mods) => {
+			if (
+				type === 'trap_enemy' &&
+				!TRAPS_AFFECTED_BY_DIFFICULTY.includes(trap.key) &&
+				mods.key === 'floor_diff'
+			) {
+				return;
+			}
+			return compileMods(trap, mods, type);
+		})
+		.filter(Boolean);
 	if (statMods.diff) {
-		diffMods = compileMods(trap, statMods.diff, type);
+		diffMods = compileMods(
+			trap,
+			statMods.diff,
+			TRAPS_AFFECTED_BY_DIFFICULTY.includes(trap.key) ? 'enemy' : 'trap_rune'
+		);
 	}
 	const secondaryMods = [diffMods, ...otherMods].filter(Boolean);
 	//Traps are not affected by rune mods unless specifically targeted (to confirm for both ally and enemy traps)

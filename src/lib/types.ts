@@ -136,6 +136,7 @@ export interface Trap {
 	stageId: string;
 	name: string;
 	desc: string;
+	group: "enemy"|"ally";
 	tauntLevel: number;
 	mainSkillLvl: number;
 	modelType: string;
