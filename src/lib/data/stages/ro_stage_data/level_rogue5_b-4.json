@@ -38,8 +38,10 @@
  ],
  "sp_enemy": null,
  "n_count": [
+  39,
+  40,
+  49,
   50,
-  51,
   52,
   53
  ],
@@ -164,9 +166,9 @@
    "prefabKey": "enemy_1129_spklr_2",
    "level": 0,
    "min_count": 0,
-   "max_count": 11,
+   "max_count": 13,
    "elite_min_count": 0,
-   "elite_max_count": 11,
+   "elite_max_count": 13,
    "overwrittenData": null
   },
   {
@@ -4813,6 +4815,38 @@
      "preDelay": 0.0,
      "actions": [
       {
+       "actionType": "EMPTY",
+       "key": "",
+       "count": 1,
+       "preDelay": 0.0,
+       "interval": 1.0,
+       "routeIndex": 0,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": "t2",
+       "randomSpawnGroupPackKey": null,
+       "randomType": "ALWAYS",
+       "refreshType": "ALWAYS",
+       "weight": 10,
+       "dontBlockWave": false,
+       "forceBlockWaveInBranch": false
+      },
+      {
+       "actionType": "EMPTY",
+       "key": "",
+       "count": 1,
+       "preDelay": 0.0,
+       "interval": 1.0,
+       "routeIndex": 0,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": "t3",
+       "randomSpawnGroupPackKey": null,
+       "randomType": "ALWAYS",
+       "refreshType": "ALWAYS",
+       "weight": 40,
+       "dontBlockWave": false,
+       "forceBlockWaveInBranch": false
+      },
+      {
        "actionType": "SPAWN",
        "key": "enemy_1127_sptrkg_2",
        "count": 5,
@@ -4822,7 +4856,7 @@
        "autoPreviewRoute": true,
        "hiddenGroup": null,
        "randomSpawnGroupKey": "t2",
-       "randomSpawnGroupPackKey": "s1",
+       "randomSpawnGroupPackKey": "sp1",
        "weight": 50,
        "dontBlockWave": false
       },
@@ -4836,7 +4870,7 @@
        "autoPreviewRoute": false,
        "hiddenGroup": null,
        "randomSpawnGroupKey": null,
-       "randomSpawnGroupPackKey": "s1",
+       "randomSpawnGroupPackKey": "sp1",
        "weight": 0,
        "dontBlockWave": false
       },
@@ -4850,7 +4884,7 @@
        "autoPreviewRoute": true,
        "hiddenGroup": null,
        "randomSpawnGroupKey": "t2",
-       "randomSpawnGroupPackKey": "s2",
+       "randomSpawnGroupPackKey": "sp2",
        "weight": 30,
        "dontBlockWave": false
       },
@@ -4864,7 +4898,7 @@
        "autoPreviewRoute": false,
        "hiddenGroup": null,
        "randomSpawnGroupKey": null,
-       "randomSpawnGroupPackKey": "s2",
+       "randomSpawnGroupPackKey": "sp2",
        "weight": 50,
        "dontBlockWave": false
       },
@@ -4878,7 +4912,7 @@
        "autoPreviewRoute": true,
        "hiddenGroup": null,
        "randomSpawnGroupKey": "t2",
-       "randomSpawnGroupPackKey": "s3",
+       "randomSpawnGroupPackKey": "sp3",
        "weight": 10,
        "dontBlockWave": false
       },
@@ -4892,7 +4926,7 @@
        "autoPreviewRoute": false,
        "hiddenGroup": null,
        "randomSpawnGroupKey": null,
-       "randomSpawnGroupPackKey": "s3",
+       "randomSpawnGroupPackKey": "sp3",
        "weight": 50,
        "dontBlockWave": false
       },
