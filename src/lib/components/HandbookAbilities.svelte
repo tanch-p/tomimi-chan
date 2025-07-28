@@ -14,7 +14,7 @@
 	$: skills = getHandbookEnemySkills(enemy, $specialMods);
 </script>
 
-<HandbookSkills {enemy} {skills} {language} {statusImmuneList} {formIndex} {mapConfig}/>
+<HandbookSkills {enemy} {skills} {language} {statusImmuneList} {formIndex} {mapConfig} />
 {#if traits.length > 0 || enemy.forms.some((form) => form.stats.dmgRes > 0 || form.special.length > 0)}
 	{@const sameDmgRedAcrossForms = enemy.forms.reduce((acc, curr, i, list) => {
 		if (i + 1 < list.length) {
@@ -31,6 +31,9 @@
 				{#if enemy.forms[0].stats.dmgRes}
 					<li class="py-1">
 						{translations[language].dmg_res_short} - {enemy.forms[0].stats.dmgRes * 100}%
+						{#if enemy.key === 'enemy_2119_dyshhj'}
+							(不生效，25/07/25最终确认)
+						{/if}
 					</li>
 				{/if}
 			{/if}

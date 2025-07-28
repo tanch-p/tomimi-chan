@@ -19,7 +19,10 @@
 		<ul class="list-disc pl-5">
 			{#if enemy.forms[row].stats.dmgRes}
 				<li class="py-1">
-					{translations[language].dmg_res_short} - {enemy.forms[row].stats.dmgRes * 100}%
+					<p>{translations[language].dmg_res_short} - {enemy.forms[row].stats.dmgRes * 100}%</p>
+					{#if enemy.key === "enemy_2119_dyshhj"}
+					<p>不生效(25/07/25最终确认)</p>
+					{/if}
 				</li>
 			{/if}
 			{#each traits as skill}
