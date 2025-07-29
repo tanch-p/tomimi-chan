@@ -98,7 +98,8 @@ const SARKAZ_BOSSES = [
 	'enemy_2072_skdny2'
 ];
 
-const NOT_AFFECTED_BY_DIFFICULTY_KEYS = ['enemy_3001_upeopl','enemy_10061_cjglon','enemy_10062_cjblon'];
+const NOT_AFFECTED_BY_DIFFICULTY_KEYS = ['enemy_3001_upeopl', 'enemy_10061_cjglon'];
+const NOT_AFFECTED_BY_FLOOR_DIFF_KEYS = ['enemy_10062_cjblon'];
 
 export function applyMods(
 	enemies: EnemyDBEntry[],
@@ -123,8 +124,10 @@ export function parseStats(
 	row: number,
 	specialMods: SpecialMods
 ) {
-	const isDamage1Enemy = enemy.traits.some((skill) =>
-		['damage_1', 'damage_1_arts'].includes(skill.key)
+	const isDamage1Enemy = enemy.traits.some(
+		(skill) =>
+			['damage_1', 'damage_1_arts'].includes(skill.key) &&
+			!['enemy_2122_dybgzd'].includes(enemy.key)
 	);
 	let diffMods;
 	if (statMods.diff) {
@@ -144,7 +147,11 @@ export function parseStats(
 	const runeMods = compileMods(enemy, statMods.runes);
 	const otherMods = statMods.others.map((mods) => compileMods(enemy, mods));
 	const secondaryMods = [formMods, diffMods, ...otherMods].filter((ele) => {
-		if (NOT_AFFECTED_BY_DIFFICULTY_KEYS.includes(enemy.key) || isDamage1Enemy) {
+		if (
+			NOT_AFFECTED_BY_DIFFICULTY_KEYS.includes(enemy.key) ||
+			isDamage1Enemy ||
+			NOT_AFFECTED_BY_FLOOR_DIFF_KEYS.includes(enemy.key)
+		) {
 			return Boolean(ele) && !['floor_diff'].includes(ele.key);
 		}
 		return Boolean(ele);
