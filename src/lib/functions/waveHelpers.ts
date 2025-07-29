@@ -541,7 +541,7 @@ export const generateWaveTimeline = (
 				let choice = permutation?.[key]?.[groupKey];
 				if (choice == undefined) {
 					const isBonusGroup = mapConfig.bonus
-						? key === `w${mapConfig.bonus.wave_index}f${mapConfig.bonus.frag_index}`
+						? key === `w${mapConfig.bonus.wave_index}f${Math.max(0,mapConfig.bonus.frag_index)}`
 						: false;
 					choice = getPredefinedChoiceIndex(
 						list,
@@ -729,7 +729,7 @@ export const parseWaves = (
 				let choice = permutation?.[key]?.[groupKey];
 				if (choice == undefined) {
 					const isBonusGroup = mapConfig.bonus
-						? key === `w${mapConfig.bonus.wave_index}f${mapConfig.bonus.frag_index}`
+						? key === `w${mapConfig.bonus.wave_index}f${Math.max(0,mapConfig.bonus.frag_index)}`
 						: false;
 					choice = getPredefinedChoiceIndex(
 						list,
