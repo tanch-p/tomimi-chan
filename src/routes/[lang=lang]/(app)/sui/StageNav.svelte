@@ -9,41 +9,71 @@
 	import shop from '$lib/images/is/sui/node_shop.webp';
 	import candleIcon from '$lib/images/is/sui/node_stashed_recruit.webp';
 	import portal from '$lib/images/is/sui/node_spZone.webp';
+	import StageNavRow from '$lib/components/StageNavRow.svelte';
 
 	export let language: Language;
 
 	let allNormalStages = [
-		['狡鼷三窟', '赶集', '正经生意', '老戏骨'],
-		['有教无类', '飞来横祸', '所守者，义', '明抢暗偷'],
-		['啖之以利', '长驱不复', '背山面水', '去晦', '落叶归根'],
-		['山海必争', '贪饵', '识文', '赶场戏班', '峥嵘战功', '暗箭难防'],
-		['青山不语', '离域检查', '薄礼一份', '往事喑哑', '邙山镇地方志', '不成烟火']
+		['level_rogue5_1-1', 'level_rogue5_1-2', 'level_rogue5_1-3', 'level_rogue5_1-4'],
+		['level_rogue5_2-1', 'level_rogue5_2-2', 'level_rogue5_2-3', 'level_rogue5_2-4'],
+		[
+			'level_rogue5_3-1',
+			'level_rogue5_3-2',
+			'level_rogue5_3-3',
+			'level_rogue5_3-4',
+			'level_rogue5_3-5'
+		],
+		[
+			'level_rogue5_4-1',
+			'level_rogue5_4-2',
+			'level_rogue5_4-3',
+			'level_rogue5_4-4',
+			'level_rogue5_4-5',
+			'level_rogue5_4-6'
+		],
+		[
+			'level_rogue5_5-1',
+			'level_rogue5_5-2',
+			'level_rogue5_5-3',
+			'level_rogue5_5-4',
+			'level_rogue5_5-5',
+			'level_rogue5_5-6'
+		]
 	];
 
-	let floor6n_1 = ['炎灼', '人镇'];
-	let floor3t = ['月华寒', '剑·刀·矛', '点化'];
-	let floor3b = ['夕娥忆', '仁·义·武', '求道'];
-	let floor5b = ['破岁阵祀', '昔字如烟'];
-	let floor6b = ['谋岁者'];
-	let du = ['源源不断', '闪闪发光', '循循善诱', '易易鸭鸭'];
-	let encount1 = ['劫罚', '生百相', '硕果累累', '以逸待劳'];
-	let encount2 = ['喜从驮来', '硅基伥的宴席', '彻底失控', '为崖作伥'];
-	let shopStages = ['神游天外', '作壁上观'];
+	let floor6n_1 = ['level_rogue5_6-1', 'level_rogue5_6-2'];
+	let floor3t = ['level_rogue5_b-1', 'level_rogue5_b-2', 'level_rogue5_b-3'];
+	let floor3b = ['level_rogue5_b-1-b', 'level_rogue5_b-2-b', 'level_rogue5_b-3-b'];
+	let floor5b = ['level_rogue5_b-4', 'level_rogue5_b-5'];
+	let floor6b = ['level_rogue5_b-6'];
+	let du = ['level_rogue5_t-1', 'level_rogue5_t-2', 'level_rogue5_t-3', 'level_rogue5_t-4'];
+	let encount1 = ['level_rogue5_t-5', 'level_rogue5_t-6', 'level_rogue5_t-7', 'level_rogue5_t-8'];
+	let encount2 = [
+		'level_rogue5_t-9-a',
+		'level_rogue5_t-9-b',
+		'level_rogue5_t-9-c',
+		'level_rogue5_t-10'
+	];
+	let shopStages = ['level_rogue5_ev-1', 'level_rogue5_ev-2'];
 
-	let duelRow1 = ['夕江对擂'];
-	let duelRow2 = ['南武群英会_a', '南武群英会_b', '南武群英会_c'];
-	let candleRow1 = ['谤天', '迎雷', '蔑震'];
-	let candleRow1Alt = ['谤天_b', '迎雷_b', '蔑震_b'];
-	let candleRow2 = ['赴陨', '斥洪'];
-	let candleRow2Alt = ['赴陨_b', '斥洪_b'];
-	let candleSP = ['分明'];
-	let svRow1 = ['地有四难', '忘形', '奇谭', '破局'];
-	let svRow1Alt = ['地有四难_b', '忘形_b', '奇谭_b', '破局_b'];
-	let svRow2 = ['不鉴', '靡靡之音', '迷惘'];
-	let svRow2Alt = ['不鉴_b', '靡靡之音_b', '迷惘_b'];
-	let sv2 = ['凭器_a', '凭器_b', '凭器_c'];
-	let sv9 = ['愠怒_a', '愠怒_b', '愠怒_c'];
-	let sv4 = ['贪妄'];
+	let duel = ['level_rogue5_d-1', 'level_rogue5_d-2'];
+	let candleRow1 = ['level_rogue5_fs-1', 'level_rogue5_fs-2', 'level_rogue5_fs-3'];
+	let candleRow1Alt = ['level_rogue5_fs-1b', 'level_rogue5_fs-2b', 'level_rogue5_fs-3b'];
+	let candleRow2 = ['level_rogue5_fs-4', 'level_rogue5_fs-5'];
+	let candleRow2Alt = ['level_rogue5_fs-4b', 'level_rogue5_fs-5b'];
+	let candleSP = ['level_rogue5_dv-5'];
+	let svRow1 = ['level_rogue5_sv-1', 'level_rogue5_sv-3', 'level_rogue5_sv-5', 'level_rogue5_sv-6'];
+	let svRow1Alt = [
+		'level_rogue5_sv-1-b',
+		'level_rogue5_sv-3-b',
+		'level_rogue5_sv-5-b',
+		'level_rogue5_sv-6-b'
+	];
+	let svRow2 = ['level_rogue5_sv-7', 'level_rogue5_sv-8', 'level_rogue5_sv-10'];
+	let svRow2Alt = ['level_rogue5_sv-7-b', 'level_rogue5_sv-8-b', 'level_rogue5_sv-10-b'];
+	let sv2 = ['level_rogue5_sv-2', 'level_rogue5_sv-2-b', 'level_rogue5_sv-2-c'];
+	let sv9 = ['level_rogue5_sv-9', 'level_rogue5_sv-9-b', 'level_rogue5_sv-9-c'];
+	let sv4 = ['level_rogue5_sv-4'];
 
 	//max per row = 4
 </script>
@@ -75,20 +105,20 @@
 						{@const topRowStages = stages.slice(0, 4)}
 						{#each topRowStages as stageName}
 							<td colspan={Math.floor(24 / topRowStages.length)}>
-								<StageNavButton {stageName} {language} />
+								<StageNavButton levelId={stageName} {language} />
 							</td>
 						{/each}
 					{:else if rowSpan === 2}
 						{@const topRowStages = stages.slice(0, 4)}
 						{#each topRowStages as stageName}
 							<td colspan={Math.floor(24 / topRowStages.length)}>
-								<StageNavButton {stageName} {language} />
+								<StageNavButton levelId={stageName} {language} />
 							</td>
 						{/each}
 					{:else}
 						{#each stages as stageName}
 							<td colspan={Math.floor(24 / stages.length)}>
-								<StageNavButton {stageName} {language} />
+								<StageNavButton levelId={stageName} {language} />
 							</td>
 						{/each}
 					{/if}
@@ -99,14 +129,14 @@
 					<tr>
 						{#each midRowStages as stageName}
 							<td colspan={Math.floor(24 / midRowStages.length)}>
-								<StageNavButton {stageName} {language} />
+								<StageNavButton levelId={stageName} {language} />
 							</td>
 						{/each}
 					</tr>
 					<tr>
 						{#each btmRowStages as stageName}
 							<td colspan={Math.floor(24 / btmRowStages.length)}>
-								<StageNavButton {stageName} {language} />
+								<StageNavButton levelId={stageName} {language} />
 							</td>
 						{/each}
 					</tr>
@@ -116,13 +146,13 @@
 						{#if btmRowStages.length >= 3}
 							{#each btmRowStages as stageName}
 								<td colspan={Math.floor(24 / btmRowStages.length)}>
-									<StageNavButton {stageName} {language} />
+									<StageNavButton levelId={stageName} {language} />
 								</td>
 							{/each}
 						{:else}
 							{#each btmRowStages as stageName}
 								<td colspan={Math.floor(24 / btmRowStages.length)}>
-									<StageNavButton {stageName} {language} />
+									<StageNavButton levelId={stageName} {language} />
 								</td>
 							{/each}
 						{/if}
@@ -135,7 +165,7 @@
 				</td>
 				{#each floor6n_1 as stageName}
 					<td colspan={Math.floor(24 / floor6n_1.length)}>
-						<StageNavButton {stageName} {language} />
+						<StageNavButton levelId={stageName} {language} />
 					</td>
 				{/each}
 			</tr>
@@ -160,14 +190,14 @@
 				</td>
 				{#each floor3t as stageName}
 					<td colspan={Math.floor(24 / floor3t.length)}>
-						<StageNavButton {stageName} {language} />
+						<StageNavButton levelId={stageName} {language} />
 					</td>
 				{/each}
 			</tr>
 			<tr>
 				{#each floor3b as stageName}
 					<td colspan={Math.floor(24 / floor3b.length)}>
-						<StageNavButton {stageName} {language} />
+						<StageNavButton levelId={stageName} {language} />
 					</td>
 				{/each}
 			</tr>
@@ -177,7 +207,7 @@
 				</td>
 				{#each floor5b as stageName}
 					<td colspan={Math.floor(24 / floor5b.length)}>
-						<StageNavButton {stageName} {language} />
+						<StageNavButton levelId={stageName} {language} />
 					</td>
 				{/each}
 			</tr>
@@ -187,7 +217,7 @@
 				</td>
 				{#each floor6b as stageName}
 					<td colspan={Math.floor(24 / floor6b.length)}>
-						<StageNavButton {stageName} {language} />
+						<StageNavButton levelId={stageName} {language} />
 					</td>
 				{/each}
 			</tr>
@@ -212,24 +242,14 @@
 				<td colspan="2" rowspan="22"> ? </td>
 				{#each du as stageName}
 					<td colspan={Math.floor(24 / du.length)}>
-						<StageNavButton {stageName} {language} />
+						<StageNavButton levelId={stageName} {language} />
 					</td>
 				{/each}
 			</tr>
-			<tr>
-				{#each encount1 as stageName}
-					<td colspan={Math.floor(24 / encount1.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
-			<tr>
-				{#each encount2 as stageName}
-					<td colspan={Math.floor(24 / encount2.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
+			<StageNavRow items={du} {language} />
+
+			<StageNavRow items={encount1} {language} />
+			<StageNavRow items={encount2} {language} />
 			<tr>
 				<th colspan="24">
 					<div class="flex justify-center items-center">
@@ -243,13 +263,7 @@
 					</div>
 				</th>
 			</tr>
-			<tr>
-				{#each shopStages as stageName}
-					<td colspan={Math.floor(24 / shopStages.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
+			<StageNavRow items={shopStages} {language} />
 			<tr>
 				<th colspan="24">
 					<div class="flex justify-center items-center">
@@ -263,41 +277,11 @@
 					</div>
 				</th>
 			</tr>
-			<tr>
-				{#each candleRow1 as stageName}
-					<td colspan={Math.floor(24 / candleRow1.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
-			<tr>
-				{#each candleRow1Alt as stageName}
-					<td colspan={Math.floor(24 / candleRow1Alt.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
-			<tr>
-				{#each candleRow2 as stageName}
-					<td colspan={Math.floor(24 / candleRow2.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
-			<tr>
-				{#each candleRow2Alt as stageName}
-					<td colspan={Math.floor(24 / candleRow2Alt.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
-			<tr>
-				{#each candleSP as stageName}
-					<td colspan={Math.floor(24 / candleSP.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
+			<StageNavRow items={candleRow1} {language} />
+			<StageNavRow items={candleRow1Alt} {language} />
+			<StageNavRow items={candleRow2} {language} />
+			<StageNavRow items={candleRow2Alt} {language} />
+			<StageNavRow items={candleSP} {language} />
 			<tr>
 				<th colspan="24">
 					<div class="flex justify-center items-center">
@@ -311,55 +295,13 @@
 					</div>
 				</th>
 			</tr>
-			<tr>
-				{#each svRow1 as stageName}
-					<td colspan={Math.floor(24 / svRow1.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
-			<tr>
-				{#each svRow1Alt as stageName}
-					<td colspan={Math.floor(24 / svRow1Alt.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
-			<tr>
-				{#each svRow2 as stageName}
-					<td colspan={Math.floor(24 / svRow2.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
-			<tr>
-				{#each svRow2Alt as stageName}
-					<td colspan={Math.floor(24 / svRow2Alt.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
-			<tr>
-				{#each sv2 as stageName}
-					<td colspan={Math.floor(24 / sv2.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
-			<tr>
-				{#each sv9 as stageName}
-					<td colspan={Math.floor(24 / sv9.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
-			<tr>
-				{#each sv4 as stageName}
-					<td colspan={Math.floor(24 / sv4.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
+			<StageNavRow items={svRow1} {language} />
+			<StageNavRow items={svRow1Alt} {language} />
+			<StageNavRow items={svRow2} {language} />
+			<StageNavRow items={svRow2Alt} {language} />
+			<StageNavRow items={sv2} {language} />
+			<StageNavRow items={sv9} {language} />
+			<StageNavRow items={sv4} {language} />
 			<tr>
 				<th colspan="24">
 					<div class="flex justify-center items-center">
@@ -373,20 +315,7 @@
 					</div>
 				</th>
 			</tr>
-			<tr>
-				{#each duelRow1 as stageName}
-					<td colspan={Math.floor(24 / duelRow1.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
-			<tr>
-				{#each duelRow2 as stageName}
-					<td colspan={Math.floor(24 / duelRow2.length)}>
-						<StageNavButton {stageName} {language} />
-					</td>
-				{/each}
-			</tr>
+			<StageNavRow items={duel} {language} />
 		</tbody>
 	</table>
 </div>

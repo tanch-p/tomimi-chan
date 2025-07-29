@@ -6,6 +6,7 @@
 	export let levelId: string, language: Language;
 
 	$: currentLevel = $page?.data?.mapConfig?.levelId;
+
 	const stageInfo = ro5[levelId];
 	if (!stageInfo) {
 		throw new Error(`${levelId} is not found!`);

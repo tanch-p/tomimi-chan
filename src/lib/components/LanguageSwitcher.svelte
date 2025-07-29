@@ -2,6 +2,7 @@
 	import { clickOutside } from '$lib/functions/clickOutside.js';
 	import { page } from '$app/stores';
 	import Icon from './Icon.svelte';
+	import stageNameOverwriteTable from '$lib/data/stages/stage_name_overwrite_table.json';
 
 	let showOptions = false;
 	let pathEN: string, pathJA: string, pathZH: string;
@@ -13,11 +14,16 @@
 	$: name_zh = mapConfig?.name_zh;
 	$: name_ja = mapConfig?.name_ja;
 	$: name_en = mapConfig?.name_en;
-	$: if (mapConfig && !mapConfig.contracts) {
+	$: if (mapConfig) {
 		if (name_zh === '「」') {
 			pathEN = `/en/stages/ro4_b_9`;
 			pathJA = `/ja/stages/ro4_b_9`;
 			pathZH = `/zh/stages/ro4_b_9`;
+		} else if (stageNameOverwriteTable[mapConfig.levelId]) {
+			const info = stageNameOverwriteTable[mapConfig.levelId];
+			pathEN = `/en/stages/${code}_${info['name_en'] || info['name_zh']}`;
+			pathJA = `/ja/stages/${code}_${info['name_ja'] || info['name_zh']}`;
+			pathZH = `/zh/stages/${code}_${info['name_zh']}`;
 		} else {
 			pathEN = `/en/stages/${code}_${name_en || name_zh}`;
 			pathJA = `/ja/stages/${code}_${name_ja || name_zh}`;
