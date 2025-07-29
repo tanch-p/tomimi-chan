@@ -677,7 +677,7 @@ const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime, enemyRe
 				key: enemyKey
 			});
 
-			if (!['enemy_1106_byokai_b'].includes(action.key)) {
+			if (!action.dontBlockWave) {
 				if (!waveBlockingSpawns[spawnTime]) {
 					waveBlockingSpawns[spawnTime] = [];
 					waveBlockingSpawns[spawnTime].push({ key: action['key'] });
@@ -693,7 +693,7 @@ const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime, enemyRe
 			key: enemyKey
 		});
 
-		if (!['enemy_1106_byokai_b'].includes(action.key)) {
+		if (!action.dontBlockWave) {
 			if (!waveBlockingSpawns[spawnTime]) {
 				waveBlockingSpawns[spawnTime] = [];
 				waveBlockingSpawns[spawnTime].push({ key: action['key'] });

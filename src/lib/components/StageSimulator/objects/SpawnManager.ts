@@ -275,7 +275,7 @@ export class SpawnManager {
 		const spawnUID = `s-${action.key}-s${this.spawnIdx}`;
 		this.spawnIdx++;
 		if (!['enemy_2119_dyshhj_2'].includes(enemyKey)) {
-			const enemy = new Enemy(enemyData, route, this.gameManager, key, spawnUID);
+			const enemy = new Enemy(enemyData, action, route, this.gameManager, key, spawnUID);
 		}
 		if (ENEMIES_TO_HIGHLIGHT.includes(enemyData.key) || enemyData.type.includes('BOSS')) {
 			if (['enemy_2093_skzams'].includes(enemyData.key)) return;

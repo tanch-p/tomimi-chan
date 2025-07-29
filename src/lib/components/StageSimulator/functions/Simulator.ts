@@ -283,7 +283,7 @@ class GameSimManager {
 
 	update(delta: number) {
 		GameConfig.setValue('scaledElapsedTime', GameConfig.scaledElapsedTime + delta);
-		this.noEnemyAlive = this.enemiesOnMap.length === 0;
+		this.noEnemyAlive = this.enemiesOnMap.filter(enemy => !enemy.dontBlockWave).length === 0;
 		for (const enemy of this.enemiesOnMap) {
 			enemy.update(delta);
 		}

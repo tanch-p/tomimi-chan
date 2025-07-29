@@ -138,11 +138,12 @@ export class BranchManager {
 		if (!enemyData) {
 			return;
 		}
+		action.dontBlockWave = true;
 		const spawnUID = `b-${action.key}-b${this.spawnManager.spawnIdx}`;
 		this.spawnManager.spawnIdx++;
 		const formIndex =
 			branchInfo?.[this.gameManager.config.levelId]?.[this.branchKey]?.formIndex || 0;
-		const enemy = new Enemy(enemyData, route, this.gameManager, null, spawnUID, formIndex);
+		const enemy = new Enemy(enemyData, action, route, this.gameManager, null, spawnUID, formIndex);
 	}
 
 	activatePredefined(action) {

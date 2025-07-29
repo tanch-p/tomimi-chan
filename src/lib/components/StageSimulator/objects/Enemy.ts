@@ -42,6 +42,7 @@ export class Enemy {
 	formIndex = 0;
 	arrivalThreshold = GameConfig.gridSize * 0.45;
 	fragmentKey: string;
+	dontBlockWave = false;
 
 	countdownId = -1;
 	pathGroup;
@@ -77,6 +78,7 @@ export class Enemy {
 
 	constructor(
 		enemyData: EnemyType,
+		action,
 		route,
 		gameManager: GameManager,
 		fragmentKey,
@@ -106,6 +108,7 @@ export class Enemy {
 			this.baseSpeed = setData.baseSpeed;
 			this.moddedSpeed = setData.moddedSpeed;
 			this.route = setData.route;
+			this.dontBlockWave = setData.dontBlockWave;
 			this.currentActionIndex = setData.currentActionIndex;
 			this.state = setData.state;
 			this.direction = setData.direction
@@ -139,6 +142,7 @@ export class Enemy {
 			this.pathFinder = gameManager.pathFinder;
 			this.data = enemyData;
 			this.key = enemyData.key;
+			this.dontBlockWave = action.dontBlockWave;
 			this.route = route;
 			this.fragmentKey = fragmentKey;
 			if (!route.checkpoints?.length > 0) {
@@ -928,7 +932,7 @@ export class Enemy {
 
 	remove() {
 		if (!this.gameManager.isSimulation) {
-			if(!this.sprite) return;
+			if (!this.sprite) return;
 			let index = this.gameManager.game.objects.findIndex((ele) => ele.uuid === this.sprite.uuid);
 			if (index !== -1) {
 				this.gameManager.game.objects.splice(index, 1);

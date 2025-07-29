@@ -336,7 +336,7 @@ export class GameManager {
 				existingEnemy.updateData(enemy);
 				return existingEnemy;
 			}
-			return new Enemy(enemy.data, enemy.route, this, enemy.fragmentKey, enemy.spawnUID, 0, enemy);
+			return new Enemy(enemy.data, null, enemy.route, this, enemy.fragmentKey, enemy.spawnUID, 0, enemy);
 		});
 		// console.log('after', this.enemiesOnMap,data.enemiesOnMap);
 	}
@@ -348,7 +348,7 @@ export class GameManager {
 		});
 
 		GameConfig.setValue('scaledElapsedTime', GameConfig.scaledElapsedTime + delta);
-		this.noEnemyAlive = this.enemiesOnMap.length === 0;
+		this.noEnemyAlive = this.enemiesOnMap.filter(enemy => !enemy.dontBlockWave).length === 0;
 		for (const enemy of this.enemiesOnMap) {
 			enemy.update(delta);
 		}
