@@ -98,8 +98,12 @@ const SARKAZ_BOSSES = [
 	'enemy_2072_skdny2'
 ];
 
-const NOT_AFFECTED_BY_DIFFICULTY_KEYS = ['enemy_3001_upeopl', 'enemy_10061_cjglon'];
-const NOT_AFFECTED_BY_FLOOR_DIFF_KEYS = ['enemy_10062_cjblon'];
+const NOT_AFFECTED_BY_DIFFICULTY_KEYS = ['enemy_3001_upeopl'];
+const NOT_AFFECTED_BY_FLOOR_DIFF_KEYS = [
+	'enemy_10062_cjblon',
+	'enemy_3001_upeopl',
+	'enemy_10061_cjglon'
+];
 
 export function applyMods(
 	enemies: EnemyDBEntry[],
@@ -129,6 +133,7 @@ export function parseStats(
 			['damage_1', 'damage_1_arts'].includes(skill.key) &&
 			!['enemy_2122_dybgzd'].includes(enemy.key)
 	);
+	const isNeutral = enemy.traits.some((skill) => ['neutral_enemy'].includes(skill.key));
 	let diffMods;
 	if (statMods.diff) {
 		diffMods = compileMods(
@@ -144,7 +149,10 @@ export function parseStats(
 	if (specialMods?.[enemy.key]?.[`mods_${row}`]) {
 		formMods.mods = specialMods?.[enemy.key]?.[`mods_${row}`];
 	}
-	const runeMods = compileMods(enemy, statMods.runes);
+	let runeMods = { key: 'combat_ops', mods: [] };
+	if (!isNeutral) {
+		runeMods = compileMods(enemy, statMods.runes);
+	}
 	const otherMods = statMods.others.map((mods) => compileMods(enemy, mods));
 	const secondaryMods = [formMods, diffMods, ...otherMods].filter((ele) => {
 		if (
