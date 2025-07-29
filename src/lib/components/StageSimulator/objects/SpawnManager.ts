@@ -145,14 +145,14 @@ export class SpawnManager {
 			return true;
 		}
 		if (this.nextWaveType === 'NO_ENEMIES') {
-			return this.gameManager.noEnemyAlive;
+			return this.gameManager.noWaveBlockingSpawns;
 		}
 		if (this.nextWaveTimer < this.waves[this.currentWaveIndex].maxTimeWaitingForNextWave) {
 			this.nextWaveTimer += delta;
 		}
 		return (
 			this.nextWaveTimer >= this.waves[this.currentWaveIndex].maxTimeWaitingForNextWave ||
-			this.gameManager.noEnemyAlive
+			this.gameManager.noWaveBlockingSpawns
 		);
 	}
 

@@ -43,6 +43,7 @@ export class Enemy {
 	arrivalThreshold = GameConfig.gridSize * 0.45;
 	fragmentKey: string;
 	dontBlockWave = false;
+	notCountInTotal = false;
 
 	countdownId = -1;
 	pathGroup;
@@ -109,6 +110,7 @@ export class Enemy {
 			this.moddedSpeed = setData.moddedSpeed;
 			this.route = setData.route;
 			this.dontBlockWave = setData.dontBlockWave;
+			this.notCountInTotal = setData.notCountInTotal;
 			this.currentActionIndex = setData.currentActionIndex;
 			this.state = setData.state;
 			this.direction = setData.direction
@@ -169,6 +171,9 @@ export class Enemy {
 				GameConfig.specialMods,
 				'special'
 			);
+			if (this.traits.find((skill) => ['not_count_in_total'].includes(skill.key))) {
+				this.notCountInTotal = true;
+			}
 			if (this.traits.find((skill) => ['self_bind', 'self_bind_plus'].includes(skill.key))) {
 				this.motionMode = 'NONE';
 			}

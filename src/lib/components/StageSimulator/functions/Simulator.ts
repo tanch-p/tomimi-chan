@@ -153,6 +153,7 @@ class GameSimManager {
 	traps = new Map();
 	pathFinder: SPFA;
 	noEnemyAlive = false;
+	noWaveBlockingSpawns = false;
 	killedCount = 0;
 	tiles = new Map();
 	isSimulation = true;
@@ -283,7 +284,8 @@ class GameSimManager {
 
 	update(delta: number) {
 		GameConfig.setValue('scaledElapsedTime', GameConfig.scaledElapsedTime + delta);
-		this.noEnemyAlive = this.enemiesOnMap.filter(enemy => !enemy.dontBlockWave).length === 0;
+		this.noWaveBlockingSpawns = this.enemiesOnMap.filter(enemy => !enemy.dontBlockWave).length === 0;
+		this.noEnemyAlive = this.enemiesOnMap.filter((enemy) => !enemy.notCountInTotal).length === 0;
 		for (const enemy of this.enemiesOnMap) {
 			enemy.update(delta);
 		}
