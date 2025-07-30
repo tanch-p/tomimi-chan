@@ -2509,6 +2509,7 @@
 		"buffloss": true,
 		"atk": { "multiplier": 4 },
 		"dmg_element": "arts",
+		"skillRange":1.25,
 		"suffix": { "en": "💥on kill", "ja": "撃破時", "zh": "击破时" },
 		"tooltip": {
 			"en": [
@@ -2518,13 +2519,15 @@
 				"撃破時自爆する、半径1.25の味方全体に攻撃力<v.atk.multiplier>%の{arts}ダメージを与える{ignore_camou}"
 			],
 			"zh": [
-				"被击杀后自爆，对1.25半径内全体友方单位造成攻击力<v.atk.multiplier>%的{arts}溅射伤害{ignore_camou}"
+				"被击杀后自爆，对1.25半径内全体友方单位造成攻击力<v.atk.multiplier>%的{arts}溅射伤害{ignore_camou}",
+				"若目标是同属性则倍率降至360%，异属性则倍率提升至440%"
 			]
 		}
 	},
 	"deyi_explode": {
 		"buffloss": true,
 		"atk": { "multiplier": 18 },
+		"skillRange":2,
 		"dmg_element": "arts",
 		"suffix": { "en": "💥💥", "ja": "心中", "zh": "💥" },
 		"tooltip": {
@@ -2535,15 +2538,8 @@
 				"反対属性の「オニビ」に接触すると爆発する (心中)、半径2の味方全体に攻撃力<v.atk.multiplier>%の{arts}ダメージを与える{ignore_camou}"
 			],
 			"zh": [
-				"异属性“得意”距离小于1时自爆，对2半径内全体友方单位造成攻击力<v.atk.multiplier>%的{arts}溅射伤害{ignore_camou}"
+				"异属性“得意”距离小于1时自爆，对2半径内全体友方单位造成攻击力<v.atk.multiplier>%的{arts}溅射伤害{ignore_camou}","若目标是同属性则倍率降至1350%，异属性则倍率提升至1650%"
 			]
-		}
-	},
-	"deyi_yinyang_tooltip": {
-		"tooltip": {
-			"en": ["Same Element Explosion dmg * 0.9", "Opposite Element Explosion dmg * 1.1"],
-			"ja": ["同じ属性への爆発ダメージ*0.9", "反対属性への爆発ダメージ*1.1"],
-			"zh": ["若目标是同属性则爆炸倍率降10%，异属性则倍率提升10%"]
 		}
 	},
 	"envy_beam": {
