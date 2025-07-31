@@ -192,7 +192,7 @@
 								<div class="module none" />
 							{:else}
 								<DraggableContainer
-									className="overflow-y-visible no-scrollbar snap-mandatory snap-x md:snap-none"
+									className="overflow-y-visible no-scrollbar snap-proximity snap-x "
 								>
 									<div
 										class="flex pb-8 w-max min-[520px]:px-10 gap-x-[calc((min(100vw-15px,550px)/2)-135px)] min-[520px]:gap-x-[calc((min(100vw-15px,550px)/2)-175px)]"
