@@ -8,7 +8,7 @@
 	export let data: PageData, language: Language;
 	$: language = data.language;
 
-	const sponsors = ['瓦楞纸', 'Yannick', 'Somebody', 'ithy', 'fafa', '复恐匆匆', 'sunlazy'].sort();
+	const sponsors = ['瓦楞纸', 'Yannick', 'Somebody', 'ithy', 'fafa', '复恐匆匆', 'sunlazy','银河Aquila','辰伊光','爱发电用户_DyPR'].sort();
 </script>
 
 <svelte:head>
