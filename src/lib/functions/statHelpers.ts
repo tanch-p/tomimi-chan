@@ -98,8 +98,9 @@ const SARKAZ_BOSSES = [
 	'enemy_2072_skdny2'
 ];
 
-const NOT_AFFECTED_BY_DIFFICULTY_KEYS = ['enemy_3001_upeopl', 'enemy_10061_cjglon'];
+const NEUTRAL_ENEMIES = ['enemy_3001_upeopl', 'enemy_10061_cjglon'];
 const NOT_AFFECTED_BY_FLOOR_DIFF_KEYS = ['enemy_10062_cjblon'];
+const DMG_1_ATK_VARIANTS = ['enemy_2121_dyspl2'];
 
 export function applyMods(
 	enemies: EnemyDBEntry[],
@@ -129,15 +130,16 @@ export function parseStats(
 			['damage_1', 'damage_1_arts'].includes(skill.key) &&
 			!['enemy_2122_dybgzd'].includes(enemy.key)
 	);
+	const type = NEUTRAL_ENEMIES.includes(enemy.key)
+		? 'neutral'
+		: DMG_1_ATK_VARIANTS.includes(enemy.key)
+		? 'damage_1_atk_variant'
+		: isDamage1Enemy
+		? 'damage_1_enemy'
+		: 'enemy';
 	let diffMods;
 	if (statMods.diff) {
-		diffMods = compileMods(
-			enemy,
-			statMods.diff,
-			NOT_AFFECTED_BY_DIFFICULTY_KEYS.includes(enemy.key) || isDamage1Enemy
-				? 'damage_1_enemy'
-				: 'enemy'
-		);
+		diffMods = compileMods(enemy, statMods.diff, type);
 	}
 
 	const formMods = { key: 'form_mods', mods: enemy.stats?.form_mods?.[row] ?? [] };
@@ -145,11 +147,13 @@ export function parseStats(
 		formMods.mods = specialMods?.[enemy.key]?.[`mods_${row}`];
 	}
 	const runeMods = compileMods(enemy, statMods.runes);
-	const otherMods = statMods.others.map((mods) => compileMods(enemy, mods));
+	const otherMods = statMods.others.map((mods) =>
+		compileMods(enemy, mods, ['damage_1_atk_variant'].includes(type) ? type : 'enemy')
+	);
 	const secondaryMods = [formMods, diffMods, ...otherMods].filter((ele) => {
 		if (
-			NOT_AFFECTED_BY_DIFFICULTY_KEYS.includes(enemy.key) ||
-			isDamage1Enemy ||
+			NEUTRAL_ENEMIES.includes(enemy.key) ||
+			type === 'damage_1_enemy' ||
 			NOT_AFFECTED_BY_FLOOR_DIFF_KEYS.includes(enemy.key)
 		) {
 			return Boolean(ele) && !['floor_diff'].includes(ele.key);
@@ -322,11 +326,11 @@ export const getDmgReductionVal = (...modsList) => {
 //for compilation of difficulty mods
 export function compileMods(entity: EnemyDBEntry | Trap, mod: ModGroup, type = 'enemy') {
 	const modsHolder = [];
-	const { key, mods, stackType = 'mul' } = mod;
+	const { key: modKey, mods, stackType = 'mul' } = mod;
 	for (const effects of mods.filter(Boolean)) {
 		for (const effect of effects) {
 			if (!effect.mods) continue;
-			if (['trap_rune', 'damage_1_enemy'].includes(type)) {
+			if (['trap_rune', 'neutral', 'damage_1_enemy'].includes(type)) {
 				if (!effect.targets.some((target) => target.includes(entity.key))) {
 					continue;
 				}
@@ -334,6 +338,15 @@ export function compileMods(entity: EnemyDBEntry | Trap, mod: ModGroup, type = '
 			if (effect.targets.some((target) => checkIsTarget(entity, target))) {
 				for (const mod of effect.mods) {
 					const { key, value, mode, order = 'final', name = '' } = mod;
+					if (['damage_1_atk_variant'].includes(type) && key === 'hp') {
+						if (modKey === 'floor_diff') {
+							continue;
+						} else if (modKey === 'difficulty') {
+							if (!effect.targets.some((target) => target.includes(entity.key))) {
+								continue;
+							}
+						}
+					}
 					const item = modsHolder.find(
 						(ele) => ele.key === key && ele.order === order && ele.mode === mode
 					);
@@ -369,7 +382,7 @@ export function compileMods(entity: EnemyDBEntry | Trap, mod: ModGroup, type = '
 			}
 		}
 	}
-	return { key: key, mods: modsHolder };
+	return { key: modKey, mods: modsHolder };
 }
 
 export const compileSpecialMods = (...modsList: [[Effects]]) => {
