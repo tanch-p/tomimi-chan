@@ -246,8 +246,6 @@
 					</td>
 				{/each}
 			</tr>
-			<StageNavRow items={du} {language} />
-
 			<StageNavRow items={encount1} {language} />
 			<StageNavRow items={encount2} {language} />
 			<tr>
