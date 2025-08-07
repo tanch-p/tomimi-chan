@@ -54,7 +54,7 @@
 	<div
 		bind:this={container}
 		on:scroll={() => getHorizontalOverflow(container)}
-		class="draggable-container-wrapper overflow-x-auto overflow-y-visible {className}"
+		class="draggable-container-wrapper overflow-x-auto overflow-y-visible h-full {className}"
 	>
 		<slot />
 	</div>
