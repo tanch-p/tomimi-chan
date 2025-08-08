@@ -9,6 +9,7 @@
             "MEDIC",
             "SUPPORT",
             "PIONEER",
+            "TANK",
             "CASTER",
             "kazimierz",
             "token_barrier_active",
@@ -21,7 +22,6 @@
             "trigger_time",
             "laterano",
             "enemy_on_grass_tile",
-            "TANK",
             "WARRIOR",
             "hp_gt_80",
             "minos",
@@ -191,8 +191,7 @@
         ],
         "category":[
             "protect",
-            "others",
-            "gavial"
+            "others"
         ]
     },
     "atk_down":{
@@ -366,7 +365,11 @@
             "outside_atk_range"
         ],
         "prob":[],
-        "module":[]
+        "module":[],
+        "order":[
+            "final_mul",
+            "initial_mul"
+        ]
     },
     "res_down":{
         "key":[],
@@ -613,6 +616,7 @@
         "damage_type":[
             "phys",
             "arts",
+            "apoptosis",
             "burning",
             "true"
         ],
@@ -697,10 +701,31 @@
         "key":[],
         "value":[],
         "conditions":[
+            "rightmost",
+            "TANK",
+            "SUPPORT",
             "WARRIOR",
             "next_operator",
             "SNIPER",
             "rhine"
+        ]
+    },
+    "ally_max_hp":{
+        "key":[],
+        "value":[],
+        "conditions":[
+            "TANK",
+            "SUPPORT",
+            "same_direction_8tile",
+            "position_ranged",
+            "aak_dmg",
+            "abyssal"
+        ],
+        "duration":[],
+        "prob":[],
+        "category":[
+            "inspire",
+            "others"
         ]
     },
     "cancel_stealth":{
@@ -709,23 +734,6 @@
         "target_air":[],
         "conditions":[
             "visible_enemy_present"
-        ]
-    },
-    "ally_max_hp":{
-        "key":[],
-        "value":[],
-        "conditions":[
-            "same_direction_8tile",
-            "position_ranged",
-            "aak_dmg",
-            "abyssal",
-            "TANK"
-        ],
-        "duration":[],
-        "prob":[],
-        "category":[
-            "inspire",
-            "others"
         ]
     },
     "camouflage":{
@@ -800,13 +808,14 @@
             9,
             3,
             5,
-            4,
-            1
+            1,
+            4
         ],
         "value":[],
         "conditions":[
             "weight_lte_3",
-            "first_hit"
+            "first_hit",
+            "enemy_attack"
         ],
         "prob":[]
     },
@@ -837,7 +846,8 @@
             "PIONEER",
             "rhine",
             "INCREASE_WHEN_TAKEN_DAMAGE"
-        ]
+        ],
+        "prob":[]
     },
     "ally_sp_stock":{
         "key":[],
