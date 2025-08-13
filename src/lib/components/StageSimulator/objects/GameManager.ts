@@ -254,8 +254,10 @@ export class GameManager {
 						return !this.traps.get(`${worldPos.col},${worldPos.row}`);
 					});
 					const selectedPos = availableTiles[Math.floor(Math.random() * availableTiles.length)];
-					dataPos = selectedPos.pos;
-					blackboard = selectedPos.blackboard;
+					if (selectedPos) {
+						dataPos = selectedPos.pos;
+						blackboard = selectedPos.blackboard;
+					}
 				}
 			}
 		}

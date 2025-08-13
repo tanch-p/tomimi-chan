@@ -126,6 +126,7 @@ export function getIdleAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'trap_086_larva':
 		case 'enemy_10045_parrot':
 		case 'enemy_2108_dypryg':
+		case 'enemy_2109_dypry2':
 			return 'Idle_A';
 		case 'enemy_1388_wingnt':
 		case 'trap_226_dychss':
@@ -244,6 +245,7 @@ function getMoveAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'enemy_1316_wdpjd_2':
 		case 'enemy_10045_parrot':
 		case 'enemy_2108_dypryg':
+		case 'enemy_2109_dypry2':
 			return 'Move_A';
 
 		case 'enemy_1418_mmkonm':

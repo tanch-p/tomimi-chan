@@ -56,6 +56,7 @@ export class TileManager {
 				);
 				return boxGroup;
 			case 'tile_forbidden':
+			case 'tile_empty':
 				return this.createBox(0, 0xb8b8b8, 0x292929, null);
 			case 'tile_deepsea':
 				return this.createDeepSeaBox();
