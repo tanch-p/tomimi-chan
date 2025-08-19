@@ -69,7 +69,7 @@
 							</p>
 						</div>
 					</a>
-					<a href={`/${language}/laoli/`} class="hover:brightness-75">
+					<a href={`/${language}/stagesim/`} class="hover:brightness-75">
 						<div class="flex flex-col justify-center items-center">
 							<img
 								class="select-none mx-auto"
