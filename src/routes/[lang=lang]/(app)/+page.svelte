@@ -10,7 +10,7 @@
 	import translations from '$lib/translations.json';
 	import ISLogo from '$lib/images/is_logo.webp';
 	import toolsLogo from '$lib/images/CRA-X.webp';
-	import FriendLinks from '$lib/components/FriendLinks.svelte';
+	// import FriendLinks from '$lib/components/FriendLinks.svelte';
 
 	export let data: PageData;
 
@@ -36,7 +36,7 @@
 	<div class="h-[10vh]" />
 	<div class="w-screen sm:w-full max-w-7xl mx-auto pb-32">
 		<div class="flex flex-col items-center mx-auto gap-x-4 gap-y-8 px-2 sm:px-8 justify-center">
-			<FriendLinks {language}/>
+			<!-- <FriendLinks {language}/> -->
 			<div
 				class="w-full md:w-[600px] bg-[#363636] shadow-lg md:shadow-xl pt-2 sm:py-3 px-2 sm:px-6"
 			>
