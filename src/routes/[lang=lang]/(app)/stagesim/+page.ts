@@ -7,6 +7,7 @@ export const load = (async ({ params }) => {
 	activityIdStore.set(language === 'zh' ? 'act40side' : 'act2mainss');
 	stageIdStore.set(language === 'zh' ? 'act40side_01' : 'main_15-01');
 	return {
+		pageType: "all",
 		language
 	};
 }) satisfies PageLoad;

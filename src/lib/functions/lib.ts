@@ -95,7 +95,11 @@ export function getFormTitle(title: string | undefined | null, row: number, lang
 	return translations[language][title];
 }
 
-export const getStageData = async (stageName) => {
+export const getStageData = async (stageName: string, mode = 'roguelike') => {
+	if (mode !== 'roguelike') {
+		const res = await fetch(`/stage_data/${stageName}.json`);
+		return res.json();
+	}
 	const levelId = ISStages[stageName]?.key;
 	if (!levelId) return;
 	const data = await import(
