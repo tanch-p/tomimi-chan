@@ -1,0 +1,1777 @@
+{
+ "id": "act17d0_ex03",
+ "levelId": "act17d0_ex03",
+ "tags": null,
+ "category": null,
+ "characterLimit": 8,
+ "initialCost": 10,
+ "maxCost": 99,
+ "costIncreaseTime": 1.0,
+ "code": "OD-EX-3",
+ "name_zh": "伏击战",
+ "name_ja": "待ち伏せ",
+ "name_en": "Ambush",
+ "description_zh": "“当我方控制有利地形后，伏击战是最好的消耗敌方有生力量的战术。但是相对的，敌人也会尝试使用渗透战术突破防线。”\n<@lv.item><沙尘暴></>暴露在沙尘暴中会使我方单位攻击力降低、持续流失生命值、再部署时间延长，使敌方单位移动速度降低",
+ "description_ja": "「有利な地形を占領しているのなら、待ち伏せは敵の戦力を削ぐもっとも有効な戦術といえよう。しかし敵も防衛線へ潜入して突破を試みるだろう」\n<@lv.item><砂嵐></>砂嵐の中に晒された味方は攻撃力が低下し、HPが減少し続け、再配置時間が上昇する。砂嵐中の敵の移動速度が低下する。",
+ "description_en": "'When we control favorable terrain, ambushes are the best means to whittle down the enemy's stamina. However, the enemy will also try to use infiltration tactics to break through the line of defense.'\n<@lv.item><Sandstorm></> Allied units caught inside the sandstorm will have reduced ATK, continuously lose HP, and have extended redeployment time; Enemy units will instead be slowed.",
+ "addInfo_zh": null,
+ "addInfo_ja": null,
+ "addInfo_en": null,
+ "eliteDesc_zh": null,
+ "eliteDesc_ja": null,
+ "eliteDesc_en": null,
+ "n_mods": null,
+ "elite_mods": null,
+ "floors": null,
+ "sp_terrain": null,
+ "sp_enemy": null,
+ "n_count": null,
+ "e_count": null,
+ "traps": [
+  {
+   "key": "trap_032_mound",
+   "alias": "trap_032_mound#1",
+   "pos": {
+    "row": 4,
+    "col": 1
+   },
+   "direction": "UP",
+   "level": 1,
+   "mainSkillLvl": 1,
+   "hidden": false
+  },
+  {
+   "key": "trap_032_mound",
+   "alias": "trap_032_mound#2",
+   "pos": {
+    "row": 4,
+    "col": 3
+   },
+   "direction": "UP",
+   "level": 1,
+   "mainSkillLvl": 1,
+   "hidden": false
+  },
+  {
+   "key": "trap_032_mound",
+   "alias": "trap_032_mound#3",
+   "pos": {
+    "row": 2,
+    "col": 7
+   },
+   "direction": "UP",
+   "level": 1,
+   "mainSkillLvl": 1,
+   "hidden": false
+  },
+  {
+   "key": "trap_032_mound",
+   "alias": "trap_032_mound#4",
+   "pos": {
+    "row": 2,
+    "col": 9
+   },
+   "direction": "UP",
+   "level": 1,
+   "mainSkillLvl": 1,
+   "hidden": false
+  },
+  {
+   "key": "trap_032_mound",
+   "alias": "trap_032_mound#5",
+   "pos": {
+    "row": 6,
+    "col": 4
+   },
+   "direction": "UP",
+   "level": 1,
+   "mainSkillLvl": 1,
+   "hidden": false
+  },
+  {
+   "key": "trap_032_mound",
+   "alias": "trap_032_mound#6",
+   "pos": {
+    "row": 6,
+    "col": 5
+   },
+   "direction": "UP",
+   "level": 1,
+   "mainSkillLvl": 1,
+   "hidden": false
+  },
+  {
+   "key": "trap_032_mound",
+   "alias": "trap_032_mound#7",
+   "pos": {
+    "row": 6,
+    "col": 6
+   },
+   "direction": "UP",
+   "level": 1,
+   "mainSkillLvl": 1,
+   "hidden": false
+  },
+  {
+   "key": "trap_032_mound",
+   "alias": "trap_032_mound#8",
+   "pos": {
+    "row": 6,
+    "col": 1
+   },
+   "direction": "UP",
+   "level": 1,
+   "mainSkillLvl": 1,
+   "hidden": false
+  },
+  {
+   "key": "trap_032_mound",
+   "alias": "trap_032_mound#9",
+   "pos": {
+    "row": 6,
+    "col": 9
+   },
+   "direction": "UP",
+   "level": 1,
+   "mainSkillLvl": 1,
+   "hidden": false
+  },
+  {
+   "key": "trap_032_mound",
+   "alias": "trap_032_mound#10",
+   "pos": {
+    "row": 7,
+    "col": 4
+   },
+   "direction": "UP",
+   "level": 1,
+   "mainSkillLvl": 1,
+   "hidden": false
+  },
+  {
+   "key": "trap_032_mound",
+   "alias": "trap_032_mound#11",
+   "pos": {
+    "row": 7,
+    "col": 6
+   },
+   "direction": "UP",
+   "level": 1,
+   "mainSkillLvl": 1,
+   "hidden": false
+  },
+  {
+   "key": "trap_032_mound",
+   "alias": "trap_032_mound#12",
+   "pos": {
+    "row": 7,
+    "col": 5
+   },
+   "direction": "UP",
+   "level": 1,
+   "mainSkillLvl": 1,
+   "hidden": false
+  }
+ ],
+ "token_cards": [
+  {
+   "key": "trap_034_machst",
+   "count": 6
+  }
+ ],
+ "enemies": [
+  {
+   "id": "enemy_1131_sbeast_2",
+   "prefabKey": "enemy_1131_sbeast_2",
+   "level": 0,
+   "min_count": 0,
+   "max_count": 0,
+   "elite_min_count": 0,
+   "elite_max_count": 0,
+   "overwrittenData": null
+  },
+  {
+   "id": "enemy_1132_sarchn_2",
+   "prefabKey": "enemy_1132_sarchn_2",
+   "level": 0,
+   "min_count": 0,
+   "max_count": 0,
+   "elite_min_count": 0,
+   "elite_max_count": 0,
+   "overwrittenData": null
+  },
+  {
+   "id": "enemy_1136_redace_2",
+   "prefabKey": "enemy_1136_redace_2",
+   "level": 0,
+   "min_count": 0,
+   "max_count": 0,
+   "elite_min_count": 0,
+   "elite_max_count": 0,
+   "overwrittenData": null
+  },
+  {
+   "id": "enemy_1138_tumor",
+   "prefabKey": "enemy_1138_tumor",
+   "level": 0,
+   "min_count": 0,
+   "max_count": 0,
+   "elite_min_count": 0,
+   "elite_max_count": 0,
+   "overwrittenData": null
+  },
+  {
+   "id": "enemy_1139_hologc_2",
+   "prefabKey": "enemy_1139_hologc_2",
+   "level": 0,
+   "min_count": 0,
+   "max_count": 0,
+   "elite_min_count": 0,
+   "elite_max_count": 0,
+   "overwrittenData": null
+  }
+ ],
+ "routes": [
+  {
+   "motionMode": "E_NUM",
+   "startPosition": {
+    "row": 0,
+    "col": 0
+   },
+   "endPosition": {
+    "row": 0,
+    "col": 0
+   },
+   "spawnRandomRange": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "spawnOffset": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "checkpoints": null,
+   "allowDiagonalMove": true,
+   "visitEveryTileCenter": false,
+   "visitEveryNodeCenter": false,
+   "visitEveryCheckPoint": false
+  },
+  {
+   "motionMode": "WALK",
+   "startPosition": {
+    "row": 7,
+    "col": 3
+   },
+   "endPosition": {
+    "row": 0,
+    "col": 3
+   },
+   "spawnRandomRange": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "spawnOffset": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "checkpoints": [
+    {
+     "type": "MOVE",
+     "time": 0.0,
+     "position": {
+      "row": 6,
+      "col": 3
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    },
+    {
+     "type": "WAIT_FOR_SECONDS",
+     "time": 5.0,
+     "position": {
+      "row": 0,
+      "col": 0
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    },
+    {
+     "type": "MOVE",
+     "time": 0.0,
+     "position": {
+      "row": 1,
+      "col": 3
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    }
+   ],
+   "allowDiagonalMove": true,
+   "visitEveryTileCenter": false,
+   "visitEveryNodeCenter": false,
+   "visitEveryCheckPoint": false
+  },
+  {
+   "motionMode": "WALK",
+   "startPosition": {
+    "row": 7,
+    "col": 3
+   },
+   "endPosition": {
+    "row": 0,
+    "col": 3
+   },
+   "spawnRandomRange": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "spawnOffset": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "checkpoints": [
+    {
+     "type": "MOVE",
+     "time": 0.0,
+     "position": {
+      "row": 6,
+      "col": 3
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    },
+    {
+     "type": "MOVE",
+     "time": 0.0,
+     "position": {
+      "row": 1,
+      "col": 3
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    }
+   ],
+   "allowDiagonalMove": true,
+   "visitEveryTileCenter": false,
+   "visitEveryNodeCenter": false,
+   "visitEveryCheckPoint": false
+  },
+  {
+   "motionMode": "WALK",
+   "startPosition": {
+    "row": 7,
+    "col": 7
+   },
+   "endPosition": {
+    "row": 0,
+    "col": 7
+   },
+   "spawnRandomRange": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "spawnOffset": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "checkpoints": [
+    {
+     "type": "MOVE",
+     "time": 0.0,
+     "position": {
+      "row": 6,
+      "col": 7
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    },
+    {
+     "type": "WAIT_FOR_SECONDS",
+     "time": 5.0,
+     "position": {
+      "row": 0,
+      "col": 0
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    },
+    {
+     "type": "MOVE",
+     "time": 0.0,
+     "position": {
+      "row": 1,
+      "col": 7
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    }
+   ],
+   "allowDiagonalMove": true,
+   "visitEveryTileCenter": false,
+   "visitEveryNodeCenter": false,
+   "visitEveryCheckPoint": false
+  },
+  {
+   "motionMode": "WALK",
+   "startPosition": {
+    "row": 7,
+    "col": 7
+   },
+   "endPosition": {
+    "row": 0,
+    "col": 7
+   },
+   "spawnRandomRange": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "spawnOffset": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "checkpoints": [
+    {
+     "type": "MOVE",
+     "time": 0.0,
+     "position": {
+      "row": 6,
+      "col": 7
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    },
+    {
+     "type": "MOVE",
+     "time": 0.0,
+     "position": {
+      "row": 1,
+      "col": 7
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    }
+   ],
+   "allowDiagonalMove": true,
+   "visitEveryTileCenter": false,
+   "visitEveryNodeCenter": false,
+   "visitEveryCheckPoint": false
+  },
+  {
+   "motionMode": "WALK",
+   "startPosition": {
+    "row": 5,
+    "col": 10
+   },
+   "endPosition": {
+    "row": 1,
+    "col": 10
+   },
+   "spawnRandomRange": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "spawnOffset": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "checkpoints": [
+    {
+     "type": "MOVE",
+     "time": 0.0,
+     "position": {
+      "row": 5,
+      "col": 9
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    },
+    {
+     "type": "WAIT_FOR_SECONDS",
+     "time": 5.0,
+     "position": {
+      "row": 0,
+      "col": 0
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    },
+    {
+     "type": "MOVE",
+     "time": 0.0,
+     "position": {
+      "row": 1,
+      "col": 9
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    }
+   ],
+   "allowDiagonalMove": true,
+   "visitEveryTileCenter": false,
+   "visitEveryNodeCenter": false,
+   "visitEveryCheckPoint": false
+  },
+  {
+   "motionMode": "WALK",
+   "startPosition": {
+    "row": 5,
+    "col": 10
+   },
+   "endPosition": {
+    "row": 1,
+    "col": 10
+   },
+   "spawnRandomRange": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "spawnOffset": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "checkpoints": [
+    {
+     "type": "MOVE",
+     "time": 0.0,
+     "position": {
+      "row": 5,
+      "col": 9
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    },
+    {
+     "type": "WAIT_FOR_SECONDS",
+     "time": 3.0,
+     "position": {
+      "row": 0,
+      "col": 0
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    },
+    {
+     "type": "MOVE",
+     "time": 0.0,
+     "position": {
+      "row": 1,
+      "col": 9
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    }
+   ],
+   "allowDiagonalMove": true,
+   "visitEveryTileCenter": false,
+   "visitEveryNodeCenter": false,
+   "visitEveryCheckPoint": false
+  },
+  {
+   "motionMode": "WALK",
+   "startPosition": {
+    "row": 5,
+    "col": 0
+   },
+   "endPosition": {
+    "row": 1,
+    "col": 0
+   },
+   "spawnRandomRange": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "spawnOffset": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "checkpoints": [
+    {
+     "type": "MOVE",
+     "time": 0.0,
+     "position": {
+      "row": 5,
+      "col": 1
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    },
+    {
+     "type": "MOVE",
+     "time": 0.0,
+     "position": {
+      "row": 1,
+      "col": 1
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    }
+   ],
+   "allowDiagonalMove": true,
+   "visitEveryTileCenter": false,
+   "visitEveryNodeCenter": false,
+   "visitEveryCheckPoint": false
+  },
+  {
+   "motionMode": "WALK",
+   "startPosition": {
+    "row": 5,
+    "col": 10
+   },
+   "endPosition": {
+    "row": 1,
+    "col": 10
+   },
+   "spawnRandomRange": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "spawnOffset": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "checkpoints": [
+    {
+     "type": "MOVE",
+     "time": 0.0,
+     "position": {
+      "row": 5,
+      "col": 9
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    },
+    {
+     "type": "MOVE",
+     "time": 0.0,
+     "position": {
+      "row": 1,
+      "col": 9
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    }
+   ],
+   "allowDiagonalMove": true,
+   "visitEveryTileCenter": false,
+   "visitEveryNodeCenter": false,
+   "visitEveryCheckPoint": false
+  }
+ ],
+ "mapData": {
+  "map": [
+   [
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87
+   ],
+   [
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76
+   ],
+   [
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65
+   ],
+   [
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54
+   ],
+   [
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43
+   ],
+   [
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32
+   ],
+   [
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21
+   ],
+   [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  ],
+  "tiles": [
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_end",
+    0,
+    0,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_end",
+    0,
+    0,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_end",
+    0,
+    0,
+    null,
+    0
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_end",
+    0,
+    0,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_wall",
+    1,
+    1,
+    null,
+    1
+   ],
+   [
+    "tile_wall",
+    1,
+    1,
+    null,
+    1
+   ],
+   [
+    "tile_grass",
+    1,
+    1,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_wall",
+    1,
+    1,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_wall",
+    1,
+    1,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_grass",
+    1,
+    1,
+    null,
+    1
+   ],
+   [
+    "tile_wall",
+    1,
+    1,
+    null,
+    1
+   ],
+   [
+    "tile_wall",
+    1,
+    1,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_start",
+    0,
+    0,
+    null,
+    0
+   ],
+   [
+    "tile_floor",
+    0,
+    0,
+    null,
+    0
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_road",
+    0,
+    0,
+    null,
+    1
+   ],
+   [
+    "tile_floor",
+    0,
+    0,
+    null,
+    0
+   ],
+   [
+    "tile_start",
+    0,
+    0,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_floor",
+    0,
+    0,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_floor",
+    0,
+    0,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_start",
+    0,
+    0,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_start",
+    0,
+    0,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ],
+   [
+    "tile_forbidden",
+    1,
+    1,
+    null,
+    0
+   ]
+  ]
+ },
+ "extra_routes": [],
+ "branches": null,
+ "NORMAL": {
+  "groupKey": null,
+  "max_permutations": 1,
+  "permutations": [
+   {}
+  ]
+ },
+ "ELITE": {
+  "groupKey": null,
+  "max_permutations": 1,
+  "permutations": [
+   {}
+  ]
+ },
+ "waves": [
+  {
+   "preDelay": 0.0,
+   "postDelay": 0.0,
+   "maxTimeWaitingForNextWave": -1.0,
+   "fragments": [
+    {
+     "preDelay": 0.0,
+     "actions": [
+      {
+       "actionType": "ACTIVATE_PREDEFINED",
+       "key": "trap_036_storm#1",
+       "count": 1,
+       "preDelay": 0.0,
+       "interval": 1.0,
+       "routeIndex": 0,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false,
+       "isValid": false,
+       "extraMeta": null,
+       "actionId": null
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1131_sbeast_2",
+       "count": 1,
+       "preDelay": 5.0,
+       "interval": 1.0,
+       "routeIndex": 1,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false,
+       "isValid": false,
+       "extraMeta": null,
+       "actionId": null
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1131_sbeast_2",
+       "count": 3,
+       "preDelay": 35.0,
+       "interval": 15.0,
+       "routeIndex": 2,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false,
+       "isValid": false,
+       "extraMeta": null,
+       "actionId": null
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1132_sarchn_2",
+       "count": 1,
+       "preDelay": 35.0,
+       "interval": 1.0,
+       "routeIndex": 3,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false,
+       "isValid": false,
+       "extraMeta": null,
+       "actionId": null
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1132_sarchn_2",
+       "count": 3,
+       "preDelay": 50.0,
+       "interval": 15.0,
+       "routeIndex": 4,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false,
+       "isValid": false,
+       "extraMeta": null,
+       "actionId": null
+      }
+     ]
+    },
+    {
+     "preDelay": 5.0,
+     "actions": [
+      {
+       "actionType": "DISPLAY_ENEMY_INFO",
+       "key": "enemy_1136_redace_2",
+       "count": 1,
+       "preDelay": 5.0,
+       "interval": 1.0,
+       "routeIndex": 0,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false,
+       "isValid": false,
+       "extraMeta": null,
+       "actionId": null
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1136_redace_2",
+       "count": 2,
+       "preDelay": 5.0,
+       "interval": 25.0,
+       "routeIndex": 5,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false,
+       "isValid": false,
+       "extraMeta": null,
+       "actionId": null
+      }
+     ]
+    }
+   ],
+   "advancedWaveTag": null
+  },
+  {
+   "preDelay": 0.0,
+   "postDelay": 0.0,
+   "maxTimeWaitingForNextWave": -1.0,
+   "fragments": [
+    {
+     "preDelay": 0.0,
+     "actions": [
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1136_redace_2",
+       "count": 2,
+       "preDelay": 3.0,
+       "interval": 25.0,
+       "routeIndex": 6,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false,
+       "isValid": false,
+       "extraMeta": null,
+       "actionId": null
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1131_sbeast_2",
+       "count": 5,
+       "preDelay": 6.0,
+       "interval": 5.0,
+       "routeIndex": 7,
+       "autoPreviewRoute": true,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false,
+       "isValid": false,
+       "extraMeta": null,
+       "actionId": null
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1132_sarchn_2",
+       "count": 5,
+       "preDelay": 15.0,
+       "interval": 5.0,
+       "routeIndex": 8,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false,
+       "isValid": false,
+       "extraMeta": null,
+       "actionId": null
+      }
+     ]
+    },
+    {
+     "preDelay": 10.0,
+     "actions": [
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1136_redace_2",
+       "count": 2,
+       "preDelay": 5.0,
+       "interval": 15.0,
+       "routeIndex": 8,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false,
+       "isValid": false,
+       "extraMeta": null,
+       "actionId": null
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1136_redace_2",
+       "count": 2,
+       "preDelay": 35.0,
+       "interval": 15.0,
+       "routeIndex": 8,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false,
+       "isValid": false,
+       "extraMeta": null,
+       "actionId": null
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1131_sbeast_2",
+       "count": 3,
+       "preDelay": 10.0,
+       "interval": 15.0,
+       "routeIndex": 7,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false,
+       "isValid": false,
+       "extraMeta": null,
+       "actionId": null
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1132_sarchn_2",
+       "count": 3,
+       "preDelay": 15.0,
+       "interval": 15.0,
+       "routeIndex": 8,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false,
+       "isValid": false,
+       "extraMeta": null,
+       "actionId": null
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1131_sbeast_2",
+       "count": 3,
+       "preDelay": 10.0,
+       "interval": 5.0,
+       "routeIndex": 2,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false,
+       "isValid": false,
+       "extraMeta": null,
+       "actionId": null
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_1132_sarchn_2",
+       "count": 3,
+       "preDelay": 25.0,
+       "interval": 5.0,
+       "routeIndex": 4,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false,
+       "isValid": false,
+       "extraMeta": null,
+       "actionId": null
+      }
+     ]
+    }
+   ],
+   "advancedWaveTag": null
+  }
+ ],
+ "bonus": {
+  "type": "wave",
+  "wave_index": -1,
+  "frag_index": -1
+ }
+}
