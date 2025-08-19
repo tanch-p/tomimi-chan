@@ -57,9 +57,9 @@
 	});
 
 	const WIP = {
-		zh: '施工中，现阶段只支持展示敌人路线',
-		ja: '作業進行中、現段階では敵侵攻ルートのみ表示可能です',
-		en: 'Work In Progress, only shows enemy routes currently'
+		zh: '施工中',
+		ja: '作業進行中',
+		en: 'Work In Progress'
 	};
 </script>
 
