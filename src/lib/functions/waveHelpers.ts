@@ -530,7 +530,6 @@ export const generateWaveTimeline = (
 		let waveBlockingSpawns = {};
 		wave['fragments'].forEach((fragment, fragIndex) => {
 			prevPhaseTime += fragment['preDelay'];
-
 			const packedGroups = getRandomGroups(fragment, hiddenGroups);
 			const key = `w${waveIdx}f${fragIndex}`;
 			let groupActions = [];
