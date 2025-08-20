@@ -14,7 +14,7 @@ import {
 	createSecFilterFunction
 } from '$lib/functions/charaHelpers';
 import { browser } from '$app/environment';
-import { cookiesEnabled } from '../../../stores';
+import { cookiesEnabled } from '$lib/global_stores';
 
 let releaseStatus = 'cn';
 let filterMode = 'AND';

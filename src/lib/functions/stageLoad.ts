@@ -1,12 +1,12 @@
-import type { MapConfig, Language, Enemy, RogueTopic } from '$lib/types';
+import type { MapConfig, Language, Enemy } from '$lib/types';
 import enemyDatabase from '$lib/data/enemy/enemy_database.json';
 import { getStageData, sortEnemies } from './lib';
 import { overwriteBlackboard } from './skillHelpers';
 import { parseTraps } from './trapHelpers';
 
-export const stageLoad = async (stageName: string, language: Language, rogueTopic: RogueTopic) => {
-	const mapConfig: MapConfig = await getStageData(stageName);
-	const enemies = mapConfig.enemies.map(({ id, prefabKey, level, overwrittenData }) => {
+export const stageLoad = async (stageName: string, language: Language) => {
+	const config: MapConfig = await getStageData(stageName);
+	const enemies = config.enemies.map(({ id, prefabKey, level, overwrittenData }) => {
 		const enemy: Enemy = structuredClone(enemyDatabase[prefabKey]);
 
 		enemy.stageId = id;
@@ -36,14 +36,10 @@ export const stageLoad = async (stageName: string, language: Language, rogueTopi
 		}
 	});
 	enemies.sort((a: Enemy, b: Enemy) => weights[a.id] - weights[b.id]); //initial sort to make group enemies together
-	if (
-		!mapConfig.id.includes('duel') &&
-		!mapConfig.id.includes('_t_') &&
-		!mapConfig.id.includes('_ev_')
-	) {
+	if (!config.id.includes('duel') && !config.id.includes('_t_') && !config.id.includes('_ev_')) {
 		enemies.sort(sortEnemies);
 	}
 
-	const traps = parseTraps(mapConfig.traps, language);
-	return { mapConfig, enemies, traps };
+	const traps = parseTraps(config.traps, language);
+	return { config, enemies, traps };
 };

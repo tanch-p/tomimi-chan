@@ -1,102 +1,89 @@
 <script lang="ts">
-	import { pruneExtraEnemies } from '$lib/functions/lib';
+	import type { RogueTopic } from '$lib/types';
+	import { getOtherBuffsList, pruneExtraEnemies } from '$lib/functions/lib';
 	import { applyMods } from '$lib/functions/statHelpers';
 	import { applyTrapMods, filterTraps } from '$lib/functions/trapHelpers';
-	import { onDestroy } from 'svelte';
+	import { onDestroy, setContext } from 'svelte';
 	import EliteToggle from './EliteToggle.svelte';
 	import EnemyCount from './EnemyCount.svelte';
 	import EnemyStatDisplay from './EnemyStatDisplay.svelte';
 	import ModsCheck from './ModsCheck.svelte';
 	import { GameConfig } from './StageSimulator/objects/GameConfig';
 	import TrapContainer from './TrapContainer.svelte';
+	import { eliteMode, mapConfig, otherBuffs } from '$lib/global_stores';
 
 	export let language,
 		traps,
 		enemies,
-		otherBuffsList,
 		statMods,
 		specialMods,
-		mapConfig,
-		eliteMode,
-		runes,
-		rogueTopic,
-		selectedRelics,
-		difficulty,
-		otherStores = {};
+		rogueTopic: RogueTopic | null = null,
+		selectedRelics = null,
+		difficulty = 0;
 
 	$: moddedEnemies = applyMods(enemies, $statMods, $specialMods);
 	$: moddedTraps = applyTrapMods(traps, $statMods, $specialMods);
 	eliteMode.subscribe((v) => (GameConfig.eliteMode = v));
-	specialMods.subscribe((v) => (GameConfig.specialMods = v));
+	specialMods.subscribe((v) => {
+		GameConfig.specialMods = v;
+		otherBuffs.set([]);
+	});
 
-	$: if (mapConfig) {
-		eliteMode.set(false);
-	}
+	$: otherBuffsList = getOtherBuffsList(
+		rogueTopic,
+		enemies,
+		$mapConfig,
+		language,
+		difficulty,
+		$specialMods
+	);
+	setContext('otherBuffsList', otherBuffsList);
+	setContext('statMods', statMods);
+	setContext('specialMods', specialMods);
 
 	onDestroy(() => {
-		runes.set(null);
 		eliteMode.set(false);
 	});
 
-	const promise = import('./EnemyWaves.svelte').then(({ default: C }) => C);
+	const promise = import('./StageSimContainer.svelte').then(({ default: C }) => C);
 </script>
 
-{#await promise then EnemyWaves}
-	<EnemyWaves
-		{mapConfig}
+{#await promise then StageSimContainer}
+	<StageSimContainer
+		mapConfig={$mapConfig}
 		enemies={moddedEnemies}
 		{language}
 		eliteMode={$eliteMode}
 		{rogueTopic}
-		{otherStores}
 		{difficulty}
 	>
 		<EliteToggle
 			slot="eliteMods"
 			inWaveOptions={true}
-			{eliteMode}
-			{runes}
-			mapNormalMods={mapConfig.n_mods}
-			mapEliteMods={mapConfig.elite_mods}
 			{rogueTopic}
 			{selectedRelics}
-			stageId={mapConfig.levelId}
+			stageId={$mapConfig.levelId}
 		/>
-	</EnemyWaves>
+	</StageSimContainer>
 {/await}
 <TrapContainer
 	{language}
 	traps={filterTraps(moddedTraps)}
 	{otherBuffsList}
 	specialMods={$specialMods}
-	{mapConfig}
+	mapConfig={$mapConfig}
 />
-<ModsCheck {language} enemies={moddedEnemies} {mapConfig} />
+<ModsCheck {language} enemies={moddedEnemies} mapConfig={$mapConfig} />
 <EnemyCount
-	{mapConfig}
-	enemies={pruneExtraEnemies(moddedEnemies, mapConfig.levelId)}
+	mapConfig={$mapConfig}
+	enemies={pruneExtraEnemies(moddedEnemies, $mapConfig.levelId)}
 	eliteMode={$eliteMode}
 	{language}
 	{rogueTopic}
 />
 <div class="sm:px-6">
-	<EliteToggle
-		{eliteMode}
-		{runes}
-		mapNormalMods={mapConfig.n_mods}
-		mapEliteMods={mapConfig.elite_mods}
-		{rogueTopic}
-		{selectedRelics}
-		stageId={mapConfig.levelId}
-	/>
-	<EnemyStatDisplay
-		enemies={pruneExtraEnemies(moddedEnemies, mapConfig.levelId)}
-		{language}
-		{statMods}
-		{specialMods}
-		{otherBuffsList}
-		{mapConfig}
-	/>
+	<EliteToggle {rogueTopic} {selectedRelics} stageId={$mapConfig.levelId} />
+	<EnemyStatDisplay enemies={pruneExtraEnemies(moddedEnemies, $mapConfig.levelId)} {language} />
 	<div id="stageNav" class="mt-8 sm:mt-16 scroll-mt-20">
 		<slot name="nav" />
 	</div>

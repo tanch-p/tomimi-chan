@@ -7,10 +7,6 @@
 		specialMods,
 		selectedRelics,
 		selectedUniqueRelic,
-		eliteMode,
-		runes,
-		allMods,
-		otherBuffsList,
 		isBossStage,
 		capsule
 	} from './stores';
@@ -21,58 +17,45 @@
 	import StageHeader from '$lib/components/StageHeader.svelte';
 	import FloorTitle from './FloorTitle.svelte';
 	import StageNav from '../../../(app)/phantom/PhantomNav.svelte';
-	import { setOtherBuffsList } from '$lib/functions/lib';
 	import StageSharedContainer from '$lib/components/StageSharedContainer.svelte';
 	import DifficultySelect from '$lib/components/DifficultySelect.svelte';
 	import StageHeadMeta from '$lib/components/StageHeadMeta.svelte';
+	import { mapConfig } from '$lib/global_stores';
+	import { setContext } from 'svelte';
 
 	export let data: PageData;
-	$: if (data.mapConfig || $difficulty) {
-		setOtherBuffsList(
-			otherBuffsList,
-			rogueTopic,
-			data.enemies,
-			data.mapConfig,
-			language,
-			$difficulty
-		);
-	}
-	$: if (data.mapConfig) {
-		runes.set(data.mapConfig.n_mods);
-		allMods.set(data.mapConfig.all_mods);
-		isBossStage.set(data.mapConfig.id.includes('_b_'));
-	}
+	mapConfig.subscribe((v) => {
+		isBossStage.set($v.id.includes('_b_'));
+	});
 	$: language = data.language;
-	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
+	$: stageName = $mapConfig[`name_${language}`] || $mapConfig.name_zh;
 	const rogueTopic: RogueTopic = data.rogueTopic;
+
+	setContext('relics', selectedRelics);
+	setContext('difficulty', difficulty);
 </script>
 
-<StageHeadMeta mapConfig={data.mapConfig} {stageName} {language}/>
+<StageHeadMeta mapConfig={$mapConfig} {stageName} {language} />
 
 <StageHeader {language}>
-	<FloorTitle slot="floorTitle" stageFloors={data.mapConfig.floors} {language} />
+	<FloorTitle slot="floorTitle" stageFloors={$mapConfig.floors} {language} />
 </StageHeader>
 
 <main class="bg-neutral-800 text-near-white pb-72 pt-8 sm:pt-16 md:pb-28">
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
-		<StageInfo mapConfig={data.mapConfig} {language} {stageName} {eliteMode} {rogueTopic} />
+		<StageInfo mapConfig={$mapConfig} {language} {stageName} {rogueTopic} />
 		<DifficultySelect {language} {difficulty} {rogueTopic} />
 
 		<div class="mt-8">
 			<StageSharedContainer
 				{language}
 				traps={data.traps}
-				{otherBuffsList}
 				{statMods}
 				{specialMods}
-				mapConfig={data.mapConfig}
 				enemies={data.enemies}
-				{eliteMode}
-				{runes}
 				{rogueTopic}
 				{selectedRelics}
 				difficulty={$difficulty}
-				otherStores={{ eliteMode: eliteMode }}
 			>
 				<StageNav slot="nav" {language} />
 			</StageSharedContainer>
@@ -83,7 +66,7 @@
 <FooterBar {language} {rogueTopic} {selectedRelics} {selectedUniqueRelic}>
 	<div slot="banner" class="absolute right-0 z-[1] h-16 w-16 overflow-hidden">
 		{#if $capsule}
-			<img src={$capsule.src} width="" height="" class=""/>
+			<img src={$capsule.src} width="" height="" class="" />
 		{/if}
 	</div>
 	<div
@@ -91,7 +74,7 @@
 		class="grid lg:grid-cols-3 gap-x-10 gap-y-8 w-full overflow-x-auto md:overflow-visible my-auto mx-auto px-4 sm:px-24 mb-4"
 	>
 		{#each hardRelics as relic}
-			<RelicDivUnique {relic} {language} {rogueTopic} {selectedUniqueRelic} />
+			<RelicDivUnique {relic} {language} {selectedUniqueRelic} />
 		{/each}
 	</div>
 </FooterBar>

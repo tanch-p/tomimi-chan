@@ -4,10 +4,10 @@
 	import EnemyHandbookDisplay from './EnemyHandbookDisplay.svelte';
 	import EnemyDesktopViewController from './EnemyDesktopViewController.svelte';
 
-	export let enemies: Enemy[], language: Language, statMods, specialMods, otherBuffsList, mapConfig;
+	export let enemies: Enemy[], language: Language;
 </script>
 
 <MediaQuery>
-	<EnemyHandbookDisplay {enemies} {language} {statMods} {specialMods} {otherBuffsList} {mapConfig} slot="mobile" />
-	<EnemyDesktopViewController {enemies} {language} {statMods} {specialMods} {otherBuffsList} {mapConfig} slot="pc" />
+	<EnemyHandbookDisplay {enemies} {language} slot="mobile" />
+	<EnemyDesktopViewController {enemies} {language} slot="pc" />
 </MediaQuery>

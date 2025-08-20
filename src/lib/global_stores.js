@@ -1,5 +1,25 @@
 import { browser } from '$app/environment';
-import { writable } from 'svelte/store';
+import { derived, writable } from 'svelte/store';
+
+export const mapConfig = writable({});
+export const eliteMode = writable(false);
+export const runes = derived([mapConfig, eliteMode], ([$mapConfig, $eliteMode]) =>
+	$eliteMode ? $mapConfig.elite_mods : $mapConfig.n_mods
+);
+export const allMods = derived([mapConfig], ([$mapConfig]) => $mapConfig.all_mods);
+export const otherBuffs = writable([]);
+
+//Stage Sim related stores
+export const simMode = writable('wave_normal');
+export const randomSeeds = writable(Array.from(Array(50)).map(() => Math.random()));
+
+mapConfig.subscribe(() => {
+	eliteMode.set(false);
+	simMode.set('wave_normal');
+	otherBuffs.set([]);
+});
+simMode.subscribe((v) => (GameConfig.mode = v));
+
 import { GameConfig } from '$lib/components/StageSimulator/objects/GameConfig';
 
 let initialTableHeaders = [
