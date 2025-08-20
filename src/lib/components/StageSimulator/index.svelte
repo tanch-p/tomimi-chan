@@ -23,7 +23,6 @@
 		simulatedData;
 
 	$: if (timeline) {
-		console.log(timeline)
 		resetGame();
 	}
 	$: if (waveData) {
