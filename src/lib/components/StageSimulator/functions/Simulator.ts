@@ -7,7 +7,6 @@ import { Trap } from '../objects/Trap';
 import { SPFA } from '../objects/SPFA';
 import { generateMaze } from '$lib/functions/mazeHelpers';
 import { Enemy } from '../objects/Enemy';
-import { AssetManager } from '../objects/AssetManager';
 import { clearObjects } from '$lib/functions/threejsHelpers';
 
 export function getSimulatedData(config: MapConfig, waveData, enemies: EnemyType[]) {
@@ -25,10 +24,6 @@ export function getSimulatedData(config: MapConfig, waveData, enemies: EnemyType
 		return;
 	}
 	if (['level_rogue4_b-7'].includes(config.levelId) && GameConfig.stagePhaseIndex == 1) {
-		return;
-	}
-	const assetManager = AssetManager.getInstance();
-	if (!assetManager.texturesLoaded) {
 		return;
 	}
 	GameConfig.setValue('isPaused', true);
