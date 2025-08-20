@@ -6,15 +6,11 @@
 		difficulty,
 		difficultyMode,
 		specialMods,
-		runes,
-		allMods,
 		selectedRelics,
 		selectedFloor,
-		otherBuffsList,
-		eliteMode,
 		disasterEffects
 	} from './stores';
-	import DifficultySelect from '../../../../../lib/components/DifficultySelect.svelte';
+	import DifficultySelect from '$lib/components/DifficultySelect.svelte';
 	import NavTemp from '../../../(app)/sarkaz/NavTemp.svelte';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import FooterBar from '$lib/components/FooterBar.svelte';
@@ -23,22 +19,20 @@
 	import StageHeader from '$lib/components/StageHeader.svelte';
 	import skzRelics from '$lib/data/is/sarkaz/relics_sarkaz.json';
 	import StageDrops from './StageDrops.svelte';
-	import { setOtherBuffsList } from '$lib/functions/lib';
 	import StageSharedContainer from '$lib/components/StageSharedContainer.svelte';
 	import StageHeadMeta from '$lib/components/StageHeadMeta.svelte';
+	import { mapConfig } from '$lib/global_stores';
+	import { setContext } from 'svelte';
 
 	export let data: PageData;
 
-	$: if (data.mapConfig) {
-		updateReqRelic(data.mapConfig.levelId, selectedRelics);
-		setOtherBuffsList(otherBuffsList, rogueTopic, data.enemies, data.mapConfig, language);
-		runes.set(data.mapConfig.n_mods);
-		allMods.set(data.mapConfig.all_mods);
-	}
+	mapConfig.subscribe((v) => {
+		updateReqRelic(v.levelId, selectedRelics);
+	});
 	const ro4_ALTER_BOSS_STAGES = ['level_rogue4_b-4-b', 'level_rogue4_b-5-b'];
 
 	$: language = data.language;
-	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
+	$: stageName = $mapConfig[`name_${language}`] || $mapConfig.name_zh;
 	const rogueTopic: RogueTopic = data.rogueTopic;
 
 	function updateReqRelic(levelId, selectedRelics) {
@@ -57,25 +51,22 @@
 			selectedRelics.update((list) => (list = [...list, relic]));
 		}
 	}
+
+	setContext('disasters', disasterEffects);
+	setContext('relics', selectedRelics);
+	setContext('difficulty', difficulty);
 </script>
 
-<StageHeadMeta mapConfig={data.mapConfig} {stageName} {language}/>
+<StageHeadMeta mapConfig={$mapConfig} {stageName} {language} />
 
 <StageHeader {language}>
-	<FloorTitle slot="floorTitle" stageFloors={data.mapConfig.floors} {language} />
+	<FloorTitle slot="floorTitle" stageFloors={$mapConfig.floors} {language} />
 </StageHeader>
 
 <main class="bg-neutral-800 text-near-white pb-72 pt-8 sm:pt-16 md:pb-28">
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
-		<StageInfo
-			mapConfig={data.mapConfig}
-			{language}
-			{stageName}
-			{eliteMode}
-			{rogueTopic}
-			difficulty={$difficulty}
-		>
-			<StageDrops slot="drops" mapConfig={data.mapConfig} {language} {rogueTopic} {selectedFloor} />
+		<StageInfo mapConfig={$mapConfig} {language} {stageName} {rogueTopic} difficulty={$difficulty}>
+			<StageDrops slot="drops" mapConfig={$mapConfig} {language} {rogueTopic} {selectedFloor} />
 		</StageInfo>
 		<DifficultySelect {language} {difficulty} {rogueTopic} maxDiff={18} mode={$difficultyMode}>
 			<div class="flex gap-1.5 mt-1.5 mb-2.5">
@@ -102,16 +93,11 @@
 		<StageSharedContainer
 			{language}
 			traps={data.traps}
-			{otherBuffsList}
 			{statMods}
 			{specialMods}
-			mapConfig={data.mapConfig}
 			enemies={data.enemies}
-			{eliteMode}
-			{runes}
 			{rogueTopic}
 			{selectedRelics}
-			otherStores={{ disaster: disasterEffects }}
 			difficulty={$difficulty}
 		>
 			<NavTemp {language} slot="nav" />

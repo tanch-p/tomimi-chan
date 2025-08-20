@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { Enemy, Language, StatMods } from '$lib/types';
-	import { tableHeaders } from '../../routes/stores';
+	import type { Enemy, Language } from '$lib/types';
+	import { tableHeaders } from '$lib/global_stores';
 	import EnemySimpleRow from './EnemySimpleRow.svelte';
 	import EnemyTableOptions from './EnemyTableOptions.svelte';
 	import translations from '$lib/translations.json';
 	import Tooltip from './Tooltip.svelte';
-	export let enemies: Enemy[], language: Language, statMods:StatMods, specialMods,otherBuffsList, mapConfig;
+	export let enemies: Enemy[], language: Language;
 	$: filteredTableHeaders = $tableHeaders.filter(({ key, show }) => show);
 
 	const tooltips = { e_hp: 'tooltip_ehp' };
@@ -35,7 +35,7 @@
 		</thead>
 		<tbody>
 			{#each enemies as enemy, index}
-				<EnemySimpleRow {enemy} {filteredTableHeaders} {index} {language} {statMods} {specialMods} {otherBuffsList} {mapConfig}/>
+				<EnemySimpleRow {enemy} {filteredTableHeaders} {index} {language} />
 			{/each}
 		</tbody>
 	</table>

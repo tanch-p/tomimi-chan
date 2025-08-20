@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Enemy, Language, StatMods } from '$lib/types';
+	import type { Enemy, Language } from '$lib/types';
 	import translations from '$lib/translations.json';
 	import StatusImmune from './StatusImmune.svelte';
 	import HandbookAbilities from './HandbookAbilities.svelte';
@@ -14,8 +14,11 @@
 	import { getStatusImmune } from '$lib/functions/skillHelpers';
 	import OtherBuffs from './OtherBuffs.svelte';
 	import DraggableContainer from './DraggableContainer.svelte';
+	import { getContext } from 'svelte';
 
-	export let enemy: Enemy, language: Language, statMods:StatMods, specialMods, otherBuffsList, mode, mapConfig;
+	export let enemy: Enemy, language: Language, mode;
+
+	const specialMods = getContext('specialMods');
 
 	const enemyLevels = ['NORMAL', 'ELITE', 'BOSS'];
 
@@ -122,7 +125,7 @@
 	</div>
 	<div class="flex flex-col mt-3">
 		<StatusImmune {statusImmuneList} {language} mode="handbook" />
-		<OtherBuffs {otherBuffsList} {language} entity={enemy} />
-		<HandbookAbilities {enemy} {language} {specialMods} {statusImmuneList} {formIndex} {mapConfig}/>
+		<OtherBuffs {language} entity={enemy} />
+		<HandbookAbilities {enemy} {language} {specialMods} {statusImmuneList} {formIndex} />
 	</div>
 </div>

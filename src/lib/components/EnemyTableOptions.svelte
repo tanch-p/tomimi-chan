@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
-	import { tableHeaders } from '../../routes/stores';
+	import { tableHeaders } from '$lib/global_stores';
 	import translations from '$lib/translations.json';
 	import { setLocalStorage } from '$lib/functions/lib';
 	export let language: Language;

@@ -15,9 +15,10 @@
 	import DraggableContainer from './DraggableContainer.svelte';
 	import DLDGPN from '$lib/images/is/DLDGPN.webp';
 	import RandomGroupList from './RandomGroupList.svelte';
-	import { defaultOpenStageSim } from '../../routes/stores';
+	import { defaultOpenStageSim,simMode } from '$lib/global_stores';
 	import { GameConfig } from './StageSimulator/objects/GameConfig';
 	import { onDestroy, onMount } from 'svelte';
+	import { randomSeeds } from '$lib/global_stores';
 
 	export let mapConfig,
 		enemies,
@@ -33,7 +34,6 @@
 		selectedPermGroups = {},
 		selectedCountIndex = 0,
 		selectedPermutationIdx = 0,
-		randomSeeds = Array.from(Array(50)).map((_) => Math.random()),
 		mode = 'predefined',
 		simMode = 'wave_normal',
 		bonusKey = '',
@@ -147,7 +147,7 @@
 				{/each}
 			</div>
 		{/if}
-		{#if simMode === 'wave_normal'}
+		{#if $simMode === 'wave_normal'}
 			{#if mapConfig.elite_mods}
 				<p class="title {language}">{translations[language].operation_type}</p>
 				<slot name="eliteMods" />
@@ -280,7 +280,6 @@
 			{mapConfig}
 			{enemies}
 			{language}
-			bind:randomSeeds
 			waveData={parseWaves(
 				mapConfig,
 				mode === 'predefined'
@@ -290,7 +289,7 @@
 					: selectedPermGroups,
 				compiledHiddenGroups,
 				eliteMode,
-				randomSeeds,
+				$randomSeeds,
 				bonusKey
 			)}
 			timeline={generateWaveTimeline(
@@ -302,7 +301,7 @@
 						: permutationsToShow[selectedPermutationIdx]?.permutation
 					: selectedPermGroups,
 				eliteMode,
-				randomSeeds,
+				$randomSeeds,
 				bonusKey
 			)}
 		/>

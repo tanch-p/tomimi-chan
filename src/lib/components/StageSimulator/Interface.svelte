@@ -7,12 +7,12 @@
 	import Icon from '../Icon.svelte';
 	import spriteCost from '$lib/images/is/sprite_cost.webp';
 	import SeekBar from './SeekBar.svelte';
+	import { simMode, randomSeeds } from '$lib/global_stores';
 
 	export let game,
 		initialCost,
 		language: Language,
 		count: number,
-		randomSeeds,
 		simulatedData,
 		maxCost = 99;
 
@@ -21,8 +21,7 @@
 		min = 0,
 		sec = 0,
 		unsubscribeFns = [],
-		isPaused = false,
-		simMode = 'wave_normal';
+		isPaused = false;
 
 	function handleSpeedFactor() {
 		switch (GameConfig.speedFactor) {
@@ -39,7 +38,7 @@
 		GameConfig.state = 'running';
 	}
 	function handleReset() {
-		randomSeeds = Array.from(Array(50)).map((_) => Math.random());
+		randomSeeds.set(Array.from(Array(50)).map(() => Math.random()));
 		game.softReset();
 	}
 	// Sync class -> store
@@ -65,11 +64,6 @@
 				isPaused = value;
 			})
 		);
-		unsubscribeFns.push(
-			GameConfig.subscribe('mode', (value) => {
-				simMode = value;
-			})
-		);
 	});
 
 	onDestroy(() => {
@@ -77,7 +71,7 @@
 	});
 </script>
 
-{#if simulatedData && simMode === 'wave_normal'}
+{#if simulatedData && $simMode === 'wave_normal'}
 	<SeekBar {game} {simulatedData} />
 {/if}
 <div class="absolute z-[1] right-4 flex gap-x-2 md:gap-x-4 mt-4">
