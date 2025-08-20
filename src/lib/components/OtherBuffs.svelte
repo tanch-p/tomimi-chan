@@ -6,14 +6,12 @@
 		getOtherBuffsCount,
 		updateOtherBuffsList
 	} from '$lib/functions/lib';
-	import { getContext } from 'svelte';
-	import { otherBuffs } from '$lib/global_stores';
+	import { otherBuffsList } from '$lib/global_stores';
 
 	export let language: Language,
 		entity,
 		mode = 'handbook';
-	const otherBuffsList = getContext('otherBuffsList');
-	const applicableBuffsList = getApplicableBuffsList(otherBuffsList, entity);
+	const applicableBuffsList = getApplicableBuffsList($otherBuffsList, entity);
 </script>
 
 {#if applicableBuffsList?.length > 0}
@@ -26,12 +24,12 @@
 			: 'grid grid-cols-3 md:flex md:gap-x-8 md:pl-4'}"
 	>
 		{#each applicableBuffsList as buff}
-			{@const currentCount = getOtherBuffsCount(otherBuffsList, buff.key, entity.key)}
+			{@const currentCount = getOtherBuffsCount($otherBuffsList, buff.key, entity.key)}
 			<button
 				id="{entity.key}-buff-{buff.key}"
 				class:brightness-50={currentCount === 0}
 				class="flex flex-col items-center gap-y-1"
-				on:click={() => updateOtherBuffsList(otherBuffs, buff.key, entity.key)}
+				on:click={() => updateOtherBuffsList(otherBuffsList, buff.key, entity.key)}
 			>
 				<div class="relative">
 					{#if buff.maxCount > 1 && currentCount > 0}

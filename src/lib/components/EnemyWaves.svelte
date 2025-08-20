@@ -15,7 +15,7 @@
 	import DraggableContainer from './DraggableContainer.svelte';
 	import DLDGPN from '$lib/images/is/DLDGPN.webp';
 	import RandomGroupList from './RandomGroupList.svelte';
-	import { defaultOpenStageSim,simMode } from '$lib/global_stores';
+	import { defaultOpenStageSim, simMode } from '$lib/global_stores';
 	import { GameConfig } from './StageSimulator/objects/GameConfig';
 	import { onDestroy, onMount } from 'svelte';
 	import { randomSeeds } from '$lib/global_stores';
@@ -39,7 +39,13 @@
 		bonusKey = '',
 		baseCount = 0;
 
-	$: compiledHiddenGroups = compileHiddenGroups(hiddenGroups, eliteMode, mapConfig, rogueTopic,relics);
+	$: compiledHiddenGroups = compileHiddenGroups(
+		hiddenGroups,
+		eliteMode,
+		mapConfig,
+		rogueTopic,
+		relics
+	);
 	$: baseCount = getBaseCount(mapConfig, eliteMode);
 	$: options = getOptions(mapConfig, rogueTopic, difficulty, language);
 	$: maxPermutations = eliteMode

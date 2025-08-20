@@ -1,7 +1,7 @@
 import { writable, derived } from 'svelte/store';
 import difficultyModsList from '$lib/data/is/sami/difficulty_mods_sami.json';
 import { browser } from '$app/environment';
-import { cookiesEnabled, allMods, eliteMode, runes } from '$lib/global_stores';
+import { cookiesEnabled, allMods, eliteMode, runes,otherBuffsList } from '$lib/global_stores';
 import { compileSpecialMods } from '$lib/functions/statHelpers';
 import { consolidateOtherMods } from '$lib/functions/lib';
 
@@ -44,7 +44,6 @@ const difficultyMods = derived([difficulty], ([$difficulty]) =>
 		})
 		.filter(Boolean)
 );
-export const otherBuffsList = writable([]);
 const otherMods = derived([otherBuffsList], ([$otherBuffsList]) =>
 	consolidateOtherMods($otherBuffsList)
 );
