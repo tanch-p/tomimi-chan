@@ -21,18 +21,16 @@
 	import StageDrops from './StageDrops.svelte';
 	import StageSharedContainer from '$lib/components/StageSharedContainer.svelte';
 	import StageHeadMeta from '$lib/components/StageHeadMeta.svelte';
-	import { mapConfig } from '$lib/global_stores';
 	import { setContext } from 'svelte';
 
 	export let data: PageData;
-
-	mapConfig.subscribe((v) => {
-		updateReqRelic(v.levelId, selectedRelics);
-	});
+	$: if (data.mapConfig) {
+		updateReqRelic(data.mapConfig.levelId, selectedRelics);
+	}
 	const ro4_ALTER_BOSS_STAGES = ['level_rogue4_b-4-b', 'level_rogue4_b-5-b'];
 
 	$: language = data.language;
-	$: stageName = $mapConfig[`name_${language}`] || $mapConfig.name_zh;
+	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 	const rogueTopic: RogueTopic = data.rogueTopic;
 
 	function updateReqRelic(levelId, selectedRelics) {
@@ -57,16 +55,22 @@
 	setContext('difficulty', difficulty);
 </script>
 
-<StageHeadMeta mapConfig={$mapConfig} {stageName} {language} />
+<StageHeadMeta mapConfig={data.mapConfig} {stageName} {language} />
 
 <StageHeader {language}>
-	<FloorTitle slot="floorTitle" stageFloors={$mapConfig.floors} {language} />
+	<FloorTitle slot="floorTitle" stageFloors={data.mapConfig.floors} {language} />
 </StageHeader>
 
 <main class="bg-neutral-800 text-near-white pb-72 pt-8 sm:pt-16 md:pb-28">
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
-		<StageInfo mapConfig={$mapConfig} {language} {stageName} {rogueTopic} difficulty={$difficulty}>
-			<StageDrops slot="drops" mapConfig={$mapConfig} {language} {rogueTopic} {selectedFloor} />
+		<StageInfo
+			mapConfig={data.mapConfig}
+			{language}
+			{stageName}
+			{rogueTopic}
+			difficulty={$difficulty}
+		>
+			<StageDrops slot="drops" mapConfig={data.mapConfig} {language} {rogueTopic} {selectedFloor} />
 		</StageInfo>
 		<DifficultySelect {language} {difficulty} {rogueTopic} maxDiff={18} mode={$difficultyMode}>
 			<div class="flex gap-1.5 mt-1.5 mb-2.5">
@@ -98,6 +102,7 @@
 			enemies={data.enemies}
 			{rogueTopic}
 			{selectedRelics}
+			mapConfig={data.mapConfig}
 			difficulty={$difficulty}
 		>
 			<NavTemp {language} slot="nav" />

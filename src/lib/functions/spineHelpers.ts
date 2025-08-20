@@ -28,7 +28,6 @@ export const getSpineAnimations = (key: string, skelData: spine.SkeletonData) =>
 	// only deal with a handful of boss enemies with multiforms
 
 	if (spineMetaData[key]) {
-		// console.log(skelData.animations);
 		return spineMetaData[key].anim;
 	}
 	const idleAnim = getIdleAnimName(key, skelData);

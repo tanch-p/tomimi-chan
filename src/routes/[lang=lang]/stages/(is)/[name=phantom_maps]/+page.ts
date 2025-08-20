@@ -9,6 +9,7 @@ export const load = (async ({ params }) => {
 	mapConfig.set(config);
 	const rogueTopic: RogueTopic = 'rogue_phantom';
 	return {
+		mapConfig:config,
 		enemies,
 		language,
 		traps,
