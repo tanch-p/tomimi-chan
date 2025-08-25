@@ -10,7 +10,7 @@
 	import ModsCheck from './ModsCheck.svelte';
 	import { GameConfig } from './StageSimulator/objects/GameConfig';
 	import TrapContainer from './TrapContainer.svelte';
-	import { eliteMode, mapConfig, otherBuffsList } from '$lib/global_stores';
+	import { eliteMode, mapConfig, otherBuffs } from '$lib/global_stores';
 
 	export let language,
 		traps,
@@ -26,11 +26,18 @@
 	eliteMode.subscribe((v) => (GameConfig.eliteMode = v));
 	specialMods.subscribe((v) => {
 		GameConfig.specialMods = v;
+		otherBuffs.set([]);
 	});
 
-	$: otherBuffsList.set(
-		getOtherBuffsList(rogueTopic, enemies, $mapConfig, language, difficulty, $specialMods)
+	$: otherBuffsList = getOtherBuffsList(
+		rogueTopic,
+		enemies,
+		$mapConfig,
+		language,
+		difficulty,
+		$specialMods
 	);
+	setContext('otherBuffsList', otherBuffsList);
 	setContext('statMods', statMods);
 	setContext('specialMods', specialMods);
 
