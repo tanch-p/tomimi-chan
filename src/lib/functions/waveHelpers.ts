@@ -7,7 +7,6 @@ import calamity from '$lib/images/is/sarkaz/rogue_4_disaster_1_toast.webp';
 import disasters from '$lib/data/is/sarkaz/disasters.json';
 import relicsSui from '$lib/data/is/sui/relics_sui.json';
 import enemyDatabase from '$lib/data/enemy/enemy_database.json';
-import { eliteMode } from '$lib/global_stores';
 
 const ALWAYS_KILLED_KEYS = [
 	'enemy_2073_skzrck',
@@ -236,7 +235,7 @@ export const getOptions = (
 };
 
 export const handleOptionsUpdate = (
-	optionGroups,
+	hiddenGroups,
 	key,
 	rogueTopic: RogueTopic,
 	difficulty: number,
@@ -269,32 +268,32 @@ export const handleOptionsUpdate = (
 		});
 	}
 	if (rogueTopic === 'rogue_phantom' && key === 'extra') {
-		if (!optionGroups.includes(key)) {
-			eliteMode.set(true);
+		if (!hiddenGroups.includes(key)) {
+			otherStores.eliteMode.set(true);
 		}
 	}
 	switch (rogueTopic) {
 		case 'rogue_skz':
-			if (optionGroups.includes(key)) {
-				optionGroups = optionGroups.filter((ele) => ele !== key);
+			if (hiddenGroups.includes(key)) {
+				hiddenGroups = hiddenGroups.filter((ele) => ele !== key);
 			} else if (fragmentKeys.includes(key)) {
-				optionGroups = optionGroups.filter((ele) => !fragmentKeys.includes(ele));
-				optionGroups.push(key);
+				hiddenGroups = hiddenGroups.filter((ele) => !fragmentKeys.includes(ele));
+				hiddenGroups.push(key);
 				break;
 			} else {
-				optionGroups.push(key);
+				hiddenGroups.push(key);
 			}
 
 			break;
 		default:
-			if (optionGroups.includes(key)) {
-				optionGroups = optionGroups.filter((ele) => ele !== key);
+			if (hiddenGroups.includes(key)) {
+				hiddenGroups = hiddenGroups.filter((ele) => ele !== key);
 			} else {
-				optionGroups.push(key);
+				hiddenGroups.push(key);
 			}
 			break;
 	}
-	return optionGroups;
+	return hiddenGroups;
 };
 
 //to handle enemies with just a packKey and no group in the fragment i.e. rogue1_1-2 hiddenGroup extra packKey extra
@@ -518,7 +517,7 @@ export const generateWaveTimeline = (
 	randomSeeds,
 	bonusKey
 ) => {
-	if (!permutation) permutation = 'random';
+	if (!permutation) return;
 	let randomSeedIndex = 0;
 	const enemyReplace = eliteMode ? mapConfig.elite_runes?.enemy_replace || {} : {};
 	let totalCount = 0;
@@ -542,7 +541,7 @@ export const generateWaveTimeline = (
 				let choice = permutation?.[key]?.[groupKey];
 				if (choice == undefined) {
 					const isBonusGroup = mapConfig.bonus
-						? key === `w${mapConfig.bonus.wave_index}f${Math.max(0, mapConfig.bonus.frag_index)}`
+						? key === `w${mapConfig.bonus.wave_index}f${Math.max(0,mapConfig.bonus.frag_index)}`
 						: false;
 					choice = getPredefinedChoiceIndex(
 						list,
@@ -730,7 +729,7 @@ export const parseWaves = (
 				let choice = permutation?.[key]?.[groupKey];
 				if (choice == undefined) {
 					const isBonusGroup = mapConfig.bonus
-						? key === `w${mapConfig.bonus.wave_index}f${Math.max(0, mapConfig.bonus.frag_index)}`
+						? key === `w${mapConfig.bonus.wave_index}f${Math.max(0,mapConfig.bonus.frag_index)}`
 						: false;
 					choice = getPredefinedChoiceIndex(
 						list,
@@ -799,7 +798,7 @@ export const getPredefinedChoiceIndex = (list, hiddenGroups, bonusKey, bonus) =>
 	}
 };
 
-export const getRandomGroups = (fragment, hiddenGroups: string[]) => {
+export const getRandomGroups = (fragment, hiddenGroups) => {
 	const groups = [];
 	for (const action of fragment['actions']) {
 		const { actionType, randomSpawnGroupKey, randomSpawnGroupPackKey } = action;
@@ -818,8 +817,8 @@ export const getRandomGroups = (fragment, hiddenGroups: string[]) => {
 			groups.push(action);
 		}
 	}
-	const randomGroups = groupResolver(groups);
-	const packedGroups = randomGroupResolver(randomGroups);
+	const random_groups = groupResolver(groups);
+	const packedGroups = randomGroupResolver(random_groups);
 	for (const groupKey of Object.keys(packedGroups)) {
 		let isPack = false;
 		for (let i = 0; i < packedGroups[groupKey].length; i++) {
@@ -836,20 +835,7 @@ export const getRandomGroups = (fragment, hiddenGroups: string[]) => {
 			);
 		}
 	}
-	const filteredPackedGroups = Object.keys(packedGroups).reduce((acc, key) => {
-		if (
-			packedGroups[key].some((item) => {
-				if (Array.isArray(item)) {
-					return item.length > 0;
-				}
-				return Boolean(item);
-			})
-		) {
-			acc[key] = packedGroups[key];
-		}
-		return acc;
-	}, {});
-	return filteredPackedGroups;
+	return packedGroups;
 };
 
 export const compileHiddenGroups = (

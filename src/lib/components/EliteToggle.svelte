@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { RogueTopic } from '$lib/types';
 	import combat_icon from '$lib/images/is/combat_icon.webp';
 	import emergency_icon from '$lib/images/is/emergency_icon.webp';
 	import skzRelics from '$lib/data/is/sarkaz/relics_sarkaz.json';
@@ -7,11 +6,14 @@
 	import { getEliteColors } from '$lib/functions/lib';
 	import MediaQuery from './MediaQuery.svelte';
 	import EliteToggleBar from './EliteToggleBar.svelte';
-	import { mapConfig, eliteMode } from '$lib/global_stores';
 
-	export let rogueTopic: RogueTopic,
+	export let mapEliteMods: any,
+		mapNormalMods: any,
+		rogueTopic: string,
+		runes: any,
 		selectedRelics: any,
 		stageId: string,
+		eliteMode,
 		inWaveOptions = false;
 
 	const ro4_SP7_BOSS_STAGES = [
@@ -21,8 +23,9 @@
 		'level_rogue4_b-5-b'
 	];
 
-	const updateOtherStores = (option: boolean) => {
+	const updateEliteMods = (option: boolean) => {
 		if (option) {
+			runes.set(mapEliteMods);
 			switch (rogueTopic) {
 				case 'rogue_skz':
 					{
@@ -42,11 +45,15 @@
 					}
 					break;
 			}
+		} else {
+			runes.set(mapNormalMods);
 		}
 	};
 
-	eliteMode.subscribe((v) => updateOtherStores(v));
+	eliteMode.subscribe((v) => updateEliteMods(v));
+
 	$: [combatOpsColor, eliteOpsColor] = getEliteColors(rogueTopic);
+
 	function getEliteIcon(stageId: string) {
 		if (ro4_SP7_BOSS_STAGES.includes(stageId)) {
 			return `/images/relics/${relicLookup['rogue_4_relic_final_6']}.webp`;
@@ -58,14 +65,14 @@
 	}
 </script>
 
-{#if $mapConfig.elite_mods}
+{#if mapEliteMods}
 	{#if inWaveOptions}
 		<!-- used in wave options -->
-		<EliteToggleBar {combatOpsColor} {eliteOpsColor} {stageId} {getEliteIcon} />
+		<EliteToggleBar {combatOpsColor} {eliteOpsColor} {eliteMode} {stageId} {getEliteIcon} />
 	{:else}
 		<MediaQuery>
 			<div slot="pc" class="mt-8">
-				<EliteToggleBar {combatOpsColor} {eliteOpsColor} {stageId} {getEliteIcon} />
+				<EliteToggleBar {combatOpsColor} {eliteOpsColor} {eliteMode} {stageId} {getEliteIcon} />
 			</div>
 			<button
 				slot="mobile"

@@ -6,7 +6,7 @@ import { checkIsTarget } from './statHelpers';
 import enemySkills from '$lib/data/enemy/enemy_skills.json';
 import ISStages from '$lib/data/stages/stage_name_lookup_table.json';
 import { browser } from '$app/environment';
-import { cookiesEnabled } from '$lib/global_stores';
+import { cookiesEnabled } from '../../routes/stores';
 import pako from 'pako';
 
 export const BONUS_ENEMY_KEYS = [
@@ -139,15 +139,14 @@ export const sortEnemies = (a: Enemy, b: Enemy) => {
 	return getEnemyWeight(a.key, a.type) - getEnemyWeight(b.key, b.type);
 };
 
-export const getOtherBuffsList = (
+export const setOtherBuffsList = (
+	store,
 	rogueTopic: RogueTopic,
 	enemies: Enemy[],
 	mapConfig: MapConfig,
 	language: Language,
-	difficulty = 0,
-	specialMods
+	difficulty = 0
 ) => {
-	if (Object.keys(mapConfig).length === 0) return [];
 	const buffsList = [];
 	switch (rogueTopic) {
 		case 'rogue_phantom':
@@ -244,7 +243,7 @@ export const getOtherBuffsList = (
 			}
 		}
 	}
-	return buffsList;
+	store.set(buffsList);
 };
 
 export const getOtherBuffsCount = (list, buffKey, key) => {
@@ -332,7 +331,7 @@ export const getEliteColors = (rogueTopic: string) => {
 		case 'rogue_yan':
 			return ['bg-[#9d6bd4]', 'bg-[#c44256]'];
 	}
-	return ['bg-[#5a4b90]', 'bg-[#cb3220]'];
+	return [];
 };
 
 const STAGES_WITH_ELITE_IMG = [

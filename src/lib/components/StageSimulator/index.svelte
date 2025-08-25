@@ -11,11 +11,16 @@
 	import { getSimulatedData } from './functions/Simulator';
 	import BranchSummons from './BranchSummons.svelte';
 	import { generateBranchTimeline } from '$lib/functions/waveHelpers';
-	import { simMode } from '$lib/global_stores';
 
-	export let timeline, mapConfig: MapConfig, waveData, language: Language, enemies: Enemy[];
+	export let timeline,
+		mapConfig: MapConfig,
+		waveData,
+		language: Language,
+		enemies: Enemy[],
+		randomSeeds;
 
-	let branchKey = null,
+	let simMode = 'wave_normal',
+		branchKey = null,
 		branchIndex = -1;
 	let assetManager = AssetManager.getInstance(),
 		canvasElement: HTMLCanvasElement,
@@ -49,11 +54,18 @@
 		}
 	}
 
-	simMode.subscribe(() => {
-		game && assetManager.texturesLoaded && game.softReset(false);
+	const unsubscribeFns = [];
+	onMount(() => {
+		unsubscribeFns.push(
+			GameConfig.subscribe('mode', (mode) => {
+				simMode = mode;
+				game && assetManager.texturesLoaded && game.softReset(false);
+			})
+		);
 	});
 
 	onDestroy(() => {
+		unsubscribeFns.forEach((fn) => fn());
 		assetManager.cleanup();
 		assetManager.texturesLoaded = false;
 		if (game) {
@@ -67,19 +79,20 @@
 	{#await loadGame(mapConfig)}
 		<LoadingScreen />
 	{:then}
-		{#if $simMode === 'wave_summons' && mapConfig.branches}
+		{#if simMode === 'wave_summons' && mapConfig.branches}
 			<BranchSummons bind:branchKey bind:branchIndex {language} {game} {mapConfig} />
 		{/if}
 		<SpawnTimeView
 			{branchKey}
 			{branchIndex}
-			waves={$simMode === 'wave_summons'
+			waves={simMode === 'wave_summons'
 				? generateBranchTimeline(mapConfig, branchKey, branchIndex)
 				: timeline.waves}
 			{mapConfig}
 		/>
 		<Interface
 			{simulatedData}
+			bind:randomSeeds
 			{game}
 			initialCost={mapConfig.initialCost}
 			{language}

@@ -1,12 +1,11 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import type { Enemy, MapConfig, Trap } from '$lib/types';
-	import { statMods, specialMods, stageIdStore } from './stores';
-	import { mapConfig, eliteMode } from '$lib/global_stores';
+	import { statMods, specialMods, runes, eliteMode, otherBuffsList, stageIdStore } from './stores';
 	import enemyDatabase from '$lib/data/enemy/enemy_database.json';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import translations from '$lib/translations.json';
-	import { getStageData } from '$lib/functions/lib';
+	import { getStageData, setOtherBuffsList } from '$lib/functions/lib';
 	import StageSharedContainer from '$lib/components/StageSharedContainer.svelte';
 	import TitleBlock from '$lib/components/TitleBlock.svelte';
 	import { overwriteBlackboard } from '$lib/functions/skillHelpers';
@@ -19,15 +18,13 @@
 	$: language = data.language;
 	// $: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 
-	let traps: Trap[],
-		enemies: Enemy[] = [];
+	let mapConfig: MapConfig, traps: Trap[], enemies: Enemy[];
 	let isLoading = true;
 
 	async function loadStageData(stageId: string) {
 		isLoading = true;
-		const config = await getStageData(stageId, 'all');
-		mapConfig.set(config);
-		enemies = config.enemies.map(({ id, prefabKey, level, overwrittenData }) => {
+		mapConfig = await getStageData(stageId, 'all');
+		enemies = mapConfig.enemies.map(({ id, prefabKey, level, overwrittenData }) => {
 			const enemy = structuredClone(enemyDatabase[prefabKey]);
 
 			enemy.stageId = id;
@@ -50,7 +47,7 @@
 			enemy.traits = enemy.stats.traits;
 			return enemy;
 		});
-		traps = parseTraps(config.traps, language);
+		traps = parseTraps(mapConfig.traps, language);
 		isLoading = false;
 	}
 	onMount(() => {
@@ -83,21 +80,25 @@
 			<div class="mt-24 space-y-3">
 				<SearchDataList {language} />
 				<ActivitySelect {language} />
+				<div class="relative">
+					{#if isLoading}
+						<div class="absolute">{translations[language].loading}</div>
+					{/if}
+					{#if mapConfig}
+						<StageSharedContainer
+							{language}
+							{traps}
+							{otherBuffsList}
+							{statMods}
+							{specialMods}
+							{mapConfig}
+							{enemies}
+							{eliteMode}
+							{runes}
+						/>
+					{/if}
+				</div>
 			</div>
 		</div>
 	</TitleBlock>
-	<div class="relative mt-6">
-		{#if isLoading}
-			<div class="absolute">{translations[language].loading}</div>
-		{/if}
-		{#if enemies.length > 0}
-			<StageSharedContainer
-				{language}
-				{traps}
-				{statMods}
-				{specialMods}
-				{enemies}
-			/>
-		{/if}
-	</div>
 </div>

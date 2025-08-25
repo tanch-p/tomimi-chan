@@ -5,11 +5,11 @@
 	import translations from '$lib/translations.json';
 	import TextParser from './TextParser.svelte';
 	import { getStageImg } from '$lib/functions/lib';
-	import { eliteMode } from '$lib/global_stores';
 
 	export let mapConfig,
 		language: Language,
 		stageName: string,
+		eliteMode,
 		difficulty = 0,
 		rogueTopic: RogueTopic = null;
 
@@ -94,7 +94,7 @@
 				>
 			{/if}
 			<a
-				href="https://map.ark-nights.com/map/{getStageImg(mapConfig.id, $eliteMode)}"
+				href="https://map.ark-nights.com/map/{getStageImg(mapConfig.id, eliteMode)}"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="text-blue-400 hover:text-blue-300"
@@ -108,4 +108,4 @@
 {#if mapConfig.sp_terrain || rogueTopic === 'rogue_skz'}
 	<SpTerrain {difficulty} spTerrain={mapConfig.sp_terrain} {rogueTopic} {language} />
 {/if}
-<StageMap {mapConfig} {rogueTopic} {language} eliteMode={$eliteMode} />
+<StageMap {mapConfig} {rogueTopic} {language} eliteMode={eliteMode} />

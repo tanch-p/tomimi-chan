@@ -3,7 +3,7 @@ import { consolidateOtherMods } from '$lib/functions/lib';
 import { compileSpecialMods } from '$lib/functions/statHelpers';
 import { writable, derived } from 'svelte/store';
 import { browser } from '$app/environment';
-import { cookiesEnabled, allMods, eliteMode, runes } from '$lib/global_stores';
+import { cookiesEnabled } from '../../../../stores';
 
 let storedDifficulty = 0;
 if (browser && cookiesEnabled) {
@@ -26,6 +26,9 @@ const diff10Mods = [
 		mods: [{ key: 'atk', value: 1.15, mode: 'mul' }]
 	}
 ];
+export const eliteMode = writable(false);
+export const runes = writable(null);
+export const allMods = writable(null);
 export const selectedUniqueRelic = writable(null);
 export const selectedFloor = writable(1);
 export const activeFloorEffects = writable([]);
