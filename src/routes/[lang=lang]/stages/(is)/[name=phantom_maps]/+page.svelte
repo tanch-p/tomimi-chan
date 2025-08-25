@@ -20,30 +20,30 @@
 	import StageSharedContainer from '$lib/components/StageSharedContainer.svelte';
 	import DifficultySelect from '$lib/components/DifficultySelect.svelte';
 	import StageHeadMeta from '$lib/components/StageHeadMeta.svelte';
+	import { mapConfig } from '$lib/global_stores';
 	import { setContext } from 'svelte';
 
 	export let data: PageData;
-
-	$: if(data.mapConfig){
-		isBossStage.set(data.mapConfig.id.includes('_b_'));
-	}
+	mapConfig.subscribe((v) => {
+		isBossStage.set($v.id.includes('_b_'));
+	});
 	$: language = data.language;
-	$: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
+	$: stageName = $mapConfig[`name_${language}`] || $mapConfig.name_zh;
 	const rogueTopic: RogueTopic = data.rogueTopic;
 
 	setContext('relics', selectedRelics);
 	setContext('difficulty', difficulty);
 </script>
 
-<StageHeadMeta mapConfig={data.mapConfig} {stageName} {language} />
+<StageHeadMeta mapConfig={$mapConfig} {stageName} {language} />
 
 <StageHeader {language}>
-	<FloorTitle slot="floorTitle" stageFloors={data.mapConfig.floors} {language} />
+	<FloorTitle slot="floorTitle" stageFloors={$mapConfig.floors} {language} />
 </StageHeader>
 
 <main class="bg-neutral-800 text-near-white pb-72 pt-8 sm:pt-16 md:pb-28">
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
-		<StageInfo mapConfig={data.mapConfig} {language} {stageName} {rogueTopic} />
+		<StageInfo mapConfig={$mapConfig} {language} {stageName} {rogueTopic} />
 		<DifficultySelect {language} {difficulty} {rogueTopic} />
 
 		<div class="mt-8">
@@ -54,7 +54,6 @@
 				{specialMods}
 				enemies={data.enemies}
 				{rogueTopic}
-				mapConfig={data.mapConfig}
 				{selectedRelics}
 				difficulty={$difficulty}
 			>

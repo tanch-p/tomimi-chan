@@ -2,6 +2,7 @@
 	import type { PageData } from './$types';
 	import type { Enemy, MapConfig, Trap } from '$lib/types';
 	import { statMods, specialMods, stageIdStore } from './stores';
+	import { mapConfig, eliteMode } from '$lib/global_stores';
 	import enemyDatabase from '$lib/data/enemy/enemy_database.json';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import translations from '$lib/translations.json';
@@ -18,15 +19,15 @@
 	$: language = data.language;
 	// $: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 
-	let mapConfig: MapConfig,
-		traps: Trap[],
+	let traps: Trap[],
 		enemies: Enemy[] = [];
 	let isLoading = true;
 
 	async function loadStageData(stageId: string) {
 		isLoading = true;
-		mapConfig = await getStageData(stageId, 'all');
-		enemies = mapConfig.enemies.map(({ id, prefabKey, level, overwrittenData }) => {
+		const config = await getStageData(stageId, 'all');
+		mapConfig.set(config);
+		enemies = config.enemies.map(({ id, prefabKey, level, overwrittenData }) => {
 			const enemy = structuredClone(enemyDatabase[prefabKey]);
 
 			enemy.stageId = id;
@@ -49,7 +50,7 @@
 			enemy.traits = enemy.stats.traits;
 			return enemy;
 		});
-		traps = parseTraps(mapConfig.traps, language);
+		traps = parseTraps(config.traps, language);
 		isLoading = false;
 	}
 	onMount(() => {
@@ -90,7 +91,13 @@
 			<div class="absolute">{translations[language].loading}</div>
 		{/if}
 		{#if enemies.length > 0}
-			<StageSharedContainer {language} {traps} {statMods} {specialMods} {mapConfig} {enemies} />
+			<StageSharedContainer
+				{language}
+				{traps}
+				{statMods}
+				{specialMods}
+				{enemies}
+			/>
 		{/if}
 	</div>
 </div>

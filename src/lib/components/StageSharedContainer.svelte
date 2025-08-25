@@ -10,10 +10,9 @@
 	import ModsCheck from './ModsCheck.svelte';
 	import { GameConfig } from './StageSimulator/objects/GameConfig';
 	import TrapContainer from './TrapContainer.svelte';
-	import { eliteMode, otherBuffsList, mapConfig as mapConfigStore } from '$lib/global_stores';
+	import { eliteMode, mapConfig, otherBuffsList } from '$lib/global_stores';
 
 	export let language,
-		mapConfig,
 		traps,
 		enemies,
 		statMods,
@@ -29,12 +28,8 @@
 		GameConfig.specialMods = v;
 	});
 
-	$: if (mapConfig) {
-		mapConfigStore.set(mapConfig);
-	}
-
 	$: otherBuffsList.set(
-		getOtherBuffsList(rogueTopic, enemies, mapConfig, language, difficulty, $specialMods)
+		getOtherBuffsList(rogueTopic, enemies, $mapConfig, language, difficulty, $specialMods)
 	);
 	setContext('statMods', statMods);
 	setContext('specialMods', specialMods);
@@ -48,7 +43,7 @@
 
 {#await promise then StageSimContainer}
 	<StageSimContainer
-		{mapConfig}
+		mapConfig={$mapConfig}
 		enemies={moddedEnemies}
 		{language}
 		eliteMode={$eliteMode}
@@ -60,7 +55,7 @@
 			inWaveOptions={true}
 			{rogueTopic}
 			{selectedRelics}
-			stageId={mapConfig.levelId}
+			stageId={$mapConfig.levelId}
 		/>
 	</StageSimContainer>
 {/await}
@@ -69,19 +64,19 @@
 	traps={filterTraps(moddedTraps)}
 	{otherBuffsList}
 	specialMods={$specialMods}
-	{mapConfig}
+	mapConfig={$mapConfig}
 />
-<ModsCheck {language} enemies={moddedEnemies} {mapConfig} />
+<ModsCheck {language} enemies={moddedEnemies} mapConfig={$mapConfig} />
 <EnemyCount
-	{mapConfig}
-	enemies={pruneExtraEnemies(moddedEnemies, mapConfig.levelId)}
+	mapConfig={$mapConfig}
+	enemies={pruneExtraEnemies(moddedEnemies, $mapConfig.levelId)}
 	eliteMode={$eliteMode}
 	{language}
 	{rogueTopic}
 />
 <div class="sm:px-6">
-	<EliteToggle {rogueTopic} {selectedRelics} stageId={mapConfig.levelId} />
-	<EnemyStatDisplay enemies={pruneExtraEnemies(moddedEnemies, mapConfig.levelId)} {language} />
+	<EliteToggle {rogueTopic} {selectedRelics} stageId={$mapConfig.levelId} />
+	<EnemyStatDisplay enemies={pruneExtraEnemies(moddedEnemies, $mapConfig.levelId)} {language} />
 	<div id="stageNav" class="mt-8 sm:mt-16 scroll-mt-20">
 		<slot name="nav" />
 	</div>
