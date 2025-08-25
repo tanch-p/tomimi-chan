@@ -1,7 +1,7 @@
 import { writable, derived } from 'svelte/store';
 import difficultyModsList from '$lib/data/is/sui/difficulty_mods_sui.json';
 import { browser } from '$app/environment';
-import { cookiesEnabled, allMods, eliteMode, runes,otherBuffsList } from '$lib/global_stores';
+import { cookiesEnabled, allMods, eliteMode, runes } from '$lib/global_stores';
 import { compileSpecialMods, filterModCondition } from '$lib/functions/statHelpers';
 import { consolidateOtherMods } from '$lib/functions/lib';
 
@@ -38,6 +38,7 @@ const floorDifficultyMods = derived(
 	}
 );
 export const activeFloorEffects = writable([]);
+export const otherBuffsList = writable([]);
 const otherMods = derived([otherBuffsList], ([$otherBuffsList]) =>
 	consolidateOtherMods($otherBuffsList)
 );

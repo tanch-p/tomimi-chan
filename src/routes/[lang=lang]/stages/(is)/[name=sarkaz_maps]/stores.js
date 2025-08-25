@@ -1,7 +1,7 @@
 import { writable, derived } from 'svelte/store';
 import difficultyModsList from '$lib/data/is/sarkaz/difficulty_mods_sarkaz.json';
 import { browser } from '$app/environment';
-import { cookiesEnabled, allMods, eliteMode, runes,otherBuffsList } from '$lib/global_stores';
+import { cookiesEnabled, allMods, eliteMode, runes } from '$lib/global_stores';
 import { compileSpecialMods } from '$lib/functions/statHelpers';
 import { consolidateOtherMods } from '$lib/functions/lib';
 
@@ -42,6 +42,7 @@ const floorDifficultyMods = derived(
 			: null
 );
 export const disasterEffects = writable([]);
+export const otherBuffsList = writable([]);
 const otherMods = derived([otherBuffsList], ([$otherBuffsList]) =>
 	consolidateOtherMods($otherBuffsList)
 );
