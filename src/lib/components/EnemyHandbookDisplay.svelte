@@ -6,7 +6,11 @@
 
 	export let enemies: Enemy[],
 		language: Language,
-		mode = 'mobile';
+		statMods,
+		specialMods,
+		otherBuffsList,
+		mode = 'mobile',
+		mapConfig;
 
 	let pageType = 'roguelike';
 	$: pageType = $page.data.pageType || 'roguelike';
@@ -50,7 +54,15 @@
 			{#if index !== 0}
 				<div class="bg-neutral-700 mx-1 h-0.5" />
 			{/if}
-			<EnemyHandbookDetails {enemy} {language} {mode} />
+			<EnemyHandbookDetails
+				{enemy}
+				{language}
+				{statMods}
+				{specialMods}
+				{otherBuffsList}
+				{mode}
+				{mapConfig}
+			/>
 		{/each}
 	</div>
 </div>

@@ -1,7 +1,7 @@
 import { writable, derived } from 'svelte/store';
 import difficultyModsList from '$lib/data/is/mizuki/difficulty_mods_mizuki.json';
 import { browser } from '$app/environment';
-import { cookiesEnabled, allMods, eliteMode, runes } from '$lib/global_stores';
+import { cookiesEnabled } from '../../../../stores';
 import { compileSpecialMods } from '$lib/functions/statHelpers';
 import { consolidateOtherMods } from '$lib/functions/lib';
 
@@ -44,6 +44,9 @@ const floorDifficultyMods = derived(
 		];
 	}
 );
+export const eliteMode = writable(false);
+export const runes = writable(null);
+export const allMods = writable(null);
 export const activeFloorEffects = writable([]);
 export const missionMods = writable(null);
 export const otherBuffsList = writable([]);

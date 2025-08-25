@@ -1,8 +1,7 @@
 <script lang="ts">
-	import combat_icon from '$lib/images/is/combat_icon.webp'
-	import { eliteMode } from '$lib/global_stores';
+	import combat_icon from '$lib/images/is/combat_icon.webp';
 
-	export let stageId: string, combatOpsColor, eliteOpsColor, getEliteIcon;
+	export let stageId: string, eliteMode, combatOpsColor, eliteOpsColor, getEliteIcon;
 </script>
 
 <div class="grid grid-cols-2 font-bold text-lg text-gray-700 select-none">

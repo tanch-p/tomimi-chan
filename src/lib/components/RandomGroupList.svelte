@@ -8,13 +8,8 @@
 		getImageForWaves,
 		compileSpawnTimeActions
 	} from '$lib/functions/waveHelpers';
-	import { getContext } from 'svelte';
 
-	export let mapConfig, eliteMode, hiddenGroups, language: Language;
-
-	let selectedPermGroups = {};
-
-	const permutationStore = getContext('permutation');
+	export let selectedPermGroups, mapConfig, eliteMode, hiddenGroups, language: Language;
 
 	$: if (mapConfig) {
 		selectedPermGroups = initialisePermGroupsChoices(mapConfig, eliteMode, hiddenGroups);
@@ -24,7 +19,6 @@
 		const holder = structuredClone(selectedPermGroups);
 		holder[key][groupKey] = choice;
 		selectedPermGroups = holder;
-		permutationStore.set(selectedPermGroups);
 	}
 </script>
 

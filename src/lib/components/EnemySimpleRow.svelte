@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Enemy, Language, EnemyFormType } from '$lib/types';
+	import type { Enemy, Language, EnemyFormType, StatMods } from '$lib/types';
 	import { getNormalAtk } from '$lib/functions/parseAtkType';
 	import { getStatSkills } from '$lib/functions/skillHelpers';
 	import RemarksContainer from '$lib/components/RemarksContainer.svelte';
@@ -8,12 +8,15 @@
 	import translations from '$lib/translations.json';
 	import OtherBuffs from './OtherBuffs.svelte';
 	import { isEquals } from '$lib/functions/lib';
-	import { getContext } from 'svelte';
-	import { mapConfig } from '$lib/global_stores';
 
-	export let enemy: Enemy, index: number, filteredTableHeaders, language: Language;
-
-	const specialMods = getContext('specialMods');
+	export let enemy: Enemy,
+		index: number,
+		filteredTableHeaders,
+		language: Language,
+		statMods: StatMods,
+		specialMods,
+		otherBuffsList,
+		mapConfig;
 
 	$: maxRowSpan = enemy.forms.length;
 	function textAlign(statKey: string) {
@@ -91,11 +94,11 @@
 				</td>
 			{:else if key === 'remarks'}
 				<td class={`border border-gray-400 h-[65px] ${textAlign(key)}`}>
-					<RemarksContainer {enemy} {language} {row} {specialMods} mapConfig={$mapConfig} />
+					<RemarksContainer {enemy} {language} {row} {specialMods} {mapConfig} />
 				</td>
 			{:else if key === 'other_buffs' && row === 0}
 				<td class="border border-gray-400 px-1.5" rowspan={maxRowSpan}>
-					<OtherBuffs {language} entity={enemy} mode="table" />
+					<OtherBuffs {otherBuffsList} {language} entity={enemy} mode="table" />
 				</td>
 			{:else if !(row !== 0 && !multispanKeys.includes(key))}
 				<td
