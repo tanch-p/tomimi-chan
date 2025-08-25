@@ -16,8 +16,7 @@
 		mapConfig: MapConfig,
 		waveData,
 		language: Language,
-		enemies: Enemy[],
-		randomSeeds;
+		enemies: Enemy[];
 
 	let simMode = 'wave_normal',
 		branchKey = null,
@@ -92,7 +91,6 @@
 		/>
 		<Interface
 			{simulatedData}
-			bind:randomSeeds
 			{game}
 			initialCost={mapConfig.initialCost}
 			{language}

@@ -18,6 +18,7 @@
 	import { defaultOpenStageSim } from '../../routes/stores';
 	import { GameConfig } from './StageSimulator/objects/GameConfig';
 	import { onDestroy, onMount } from 'svelte';
+	import { randomSeeds } from '$lib/global_stores';
 
 	export let mapConfig,
 		enemies,
@@ -33,7 +34,6 @@
 		selectedPermGroups = {},
 		selectedCountIndex = 0,
 		selectedPermutationIdx = 0,
-		randomSeeds = Array.from(Array(50)).map((_) => Math.random()),
 		mode = 'predefined',
 		simMode = 'wave_normal',
 		bonusKey = '',
@@ -280,7 +280,6 @@
 			{mapConfig}
 			{enemies}
 			{language}
-			bind:randomSeeds
 			waveData={parseWaves(
 				mapConfig,
 				mode === 'predefined'
@@ -290,7 +289,7 @@
 					: selectedPermGroups,
 				compiledHiddenGroups,
 				eliteMode,
-				randomSeeds,
+				$randomSeeds,
 				bonusKey
 			)}
 			timeline={generateWaveTimeline(
@@ -302,7 +301,7 @@
 						: permutationsToShow[selectedPermutationIdx]?.permutation
 					: selectedPermGroups,
 				eliteMode,
-				randomSeeds,
+				$randomSeeds,
 				bonusKey
 			)}
 		/>
