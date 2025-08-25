@@ -530,6 +530,7 @@ export const generateWaveTimeline = (
 		let waveBlockingSpawns = {};
 		wave['fragments'].forEach((fragment, fragIndex) => {
 			prevPhaseTime += fragment['preDelay'];
+
 			const packedGroups = getRandomGroups(fragment, hiddenGroups);
 			const key = `w${waveIdx}f${fragIndex}`;
 			let groupActions = [];
@@ -677,9 +678,11 @@ const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime, enemyRe
 				key: enemyKey
 			});
 
-			if (!waveBlockingSpawns[spawnTime]) {
-				waveBlockingSpawns[spawnTime] = [];
-				waveBlockingSpawns[spawnTime].push({ key: action['key'] });
+			if (!action.dontBlockWave) {
+				if (!waveBlockingSpawns[spawnTime]) {
+					waveBlockingSpawns[spawnTime] = [];
+					waveBlockingSpawns[spawnTime].push({ key: action['key'] });
+				}
 			}
 		}
 	} else {
@@ -691,9 +694,11 @@ const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime, enemyRe
 			key: enemyKey
 		});
 
-		if (!waveBlockingSpawns[spawnTime]) {
-			waveBlockingSpawns[spawnTime] = [];
-			waveBlockingSpawns[spawnTime].push({ key: action['key'] });
+		if (!action.dontBlockWave) {
+			if (!waveBlockingSpawns[spawnTime]) {
+				waveBlockingSpawns[spawnTime] = [];
+				waveBlockingSpawns[spawnTime].push({ key: action['key'] });
+			}
 		}
 	}
 };
