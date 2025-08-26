@@ -14,7 +14,7 @@
 	import RandomGroupList from './RandomGroupList.svelte';
 	import { GameConfig } from './StageSimulator/objects/GameConfig';
 	import { getContext } from 'svelte';
-    import { simMode } from './StageSimulator/stores';
+	import { simMode } from './StageSimulator/stores';
 
 	export let mapConfig,
 		enemies,
@@ -27,10 +27,11 @@
 	const bonusKey = getContext('bonusKey');
 	const relicsStore = getContext('relics');
 	const disasterStore = getContext('disasters');
-
+	const eliteModeStore = getContext('eliteMode');
 	const otherStores = {
 		disaster: disasterStore,
-		relics: relicsStore
+		relics: relicsStore,
+		eliteMode: eliteModeStore
 	};
 
 	let optionGroups = [],
@@ -38,7 +39,7 @@
 		relics = [],
 		selectedCountIndex = 0,
 		selectedPermutationIdx = 0,
-		mode = 'user-select',
+		mode = 'predefined',
 		baseCount = 0;
 
 	$: hiddenGroups = compileHiddenGroups(optionGroups, eliteMode, mapConfig, rogueTopic, relics);
@@ -78,7 +79,7 @@
 	$: if (selectedCountIndex) {
 		selectedPermutationIdx = 0;
 	}
-	$: if (rogueTopic) {
+	$: if (rogueTopic && difficulty) {
 		switch (rogueTopic) {
 			case 'rogue_phantom':
 				if (
@@ -87,11 +88,11 @@
 						mapConfig.levelId
 					)
 				) {
-					optionGroups = ['reforge'];
+					if (!optionGroups.includes('reforge')) {
+						optionGroups = [...optionGroups, 'reforge'];
+					}
 					break;
 				}
-			default:
-				optionGroups = [];
 		}
 	}
 
