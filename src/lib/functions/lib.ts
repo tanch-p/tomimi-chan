@@ -216,7 +216,7 @@ export const setOtherBuffsList = (
 	}
 	for (const enemy of enemies) {
 		const enemyCount = mapConfig.enemies.find((ele) => ele.id === enemy.stageId);
-		const maxCount = Math.max(enemyCount.max_count, enemyCount.elite_max_count, 1);
+		const maxCount = enemyCount ? Math.max(enemyCount.max_count, enemyCount.elite_max_count, 1) : 1;
 		const list = [
 			...enemy.traits,
 			...enemy.stats.special.reduce((acc, curr) => {
