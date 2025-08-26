@@ -541,7 +541,7 @@ export const generateWaveTimeline = (
 				let choice = permutation?.[key]?.[groupKey];
 				if (choice == undefined) {
 					const isBonusGroup = mapConfig.bonus
-						? key === `w${mapConfig.bonus.wave_index}f${Math.max(0,mapConfig.bonus.frag_index)}`
+						? key === `w${mapConfig.bonus.wave_index}f${Math.max(0, mapConfig.bonus.frag_index)}`
 						: false;
 					choice = getPredefinedChoiceIndex(
 						list,
@@ -677,11 +677,9 @@ const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime, enemyRe
 				key: enemyKey
 			});
 
-			if (!action.dontBlockWave) {
-				if (!waveBlockingSpawns[spawnTime]) {
-					waveBlockingSpawns[spawnTime] = [];
-					waveBlockingSpawns[spawnTime].push({ key: action['key'] });
-				}
+			if (!waveBlockingSpawns[spawnTime]) {
+				waveBlockingSpawns[spawnTime] = [];
+				waveBlockingSpawns[spawnTime].push({ key: action['key'] });
 			}
 		}
 	} else {
@@ -693,11 +691,9 @@ const handleAction = (action, spawns, waveBlockingSpawns, prevPhaseTime, enemyRe
 			key: enemyKey
 		});
 
-		if (!action.dontBlockWave) {
-			if (!waveBlockingSpawns[spawnTime]) {
-				waveBlockingSpawns[spawnTime] = [];
-				waveBlockingSpawns[spawnTime].push({ key: action['key'] });
-			}
+		if (!waveBlockingSpawns[spawnTime]) {
+			waveBlockingSpawns[spawnTime] = [];
+			waveBlockingSpawns[spawnTime].push({ key: action['key'] });
 		}
 	}
 };
@@ -729,7 +725,7 @@ export const parseWaves = (
 				let choice = permutation?.[key]?.[groupKey];
 				if (choice == undefined) {
 					const isBonusGroup = mapConfig.bonus
-						? key === `w${mapConfig.bonus.wave_index}f${Math.max(0,mapConfig.bonus.frag_index)}`
+						? key === `w${mapConfig.bonus.wave_index}f${Math.max(0, mapConfig.bonus.frag_index)}`
 						: false;
 					choice = getPredefinedChoiceIndex(
 						list,
