@@ -9,6 +9,7 @@ import { getEnemySkills } from '$lib/functions/skillHelpers';
 import { getAnimDuration, getSpineAnimations, getSpineMetaData } from '$lib/functions/spineHelpers';
 import { SkillManager } from './SkillManager';
 import { clearObjects } from '$lib/functions/threejsHelpers';
+import spineMetaData from '$lib/data/spine/spine_meta_data.json';
 
 const moveMultiplier = 0.5;
 export class Enemy {
@@ -253,19 +254,6 @@ export class Enemy {
 			modelType = 'texture'; //actually its 3D
 		}
 		if (this.gameManager.isSimulation) {
-			if (modelType === 'texture') {
-				return;
-			}
-			this.skelData = this.assetManager.spineMap.get(this.key);
-			this.animations = getSpineAnimations(this.key, this.skelData);
-			if (this.motionMode === 'BLINK' && this.skelData) {
-				this.blinkStartDuration = this.skelData.animations.find(
-					(ele) => ele.name === 'Move_Begin'
-				)?.duration;
-				this.blinkEndDuration = this.skelData.animations.find(
-					(ele) => ele.name === 'Move_End'
-				)?.duration;
-			}
 			return;
 		}
 		const shadowGeometry = new THREE.PlaneGeometry(
