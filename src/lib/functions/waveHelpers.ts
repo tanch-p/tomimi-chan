@@ -258,7 +258,7 @@ export const handleOptionsUpdate = (
 	}
 	if (rogueTopic === 'rogue_yan' && key === 'copper_r') {
 		const effect = relicsSui.find((item) => item.id === 'rogue_5_copper_S_1');
-		otherStores.relics.update((list) => {
+		otherStores.relics?.update((list) => {
 			if (list.find((ele) => ele.id === effect.id)) {
 				list = list.filter((item) => item.id !== effect.id);
 			} else {

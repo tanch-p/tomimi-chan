@@ -9,6 +9,7 @@
 	import ModsCheck from './ModsCheck.svelte';
 	import { GameConfig } from './StageSimulator/objects/GameConfig';
 	import TrapContainer from './TrapContainer.svelte';
+	import { setContext } from 'svelte';
 
 	export let language,
 		traps,
@@ -36,6 +37,10 @@
 		runes.set(null);
 		eliteMode.set(false);
 	});
+
+	setContext('eliteMode',eliteMode);
+	setContext('relics',selectedRelics);
+	setContext('difficulty',difficulty);
 
 	const promise = import('./StageSimContainer.svelte').then(({ default: C }) => C);
 </script>

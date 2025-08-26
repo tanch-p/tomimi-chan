@@ -26,6 +26,7 @@
 	import { setOtherBuffsList } from '$lib/functions/lib';
 	import StageSharedContainer from '$lib/components/StageSharedContainer.svelte';
 	import StageHeadMeta from '$lib/components/StageHeadMeta.svelte';
+	import { setContext } from 'svelte';
 
 	export let data: PageData;
 
@@ -57,6 +58,8 @@
 			selectedRelics.update((list) => (list = [...list, relic]));
 		}
 	}
+
+	setContext('disasters',disasterEffects)
 </script>
 
 <StageHeadMeta mapConfig={data.mapConfig} {stageName} {language}/>
