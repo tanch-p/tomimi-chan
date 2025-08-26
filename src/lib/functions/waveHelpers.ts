@@ -517,7 +517,7 @@ export const generateWaveTimeline = (
 	randomSeeds,
 	bonusKey
 ) => {
-	if (!permutation) return;
+	if (!permutation) permutation = 'random';
 	let randomSeedIndex = 0;
 	const enemyReplace = eliteMode ? mapConfig.elite_runes?.enemy_replace || {} : {};
 	let totalCount = 0;
@@ -798,7 +798,7 @@ export const getPredefinedChoiceIndex = (list, hiddenGroups, bonusKey, bonus) =>
 	}
 };
 
-export const getRandomGroups = (fragment, hiddenGroups) => {
+export const getRandomGroups = (fragment, hiddenGroups: string[]) => {
 	const groups = [];
 	for (const action of fragment['actions']) {
 		const { actionType, randomSpawnGroupKey, randomSpawnGroupPackKey } = action;
@@ -817,8 +817,8 @@ export const getRandomGroups = (fragment, hiddenGroups) => {
 			groups.push(action);
 		}
 	}
-	const random_groups = groupResolver(groups);
-	const packedGroups = randomGroupResolver(random_groups);
+	const randomGroups = groupResolver(groups);
+	const packedGroups = randomGroupResolver(randomGroups);
 	for (const groupKey of Object.keys(packedGroups)) {
 		let isPack = false;
 		for (let i = 0; i < packedGroups[groupKey].length; i++) {
@@ -835,7 +835,20 @@ export const getRandomGroups = (fragment, hiddenGroups) => {
 			);
 		}
 	}
-	return packedGroups;
+	const filteredPackedGroups = Object.keys(packedGroups).reduce((acc, key) => {
+		if (
+			packedGroups[key].some((item) => {
+				if (Array.isArray(item)) {
+					return item.length > 0;
+				}
+				return Boolean(item);
+			})
+		) {
+			acc[key] = packedGroups[key];
+		}
+		return acc;
+	}, {});
+	return filteredPackedGroups;
 };
 
 export const compileHiddenGroups = (
@@ -856,9 +869,9 @@ export const compileHiddenGroups = (
 	return groups;
 };
 
-export const initialisePermGroupsChoices = (mapConfig, eliteMode: boolean, hidden_groups) => {
+export const initialisePermGroupsChoices = (mapConfig, eliteMode: boolean, optionGroups) => {
 	const modeKey = eliteMode ? mapConfig['ELITE'].groupKey : mapConfig['NORMAL'].groupKey;
-	const hiddenGroups = structuredClone(hidden_groups);
+	const hiddenGroups = structuredClone(optionGroups);
 	if (modeKey) {
 		hiddenGroups.push(modeKey);
 	}

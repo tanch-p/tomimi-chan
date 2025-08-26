@@ -38,7 +38,7 @@
 		relics = [],
 		selectedCountIndex = 0,
 		selectedPermutationIdx = 0,
-		mode = 'predefined',
+		mode = 'user-select',
 		baseCount = 0;
 
 	$: hiddenGroups = compileHiddenGroups(optionGroups, eliteMode, mapConfig, rogueTopic, relics);
