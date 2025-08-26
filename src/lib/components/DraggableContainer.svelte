@@ -42,8 +42,8 @@
 	});
 </script>
 
-<div class="relative">
-	{#if overflow.left}
+<div class="relative min-w-0">
+	{#if showArrows && overflow.left}
 		<button
 			class="absolute left-0 top-1/3"
 			on:click={() => container.scrollBy({ left: -100, behavior: 'smooth' })}
@@ -58,7 +58,7 @@
 	>
 		<slot />
 	</div>
-	{#if overflow.right}
+	{#if showArrows && overflow.right}
 		<button class="absolute right-0 top-1/3" on:click={() => container.scrollBy({ left: 100, behavior: 'smooth' })}>
 			<Icon name="left-chevron" className="w-6 h-6 ml-2.5 rotate-180" />
 		</button>
