@@ -6,6 +6,7 @@
 	import { onDestroy, onMount } from 'svelte';
 	import translations from '$lib/translations.json';
 	import { compileSpawnTimeActions, getImageForWaves } from '$lib/functions/waveHelpers';
+	import { simMode } from './stores';
 
 	export let waves, mapConfig, branchKey, branchIndex: number;
 
@@ -16,7 +17,6 @@
 	let showTimeline = true;
 	let index = -1;
 	let prevIndexSize = 0;
-	let simMode = 'wave_normal';
 
 	$: language = $page.data.language;
 	$: GameConfig.showTimeline.subscribe((v) => (showTimeline = v));
@@ -24,11 +24,6 @@
 	// Sync class -> store
 	const unsubscribeFns = [];
 	onMount(() => {
-		unsubscribeFns.push(
-			GameConfig.subscribe('mode', (mode) => {
-				simMode = mode;
-			})
-		);
 		unsubscribeFns.push(
 			GameConfig.subscribe('waveElapsedTime', (value) => {
 				waveElapsedTime = value;
@@ -81,7 +76,7 @@
 	}
 
 	function trackAndScrollContainer(index: number) {
-		if (simMode === 'wave_summons') return;
+		if ($simMode === 'wave_summons') return;
 		if (timelineContainer && actionsContainer.children[index]) {
 			timelineContainer.scrollTo({
 				top:
@@ -125,7 +120,7 @@
 	>
 		<div bind:this={timelineContainer} class="w-full h-full overflow-y-scroll no-scrollbar">
 			<div bind:this={actionsContainer} class="pb-[100vh]">
-				{#if simMode === 'wave_summons' && branchKey}
+				{#if $simMode === 'wave_summons' && branchKey}
 					<h6 class="text-center">
 						{branchKey}
 						{#if branchIndex > -1}

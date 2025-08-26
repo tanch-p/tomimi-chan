@@ -8,7 +8,7 @@
 	import RoguelikeSpawnOptions from './RoguelikeWaveOptions.svelte';
 	import NormalWaveOptions from './NormalWaveOptions.svelte';
 	import { defaultOpenStageSim } from '../../routes/stores';
-	import { randomSeeds } from '$lib/global_stores';
+	import { randomSeeds } from './StageSimulator/stores';
 	import { generateWaveTimeline, parseWaves } from '$lib/functions/waveHelpers';
 	import TitleBlock from './TitleBlock.svelte';
 
