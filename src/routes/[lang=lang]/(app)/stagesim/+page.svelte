@@ -80,25 +80,25 @@
 			<div class="mt-24 space-y-3">
 				<SearchDataList {language} />
 				<ActivitySelect {language} />
-				<div class="relative">
-					{#if isLoading}
-						<div class="absolute">{translations[language].loading}</div>
-					{/if}
-					{#if mapConfig}
-						<StageSharedContainer
-							{language}
-							{traps}
-							{otherBuffsList}
-							{statMods}
-							{specialMods}
-							{mapConfig}
-							{enemies}
-							{eliteMode}
-							{runes}
-						/>
-					{/if}
-				</div>
 			</div>
 		</div>
 	</TitleBlock>
+	<div class="relative mt-5">
+		{#if isLoading}
+			<div class="absolute">{translations[language].loading}</div>
+		{/if}
+		{#if mapConfig}
+			<StageSharedContainer
+				{language}
+				{traps}
+				{otherBuffsList}
+				{statMods}
+				{specialMods}
+				{mapConfig}
+				{enemies}
+				{eliteMode}
+				{runes}
+			/>
+		{/if}
+	</div>
 </div>
