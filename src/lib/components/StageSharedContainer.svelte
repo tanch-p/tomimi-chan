@@ -22,7 +22,7 @@
 		runes,
 		rogueTopic,
 		selectedRelics,
-		difficulty
+		difficulty=0
 
 	$: moddedEnemies = applyMods(enemies, $statMods, $specialMods);
 	$: moddedTraps = applyTrapMods(traps, $statMods, $specialMods);
