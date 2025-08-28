@@ -70,6 +70,7 @@
 			});
 		}
 	}
+	$: console.log(currentActivity);
 </script>
 
 <div>
@@ -107,7 +108,7 @@
 		>
 			{#each Object.entries(categories) as [key, options]}
 				<div class="px-3 py-1 text-sm text-gray-500 bg-gray-200 sticky top-0 z-[1]">
-					{key}
+					{translations[language][`stage.${key}`]}
 				</div>
 				{#each options as option}
 					{@const flatIndex = allFlatOptions.findIndex((ele) => ele.id === option.id)}
@@ -130,10 +131,15 @@
 	<div class="mt-4 space-y-3">
 		{#each currentActivity.zones as zone}
 			<div>
-				<p>
-					{zone.label?.toUpperCase()} - {zone.zoneNameFirst?.[language] || ''}{zone
-						.zoneNameSecond?.[language] || ''}
-				</p>
+				{#if zone.zoneNameSecond || zone.label}
+					{@const hasSeparator = zone.zoneNameSecond && zone.label}
+					<p>
+						{zone.label?.toUpperCase() || ''}
+						{#if hasSeparator} - {/if}{zone.zoneNameFirst?.[language] || ''}{zone.zoneNameSecond?.[
+							language
+						] || ''}
+					</p>
+				{/if}
 				<div class="flex flex-wrap gap-x-2 gap-y-2 mt-1 text-sm">
 					{#each zone.stages as stage}
 						<button
@@ -143,8 +149,8 @@
 								: 'bg-near-white hover:bg-slate-400'}"
 							on:click={() => stageIdStore.set(stage.stageId)}
 						>
-							{stage.code}</button
-						>
+							{stage.code}
+						</button>
 					{/each}
 				</div>
 			</div>
