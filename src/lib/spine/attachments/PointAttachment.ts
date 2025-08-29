@@ -26,6 +26,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
+import { Color, MathUtils } from "../Utils";
 import { VertexAttachment } from "./Attachment";
 
 /** An attachment which is a single point and a rotation. This can be used to spawn projectiles, particles, etc. A bone can be
