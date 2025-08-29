@@ -180,6 +180,8 @@ export class Enemy {
 			}
 			if (this.traits.find((skill) => skill.key === 'move_blink')) {
 				this.motionMode = 'BLINK';
+				this.blinkStartDuration = spineMetaData[this.key].duration.Move_Begin;
+				this.blinkEndDuration = spineMetaData[this.key].duration.Move_End;
 			}
 			this.actions = this.getActions(route);
 		}
@@ -355,14 +357,6 @@ export class Enemy {
 			if (!this.skelData) {
 				return;
 			}
-			if (this.motionMode === 'BLINK') {
-				this.blinkStartDuration = this.skelData.animations.find(
-					(ele) => ele.name === 'Move_Begin'
-				)?.duration;
-				this.blinkEndDuration = this.skelData.animations.find(
-					(ele) => ele.name === 'Move_End'
-				)?.duration;
-			}
 			this.animations = getSpineAnimations(this.key, this.skelData);
 			const skeletonMesh = new spine.SkeletonMesh(this.skelData, (parameters) => {
 				parameters.depthTest = false;
@@ -376,6 +370,9 @@ export class Enemy {
 			const { width, height } = getSpineMetaData(this.key, skeletonMesh.skeleton);
 			this.width = width;
 			this.height = height;
+			if(this.key === "enemy_1011_wizard"){
+				console.log(skeletonMesh.skeleton)
+			}
 			const size = new spine.Vector2(Math.max(50, this.width), Math.max(75, this.height));
 			const spriteMaterial = new THREE.SpriteMaterial({
 				transparent: true,

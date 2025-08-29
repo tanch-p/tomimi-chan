@@ -26,7 +26,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
-import { Color } from "../Utils";
+import { Color, Utils } from "../Utils";
 import { VertexAttachment } from "./Attachment";
 
 /** An attachment whose vertices make up a composite Bezier curve.

@@ -26,7 +26,7 @@
 		mapConfig = await getStageData(stageId, 'all');
 		enemies = mapConfig.enemies.map(({ id, prefabKey, level, overwrittenData }) => {
 			const enemy = structuredClone(enemyDatabase[prefabKey]);
-
+			console.log(prefabKey);
 			enemy.stageId = id;
 			enemy.level = level;
 			enemy.stats = structuredClone(enemy.stats[level]);
@@ -50,9 +50,17 @@
 		traps = parseTraps(mapConfig.traps, language);
 		isLoading = false;
 	}
+
+	function removeHash() {
+		if (window.location.hash) {
+			history.replaceState(null, "", window.location.pathname + window.location.search);
+		}
+	}
+
 	onMount(() => {
 		stageIdStore.subscribe((id) => {
 			loadStageData(id);
+			removeHash();
 		});
 	});
 

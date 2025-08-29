@@ -27,6 +27,8 @@
  * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
+import { Utils } from "../Utils";
+
 /** The base class for all attachments. */
 export abstract class Attachment {
   name: string;
