@@ -13,7 +13,7 @@
 		difficulty = 0,
 		rogueTopic: RogueTopic = null;
 
-	const getEliteDescColor = (rogueTopic: string | null) => {
+	const getEliteDescColor = (rogueTopic: RogueTopic) => {
 		switch (rogueTopic) {
 			case 'rogue_sami':
 				return 'text-[#dc555a]';

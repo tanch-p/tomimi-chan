@@ -10,7 +10,8 @@
 		selectedRelics,
 		otherBuffsList,
 		eliteMode,
-		stageType
+		stageType,
+		selectedFloor
 	} from './stores';
 	import DifficultySelect from '../../../../../lib/components/DifficultySelect.svelte';
 	import StageNav from '../../../(app)/sui/StageNav.svelte';
@@ -18,7 +19,7 @@
 	import FooterBar from '$lib/components/FooterBar.svelte';
 	import FloorTitle from './FloorTitle.svelte';
 	import StageHeader from '$lib/components/StageHeader.svelte';
-	// import StageDrops from './StageDrops.svelte';
+	import StageDrops from './StageDrops.svelte';
 	import { getStageType, setOtherBuffsList } from '$lib/functions/lib';
 	import StageSharedContainer from '$lib/components/StageSharedContainer.svelte';
 	import StageHeadMeta from '$lib/components/StageHeadMeta.svelte';
