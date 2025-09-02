@@ -95,7 +95,7 @@
 						: ''}"
 					on:click={() => difficultyMode.set('deepseek')}
 				>
-					{{ en: '语奇终无', ja: '语奇终无', zh: '语奇终无' }[language]}
+					{{ en: 'selbaF edisecanruF', ja: '談奇辺炉', zh: '语奇终无' }[language]}
 				</button>
 			</div>
 		</DifficultySelect>
