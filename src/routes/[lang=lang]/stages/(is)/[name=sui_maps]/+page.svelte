@@ -21,6 +21,8 @@
 	import StageHeader from '$lib/components/StageHeader.svelte';
 	import StageDrops from './StageDrops.svelte';
 	import { getStageType, setOtherBuffsList } from '$lib/functions/lib';
+	import StageSharedContainer from '$lib/components/StageSharedContainer.svelte';
+	import StageHeadMeta from '$lib/components/StageHeadMeta.svelte';
 
 	export let data: PageData;
 
@@ -67,7 +69,6 @@
 			{runes}
 			{rogueTopic}
 			{selectedRelics}
-			otherStores={{relics:selectedRelics}}
 			difficulty={$difficulty}
 		>
 			<StageNav {language} slot="nav" />
