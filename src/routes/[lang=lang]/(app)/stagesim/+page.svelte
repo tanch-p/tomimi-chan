@@ -5,7 +5,7 @@
 	import enemyDatabase from '$lib/data/enemy/enemy_database.json';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import translations from '$lib/translations.json';
-	import { getStageData, setOtherBuffsList } from '$lib/functions/lib';
+	import { getStageData, setOtherBuffsList, sortEnemies } from '$lib/functions/lib';
 	import StageSharedContainer from '$lib/components/StageSharedContainer.svelte';
 	import TitleBlock from '$lib/components/TitleBlock.svelte';
 	import { overwriteBlackboard } from '$lib/functions/skillHelpers';
@@ -13,13 +13,23 @@
 	import ActivitySelect from './ActivitySelect.svelte';
 	import SearchDataList from './SearchDataList.svelte';
 	import { onMount } from 'svelte';
+	import RecalRune from '$lib/components/RecalRune.svelte';
 
 	export let data: PageData;
 	$: language = data.language;
 	// $: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 
-	let mapConfig: MapConfig, traps: Trap[], enemies: Enemy[];
+	let mapConfig: MapConfig,
+		traps: Trap[],
+		enemies: Enemy[],
+		stageName = '';
 	let isLoading = true;
+
+	$: if (mapConfig) {
+		runes.set(mapConfig.n_mods);
+		setOtherBuffsList(otherBuffsList, null, enemies, mapConfig, language, 0);
+		stageName = mapConfig[`name_${language}`] || mapConfig[`name_zh`];
+	}
 
 	async function loadStageData(stageId: string) {
 		isLoading = true;
@@ -47,13 +57,14 @@
 			enemy.traits = enemy.stats.traits;
 			return enemy;
 		});
+		enemies.sort(sortEnemies);
 		traps = parseTraps(mapConfig.traps, language);
 		isLoading = false;
 	}
 
 	function removeHash() {
 		if (window.location.hash) {
-			history.replaceState(null, "", window.location.pathname + window.location.search);
+			history.replaceState(null, '', window.location.pathname + window.location.search);
 		}
 	}
 
@@ -91,11 +102,15 @@
 			</div>
 		</div>
 	</TitleBlock>
-	<div class="relative mt-5">
+	<div class="relative mt-8">
 		{#if isLoading}
 			<div class="absolute">{translations[language].loading}</div>
 		{/if}
 		{#if mapConfig}
+			<StageInfo {mapConfig} {language} {stageName} {eliteMode} />
+			{#if mapConfig.systems?.crisis}
+				<RecalRune {language} crisis={mapConfig.systems?.crisis} />
+			{/if}
 			<StageSharedContainer
 				{language}
 				{traps}

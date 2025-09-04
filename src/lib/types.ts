@@ -200,6 +200,7 @@ export interface MapConfig {
 	token_cards: [];
 	systems: {
 		level_predefine_tokens_random_spawn_on_tile?: NonNullable<unknown>;
+		crisis?: NonNullable<unknown>;
 	};
 	enemies: MapConfigEnemy[];
 	sp_terrain: [];
