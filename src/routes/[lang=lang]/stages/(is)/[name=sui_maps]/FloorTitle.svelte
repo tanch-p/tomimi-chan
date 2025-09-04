@@ -14,7 +14,7 @@
 
 	import Icon from '$lib/components/Icon.svelte';
 
-	export let stageFloors: number[], language: Language;
+	export let stageFloors: number[]|null, language: Language;
 
 	let optionsOpen = false;
 
