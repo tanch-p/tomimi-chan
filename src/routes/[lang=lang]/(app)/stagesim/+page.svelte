@@ -1,7 +1,15 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import type { Enemy, MapConfig, Trap } from '$lib/types';
-	import { statMods, specialMods, runes, eliteMode, otherBuffsList, stageIdStore } from './stores';
+	import {
+		statMods,
+		specialMods,
+		runes,
+		eliteMode,
+		otherBuffsList,
+		stageIdStore,
+		contracts
+	} from './stores';
 	import enemyDatabase from '$lib/data/enemy/enemy_database.json';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import translations from '$lib/translations.json';
@@ -13,7 +21,8 @@
 	import ActivitySelect from './ActivitySelect.svelte';
 	import SearchDataList from './SearchDataList.svelte';
 	import { onMount } from 'svelte';
-	import RecalRune from '$lib/components/RecalRune.svelte';
+	import RecalRune from '$lib/components/recalRune/RecalRuneContainer.svelte';
+	import { initContracts } from '$lib/functions/recalRune';
 
 	export let data: PageData;
 	$: language = data.language;
@@ -29,6 +38,7 @@
 		runes.set(mapConfig.n_mods);
 		setOtherBuffsList(otherBuffsList, null, enemies, mapConfig, language, 0);
 		stageName = mapConfig[`name_${language}`] || mapConfig[`name_zh`];
+		initContracts(contracts, mapConfig);
 	}
 
 	async function loadStageData(stageId: string) {
@@ -109,7 +119,7 @@
 		{#if mapConfig}
 			<StageInfo {mapConfig} {language} {stageName} {eliteMode} />
 			{#if mapConfig.systems?.crisis}
-				<RecalRune {language} crisis={mapConfig.systems?.crisis} />
+				<RecalRune {language} crisis={mapConfig.systems?.crisis} {contracts}/>
 			{/if}
 			<StageSharedContainer
 				{language}
