@@ -10,7 +10,6 @@
 	import { defaultOpenStageSim } from '../../routes/stores';
 	import { randomSeeds } from './StageSimulator/stores';
 	import { generateWaveTimeline, parseWaves } from '$lib/functions/waveHelpers';
-	import TitleBlock from './TitleBlock.svelte';
 
 	export let mapConfig,
 		enemies,
@@ -33,13 +32,13 @@
 	setContext('bonusKey', bonusKey);
 </script>
 
-{#if pageType === 'roguelike'}
-	<TogglePanel
-		key={'stageSim'}
-		title={translations[language].enemy_routes + ' ' + version}
-		size="subheading"
-		isOpen={defaultOpenStageSim}
-	>
+<TogglePanel
+	key={'stageSim'}
+	title={translations[language].enemy_routes + ' ' + version}
+	size="subheading"
+	isOpen={defaultOpenStageSim}
+>
+	{#if pageType === 'roguelike'}
 		<RoguelikeSpawnOptions {mapConfig} {enemies} {language} {eliteMode} {rogueTopic} {difficulty}>
 			<slot name="eliteMods" />
 		</RoguelikeSpawnOptions>
@@ -66,9 +65,7 @@
 				)}
 			/>
 		{/await}
-	</TogglePanel>
-{:else}
-	<TitleBlock title={translations[language].enemy_routes + ' ' + version} size="subheading">
+	{:else}
 		<NormalWaveOptions {mapConfig} {enemies} {language} {eliteMode}>
 			<slot name="eliteMods" />
 		</NormalWaveOptions>
@@ -81,5 +78,5 @@
 				timeline={generateWaveTimeline(mapConfig, [], 'random', eliteMode, $randomSeeds, null)}
 			/>
 		{/await}
-	</TitleBlock>
-{/if}
+	{/if}
+</TogglePanel>
