@@ -12,6 +12,9 @@ const otherMods = derived([otherBuffsList], ([$otherBuffsList]) =>
 	consolidateOtherMods($otherBuffsList)
 );
 
+// recalrune
+export const contracts = writable(null);
+
 export const statMods = derived(
 	[eliteMode, runes, otherMods],
 	([$eliteMode, $runes, $otherMods]) => {
