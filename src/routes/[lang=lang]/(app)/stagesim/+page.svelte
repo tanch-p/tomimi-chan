@@ -34,8 +34,6 @@
 		stageName = '';
 	let isLoading = true;
 
-	specialMods.subscribe(v => console.log(v))
-
 	$: if (mapConfig) {
 		runes.set(mapConfig.n_mods);
 		setOtherBuffsList(otherBuffsList, null, enemies, mapConfig, language, 0);

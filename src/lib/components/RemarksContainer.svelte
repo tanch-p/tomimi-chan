@@ -10,7 +10,7 @@
 	export let enemy: Enemy, row: number, language: Language, specialMods, mapConfig;
 	$: traits = getEnemySkills(enemy, enemy.traits, row, $specialMods, 'trait');
 	$: specialList = getEnemySkills(enemy, enemy.forms[row].special, row, $specialMods, 'special');
-	$: statusImmuneList = getStatusImmune(enemy, enemy.forms[row].status_immune, $specialMods);
+	$: statusImmuneList = getStatusImmune(enemy, enemy.forms[row].status_immune, row,$specialMods);
 </script>
 
 <div>

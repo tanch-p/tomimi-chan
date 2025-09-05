@@ -132,38 +132,44 @@ export const getEnemySkills = (
 		}
 	});
 
-	if (skillType === 'trait') {
-		// extra skills
-		for (const target in specialMods) {
-			if (checkIsTarget(enemy, target)) {
-				const newSkills = Object.keys(specialMods[target])
-					.map((key) => {
-						if (
-							key === 'status_immune' ||
-							key.includes('mods_') ||
-							'formIndex' in specialMods[target][key]
-						) {
-							return;
-						}
-						if (!currentSkills.find((ref) => ref.key === key)) {
-							return { key, ...specialMods[target][key] };
-						}
-					})
-					.filter(Boolean);
-				extraSkills = [...extraSkills,...newSkills]
-			}
+	// extra skills
+	for (const target in specialMods) {
+		if (checkIsTarget(enemy, target)) {
+			const newSkills = Object.keys(specialMods[target])
+				.map((key) => {
+					if (key === 'status_immune' || key.includes('mods_')) {
+						return;
+					}
+					if (skillType === 'trait' && 'formIndex' in specialMods[target][key]) {
+						return;
+					}
+					if (
+						skillType === 'special' &&
+						(!('formIndex' in specialMods[target][key]) ||
+							specialMods[target][key].formIndex !== row)
+					) {
+						return;
+					}
+					if (!currentSkills.find((ref) => ref.key === key)) {
+						return { key, ...specialMods[target][key] };
+					}
+				})
+				.filter(Boolean);
+			extraSkills = [...extraSkills, ...newSkills];
 		}
 	}
+
 	return [...extraSkills, ...currentSkills];
 };
 
 export const getStatusImmune = (
 	enemy: Enemy,
 	statusImmuneList: StatusImmune[],
+	row:number,
 	mods: SpecialMods
 ) => {
-	if (mods?.[enemy.id]?.status_immune) {
-		statusImmuneList = [...statusImmuneList, ...mods[enemy.id].status_immune];
+	if (mods?.[enemy.key]?.status_immune) {
+		statusImmuneList = [...statusImmuneList, ...mods[enemy.key].status_immune[row]];
 	}
 	return statusImmuneList;
 };

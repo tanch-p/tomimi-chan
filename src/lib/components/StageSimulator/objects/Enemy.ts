@@ -370,9 +370,6 @@ export class Enemy {
 			const { width, height } = getSpineMetaData(this.key, skeletonMesh.skeleton);
 			this.width = width;
 			this.height = height;
-			if(this.key === "enemy_1011_wizard"){
-				console.log(skeletonMesh.skeleton)
-			}
 			const size = new spine.Vector2(Math.max(50, this.width), Math.max(75, this.height));
 			const spriteMaterial = new THREE.SpriteMaterial({
 				transparent: true,

@@ -128,7 +128,7 @@ export function consolidateMods(contracts) {
 			return acc;
 		},
 		[]
-	);
+	).flat();
 	const othersNullGroupMods = contracts.others.nullGroup.reduce(consolidator, []);
 	const othersExclusiveGroupMods = Object.entries(contracts.others.exclusiveGroups).reduce(
 		(acc, [_, runes]) => {
@@ -139,7 +139,7 @@ export function consolidateMods(contracts) {
 			return acc;
 		},
 		[]
-	);
+	).flat();
 	return [
 		...baseNullGroupMods,
 		...baseExclusiveGroupMods,

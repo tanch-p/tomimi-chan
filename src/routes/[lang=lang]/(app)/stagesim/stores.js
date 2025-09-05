@@ -22,14 +22,14 @@ export const statMods = derived(
 		const contractMods = consolidateMods($contracts);
 		return {
 			runes: {
-				key: contractMods ? 'contracts' : $eliteMode ? 'elite_ops' : 'combat_ops',
-				mods: contractMods || [$runes]
+				key: $eliteMode ? 'elite_ops' : 'combat_ops',
+				mods: [$runes]
 			},
-			others: [...$otherMods]
+			others: [...$otherMods, { key: 'contracts', mods: contractMods }]
 		};
 	}
 );
 
 export const specialMods = derived([runes, contracts], ([$runes, $contracts]) =>
-	compileSpecialMods([$runes],consolidateMods($contracts))
+	compileSpecialMods([$runes], consolidateMods($contracts))
 );

@@ -388,7 +388,7 @@ export function compileMods(entity: EnemyDBEntry | Trap, mod: ModGroup, type = '
 export const compileSpecialMods = (...modsList: [[Effects]]) => {
 	const specialMods = {};
 	for (const effectsList of modsList) {
-		if(!effectsList) continue;
+		if (!effectsList) continue;
 		for (const effects of effectsList) {
 			if (effects && effects.length > 0) {
 				effects.forEach((effect) => {
