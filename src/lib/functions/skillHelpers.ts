@@ -136,9 +136,13 @@ export const getEnemySkills = (
 		// extra skills
 		for (const target in specialMods) {
 			if (checkIsTarget(enemy, target)) {
-				extraSkills = Object.keys(specialMods[target])
+				const newSkills = Object.keys(specialMods[target])
 					.map((key) => {
-						if (key === 'status_immune' || key.includes('mods_')) {
+						if (
+							key === 'status_immune' ||
+							key.includes('mods_') ||
+							'formIndex' in specialMods[target][key]
+						) {
 							return;
 						}
 						if (!currentSkills.find((ref) => ref.key === key)) {
@@ -146,10 +150,10 @@ export const getEnemySkills = (
 						}
 					})
 					.filter(Boolean);
+				extraSkills = [...extraSkills,...newSkills]
 			}
 		}
 	}
-
 	return [...extraSkills, ...currentSkills];
 };
 

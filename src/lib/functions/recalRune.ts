@@ -109,3 +109,41 @@ export function getScore(contracts) {
 	);
 	return nullGroupScore + exclusiveGroupScore;
 }
+
+export function consolidateMods(contracts) {
+	if (!contracts) return;
+	function consolidator(acc, rune) {
+		if (rune.selected) {
+			acc.push(rune.mods);
+		}
+		return acc;
+	}
+	const baseNullGroupMods = contracts.base.nullGroup.reduce(consolidator, []);
+	const baseExclusiveGroupMods = Object.entries(contracts.base.exclusiveGroups).reduce(
+		(acc, [_, runes]) => {
+			const groupMods = runes.reduce(consolidator, []);
+			if (groupMods.length > 0) {
+				acc = [...acc, groupMods];
+			}
+			return acc;
+		},
+		[]
+	);
+	const othersNullGroupMods = contracts.others.nullGroup.reduce(consolidator, []);
+	const othersExclusiveGroupMods = Object.entries(contracts.others.exclusiveGroups).reduce(
+		(acc, [_, runes]) => {
+			const groupMods = runes.reduce(consolidator, []);
+			if (groupMods.length > 0) {
+				acc = [...acc, groupMods];
+			}
+			return acc;
+		},
+		[]
+	);
+	return [
+		...baseNullGroupMods,
+		...baseExclusiveGroupMods,
+		...othersNullGroupMods,
+		...othersExclusiveGroupMods
+	];
+}
