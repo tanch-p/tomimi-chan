@@ -9,6 +9,7 @@
 	import ModsCheck from './ModsCheck.svelte';
 	import { GameConfig } from './StageSimulator/objects/GameConfig';
 	import TrapContainer from './TrapContainer.svelte';
+	import { setContext } from 'svelte';
 
 	export let language,
 		traps,
@@ -21,8 +22,7 @@
 		runes,
 		rogueTopic,
 		selectedRelics,
-		difficulty,
-		otherStores = {};
+		difficulty=0
 
 	$: moddedEnemies = applyMods(enemies, $statMods, $specialMods);
 	$: moddedTraps = applyTrapMods(traps, $statMods, $specialMods);
@@ -38,17 +38,20 @@
 		eliteMode.set(false);
 	});
 
-	const promise = import('./EnemyWaves.svelte').then(({ default: C }) => C);
+	setContext('eliteMode',eliteMode);
+	setContext('relics',selectedRelics);
+	setContext('difficulty',difficulty);
+
+	const promise = import('./StageSimContainer.svelte').then(({ default: C }) => C);
 </script>
 
-{#await promise then EnemyWaves}
-	<EnemyWaves
+{#await promise then StageSimContainer}
+	<StageSimContainer
 		{mapConfig}
 		enemies={moddedEnemies}
 		{language}
 		eliteMode={$eliteMode}
 		{rogueTopic}
-		{otherStores}
 		{difficulty}
 	>
 		<EliteToggle
@@ -62,7 +65,7 @@
 			{selectedRelics}
 			stageId={mapConfig.levelId}
 		/>
-	</EnemyWaves>
+	</StageSimContainer>
 {/await}
 <TrapContainer
 	{language}

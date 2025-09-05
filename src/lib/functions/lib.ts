@@ -95,7 +95,11 @@ export function getFormTitle(title: string | undefined | null, row: number, lang
 	return translations[language][title];
 }
 
-export const getStageData = async (stageName) => {
+export const getStageData = async (stageName: string, mode = 'roguelike') => {
+	if (mode !== 'roguelike') {
+		const res = await fetch(`/stage_data/${stageName}.json`);
+		return res.json();
+	}
 	const levelId = ISStages[stageName]?.key;
 	if (!levelId) return;
 	const data = await import(
@@ -212,7 +216,7 @@ export const setOtherBuffsList = (
 	}
 	for (const enemy of enemies) {
 		const enemyCount = mapConfig.enemies.find((ele) => ele.id === enemy.stageId);
-		const maxCount = Math.max(enemyCount.max_count, enemyCount.elite_max_count, 1);
+		const maxCount = enemyCount ? Math.max(enemyCount.max_count, enemyCount.elite_max_count, 1) : 1;
 		const list = [
 			...enemy.traits,
 			...enemy.stats.special.reduce((acc, curr) => {

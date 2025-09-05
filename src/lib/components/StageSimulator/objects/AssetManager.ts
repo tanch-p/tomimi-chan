@@ -21,7 +21,10 @@ const ENEMY_KEYS_TO_IGNORE = [
 	'enemy_1398_dhdcr',
 	'enemy_10009_sggem',
 	'enemy_1294_duchns',
-	'enemy_2121_dyspl2'
+	'enemy_2121_dyspl2',
+	'enemy_1420_lrmm',
+	'enemy_1432_lrccon',
+	'enemy_10082_mpweak'
 ];
 const ENEMY_KEYS_TO_REPLACE = {
 	enemy_2097_skzfdd: 'enemy_2082_skzdd',
@@ -30,7 +33,9 @@ const ENEMY_KEYS_TO_REPLACE = {
 	enemy_2100_skzfmf: 'enemy_1528_manfri',
 	enemy_1313_wdfmr_2: 'enemy_1313_wdfmr',
 	enemy_2113_dyhlg2: 'enemy_2112_dyhlgy',
-	enemy_2119_dyshhj_2: 'enemy_2119_dyshhj'
+	enemy_2119_dyshhj_2: 'enemy_2119_dyshhj',
+	enemy_1510_frstar2_s: 'enemy_1510_frstar2',
+	enemy_1554_lrtsia_2: 'enemy_1554_lrtsia'
 };
 const texturesToLoad = [
 	{

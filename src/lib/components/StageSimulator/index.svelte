@@ -11,16 +11,11 @@
 	import { getSimulatedData } from './functions/Simulator';
 	import BranchSummons from './BranchSummons.svelte';
 	import { generateBranchTimeline } from '$lib/functions/waveHelpers';
+	import { simMode } from './stores';
 
-	export let timeline,
-		mapConfig: MapConfig,
-		waveData,
-		language: Language,
-		enemies: Enemy[],
-		randomSeeds;
+	export let timeline, mapConfig: MapConfig, waveData, language: Language, enemies: Enemy[];
 
-	let simMode = 'wave_normal',
-		branchKey = null,
+	let branchKey = null,
 		branchIndex = -1;
 	let assetManager = AssetManager.getInstance(),
 		canvasElement: HTMLCanvasElement,
@@ -54,18 +49,12 @@
 		}
 	}
 
-	const unsubscribeFns = [];
-	onMount(() => {
-		unsubscribeFns.push(
-			GameConfig.subscribe('mode', (mode) => {
-				simMode = mode;
-				game && assetManager.texturesLoaded && game.softReset(false);
-			})
-		);
+	simMode.subscribe((v) => {
+		GameConfig.mode = v;
+		game && assetManager.texturesLoaded && game.softReset(false);
 	});
 
 	onDestroy(() => {
-		unsubscribeFns.forEach((fn) => fn());
 		assetManager.cleanup();
 		assetManager.texturesLoaded = false;
 		if (game) {
@@ -92,7 +81,6 @@
 		/>
 		<Interface
 			{simulatedData}
-			bind:randomSeeds
 			{game}
 			initialCost={mapConfig.initialCost}
 			{language}

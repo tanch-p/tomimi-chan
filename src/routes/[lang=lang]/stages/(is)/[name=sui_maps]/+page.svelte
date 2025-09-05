@@ -69,7 +69,6 @@
 			{runes}
 			{rogueTopic}
 			{selectedRelics}
-			otherStores={{relics:selectedRelics}}
 			difficulty={$difficulty}
 		>
 			<StageNav {language} slot="nav" />

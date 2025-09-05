@@ -3,7 +3,7 @@
 	import translations from '$lib/translations.json';
 	import friendlink from '$lib/images/friendlink.webp';
 
-	// export let language: Language;
+	export let language: Language;
 
 	const tts = {
 		zh: {
@@ -24,7 +24,7 @@
 	};
 </script>
 
-<!-- <div class="w-full md:w-[600px] bg-[#363636] shadow-lg md:shadow-xl pt-2 sm:py-3 px-2 sm:px-6">
+<div class="w-full md:w-[600px] bg-[#363636] shadow-lg md:shadow-xl pt-2 sm:py-3 px-2 sm:px-6">
 	<div class="flex items-center justify-center">
 		<span>
 			<img src={friendlink} alt={'友情链接'} width="31" height="29" />
@@ -53,9 +53,9 @@
 			{tts[language].desc}
 		</p>
 	</div>
-</div> -->
+</div>
 
-<!-- <style>
+<style>
 	p {
 		text-align: center;
 		padding: 0 0.5rem;
@@ -63,4 +63,4 @@
 		letter-spacing: 0.1em;
 		text-decoration: none;
 	}
-</style> -->
+</style>
