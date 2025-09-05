@@ -388,7 +388,8 @@ export function compileMods(entity: EnemyDBEntry | Trap, mod: ModGroup, type = '
 export const compileSpecialMods = (...modsList: [[Effects]]) => {
 	const specialMods = {};
 	for (const effectsList of modsList) {
-		for (const effects of effectsList)
+		if(!effectsList) continue;
+		for (const effects of effectsList) {
 			if (effects && effects.length > 0) {
 				effects.forEach((effect) => {
 					if (effect.special) {
@@ -403,6 +404,7 @@ export const compileSpecialMods = (...modsList: [[Effects]]) => {
 					}
 				});
 			}
+		}
 	}
 	return specialMods;
 };
