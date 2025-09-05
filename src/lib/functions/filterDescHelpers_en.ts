@@ -71,6 +71,7 @@ const ALLY_BUFFS = [
 	'ally_evasion',
 	'ally_shield',
 	'ally_reflect_dmg',
+	'ally_res_penetrate',
 	'ally_def_penetrate',
 	'ally_resist',
 	'ally_block_dmg',
@@ -80,6 +81,7 @@ const ALLY_BUFFS = [
 	'ally_stealth',
 	'ally_camouflage',
 	'ally_taunt',
+	"ally_arts",
 	'ally_apoptosis',
 	'ally_burning',
 	'ally_lower_target_priority',
@@ -104,7 +106,8 @@ const SELF_CAN_TAGS = [
 	'reallocate_hp',
 	'ailment_but_skill_cont',
 	'target_air',
-	'attract_enemy'
+	'attract_enemy',
+	'permanentatk'
 ];
 const SELF_STAT_BUFFS = ['sp_regen', 'sp_stock', 'def', 'res', 'max_ammo'];
 const HAVE_TAGS = [
@@ -149,7 +152,9 @@ const PRIORITY_TAGS = [
 	'priority_sleep',
 	'priority_highest_weight',
 	'priority_def_high',
-	'priority_def_low'
+	'priority_def_low',
+	'priority_res_high',
+	'priority_res_low'
 ];
 
 const SQUAD_TAGS = [
@@ -171,7 +176,8 @@ const SQUAD_TAGS = [
 	'SUPPORT',
 	'CASTER',
 	'SPECIAL',
-	'cost_under_10'
+	'cost_under_10',
+	'mujica'
 ];
 const TYPE_TAGS = [
 	'flying',

@@ -10,6 +10,7 @@
             "SUPPORT",
             "PIONEER",
             "TANK",
+            "mujica",
             "CASTER",
             "kazimierz",
             "token_barrier_active",
@@ -95,6 +96,9 @@
             "blocked_enemy",
             "enemy_hp_lt_40",
             "non_elite_boss",
+            "mujica",
+            "sluggish",
+            "fear",
             "when_attacked",
             "enemy_melee",
             "poison_damage",
@@ -102,11 +106,11 @@
             "enemy_hp_lt_50",
             "freeze",
             "cold",
-            "sluggish",
             "root",
             "skill_active",
             "blocked"
-        ]
+        ],
+        "prob":[]
     },
     "sleep":{
         "key":[],
@@ -467,7 +471,8 @@
             "weight_gte_3",
             "self_block",
             "flying",
-            "tremble"
+            "tremble",
+            "hp_gt_50"
         ],
         "prob":[]
     },
@@ -644,7 +649,8 @@
             "kazimierz",
             "token",
             "aak_dmg",
-            "enemy_on_grass_tile"
+            "enemy_on_grass_tile",
+            "within_attack_range"
         ],
         "duration":[],
         "prob":[]
@@ -662,6 +668,10 @@
             "block_3_more",
             "kazimierz"
         ]
+    },
+    "liftoff":{
+        "key":[],
+        "value":[]
     },
     "ally_sp_regen":{
         "key":[],
@@ -718,6 +728,7 @@
             "SUPPORT",
             "same_direction_8tile",
             "position_ranged",
+            "mujica",
             "aak_dmg",
             "abyssal"
         ],
@@ -916,12 +927,25 @@
     "ally_def_penetrate":{
         "key":[],
         "value":[],
-        "module":[]
+        "module":[],
+        "conditions":[
+            "mujica"
+        ]
     },
     "ally_block_down":{
         "key":[],
         "value":[],
         "duration":[]
+    },
+    "fear":{
+        "key":[],
+        "targets":[
+            99,
+            1
+        ],
+        "value":[],
+        "target_air":[],
+        "prob":[]
     },
     "hitrate_down":{
         "key":[],
@@ -934,18 +958,12 @@
         "module":[],
         "duration":[]
     },
-    "fear":{
-        "key":[],
-        "value":[],
-        "prob":[],
-        "targets":[
-            1
-        ],
-        "target_air":[]
-    },
     "ally_undying":{
         "key":[],
-        "value":[]
+        "value":[],
+        "conditions":[
+            "mujica"
+        ]
     },
     "heal_scale_down":{
         "key":[],
@@ -957,6 +975,13 @@
         "conditions":[
             "laterano",
             "surrounding_8_tile"
+        ]
+    },
+    "ally_res_penetrate":{
+        "key":[],
+        "value":[],
+        "conditions":[
+            "mujica"
         ]
     },
     "blockCnt":{

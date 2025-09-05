@@ -90,6 +90,8 @@ const SEARCH_IN_TAGS = [
 	'priority_highest_weight',
 	'priority_def_high',
 	'priority_def_low',
+	"priority_res_high",
+	"priority_res_low",
 	'priority_stun',
 	'priority_sleep',
 	'PIONEER',
@@ -129,7 +131,10 @@ const SEARCH_IN_TAGS = [
 	'attract_enemy',
 	'no_source',
 	'ally_min_aspd',
-	'min_aspd'
+	'min_aspd',
+	'permanentatk',
+	'ally_arts',
+	'mujica'
 ];
 const SEARCH_IN_BLACKBOARD = [
 	'max_target',
@@ -200,6 +205,7 @@ const SEARCH_IN_BLACKBOARD = [
 	'ct',
 	'heal_scale_down',
 	'ally_def_penetrate',
+	'ally_res_penetrate',
 	'add_bullet',
 	'max_ammo',
 	'ally_max_ammo',
@@ -220,6 +226,7 @@ const DISPLAY_KEYS_TABLE = {
 	shield: 'buff_shield',
 	ally_block_dmg: 'block_dmg',
 	ally_def_penetrate: 'def_penetrate',
+	ally_res_penetrate: 'res_penetrate',
 	ally_dmg_res: 'dmg_res',
 	ally_undying: 'undying',
 	ally_max_hp: 'hp',
@@ -282,6 +289,8 @@ const DISPLAY_KEYS_TABLE = {
 	priority_ranged: 'enemy_ranged',
 	priority_def_high: 'def_high',
 	priority_def_low: 'def_low',
+	priority_res_high: 'res_high',
+	priority_res_low: 'res_low',
 	priority_stun: 'stun',
 	priority_sleep: 'sleep',
 	dot: 'poison_damage'
@@ -298,6 +307,8 @@ const ALLY_KEYS = [
 	'ally_damage_scale',
 	'ally_reflect_dmg',
 	'ally_def_penetrate',
+	'ally_res_penetrate',
+	'ally_arts',
 	'ally_block_up',
 	'ally_block_down',
 	'ally_evasion',
@@ -348,6 +359,7 @@ const KEYS_TO_CHECK_VALUE_TYPE = [
 	'damage_scale',
 	'def_penetrate',
 	'ally_def_penetrate',
+	'ally_res_penertrate',
 	'ally_max_hp',
 	'ally_atk',
 	'ally_def',
@@ -1575,6 +1587,7 @@ export const getSortOptions = (key) => {
 			'cancel_stealth',
 			'camouflage',
 			'taunt',
+			'ally_undying',
 			'undying'
 		].includes(key):
 			list.push({ key, subKey: 'value', suffix: 'duration', order: -1, priority: -1 });
@@ -1583,6 +1596,7 @@ export const getSortOptions = (key) => {
 			'damage_scale',
 			'ally_dmg_res',
 			'ally_def_penetrate',
+			'ally_res_penetrate',
 			'dmg_res',
 			'ally_max_hp',
 			'ally_atk',
