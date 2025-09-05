@@ -21,7 +21,7 @@
 
 	let formIndex = 0;
 
-	$: statusImmuneList = getStatusImmune(enemy, enemy.forms[formIndex].status_immune, $specialMods);
+	$: statusImmuneList = getStatusImmune(enemy, enemy.forms[formIndex].status_immune, formIndex, $specialMods);
 </script>
 
 <div id={enemy.stageId} class="scroll-mt-16 px-2 bg-neutral-900 bg-opacity-40">
