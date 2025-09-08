@@ -12,7 +12,8 @@
 		selectedFloor,
 		otherBuffsList,
 		eliteMode,
-		disasterEffects
+		disasterEffects,
+		systemRunes
 	} from './stores';
 	import DifficultySelect from '../../../../../lib/components/DifficultySelect.svelte';
 	import NavTemp from '../../../(app)/sarkaz/NavTemp.svelte';
@@ -116,6 +117,7 @@
 			{selectedRelics}
 			otherStores={{ disaster: disasterEffects }}
 			difficulty={$difficulty}
+			{systemRunes}
 		>
 			<NavTemp {language} slot="nav" />
 		</StageSharedContainer>

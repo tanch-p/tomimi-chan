@@ -57,7 +57,89 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "trap_006_antidr"
+       ],
+       "mods": [
+        {
+         "key": "hp",
+         "value": 7.0,
+         "mode": "mul"
+        }
+       ]
+      },
+      {
+       "targets": [
+        "enemy_1041_lazerd",
+        "enemy_1041_lazerd_2"
+       ],
+       "mods": [
+        {
+         "key": "hp",
+         "value": 3.0,
+         "mode": "mul",
+         "order": "initial"
+        },
+        {
+         "key": "atk",
+         "value": 1.0,
+         "mode": "mul",
+         "order": "initial"
+        }
+       ]
+      },
+      {
+       "targets": [
+        "enemy_1042_frostd"
+       ],
+       "mods": [
+        {
+         "key": "hp",
+         "value": 3.0,
+         "mode": "mul",
+         "order": "initial"
+        },
+        {
+         "key": "def",
+         "value": 1.0,
+         "mode": "mul",
+         "order": "initial"
+        }
+       ]
+      },
+      {
+       "targets": [
+        "enemy_1105_tyokai_2"
+       ],
+       "mods": [
+        {
+         "key": "hp",
+         "value": 3.0,
+         "mode": "mul",
+         "order": "initial"
+        },
+        {
+         "key": "ms",
+         "value": 4.0,
+         "mode": "mul"
+        }
+       ]
+      },
+      {
+       "targets": [
+        "system"
+       ],
+       "mods": [
+        {
+         "key": "level_hidden_group_enable",
+         "value": 0.0,
+         "valueStr": "frostdHidden"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "token_build_a",
@@ -99,7 +181,26 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "ALL"
+       ],
+       "mods": [
+        {
+         "key": "ms",
+         "value": 1.6,
+         "mode": "mul"
+        },
+        {
+         "key": "hp",
+         "value": 0.7,
+         "mode": "mul",
+         "order": "initial"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "enemy_speed_b",
@@ -113,7 +214,32 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "ALL"
+       ],
+       "mods": [
+        {
+         "key": "ms",
+         "value": 0.6,
+         "mode": "mul"
+        },
+        {
+         "key": "hp",
+         "value": 2.0,
+         "mode": "mul",
+         "order": "initial"
+        },
+        {
+         "key": "atk",
+         "value": 0.7,
+         "mode": "mul",
+         "order": "initial"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "enemy_silenceImmue_a",
@@ -127,7 +253,20 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "enemy_1042_frostd"
+       ],
+       "special": {
+        "status_immune": [
+         [
+          "silence"
+         ]
+        ]
+       }
+      }
+     ]
     },
     {
      "runeId": "enemy_silenceImmue_b",
@@ -155,7 +294,45 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "enemy_1112_emppnt_2"
+       ],
+       "mods": [
+        {
+         "key": "atk",
+         "value": 1,
+         "mode": "mul",
+         "order": "initial"
+        },
+        {
+         "key": "def",
+         "value": 1,
+         "mode": "mul",
+         "order": "initial"
+        },
+        {
+         "key": "hp",
+         "value": 2,
+         "mode": "mul",
+         "order": "initial"
+        }
+       ]
+      },
+      {
+       "targets": [
+        "system"
+       ],
+       "mods": [
+        {
+         "key": "level_hidden_group_enable",
+         "value": 0.0,
+         "valueStr": "emppntMore"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "airforce_frost_2",
@@ -169,7 +346,21 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "enemy_1042_frostd"
+       ],
+       "mods": [
+        {
+         "key": "hp",
+         "value": 3.0,
+         "mode": "mul",
+         "order": "initial"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "airforce_lazerd_2",
@@ -183,7 +374,34 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "enemy_1041_lazerd",
+        "enemy_1041_lazerd_2"
+       ],
+       "mods": [
+        {
+         "key": "atk",
+         "value": 2.0,
+         "mode": "mul",
+         "order": "initial"
+        },
+        {
+         "key": "def",
+         "value": 2.0,
+         "mode": "mul",
+         "order": "initial"
+        },
+        {
+         "key": "hp",
+         "value": 3.0,
+         "mode": "mul",
+         "order": "initial"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "char_respawntime_2",
@@ -211,7 +429,29 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "enemy_1105_tyokai_2"
+       ],
+       "mods": [
+        {
+         "key": "hp",
+         "value": 3.5,
+         "mode": "mul"
+        }
+       ],
+       "special": {
+        "status_immune": [
+         [
+          "stun",
+          "sleep",
+          "frozen"
+         ]
+        ]
+       }
+      }
+     ]
     },
     {
      "runeId": "tyokai_fightback_3",
@@ -225,7 +465,42 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "enemy_1105_tyokai_2"
+       ],
+       "mods": [
+        {
+         "key": "hp",
+         "value": 1,
+         "mode": "mul",
+         "order": "initial"
+        },
+        {
+         "key": "atk",
+         "value": 500,
+         "mode": "add",
+         "order": "initial"
+        }
+       ],
+       "special": {
+        "reflect_dmg": {
+         "tooltip": {
+          "zh": [
+           "受到{phys}/{arts}时，若伤害来源为默认类，则对伤害来源造成相当于本次伤害60%的无来源{arts}普通伤害"
+          ],
+          "ja": [
+           "受けた{phys}/{arts}ダメージの60%で{arts}ダメージとして反撃する"
+          ],
+          "en": [
+           "Reflect 60% of {phys}/{arts} damage received as {arts} damage back to damage source"
+          ]
+         }
+        }
+       }
+      }
+     ]
     },
     {
      "runeId": "enemy_attri_base_2",
@@ -239,7 +514,25 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "ALL"
+       ],
+       "mods": [
+        {
+         "key": "def",
+         "value": 1.6,
+         "mode": "mul"
+        },
+        {
+         "key": "hp",
+         "value": 2.0,
+         "mode": "mul"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "enemy_attri_atk_2",
@@ -253,7 +546,20 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "ALL"
+       ],
+       "mods": [
+        {
+         "key": "atk",
+         "value": 2.0,
+         "mode": "mul"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "global_magic_resist_2",
@@ -267,7 +573,26 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "ALL"
+       ],
+       "mods": [
+        {
+         "key": "hp",
+         "value": 1.3,
+         "mode": "mul"
+        },
+        {
+         "key": "res",
+         "value": 30.0,
+         "mode": "add",
+         "order": "initial"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "defdrn_up_2",
@@ -281,7 +606,26 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "enemy_1017_defdrn"
+       ],
+       "mods": [
+        {
+         "key": "hp",
+         "value": 5.0,
+         "mode": "mul",
+         "order": "initial"
+        }
+       ],
+       "special": {
+        "mcv4_def_buff": {
+         "value": 2400
+        }
+       }
+      }
+     ]
     },
     {
      "runeId": "emppnt_more_2",
@@ -295,7 +639,38 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "enemy_1112_emppnt_2"
+       ],
+       "mods": [
+        {
+         "key": "hp",
+         "value": 1.0,
+         "mode": "mul",
+         "order": "initial"
+        }
+       ]
+      },
+      {
+       "targets": [
+        "system"
+       ],
+       "mods": [
+        {
+         "key": "level_hidden_group_enable",
+         "value": 0.0,
+         "valueStr": "emppntHidden"
+        },
+        {
+         "key": "level_hidden_group_disable",
+         "value": 0.0,
+         "valueStr": "frostdHidden"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "lunmag_strong_2",
@@ -309,7 +684,47 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "enemy_1038_lunmag_2"
+       ],
+       "mods": [
+        {
+         "key": "atk",
+         "value": 1.3,
+         "mode": "mul"
+        },
+        {
+         "key": "def",
+         "value": 2.0,
+         "mode": "mul"
+        },
+        {
+         "key": "hp",
+         "value": 3.0,
+         "mode": "mul"
+        },
+        {
+         "key": "range",
+         "value": 1.5,
+         "mode": "mul"
+        }
+       ]
+      },
+      {
+       "targets": [
+        "system"
+       ],
+       "mods": [
+        {
+         "key": "level_hidden_group_enable",
+         "value": 0.0,
+         "valueStr": "lunmagHidden"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "global_costrecovery_2",

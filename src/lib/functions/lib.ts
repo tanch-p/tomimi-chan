@@ -1,5 +1,5 @@
 import translations from '$lib/translations.json';
-import type { Enemy, Language, MapConfig, RogueTopic } from '$lib/types';
+import type { Effects, Enemy, Language, MapConfig, RogueTopic } from '$lib/types';
 import rogue_4_fragment_F_25 from '$lib/images/is/sarkaz/rogue_4_fragment_F_25.webp';
 import tileImg from '$lib/images/tiles/tile_infection.webp';
 import { checkIsTarget } from './statHelpers';
@@ -419,4 +419,21 @@ export function getStageType(levelId: string, rogueTopic: RogueTopic) {
 		return 'BATTLE_SKY';
 	}
 	return '';
+}
+
+export function compileSystemRunes(...modsList: Effects[][]) {
+	const runes = [];
+	for (const effectsList of modsList) {
+		if (!effectsList) continue;
+		for (const effects of effectsList) {
+			if (effects?.length > 0) {
+				effects.forEach((effect) => {
+					if (effect.targets.includes('system')) {
+						runes.push(...effect.mods);
+					}
+				});
+			}
+		}
+	}
+	return runes;
 }

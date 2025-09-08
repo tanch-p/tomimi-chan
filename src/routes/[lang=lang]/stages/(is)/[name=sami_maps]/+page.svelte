@@ -10,7 +10,8 @@
 		selectedRelics,
 		selectedFloor,
 		eliteMode,
-		otherBuffsList
+		otherBuffsList,
+		systemRunes
 	} from './stores';
 	import DifficultySelect from '../../../../../lib/components/DifficultySelect.svelte';
 	import SamiNav from '../../../(app)/sami/SamiNavTemp.svelte';
@@ -65,7 +66,8 @@
 			{runes}
 			{rogueTopic}
 			{selectedRelics}
-			difficulty={$difficulty}
+			difficulty={$difficulty},
+			{systemRunes}
 		>
 			<SamiNav slot="nav" {language} />
 		</StageSharedContainer>

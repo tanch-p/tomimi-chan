@@ -3,7 +3,7 @@ import difficultyModsList from '$lib/data/is/sarkaz/difficulty_mods_sarkaz.json'
 import { browser } from '$app/environment';
 import { cookiesEnabled } from '../../../../stores';
 import { compileSpecialMods } from '$lib/functions/statHelpers';
-import { consolidateOtherMods } from '$lib/functions/lib';
+import { compileSystemRunes, consolidateOtherMods } from '$lib/functions/lib';
 
 let storedDifficulty = 0;
 if (browser && cookiesEnabled) {
@@ -160,4 +160,11 @@ export const specialMods = derived(
 			[$runes, $allMods],
 			$difficultyMods
 		)
+);
+
+export const systemRunes = derived([runes, selectedRelics], ([$runes, $selectedRelics]) =>
+	compileSystemRunes(
+		[$runes],
+		$selectedRelics.map((relic) => relic.effects)
+	)
 );

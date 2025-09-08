@@ -22,7 +22,8 @@
 		runes,
 		rogueTopic,
 		selectedRelics,
-		difficulty=0
+		difficulty=0,
+		systemRunes;
 
 	$: moddedEnemies = applyMods(enemies, $statMods, $specialMods);
 	$: moddedTraps = applyTrapMods(traps, $statMods, $specialMods);
@@ -53,6 +54,7 @@
 		eliteMode={$eliteMode}
 		{rogueTopic}
 		{difficulty}
+		{systemRunes}
 	>
 		<EliteToggle
 			slot="eliteMods"

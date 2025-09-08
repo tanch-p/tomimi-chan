@@ -3,7 +3,7 @@ import difficultyModsList from '$lib/data/is/sui/difficulty_mods_sui.json';
 import { browser } from '$app/environment';
 import { cookiesEnabled } from '../../../../stores';
 import { compileSpecialMods, filterModCondition } from '$lib/functions/statHelpers';
-import { consolidateOtherMods } from '$lib/functions/lib';
+import { compileSystemRunes, consolidateOtherMods } from '$lib/functions/lib';
 
 let storedDifficulty = 0;
 if (browser && cookiesEnabled) {
@@ -141,7 +141,7 @@ export const statMods = derived(
 		$allMods
 	]) => {
 		const relicMods = $selectedRelics.map((relic) => {
-			const effects = relic.stages ? relic.stages[relic.count-1]?.effects : relic.effects;
+			const effects = relic.stages ? relic.stages[relic.count - 1]?.effects : relic.effects;
 			return {
 				key: relic.id,
 				mods: [effects.filter((effect) => filterModCondition(effect, $stageType))]
@@ -169,4 +169,11 @@ export const statMods = derived(
 export const specialMods = derived(
 	[runes, allMods, difficultyMods],
 	([$runes, $allMods, $difficultyMods]) => compileSpecialMods([$runes, $allMods], $difficultyMods)
+);
+
+export const systemRunes = derived([runes, selectedRelics], ([$runes, $selectedRelics]) =>
+	compileSystemRunes(
+		[$runes],
+		$selectedRelics.map((relic) => relic.effects)
+	)
 );
