@@ -52,7 +52,86 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "enemy_1007_slime_2"
+       ],
+       "mods": [
+        {
+         "key": "hp",
+         "value": 10,
+         "mode": "mul",
+         "order": "initial"
+        },
+        {
+         "key": "lifepoint",
+         "value": 0,
+         "mode": "set"
+        }
+       ]
+      },
+      {
+       "targets": [
+        "ALL"
+       ],
+       "mods": [
+        {
+         "key": "atk",
+         "value": 1.4,
+         "mode": "mul",
+         "order": "initial"
+        },
+        {
+         "key": "hp",
+         "value": 1.8,
+         "mode": "mul",
+         "order": "initial"
+        }
+       ]
+      },
+      {
+       "targets": [
+        "enemy_1015_litamr"
+       ],
+       "mods": [
+        {
+         "key": "def",
+         "value": 800,
+         "mode": "add",
+         "order": "initial"
+        }
+       ]
+      },
+      {
+       "targets": [
+        "enemy_1008_ghost"
+       ],
+       "mods": [
+        {
+         "key": "hp",
+         "value": 4,
+         "mode": "mul",
+         "order": "initial"
+        }
+       ],
+       "special": {
+        "resist": {
+         "tooltip": {
+          "en": [
+           "$*$<ba.buffres>Resist</>"
+          ],
+          "ja": [
+           "$*$<ba.buffres>レジスト</>"
+          ],
+          "zh": [
+           "$*$持有<ba.buffres>抵抗</>"
+          ]
+         }
+        }
+       }
+      }
+     ]
     },
     {
      "runeId": "char_exclude_highland",
@@ -108,7 +187,38 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "enemy_1263_durbus"
+       ],
+       "mods": [
+        {
+         "key": "hp",
+         "value": 1.5,
+         "mode": "mul",
+         "order": "initial"
+        }
+       ]
+      },
+      {
+       "targets": [
+        "system"
+       ],
+       "mods": [
+        {
+         "key": "level_hidden_group_enable",
+         "value": 0.0,
+         "valueStr": "ghosthigh"
+        },
+        {
+         "key": "level_hidden_group_disable",
+         "value": 0.0,
+         "valueStr": "ghostbase"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "enemy_replace_yokai_3",
@@ -122,7 +232,25 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "system"
+       ],
+       "mods": [
+        {
+         "key": "level_hidden_group_enable",
+         "value": 0.0,
+         "valueStr": "yokaihigh"
+        },
+        {
+         "key": "level_hidden_group_disable",
+         "value": 0.0,
+         "valueStr": "yokaibase"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "enemy_replace_laxe_2",
@@ -136,7 +264,20 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "system"
+       ],
+       "mods": [
+        {
+         "key": "level_enemy_replace",
+         "target": "enemy_1034_laxe",
+         "value": "enemy_1339_bhrgrd"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "enemy_replace_litamr_2",
@@ -150,7 +291,25 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "system"
+       ],
+       "mods": [
+        {
+         "key": "level_hidden_group_enable",
+         "value": 0.0,
+         "valueStr": "litamrhigh"
+        },
+        {
+         "key": "level_hidden_group_disable",
+         "value": 0.0,
+         "valueStr": "litamrbase"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "enemy_movespeed_2",
@@ -164,7 +323,20 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "ALL"
+       ],
+       "mods": [
+        {
+         "key": "ms",
+         "value": 1.4,
+         "mode": "mul"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "enemy_maxhp_2",
@@ -178,7 +350,20 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "ALL"
+       ],
+       "mods": [
+        {
+         "key": "hp",
+         "value": 1.4,
+         "mode": "mul"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "enemy_maxhp_3",
@@ -192,7 +377,20 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "ALL"
+       ],
+       "mods": [
+        {
+         "key": "hp",
+         "value": 1.8,
+         "mode": "mul"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "enemy_slime_repbsl_3",
@@ -206,7 +404,37 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "enemy_1021_bslime"
+       ],
+       "mods": [
+        {
+         "key": "weight",
+         "value": 3,
+         "mode": "add"
+        }
+       ]
+      },
+      {
+       "targets": [
+        "system"
+       ],
+       "mods": [
+        {
+         "key": "level_hidden_group_enable",
+         "value": 0.0,
+         "valueStr": "slimehigh"
+        },
+        {
+         "key": "level_hidden_group_disable",
+         "value": 0.0,
+         "valueStr": "slimebase"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "enemy_slime_attr_3",
@@ -220,7 +448,25 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "enemy_1007_slime_2"
+       ],
+       "mods": [
+        {
+         "key": "hp",
+         "value": 1.8,
+         "mode": "mul"
+        },
+        {
+         "key": "weight",
+         "value": 3,
+         "mode": "add"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "hidden_def_2",
@@ -234,7 +480,37 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "enemy_1017_defdrn"
+       ],
+       "mods": [
+        {
+         "key": "res",
+         "value": 50,
+         "mode": "add"
+        }
+       ],
+       "special": {
+        "mcv4_def_buff": {
+         "value": 900
+        }
+       }
+      },
+      {
+       "targets": [
+        "system"
+       ],
+       "mods": [
+        {
+         "key": "level_hidden_group_enable",
+         "value": 0.0,
+         "valueStr": "def"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "hidden_magicresistance_2",
@@ -248,7 +524,37 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "enemy_1355_mrfly_2"
+       ],
+       "mods": [
+        {
+         "key": "def",
+         "value": 900,
+         "mode": "add"
+        }
+       ],
+       "special": {
+        "mrfly_buff": {
+         "value": 70
+        }
+       }
+      },
+      {
+       "targets": [
+        "system"
+       ],
+       "mods": [
+        {
+         "key": "level_hidden_group_enable",
+         "value": 0.0,
+         "valueStr": "mr"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "enemy_bhrknf_2",
@@ -262,7 +568,20 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "system"
+       ],
+       "mods": [
+        {
+         "key": "level_hidden_group_enable",
+         "value": 0.0,
+         "valueStr": "cost1"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "enemy_bhrknf_3",
@@ -276,7 +595,20 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "system"
+       ],
+       "mods": [
+        {
+         "key": "level_hidden_group_enable",
+         "value": 0.0,
+         "valueStr": "cost2"
+        }
+       ]
+      }
+     ]
     }
    ]
   }

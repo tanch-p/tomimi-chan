@@ -237,7 +237,9 @@ export type ModGroup = {
 export type SpecialMods = {
 	[key: string]: SpecialMod;
 };
-export type Effects = [{ targets: string[]; mods: Mod[]; special: SpecialMod }];
+export type Effects = [{
+	systems: unknown[]; targets: string[]; mods: Mod[]; special: SpecialMod 
+}];
 type SpecialMod =
 	| {
 			[key: string]: Skill;

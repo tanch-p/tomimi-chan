@@ -21,7 +21,8 @@
 		rogueTopic: RogueTopic,
 		language: Language,
 		eliteMode: Boolean,
-		difficulty: number;
+		difficulty: number,
+		systemRunes;
 	const hiddenGroupsStore = getContext('hiddenGroups');
 	const permutationStore = getContext('permutation');
 	const bonusKey = getContext('bonusKey');

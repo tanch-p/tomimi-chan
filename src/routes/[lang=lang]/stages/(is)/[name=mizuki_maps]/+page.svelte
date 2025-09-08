@@ -9,7 +9,8 @@
 		allMods,
 		selectedRelics,
 		eliteMode,
-		otherBuffsList
+		otherBuffsList,
+		systemRunes
 	} from './stores';
 	import DifficultySelect from '$lib/components/DifficultySelect.svelte';
 	import MizukiNav from '../../../(app)/mizuki/MizukiNav.svelte';
@@ -66,6 +67,7 @@
 			{rogueTopic}
 			{selectedRelics}
 			difficulty={$difficulty}
+			{systemRunes}
 		>
 			<MizukiNav slot="nav" {language} />
 		</StageSharedContainer>

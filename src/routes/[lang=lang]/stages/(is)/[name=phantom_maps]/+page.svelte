@@ -12,7 +12,8 @@
 		allMods,
 		otherBuffsList,
 		isBossStage,
-		capsule
+		capsule,
+		systemRunes
 	} from './stores';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import FooterBar from '$lib/components/FooterBar.svelte';
@@ -73,6 +74,7 @@
 				{selectedRelics}
 				difficulty={$difficulty}
 				otherStores={{ eliteMode: eliteMode }}
+				{systemRunes}
 			>
 				<StageNav slot="nav" {language} />
 			</StageSharedContainer>

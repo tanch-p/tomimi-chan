@@ -8,7 +8,11 @@
 		eliteMode,
 		otherBuffsList,
 		stageIdStore,
-		contracts
+		contracts,
+		systemRunes,
+
+		allMods
+
 	} from './stores';
 	import enemyDatabase from '$lib/data/enemy/enemy_database.json';
 	import StageInfo from '$lib/components/StageInfo.svelte';
@@ -36,6 +40,7 @@
 
 	$: if (mapConfig) {
 		runes.set(mapConfig.n_mods);
+		allMods.set(mapConfig.all_mods);
 		setOtherBuffsList(otherBuffsList, null, enemies, mapConfig, language, 0);
 		stageName = mapConfig[`name_${language}`] || mapConfig[`name_zh`];
 		initContracts(contracts, mapConfig);
@@ -131,6 +136,7 @@
 				{enemies}
 				{eliteMode}
 				{runes}
+				{systemRunes}
 			/>
 		{/if}
 	</div>

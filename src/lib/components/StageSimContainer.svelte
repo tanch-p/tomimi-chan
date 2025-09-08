@@ -2,7 +2,7 @@
 	import type { Language, RogueTopic } from '$lib/types';
 	import { page } from '$app/stores';
 	import { setContext } from 'svelte';
-	import { writable } from 'svelte/store';
+	import { derived, writable } from 'svelte/store';
 	import translations from '$lib/translations.json';
 	import TogglePanel from './TogglePanel.svelte';
 	import RoguelikeSpawnOptions from './RoguelikeWaveOptions.svelte';
@@ -16,18 +16,39 @@
 		rogueTopic: RogueTopic,
 		language: Language,
 		eliteMode: Boolean,
-		difficulty: number;
+		difficulty: number,
+		systemRunes;
 
 	let pageType = 'roguelike';
 	$: pageType = $page.data.pageType || 'roguelike';
 
 	let version = 'v0.3';
 
-	const hiddenGroups = writable([]);
+	const otherHiddenGroups = writable([]);
 	const permutation = writable(null);
 	const bonusKey = writable('');
+	const hiddenGroups = derived(
+		[systemRunes, otherHiddenGroups],
+		([$systemRunes, $otherHiddenGroups]) => {
+			const disabledGroups = $systemRunes
+				.map(({ key, valueStr }) => {
+					if (key === 'level_hidden_group_disable') return valueStr;
+				})
+				.filter(Boolean);
+			const enabledGroups = $systemRunes
+				.map(({ key, valueStr }) => {
+					if (key === 'level_hidden_group_enable') return valueStr;
+				})
+				.filter(Boolean)
+				.filter((str) => !disabledGroups.includes(str))
+				.concat($otherHiddenGroups);
 
-	setContext('hiddenGroups', hiddenGroups);
+			return enabledGroups;
+		}
+	);
+	hiddenGroups.subscribe(v => console.log(v))
+
+	setContext('hiddenGroups', otherHiddenGroups);
 	setContext('permutation', permutation);
 	setContext('bonusKey', bonusKey);
 </script>
@@ -39,10 +60,24 @@
 	isOpen={defaultOpenStageSim}
 >
 	{#if pageType === 'roguelike'}
-		<RoguelikeSpawnOptions {mapConfig} {enemies} {language} {eliteMode} {rogueTopic} {difficulty}>
+		<RoguelikeSpawnOptions
+			{mapConfig}
+			{enemies}
+			{language}
+			{eliteMode}
+			{rogueTopic}
+			{difficulty}
+			{systemRunes}
+		>
 			<slot name="eliteMods" />
 		</RoguelikeSpawnOptions>
-		{#await import('./StageSimulator/index.svelte').then(({ default: C }) => C) then StageSimulator}
+	{:else}
+		<NormalWaveOptions {mapConfig} {enemies} {language} {eliteMode}>
+			<slot name="eliteMods" />
+		</NormalWaveOptions>
+	{/if}
+	{#await import('./StageSimulator/index.svelte').then(({ default: C }) => C) then StageSimulator}
+		{#if pageType === 'roguelike'}
 			<StageSimulator
 				{mapConfig}
 				{enemies}
@@ -64,19 +99,14 @@
 					$bonusKey
 				)}
 			/>
-		{/await}
-	{:else}
-		<NormalWaveOptions {mapConfig} {enemies} {language} {eliteMode}>
-			<slot name="eliteMods" />
-		</NormalWaveOptions>
-		{#await import('./StageSimulator/index.svelte').then(({ default: C }) => C) then StageSimulator}
+		{:else}
 			<StageSimulator
 				{mapConfig}
 				{enemies}
 				{language}
-				waveData={parseWaves(mapConfig, 'random', [], eliteMode, $randomSeeds, null)}
-				timeline={generateWaveTimeline(mapConfig, [], 'random', eliteMode, $randomSeeds, null)}
+				waveData={parseWaves(mapConfig, 'random', $hiddenGroups, eliteMode, $randomSeeds, null)}
+				timeline={generateWaveTimeline(mapConfig, $hiddenGroups, 'random', eliteMode, $randomSeeds, null)}
 			/>
-		{/await}
-	{/if}
+		{/if}
+	{/await}
 </TogglePanel>

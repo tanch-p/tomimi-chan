@@ -1,5 +1,5 @@
 import difficultyModsList from '$lib/data/is/phantom/difficulty_mods_phantom.json';
-import { consolidateOtherMods } from '$lib/functions/lib';
+import { compileSystemRunes, consolidateOtherMods } from '$lib/functions/lib';
 import { compileSpecialMods } from '$lib/functions/statHelpers';
 import { writable, derived } from 'svelte/store';
 import { browser } from '$app/environment';
@@ -120,4 +120,11 @@ export const specialMods = derived(
 			[$runes,$allMods],
 			$activeFloorEffects.map((ele) => ele.effects)
 		)
+);
+
+export const systemRunes = derived([runes, selectedRelics], ([$runes, $selectedRelics]) =>
+	compileSystemRunes(
+		[$runes],
+		$selectedRelics.map((relic) => relic.effects)
+	)
 );

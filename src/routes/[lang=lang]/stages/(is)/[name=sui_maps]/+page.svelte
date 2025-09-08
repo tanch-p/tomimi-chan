@@ -11,7 +11,8 @@
 		otherBuffsList,
 		eliteMode,
 		stageType,
-		selectedFloor
+		selectedFloor,
+		systemRunes
 	} from './stores';
 	import DifficultySelect from '../../../../../lib/components/DifficultySelect.svelte';
 	import StageNav from '../../../(app)/sui/StageNav.svelte';
@@ -70,6 +71,7 @@
 			{rogueTopic}
 			{selectedRelics}
 			difficulty={$difficulty}
+			{systemRunes}
 		>
 			<StageNav {language} slot="nav" />
 		</StageSharedContainer>

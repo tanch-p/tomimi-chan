@@ -3,7 +3,7 @@ import difficultyModsList from '$lib/data/is/sami/difficulty_mods_sami.json';
 import { browser } from '$app/environment';
 import { cookiesEnabled } from '../../../../stores';
 import { compileSpecialMods } from '$lib/functions/statHelpers';
-import { consolidateOtherMods } from '$lib/functions/lib';
+import { compileSystemRunes, consolidateOtherMods } from '$lib/functions/lib';
 
 let storedDifficulty = 0;
 if (browser && cookiesEnabled) {
@@ -104,4 +104,11 @@ export const statMods = derived(
 
 export const specialMods = derived([runes,allMods, selectedRelics], ([$runes,$allMods, $selectedRelics]) =>
 	compileSpecialMods([$runes,$allMods],$selectedRelics.map((relic) => relic.effects))
+);
+
+export const systemRunes = derived([runes, selectedRelics], ([$runes, $selectedRelics]) =>
+	compileSystemRunes(
+		[$runes],
+		$selectedRelics.map((relic) => relic.effects)
+	)
 );
