@@ -7,6 +7,15 @@
 	import translations from '$lib/translations.json';
 
 	export let language: Language, crisis, contracts;
+
+	let containerEle,
+		height = '60vh';
+
+	$: if (crisis && containerEle) {
+		setTimeout(() => {
+			height = `${containerEle?.scrollHeight}px`;
+		}, 100);
+	}
 </script>
 
 <TogglePanel
@@ -15,11 +24,13 @@
 	isOpen={true}
 	className="my-3"
 >
-	<div class="flex flex-wrap md:flex-nowrap md:h-[60vh]">
-		<div class="flex flex-col">
+	<div class="flex flex-wrap md:flex-nowrap">
+		<div bind:this={containerEle} class="flex flex-col h-min">
 			<ContractSelector {contracts} />
 			<ContractScore {language} {contracts} />
 		</div>
-		<ContractDesc {language} {crisis} {contracts} />
+		<div class="w-full bg-[#1b1b1b] max-h-[60vh] md:max-h-full overflow-y-auto" style:height>
+			<ContractDesc {language} {crisis} {contracts} />
+		</div>
 	</div>
 </TogglePanel>
