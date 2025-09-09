@@ -37,7 +37,6 @@ export class GameMap {
 				const tileToSet = structuredClone(tiles[tileIndex]);
 				const key = `${colIdx},${rowIdx}`;
 				if (forbiddenTiles.includes(key)) {
-					console.log(key);
 					switch (heightType) {
 						case 0:
 							tileToSet[0] = 'tile_floor';

@@ -10,9 +10,7 @@
 		stageIdStore,
 		contracts,
 		systemRunes,
-
 		allMods
-
 	} from './stores';
 	import enemyDatabase from '$lib/data/enemy/enemy_database.json';
 	import StageInfo from '$lib/components/StageInfo.svelte';
