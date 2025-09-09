@@ -88,6 +88,7 @@ export function clearContracts(contracts) {
 }
 
 export function getScore(contracts) {
+	if (!contracts) return 0;
 	const nullGroupScore = contracts.others.nullGroup.reduce((acc, rune) => {
 		if (rune.selected) {
 			acc += rune.score;
@@ -111,7 +112,7 @@ export function getScore(contracts) {
 }
 
 export function consolidateMods(contracts) {
-	if (!contracts) return;
+	if (!contracts) return [];
 	function consolidator(acc, rune) {
 		if (rune.selected) {
 			acc.push(rune.mods);
@@ -119,27 +120,25 @@ export function consolidateMods(contracts) {
 		return acc;
 	}
 	const baseNullGroupMods = contracts.base.nullGroup.reduce(consolidator, []);
-	const baseExclusiveGroupMods = Object.entries(contracts.base.exclusiveGroups).reduce(
-		(acc, [_, runes]) => {
+	const baseExclusiveGroupMods = Object.entries(contracts.base.exclusiveGroups)
+		.reduce((acc, [_, runes]) => {
 			const groupMods = runes.reduce(consolidator, []);
 			if (groupMods.length > 0) {
 				acc = [...acc, groupMods];
 			}
 			return acc;
-		},
-		[]
-	).flat();
+		}, [])
+		.flat();
 	const othersNullGroupMods = contracts.others.nullGroup.reduce(consolidator, []);
-	const othersExclusiveGroupMods = Object.entries(contracts.others.exclusiveGroups).reduce(
-		(acc, [_, runes]) => {
+	const othersExclusiveGroupMods = Object.entries(contracts.others.exclusiveGroups)
+		.reduce((acc, [_, runes]) => {
 			const groupMods = runes.reduce(consolidator, []);
 			if (groupMods.length > 0) {
 				acc = [...acc, groupMods];
 			}
 			return acc;
-		},
-		[]
-	).flat();
+		}, [])
+		.flat();
 	return [
 		...baseNullGroupMods,
 		...baseExclusiveGroupMods,
