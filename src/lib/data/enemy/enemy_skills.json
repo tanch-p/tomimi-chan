@@ -3067,15 +3067,16 @@
 		}
 	},
 	"dublinn_phalanx": {
+		"value": 200,
 		"tooltip": {
 			"en": [
-				"Buff - Dublinn Phalanx within 1.5 tile range DEF+200, stacks with other Dublinn Phalanx"
+				"Buff - Dublinn Phalanx within 1.5 tile range DEF+<v.value>, stacks with other Dublinn Phalanx"
 			],
 			"ja": [
-				"バフ→ 半径1.5内のダブリン方陣戦士の防御力200増加 (ほかのダブリン方陣戦士と重複する) "
+				"バフ→ 半径1.5内のダブリン方陣戦士の防御力<v.value>増加 (ほかのダブリン方陣戦士と重複する) "
 			],
 			"zh": [
-				"自身1.5半径内除自身外其它深池方阵战士/深池方阵指挥官防御力增加200",
+				"自身1.5半径内除自身外其它深池方阵战士/深池方阵指挥官防御力增加<v.value>",
 				" (可无限叠加，不可被沉默) "
 			]
 		}
@@ -3453,21 +3454,23 @@
 		}
 	},
 	"dublinn_companion_guard": {
+		"value":30,
 		"tooltip": {
 			"en": [
-				"When Companion Shadowblade is within 1.4 tile radius of self, decreases ASPD of all allied units within a 1.1 tile radius by 30"
+				"When Companion Shadowblade is within 1.4 tile radius of self, decreases ASPD of all allied units within a 1.1 tile radius by <v.value>"
 			],
-			"ja": ["半径1.4以内にダブリンヘタイロイ影刃系がいる場合、半径1.1以内の全味方の攻撃速度-30"],
-			"zh": ["自身1.4半径范围内存在深池伙友影刃时，使自身半径1.1范围内所有友方单位攻击速度减少30"]
+			"ja": ["半径1.4以内にダブリンヘタイロイ影刃系がいる場合、半径1.1以内の全味方の攻撃速度-<v.value>"],
+			"zh": ["自身1.4半径范围内存在深池伙友影刃时，使自身半径1.1范围内所有友方单位攻击速度减少<v.value>"]
 		}
 	},
 	"dublinn_companion_shadowblade": {
+		"value":1.3,
 		"tooltip": {
 			"en": [
-				"When Companion Guard is within a 1.4 tile radius of self, self's ATK interval is decreased by 1.3s"
+				"When Companion Guard is within a 1.4 tile radius of self, self's ATK interval is decreased by <v.value>s"
 			],
-			"ja": ["半径1.4以内にダブリンヘタイロイ衛兵系がいる場合、自身の攻撃間隔-1.3"],
-			"zh": ["自身1.4半径范围内存在深池伙友卫队/深池伙友卫队精英时，自身攻击间隔减少1.3s"]
+			"ja": ["半径1.4以内にダブリンヘタイロイ衛兵系がいる場合、自身の攻撃間隔-<v.value>"],
+			"zh": ["自身1.4半径范围内存在深池伙友卫队/深池伙友卫队精英时，自身攻击间隔减少<v.value>s"]
 		}
 	},
 	"durwar_evasion_hp50": {
@@ -3635,37 +3638,42 @@
 		"cooldown": 10,
 		"can_silence": true,
 		"atk": { "multiplier": 0.12 },
+		"duration":10.6,
 		"dmg_element": "arts",
 		"suffix": { "en": "Flamethrower", "ja": "火炎放射", "zh": "焚毁" },
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Does 12% of ATK as {arts} damage and 6% ATK as {ba.dt.burning} every 0.5s for 10.6s",
+				"Does <v.atk.multiplier>% of ATK as {arts} damage and 6% ATK as {ba.dt.burning} every 0.5s for <v.duration>s",
 				"Resets cooldown if skill is used again while chanelling",
 				"6s after channeling, enters cooldown",
 				"Skill is stopped when silenced/stunned"
 			],
 			"ja": [
-				"10.6秒間、0.5秒ごとに攻撃力の12%の{arts}ダメージと6%の{ba.dt.burning}を与える",
+				"<v.duration>秒間、0.5秒ごとに攻撃力の<v.atk.multiplier>%の{arts}ダメージと6%の{ba.dt.burning}を与える",
 				"無効化かスタンで中断できる"
 			],
 			"zh": [
-				"10.6s间对持续造成攻击力12%的{arts}伤害和攻击力6%的{ba.dt.burning}",
+				"<v.duration>s间对持续造成攻击力<v.atk.multiplier>%的{arts}伤害和攻击力6%的{ba.dt.burning}",
 				"施法状态下受到沉默/眩晕效果时，立刻退出施法状态"
 			]
 		}
 	},
 	"flamerazer_explode": {
+		"atk": { "multiplier": 1 },
+		"dmg_element": "arts",
+		"suffix": { "en": "Flamethrower", "ja": "火炎放射", "zh": "焚毁" },
+		"hits":1,
 		"tooltip": {
 			"en": [
-				"Explodes upon defeat, dealing 100% of ATK as {arts} damage to ally units in 1.5 tile radius",
+				"Explodes upon defeat, dealing <v.atk.multiplier>% of ATK as {arts} damage to ally units in 1.5 tile radius",
 				"Instant kills other flamerazers and destroys Tattered Pillars {can_silence}"
 			],
 			"ja": [
-				"死亡時に爆発し、攻撃半径(1.5)内の全味方に攻撃力の100%の{arts}ダメージを与える",
+				"死亡時に爆発し、攻撃半径(1.5)内の全味方に攻撃力の<v.atk.multiplier>%の{arts}ダメージを与える",
 				"ダブリン焼滅者系を即死させ、脆い石柱を破壊する{can_silence}"
 			],
-			"zh": ["死亡时爆炸造成{arts}伤害，并击倒周围的破碎支柱与其他<深池焚毁者>{can_silence}"]
+			"zh": ["死亡时爆炸造成攻击力<v.atk.multiplier>%的{arts}伤害，并击倒周围的破碎支柱与其他<深池焚毁者>{can_silence}"]
 		}
 	},
 	"doq_freeze_armor": {

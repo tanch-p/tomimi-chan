@@ -113,9 +113,11 @@
 			</div>
 			{#each Object.entries($contracts?.others?.exclusiveGroups) as [groupId, items]}
 				<div class="exclusive-group flex items-center">
-					<div class="relative left-[8px]">
-						<img src="/images/recalrune/group_head_exclusive.webp" alt="OR" width="72" />
-					</div>
+					{#if items.length > 1}
+						<div class="relative left-[8px]">
+							<img src="/images/recalrune/group_head_exclusive.webp" alt="OR" width="72" />
+						</div>
+					{/if}
 					<div class="relative flex items-center">
 						<div class="absolute w-[90%] h-[20px] bg-[#484848]" />
 						{#each items as item}

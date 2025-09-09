@@ -261,9 +261,10 @@ export class SpawnManager {
 		const originalRoute = this.routes[action['routeIndex']];
 		const route = this.gameManager.convertMovementConfig(structuredClone(originalRoute));
 		let enemyKey = action.key;
-		const enemyReplace = GameConfig.eliteMode
+		const eliteEnemyReplace = GameConfig.eliteMode
 			? this.gameManager.config.elite_runes?.enemy_replace || {}
 			: {};
+		const enemyReplace = { ...GameConfig.enemiesToReplace, ...eliteEnemyReplace };
 		if (enemyReplace[action.key]) {
 			enemyKey = enemyReplace[action.key];
 		}

@@ -21,6 +21,8 @@ export class GameConfig {
 	static currentWaveIndex = 0;
 	static specialMods = {};
 	static stagePhaseIndex = 0;
+	static enemiesToReplace = {};
+	static forbidLocations = [];
 
 	static subscribe(key: string, callback) {
 		this.subscribers.add({ key, callback });
