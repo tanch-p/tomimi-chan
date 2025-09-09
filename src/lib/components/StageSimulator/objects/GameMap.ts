@@ -15,7 +15,7 @@ export class GameMap {
 	assetManager: AssetManager;
 	gameManager: GameManager;
 
-	constructor(gameManager:GameManager) {
+	constructor(gameManager: GameManager) {
 		this.assetManager = AssetManager.getInstance();
 		this.gameManager = gameManager;
 		this.config = gameManager.config;
@@ -26,8 +26,10 @@ export class GameMap {
 	}
 
 	setup(mapData) {
-		const forbiddenTiles =
-			(GameConfig.eliteMode && this.config.elite_runes?.forbid_locations) || [];
+		const eliteForbiddenTiles = GameConfig.eliteMode
+			? this.config.elite_runes?.forbid_locations || []
+			: [];
+		const forbiddenTiles = [...eliteForbiddenTiles, ...GameConfig.forbidLocations];
 		const { map, tiles } = mapData;
 		map.forEach((row, rowIdx) =>
 			row.forEach((tileIndex, colIdx) => {
@@ -35,6 +37,7 @@ export class GameMap {
 				const tileToSet = structuredClone(tiles[tileIndex]);
 				const key = `${colIdx},${rowIdx}`;
 				if (forbiddenTiles.includes(key)) {
+					console.log(key);
 					switch (heightType) {
 						case 0:
 							tileToSet[0] = 'tile_floor';

@@ -39,5 +39,3 @@ export const specialMods = derived([runes, contractMods], ([$runes, $contractMod
 export const systemRunes = derived([runes, allMods, contractMods], ([$runes, $allMods, $contractMods]) =>
 	compileSystemRunes([$runes,$allMods], $contractMods)
 );
-
-systemRunes.subscribe(v => console.log(v))

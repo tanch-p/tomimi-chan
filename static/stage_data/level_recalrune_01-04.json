@@ -126,6 +126,38 @@
      "mods": [
       {
        "targets": [
+        "ALL"
+       ],
+       "mods": [
+        {
+         "key": "hp",
+         "value": 0.8,
+         "mode": "mul",
+         "order": "initial"
+        },
+        {
+         "key": "atk",
+         "value": 0.6,
+         "mode": "mul",
+         "order": "initial"
+        }
+       ]
+      },
+      {
+       "targets": [
+        "ALL"
+       ],
+       "mods": [
+        {
+         "key": "def",
+         "value": 400.0,
+         "mode": "add",
+         "order": "initial"
+        }
+       ]
+      },
+      {
+       "targets": [
         "system"
        ],
        "mods": [
@@ -151,11 +183,24 @@
      "exclusiveGroupId": "enemy_dufrbl",
      "runeIcon": "r_enemy_dufrbl_a",
      "description": {
-      "zh": "<净浊之焰>造成的伤害提升至<@recalrune.nag>{atk:0%}</>，我方防御点可承受的敌方数量变为<@recalrune.nag>1</>",
+      "zh": "<净浊之焰>造成的伤害提升至<@recalrune.nag>200%</>，我方防御点可承受的敌方数量变为<@recalrune.nag>1</>",
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "enemy_1177_dufrbl_2"
+       ],
+       "mods": [
+        {
+         "key": "atk",
+         "value": 2.0,
+         "mode": "mul"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "enemy_dufrbl_b",
@@ -165,11 +210,29 @@
      "exclusiveGroupId": "enemy_dufrbl",
      "runeIcon": "r_enemy_dufrbl_b",
      "description": {
-      "zh": "<净浊之焰>造成的伤害降低至<@recalrune.pos>{atk:0%}</>，但是进入目标点后会<@recalrune.nag>扣除1点目标生命值</>",
+      "zh": "<净浊之焰>造成的伤害降低至<@recalrune.pos>40%</>，但是进入目标点后会<@recalrune.nag>扣除1点目标生命值</>",
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "enemy_1177_dufrbl_2"
+       ],
+       "mods": [
+        {
+         "key": "atk",
+         "value": 0.4,
+         "mode": "mul"
+        },
+        {
+         "key": "lifepint",
+         "value": 1,
+         "mode": "set"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "enemy_global_b",
@@ -183,7 +246,21 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "ELITE"
+       ],
+       "mods": [
+        {
+         "key": "def",
+         "value": 1200.0,
+         "mode": "add",
+         "order": "initial"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "enemy_global_a",
@@ -197,7 +274,41 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "ELITE"
+       ],
+       "mods": [
+        {
+         "key": "res",
+         "value": 30.0,
+         "mode": "add",
+         "order": "initial"
+        }
+       ],
+       "special": {
+        "status_immune": [
+         [
+          "silence"
+         ]
+        ],
+        "refraction": {
+         "tooltip": {
+          "en": [
+           "$*$Refraction - RES+70"
+          ],
+          "ja": [
+           "$*$屈折→術耐性+70"
+          ],
+          "zh": [
+           "$*$折射：法术抗性增加70"
+          ]
+         }
+        }
+       }
+      }
+     ]
     },
     {
      "runeId": "enemy_duholydushdo_a_3",
@@ -207,11 +318,56 @@
      "exclusiveGroupId": null,
      "runeIcon": "r_enemy_duholydushdo_a_3",
      "description": {
-      "zh": "出现额外的<深池伙友卫队精英>和<深池伙友影刃精英>，<深池伙友卫队精英>的最大生命值<@recalrune.nag>+{max_hp:0%}</>，防御力<@recalrune.nag>+{def}</>；<深池伙友影刃精英>的攻击力<@recalrune.nag>+100%</>，最大生命值<@recalrune.nag>+80%</>",
+      "zh": "出现额外的<深池伙友卫队精英>和<深池伙友影刃精英>，<深池伙友卫队精英>的最大生命值<@recalrune.nag>+150%</>，防御力<@recalrune.nag>+600</>；<深池伙友影刃精英>的攻击力<@recalrune.nag>+100%</>，最大生命值<@recalrune.nag>+80%</>",
       "ja": null,
       "en": null
      },
      "mods": [
+      {
+       "targets": [
+        "enemy_1174_duholy_2"
+       ],
+       "mods": [
+        {
+         "key": "hp",
+         "value": 1.5,
+         "mode": "mul",
+         "order": "initial"
+        }
+       ]
+      },
+      {
+       "targets": [
+        "enemy_1174_duholy_2"
+       ],
+       "mods": [
+        {
+         "key": "def",
+         "value": 600.0,
+         "mode": "add",
+         "order": "initial"
+        }
+       ]
+      },
+      {
+       "targets": [
+        "enemy_1175_dushdo_2"
+       ],
+       "mods": [
+        {
+         "key": "atk",
+         "value": 1.0,
+         "mode": "mul",
+         "order": "initial"
+        },
+        {
+         "key": "hp",
+         "value": 0.8,
+         "mode": "mul",
+         "order": "initial"
+        }
+       ]
+      },
       {
        "targets": [
         "system"
@@ -221,7 +377,14 @@
          "key": "level_hidden_group_enable",
          "value": 0.0,
          "valueStr": "dun"
-        },
+        }
+       ]
+      },
+      {
+       "targets": [
+        "system"
+       ],
+       "mods": [
         {
          "key": "level_hidden_group_enable",
          "value": 0.0,
@@ -239,11 +402,31 @@
      "exclusiveGroupId": null,
      "runeIcon": "r_enemy_duholydushdo_b_3",
      "description": {
-      "zh": "出现额外的<深池伙友卫队精英>和<深池伙友影刃精英>，且两者靠近时，<深池伙友卫队精英>激活力场使周围我方攻击速度额外<@recalrune.nag>{traitAbility.attack_speed}</>，<深池伙友影刃精英>的攻击速度进一步<@recalrune.nag>提升</>",
+      "zh": "出现额外的<深池伙友卫队精英>和<深池伙友影刃精英>，且两者靠近时，<深池伙友卫队精英>激活力场使周围我方攻击速度额外<@recalrune.nag>60</>，<深池伙友影刃精英>的攻击速度进一步<@recalrune.nag>提升</>",
       "ja": null,
       "en": null
      },
      "mods": [
+      {
+       "targets": [
+        "enemy_1175_dushdo_2"
+       ],
+       "special": {
+        "dublinn_companion_shadowblade": {
+         "value": 1.6
+        }
+       }
+      },
+      {
+       "targets": [
+        "enemy_1174_duholy_2"
+       ],
+       "special": {
+        "dublinn_companion_guard": {
+         "value": 90
+        }
+       }
+      },
       {
        "targets": [
         "system"
@@ -253,7 +436,14 @@
          "key": "level_hidden_group_enable",
          "value": 0.0,
          "valueStr": "dun"
-        },
+        }
+       ]
+      },
+      {
+       "targets": [
+        "system"
+       ],
+       "mods": [
         {
          "key": "level_hidden_group_enable",
          "value": 0.0,
@@ -271,11 +461,40 @@
      "exclusiveGroupId": "enemy_duphlx",
      "runeIcon": "r_enemy_duphlx_b_2",
      "description": {
-      "zh": "出现<深池方阵指挥官>，<深池方阵指挥官>的攻击力<@recalrune.nag>+{atk:0%}</>，最大生命值<@recalrune.nag>+{max_hp:0%}</>，其他<深池方阵指挥官>位于附近时，防御力额外<@recalrune.nag>+{auraDefup.def}</>",
+      "zh": "出现<深池方阵指挥官>，<深池方阵指挥官>的攻击力<@recalrune.nag>+40%</>，最大生命值<@recalrune.nag>+100%</>，其他<深池方阵指挥官>位于附近时，防御力额外<@recalrune.nag>+1000</>",
       "ja": null,
       "en": null
      },
      "mods": [
+      {
+       "targets": [
+        "enemy_1169_duphlx_2"
+       ],
+       "special": {
+        "dublinn_phalanx": {
+         "value": 1200
+        }
+       }
+      },
+      {
+       "targets": [
+        "enemy_1169_duphlx_2"
+       ],
+       "mods": [
+        {
+         "key": "atk",
+         "value": 0.4,
+         "mode": "mul",
+         "order": "initial"
+        },
+        {
+         "key": "hp",
+         "value": 1.0,
+         "mode": "mul",
+         "order": "initial"
+        }
+       ]
+      },
       {
        "targets": [
         "system"
@@ -302,7 +521,20 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "ALL"
+       ],
+       "mods": [
+        {
+         "key": "ms",
+         "value": 1.5,
+         "mode": "mul"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "enemy_hiddengroup_b_2",
@@ -316,7 +548,20 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "system"
+       ],
+       "mods": [
+        {
+         "key": "level_hidden_group_enable",
+         "value": 0.0,
+         "valueStr": "zibao2"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "trap_dupilr_2",
@@ -326,11 +571,60 @@
      "exclusiveGroupId": null,
      "runeIcon": "r_trap_dupilr_2",
      "description": {
-      "zh": "<破碎支柱>初始位置改变且最大生命值提升至<@recalrune.nag>{max_hp:0%}</>，防御力<@recalrune.nag>+{def}</>，并且地图右侧初始存在<深池焚毁队长>",
+      "zh": "<破碎支柱>初始位置改变且最大生命值提升至<@recalrune.nag>500%</>，防御力<@recalrune.nag>+800</>，并且地图右侧初始存在<深池焚毁队长>",
       "ja": null,
       "en": null
      },
      "mods": [
+      {
+       "targets": [
+        "system"
+       ],
+       "mods": [
+        {
+         "key": "level_hidden_group_enable",
+         "value": 0.0,
+         "valueStr": "shizhu2"
+        }
+       ]
+      },
+      {
+       "targets": [
+        "system"
+       ],
+       "mods": [
+        {
+         "key": "level_hidden_group_disable",
+         "value": 0.0,
+         "valueStr": "shizhu1"
+        }
+       ]
+      },
+      {
+       "targets": [
+        "trap_043_dupilr"
+       ],
+       "mods": [
+        {
+         "key": "hp",
+         "value": 5.0,
+         "mode": "mul"
+        }
+       ]
+      },
+      {
+       "targets": [
+        "trap_043_dupilr"
+       ],
+       "mods": [
+        {
+         "key": "def",
+         "value": 800.0,
+         "mode": "add",
+         "order": "initial"
+        }
+       ]
+      },
       {
        "targets": [
         "system"
@@ -357,7 +651,30 @@
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "system"
+       ],
+       "mods": [
+        {
+         "key": "global_forbid_location",
+         "value": [
+          "2,4",
+          "2,1",
+          "2,6",
+          "2,8",
+          "2,10",
+          "3,5",
+          "2,5",
+          "2,9",
+          "1,9",
+          "1,8"
+         ]
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "enemy_atk_2",
@@ -367,11 +684,25 @@
      "exclusiveGroupId": "enemy_atk",
      "runeIcon": "r_enemy_atk_2",
      "description": {
-      "zh": "所有敌人的攻击力<@recalrune.nag>+{atk:0%}</>",
+      "zh": "所有敌人的攻击力<@recalrune.nag>+60%</>",
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "ALL"
+       ],
+       "mods": [
+        {
+         "key": "atk",
+         "value": 0.6,
+         "mode": "mul",
+         "order": "initial"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "enemy_atk_3",
@@ -381,11 +712,25 @@
      "exclusiveGroupId": "enemy_atk",
      "runeIcon": "r_enemy_atk_3",
      "description": {
-      "zh": "所有敌人的攻击力<@recalrune.nag>+{atk:0%}</>",
+      "zh": "所有敌人的攻击力<@recalrune.nag>+80%</>",
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "ALL"
+       ],
+       "mods": [
+        {
+         "key": "atk",
+         "value": 0.8,
+         "mode": "mul",
+         "order": "initial"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "enemy_duspfr_a_3",
@@ -395,11 +740,38 @@
      "exclusiveGroupId": "enemy_duspfr",
      "runeIcon": "r_enemy_duspfr_a_3",
      "description": {
-      "zh": "<深池焚毁者队长>最大生命值<@recalrune.nag>+{max_hp:0%}</>，技能持续时间增加至<@recalrune.nag>{duspfr_flame[cd].duration:0%}</>，造成的法术伤害增加至<@recalrune.nag>{atk_scale:0%}</>",
+      "zh": "<深池焚毁者队长>最大生命值<@recalrune.nag>+100%</>，技能持续时间增加至<@recalrune.nag>150%</>，造成的法术伤害增加至<@recalrune.nag>250%</>",
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "enemy_1173_duspfr_2"
+       ],
+       "special": {
+        "flamerazer_flamethrower": {
+         "duration": 15.9,
+         "atk": {
+          "multiplier": 0.3
+         }
+        }
+       }
+      },
+      {
+       "targets": [
+        "enemy_1173_duspfr_2"
+       ],
+       "mods": [
+        {
+         "key": "hp",
+         "value": 1.0,
+         "mode": "mul",
+         "order": "initial"
+        }
+       ]
+      }
+     ]
     },
     {
      "runeId": "enemy_duspfr_b_3",
@@ -409,11 +781,37 @@
      "exclusiveGroupId": "enemy_duspfr",
      "runeIcon": "r_enemy_duspfr_b_3",
      "description": {
-      "zh": "<深池焚毁者队长>最大生命值<@recalrune.nag>+{max_hp:0%}</>，死亡时爆炸伤害增加至<@recalrune.nag>{atk_scale:0%}</>",
+      "zh": "<深池焚毁者队长>最大生命值<@recalrune.nag>+200%</>，死亡时爆炸伤害增加至<@recalrune.nag>300%</>",
       "ja": null,
       "en": null
      },
-     "mods": []
+     "mods": [
+      {
+       "targets": [
+        "enemy_1173_duspfr_2"
+       ],
+       "mods": [
+        {
+         "key": "hp",
+         "value": 2.0,
+         "mode": "mul",
+         "order": "initial"
+        }
+       ]
+      },
+      {
+       "targets": [
+        "enemy_1173_duspfr_2"
+       ],
+       "special": {
+        "flamerazer_explode": {
+         "atk": {
+          "multiplier": 3
+         }
+        }
+       }
+      }
+     ]
     },
     {
      "runeId": "char_exclude_medsip_2",
@@ -423,7 +821,7 @@
      "exclusiveGroupId": "char_exclude",
      "runeIcon": "r_char_exclude_medsip_2",
      "description": {
-      "zh": "医疗和狙击干员的部署费用提升至<@recalrune.nag>{scale}</>倍",
+      "zh": "医疗和狙击干员的部署费用提升至<@recalrune.nag>2</>倍",
       "ja": null,
       "en": null
      },
@@ -451,7 +849,7 @@
      "exclusiveGroupId": "char_exclude",
      "runeIcon": "r_char_exclude_magshel_2",
      "description": {
-      "zh": "辅助和特种干员的部署费用提升至<@recalrune.nag>{scale}</>倍",
+      "zh": "辅助和特种干员的部署费用提升至<@recalrune.nag>2</>倍",
       "ja": null,
       "en": null
      },
