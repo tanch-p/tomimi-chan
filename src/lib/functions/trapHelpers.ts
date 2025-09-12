@@ -1,7 +1,7 @@
 import type { Language, Trap, MapConfigTrap, TrapData, StatMods, SpecialMods } from '$lib/types';
 import trapLookup from '$lib/data/trap/traps.json';
 import trapSkills from '$lib/data/trap/traps_skills.json';
-import { compileMods, getDmgReductionVal, getModdedStat } from './statHelpers';
+import { compileMods, getDmgReductionVal, getModdedStat, getRelevantMods } from './statHelpers';
 import { getOverwrittenKeys } from './skillHelpers';
 import { isEquals } from './lib';
 
@@ -104,7 +104,6 @@ export const parseTraps = (traps: MapConfigTrap[], language: Language) => {
 			};
 		});
 		const skills = [];
-		console.log(key)
 		const skillKey = trap.skills[skillIndex];
 		if (trapSkills[skillKey]) {
 			const skill = trapSkills[skillKey];
@@ -185,26 +184,10 @@ export function getTrapSpecialSkill(
 
 function parseStats(trap: Trap, statMods: StatMods) {
 	let diffMods;
-	const type = trap.group === 'enemy' ? 'trap_enemy' : 'trap_rune';
-	const otherMods = statMods.others
-		.map((mods) => {
-			if (
-				type === 'trap_enemy' &&
-				!TRAPS_AFFECTED_BY_DIFFICULTY.includes(trap.key) &&
-				mods.key === 'floor_diff'
-			) {
-				return;
-			}
-			return compileMods(trap, mods, type);
-		})
-		.filter(Boolean);
-	if (statMods.diff) {
-		diffMods = compileMods(
-			trap,
-			statMods.diff,
-			TRAPS_AFFECTED_BY_DIFFICULTY.includes(trap.key) ? 'enemy' : 'trap_rune'
-		);
-	}
+	const type = TRAPS_AFFECTED_BY_DIFFICULTY ? 'trap_enemy' : 'trap_rune';
+	const otherMods = statMods.others.map(({ key, mods }) => {
+		return { key, mods: getRelevantMods(key, mods, type, trap) };
+	});
 	const secondaryMods = [diffMods, ...otherMods].filter(Boolean);
 	//Traps are not affected by rune mods unless specifically targeted (to confirm for both ally and enemy traps)
 	const runeMods = compileMods(trap, statMods.runes, 'trap_rune');

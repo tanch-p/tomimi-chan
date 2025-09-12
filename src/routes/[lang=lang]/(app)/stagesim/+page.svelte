@@ -28,7 +28,6 @@
 
 	export let data: PageData;
 	$: language = data.language;
-	// $: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
 
 	let mapConfig: MapConfig,
 		traps: Trap[],
@@ -49,7 +48,6 @@
 		mapConfig = await getStageData(stageId, 'all');
 		enemies = mapConfig.enemies.map(({ id, prefabKey, level, overwrittenData }) => {
 			const enemy = structuredClone(enemyDatabase[prefabKey]);
-			console.log(prefabKey);
 			enemy.stageId = id;
 			enemy.level = level;
 			enemy.stats = structuredClone(enemy.stats[level]);
@@ -117,12 +115,18 @@
 	</TitleBlock>
 	<div class="relative mt-8">
 		{#if isLoading}
-			<div class="absolute">{translations[language].loading}</div>
+			<div
+				class="fixed h-screen z-[1] inset-0 flex items-center justify-center bg-black bg-opacity-50 text-2xl"
+			>
+				<p class="bg-neutral-800 bg-opacity-80 px-2 py-1">
+					{translations[language].loading}
+				</p>
+			</div>
 		{/if}
 		{#if mapConfig}
 			<StageInfo {mapConfig} {language} {stageName} {eliteMode} />
 			{#if mapConfig.systems?.crisis}
-				<RecalRune {language} crisis={mapConfig.systems?.crisis} {contracts}/>
+				<RecalRune {language} crisis={mapConfig.systems?.crisis} {contracts} />
 			{/if}
 			<StageSharedContainer
 				{language}

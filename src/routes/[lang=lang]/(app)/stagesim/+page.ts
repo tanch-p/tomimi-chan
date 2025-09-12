@@ -4,10 +4,10 @@ import { activityIdStore, stageIdStore } from './stores';
 
 export const load = (async ({ params }) => {
 	const language: Language = params.lang;
-	activityIdStore.set(language === 'zh' ? 'crisis' : 'act2mainss');
-	stageIdStore.set(language === 'zh' ? 'level_recalrune_01-01' : 'main_15-01');
+	activityIdStore.set(language === 'zh' ? 'act45side' : 'act2mainss');
+	stageIdStore.set(language === 'zh' ? 'act45side_ex08' : 'main_15-01');
 	return {
-		pageType: "all",
+		pageType: 'all',
 		language
 	};
 }) satisfies PageLoad;

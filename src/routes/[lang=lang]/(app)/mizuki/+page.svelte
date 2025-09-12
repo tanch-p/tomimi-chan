@@ -32,7 +32,7 @@
 			<TogglePanel title={translations[language].how_to_use} isOpen={true}>
 				<HowToUse {language} rogueTopic={'rogue_mizuki'} />
 			</TogglePanel>
-			<TogglePanel title={translations[language].related_tools}>
+			<TitleBlock title={translations[language].related_tools}>
 				<ul class="text-lg pt-2 pb-6">
 					<li class="list-disc list-inside">
 						<a class="text-sky-500 hover:underline" href="/{language}/laoli">
@@ -40,7 +40,7 @@
 						</a>
 					</li>
 				</ul>
-			</TogglePanel>
+			</TitleBlock>
 			<TitleBlock title={translations[language].stage_nav}>
 				<MizukiNav {language} />
 			</TitleBlock>

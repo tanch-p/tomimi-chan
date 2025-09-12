@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Enemy, Language, MapConfig } from '$lib/types';
-	import { onDestroy, onMount } from 'svelte';
+	import { onDestroy } from 'svelte';
 	import { Game } from './objects/Game';
 	import { AssetManager } from './objects/AssetManager';
 	import LoadingScreen from './LoadingScreen.svelte';
@@ -68,13 +68,13 @@
 	{#await loadGame(mapConfig)}
 		<LoadingScreen />
 	{:then}
-		{#if simMode === 'wave_summons' && mapConfig.branches}
+		{#if $simMode === 'wave_summons' && mapConfig.branches}
 			<BranchSummons bind:branchKey bind:branchIndex {language} {game} {mapConfig} />
 		{/if}
 		<SpawnTimeView
 			{branchKey}
 			{branchIndex}
-			waves={simMode === 'wave_summons'
+			waves={$simMode === 'wave_summons'
 				? generateBranchTimeline(mapConfig, branchKey, branchIndex)
 				: timeline.waves}
 			{mapConfig}

@@ -78,7 +78,9 @@
 		<div class="flex flex-wrap items-center gap-2">
 			{#if language === 'zh'}
 				<a
-					href="https://search.bilibili.com/all?keyword=明日方舟 {mapConfig.name_zh}"
+					href="https://search.bilibili.com/all?keyword=明日方舟 {rogueTopic
+						? mapConfig.name_zh
+						: mapConfig.code}"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="text-blue-400 hover:text-blue-300"
@@ -87,20 +89,32 @@
 				</a>
 			{:else if mapConfig[`name_${language}`]}
 				<a
-					href="https://www.youtube.com/results?search_query={mapConfig[`name_${language}`]}"
+					href="https://www.youtube.com/results?search_query={rogueTopic
+						? mapConfig[`name_${language}`]
+						: mapConfig.code}"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="text-blue-400 hover:text-blue-300">Youtube</a
 				>
 			{/if}
 			<a
-				href="https://map.ark-nights.com/map/{getStageImg(mapConfig.id, eliteMode)}"
+				href="https://map.ark-nights.com/map/{getStageImg(mapConfig.id, eliteMode, rogueTopic)}"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="text-blue-400 hover:text-blue-300"
 			>
 				PRTS.Map
 			</a>
+			{#if !rogueTopic}
+				<a
+					href="https://prts.wiki/w/{mapConfig.code}"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="text-blue-400 hover:text-blue-300"
+				>
+					PRTS.wiki
+				</a>
+			{/if}
 		</div>
 	</div>
 </div>
@@ -108,4 +122,4 @@
 {#if mapConfig.sp_terrain || rogueTopic === 'rogue_skz'}
 	<SpTerrain {difficulty} spTerrain={mapConfig.sp_terrain} {rogueTopic} {language} />
 {/if}
-<StageMap {mapConfig} {rogueTopic} {language} eliteMode={eliteMode} />
+<StageMap {mapConfig} {rogueTopic} {language} {eliteMode} />

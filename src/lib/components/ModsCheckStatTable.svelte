@@ -39,7 +39,7 @@
 	$: statsToShow = enemy.modsList[formIndex]
 		.reduce((acc, curr) => {
 			for (const mod of curr.mods) {
-				if (['range', 'dmg_res','weight','lifepoint'].includes(mod?.key)) continue;
+				if (['range', 'dmg_res', 'weight', 'lifepoint'].includes(mod?.key)) continue;
 				let key = mod?.key;
 				if (key === 'atk_interval') {
 					key = 'aspd';
@@ -76,7 +76,7 @@
 		const initialMul = [];
 		const finalAdd = [];
 		const finalMul = [];
-
+		let set = 0;
 		modsList
 			.filter((mod) => !['combat_ops', 'elite_ops'].includes(mod.key))
 			.forEach((ele) => {
@@ -103,10 +103,13 @@
 									break;
 							}
 							break;
+						case 'set':
+							set = value;
+							break;
 					}
 				}
 			});
-		return { initialAdd, initialMul, finalAdd, finalMul };
+		return { initialAdd, initialMul, finalAdd, finalMul, set };
 	}
 
 	function getAtkIntervalMods(modsList) {
@@ -229,7 +232,7 @@
 										{value}</span
 									>
 								{:else}
-									<span>&nbsp;× {1+value}</span>
+									<span>&nbsp;× {1 + value}</span>
 								{/if}
 							{/each}
 							<span>)</span>
@@ -309,7 +312,7 @@
 						</div>
 					{:else}
 						<span>
-							{enemy.stats[statKey]}
+							{otherMods.set || enemy.stats[statKey]}
 						</span>
 					{/if}
 					{#if otherMods?.initialAdd?.length > 0}

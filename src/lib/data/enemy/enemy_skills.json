@@ -8831,14 +8831,14 @@
 	},
 	"mjclun_buff_15": {
 		"atk": { "multiplier": 0.75, "order": "initial" },
-		"range": { "add": 0.6 },
-		"suffix": { "en": "MAX", "ja": "MAX", "zh": "30层" },
+		"range": { "fixed": 0.6 },
+		"suffix": { "en": "MAX", "ja": "MAX", "zh": "15层" },
 		"tooltip": null
 	},
 	"mjclun_buff_30": {
 		"value": 0.04,
 		"atk": { "multiplier": 1.5, "order": "initial" },
-		"range": { "add": 1.2 },
+		"range": { "fixed": 1.2 },
 		"suffix": { "en": "MAX", "ja": "MAX", "zh": "30层" },
 		"dmg_element": null,
 		"skillRange": 1.6,
@@ -8847,13 +8847,13 @@
 	"mjclun2_buff_30": {
 		"value": 0.04,
 		"atk": { "multiplier": 1.5, "order": "initial" },
-		"range": { "add": 1.5 },
+		"range": { "fixed": 1.5 },
 		"suffix": { "en": "MAX", "ja": "MAX", "zh": "30层" },
 		"dmg_element": null,
 		"skillRange": 1.9,
 		"tooltip": null
 	},
-	"mjclun_toolip": {
+	"mjclun_tooltip": {
 		"value": 0.04,
 		"tooltip": {
 			"en": [""],
@@ -8887,6 +8887,7 @@
 		"type": "skill",
 		"initCooldown": 10,
 		"cooldown": 30,
+		"suffix": { "en": "意识的挽留", "ja": "意识的挽留", "zh": "意识的挽留" },
 		"tooltip": {
 			"en": [""],
 			"ja": [""],
@@ -8934,6 +8935,20 @@
 			]
 		}
 	},
+	"ldevil_red_2": {
+		"type": "skill",
+		"initCooldown": 15,
+		"cooldown": 15,
+		"atk": { "multiplier": 0.6 },
+		"suffix": { "en": "幻梦的纠缠", "ja": "幻梦的纠缠", "zh": "幻梦的纠缠" },
+		"dmg_element": "arts",
+		"hits": 25,
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [""]
+		}
+	},
 	"ldevil_form_1": {
 		"tooltip": {
 			"en": [""],
@@ -8945,23 +8960,25 @@
 		}
 	},
 	"ldevil_form_2": {
+		"value": 15,
 		"tooltip": {
 			"en": [""],
 			"ja": [""],
 			"zh": [
 				"<@bluehl>【蓝线】</>减伤比例为70%，$【红线】$伤害比例为攻击力的60%",
 				"【感官的剥离】与【幻梦的纠缠】不再具有索敌范围限制",
-				"受【红线】影响的我方单位生命值归零时被【提线】：陷入濒死状态，15s内无法撤退，15s后强制撤退"
+				"受【红线】影响的我方单位生命值归零时被【提线】：陷入濒死状态，<v.value>s内无法撤退，<v.value>s后强制撤退"
 			]
 		}
 	},
 	"ldevil_revive": {
+		"interval": 4,
 		"tooltip": {
 			"en": [""],
 			"ja": [""],
 			"zh": [
-				"<@bluehl>【蓝线】</>减伤比例为65%，$【红线】$伤害比例为攻击力的50%",
-				"生命值降至0时进入重生形态"
+				"生命值在30s内逐渐恢复至100%，每隔<v.interval>s对全场我方单位造成100%法术溅射伤害",
+				"重生结束后，随后切换至第二形态，最大生命值+30%，攻击力+10%，攻击间隔-0.2s"
 			]
 		}
 	},
@@ -8969,6 +8986,7 @@
 		"type": "skill",
 		"initCooldown": 20,
 		"cooldown": 18,
+		"barrier": 20000,
 		"suffix": { "en": "梦境的演变", "ja": "梦境的演变", "zh": "梦境的演变" },
 		"tooltip": {
 			"en": [""],
@@ -8976,7 +8994,7 @@
 			"zh": [
 				"莫菲丝临时进入安眠伴随兽骑乘形态：不攻击，不释放技能，技能冷却暂停",
 				"骑乘期间持有不可阻挡、束缚免疫；移动速度+0.7",
-				"获得可吸收20000点物理/法术伤害的屏障（优先级0）",
+				"获得可吸收<v.barrier>点物理/法术伤害的屏障（优先级0）",
 				"生命值降至0时切换至重生形态；屏障破碎时免疫溢出伤害并切换回第一形态；否则在8s后切换回第一形态"
 			]
 		}
@@ -8985,6 +9003,7 @@
 		"type": "skill",
 		"initCooldown": 20,
 		"cooldown": 18,
+		"barrier": 20000,
 		"suffix": { "en": "梦境的演变", "ja": "梦境的演变", "zh": "梦境的演变" },
 		"tooltip": {
 			"en": [""],
@@ -8992,7 +9011,7 @@
 			"zh": [
 				"莫菲丝临时进入布景小丑骑乘形态：不攻击，不释放技能，技能冷却暂停",
 				"骑乘期间近地悬浮，持有不可阻挡、束缚免疫；移动速度+0.7",
-				"获得可吸收20000点物理/法术伤害的屏障（优先级0）",
+				"获得可吸收<v.barrier>点物理/法术伤害的屏障（优先级0）",
 				"屏障破碎时免疫溢出伤害并切换回第二形态；否则在8s后切换回第二形态"
 			]
 		}

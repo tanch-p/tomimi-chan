@@ -115,7 +115,7 @@ export function consolidateMods(contracts) {
 	if (!contracts) return [];
 	function consolidator(acc, rune) {
 		if (rune.selected) {
-			acc.push(rune.mods);
+			acc.push({ key: 'recalrune_' + rune.runeId, mods: rune.mods });
 		}
 		return acc;
 	}
@@ -144,5 +144,5 @@ export function consolidateMods(contracts) {
 		...baseExclusiveGroupMods,
 		...othersNullGroupMods,
 		...othersExclusiveGroupMods
-	];
+	].filter((ele) => ele?.mods?.length > 0);
 }

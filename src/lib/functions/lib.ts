@@ -26,6 +26,13 @@ export const BONUS_ENEMY_KEYS = [
 	'enemy_2106_dyremy'
 ];
 
+const recalRuneIdTable = {
+	'level_recalrune_01-01': 'main_07-16',
+	'level_recalrune_01-02': 'wk_kc_4',
+	'level_recalrune_01-03': 'hard_05-01',
+	'level_recalrune_01-04': 'hard_09-02'
+};
+
 export function isEquals(obj1, obj2) {
 	if (obj1 === null || obj2 === null) return obj1 === obj2;
 	if (typeof obj1 !== 'object' || typeof obj2 !== 'object') {
@@ -281,26 +288,24 @@ export const consolidateOtherMods = (otherBuffsList) => {
 				modsList.push({
 					key: buff.key,
 					mods: [
-						[
-							{
-								targets: [ele.key],
-								mods: buff.mods.map(({ key, value, mode, order }) => {
-									const stackType = buff.stackType || 'add';
-									if (stackType === 'add') {
-										if (mode === 'add') {
-											return { key, value: value * ele.count, mode, order };
-										}
-										return {
-											key,
-											value: value > 1 ? 1 + (value - 1) * ele.count : value * ele.count,
-											mode,
-											order
-										};
+						{
+							targets: [ele.key],
+							mods: buff.mods.map(({ key, value, mode, order }) => {
+								const stackType = buff.stackType || 'add';
+								if (stackType === 'add') {
+									if (mode === 'add') {
+										return { key, value: value * ele.count, mode, order };
 									}
-									return { key, value: value ** ele.count, mode, order };
-								})
-							}
-						]
+									return {
+										key,
+										value: value > 1 ? 1 + (value - 1) * ele.count : value * ele.count,
+										mode,
+										order
+									};
+								}
+								return { key, value: value ** ele.count, mode, order };
+							})
+						}
 					]
 				});
 			}
@@ -331,7 +336,7 @@ export const getEliteColors = (rogueTopic: string) => {
 		case 'rogue_yan':
 			return ['bg-[#9d6bd4]', 'bg-[#c44256]'];
 	}
-	return [];
+	return ['bg-[#5a4b90]', 'bg-[#cb3220]'];
 };
 
 const STAGES_WITH_ELITE_IMG = [
@@ -344,16 +349,22 @@ const STAGES_WITH_ELITE_IMG = [
 	'ro4_e_3_5',
 	'ro4_e_5_8'
 ];
-export const getStageImg = (id: string, eliteMode: boolean) => {
-	if (id.includes('_t_')) {
-		id = id.replace('_e', '');
+export const getStageImg = (id: string, eliteMode: boolean, rogueTopic: RogueTopic) => {
+	if (rogueTopic) {
+		if (id.includes('_t_')) {
+			id = id.replace('_e', '');
+		}
+		if (
+			!(eliteMode && STAGES_WITH_ELITE_IMG.includes(id)) &&
+			!id.includes('ev') &&
+			!id.includes('duel')
+		) {
+			id = id.replace('e', 'n');
+		}
+		return 'level_' + id;
 	}
-	if (
-		!(eliteMode && STAGES_WITH_ELITE_IMG.includes(id)) &&
-		!id.includes('ev') &&
-		!id.includes('duel')
-	) {
-		id = id.replace('e', 'n');
+	if (recalRuneIdTable[id]) {
+		return recalRuneIdTable[id];
 	}
 	return id;
 };

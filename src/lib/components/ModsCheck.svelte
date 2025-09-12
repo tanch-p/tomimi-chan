@@ -17,16 +17,12 @@
 	$: if (enemyIndex > -1) {
 		formIndex = 0;
 	}
-	$: listToShow = enemies?.filter((enemy) => enemy?.modsList?.some((mods) => mods?.length > 0)) || [];
+	$: listToShow =
+		enemies?.filter((enemy) => enemy?.modsList?.some((mods) => mods?.length > 0)) || [];
 	$: enemy = listToShow[enemyIndex];
-
 </script>
 
-<TogglePanel
-	title={translations[language].mods_check}
-	size="subheading"
-	className="my-4"
->
+<TogglePanel title={translations[language].mods_check} size="subheading" className="my-4">
 	{#if listToShow.length > 0}
 		<DraggableContainer className="no-scrollbar">
 			<div
@@ -89,7 +85,11 @@
 				</div>
 			</DraggableContainer>
 		{/if}
-		<ModsCheckStatTable {enemy} {formIndex} {language} />
+		{#if enemy.modsList[formIndex].length > 0}
+			<ModsCheckStatTable {enemy} {formIndex} {language} />
+		{:else}
+			<div class="mt-2">「」</div>
+		{/if}
 	{:else}
 		「」
 	{/if}
