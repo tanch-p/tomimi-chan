@@ -8,7 +8,7 @@
 	export let data: PageData, language: Language;
 	$: language = data.language;
 
-	const sponsors = ['瓦楞纸', 'Yannick', 'Somebody', 'ithy', 'fafa', '复恐匆匆', 'sunlazy','银河Aquila','辰伊光','爱发电用户_DyPR'].sort();
+	const sponsors = ['瓦楞纸', 'Yannick', 'Somebody', 'ithy', 'fafa', '复恐匆匆', 'sunlazy','银河Aquila','辰伊光','爱发电用户_DyPR','火心子',"所谓之人"].sort();
 </script>
 
 <svelte:head>
@@ -48,7 +48,7 @@
 		</a>
 	</div>
 	<p class="font-semibold text-lg mt-8">❤️ {translations[language].donate_thanklist} ❤️</p>
-	<div class="flex flex-wrap gap-3">
+	<div class="flex flex-wrap gap-x-3 gap-y-1.5 mt-1.5">
 		{#each sponsors as name}
 			<span>{name}</span>
 		{/each}
