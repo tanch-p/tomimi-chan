@@ -5,7 +5,6 @@
 	import banner_sami from '$lib/images/banner_sami_800px.webp';
 	import banner_sarkaz from '$lib/images/banner_sarkaz_800px.webp';
 	import banner_sui from '$lib/images/banner_sui.webp';
-	import laoli_banner from '$lib/images/laoli_sim.webp';
 	import chara_banner from '$lib/images/chara_banner.webp';
 	import translations from '$lib/translations.json';
 	import ISLogo from '$lib/images/is_logo.webp';
@@ -16,7 +15,7 @@
 
 	$: language = data.language;
 	const is_banners = [
-			{ alt: 'rogue_yan', src: banner_sui, href: 'sui' },
+		{ alt: 'rogue_yan', src: banner_sui, href: 'sui' },
 		{ alt: 'rogue_skz', src: banner_sarkaz, href: 'sarkaz' },
 		{ alt: 'rogue_sami', src: banner_sami, href: 'sami' },
 		{ alt: 'rogue_mizuki', src: banner_mizuki, href: 'mizuki' },
@@ -69,6 +68,7 @@
 							</p>
 						</div>
 					</a>
+<<<<<<< HEAD
 					<a href={`/${language}/stagesim/`} class="hover:brightness-75">
 						<div class="flex flex-col justify-center items-center">
 							<img
@@ -84,6 +84,25 @@
 							</p>
 						</div>
 					</a>
+=======
+					{#if language === 'zh'}
+						<a href={`/${language}/stagesim/`} class="hover:brightness-75">
+							<div class="flex flex-col justify-center items-center">
+								<img
+									class="select-none mx-auto"
+									src={'/images/banners/act45side.webp'}
+									decoding="async"
+									alt={translations[language].stage_sim}
+									width="552"
+									height="177"
+								/>
+								<p class={`my-1 ${language !== 'en' ? 'whitespace-nowrap' : ''}`}>
+									{translations[language].stage_sim}
+								</p>
+							</div>
+						</a>
+					{/if}
+>>>>>>> 9e2e0f0b2570631eaaf4a4be02eb3805ca7a9eee
 				</div>
 			</div>
 			<div class="md:w-[600px] bg-[#363636] shadow-lg md:shadow-xl pt-2 sm:py-3 px-2 sm:px-6">

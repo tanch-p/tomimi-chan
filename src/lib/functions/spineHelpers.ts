@@ -92,6 +92,8 @@ export function getIdleAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'enemy_2013_csbot':
 		case 'enemy_1405_boomer':
 		case 'enemy_1405_boomer_2':
+		case 'enemy_10104_mjcbln':
+		case 'enemy_10104_mjcbln_2':
 			return 'Idle_1';
 
 		case 'enemy_1158_divman':
@@ -129,6 +131,11 @@ export function getIdleAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'enemy_2109_dypry2':
 		case 'enemy_1515_bsnake':
 		case 'enemy_1533_stmkgt':
+<<<<<<< HEAD
+=======
+		case 'enemy_10103_mjcppp':
+		case 'enemy_10103_mjcppp_2':
+>>>>>>> 9e2e0f0b2570631eaaf4a4be02eb3805ca7a9eee
 			return 'Idle_A';
 		case 'enemy_1388_wingnt':
 		case 'trap_226_dychss':
@@ -139,6 +146,11 @@ export function getIdleAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'enemy_2113_dyhlg2':
 		case 'enemy_2114_dylbgg':
 		case 'enemy_2115_dylbg2':
+		case 'enemy_10105_mjcdol':
+		case 'enemy_10105_mjcdol_2':
+		case 'enemy_10107_mjcdog':
+		case 'enemy_10107_mjcdog_2':
+		case 'enemy_1569_ldevil':
 			return 'A_Idle';
 
 		case 'enemy_1418_mmkonm':
@@ -210,6 +222,8 @@ function getMoveAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'enemy_10046_pshark':
 		case 'enemy_1405_boomer':
 		case 'enemy_1405_boomer_2':
+		case 'enemy_10104_mjcbln':
+		case 'enemy_10104_mjcbln_2':
 			return 'Move_1';
 
 		case 'enemy_1158_divman':
@@ -233,6 +247,11 @@ function getMoveAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'enemy_1388_wingnt':
 		case 'enemy_2092_skzamy':
 		case 'enemy_2105_dyrnge':
+		case 'enemy_10105_mjcdol':
+		case 'enemy_10105_mjcdol_2':
+		case 'enemy_10107_mjcdog':
+		case 'enemy_10107_mjcdog_2':
+		case 'enemy_1569_ldevil':
 			return 'A_Move';
 		case 'enemy_10058_cjfrog':
 		case 'enemy_10058_cjfrog_2':
@@ -253,6 +272,11 @@ function getMoveAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'enemy_2109_dypry2':
 		case 'enemy_1515_bsnake':
 		case 'enemy_1533_stmkgt':
+<<<<<<< HEAD
+=======
+		case 'enemy_10103_mjcppp':
+		case 'enemy_10103_mjcppp_2':
+>>>>>>> 9e2e0f0b2570631eaaf4a4be02eb3805ca7a9eee
 			return 'Move_A';
 
 		case 'enemy_1418_mmkonm':

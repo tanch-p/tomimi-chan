@@ -57,7 +57,7 @@
 			/>
 		{:else}
 			<img
-				src="/images/stages/level_{getStageImg(mapConfig.id, eliteMode)}.webp"
+				src="/images/stages/{getStageImg(mapConfig.id, eliteMode,rogueTopic)}.webp"
 				width="600"
 				height="338px"
 				alt={mapConfig.levelId}

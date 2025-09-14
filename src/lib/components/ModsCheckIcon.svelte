@@ -18,9 +18,18 @@
 			width="30px"
 			decoding="async"
 		/>
-	{:else if key.includes('relic') || key.includes("copper")}
+	{:else if key.includes('relic') || key.includes('copper')}
 		<img
 			src="/images/relics/{relicLookup?.[key] ?? key}.webp"
+			alt={key}
+			loading="lazy"
+			height="30px"
+			width="30px"
+			decoding="async"
+		/>
+	{:else if key.includes('recalrune')}
+		<img
+			src="/images/recalrune/{key.replace('recalrune_', '')}.webp"
 			alt={key}
 			loading="lazy"
 			height="30px"

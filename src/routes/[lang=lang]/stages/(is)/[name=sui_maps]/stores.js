@@ -144,20 +144,19 @@ export const statMods = derived(
 			const effects = relic.stages ? relic.stages[relic.count - 1]?.effects : relic.effects;
 			return {
 				key: relic.id,
-				mods: [effects.filter((effect) => filterModCondition(effect, $stageType))]
+				mods: effects.filter((effect) => filterModCondition(effect, $stageType))
 			};
 		});
 		const noobMods = $noobHelp.filter((effect) => filterModCondition(effect, $stageType));
 		return {
-			runes: { key: $eliteMode ? 'elite_ops' : 'combat_ops', mods: [$runes, $allMods] },
+			runes: { key: $eliteMode ? 'elite_ops' : 'combat_ops', mods: [$runes, $allMods].filter(Boolean) },
 			diff: { key: 'difficulty', mods: $difficultyMods, stackType: 'mul' },
 			others: [
-				{ key: 'floor_diff', mods: [$floorDifficultyMods] },
-				{ key: 'low_diff', mods: [noobMods] },
+				{ key: 'floor_diff', mods: $floorDifficultyMods },
+				{ key: 'low_diff', mods: noobMods },
 				{
 					key: 'sui_time',
-					mods: $activeFloorEffects.map((ele) => ele.effects),
-					operation: 'times'
+					mods: $activeFloorEffects.map((ele) => ele.effects)
 				},
 				...relicMods,
 				...$otherMods

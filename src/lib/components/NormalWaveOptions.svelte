@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
 	import translations from '$lib/translations.json';
+<<<<<<< HEAD
 	import {
 		compileHiddenGroups,
 		getBaseCount,
@@ -17,11 +18,17 @@
 
 	export let mapConfig, enemies, language: Language, eliteMode: Boolean;
 
+=======
+	import { simMode } from './StageSimulator/stores';
+
+	export let mapConfig, enemies, language: Language, eliteMode: Boolean;
+>>>>>>> 9e2e0f0b2570631eaaf4a4be02eb3805ca7a9eee
 </script>
 
 <div
 	class="grid grid-cols-[75px_1fr] md:grid-cols-[120px_1fr] divide-y divide-neutral-700 border-y border-neutral-700 text-sm md:text-base"
 >
+<<<<<<< HEAD
 	{#if mapConfig.elite_mods}
 		<p class="title {language}">{translations[language].operation_type}</p>
 		<slot />
@@ -68,11 +75,24 @@
 						? 'bg-gray-600'
 						: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
 					on:click={() => (mode = key)}
+=======
+	{#if mapConfig.branches}
+		<p class="title {language}">{translations[language].sim_mode}</p>
+		<div class="grid grid-cols-2">
+			{#each ['wave_normal', 'wave_summons'] as key}
+				<button
+					class="flex justify-center items-center border-r border-neutral-700 font-semibold text-lg {$simMode ===
+					key
+						? 'bg-gray-600'
+						: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
+					on:click={() => simMode.set(key)}
+>>>>>>> 9e2e0f0b2570631eaaf4a4be02eb3805ca7a9eee
 				>
 					{translations[language][key]}
 				</button>
 			{/each}
 		</div>
+<<<<<<< HEAD
 		{#if mode === 'predefined'}
 			{#if maxPermutations > 32 || permutations.length <= 0}
 				<p class="title {language}" />
@@ -153,6 +173,15 @@
 			/>
 		{/if}
 	{/if} -->
+=======
+	{/if}
+	{#if $simMode === 'wave_normal'}
+		{#if mapConfig.elite_mods}
+			<p class="title {language}">{translations[language].operation_type}</p>
+			<slot />
+		{/if}
+	{/if}
+>>>>>>> 9e2e0f0b2570631eaaf4a4be02eb3805ca7a9eee
 </div>
 
 <style>
@@ -176,4 +205,8 @@
 			line-height: 1.5;
 		}
 	}
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 9e2e0f0b2570631eaaf4a4be02eb3805ca7a9eee

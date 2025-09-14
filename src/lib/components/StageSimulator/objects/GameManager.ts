@@ -64,6 +64,7 @@ export class GameManager {
 	};
 
 	createCountdown(time: number, x: number, y: number, colorKey = 'normal') {
+		if(time < 0) return;
 		const countdown = this.countdownManager.createCountdown(time, colorKey);
 		countdown.setPosition(x, y);
 		this.addToScene(countdown.getGroup());

@@ -36,6 +36,10 @@ report from Legends from qq 25/10/2024
 
 - deyi not affected by relic -atk and diff atk - should be a result of buff loss on death
 report from boinexdo from bilibili 29/10/2024
+
+damage_1_enemy - not affected by diff/floor diff hp mods except by name
+受符 - above + affected by diff/floor diff atk mods
+enemy_2122_dybgzd (梁) - affected by diff/floor hp mods
 */
 
 const STATS = [
@@ -100,7 +104,6 @@ const SARKAZ_BOSSES = [
 
 const NEUTRAL_ENEMIES = ['enemy_3001_upeopl', 'enemy_10061_cjglon'];
 const NOT_AFFECTED_BY_FLOOR_DIFF_KEYS = ['enemy_10062_cjblon'];
-const DMG_1_ATK_VARIANTS = ['enemy_2121_dyspl2'];
 
 export function applyMods(
 	enemies: EnemyDBEntry[],
@@ -132,10 +135,10 @@ export function parseStats(
 	);
 	const type = NEUTRAL_ENEMIES.includes(enemy.key)
 		? 'neutral'
-		: DMG_1_ATK_VARIANTS.includes(enemy.key)
-		? 'damage_1_atk_variant'
 		: isDamage1Enemy
 		? 'damage_1_enemy'
+		: NOT_AFFECTED_BY_FLOOR_DIFF_KEYS.includes(enemy.key)
+		? 'no_floor_diff'
 		: 'enemy';
 	let diffMods;
 	if (statMods.diff) {
@@ -147,20 +150,10 @@ export function parseStats(
 		formMods.mods = specialMods?.[enemy.key]?.[`mods_${row}`];
 	}
 	const runeMods = compileMods(enemy, statMods.runes);
-	const otherMods = statMods.others.map((mods) =>
-		compileMods(enemy, mods, ['damage_1_atk_variant'].includes(type) ? type : 'enemy')
-	);
-	const secondaryMods = [formMods, diffMods, ...otherMods].filter((ele) => {
-		if (
-			NEUTRAL_ENEMIES.includes(enemy.key) ||
-			type === 'damage_1_enemy' ||
-			NOT_AFFECTED_BY_FLOOR_DIFF_KEYS.includes(enemy.key)
-		) {
-			return Boolean(ele) && !['floor_diff'].includes(ele.key);
-		}
-		return Boolean(ele);
+	const otherMods = statMods.others.map(({ key, mods }) => {
+		return { key, mods: getRelevantMods(key, mods, type, enemy) };
 	});
-
+	const secondaryMods = [formMods, diffMods, ...otherMods].filter(Boolean);
 	const statsHolder = { dmgRes: 0 };
 	for (const statKey of STATS) {
 		let isSet = false;
@@ -193,8 +186,52 @@ export function parseStats(
 	enemy?.modsList?.push(
 		[runeMods, ...secondaryMods].filter(Boolean).filter((ele) => ele.mods?.length > 0)
 	);
+	console.log(enemy.modsList)
 	return statsHolder;
 }
+
+export const getRelevantMods = (
+	modKey: string,
+	mods: Effects,
+	type: string,
+	entity: Enemy | Trap
+) => {
+	const relevantMods = [];
+	if (modKey === 'runes' && type !== 'trap_rune') return mods;
+	if (modKey === 'floor_diff' && type === 'no_floor_diff') {
+		return [];
+	}
+	if (modKey === 'floor_diff' && type === 'trap_enemy') {
+		return mods;
+	}
+	if (mods.length === 0) {
+		return [];
+	}
+	for (const effect of mods) {
+		if (effect.targets.includes(entity.key)) {
+			relevantMods.push(effect);
+		} else {
+			const filteredMods = effect.mods.filter((mod) => {
+				switch (mod.key) {
+					case 'hp':
+						switch (modKey) {
+							case 'floor_diff':
+							case 'difficulty':
+								return !['neutral', 'damage_1_enemy'].includes(type);
+							default:
+								return true;
+						}
+					case 'atk':
+						return !['neutral'].includes(type);
+					default:
+						return true;
+				}
+			});
+			relevantMods.push({ targets: effect.targets, mods: filteredMods });
+		}
+	}
+	return relevantMods;
+};
 
 export const getModdedStat = (baseValue: number, statKey: string, ...modsList) => {
 	let initialAdd = 0,
@@ -338,15 +375,6 @@ export function compileMods(entity: EnemyDBEntry | Trap, mod: ModGroup, type = '
 			if (effect.targets.some((target) => checkIsTarget(entity, target))) {
 				for (const mod of effect.mods) {
 					const { key, value, mode, order = 'final', name = '' } = mod;
-					if (['damage_1_atk_variant'].includes(type) && key === 'hp') {
-						if (modKey === 'floor_diff') {
-							continue;
-						} else if (modKey === 'difficulty') {
-							if (!effect.targets.some((target) => target.includes(entity.key))) {
-								continue;
-							}
-						}
-					}
 					const item = modsHolder.find(
 						(ele) => ele.key === key && ele.order === order && ele.mode === mode
 					);

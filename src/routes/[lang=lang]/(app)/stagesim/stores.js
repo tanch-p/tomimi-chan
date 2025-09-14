@@ -25,17 +25,40 @@ export const statMods = derived(
 		return {
 			runes: {
 				key: $eliteMode ? 'elite_ops' : 'combat_ops',
+<<<<<<< HEAD
 				mods: [$runes,$allMods]
 			},
 			others: [...$otherMods, { key: 'contracts', mods: $contractMods }]
+=======
+				mods: [$runes, $allMods]
+			},
+			others: [...$otherMods],
+>>>>>>> 9e2e0f0b2570631eaaf4a4be02eb3805ca7a9eee
 		};
 	}
 );
 
 export const specialMods = derived([runes, contractMods], ([$runes, $contractMods]) =>
+<<<<<<< HEAD
 	compileSpecialMods([$runes], $contractMods)
 );
 
 export const systemRunes = derived([runes, allMods, contractMods], ([$runes, $allMods, $contractMods]) =>
 	compileSystemRunes([$runes,$allMods], $contractMods)
 );
+=======
+	compileSpecialMods(
+		[$runes],
+		$contractMods.map((ele) => ele.mods)
+	)
+);
+
+export const systemRunes = derived(
+	[runes, allMods, contractMods],
+	([$runes, $allMods, $contractMods]) =>
+		compileSystemRunes(
+			[$runes, $allMods],
+			$contractMods.map((ele) => ele.mods)
+		)
+);
+>>>>>>> 9e2e0f0b2570631eaaf4a4be02eb3805ca7a9eee
