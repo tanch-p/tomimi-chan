@@ -28,10 +28,6 @@
 
 	export let data: PageData;
 	$: language = data.language;
-<<<<<<< HEAD
-	// $: stageName = data.mapConfig[`name_${language}`] || data.mapConfig.name_zh;
-=======
->>>>>>> 9e2e0f0b2570631eaaf4a4be02eb3805ca7a9eee
 
 	let mapConfig: MapConfig,
 		traps: Trap[],
@@ -52,14 +48,6 @@
 		mapConfig = await getStageData(stageId, 'all');
 		enemies = mapConfig.enemies.map(({ id, prefabKey, level, overwrittenData }) => {
 			const enemy = structuredClone(enemyDatabase[prefabKey]);
-<<<<<<< HEAD
-			console.log(prefabKey);
-=======
->>>>>>> 9e2e0f0b2570631eaaf4a4be02eb3805ca7a9eee
-			enemy.stageId = id;
-			enemy.level = level;
-			enemy.stats = structuredClone(enemy.stats[level]);
-			if (overwrittenData) {
 				enemy.overwritten = true;
 				for (const key in overwrittenData) {
 					if (key === 'talentBlackboard') {
@@ -123,9 +111,6 @@
 	</TitleBlock>
 	<div class="relative mt-8">
 		{#if isLoading}
-<<<<<<< HEAD
-			<div class="absolute">{translations[language].loading}</div>
-=======
 			<div
 				class="fixed h-screen z-[1] inset-0 flex items-center justify-center bg-black bg-opacity-50 text-2xl"
 			>
@@ -133,16 +118,11 @@
 					{translations[language].loading}
 				</p>
 			</div>
->>>>>>> 9e2e0f0b2570631eaaf4a4be02eb3805ca7a9eee
 		{/if}
 		{#if mapConfig}
 			<StageInfo {mapConfig} {language} {stageName} {eliteMode} />
 			{#if mapConfig.systems?.crisis}
-<<<<<<< HEAD
-				<RecalRune {language} crisis={mapConfig.systems?.crisis} {contracts}/>
-=======
 				<RecalRune {language} crisis={mapConfig.systems?.crisis} {contracts} />
->>>>>>> 9e2e0f0b2570631eaaf4a4be02eb3805ca7a9eee
 			{/if}
 			<StageSharedContainer
 				{language}

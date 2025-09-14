@@ -447,8 +447,4 @@ export function compileSystemRunes(...modsList: Effects[][]) {
 		}
 	}
 	return runes;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 9e2e0f0b2570631eaaf4a4be02eb3805ca7a9eee

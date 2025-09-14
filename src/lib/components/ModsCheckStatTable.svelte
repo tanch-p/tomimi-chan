@@ -39,11 +39,7 @@
 	$: statsToShow = enemy.modsList[formIndex]
 		.reduce((acc, curr) => {
 			for (const mod of curr.mods) {
-<<<<<<< HEAD
-				if (['range', 'dmg_res','weight','lifepoint'].includes(mod?.key)) continue;
-=======
 				if (['range', 'dmg_res', 'weight', 'lifepoint'].includes(mod?.key)) continue;
->>>>>>> 9e2e0f0b2570631eaaf4a4be02eb3805ca7a9eee
 				let key = mod?.key;
 				if (key === 'atk_interval') {
 					key = 'aspd';

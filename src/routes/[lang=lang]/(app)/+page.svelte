@@ -68,23 +68,6 @@
 							</p>
 						</div>
 					</a>
-<<<<<<< HEAD
-					<a href={`/${language}/stagesim/`} class="hover:brightness-75">
-						<div class="flex flex-col justify-center items-center">
-							<img
-								class="select-none mx-auto"
-								src={laoli_banner}
-								decoding="async"
-								alt={translations[language].laoli_title}
-								width="552"
-								height="177"
-							/>
-							<p class={`my-1 ${language !== 'en' ? 'whitespace-nowrap' : ''}`}>
-								{translations[language].laoli_title}
-							</p>
-						</div>
-					</a>
-=======
 					{#if language === 'zh'}
 						<a href={`/${language}/stagesim/`} class="hover:brightness-75">
 							<div class="flex flex-col justify-center items-center">
@@ -102,7 +85,6 @@
 							</div>
 						</a>
 					{/if}
->>>>>>> 9e2e0f0b2570631eaaf4a4be02eb3805ca7a9eee
 				</div>
 			</div>
 			<div class="md:w-[600px] bg-[#363636] shadow-lg md:shadow-xl pt-2 sm:py-3 px-2 sm:px-6">

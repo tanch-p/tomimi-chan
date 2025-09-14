@@ -131,11 +131,8 @@ export function getIdleAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'enemy_2109_dypry2':
 		case 'enemy_1515_bsnake':
 		case 'enemy_1533_stmkgt':
-<<<<<<< HEAD
-=======
 		case 'enemy_10103_mjcppp':
 		case 'enemy_10103_mjcppp_2':
->>>>>>> 9e2e0f0b2570631eaaf4a4be02eb3805ca7a9eee
 			return 'Idle_A';
 		case 'enemy_1388_wingnt':
 		case 'trap_226_dychss':
@@ -272,11 +269,8 @@ function getMoveAnimName(key: string, skelData: spine.SkeletonData) {
 		case 'enemy_2109_dypry2':
 		case 'enemy_1515_bsnake':
 		case 'enemy_1533_stmkgt':
-<<<<<<< HEAD
-=======
 		case 'enemy_10103_mjcppp':
 		case 'enemy_10103_mjcppp_2':
->>>>>>> 9e2e0f0b2570631eaaf4a4be02eb3805ca7a9eee
 			return 'Move_A';
 
 		case 'enemy_1418_mmkonm':

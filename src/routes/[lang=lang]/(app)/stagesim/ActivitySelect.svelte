@@ -70,10 +70,6 @@
 			});
 		}
 	}
-<<<<<<< HEAD
-	$: console.log(currentActivity);
-=======
->>>>>>> 9e2e0f0b2570631eaaf4a4be02eb3805ca7a9eee
 </script>
 
 <div>
