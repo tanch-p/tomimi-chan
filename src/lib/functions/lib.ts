@@ -187,6 +187,24 @@ export const setOtherBuffsList = (
 				mods: [{ key: 'hp', value: -0.5, order: 'initial', mode: 'mul' }],
 				maxCount: 1
 			});
+			break;
+		case 'rogue_yan':
+			if (mapConfig.traps.some((trap) => trap.key === 'trap_222_rgdysm')) {
+				buffsList.push({
+					key: 'trap_222_rgdysm',
+					img: '/images/chara_icons/trap_222_rgdysm.webp',
+					name: '雕伥',
+					targets: ['not_flying&not_trap'],
+					activeTargets: [],
+					mods: [
+						{ key: 'ms', value: 1.5, order: 'initial', mode: 'mul' },
+						{ key: 'aspd', value: 50, mode: 'add' },
+						{ key: 'dmg_res', value: 0.75, mode: 'mul' }
+					],
+					maxCount: 1
+				});
+			}
+			break;
 	}
 	const tileInfection = mapConfig.sp_terrain?.find(
 		(item) => item.tileKey === 'tile_infection' && item.heightType === 'LOWLAND'

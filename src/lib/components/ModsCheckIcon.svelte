@@ -18,7 +18,15 @@
 			width="30px"
 			decoding="async"
 		/>
-	{:else if key.includes('relic') || key.includes("copper")}
+	{:else if key.includes('trap')}
+		<img
+			class="select-none"
+			src={`/images/chara_icons/${key}.webp`}
+			height="30px"
+			width="30px"
+			decoding="async"
+		/>
+	{:else if key.includes('relic') || key.includes('copper')}
 		<img
 			src="/images/relics/{relicLookup?.[key] ?? key}.webp"
 			alt={key}
