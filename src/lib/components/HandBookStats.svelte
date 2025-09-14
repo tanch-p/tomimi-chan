@@ -9,6 +9,7 @@
 	import msIcon from '$lib/images/is/movespeed.webp';
 	import eleDmgResIcon from '$lib/images/is/ele_dmg_res.webp';
 	import eleResIcon from '$lib/images/is/ele_res.webp';
+	import Tooltip from './Tooltip.svelte';
 
 	export let enemy: Enemy,
 		language: Language,
@@ -33,7 +34,9 @@
 </script>
 
 <div>
-	<div class="grid gap-2 text-sm {mode === 'mobile' ? 'grid-cols-2 w-full ' : 'grid-cols-4 w-max'} ">
+	<div
+		class="grid gap-2 text-sm {mode === 'mobile' ? 'grid-cols-2 w-full ' : 'grid-cols-4 w-max'} "
+	>
 		{#each statKeys as statKey}
 			<div
 				class={`flex flex-col bg-[#161616] bg-opacity-80 px-1 ${
@@ -59,6 +62,17 @@
 	</div>
 	<p class="text-[#858585] font-semibold mt-1.5 text-sm">
 		{translations[language].table_headers.range}:
-		<span data-id="range-value" class="text-near-white">{enemy.forms[formIndex].stats.range <= 0 ? '0' : enemy.forms[formIndex].stats.range}</span>
+		<span data-id="range-value" class="text-near-white">
+			{enemy.forms[formIndex].stats.range <= 0 ? '0' : enemy.forms[formIndex].stats.range}
+		</span>
 	</p>
+	{#if enemy.forms[formIndex].stats.dmgRes}
+		<div class="group relative text-[#858585] font-semibold mt-1.5 text-sm">
+			{translations[language].table_headers.e_hp}: &#9432;
+			<Tooltip text={translations[language].tooltip_ehp} position="top" />
+			<span data-id="range-value" class="text-near-white">
+				{Math.round(enemy.forms[formIndex].stats.hp / (1 - enemy.forms[formIndex].stats.dmgRes))}
+			</span>
+		</div>
+	{/if}
 </div>

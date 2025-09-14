@@ -197,7 +197,7 @@ export const setOtherBuffsList = (
 					targets: ['not_flying&not_trap'],
 					activeTargets: [],
 					mods: [
-						{ key: 'ms', value: 1.5, order: 'initial', mode: 'mul' },
+						{ key: 'ms', value: 0.5, order: 'initial', mode: 'mul' },
 						{ key: 'aspd', value: 50, mode: 'add' },
 						{ key: 'dmg_res', value: 0.75, mode: 'mul' }
 					],
