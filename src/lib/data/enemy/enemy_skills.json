@@ -4604,10 +4604,17 @@
 		}
 	},
 	"nhfly_1": {
+		"buffloss": true,
+		"atk": { "multiplier": 1.0 },
+		"dmg_element": "phys",
+		"suffix": { "en": "ranged", "ja": "遠", "zh": "远" },
 		"tooltip": {
-			"en": ["Self-destructs when near an Operator, dealing {phys} damage"],
-			"ja": ["通常攻撃後、死亡する"],
-			"zh": ["接近干员时，自毁并对其造成{phys}伤害"]
+			"en": ["Self-destructs when near an Operator, dealing <v.atk.multiplier>% of ATK as {phys} damage"],
+			"ja": ["通常攻撃は攻撃力<v.atk.multiplier>%を与える。通常攻撃後、死亡する"],
+			"zh": [
+				"接近干员时，自毁并对其造成攻击力<v.atk.multiplier>%的{phys}伤害",
+				"※会丢失所有局内加成"
+			]
 		}
 	},
 	"duskls_1": {
