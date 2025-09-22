@@ -831,7 +831,20 @@ export const getRandomGroups = (fragment, hiddenGroups) => {
 			);
 		}
 	}
-	return packedGroups;
+	const filteredPackedGroups = Object.keys(packedGroups).reduce((acc, key) => {
+		if (
+			packedGroups[key].some((item) => {
+				if (Array.isArray(item)) {
+					return item.length > 0;
+				}
+				return Boolean(item);
+			})
+		) {
+			acc[key] = packedGroups[key];
+		}
+		return acc;
+	}, {});
+	return filteredPackedGroups;
 };
 
 export const compileHiddenGroups = (
