@@ -4609,7 +4609,9 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "ranged", "ja": "遠", "zh": "远" },
 		"tooltip": {
-			"en": ["Self-destructs when near an Operator, dealing <v.atk.multiplier>% of ATK as {phys} damage"],
+			"en": [
+				"Self-destructs when near an Operator, dealing <v.atk.multiplier>% of ATK as {phys} damage"
+			],
 			"ja": ["通常攻撃は攻撃力<v.atk.multiplier>%を与える。通常攻撃後、死亡する"],
 			"zh": [
 				"接近干员时，自毁并对其造成攻击力<v.atk.multiplier>%的{phys}伤害",
@@ -4750,6 +4752,18 @@
 		}
 	},
 	"smlion_victory": {
+		"type": "buff",
+		"effects": {
+			"targets": ["enemy_2058_smlion"],
+			"activeTargets": [],
+			"mods": [
+				{ "key": "ms", "value": 1, "order": "initial", "mode": "mul" },
+				{ "key": "def", "value": 2000, "order": "initial", "mode": "add" },
+				{ "key": "res", "value": 50, "order": "initial", "mode": "add" },
+				{ "key": "aspd", "value": 100, "order": "final", "mode": "add" }
+			],
+			"stackType": "add"
+		},
 		"tooltip": {
 			"en": [
 				"When &lt;Kharanduu Khagan, the Scourge of the Land&gt; is defeated or leaves the battlefield, gains DEF +2000, RES +50, ASPD +100, MS +100%",
@@ -4767,6 +4781,18 @@
 		}
 	},
 	"smkght_victory": {
+		"type": "buff",
+		"effects": {
+			"targets": ["enemy_2057_smkght"],
+			"activeTargets": [],
+			"mods": [
+				{ "key": "ms", "value": 1, "order": "initial", "mode": "mul" },
+				{ "key": "def", "value": 2000, "order": "initial", "mode": "add" },
+				{ "key": "res", "value": 50, "order": "initial", "mode": "add" },
+				{ "key": "aspd", "value": 100, "order": "final", "mode": "add" }
+			],
+			"stackType": "add"
+		},
 		"tooltip": {
 			"en": [
 				"When &lt;Lugalszargus, the Overlord of Ages&gt; is defeated or leaves the battlefield, gains DEF +2000, RES +50, ASPD +100, MS +100%",
@@ -7275,7 +7301,7 @@
 		"dmg_element": "phys",
 		"suffix": { "en": "💥", "ja": "💥", "zh": "💥" },
 		"skillRange": 1.4,
-		"buffloss":true,
+		"buffloss": true,
 		"hits": 1,
 		"tooltip": {
 			"en": [
