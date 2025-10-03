@@ -32020,10 +32020,10 @@
 						"key": "mhboar_accel"
 					},
 					{
-						"key":"mhboar_crash"
+						"key": "mhboar_crash"
 					},
 					{
-						"key":"mhboar_run_through"
+						"key": "mhboar_run_through"
 					}
 				],
 				"special": []
@@ -32071,11 +32071,11 @@
 						"accelerate": { "i": 0.333, "m": 0.333, "limit": 35, "preDelay": 3 }
 					},
 					{
-						"key":"mhboar_crash"
+						"key": "mhboar_crash"
 					},
 					{
-						"key":"mhboar_run_through",
-						"value":800
+						"key": "mhboar_run_through",
+						"value": 800
 					}
 				],
 				"special": []
@@ -60746,6 +60746,13 @@
 					},
 					{
 						"key": "dywqgs_plant_seed"
+					},
+					{
+						"key": "dywqgs_plant_seed_passive"
+					},
+					{ "key": "dywqgs_activate" },
+					{
+						"key": "dywqgs_resist"
 					}
 				],
 				"special": [
@@ -60753,12 +60760,7 @@
 						{
 							"key": "dywqgs_standby"
 						},
-						{
-							"key": "dywqgs_activate"
-						},
-						{
-							"key": "dywqgs_resist"
-						},
+
 						{
 							"key": "dywqgs_revive"
 						}
@@ -60774,9 +60776,21 @@
 						{
 							"key": "dywqgs_2_lose"
 						}
+					],
+					[
+						{ "key": "dywqgs_conquer_enter" },
+						{ "key": "dywqgs_conquer_buff" },
+						{ "key": "dywqgs_conquer_atk" }
 					]
 				],
-				"form_mods": [[], []]
+				"form_mods": [
+					[],
+					[],
+					[
+						{ "key": "aspd", "value": 100, "mode": "add", "order": "final" },
+						{ "key": "range", "value": 99, "mode": "set" }
+					]
+				]
 			}
 		],
 		"forms": [
@@ -60790,6 +60804,14 @@
 			},
 			{
 				"title": "form",
+				"normal_attack": {
+					"atk_type": ["ranged", "arts"],
+					"hits": 1
+				},
+				"status_immune": ["silence", "levitate", "fear"]
+			},
+			{
+				"title": "dywqgs_conquer",
 				"normal_attack": {
 					"atk_type": ["ranged", "arts"],
 					"hits": 1
