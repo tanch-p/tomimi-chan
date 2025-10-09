@@ -209,7 +209,9 @@ const SEARCH_IN_BLACKBOARD = [
 	'add_bullet',
 	'max_ammo',
 	'ally_max_ammo',
-	'liftoff'
+	'liftoff',
+	"attract",
+	"palsy"
 ];
 
 // keys not here will just use their respective key in translations
@@ -866,6 +868,8 @@ export const getPrioritySortValues = (char, sortOptions, secFilters) => {
 					'root',
 					'tremble',
 					'fear',
+					'attract',
+					'palsy',
 					'ally_sp_regen',
 					'shield',
 					'ally_shield',
@@ -1584,6 +1588,7 @@ export const getSortOptions = (key) => {
 			'root',
 			'tremble',
 			'fear',
+			'attract',
 			'cancel_stealth',
 			'camouflage',
 			'taunt',

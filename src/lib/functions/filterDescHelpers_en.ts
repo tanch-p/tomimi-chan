@@ -48,6 +48,8 @@ const DEBUFFS = [
 	'root',
 	'tremble',
 	'fear',
+	'attract',
+	'palsy',
 	'damage_scale',
 	'weightless',
 	'cancel_stealth',
