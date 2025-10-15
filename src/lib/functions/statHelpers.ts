@@ -144,7 +144,7 @@ export function parseStats(
 
 	const formMods = { key: 'form_mods', mods: enemy.stats?.form_mods?.[row] ?? [] };
 	if (specialMods?.[enemy.key]?.[`mods_${row}`]) {
-		formMods.mods = specialMods?.[enemy.key]?.[`mods_${row}`];
+		formMods.mods = Object.values(specialMods?.[enemy.key]?.[`mods_${row}`]);
 	}
 	const runeMods = compileMods(enemy, statMods.runes);
 	const otherMods = statMods.others.map((mods) =>
