@@ -14,8 +14,22 @@
 	export let language: Language;
 
 	let allNormalStages = [
-		['level_rogue5_1-1', 'level_rogue5_1-2', 'level_rogue5_1-3', 'level_rogue5_1-4'],
-		['level_rogue5_2-1', 'level_rogue5_2-2', 'level_rogue5_2-3', 'level_rogue5_2-4'],
+		[
+			'level_rogue5_1-1',
+			'level_rogue5_1-2',
+			'level_rogue5_1-3',
+			'level_rogue5_1-4',
+			'level_rogue5_1-5',
+			'level_rogue5_1-6'
+		],
+		[
+			'level_rogue5_2-1',
+			'level_rogue5_2-2',
+			'level_rogue5_2-3',
+			'level_rogue5_2-4',
+			'level_rogue5_2-5',
+			'level_rogue5_2-6'
+		],
 		[
 			'level_rogue5_3-1',
 			'level_rogue5_3-2',
@@ -42,10 +56,12 @@
 	];
 
 	let floor6n_1 = ['level_rogue5_6-1', 'level_rogue5_6-2'];
+	let floor6n_2 = ['level_rogue5_7-1', 'level_rogue5_7-2'];
 	let floor3t = ['level_rogue5_b-1', 'level_rogue5_b-2', 'level_rogue5_b-3'];
 	let floor3b = ['level_rogue5_b-1-b', 'level_rogue5_b-2-b', 'level_rogue5_b-3-b'];
 	let floor5b = ['level_rogue5_b-4', 'level_rogue5_b-5'];
-	let floor6b = ['level_rogue5_b-6'];
+	let floor5bAlt = ['level_rogue5_b-4-b', 'level_rogue5_b-5-b'];
+	let floor6b = ['level_rogue5_b-6', 'level_rogue5_b-7'];
 	let du = ['level_rogue5_t-1', 'level_rogue5_t-2', 'level_rogue5_t-3', 'level_rogue5_t-4'];
 	let encount1 = ['level_rogue5_t-5', 'level_rogue5_t-6', 'level_rogue5_t-7', 'level_rogue5_t-8'];
 	let encount2 = [
@@ -57,6 +73,7 @@
 	let shopStages = ['level_rogue5_ev-1', 'level_rogue5_ev-2'];
 
 	let duel = ['level_rogue5_d-1', 'level_rogue5_d-2'];
+	let duel_dlc1 = ['level_rogue5_d-3', 'level_rogue5_d-4'];
 	let candleRow1 = ['level_rogue5_fs-1', 'level_rogue5_fs-2', 'level_rogue5_fs-3'];
 	let candleRow1Alt = ['level_rogue5_fs-1b', 'level_rogue5_fs-2b', 'level_rogue5_fs-3b'];
 	let candleRow2 = ['level_rogue5_fs-4', 'level_rogue5_fs-5'];
@@ -74,7 +91,7 @@
 	let sv2 = ['level_rogue5_sv-2', 'level_rogue5_sv-2-b', 'level_rogue5_sv-2-c'];
 	let sv9 = ['level_rogue5_sv-9', 'level_rogue5_sv-9-b', 'level_rogue5_sv-9-c'];
 	let sv4 = ['level_rogue5_sv-4'];
-
+	let sv_dlc1 = ['level_rogue5_sv-11','level_rogue5_sv-12'];
 	//max per row = 4
 </script>
 
@@ -160,11 +177,18 @@
 				{/if}
 			{/each}
 			<tr>
-				<td colspan="2" rowspan="1">
+				<td colspan="2" rowspan="2">
 					{6}
 				</td>
 				{#each floor6n_1 as stageName}
 					<td colspan={Math.floor(24 / floor6n_1.length)}>
+						<StageNavButton levelId={stageName} {language} />
+					</td>
+				{/each}
+			</tr>
+			<tr>
+				{#each floor6n_2 as stageName}
+					<td colspan={Math.floor(24 / floor6n_2.length)}>
 						<StageNavButton levelId={stageName} {language} />
 					</td>
 				{/each}
@@ -202,11 +226,18 @@
 				{/each}
 			</tr>
 			<tr>
-				<td colspan="2" rowspan="1">
+				<td colspan="2" rowspan="2">
 					{5}
 				</td>
 				{#each floor5b as stageName}
 					<td colspan={Math.floor(24 / floor5b.length)}>
+						<StageNavButton levelId={stageName} {language} />
+					</td>
+				{/each}
+			</tr>
+			<tr>
+				{#each floor5bAlt as stageName}
+					<td colspan={Math.floor(24 / floor5bAlt.length)}>
 						<StageNavButton levelId={stageName} {language} />
 					</td>
 				{/each}
@@ -239,7 +270,7 @@
 				</th>
 			</tr>
 			<tr>
-				<td colspan="2" rowspan="22"> ? </td>
+				<td colspan="2" rowspan="23"> ? </td>
 				{#each du as stageName}
 					<td colspan={Math.floor(24 / du.length)}>
 						<StageNavButton levelId={stageName} {language} />
@@ -299,6 +330,7 @@
 			<StageNavRow items={svRow2Alt} {language} />
 			<StageNavRow items={sv2} {language} />
 			<StageNavRow items={sv9} {language} />
+			<StageNavRow items={sv_dlc1} {language} />
 			<StageNavRow items={sv4} {language} />
 			<tr>
 				<th colspan="24">
@@ -314,6 +346,7 @@
 				</th>
 			</tr>
 			<StageNavRow items={duel} {language} />
+			<StageNavRow items={duel_dlc1} {language} />
 		</tbody>
 	</table>
 </div>
