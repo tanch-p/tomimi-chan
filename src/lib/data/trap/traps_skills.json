@@ -213,6 +213,157 @@
 			}
 		]
 	},
+	"sktok_ore_friend": {
+		"name_zh": "脉冲波",
+		"name_ja": "源石衝撃波",
+		"name_en": "Pulse Wave",
+		"desc_zh": "向四周喷发脉冲波，对周围所有敌方单位造成<@ba.vup>{value}</>真实伤害。",
+		"desc_ja": "衝撃波を発生させ、周囲一定範囲内の敵全員に<@ba.vup>{value}</>の確定ダメージを与える",
+		"desc_en": "Emits a pulse wave in the surrounding tiles, dealing <@ba.vup>{value}</> True damage to all surrounding enemy units",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"levels": [
+			{
+				"rangeId": "x-1",
+				"spData": {
+					"spType": "INCREASE_WITH_TIME",
+					"levelUpCost": null,
+					"maxChargeTime": 1,
+					"spCost": 15,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": 0.0,
+				"blackboard": [
+					{
+						"key": "value",
+						"value": 2000.0
+					}
+				]
+			}
+		]
+	},
+	"sktok_mine": {
+		"name_zh": "触爆",
+		"name_ja": "接触式起爆",
+		"name_en": "Detonate",
+		"desc_zh": "启动后敌人经过时会触发爆炸，对周围所有敌人造成<@ba.vup>{damage}</>真实伤害，并在<@ba.vup>{duration}</>秒内使其受到的伤害<@ba.vup>+50%</>",
+		"desc_ja": "起動後、敵がこのマスに進入時に爆発し、一定範囲内の敵全員に<@ba.vup>{damage}</>確定ダメージを与え、<@ba.vup>{duration}</>秒間被ダメージ<@ba.vup>+50%</>の状態を付与",
+		"desc_en": "Explodes when an enemy passes by, dealing <@ba.vup>{damage}</> True Damage to all nearby enemies and making them take <@ba.vup>+50%</> more damage for <@ba.vup>{duration}</> seconds",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": "INCREASE_WITH_TIME",
+					"levelUpCost": null,
+					"maxChargeTime": 1,
+					"spCost": 25,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "damage",
+						"value": 2000.0
+					},
+					{
+						"key": "damage_scale",
+						"value": 1.5
+					},
+					{
+						"key": "duration",
+						"value": 15.0
+					}
+				]
+			}
+		]
+	},
+	"sktok_flame": {
+		"name_zh": "能量结晶",
+		"name_ja": "エネルギー聚合体",
+		"name_en": "Energy Crystallization",
+		"desc_zh": "25秒后自爆，向周身四方向发出火球，击中目标时造成<@ba.vup>{damage}</>点法术伤害，并使其施加【烈焚灼息】（每秒受到真实伤害且伤害递增，可被<$ba.buffres>抵抗</>）",
+		"desc_ja": "25秒後自爆し、十字方向へ火球を放出する。火球は命中した対象に<@ba.vup>{damage}</>の術ダメージを与え、【灼熱の息吹】（1秒ごとに確定ダメージを受け、ダメージ量は時間経過とともに増加、<$ba.buffres>レジスト</>可能）を付与する",
+		"desc_en": "Self-destructs after 25 seconds, sending fireballs in the cardinal directions that deal <@ba.vup>{damage}</> Arts damage; Targets hit are afflicted with [Burning Breath] (Deals increasing True damage each second, but can be <$ba.buffres>resisted</>)",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": "INCREASE_WITH_TIME",
+					"levelUpCost": null,
+					"maxChargeTime": 1,
+					"spCost": 25,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": 0.0,
+				"blackboard": [
+					{
+						"key": "damage",
+						"value": 1000.0
+					},
+					{
+						"key": "dragon_fire.duration",
+						"value": 30.5
+					},
+					{
+						"key": "dragon_fire.basedamage",
+						"value": 50.0
+					},
+					{
+						"key": "dragon_fire.addondamage",
+						"value": 180.0
+					},
+					{
+						"key": "dragon_fire.addonduration",
+						"value": 30.0
+					}
+				]
+			},
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": "INCREASE_WITH_TIME",
+					"levelUpCost": null,
+					"maxChargeTime": 1,
+					"spCost": 25,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": 0.0,
+				"blackboard": [
+					{
+						"key": "damage",
+						"value": 1500.0
+					},
+					{
+						"key": "dragon_fire.duration",
+						"value": 30.5
+					},
+					{
+						"key": "dragon_fire.basedamage",
+						"value": 50.0
+					},
+					{
+						"key": "dragon_fire.addondamage",
+						"value": 180.0
+					},
+					{
+						"key": "dragon_fire.addonduration",
+						"value": 30.0
+					}
+				]
+			}
+		]
+	},
 	"sktok_blower": {
 		"skillId": "sktok_blower",
 		"name_zh": "气流",
@@ -1064,6 +1215,204 @@
 			]
 		}
 	},
+	"sktok_lrcore": {
+        "name_zh": "灵魂激荡",
+        "name_ja": "ソウルエコー",
+        "name_en": "Soul Echo",
+        "desc_zh": "引火的死魂灵进入第二形态后开启。操纵<洪流束激发器>对其左侧大范围内敌人造成持续伤害",
+        "desc_ja": "熾し火のレヴァナントが第二形態に入ると起動。<奔流発生装置>を操り、左側広範囲の敵にダメージを与え続ける",
+        "desc_en": "Activated once Kindling Revenant changes to its second form. Controls <Torrent Beam Activator> to deal continuous damage to enemies in a large area to the left.",
+        "skillType": "MANUAL",
+        "durationType": "NONE",
+        "spType": "INCREASE_WHEN_TAKEN_DAMAGE",
+        "levels": [
+            {
+                "rangeId": null,
+                "spData": {
+                    "spType": "INCREASE_WHEN_TAKEN_DAMAGE",
+                    "levelUpCost": null,
+                    "maxChargeTime": 1,
+                    "spCost": 25,
+                    "initSp": 25,
+                    "increment": 1.0
+                },
+                "duration": -1.0,
+                "blackboard": [
+                    {
+                        "key": "unlock",
+                        "value": 1.0,
+                        "valueStr": null
+                    },
+                    {
+                        "key": "branch_id",
+                        "value": 0.0,
+                        "valueStr": "branch_1"
+                    }
+                ]
+            },
+            {
+                "rangeId": null,
+                "spData": {
+                    "spType": "INCREASE_WHEN_TAKEN_DAMAGE",
+                    "levelUpCost": null,
+                    "maxChargeTime": 1,
+                    "spCost": 25,
+                    "initSp": 25,
+                    "increment": 1.0
+                },
+                "duration": -1.0,
+                "blackboard": [
+                    {
+                        "key": "unlock",
+                        "value": 2.0,
+                        "valueStr": null
+                    },
+                    {
+                        "key": "branch_id",
+                        "value": 0.0,
+                        "valueStr": "null"
+                    }
+                ]
+            },
+            {
+                "rangeId": null,
+                "spData": {
+                    "spType": "INCREASE_WHEN_TAKEN_DAMAGE",
+                    "levelUpCost": null,
+                    "maxChargeTime": 1,
+                    "spCost": 25,
+                    "initSp": 25,
+                    "increment": 1.0
+                },
+                "duration": -1.0,
+                "blackboard": [
+                    {
+                        "key": "unlock",
+                        "value": 3.0,
+                        "valueStr": null
+                    },
+                    {
+                        "key": "branch_id",
+                        "value": 0.0,
+                        "valueStr": "null"
+                    }
+                ]
+            },
+            {
+                "rangeId": null,
+                "spData": {
+                    "spType": "INCREASE_WHEN_TAKEN_DAMAGE",
+                    "levelUpCost": null,
+                    "maxChargeTime": 1,
+                    "spCost": 25,
+                    "initSp": 25,
+                    "increment": 1.0
+                },
+                "duration": -1.0,
+                "blackboard": [
+                    {
+                        "key": "unlock",
+                        "value": 4.0,
+                        "valueStr": null
+                    },
+                    {
+                        "key": "branch_id",
+                        "value": 0.0,
+                        "valueStr": "null"
+                    }
+                ]
+            }
+        ]
+    },
+	"sktok_lrlgun": {
+        "name_zh": "灵魂激荡",
+        "name_ja": "ソウルエコー",
+        "name_en": "Soul Echo",
+        "desc_zh": "",
+        "desc_ja": null,
+        "desc_en": null,
+        "skillType": "AUTO",
+        "durationType": "NONE",
+        "spType": "INCREASE_WITH_TIME",
+        "levels": [
+            {
+                "rangeId": null,
+                "spData": {
+                    "spType": "INCREASE_WITH_TIME",
+                    "levelUpCost": null,
+                    "maxChargeTime": 1,
+                    "spCost": 0,
+                    "initSp": 0,
+                    "increment": 1.0
+                },
+                "duration": 0.0,
+                "blackboard": []
+            }
+        ]
+    },
+	"sktok_lrsiege": {
+        "name_zh": "振奋荣光",
+        "name_ja": "奮い立つ栄光",
+        "name_en": "Light of Glory",
+        "desc_zh": "",
+        "desc_ja": null,
+        "desc_en": null,
+        "skillType": "AUTO",
+        "durationType": "NONE",
+        "spType": "INCREASE_WITH_TIME",
+        "levels": [
+            {
+                "rangeId": null,
+                "spData": {
+                    "spType": "INCREASE_WITH_TIME",
+                    "levelUpCost": null,
+                    "maxChargeTime": 1,
+                    "spCost": 0,
+                    "initSp": 0,
+                    "increment": 1.0
+                },
+                "duration": -1.0,
+                "blackboard": []
+            }
+        ]
+    },
+	"sktok_mpweak_1": {
+        "name_zh": "弱化",
+        "name_ja": "",
+        "name_en": "",
+        "desc_zh": "被PRTS激活时会降低周围干员<@ba.vdown>50%</>的防御力和法术抗性，持续<@ba.vdown>20</>秒；\\n我方可消耗<@ba.vup>{cost}</>点部署费用激活来降低周围敌人<@ba.vup>50%</>的防御力和法术抗性，持续<@ba.vup>30</>秒。",
+        "desc_ja": "",
+        "desc_en": "",
+        "skillType": "MANUAL",
+        "durationType": "NONE",
+        "spType": "INCREASE_WITH_TIME",
+        "levels": [
+            {
+                "rangeId": "x-4",
+                "spData": {
+                    "spType": "INCREASE_WITH_TIME",
+                    "levelUpCost": null,
+                    "maxChargeTime": 1,
+                    "spCost": 30,
+                    "initSp": 0,
+                    "increment": 1.0
+                },
+                "duration": 30.0,
+                "blackboard": [
+                    {
+                        "key": "cost",
+                        "value": 10.0,
+                        "valueStr": null
+                    },
+                    {
+                        "key": "duration_prts",
+                        "value": 20.0,
+                        "valueStr": null
+                    }
+                ]
+            }
+        ]
+    },
 	"sktok_smpow": {
 		"skillId": "sktok_smpow",
 		"name_zh": "启动",
@@ -1220,38 +1569,31 @@
 				"blackboard": [
 					{
 						"key": "attack@ex_sub_sp",
-						"value": -5.0,
-						"valueStr": null
+						"value": -5.0
 					},
 					{
 						"key": "attack@burn_sub_sp",
-						"value": -4.0,
-						"valueStr": null
+						"value": -4.0
 					},
 					{
 						"key": "attack@burn_add_sp",
-						"value": 10.0,
-						"valueStr": null
+						"value": 10.0
 					},
 					{
 						"key": "talent@fire_add_sp",
-						"value": 30.0,
-						"valueStr": null
+						"value": 30.0
 					},
 					{
 						"key": "talent@cold_add_sp",
-						"value": 5.0,
-						"valueStr": null
+						"value": 5.0
 					},
 					{
 						"key": "talent@init_mode",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					},
 					{
 						"key": "attack@chill_duration_interval",
-						"value": 10.0,
-						"valueStr": null
+						"value": 10.0
 					}
 				]
 			}
@@ -1282,8 +1624,7 @@
 				"blackboard": [
 					{
 						"key": "hp_ratio",
-						"value": 0.034,
-						"valueStr": null
+						"value": 0.034
 					}
 				]
 			}
@@ -1398,13 +1739,11 @@
 				"blackboard": [
 					{
 						"key": "atk_scale",
-						"value": 1.0,
-						"valueStr": null
+						"value": 1.0
 					},
 					{
 						"key": "heal_scale",
-						"value": 0.5,
-						"valueStr": null
+						"value": 0.5
 					}
 				]
 			}
@@ -1435,18 +1774,15 @@
 				"blackboard": [
 					{
 						"key": "move_speed",
-						"value": -0.6,
-						"valueStr": null
+						"value": -0.6
 					},
 					{
 						"key": "attack@ep_damage_ratio",
-						"value": 0.2,
-						"valueStr": null
+						"value": 0.2
 					},
 					{
 						"key": "attack@element_type",
-						"value": 3.0,
-						"valueStr": null
+						"value": 3.0
 					}
 				]
 			}
@@ -1520,8 +1856,7 @@
 				"blackboard": [
 					{
 						"key": "hint_sp",
-						"value": 8.0,
-						"valueStr": null
+						"value": 8.0
 					},
 					{
 						"key": "branch_id",
@@ -1557,8 +1892,7 @@
 				"blackboard": [
 					{
 						"key": "hint_sp",
-						"value": 8.0,
-						"valueStr": null
+						"value": 8.0
 					},
 					{
 						"key": "branch_id",
@@ -1801,31 +2135,31 @@
 		}
 	},
 	"sktok_cnnon": {
-        "name_zh": "吃盐坨子吧！",
-        "name_ja": "塩でも食ってろ！",
-        "name_en": "Eat Salt, Sucker!",
-        "desc_zh": "向前方发射炮弹造成物理溅射伤害，可以将周围1名重量小于等于<@ba.vup>3</>的地面敌人传送至爆炸中心",
-        "desc_ja": "前方に砲弾を放って物理範囲ダメージを与える。周囲一定範囲内の地面上にいる重量ランクが<@ba.vup>3</>以下の敵1体を爆発の中心地に送る",
-        "desc_en": "Fires a shell forward, dealing Physical splash damage; can launch a nearby ground enemy of <@ba.vup>3</> Weight or less to the center of the explosion",
-        "skillType": "AUTO",
-        "durationType": "NONE",
-        "spType": "INCREASE_WITH_TIME",
-        "levels": [
-            {
-                "rangeId": null,
-                "spData": {
-                    "spType": "INCREASE_WITH_TIME",
-                    "levelUpCost": null,
-                    "maxChargeTime": 1,
-                    "spCost": 6,
-                    "initSp": 0,
-                    "increment": 1.0
-                },
-                "duration": 0.0,
-                "blackboard": []
-            }
-        ]
-    },
+		"name_zh": "吃盐坨子吧！",
+		"name_ja": "塩でも食ってろ！",
+		"name_en": "Eat Salt, Sucker!",
+		"desc_zh": "向前方发射炮弹造成物理溅射伤害，可以将周围1名重量小于等于<@ba.vup>3</>的地面敌人传送至爆炸中心",
+		"desc_ja": "前方に砲弾を放って物理範囲ダメージを与える。周囲一定範囲内の地面上にいる重量ランクが<@ba.vup>3</>以下の敵1体を爆発の中心地に送る",
+		"desc_en": "Fires a shell forward, dealing Physical splash damage; can launch a nearby ground enemy of <@ba.vup>3</> Weight or less to the center of the explosion",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": "INCREASE_WITH_TIME",
+					"levelUpCost": null,
+					"maxChargeTime": 1,
+					"spCost": 6,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": 0.0,
+				"blackboard": []
+			}
+		]
+	},
 	"sktok_rgdysm_1": {
 		"name_zh": "雕伥",
 		"name_ja": "",
@@ -1851,23 +2185,19 @@
 				"blackboard": [
 					{
 						"key": "cost",
-						"value": 20.0,
-						"valueStr": null
+						"value": 20.0
 					},
 					{
 						"key": "stun",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					},
 					{
 						"key": "cnt",
-						"value": 1.0,
-						"valueStr": null
+						"value": 1.0
 					},
 					{
 						"key": "interval",
-						"value": 1.0,
-						"valueStr": null
+						"value": 1.0
 					},
 					{
 						"key": "enemy_key",
@@ -1940,13 +2270,11 @@
 				"blackboard": [
 					{
 						"key": "addition_scale",
-						"value": 0.25,
-						"valueStr": null
+						"value": 0.25
 					},
 					{
 						"key": "atk_scale",
-						"value": 1.0,
-						"valueStr": null
+						"value": 1.0
 					}
 				]
 			}
@@ -1977,13 +2305,11 @@
 				"blackboard": [
 					{
 						"key": "hp_ratio",
-						"value": 0.4,
-						"valueStr": null
+						"value": 0.4
 					},
 					{
 						"key": "atk_scale",
-						"value": 1.0,
-						"valueStr": null
+						"value": 1.0
 					}
 				]
 			}
@@ -2014,13 +2340,11 @@
 				"blackboard": [
 					{
 						"key": "atk_ratio",
-						"value": 1.0,
-						"valueStr": null
+						"value": 1.0
 					},
 					{
 						"key": "atk_scale",
-						"value": 1.0,
-						"valueStr": null
+						"value": 1.0
 					}
 				]
 			}
@@ -2051,23 +2375,19 @@
 				"blackboard": [
 					{
 						"key": "damage_value",
-						"value": 600.0,
-						"valueStr": null
+						"value": 600.0
 					},
 					{
 						"key": "times",
-						"value": 1.0,
-						"valueStr": null
+						"value": 1.0
 					},
 					{
 						"key": "each_gold_time",
-						"value": 4.0,
-						"valueStr": null
+						"value": 4.0
 					},
 					{
 						"key": "interval",
-						"value": 0.4,
-						"valueStr": null
+						"value": 0.4
 					}
 				]
 			}
@@ -2098,13 +2418,11 @@
 				"blackboard": [
 					{
 						"key": "damage_scale",
-						"value": 1.5,
-						"valueStr": null
+						"value": 1.5
 					},
 					{
 						"key": "taunt_level",
-						"value": 1.0,
-						"valueStr": null
+						"value": 1.0
 					}
 				]
 			}
@@ -2219,13 +2537,11 @@
 				"blackboard": [
 					{
 						"key": "attack@token_radian_tower3_s_3[normal_aoe].max_target",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					},
 					{
 						"key": "talent@prism_max_target",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					}
 				]
 			},
@@ -2243,13 +2559,11 @@
 				"blackboard": [
 					{
 						"key": "attack@token_radian_tower3_s_3[normal_aoe].max_target",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					},
 					{
 						"key": "talent@prism_max_target",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					}
 				]
 			},
@@ -2267,13 +2581,11 @@
 				"blackboard": [
 					{
 						"key": "attack@token_radian_tower3_s_3[normal_aoe].max_target",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					},
 					{
 						"key": "talent@prism_max_target",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					}
 				]
 			},
@@ -2291,13 +2603,11 @@
 				"blackboard": [
 					{
 						"key": "attack@token_radian_tower3_s_3[normal_aoe].max_target",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					},
 					{
 						"key": "talent@prism_max_target",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					}
 				]
 			},
@@ -2315,13 +2625,11 @@
 				"blackboard": [
 					{
 						"key": "attack@token_radian_tower3_s_3[normal_aoe].max_target",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					},
 					{
 						"key": "talent@prism_max_target",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					}
 				]
 			},
@@ -2339,13 +2647,11 @@
 				"blackboard": [
 					{
 						"key": "attack@token_radian_tower3_s_3[normal_aoe].max_target",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					},
 					{
 						"key": "talent@prism_max_target",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					}
 				]
 			},
@@ -2363,13 +2669,11 @@
 				"blackboard": [
 					{
 						"key": "attack@token_radian_tower3_s_3[normal_aoe].max_target",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					},
 					{
 						"key": "talent@prism_max_target",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					}
 				]
 			},
@@ -2387,13 +2691,11 @@
 				"blackboard": [
 					{
 						"key": "attack@token_radian_tower3_s_3[normal_aoe].max_target",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					},
 					{
 						"key": "talent@prism_max_target",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					}
 				]
 			},
@@ -2411,13 +2713,11 @@
 				"blackboard": [
 					{
 						"key": "attack@token_radian_tower3_s_3[normal_aoe].max_target",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					},
 					{
 						"key": "talent@prism_max_target",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					}
 				]
 			},
@@ -2435,16 +2735,182 @@
 				"blackboard": [
 					{
 						"key": "attack@token_radian_tower3_s_3[normal_aoe].max_target",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					},
 					{
 						"key": "talent@prism_max_target",
-						"value": 0.0,
-						"valueStr": null
+						"value": 0.0
 					}
 				]
 			}
 		]
-	}
+	},
+	"sktok_mjcsdw": {
+        "name_zh": "破茧倒计时",
+        "name_ja": "",
+        "name_en": "",
+        "desc_zh": "可以阻挡月光",
+        "desc_ja": "",
+        "desc_en": "",
+        "skillType": "PASSIVE",
+        "durationType": "NONE",
+        "spType": 8,
+        "levels": [
+            {
+                "rangeId": null,
+                "spData": {
+                    "spType": 8,
+                    "levelUpCost": null,
+                    "maxChargeTime": 1,
+                    "spCost": 999,
+                    "initSp": 0,
+                    "increment": 0.0
+                },
+                "duration": -1.0,
+                "blackboard": [
+                    {
+                        "key": "sp",
+                        "value": 1.0,
+                        "valueStr": null
+                    },
+                    {
+                        "key": "interval",
+                        "value": 1.0,
+                        "valueStr": null
+                    },
+                    {
+                        "key": "sp_moon",
+                        "value": 1.0,
+                        "valueStr": null
+                    },
+                    {
+                        "key": "damage_resistance",
+                        "value": 0.8,
+                        "valueStr": null
+                    },
+                    {
+                        "key": "sp_warning",
+                        "value": 900.0,
+                        "valueStr": null
+                    },
+                    {
+                        "key": "show_fx",
+                        "value": 1.0,
+                        "valueStr": null
+                    },
+                    {
+                        "key": "branch_id",
+                        "value": 0.0,
+                        "valueStr": "enemy_mjcsdw"
+                    }
+                ]
+            },
+            {
+                "rangeId": null,
+                "spData": {
+                    "spType": "INCREASE_WITH_TIME",
+                    "levelUpCost": null,
+                    "maxChargeTime": 1,
+                    "spCost": 999,
+                    "initSp": 0,
+                    "increment": 0.0
+                },
+                "duration": -1.0,
+                "blackboard": [
+                    {
+                        "key": "sp",
+                        "value": 1.0,
+                        "valueStr": null
+                    },
+                    {
+                        "key": "interval",
+                        "value": 1.0,
+                        "valueStr": null
+                    },
+                    {
+                        "key": "sp_moon",
+                        "value": 1.0,
+                        "valueStr": null
+                    },
+                    {
+                        "key": "damage_resistance",
+                        "value": 0.8,
+                        "valueStr": null
+                    },
+                    {
+                        "key": "sp_warning",
+                        "value": 900.0,
+                        "valueStr": null
+                    },
+                    {
+                        "key": "show_fx",
+                        "value": 1.0,
+                        "valueStr": null
+                    },
+                    {
+                        "key": "branch_id",
+                        "value": 0.0,
+                        "valueStr": "enemy_mjcsdw"
+                    }
+                ]
+            }
+        ]
+    },
+	"sktok_rgcssm": {
+        "name_zh": "古雕伥",
+        "name_ja": "",
+        "name_en": "",
+        "desc_zh": "消耗20点部署费用，使古雕伥把嘴闭上一段时间，并停止吐出敌人",
+        "desc_ja": "",
+        "desc_en": "",
+        "skillType": "MANUAL",
+        "durationType": "NONE",
+        "spType": 8,
+        "levels": [
+            {
+                "rangeId": null,
+                "spData": {
+                    "spType": 8,
+                    "levelUpCost": null,
+                    "maxChargeTime": 1,
+                    "spCost": 1,
+                    "initSp": 1,
+                    "increment": 0.0
+                },
+                "duration": 150.0,
+                "blackboard": [
+                    {
+                        "key": "cost",
+                        "value": 20.0,
+                        "valueStr": null
+                    },
+                    {
+                        "key": "stun",
+                        "value": 0.0,
+                        "valueStr": null
+                    },
+                    {
+                        "key": "cnt",
+                        "value": 1.0,
+                        "valueStr": null
+                    },
+                    {
+                        "key": "talent@interval",
+                        "value": 20.0,
+                        "valueStr": null
+                    },
+                    {
+                        "key": "enemy_key",
+                        "value": 0.0,
+                        "valueStr": "enemy_1303_mhshep_2"
+                    },
+                    {
+                        "key": "attack@enemy_key",
+                        "value": 0.0,
+                        "valueStr": "enemy_1303_mhshep_2"
+                    }
+                ]
+            }
+        ]
+    }
 }
