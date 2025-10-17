@@ -94,7 +94,6 @@ const getTrapStats = (trap: TrapData, level: number) => {
 export const parseTraps = (traps: MapConfigTrap[], language: Language) => {
 	const holder: Trap[] = [];
 	for (const { key, alias, level, skillIndex, mainSkillLvl, overrideSkillBlackboard } of traps) {
-		console.log(key)
 		const trap: TrapData = trapLookup[key];
 		const talents = trap?.talents?.map((key) => {
 			const talent = trapSkills[key];
