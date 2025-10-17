@@ -197,8 +197,8 @@
   {
    "motionMode": "WALK",
    "startPosition": {
-    "row": 4,
-    "col": 0
+    "row": 5,
+    "col": 1
    },
    "endPosition": {
     "row": 4,
@@ -214,21 +214,8 @@
    },
    "checkpoints": [
     {
-     "type": "MOVE",
-     "time": 0.0,
-     "position": {
-      "row": 4,
-      "col": 2
-     },
-     "reachOffset": {
-      "x": 0.0,
-      "y": 0.0
-     },
-     "reachDistance": 0.0
-    },
-    {
      "type": "WAIT_FOR_SECONDS",
-     "time": 120.0,
+     "time": 30.0,
      "position": {
       "row": 0,
       "col": 1
@@ -238,63 +225,12 @@
       "y": 0.0
      },
      "reachDistance": 0.0
-    }
-   ],
-   "allowDiagonalMove": true,
-   "visitEveryTileCenter": false,
-   "visitEveryNodeCenter": false,
-   "visitEveryCheckPoint": false
-  },
-  {
-   "motionMode": "WALK",
-   "startPosition": {
-    "row": 4,
-    "col": 0
-   },
-   "endPosition": {
-    "row": 4,
-    "col": 9
-   },
-   "spawnRandomRange": {
-    "x": 0.0,
-    "y": 0.0
-   },
-   "spawnOffset": {
-    "x": 0.0,
-    "y": 0.0
-   },
-   "checkpoints": [
-    {
-     "type": "MOVE",
-     "time": 0.0,
-     "position": {
-      "row": 4,
-      "col": 1
-     },
-     "reachOffset": {
-      "x": 0.0,
-      "y": 0.0
-     },
-     "reachDistance": 0.0
     },
     {
      "type": "MOVE",
      "time": 0.0,
      "position": {
-      "row": 3,
-      "col": 1
-     },
-     "reachOffset": {
-      "x": 0.0,
-      "y": 0.0
-     },
-     "reachDistance": 0.0
-    },
-    {
-     "type": "MOVE",
-     "time": 0.0,
-     "position": {
-      "row": 3,
+      "row": 5,
       "col": 2
      },
      "reachOffset": {
@@ -305,7 +241,7 @@
     },
     {
      "type": "WAIT_FOR_SECONDS",
-     "time": 5.0,
+     "time": 40.0,
      "position": {
       "row": 0,
       "col": 0
@@ -371,7 +307,7 @@
      "type": "MOVE",
      "time": 0.0,
      "position": {
-      "row": 3,
+      "row": 5,
       "col": 1
      },
      "reachOffset": {
@@ -382,10 +318,10 @@
     },
     {
      "type": "WAIT_FOR_SECONDS",
-     "time": 5.0,
+     "time": 40.0,
      "position": {
       "row": 0,
-      "col": 1
+      "col": 0
      },
      "reachOffset": {
       "x": 0.0,
@@ -397,8 +333,21 @@
      "type": "MOVE",
      "time": 0.0,
      "position": {
-      "row": 3,
+      "row": 5,
       "col": 2
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    },
+    {
+     "type": "WAIT_FOR_SECONDS",
+     "time": 30.0,
+     "position": {
+      "row": 0,
+      "col": 1
      },
      "reachOffset": {
       "x": 0.0,
@@ -461,7 +410,7 @@
      "type": "MOVE",
      "time": 0.0,
      "position": {
-      "row": 5,
+      "row": 3,
       "col": 1
      },
      "reachOffset": {
@@ -474,21 +423,8 @@
      "type": "MOVE",
      "time": 0.0,
      "position": {
-      "row": 5,
+      "row": 3,
       "col": 2
-     },
-     "reachOffset": {
-      "x": 0.0,
-      "y": 0.0
-     },
-     "reachDistance": 0.0
-    },
-    {
-     "type": "WAIT_FOR_SECONDS",
-     "time": 5.0,
-     "position": {
-      "row": 0,
-      "col": 1
      },
      "reachOffset": {
       "x": 0.0,
@@ -500,8 +436,21 @@
      "type": "MOVE",
      "time": 0.0,
      "position": {
-      "row": 4,
+      "row": 2,
       "col": 2
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    },
+    {
+     "type": "MOVE",
+     "time": 0.0,
+     "position": {
+      "row": 2,
+      "col": 9
      },
      "reachOffset": {
       "x": 0.0,
@@ -625,7 +574,7 @@
    "checkpoints": [
     {
      "type": "WAIT_FOR_SECONDS",
-     "time": 120.0,
+     "time": 99.0,
      "position": {
       "row": -1,
       "col": 1
@@ -2098,7 +2047,7 @@
        "actionType": "SPAWN",
        "key": "enemy_10066_ftxjl_2",
        "count": 1,
-       "preDelay": 90.0,
+       "preDelay": 0.0,
        "interval": 1.0,
        "routeIndex": 1,
        "autoPreviewRoute": false,
@@ -2110,9 +2059,9 @@
       },
       {
        "actionType": "SPAWN",
-       "key": "enemy_10003_trwlpl_2",
+       "key": "enemy_10066_ftxjl_2",
        "count": 1,
-       "preDelay": 90.0,
+       "preDelay": 30.0,
        "interval": 1.0,
        "routeIndex": 2,
        "autoPreviewRoute": false,
@@ -2125,25 +2074,11 @@
       {
        "actionType": "SPAWN",
        "key": "enemy_10003_trwlpl_2",
-       "count": 1,
-       "preDelay": 140.0,
-       "interval": 1.0,
+       "count": 2,
+       "preDelay": 90.0,
+       "interval": 3.0,
        "routeIndex": 3,
-       "autoPreviewRoute": false,
-       "hiddenGroup": null,
-       "randomSpawnGroupKey": null,
-       "randomSpawnGroupPackKey": null,
-       "weight": 0,
-       "dontBlockWave": false
-      },
-      {
-       "actionType": "SPAWN",
-       "key": "enemy_10067_ftsjc_2",
-       "count": 1,
-       "preDelay": 140.0,
-       "interval": 1.0,
-       "routeIndex": 4,
-       "autoPreviewRoute": false,
+       "autoPreviewRoute": true,
        "hiddenGroup": null,
        "randomSpawnGroupKey": null,
        "randomSpawnGroupPackKey": null,
@@ -2156,7 +2091,7 @@
        "count": 1,
        "preDelay": 70.0,
        "interval": 1.0,
-       "routeIndex": 5,
+       "routeIndex": 4,
        "autoPreviewRoute": false,
        "hiddenGroup": null,
        "randomSpawnGroupKey": null,
@@ -2170,7 +2105,7 @@
        "count": 1,
        "preDelay": 0.0,
        "interval": 1.0,
-       "routeIndex": 6,
+       "routeIndex": 5,
        "autoPreviewRoute": false,
        "hiddenGroup": "copper_b",
        "randomSpawnGroupKey": null,
@@ -2184,6 +2119,20 @@
        "count": 1,
        "preDelay": 0.0,
        "interval": 20.0,
+       "routeIndex": 6,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_10003_trwlpl_2",
+       "count": 1,
+       "preDelay": 0.0,
+       "interval": 1.5,
        "routeIndex": 7,
        "autoPreviewRoute": false,
        "hiddenGroup": null,
@@ -2208,16 +2157,16 @@
       },
       {
        "actionType": "SPAWN",
-       "key": "enemy_10003_trwlpl_2",
+       "key": "enemy_2034_sythef",
        "count": 1,
        "preDelay": 0.0,
-       "interval": 1.5,
+       "interval": 1.0,
        "routeIndex": 9,
        "autoPreviewRoute": false,
        "hiddenGroup": null,
-       "randomSpawnGroupKey": null,
+       "randomSpawnGroupKey": "t1",
        "randomSpawnGroupPackKey": null,
-       "weight": 0,
+       "weight": 15,
        "dontBlockWave": false
       },
       {
@@ -2236,17 +2185,17 @@
       },
       {
        "actionType": "SPAWN",
-       "key": "enemy_2034_sythef",
-       "count": 1,
-       "preDelay": 0.0,
-       "interval": 1.0,
+       "key": "enemy_2101_dyspll",
+       "count": 8,
+       "preDelay": 5.0,
+       "interval": 10.0,
        "routeIndex": 11,
        "autoPreviewRoute": false,
        "hiddenGroup": null,
-       "randomSpawnGroupKey": "t1",
+       "randomSpawnGroupKey": "g1",
        "randomSpawnGroupPackKey": null,
        "weight": 15,
-       "dontBlockWave": false
+       "dontBlockWave": true
       },
       {
        "actionType": "SPAWN",
@@ -2269,20 +2218,6 @@
        "preDelay": 5.0,
        "interval": 10.0,
        "routeIndex": 13,
-       "autoPreviewRoute": false,
-       "hiddenGroup": null,
-       "randomSpawnGroupKey": "g1",
-       "randomSpawnGroupPackKey": null,
-       "weight": 15,
-       "dontBlockWave": true
-      },
-      {
-       "actionType": "SPAWN",
-       "key": "enemy_2101_dyspll",
-       "count": 8,
-       "preDelay": 5.0,
-       "interval": 10.0,
-       "routeIndex": 14,
        "autoPreviewRoute": false,
        "hiddenGroup": null,
        "randomSpawnGroupKey": "g1",

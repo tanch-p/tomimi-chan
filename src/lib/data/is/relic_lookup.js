@@ -79,6 +79,7 @@ export const relicLookup = {
 	rogue_4_relic_fight_13: 'rogue_4_relic_fight_13', //重力蔑视机关
 	rogue_5_relic_legacy_37: 'rogue_4_relic_fight_13',
 	rogue_4_relic_fight_17: 'rogue_4_relic_fight_17',
+	rogue_5_relic_final_5: 'rogue_5_relic_final_5',
 
 	rogue_1_relic_q29: 'relic_spinach',
 	rogue_1_relic_p46: 'relic_hand_superspeed',

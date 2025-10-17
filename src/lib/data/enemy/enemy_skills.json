@@ -2258,11 +2258,12 @@
 		}
 	},
 	"ammo": {
-		"value": 3,
+		"init": 3,
+		"max": 3,
 		"tooltip": {
-			"en": ["Has <v.value> Initial/Max Ammo"],
-			"ja": ["初期弾数/弾薬上限数<v.value>"],
-			"zh": ["初始技力/技力上限为<v.value>"]
+			"en": ["Has <v.init>/<v.max> Initial/Max Ammo"],
+			"ja": ["初期弾数<v.init>、弾薬上限数<v.max>"],
+			"zh": ["初始技力<v.init>、技力上限为<v.max>"]
 		}
 	},
 	"sgprst_gun": {
@@ -4084,9 +4085,7 @@
 	},
 	"smtree": {
 		"tooltip": {
-			"en": [
-				"Prevents deployment of friendly units on tile occupied"
-			],
+			"en": ["Prevents deployment of friendly units on tile occupied"],
 			"ja": ["配置可能マスを占有する"],
 			"zh": ["所在格阻止部署"]
 		}
@@ -8788,6 +8787,256 @@
 			],
 			"ja": ["血の祭壇の衝撃波を受けると自身は消滅し、血の祭壇が新生の血裔を1体召喚する"],
 			"zh": ["受唤血祭坛脉冲波影响时，触发1次唤血祭坛的召唤效果，随后自身退场"]
+		}
+	},
+	"ymghol_start": {
+		"standby": 60,
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["初始处于【伪装】状态，持续<v.standby>s，期间持有无敌、不可阻挡、失衡免疫、自缚"]
+		}
+	},
+	"ymghol_stealth_loss": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"受反隐（隐匿免疫）影响后立即失去【伪装】；【伪装】期间，“某种天命”进入自身半径0.35范围内（碰撞判定）时令其坠落，随后自身立即失去【伪装】"
+			]
+		}
+	},
+	"ymgtop_start": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["【初始形态】进行近战攻击；进入该形态后的1s内无法切换至漩涡形态"]
+		}
+	},
+	"ymgtop_spin": {
+		"type": "skill",
+		"initCooldown": 10.0,
+		"cooldown": 60.0,
+		"suffix": { "en": "Start Spin", "ja": "回転開始", "zh": "切换形态" },
+		"tooltip": {
+			"en": ["Attempts to enter Spinning state"],
+			"ja": ["回転状態に入る"],
+			"zh": ["尝试切换至漩涡形态"]
+		}
+	},
+	"ymgtop_spin_state": {
+		"atk": { "multiplier": 1.2, "order": "initial" },
+		"suffix": { "en": "Spin", "ja": "回転", "zh": "旋转" },
+		"hits": null,
+		"dmg_element": "phys",
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"【漩涡形态】不进行普通攻击，每秒对半径1.0范围内的所有我方单位造成攻击力120%的{phys}伤害{ignore_camou}",
+				"若自身处于晕眩/冻结/无法行动则无法造成此伤害；进入该形态后的1s内无法切换至初始形态",
+				"失衡移动结束时或经过60s后切换至初始形态"
+			]
+		}
+	},
+	"ymggld_acc": {
+		"accelerate": { "i": 3, "m": 0.2, "limit": 25, "preDelay": 3 },
+		"tooltip": {
+			"en": [
+				"When not being blocked, stun or bind, accelerates every 3s, increasing Movespeed by 20%",
+				"When Movespeed increase ≥ 800%, takes off and enters Flying state",
+				"※Getting stunned/bind/push/pull will reset Movespeed stacks to 0"
+			],
+			"ja": [
+				"被ブロック・スタン・バインド状態でない場合、3秒ごとに移動速度が20%上昇する。移動速度上昇が800%以上になると、【滑空】に入る",
+				"※スタン・バインド・強制移動を受けると移動速度上昇がリセットされる"
+			],
+			"zh": [
+				"未处于被阻挡、眩晕、束缚、失衡状态时每3s尝试获得1层移动速度+20%的增益",
+				"每次加速后，当前移动速度≥记录速度的800%时，起飞并切换至【滑翔】状态",
+				"※眩晕，束缚，失衡会清空移速叠加并重置加速次数"
+			]
+		}
+	},
+	"ymggld_fly": {
+		"ms": { "multiplier": 8, "order": "final" },
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"【滑翔】状态：近地悬浮，失衡免疫，移动速度最终提升至800%，不进行攻击，退出加速状态且加速不生效",
+				"受晕眩/冻结/沉睡影响时，立刻退出【滑翔】状态 "
+			]
+		}
+	},
+	"ymgung_condition": {
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"被阻挡时或半径0.5范围内存在“某种天命”、伪装的土遁忍者/土遁宗师，或半径0.8范围内的地块（中点判定）中存在地穴时，立刻尝试释放【跳跃】"
+			]
+		}
+	},
+	"ymgung_jump": {
+		"type": "skill",
+		"initCooldown": 0.0,
+		"cooldown": 15.0,
+		"suffix": { "en": "Jump", "ja": "跳躍", "zh": "跳跃" },
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"触发时，立刻解除阻挡，并获得近地悬浮和0.33秒自缚",
+				"跳跃持续2秒，期间移动速度最终提升至300%，持有失衡免疫、晕眩免疫、沉默免疫、浮空免疫、冻结免疫、沉睡免疫、闭锁免疫，且不攻击。",
+				"持续时间结束后失去近地悬浮"
+			]
+		}
+	},
+	"dylnpp_reflect": {
+		"atk": { "multiplier": 3 },
+		"suffix": { "zh": "技能", "ja": "技", "en": "Skill" },
+		"dmg_element": "arts",
+		"skillRange": 3.5,
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"每受到第15次伤害，对自身半径3.5范围内的我方单位造成攻击力300%的{arts}伤害，并令其晕眩15s"
+			]
+		}
+	},
+	"dyjsfg_base": {
+		"tooltip": {
+			"en": ["Immune to Teleport, has no normal attack"],
+			"ja": ["転移無効、通常攻撃しない"],
+			"zh": ["免疫传送，不进行普通攻击"]
+		}
+	},
+	"dyjsfg_res": {
+		"tooltip": {
+			"en": [
+				"【明力】Negative Status durations -80%",
+				"When not moving, gains 35% Damage Reduction, else 90% DR"
+			],
+			"ja": [
+				"【明力】异常状态的持续时间-80%",
+				"移動してないとき受ける{phys}と{arts}ダメージが35%減少、移動中は90%"
+			],
+			"zh": [
+				"【明力】自身可抵抗状态生效时间倍率-0.8；未处于移动状态时受到的物理/法术伤害-35%，否则减伤倍率增加至-90%"
+			]
+		}
+	},
+	"dyjsfg_aoe": {
+		"skillRange": 1.6,
+		"tooltip": {
+			"en": ["【尚同】"],
+			"ja": ["【尚同】"],
+			"zh": [
+				"【尚同】每2.5s对半径1.6范围内的我方单位造成攻击力100%的{phys}伤害，被阻挡时强制触发攻击力200%的【尚同】一次"
+			]
+		}
+	},
+	"dyjsfg_hp50": {
+		"atk": { "multiplier": 0.5, "order": "initial" },
+		"ms": { "multiplier": 2, "order": "final" },
+		"suffix": { "zh": "HP50%以下", "ja": "HP50%以下", "en": "HP↓50%" },
+		"dmg_element": null,
+		"skillRange": 1.6,
+		"tooltip": {
+			"en": ["【非命】"],
+			"ja": ["【非命】"],
+			"zh": ["【非命】生命值首次低于50%时，自身占用阻挡数+1，攻击力+50%，移动速度最终提升至200%"]
+		}
+	},
+	"dyjsfg_defeat": {
+		"atk": { "multiplier": 2 },
+		"suffix": { "zh": "HP50%以下", "ja": "HP50%以下", "en": "HP↓50%" },
+		"hits": 1,
+		"dmg_element": "phys",
+		"tooltip": {
+			"en": ["【兼爱】"],
+			"ja": ["【兼爱】"],
+			"zh": [
+				"【兼爱】【兼爱】自身退场时，强制击倒除后兽以外的非装置/非召唤物职业的敌方单位，随后对场上所有我方干员/我方召唤物造成攻击力200%的无来源{phys}伤害"
+			]
+		}
+	},
+	"dyjsww_grow": {
+		"atk": { "multiplier": 2, "order": "initial" },
+		"suffix": { "zh": "10层", "ja": "10回", "en": "10 stacks" },
+		"dmg_element": null,
+		"tooltip": {
+			"en": ["【自化】"],
+			"ja": ["【自化】"],
+			"zh": [
+				"【自化】除矩兽以外的敌人进入自身半径1.5范围内时，使其退场并扣除1点目标生命；随后对全场我方单位造成攻击力50%的{arts}伤害，并使自身攻击力+20%（最多叠加至20层）"
+			]
+		}
+	},
+	"dyjsww_1": {
+		"tooltip": {
+			"en": ["【无为】"],
+			"ja": ["【无为】"],
+			"zh": ["【无为】战斗开始360s后/矩兽退场后，进入第二形态并将场上所有的古雕伥替换为雕伥"]
+		}
+	},
+	"dyjsww_2": {
+		"tooltip": {
+			"en": ["【自化】"],
+			"ja": ["【自化】"],
+			"zh": ["【自化】新增效果：将除矩兽以外的敌人的路径终点重设为自身所在位置"]
+		}
+	},
+	"dyjsww_end": {
+		"type": "skill",
+		"initCooldown": 999.0,
+		"cooldown": 999.0,
+		"suffix": { "en": "不争", "ja": "不争", "zh": "不争" },
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["扣除50目标生命值，随后退场"]
+		}
+	},
+	"dyjsww_summon": {
+		"type": "skill",
+		"initCooldown": 5.0,
+		"cooldown": 80.0,
+		"suffix": { "en": "反常制胜", "ja": "反常制胜", "zh": "反常制胜" },
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": ["按预设路径召唤一批敌人"]
+		}
+	},
+	"dyjsww_teleport": {
+		"type": "skill",
+		"initCooldown": 30.0,
+		"cooldown": 30.0,
+		"suffix": { "en": "时移", "ja": "时移", "zh": "时移" },
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"使场上所有部署方向与自身影响方向相反的我方单位在30s内攻击速度-50，使移动方向与自身影响方向相同的敌方单位在30s内移动速度+200%",
+				"若自身处于第一形态，还会立即闪现至下个检查点",
+				"※技能触发时，屏幕两侧特效的流动方向代表其当前影响方向，在第一形态时同样也代表其闪现的方向"
+			]
+		}
+	},
+	"dyjsww_shoot": {
+		"type": "skill",
+		"initCooldown": 30.0,
+		"cooldown": 30.0,
+		"suffix": { "en": "并济", "ja": "并济", "zh": "并济" },
+		"tooltip": {
+			"en": [],
+			"ja": [],
+			"zh": [
+				"锁定位于自身所占据的其中一行的1位我方干员发射直线弹道，对首个命中的干员造成攻击力100%的{arts}溅射伤害{ignore_camou}，并在其附近合法地面地块上部署1个古雕伥"
+			]
 		}
 	}
 }
