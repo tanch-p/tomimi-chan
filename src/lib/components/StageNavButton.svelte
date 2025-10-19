@@ -19,7 +19,7 @@
 		class:active={levelId === currentLevel}
 		class={`hover:text-sky-400 hover:bg-[#343434] py-1.5 px-1 md:h-full hover:cursor-pointer`}
 	>
-		{name.replaceAll('_', ' ')}
+		{name.replaceAll("_dlc1","").replaceAll('_', ' ')}
 	</div>
 </a>
 

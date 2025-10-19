@@ -1,6 +1,6 @@
 {
- "id": "ro5_sv_10_b",
- "levelId": "level_rogue5_sv-10-b",
+ "id": "ro5_sv_10_b_dlc1",
+ "levelId": "level_rogue5_sv-10-b_dlc1",
  "tags": [
   "rogue_yan"
  ],
@@ -17,32 +17,40 @@
  "description_ja": null,
  "description_en": null,
  "addInfo_zh": [
-  "雕伥每20s召唤一个魂灵涡流"
+  "敌方单位的攻击力、生命值都提升至150%"
  ],
- "addInfo_ja": null,
- "addInfo_en": null,
+ "addInfo_ja": [
+  "敵全員の攻撃力+50%、最大HP+50%"
+ ],
+ "addInfo_en": [
+  "All enemy units have +50% ATK, +50% Max HP"
+ ],
  "eliteDesc_zh": null,
  "eliteDesc_ja": null,
  "eliteDesc_en": null,
  "all_mods": [
   {
    "targets": [
-    "trap_222_rgdysm"
+    "ALL"
    ],
-   "special": {
-    "rgdysm_summon": {
-     "interval": 20.0,
-     "enemy_key": "enemy_1428_lrsoul"
+   "mods": [
+    {
+     "key": "atk",
+     "value": 1.5,
+     "mode": "mul"
+    },
+    {
+     "key": "hp",
+     "value": 1.5,
+     "mode": "mul"
     }
-   }
+   ]
   }
  ],
  "n_mods": null,
  "elite_mods": null,
  "floors": [
-  3,
-  4,
-  5
+  6
  ],
  "sp_terrain": [
   {
@@ -1217,7 +1225,7 @@
    "motionMode": "WALK",
    "startPosition": {
     "row": 4,
-    "col": 7
+    "col": 8
    },
    "endPosition": {
     "row": 4,
@@ -1255,7 +1263,7 @@
    "motionMode": "WALK",
    "startPosition": {
     "row": 4,
-    "col": 5
+    "col": 6
    },
    "endPosition": {
     "row": 4,
@@ -1293,7 +1301,7 @@
    "motionMode": "WALK",
    "startPosition": {
     "row": 4,
-    "col": 3
+    "col": 4
    },
    "endPosition": {
     "row": 4,

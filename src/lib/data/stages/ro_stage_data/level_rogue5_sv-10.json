@@ -751,6 +751,16 @@
    "overwrittenData": null
   },
   {
+   "id": "enemy_2105_dyrnge",
+   "prefabKey": "enemy_2105_dyrnge",
+   "level": 0,
+   "min_count": 1,
+   "max_count": 1,
+   "elite_min_count": 1,
+   "elite_max_count": 1,
+   "overwrittenData": null
+  },
+  {
    "id": "enemy_2114_dylbgg",
    "prefabKey": "enemy_2114_dylbgg",
    "level": 0,
@@ -1083,6 +1093,44 @@
   {
    "motionMode": "WALK",
    "startPosition": {
+    "row": 2,
+    "col": 1
+   },
+   "endPosition": {
+    "row": 4,
+    "col": 11
+   },
+   "spawnRandomRange": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "spawnOffset": {
+    "x": 0.0,
+    "y": 0.0
+   },
+   "checkpoints": [
+    {
+     "type": "WAIT_FOR_SECONDS",
+     "time": 40.0,
+     "position": {
+      "row": 0,
+      "col": 0
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    }
+   ],
+   "allowDiagonalMove": true,
+   "visitEveryTileCenter": false,
+   "visitEveryNodeCenter": false,
+   "visitEveryCheckPoint": false
+  },
+  {
+   "motionMode": "WALK",
+   "startPosition": {
     "row": 3,
     "col": 1
    },
@@ -1098,7 +1146,21 @@
     "x": 0.0,
     "y": 0.0
    },
-   "checkpoints": [],
+   "checkpoints": [
+    {
+     "type": "WAIT_FOR_SECONDS",
+     "time": 75.0,
+     "position": {
+      "row": 0,
+      "col": 0
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    }
+   ],
    "allowDiagonalMove": true,
    "visitEveryTileCenter": false,
    "visitEveryNodeCenter": false,
@@ -1122,7 +1184,21 @@
     "x": 0.0,
     "y": 0.0
    },
-   "checkpoints": [],
+   "checkpoints": [
+    {
+     "type": "WAIT_FOR_SECONDS",
+     "time": 140.0,
+     "position": {
+      "row": 0,
+      "col": 0
+     },
+     "reachOffset": {
+      "x": 0.0,
+      "y": 0.0
+     },
+     "reachDistance": 0.0
+    }
+   ],
    "allowDiagonalMove": true,
    "visitEveryTileCenter": false,
    "visitEveryNodeCenter": false,
@@ -1148,11 +1224,11 @@
    },
    "checkpoints": [
     {
-     "type": "MOVE",
-     "time": 0.0,
+     "type": "WAIT_FOR_SECONDS",
+     "time": 105.0,
      "position": {
-      "row": 5,
-      "col": 9
+      "row": 0,
+      "col": 0
      },
      "reachOffset": {
       "x": 0.0,
@@ -2945,7 +3021,7 @@
       },
       {
        "actionType": "SPAWN",
-       "key": "enemy_2112_dyhlgy",
+       "key": "enemy_2105_dyrnge",
        "count": 1,
        "preDelay": 0.0,
        "interval": 1.0,
@@ -2959,7 +3035,7 @@
       },
       {
        "actionType": "SPAWN",
-       "key": "enemy_2114_dylbgg",
+       "key": "enemy_2112_dyhlgy",
        "count": 1,
        "preDelay": 0.0,
        "interval": 1.0,
@@ -2973,7 +3049,7 @@
       },
       {
        "actionType": "SPAWN",
-       "key": "enemy_2110_dyyrzf",
+       "key": "enemy_2114_dylbgg",
        "count": 1,
        "preDelay": 0.0,
        "interval": 1.0,
@@ -2987,11 +3063,25 @@
       },
       {
        "actionType": "SPAWN",
-       "key": "enemy_2119_dyshhj_2",
+       "key": "enemy_2110_dyyrzf",
        "count": 1,
        "preDelay": 0.0,
        "interval": 1.0,
        "routeIndex": 4,
+       "autoPreviewRoute": false,
+       "hiddenGroup": null,
+       "randomSpawnGroupKey": null,
+       "randomSpawnGroupPackKey": null,
+       "weight": 0,
+       "dontBlockWave": false
+      },
+      {
+       "actionType": "SPAWN",
+       "key": "enemy_2119_dyshhj_2",
+       "count": 1,
+       "preDelay": 0.0,
+       "interval": 1.0,
+       "routeIndex": 5,
        "autoPreviewRoute": false,
        "hiddenGroup": "copper_b",
        "randomSpawnGroupKey": null,
@@ -3005,7 +3095,7 @@
        "count": 1,
        "preDelay": 20.0,
        "interval": 1.0,
-       "routeIndex": 5,
+       "routeIndex": 6,
        "autoPreviewRoute": false,
        "hiddenGroup": null,
        "randomSpawnGroupKey": "tel",
@@ -3019,7 +3109,7 @@
        "count": 1,
        "preDelay": 20.0,
        "interval": 1.0,
-       "routeIndex": 5,
+       "routeIndex": 6,
        "autoPreviewRoute": false,
        "hiddenGroup": null,
        "randomSpawnGroupKey": "tel",
@@ -3033,7 +3123,7 @@
        "count": 1,
        "preDelay": 20.0,
        "interval": 1.0,
-       "routeIndex": 5,
+       "routeIndex": 6,
        "autoPreviewRoute": false,
        "hiddenGroup": null,
        "randomSpawnGroupKey": "tel",

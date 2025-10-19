@@ -10,6 +10,7 @@
 	import candleIcon from '$lib/images/is/sui/node_stashed_recruit.webp';
 	import portal from '$lib/images/is/sui/node_spZone.webp';
 	import StageNavRow from '$lib/components/StageNavRow.svelte';
+	import dlc1Portal from '$lib/images/is/sui/node_spZone_1.webp';
 
 	export let language: Language;
 
@@ -91,8 +92,28 @@
 	let sv2 = ['level_rogue5_sv-2', 'level_rogue5_sv-2-b', 'level_rogue5_sv-2-c'];
 	let sv9 = ['level_rogue5_sv-9', 'level_rogue5_sv-9-b', 'level_rogue5_sv-9-c'];
 	let sv4 = ['level_rogue5_sv-4'];
-	let sv_dlc1 = ['level_rogue5_sv-11','level_rogue5_sv-12'];
+	let sv_dlc1 = ['level_rogue5_sv-11', 'level_rogue5_sv-12'];
 	//max per row = 4
+
+	let dlc1_svRow1 = [
+		'level_rogue5_sv-1_dlc1',
+		'level_rogue5_sv-3_dlc1',
+		'level_rogue5_sv-5_dlc1',
+		'level_rogue5_sv-6_dlc1'
+	];
+	let dlc1_svRow1Alt = [
+		'level_rogue5_sv-1-b_dlc1',
+		'level_rogue5_sv-3-b_dlc1',
+		'level_rogue5_sv-5-b_dlc1',
+		'level_rogue5_sv-6-b_dlc1'
+	];
+	let dlc1_svRow2 = ['level_rogue5_sv-7_dlc1', 'level_rogue5_sv-8_dlc1', 'level_rogue5_sv-10_dlc1'];
+	let dlc1_svRow2Alt = [
+		'level_rogue5_sv-7-b_dlc1',
+		'level_rogue5_sv-8-b_dlc1',
+		'level_rogue5_sv-10-b_dlc1'
+	];
+	let dlc1_svRow3 = ['level_rogue5_sv-9_dlc1', 'level_rogue5_sv-4_dlc1'];
 </script>
 
 <div class="max-w-6xl mx-auto">
@@ -315,6 +336,21 @@
 				<th colspan="24">
 					<div class="flex justify-center items-center">
 						<img
+							src={duelIcon}
+							alt={translations[language].duel}
+							width="120px"
+							loading="lazy"
+							decoding="async"
+						/>
+					</div>
+				</th>
+			</tr>
+			<StageNavRow items={duel} {language} />
+			<StageNavRow items={duel_dlc1} {language} />
+			<tr>
+				<th colspan="24">
+					<div class="flex justify-center items-center">
+						<img
 							src={portal}
 							alt={translations[language].sui_portal}
 							width="120px"
@@ -333,11 +369,12 @@
 			<StageNavRow items={sv_dlc1} {language} />
 			<StageNavRow items={sv4} {language} />
 			<tr>
+				<td colspan="2" rowspan="23"> 6 </td>
 				<th colspan="24">
 					<div class="flex justify-center items-center">
 						<img
-							src={duelIcon}
-							alt={translations[language].duel}
+							src={dlc1Portal}
+							alt={translations[language].sui_portal}
 							width="120px"
 							loading="lazy"
 							decoding="async"
@@ -345,8 +382,11 @@
 					</div>
 				</th>
 			</tr>
-			<StageNavRow items={duel} {language} />
-			<StageNavRow items={duel_dlc1} {language} />
+			<StageNavRow items={dlc1_svRow1} {language} />
+			<StageNavRow items={dlc1_svRow1Alt} {language} />
+			<StageNavRow items={dlc1_svRow2} {language} />
+			<StageNavRow items={dlc1_svRow2Alt} {language} />
+			<StageNavRow items={dlc1_svRow3} {language} />
 		</tbody>
 	</table>
 </div>
