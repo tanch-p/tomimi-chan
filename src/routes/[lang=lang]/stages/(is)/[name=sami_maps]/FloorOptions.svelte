@@ -21,8 +21,8 @@
 			mods: [
 				{ key: 'weight', value: 1, mode: 'add' },
 				{ key: 'ms', value: 0.5, mode: 'mul' },
-				{ key: 'def', value: 800, mode: 'add' },
-				{ key: 'res', value: 30, mode: 'add' }
+				{ key: 'def', value: 800, mode: 'add', order:"initial" },
+				{ key: 'res', value: 30, mode: 'add',order:"initial" }
 			]
 		}
 	];
