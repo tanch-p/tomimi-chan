@@ -201,7 +201,7 @@ describe('EnemyStats', () => {
 		manager.activeSkills = [];
 		manager.transformModel = null;
 		manager.summonDelayRemaining = null;
-		manager.accelerateParams = { i: 1, m: 0.25, preDelay: 0, limit: 2 };
+		manager.accelerateParams = { i: 1, m: 0.25, preDelay: 0, limit: 10 };
 		manager.accelerationIntervalTimer = 0;
 		manager.accelerationPreDelayTimer = 0;
 		manager.accelerationStacks = 0;
@@ -213,6 +213,12 @@ describe('EnemyStats', () => {
 		expect(stats.get('ms')).toBe(3);
 		expect(stats.activeModifiers).toHaveLength(1);
 		expect(stats.getRuntimeModifierStacks(ACCELERATION_MODIFIER_SOURCE)).toBe(2);
+
+		manager.update(8);
+
+		expect(stats.getRuntimeModifierStacks(ACCELERATION_MODIFIER_SOURCE)).toBe(10);
+		expect(stats.get('ms')).toBe(7);
+		expect(simulatedEnemy.moddedSpeed).toBe(7);
 	});
 
 	it('preserves current HP percentage when max HP changes', () => {
