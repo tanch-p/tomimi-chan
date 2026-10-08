@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import type { RogueTopic } from '$lib/types';
 	import type { PageData } from './$types';
 	import {
@@ -49,8 +49,9 @@
 	};
 	let synchronising = $state(false);
 	let hideLoaderTimeout: ReturnType<typeof setTimeout> | undefined;
+	let combinedSettings: { openSettings: (trigger?: HTMLElement) => void };
 
-	function applyRunState(initialState: UserRunState) {
+	async function applyRunState(initialState: UserRunState) {
 		synchronising = true;
 
 		clearTimeout(hideLoaderTimeout);
@@ -105,6 +106,12 @@
 		const nextConfigIndex = initialState.configIndex ?? 0;
 		configIndex =
 			nextConfigIndex >= 0 && nextConfigIndex < data.stageData.data.length ? nextConfigIndex : 0;
+
+		if (initialState.eliteMode !== undefined) {
+			// StageSharedContainer resets elite mode when mapConfig changes.
+			await tick();
+			eliteMode.set(initialState.eliteMode);
+		}
 	}
 
 	onMount(() => {
@@ -167,6 +174,7 @@
 		<StageInfo {mapConfig} {language} {stageName} {eliteMode} {rogueTopic} difficulty={$difficulty}
 		></StageInfo>
 		<CombinedSettings
+			bind:this={combinedSettings}
 			{language}
 			{difficulty}
 			{rogueTopic}
@@ -197,4 +205,10 @@
 	</div>
 </main>
 
-<FooterBar {language} {rogueTopic} {selectedRelics} />
+<FooterBar
+	{language}
+	{rogueTopic}
+	{selectedRelics}
+	difficulty={$difficulty}
+	onSettingsClick={(trigger) => combinedSettings.openSettings(trigger)}
+/>

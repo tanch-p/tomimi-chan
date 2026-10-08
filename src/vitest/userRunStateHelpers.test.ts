@@ -27,6 +27,55 @@ describe('user run state helpers', () => {
 		expect(idToTopic(6)).toBeUndefined();
 	});
 
+	it.each([true, false])('round-trips eliteMode=%s with all other fields', (eliteMode) => {
+		const state = {
+			topic: 'ro6' as const,
+			relics: [{ id: 'rogue_6_relic_fight_30', count: 3 }],
+			diff: 15,
+			variation: 'rogue_6_weather_1',
+			gold: 100,
+			floor: 5,
+			configIndex: 2,
+			eliteMode
+		};
+		expect(decodeUserRunState(encodeUserRunState(state))).toEqual(state);
+	});
+
+	it.each(['0', '1'])('round-trips the eliteMode=%s query field', (eliteMode) => {
+		const state = `topic=ro6,relics=,diff=1,gold=2,floor=3,eliteMode=${eliteMode}`;
+		expect(decompress(compress(state))).toBe(state);
+	});
+
+	it('keeps existing codes compatible without specifying elite mode', () => {
+		const code = 'AQUPAwAHAwQAD2QF';
+		const state = decodeUserRunState(code);
+		expect(state.eliteMode).toBeUndefined();
+		expect(encodeUserRunState(state)).toBe(code);
+	});
+
+	it.each(['2', '-1', 'true', 'false', '', 'nope'])('rejects eliteMode=%s', (eliteMode) => {
+		expect(() =>
+			compress(`topic=ro6,relics=,diff=1,gold=2,floor=3,eliteMode=${eliteMode}`)
+		).toThrow('Invalid eliteMode');
+	});
+
+	it('rejects non-boolean elite mode in structured state', () => {
+		expect(() =>
+			encodeUserRunState({ topic: 'ro6', relics: [], eliteMode: 2 as unknown as boolean })
+		).toThrow('Invalid eliteMode');
+	});
+
+	it('rejects invalid elite mode in compressed data', () => {
+		const code = Buffer.from([1, 5, 32, 0, 2]).toString('base64url');
+		expect(() => decompress(code)).toThrow('Invalid eliteMode: 2');
+		expect(tryDecodeUserRunState(code, 'ro6')).toBeNull();
+	});
+
+	it('rejects a missing elite mode payload', () => {
+		const code = Buffer.from([1, 5, 32, 0]).toString('base64url');
+		expect(tryDecodeUserRunState(code, 'ro6')).toBeNull();
+	});
+
 	it.each(['ro1', 'ro2', 'ro3', 'ro4', 'ro5', 'ro6'])('round-trips the %s topic', (topic) => {
 		const state = `topic=${topic},relics=,diff=10,gold=0,floor=1`;
 

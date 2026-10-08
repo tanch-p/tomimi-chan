@@ -2,7 +2,9 @@
 	import { getTranslations } from '$lib/functions/languageHelpers';
 	import type { Language, RogueTopic } from '$lib/types';
 	import relicIcon from '$lib/images/is/relic.png';
+	import settingsIcon from '$lib/images/is/settings.svg';
 	import RelicsOverlay from './RelicsOverlay.svelte';
+	import DiffHexagon from './DiffHexagon.svelte';
 	import Icon from './Icon.svelte';
 	import { relicLookup } from '$lib/data/is/relic_lookup';
 	interface Props {
@@ -12,6 +14,8 @@
 		selectedUniqueRelic?: any;
 		uniqueRelics?: import('svelte').Snippet;
 		banner?: import('svelte').Snippet;
+		onSettingsClick?: (trigger: HTMLButtonElement) => void;
+		difficulty?: number;
 	}
 
 	let {
@@ -20,7 +24,9 @@
 		selectedRelics,
 		selectedUniqueRelic = null,
 		uniqueRelics,
-		banner
+		banner,
+		onSettingsClick,
+		difficulty
 	}: Props = $props();
 	let openOverlay = $state(false);
 
@@ -44,16 +50,35 @@
 		<div class="max-w-7xl mx-auto px-2 md:px-4">
 			<div class="relative flex items-center h-16">
 				{@render banner?.()}
+				{#if onSettingsClick}
+					<button
+						type="button"
+						aria-haspopup="dialog"
+						aria-label={getTranslations(language).settings}
+						title={getTranslations(language).settings}
+						class="relative mr-2 h-14 w-14 shrink-0 hover:brightness-125"
+						onclick={(event) => onSettingsClick(event.currentTarget)}
+					>
+						<img src={settingsIcon} alt="" aria-hidden="true" />
+						{#if difficulty !== undefined}
+							<span class="absolute -bottom-1 -left-1 h-8 w-8" aria-hidden="true">
+								<DiffHexagon {difficulty} />
+							</span>
+						{/if}
+					</button>
+				{/if}
 				<div
 					role="button"
 					tabindex="0"
-					class={`flex items-center py-[2px] bg-gradient-to-r from-[#333333] via-neutral-900 to-neutral-900 relative hover:cursor-pointer`}
+					class={`group flex items-center py-[2px] bg-gradient-to-r from-[#333333] via-neutral-900 to-neutral-900 relative hover:cursor-pointer`}
 					onclick={() => (openOverlay = !openOverlay)}
 					onkeydown={(event) => {
 						if (event.key === 'Enter' || event.key === ' ') openOverlay = !openOverlay;
 					}}
 				>
-					<div class="flex items-center px-[6px] py-1 relative bg-[#313131]">
+					<div
+						class="shrink-0 flex items-center px-[6px] py-1 relative bg-[#313131] group-hover:brightness-125"
+					>
 						{#if openOverlay}
 							<div
 								class="absolute flex flex-col inset-0 bg-[#212121]/70 text-center justify-center"

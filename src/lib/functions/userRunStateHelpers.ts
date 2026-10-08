@@ -21,6 +21,7 @@ export type UserRunState = {
 	gold?: number;
 	floor?: number;
 	configIndex?: number;
+	eliteMode?: boolean;
 };
 
 const isTopic = (topic: string): topic is Topic => (TOPICS as readonly string[]).includes(topic);
@@ -80,6 +81,7 @@ const FLAG_DIFF = 1 << 1; // 0010
 const FLAG_GOLD = 1 << 2; // 0100
 const FLAG_FLOOR = 1 << 3; // 1000
 const FLAG_CONFIG_INDEX = 1 << 4; // 10000
+const FLAG_ELITE_MODE = 1 << 5; // 100000
 
 type Fields = Record<string, string>;
 
@@ -251,6 +253,10 @@ export function compress(input: string): string {
 	const diff = parseOptionalNonNegativeInteger('diff', fields.diff);
 	const gold = parseOptionalNonNegativeInteger('gold', fields.gold);
 	const floor = parseOptionalNonNegativeInteger('floor', fields.floor);
+	const eliteMode = fields.eliteMode == null ? null : fields.eliteMode;
+	if (eliteMode !== null && eliteMode !== '0' && eliteMode !== '1') {
+		throw new Error(`Invalid eliteMode: ${eliteMode}`);
+	}
 
 	// configIndex 用于处理名称相同但配置不同的关卡自动跳转，例如“强买强卖”。
 	// configIndex is used to handle the automatic navigation of stages with same name but different configurations, such as 强买强卖
@@ -284,6 +290,7 @@ export function compress(input: string): string {
 	if (gold !== null) flags |= FLAG_GOLD;
 	if (floor !== null) flags |= FLAG_FLOOR;
 	if (configIndex !== null) flags |= FLAG_CONFIG_INDEX;
+	if (eliteMode !== null) flags |= FLAG_ELITE_MODE;
 
 	writeVarint(bytes, flags);
 	writeVarint(bytes, relics.length);
@@ -304,6 +311,7 @@ export function compress(input: string): string {
 	if (gold !== null) writeVarint(bytes, gold);
 	if (floor !== null) writeVarint(bytes, floor);
 	if (configIndex !== null) writeVarint(bytes, configIndex);
+	if (eliteMode !== null) writeVarint(bytes, Number(eliteMode));
 
 	return bytesToBase64Url(bytes);
 }
@@ -339,6 +347,7 @@ export function decompress(input: string): string {
 	const hasGold = (flags & FLAG_GOLD) !== 0;
 	const hasFloor = (flags & FLAG_FLOOR) !== 0;
 	const hasConfigIndex = (flags & FLAG_CONFIG_INDEX) !== 0;
+	const hasEliteMode = (flags & FLAG_ELITE_MODE) !== 0;
 	const relicCount = read();
 	const relicTable = RELIC_IDS[topic] ?? [];
 	const relics: string[] = [];
@@ -382,6 +391,10 @@ export function decompress(input: string): string {
 	const gold = hasGold ? read() : null;
 	const floor = hasFloor ? read() : null;
 	const configIndex = hasConfigIndex ? read() : null;
+	const eliteMode = hasEliteMode ? read() : null;
+	if (eliteMode !== null && eliteMode !== 0 && eliteMode !== 1) {
+		throw new Error(`Invalid eliteMode: ${eliteMode}`);
+	}
 
 	if (offset !== bytes.length) {
 		throw new Error('Unexpected trailing compressed data');
@@ -407,6 +420,9 @@ export function decompress(input: string): string {
 
 	if (configIndex !== null) {
 		parts.push(`configIndex=${configIndex}`);
+	}
+	if (eliteMode !== null) {
+		parts.push(`eliteMode=${eliteMode}`);
 	}
 
 	return parts.join(',');
@@ -436,7 +452,7 @@ export function decodeUserRunState(input: string): UserRunState {
 				const count =
 					match[2] === undefined ? undefined : parseNonNegativeInteger('count', match[2]);
 				return { id: match[1], ...(count === undefined ? {} : { count }) };
-		  })
+			})
 		: [];
 
 	const parseOptionalField = (
@@ -452,7 +468,8 @@ export function decodeUserRunState(input: string): UserRunState {
 		variation: fields.variation,
 		gold: parseOptionalField('gold'),
 		floor: parseOptionalField('floor'),
-		configIndex: parseOptionalField('configIndex')
+		configIndex: parseOptionalField('configIndex'),
+		...(fields.eliteMode === undefined ? {} : { eliteMode: fields.eliteMode === '1' })
 	};
 }
 
@@ -488,6 +505,12 @@ export function encodeUserRunState(state: UserRunState): string {
 
 	if (state.configIndex !== undefined && state.configIndex !== 0) {
 		parts.push(`configIndex=${state.configIndex}`);
+	}
+	if (state.eliteMode !== undefined) {
+		if (typeof state.eliteMode !== 'boolean') {
+			throw new Error(`Invalid eliteMode: ${state.eliteMode}`);
+		}
+		parts.push(`eliteMode=${state.eliteMode ? 1 : 0}`);
 	}
 
 	return compress(parts.join(','));

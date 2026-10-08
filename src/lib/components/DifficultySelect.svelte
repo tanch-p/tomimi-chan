@@ -73,7 +73,7 @@
 </script>
 
 <div class="px-2 sm:px-6 select-none mt-2.5">
-	<p class="text-subheading">{getTranslations(language).difficulty}</p>
+	<p class="text-xl">{getTranslations(language).difficulty}</p>
 	{@render children?.()}
 	{#if mode === 'normal'}
 		<div class="counter">
