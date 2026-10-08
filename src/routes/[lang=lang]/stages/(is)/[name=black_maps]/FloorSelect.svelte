@@ -6,9 +6,10 @@
 
 	interface Props {
 		language: Language;
+		idPrefix?: string;
 	}
 
-	let { language }: Props = $props();
+	let { language, idPrefix = '' }: Props = $props();
 
 	const floors = new Array(6);
 	let floorRelic = $derived(
@@ -20,6 +21,7 @@
 	<div class="grid grid-cols-6">
 		{#each floors as _, i}
 			<button
+				id={idPrefix ? `${idPrefix}-floor-${i + 1}` : `floor-${i + 1}`}
 				onclick={() => selectedFloor.set(i + 1)}
 				class={`py-2 px-2 ${$selectedFloor === i + 1 ? 'bg-gray-500' : ''}`}
 				type="button"

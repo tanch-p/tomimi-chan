@@ -38,7 +38,7 @@
 </script>
 
 {#if section === 'all' || section === 'floor'}
-	<FloorSelect {language} />
+	<FloorSelect {language} {idPrefix} />
 {/if}
 {#if section !== 'floor'}
 	<div class="mx-auto mt-3 md:px-8">
@@ -71,6 +71,7 @@
 							<img src={rogueGold} alt="" class="h-[24px]" />
 							<span class="ml-1 mr-2">{getTranslations(language).rogue_gold}</span>
 							<input
+								id={idPrefix ? `${idPrefix}-gold` : 'floor-settings-gold'}
 								type="number"
 								min="0"
 								max="100"

@@ -155,6 +155,7 @@
 
 <!-- Escape is handled by the native dialog; this click handler only targets the backdrop. -->
 <dialog
+	id="combined-settings-dialog"
 	bind:this={dialog}
 	aria-labelledby="combined-settings-title"
 	onclick={closeOnBackdropClick}
@@ -168,6 +169,7 @@
 		<button
 			type="button"
 			aria-label={translations.relic_overlay_close}
+			id="combined-settings-close"
 			onclick={closeSettings}
 			class="rounded px-2 text-2xl leading-none hover:bg-neutral-700">×</button
 		>
@@ -257,6 +259,7 @@
 			<button
 				type="button"
 				onclick={shareRunState}
+				id="combined-settings-share"
 				class="flex shrink-0 items-center justify-center gap-2 rounded bg-neutral-700 pl-3 pr-4 py-2 hover:bg-neutral-600"
 			>
 				<svg

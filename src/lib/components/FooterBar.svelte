@@ -52,6 +52,7 @@
 				{@render banner?.()}
 				{#if onSettingsClick}
 					<button
+						id="settings-toggle"
 						type="button"
 						aria-haspopup="dialog"
 						aria-label={getTranslations(language).settings}

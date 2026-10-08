@@ -21,7 +21,7 @@
 		title={getTranslations(language).stage_choice}
 		description={getTranslations(language).stage_variant_desc}
 	>
-		<div class="mb-8 mt-1.5 flex flex-wrap gap-2 px-2 md:flex-nowrap">
+		<div id="stage-variant-selector" class="mb-8 mt-1.5 flex flex-wrap gap-2 px-2 md:flex-nowrap">
 			{#each variants as { suffix, levelId }, i}
 				{@const display = stageVariantDisplay[levelId]}
 				{@const isOnShortRow =

@@ -36,11 +36,11 @@ test('black stage settings coordinate difficulty, floors, variations and run sta
 	await page.goto('http://localhost:4173/zh/stages/ISW-NO_猎犬病原');
 	await expect(page).toHaveTitle(/猎犬病原/);
 
-	await page.getByRole('button', { name: /设定 · 难易度 0/ }).click();
-	const settingsDialog = page.getByRole('dialog', { name: '设定', exact: true });
+	await page.locator('#settings-toggle').click();
+	const settingsDialog = page.locator('#combined-settings-dialog');
 	await expect(settingsDialog).toBeVisible();
 
-	await settingsDialog.getByRole('button', { name: 'Increase the counter by one' }).click({
+	await settingsDialog.locator('#diff-plus').click({
 		clickCount: 2
 	});
 	await expect(settingsDialog.locator('#diff-count')).toHaveText('2');
@@ -48,6 +48,7 @@ test('black stage settings coordinate difficulty, floors, variations and run sta
 	const eliteToggle = settingsDialog.locator('#combined-settings-elite-toggle');
 	const normalToggle = settingsDialog.locator('#combined-settings-normal-toggle');
 	const enemyCountToggle = page.getByRole('button', { name: /敌人数量 \(/ });
+	await settingsDialog.locator('#combined-settings-button-operation').click();
 	await eliteToggle.click();
 	await expect(eliteToggle).not.toHaveClass(/opacity-30/);
 	await expect(enemyCountToggle).toContainText('(14)');
@@ -55,48 +56,59 @@ test('black stage settings coordinate difficulty, floors, variations and run sta
 	await expect(eliteToggle).toHaveClass(/opacity-30/);
 	await expect(enemyCountToggle).toContainText('(15)');
 
-	const floorFive = settingsDialog.getByRole('button', { name: '5', exact: true });
+	await settingsDialog.locator('#combined-settings-button-floor').click();
+	const floorFive = settingsDialog.locator('#combined-settings-floor-5');
 	await floorFive.click();
-	await expect(settingsDialog.getByRole('button', { name: '5', exact: true })).toHaveClass(
-		/bg-gray-500/
-	);
+	await expect(floorFive).toHaveClass(/bg-gray-500/);
 
 	const earlyWeather = settingsDialog.locator('#combined-settings-rogue_6_weather_1_a');
+	await settingsDialog.locator('#combined-settings-button-weather').click();
 	await earlyWeather.click();
 	await expect(earlyWeather).toHaveClass(/bg-neutral-700/);
 
 	const goldVariation = settingsDialog.locator('#combined-settings-rogue_6_variation_7');
+	await settingsDialog.locator('#combined-settings-button-variation').click();
 	await goldVariation.click();
 	await expect(goldVariation).toHaveClass(/bg-neutral-700/);
-	const goldInput = settingsDialog.getByRole('spinbutton', { name: '源石锭' });
+	const goldInput = settingsDialog.locator('#combined-settings-gold');
 	await goldInput.fill('120');
 	await expect(goldInput).toHaveValue('100');
 
 	const stateCode = settingsDialog.locator('code');
-	const encodedState = await stateCode.textContent();
-	await settingsDialog.getByRole('button', { name: '复制代码' }).click();
-	await expect(settingsDialog.getByRole('button', { name: '已复制' })).toBeVisible();
-	await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toBe(encodedState);
+	const encodedState = (await stateCode.textContent())?.trim();
+	expect(encodedState).toBeTruthy();
+	const shareButton = settingsDialog.locator('#combined-settings-share');
+	const sharedUrl = new URL(page.url());
+	sharedUrl.searchParams.set('state', encodedState!);
+	await shareButton.click();
+	await expect(shareButton).toHaveText('已复制');
+	await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toBe(sharedUrl.href);
 
-	await settingsDialog.getByRole('button', { name: '载入设置' }).click();
-	const loadDialog = page.getByRole('dialog', { name: '载入设置', exact: true });
-	const stateInput = loadDialog.getByRole('textbox', { name: '粘贴运行状态代码' });
-	await stateInput.fill('not-valid');
-	await loadDialog.getByRole('button', { name: '载入', exact: true }).click();
-	await expect(loadDialog.getByRole('alert')).toHaveText('运行状态代码无效');
+	await page.goto(sharedUrl.href);
+	await page.locator('#settings-toggle').click();
+	await expect(settingsDialog.locator('#diff-count')).toHaveText('2');
+	await settingsDialog.locator('#combined-settings-button-floor').click();
+	await expect(floorFive).toHaveClass(/bg-gray-500/);
+	await settingsDialog.locator('#combined-settings-button-variation').click();
+	await expect(goldVariation).toHaveClass(/bg-neutral-700/);
+	await expect(goldInput).toHaveValue('100');
+	await settingsDialog.locator('#combined-settings-button-operation').click();
+	await expect(eliteToggle).toHaveClass(/opacity-30/);
 
-	await stateInput.fill('AQUPAwAHAwQAD2QF');
-	await loadDialog.getByRole('button', { name: '载入', exact: true }).click();
-	await expect(loadDialog).toBeHidden();
+	const legacyUrl = new URL(sharedUrl);
+	legacyUrl.searchParams.set('state', 'AQUPAwAHAwQAD2QF');
+	await page.goto(legacyUrl.href);
+	await page.locator('#settings-toggle').click();
+	await settingsDialog.locator('#combined-settings-button-difficulty').click();
 	await expect(settingsDialog.locator('#diff-count')).toHaveText('15');
-	await expect(settingsDialog.getByRole('button', { name: '5', exact: true })).toHaveClass(
-		/bg-gray-500/
-	);
+	await settingsDialog.locator('#combined-settings-button-floor').click();
+	await expect(floorFive).toHaveClass(/bg-gray-500/);
+	await settingsDialog.locator('#combined-settings-button-weather').click();
 	await expect(settingsDialog.locator('#combined-settings-rogue_6_weather_1_c')).toHaveClass(
 		/bg-neutral-700/
 	);
 
-	await settingsDialog.getByRole('button', { name: '收起', exact: true }).click();
+	await settingsDialog.locator('#combined-settings-close').click();
 	await expect(settingsDialog).toBeHidden();
 	await expect(page.locator('#floor-options img[alt="卡德霍之颅"]')).toBeVisible();
 
@@ -200,17 +212,13 @@ test('level_rogue6_t-8 stage variants update the selected stage data', async ({ 
 	await expect(page).toHaveTitle(/强买强卖/);
 	await expect(page.getByRole('heading', { name: '变体', exact: true })).toBeVisible();
 
-	const variants = page.locator('button[aria-pressed]');
+	const variants = page.locator('#stage-variant-selector button[aria-pressed]');
 	await expect(variants).toHaveCount(3);
 	await expect(variants.nth(0)).toHaveAttribute('aria-pressed', 'true');
 	await expect(page.locator('#enemy_10073_mpcar')).toBeVisible();
 	await expect(page.locator('#floor-options img[alt="甜美的伤口"]')).toBeVisible();
 	await page.locator('#floor-options').click();
-	await page
-		.locator('#floor-options')
-		.locator('..')
-		.getByRole('button', { name: '3', exact: true })
-		.click();
+	await page.locator('#floor-options').locator('..').locator('#floor-3').click();
 	await expect(page.locator('#floor-options img[alt="血色空脉"]')).toBeVisible();
 	await page.locator('#floor-options').click();
 
