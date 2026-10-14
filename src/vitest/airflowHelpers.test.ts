@@ -147,8 +147,8 @@ describe('trap_013_blower airflow', () => {
 	});
 
 	it('shows separate movement-speed buff and debuff icons and centers either alone', () => {
-		const buffIcon = new THREE.Sprite();
-		const debuffIcon = new THREE.Sprite();
+		const buffIcon = new THREE.Mesh();
+		const debuffIcon = new THREE.Mesh();
 		const stackIcon = new THREE.Sprite();
 		let buffActive = true;
 		let debuffActive = true;
