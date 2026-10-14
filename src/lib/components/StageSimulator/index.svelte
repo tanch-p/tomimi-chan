@@ -1,33 +1,42 @@
 <script lang="ts">
-	import type { Enemy, Language, MapConfig } from '$lib/types';
-	import { onDestroy, onMount, tick } from 'svelte';
-	import { Game } from './objects/Game';
+	import type { Enemy, Language, MapConfig, StatMods } from '$lib/types';
+	import type { WaveScenario } from '$lib/functions/waveHelpers';
+	import { onDestroy, onMount, tick, untrack } from 'svelte';
+	import { Game, type GameScenario } from './objects/Game';
 	import { AssetManager } from './objects/AssetManager';
 	import LoadingScreen from './LoadingScreen.svelte';
 	import Interface from './Interface.svelte';
 	import SpawnTimeView from './SpawnTimeView.svelte';
 	import Settings from './Settings.svelte';
-	import { GameConfig } from './objects/GameConfig';
+	import { GameConfig } from './objects/GameConfig.svelte.js';
 	import { getSimulatedData } from './functions/Simulator';
 	import BranchSummons from './BranchSummons.svelte';
 	import { generateBranchTimeline } from '$lib/functions/waveHelpers';
 	import { obstacleEventStore, type ObstacleEventSnapshot } from './stores/obstacleEvents';
 
-	export let timeline,
-		mapConfig: MapConfig,
-		waveData,
-		language: Language,
-		enemies: Enemy[],
-		randomSeeds;
+	interface Props {
+		scenario: WaveScenario;
+		mapConfig: MapConfig;
+		language: Language;
+		enemies: Enemy[];
+		persistentStatMods: StatMods;
+		requestReset: () => void;
+	}
 
-	let simMode = 'wave_normal',
-		branchKey = null,
-		branchIndex = -1;
+	let { scenario, mapConfig, language, enemies, persistentStatMods, requestReset }: Props =
+		$props();
+	let waveData = $derived(scenario.waveData);
+	let timeline = $derived(scenario.timeline);
+
+	let simMode = $derived(GameConfig.mode);
+	let branchKey = $state(''),
+		branchIndex = $state(-1);
 	let assetManager = AssetManager.getInstance(),
-		canvasElement: HTMLCanvasElement,
-		game: Game,
-		simulatedData,
-		isSimulationRunning = false,
+		canvasElement: HTMLCanvasElement | undefined = $state(),
+		game: Game | undefined = $state(),
+		simulatedData = $state.raw(),
+		assetLoadPromise: Promise<void> | null = $state.raw(null),
+		isSimulationRunning = $state(false),
 		assetsReady = false,
 		simulationGeneration = 0,
 		simulationInputVersion = 0,
@@ -35,12 +44,8 @@
 		latestObstacleSnapshot: ObstacleEventSnapshot = obstacleEventStore.getSnapshot(),
 		initialSimulationWaveIndex = 0,
 		assetLoadGeneration = 0,
-		isDestroyed = false;
-
-	$: if (timeline) {
-		resetGame();
-	}
-	$: simulationInputsChanged(mapConfig, waveData, enemies, timeline, randomSeeds);
+		isDestroyed = false,
+		preserveStagePhaseOnNextScenario = false;
 
 	function simulationInputsChanged(...inputs: unknown[]) {
 		if (inputs.some((input) => !input)) return;
@@ -48,11 +53,21 @@
 		requestSimulation(latestObstacleSnapshot);
 	}
 
-	function resetGame() {
+	function resetGame(nextScenario: GameScenario) {
 		if (game && assetsReady && !isDestroyed) {
-			game.reset(mapConfig, waveData, enemies);
+			const preserveStagePhase = preserveStagePhaseOnNextScenario;
+			preserveStagePhaseOnNextScenario = false;
+			game.replaceScenario(
+				nextScenario,
+				preserveStagePhase ? { resetStagePhase: false } : undefined
+			);
 			initialSimulationWaveIndex = GameConfig.currentWaveIndex;
 		}
+	}
+
+	function resetCurrentPhase() {
+		preserveStagePhaseOnNextScenario = true;
+		requestReset();
 	}
 
 	function simulationRequestKey(snapshot: ObstacleEventSnapshot) {
@@ -90,6 +105,7 @@
 
 		try {
 			const result = await getSimulatedData(mapConfig, waveData, enemies, {
+				persistentStatMods,
 				obstacleEvents: snapshot,
 				mode: 'wave_normal',
 				currentWaveIndex: initialSimulationWaveIndex,
@@ -114,11 +130,12 @@
 		requestSimulation(snapshot);
 	}
 
-	async function loadGame(mapConfig) {
+	async function loadGame(mapConfig: MapConfig) {
 		const generation = ++assetLoadGeneration;
 		assetsReady = false;
 		simulatedData = undefined;
 		simulationGeneration++;
+		if (!canvasElement) throw new Error('The simulator canvas is unavailable.');
 		if (game) {
 			game.stop();
 		}
@@ -130,34 +147,32 @@
 		if (!loaded || isDestroyed || generation !== assetLoadGeneration) return;
 
 		if (!game) {
-			game = new Game(canvasElement, mapConfig, waveData, enemies);
+			game = new Game(canvasElement, {
+				config: mapConfig,
+				waveData,
+				enemies,
+				persistentStatMods,
+				revision: scenario.revision
+			});
 			GameConfig.state = 'ready';
 		} else {
 			assetsReady = true;
-			resetGame();
+			resetGame({
+				config: mapConfig,
+				waveData,
+				enemies,
+				persistentStatMods,
+				revision: scenario.revision
+			});
 		}
 		initialSimulationWaveIndex = GameConfig.currentWaveIndex;
 		assetsReady = true;
 		requestSimulation(latestObstacleSnapshot, true);
 	}
 
-	const unsubscribeFns = [];
+	const unsubscribeFns: Array<() => void> = [];
 	onMount(() => {
 		unsubscribeFns.push(obstacleEventStore.subscribe(handleObstacleEvents));
-		unsubscribeFns.push(
-			GameConfig.subscribe('mode', (mode) => {
-				simMode = mode;
-				game && assetsReady && !isDestroyed && game.softReset(false);
-			})
-		);
-		unsubscribeFns.push(
-			GameConfig.subscribe('stagePhaseIndex', () => {
-				queueMicrotask(() => {
-					initialSimulationWaveIndex = GameConfig.currentWaveIndex;
-					requestSimulation(latestObstacleSnapshot);
-				});
-			})
-		);
 	});
 
 	onDestroy(() => {
@@ -173,41 +188,90 @@
 		latestObstacleSnapshot = obstacleEventStore.getSnapshot();
 		assetManager.cleanup();
 	});
+	$effect(() => {
+		const currentMapConfig = mapConfig;
+		assetLoadPromise = untrack(() => loadGame(currentMapConfig));
+	});
+	$effect(() => {
+		const currentScenario = scenario;
+		const currentMapConfig = mapConfig;
+		const currentEnemies = enemies;
+		const currentPersistentStatMods = persistentStatMods;
+		if (currentScenario.timeline) {
+			untrack(() =>
+				resetGame({
+					config: currentMapConfig,
+					waveData: currentScenario.waveData,
+					enemies: currentEnemies,
+					persistentStatMods: currentPersistentStatMods,
+					revision: currentScenario.revision
+				})
+			);
+		}
+	});
+	$effect(() => {
+		simulationInputsChanged(mapConfig, scenario.revision, enemies, persistentStatMods);
+	});
+	let previousMode = GameConfig.mode;
+	$effect(() => {
+		const mode = GameConfig.mode;
+		if (mode === previousMode) return;
+		previousMode = mode;
+		untrack(() => {
+			if (game && assetsReady && !isDestroyed) game.restart({ resetWaveIndex: false });
+		});
+	});
+	let previousStagePhaseIndex = GameConfig.stagePhaseIndex;
+	$effect(() => {
+		const stagePhaseIndex = GameConfig.stagePhaseIndex;
+		if (stagePhaseIndex === previousStagePhaseIndex) return;
+		previousStagePhaseIndex = stagePhaseIndex;
+		queueMicrotask(() => {
+			initialSimulationWaveIndex = GameConfig.currentWaveIndex;
+			requestSimulation(latestObstacleSnapshot);
+		});
+	});
 </script>
 
 <Settings {game} {mapConfig} />
 <div class="relative mt-4 md:mt-1.5 max-w-full overflow-hidden">
-	{#await loadGame(mapConfig)}
+	{#if assetLoadPromise}
+		{#await assetLoadPromise}
+			<LoadingScreen />
+		{:then}
+			{#if game && timeline}
+				{#if simMode === 'wave_summons' && mapConfig?.branches}
+					<BranchSummons bind:branchKey bind:branchIndex {language} {game} {mapConfig} />
+				{/if}
+				<SpawnTimeView
+					{branchKey}
+					{branchIndex}
+					waves={simMode === 'wave_summons'
+						? generateBranchTimeline(mapConfig, branchKey, branchIndex)
+						: timeline.waves}
+					{mapConfig}
+				/>
+				<Interface
+					{simulatedData}
+					{isSimulationRunning}
+					requestReset={resetCurrentPhase}
+					{game}
+					{mapConfig}
+					initialCost={mapConfig?.initialCost}
+					{language}
+					count={timeline?.count}
+					maxCost={mapConfig?.maxCost}
+				/>
+			{/if}
+		{:catch error}
+			<p class="py-8 text-center text-red-300">
+				Failed to load the stage simulator:<br />{error?.message ?? String(error)}
+			</p>
+		{/await}
+	{:else}
 		<LoadingScreen />
-	{:then}
-		{#if simMode === 'wave_summons' && mapConfig?.branches}
-			<BranchSummons bind:branchKey bind:branchIndex {language} {game} {mapConfig} />
-		{/if}
-		<SpawnTimeView
-			{branchKey}
-			{branchIndex}
-			waves={simMode === 'wave_summons'
-				? generateBranchTimeline(mapConfig, branchKey, branchIndex)
-				: timeline.waves}
-			{mapConfig}
-		/>
-		<Interface
-			{simulatedData}
-			{isSimulationRunning}
-			bind:randomSeeds
-			{game}
-			{mapConfig}
-			initialCost={mapConfig?.initialCost}
-			{language}
-			count={timeline?.count}
-			maxCost={mapConfig?.maxCost}
-		/>
-	{:catch error}
-		<p class="py-8 text-center text-red-300">
-			Failed to load the stage simulator:<br />{error?.message ?? String(error)}
-		</p>
-	{/await}
-	<canvas bind:this={canvasElement} />
+	{/if}
+	<canvas bind:this={canvasElement} data-scenario-revision={scenario.revision}></canvas>
 </div>
 
 <style>

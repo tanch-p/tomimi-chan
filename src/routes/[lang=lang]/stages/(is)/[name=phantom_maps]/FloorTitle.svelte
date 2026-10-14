@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import { getTranslations } from '$lib/functions/languageHelpers';
 	import type { Language } from '$lib/types';
 	import { clickOutside } from '$lib/functions/clickOutside.js';
@@ -7,26 +8,34 @@
 	import romanNumerals from '$lib/roman_numerals.json';
 	import Icon from '$lib/components/Icon.svelte';
 
-	export let stageFloors: number[], language: Language;
-	let optionsOpen = false;
+	interface Props {
+		stageFloors: number[];
+		language: Language;
+	}
+
+	let { stageFloors, language }: Props = $props();
+	let optionsOpen = $state(false);
 
 	function updateFloor(floors: number[]) {
-		if (!floors.includes($selectedFloor)) {
+		// Normalize after a stage change without rejecting a floor the user selects manually.
+		if (!floors.includes(untrack(() => $selectedFloor))) {
 			selectedFloor.set(Math.min(...stageFloors));
 			activeFloorEffects.set([]);
 		}
 	}
-	$: updateFloor(stageFloors);
+	$effect(() => {
+		updateFloor(stageFloors);
+	});
 </script>
 
-<div use:clickOutside on:outclick={() => (optionsOpen = false)} class="mx-auto select-none">
-	<button id="floor-options" class="group" on:click={() => (optionsOpen = !optionsOpen)}>
+<div {@attach clickOutside(() => (optionsOpen = false))} class="mx-auto select-none">
+	<button id="floor-options" class="group" onclick={() => (optionsOpen = !optionsOpen)}>
 		<div class="flex justify-center items-center gap-x-6 md:gap-x-8">
-			<div class="border-y border-neutral-600 w-[80px] md:w-[104px]" />
+			<div class="border-y border-neutral-600 w-[80px] md:w-[104px]"></div>
 			<p class="text-center text-neutral-300">
 				{romanNumerals[$selectedFloor - 1]}
 			</p>
-			<div class="border-y border-neutral-600 w-[80px] md:w-[104px]" />
+			<div class="border-y border-neutral-600 w-[80px] md:w-[104px]"></div>
 		</div>
 		{#if $activeFloorEffects.length > 0}
 			<div class="flex gap-x-2.5 my-0.5 justify-center">

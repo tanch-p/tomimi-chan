@@ -1,50 +1,55 @@
 <script lang="ts">
 	import { getTranslations } from '$lib/functions/languageHelpers';
 	import type { Language, MapConfig } from '$lib/types';
-	import { onDestroy, onMount } from 'svelte';
-	import { GameConfig } from './objects/GameConfig';
+	import { GameConfig } from './objects/GameConfig.svelte.js';
 	import enemyCount from '$lib/images/is/enemy_count.webp';
 	import Icon from '../Icon.svelte';
 	import spriteCost from '$lib/images/is/sprite_cost.webp';
 	import SeekBar from './SeekBar.svelte';
 	import iconToken from '$lib/images/is/icon_profession_token.webp';
 
-	type TokenCard = {
+	interface Props {
+		game: any;
+		mapConfig: MapConfig;
+		initialCost: any;
+		language: Language;
 		count: number;
-		cost?: number;
-		key: string;
-		selected: boolean;
-	} & Record<string, unknown>;
+		requestReset: () => void;
+		simulatedData: any;
+		isSimulationRunning?: boolean;
+		maxCost?: number;
+	}
 
-	export let game,
-		mapConfig: MapConfig,
+	let {
+		game,
+		mapConfig,
 		initialCost,
-		language: Language,
-		count: number,
-		randomSeeds,
+		language,
+		count,
+		requestReset,
 		simulatedData,
 		isSimulationRunning = false,
-		maxCost = 99;
+		maxCost = 99
+	}: Props = $props();
 
-	let card: TokenCard | null = GameConfig.tokenCard,
-		totalTime = 0,
-		min = 0,
-		sec = 0,
-		totalDeductedCost = GameConfig.totalDeductedCost,
-		tokenCooldownDuration = GameConfig.tokenCooldownDuration,
-		tokenCooldownRemaining = GameConfig.tokenCooldownRemaining,
-		unsubscribeFns = [],
-		isPaused = false,
-		simMode = 'wave_normal';
+	let card = $derived(GameConfig.tokenCard),
+		totalTime = $derived(GameConfig.scaledElapsedTime),
+		min = $derived(Math.floor(GameConfig.waveElapsedTime / 60)),
+		sec = $derived(Math.floor(GameConfig.waveElapsedTime % 60)),
+		totalDeductedCost = $derived(GameConfig.totalDeductedCost),
+		tokenCooldownDuration = $derived(GameConfig.tokenCooldownDuration),
+		tokenCooldownRemaining = $derived(GameConfig.tokenCooldownRemaining),
+		isPaused = $derived(GameConfig.isPaused),
+		simMode = $derived(GameConfig.mode),
+		speedFactor = $derived(GameConfig.speedFactor);
 
-	$: cooldownProgress =
+	let cooldownProgress = $derived(
 		tokenCooldownDuration > 0
 			? Math.min(1, Math.max(0, 1 - tokenCooldownRemaining / tokenCooldownDuration))
-			: 1;
-	$: if (mapConfig?.levelId === 'level_rogue6_c-2' && card) card.cost = 10;
-
+			: 1
+	);
 	function handleSpeedFactor() {
-		switch (GameConfig.speedFactor) {
+		switch (speedFactor) {
 			case 1:
 				return (GameConfig.speedFactor = 2);
 			case 2:
@@ -54,17 +59,18 @@
 		}
 	}
 	function handlePause() {
-		GameConfig.setValue('isPaused', !GameConfig.isPaused);
+		GameConfig.isPaused = !GameConfig.isPaused;
 		GameConfig.state = 'running';
 	}
 	function handleReset() {
-		randomSeeds = Array.from(Array(50)).map((_) => Math.random());
-		game.softReset();
+		requestReset();
 	}
 	function toggleTokenCard() {
-		if (!card || card.count <= 0) return;
+		if (!card || (card.count ?? 0) <= 0) return;
 
-		GameConfig.setValue('tokenCard', { ...card, selected: !card.selected });
+		const selected = !card.selected;
+		GameConfig.tokenCard = { ...card, selected };
+		if (!selected) game?.hideRollOverMesh();
 	}
 	function handleKeydown(event: KeyboardEvent) {
 		const target = event.target;
@@ -82,57 +88,9 @@
 
 		toggleTokenCard();
 	}
-	// Sync class -> store
-	onMount(() => {
-		unsubscribeFns.push(
-			GameConfig.subscribe('scaledElapsedTime', (value) => {
-				totalTime = value;
-			})
-		);
-		unsubscribeFns.push(
-			GameConfig.subscribe('waveElapsedTime', (value) => {
-				min = Math.floor(value / 60);
-				sec = Math.floor(value % 60);
-			})
-		);
-		unsubscribeFns.push(
-			GameConfig.subscribe('tokenCard', (value: TokenCard | null) => {
-				card = value;
-			})
-		);
-		unsubscribeFns.push(
-			GameConfig.subscribe('totalDeductedCost', (value: number) => {
-				totalDeductedCost = value;
-			})
-		);
-		unsubscribeFns.push(
-			GameConfig.subscribe('tokenCooldownDuration', (value: number) => {
-				tokenCooldownDuration = value;
-			})
-		);
-		unsubscribeFns.push(
-			GameConfig.subscribe('tokenCooldownRemaining', (value: number) => {
-				tokenCooldownRemaining = value;
-			})
-		);
-		unsubscribeFns.push(
-			GameConfig.subscribe('isPaused', (value) => {
-				isPaused = value;
-			})
-		);
-		unsubscribeFns.push(
-			GameConfig.subscribe('mode', (value) => {
-				simMode = value;
-			})
-		);
-	});
-
-	onDestroy(() => {
-		unsubscribeFns.forEach((fn) => fn());
-	});
 </script>
 
-<svelte:window on:keydown={handleKeydown} />
+<svelte:window onkeydown={handleKeydown} />
 
 {#if simulatedData && simMode === 'wave_normal'}
 	<SeekBar {game} {simulatedData} {isSimulationRunning} />
@@ -140,44 +98,45 @@
 <div class="absolute z-[1] right-4 flex gap-x-2 md:gap-x-4 mt-4">
 	<button
 		class="interface w-[45px] h-[45px] md:w-[60px] md:h-[60px] shadow-lg"
-		on:click={handleReset}
+		onclick={handleReset}
+		aria-label={getTranslations(language).reset}
 	>
 		<Icon name="refresh-icon" className="rotate-[185deg]" size={28} />
 	</button>
 	<button
 		class="interface w-[45px] h-[45px] md:w-[60px] md:h-[60px] shadow-lg"
-		on:click={handleSpeedFactor}
+		onclick={handleSpeedFactor}
 	>
 		<div class="">
-			<div class="flex justify-center text-2xl leading-[26px]">{GameConfig.speedFactor}X</div>
+			<div class="flex justify-center text-2xl leading-[26px]">{speedFactor}X</div>
 			<div class="flex justify-center pl-1">
-				{#each Array.from(Array(Math.min(3, GameConfig.speedFactor))) as _, i}
+				{#each Array(Math.min(3, speedFactor)).keys() as i}
 					<div
 						class="border-l-[11px] border-l-white border-y-[6px] border-y-transparent {i > 0
 							? '-ml-0.5'
 							: ''}"
-					/>
+					></div>
 				{/each}
 			</div>
 		</div>
 	</button>
 	<button
 		class="interface w-[45px] h-[45px] md:w-[60px] md:h-[60px] shadow-lg"
-		on:click={handlePause}
+		onclick={handlePause}
 	>
 		{#if isPaused}
-			<div class="border-l-[22px] border-l-white border-y-[11px] border-y-transparent" />
+			<div class="border-l-[22px] border-l-white border-y-[11px] border-y-transparent"></div>
 		{:else}
 			<div class="flex justify-center gap-1.5">
-				<div class="bg-white h-[22px] w-[8px]" />
-				<div class="bg-white h-[22px] w-[8px]" />
+				<div class="bg-white h-[22px] w-[8px]"></div>
+				<div class="bg-white h-[22px] w-[8px]"></div>
 			</div>
 		{/if}
 	</button>
 </div>
 
 <div
-	class="absolute -top-8 md:top-0 left-1/2 -translate-x-1/2 mt-6 pb-0.5 bg-neutral-800 bg-opacity-80 pointer-events-none"
+	class="absolute -top-8 md:top-0 left-1/2 -translate-x-1/2 mt-6 pb-0.5 bg-neutral-800/80 pointer-events-none"
 >
 	<div class="flex items-center gap-x-1.5 px-4">
 		<img src={enemyCount} width="40" alt={getTranslations(language).enemy_count} class="shrink-0" />
@@ -190,7 +149,7 @@
 </div>
 
 <div
-	class="absolute right-4 bottom-[24%] grid grid-cols-[20px_33px] items-center gap-x-2 px-1.5 bg-neutral-800 bg-opacity-80 pointer-events-none font-light"
+	class="absolute right-4 bottom-[24%] grid grid-cols-[20px_33px] items-center gap-x-2 px-1.5 bg-neutral-800/80 pointer-events-none font-light"
 >
 	<img src={spriteCost} width="20" alt="Cost:" />
 	<span class="text-3xl">
@@ -199,10 +158,10 @@
 </div>
 
 <div class="absolute bottom-0 right-0">
-	{#if card?.count > 0}
+	{#if card && (card.count ?? 0) > 0}
 		<button
 			class="relative border border-[#ffffff80] {card.selected ? '' : 'opacity-50'}"
-			on:click={toggleTokenCard}
+			onclick={toggleTokenCard}
 			aria-keyshortcuts="R"
 		>
 			<img
@@ -216,7 +175,7 @@
 				<div
 					class="absolute inset-0 z-10 pointer-events-none"
 					style="background-color: rgba(126, 22, 22, 0.78);"
-				/>
+				></div>
 				<svg
 					class="absolute z-20 inset-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 pointer-events-none"
 					width="58"
@@ -253,7 +212,7 @@
 			{/if}
 			<div class="absolute z-40 top-0 left-1/2 -translate-x-1/2 flex items-center opacity-80">
 				<img src={iconToken} width="16" height="12" alt="" />
-				<span class="bg-black bg-opacity-80 px-1 text-sm">{card.cost ?? 5}</span>
+				<span class="bg-black/80 px-1 text-sm">{card.cost ?? 5}</span>
 			</div>
 			<span class="absolute top-0 left-0 inline-flex items-center gap-1 text-[10px] uppercase">
 				<kbd
@@ -269,7 +228,7 @@
 
 {#if isPaused}
 	<div
-		class="absolute z-[0] inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 pointer-events-none"
+		class="absolute z-[0] inset-0 flex flex-col items-center justify-center bg-black/50 pointer-events-none"
 	>
 		<p class="text-2xl">{GameConfig.state === 'end' ? 'ENDED' : 'PAUSE'}</p>
 		{#if language === 'zh'}<p class="text-sm">----暂停中----</p>{/if}

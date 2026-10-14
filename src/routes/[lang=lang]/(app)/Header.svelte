@@ -2,16 +2,20 @@
 	import type { Language } from '$lib/types';
 	import LanguageSwitcher from '$lib/components/LanguageSwitcher.svelte';
 	import favicon from '$lib/images/favicon.webp';
-	export let language: Language;
+	interface Props {
+		language: Language;
+	}
+
+	let { language }: Props = $props();
 </script>
 
 <header class="bg-[#161417] text-near-white">
 	<div class="grid grid-cols-3 items-center max-w-6xl mx-auto">
 		<div>
-			<a href={`/${language}`} class="text">
-				<span class="mx-1">
+			<a href={`/${language}`} class="text w-min">
+				<div class="shrink-0 mx-1">
 					<img src={favicon} width="32px" alt="favicon" />
-				</span>
+				</div>
 				<span class="hidden md:block">tomimi.dev</span></a
 			>
 		</div>

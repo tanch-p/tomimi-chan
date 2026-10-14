@@ -1,44 +1,27 @@
 <script lang="ts">
 	import { getTranslations } from '$lib/functions/languageHelpers';
 	import type { Language, MapConfig } from '$lib/types';
-	import { GameConfig } from './objects/GameConfig';
-	import { page } from '$app/stores';
+	import { GameConfig } from './objects/GameConfig.svelte.js';
+	import { page } from '$app/state';
 	import { Game } from './objects/Game';
 	import { setLocalStorage } from '$lib/functions/storageHelpers';
-	import { onDestroy, onMount } from 'svelte';
+	import { getSelectableStagePhases } from './config/stageBehaviors';
 
-	export let game: Game, mapConfig: MapConfig;
-	let language: Language;
-	$: language = $page.data.language;
+	interface Props {
+		game?: Game;
+		mapConfig: MapConfig;
+	}
+	type ConfigKey = 'showAllRange' | 'showAllTimers' | 'cameraLock';
 
-	let showTimeline = true;
+	let { game, mapConfig }: Props = $props();
+	let language: Language = $derived(page.data.language);
+
+	let showTimeline = $derived(GameConfig.showTimeline);
 	const maxFrustumSize = 1500;
 	const minFrustumSize = 500;
-	let zoomSize = (GameConfig.FrustumSize + minFrustumSize) / maxFrustumSize;
-	let currentWaveIndex = 0;
-	let stagePhaseIndex = 0;
-
-	const DEFAULT_STAGE_WAVES = [0, 4];
-
-	const stageOptions: Record<string, number[]> = {
-		...Object.fromEntries(
-			[
-				'level_rogue4_d-1',
-				'level_rogue4_d-2',
-				'level_rogue4_d-3',
-				'level_rogue4_d-b',
-				'level_rogue5_d-1',
-				'level_rogue5_d-2',
-				'level_rogue5_d-3',
-				'level_rogue5_d-4',
-				'level_rogue6_d-1',
-				'level_rogue6_d-2'
-			].map((levelId) => [levelId, DEFAULT_STAGE_WAVES])
-		),
-
-		'level_rogue4_b-7': [0, 2],
-		'level_rogue4_b-8': [1, 3, 5]
-	};
+	let zoomSize = $state((GameConfig.FrustumSize + minFrustumSize) / maxFrustumSize);
+	let stagePhaseIndex = $derived(GameConfig.stagePhaseIndex);
+	let stagePhases = $derived(getSelectableStagePhases(mapConfig.levelId));
 
 	const options = [
 		{
@@ -50,9 +33,11 @@
 				ja: '攻撃範囲表示',
 				en: 'Show Attack Range'
 			},
-			fn: (key) => {
-				GameConfig[key] = !GameConfig[key];
-				setLocalStorage('showAllRange', GameConfig[key] ? 1 : 0);
+			fn: (key: string) => {
+				if (!game) return;
+				const configKey = key as ConfigKey;
+				GameConfig[configKey] = !GameConfig[configKey];
+				setLocalStorage('showAllRange', GameConfig[configKey] ? 1 : 0);
 				game.gameManager.enemiesOnMap
 					.filter((enemy) => enemy.alive)
 					.forEach((enemy) => {
@@ -68,10 +53,12 @@
 			type: 'key',
 			icon: '🕓',
 			texts: { zh: '显示待机倒数', ja: '待機残り時間表示', en: 'Show Wait Timer' },
-			fn: (key) => {
-				GameConfig[key] = !GameConfig[key];
-				setLocalStorage('showAllTimers', GameConfig[key] ? 1 : 0);
-				game.gameManager.countdownManager.toggleAllCountdowns(GameConfig[key]);
+			fn: (key: string) => {
+				if (!game) return;
+				const configKey = key as ConfigKey;
+				GameConfig[configKey] = !GameConfig[configKey];
+				setLocalStorage('showAllTimers', GameConfig[configKey] ? 1 : 0);
+				game.gameManager.countdownManager.toggleAllCountdowns(GameConfig[configKey]);
 			}
 		},
 		{
@@ -80,10 +67,8 @@
 			icon: '',
 			texts: { zh: '显示出怪顺序', ja: '敵出現表表示', en: 'Show Enemy Spawn Timeline' },
 			fn: () => {
-				GameConfig.showTimeline.update((v) => {
-					setLocalStorage('showTimeline', !v ? 1 : 0);
-					return !v;
-				});
+				GameConfig.showTimeline = !GameConfig.showTimeline;
+				setLocalStorage('showTimeline', GameConfig.showTimeline ? 1 : 0);
 			}
 		},
 		{
@@ -95,36 +80,22 @@
 				ja: 'カメラロック',
 				en: 'Lock Camera'
 			},
-			fn: () => {
-				GameConfig.cameraLock = !GameConfig.cameraLock;
+			fn: (key: string) => {
+				const configKey = key as ConfigKey;
+				GameConfig[configKey] = !GameConfig[configKey];
 			}
 		}
 	];
-	function updateCamera(v) {
-		zoomSize = parseFloat(v.target.value);
+	function updateCamera(event: Event) {
+		if (!game) return;
+		zoomSize = parseFloat((event.currentTarget as HTMLInputElement).value);
 		GameConfig.FrustumSize = 900 + 900 * (1.5 - (zoomSize + 0.5));
 		game.onWindowResize();
 	}
 
-	$: lookup = { showTimeline };
-
-	const unsubscribeFns = [];
-	onMount(() => {
-		unsubscribeFns.push(GameConfig.showTimeline.subscribe((v) => (showTimeline = v)));
-		unsubscribeFns.push(
-			GameConfig.subscribe('currentWaveIndex', (value) => {
-				currentWaveIndex = value;
-			})
-		);
-		unsubscribeFns.push(
-			GameConfig.subscribe('stagePhaseIndex', (value) => {
-				stagePhaseIndex = value;
-			})
-		);
-	});
-	onDestroy(() => {
-		unsubscribeFns.forEach((fn) => fn());
-	});
+	function getOptionValue(key: string) {
+		return key === 'showTimeline' ? showTimeline : GameConfig[key as ConfigKey];
+	}
 </script>
 
 <p class="text-xs">
@@ -135,28 +106,31 @@
 	}[language]}
 </p>
 <div class="flex flex-col md:flex-row md:flex-wrap md:justify-end gap-4 py-4 px-3">
-	{#each options as { key, texts, icon, type, fn }}
-		{@const value = type === 'store' ? lookup[key] : GameConfig[key]}
+	{#each options as { key, texts, icon, fn }}
+		{@const value = getOptionValue(key)}
+		{@const requiresGame = ['showAllRange', 'showAllTimers'].includes(key)}
 		<button
-			class="grid grid-cols-[1fr_30px] gap-x-1 rounded-sm px-2 py-1.5 w-max {value
+			class="grid grid-cols-[1fr_30px] gap-x-1 rounded-xs px-2 py-1.5 w-max {value
 				? 'bg-gray-500'
-				: 'bg-gray-700 hover:bg-gray-600'} "
-			on:click={() => fn(key)}
+				: 'bg-gray-700 hover:bg-gray-600'} disabled:opacity-50"
+			disabled={requiresGame && !game}
+			onclick={() => fn(key)}
 		>
 			<span>{icon} {texts[language]}: </span>
 			<span class="text-center">{value ? 'YES' : 'NO'}</span>
 		</button>
 	{/each}
 	<button
-		class="bg-gray-500 rounded-sm px-2 py-1.5 w-max active:bg-gray-600"
-		on:click={() => game && game.onWindowResize()}
+		class="bg-gray-500 rounded-xs px-2 py-1.5 w-max active:bg-gray-600 disabled:opacity-50"
+		disabled={!game}
+		onclick={() => game && game.onWindowResize()}
 	>
 		{getTranslations(language).adjust_screen}
 	</button>
 </div>
 
 <div class="flex items-center md:justify-center gap-x-2.5 ml-3 mb-1.5">
-	<label for="volume">{getTranslations(language).zoom}</label>
+	<label for="zoom">{getTranslations(language).zoom}</label>
 	<input
 		bind:value={zoomSize}
 		type="range"
@@ -165,22 +139,27 @@
 		min={0.5}
 		max={1.5}
 		step="0.05"
-		on:input={updateCamera}
+		disabled={!game}
+		oninput={updateCamera}
 		class="w-[150px] md:w-[200px] h-1.5 bg-gray-300 rounded-lg appearance-none cursor-pointer"
 	/>
 	<span class="w-[50px]">{zoomSize.toFixed(2)}x</span>
 </div>
-{#if stageOptions[mapConfig?.levelId]}
+{#if stagePhases.length > 0}
 	<div class="flex justify-center gap-x-3 mb-2">
-		{#each stageOptions[mapConfig.levelId] as wave, idx}
+		{#each stagePhases as phase, idx}
 			<button
-				class="rounded-sm px-2 py-1.5 {stagePhaseIndex === idx
+				id="stage-phase-{idx}"
+				data-stage-phase={idx}
+				class="rounded-xs px-2 py-1.5 {stagePhaseIndex === idx
 					? 'bg-gray-500'
-					: 'bg-gray-700 hover:bg-gray-600'}"
-				on:click={() => {
-					GameConfig.setValue('stagePhaseIndex', idx);
-					GameConfig.setValue('currentWaveIndex', wave);
-					game.softReset(false);
+					: 'bg-gray-700 hover:bg-gray-600'} disabled:opacity-50"
+				disabled={!game}
+				onclick={() => {
+					if (!game) return;
+					GameConfig.stagePhaseIndex = idx;
+					GameConfig.currentWaveIndex = phase.waveIndex;
+					game.restart({ resetWaveIndex: false });
 				}}
 			>
 				{getTranslations(language).mapstate_prefix}{idx + 1}{getTranslations(language)

@@ -1,78 +1,47 @@
 <script lang="ts">
 	import type { Language } from '$lib/types';
-	import { GameConfig } from './objects/GameConfig';
-	import { page } from '$app/stores';
+	import { GameConfig } from './objects/GameConfig.svelte.js';
+	import { page } from '$app/state';
 	import { wavePrefixSuffix, getTranslations } from '$lib/functions/languageHelpers';
-	import { onDestroy, onMount } from 'svelte';
 	import { compileSpawnTimeActions, getImageForWaves } from '$lib/functions/waveHelpers';
+	import { getStageBehavior, getTimelineScrollActionIndex } from './config/stageBehaviors';
 
-	export let waves, mapConfig, branchKey, branchIndex: number;
+	interface Props {
+		waves: any;
+		mapConfig: any;
+		branchKey: any;
+		branchIndex: number;
+	}
 
-	let timelineContainer: HTMLDivElement, actionsContainer: HTMLDivElement;
-	let currWaveIndex = 0;
-	let waveElapsedTime = 0;
-	let language: Language;
-	let showTimeline = true;
-	let index = -1;
-	let prevIndexSize = 0;
-	let simMode = 'wave_normal';
+	let { waves, mapConfig, branchKey, branchIndex }: Props = $props();
 
-	$: language = $page.data.language;
+	let timelineContainer = $state<HTMLDivElement>();
+	let actionsContainer = $state<HTMLDivElement>();
+	let currWaveIndex = $derived(GameConfig.currentWaveIndex);
+	let waveElapsedTime = $derived(GameConfig.waveElapsedTime);
+	let language: Language = $derived(page.data.language);
+	let showTimeline = $derived(GameConfig.showTimeline);
+	let simMode = $derived(GameConfig.mode);
+	let timelineBehavior = $derived(getStageBehavior(mapConfig.levelId).timeline);
 
-	// Sync class -> store
-	const unsubscribeFns = [];
-	onMount(() => {
-		unsubscribeFns.push(GameConfig.showTimeline.subscribe((v) => (showTimeline = v)));
-		unsubscribeFns.push(
-			GameConfig.subscribe('mode', (mode) => {
-				simMode = mode;
-			})
-		);
-		unsubscribeFns.push(
-			GameConfig.subscribe('waveElapsedTime', (value) => {
-				waveElapsedTime = value;
-			})
-		);
-		unsubscribeFns.push(
-			GameConfig.subscribe('scaledElapsedTime', (value) => {
-				if (value === 0 && !['level_rogue4_b-7', 'level_rogue4_b-8'].includes(mapConfig?.levelId)) {
-					currWaveIndex = 0;
-					timelineContainer && timelineContainer.scrollTo(0, 0);
-				}
-			})
-		);
-		unsubscribeFns.push(
-			GameConfig.subscribe('currentWaveIndex', (value) => {
-				if (currWaveIndex !== value) {
-					currWaveIndex = value;
-					let indexesToScrollBy = 0;
-					switch (mapConfig?.levelId) {
-						case 'level_rogue4_b-7':
-							indexesToScrollBy = [0, 1].includes(value) ? 0 : 23;
-							break;
-						case 'level_rogue4_b-8':
-							indexesToScrollBy = [0, 1].includes(value) ? 0 : [2, 3].includes(value) ? 3 : 7;
-							break;
-					}
-					timelineContainer &&
-						timelineContainer.scrollTo({
-							top:
-								actionsContainer.children?.[indexesToScrollBy]?.offsetTop +
-								actionsContainer.children?.[indexesToScrollBy]?.scrollHeight
-						});
-					return;
-				}
-			})
-		);
-	});
-	onDestroy(() => {
-		unsubscribeFns.forEach((fn) => fn());
+	$effect(() => {
+		if (GameConfig.scaledElapsedTime === 0 && !timelineBehavior?.isolatedWaves) {
+			timelineContainer?.scrollTo(0, 0);
+		}
 	});
 
-	$: prevIndexSize = getPrevActionsSize(currWaveIndex);
-	$: index = updateActionIndex(waveElapsedTime, prevIndexSize);
-
-	$: trackAndScrollContainer(index);
+	$effect(() => {
+		const indexesToScrollBy = getTimelineScrollActionIndex(
+			mapConfig.levelId,
+			GameConfig.currentWaveIndex
+		);
+		const targetAction = actionsContainer?.children[indexesToScrollBy] as HTMLElement | undefined;
+		if (timelineContainer && targetAction) {
+			timelineContainer.scrollTo({
+				top: targetAction.offsetTop + targetAction.scrollHeight
+			});
+		}
+	});
 
 	function updateActionIndex(waveElapsedTime: number, prevIndexSize: number) {
 		const currActionIndex = getCurrActionIndex(waveElapsedTime);
@@ -81,17 +50,16 @@
 
 	function trackAndScrollContainer(index: number) {
 		if (simMode === 'wave_summons') return;
-		if (timelineContainer && actionsContainer.children[index]) {
+		const targetAction = actionsContainer?.children[index] as HTMLElement | undefined;
+		if (timelineContainer && targetAction) {
 			timelineContainer.scrollTo({
-				top:
-					actionsContainer.children[index].offsetTop +
-					actionsContainer.children[index].scrollHeight,
+				top: targetAction.offsetTop + targetAction.scrollHeight,
 				behavior: 'smooth'
 			});
 		}
 	}
 	function getPrevActionsSize(currWaveIndex: number) {
-		if (['level_rogue4_b-7', 'level_rogue4_b-8'].includes(mapConfig?.levelId)) return 0;
+		if (timelineBehavior?.isolatedWaves) return 0;
 		let size = 0;
 		for (let i = 0; i < currWaveIndex; i++) {
 			const length = waves?.[i]?.timeline?.length || 0;
@@ -114,11 +82,17 @@
 		}
 		return timeline.length - 1;
 	}
+
+	let prevIndexSize = $derived(getPrevActionsSize(currWaveIndex));
+	let index = $derived(updateActionIndex(waveElapsedTime, prevIndexSize));
+	$effect(() => {
+		trackAndScrollContainer(index);
+	});
 </script>
 
 {#if waves}
 	<div
-		class="absolute w-[110px] md:w-[163px] h-full p-3 bg-neutral-800 bg-opacity-80 text-sm {showTimeline
+		class="absolute w-[110px] md:w-[163px] h-full p-3 bg-neutral-800/80 text-sm {showTimeline
 			? ''
 			: 'opacity-0 pointer-events-none'}"
 	>

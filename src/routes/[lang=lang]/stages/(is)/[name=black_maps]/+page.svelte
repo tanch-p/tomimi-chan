@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount, tick } from 'svelte';
 	import type { RogueTopic } from '$lib/types';
 	import type { PageData } from './$types';
 	import {
@@ -11,9 +12,11 @@
 		otherBuffsList,
 		eliteMode,
 		stageType,
-		selectedFloor
+		selectedFloor,
+		activeFloorEffects,
+		gold
 	} from './stores';
-	import DifficultySelect from '$lib/components/DifficultySelect.svelte';
+	import CombinedSettings from './CombinedSettings.svelte';
 	import StageNav from '../../../(app)/black/StageNav.svelte';
 	import StageInfo from '$lib/components/StageInfo.svelte';
 	import FooterBar from '$lib/components/FooterBar.svelte';
@@ -24,52 +27,162 @@
 	import StageSharedContainer from '$lib/components/StageSharedContainer.svelte';
 	import StageHeadMeta from '$lib/components/StageHeadMeta.svelte';
 	import StageVariantSelector from '$lib/components/StageVariantSelector.svelte';
+	import SynchroLoader from '$lib/components/SynchroLoader.svelte';
+	import blackRelics from '$lib/data/is/black/relics.json';
+	import weatherOptions from '$lib/data/is/black/weather.json';
+	import weather1 from '$lib/images/is/black/rogue_6_weather_1.webp';
+	import weather2 from '$lib/images/is/black/rogue_6_weather_2.webp';
+	import { type UserRunState, tryDecodeUserRunState } from '$lib/functions/userRunStateHelpers';
+	import { createGoldVariationEffect, goldVariation } from './variationHelpers';
 
-	export let data: PageData;
-
-	const rogueTopic: RogueTopic = data.rogueTopic;
-	let configIndex = 0;
-	let previousStageId;
-
-	$: if (data.stageData.id !== previousStageId) {
-		previousStageId = data.stageData.id;
-		configIndex = 0;
+	interface Props {
+		data: PageData;
 	}
 
-	$: {
+	let { data }: Props = $props();
+
+	type BlackRelic = (typeof blackRelics)[number] & { count?: number };
+
+	const variationImageLookup: Record<string, string> = {
+		rogue_6_weather_1: weather1,
+		rogue_6_weather_2: weather2
+	};
+	let synchronising = $state(false);
+	let hideLoaderTimeout: ReturnType<typeof setTimeout> | undefined;
+	let combinedSettings: { openSettings: (trigger?: HTMLElement) => void };
+
+	async function applyRunState(initialState: UserRunState) {
+		synchronising = true;
+
+		clearTimeout(hideLoaderTimeout);
+		hideLoaderTimeout = setTimeout(() => {
+			synchronising = false;
+		}, 300);
+
+		if (initialState.diff !== undefined && initialState.diff <= 15) {
+			difficulty.set(initialState.diff);
+		}
+
+		const initialRelics = initialState.relics.flatMap(({ id, count }) => {
+			const relic = blackRelics.find((item) => item.id === id) as BlackRelic | undefined;
+
+			if (!relic) return [];
+
+			if (relic.stages) {
+				const initialCount = count ?? 1;
+
+				if (initialCount < 1 || initialCount > relic.stages.length) return [];
+
+				relic.count = initialCount;
+			}
+
+			return [relic];
+		});
+
+		selectedRelics.set(initialRelics);
+		activeFloorEffects.set([]);
+
+		if (initialState.gold !== undefined) {
+			gold.set(Math.min(initialState.gold, 100));
+		}
+
+		if (initialState.variation) {
+			const weatherLevel = $difficulty <= 5 ? 1 : $difficulty <= 11 ? 2 : 3;
+			const weather = weatherOptions.find(
+				(option) => option.iconId === initialState.variation && option.level === weatherLevel
+			);
+
+			if (weather) {
+				activeFloorEffects.set([{ ...weather, src: variationImageLookup[weather.iconId] }]);
+			} else if (initialState.variation === goldVariation.id) {
+				activeFloorEffects.set([createGoldVariationEffect($gold)]);
+			}
+		}
+
+		if (initialState.floor !== undefined && initialState.floor >= 1 && initialState.floor <= 6) {
+			selectedFloor.set(initialState.floor);
+		}
+
+		const nextConfigIndex = initialState.configIndex ?? 0;
+		configIndex =
+			nextConfigIndex >= 0 && nextConfigIndex < data.stageData.data.length ? nextConfigIndex : 0;
+
+		if (initialState.eliteMode !== undefined) {
+			// StageSharedContainer resets elite mode when mapConfig changes.
+			await tick();
+			eliteMode.set(initialState.eliteMode);
+		}
+	}
+
+	onMount(() => {
+		const initialState = tryDecodeUserRunState(
+			new URLSearchParams(window.location.search).get('state'),
+			'ro6'
+		);
+
+		if (initialState) applyRunState(initialState);
+
+		return () => clearTimeout(hideLoaderTimeout);
+	});
+
+	let rogueTopic: RogueTopic = $derived(data.rogueTopic);
+	let configIndex = $state(0);
+	let previousStageId = $state();
+
+	$effect(() => {
+		if (data.stageData.id !== previousStageId) {
+			previousStageId = data.stageData.id;
+			configIndex = 0;
+		}
+	});
+	$effect(() => {
 		if (configIndex >= data.stages.length) {
 			configIndex = 0;
 		}
-	}
-	$: selectedStage = data.stages[configIndex];
-	$: mapConfig = selectedStage.mapConfig;
-	$: enemies = selectedStage.enemies;
-	$: traps = selectedStage.traps;
-
-	$: if (mapConfig) {
-		stageType.set(getStageType(mapConfig?.levelId, mapConfig?.tags, rogueTopic));
-		setOtherBuffsList(otherBuffsList, rogueTopic, enemies, traps, mapConfig, language);
-		runes.set(mapConfig?.n_mods);
-		allMods.set(mapConfig?.all_mods);
-	}
-
-	$: language = data.language;
-	$: stageName = mapConfig ? mapConfig?.[`name_${language}`] || mapConfig?.name_zh : '';
+	});
+	let selectedStage = $derived(data.stages[configIndex]);
+	let mapConfig = $derived(selectedStage.mapConfig);
+	let enemies = $derived(selectedStage.enemies);
+	let traps = $derived(selectedStage.traps);
+	let language = $derived(data.language);
+	$effect(() => {
+		if (mapConfig) {
+			stageType.set(getStageType(mapConfig?.levelId, mapConfig?.tags, rogueTopic));
+			setOtherBuffsList(otherBuffsList, rogueTopic, enemies, traps, mapConfig, language);
+			runes.set(mapConfig?.n_mods);
+			allMods.set(mapConfig?.all_mods);
+		}
+	});
+	let stageName = $derived(mapConfig ? mapConfig?.[`name_${language}`] || mapConfig?.name_zh : '');
 </script>
 
 <StageHeadMeta {mapConfig} {stageName} {language} />
 
+{#if synchronising}
+	<SynchroLoader language={data.language} />
+{/if}
+
 <StageHeader {language}>
-	<FloorTitle slot="floorTitle" stageFloors={mapConfig?.floors || []} {language} />
+	{#snippet floorTitle()}
+		<FloorTitle stageFloors={mapConfig?.floors || []} {language} />
+	{/snippet}
 </StageHeader>
 
 <main class="bg-neutral-800 text-near-white pb-72 pt-8 sm:pt-16 md:pb-28">
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
 		<StageVariantSelector variants={data.stageData.data} bind:selectedIndex={configIndex} />
-		<StageInfo {mapConfig} {language} {stageName} {eliteMode} {rogueTopic} difficulty={$difficulty}>
-			<!-- <StageDrops slot="drops" mapConfig={mapConfig} {language} {rogueTopic} {selectedFloor} /> -->
-		</StageInfo>
-		<DifficultySelect {language} {difficulty} {rogueTopic} maxDiff={15} />
+		<StageInfo {mapConfig} {language} {stageName} {eliteMode} {rogueTopic} difficulty={$difficulty}
+		></StageInfo>
+		<CombinedSettings
+			bind:this={combinedSettings}
+			{language}
+			{difficulty}
+			{rogueTopic}
+			{eliteMode}
+			{mapConfig}
+			{configIndex}
+			onLoadState={applyRunState}
+		/>
 		<StageSharedContainer
 			{language}
 			{traps}
@@ -85,9 +198,17 @@
 			otherStores={{ relics: selectedRelics }}
 			difficulty={$difficulty}
 		>
-			<StageNav {language} slot="nav" />
+			{#snippet nav()}
+				<StageNav {language} />
+			{/snippet}
 		</StageSharedContainer>
 	</div>
 </main>
 
-<FooterBar {language} {rogueTopic} {selectedRelics} />
+<FooterBar
+	{language}
+	{rogueTopic}
+	{selectedRelics}
+	difficulty={$difficulty}
+	onSettingsClick={(trigger) => combinedSettings.openSettings(trigger)}
+/>

@@ -1,4 +1,4 @@
-import pako from 'pako';
+import { inflate } from 'pako';
 
 export async function decompressGzipToJson(url: string) {
 	const response = await fetch(url);
@@ -7,7 +7,7 @@ export async function decompressGzipToJson(url: string) {
 
 	try {
 		return await responseForJSON.json();
-	} catch (jsonError) {
+	} catch {
 		console.warn('Direct JSON parsing failed, trying decompression...');
 
 		try {
@@ -16,7 +16,7 @@ export async function decompressGzipToJson(url: string) {
 			const isGzipped = firstBytes[0] === 0x1f && firstBytes[1] === 0x8b;
 
 			if (isGzipped) {
-				const decompressed = pako.inflate(new Uint8Array(arrayBuffer), { to: 'string' });
+				const decompressed = inflate(new Uint8Array(arrayBuffer), { toText: true });
 				return JSON.parse(decompressed);
 			}
 
@@ -24,7 +24,9 @@ export async function decompressGzipToJson(url: string) {
 			return JSON.parse(text);
 		} catch (error) {
 			console.error('All parsing attempts failed:', error);
-			throw new Error('Failed to parse response as JSON, either directly or after decompression');
+			throw new Error('Failed to parse response as JSON, either directly or after decompression', {
+				cause: error
+			});
 		}
 	}
 }

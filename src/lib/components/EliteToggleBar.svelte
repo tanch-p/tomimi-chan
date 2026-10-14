@@ -1,20 +1,34 @@
 <script lang="ts">
-	export let stageId: string,
+	interface Props {
+		stageId: string;
+		eliteMode: any;
+		combatOpsColor: any;
+		eliteOpsColor: any;
+		getEliteIcon: any;
+		iconCombat: any;
+		rogueTopic: any;
+		idPrefix?: string;
+	}
+
+	let {
+		stageId,
 		eliteMode,
 		combatOpsColor,
 		eliteOpsColor,
 		getEliteIcon,
 		iconCombat,
-		rogueTopic;
+		rogueTopic,
+		idPrefix = ''
+	}: Props = $props();
 </script>
 
 <div class="grid grid-cols-2 font-bold text-lg text-gray-700 select-none">
 	<button
-		id="normal-toggle"
+		id={idPrefix ? `${idPrefix}-normal-toggle` : 'normal-toggle'}
 		class={`flex justify-center items-center py-1 ${combatOpsColor} ${
 			!$eliteMode ? 'text-gray-900' : 'opacity-30'
 		}`}
-		on:click={() => eliteMode.set(false)}
+		onclick={() => eliteMode.set(false)}
 	>
 		<img
 			src={iconCombat}
@@ -27,11 +41,11 @@
 		/>
 	</button>
 	<button
-		id="elite-toggle"
+		id={idPrefix ? `${idPrefix}-elite-toggle` : 'elite-toggle'}
 		class={`flex justify-center items-center ${eliteOpsColor} ${
 			$eliteMode ? 'text-black' : 'opacity-30'
 		}`}
-		on:click={() => eliteMode.set(true)}
+		onclick={() => eliteMode.set(true)}
 	>
 		<img
 			src={getEliteIcon(stageId)}

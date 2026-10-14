@@ -1,25 +1,35 @@
 import * as THREE from 'three';
 import * as spine from '$lib/spine';
-import { GameConfig } from './GameConfig';
+import { GameConfig } from './GameConfig.svelte.js';
 import { GameManager } from './GameManager';
 import { AssetManager } from './AssetManager';
 import type { Enemy as EnemyType, Skill } from '$lib/types';
 import { SPFA } from './SPFA';
 import { getEnemySkills } from '$lib/functions/skillHelpers';
 import { getAnimDuration, getSpineAnimations, getSpineMetaData } from '$lib/functions/spineHelpers';
-import { SkillManager } from './SkillManager';
+import { ACCELERATION_MODIFIER_SOURCE, SkillManager } from './SkillManager';
 import { clearObjects } from '$lib/functions/threejsHelpers';
-import { DUEL_STAGES } from '$lib/functions/enemyHelpers';
 import {
 	createAnimatedPathVisualisation,
 	createPathVisualisation,
 	type AnimatedPathVisualisation
 } from '$lib/functions/pathVisualisationHelpers';
 import { getStageRuntime } from './StageRuntime';
+import { getStagePhaseBehavior } from '../config/stageBehaviors';
+import { EnemyStats, preserveHpPercentage, type EnemyFormStats } from './EnemyStats';
+import {
+	AIRFLOW_MODIFIER_SOURCE_PREFIX,
+	AIRFLOW_MODIFIERS,
+	getAirflowEffect,
+	type AirflowTileEffect
+} from '../functions/airflowHelpers';
 
 const moveMultiplier = 0.5;
 const animatedPathCountdownFadeDuration = 4;
 const movementFrameInterval = 1 / 30;
+const movementSpeedBuffIconWidth = 32;
+const movementSpeedBuffIconGap = 4;
+const facingPositionEpsilon = 1e-6;
 export class Enemy {
 	raycastPos: THREE.Vector3; //光标坐标在移动逻辑中被大量使用，造成了一些反直觉的现象
 	targetPos: THREE.Vector3;
@@ -33,6 +43,7 @@ export class Enemy {
 	spawnUID: string;
 	actions;
 	hp: number;
+	stats: EnemyStats;
 	baseSpeed: number;
 	moddedSpeed: number;
 	route;
@@ -84,6 +95,12 @@ export class Enemy {
 	animState = 'Idle'; //used as a key
 	darkness = 1;
 	sprite: THREE.Sprite;
+	movementSpeedBuffIcon: THREE.Sprite | null = null;
+	movementSpeedDebuffIcon: THREE.Sprite | null = null;
+	movementSpeedBuffStackIcon: THREE.Sprite | null = null;
+	movementSpeedBuffStackTexture: THREE.CanvasTexture | null = null;
+	movementSpeedBuffStackCanvas: HTMLCanvasElement | null = null;
+	displayedAccelerationStacks = -1;
 	height: number;
 	width: number;
 	startElapsedTime = 0;
@@ -149,6 +166,14 @@ export class Enemy {
 			enemyData = summonedEnemy;
 		}
 
+		this.stats = new EnemyStats(
+			enemyData,
+			gameManager.persistentStatMods,
+			getStageRuntime(gameManager).specialMods,
+			(setData as any)?.formIndex ?? formIndex,
+			(previous, current) => this.handleEffectiveStatsChanged(previous, current)
+		);
+		if ((setData as any)?.statData) this.stats.setData((setData as any).statData);
 		this.assetManager = AssetManager.getInstance();
 		this.gameManager = gameManager;
 		gameManager.enemiesOnMap.push(this);
@@ -168,7 +193,7 @@ export class Enemy {
 			this.spawnUID = setData.spawnUID;
 			this.actions = setData.actions;
 			this.hp = setData.hp;
-			this.baseSpeed = setData.baseSpeed;
+			this.baseSpeed = this.stats.get('ms');
 			this.moddedSpeed = setData.moddedSpeed;
 			this.route = setData.route;
 			this.dontBlockWave = setData.dontBlockWave;
@@ -233,8 +258,8 @@ export class Enemy {
 			}
 			this.motionMode = route.motionMode;
 			this.state = 'idle';
-			this.hp = enemyData.forms[0].stats.hp;
-			this.baseSpeed = enemyData.forms[0].stats.ms;
+			this.hp = this.stats.get('hp');
+			this.baseSpeed = this.stats.get('ms');
 			this.moddedSpeed = this.baseSpeed;
 			this.traits = getEnemySkills(
 				this.data,
@@ -435,7 +460,7 @@ export class Enemy {
 			this.meshGroup.add(sprite);
 			this.sprite = sprite;
 			sprite.userData.enemy = this;
-			this.gameManager.game.objects.push(sprite);
+			this.gameManager.world.objects.push(sprite);
 			this.gameManager.scene.add(this.meshGroup);
 			this.meshGroup.renderOrder = 5;
 		} else if (modelType === 'spine') {
@@ -494,7 +519,7 @@ export class Enemy {
 				this.skel.position.y += GameConfig.gridSize * 0.7;
 			}
 			sprite.userData.enemy = this;
-			this.gameManager.game.objects.push(sprite);
+			this.gameManager.world.objects.push(sprite);
 			this.gameManager.scene.add(this.meshGroup);
 
 			if (this.entry) {
@@ -524,7 +549,7 @@ export class Enemy {
 				}
 			}
 
-			const range = this.data.forms[this.formIndex].stats.range;
+			const range = this.stats.get('range');
 			const normalAtkIsRanged =
 				this.data.forms[this.formIndex].normal_attack.atk_type.includes('ranged');
 			if (
@@ -598,6 +623,107 @@ export class Enemy {
 				this.meshGroup.add(group);
 			}
 		}
+		this.initMovementSpeedBuffIcon();
+	}
+
+	private initMovementSpeedBuffIcon() {
+		if (!this.sprite) return;
+		const texture = this.assetManager.textures.get('enemy_movespeed_buff')?.texture;
+		if (!texture) return;
+
+		const image = texture.image as HTMLImageElement;
+		const movementSpeedBuffIconHeight = movementSpeedBuffIconWidth * (image.height / image.width);
+		const material = new THREE.SpriteMaterial({
+			map: texture,
+			transparent: true,
+			depthTest: false,
+			depthWrite: false
+		});
+		const icon = new THREE.Sprite(material);
+		icon.scale.set(movementSpeedBuffIconWidth, movementSpeedBuffIconHeight, 1);
+		icon.position.set(
+			0,
+			this.sprite.position.y + this.sprite.scale.y / 2 + movementSpeedBuffIconHeight / 2,
+			this.sprite.position.z + 1
+		);
+		icon.renderOrder = 50;
+		this.movementSpeedBuffIcon = icon;
+		this.meshGroup.add(icon);
+
+		const debuffTexture =
+			this.assetManager.textures.get('enemy_movespeed_debuff')?.texture ?? texture;
+		const debuffMaterial = material.clone();
+		debuffMaterial.map = debuffTexture;
+		const debuffIcon = new THREE.Sprite(debuffMaterial);
+		debuffIcon.scale.copy(icon.scale);
+		debuffIcon.position.copy(icon.position);
+		debuffIcon.renderOrder = icon.renderOrder;
+		debuffIcon.visible = false;
+		this.movementSpeedDebuffIcon = debuffIcon;
+		this.meshGroup.add(debuffIcon);
+
+		this.initMovementSpeedBuffStackIcon(
+			icon,
+			movementSpeedBuffIconWidth,
+			movementSpeedBuffIconHeight
+		);
+		this.syncMovementSpeedBuffIcon();
+	}
+
+	private initMovementSpeedBuffStackIcon(
+		icon: THREE.Sprite,
+		iconWidth: number,
+		iconHeight: number
+	) {
+		const canvas = document.createElement('canvas');
+		canvas.width = 64;
+		canvas.height = 64;
+		const texture = new THREE.CanvasTexture(canvas);
+		texture.colorSpace = THREE.SRGBColorSpace;
+		texture.minFilter = THREE.LinearFilter;
+		texture.magFilter = THREE.LinearFilter;
+		const material = new THREE.SpriteMaterial({
+			map: texture,
+			transparent: true,
+			depthTest: false,
+			depthWrite: false
+		});
+		const stackIcon = new THREE.Sprite(material);
+		stackIcon.scale.set(16, 16, 1);
+		stackIcon.position.set(
+			icon.position.x + iconWidth * 0.3,
+			icon.position.y - iconHeight * 0.28,
+			icon.position.z + 1
+		);
+		stackIcon.renderOrder = icon.renderOrder + 1;
+		stackIcon.visible = false;
+		this.movementSpeedBuffStackCanvas = canvas;
+		this.movementSpeedBuffStackTexture = texture;
+		this.movementSpeedBuffStackIcon = stackIcon;
+		this.meshGroup.add(stackIcon);
+	}
+
+	private drawAccelerationStacks(stacks: number) {
+		if (
+			stacks === this.displayedAccelerationStacks ||
+			!this.movementSpeedBuffStackCanvas ||
+			!this.movementSpeedBuffStackTexture
+		)
+			return;
+		const context = this.movementSpeedBuffStackCanvas.getContext('2d');
+		if (!context) return;
+		context.clearRect(0, 0, 64, 64);
+		context.font = '700 44px Arial';
+		context.textAlign = 'center';
+		context.textBaseline = 'middle';
+		context.lineWidth = 9;
+		context.lineJoin = 'round';
+		context.strokeStyle = '#000000';
+		context.strokeText(String(stacks), 32, 34);
+		context.fillStyle = '#ffffff';
+		context.fillText(String(stacks), 32, 34);
+		this.movementSpeedBuffStackTexture.needsUpdate = true;
+		this.displayedAccelerationStacks = stacks;
 	}
 
 	setBlinkAnimationDurations() {
@@ -620,7 +746,7 @@ export class Enemy {
 						(skillBlinkSkill?.duration ?? 0) -
 							this.skillBlinkBeginDuration -
 							this.skillBlinkEndDuration
-				  )
+					)
 				: 0;
 		}
 	}
@@ -639,6 +765,105 @@ export class Enemy {
 	configureTimeout() {
 		const timeoutSkill = this.skills.find((skill) => skill.timeout !== undefined);
 		this.timeoutDuration = timeoutSkill?.timeout ?? null;
+	}
+
+	getMovementSpeed() {
+		const persistentSpeed = this.stats?.get('ms') ?? this.baseSpeed;
+		return this.skillManager?.getMovementSpeed
+			? this.skillManager.getMovementSpeed(persistentSpeed)
+			: this.moddedSpeed;
+	}
+
+	private handleEffectiveStatsChanged(previous: EnemyFormStats, current: EnemyFormStats) {
+		if (this.hp !== undefined && previous.hp !== current.hp) {
+			this.hp = preserveHpPercentage(this.hp, previous.hp, current.hp);
+		}
+		this.baseSpeed = current.ms;
+		this.moddedSpeed = current.ms;
+		this.syncMovementSpeedBuffIcon();
+	}
+
+	private syncMovementSpeedBuffIcon() {
+		if (!this.movementSpeedBuffIcon) return;
+		const hasMovementSpeedBuff = this.stats.hasRuntimeStatIncrease('ms');
+		const hasMovementSpeedDebuff = this.stats.hasRuntimeStatDecrease('ms');
+		const accelerationStacks = this.stats.getRuntimeModifierStacks(ACCELERATION_MODIFIER_SOURCE);
+		const showBothIcons = hasMovementSpeedBuff && hasMovementSpeedDebuff;
+		this.movementSpeedBuffIcon.visible = hasMovementSpeedBuff;
+		if (this.movementSpeedDebuffIcon) {
+			this.movementSpeedDebuffIcon.visible = hasMovementSpeedDebuff;
+			const iconOffset = (movementSpeedBuffIconWidth + movementSpeedBuffIconGap) * 0.5;
+			this.movementSpeedBuffIcon.position.x = showBothIcons ? -iconOffset : 0;
+			this.movementSpeedDebuffIcon.position.x = showBothIcons ? iconOffset : 0;
+		}
+		if (this.movementSpeedBuffStackIcon) {
+			this.movementSpeedBuffStackIcon.visible = hasMovementSpeedBuff && accelerationStacks > 0;
+			this.movementSpeedBuffStackIcon.position.x =
+				this.movementSpeedBuffIcon.position.x + movementSpeedBuffIconWidth * 0.3;
+			if (accelerationStacks > 0) this.drawAccelerationStacks(accelerationStacks);
+		}
+	}
+
+	private clearTemporaryStatModifiers() {
+		this.stats.clearRuntimeModifiers();
+		this.skillManager?.resetRuntimeStatModifiers();
+	}
+
+	private syncAirflowModifiers() {
+		if (!this.stats) return;
+		const currentModifiers = this.stats.getModifierHandlesBySourcePrefix(
+			AIRFLOW_MODIFIER_SOURCE_PREFIX
+		);
+		const action = this.actions?.[this.currentActionIndex];
+		const isInvisible = this.skills?.some((skill) => skill.key.includes('stealth'));
+		const canBeMovedByAirflow =
+			action?.type === 'MOVE' &&
+			!isInvisible &&
+			this.startDuration <= this.startElapsedTime &&
+			this.standbyTime <= 0 &&
+			this.state !== 'fall' &&
+			this.state !== 'revive' &&
+			!this.skillManager?.isHoldingForSummons &&
+			!this.skillManager?.isUsingSkill &&
+			['WALK', 'FLY'].includes(this.motionMode);
+		const desiredModifiers = new Map<
+			string,
+			(typeof AIRFLOW_MODIFIERS)[keyof typeof AIRFLOW_MODIFIERS]
+		>();
+
+		if (canBeMovedByAirflow) {
+			const [col, row] = this.gameManager.getGridPosition(this.raycastPos);
+			let previousPosition = this.route?.startPosition ?? { row, col };
+			for (let i = this.currentActionIndex - 1; i >= 0; i--) {
+				const previousAction = this.actions[i];
+				if (!['MOVE', 'APPEAR_AT_POS'].includes(previousAction.type)) continue;
+				previousPosition = previousAction.position;
+				break;
+			}
+			this.movementDirectionScratch.set(
+				Number(action.position.col) - Number(previousPosition.col),
+				Number(previousPosition.row) - Number(action.position.row),
+				0
+			);
+			if (this.movementDirectionScratch.lengthSq() > 0) {
+				this.movementDirectionScratch.normalize();
+				const tile = this.gameManager.tiles?.get(`${col},${row}`) as
+					{ effects?: { airflow?: AirflowTileEffect[] } } | undefined;
+				for (const airflow of tile?.effects?.airflow ?? []) {
+					const effect = getAirflowEffect(airflow.direction, this.movementDirectionScratch);
+					if (!effect) continue;
+					desiredModifiers.set(`${airflow.source}:${effect}`, AIRFLOW_MODIFIERS[effect]);
+				}
+			}
+		}
+
+		for (const modifier of currentModifiers) {
+			if (!desiredModifiers.has(modifier.source)) this.stats.removeModifier(modifier.handle);
+		}
+		for (const [source, modifier] of desiredModifiers) {
+			if (currentModifiers.some((current) => current.source === source)) continue;
+			this.stats.addModifier({ source, mods: [modifier] });
+		}
 	}
 	handlePosChange() {
 		const gridPos = this.gameManager.getGridPosFromVectors(this.meshGroup.position);
@@ -702,20 +927,23 @@ export class Enemy {
 				? 100
 				: 10
 			: 100;
+		const maximumSpeed = Math.max(theoreticalSpeed, this.inertia.length());
 		const speedRatio = theoreticalSpeed > 0 ? this.inertia.length() / theoreticalSpeed : 0;
 		const actualAvoidance = this.getAvoidanceForce(direction).multiplyScalar(
 			Math.max(speedRatio, 0.5)
 		);
 		const acceleration = direction
 			.clone()
-			.multiplyScalar(theoreticalSpeed)
+			.multiplyScalar(maximumSpeed)
 			.sub(this.inertia)
 			.multiplyScalar(steeringFactor)
 			.add(actualAvoidance);
 		this.clampMagnitude(acceleration, maxSteeringForce);
 
 		const velocity = acceleration.multiplyScalar(movementFrameInterval).add(this.inertia);
-		this.clampMagnitude(velocity, theoreticalSpeed);
+		// A removed speed buff changes the target speed, but existing momentum must
+		// decay through steering instead of being discarded in a single frame.
+		this.clampMagnitude(velocity, maximumSpeed);
 		this.inertia.copy(velocity);
 		return velocity;
 	}
@@ -740,15 +968,26 @@ export class Enemy {
 		const currentAction = this.actions[this.currentActionIndex];
 		if (currentAction?.type !== 'MOVE') return;
 
-		let previousPosition = this.route?.startPosition;
+		const routeStart = this.route?.startPosition;
+		if (!routeStart) return;
+		let previousTarget = this.gameManager.getVectorCoordinates(routeStart, null);
 		for (let i = this.currentActionIndex - 1; i >= 0; i--) {
 			const action = this.actions[i];
 			if (action.type === 'MOVE' || action.type === 'APPEAR_AT_POS') {
-				previousPosition = action.position;
+				previousTarget = this.gameManager.getVectorCoordinates(
+					action.position,
+					action.reachOffset ?? null
+				);
 				break;
 			}
 		}
-		if (!previousPosition || Number(currentAction.position.col) !== Number(previousPosition.col)) {
+		// Facing follows the planned waypoint positions. Obstacle correction affects the
+		// physical displacement only and must not change this direction calculation.
+		const currentTarget = this.gameManager.getVectorCoordinates(
+			currentAction.position,
+			currentAction.reachOffset ?? null
+		);
+		if (Math.abs(currentTarget.x - previousTarget.x) > facingPositionEpsilon) {
 			return;
 		}
 
@@ -760,12 +999,15 @@ export class Enemy {
 			return;
 		}
 
-		const currentColumn = Number(currentAction.position.col);
 		for (let i = this.currentActionIndex + 1; i < this.actions.length; i++) {
 			const action = this.actions[i];
-			if (action.type !== 'MOVE' || Number(action.position.col) === currentColumn) continue;
+			if (action.type !== 'MOVE') continue;
 
-			const { x, y } = this.gameManager.getVectorCoordinates(action.position, null);
+			const { x, y } = this.gameManager.getVectorCoordinates(
+				action.position,
+				action.reachOffset ?? null
+			);
+			if (Math.abs(x - currentTarget.x) <= facingPositionEpsilon) continue;
 			this.cachedFacingTarget = new THREE.Vector3(x, y, GameConfig.baseZIndex);
 			return;
 		}
@@ -953,8 +1195,8 @@ export class Enemy {
 
 	handleAnimUpdate(delta: number) {
 		this.handleAnimationChange();
-		this.skel && this.skel.update(delta);
-		this.disguiseSkel && this.disguiseSkel.update(delta);
+		this.skel?.update(delta);
+		this.disguiseSkel?.update(delta);
 
 		if (this.state === 'fall') {
 			if (this.exitElapsedTime > 0.5) {
@@ -992,11 +1234,13 @@ export class Enemy {
 		this.handleAnimUpdate(delta);
 		if (
 			this?.gameManager?.config &&
-			DUEL_STAGES.includes(this.gameManager.config.levelId) &&
-			this.runtime.stagePhaseIndex === 0
+			getStagePhaseBehavior(this.gameManager.config.levelId, this.runtime.stagePhaseIndex)
+				.freezeEnemies
 		)
 			return;
 		if (this.exit) return;
+		this.syncAirflowModifiers();
+		this.stats?.update(delta);
 		if (this.timeoutDuration !== null) {
 			this.timeoutElapsedTime += delta;
 			if (this.timeoutElapsedTime >= this.timeoutDuration) {
@@ -1044,8 +1288,8 @@ export class Enemy {
 			case 'MOVE':
 				{
 					if (
-						this.gameManager.config.levelId.includes('_d-') &&
-						this.runtime.stagePhaseIndex === 0
+						getStagePhaseBehavior(this.gameManager.config.levelId, this.runtime.stagePhaseIndex)
+							.freezeEnemies
 					) {
 						// workaround for duel stages to prevent enemy from moving
 						this.animState = 'Idle';
@@ -1170,7 +1414,7 @@ export class Enemy {
 					while (this.movementFrameAccumulator >= movementFrameInterval) {
 						this.movementFrameAccumulator -= movementFrameInterval;
 						const movementDirection = this.getMovementDirection();
-						const theoreticalSpeed = this.moddedSpeed * moveMultiplier;
+						const theoreticalSpeed = this.getMovementSpeed() * moveMultiplier;
 						const velocity = this.calculateMovementVelocity(movementDirection, theoreticalSpeed);
 						this.direction = this.getFacingDirection(movementDirection);
 						this.updateSpriteOrientation();
@@ -1193,10 +1437,12 @@ export class Enemy {
 						);
 						if (displacement.length() > distance) displacement.setLength(distance);
 						const correctedDisplacement =
-							this.gameManager.correctMovementForObstacle?.(
-								this.meshGroup.position,
-								displacement
-							) ?? displacement;
+							this.motionMode === 'WALK'
+								? (this.gameManager.correctMovementForObstacle?.(
+										this.meshGroup.position,
+										displacement
+									) ?? displacement)
+								: displacement;
 						this.meshGroup.position.add(correctedDisplacement);
 						this.raycastPos.add(correctedDisplacement);
 					}
@@ -1317,6 +1563,7 @@ export class Enemy {
 	}
 
 	onDeath(): void {
+		this.clearTemporaryStatModifiers();
 		this.skel.state.setAnimation(0, 'Die', false);
 		this.exit = true;
 	}
@@ -1334,12 +1581,14 @@ export class Enemy {
 			this.skillManager.reset();
 		}
 		if (!this.gameManager.isSimulation) {
+			this.movementSpeedBuffStackTexture?.dispose();
+			this.movementSpeedBuffStackTexture = null;
 			if (this.sprite) {
-				const objectIndex = this.gameManager.game.objects.findIndex(
+				const objectIndex = this.gameManager.world.objects.findIndex(
 					(ele) => ele.uuid === this.sprite.uuid
 				);
 				if (objectIndex !== -1) {
-					this.gameManager.game.objects.splice(objectIndex, 1);
+					this.gameManager.world.objects.splice(objectIndex, 1);
 				}
 			}
 			this.gameManager.removeCountdown(this.countdownId);
@@ -1396,8 +1645,9 @@ export class Enemy {
 			}
 			this.shadow.uniforms.isSelected.value = false;
 			this.selected = false;
-			!GameConfig.showAllTimers &&
+			if (!GameConfig.showAllTimers) {
 				this.gameManager.countdownManager.toggleCountdown(this.countdownId, false);
+			}
 			if (this.atkRangeMesh) {
 				this.atkRangeMesh.visible = GameConfig.showAllRange;
 			}
@@ -1531,6 +1781,7 @@ export class Enemy {
 	}
 
 	handleFormIndexChange() {
+		this.clearTemporaryStatModifiers();
 		this.animState = 'Revive';
 		if (!this.reviveDuration) {
 			this.reviveDuration = getAnimDuration(
@@ -1577,6 +1828,9 @@ export class Enemy {
 			this.reviveDuration = 0;
 			this.reviveTimer = 0;
 			this.formIndex++;
+			this.stats.setFormIndex(this.formIndex);
+			this.baseSpeed = this.stats.get('ms');
+			this.moddedSpeed = this.getMovementSpeed();
 			this.spineAnimIndex++;
 			this.specials = getEnemySkills(
 				this.data,
@@ -1681,11 +1935,14 @@ export class Enemy {
 		this.animState = setData.animState;
 		if (this.formIndex !== setData.formIndex) {
 			this.formIndex = setData.formIndex;
+			this.stats.setFormIndex(this.formIndex);
+			this.baseSpeed = this.stats.get('ms');
 			this.traits = setData.traits;
 			this.specials = setData.specials;
 			this.skills = this.traits.concat(this.specials);
 			this.skillManager.setSkills(this.skills);
 		}
+		this.stats.setData(setData.statData);
 		this.skillManager.set(setData.skillData);
 		this.spineAnimIndex = setData.spineAnimIndex;
 		this.timeToWait = setData.timeToWait;

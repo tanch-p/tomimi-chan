@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { SkillManager } from '$lib/components/StageSimulator/objects/SkillManager';
 import type { ActiveSkill } from '$lib/components/StageSimulator/objects/ActiveSkill';
+import { Enemy } from '$lib/components/StageSimulator/objects/Enemy';
 
 const createSummonSkill = (delay: number, finishOnUpdate: number) => {
 	let updateCount = 0;
@@ -72,5 +73,48 @@ describe('SkillManager ftprg summon lifecycle', () => {
 			'ftprg_summon_2'
 		]);
 		expect(manager.activeSkills.map((skill) => skill.skillBar.position.y)).toEqual([-10, -20]);
+	});
+});
+
+describe('ftprg summon startup', () => {
+	it('does not process route actions while summon skills are active', () => {
+		const enemy = Object.create(Enemy.prototype) as Enemy;
+		enemy.handleAnimUpdate = vi.fn();
+		enemy.exit = false;
+		enemy.timeoutDuration = null;
+		enemy.animState = 'Move';
+		enemy.currentActionIndex = 0;
+		enemy.skillManager = {
+			isHoldingForSummons: true,
+			startedEnemyAfterSummons: false,
+			update: vi.fn()
+		} as unknown as Enemy['skillManager'];
+
+		enemy.update(1);
+
+		expect(enemy.animState).toBe('Default');
+		expect(enemy.currentActionIndex).toBe(0);
+	});
+
+	it('holds the default animation and then plays Start', () => {
+		const enemy = Object.create(Enemy.prototype) as Enemy;
+		enemy.animState = 'Move';
+		enemy.isMoving = true;
+		enemy.startDuration = 4;
+		enemy.startElapsedTime = 2;
+		enemy.spineAnimIndex = 0;
+		enemy.animations = [{ Start: 'Start' }];
+		enemy.skelData = {
+			animations: [{ name: 'Start', duration: 1.5 }]
+		} as unknown as typeof enemy.skelData;
+
+		enemy.prepareForSummons();
+		expect(enemy.animState).toBe('Default');
+		expect(enemy.isMoving).toBe(false);
+		expect(enemy.startDuration).toBe(0);
+
+		enemy.startAfterSummons();
+		expect(enemy.animState).toBe('Start');
+		expect(enemy.startDuration).toBe(1.5);
 	});
 });

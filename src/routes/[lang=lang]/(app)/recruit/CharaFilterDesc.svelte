@@ -8,11 +8,22 @@
 	import { generateSkillDesc as generateSkillDesc_ja } from '$lib/functions/filterDescHelpers_ja';
 	import { generateSkillDesc as generateSkillDesc_en } from '$lib/functions/filterDescHelpers_en';
 
-	export let language: Language;
+	interface Props {
+		language: Language;
+	}
 
-	$: defaultLine = getTranslations(language).chara_filter_start;
+	let { language }: Props = $props();
 
-	$: line = defaultLine;
+	let defaultLine = $derived(getTranslations(language).chara_filter_start);
+
+	let line = $derived(
+		getDesc(
+			$filterDescStore.activeOptions,
+			$filterDescStore.relicActiveOptions,
+			$filterDescStore.filterMode,
+			$filterDescStore.rogueTopic
+		)
+	);
 
 	const generateDescFunc = (
 		activeOptions,
@@ -55,10 +66,6 @@
 				return text.includes('<subProfessionId>');
 		}
 	};
-	filterDescStore.subscribe(({ activeOptions, relicActiveOptions, filterMode, rogueTopic }) => {
-		line = getDesc(activeOptions, relicActiveOptions, filterMode, rogueTopic);
-	});
-
 	function getDesc(activeOptions, relicActiveOptions, filterMode, rogueTopic) {
 		if (activeOptions.length === 0 && relicActiveOptions.length === 0) {
 			return defaultLine;

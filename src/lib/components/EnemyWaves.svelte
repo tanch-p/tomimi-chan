@@ -1,104 +1,165 @@
 <script lang="ts">
 	import { getTranslations } from '$lib/functions/languageHelpers';
-	import type { Language, RogueTopic } from '$lib/types';
+	import type { Enemy, Language, RogueTopic, StatMods } from '$lib/types';
 	import TogglePanel from './TogglePanel.svelte';
 	import {
+		buildWaveScenario,
 		compileHiddenGroups,
-		generateWaveTimeline,
 		getBaseCount,
 		getBonusEnemies,
 		getEnemyCountPermutations,
 		getOptions,
-		handleOptionsUpdate,
-		parseWaves
+		handleOptionsUpdate
 	} from '$lib/functions/waveHelpers';
 	import DraggableContainer from './DraggableContainer.svelte';
 	import DLDGPN from '$lib/images/is/DLDGPN.webp';
 	import RandomGroupList from './RandomGroupList.svelte';
 	import { defaultOpenStageSim } from '../../routes/stores';
-	import { GameConfig } from './StageSimulator/objects/GameConfig';
-	import { onDestroy, onMount } from 'svelte';
+	import { GameConfig, type SimulationMode } from './StageSimulator/objects/GameConfig.svelte.js';
+	import { onDestroy } from 'svelte';
 
-	export let mapConfig,
-		enemies,
-		rogueTopic: RogueTopic,
-		language: Language,
-		eliteMode: Boolean,
+	interface Props {
+		mapConfig: any;
+		normalizedEnemies: Enemy[];
+		persistentStatMods: StatMods;
+		rogueTopic: RogueTopic;
+		language: Language;
+		eliteMode: boolean;
+		otherStores: any;
+		specialMods: any;
+		difficulty: number;
+		eliteMods?: import('svelte').Snippet;
+	}
+
+	type PermutationSelection = Record<string, Record<string, number>>;
+	type CountedPermutation = {
+		count: number;
+		permutation: PermutationSelection;
+	};
+
+	let {
+		mapConfig,
+		normalizedEnemies,
+		persistentStatMods,
+		rogueTopic,
+		language,
+		eliteMode,
 		otherStores,
 		specialMods,
-		difficulty: number;
+		difficulty,
+		eliteMods
+	}: Props = $props();
 
-	let hiddenGroups = [],
-		enemyCounts = [],
-		relics = [],
-		selectedPermGroups = {},
-		selectedCountIndex = 0,
-		selectedPermutationIdx = 0,
-		randomSeeds = Array.from(Array(50)).map((_) => Math.random()),
-		mode = 'predefined',
-		simMode = 'wave_normal',
-		bonusKey = '',
-		baseCount = 0;
+	let hiddenGroups: string[] = $state([]),
+		selectedPermGroups: PermutationSelection = $state({}),
+		selectedEnemyCount: number | undefined = $state(),
+		selectedPermutationSignature: string | undefined = $state(),
+		randomSeeds = $state(Array.from({ length: 50 }, () => Math.random())),
+		resetGeneration = $state(0),
+		mode = $state('predefined'),
+		bonusKey = $state('');
+	let simMode = $derived(GameConfig.mode);
 
-	$: compiledHiddenGroups = compileHiddenGroups(
-		hiddenGroups,
-		eliteMode,
-		mapConfig,
-		rogueTopic,
-		$specialMods
+	const permutationSignature = (permutation: unknown) => JSON.stringify(permutation);
+	const simulationModes: SimulationMode[] = ['wave_normal', 'wave_summons'];
+	const stageSimulatorPromise = import('./StageSimulator/index.svelte').then(
+		({ default: component }) => component
 	);
-	$: baseCount = getBaseCount(mapConfig, eliteMode);
-	$: options = getOptions(mapConfig, rogueTopic, difficulty, language);
-	$: maxPermutations = eliteMode
-		? mapConfig?.ELITE.max_permutations
-		: mapConfig?.NORMAL.max_permutations;
-	$: permutations = getEnemyCountPermutations(
-		mapConfig,
-		compiledHiddenGroups,
-		eliteMode,
-		bonusKey,
-		baseCount
+
+	let compiledHiddenGroups: string[] = $derived(
+		compileHiddenGroups(hiddenGroups, eliteMode, mapConfig, rogueTopic, $specialMods)
 	);
-	$: enemyCounts = permutations.reduce((acc, { count }) => {
-		if (!acc.includes(count)) {
-			acc.push(count);
-		}
-		return acc;
-	}, []);
-	$: permutationsToShow = permutations.reduce((acc, { count, permutation }) => {
-		if (count === enemyCounts[selectedCountIndex]) {
-			acc.push({ count, permutation });
-		}
-		return acc;
-	}, []);
-	$: if (mapConfig) {
-		selectedCountIndex = 0;
-		selectedPermutationIdx = 0;
-		bonusKey = '';
-		GameConfig.setValue('mode', 'wave_normal');
-	}
-	$: if (selectedCountIndex) {
-		selectedPermutationIdx = 0;
+	let baseCount = $derived(getBaseCount(mapConfig, eliteMode));
+	let options = $derived(getOptions(mapConfig, rogueTopic, difficulty, language));
+	let maxPermutations = $derived(
+		eliteMode ? mapConfig?.ELITE.max_permutations : mapConfig?.NORMAL.max_permutations
+	);
+	let permutations: CountedPermutation[] = $derived(
+		getEnemyCountPermutations(mapConfig, compiledHiddenGroups, eliteMode, bonusKey, baseCount)
+	);
+	let enemyCounts = $derived([...new Set(permutations.map(({ count }) => count))]);
+	let activeEnemyCount = $derived(
+		selectedEnemyCount !== undefined && enemyCounts.includes(selectedEnemyCount)
+			? selectedEnemyCount
+			: enemyCounts[0]
+	);
+	let permutationsToShow = $derived(permutations.filter(({ count }) => count === activeEnemyCount));
+	let activePermutationSignature = $derived(
+		selectedPermutationSignature !== undefined &&
+			permutationsToShow.some(
+				({ permutation }) => permutationSignature(permutation) === selectedPermutationSignature
+			)
+			? selectedPermutationSignature
+			: permutationsToShow[0]
+				? permutationSignature(permutationsToShow[0].permutation)
+				: undefined
+	);
+	let selectedWaveGroups = $derived(
+		mode === 'predefined'
+			? maxPermutations > 32
+				? 'random'
+				: permutationsToShow.find(
+						({ permutation }) => permutationSignature(permutation) === activePermutationSignature
+					)?.permutation
+			: selectedPermGroups
+	);
+	let simulatorScenario = $derived(
+		buildWaveScenario(
+			mapConfig,
+			selectedWaveGroups,
+			compiledHiddenGroups,
+			eliteMode,
+			randomSeeds,
+			bonusKey,
+			resetGeneration
+		)
+	);
+
+	function selectEnemyCount(count: number) {
+		selectedEnemyCount = count;
+		selectedPermutationSignature = undefined;
 	}
 
-	const unsubscribeFns = [];
-	onMount(() => {
-		unsubscribeFns.push(
-			GameConfig.subscribe('mode', (value) => {
-				simMode = value;
-			})
-		);
+	function selectPermutation(permutation: unknown) {
+		selectedPermutationSignature = permutationSignature(permutation);
+	}
+
+	function selectBonusEnemy(key: string) {
+		bonusKey = key;
+		selectedPermutationSignature = undefined;
+	}
+
+	function nameForBonusEnemy(key: string) {
+		return key || 'No bonus enemy';
+	}
+
+	function toggleHiddenGroup(key: string) {
+		hiddenGroups = handleOptionsUpdate(hiddenGroups, key, rogueTopic, difficulty, otherStores);
+		selectedPermutationSignature = undefined;
+	}
+
+	function resetSimulator() {
+		randomSeeds = Array.from({ length: 50 }, () => Math.random());
+		resetGeneration++;
+	}
+
+	$effect(() => {
+		if (mapConfig) {
+			selectedEnemyCount = undefined;
+			selectedPermutationSignature = undefined;
+			bonusKey = '';
+			GameConfig.mode = 'wave_normal';
+		}
 	});
 
 	onDestroy(() => {
-		GameConfig.setValue('mode', 'wave_normal');
-		unsubscribeFns.forEach((fn) => fn());
+		GameConfig.mode = 'wave_normal';
 	});
 </script>
 
 <TogglePanel
 	key={'stageSim'}
-	title={getTranslations(language).enemy_routes + ' v0.3'}
+	title={getTranslations(language).enemy_routes + ' v0.5'}
 	size="subheading"
 	isOpen={defaultOpenStageSim}
 >
@@ -108,13 +169,13 @@
 		{#if mapConfig?.branches}
 			<p class="title {language}">{getTranslations(language).sim_mode}</p>
 			<div class="grid grid-cols-2">
-				{#each ['wave_normal', 'wave_summons'] as key}
+				{#each simulationModes as key}
 					<button
 						class="flex justify-center items-center border-r border-neutral-700 font-semibold text-lg {simMode ===
 						key
 							? 'bg-gray-600'
 							: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
-						on:click={() => GameConfig.setValue('mode', key)}
+						onclick={() => (GameConfig.mode = key)}
 					>
 						{getTranslations(language)[key]}
 					</button>
@@ -124,7 +185,7 @@
 		{#if simMode === 'wave_normal'}
 			{#if mapConfig?.elite_mods}
 				<p class="title {language}">{getTranslations(language).operation_type}</p>
-				<slot name="eliteMods" />
+				{@render eliteMods?.()}
 			{/if}
 			{#if options?.length > 0}
 				<p class="title {language}">{getTranslations(language).hidden_options}</p>
@@ -135,14 +196,8 @@
 							class="flex flex-col items-center justify-center border border-neutral-700 p-1 {selected
 								? 'bg-gray-600'
 								: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
-							on:click={() =>
-								(hiddenGroups = handleOptionsUpdate(
-									hiddenGroups,
-									key,
-									rogueTopic,
-									difficulty,
-									otherStores
-								))}
+							onclick={() => toggleHiddenGroup(key)}
+							aria-pressed={selected}
 						>
 							{#if src}
 								<div class="flex items-center justify-center h-[56px]">
@@ -162,7 +217,7 @@
 						key
 							? 'bg-gray-600'
 							: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
-						on:click={() => (mode = key)}
+						onclick={() => (mode = key)}
 					>
 						{getTranslations(language)[key]}
 					</button>
@@ -170,7 +225,7 @@
 			</div>
 			{#if mode === 'predefined'}
 				{#if maxPermutations > 32 || permutations.length <= 0}
-					<p class="title {language}" />
+					<p class="title {language}"></p>
 					<div class="flex justify-center items-center">
 						{getTranslations(language).max_perm_msg.replace('{perm}', `(${maxPermutations})`)}
 					</div>
@@ -180,15 +235,18 @@
 						<div class="grid grid-flow-col auto-cols-fr">
 							{#each getBonusEnemies(rogueTopic) as key}
 								<button
+									id={`bonus-enemy-${key || 'none'}`}
 									class="flex justify-center items-center border-r border-neutral-700 font-semibold text-xl {bonusKey ===
 									key
 										? 'bg-slate-700'
 										: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
-									on:click={() => (bonusKey = key)}
+									onclick={() => selectBonusEnemy(key)}
+									aria-pressed={bonusKey === key}
+									aria-label={nameForBonusEnemy(key)}
 								>
 									{#if key === ''}
 										<div class="flex items-center justify-center w-[50px] h-[50px]">
-											<div class="w-[46px] h-[46px] border" />
+											<div class="w-[46px] h-[46px] border"></div>
 										</div>
 									{:else}
 										<img src="/images/enemy_icons/{key}.webp" width="55" alt="" />
@@ -199,13 +257,14 @@
 					{/if}
 					<p class="title {language}">{getTranslations(language).enemy_count}</p>
 					<DraggableContainer className="grid grid-flow-col auto-cols-[minmax(100px,1fr)]">
-						{#each enemyCounts as count, i}
+						{#each enemyCounts as count}
 							<button
-								class="flex justify-center items-center border-r border-neutral-700 font-semibold text-xl {selectedCountIndex ===
-								i
+								class="flex justify-center items-center border-r border-neutral-700 font-semibold text-xl {activeEnemyCount ===
+								count
 									? 'bg-gray-600'
 									: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
-								on:click={() => (selectedCountIndex = i)}
+								onclick={() => selectEnemyCount(count)}
+								aria-pressed={activeEnemyCount === count}
 							>
 								{count}
 							</button>
@@ -217,13 +276,15 @@
 								.spacing}{getTranslations(language).permutation}
 						</p>
 						<DraggableContainer className="grid grid-flow-col auto-cols-[minmax(120px,1fr)]">
-							{#each permutationsToShow as _, i}
+							{#each permutationsToShow as { permutation }, i}
+								{@const signature = permutationSignature(permutation)}
 								<button
-									class="flex justify-center items-center border-r border-neutral-700 font-semibold text-xl {selectedPermutationIdx ===
-									i
+									class="flex justify-center items-center border-r border-neutral-700 font-semibold text-xl {activePermutationSignature ===
+									signature
 										? 'bg-neutral-600'
 										: 'brightness-50 sm:hover:brightness-75 sm:hover:bg-gray-500'} "
-									on:click={() => (selectedPermutationIdx = i)}
+									onclick={() => selectPermutation(permutation)}
+									aria-pressed={activePermutationSignature === signature}
 								>
 									{i + 1}
 								</button>
@@ -250,36 +311,14 @@
 			{/if}
 		{/if}
 	</div>
-	{#await import('./StageSimulator/index.svelte').then(({ default: C }) => C) then StageSimulator}
+	{#await stageSimulatorPromise then StageSimulator}
 		<StageSimulator
 			{mapConfig}
-			{enemies}
+			enemies={normalizedEnemies}
+			{persistentStatMods}
 			{language}
-			bind:randomSeeds
-			waveData={parseWaves(
-				mapConfig,
-				mode === 'predefined'
-					? maxPermutations > 32
-						? 'random'
-						: permutationsToShow[selectedPermutationIdx]?.permutation
-					: selectedPermGroups,
-				compiledHiddenGroups,
-				eliteMode,
-				randomSeeds,
-				bonusKey
-			)}
-			timeline={generateWaveTimeline(
-				mapConfig,
-				compiledHiddenGroups,
-				mode === 'predefined'
-					? maxPermutations > 32
-						? 'random'
-						: permutationsToShow[selectedPermutationIdx]?.permutation
-					: selectedPermGroups,
-				eliteMode,
-				randomSeeds,
-				bonusKey
-			)}
+			requestReset={resetSimulator}
+			scenario={simulatorScenario}
 		/>
 	{/await}
 </TogglePanel>

@@ -1,6 +1,7 @@
 import * as THREE from 'three';
-import type { Enemy as EnemyType, MapConfig, Position } from '$lib/types';
-import { GameConfig } from './GameConfig';
+import type { Enemy as EnemyType, MapConfig, Position, StatMods } from '$lib/types';
+import { EMPTY_STAT_MODS } from '$lib/functions/statHelpers';
+import { GameConfig } from './GameConfig.svelte.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { AssetManager } from './AssetManager';
 import { generateMaze } from '$lib/functions/mazeHelpers';
@@ -10,9 +11,15 @@ import { Trap } from './Trap';
 import { SpawnManager } from './SpawnManager';
 import { TileManager } from './TileManager';
 import { CountdownManager } from './ShaderCountdownManager';
-import { clearObjects } from '$lib/functions/threejsHelpers';
-import { Game } from './Game';
+import type { GameWorld } from './GameWorld';
 import { liveStageRuntime, type StageRuntime } from './StageRuntime';
+import { addBlowerTileEffects, removeBlowerTileEffects } from '../functions/airflowHelpers';
+import {
+	calculateAvoidanceForce,
+	correctMovementForObstacle,
+	getBoundedGridPositionKey,
+	getGridPosition
+} from '../functions/gridMovementHelpers';
 
 type MovementRoute = {
 	motionMode?: string;
@@ -26,11 +33,12 @@ export class GameManager {
 	assetManager: AssetManager;
 	scene: THREE.Scene;
 	camera: THREE.OrthographicCamera | null;
-	game: Game;
+	world: GameWorld;
 	config;
 	mazeLayout: number[][];
 	baseMazeLayout: number[][];
 	enemies: EnemyType[];
+	persistentStatMods: StatMods;
 	enemiesOnMap: Enemy[] = [];
 	traps = new Map();
 	pathFinder: SPFA;
@@ -46,14 +54,21 @@ export class GameManager {
 	isSimulation = false;
 	runtime: StageRuntime;
 
-	constructor(config: MapConfig, game: Game, enemies: Enemy[]) {
-		this.runtime = liveStageRuntime;
+	constructor(
+		config: MapConfig,
+		world: GameWorld,
+		enemies: EnemyType[],
+		runtime: StageRuntime = liveStageRuntime,
+		persistentStatMods: StatMods = EMPTY_STAT_MODS
+	) {
+		this.runtime = runtime;
 		this.enemies = enemies;
+		this.persistentStatMods = persistentStatMods;
 		this.config = config;
-		this.game = game;
+		this.world = world;
 		this.assetManager = AssetManager.getInstance();
-		this.scene = game.scene;
-		this.camera = game.camera;
+		this.scene = world.scene;
+		this.camera = world.camera;
 		const mazeLayout = generateMaze(config.mapData.map, config.mapData.tiles);
 		this.mazeLayout = mazeLayout;
 		this.baseMazeLayout = structuredClone(mazeLayout);
@@ -94,31 +109,12 @@ export class GameManager {
 	};
 
 	getGridPosFromVectors(pos: THREE.Vector3) {
-		const gridCols = this.mazeLayout[0].length;
-		const gridRows = this.mazeLayout.length;
-		const gridWorldWidth = gridCols * GameConfig.gridSize;
-		const gridWorldHeight = gridRows * GameConfig.gridSize;
-
-		const originX = -gridWorldWidth / 2;
-		const originY = gridWorldHeight / 2;
-
-		const col = Math.floor((pos.x - originX) / GameConfig.gridSize);
-		const row = Math.floor((originY - pos.y) / GameConfig.gridSize);
-
-		const boundedCol = Math.max(0, Math.min(col, gridCols - 1));
-		const boundedRow = Math.max(0, Math.min(row, gridRows - 1));
-
-		return `${boundedCol},${boundedRow}`;
+		return getBoundedGridPositionKey(pos, this.mazeLayout);
 	}
 
-	getGridPosition = (vector: THREE.Vector3) => {
-		const gridWorldWidth = this.mazeLayout[0].length * GameConfig.gridSize;
-		const gridWorldHeight = this.mazeLayout.length * GameConfig.gridSize;
-		const col = Math.floor((vector.x + gridWorldWidth / 2) / GameConfig.gridSize);
-		const row = Math.floor((gridWorldHeight / 2 - vector.y) / GameConfig.gridSize);
-
-		return [col, row];
-	};
+	getGridPosition(vector: THREE.Vector3) {
+		return getGridPosition(vector, this.mazeLayout);
+	}
 
 	calculateAvoidanceForce(
 		raycastPos: THREE.Vector3,
@@ -126,113 +122,11 @@ export class GameManager {
 		direction: THREE.Vector3,
 		halfBodyWidth = 0.2
 	) {
-		const [centerCol, centerRow] = this.getGridPosition(raycastPos);
-		if (!this.isGridPositionInBounds(centerCol, centerRow)) return new THREE.Vector3();
-
-		const center = this.getGridCenter(centerCol, centerRow);
-		let avoidanceIntermediate: THREE.Vector3;
-		if (this.isAvoidanceObstacle(centerCol, centerRow)) {
-			avoidanceIntermediate = this.findNearestPassableTileVector(centerCol, centerRow);
-		} else {
-			avoidanceIntermediate = new THREE.Vector3();
-			for (let rowOffset = -1; rowOffset <= 1; rowOffset++) {
-				for (let colOffset = -1; colOffset <= 1; colOffset++) {
-					if (colOffset === 0 && rowOffset === 0) continue;
-					const col = centerCol + colOffset;
-					const row = centerRow + rowOffset;
-					if (!this.isGridPositionInBounds(col, row)) continue;
-					if (!this.isAvoidanceObstacle(col, row)) continue;
-
-					// Grid rows increase downward while world-space Y increases upward.
-					const relativeX = colOffset;
-					const relativeY = -rowOffset;
-					const nearestPointX = footpoint.x + relativeX * halfBodyWidth * GameConfig.gridSize;
-					const nearestPointY = footpoint.y;
-					const positiveOffsetX = Math.max(
-						((nearestPointX - center.x) / GameConfig.gridSize) * relativeX,
-						0
-					);
-					const positiveOffsetY = Math.max(
-						((nearestPointY - center.y) / GameConfig.gridSize) * relativeY,
-						0
-					);
-					const effectiveOffsetX = (positiveOffsetX - 0.25) * Math.abs(relativeX);
-					const effectiveOffsetY = (positiveOffsetY - 0.25) * Math.abs(relativeY);
-
-					const isEdgeNeighbor = relativeX === 0 || relativeY === 0;
-					if (isEdgeNeighbor && (effectiveOffsetX > 0 || effectiveOffsetY > 0)) {
-						avoidanceIntermediate.x -= effectiveOffsetX * relativeX;
-						avoidanceIntermediate.y -= effectiveOffsetY * relativeY;
-					} else if (!isEdgeNeighbor && effectiveOffsetX > 0 && effectiveOffsetY > 0) {
-						const averageOffset = (effectiveOffsetX + effectiveOffsetY) / 2;
-						avoidanceIntermediate.x -= averageOffset * relativeX;
-						avoidanceIntermediate.y -= averageOffset * relativeY;
-					}
-				}
-			}
-			if (avoidanceIntermediate.lengthSq() > 0) avoidanceIntermediate.normalize();
-		}
-
-		const normalizedDirection = direction.clone().setZ(0);
-		if (normalizedDirection.lengthSq() === 0) return avoidanceIntermediate;
-		normalizedDirection.normalize();
-		const projection = normalizedDirection.multiplyScalar(
-			avoidanceIntermediate.dot(normalizedDirection)
-		);
-		return avoidanceIntermediate.sub(projection).setZ(0);
+		return calculateAvoidanceForce(this, raycastPos, footpoint, direction, halfBodyWidth);
 	}
 
 	correctMovementForObstacle(entityPosition: THREE.Vector3, displacement: THREE.Vector3) {
-		const [currentCol, currentRow] = this.getGridPosition(entityPosition);
-		const nextPosition = entityPosition.clone().add(displacement);
-		const [nextCol, nextRow] = this.getGridPosition(nextPosition);
-		if (currentCol === nextCol && currentRow === nextRow) return displacement.clone();
-		if (!this.isAvoidanceObstacle(nextCol, nextRow)) return displacement.clone();
-
-		const obstacleDirection = this.getGridCenter(nextCol, nextRow).sub(entityPosition).setZ(0);
-		if (obstacleDirection.lengthSq() === 0) return displacement.clone();
-		obstacleDirection.normalize();
-		const projection = obstacleDirection.multiplyScalar(displacement.dot(obstacleDirection));
-		return displacement.clone().sub(projection.multiplyScalar(2)).setZ(0);
-	}
-
-	private isGridPositionInBounds(col: number, row: number) {
-		return row >= 0 && col >= 0 && row < this.mazeLayout.length && col < this.mazeLayout[0].length;
-	}
-
-	private isAvoidanceObstacle(col: number, row: number) {
-		if (!this.isGridPositionInBounds(col, row)) return false;
-		const weight = this.mazeLayout[row][col];
-		if (weight === Number.POSITIVE_INFINITY) return true;
-		if (weight === 1000) return false;
-		return Boolean(this.traps.get(`${col},${row}`)?.isRoadblock);
-	}
-
-	private getGridCenter(col: number, row: number) {
-		const { x, y } = this.getVectorCoordinates({ col, row }, null);
-		return new THREE.Vector3(x, y, GameConfig.baseZIndex);
-	}
-
-	private findNearestPassableTileVector(centerCol: number, centerRow: number) {
-		const directions = [
-			[0, -1],
-			[1, -1],
-			[1, 0],
-			[1, 1],
-			[0, 1],
-			[-1, 1],
-			[-1, 0],
-			[-1, -1]
-		].sort((a, b) => Math.hypot(a[0], a[1]) - Math.hypot(b[0], b[1]));
-
-		for (const [colOffset, rowOffset] of directions) {
-			const col = centerCol + colOffset;
-			const row = centerRow + rowOffset;
-			if (!this.isGridPositionInBounds(col, row)) continue;
-			if (this.isAvoidanceObstacle(col, row)) continue;
-			return new THREE.Vector3(colOffset, -rowOffset, 0);
-		}
-		return new THREE.Vector3();
+		return correctMovementForObstacle(this, entityPosition, displacement);
 	}
 
 	convertMovementConfig = (route) => {
@@ -374,18 +268,19 @@ export class GameManager {
 		const tile = this.tiles.get(key);
 		return Boolean(
 			tile &&
-				tile.buildableType != 0 &&
-				tile.heightType !== 1 &&
-				!this.traps.has(key) &&
-				!this.isRouteEndPosition(pos) &&
-				!this.isEnemyOnTile(pos) &&
-				this.areRoutesReachableWithRoadblock(pos)
+			tile.buildableType != 0 &&
+			tile.heightType !== 1 &&
+			!this.traps.has(key) &&
+			!this.isRouteEndPosition(pos) &&
+			!this.isEnemyOnTile(pos) &&
+			this.areRoutesReachableWithRoadblock(pos)
 		);
 	}
 
 	removeTrap(trap: Trap) {
 		const key = `${trap.position.col},${trap.position.row}`;
 		if (this.traps.get(key) === trap) this.traps.delete(key);
+		removeBlowerTileEffects(this.tiles, trap);
 		if (trap.isRoadblock && trap.roadblockApplied) {
 			trap.roadblockApplied = false;
 			const value = trap.roadblockPreviousValue;
@@ -431,13 +326,13 @@ export class GameManager {
 		const plane = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ visible: false }));
 		plane.userData.name = 'plane';
 		this.addToScene(plane);
-		this.game.objects.push(plane);
-		this.game.placementPlane = plane;
+		this.world.objects.push(plane);
+		this.world.placementPlane = plane;
 	}
 	initRollOverMeshes() {
 		this.rollOverMeshes.clear();
-		if (GameConfig.tokenCard) {
-			const key = GameConfig.tokenCard.key;
+		if (this.runtime.tokenCard) {
+			const key = this.runtime.tokenCard.key;
 			const position = { row: 0, col: 0 };
 			const trap = new Trap({ key, direction: 'UP', position }, position, false, null, this);
 			this.rollOverMeshes.set(key, trap);
@@ -449,7 +344,7 @@ export class GameManager {
 	}
 
 	initTraps(traps) {
-		const predefineChanges = GameConfig.eliteMode && this.config.elite_runes?.predefine_changes;
+		const predefineChanges = this.runtime.eliteMode && this.config.elite_runes?.predefine_changes;
 		const trapList = structuredClone(traps);
 		if (predefineChanges) {
 			for (const [key, value] of predefineChanges) {
@@ -465,7 +360,7 @@ export class GameManager {
 		}
 	}
 
-	addTrap(data, actionKey = null, posType = 'game') {
+	addTrap(data: any, actionKey: string | null = null, posType = 'game') {
 		if (!data) {
 			data = this.config.traps.find((ele) => ele.alias === actionKey || ele.key === actionKey);
 		}
@@ -480,14 +375,16 @@ export class GameManager {
 			const trapRandomTiles = predefineRandomSpawn[actionKey] || predefineRandomSpawn[data.key];
 			if (trapRandomTiles) {
 				// list of tile keys ["tile_dygmny_2"]
-				const selectedTile = trapRandomTiles[Math.floor(Math.random() * trapRandomTiles.length)];
+				const selectedTile =
+					trapRandomTiles[Math.floor(this.runtime.random() * trapRandomTiles.length)];
 				const tileData = predefineRandomSpawn?.tiles?.[selectedTile];
 				if (tileData) {
 					const availableTiles = tileData.filter((tile) => {
 						const worldPos = this.gameToWorldPos(tile.pos);
 						return !this.traps.get(`${worldPos.col},${worldPos.row}`);
 					});
-					const selectedPos = availableTiles[Math.floor(Math.random() * availableTiles.length)];
+					const selectedPos =
+						availableTiles[Math.floor(this.runtime.random() * availableTiles.length)];
 					if (selectedPos) {
 						dataPos = selectedPos.pos;
 						blackboard = selectedPos.blackboard;
@@ -516,6 +413,7 @@ export class GameManager {
 			z = 40;
 		}
 		this.traps.set(`${pos.col},${pos.row}`, trap);
+		addBlowerTileEffects(this.tiles, trap);
 		if (trap.isRoadblock) {
 			trap.roadblockPreviousValue = this.mazeLayout[pos.row][pos.col];
 			trap.roadblockApplied = true;
@@ -536,7 +434,7 @@ export class GameManager {
 		this.spawnManager.reset();
 		this.clearEnemies();
 		this.clearTraps();
-		GameConfig.setValue('waveElapsedTime', 0);
+		this.runtime.waveElapsedTime = 0;
 		this.spawnManager.addBranch(key, structuredClone(this.config.branches[key]), index);
 	}
 
@@ -570,9 +468,10 @@ export class GameManager {
 		this.roadblockReachabilityCache.clear();
 	}
 
-	reset(config, enemies) {
+	reset(config, enemies, persistentStatMods: StatMods = EMPTY_STAT_MODS) {
 		this.clearSceneObjects();
 		this.enemies = enemies;
+		this.persistentStatMods = persistentStatMods;
 		this.config = config;
 		const mazeLayout = generateMaze(config.mapData.map, config.mapData.tiles);
 		this.mazeLayout = mazeLayout;
@@ -656,6 +555,42 @@ export class GameManager {
 		}
 	}
 
+	syncUserRoadblocks(
+		roadblocks: Array<{
+			key: string;
+			position: Position;
+			placementId: string | null;
+		}>
+	) {
+		const desiredByPlacement = new Map(
+			roadblocks.map((roadblock) => [roadblock.placementId, roadblock])
+		);
+
+		for (const trap of [...this.traps.values()]) {
+			if (!trap.isRoadblock || !trap.userPlacementId) continue;
+			const desired = desiredByPlacement.get(trap.userPlacementId);
+			if (
+				desired &&
+				desired.key === trap.key &&
+				desired.position.row === trap.position.row &&
+				desired.position.col === trap.position.col
+			) {
+				desiredByPlacement.delete(trap.userPlacementId);
+				continue;
+			}
+			trap.remove();
+		}
+
+		for (const roadblock of desiredByPlacement.values()) {
+			const trap = this.addTrap(
+				{ key: roadblock.key, direction: 'UP', pos: roadblock.position },
+				null,
+				'snapshot'
+			);
+			if (trap) trap.userPlacementId = roadblock.placementId;
+		}
+	}
+
 	applyObstacleEvent(event: {
 		action: 'place' | 'remove';
 		position: Position;
@@ -679,24 +614,24 @@ export class GameManager {
 		const trap = event.placementId
 			? [...this.traps.values()].find(
 					(candidate) => candidate.userPlacementId === event.placementId
-			  )
+				)
 			: this.traps.get(positionKey);
 		if (trap?.isRoadblock && trap.key === event.trapKey) trap.remove();
 	}
 
 	update(delta: number) {
 		this.countdownManager.update(delta);
-		if (GameConfig.tokenCooldownRemaining > 0) {
-			GameConfig.setValue(
-				'tokenCooldownRemaining',
-				Math.max(0, GameConfig.tokenCooldownRemaining - delta)
+		if (this.runtime.tokenCooldownRemaining > 0) {
+			this.runtime.tokenCooldownRemaining = Math.max(
+				0,
+				this.runtime.tokenCooldownRemaining - delta
 			);
 		}
-		this.traps.forEach((trap, pos) => {
+		this.traps.forEach((trap) => {
 			trap.update(delta);
 		});
 
-		GameConfig.setValue('scaledElapsedTime', GameConfig.scaledElapsedTime + delta);
+		this.runtime.scaledElapsedTime += delta;
 		this.noWaveBlockingSpawns =
 			this.enemiesOnMap.filter((enemy) => !enemy.dontBlockWave).length === 0;
 		this.noEnemyAlive = this.enemiesOnMap.filter((enemy) => !enemy.notCountInTotal).length === 0;

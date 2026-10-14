@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { expect, test, vi } from 'vitest';
 import { GameManager } from '$lib/components/StageSimulator/objects/GameManager';
-import { GameConfig } from '$lib/components/StageSimulator/objects/GameConfig';
+import { GameConfig } from '$lib/components/StageSimulator/objects/GameConfig.svelte.js';
 import { Enemy } from '$lib/components/StageSimulator/objects/Enemy';
 
 function createGameManager(mazeLayout: number[][]) {
@@ -189,6 +189,21 @@ test('ground movement applies steering acceleration and stores the result as ine
 	const velocity = enemy.calculateMovementVelocity(new THREE.Vector3(1, 0, 0), 1);
 
 	expect(velocity.x).toBeCloseTo(8 / 30);
+	expect(enemy.inertia.toArray()).toEqual(velocity.toArray());
+});
+
+test('steering retains momentum when a temporary speed buff expires', () => {
+	const enemy = Object.create(Enemy.prototype) as any;
+	Object.assign(enemy, {
+		inertia: new THREE.Vector3(3, 0, 0),
+		motionMode: 'WALK',
+		getAvoidanceForce: () => new THREE.Vector3()
+	});
+	GameConfig.steeringEnabled = true;
+
+	const velocity = enemy.calculateMovementVelocity(new THREE.Vector3(1, 0, 0), 1);
+
+	expect(velocity.toArray()).toEqual([3, 0, 0]);
 	expect(enemy.inertia.toArray()).toEqual(velocity.toArray());
 });
 

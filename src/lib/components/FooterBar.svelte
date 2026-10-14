@@ -2,14 +2,35 @@
 	import { getTranslations } from '$lib/functions/languageHelpers';
 	import type { Language, RogueTopic } from '$lib/types';
 	import relicIcon from '$lib/images/is/relic.png';
+	import settingsIcon from '$lib/images/is/settings.svg';
 	import RelicsOverlay from './RelicsOverlay.svelte';
+	import DiffHexagon from './DiffHexagon.svelte';
 	import Icon from './Icon.svelte';
 	import { relicLookup } from '$lib/data/is/relic_lookup';
-	export let language: Language,
-		rogueTopic: RogueTopic,
+	interface Props {
+		language: Language;
+		rogueTopic: RogueTopic;
+		selectedRelics: any;
+		selectedUniqueRelic?: any;
+		uniqueRelics?: import('svelte').Snippet;
+		banner?: import('svelte').Snippet;
+		onSettingsClick?: (trigger: HTMLButtonElement) => void;
+		difficulty?: number;
+	}
+
+	let {
+		language,
+		rogueTopic,
 		selectedRelics,
-		selectedUniqueRelic = null;
-	let openOverlay = false;
+		selectedUniqueRelic = null,
+		uniqueRelics,
+		banner,
+		onSettingsClick,
+		difficulty
+	}: Props = $props();
+	let openOverlay = $state(false);
+
+	const uniqueRelics_render = $derived(uniqueRelics);
 </script>
 
 <div class="footerBar fixed overflow-hidden bottom-0 w-full select-none z-10">
@@ -19,23 +40,49 @@
 		{rogueTopic}
 		{selectedRelics}
 		{selectedUniqueRelic}
-		on:close={() => (openOverlay = !openOverlay)}
+		onclose={() => (openOverlay = !openOverlay)}
 	>
-		<slot name="uniqueRelics" slot="uniqueRelics" />
+		{#snippet uniqueRelics()}
+			{@render uniqueRelics_render?.()}
+		{/snippet}
 	</RelicsOverlay>
 	<div class="shadow-2xl shadow-gray-400 bg-neutral-900 w-full mt-4 fixed bottom-0 py-2">
 		<div class="max-w-7xl mx-auto px-2 md:px-4">
 			<div class="relative flex items-center h-16">
-				<slot name="banner" />
-				<!-- svelte-ignore a11y-click-events-have-key-events -->
+				{@render banner?.()}
+				{#if onSettingsClick}
+					<button
+						id="settings-toggle"
+						type="button"
+						aria-haspopup="dialog"
+						aria-label={getTranslations(language).settings}
+						title={getTranslations(language).settings}
+						class="relative mr-2 h-14 w-14 shrink-0 hover:brightness-125"
+						onclick={(event) => onSettingsClick(event.currentTarget)}
+					>
+						<img src={settingsIcon} alt="" aria-hidden="true" />
+						{#if difficulty !== undefined}
+							<span class="absolute -bottom-1 -left-1 h-8 w-8" aria-hidden="true">
+								<DiffHexagon {difficulty} />
+							</span>
+						{/if}
+					</button>
+				{/if}
 				<div
-					class={`flex items-center py-[2px] bg-gradient-to-r from-[#333333] via-neutral-900 to-neutral-900 relative hover:cursor-pointer`}
-					on:click={() => (openOverlay = !openOverlay)}
+					role="button"
+					tabindex="0"
+					class={`group flex items-center py-[2px] bg-gradient-to-r from-[#333333] via-neutral-900 to-neutral-900 relative hover:cursor-pointer`}
+					onclick={() => (openOverlay = !openOverlay)}
+					onkeydown={(event) => {
+						if (event.key === 'Enter' || event.key === ' ') openOverlay = !openOverlay;
+					}}
 				>
-					<div class="flex items-center px-[6px] py-1 relative bg-[#313131]">
+					<div
+						class="shrink-0 flex items-center px-[6px] py-1 relative bg-[#313131] group-hover:brightness-125"
+					>
 						{#if openOverlay}
 							<div
-								class="absolute flex flex-col inset-0 bg-[#212121] bg-opacity-70 text-center justify-center"
+								class="absolute flex flex-col inset-0 bg-[#212121]/70 text-center justify-center"
 							>
 								<Icon name="down-arrow" className="w-6 h-6 mx-auto" />
 								<p class="font-medium text-near-white">
@@ -52,8 +99,8 @@
 							{#if Boolean(selectedUniqueRelic) && Boolean($selectedUniqueRelic)}
 								<div class="relative flex items-center">
 									<div
-										class="absolute rounded-full border-[3px] border-neutral-600 border-opacity-80 left-[50%] w-[44px] h-[44px] -translate-x-[50%]"
-									/>
+										class="absolute rounded-full border-[3px] border-neutral-600/80 left-[50%] w-[44px] h-[44px] -translate-x-[50%]"
+									></div>
 									<div class="flex items-center text-center w-14 z-[1]">
 										<img
 											src="/images/relics/{$selectedUniqueRelic.id}.webp"
@@ -68,8 +115,8 @@
 							{#each $selectedRelics as relic}
 								<div class="relative flex items-center">
 									<div
-										class="absolute rounded-full border-[3px] border-neutral-600 border-opacity-80 left-[50%] w-[44px] h-[44px] -translate-x-[50%]"
-									/>
+										class="absolute rounded-full border-[3px] border-neutral-600/80 left-[50%] w-[44px] h-[44px] -translate-x-[50%]"
+									></div>
 									<div class="flex items-center text-center w-14 z-[1] h-14">
 										<img
 											src="/images/relics/{relicLookup?.[relic.id] ?? relic.id}.webp"
