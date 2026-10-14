@@ -146,43 +146,50 @@ describe('trap_013_blower airflow', () => {
 		expect(activeModifiers.size).toBe(0);
 	});
 
-	it('shows airflow beside the acceleration movement-speed icon', () => {
-		const accelerationIcon = new THREE.Sprite();
-		const airflowIcon = new THREE.Sprite();
+	it('shows separate movement-speed buff and debuff icons and centers either alone', () => {
+		const buffIcon = new THREE.Sprite();
+		const debuffIcon = new THREE.Sprite();
 		const stackIcon = new THREE.Sprite();
-		let airflowActive = true;
+		let buffActive = true;
+		let debuffActive = true;
 		const enemy = Object.create(Enemy.prototype) as any;
 		Object.assign(enemy, {
-			movementSpeedBuffIcon: accelerationIcon,
-			airflowMovementSpeedBuffIcon: airflowIcon,
+			movementSpeedBuffIcon: buffIcon,
+			movementSpeedDebuffIcon: debuffIcon,
 			movementSpeedBuffStackIcon: stackIcon,
 			movementSpeedBuffStackCanvas: null,
 			movementSpeedBuffStackTexture: null,
 			displayedAccelerationStacks: -1,
 			stats: {
-				hasRuntimeStatIncrease: () => true,
-				getRuntimeModifierStacks: () => 3,
-				getModifierHandlesBySourcePrefix: () =>
-					airflowActive
-						? [
-								{
-									handle: 'airflow',
-									source: 'trap:airflow:trap_013_blower#1:downstream'
-								}
-							]
-						: []
+				hasRuntimeStatIncrease: () => buffActive,
+				hasRuntimeStatDecrease: () => debuffActive,
+				getRuntimeModifierStacks: () => (buffActive ? 3 : 0)
 			}
 		});
 
 		enemy.syncMovementSpeedBuffIcon();
-		expect(accelerationIcon.visible).toBe(true);
-		expect(airflowIcon.visible).toBe(true);
-		expect(accelerationIcon.position.x).toBeLessThan(airflowIcon.position.x);
-		expect(stackIcon.position.x).toBeGreaterThan(accelerationIcon.position.x);
+		expect(buffIcon.visible).toBe(true);
+		expect(debuffIcon.visible).toBe(true);
+		expect(buffIcon.position.x).toBeLessThan(debuffIcon.position.x);
+		expect(stackIcon.visible).toBe(true);
+		expect(stackIcon.position.x).toBeGreaterThan(buffIcon.position.x);
 
-		airflowActive = false;
+		debuffActive = false;
 		enemy.syncMovementSpeedBuffIcon();
-		expect(airflowIcon.visible).toBe(false);
-		expect(accelerationIcon.position.x).toBe(0);
+		expect(debuffIcon.visible).toBe(false);
+		expect(buffIcon.position.x).toBe(0);
+
+		buffActive = false;
+		debuffActive = true;
+		enemy.syncMovementSpeedBuffIcon();
+		expect(buffIcon.visible).toBe(false);
+		expect(debuffIcon.visible).toBe(true);
+		expect(debuffIcon.position.x).toBe(0);
+		expect(stackIcon.visible).toBe(false);
+
+		debuffActive = false;
+		enemy.syncMovementSpeedBuffIcon();
+		expect(buffIcon.visible).toBe(false);
+		expect(debuffIcon.visible).toBe(false);
 	});
 });

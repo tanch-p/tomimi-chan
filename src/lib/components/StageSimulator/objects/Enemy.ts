@@ -97,7 +97,7 @@ export class Enemy {
 	darkness = 1;
 	sprite: THREE.Sprite;
 	movementSpeedBuffIcon: THREE.Sprite | null = null;
-	airflowMovementSpeedBuffIcon: THREE.Sprite | null = null;
+	movementSpeedDebuffIcon: THREE.Sprite | null = null;
 	movementSpeedBuffStackIcon: THREE.Sprite | null = null;
 	movementSpeedBuffStackTexture: THREE.CanvasTexture | null = null;
 	movementSpeedBuffStackCanvas: HTMLCanvasElement | null = null;
@@ -649,13 +649,16 @@ export class Enemy {
 		this.movementSpeedBuffIcon = icon;
 		this.meshGroup.add(icon);
 
-		const airflowIcon = new THREE.Sprite(material.clone());
-		airflowIcon.scale.copy(icon.scale);
-		airflowIcon.position.copy(icon.position);
-		airflowIcon.renderOrder = icon.renderOrder;
-		airflowIcon.visible = false;
-		this.airflowMovementSpeedBuffIcon = airflowIcon;
-		this.meshGroup.add(airflowIcon);
+		const debuffMaterial = material.clone();
+		debuffMaterial.map =
+			this.assetManager.textures.get('enemy_movespeed_debuff')?.texture ?? texture;
+		const debuffIcon = new THREE.Sprite(debuffMaterial);
+		debuffIcon.scale.copy(icon.scale);
+		debuffIcon.position.copy(icon.position);
+		debuffIcon.renderOrder = icon.renderOrder;
+		debuffIcon.visible = false;
+		this.movementSpeedDebuffIcon = debuffIcon;
+		this.meshGroup.add(debuffIcon);
 
 		this.initMovementSpeedBuffStackIcon(
 			icon,
@@ -781,17 +784,15 @@ export class Enemy {
 	private syncMovementSpeedBuffIcon() {
 		if (!this.movementSpeedBuffIcon) return;
 		const hasMovementSpeedBuff = this.stats.hasRuntimeStatIncrease('ms');
+		const hasMovementSpeedDebuff = this.stats.hasRuntimeStatDecrease('ms');
 		const accelerationStacks = this.stats.getRuntimeModifierStacks(ACCELERATION_MODIFIER_SOURCE);
-		const hasAirflowBuff = this.stats
-			.getModifierHandlesBySourcePrefix(AIRFLOW_MODIFIER_SOURCE_PREFIX)
-			.some((modifier) => modifier.source.endsWith(':downstream'));
-		const showSeparateAirflowIcon = hasAirflowBuff && accelerationStacks > 0;
+		const showBothIcons = hasMovementSpeedBuff && hasMovementSpeedDebuff;
 		this.movementSpeedBuffIcon.visible = hasMovementSpeedBuff;
-		if (this.airflowMovementSpeedBuffIcon) {
-			this.airflowMovementSpeedBuffIcon.visible = showSeparateAirflowIcon;
+		if (this.movementSpeedDebuffIcon) {
+			this.movementSpeedDebuffIcon.visible = hasMovementSpeedDebuff;
 			const iconOffset = (movementSpeedBuffIconWidth + movementSpeedBuffIconGap) * 0.5;
-			this.movementSpeedBuffIcon.position.x = showSeparateAirflowIcon ? -iconOffset : 0;
-			this.airflowMovementSpeedBuffIcon.position.x = showSeparateAirflowIcon ? iconOffset : 0;
+			this.movementSpeedBuffIcon.position.x = showBothIcons ? -iconOffset : 0;
+			this.movementSpeedDebuffIcon.position.x = showBothIcons ? iconOffset : 0;
 		}
 		if (this.movementSpeedBuffStackIcon) {
 			this.movementSpeedBuffStackIcon.visible = hasMovementSpeedBuff && accelerationStacks > 0;

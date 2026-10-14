@@ -238,22 +238,32 @@ describe('EnemyStats', () => {
 		expect(stats.get('ms')).toBe(2.6);
 	});
 
-	it('identifies active runtime movement-speed buffs independently of debuffs', () => {
+	it('identifies active runtime movement-speed buffs and debuffs independently', () => {
 		const stats = new EnemyStats(enemy, persistentModifiers);
 		expect(stats.hasRuntimeStatIncrease('ms')).toBe(false);
+		expect(stats.hasRuntimeStatDecrease('ms')).toBe(false);
 
 		const buffHandle = stats.addModifier({
 			source: 'blower-buff',
 			mods: [AIRFLOW_MODIFIERS.downstream]
 		});
 		expect(stats.hasRuntimeStatIncrease('ms')).toBe(true);
+		expect(stats.hasRuntimeStatDecrease('ms')).toBe(false);
 
-		stats.addModifier({ source: 'blower-debuff', mods: [AIRFLOW_MODIFIERS.upstream] });
+		const debuffHandle = stats.addModifier({
+			source: 'blower-debuff',
+			mods: [AIRFLOW_MODIFIERS.upstream]
+		});
 		expect(stats.get('ms')).toBe(1.8);
 		expect(stats.hasRuntimeStatIncrease('ms')).toBe(true);
+		expect(stats.hasRuntimeStatDecrease('ms')).toBe(true);
 
 		stats.removeModifier(buffHandle);
 		expect(stats.hasRuntimeStatIncrease('ms')).toBe(false);
+		expect(stats.hasRuntimeStatDecrease('ms')).toBe(true);
+
+		stats.removeModifier(debuffHandle);
+		expect(stats.hasRuntimeStatDecrease('ms')).toBe(false);
 	});
 
 	it('updates current HP through the percentage-preserving change callback', () => {

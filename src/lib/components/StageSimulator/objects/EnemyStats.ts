@@ -99,6 +99,19 @@ export class EnemyStats {
 		return false;
 	}
 
+	hasRuntimeStatDecrease(key: keyof EnemyFormStats) {
+		const currentValue = this.currentStats[key];
+		if (typeof currentValue !== 'number') return false;
+		for (const modifier of this.runtimeModifiers.values()) {
+			if (!modifier.mods.some((mod) => mod.key === key)) continue;
+			const valueWithoutModifier = this.calculate(this.formIndex, modifier.handle)[key];
+			if (typeof valueWithoutModifier === 'number' && currentValue < valueWithoutModifier) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	addModifier(input: RuntimeStatModifierInput) {
 		const maxStacks = Math.max(1, Math.floor(input.maxStacks ?? Number.MAX_SAFE_INTEGER));
 		const stacks = Math.max(0, Math.min(maxStacks, Math.floor(input.stacks ?? 1)));
