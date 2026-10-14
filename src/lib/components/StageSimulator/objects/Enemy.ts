@@ -27,8 +27,7 @@ import {
 const moveMultiplier = 0.5;
 const animatedPathCountdownFadeDuration = 4;
 const movementFrameInterval = 1 / 30;
-const movementSpeedBuffIconWidth = 24;
-const movementSpeedBuffIconHeight = movementSpeedBuffIconWidth * (42 / 34);
+const movementSpeedBuffIconWidth = 32;
 const movementSpeedBuffIconGap = 4;
 const facingPositionEpsilon = 1e-6;
 export class Enemy {
@@ -632,6 +631,8 @@ export class Enemy {
 		const texture = this.assetManager.textures.get('enemy_movespeed_buff')?.texture;
 		if (!texture) return;
 
+		const image = texture.image as HTMLImageElement;
+		const movementSpeedBuffIconHeight = movementSpeedBuffIconWidth * (image.height / image.width);
 		const material = new THREE.SpriteMaterial({
 			map: texture,
 			transparent: true,
@@ -649,9 +650,10 @@ export class Enemy {
 		this.movementSpeedBuffIcon = icon;
 		this.meshGroup.add(icon);
 
-		const debuffMaterial = material.clone();
-		debuffMaterial.map =
+		const debuffTexture =
 			this.assetManager.textures.get('enemy_movespeed_debuff')?.texture ?? texture;
+		const debuffMaterial = material.clone();
+		debuffMaterial.map = debuffTexture;
 		const debuffIcon = new THREE.Sprite(debuffMaterial);
 		debuffIcon.scale.copy(icon.scale);
 		debuffIcon.position.copy(icon.position);

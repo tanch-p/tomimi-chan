@@ -3,6 +3,8 @@ import * as spine from '$lib/spine';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { getTrapModelType } from '$lib/functions/trapHelpers';
+import movementSpeedBuffUrl from '$lib/images/battlecommon/enemy_movespeed_buff.webp';
+import movementSpeedDebuffUrl from '$lib/images/battlecommon/enemy_movespeed_debuff.webp';
 
 const ENEMY_KEYS_TO_IGNORE = [
 	'enemy_2047_smtree',
@@ -441,21 +443,19 @@ export class AssetManager {
 					);
 				}).then((font) => (this.font = font))
 			);
-			promises.push(
-				new Promise<THREE.Texture>((resolve, reject) => {
-					this.textureLoader.load(
-						'/images/recalrune/r_enemy_movespeed_2.webp',
-						(texture) => resolve(texture),
-						undefined,
-						(error) => reject(error)
-					);
-				}).then((texture: THREE.Texture) => {
-					texture.colorSpace = THREE.SRGBColorSpace;
-					texture.magFilter = THREE.NearestFilter;
-					texture.minFilter = THREE.NearestFilter;
-					this.textures.set('enemy_movespeed_buff', { texture, config: null });
-				})
-			);
+			for (const [key, url] of [
+				['enemy_movespeed_buff', movementSpeedBuffUrl],
+				['enemy_movespeed_debuff', movementSpeedDebuffUrl]
+			]) {
+				promises.push(
+					this.textureLoader.loadAsync(url).then((texture) => {
+						texture.colorSpace = THREE.SRGBColorSpace;
+						texture.magFilter = THREE.NearestFilter;
+						texture.minFilter = THREE.NearestFilter;
+						this.textures.set(key, { texture, config: null });
+					})
+				);
+			}
 			for (const { fileName, options, textures } of texturesToLoad) {
 				promises.push(
 					new Promise((resolve, reject) => {
