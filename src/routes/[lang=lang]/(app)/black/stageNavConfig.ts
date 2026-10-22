@@ -13,7 +13,7 @@ export const normalStageGroups: readonly StageGroup[] = [
 		backgroundClass: 'bg-[#5d6652]',
 		rows: [
 			['level_rogue6_2-1', 'level_rogue6_2-2', 'level_rogue6_2-3', 'level_rogue6_2-4'],
-			['level_rogue6_2-5']
+			['level_rogue6_2-5', 'level_rogue6_2-6']
 		]
 	},
 	{
@@ -21,7 +21,7 @@ export const normalStageGroups: readonly StageGroup[] = [
 		backgroundClass: 'bg-[#586b4a]',
 		rows: [
 			['level_rogue6_3-1', 'level_rogue6_3-2', 'level_rogue6_3-3', 'level_rogue6_3-4'],
-			['level_rogue6_3-5', 'level_rogue6_3-6']
+			['level_rogue6_3-5', 'level_rogue6_3-6', 'level_rogue6_3-7']
 		]
 	},
 	{
@@ -29,7 +29,8 @@ export const normalStageGroups: readonly StageGroup[] = [
 		backgroundClass: 'bg-[#526985]',
 		rows: [
 			['level_rogue6_4-1', 'level_rogue6_4-2', 'level_rogue6_4-3', 'level_rogue6_4-4'],
-			['level_rogue6_4-5', 'level_rogue6_4-6', 'level_rogue6_4-7']
+			['level_rogue6_4-5', 'level_rogue6_4-6', 'level_rogue6_4-7'],
+			['level_rogue6_4-8', 'level_rogue6_4-9']
 		]
 	},
 	{
@@ -37,7 +38,8 @@ export const normalStageGroups: readonly StageGroup[] = [
 		backgroundClass: 'bg-[#355f5a]',
 		rows: [
 			['level_rogue6_5-1', 'level_rogue6_5-2', 'level_rogue6_5-3', 'level_rogue6_5-4'],
-			['level_rogue6_5-5', 'level_rogue6_5-6', 'level_rogue6_5-7']
+			['level_rogue6_5-5', 'level_rogue6_5-6', 'level_rogue6_5-7'],
+			['level_rogue6_5-8', 'level_rogue6_5-9']
 		]
 	},
 	{
@@ -49,6 +51,11 @@ export const normalStageGroups: readonly StageGroup[] = [
 		label: '?',
 		backgroundClass: 'bg-[#191c1d]',
 		rows: [['level_rogue6_t-12']]
+	},
+	{
+		label: 6,
+		backgroundClass: 'bg-[#8C551C]',
+		rows: [['level_rogue6_7-1', 'level_rogue6_7-2']]
 	}
 ];
 
@@ -64,16 +71,16 @@ export const bossStageGroups: readonly StageGroup[] = [
 		label: 5,
 		rows: [
 			['level_rogue6_b-4', 'level_rogue6_b-5'],
-			['level_rogue6_b-4-b', '']
+			['level_rogue6_b-4-b', 'level_rogue6_b-5-b']
 		]
 	},
-	{ label: 6, rows: [['level_rogue6_b-6']] }
+	{ label: 6, rows: [['level_rogue6_b-6', 'level_rogue6_b-7']] }
 ];
 
 export const encounterRows = [
 	['level_rogue6_t-1', 'level_rogue6_t-2', 'level_rogue6_t-3', 'level_rogue6_t-4'],
-	['level_rogue6_c-5', 'level_rogue6_c-6', 'level_rogue6_c-7'],
-	['level_rogue6_t-5']
+	['level_rogue6_c-5', 'level_rogue6_c-6', 'level_rogue6_c-7', 'level_rogue6_c-9'],
+	['level_rogue6_t-5', 'level_rogue6_s-1']
 ] as const;
 
 export const shopRows = [['level_rogue6_t-6', 'level_rogue6_t-7']] as const;
@@ -87,10 +94,10 @@ export const chaseStageGroups: readonly StageGroup[] = [
 	},
 	{
 		label: 2,
-		rows: [['level_rogue6_c-2', 'level_rogue6_c-3', 'level_rogue6_c-4']]
+		rows: [['level_rogue6_c-2', 'level_rogue6_c-3', 'level_rogue6_c-4', 'level_rogue6_c-8']]
 	},
 	{
 		label: 4,
-		rows: [['level_rogue6_c-5', 'level_rogue6_c-6', 'level_rogue6_c-7']]
+		rows: [['level_rogue6_c-5', 'level_rogue6_c-6', 'level_rogue6_c-7', 'level_rogue6_c-9']]
 	}
 ];

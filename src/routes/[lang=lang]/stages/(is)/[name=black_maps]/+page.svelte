@@ -59,7 +59,7 @@
 			synchronising = false;
 		}, 300);
 
-		if (initialState.diff !== undefined && initialState.diff <= 15) {
+		if (initialState.diff !== undefined && initialState.diff <= 16) {
 			difficulty.set(initialState.diff);
 		}
 
@@ -126,25 +126,34 @@
 	});
 
 	let rogueTopic: RogueTopic = $derived(data.rogueTopic);
-	let configIndex = $state(0);
-	let previousStageId = $state();
-
-	$effect(() => {
-		if (data.stageData.id !== previousStageId) {
-			previousStageId = data.stageData.id;
-			configIndex = 0;
-		}
-	});
-	$effect(() => {
-		if (configIndex >= data.stages.length) {
-			configIndex = 0;
-		}
+	let configIndex = $derived.by(() => {
+		// Reset synchronously when the stage changes; variant buttons can override this value.
+		void data.stageData.id;
+		return 0;
 	});
 	let selectedStage = $derived(data.stages[configIndex]);
 	let mapConfig = $derived(selectedStage.mapConfig);
 	let enemies = $derived(selectedStage.enemies);
 	let traps = $derived(selectedStage.traps);
 	let language = $derived(data.language);
+	$effect(() => {
+		if (
+			mapConfig?.levelId === 'level_rogue6_s-1' &&
+			!$selectedRelics.some(
+				(relic) => relic.id === 'rogue_6_relic_final_9' || relic.id === 'rogue_6_relic_final_7'
+			)
+		) {
+			const defaultRelic = blackRelics.find((relic) => relic.id === 'rogue_6_relic_final_7');
+			if (defaultRelic) selectedRelics.set([...$selectedRelics, defaultRelic]);
+		}
+		if (
+			mapConfig?.levelId === 'level_rogue6_b-6' &&
+			!$selectedRelics.some((relic) => relic.id === 'rogue_6_relic_final_3')
+		) {
+			const defaultRelic = blackRelics.find((relic) => relic.id === 'rogue_6_relic_final_3');
+			if (defaultRelic) selectedRelics.set([...$selectedRelics, defaultRelic]);
+		}
+	});
 	$effect(() => {
 		if (mapConfig) {
 			stageType.set(getStageType(mapConfig?.levelId, mapConfig?.tags, rogueTopic));
@@ -170,7 +179,12 @@
 
 <main class="bg-neutral-800 text-near-white pb-72 pt-8 sm:pt-16 md:pb-28">
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
-		<StageVariantSelector variants={data.stageData.data} bind:selectedIndex={configIndex} />
+		<StageVariantSelector
+			variants={data.stageData.data}
+			bind:selectedIndex={configIndex}
+			{selectedRelics}
+			relicsList={blackRelics}
+		/>
 		<StageInfo {mapConfig} {language} {stageName} {eliteMode} {rogueTopic} difficulty={$difficulty}
 		></StageInfo>
 		<CombinedSettings

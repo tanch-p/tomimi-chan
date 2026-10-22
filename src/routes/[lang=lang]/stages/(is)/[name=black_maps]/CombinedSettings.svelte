@@ -314,7 +314,7 @@
 	>
 		<div class="settings-panel-content mx-auto w-full max-w-[640px] shrink-0 text-center">
 			{#if selectedSetting === 'difficulty'}
-				<DifficultySelect {language} {difficulty} {rogueTopic} maxDiff={15} />
+				<DifficultySelect {language} {difficulty} {rogueTopic} maxDiff={16} />
 			{:else if selectedSetting === 'operation' && mapConfig?.elite_mods}
 				<div class="px-2 sm:px-6 mt-4">
 					<p class="text-xl mb-3">{translations.operation_type}</p>

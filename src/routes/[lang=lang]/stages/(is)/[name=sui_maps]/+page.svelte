@@ -24,6 +24,7 @@
 	import StageSharedContainer from '$lib/components/StageSharedContainer.svelte';
 	import StageHeadMeta from '$lib/components/StageHeadMeta.svelte';
 	import StageVariantSelector from '$lib/components/StageVariantSelector.svelte';
+	import suiRelics from '$lib/data/is/sui/relics_sui.json';
 
 	interface Props {
 		data: PageData;
@@ -32,19 +33,10 @@
 	let { data }: Props = $props();
 
 	let rogueTopic: RogueTopic = $derived(data.rogueTopic);
-	let configIndex = $state(0);
-	let previousStageId = $state();
-
-	$effect(() => {
-		if (data.stageData.id !== previousStageId) {
-			previousStageId = data.stageData.id;
-			configIndex = 0;
-		}
-	});
-	$effect(() => {
-		if (configIndex >= data.stages.length) {
-			configIndex = 0;
-		}
+	let configIndex = $derived.by(() => {
+		// Reset synchronously when the stage changes; variant buttons can override this value.
+		void data.stageData.id;
+		return 0;
 	});
 	let selectedStage = $derived(data.stages[configIndex]);
 	let mapConfig = $derived(selectedStage.mapConfig);
@@ -72,7 +64,12 @@
 
 <main class="bg-neutral-800 text-near-white pb-72 pt-8 sm:pt-16 md:pb-28">
 	<div class="w-screen sm:w-full max-w-7xl mx-auto">
-		<StageVariantSelector variants={data.stageData.data} bind:selectedIndex={configIndex} />
+		<StageVariantSelector
+			variants={data.stageData.data}
+			bind:selectedIndex={configIndex}
+			{selectedRelics}
+			relicsList={suiRelics}
+		/>
 		<StageInfo {mapConfig} {language} {stageName} {eliteMode} {rogueTopic} difficulty={$difficulty}
 		></StageInfo>
 		<DifficultySelect {language} {difficulty} {rogueTopic} maxDiff={18} />

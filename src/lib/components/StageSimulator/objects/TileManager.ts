@@ -36,7 +36,7 @@ export class TileManager {
 		return group;
 	}
 
-	get(tile) {
+	get(tile, isForbidden = false) {
 		const [tileName, heightType, mask, blackboard, buildableType] = tile;
 		let boxGroup = new THREE.Group();
 		let topTextureName = tileName;
@@ -243,7 +243,14 @@ export class TileManager {
 			if (!['tile_wall', 'tile_grass'].includes(topTextureName)) {
 				size = 0.84;
 			}
-			return this.createBox(40, 0xff8108, 0xc1c1c1, topTextureName, size);
+			boxGroup = this.createBox(40, 0xff8108, 0xc1c1c1, topTextureName, isForbidden ? 0.7 : size);
+			if (isForbidden) {
+				const floorTexture = this.assetManager.textures.get('tile_floor');
+				const frontPlane = this.getTopTexture('tile_floor', floorTexture, null, size, 40, null);
+				frontPlane.position.z = 20.01;
+				boxGroup.add(frontPlane);
+			}
+			return boxGroup;
 		}
 
 		boxGroup = this.basicTile.clone();
@@ -279,7 +286,10 @@ export class TileManager {
 				break;
 		}
 
-		if (buildableType == 0 && !['tile_start', 'tile_end', 'tile_floor'].includes(tileName)) {
+		if (
+			(isForbidden || buildableType == 0) &&
+			!['tile_start', 'tile_end', 'tile_floor'].includes(tileName)
+		) {
 			const floorTexture = this.assetManager.textures.get('tile_floor');
 			const frontPlane = this.getTopTexture('tile_floor', floorTexture, null, size, depth, null);
 			frontPlane.position.z = 0.01;

@@ -24,7 +24,9 @@ const ENEMY_KEYS_TO_IGNORE = [
 	'enemy_10009_sggem',
 	'enemy_1294_duchns',
 	'enemy_2121_dyspl2',
-	'enemy_2154_shdfb'
+	'enemy_2154_shdfb',
+	'enemy_2157_shadvr_1',
+	'enemy_2157_shadvr_2'
 ];
 
 const SPINE_TEXT_IDS = [
@@ -43,6 +45,10 @@ const ENEMY_KEYS_TO_REPLACE = {
 	enemy_1313_wdfmr_2: 'enemy_1313_wdfmr',
 	enemy_2113_dyhlg2: 'enemy_2112_dyhlgy',
 	enemy_2119_dyshhj_2: 'enemy_2119_dyshhj'
+};
+const TRAP_KEYS_TO_REPLACE = {
+	trap_348_shadvr2: 'trap_344_shadvr',
+	trap_349_shadvt2: 'trap_345_shadvt'
 };
 const texturesToLoad = [
 	{
@@ -539,6 +545,7 @@ export class AssetManager {
 
 		for (const trap of [...(mapConfig?.traps ?? []), ...(mapConfig?.token_cards ?? [])]) {
 			const key = trap.key;
+			const fileKey = TRAP_KEYS_TO_REPLACE[key] || key;
 			const modelType = getTrapModelType(key);
 			switch (modelType) {
 				case 'spine':
@@ -547,8 +554,8 @@ export class AssetManager {
 					}
 					promises.push(
 						new Promise<void>((resolve) => {
-							this.spineAssetManager.loadBinary(`${key}/${key}.skel`);
-							this.spineAssetManager.loadTextureAtlas(`${key}/${key}.atlas`);
+							this.spineAssetManager.loadBinary(`${fileKey}/${fileKey}.skel`);
+							this.spineAssetManager.loadTextureAtlas(`${fileKey}/${fileKey}.atlas`);
 
 							const checkLoading = () => {
 								if (this.spineAssetManager.isLoadingComplete()) {
@@ -561,12 +568,12 @@ export class AssetManager {
 							checkLoading();
 						}).then(() => {
 							if (!shouldContinue()) return;
-							const atlas = this.spineAssetManager.get(`${key}/${key}.atlas`);
+							const atlas = this.spineAssetManager.get(`${fileKey}/${fileKey}.atlas`);
 							const atlasLoader = new spine.AtlasAttachmentLoader(atlas);
 							const skeletonBinary = new spine.SkeletonBinary(atlasLoader);
 							skeletonBinary.scale = 0.3;
 							const skeletonData = skeletonBinary.readSkeletonData(
-								this.spineAssetManager.get(`${key}/${key}.skel`)
+								this.spineAssetManager.get(`${fileKey}/${fileKey}.skel`)
 							);
 							this.spineMap.set(key, skeletonData);
 						})
@@ -579,7 +586,7 @@ export class AssetManager {
 					promises.push(
 						new Promise((resolve, reject) => {
 							this.gltfLoader.load(
-								`${key}.glb`,
+								`${fileKey}.glb`,
 								(gltf) => {
 									resolve(gltf);
 								},
@@ -600,7 +607,7 @@ export class AssetManager {
 					promises.push(
 						new Promise((resolve, reject) => {
 							this.textureLoader.load(
-								`/images/chara_icons/${key}.webp`,
+								`/images/chara_icons/${fileKey}.webp`,
 								(texture) => {
 									resolve(texture);
 								},

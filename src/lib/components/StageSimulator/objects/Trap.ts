@@ -13,6 +13,7 @@ import escapeButtonUrl from '$lib/images/battlecommon/btn_escape.webp';
 import selectionFrameUrl from '$lib/images/battlecommon/sprite_character_menu_frame.webp';
 import type { GameManager } from './GameManager';
 import { getStageRuntime } from './StageRuntime';
+import { createSkillBarMesh } from './skillBarHelpers';
 
 let escapeButtonTexture: THREE.Texture | null = null;
 let selectionFrameTexture: THREE.Texture | null = null;
@@ -57,6 +58,10 @@ export class Trap {
 	uiInteractiveObjects: THREE.Object3D[] = [];
 	userPlacementId: string | null = null;
 	selected = false;
+	spBar: THREE.Mesh<THREE.PlaneGeometry, THREE.ShaderMaterial> | null = null;
+	currSp = 0;
+	spCost = 0;
+	spIncrement = 0;
 	constructor(data, pos, isSimulation: boolean, blackboard, gameManager?: GameManager) {
 		this.assetManager = AssetManager.getInstance();
 		this.gameManager = gameManager!;
@@ -99,7 +104,10 @@ export class Trap {
 			this.summonInterval = Number(intervalOverride ?? summonSkill.interval);
 			this.summonAnimation = summonSkill.beginAnimation ?? null;
 		}
-		if (!isSimulation) this.initModel(trap.modelType);
+		if (!isSimulation) {
+			this.initModel(trap.modelType);
+		}
+		this.initSpBar(data);
 		this.isRoadblock =
 			trap.special.some((skillRef) => ['roadblock'].includes(skillRef)) ||
 			trap.skills.some((skillRef) => ['sktok_crate', 'sktok_stone'].includes(skillRef));
@@ -107,6 +115,28 @@ export class Trap {
 
 	getMesh() {
 		return this.meshGroup;
+	}
+
+	initSpBar(data) {
+		if (!['trap_349_shadvt2', 'trap_345_shadvt'].includes(this.key)) return;
+		const skill = trapSkills[this.data.skills[data.skillIndex ?? 0]];
+		const spData = skill?.levels[(data.mainSkillLvl ?? 1) - 1]?.spData;
+		if (!spData) return;
+		this.currSp = spData.initSp;
+		this.spCost = spData.spCost;
+		this.spIncrement = spData.increment;
+		if (this.isSimulation) return;
+		this.spBar = createSkillBarMesh(this.spCost === 0 ? 1 : this.currSp / this.spCost);
+		this.spBar.position.y = -25;
+		this.spBar.renderOrder = 1;
+		this.meshGroup.add(this.spBar);
+		this.updateSpBar(0);
+	}
+
+	updateSpBar(delta: number) {
+		this.currSp = Math.min(this.spCost, this.currSp + delta * this.spIncrement);
+		if (!this.spBar) return;
+		this.spBar.material.uniforms.progress.value = this.spCost === 0 ? 1 : this.currSp / this.spCost;
 	}
 
 	initSelectionUI() {
@@ -225,7 +255,7 @@ export class Trap {
 				}
 				switch (this.direction) {
 					case 'LEFT':
-						this.meshGroup.scale.x *= -1;
+						this.skel.scale.x *= -1;
 						break;
 					case 'UP':
 						break;
@@ -339,6 +369,7 @@ export class Trap {
 		this.selected = false;
 		this.syncTokensDisabled();
 		clearObjects(this.meshGroup);
+		this.spBar = null;
 	}
 
 	onSelect() {
@@ -530,6 +561,7 @@ export class Trap {
 	}
 
 	update(delta) {
+		this.updateSpBar(delta);
 		if (this.isSimulation) {
 			return;
 		}

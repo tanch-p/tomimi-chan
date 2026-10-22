@@ -1,11 +1,52 @@
 import { describe, expect, it } from 'vitest';
+import { get, writable } from 'svelte/store';
 import {
 	buildWaveScenario,
+	compileHiddenGroups,
 	getBaseCount,
-	getEnemyCountPermutations
+	getEnemyCountPermutations,
+	handleOptionsUpdate
 } from '$lib/functions/waveHelpers';
 import stageData from '../lib/data/stages/ro_stage_data/ro6/level_rogue6_1-1.json' with { type: 'json' };
 import type { MapConfig, WaveAction } from '$lib/types';
+import relicsBlack from '$lib/data/is/black/relics.json';
+
+describe('black relic options', () => {
+	it.each([
+		['shadvr2', 'rogue_6_relic_final_9'],
+		['shadvr', 'rogue_6_relic_final_7']
+	])('keeps %s and its relic selected together', (key, relicId) => {
+		const unrelatedRelic = relicsBlack.find((relic) => relic.id !== relicId)!;
+		const relics = writable([unrelatedRelic]);
+		const groups = handleOptionsUpdate([], key, 'rogue_black', 0, { relics });
+		expect(groups).toContain(key);
+		expect(get(relics)).toEqual([
+			unrelatedRelic,
+			relicsBlack.find((relic) => relic.id === relicId)
+		]);
+
+		expect(handleOptionsUpdate(groups, key, 'rogue_black', 0, { relics })).not.toContain(key);
+		expect(get(relics)).toEqual([unrelatedRelic]);
+	});
+
+	it.each([
+		['shadvr2', 'rogue_6_relic_final_9'],
+		['shadvr', 'rogue_6_relic_final_7']
+	])('selects %s from relic effects and lets the option deselect it', (key, relicId) => {
+		const relic = relicsBlack.find((item) => item.id === relicId)!;
+		const relics = writable([relic]);
+		const specialMods = { system: relic.effects.flatMap((effect) => effect.mods) };
+		expect(compileHiddenGroups([], false, {}, 'rogue_black', specialMods)).toContain(key);
+		expect(handleOptionsUpdate([], key, 'rogue_black', 0, { relics })).not.toContain(key);
+		expect(get(relics)).toEqual([]);
+	});
+
+	it('clears stale option selections after relic removal without clearing other groups', () => {
+		expect(
+			compileHiddenGroups(['shadvr2', 'shadvr', 'other'], false, {}, 'rogue_black', {})
+		).toEqual(['other']);
+	});
+});
 
 describe('enemy wave counts', () => {
 	it('counts the normal version of rogue6_1-1 as 15 enemies', () => {

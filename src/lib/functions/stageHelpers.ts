@@ -64,8 +64,15 @@ export function getStageType(levelId: string, tags: string[], rogueTopic: RogueT
 	return '';
 }
 
-export function getIconPath(icon: { type: 'enemy' | 'chara'; id: string }) {
-	const folder = icon.type === 'enemy' ? 'enemy_icons' : 'chara_icons';
-
+export function getIconPath(icon: { type: 'enemy' | 'chara' | 'relic'; id: string }) {
+	let folder = 'chara_icons';
+	switch (icon.type) {
+		case 'enemy':
+			folder = 'enemy_icons';
+			break;
+		case 'relic':
+			folder = 'relics';
+			break;
+	}
 	return `/images/${folder}/${icon.id}.webp`;
 }

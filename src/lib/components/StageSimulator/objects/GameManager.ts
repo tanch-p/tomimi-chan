@@ -490,6 +490,12 @@ export class GameManager {
 	set(data) {
 		this.countdownManager.removeAllCountdowns();
 		this.syncRoadblocks(data.roadblocks ?? []);
+		for (const snapshot of data.trapSp ?? []) {
+			const trap = this.traps.get(`${snapshot.position.col},${snapshot.position.row}`);
+			if (trap?.key !== snapshot.key) continue;
+			trap.currSp = snapshot.currSp;
+			trap.updateSpBar(0);
+		}
 		const enemiesToRemove = [];
 		this.enemiesOnMap.forEach((enemy) => {
 			if (!data.enemiesOnMap.find((e) => enemy.spawnUID === e.spawnUID)) {

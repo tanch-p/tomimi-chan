@@ -39,7 +39,7 @@
 			"zh": ["无敌，不进行攻击"]
 		}
 	},
-	"melee_ranged_atk":{
+	"melee_ranged_atk": {
 		"tooltip": {
 			"en": ["Normal attack deals melee type damage"],
 			"ja": ["通常攻撃は近接攻撃とみなす"],
@@ -1644,13 +1644,15 @@
 		"hits": 1,
 		"tooltip": {
 			"en": [
-				"Every 15% of max HP lost, deals 100% of ATK as {arts} splash damage and {ba.dt.neural} in a 2 tile radius{ignore_camou}"
+				"Every 15% of max HP lost, deals 100% of ATK as {arts} splash damage and {ba.dt.neural} in a 2 tile radius{ignore_camou}",
+				"※ HP loss is recorded so damage after heals that pass the old thresholds will not reproc this skill"
 			],
 			"ja": [
-				"HPが15%減るごとに、半径2マス以内の味方全員に攻撃力の100%の{arts}・{ba.dt.neural}を与える{ignore_camou}"
+				"HPが15%減るごとに、半径2マス以内の味方全員に攻撃力の100%の{arts}・{ba.dt.neural}を与える{ignore_camou}",
+				"※失ったHPの割合は記録されているので、回復後に再び攻撃を受けても、一度超えたスキル発動のHP割合では再発動しない"
 			],
 			"zh": [
-				"每损失15%生命值，对半径2范围内所有友方单位造成攻击力100%{arts}溅射伤害与攻击力100%{ba.dt.neural}{ignore_camou}"
+				"受到伤害后进行15%的已损失生命值判定，若通过判定且未持有晕眩/冻结/浮空，则对半径2范围内所有友方单位造成攻击力100%{arts}溅射伤害与攻击力100%{ba.dt.neural}{ignore_camou}"
 			]
 		}
 	},
@@ -1704,7 +1706,7 @@
 		}
 	},
 	"brandguider": {
-		"def": { "multiplier": 4 },
+		"def": { "multiplier": 4, "order": "initial" },
 		"suffix": {
 			"en": "HP↓50%",
 			"ja": "HP50%以下",
@@ -3028,6 +3030,19 @@
 			"zh": ["未被阻挡时可进行远程攻击，远程攻击造成攻击力<v.atk.multiplier>%的{phys}伤害"]
 		}
 	},
+	"no_block_ranged_atk_arts": {
+		"atk": { "multiplier": 1.0 },
+		"dmg_element": "arts",
+		"suffix": { "en": "ranged", "ja": "遠", "zh": "远" },
+		"hits": 1,
+		"tooltip": {
+			"en": [
+				"When not blocked, uses ranged attacks that deal <v.atk.multiplier>% of ATK as {arts} damage"
+			],
+			"ja": ["非ブロック時、攻撃力の<v.atk.multiplier>%で遠距離{arts}攻撃を行う"],
+			"zh": ["未被阻挡时可进行远程攻击，远程攻击造成攻击力<v.atk.multiplier>%的{arts}伤害"]
+		}
+	},
 	"ursus_striker_hp50": {
 		"tooltip": {
 			"en": ["HP↓50% - ATK +100%"],
@@ -3048,6 +3063,13 @@
 			"en": ["Friendly Unit - Reduces lifepoint by 1 when defeated", "Cannot be healed"],
 			"ja": ["要介護ユニット→死亡すると耐久値減る", "回復受け付けない"],
 			"zh": ["死亡时扣除1点关卡生命值", "无法受治疗"]
+		}
+	},
+	"lifepoint_zero": {
+		"tooltip": {
+			"en": ["Does not reduce lifepoint upon entering Protection Objective"],
+			"ja": ["防衛ラインに入っても耐久値は減らない"],
+			"zh": ["进入保护目标后，不扣除目标生命值"]
 		}
 	},
 	"pompeii_aspd_inc": {
@@ -4582,7 +4604,7 @@
 			"zh": ["5s内不攻击后移动速度+400%，攻击时重置"]
 		}
 	},
-	"smdrn_1": {
+	"flying_unit": {
 		"tooltip": {
 			"en": ["Flying Unit"],
 			"ja": ["飛行ユニット"],
@@ -7650,9 +7672,7 @@
 			"ja": [
 				"低空浮揚を失うと8秒間スタンし、その後低空浮揚状態に戻る。このスタン中はブロックされない"
 			],
-			"zh": [
-				"受到部分控制效果影响1s后失去近地悬浮并晕眩8s，期间无法被阻挡，8s后重新获得近地悬浮"
-			]
+			"zh": ["受到部分控制效果影响1s后失去近地悬浮并晕眩8s，期间无法被阻挡，8s后重新获得近地悬浮"]
 		}
 	},
 	"parrot_ms": {
@@ -10968,9 +10988,9 @@
 			]
 		}
 	},
-	"shsgzd_bombard_range":{
-		"skillRange":2.0,
-		"tooltip":null
+	"shsgzd_bombard_range": {
+		"skillRange": 2.0,
+		"tooltip": null
 	},
 	"shsgzd_fly": {
 		"value": 100,
@@ -11774,7 +11794,7 @@
 	},
 	"tjgxb_buff": {
 		"v_atk": 30,
-		"count":3,
+		"count": 3,
 		"tooltip": {
 			"en": [""],
 			"ja": [""],
@@ -12057,6 +12077,597 @@
 			"zh": [
 				"攻击距离+2，普通攻击索敌不受阻挡影响，优先攻击反派阵营角色/命定的反派＞阻挡自身的单位＞其他我方单位"
 			]
+		}
+	},
+	"shjagr_block": {
+		"tooltip": {
+			"en": ["When blocked, loses 5% of Max HP every second"],
+			"ja": ["ブロックされている間、毎秒最大HPの5%を失う"],
+			"zh": ["被阻挡时，每秒流失5%最大生命"]
+		}
+	},
+	"move_dmg_res": {
+		"value": 90,
+		"tooltip": {
+			"en": ["While moving, gains <v.value>% Phys/Arts damage reduction"],
+			"ja": ["移動中、受ける物理・術ダメージが<v.value>%減少する"],
+			"zh": ["移动时受到的物理与法术伤害-<v.value>%"]
+		}
+	},
+	"bolicp_shoot": {
+		"type": "skill",
+		"initCooldown": 0,
+		"cooldown": 8,
+		"suffix": { "en": "Skill", "ja": "直線射撃", "zh": "直击" },
+		"hits": 10,
+		"atk": { "multiplier": 1 },
+		"dmg_element": "phys",
+		"def_down": 100,
+		"tooltip": {
+			"en": [
+				"<ba.straightshot>Straight Shot</> - Fires 10 bolts in succession towards the target, each dealing 100% ATK as {phys} damage{ignore_camou}",
+				"Permanently reduces the target's DEF by <v.def_down> (stacks infinitely)"
+			],
+			"ja": [
+				"<ba.straightshot>直線射撃</>：対象の方向に10本の矢を発射。それぞれの矢は、最初に触れた対象に攻撃力の100%の{phys}ダメージを与える{ignore_camou}",
+				"対象の防御力を永続的に<v.def_down>低下させる（重複可能）"
+			],
+			"zh": [
+				"<ba.straightshot>直击</>：向目标方向发射10支弩箭{ignore_camou}",
+				"最后一支弩箭命中前使目标防御力永久-<v.def_down>(可无限叠加)",
+				"※此技能发动期间持有晕眩免疫、冻结免疫、浮空免疫、沉睡免疫"
+			]
+		}
+	},
+	"bolicp_revive": {
+		"position": "(x,x)",
+		"tooltip": {
+			"en": [
+				"When defeated for the first time, revives over 3s to 100% HP",
+				"If yet to go past designated checkpoint <v.position>, teleports there. Enters the second phase after revival ends"
+			],
+			"ja": [
+				"HPが0になると、一度だけ3秒かけてHPを100%回復する",
+				"所定の位置<v.position>に到達していない場合、その位置に跳ぶ。復活終了後、第二形態に移行する"
+			],
+			"zh": [
+				"首次被击倒后进行持续3s的重生，恢复100%生命值并获得0s无敌",
+				"若未抵达预设位置<v.position>，则闪现至预设位置；重生结束后进入第二形态"
+			]
+		}
+	},
+	"bolicp_sp": {
+		"tooltip": {
+			"en": [
+				"Upon entering the second phase, immediately gains 6 SP, ATK +150%, attack interval +1.0, and gains 40% Phys/Arts damage resistance when not blocked"
+			],
+			"ja": [
+				"第二形態に移行した時、即座にSPを6獲得する。攻撃力+150%、攻撃間隔+1.0、ブロックされていない時、40%の物理・術ダメージ減少を獲得する"
+			],
+			"zh": ["进入第二形态时，立即获得6SP", "攻击力+150%，攻击间隔+1.0，未被阻挡时获得40%庇护"]
+		}
+	},
+	"bolicp_smoke_trigger": {
+		"tooltip": {
+			"en": [
+				"Upon taking damage, activates 'Smoke Grenade' skill (only once; the number of uses can be reset by Mateo's Bodyguard)"
+			],
+			"ja": [
+				"ダメージを受けると、スキル「消灯！」を強制発動する（1回のみ。マッテオの親衛兵によって発動回数をリセット可能）"
+			],
+			"zh": ["受到伤害后强制触发技能【“熄灯！”】（可触发1次；可被马特奥的亲卫重置使用次数）"]
+		}
+	},
+	"bolicp_smoke": {
+		"tooltip": {
+			"en": [
+				"[Smoke Grenade] Throws 3 smoke grenades at positions 1.0/3.0/5.0 tiles ahead, each lasting 30 seconds. Each smoke grenade grants Stealth to all enemies within a 1.3 tile radius"
+			],
+			"ja": [
+				"【消灯！】自身の進行ルート上の1.0/3.0/5.0マス先に、30秒間持続する煙幕弾を3発発射する。煙幕弾は半径1.3マス以内の敵にステルス状態を付与する"
+			],
+			"zh": [
+				"【“熄灯！”】向自身路径前方距离1.0/3.0/5.0的位置发射3个持续30s的烟雾弹，每个烟雾弹落地后令半径1.3范围内的敌人（无视孤立）获得隐匿",
+				"※此技能发动期间持有晕眩免疫、冻结免疫、浮空免疫、沉睡免疫"
+			]
+		}
+	},
+	"bolicp_stun": {
+		"tooltip": {
+			"en": [
+				"When blocked by a friendly unit, consumes 1 SP and stuns the target for 6 seconds, dealing 100% ATK as {phys} damage"
+			],
+			"ja": [
+				"味方ユニットにブロックされた時、SP1を消費して対象に6秒間のスタンと攻撃力の100%の{phys}ダメージを与える"
+			],
+			"zh": ["被非装置类我方单位阻挡时可触发：消耗1SP，对目标造成6s晕眩与攻击力100%的{phys}伤害"]
+		}
+	},
+	"agpbus": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["自身无法被欢乐校车/庆典校车载为乘客"]
+		}
+	},
+	"agpbus_carry": {
+		"tooltip": {
+			"en": [
+				"【Transport】Maximum capacity of 2, with a boarding radius of 0.5. Can carry ground enemy units that are neither bosses nor mechanical. $*$Upon disembarking, passengers' routes are replaced with the bus's remaining route"
+			],
+			"ja": [
+				"乗客輸送：最大乗車人数は2体、乗車半径は0.5マス。ボス・機械系以外の地上の敵ユニットが乗車可能。$*$降車時、乗客の移動経路をスクールバスの残りの移動経路に変更する"
+			],
+			"zh": [
+				"载客：载客上限2，载客半径0.5，载客条件为“非领袖且非机械类的地面敌人类敌方单位”，卸客区域为以校车为中心的0.4边长正方形范围；$*$卸客时将乘客的路径替换为自身的剩余路径"
+			]
+		}
+	},
+	"agkiro_pizza": {
+		"skillRange": 0.45,
+		"tooltip": {
+			"en": [
+				"Activates the ability “Pizza Bombardment” every second",
+				"【Pizza Bombardment】Drops a pizza towards the ground, the projectile arrives after 1 second. Upon impact, deals 100% ATK as {phys} damage to all friendly units within 0.45 tile radius. Cannot target aerial units {ignore_camou}"
+			],
+			"ja": [
+				"毎秒1回、能力「ピザ爆撃」を発動する",
+				"【ピザ爆撃】自身の位置に向けてピザ爆弾を発射する。弾は1秒後に着弾する。着弾時、半径0.45マス以内の味方ユニット全員に攻撃力の100%の{phys}ダメージを与える。対空不可{ignore_camou}"
+			],
+			"zh": [
+				"每秒触发一次能力【披萨轰炸】",
+				"【披萨轰炸】：从自身模型向自身所在位置发射披萨弹道，弹道将于1秒后到达（可变速），到达时对半径0.45范围内的所有我方单位造成攻击力100%的{phys}伤害，不可对空{ignore_camou}"
+			]
+		}
+	},
+	"agball_buff": {
+		"def": { "fixed": 1200, "order": "initial" },
+		"res": { "fixed": 40, "order": "initial" },
+		"ms": { "multiplier": 2, "order": "final" },
+		"suffix": {
+			"zh": "初始",
+			"ja": "初期",
+			"en": "🛡"
+		},
+		"tooltip": {
+			"en": ["Gains DEF +1200, RES +40, and Movespeed is increased to 200%"],
+			"ja": ["防御力+1200、術耐性+40、移動速度が最終的に200%まで上昇する"],
+			"zh": ["防御力+1200，法术抗性+40，移动速度最终提升至200%"]
+		}
+	},
+	"agball_fall": {
+		"tooltip": {
+			"en": [
+				"When affected by Levitate or Unbalance, falls and becomes disabled, permanently removing the above buffs",
+				"Also deals 1000 {true} Damage to all other enemy units within 1.75 tile radius and removes <Masked Child>'s mask"
+			],
+			"ja": [
+				"浮遊または強制移動の効果を受けると、大きく転倒して行動不能になり、上述の強化効果が永続的に解除される",
+				"半径1.75マス以内の自身以外の敵ユニット全員に1000{true}ダメージを与える"
+			],
+			"zh": [
+				"受到浮空及失衡效果后会大摔一跤并瘫痪，永久解除上述增益",
+				"并对半径1.75范围内的所有其他敌方单位造成1000{true}伤害，砸中半径1.75范围内的所有戴面具的孩童/入戏太深的孩童"
+			]
+		}
+	},
+	"agball_reboot": {
+		"tooltip": {
+			"en": [
+				"If unaffected by Levitate and Unbalance for 5 consecutive seconds, returns to Initial mode after 1 second"
+			],
+			"ja": ["5秒間浮遊と強制移動を受けてない場合、1秒後に初期状態への復帰する"],
+			"zh": [
+				"此后若连续5秒未受浮空影响、且未处于失衡状态，1秒后尝试回到初始模式（受浮空影响或处于失衡状态时，尝试将失败）"
+			]
+		}
+	},
+	"agporc_mask": {
+		"def": { "fixed": 500, "order": "initial" },
+		"suffix": {
+			"zh": "初始",
+			"ja": "初期",
+			"en": "🎭"
+		},
+		"tooltip": {
+			"en": ["Gains DEF +500"],
+			"ja": ["防御力+500"],
+			"zh": ["防御力+500"]
+		}
+	},
+	"agporc_crash": {
+		"tooltip": {
+			"en": ["Loses above buff when affected by Levitate, Unbalance or crashed by <美食的奴隶>"],
+			"ja": ["浮遊と強制移動を受けると上述の強化効果が永続的に解除される"],
+			"zh": ["受到浮空及失衡效果或被“美食的诱惑”或“美食的奴隶”砸中时，永久解除上述增益"]
+		}
+	},
+	"adsham_buff_skill": {
+		"type": "skill",
+		"initCooldown": 3,
+		"cooldown": 30,
+		"suffix": { "en": "Skill", "ja": "スキル", "zh": "嗜血术" },
+		"skillRange": 2.0,
+		"tooltip": {
+			"en": [
+				"Can only be used when not blocked and there is an enemy unit within a 2.0 tile radius that is not affected by this skill's buff:",
+				"Selects the enemy unit with the highest Max HP, giving them a +150% ASPD and +200% Movespeed buff for 15s"
+			],
+			"ja": [
+				"味方2体に爆弾設置する、攻撃力<v.atk.multiplier>%の{phys}ダメージを与える",
+				"HP50%以下：爆弾2体ｰ>3体、即時爆弾設置する"
+			],
+			"zh": [
+				"仅未被阻挡、且半径2.0范围内存在（除自身外）未受本技能增益影响的敌方单位时可触发：对最大生命值最高的目标施加15秒攻击速度+150%、移动速度+200%的增益"
+			]
+		}
+	},
+	"adsham_buff": {
+		"type": "buff",
+		"effects": {
+			"targets": ["exclude:enemy_9002_adsham"],
+			"activeTargets": [],
+			"mods": [
+				{ "key": "ms", "value": 2.0, "order": "initial", "mode": "mul" },
+				{ "key": "aspd", "value": 1.5, "order": "initial", "mode": "mul" }
+			],
+			"stackType": "add",
+			"maxCount": 1
+		},
+		"tooltip": null
+	},
+	"crstf_neural": {
+		"value": 0.2,
+		"tooltip": {
+			"en": ["When outside the shooting area, attacks deal <v.%value>% ATK as {ba.dt.neural}"],
+			"ja": ["撮影エリアの範囲外にいる間、攻撃時、攻撃力の<v.%value>%の{ba.dt.neural}を与える"],
+			"zh": ["位于摄影区域范围外时，普通攻击附带自身攻击力<v.%value>%的{ba.dt.neural}"]
+		}
+	},
+	"crshd_dmg_res": {
+		"tooltip": {
+			"en": ["Reduces Phys/Arts damage taken from the front by 80%"],
+			"ja": ["正面から受ける物理・術ダメージを80%軽減する"],
+			"zh": ["减少来自正面的物理/法术伤害 (-80%)"]
+		}
+	},
+	"crshd_camera": {
+		"tooltip": {
+			"en": ["When within shooting area, turns around if facing the camera"],
+			"ja": ["撮影エリア内でカメラの方を向いている場合、反対方向に向き直る"],
+			"zh": ["在摄影区域内时，如果面对摄影机则会转身"]
+		}
+	},
+	"block_neural": {
+		"value": 0.2,
+		"tooltip": {
+			"en": ["When blocked, deals <v.%value>% ATK as {ba.dt.neural} every second"],
+			"ja": ["ブロックされている間、対象に毎秒攻撃力の<v.%value>%の{ba.dt.neural}を与える"],
+			"zh": ["对阻挡自己的单位每秒造成自身攻击力<v.%value>%的{ba.dt.neural}"]
+		}
+	},
+	"crrol_move": {
+		"skillRange": 0.3,
+		"tooltip": {
+			"en": [
+				"While moving, deals 100% ATK as {phys} damage to friendly ground units within 0.3 tile radius around it (cannot hit aerial units){ignore_camou}"
+			],
+			"ja": [
+				"自律移動中、半径0.3マス内に入った近接マスの0味方ユニットに、攻撃力の100%の{phys}ダメージを1回与える（弾道なし、対空不可）{ignore_camou}"
+			],
+			"zh": [
+				"自主移动时，对进入自身0.3半径范围内的位于低地的我方单位造成一次攻击力100%的无途径{phys}普通伤害{ignore_camou}"
+			]
+		}
+	},
+	"crrol_bind": {
+		"tooltip": {
+			"en": [
+				"When within shooting area, becomes unable to move and receives 60% more damage",
+				"After spending a cumulative total of >150s within the shooting area, receives {true} Damage equal to 2% of Max HP every second"
+			],
+			"ja": [
+				"撮影エリアにいる間、移動しない、受けるダメージが60%増加する",
+				"撮影エリア内での累計滞在時間が150秒を超えると、毎秒最大HPの2%の{true}ダメージを受ける"
+			],
+			"zh": [
+				"位于摄影区域内时进入停留模式，无法移动，拥有60%的脆弱",
+				"在摄影区域内累计停留超过150s后，自身每秒受到最大生命值2%的{true}伤害"
+			]
+		}
+	},
+	"agactr_buff": {
+		"type": "buff",
+		"skillRange": 2.5,
+		"effects": {
+			"targets": ["ALL"],
+			"activeTargets": ["enemy_10229_agactr_2"],
+			"mods": [
+				{ "key": "res", "value": 25, "order": "initial", "mode": "add" },
+				{ "key": "aspd", "value": 50, "order": "initial", "mode": "add" }
+			],
+			"stackType": "add"
+		},
+		"tooltip": {
+			"en": [
+				"All enemy units within a 2.5 tile radius gain RES +25, and ASPD +50 (stackable, does not affect aerial units)"
+			],
+			"ja": ["半径2.5マス以内の敵ユニット全員の術耐性+25、攻撃速度+50（重複可能、対空不可）"],
+			"zh": [
+				"半径2.5范围内的所有敌方单位法术抗性+25，攻击速度+50（可叠加，不可对空，无视目标可选性）"
+			]
+		}
+	},
+	"shadvr_resist": {
+		"tooltip": {
+			"en": [
+				"When affected by Cold, Freeze, Stun, Fear, Attract, or Paralysis, gains 1 stack of resistance to the corresponding status effect for 40 seconds (tracked independently, max 2 stacks; gaining another stack refreshes the duration)",
+				"Each stack grants 50% resistance to the corresponding status effect. At 2 stacks, becomes immune to that effect. All stacks are removed when the duration expires"
+			],
+			"ja": [
+				"寒冷・凍結・スタン・恐怖・誘導・麻痺を受けた時、対応する状態異常への耐性を1層獲得する（持続40秒、各状態異常ごとに独立して計算、最大2層、再獲得時に持続時間を更新）",
+				"1層につき対応する状態異常への耐性が50%上昇し、2層でその状態異常を無効化する。持続時間終了時、全層が消失する"
+			],
+			"zh": [
+				"受到寒冷、冻结、晕眩、恐惧、诱导或麻痹效果时，获得1层持续40秒的对应异常抗性（各效果独立计算，最多叠加2层，重复获得刷新持续时间）",
+				"每层提供50%的对应异常抵抗，叠满2层后免疫该异常效果；持续时间结束后清空所有层数"
+			]
+		}
+	},
+	"shadvr_sp": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["拥有120点日照信仰/日蚀信仰上限（信仰槽显示于画面顶部，分别位于左右两侧）"]
+		}
+	},
+	"shadvr_change": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"【信仰满溢 】当日照信仰或日蚀信仰发生满溢时，进入持续0.5s的形态转化，期间持有无敌，且会清除并阻止信仰值继续积累，转化为艾穆拉伊，祝日降临或托斯卡特尔，末日敕令的普通形态。若同时到达上限，优先切换为托斯卡特尔，末日敕令"
+			]
+		}
+	},
+	"shadvr_meteor": {
+		"suffix": { "en": "Meteor", "ja": "隕石", "zh": "陨石召唤" },
+		"hits": 1,
+		"atk": { "multiplier": 3.5 },
+		"dmg_element": "phys",
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"形态转化后，优先选择我方最后部署的2名单位（强化形态下提升至4名单位）对其进行标记，蓄力2s后对主目标及其周围四格范围内的我方单位造成一次攻击力350%的{phys}普通伤害并在范围内以下＞右＞左＞上的顺序生成一个可以部署高台单位的祭台，最多存在5个。蓄力期间自身持有无敌"
+			]
+		}
+	},
+	"shadvr_sp_inc": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"成功受到法术/物理伤害，并且生命值发生实际降低时，会增长2点日照信仰（法术）或日蚀信仰（物理）的进度",
+				"日照信仰与日蚀信仰均未满情况下，每秒增长5点日照信仰和5点日蚀信仰",
+				"每0.1秒检测一次，若当前不处于技能状态且日照信仰/日蚀信仰已满：清除日照信仰和日蚀信仰，触发技能【信仰满溢】"
+			]
+		}
+	},
+	"shadvr_inti_sp_inc": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"成功受到法术/物理伤害，并且生命值发生实际降低时，增长1点日照信仰/增长0.33点日蚀信仰",
+				"日照信仰与日蚀信仰均未满情况下，每秒增长2.5点日照信仰和0.825点日蚀信仰"
+			]
+		}
+	},
+	"shadvr_tes_sp_inc": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"成功受到法术/物理伤害，并且生命值发生实际降低时，增长0.33点日照信仰/增长1点日蚀信仰",
+				"日照信仰与日蚀信仰均未满情况下，每秒增长0.825点日照信仰和2.5点日蚀信仰"
+			]
+		}
+	},
+	"shadvr_tes_heal": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["当我方干员撤退或被击倒时，恢复自身3%的最大生命值"]
+		}
+	},
+	"shadvr_ind_stat1": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"防御力+500，法术抗性+40，攻击间隔+1s，攻击造成法术伤害，自身受到的法术伤害-95%，可以被阻挡",
+				"攻击附加攻击力20%的灼燃损伤，同时攻击2个目标，拥有2.5的攻击半径"
+			]
+		}
+	},
+	"shadvr_tes_stat1": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"攻击力+500，防御力+2000，移动速度+0.2，自身受到的物理伤害-95%，可以被阻挡",
+				"攻击变为3连击且同时攻击自身半径1.0范围内的我方单位，连击间隔0.1s"
+			]
+		}
+	},
+	"shadvr_buff": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["【强化形态】防御力+2000，法术抗性+40，移动速度+0.6，自身受到的的物理与法术伤害-90%"]
+		}
+	},
+	"shadvr_ind_buff": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"攻击力+1000，防御力+1500，法术抗性+60，移动速度+0.2，攻击间隔+1s，攻击范围扩大至全场，攻击造成法术伤害，自身受到的法术伤害-95%，持有停顿免疫、束缚免疫、不可阻挡"
+			]
+		}
+	},
+	"shadvr_tes_buff": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"攻击力+2000，防御力+3000，法术抗性+20，移动速度+0.4，自身受到的物理伤害-95%，持有停顿免疫、束缚免疫、不可阻挡",
+				"攻击变为5连击且同时攻击自身半径1.1范围内的我方单位，连击间隔0.1s",
+				"当我方干员撤退或被击倒时，恢复自身3%的最大生命值"
+			]
+		}
+	},
+	"shadvr_revive": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"被击倒后重生：在10s内回复100%生命值，以当前形态的强化形态进入二阶段",
+				"若自身切换过形态，改为以最后一次切换的对应形态的强化形态进入二阶段"
+			]
+		}
+	},
+	"shadvr_state2": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["停止积累信仰，始终保持该形态的强化形态"]
+		}
+	},
+	"shadvr_clear_map": {
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"【乌托邦的崛起】清除场上除自身外的敌人。随后隐藏带有指定标记的地块，仅保留自身当前位置至下一个路径检查点之间路段需经过的地块，以及祭台所在地块"
+			]
+		}
+	},
+	"shadvr_inti_skill": {
+		"type": "skill",
+		"atk": { "multiplier": 0.35 },
+		"initCooldown": [6.0,8.0],
+		"cooldown": [12.0,10.0],
+		"hits": 1,
+		"dmg_element": "arts",
+		"suffix": { "en": "Skill", "ja": "スキル", "zh": "耀日的恩宠" },
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"蓄力2.5s后选择自身半径2.5范围内的1个我方单位或祭台对其发射弹道，并在弹道抵达后尝试在我方单位间跳跃，跳跃间隔1s，跳跃距离1.8，最多跳跃2次，对命中目标每秒造成相当于攻击力35%的{arts}普通伤害，持续5s，技能期间持有失衡免疫。若处于强化形态，还会额外造成相当于攻击力10%的{ba.dt.burning}，跳跃次数提升至4"
+			]
+		}
+	},
+	"shadvr_tes_skill": {
+		"type": "skill",
+		"atk": { "multiplier": 3.5 },
+		"initCooldown": [3.0,5.0],
+		"cooldown": [10.0,10.0],
+		"hits": 1,
+		"dmg_element": "arts",
+		"suffix": { "en": "Skill", "ja": "剣気", "zh": "熄日的祭坛" },
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": [
+				"选择与自身所在行/列的我方单位或祭台，蓄力4s后对本行/本列单位发出一道剑气：剑气移动速度5.0，碰撞到路径上的首个我方单位后停止，并在0.1s后以停止位置为中心，对半径1.1内的我方单位造成攻击力350%的{phys}普通伤害，技能期间持有失衡免疫。若处于强化状态，此技能蓄力时间缩短至2s"
+			]
+		}
+	},
+	"shadvr_n_summon": {
+		"branches": [["normal", 28, 999]],
+		"branchType": "single",
+		"branchRandom": false,
+		"type": "skill",
+		"initCooldown": 28,
+		"cooldown": 28,
+		"suffix": { "en": "Summon Enemy", "ja": "敵召喚", "zh": "召唤敌人" },
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["按预设路径召唤一批敌人，切换形态不重置计时"]
+		}
+	},
+	"shadvr_n2_summon": {
+		"branches": [["normal_advance", 28, 999]],
+		"branchType": "single",
+		"branchRandom": false,
+		"type": "skill",
+		"initCooldown": 0,
+		"cooldown": 28,
+		"suffix": { "en": "Summon Enemy", "ja": "敵召喚", "zh": "召唤敌人" },
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["立刻以预设路径召唤一批敌人，随后每28s召唤一批敌人"]
+		}
+	},
+	"shadvr_inti_summon": {
+		"branches": [["magic", 28, 999]],
+		"branchType": "single",
+		"branchRandom": false,
+		"type": "skill",
+		"initCooldown": 28,
+		"cooldown": 28,
+		"suffix": { "en": "Summon Enemy", "ja": "敵召喚", "zh": "召唤敌人" },
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["按预设路径召唤一批敌人，切换形态不重置计时"]
+		}
+	},
+	"shadvr_inti2_summon": {
+		"branches": [["magic_advance", 28, 999]],
+		"branchType": "single",
+		"branchRandom": false,
+		"type": "skill",
+		"initCooldown": 0,
+		"cooldown": 28,
+		"suffix": { "en": "Summon Enemy", "ja": "敵召喚", "zh": "召唤敌人" },
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["立刻以预设路径召唤一批敌人，随后每28s召唤一批敌人"]
+		}
+	},
+	"shadvr_tes_summon": {
+		"branches": [["physics", 28, 999]],
+		"branchType": "single",
+		"branchRandom": false,
+		"type": "skill",
+		"initCooldown": 28,
+		"cooldown": 28,
+		"suffix": { "en": "Summon Enemy", "ja": "敵召喚", "zh": "召唤敌人" },
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["按预设路径召唤一批敌人，切换形态不重置计时"]
+		}
+	},
+	"shadvr_tes2_summon": {
+		"branches": [["physics_advance", 28, 999]],
+		"branchType": "single",
+		"branchRandom": false,
+		"type": "skill",
+		"initCooldown": 0,
+		"cooldown": 28,
+		"suffix": { "en": "Summon Enemy", "ja": "敵召喚", "zh": "召唤敌人" },
+		"tooltip": {
+			"en": [""],
+			"ja": [""],
+			"zh": ["立刻以预设路径召唤一批敌人，随后每28s召唤一批敌人"]
 		}
 	}
 }

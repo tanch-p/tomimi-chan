@@ -94,7 +94,7 @@
 		</p>
 		<div class="flex flex-wrap items-center gap-2">
 			<a
-				href="https://search.bilibili.com/all?keyword=明日方舟 {mapConfig?.name_zh}"
+				href="https://search.bilibili.com/all?keyword={mapConfig?.name_zh}"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="text-blue-400 hover:text-blue-300"

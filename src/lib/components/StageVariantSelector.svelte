@@ -5,15 +5,38 @@
 	import type { Language } from '$lib/types';
 	import { page } from '$app/state';
 	import { getIconPath } from '$lib/functions/stageHelpers';
+	import type { Writable } from 'svelte/store';
+
+	type Relic = { id: string; stages?: unknown[]; count?: number };
+	const variantDisplay = stageVariantDisplay as Record<
+		string,
+		{ icons?: Parameters<typeof getIconPath>[0][]; label?: Partial<Record<Language, string>> }
+	>;
 
 	interface Props {
 		variants: any;
 		selectedIndex?: number;
+		selectedRelics: Writable<any[]>;
+		relicsList: Relic[];
 	}
 
-	let { variants, selectedIndex = $bindable(0) }: Props = $props();
+	let { variants, selectedIndex = $bindable(0), selectedRelics, relicsList }: Props = $props();
 
 	let language: Language = $derived(page.data.language);
+
+	function selectVariant(index: number) {
+		const icons = variantDisplay[variants[index].levelId]?.icons ?? [];
+		selectedRelics.update((selected) => {
+			const next = [...selected];
+			for (const icon of icons) {
+				if (icon.type !== 'relic' || next.some((relic) => relic.id === icon.id)) continue;
+				const relic = relicsList.find((relic) => relic.id === icon.id);
+				if (relic) next.push(relic.stages ? { ...relic, count: 1 } : relic);
+			}
+			return next.length === selected.length ? selected : next;
+		});
+		selectedIndex = index;
+	}
 </script>
 
 {#if variants.length > 1}
@@ -23,7 +46,7 @@
 	>
 		<div id="stage-variant-selector" class="mb-8 mt-1.5 flex flex-wrap gap-2 px-2 md:flex-nowrap">
 			{#each variants as { suffix, levelId }, i}
-				{@const display = stageVariantDisplay[levelId]}
+				{@const display = variantDisplay[levelId]}
 				{@const isOnShortRow =
 					variants.length === 4 ||
 					(variants.length % 3 !== 0 && i >= variants.length - (variants.length % 3))}
@@ -36,7 +59,7 @@
 						: 'basis-[calc(33.333333%_-_0.333333rem)]'} {i !== selectedIndex
 						? 'border-neutral-500 bg-neutral-700 text-neutral-300 hover:border-neutral-300 hover:bg-neutral-600 hover:text-white'
 						: 'border-sky-300 bg-sky-500 text-white shadow-sky-950/40'}"
-					onclick={() => (selectedIndex = i)}
+					onclick={() => selectVariant(i)}
 				>
 					<div class="flex items-center justify-center gap-x-1 md:gap-x-1.5">
 						{#each display?.icons ?? [] as icon}

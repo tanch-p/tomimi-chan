@@ -205,6 +205,33 @@ test('other IS stage pages allow selecting floors outside the stage floor list',
 	}
 });
 
+test('navigating to a stage with fewer variants resets the selected variant', async ({ page }) => {
+	const expectNoRuntimeFailures = monitorRuntimeFailures(page);
+
+	await page.goto('http://localhost:4173/zh/stages/ISW-NO_冰冷流亡');
+	await expect(page).toHaveTitle(/冰冷流亡/);
+
+	const variants = page.locator('#stage-variant-selector button[aria-pressed]');
+	await expect(variants).toHaveCount(2);
+	await variants.nth(1).click();
+	await expect(variants.nth(1)).toHaveAttribute('aria-pressed', 'true');
+
+	// Use client-side navigation so the previous stage's selected index is retained.
+	await page.getByRole('link', { name: '灌水贤者', exact: true }).click();
+	await expect(page).toHaveURL(/\/zh\/stages\/ISW-NO_%E7%81%8C%E6%B0%B4%E8%B4%A4%E8%80%85$/);
+	await expect(page).toHaveTitle(/灌水贤者/);
+	await expect(variants).toHaveCount(0);
+	await expect(page.locator('img[alt="level_rogue6_1-4"]')).toBeVisible();
+	await expect(page.locator('#table-wrapper')).toBeVisible();
+
+	await page.getByRole('link', { name: '冰冷流亡', exact: true }).click();
+	await expect(page).toHaveTitle(/冰冷流亡/);
+	await expect(variants.nth(0)).toHaveAttribute('aria-pressed', 'true');
+	await expect(variants.nth(1)).toHaveAttribute('aria-pressed', 'false');
+
+	expectNoRuntimeFailures();
+});
+
 test('level_rogue6_t-8 stage variants update the selected stage data', async ({ page }) => {
 	const expectNoRuntimeFailures = monitorRuntimeFailures(page);
 

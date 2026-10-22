@@ -159,6 +159,13 @@ function setData(
 		preDelayTimer: spawnManager.preDelayTimer,
 		fragmentPreDelayTimer: spawnManager.fragmentPreDelayTimer,
 		postDelayTimer: spawnManager.postDelayTimer,
+		trapSp: [...gameSimManager.traps.values()]
+			.filter((trap) => trap.spCost > 0)
+			.map((trap) => ({
+				key: trap.key,
+				position: { ...trap.position },
+				currSp: trap.currSp
+			})),
 		roadblocks: [...gameSimManager.traps.values()]
 			.filter((trap) => trap.isRoadblock)
 			.map((trap) => ({
@@ -434,5 +441,8 @@ export class GameSimManager {
 			enemy.update(delta);
 		}
 		this.enemiesOnMap = this.enemiesOnMap.filter((ele) => ele.alive);
+		for (const trap of this.traps.values()) {
+			trap.update(delta);
+		}
 	}
 }

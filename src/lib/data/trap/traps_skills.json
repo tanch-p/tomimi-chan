@@ -1130,6 +1130,32 @@
 			}
 		]
 	},
+	"sktok_rmtarms_1": {
+        "name_zh": "研究成功",
+        "name_ja": "研究成功",
+        "name_en": "Research Success",
+        "desc_zh": "吸收范围内的实验产物回复技力，技力满时启动",
+        "desc_ja": "範囲内の実験産物を吸収してSPを回復し、SPが最大値に到達する時に起動する",
+        "desc_en": "Absorbs experiment products within range to recover SP. Activates when SP is full",
+        "skillType": "AUTO",
+        "durationType": "NONE",
+        "spType": "INCREASE_WITH_TIME",
+        "levels": [
+            {
+                "rangeId": null,
+                "spData": {
+                    "spType": "INCREASE_WITH_TIME",
+                    "levelUpCost": null,
+                    "maxChargeTime": 1,
+                    "spCost": 100,
+                    "initSp": 0,
+                    "increment": 0.0
+                },
+                "duration": 0.0,
+                "blackboard": []
+            }
+        ]
+    },
 	"sktok_allydonq": {
 		"skillId": "sktok_allydonq",
 		"name_zh": "冲锋",
@@ -3116,14 +3142,11 @@
 			]
 		}
 	},
-	"shmbmb_sp":{
+	"shmbmb_sp": {
 		"tooltip": {
-			"zh": [
-				"受到来自我方的技力调整值时，取消此技力调整值"
-			],
+			"zh": ["受到来自我方的技力调整值时，取消此技力调整值"],
 			"ja": [],
-			"en": [
-			]
+			"en": []
 		}
 	},
 	"shmbmb_explode": {
@@ -3452,5 +3475,121 @@
 			"maxCount": 1
 		},
 		"tooltip": null
+	},
+	"sktok_shadvr": {
+		"name_zh": "布方",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": "立即获得3点部署费用",
+		"desc_ja": "",
+		"desc_en": "",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": "INCREASE_WITH_TIME",
+					"levelUpCost": null,
+					"maxChargeTime": 1,
+					"spCost": 20,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "cost",
+						"value": 3.0,
+						"valueStr": null
+					}
+				]
+			}
+		]
+	},
+	"sktok_shadvt": {
+		"name_zh": "太阳渴望鲜血！",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": "使关卡强制结束，让探索开启不同的方向",
+		"desc_ja": "",
+		"desc_en": "",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": "INCREASE_WITH_TIME",
+					"levelUpCost": null,
+					"maxChargeTime": 1,
+					"spCost": 240,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": -1.0,
+				"blackboard": []
+			}
+		]
+	},
+	"sktok_shadvr2": {
+		"name_zh": "布方",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": "立即获得3点部署费用",
+		"desc_ja": "",
+		"desc_en": "",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": "INCREASE_WITH_TIME",
+					"levelUpCost": null,
+					"maxChargeTime": 1,
+					"spCost": 20,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": -1.0,
+				"blackboard": [
+					{
+						"key": "cost",
+						"value": 3.0,
+						"valueStr": null
+					}
+				]
+			}
+		]
+	},
+	"sktok_shadvt2": {
+		"name_zh": "太阳渴望鲜血！",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": "使关卡强制结束，让探索开启不同的方向",
+		"desc_ja": "",
+		"desc_en": "",
+		"skillType": "AUTO",
+		"durationType": "NONE",
+		"spType": "INCREASE_WITH_TIME",
+		"levels": [
+			{
+				"rangeId": null,
+				"spData": {
+					"spType": "INCREASE_WITH_TIME",
+					"levelUpCost": null,
+					"maxChargeTime": 1,
+					"spCost": 240,
+					"initSp": 0,
+					"increment": 1.0
+				},
+				"duration": -1.0,
+				"blackboard": []
+			}
+		]
 	}
 }

@@ -856,6 +856,34 @@
 		"special": [],
 		"status_immune": []
 	},
+	"trap_078_rmtarms": {
+		"key": "trap_078_rmtarms",
+		"name_zh": "R-11a突击动力装甲",
+		"name_ja": "R-11a突撃型パワードスーツ",
+		"name_en": "R-11a Assault Power Armor",
+		"desc_zh": "免疫控制效果",
+		"desc_ja": "状態異常無効",
+		"desc_en": "Immune to control effects",
+		"tauntLevel": -1,
+		"group": "enemy",
+		"modelType": "spine",
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 32500,
+				"atk": 1350,
+				"def": 1500,
+				"res": 20.0,
+				"blockCnt": 0,
+				"aspd": 5.0,
+				"rangeId": null
+			}
+		],
+		"skills": ["sktok_rmtarms_1"],
+		"talents": [],
+		"special": [],
+		"status_immune": []
+	},
 	"trap_079_allydonq": {
 		"name_zh": "猎潮的骑士",
 		"name_ja": "猟潮の騎士",
@@ -2794,302 +2822,395 @@
 		"status_immune": []
 	},
 	"trap_320_shtlbx": {
-        "key": "trap_320_shtlbx",
-        "name_zh": "丰饶树冢",
-        "name_ja": "",
-        "name_en": "",
-        "desc_zh": null,
-        "desc_ja": "",
-        "desc_en": "",
-        "tauntLevel": 0,
-        "group": "ally",
-        "modelType": "spine",
-        "hideTile": false,
-        "stats": [
-            {
-                "hp": 5000,
-                "atk": 0,
-                "def": 200,
-                "res": 10.0,
-                "blockCnt": 0,
-                "aspd": 1.0,
-                "rangeId": "0-1"
-            }
-        ],
-        "skills": [
-            "sktok_shtlbx"
-        ],
-        "talents": [],
-        "special": [],
-        "status_immune": []
-    },
+		"key": "trap_320_shtlbx",
+		"name_zh": "丰饶树冢",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": null,
+		"desc_ja": "",
+		"desc_en": "",
+		"tauntLevel": 0,
+		"group": "ally",
+		"modelType": "spine",
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 5000,
+				"atk": 0,
+				"def": 200,
+				"res": 10.0,
+				"blockCnt": 0,
+				"aspd": 1.0,
+				"rangeId": "0-1"
+			}
+		],
+		"skills": ["sktok_shtlbx"],
+		"talents": [],
+		"special": [],
+		"status_immune": []
+	},
 	"trap_253_boxnma": {
-        "key": "trap_253_boxnma",
-        "name_zh": "压力舒缓帮手",
-        "name_ja": "モヤモヤナクナール",
-        "name_en": "Stress-Relief Helper",
-        "desc_zh": "弹开“某种天命”并损失自身一定生命值",
-        "desc_ja": "「ある種の天命」を弾き飛ばし、HPを一定量失う",
-        "desc_en": "Bounces 'Certain Fates' away and loses some HP",
-        "tauntLevel": -1,
-        "group": "enemy",
-        "modelType": "spine",
-        "hideTile": false,
-        "stats": [
-            {
-                "hp": 35000,
-                "atk": 3000,
-                "def": 1500,
-                "res": 0.0,
-                "blockCnt": 0,
-                "aspd": 7.0,
-                "rangeId": null
-            }
-        ],
-        "skills": [
-        ],
-        "talents": [],
-        "special": ["boxnma_wake"],
-        "status_immune": []
-    },
-	"trap_015_tree": {
-        "key": "trap_015_tree",
-        "name_zh": "巨蕈",
-        "name_ja": "おばけ茸",
-        "name_en": "Giant Mushroom",
-        "desc_zh": "相邻的我方干员防御提升",
-        "desc_ja": "隣接4マスにいる味方全員の防御力上昇",
-        "desc_en": "Increases the DEF of adjacent allied operators",
-        "tauntLevel": 0,
-        "group": "ally",
-        "modelType": "texture",
-        "hideTile": false,
-        "stats": [
-            {
-                "hp": 100,
-                "atk": 0,
-                "def": 0,
-                "res": 0.0,
-                "blockCnt": 0,
-                "aspd": 1.0,
-                "rangeId": "x-5"
-            }
-        ],
-        "skills": [
-            "sktok_tree"
-        ],
-        "talents": [],
-        "special": [],
-        "status_immune": []
-    },
-	"trap_324_shmbmb": {
-        "key": "trap_324_shmbmb",
-        "name_zh": "源阶方模块",
-        "name_ja": "",
-        "name_en": "",
-        "desc_zh": null,
-        "desc_ja": "",
-        "desc_en": "",
-        "tauntLevel": 1,
-        "group": "ally",
-        "modelType": null,
-        "hideTile": false,
-        "stats": [
-            {
-                "hp": 7500,
-                "atk": 1650,
-                "def": 100,
-                "res": 0.0,
-                "blockCnt": 0,
-                "aspd": 1.0,
-                "rangeId": "0-1"
-            }
-        ],
-        "skills": [
-            "sktok_shmbmb"
-        ],
-        "talents": [],
-        "special": ["shmbmb_1","shmbmb_sp","shmbmb_explode"],
-        "status_immune": []
-    },
-    "trap_327_shchst": {
-        "key": "trap_327_shchst",
-        "name_zh": "坎诺特保险柜",
-        "name_ja": "",
-        "name_en": "",
-        "desc_zh": null,
-        "desc_ja": "",
-        "desc_en": "",
-        "tauntLevel": 0,
+		"key": "trap_253_boxnma",
+		"name_zh": "压力舒缓帮手",
+		"name_ja": "モヤモヤナクナール",
+		"name_en": "Stress-Relief Helper",
+		"desc_zh": "弹开“某种天命”并损失自身一定生命值",
+		"desc_ja": "「ある種の天命」を弾き飛ばし、HPを一定量失う",
+		"desc_en": "Bounces 'Certain Fates' away and loses some HP",
+		"tauntLevel": -1,
 		"group": "enemy",
-        "modelType": "spine",
-        "hideTile": false,
-        "stats": [
-            {
-                "hp": 50000,
-                "atk": 100,
-                "def": 2000,
-                "res": 0.0,
-                "blockCnt": 0,
-                "aspd": 1.0,
-                "rangeId": "0-1"
-            }
-        ],
-        "skills": [
-            "sktok_shchst"
-        ],
-        "talents": [],
-        "special": [],
-        "status_immune": []
-    },
+		"modelType": "spine",
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 35000,
+				"atk": 3000,
+				"def": 1500,
+				"res": 0.0,
+				"blockCnt": 0,
+				"aspd": 7.0,
+				"rangeId": null
+			}
+		],
+		"skills": [],
+		"talents": [],
+		"special": ["boxnma_wake"],
+		"status_immune": []
+	},
+	"trap_015_tree": {
+		"key": "trap_015_tree",
+		"name_zh": "巨蕈",
+		"name_ja": "おばけ茸",
+		"name_en": "Giant Mushroom",
+		"desc_zh": "相邻的我方干员防御提升",
+		"desc_ja": "隣接4マスにいる味方全員の防御力上昇",
+		"desc_en": "Increases the DEF of adjacent allied operators",
+		"tauntLevel": 0,
+		"group": "ally",
+		"modelType": "texture",
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 100,
+				"atk": 0,
+				"def": 0,
+				"res": 0.0,
+				"blockCnt": 0,
+				"aspd": 1.0,
+				"rangeId": "x-5"
+			}
+		],
+		"skills": ["sktok_tree"],
+		"talents": [],
+		"special": [],
+		"status_immune": []
+	},
+	"trap_324_shmbmb": {
+		"key": "trap_324_shmbmb",
+		"name_zh": "源阶方模块",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": null,
+		"desc_ja": "",
+		"desc_en": "",
+		"tauntLevel": 1,
+		"group": "ally",
+		"modelType": "spine",
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 7500,
+				"atk": 1650,
+				"def": 100,
+				"res": 0.0,
+				"blockCnt": 0,
+				"aspd": 1.0,
+				"rangeId": "0-1"
+			}
+		],
+		"skills": ["sktok_shmbmb"],
+		"talents": [],
+		"special": ["shmbmb_1", "shmbmb_sp", "shmbmb_explode"],
+		"status_immune": []
+	},
+	"trap_327_shchst": {
+		"key": "trap_327_shchst",
+		"name_zh": "坎诺特保险柜",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": null,
+		"desc_ja": "",
+		"desc_en": "",
+		"tauntLevel": 0,
+		"group": "enemy",
+		"modelType": "spine",
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 50000,
+				"atk": 100,
+				"def": 2000,
+				"res": 0.0,
+				"blockCnt": 0,
+				"aspd": 1.0,
+				"rangeId": "0-1"
+			}
+		],
+		"skills": ["sktok_shchst"],
+		"talents": [],
+		"special": [],
+		"status_immune": []
+	},
 	"trap_325_shfort": {
-        "key": "trap_325_shfort",
-        "name_zh": "“危朽”",
-        "name_ja": "",
-        "name_en": "",
-        "desc_zh": null,
-        "desc_ja": "",
-        "desc_en": "",
-        "tauntLevel": 0,
-        "group": "ally",
-        "modelType": "texture",
-        "hideTile": false,
-        "stats": [
-            {
-                "hp": 5000,
-                "atk": 0,
-                "def": 500,
-                "res": 0.0,
-                "blockCnt": 1,
-                "aspd": 1.0,
-                "rangeId": null
-            }
-        ],
-        "skills": [
-            "sktok_shfort"
-        ],
-        "talents": [],
-        "special": ["allow_ranged","roadblock"],
-        "status_immune": []
-    },
-	 "trap_326_shruin": {
-        "key": "trap_326_shruin",
-        "name_zh": "“崩解”",
-        "name_ja": "",
-        "name_en": "",
-        "desc_zh": null,
-        "desc_ja": "",
-        "desc_en": "",
-        "tauntLevel": 0,
-        "group": "ally",
-        "modelType": null,
-        "hideTile": false,
-        "stats": [
-            {
-                "hp": 2500,
-                "atk": 0,
-                "def": 100,
-                "res": 0.0,
-                "blockCnt": 1,
-                "aspd": 1.0,
-                "rangeId": null
-            }
-        ],
-        "skills": [
-            "sktok_shruin"
-        ],
-        "talents": [],
-        "special": [],
-        "status_immune": []
-    },
+		"key": "trap_325_shfort",
+		"name_zh": "“危朽”",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": null,
+		"desc_ja": "",
+		"desc_en": "",
+		"tauntLevel": 0,
+		"group": "ally",
+		"modelType": "texture",
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 5000,
+				"atk": 0,
+				"def": 500,
+				"res": 0.0,
+				"blockCnt": 1,
+				"aspd": 1.0,
+				"rangeId": null
+			}
+		],
+		"skills": ["sktok_shfort"],
+		"talents": [],
+		"special": ["allow_ranged", "roadblock"],
+		"status_immune": []
+	},
+	"trap_326_shruin": {
+		"key": "trap_326_shruin",
+		"name_zh": "“崩解”",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": null,
+		"desc_ja": "",
+		"desc_en": "",
+		"tauntLevel": 0,
+		"group": "ally",
+		"modelType": null,
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 2500,
+				"atk": 0,
+				"def": 100,
+				"res": 0.0,
+				"blockCnt": 1,
+				"aspd": 1.0,
+				"rangeId": null
+			}
+		],
+		"skills": ["sktok_shruin"],
+		"talents": [],
+		"special": [],
+		"status_immune": []
+	},
 	"trap_025_prison": {
-        "key": "trap_025_prison",
-        "name_zh": "禁锢装置",
-        "name_ja": "禁固装置",
-        "name_en": "Imprisonment Device",
-        "desc_zh": null,
-        "desc_ja": null,
-        "desc_en": null,
-        "tauntLevel": 0,
-        "group": "ally",
-        "modelType": "texture",
-        "hideTile": false,
-        "stats": [
-            {
-                "hp": 2000,
-                "atk": 0,
-                "def": 0,
-                "res": 0.0,
-                "blockCnt": 0,
-                "aspd": 1.0,
-                "rangeId": "3-15"
-            }
-        ],
-        "skills": [
-            "sktok_prison"
-        ],
-        "talents": [],
-        "special": [],
-        "status_immune": []
-    },
+		"key": "trap_025_prison",
+		"name_zh": "禁锢装置",
+		"name_ja": "禁固装置",
+		"name_en": "Imprisonment Device",
+		"desc_zh": null,
+		"desc_ja": null,
+		"desc_en": null,
+		"tauntLevel": 0,
+		"group": "ally",
+		"modelType": "texture",
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 2000,
+				"atk": 0,
+				"def": 0,
+				"res": 0.0,
+				"blockCnt": 0,
+				"aspd": 1.0,
+				"rangeId": "3-15"
+			}
+		],
+		"skills": ["sktok_prison"],
+		"talents": [],
+		"special": [],
+		"status_immune": []
+	},
 	"trap_265_xdice1": {
-        "key": "trap_265_xdice1",
-        "name_zh": "圣女像",
-        "name_ja": "巫女像",
-        "name_en": "Saintess Statue",
-        "desc_zh": "敌人进入禁区时根据其重量增加雪崩预警值\\n在禁区内部署干员时增加一定量雪崩预警值",
-        "desc_ja": "敵が警告エリアに進入時、敵の重量に応じて雪崩警戒値が増加\n警告エリア内にオペレーターを配置時、雪崩警戒値が増加",
-        "desc_en": "Enemies increase the Avalanche Warning Index when entering the Avalanche Area\nDeploying Operators within the area will also increase the Index's value",
-        "tauntLevel": 0,
-        "group": "ally",
-        "modelType": "texture",
-        "hideTile": false,
-        "stats": [
-            {
-                "hp": 5000,
-                "atk": 0,
-                "def": 0,
-                "res": 0.0,
-                "blockCnt": 0,
-                "aspd": 1.0,
-                "rangeId": null
-            }
-        ],
-        "skills": [
-            "sktok_xdice1"
-        ],
-        "talents": [],
-        "special": [],
-        "status_immune": []
-    },
+		"key": "trap_265_xdice1",
+		"name_zh": "圣女像",
+		"name_ja": "巫女像",
+		"name_en": "Saintess Statue",
+		"desc_zh": "敌人进入禁区时根据其重量增加雪崩预警值\\n在禁区内部署干员时增加一定量雪崩预警值",
+		"desc_ja": "敵が警告エリアに進入時、敵の重量に応じて雪崩警戒値が増加\n警告エリア内にオペレーターを配置時、雪崩警戒値が増加",
+		"desc_en": "Enemies increase the Avalanche Warning Index when entering the Avalanche Area\nDeploying Operators within the area will also increase the Index's value",
+		"tauntLevel": 0,
+		"group": "ally",
+		"modelType": "texture",
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 5000,
+				"atk": 0,
+				"def": 0,
+				"res": 0.0,
+				"blockCnt": 0,
+				"aspd": 1.0,
+				"rangeId": null
+			}
+		],
+		"skills": ["sktok_xdice1"],
+		"talents": [],
+		"special": [],
+		"status_immune": []
+	},
 	"trap_092_vgctrl": {
-        "key": "trap_092_vgctrl",
-        "name_zh": "复仇黑手",
-        "name_ja": "報復の爪痕",
-        "name_en": "Vengeful Mafioso",
-        "desc_zh": null,
-        "desc_ja": null,
-        "desc_en": null,
-        "tauntLevel": 0,
-        "group": "ally",
-        "modelType": null,
-        "hideTile": false,
-        "stats": [
-            {
-                "hp": 100,
-                "atk": 0,
-                "def": 0,
-                "res": 0.0,
-                "blockCnt": 0,
-                "aspd": 1.0,
-                "rangeId": null
-            }
-        ],
-        "skills": [
-            "sktok_vgctrl"
-        ],
-        "talents": [],
-        "special": ["vgctrl_buff","vgctrl_buff_sgkill"],
-        "status_immune": []
-    }
+		"key": "trap_092_vgctrl",
+		"name_zh": "复仇黑手",
+		"name_ja": "報復の爪痕",
+		"name_en": "Vengeful Mafioso",
+		"desc_zh": null,
+		"desc_ja": null,
+		"desc_en": null,
+		"tauntLevel": 0,
+		"group": "ally",
+		"modelType": null,
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 100,
+				"atk": 0,
+				"def": 0,
+				"res": 0.0,
+				"blockCnt": 0,
+				"aspd": 1.0,
+				"rangeId": null
+			}
+		],
+		"skills": ["sktok_vgctrl"],
+		"talents": [],
+		"special": ["vgctrl_buff", "vgctrl_buff_sgkill"],
+		"status_immune": []
+	},
+	"trap_344_shadvr": {
+		"key": "trap_344_shadvr",
+		"name_zh": "探险者",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": null,
+		"desc_ja": "",
+		"desc_en": "",
+		"tauntLevel": 0,
+		"group": "ally",
+		"modelType": "spine",
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 5000,
+				"atk": 300,
+				"def": 500,
+				"res": 0.0,
+				"blockCnt": 2,
+				"aspd": 0.0,
+				"rangeId": "0-1"
+			}
+		],
+		"skills": ["sktok_shadvr"],
+		"talents": [],
+		"special": [],
+		"status_immune": []
+	},
+	"trap_345_shadvt": {
+		"key": "trap_345_shadvt",
+		"name_zh": "沉沦的探险者",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": null,
+		"desc_ja": "",
+		"desc_en": "",
+		"tauntLevel": 0,
+		"group": "ally",
+		"modelType": "spine",
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 5000,
+				"atk": 300,
+				"def": 500,
+				"res": 0.0,
+				"blockCnt": 2,
+				"aspd": 0.0,
+				"rangeId": "0-1"
+			}
+		],
+		"skills": ["sktok_shadvt"],
+		"talents": [],
+		"special": [],
+		"status_immune": []
+	},
+	"trap_348_shadvr2": {
+		"key": "trap_348_shadvr2",
+		"name_zh": "探险者",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": null,
+		"desc_ja": "",
+		"desc_en": "",
+		"tauntLevel": 0,
+		"group": "ally",
+		"modelType": "spine",
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 5000,
+				"atk": 300,
+				"def": 500,
+				"res": 0.0,
+				"blockCnt": 2,
+				"aspd": 0.0,
+				"rangeId": "0-1"
+			}
+		],
+		"skills": ["sktok_shadvr2"],
+		"talents": [],
+		"special": [],
+		"status_immune": []
+	},
+	"trap_349_shadvt2": {
+		"key": "trap_349_shadvt2",
+		"name_zh": "沉沦的探险者",
+		"name_ja": "",
+		"name_en": "",
+		"desc_zh": null,
+		"desc_ja": "",
+		"desc_en": "",
+		"tauntLevel": 0,
+		"group": "ally",
+		"modelType": "spine",
+		"hideTile": false,
+		"stats": [
+			{
+				"hp": 5000,
+				"atk": 300,
+				"def": 500,
+				"res": 0.0,
+				"blockCnt": 2,
+				"aspd": 0.0,
+				"rangeId": "0-1"
+			}
+		],
+		"skills": ["sktok_shadvt2"],
+		"talents": [],
+		"special": [],
+		"status_immune": []
+	}
 }

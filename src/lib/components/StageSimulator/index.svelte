@@ -210,13 +210,27 @@
 		}
 	});
 	$effect(() => {
-		simulationInputsChanged(mapConfig, scenario.revision, enemies, persistentStatMods);
+		simulationInputsChanged(mapConfig, scenario.revision, enemies, persistentStatMods, {
+			eliteMode: GameConfig.eliteMode,
+			specialMods: GameConfig.specialMods
+		});
 	});
 	let previousMode = GameConfig.mode;
+	let previousEliteMode = GameConfig.eliteMode;
+	let previousSpecialMods = GameConfig.specialMods;
 	$effect(() => {
 		const mode = GameConfig.mode;
-		if (mode === previousMode) return;
+		const eliteMode = GameConfig.eliteMode;
+		const specialMods = GameConfig.specialMods;
+		if (
+			mode === previousMode &&
+			eliteMode === previousEliteMode &&
+			specialMods === previousSpecialMods
+		)
+			return;
 		previousMode = mode;
+		previousEliteMode = eliteMode;
+		previousSpecialMods = specialMods;
 		untrack(() => {
 			if (game && assetsReady && !isDestroyed) game.restart({ resetWaveIndex: false });
 		});

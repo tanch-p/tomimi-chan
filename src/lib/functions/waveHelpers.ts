@@ -5,6 +5,7 @@ import f28 from '$lib/images/is/sarkaz/rogue_4_fragment_F_28.webp';
 import calamity from '$lib/images/is/sarkaz/rogue_4_disaster_1_toast.webp';
 import disasters from '$lib/data/is/sarkaz/disasters.json';
 import relicsSui from '$lib/data/is/sui/relics_sui.json';
+import relicsBlack from '$lib/data/is/black/relics.json';
 import enemyDatabase from '$lib/data/enemy/enemy_database.json';
 
 const ALWAYS_KILLED_KEYS = [
@@ -189,6 +190,20 @@ export const getOptions = (
 				]
 			);
 			break;
+		case 'rogue_black':
+			options.push(
+				{
+					key: 'shadvr2',
+					src: '/images/relics/rogue_6_relic_final_9.webp',
+					name: '破碎噩兆'
+				},
+				{
+					key: 'shadvr',
+					src: '/images/relics/rogue_6_relic_final_7.webp',
+					name: '谒日之祈'
+				}
+			);
+			break;
 	}
 	return options;
 };
@@ -201,6 +216,19 @@ export const handleOptionsUpdate = (
 	otherStores
 ) => {
 	const fragmentKeys = ['hidden_door', 'hidden_window', 'box_1', 'box_3'];
+	if (rogueTopic === 'rogue_black' && ['shadvr2', 'shadvr'].includes(key)) {
+		const relicId = key === 'shadvr2' ? 'rogue_6_relic_final_9' : 'rogue_6_relic_final_7';
+		const relic = relicsBlack.find((item) => item.id === relicId);
+		otherStores.relics.update((list) => {
+			if (list.some((item) => item.id === relicId)) {
+				hiddenGroups = hiddenGroups.filter((group) => group !== key);
+				return list.filter((item) => item.id !== relicId);
+			}
+			hiddenGroups = [...hiddenGroups.filter((group) => group !== key), key];
+			return [...list, relic];
+		});
+		return hiddenGroups;
+	}
 	if (rogueTopic === 'rogue_skz' && key === 'calamity') {
 		const level = difficulty < 5 ? 1 : difficulty < 11 ? 2 : 3;
 		const effect = disasters.find(
@@ -937,6 +965,10 @@ export const compileHiddenGroups = (
 		}
 	}
 	let groups = [...hiddenGroups];
+	if (rogueTopic === 'rogue_black') {
+		// These options follow relic effects, including when relics are removed outside the wave panel.
+		groups = groups.filter((group) => !['shadvr2', 'shadvr'].includes(group));
+	}
 	const finalGroups = enabledGroups.filter((group) => !disabledGroups.includes(group));
 	if (rogueTopic !== 'rogue_black') {
 		const modeKey = eliteMode ? mapConfig?.['ELITE'].groupKey : mapConfig?.['NORMAL'].groupKey;

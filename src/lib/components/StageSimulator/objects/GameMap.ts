@@ -29,12 +29,25 @@ export class GameMap {
 		const forbiddenTiles =
 			(this.gameManager.runtime?.eliteMode && this.config.elite_runes?.forbid_locations) || [];
 		const { map, tiles } = mapData;
+		const systemForbiddenTiles = new Set<string>();
+		const systemMods = this.gameManager.runtime?.specialMods?.system;
+		if (Array.isArray(systemMods)) {
+			for (const mod of systemMods) {
+				if (mod.key !== 'global_forbid_location' || !Array.isArray(mod.value)) continue;
+				for (const location of mod.value) {
+					// System locations use bottom-origin row,column coordinates.
+					const [row, col] = location.split(',').map(Number);
+					systemForbiddenTiles.add(`${col},${map.length - 1 - row}`);
+				}
+			}
+		}
 		map.forEach((row, rowIdx) =>
 			row.forEach((tileIndex, colIdx) => {
 				const [tileName, heightType, mask, blackboard, buildableType] = tiles[tileIndex];
 				const tileToSet = structuredClone(tiles[tileIndex]);
 				const key = `${colIdx},${rowIdx}`;
-				if (forbiddenTiles.includes(key)) {
+				const isForbidden = systemForbiddenTiles.has(key);
+				if (!isForbidden && forbiddenTiles.includes(key)) {
 					switch (heightType) {
 						case 0:
 							tileToSet[0] = 'tile_floor';
@@ -48,7 +61,7 @@ export class GameMap {
 				let tileGroup;
 				if (!this.gameManager.isSimulation) {
 					group = new THREE.Group();
-					tileGroup = this.gameManager.tileManager.get(tileToSet);
+					tileGroup = this.gameManager.tileManager.get(tileToSet, isForbidden);
 				}
 				const { x, y } = this.gameManager.getVectorCoordinates(
 					{
